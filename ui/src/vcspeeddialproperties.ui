@@ -144,6 +144,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QComboBox" name="m_fadeInCombo">
+            <property name="toolTip">
+             <string>Fade in multiplier</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="m_fadeOutCheck">
             <property name="toolTip">
              <string>Adjust selected functions' fade out speed</string>
@@ -154,12 +161,26 @@
            </widget>
           </item>
           <item>
+           <widget class="QComboBox" name="m_fadeOutCombo">
+            <property name="toolTip">
+             <string>Fade out multiplier</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="m_durationCheck">
             <property name="toolTip">
              <string>Adjust selected functions' duration</string>
             </property>
             <property name="text">
              <string>Duration (+ tap)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="m_durationCombo">
+            <property name="toolTip">
+             <string>duration multiplier</string>
             </property>
            </widget>
           </item>

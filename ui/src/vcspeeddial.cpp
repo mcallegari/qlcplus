@@ -40,6 +40,9 @@ const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
     , m_speedTypes(VCSpeedDial::Duration)
+    , m_fadeInMultiplier(VCSpeedDial::One)
+    , m_fadeOutMultiplier(VCSpeedDial::One)
+    , m_durationMultiplier(VCSpeedDial::One)
     , m_dial(NULL)
     , m_absoluteValueMin(0)
     , m_absoluteValueMax(1000 * 10)
@@ -98,6 +101,9 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
 
     m_functions = dial->functions();
     m_speedTypes = dial->speedTypes();
+    m_fadeInMultiplier = dial->fadeInMultiplier();
+    m_fadeOutMultiplier = dial->fadeOutMultiplier();
+    m_durationMultiplier = dial->durationMultiplier();
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -156,6 +162,40 @@ VCSpeedDial::SpeedTypes VCSpeedDial::speedTypes() const
     return m_speedTypes;
 }
 
+/************************************************************************
+ * Speed Multipliers
+ ************************************************************************/
+
+void VCSpeedDial::setFadeInMultiplier(VCSpeedDial::SpeedMultiplier multiplier)
+{
+    m_fadeInMultiplier = multiplier;
+}
+
+void VCSpeedDial::setFadeOutMultiplier(VCSpeedDial::SpeedMultiplier multiplier)
+{
+    m_fadeOutMultiplier = multiplier;
+}
+
+void VCSpeedDial::setDurationMultiplier(VCSpeedDial::SpeedMultiplier multiplier)
+{
+    m_durationMultiplier = multiplier;
+}
+
+VCSpeedDial::SpeedMultiplier VCSpeedDial::fadeInMultiplier() const
+{
+    return m_fadeInMultiplier;
+}
+
+VCSpeedDial::SpeedMultiplier VCSpeedDial::fadeOutMultiplier() const
+{
+    return m_fadeOutMultiplier;
+}
+
+VCSpeedDial::SpeedMultiplier VCSpeedDial::durationMultiplier() const
+{
+    return m_durationMultiplier;
+}
+
 /****************************************************************************
  * Functions
  ****************************************************************************/
@@ -177,17 +217,29 @@ void VCSpeedDial::tap()
 
 void VCSpeedDial::slotDialValueChanged(int ms)
 {
+    int multipliers[9] = {
+        1000 / 16,
+        1000 / 8,
+        1000 / 4,
+        1000 / 2,
+        1000,
+        1000 * 2,
+        1000 * 4,
+        1000 * 8,
+        1000 * 16
+    };
+
     foreach (quint32 id, m_functions)
     {
         Function* function = m_doc->function(id);
         if (function != NULL)
         {
             if (m_speedTypes & Duration)
-                function->setDuration(ms);
+                function->setDuration(ms * multipliers[m_durationMultiplier] / 1000);
             if (m_speedTypes & FadeIn)
-                function->setFadeInSpeed(ms);
+                function->setFadeInSpeed(ms * multipliers[m_fadeInMultiplier] / 1000);
             if (m_speedTypes & FadeOut)
-                function->setFadeOutSpeed(ms);
+                function->setFadeOutSpeed(ms * multipliers[m_fadeOutMultiplier] / 1000);
         }
     }
     updateFeedback();
@@ -297,6 +349,9 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     setSpeedTypes(VCSpeedDial::SpeedTypes(root->attribute(KXMLQLCVCSpeedDialSpeedTypes).toInt()));
+    setFadeInMultiplier(VCSpeedDial::SpeedMultiplier(root->attribute(KXMLQLCVCSpeedDialFadeInMultiplier).toInt()));
+    setFadeOutMultiplier(VCSpeedDial::SpeedMultiplier(root->attribute(KXMLQLCVCSpeedDialFadeOutMultiplier).toInt()));
+    setDurationMultiplier(VCSpeedDial::SpeedMultiplier(root->attribute(KXMLQLCVCSpeedDialDurationMultiplier).toInt()));
 
     /* Children */
     QDomNode node = root->firstChild();
@@ -398,6 +453,9 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Speed Type */
     root.setAttribute(KXMLQLCVCSpeedDialSpeedTypes, speedTypes());
+    root.setAttribute(KXMLQLCVCSpeedDialFadeInMultiplier, fadeInMultiplier());
+    root.setAttribute(KXMLQLCVCSpeedDialFadeOutMultiplier, fadeOutMultiplier());
+    root.setAttribute(KXMLQLCVCSpeedDialDurationMultiplier, durationMultiplier());
 
     /* Window state */
     saveXMLWindowState(doc, &root);

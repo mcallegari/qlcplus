@@ -35,6 +35,9 @@ class SpeedDial;
 #define KXMLQLCVCSpeedDial "SpeedDial"
 #define KXMLQLCVCSpeedDialFunction "Function"
 #define KXMLQLCVCSpeedDialSpeedTypes "SpeedTypes"
+#define KXMLQLCVCSpeedDialFadeInMultiplier "FadeInMultiplier"
+#define KXMLQLCVCSpeedDialFadeOutMultiplier "FadeOutMultiplier"
+#define KXMLQLCVCSpeedDialDurationMultiplier "DurationMultiplier"
 #define KXMLQLCVCSpeedDialAbsoluteValue "AbsoluteValue"
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
@@ -119,6 +122,36 @@ public:
 
 private:
     SpeedTypes m_speedTypes;
+
+    /************************************************************************
+     * Speed Multipliers
+     ************************************************************************/
+public:
+    enum SpeedMultiplier
+    {
+        OneSixteenth = 0,
+        OneEighth,
+        OneFourth,
+        Half,
+        One,
+        Two,
+        Four,
+        Eight,
+        Sixteen
+    };
+
+    void setFadeInMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
+    void setFadeOutMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
+    void setDurationMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
+
+    VCSpeedDial::SpeedMultiplier fadeInMultiplier() const;
+    VCSpeedDial::SpeedMultiplier fadeOutMultiplier() const;
+    VCSpeedDial::SpeedMultiplier durationMultiplier() const;
+
+private:
+    SpeedMultiplier m_fadeInMultiplier;
+    SpeedMultiplier m_fadeOutMultiplier;
+    SpeedMultiplier m_durationMultiplier;
 
     /************************************************************************
      * Functions

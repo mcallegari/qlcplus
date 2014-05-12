@@ -54,6 +54,37 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     if (dial->speedTypes() & VCSpeedDial::Duration)
         m_durationCheck->setChecked(true);
 
+    m_fadeInCombo->addItem("1/16");
+    m_fadeInCombo->addItem("1/8");
+    m_fadeInCombo->addItem("1/4");
+    m_fadeInCombo->addItem("1/2");
+    m_fadeInCombo->addItem("1");
+    m_fadeInCombo->addItem("2");
+    m_fadeInCombo->addItem("4");
+    m_fadeInCombo->addItem("8");
+    m_fadeInCombo->addItem("16");
+    m_fadeInCombo->setCurrentIndex(dial->fadeInMultiplier());
+    m_fadeOutCombo->addItem("1/16");
+    m_fadeOutCombo->addItem("1/8");
+    m_fadeOutCombo->addItem("1/4");
+    m_fadeOutCombo->addItem("1/2");
+    m_fadeOutCombo->addItem("1");
+    m_fadeOutCombo->addItem("2");
+    m_fadeOutCombo->addItem("4");
+    m_fadeOutCombo->addItem("8");
+    m_fadeOutCombo->addItem("16");
+    m_fadeOutCombo->setCurrentIndex(dial->fadeOutMultiplier());
+    m_durationCombo->addItem("1/16");
+    m_durationCombo->addItem("1/8");
+    m_durationCombo->addItem("1/4");
+    m_durationCombo->addItem("1/2");
+    m_durationCombo->addItem("1");
+    m_durationCombo->addItem("2");
+    m_durationCombo->addItem("4");
+    m_durationCombo->addItem("8");
+    m_durationCombo->addItem("16");
+    m_durationCombo->setCurrentIndex(dial->durationMultiplier());
+
     /* Absolute input */
     m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
     m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / 1000);
@@ -97,6 +128,10 @@ void VCSpeedDialProperties::accept()
     if (m_durationCheck->isChecked() == true)
         types |= VCSpeedDial::Duration;
     m_dial->setSpeedTypes(types);
+
+    m_dial->setFadeInMultiplier(VCSpeedDial::SpeedMultiplier(m_fadeInCombo->currentIndex()));
+    m_dial->setFadeOutMultiplier(VCSpeedDial::SpeedMultiplier(m_fadeOutCombo->currentIndex()));
+    m_dial->setDurationMultiplier(VCSpeedDial::SpeedMultiplier(m_durationCombo->currentIndex()));
 
     /* Input sources */
     m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
