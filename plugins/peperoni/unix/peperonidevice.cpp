@@ -329,8 +329,8 @@ void PeperoniDevice::run()
                     emit valueChanged(UINT_MAX, m_line, i, tmpBuffer.at(i));
                 m_dmxInputBuffer[i] = tmpBuffer.at(i);
             }
-        }
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
+        }
         else
         {
             //TODO
