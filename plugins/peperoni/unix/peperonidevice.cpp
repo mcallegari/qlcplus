@@ -22,14 +22,16 @@
 
 #include "peperonidevice.h"
 #include "peperonidefs.h"
+#include "peperoni.h"
 
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-PeperoniDevice::PeperoniDevice(QObject* parent, struct usb_device* device, quint32 line)
-    : QObject(parent)
+PeperoniDevice::PeperoniDevice(Peperoni* parent, struct usb_device* device, quint32 line)
+    : QThread(parent)
     , m_line(line)
+    , m_operatingMode(CloseMode)
     , m_device(device)
     , m_handle(NULL)
 {
@@ -44,7 +46,8 @@ PeperoniDevice::PeperoniDevice(QObject* parent, struct usb_device* device, quint
 
 PeperoniDevice::~PeperoniDevice()
 {
-    close();
+    close(InputMode);
+    close(OutputMode);
 }
 
 /****************************************************************************
@@ -111,7 +114,7 @@ void PeperoniDevice::extractName()
     if (m_handle == NULL)
     {
         needToClose = true;
-        open();
+        open(OutputMode);
     }
 
     /* Check, whether open() was successful */
@@ -128,7 +131,7 @@ void PeperoniDevice::extractName()
 
     /* Close the device if it was opened for this function only. */
     if (needToClose == true)
-        close();
+        close(OutputMode);
 }
 
 QString PeperoniDevice::name(quint32 line) const
@@ -169,12 +172,14 @@ QString PeperoniDevice::infoText(quint32 line) const
  * Open & close
  ****************************************************************************/
 
-void PeperoniDevice::open()
+void PeperoniDevice::open(OperatingMode mode)
 {
+    m_operatingMode |= mode;
+
     if (m_device != NULL && m_handle == NULL)
     {
         int r = -1;
-        int configuration = PEPERONI_CONF_TXONLY;
+        int configuration = PEPERONI_CONF_TXRX;
 
         m_handle = usb_open(m_device);
         if (m_handle == NULL)
@@ -184,10 +189,12 @@ void PeperoniDevice::open()
         }
 
         /* Use configuration #2 on X-Switch */
+        /*
         if (m_device->descriptor.idProduct == PEPERONI_PID_XSWITCH)
             configuration = PEPERONI_CONF_TXRX;
         else
             configuration = PEPERONI_CONF_TXONLY;
+        */
 
         /* Set selected configuration */
         r = usb_set_configuration(m_handle, configuration);
@@ -209,7 +216,19 @@ void PeperoniDevice::open()
                             0,                       // Zero data length
                             50);                     // Timeout (ms)
         if (r < 0)
-            qWarning() << "PeperoniDevice is unable to set 0 as the DMX startcode!";
+            qWarning() << "PeperoniDevice is unable to set 0 as the DMX output startcode!";
+
+        /* Set DMX startcode */
+        r = usb_control_msg(m_handle,
+                            USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
+                            PEPERONI_RX_STARTCODE,   // Set DMX startcode
+                            0,                       // Standard startcode is 0
+                            0,                       // No index
+                            NULL,                    // No data
+                            0,                       // Zero data length
+                            50);                     // Timeout (ms)
+        if (r < 0)
+            qWarning() << "PeperoniDevice is unable to set 0 as the DMX output startcode!";
 
         if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
         {
@@ -219,10 +238,30 @@ void PeperoniDevice::open()
                 qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk endpoint.";
         }
     }
+
+    if (m_operatingMode & InputMode && m_running == false)
+    {
+        qDebug() << "[Peperoni] open input line:" << m_line;
+        m_dmxInputBuffer.clear();
+        m_dmxInputBuffer.fill(0, 512);
+        m_running = true;
+        start();
+    }
 }
 
-void PeperoniDevice::close()
+void PeperoniDevice::close(OperatingMode mode)
 {
+    m_operatingMode &= ~mode;
+
+    if (mode == InputMode && m_running == true)
+    {
+        m_running = false;
+        wait();
+    }
+
+    if (m_operatingMode != CloseMode)
+        return;
+
     if (m_device != NULL && m_handle != NULL)
     {
         /* Release the interface in case we claimed it */
@@ -250,6 +289,57 @@ const usb_dev_handle* PeperoniDevice::handle() const
 }
 
 /****************************************************************************
+ * Input Thread
+ ****************************************************************************/
+
+void PeperoniDevice::run()
+{
+    if (m_handle == NULL)
+        return;
+
+    qDebug() << "[Peperoni] input thread started correctly";
+
+    while(m_running == true)
+    {
+        int r = -1;
+
+        QByteArray tmpBuffer(512, 0);
+
+        /* Choose write method based on firmware version. One has to unplug
+           and then re-plug the dongle in apple for bulk write to work,
+           so disable it for apple, since control msg should work for all. */
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
+        if (m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
+        {
+#endif
+            r = usb_control_msg(m_handle,
+                                USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
+                                PEPERONI_RX_MEM_REQUEST, // We are WRITING DMX data
+                                1,                       // Blocking does not work on all firmware versions -> don't block
+                                0,                       // Start at DMX address 0
+                                tmpBuffer.data(),        // The DMX universe data
+                                tmpBuffer.size(),        // Size of DMX universe
+                                100);                    // Timeout (ms)
+
+            if (r < 0)
+                qWarning() << "PeperoniDevice" << name(m_line) << "failed control_msg:" << usb_strerror();
+            for (int i = 0; i < 512; i++)
+            {
+                if (tmpBuffer.at(i) != m_dmxInputBuffer.at(i))
+                    emit valueChanged(UINT_MAX, m_line, i, tmpBuffer.at(i));
+                m_dmxInputBuffer[i] = tmpBuffer.at(i);
+            }
+        }
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
+        else
+        {
+            //TODO
+        }
+#endif
+    }
+}
+
+/****************************************************************************
  * Write
  ****************************************************************************/
 
@@ -268,7 +358,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
     if (m_firmwareVersion < PEPERONI_FW_OLD_BULK_SUPPORT)
     {
 #endif
-        qDebug() << "[Peperoni] control pipe write. size:" << universe.size();
+        //qDebug() << "[Peperoni] control pipe write. size:" << universe.size();
         r = usb_control_msg(m_handle,
                             USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
                             PEPERONI_TX_MEM_REQUEST, // We are WRITING DMX data
@@ -288,7 +378,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         if (line - m_line == 1)
             requestType = PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_SET;
 
-        qDebug() << "Old bulk pipe write. Size:" << universe.size();
+        //qDebug() << "Old bulk pipe write. Size:" << universe.size();
         /* Construct a bulk header first */
         m_bulkBuffer.clear();
         m_bulkBuffer.append(char(PEPERONI_OLD_BULK_HEADER_ID));
@@ -319,19 +409,9 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
     }
     else
     {
-        unsigned int datalen; /** length of dmx frame to be send, incl. startcode */
-        unsigned int len;
         char status[8];
     
-        qDebug() << "New bulk pipe write. Size:" << universe.size();
-
-        /* calculate data length */
-        datalen = universe.size();
-        /* the standard specifies a minimum length of 24 slots */
-        if (datalen < 24)
-            datalen = 24;
-        /* add startcode to data length */
-        datalen += 1;
+        //qDebug() << "New bulk pipe write. Size:" << universe.size();
 
         m_bulkBuffer.clear();
         /* Construct a bulk command header first */
@@ -340,35 +420,32 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID3));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_REQUEST_SET));
-        m_bulkBuffer.append(char(line - m_line));	  /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
-        len = 6 + datalen;                            /** length of data state: header + startcode + data */
-        m_bulkBuffer.append(char((len >> 0) & 0xFF)); /** lenght of data stage, LSB */
-        m_bulkBuffer.append(char((len >> 8) & 0xFF)); /** length of data state, MSB */
+        /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
+        m_bulkBuffer.append(char(line - m_line));
+
+        m_bulkBuffer.append(char(0x07)); /** lenght of data stage (512 + 7 bytes), LSB */
+        m_bulkBuffer.append(char(0x02)); /** length of data state (512 + 7 bytes), MSB */
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_CONFIG_BLOCK      /** transmitter configuration: block while transmitter is busy */
                                | PEPERONI_NEW_BULK_CONFIG_FORCETX)); /** transmitter configuration: force transmission */
-        m_bulkBuffer.append(char(50));                /** timeout LSB, 50ms */
-        m_bulkBuffer.append(char(0));                 /** timeout MSB, 50ms */
-        m_bulkBuffer.append(char(181));               /** length of break, 200 us */
-        m_bulkBuffer.append(char(250));               /** length of Mark after Break, 20us */
+        m_bulkBuffer.append(char(50));  /** timeout LSB, 50ms */
+        m_bulkBuffer.append(char(0));   /** timeout MSB, 50ms */
+        m_bulkBuffer.append(char(181)); /** length of break, 200 us */
+        m_bulkBuffer.append(char(250)); /** length of Mark after Break, 20us */
 
         /* Construct a bulk data state header */
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID1));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID2));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID3));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
-        m_bulkBuffer.append(char((datalen >> 0) & 0xFF)); /** number of bytes to send, incl. startcode, LSB */
-        m_bulkBuffer.append(char((datalen >> 8) & 0xFF)); /** number of bytes to send, incl. startcode, MSB */
-        m_bulkBuffer.append(char(0));                     /** internal buffer comes without startcode -> insert it */
+        m_bulkBuffer.append(char(0x01));  /** number of bytes to send, incl. startcode, LSB */
+        m_bulkBuffer.append(char(0x02));  /** number of bytes to send, incl. startcode, MSB */
+        m_bulkBuffer.append(char(0));     /** internal buffer comes without startcode -> insert it */
 
         /* Append universe data to the bulk buffer */
         m_bulkBuffer.append(universe);
-        /* append 0 if frame shall be longer */
-        if (datalen > universe.size() +1U)
-        {
-           len = datalen - universe.size() -1;
-           while (len-- > 0)
-             m_bulkBuffer.append(char(0));
-        }
+
+        /* Append trailing zeros to reach size of 512 bytes */
+        m_bulkBuffer.append(QByteArray(int(512 - universe.size()), char(0)));
 
         /* Perform a bulk write */
         r = usb_bulk_write(m_handle,

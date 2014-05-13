@@ -46,7 +46,7 @@ QString Peperoni::name()
 
 int Peperoni::capabilities() const
 {
-    return QLCIOPlugin::Output;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input;
 }
 
 /*****************************************************************************
@@ -57,14 +57,14 @@ void Peperoni::openOutput(quint32 output)
 {
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
-            m_devices[output]->open();
+            m_devices[output]->open(PeperoniDevice::OutputMode);
 }
 
 void Peperoni::closeOutput(quint32 output)
 {
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
-            m_devices[output]->close();
+            m_devices[output]->close(PeperoniDevice::OutputMode);
 }
 
 QStringList Peperoni::outputs()
@@ -93,7 +93,7 @@ QString Peperoni::pluginInfo()
 
     str += QString("<H3>%1</H3>").arg(name());
     str += QString("<P>");
-    str += tr("This plugin provides DMX output support for Peperoni DMX devices.");
+    str += tr("This plugin provides DMX input and output support for Peperoni DMX devices.");
     str += QString("</P>");
 
     return str;
@@ -127,6 +127,65 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
             m_devices[output]->outputDMX(output, data);
     else
         qDebug() << "Peperoni invalid output !" << output << m_devices.size();
+}
+
+/*************************************************************************
+ * Inputs
+ *************************************************************************/
+
+void Peperoni::openInput(quint32 input)
+{
+    if (input < quint32(m_devices.size()) &&
+        m_devices[input] != NULL)
+    {
+        m_devices[input]->open(PeperoniDevice::InputMode);
+        connect(m_devices[input], SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
+    }
+}
+
+void Peperoni::closeInput(quint32 input)
+{
+    if (input < quint32(m_devices.size()) &&
+        m_devices[input] != NULL)
+    {
+        m_devices[input]->close(PeperoniDevice::InputMode);
+        disconnect(m_devices[input], SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                   this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+    }
+}
+
+QStringList Peperoni::inputs()
+{
+    QStringList list;
+    int i = 1;
+
+    QList <PeperoniDevice*> devList = m_devices.values();
+    foreach(PeperoniDevice* dev, devList)
+    {
+        list << QString("%1: %2").arg(i).arg(dev->name(i - 1));
+        i++;
+    }
+    return list;
+}
+
+QString Peperoni::inputInfo(quint32 input)
+{
+    QString str;
+
+    if (input != QLCIOPlugin::invalidLine() &&
+        input < quint32(m_devices.size()) &&
+        m_devices[input] != NULL)
+    {
+        str += m_devices[input]->infoText(input);
+    }
+    else
+        qDebug() << "Peperoni invalid input !" << input << m_devices.size();
+
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
 }
 
 /*****************************************************************************

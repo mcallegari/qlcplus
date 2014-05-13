@@ -51,7 +51,7 @@
 #define PEPERONI_TX_SLOTS        (_DMX_TX | _DMX_SLOTS)     /** Write transmitter slot counter */
 #define PEPERONI_TX_STARTCODE    (_DMX_TX | _DMX_STARTCODE) /** Write transmitter startcode */
 #define PEPERONI_TX_FRAMES       (_DMX_TX | _DMX_FRAMES)    /** Read transmitter frame counter */
-#define PEPERONI_RX_MEM          (_DMX_RX | _DMX_MEM)       /** Read/write receiver data memory */
+#define PEPERONI_RX_MEM_REQUEST  (_DMX_RX | _DMX_MEM)       /** Read/write receiver data memory */
 #define PEPERONI_RX_SLOTS        (_DMX_RX | _DMX_SLOTS)     /** Read/write receiver slots counter */
 #define PEPERONI_RX_STARTCODE    (_DMX_RX | _DMX_STARTCODE) /** Read/write receiver startcode */
 #define PEPERONI_RX_FRAMES       (_DMX_RX | _DMX_FRAMES)    /** Read receiver frame counter */

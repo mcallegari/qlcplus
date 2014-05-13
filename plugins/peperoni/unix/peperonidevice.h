@@ -20,15 +20,15 @@
 #ifndef PEPERONIDEVICE_H
 #define PEPERONIDEVICE_H
 
-#include <QObject>
-
+#include <QThread>
 
 struct usb_dev_handle;
 struct usb_device;
 class QString;
 class QByteArray;
+class Peperoni;
 
-class PeperoniDevice : public QObject
+class PeperoniDevice : public QThread
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ class PeperoniDevice : public QObject
      * Initialization
      ********************************************************************/
 public:
-    PeperoniDevice(QObject* parent, struct usb_device* device, quint32 line);
+    PeperoniDevice(Peperoni *parent, struct usb_device* device, quint32 line);
     virtual ~PeperoniDevice();
 
     /** Find out, whether the given USB device is a Peperoni device */
@@ -63,11 +63,22 @@ protected:
      * Open & close
      ********************************************************************/
 public:
-    void open();
-    void close();
+    /** Interface mode specification */
+    enum OperatingMode
+    {
+        CloseMode  = 1 << 0,
+        OutputMode = 1 << 1,
+        InputMode  = 1 << 2
+    };
+
+    void open(OperatingMode mode);
+    void close(OperatingMode mode);
 
     const struct usb_device* device() const;
     const usb_dev_handle* handle() const;
+
+    /** The device current open mode */
+    int m_operatingMode;
 
 protected:
     struct usb_device* m_device;
@@ -75,6 +86,30 @@ protected:
     int m_firmwareVersion;
     int m_blockingControlWrite;
     QByteArray m_bulkBuffer;
+
+    /********************************************************************
+     * Input worker thread
+     ********************************************************************/
+protected:
+    bool m_running;
+
+    /** Last universe data that has been received */
+    QByteArray m_dmxInputBuffer;
+
+private:
+    /** @reimp */
+    void run();
+
+signals:
+    /**
+     * Signal that is emitted when an input channel's value is changed
+     *
+     * @param universe The universe where the event happened
+     * @param line The input line that received the signal
+     * @param channel The channel whose value has changed
+     * @param value The changed value
+     */
+    void valueChanged(quint32 universe, quint32 line, quint32 channel, uchar value);
 
     /********************************************************************
      * Write

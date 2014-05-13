@@ -87,16 +87,16 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input) { Q_UNUSED(input); }
+    void openInput(quint32 input);
 
     /** @reimp */
-    void closeInput(quint32 input) { Q_UNUSED(input); }
+    void closeInput(quint32 input);
 
     /** @reimp */
-    QStringList inputs() { return QStringList(); }
+    QStringList inputs();
 
     /** @reimp */
-    QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
+    QString inputInfo(quint32 input);
 
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
