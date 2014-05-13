@@ -312,8 +312,6 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawRect(0, 0, m_width, m_height);
     foreach (FixtureHead *head, m_heads)
     {
-        head->m_item->update();
-
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
             painter->setPen(QPen(defColor, 2));
