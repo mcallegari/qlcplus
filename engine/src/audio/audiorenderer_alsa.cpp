@@ -50,6 +50,7 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
 
 AudioRendererAlsa::~AudioRendererAlsa()
 {
+    qDebug() << Q_FUNC_INFO;
     uninitialize();
     free (pcm_name);
 }
@@ -423,8 +424,11 @@ void AudioRendererAlsa::resume()
 
 void AudioRendererAlsa::uninitialize()
 {
+    qDebug() << Q_FUNC_INFO;
+
     if (!m_inited)
         return;
+
     m_inited = false;
     if (pcm_handle)
     {

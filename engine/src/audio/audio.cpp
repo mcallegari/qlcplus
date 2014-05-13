@@ -378,6 +378,7 @@ void Audio::preRun(MasterTimer* timer)
 #else
         m_audio_out = new AudioRendererQt();
 #endif
+        m_audio_out->moveToThread(QCoreApplication::instance()->thread());
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->setFadeIn(fadeInSpeed());

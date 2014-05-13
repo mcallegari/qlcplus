@@ -1,6 +1,7 @@
 qlcplus (4.7.3) stable; urgency=low
 
   * Engine: Fixed fallback IO mapping messing up plugins lines
+  * Engine: Fixed audio playback on non-default device working only once
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 7 Jun 2014 12:13:14 +0200
 
