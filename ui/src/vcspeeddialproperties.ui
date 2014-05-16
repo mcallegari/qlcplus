@@ -39,6 +39,61 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0" rowspan="3" colspan="2">
+
+        <widget class="QTreeWidget" name="m_tree">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <property name="expandsOnDoubleClick">
+          <bool>false</bool>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="animated">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Function</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade In</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Duration (+tap)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade Out</string>
+          </property>
+         </column>
+        </widget>
+
+        <!-- - ->
         <widget class="QTreeWidget" name="m_tree">
          <property name="toolTip">
           <string>Functions whose speed is controlled by the dial</string>
@@ -73,6 +128,8 @@
           </property>
          </column>
         </widget>
+        <!- - -->
+
        </item>
        <item row="0" column="2">
         <widget class="QToolButton" name="m_addButton">
@@ -127,6 +184,7 @@
          </property>
         </spacer>
        </item>
+       <!-- - ->
        <item row="3" column="0">
         <widget class="QGroupBox" name="m_speedGroup">
          <property name="title">
@@ -187,6 +245,8 @@
          </layout>
         </widget>
        </item>
+       <!- - -->
+       <!-- - ->
        <item row="3" column="1" colspan="2">
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -200,6 +260,7 @@
          </property>
         </spacer>
        </item>
+       <!- - -->
       </layout>
      </widget>
      <widget class="QWidget" name="Input">

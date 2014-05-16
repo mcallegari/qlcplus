@@ -27,17 +27,13 @@
 class QDomDocument;
 class QDomElement;
 class SpeedDial;
+class VCSpeedDialFunction;
 
 /** @addtogroup ui_vc_props
  * @{
  */
 
 #define KXMLQLCVCSpeedDial "SpeedDial"
-#define KXMLQLCVCSpeedDialFunction "Function"
-#define KXMLQLCVCSpeedDialSpeedTypes "SpeedTypes"
-#define KXMLQLCVCSpeedDialFadeInMultiplier "FadeInMultiplier"
-#define KXMLQLCVCSpeedDialFadeOutMultiplier "FadeOutMultiplier"
-#define KXMLQLCVCSpeedDialDurationMultiplier "DurationMultiplier"
 #define KXMLQLCVCSpeedDialAbsoluteValue "AbsoluteValue"
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
@@ -94,78 +90,18 @@ public:
     void editProperties();
 
     /************************************************************************
-     * Speed Type
-     ************************************************************************/
-public:
-    enum SpeedType
-    {
-        FadeIn   = 1 << 0,
-        FadeOut  = 1 << 1,
-        Duration = 1 << 2
-    };
-    Q_DECLARE_FLAGS(SpeedTypes, SpeedType)
-
-    /**
-     * Set the speed type that is to be controlled thru the dial. See
-     * enum SpeedType for possible values.
-     *
-     * @param type The Speed type to control
-     */
-    void setSpeedTypes(VCSpeedDial::SpeedTypes types);
-
-    /**
-     * Get the speed type that is controlled thru the dial.
-     *
-     * @return The speed type controlled by the dial
-     */
-    VCSpeedDial::SpeedTypes speedTypes() const;
-
-private:
-    SpeedTypes m_speedTypes;
-
-    /************************************************************************
-     * Speed Multipliers
-     ************************************************************************/
-public:
-    enum SpeedMultiplier
-    {
-        OneSixteenth = 0,
-        OneEighth,
-        OneFourth,
-        Half,
-        One,
-        Two,
-        Four,
-        Eight,
-        Sixteen
-    };
-
-    void setFadeInMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
-    void setFadeOutMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
-    void setDurationMultiplier(VCSpeedDial::SpeedMultiplier multiplier);
-
-    VCSpeedDial::SpeedMultiplier fadeInMultiplier() const;
-    VCSpeedDial::SpeedMultiplier fadeOutMultiplier() const;
-    VCSpeedDial::SpeedMultiplier durationMultiplier() const;
-
-private:
-    SpeedMultiplier m_fadeInMultiplier;
-    SpeedMultiplier m_fadeOutMultiplier;
-    SpeedMultiplier m_durationMultiplier;
-
-    /************************************************************************
      * Functions
      ************************************************************************/
 public:
     /**
      * Set the set of functions that are controlled by the dial.
      */
-    void setFunctions(const QSet <quint32> ids);
+    void setFunctions(const QList <VCSpeedDialFunction> functions);
 
     /**
      * Get the set of functions that are controlled by the dial.
      */
-    QSet <quint32> functions() const;
+    QList <VCSpeedDialFunction> functions() const;
 
     /** Simulate tap button press
      */
@@ -179,7 +115,7 @@ private slots:
     void slotDialTapped();
 
 private:
-    QSet <quint32> m_functions;
+    QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
 
     /*********************************************************************
@@ -231,7 +167,6 @@ public:
     /** @reimp */
     void postLoad();
 };
-Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)
 
 /** @} */
 
