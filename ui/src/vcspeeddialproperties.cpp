@@ -17,13 +17,17 @@
   limitations under the License.
 */
 
+#include <QItemDelegate>
+
 #include "vcspeeddialproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialfunction.h"
+#include "vcspeeddialfunctiondelegate.h"
 #include "inputpatch.h"
+#include "apputil.h"
 #include "doc.h"
 
 #define PROP_ID  Qt::UserRole
@@ -32,6 +36,7 @@
 #define COL_FADEIN   1
 #define COL_FADEOUT  2
 #define COL_DURATION 3
+
 
 VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     : QDialog(dial)
@@ -50,13 +55,10 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     foreach (const VCSpeedDialFunction &speeddialfunction, m_dial->functions())
         createFunctionItem(speeddialfunction);
 
-    ///* Speed types */
-    //if (dial->speedTypes() & VCSpeedDial::FadeIn)
-    //    m_fadeInCheck->setChecked(true);
-    //if (dial->speedTypes() & VCSpeedDial::FadeOut)
-    //    m_fadeOutCheck->setChecked(true);
-    //if (dial->speedTypes() & VCSpeedDial::Duration)
-    //    m_durationCheck->setChecked(true);
+    m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_FADEIN, new VCSpeedDialFunctionDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_FADEOUT, new VCSpeedDialFunctionDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_DURATION, new VCSpeedDialFunctionDelegate(this));
 
     //m_fadeInCombo->addItem("None");
     //m_fadeInCombo->addItem("1/16");
@@ -193,9 +195,10 @@ void VCSpeedDialProperties::createFunctionItem(const VCSpeedDialFunction &speedd
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(COL_NAME, function->name());
         item->setData(COL_NAME, PROP_ID, speeddialfunction.functionId);
-        item->setText(COL_FADEIN, QString::number(speeddialfunction.fadeInMultiplier));
-        item->setText(COL_FADEOUT, QString::number(speeddialfunction.fadeOutMultiplier));
-        item->setText(COL_DURATION, QString::number(speeddialfunction.durationMultiplier));
+        item->setData(COL_FADEIN, PROP_ID, speeddialfunction.fadeInMultiplier);
+        item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
+        item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
         // TODO boutons ou je sais pas quoi ?
     }
 }

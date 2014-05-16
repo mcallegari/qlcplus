@@ -123,6 +123,7 @@ HEADERS += aboutbox.h \
            vcsoloframe.h \
            vcspeeddial.h \
            vcspeeddialfunction.h \
+           vcspeeddialfunctiondelegate.h \
            vcspeeddialproperties.h \
            vcwidget.h \
            vcwidgetproperties.h \
@@ -263,6 +264,7 @@ SOURCES += aboutbox.cpp \
            vcsoloframe.cpp \
            vcspeeddial.cpp \
            vcspeeddialfunction.cpp \
+           vcspeeddialfunctiondelegate.cpp \
            vcspeeddialproperties.cpp \
            vcwidget.cpp \
            vcwidgetproperties.cpp \
