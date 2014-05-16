@@ -17,15 +17,12 @@
   limitations under the License.
 */
 
-#include <QItemDelegate>
-
 #include "vcspeeddialproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialfunction.h"
-#include "vcspeeddialfunctiondelegate.h"
 #include "inputpatch.h"
 #include "apputil.h"
 #include "doc.h"
@@ -55,10 +52,11 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     foreach (const VCSpeedDialFunction &speeddialfunction, m_dial->functions())
         createFunctionItem(speeddialfunction);
 
+    const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
     m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
-    m_tree->setItemDelegateForColumn(COL_FADEIN, new VCSpeedDialFunctionDelegate(this));
-    m_tree->setItemDelegateForColumn(COL_FADEOUT, new VCSpeedDialFunctionDelegate(this));
-    m_tree->setItemDelegateForColumn(COL_DURATION, new VCSpeedDialFunctionDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_FADEIN, new ComboBoxDelegate(multiplierNames, this));
+    m_tree->setItemDelegateForColumn(COL_FADEOUT, new ComboBoxDelegate(multiplierNames, this));
+    m_tree->setItemDelegateForColumn(COL_DURATION, new ComboBoxDelegate(multiplierNames, this));
 
     /* Absolute input */
     m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
