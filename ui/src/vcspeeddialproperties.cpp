@@ -60,40 +60,6 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tree->setItemDelegateForColumn(COL_FADEOUT, new VCSpeedDialFunctionDelegate(this));
     m_tree->setItemDelegateForColumn(COL_DURATION, new VCSpeedDialFunctionDelegate(this));
 
-    //m_fadeInCombo->addItem("None");
-    //m_fadeInCombo->addItem("1/16");
-    //m_fadeInCombo->addItem("1/8");
-    //m_fadeInCombo->addItem("1/4");
-    //m_fadeInCombo->addItem("1/2");
-    //m_fadeInCombo->addItem("1");
-    //m_fadeInCombo->addItem("2");
-    //m_fadeInCombo->addItem("4");
-    //m_fadeInCombo->addItem("8");
-    //m_fadeInCombo->addItem("16");
-    //m_fadeInCombo->setCurrentIndex(dial->fadeInMultiplier());
-    //m_fadeOutCombo->addItem("None");
-    //m_fadeOutCombo->addItem("1/16");
-    //m_fadeOutCombo->addItem("1/8");
-    //m_fadeOutCombo->addItem("1/4");
-    //m_fadeOutCombo->addItem("1/2");
-    //m_fadeOutCombo->addItem("1");
-    //m_fadeOutCombo->addItem("2");
-    //m_fadeOutCombo->addItem("4");
-    //m_fadeOutCombo->addItem("8");
-    //m_fadeOutCombo->addItem("16");
-    //m_fadeOutCombo->setCurrentIndex(dial->fadeOutMultiplier());
-    //m_durationCombo->addItem("None");
-    //m_durationCombo->addItem("1/16");
-    //m_durationCombo->addItem("1/8");
-    //m_durationCombo->addItem("1/4");
-    //m_durationCombo->addItem("1/2");
-    //m_durationCombo->addItem("1");
-    //m_durationCombo->addItem("2");
-    //m_durationCombo->addItem("4");
-    //m_durationCombo->addItem("8");
-    //m_durationCombo->addItem("16");
-    //m_durationCombo->setCurrentIndex(dial->durationMultiplier());
-
     /* Absolute input */
     m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
     m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / 1000);
@@ -177,9 +143,9 @@ QList <VCSpeedDialFunction> VCSpeedDialProperties::functions() const
         if (id.isValid() == true)
         {
             VCSpeedDialFunction speeddialfunction(id.toUInt());
-            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->text(COL_FADEIN).toUInt());
-            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->text(COL_FADEOUT).toUInt());
-            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->text(COL_DURATION).toUInt());
+            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEIN, PROP_ID).toUInt());
+            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEOUT, PROP_ID).toUInt());
+            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_DURATION, PROP_ID).toUInt());
             list.append(speeddialfunction);
         }
     }
@@ -199,7 +165,6 @@ void VCSpeedDialProperties::createFunctionItem(const VCSpeedDialFunction &speedd
         item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
         item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
         item->setFlags(item->flags() | Qt::ItemIsEditable);
-        // TODO boutons ou je sais pas quoi ?
     }
 }
 
