@@ -34,6 +34,7 @@ class VCSpeedDialFunction;
  */
 
 #define KXMLQLCVCSpeedDial "SpeedDial"
+#define KXMLQLCVCSpeedDialSpeedTypes "SpeedTypes"
 #define KXMLQLCVCSpeedDialAbsoluteValue "AbsoluteValue"
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
@@ -88,6 +89,21 @@ public slots:
 public:
     /** @reimp */
     void editProperties();
+
+     /************************************************************************
+     * Speed Type
+     ************************************************************************/
+public:
+    enum SpeedType
+    {
+        FadeIn   = 1 << 0,
+        FadeOut  = 1 << 1,
+        Duration = 1 << 2
+    };
+    Q_DECLARE_FLAGS(SpeedTypes, SpeedType)
+
+private:
+    SpeedTypes m_speedTypes;
 
     /************************************************************************
      * Functions
@@ -167,6 +183,7 @@ public:
     /** @reimp */
     void postLoad();
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)
 
 /** @} */
 

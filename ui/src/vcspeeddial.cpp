@@ -295,6 +295,19 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
+    // Compatibility with old project files:
+    // Get old style speedtype selection
+    VCSpeedDialFunction::SpeedMultiplier defaultFadeInMultiplier = VCSpeedDialFunction::None;
+    VCSpeedDialFunction::SpeedMultiplier defaultFadeOutMultiplier = VCSpeedDialFunction::None;
+    VCSpeedDialFunction::SpeedMultiplier defaultDurationMultiplier = VCSpeedDialFunction::One;
+    if (root->hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
+    {
+        SpeedTypes speedTypes = SpeedTypes(root->attribute(KXMLQLCVCSpeedDialSpeedTypes).toInt());
+        defaultFadeInMultiplier = speedTypes & FadeIn ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeOutMultiplier = speedTypes & FadeOut ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultDurationMultiplier = speedTypes & Duration ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+    }
+
     /* Children */
     QDomNode node = root->firstChild();
     while (node.isNull() == false)
@@ -304,7 +317,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         {
             // Function
             VCSpeedDialFunction speeddialfunction;
-            if (speeddialfunction.loadXML(tag))
+            if (speeddialfunction.loadXML(tag, defaultFadeInMultiplier, defaultFadeOutMultiplier, defaultDurationMultiplier))
             {
                 m_functions.append(speeddialfunction);
             }

@@ -29,7 +29,7 @@
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"
 
-VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aDuration, SpeedMultiplier aFadeOut)
+VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
     : functionId(aFid)
     , fadeInMultiplier(aFadeIn)
     , fadeOutMultiplier(aFadeOut)
@@ -37,7 +37,7 @@ VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, 
 {
 }
 
-bool VCSpeedDialFunction::loadXML(const QDomElement& root)
+bool VCSpeedDialFunction::loadXML(const QDomElement& root, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
 {
     if (root.tagName() != KXMLQLCFunction)
     {
@@ -54,10 +54,16 @@ bool VCSpeedDialFunction::loadXML(const QDomElement& root)
 
     if (root.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
         fadeInMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedFadeIn).toUInt());
+    else
+        fadeInMultiplier = aFadeIn;
     if (root.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
         fadeOutMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedFadeOut).toUInt());
+    else
+        fadeOutMultiplier = aFadeOut;
     if (root.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
         durationMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedDuration).toUInt());
+    else
+        durationMultiplier = aDuration;
 
     return true;
 }

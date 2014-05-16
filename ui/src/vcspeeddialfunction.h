@@ -55,14 +55,15 @@ public:
 public:
     /** Construct a new VCSpeedDialFunction with the given attributes */
     VCSpeedDialFunction(quint32 aFid = Function::invalidId(),
-            SpeedMultiplier aFadeIn = None, SpeedMultiplier aDuration = One, SpeedMultiplier aFadeOut = None);
+            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
     /************************************************************************
      * Load & Save
      ***********************************************************************/
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(const QDomElement& root,
+            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
     /** Save ChaserStep contents to $doc, under $root with $stepNumber */
     bool saveXML(QDomDocument* doc, QDomElement* root) const;
