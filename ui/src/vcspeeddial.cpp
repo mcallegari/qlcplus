@@ -163,18 +163,7 @@ void VCSpeedDial::tap()
 
 void VCSpeedDial::slotDialValueChanged(int ms)
 {
-    const int multipliers[10] = {
-        0,
-        1000 / 16,
-        1000 / 8,
-        1000 / 4,
-        1000 / 2,
-        1000,
-        1000 * 2,
-        1000 * 4,
-        1000 * 8,
-        1000 * 16
-    };
+    const QVector <quint32> multipliers = VCSpeedDialFunction::speedMultiplierValuesTimes1000();
 
     foreach (const VCSpeedDialFunction &speeddialfunction, m_functions)
     {

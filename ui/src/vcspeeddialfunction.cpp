@@ -89,3 +89,46 @@ bool VCSpeedDialFunction::saveXML(QDomDocument* doc, QDomElement* root) const
     return true;
 }
 
+const QStringList &VCSpeedDialFunction::speedMultiplierNames()
+{
+    static QStringList *names = 0;
+
+    if (names == 0)
+    {
+        names = new QStringList;
+        *names << "None";
+        *names << "1/16";
+        *names << "1/8";
+        *names << "1/4";
+        *names << "1/2";
+        *names << "1";
+        *names << "2";
+        *names << "4";
+        *names << "8";
+        *names << "16";
+    }
+
+    return *names;
+}
+
+const QVector <quint32> &VCSpeedDialFunction::speedMultiplierValuesTimes1000()
+{
+    static QVector <quint32> *values = 0;
+
+    if (values == 0)
+    {
+        values = new QVector <quint32>;
+        *values << 0;
+        *values << 1000 / 16;
+        *values << 1000 / 8;
+        *values << 1000 / 4;
+        *values << 1000 / 2;
+        *values << 1000;
+        *values << 1000 * 2;
+        *values << 1000 * 4;
+        *values << 1000 * 8;
+        *values << 1000 * 16;
+    }
+
+    return *values;
+}

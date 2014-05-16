@@ -49,6 +49,9 @@ public:
         Sixteen
     };
 
+    static const QStringList &speedMultiplierNames();
+    static const QVector <quint32> &speedMultiplierValuesTimes1000();
+
     /************************************************************************
      * Initialization
      ***********************************************************************/
@@ -61,11 +64,11 @@ public:
      * Load & Save
      ***********************************************************************/
 public:
-    /** Load ChaserStep contents from $root and return step index in $stepNumber */
+    /** Load SpeedDialFunction with default values for multipliers */
     bool loadXML(const QDomElement& root,
             SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
-    /** Save ChaserStep contents to $doc, under $root with $stepNumber */
+    /** Save SpeedDialFunction contents to $doc, under $root */
     bool saveXML(QDomDocument* doc, QDomElement* root) const;
 
 public:

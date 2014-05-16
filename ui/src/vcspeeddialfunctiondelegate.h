@@ -1,7 +1,7 @@
 #include <QStyledItemDelegate>
 #include <QComboBox>
 
-#include <stdio.h>
+#include "vcspeeddialfunction.h"
 
 class VCSpeedDialFunctionDelegate : public QStyledItemDelegate
 {
@@ -18,16 +18,7 @@ public:
     {
         QComboBox *comboBox = new QComboBox(parent);
 
-        comboBox->addItem("None");
-        comboBox->addItem("1/16");
-        comboBox->addItem("1/8");
-        comboBox->addItem("1/4");
-        comboBox->addItem("1/2");
-        comboBox->addItem("1");
-        comboBox->addItem("2");
-        comboBox->addItem("4");
-        comboBox->addItem("8");
-        comboBox->addItem("16");
+        comboBox->addItems(VCSpeedDialFunction::speedMultiplierNames());
 
         return comboBox;
     }

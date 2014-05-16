@@ -161,8 +161,14 @@ void VCSpeedDialProperties::createFunctionItem(const VCSpeedDialFunction &speedd
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(COL_NAME, function->name());
         item->setData(COL_NAME, PROP_ID, speeddialfunction.functionId);
+
+        const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
+
+        item->setText(COL_FADEIN, multiplierNames[speeddialfunction.fadeInMultiplier]);
         item->setData(COL_FADEIN, PROP_ID, speeddialfunction.fadeInMultiplier);
+        item->setText(COL_FADEOUT, multiplierNames[speeddialfunction.fadeOutMultiplier]);
         item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
+        item->setText(COL_DURATION, multiplierNames[speeddialfunction.durationMultiplier]);
         item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
         item->setFlags(item->flags() | Qt::ItemIsEditable);
     }
