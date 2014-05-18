@@ -83,12 +83,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Duration (+tap)</string>
+           <string>Fade Out</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Fade Out</string>
+           <string>Duration (+tap)</string>
           </property>
          </column>
         </widget>
