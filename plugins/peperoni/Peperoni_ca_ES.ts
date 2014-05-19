@@ -48,7 +48,7 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="137"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortida</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="152"/>

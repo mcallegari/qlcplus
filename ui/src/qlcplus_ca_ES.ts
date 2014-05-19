@@ -190,7 +190,7 @@
     <message>
         <location filename="addfixture.ui" line="180"/>
         <source>Address Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Eina de Direccionament</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -557,7 +557,7 @@
     <message>
         <location filename="app.cpp" line="230"/>
         <source>Simple Desk</source>
-        <translation>TAula Simple</translation>
+        <translation>Taula Simple</translation>
     </message>
     <message>
         <location filename="app.cpp" line="232"/>
@@ -3956,7 +3956,7 @@ Durada: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir el color final</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="126"/>
@@ -4751,7 +4751,7 @@ Durada: %3
     <message>
         <location filename="simpledesk.cpp" line="821"/>
         <source>Cue Stack - Playback %1</source>
-        <translation>Cue Stack - Playbakc %1</translation>
+        <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="982"/>

@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="1048"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Taula Simple</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1050"/>
@@ -176,12 +176,12 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="162"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pàgina</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
 </context>
 </TS>
