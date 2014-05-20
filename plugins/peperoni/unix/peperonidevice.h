@@ -3,6 +3,7 @@
   peperonidevice.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 #define PEPERONIDEVICE_H
 
 #include <QThread>
+#include <QHash>
 
 struct usb_dev_handle;
 struct usb_device;
@@ -58,14 +60,17 @@ protected:
     void extractName();
 
 protected:
+    /** The interface name */
     QString m_name;
-    quint32 m_line;
+
+    /** Base line of this interface */
+    quint32 m_baseLine;
 
     /********************************************************************
      * Open & close
      ********************************************************************/
 public:
-    /** Interface mode specification */
+    /** Interface operational modes */
     enum OperatingMode
     {
         CloseMode  = 1 << 0,
@@ -73,14 +78,14 @@ public:
         InputMode  = 1 << 2
     };
 
-    void open(OperatingMode mode);
-    void close(OperatingMode mode);
+    void open(quint32 line, OperatingMode mode);
+    void close(quint32 line, OperatingMode mode);
 
     const struct usb_device* device() const;
     const usb_dev_handle* handle() const;
 
-    /** The device current open mode */
-    int m_operatingMode;
+    /** The device operating mode for each line */
+    QHash<quint32, int> m_operatingModes;
 
 protected:
     struct usb_device* m_device;

@@ -3,6 +3,7 @@
   peperonidevice.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,8 +31,7 @@
 
 PeperoniDevice::PeperoniDevice(Peperoni* parent, struct usb_device* device, quint32 line)
     : QThread(parent)
-    , m_line(line)
-    , m_operatingMode(CloseMode)
+    , m_baseLine(line)
     , m_device(device)
     , m_handle(NULL)
 {
@@ -41,13 +41,17 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct usb_device* device, quin
     m_firmwareVersion = m_device->descriptor.bcdDevice;
     qDebug() << "[Peperoni] detected device firmware version:" << QString::number(m_firmwareVersion, 16);
 
+    m_operatingModes[line] = CloseMode;
+    if (device->descriptor.idProduct == PEPERONI_PID_USBDMX21)
+        m_operatingModes[line + 1] = CloseMode;
+
     extractName();
 }
 
 PeperoniDevice::~PeperoniDevice()
 {
-    close(InputMode);
-    close(OutputMode);
+    close(m_baseLine, InputMode);
+    close(m_baseLine, OutputMode);
 }
 
 /****************************************************************************
@@ -114,7 +118,7 @@ void PeperoniDevice::extractName()
     if (m_handle == NULL)
     {
         needToClose = true;
-        open(OutputMode);
+        open(m_baseLine, OutputMode);
     }
 
     /* Check, whether open() was successful */
@@ -131,13 +135,13 @@ void PeperoniDevice::extractName()
 
     /* Close the device if it was opened for this function only. */
     if (needToClose == true)
-        close(OutputMode);
+        close(m_baseLine, OutputMode);
 }
 
 QString PeperoniDevice::name(quint32 line) const
 {
     if (m_device->descriptor.idProduct == PEPERONI_PID_USBDMX21)
-        return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg((line - m_line) + 1);
+        return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg((line - m_baseLine) + 1);
 
     return m_name;
 }
@@ -174,7 +178,7 @@ QString PeperoniDevice::inputInfoText(quint32 line) const
     if (m_device != NULL)
     {
         info += QString("<B>%1:</B> ").arg(tr("Input line"));
-        if (m_operatingMode & InputMode && line == m_line)
+        if (m_operatingModes[line] & InputMode)
             info += QString("%1").arg(tr("Open"));
         else
             info += QString("%1").arg(tr("Close"));
@@ -191,7 +195,7 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
     if (m_device != NULL)
     {
         info += QString("<B>%1:</B> ").arg(tr("Output line"));
-        if (m_operatingMode & OutputMode && line == m_line)
+        if (m_operatingModes[line] & OutputMode)
             info += QString("%1").arg(tr("Open"));
         else
             info += QString("%1").arg(tr("Close"));
@@ -205,9 +209,9 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
  * Open & close
  ****************************************************************************/
 
-void PeperoniDevice::open(OperatingMode mode)
+void PeperoniDevice::open(quint32 line, OperatingMode mode)
 {
-    m_operatingMode |= mode;
+    m_operatingModes[line] |= mode;
 
     if (m_device != NULL && m_handle == NULL)
     {
@@ -266,16 +270,16 @@ void PeperoniDevice::open(OperatingMode mode)
             /* Sometimes you need a little jolt to get the device on its feet. */
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk OUT endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk OUT endpoint.";
             r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk IN endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk IN endpoint.";
         }
     }
 
-    if (m_operatingMode & InputMode && m_running == false)
+    if (m_operatingModes[line] & InputMode && m_running == false)
     {
-        qDebug() << "[Peperoni] open input line:" << m_line;
+        qDebug() << "[Peperoni] open input line:" << m_baseLine;
         m_dmxInputBuffer.clear();
         m_dmxInputBuffer.fill(0, 512);
         m_running = true;
@@ -283,9 +287,9 @@ void PeperoniDevice::open(OperatingMode mode)
     }
 }
 
-void PeperoniDevice::close(OperatingMode mode)
+void PeperoniDevice::close(quint32 line, OperatingMode mode)
 {
-    m_operatingMode &= ~mode;
+    m_operatingModes[line] &= ~mode;
 
     if (mode == InputMode && m_running == true)
     {
@@ -293,7 +297,7 @@ void PeperoniDevice::close(OperatingMode mode)
         wait();
     }
 
-    if (m_operatingMode != CloseMode)
+    if (m_operatingModes[line] != CloseMode)
         return;
 
     if (m_device != NULL && m_handle != NULL)
@@ -302,7 +306,7 @@ void PeperoniDevice::close(OperatingMode mode)
         int r = usb_release_interface(m_handle, PEPERONI_IFACE_EP0);
         if (r < 0)
         {
-            qWarning() << "PeperoniDevice" << name(m_line)
+            qWarning() << "PeperoniDevice" << name(m_baseLine)
                        << "is unable to release interface EP0!";
         }
 
@@ -366,7 +370,7 @@ void PeperoniDevice::run()
                                 100);                    // Timeout (ms)
 
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "failed control_msg:" << usb_strerror();
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed control_msg:" << usb_strerror();
             else
             {
                 /* read received startcode */
@@ -379,7 +383,7 @@ void PeperoniDevice::run()
                                     sizeof(rxstartcode), 
                                     10);
                 if (r < 0)
-                    qWarning() << "PeperoniDevice" << name(m_line) << "failed to read receiver startcode:" << usb_strerror();
+                    qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed to read receiver startcode:" << usb_strerror();
                 else
                 {
                     /* read number of received slots */
@@ -392,13 +396,13 @@ void PeperoniDevice::run()
                                         sizeof(rxslots), 
                                         10);
                     if (r < 0)
-                        qWarning() << "PeperoniDevice" << name(m_line) << "failed to read receiver slot counter:" << usb_strerror();
+                        qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed to read receiver slot counter:" << usb_strerror();
                     else
                     {
                         if (rxslots > m_dmxInputBuffer.size())
                         {
                             rxslots = m_dmxInputBuffer.size();
-                            qWarning() << "PeperoniDevice" << name(m_line) << "input frame too long, truncated";
+                            qWarning() << "PeperoniDevice" << name(m_baseLine) << "input frame too long, truncated";
                         }
                     
                         //qDebug() << "[Peperoni] input frame has startcode" << rxstartcode << "and is" << rxslots << "slots long";
@@ -410,7 +414,7 @@ void PeperoniDevice::run()
                             {
                                 if (tmpBuffer.at(i) != m_dmxInputBuffer.at(i))
                                 {
-                                    emit valueChanged(UINT_MAX, m_line, i, tmpBuffer.at(i));
+                                    emit valueChanged(UINT_MAX, m_baseLine, i, tmpBuffer.at(i));
                                     m_dmxInputBuffer[i] = tmpBuffer.at(i);
                                 }
                             }
@@ -458,13 +462,13 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
                             50);                     // Timeout (ms)
 
         if (r < 0)
-            qWarning() << "PeperoniDevice" << name(m_line) << "failed control write:" << usb_strerror();
+            qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed control write:" << usb_strerror();
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
     }
     else if (m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
     {
         char requestType = char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET);
-        if (line - m_line == 1)
+        if (line - m_baseLine == 1)
             requestType = PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_SET;
 
         //qDebug() << "Old bulk pipe write. Size:" << universe.size();
@@ -489,11 +493,11 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
 
         if (r < 0)
         {
-            qWarning() << "PeperoniDevice" << name(m_line) << "failed 'old' bulk write:" << usb_strerror();
+            qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed 'old' bulk write:" << usb_strerror();
             qWarning() << "Resetting bulk endpoint.";
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk endpoint.";
         }
     }
     else
@@ -510,7 +514,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_REQUEST_SET));
         /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
-        m_bulkBuffer.append(char(line - m_line));
+        m_bulkBuffer.append(char(line - m_baseLine));
 
         m_bulkBuffer.append(char(0x07)); /** lenght of data stage (512 + 7 bytes), LSB */
         m_bulkBuffer.append(char(0x02)); /** length of data state (512 + 7 bytes), MSB */
@@ -544,7 +548,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
                            100); /* use larger timeout then specified in the command header above */
         if (r < 0)
         {
-            qWarning() << "PeperoniDevice" << name(m_line) << "failed 'new' bulk write:" << usb_strerror();
+            qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed 'new' bulk write:" << usb_strerror();
         }
         else 
         {                           
@@ -555,7 +559,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
                                100); /* use larger timeout then specified in the command header above */
              if (r < 0)
              {
-                 qWarning() << "PeperoniDevice" << name(m_line) << "failed 'new' bulk read:" << usb_strerror();
+                 qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed 'new' bulk read:" << usb_strerror();
              }
         }
              
@@ -564,10 +568,10 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
             qWarning() << "Resetting bulk endpoints.";
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk OUT endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk OUT endpoint.";
             r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk IN endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk IN endpoint.";
         }
         else
         {

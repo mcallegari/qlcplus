@@ -57,14 +57,14 @@ void Peperoni::openOutput(quint32 output)
 {
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
-            m_devices[output]->open(PeperoniDevice::OutputMode);
+            m_devices[output]->open(output, PeperoniDevice::OutputMode);
 }
 
 void Peperoni::closeOutput(quint32 output)
 {
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
-            m_devices[output]->close(PeperoniDevice::OutputMode);
+            m_devices[output]->close(output, PeperoniDevice::OutputMode);
 }
 
 QStringList Peperoni::outputs()
@@ -138,7 +138,7 @@ void Peperoni::openInput(quint32 input)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {
-        m_devices[input]->open(PeperoniDevice::InputMode);
+        m_devices[input]->open(input, PeperoniDevice::InputMode);
         connect(m_devices[input], SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
     }
@@ -149,7 +149,7 @@ void Peperoni::closeInput(quint32 input)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {
-        m_devices[input]->close(PeperoniDevice::InputMode);
+        m_devices[input]->close(input, PeperoniDevice::InputMode);
         disconnect(m_devices[input], SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     }
