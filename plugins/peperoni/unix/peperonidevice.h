@@ -50,7 +50,9 @@ public:
      ********************************************************************/
 public:
     QString name(quint32 line) const;
-    QString infoText(quint32 line) const;
+    QString baseInfoText(quint32 line) const;
+    QString inputInfoText(quint32 line) const;
+    QString outputInfoText(quint32 line) const;
 
 protected:
     void extractName();

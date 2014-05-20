@@ -107,7 +107,7 @@ QString Peperoni::outputInfo(quint32 output)
         output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
     {
-        str += m_devices[output]->infoText(output);
+        str += m_devices[output]->outputInfoText(output);
     }
     else
         qDebug() << "Peperoni invalid output !" << output << m_devices.size();
@@ -177,7 +177,8 @@ QString Peperoni::inputInfo(quint32 input)
         input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {
-        str += m_devices[input]->infoText(input);
+        str += m_devices[input]->baseInfoText(input);
+        str += m_devices[input]->inputInfoText(input);
     }
     else
         qDebug() << "Peperoni invalid input !" << input << m_devices.size();

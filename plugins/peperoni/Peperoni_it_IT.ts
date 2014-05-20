@@ -5,7 +5,6 @@
     <name>Peperoni</name>
     <message>
         <location filename="win32/peperoni.cpp" line="125"/>
-        <location filename="unix/peperoni.cpp" line="96"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation>Questa plugin permette la trasmissione di segnale DMX su interfacce Peperoni.</translation>
     </message>
@@ -16,7 +15,7 @@
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="221"/>
-        <location filename="unix/peperoni.cpp" line="139"/>
+        <location filename="unix/peperoni.cpp" line="199"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vuoi rifare la scansione delle tue interfacce?</translation>
     </message>
@@ -25,7 +24,7 @@
     <name>PeperoniDevice</name>
     <message>
         <location filename="win32/peperonidevice.cpp" line="70"/>
-        <location filename="unix/peperonidevice.cpp" line="150"/>
+        <location filename="unix/peperonidevice.cpp" line="153"/>
         <source>Device is working correctly.</source>
         <translation>L&apos;interfaccia funziona correttamente.</translation>
     </message>
@@ -41,29 +40,51 @@
     </message>
     <message>
         <location filename="win32/peperonidevice.cpp" line="111"/>
-        <location filename="unix/peperonidevice.cpp" line="127"/>
+        <location filename="unix/peperonidevice.cpp" line="130"/>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="137"/>
-        <source>Output</source>
-        <translation>Uscita</translation>
+        <location filename="unix/peperonidevice.cpp" line="140"/>
+        <source>Universe</source>
+        <translation>Universo</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="152"/>
+        <location filename="unix/peperonidevice.cpp" line="155"/>
         <source>Firmware version: %1</source>
         <translation>Versione Firmware: %1</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="158"/>
+        <location filename="unix/peperonidevice.cpp" line="161"/>
         <source>Unknown device</source>
         <translation>Dispositivo sconosciuto</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="161"/>
+        <location filename="unix/peperonidevice.cpp" line="164"/>
         <source>Cannot connect to USB device.</source>
         <translation>Non posso connettere l&apos;interfaccia USB.</translation>
+    </message>
+    <message>
+        <location filename="unix/peperonidevice.cpp" line="176"/>
+        <source>Input line</source>
+        <translation>Linea di ingresso</translation>
+    </message>
+    <message>
+        <location filename="unix/peperonidevice.cpp" line="178"/>
+        <location filename="unix/peperonidevice.cpp" line="195"/>
+        <source>Open</source>
+        <translation>Aperta</translation>
+    </message>
+    <message>
+        <location filename="unix/peperonidevice.cpp" line="180"/>
+        <location filename="unix/peperonidevice.cpp" line="197"/>
+        <source>Close</source>
+        <translation>Chiusa</translation>
+    </message>
+    <message>
+        <location filename="unix/peperonidevice.cpp" line="193"/>
+        <source>Output line</source>
+        <translation>Linea di uscita</translation>
     </message>
 </context>
 </TS>

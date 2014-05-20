@@ -137,12 +137,12 @@ void PeperoniDevice::extractName()
 QString PeperoniDevice::name(quint32 line) const
 {
     if (m_device->descriptor.idProduct == PEPERONI_PID_USBDMX21)
-        return QString("%1: %2 %3").arg(m_name).arg(tr("Output")).arg((line - m_line) + 1);
+        return QString("%1 - %2 %3").arg(m_name).arg(tr("Universe")).arg((line - m_line) + 1);
 
     return m_name;
 }
 
-QString PeperoniDevice::infoText(quint32 line) const
+QString PeperoniDevice::baseInfoText(quint32 line) const
 {
     QString info;
 
@@ -163,6 +163,39 @@ QString PeperoniDevice::infoText(quint32 line) const
         info += QString("<P>");
         info += tr("Cannot connect to USB device.");
         info += QString("</P>");
+    }
+    return info;
+}
+
+QString PeperoniDevice::inputInfoText(quint32 line) const
+{
+    QString info;
+
+    if (m_device != NULL)
+    {
+        info += QString("<B>%1:</B> ").arg(tr("Input line"));
+        if (m_operatingMode & InputMode && line == m_line)
+            info += QString("%1").arg(tr("Open"));
+        else
+            info += QString("%1").arg(tr("Close"));
+        info += QString("<BR>");
+    }
+
+    return info;
+}
+
+QString PeperoniDevice::outputInfoText(quint32 line) const
+{
+    QString info;
+
+    if (m_device != NULL)
+    {
+        info += QString("<B>%1:</B> ").arg(tr("Output line"));
+        if (m_operatingMode & OutputMode && line == m_line)
+            info += QString("%1").arg(tr("Open"));
+        else
+            info += QString("%1").arg(tr("Close"));
+        info += QString("<BR>");
     }
 
     return info;
@@ -189,12 +222,10 @@ void PeperoniDevice::open(OperatingMode mode)
         }
 
         /* Use configuration #2 on X-Switch */
-        /*
         if (m_device->descriptor.idProduct == PEPERONI_PID_XSWITCH)
             configuration = PEPERONI_CONF_TXRX;
         else
             configuration = PEPERONI_CONF_TXONLY;
-        */
 
         /* Set selected configuration */
         r = usb_set_configuration(m_handle, configuration);
@@ -235,7 +266,10 @@ void PeperoniDevice::open(OperatingMode mode)
             /* Sometimes you need a little jolt to get the device on its feet. */
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
-                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk endpoint.";
+                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk OUT endpoint.";
+            r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
+            if (r < 0)
+                qWarning() << "PeperoniDevice" << name(m_line) << "is unable to reset bulk IN endpoint.";
         }
     }
 
@@ -309,13 +343,23 @@ void PeperoniDevice::run()
            and then re-plug the dongle in apple for bulk write to work,
            so disable it for apple, since control msg should work for all. */
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
-        if (m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
+        if (1 || m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
         {
 #endif
+            unsigned short rxslots;
+            unsigned char  rxstartcode;
+            unsigned int   block;
+            
+            // read memory blocking if firmware is >= 0x0400
+            if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
+                block = 1;
+            else
+                block = 0;
+
             r = usb_control_msg(m_handle,
                                 USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
                                 PEPERONI_RX_MEM_REQUEST, // We are WRITING DMX data
-                                1,                       // Blocking does not work on all firmware versions -> don't block
+                                block,                   // Blocking does not work on all firmware versions -> don't block
                                 0,                       // Start at DMX address 0
                                 tmpBuffer.data(),        // The DMX universe data
                                 tmpBuffer.size(),        // Size of DMX universe
@@ -323,11 +367,56 @@ void PeperoniDevice::run()
 
             if (r < 0)
                 qWarning() << "PeperoniDevice" << name(m_line) << "failed control_msg:" << usb_strerror();
-            for (int i = 0; i < 512; i++)
+            else
             {
-                if (tmpBuffer.at(i) != m_dmxInputBuffer.at(i))
-                    emit valueChanged(UINT_MAX, m_line, i, tmpBuffer.at(i));
-                m_dmxInputBuffer[i] = tmpBuffer.at(i);
+                /* read received startcode */
+                r = usb_control_msg(m_handle,
+                                    USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
+                                    PEPERONI_RX_STARTCODE,
+                                    0,
+                                    0,
+                                    (char *)&rxstartcode,
+                                    sizeof(rxstartcode), 
+                                    10);
+                if (r < 0)
+                    qWarning() << "PeperoniDevice" << name(m_line) << "failed to read receiver startcode:" << usb_strerror();
+                else
+                {
+                    /* read number of received slots */
+                    r = usb_control_msg(m_handle,
+                                        USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
+                                        PEPERONI_RX_SLOTS,
+                                        0,
+                                        0,
+                                        (char *)&rxslots,
+                                        sizeof(rxslots), 
+                                        10);
+                    if (r < 0)
+                        qWarning() << "PeperoniDevice" << name(m_line) << "failed to read receiver slot counter:" << usb_strerror();
+                    else
+                    {
+                        if (rxslots > m_dmxInputBuffer.size())
+                        {
+                            rxslots = m_dmxInputBuffer.size();
+                            qWarning() << "PeperoniDevice" << name(m_line) << "input frame too long, truncated";
+                        }
+                    
+                        //qDebug() << "[Peperoni] input frame has startcode" << rxstartcode << "and is" << rxslots << "slots long";
+
+                        /* only accept DMX512 data */
+                        if (rxstartcode == 0)
+                        {
+                            for (int i = 0; i < rxslots; i++)
+                            {
+                                if (tmpBuffer.at(i) != m_dmxInputBuffer.at(i))
+                                {
+                                    emit valueChanged(UINT_MAX, m_line, i, tmpBuffer.at(i));
+                                    m_dmxInputBuffer[i] = tmpBuffer.at(i);
+                                }
+                            }
+                        }
+                    }
+                }
             }
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
         }
