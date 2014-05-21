@@ -117,28 +117,32 @@ quint32 InputOutputMap::invalidUniverse()
 
 bool InputOutputMap::addUniverse(quint32 id)
 {
-    m_universeMutex.lock();
-    if (id == InputOutputMap::invalidUniverse())
-        id = ++m_latestUniverseId;
+    {
+        QMutexLocker locker(&m_universeMutex);
+        if (id == InputOutputMap::invalidUniverse())
+            id = ++m_latestUniverseId;
 
-    m_universeArray.append(new Universe(id, m_grandMaster));
-    m_universeMutex.unlock();
+        m_universeArray.append(new Universe(id, m_grandMaster));
+    }
+
     emit universeAdded(id);
     return true;
 }
 
 bool InputOutputMap::removeUniverse(int index)
 {
-    if (index < 0 || index >= m_universeArray.count())
-        return false;
+    {
+        QMutexLocker locker(&m_universeMutex);
 
-    m_universeMutex.lock();
-    Universe *delUni = m_universeArray.takeAt(index);
-    quint32 id = delUni->id();
-    delete delUni;
-    if (m_universeArray.count() == 0)
-        m_latestUniverseId = invalidUniverse();
-    m_universeMutex.unlock();
+        if (index < 0 || index >= m_universeArray.count())
+            return false;
+
+        Universe *delUni = m_universeArray.takeAt(index);
+        quint32 id = delUni->id();
+        delete delUni;
+        if (m_universeArray.count() == 0)
+            m_latestUniverseId = invalidUniverse();
+    }
 
     emit universeRemoved(id);
     return true;
@@ -243,7 +247,7 @@ void InputOutputMap::releaseUniverses(bool changed)
 
 void InputOutputMap::dumpUniverses()
 {
-    m_universeMutex.lock();
+    QMutexLocker locker(&m_universeMutex);
     if (m_blackout == false)
     {
         for (int i = 0; i < m_universeArray.count(); i++)
@@ -256,21 +260,21 @@ void InputOutputMap::dumpUniverses()
 
                 universe->dumpOutput(postGM);
 
-                m_universeMutex.unlock();
+                locker.unlock();
                 emit universesWritten(i, postGM);
-                m_universeMutex.lock();
+                locker.relock();
             }
         }
     }
-    m_universeMutex.unlock();
 }
 
 void InputOutputMap::resetUniverses()
 {
-    m_universeMutex.lock();
-    for (int i = 0; i < m_universeArray.size(); i++)
-        m_universeArray.at(i)->reset();
-    m_universeMutex.unlock();
+    {
+        QMutexLocker locker(&m_universeMutex);
+        for (int i = 0; i < m_universeArray.size(); i++)
+            m_universeArray.at(i)->reset();
+    }
 
     /* Reset Grand Master parameters */
     setGrandMasterValue(255);
@@ -354,7 +358,8 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return false;
     }
-    m_universeMutex.lock();
+ 
+    QMutexLocker locker(&m_universeMutex);
     if (m_universeArray.at(universe)->setInputPatch(
                 doc()->ioPluginCache()->plugin(pluginName), input,
                 profile(profileName)) == true)
@@ -364,7 +369,7 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
     }
-    m_universeMutex.unlock();
+
     return true;
 }
 
@@ -377,14 +382,15 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return false;
     }
-    m_universeMutex.lock();
+
+    QMutexLocker locker(&m_universeMutex);
     if (isFeedback == false)
         m_universeArray.at(universe)->setOutputPatch(
                     doc()->ioPluginCache()->plugin(pluginName), output);
     else
         m_universeArray.at(universe)->setFeedbackPatch(
                     doc()->ioPluginCache()->plugin(pluginName), output);
-    m_universeMutex.unlock();
+
     return true;
 }
 
@@ -612,9 +618,8 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 
         if (op != NULL && op->plugin() == plugin)
         {
-            m_universeMutex.lock();
+            QMutexLocker locker(&m_universeMutex);
             op->reconnect();
-            m_universeMutex.unlock();
         }
     }
 
