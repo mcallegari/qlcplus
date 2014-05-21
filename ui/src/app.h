@@ -121,6 +121,7 @@ private:
     void initActions();
     void initToolBar();
     bool handleFileError(QFile::FileError error);
+    bool saveModifiedDoc(const QString & title, const QString & message);
 
 public slots:
     bool slotFileNew();
