@@ -117,13 +117,12 @@ quint32 InputOutputMap::invalidUniverse()
 
 bool InputOutputMap::addUniverse(quint32 id)
 {
-    {
-        QMutexLocker locker(&m_universeMutex);
-        if (id == InputOutputMap::invalidUniverse())
-            id = ++m_latestUniverseId;
+    QMutexLocker locker(&m_universeMutex);
+    if (id == InputOutputMap::invalidUniverse())
+        id = ++m_latestUniverseId;
 
-        m_universeArray.append(new Universe(id, m_grandMaster));
-    }
+    m_universeArray.append(new Universe(id, m_grandMaster));
+    locker.unlock();    
 
     emit universeAdded(id);
     return true;
@@ -131,18 +130,18 @@ bool InputOutputMap::addUniverse(quint32 id)
 
 bool InputOutputMap::removeUniverse(int index)
 {
-    {
-        QMutexLocker locker(&m_universeMutex);
+    QMutexLocker locker(&m_universeMutex);
 
-        if (index < 0 || index >= m_universeArray.count())
-            return false;
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
 
-        Universe *delUni = m_universeArray.takeAt(index);
-        quint32 id = delUni->id();
-        delete delUni;
-        if (m_universeArray.count() == 0)
-            m_latestUniverseId = invalidUniverse();
-    }
+    Universe *delUni = m_universeArray.takeAt(index);
+    quint32 id = delUni->id();
+    delete delUni;
+    if (m_universeArray.count() == 0)
+        m_latestUniverseId = invalidUniverse();
+
+    locker.unlock();
 
     emit universeRemoved(id);
     return true;
