@@ -113,15 +113,15 @@ void ShowEditor::updateFunctionList()
 
     foreach(Track *track, m_show->tracks())
     {
-        Scene *m_scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
-        if (m_scene == NULL)
+        Scene *scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
+        if (scene == NULL)
         {
             qDebug() << Q_FUNC_INFO << "Invalid scene !";
             continue;
         }
         QTreeWidgetItem* sceneItem = new QTreeWidgetItem(masterItem);
-        sceneItem->setText(NAME_COL, m_scene->name());
-        sceneItem->setData(NAME_COL, PROP_ID, m_scene->id());
+        sceneItem->setText(NAME_COL, scene->name());
+        sceneItem->setData(NAME_COL, PROP_ID, scene->id());
         sceneItem->setIcon(NAME_COL, QIcon(":/scene.png"));
 
         foreach(quint32 id, track->functionsID())

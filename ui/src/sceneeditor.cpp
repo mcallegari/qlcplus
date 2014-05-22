@@ -219,7 +219,7 @@ void SceneEditor::init(bool applyValues)
             slotChaserComboActivated(index);
         }
     }
-    QLabel *m_nameLabel = new QLabel(tr("Scene name:"));
+    QLabel *nameLabel = new QLabel(tr("Scene name:"));
     m_nameEdit = new QLineEdit();
 
     // Connections
@@ -274,7 +274,7 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_recordAction);
     toolBar->addWidget(m_chaserCombo);
     toolBar->addSeparator();
-    toolBar->addWidget(m_nameLabel);
+    toolBar->addWidget(nameLabel);
     toolBar->addWidget(m_nameEdit);
 
     /* Tab widget */
