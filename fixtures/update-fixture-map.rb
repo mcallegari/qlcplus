@@ -225,6 +225,21 @@ class Fixtures
     doc.save(filename, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
   end
 
+  FIX_PREFIX = "# BEGIN FIXTURES\n"
+  FIX_SUFFIX = "# END FIXTURES\n"
+  FIX_REGEX = Regexp.new(/#{FIX_PREFIX}.*?#{FIX_SUFFIX}/m)
+
+  def update_fixtures_pro(filename = 'fixtures.pro')
+    data = File.read(filename)
+    fixture_list = @fixtures.sort_by {|f| f.path.downcase }.map {|f| "fixtures.files += #{f.path}\n" }.join
+    new_data = data.gsub(FIX_REGEX, FIX_PREFIX + "fixtures.files += FixturesMap.xml\n" + fixture_list + FIX_SUFFIX)
+    if data != new_data
+      File.open(filename, 'w') do |f| 
+        f.write(new_data)
+      end
+    end
+  end
+
   def make_overview(filename = 'index.html')
     File.open(filename, 'w') do |f|
       f << <<-EOF
@@ -367,6 +382,7 @@ end
 fm = Fixtures.new
 fm.load_fixtures('.')
 fm.update_fixtures_map
+fm.update_fixtures_pro
 
 puts "Total fixtures: #{fm.fixtures.size}"
 
