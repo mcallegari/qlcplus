@@ -436,7 +436,7 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universe
     address = m_yMSB & 0x01FF;
     uni = m_yMSB >> 9;
     if (uni < universes.count())
-        universes[uni]->write(m_yMSB, char(y >> 8));
+        universes[uni]->write(address, char(y >> 8));
 
     if (m_xLSB != QLCChannel::invalid() && m_yLSB != QLCChannel::invalid())
     {
