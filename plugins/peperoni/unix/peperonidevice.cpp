@@ -354,11 +354,14 @@ void PeperoniDevice::run()
             unsigned char  rxstartcode;
             unsigned int   block;
             
-            // read memory blocking if firmware is >= 0x0400
-            if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
+            // read memory blocking if firmware is >= 0x0500
+            if (m_firmwareVersion >= PEPERONI_FW_NEW_BULK_SUPPORT)
                 block = 1;
-            else
+            else {
                 block = 0;
+                // if we don't block sleep for 10ms
+                usleep(10000);
+            }
 
             r = usb_control_msg(m_handle,
                                 USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
