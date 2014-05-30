@@ -734,6 +734,7 @@ void Monitor::slotSetBackground()
     if (path.isEmpty() == false)
     {
         m_graphicsView->setBackgroundImage(path);
+        m_doc->setModified();
     }
     m_props->setBackgroundImage(path);
 }
