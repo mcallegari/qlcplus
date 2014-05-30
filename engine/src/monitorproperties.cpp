@@ -33,6 +33,7 @@
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridUnits "Units"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
+#define KXMLQLCMonitorBackground "Background"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
 #define KXMLQLCMonitorFixtureID "ID"
@@ -75,6 +76,7 @@ void MonitorProperties::reset()
     m_gridUnits = Meters;
     m_showLabels = false;
     m_fixtureItems.clear();
+    m_bgImage = QString();
 }
 
 /*********************************************************************
@@ -119,6 +121,8 @@ bool MonitorProperties::loadXML(const QDomElement &root)
             setChannelStyle(ChannelStyle(tag.text().toInt()));
         else if (tag.tagName() == KXMLQLCMonitorValues)
             setValueStyle(ValueStyle(tag.text().toInt()));
+        else if (tag.tagName() == KXMLQLCMonitorBackground)
+            setBackgroundImage(tag.text());
         else if (tag.tagName() == KXMLQLCMonitorGrid)
         {
             int w = 5, h = 5;
@@ -190,6 +194,14 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     }
     else if (displayMode() == Graphics)
     {
+        if (backgroundImage().isEmpty() == false)
+        {
+            tag = doc->createElement(KXMLQLCMonitorBackground);
+            root.appendChild(tag);
+            text = doc->createTextNode(backgroundImage());
+            tag.appendChild(text);
+        }
+
         tag = doc->createElement(KXMLQLCMonitorGrid);
         tag.setAttribute(KXMLQLCMonitorGridWidth, gridSize().width());
         tag.setAttribute(KXMLQLCMonitorGridHeight, gridSize().height());

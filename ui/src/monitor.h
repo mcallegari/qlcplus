@@ -175,6 +175,10 @@ protected slots:
      *  a fixture from the graphics view */
     void slotRemoveFixture();
 
+    /** Slot called when the user wants to set
+     *  a background picture on the graphics view */
+    void slotSetBackground();
+
     /** Slot called when the user wants to show
      *  or hide fixtures labels */
     void slotShowLabels(bool visible);

@@ -78,6 +78,9 @@ public:
     void setLabelsVisible(bool visible) { m_showLabels = visible; }
     bool labelsVisible() const { return m_showLabels; }
 
+    void setBackgroundImage(QString filename) { m_bgImage = filename; }
+    QString backgroundImage() const { return m_bgImage; }
+
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
 
     void reset();
@@ -90,6 +93,7 @@ private:
     QSize m_gridSize;
     GridUnits m_gridUnits;
     bool m_showLabels;
+    QString m_bgImage;
     QHash <quint32, FixtureItemProperties> m_fixtureItems;
 
     /*********************************************************************

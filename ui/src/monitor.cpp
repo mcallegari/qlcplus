@@ -32,6 +32,7 @@
 #include <QFont>
 #include <QIcon>
 #include <QtXml>
+#include <QFileDialog>
 
 #include "monitorfixturepropertieseditor.h"
 #include "monitorgraphicsview.h"
@@ -182,6 +183,9 @@ void Monitor::initGraphicsView()
     else if (m_props->gridUnits() == MonitorProperties::Feet)
         m_graphicsView->setGridMetrics(304.8);
     m_graphicsView->setGridSize(m_props->gridSize());
+
+    if (m_props->backgroundImage().isEmpty() == false)
+        m_graphicsView->setBackgroundImage(m_props->backgroundImage());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
@@ -429,6 +433,9 @@ void Monitor::initGraphicsToolbar()
                        this, SLOT(slotRemoveFixture()));
 
     m_toolBar->addSeparator();
+
+    m_toolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"),
+                       this, SLOT(slotSetBackground()));
 
     action = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
     action->setCheckable(true);
@@ -709,6 +716,26 @@ void Monitor::slotRemoveFixture()
         if (m_graphicsView->removeFixture() == true)
             m_doc->setModified();
     }
+}
+
+void Monitor::slotSetBackground()
+{
+    QString path;
+
+    Q_ASSERT(m_graphicsView != NULL);
+
+    path = m_graphicsView->backgroundImage();
+
+    path = QFileDialog::getOpenFileName(this,
+                                        tr("Select background image"),
+                                        path,
+                                        "Images (*.png *.xpm *.jpg *.gif)");
+
+    if (path.isEmpty() == false)
+    {
+        m_graphicsView->setBackgroundImage(path);
+    }
+    m_props->setBackgroundImage(path);
 }
 
 void Monitor::slotShowLabels(bool visible)
