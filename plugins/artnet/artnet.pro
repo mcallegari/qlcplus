@@ -29,6 +29,7 @@ TRANSLATIONS += ArtNet_nl_NL.ts
 TRANSLATIONS += ArtNet_cz_CZ.ts
 TRANSLATIONS += ArtNet_pt_BR.ts
 TRANSLATIONS += ArtNet_ca_ES.ts
+TRANSLATIONS += ArtNet_ja_JP.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += artnetpacketizer.h \

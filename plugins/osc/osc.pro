@@ -33,6 +33,7 @@ TRANSLATIONS += OSC_nl_NL.ts
 TRANSLATIONS += OSC_cz_CZ.ts
 TRANSLATIONS += OSC_pt_BR.ts
 TRANSLATIONS += OSC_ca_ES.ts
+TRANSLATIONS += OSC_ja_JP.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += oscplugin.h \

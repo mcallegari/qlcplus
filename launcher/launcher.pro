@@ -23,6 +23,7 @@ TRANSLATIONS += launcher_nl_NL.ts
 TRANSLATIONS += launcher_cz_CZ.ts
 TRANSLATIONS += launcher_pt_BR.ts
 TRANSLATIONS += launcher_ca_ES.ts
+TRANSLATIONS += launcher_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

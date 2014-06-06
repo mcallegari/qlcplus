@@ -19,6 +19,7 @@ TRANSLATIONS += DMX4Linux_nl_NL.ts
 TRANSLATIONS += DMX4Linux_cz_CZ.ts
 TRANSLATIONS += DMX4Linux_pt_BR.ts
 TRANSLATIONS += DMX4Linux_ca_ES.ts
+TRANSLATIONS += DMX4Linux_ja_JP.ts
 
 HEADERS += dmx4linux.h
 SOURCES += dmx4linux.cpp
