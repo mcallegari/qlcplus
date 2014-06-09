@@ -1328,7 +1328,7 @@ void FixtureManager::slotProperties()
 
 void FixtureManager::slotFadeConfig()
 {
-    ChannelsSelection cfg(m_doc, this, ChannelsSelection::PropertiesMode);
+    ChannelsSelection cfg(m_doc, this, ChannelsSelection::ConfigurationMode);
     if (cfg.exec() == QDialog::Rejected)
         return; // User pressed cancel
     m_doc->setModified();

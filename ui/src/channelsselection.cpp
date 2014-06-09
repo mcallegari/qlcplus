@@ -18,9 +18,11 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QPushButton>
 #include <QComboBox>
 #include <QDebug>
 
+#include "channelmodifiereditor.h"
 #include "channelsselection.h"
 #include "qlcfixturedef.h"
 #include "universe.h"
@@ -30,8 +32,9 @@
 #define KColumnType         1
 #define KColumnSelection    2
 #define KColumnBehaviour    3
-#define KColumnChIdx        4
-#define KColumnID           5
+#define KColumnModifier     4
+#define KColumnChIdx        5
+#define KColumnID           6
 
 ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelectionType mode)
     : QDialog(parent)
@@ -49,11 +52,11 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
     {
         hdrLabels << tr("Selected");
     }
-    else if (mode == PropertiesMode)
+    else if (mode == ConfigurationMode)
     {
         setWindowTitle(tr("Channel properties configuration"));
         setWindowIcon(QIcon(":/fade.png"));
-        hdrLabels << tr("Can fade") << tr("Behaviour");
+        hdrLabels << tr("Can fade") << tr("Behaviour") << tr("Modifier");
     }
 
     m_channelsTree->setHeaderLabels(hdrLabels);
@@ -135,7 +138,7 @@ void ChannelsSelection::updateFixturesTree()
                 item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
 
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            if (m_mode == PropertiesMode)
+            if (m_mode == ConfigurationMode)
             {
                 if (fxi->channelCanFade(c))
                     item->setCheckState(KColumnSelection, Qt::Checked);
@@ -165,9 +168,15 @@ void ChannelsSelection::updateFixturesTree()
                         combo->setItemData(1, true, Qt::UserRole);
                     }
                 }
+                QPushButton *button = new QPushButton();
+                button->setText("...");
+                button->setProperty("treeItem", qVariantFromValue((void *)item));
+                m_channelsTree->setItemWidget(item, KColumnModifier, button);
                 ioMap->releaseUniverses(false);
                 connect(combo, SIGNAL(currentIndexChanged(int)),
                         this, SLOT(slotComboChanged(int)));
+                connect(button, SIGNAL(clicked()),
+                        this, SLOT(slotModifierButtonClicked()));
             }
             else
             {
@@ -253,7 +262,7 @@ void ChannelsSelection::slotItemExpanded()
     m_channelsTree->resizeColumnToContents(KColumnName);
     m_channelsTree->resizeColumnToContents(KColumnType);
     m_channelsTree->resizeColumnToContents(KColumnSelection);
-    if (m_mode == PropertiesMode)
+    if (m_mode == ConfigurationMode)
         m_channelsTree->resizeColumnToContents(KColumnBehaviour);
 }
 
@@ -284,6 +293,13 @@ void ChannelsSelection::slotComboChanged(int idx)
     }
 }
 
+void ChannelsSelection::slotModifierButtonClicked()
+{
+    ChannelModifierEditor cme(m_doc, this);
+    if (cme.exec() == QDialog::Rejected)
+        return; // User pressed cancel
+}
+
 void ChannelsSelection::accept()
 {
     QList<int> excludeList;
@@ -307,7 +323,7 @@ void ChannelsSelection::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    if (m_mode == PropertiesMode)
+                    if (m_mode == ConfigurationMode)
                     {
                         if (chanItem->checkState(KColumnSelection) == Qt::Unchecked)
                             excludeList.append(c);
@@ -331,7 +347,7 @@ void ChannelsSelection::accept()
                             m_channelsList.append(SceneValue(fxID, c));
                     }
                 }
-                if (m_mode == PropertiesMode)
+                if (m_mode == ConfigurationMode)
                 {
                     fxi->setExcludeFadeChannels(excludeList);
                     m_doc->updateFixtureChannelCapabilities(fxi->id(), forcedHTPList, forcedLTPList);

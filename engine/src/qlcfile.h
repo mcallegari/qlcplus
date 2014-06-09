@@ -21,6 +21,7 @@
 #define QLCFILE_H
 
 #include <QFile>
+#include <QDir>
 
 class QDomDocument;
 class QDomElement;
@@ -31,10 +32,11 @@ class QString;
  */
 
 // File extensions
-#define KExtFixture      ".qxf" // 'Q'LC+ 'X'ml 'F'ixture
-#define KExtFixtureList  ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
-#define KExtWorkspace    ".qxw" // 'Q'LC+ 'X'ml 'W'orkspace
-#define KExtInputProfile ".qxi" // 'Q'LC+ 'X'ml 'I'nput profile
+#define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
+#define KExtFixtureList      ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
+#define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
+#define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
+#define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
@@ -97,6 +99,24 @@ public:
      * Return if the current platform is a Raspberry Pi
      */
     static bool isRaspberry();
+
+    /**
+     * @brief systemDirectory returns a system dependant QDir based
+     *        on a QLC+ hardcoded path and a QLC+ hardcoded extension
+     * @param path
+     * @param extension
+     * @return
+     */
+    static QDir systemDirectory(QString path, QString extension);
+
+    /**
+     * @brief systemDirectory returns a system dependant QDir based
+     *        on a QLC+ hardcoded path and a list of QLC+ hardcoded extensions
+     * @param path
+     * @param extension
+     * @return
+     */
+    static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
 };
 
 /** @} */

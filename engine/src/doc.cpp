@@ -24,7 +24,6 @@
 #include <QtXml>
 #include <QDir>
 
-#include "qlcfixturedefcache.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcfile.h"
@@ -57,6 +56,7 @@ Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
+    , m_modifiersCache(new QLCModifiersCache)
     , m_ioPluginCache(new IOPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
@@ -93,6 +93,9 @@ Doc::~Doc()
 
     delete m_ioPluginCache;
     m_ioPluginCache = NULL;
+
+    delete m_modifiersCache;
+    m_modifiersCache = NULL;
 
     delete m_fixtureDefCache;
     m_fixtureDefCache = NULL;
@@ -202,6 +205,11 @@ QString Doc::denormalizeComponentPath(const QString& filePath) const
 QLCFixtureDefCache* Doc::fixtureDefCache() const
 {
     return m_fixtureDefCache;
+}
+
+QLCModifiersCache* Doc::modifiersCache() const
+{
+    return m_modifiersCache;
 }
 
 IOPluginCache* Doc::ioPluginCache() const

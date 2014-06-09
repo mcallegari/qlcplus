@@ -113,6 +113,7 @@ Section
 	File /r Gobos
 	File /r InputProfiles
 	File /r MidiTemplates
+	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
 
@@ -175,6 +176,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\Gobos
 	RMDir /r $INSTDIR\InputProfiles
 	RMDir /r $INSTDIR\MidiTemplates
+	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
 

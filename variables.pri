@@ -93,6 +93,16 @@ win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
 unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
 macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
 
+# Channel modifiers templates
+win32:MODIFIERSTEMPLATEDIR      = ModifiersTemplates
+unix:!macx:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
+macx:MODIFIERSTEMPLATEDIR       = $$DATADIR/ModifiersTemplates
+
+# User midi templates
+win32:USERMODIFIERSTEMPLATEDIR      = $$USERDATADIR/ModifiersTemplates
+unix:!macx:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
+macx:USERMODIFIERSTEMPLATEDIR       = $$USERDATADIR/ModifiersTemplates
+
 # Fixtures
 win32:FIXTUREDIR      = Fixtures
 unix:!macx:FIXTUREDIR = $$DATADIR/fixtures

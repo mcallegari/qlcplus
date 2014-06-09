@@ -31,6 +31,25 @@ class Doc;
  * @{
  */
 
+/**
+ * The ChannelsSelection class is used mainly for 2 purposes: channels selection and
+ * channels configuration.
+ * In both cases, the channels list is displayed as a tree view, where the items levels
+ * are nested as universe -> fixture -> channel.
+ * Depending on the selected mode during the class construction, different columns
+ * are presented to the user:
+ * Channels selection: Name, Type, Selected
+ * Channels configuration: Name, Type, Can fade, Behaviour, Modifier
+ *
+ * In channels selection mode, to retrieve the selected channels list, just use the
+ * "channelsList" method before destroying the class.
+ * In channels configuration mode, changes will be applied on the "accept" event.
+ *
+ * In both modes, users are presented with a "Apply changes to fixtures of the same type"
+ * check box, which will apply a change to a channel to all the channels of the same
+ * type and fixture in all the universes.
+ */
+
 class ChannelsSelection : public QDialog, public Ui_ChannelsSelection
 {
     Q_OBJECT
@@ -40,7 +59,7 @@ public:
     enum ChannelSelectionType
     {
         NormalMode,
-        PropertiesMode
+        ConfigurationMode
     };
 
     ChannelsSelection(Doc* doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
@@ -62,7 +81,13 @@ protected slots:
 
     void slotItemChecked(QTreeWidgetItem *item, int col);
     void slotItemExpanded();
+
+    /** Slot called when user picks a new behaviour from a channel
+     *  combo box */
     void slotComboChanged(int idx);
+
+    /** Slot called when user clicks on a channel modifier button */
+    void slotModifierButtonClicked();
 
     /** Callback for OK button clicks */
     void accept();

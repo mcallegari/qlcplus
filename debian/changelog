@@ -1,5 +1,6 @@
 qlcplus (4.7.3) stable; urgency=low
 
+  * NEW: it is now possible to assign a modifier curve to a channel
   * Engine: Fixed fallback IO mapping messing up plugins lines
   * Engine: Fixed audio playback on non-default device working only once
   * UI: Fix saving changes when: closing QLC+, opening file, creating new file
@@ -10,7 +11,7 @@ qlcplus (4.7.3) stable; urgency=low
   * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35 (thanks to Robert Box)
   * New fixture: Martin RoboColor-III (thanks to Boudewijn)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 7 Jun 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 21 Jun 2014 12:13:14 +0200
 
 qlcplus (4.7.2) stable; urgency=low
 

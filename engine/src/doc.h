@@ -26,6 +26,7 @@
 #include <QMap>
 
 #include "qlcfixturedefcache.h"
+#include "qlcmodifierscache.h"
 #include "monitorproperties.h"
 #include "inputoutputmap.h"
 #include "ioplugincache.h"
@@ -116,6 +117,9 @@ public:
     /** Get the fixture definition cache object */
     QLCFixtureDefCache* fixtureDefCache() const;
 
+    /** Get the channel modifiers cache object */
+    QLCModifiersCache* modifiersCache() const;
+
     /** Get the I/O plugin cache object */
     IOPluginCache* ioPluginCache() const;
 
@@ -133,6 +137,7 @@ public:
 
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
+    QLCModifiersCache* m_modifiersCache;
     IOPluginCache* m_ioPluginCache;
     InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;

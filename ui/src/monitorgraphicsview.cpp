@@ -31,7 +31,6 @@ MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
 {
     m_scene = new QGraphicsScene();
     m_scene->setSceneRect(this->rect());
-    //setSceneRect(parent->rect());
     setScene(m_scene);
 
     m_gridSize = QSize(5, 5);

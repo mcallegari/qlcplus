@@ -49,6 +49,8 @@ HEADERS += aboutbox.h \
            audiobar.h \
            audioeditor.h \
            audiotriggerwidget.h \
+           channelmodifiereditor.h \
+           channelmodifiergraphicsview.h \
            channelsselection.h \
            chasereditor.h \
            clickandgoslider.h \
@@ -143,6 +145,7 @@ FORMS += aboutbox.ui \
          assignhotkey.ui \
          audioeditor.ui \
          chasereditor.ui \
+         channelmodifiereditor.ui \
          channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
@@ -188,6 +191,8 @@ SOURCES += aboutbox.cpp \
            audiobar.cpp \
            audioeditor.cpp \
            audiotriggerwidget.cpp \
+           channelmodifiereditor.cpp \
+           channelmodifiergraphicsview.cpp \
            channelsselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \
