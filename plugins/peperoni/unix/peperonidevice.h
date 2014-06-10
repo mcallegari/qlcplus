@@ -22,6 +22,7 @@
 #define PEPERONIDEVICE_H
 
 #include <QThread>
+#include <QMutex>
 #include <QHash>
 
 struct usb_dev_handle;
@@ -65,6 +66,9 @@ protected:
 
     /** Base line of this interface */
     quint32 m_baseLine;
+
+    /** Mutex to synchronize input and output at the same time */
+    QMutex m_ioMutex;
 
     /********************************************************************
      * Open & close

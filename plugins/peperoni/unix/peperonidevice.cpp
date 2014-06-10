@@ -363,6 +363,8 @@ void PeperoniDevice::run()
                 usleep(10000);
             }
 
+            {
+            QMutexLocker lock(&m_ioMutex);
             r = usb_control_msg(m_handle,
                                 USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_IN,
                                 PEPERONI_RX_MEM_REQUEST, // We are WRITING DMX data
@@ -425,6 +427,7 @@ void PeperoniDevice::run()
                     }
                 }
             }
+            }
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
         }
         else
@@ -447,6 +450,8 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
     if (m_handle == NULL)
         return;
 
+    {
+    QMutexLocker lock(&m_ioMutex);
     /* Choose write method based on firmware version. One has to unplug
        and then re-plug the dongle in apple for bulk write to work,
        so disable it for apple, since control msg should work for all. */
@@ -582,4 +587,5 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         }
     }
 #endif
+    }
 }
