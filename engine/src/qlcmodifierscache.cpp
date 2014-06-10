@@ -33,6 +33,7 @@ bool QLCModifiersCache::addModifier(ChannelModifier *modifier)
     if (m_modifiers.contains(modifier->name()))
         return false;
 
+    //qDebug() << "[QLCModifiersCache] added modifier" << modifier->name();
     m_modifiers[modifier->name()] = modifier;
     return true;
 }

@@ -24,6 +24,7 @@
 
 #include "channelmodifiereditor.h"
 #include "channelsselection.h"
+#include "channelmodifier.h"
 #include "qlcfixturedef.h"
 #include "universe.h"
 #include "doc.h"
@@ -169,7 +170,11 @@ void ChannelsSelection::updateFixturesTree()
                     }
                 }
                 QPushButton *button = new QPushButton();
-                button->setText("...");
+                ChannelModifier *mod = fxi->channelModifier(c);
+                if (mod == NULL)
+                    button->setText("...");
+                else
+                    button->setText(mod->name());
                 button->setProperty("treeItem", qVariantFromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
                 ioMap->releaseUniverses(false);
@@ -296,13 +301,31 @@ void ChannelsSelection::slotComboChanged(int idx)
 void ChannelsSelection::slotModifierButtonClicked()
 {
     QPushButton *button = (QPushButton *)sender();
+    if (button == NULL)
+        return;
+
     ChannelModifierEditor cme(m_doc, this);
     if (cme.exec() == QDialog::Rejected)
         return; // User pressed cancel
 
+    QString displayName = "...";
     ChannelModifier *modif = cme.selectedModifier();
-    if (modif == NULL)
-        button->setText("...");
+    if (modif != NULL)
+        displayName = modif->name();
+
+    button->setText(displayName);
+    if (m_applyAllCheck->isChecked() == true)
+    {
+        QVariant var = button->property("treeItem");
+        QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
+
+        foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+        {
+            QPushButton *chButton = (QPushButton *)m_channelsTree->itemWidget(chItem, KColumnModifier);
+            if (chButton != NULL)
+                chButton->setText(displayName);
+        }
+    }
 }
 
 void ChannelsSelection::accept()
@@ -344,6 +367,13 @@ void ChannelsSelection::accept()
                                 else
                                     forcedLTPList.append(c);
                             }
+                        }
+                        QPushButton *button = (QPushButton *)m_channelsTree->itemWidget(chanItem, KColumnModifier);
+                        if (button != NULL)
+                        {
+                            ChannelModifier *mod = m_doc->modifiersCache()->modifier(button->text());
+                            if (mod != NULL)
+                                fxi->setChannelModifier((quint32)c, mod);
                         }
                     }
                     else

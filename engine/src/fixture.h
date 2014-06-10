@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QList>
 #include <QIcon>
+#include <QHash>
 
 #include "qlcchannel.h"
 
@@ -31,6 +32,7 @@ class QDomElement;
 class QString;
 
 class QLCFixtureDefCache;
+class ChannelModifier;
 class QLCFixtureMode;
 class QLCFixtureHead;
 class FixtureConsole;
@@ -53,6 +55,10 @@ class Doc;
 #define KXMLFixtureExcludeFade "ExcludeFade"
 #define KXMLFixtureForcedHTP "ForcedHTP"
 #define KXMLFixtureForcedLTP "ForcedLTP"
+
+#define KXMLFixtureChannelModifier "Modifier"
+#define KXMLFixtureChannelIndex "Channel"
+#define KXMLFixtureModifierName "Name"
 
 class Fixture : public QObject
 {
@@ -301,6 +307,13 @@ public:
     /** Get a list of channel indices that are forced to be LTP */
     QList<int> forcedLTPChannels();
 
+    /** Set a ChannelModifier to the channel with the given $idx */
+    void setChannelModifier(quint32 idx, ChannelModifier *mod);
+
+    /** Get the ChannelModifier for the channel with the given $idx.
+     *  Returns NULL if no modifier has been assigned */
+    ChannelModifier *channelModifier(quint32 idx);
+
 protected:
     /** Create a generic intensity channel */
     void createGenericChannel();
@@ -326,6 +339,11 @@ protected:
 
     /** List holding the HTP channels indices that are forced to be LTP */
     QList<int> m_forcedLTPIndices;
+
+    /** Hash holding the pair <channel index, modifier pointer>
+     *  This is basically the place to store them to be saved/loaded
+     *  on the project XML file */
+    QHash<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
      * Fixture definition

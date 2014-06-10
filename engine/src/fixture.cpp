@@ -22,6 +22,7 @@
 #include <QtXml>
 
 #include "qlcfixturedefcache.h"
+#include "channelmodifier.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
@@ -439,6 +440,24 @@ QList<int> Fixture::forcedLTPChannels()
     return m_forcedLTPIndices;
 }
 
+void Fixture::setChannelModifier(quint32 idx, ChannelModifier *mod)
+{
+    qDebug() << Q_FUNC_INFO << idx << mod->name();
+
+    if (idx >= channels() || mod == NULL)
+        return;
+
+    m_channelModifiers[idx] = mod;
+}
+
+ChannelModifier *Fixture::channelModifier(quint32 idx)
+{
+    if (m_channelModifiers.contains(idx))
+        return m_channelModifiers[idx];
+
+    return NULL;
+}
+
 void Fixture::createGenericChannel()
 {
     if (m_genericChannel == NULL)
@@ -690,6 +709,8 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     QList<int> excludeList;
     QList<int> forcedHTP;
     QList<int> forcedLTP;
+    QList<quint32>modifierIndices;
+    QList<ChannelModifier *>modifierPointers;
 
     if (root.tagName() != KXMLFixture)
     {
@@ -765,6 +786,21 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
 
             for (int i = 0; i < values.count(); i++)
                 forcedLTP.append(values.at(i).toInt());
+        }
+        else if (tag.tagName() == KXMLFixtureChannelModifier)
+        {
+            if (tag.hasAttribute(KXMLFixtureChannelIndex) &&
+                tag.hasAttribute(KXMLFixtureModifierName))
+            {
+                quint32 chIdx = tag.attribute(KXMLFixtureChannelIndex).toUInt();
+                QString modName = tag.attribute(KXMLFixtureModifierName);
+                ChannelModifier *chMod = doc->modifiersCache()->modifier(modName);
+                if (chMod != NULL)
+                {
+                    modifierIndices.append(chIdx);
+                    modifierPointers.append(chMod);
+                }
+            }
         }
         else
         {
@@ -848,6 +884,8 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     setExcludeFadeChannels(excludeList);
     setForcedHTPChannels(forcedHTP);
     setForcedLTPChannels(forcedLTP);
+    for (int i = 0; i < modifierIndices.count(); i++)
+        setChannelModifier(modifierIndices.at(i), modifierPointers.at(i));
     setID(id);
 
     return true;
@@ -990,6 +1028,24 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
         }
         text = doc->createTextNode(list);
         tag.appendChild(text);
+    }
+
+    if (m_channelModifiers.isEmpty() == false)
+    {
+        QHashIterator<quint32, ChannelModifier *> it(m_channelModifiers);
+        while (it.hasNext())
+        {
+            it.next();
+            quint32 ch = it.key();
+            ChannelModifier *mod = it.value();
+            if (mod != NULL)
+            {
+                tag = doc->createElement(KXMLFixtureChannelModifier);
+                tag.setAttribute(KXMLFixtureChannelIndex, ch);
+                tag.setAttribute(KXMLFixtureModifierName, mod->name());
+                root.appendChild(tag);
+            }
+        }
     }
 
     return true;
