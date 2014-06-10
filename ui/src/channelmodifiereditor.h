@@ -37,6 +37,8 @@ public:
     explicit ChannelModifierEditor(Doc* doc, QWidget *parent = 0);
     ~ChannelModifierEditor();
 
+    ChannelModifier *selectedModifier();
+
 private:
     Doc* m_doc;
     ChannelModifierGraphicsView *m_view;

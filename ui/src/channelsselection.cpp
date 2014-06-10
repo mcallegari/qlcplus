@@ -295,9 +295,14 @@ void ChannelsSelection::slotComboChanged(int idx)
 
 void ChannelsSelection::slotModifierButtonClicked()
 {
+    QPushButton *button = (QPushButton *)sender();
     ChannelModifierEditor cme(m_doc, this);
     if (cme.exec() == QDialog::Rejected)
         return; // User pressed cancel
+
+    ChannelModifier *modif = cme.selectedModifier();
+    if (modif == NULL)
+        button->setText("...");
 }
 
 void ChannelsSelection::accept()

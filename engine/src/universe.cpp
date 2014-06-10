@@ -21,6 +21,7 @@
 #include <QDomElement>
 #include <math.h>
 
+#include "channelmodifier.h"
 #include "inputoutputmap.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
@@ -41,15 +42,17 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
+    , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_usedChannels(0)
     , m_totalChannels(0)
     , m_totalChannelsChanged(false)
     , m_hasChanged(false)
-    , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
+    m_modifiers.fill(NULL, UNIVERSE_SIZE);
+
     m_name = QString("Universe %1").arg(id + 1);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
@@ -459,6 +462,22 @@ uchar Universe::channelCapabilities(ushort channel)
     return m_channelsMask->at(channel);
 }
 
+void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
+{
+    if (channel >= (ushort)m_modifiers.count())
+        return ;
+
+    m_modifiers[channel] = modifier;
+}
+
+ChannelModifier *Universe::channelModifier(ushort channel)
+{
+    if (channel >= (ushort)m_modifiers.count())
+        return NULL;
+
+    return m_modifiers.at(channel);
+}
+
 /****************************************************************************
  * Writing
  ****************************************************************************/
@@ -472,6 +491,9 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
+
+    if (m_modifiers.at(channel) != NULL)
+        value = m_modifiers.at(channel)->getValue(value);
 
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {

@@ -76,6 +76,11 @@ ChannelModifierEditor::~ChannelModifierEditor()
 
 }
 
+ChannelModifier *ChannelModifierEditor::selectedModifier()
+{
+    return m_currentTemplate;
+}
+
 void ChannelModifierEditor::updateModifiersList()
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
