@@ -6,7 +6,7 @@
     <message>
         <location filename="configurehid.ui" line="14"/>
         <source>Configure HID Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">HIDプラグイン設定</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="33"/>
@@ -21,7 +21,7 @@
     <message>
         <location filename="configurehid.ui" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更新</translation>
     </message>
 </context>
 <context>
@@ -50,12 +50,12 @@
     <message>
         <location filename="hidjsdevice.cpp" line="303"/>
         <source>Axes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">軸: %1</translation>
     </message>
     <message>
         <location filename="hidjsdevice.cpp" line="305"/>
         <source>Buttons: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ボタン: %1</translation>
     </message>
 </context>
 <context>
@@ -63,7 +63,7 @@
     <message>
         <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインは、HID対応ジョイスティックと、FX5 USB DMX アダプタをサポートします。</translation>
     </message>
 </context>
 </TS>
