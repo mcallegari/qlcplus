@@ -6,7 +6,7 @@
     <message>
         <location filename="configuree131.ui" line="14"/>
         <source>Configure E1.31 Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">E1.31プラグイン設定</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="24"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインは、E1.31プロトコルを使ってDMX信号の送受信を行います。</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="90"/>
