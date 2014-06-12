@@ -6,7 +6,7 @@
     <message>
         <location filename="enttecwing.cpp" line="111"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインは、Enttec ウイングからの入力を扱います。</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="128"/>
@@ -48,12 +48,12 @@
     <message>
         <location filename="wing.cpp" line="62"/>
         <source>Firmware version %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファームウェアバージョン: %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="64"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デバイスは正常に動作しています。</translation>
     </message>
 </context>
 </TS>
