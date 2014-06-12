@@ -6,7 +6,7 @@
     <message>
         <location filename="win32/peperoni.cpp" line="125"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインは、Peperoni DMX デバイスにDMX信号を送信します。</translation>
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="139"/>
@@ -17,12 +17,12 @@
         <location filename="win32/peperoni.cpp" line="221"/>
         <location filename="unix/peperoni.cpp" line="199"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ハードウェアを再スキャンしますか？</translation>
     </message>
     <message>
         <location filename="unix/peperoni.cpp" line="96"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインは、Peperoni DMX デバイスとの間でDMX信号を送受信します。</translation>
     </message>
 </context>
 <context>
@@ -31,12 +31,12 @@
         <location filename="win32/peperonidevice.cpp" line="70"/>
         <location filename="unix/peperonidevice.cpp" line="157"/>
         <source>Device is working correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デバイスは正常に動作しています。</translation>
     </message>
     <message>
         <location filename="win32/peperonidevice.cpp" line="72"/>
         <source>Device might not work correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デバイスは正常に動作していません。</translation>
     </message>
     <message>
         <location filename="win32/peperonidevice.cpp" line="94"/>
@@ -57,17 +57,17 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="159"/>
         <source>Firmware version: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ファームウェアバージョン: %1</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="165"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">不明なデバイス</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="168"/>
         <source>Cannot connect to USB device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">USBデバイスに接続できません。</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="180"/>
