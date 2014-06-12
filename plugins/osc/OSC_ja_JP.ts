@@ -6,7 +6,7 @@
     <message>
         <location filename="configureosc.ui" line="14"/>
         <source>Configure OSC Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OSCプラグイン設定</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="20"/>
@@ -14,7 +14,7 @@
         <location filename="configureosc.ui" line="155"/>
         <location filename="configureosc.ui" line="162"/>
         <source>Output address:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Output address:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="37"/>
@@ -22,7 +22,7 @@
         <location filename="configureosc.ui" line="108"/>
         <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Input port:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
@@ -50,7 +50,7 @@
     <message>
         <location filename="oscplugin.cpp" line="97"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このプラグインはOSCを使ったMIDI信号の送受信を行います。(TouchOSCなど)</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="182"/>
