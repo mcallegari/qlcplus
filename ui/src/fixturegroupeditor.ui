@@ -38,9 +38,6 @@
      <property name="toolTip">
       <string>Remove selected fixture/head</string>
      </property>
-     <property name="text">
-      <string>...</string>
-     </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
@@ -118,9 +115,6 @@
      <property name="toolTip">
       <string>Add/replace fixtures to current row, starting from selected cell</string>
      </property>
-     <property name="text">
-      <string>...</string>
-     </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/forward.png</normaloff>:/forward.png</iconset>
@@ -137,9 +131,6 @@
     <widget class="QToolButton" name="m_downButton">
      <property name="toolTip">
       <string>Add/replace fixtures to current column, starting from selected cell</string>
-     </property>
-     <property name="text">
-      <string>...</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">

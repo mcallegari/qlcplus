@@ -42,9 +42,6 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="2" column="2">
         <widget class="QToolButton" name="m_removeFixtureButton">
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
@@ -59,9 +56,6 @@
        </item>
        <item row="5" column="2">
         <widget class="QToolButton" name="m_lowerFixtureButton">
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/down.png</normaloff>:/down.png</iconset>
@@ -89,9 +83,6 @@
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="m_addFixtureButton">
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
@@ -106,9 +97,6 @@
        </item>
        <item row="4" column="2">
         <widget class="QToolButton" name="m_raiseFixtureButton">
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/up.png</normaloff>:/up.png</iconset>
@@ -644,9 +632,6 @@
       <widget class="QToolButton" name="m_speedDial">
        <property name="toolTip">
         <string>Show/Hide speed dial window</string>
-       </property>
-       <property name="text">
-        <string>...</string>
        </property>
        <property name="icon">
         <iconset resource="qlcui.qrc">

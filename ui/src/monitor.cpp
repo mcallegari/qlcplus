@@ -360,7 +360,7 @@ void Monitor::initDMXToolbar()
     /* Universe combo box */
     m_toolBar->addSeparator();
 
-    QLabel *uniLabel = new QLabel(tr("Universe:"));
+    QLabel *uniLabel = new QLabel(tr("Universe"));
     uniLabel->setMargin(5);
     m_toolBar->addWidget(uniLabel);
 
@@ -393,7 +393,7 @@ void Monitor::initGraphicsToolbar()
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotSwitchMode()));
 
-    QLabel *label = new QLabel(tr("Size:"));
+    QLabel *label = new QLabel(tr("Size"));
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_toolBar->addWidget(label);
 

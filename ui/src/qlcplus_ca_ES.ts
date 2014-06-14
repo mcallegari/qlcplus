@@ -188,7 +188,7 @@
         <translation>Adreça d&apos;inici del (primer) fixture afegit</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="180"/>
+        <location filename="addfixture.ui" line="176"/>
         <source>Address Tool</source>
         <translation>Eina de Direccionament</translation>
     </message>
@@ -214,8 +214,9 @@
     </message>
     <message>
         <location filename="addfixture.ui" line="265"/>
-        <source>Quick search:</source>
-        <translation>Cerca ràpida:</translation>
+        <source>Quick search</source>
+        <oldsource>Quick search:</oldsource>
+        <translation>Cerca ràpida</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="282"/>
@@ -247,23 +248,21 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
-        <source>Columns:</source>
-        <translation>Columnes:</translation>
+        <source>Columns</source>
+        <oldsource>Columns:</oldsource>
+        <translation>Columnes</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
-        <source>Rows:</source>
-        <translation>Files:</translation>
+        <source>Rows</source>
+        <oldsource>Rows:</oldsource>
+        <translation>Files</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
-        <source>Total pixels:</source>
-        <translation>Píxels totals:</translation>
-    </message>
-    <message>
-        <location filename="addrgbpanel.ui" line="85"/>
-        <source>100</source>
-        <translation>100</translation>
+        <source>Total pixels</source>
+        <oldsource>Total pixels:</oldsource>
+        <translation>Píxels totals</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="97"/>
@@ -297,8 +296,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
-        <source>Width:</source>
-        <translation>Ample:</translation>
+        <source>Width</source>
+        <oldsource>Width:</oldsource>
+        <translation>Ample</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
@@ -308,8 +308,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="187"/>
-        <source>Height:</source>
-        <translation>Alçada:</translation>
+        <source>Height</source>
+        <oldsource>Height:</oldsource>
+        <translation>Alçada</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="215"/>
@@ -318,8 +319,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="229"/>
-        <source>Universe:</source>
-        <translation>Univers:</translation>
+        <source>Universe</source>
+        <oldsource>Universe:</oldsource>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="236"/>
@@ -328,13 +330,15 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="243"/>
-        <source>Name:</source>
-        <translation>Nom:</translation>
+        <source>Name</source>
+        <oldsource>Name:</oldsource>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="253"/>
-        <source>Address:</source>
-        <translation>Adreça:</translation>
+        <source>Address</source>
+        <oldsource>Address:</oldsource>
+        <translation>Adreça</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="270"/>
@@ -956,11 +960,6 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Nom del arxiu:</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="115"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
         <location filename="audioeditor.ui" line="122"/>
         <source>Duration:</source>
         <translation>Duració:</translation>
@@ -1282,12 +1281,12 @@ Duració: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="164"/>
+        <location filename="channelmodifiereditor.cpp" line="169"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="165"/>
+        <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1301,13 +1300,13 @@ Duració: %3
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
-        <location filename="channelsselection.cpp" line="49"/>
+        <location filename="channelsselection.cpp" line="50"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="33"/>
-        <location filename="channelsselection.cpp" line="49"/>
+        <location filename="channelsselection.cpp" line="50"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
@@ -1317,32 +1316,32 @@ Duració: %3
         <translation>Aplicar canvis a fixtures del mateix tipus i manera</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="53"/>
+        <location filename="channelsselection.cpp" line="54"/>
         <source>Selected</source>
         <translation>Seleccionats</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="57"/>
+        <location filename="channelsselection.cpp" line="58"/>
         <source>Channel properties configuration</source>
         <translation>Configuració de propietats de canals</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Can fade</source>
         <translation>Pot fer Fade</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Behaviour</source>
         <translation>Comportament</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="117"/>
+        <location filename="channelsselection.cpp" line="118"/>
         <source>Universe %1</source>
         <translation>Univers %1</translation>
     </message>
@@ -1355,248 +1354,240 @@ Duració: %3
         <translation>Editor de Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="51"/>
+        <location filename="chasereditor.ui" line="60"/>
         <source>Step</source>
         <translation>Pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="56"/>
+        <location filename="chasereditor.ui" line="65"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="61"/>
+        <location filename="chasereditor.ui" line="70"/>
         <location filename="chasereditor.cpp" line="890"/>
         <source>Fade In</source>
         <translation>Fade in</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="66"/>
+        <location filename="chasereditor.ui" line="75"/>
         <location filename="chasereditor.cpp" line="892"/>
         <source>Hold</source>
         <translation>Manté</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="71"/>
+        <location filename="chasereditor.ui" line="80"/>
         <location filename="chasereditor.cpp" line="891"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="76"/>
+        <location filename="chasereditor.ui" line="85"/>
         <source>Duration</source>
         <translation>Duració</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="81"/>
+        <location filename="chasereditor.ui" line="90"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="89"/>
+        <location filename="chasereditor.ui" line="98"/>
         <source>Remove the selected step</source>
         <translation>Eliminar el pas seleccionat</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="117"/>
+        <location filename="chasereditor.ui" line="123"/>
         <source>Chaser name</source>
         <translation>Nom del Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="130"/>
+        <location filename="chasereditor.ui" line="136"/>
         <source>Name of the chaser being edited</source>
         <translation>Nom del chaser que s&apos;està editant</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="141"/>
+        <location filename="chasereditor.ui" line="147"/>
         <source>Run Order</source>
         <translation>Ordre d&apos;Execució</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="159"/>
+        <location filename="chasereditor.ui" line="174"/>
         <source>Run through over and over again</source>
         <translation>Executar una i un altre vegada</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="162"/>
+        <location filename="chasereditor.ui" line="177"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="178"/>
+        <location filename="chasereditor.ui" line="193"/>
         <source>Run through once and stop</source>
         <translation>Executar una vegada i aturar</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="181"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Single Shot</source>
         <translation>Una sola vegada</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="194"/>
+        <location filename="chasereditor.ui" line="209"/>
         <source>Switch direction at both ends</source>
         <translation>Canviar de direcció als dos extrems</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="197"/>
+        <location filename="chasereditor.ui" line="212"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="204"/>
+        <location filename="chasereditor.ui" line="219"/>
         <source>Execute steps in random order</source>
         <translation>Executar en ordre aleatòri</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="207"/>
+        <location filename="chasereditor.ui" line="222"/>
         <source>Random</source>
         <translation>Aleatòri</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="217"/>
+        <location filename="chasereditor.ui" line="232"/>
         <source>Direction</source>
         <translation>Direcció</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="235"/>
+        <location filename="chasereditor.ui" line="259"/>
         <source>Start from the first step</source>
         <translation>Comença del primer pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="238"/>
+        <location filename="chasereditor.ui" line="262"/>
         <source>Forward</source>
         <translation>Endavant</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="278"/>
         <source>Start from the last step</source>
         <translation>Comença des de l&apos;últim pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="257"/>
+        <location filename="chasereditor.ui" line="281"/>
         <source>Backward</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="283"/>
+        <location filename="chasereditor.ui" line="307"/>
         <source>Fade In Speed</source>
         <translation>Temps de Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="301"/>
+        <location filename="chasereditor.ui" line="334"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Tots els passos tenen un temps de Fade In comú, establert per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="304"/>
-        <location filename="chasereditor.ui" line="370"/>
-        <location filename="chasereditor.ui" line="439"/>
+        <location filename="chasereditor.ui" line="337"/>
+        <location filename="chasereditor.ui" line="412"/>
+        <location filename="chasereditor.ui" line="490"/>
         <source>Common</source>
         <translation>Comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="317"/>
+        <location filename="chasereditor.ui" line="350"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Cada pas te el seu temps de Fade In, establert per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="320"/>
-        <location filename="chasereditor.ui" line="386"/>
-        <location filename="chasereditor.ui" line="458"/>
+        <location filename="chasereditor.ui" line="353"/>
+        <location filename="chasereditor.ui" line="428"/>
+        <location filename="chasereditor.ui" line="509"/>
         <source>Per Step</source>
         <translation>Pas a Pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="333"/>
+        <location filename="chasereditor.ui" line="366"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Emprar el temps de Fade In propi de cada funció</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="336"/>
-        <location filename="chasereditor.ui" line="402"/>
+        <location filename="chasereditor.ui" line="369"/>
+        <location filename="chasereditor.ui" line="444"/>
         <source>Default</source>
         <translation>Per Defecte</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="349"/>
+        <location filename="chasereditor.ui" line="382"/>
         <source>Fade Out Speed</source>
         <translation>Temps de Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="367"/>
+        <location filename="chasereditor.ui" line="409"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Tots els passos tenen un temps de Fade Out comú, establert per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="383"/>
+        <location filename="chasereditor.ui" line="425"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Cada pas te el seu propi temps de Fade Out, establert per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="399"/>
+        <location filename="chasereditor.ui" line="441"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Emprar el temps de Fae Out propi de cada funció</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="415"/>
+        <location filename="chasereditor.ui" line="457"/>
         <source>Step Duration</source>
         <translation>Duració del Pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="436"/>
+        <location filename="chasereditor.ui" line="487"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Tot esl passos tenen una durada comú, establerta per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="455"/>
+        <location filename="chasereditor.ui" line="506"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Cada pas te la seva pròpia durada, establerta per el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="486"/>
+        <location filename="chasereditor.ui" line="537"/>
         <source>Lower the selected step once</source>
         <translation>Baixar el pas seleccionat</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="528"/>
+        <location filename="chasereditor.ui" line="576"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="555"/>
+        <location filename="chasereditor.ui" line="603"/>
         <source>See what the chaser does when it is run</source>
         <translation>Veure que fa el chaser quant s&apos;executa</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="558"/>
-        <location filename="chasereditor.ui" line="578"/>
-        <location filename="chasereditor.ui" line="598"/>
-        <location filename="chasereditor.ui" line="618"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="chasereditor.ui" line="575"/>
+        <location filename="chasereditor.ui" line="620"/>
         <source>Stop the chaser if running</source>
         <translation>Atura el chaser si s&apos;està executant</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="595"/>
+        <location filename="chasereditor.ui" line="637"/>
         <source>Skip to the previous step</source>
         <translation>Saltar al pas anterior</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="615"/>
+        <location filename="chasereditor.ui" line="654"/>
         <source>Skip to the next step</source>
         <translation>Saltar al pas següent</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="695"/>
+        <location filename="chasereditor.ui" line="722"/>
         <source>Add step(s) to the current position</source>
         <translation>Afegir pas(sos) a la posició actual</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="715"/>
+        <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
         <translation>Pujar el pas selleccionat</translation>
     </message>
@@ -1859,265 +1850,260 @@ Duració: %3
         <translation>General</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="127"/>
+        <location filename="efxeditor.ui" line="115"/>
         <source>Fixture order</source>
         <translation>Ordre de Fixtures</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="133"/>
+        <location filename="efxeditor.ui" line="121"/>
         <source>All fixtures move in parallel</source>
         <translation>Tots els fixtures es mouen en paral·lel</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="136"/>
+        <location filename="efxeditor.ui" line="124"/>
         <source>Parallel</source>
         <translation>Paral·lel</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="146"/>
+        <location filename="efxeditor.ui" line="134"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>El patró es transmet a cada fixture de manera seqüencial</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="149"/>
+        <location filename="efxeditor.ui" line="137"/>
         <source>Serial</source>
         <translation>Sèrie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="156"/>
+        <location filename="efxeditor.ui" line="144"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Cada fixture comença a moure iinmediatament amb un desfasament</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="159"/>
+        <location filename="efxeditor.ui" line="147"/>
         <source>Asymmetric</source>
         <translation>Asimètric</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="201"/>
+        <location filename="efxeditor.ui" line="189"/>
         <source>Step</source>
         <translation>Pas</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="206"/>
+        <location filename="efxeditor.ui" line="194"/>
         <source>Fixture</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="211"/>
+        <location filename="efxeditor.ui" line="199"/>
         <source>Reverse</source>
         <translation>Invertir</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="216"/>
-        <location filename="efxeditor.ui" line="514"/>
+        <location filename="efxeditor.ui" line="204"/>
+        <location filename="efxeditor.ui" line="502"/>
         <source>Start Offset</source>
         <translation>Desfasament d&apos;Inici</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="221"/>
+        <location filename="efxeditor.ui" line="209"/>
         <source>Intensity</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="230"/>
+        <location filename="efxeditor.ui" line="218"/>
         <source>Movement</source>
         <translation>Moviment</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="258"/>
+        <location filename="efxeditor.ui" line="246"/>
         <source>Pattern</source>
         <translation>Patró</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="264"/>
+        <location filename="efxeditor.ui" line="252"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Patrò de moviment mirall/capçal</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="274"/>
+        <location filename="efxeditor.ui" line="262"/>
         <source>Parameters</source>
         <translation>Paràmetres</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="283"/>
+        <location filename="efxeditor.ui" line="271"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Fase de la curva Lissajous (eix Y)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="303"/>
+        <location filename="efxeditor.ui" line="291"/>
         <source>Width</source>
         <translation>Ample</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="310"/>
+        <location filename="efxeditor.ui" line="298"/>
         <source>Value width of the pattern</source>
         <translation>Valor del ample del patrò</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="323"/>
+        <location filename="efxeditor.ui" line="311"/>
         <source>Height</source>
         <translatorcomment>Altura o Alçada?</translatorcomment>
         <translation>Alçada</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="330"/>
+        <location filename="efxeditor.ui" line="318"/>
         <source>Value height of the pattern</source>
         <translation>Valor de l&apos;alçada del patró</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="343"/>
+        <location filename="efxeditor.ui" line="331"/>
         <source>X offset</source>
         <translation>Desfasament en X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="350"/>
+        <location filename="efxeditor.ui" line="338"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Punt central del patró (eix X)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="363"/>
+        <location filename="efxeditor.ui" line="351"/>
         <source>Y offset</source>
         <translation>Desfasament en Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="370"/>
+        <location filename="efxeditor.ui" line="358"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Punt central del patró (eix Y)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="383"/>
+        <location filename="efxeditor.ui" line="371"/>
         <source>Rotation</source>
         <translation>Rotació</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="390"/>
+        <location filename="efxeditor.ui" line="378"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotació del Punt d&apos;Inici del Patró</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="393"/>
-        <location filename="efxeditor.ui" line="504"/>
+        <location filename="efxeditor.ui" line="381"/>
+        <location filename="efxeditor.ui" line="492"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="406"/>
+        <location filename="efxeditor.ui" line="394"/>
         <source>X frequency</source>
         <translation>Freqüència de X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="416"/>
+        <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Freqüència de la corba de Lissajous (eix X)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="432"/>
+        <location filename="efxeditor.ui" line="420"/>
         <source>Y frequency</source>
         <translation>Freqüència de Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="442"/>
+        <location filename="efxeditor.ui" line="430"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Freqüència de la corba de Lissajous (eix X)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="458"/>
+        <location filename="efxeditor.ui" line="446"/>
         <source>X phase</source>
         <translation>Fase de X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="481"/>
+        <location filename="efxeditor.ui" line="469"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Fase de la corba Lissajous (eix X)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="497"/>
+        <location filename="efxeditor.ui" line="485"/>
         <source>Y phase</source>
         <translation>Fase de Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="524"/>
+        <location filename="efxeditor.ui" line="512"/>
         <source>Relative</source>
         <translation>Relatiu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="534"/>
+        <location filename="efxeditor.ui" line="522"/>
         <source>Direction</source>
         <translation>Direcció</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="540"/>
+        <location filename="efxeditor.ui" line="528"/>
         <source>Run the pattern forwards</source>
         <translation>Executar el patró endavant</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="531"/>
         <source>Forward</source>
         <translation>Endavant</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="553"/>
+        <location filename="efxeditor.ui" line="541"/>
         <source>Run the pattern backwards</source>
         <translation>Executar el patró Enrere</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="556"/>
+        <location filename="efxeditor.ui" line="544"/>
         <source>Backward</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="582"/>
+        <location filename="efxeditor.ui" line="570"/>
         <source>Run order</source>
         <translation>Ordre d&apos;Execució</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="588"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run through over and over again</source>
         <translation>Executar una i un altre vegada</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="579"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="589"/>
         <source>Run through once and stop</source>
         <translation>Executar una vegada i aturar</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="592"/>
         <source>Single shot</source>
         <translation>Una sola vegada</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="611"/>
+        <location filename="efxeditor.ui" line="599"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Primer executar endavant, després enrere, un altre vegada endavant, etc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="614"/>
+        <location filename="efxeditor.ui" line="602"/>
         <source>Ping pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="646"/>
+        <location filename="efxeditor.ui" line="634"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="649"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="efxeditor.ui" line="675"/>
+        <location filename="efxeditor.ui" line="660"/>
         <source>EFX name</source>
         <translation>Nom del EFX</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="682"/>
+        <location filename="efxeditor.ui" line="667"/>
         <source>The name of the function being edited</source>
         <translation>Nom de la funció que s&apos;està editant</translation>
     </message>
@@ -2145,40 +2131,33 @@ Duració: %3
         <translation>Treure el fixture/capçal seleccionat</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="42"/>
-        <location filename="fixturegroupeditor.ui" line="122"/>
-        <location filename="fixturegroupeditor.ui" line="142"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="fixturegroupeditor.ui" line="72"/>
+        <location filename="fixturegroupeditor.ui" line="69"/>
         <source>Width</source>
         <translation>Ample</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="79"/>
-        <location filename="fixturegroupeditor.ui" line="109"/>
+        <location filename="fixturegroupeditor.ui" line="76"/>
+        <location filename="fixturegroupeditor.ui" line="106"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="89"/>
+        <location filename="fixturegroupeditor.ui" line="86"/>
         <source>Height</source>
         <translation>Alçada</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="119"/>
+        <location filename="fixturegroupeditor.ui" line="116"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
         <translation>Afegir/reemplaçar fixture a la fila actual, començant per la cel·la seleccionada</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="139"/>
+        <location filename="fixturegroupeditor.ui" line="133"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation>Afegir/reemplaçar fixtures a la columna actual, començant per la cel·la seleccionada</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="167"/>
+        <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Fixture group name</source>
         <translation>Nom del Grup de Fixtures</translation>
     </message>
@@ -2431,35 +2410,30 @@ Duració: %3
         <translation>Desconnectar seleccions...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="113"/>
-        <source>...</source>
-        <translation>...</translation>
+        <location filename="fixtureremap.ui" line="265"/>
+        <source>Destination project name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="164"/>
+        <location filename="fixtureremap.ui" line="161"/>
         <source>Remapped Fixtures</source>
         <translation>Fixtures reassignats</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="169"/>
-        <location filename="fixtureremap.ui" line="201"/>
+        <location filename="fixtureremap.ui" line="166"/>
+        <location filename="fixtureremap.ui" line="198"/>
         <source>Address</source>
         <translation>Adreça</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="196"/>
+        <location filename="fixtureremap.ui" line="193"/>
         <source>Source Fixtures</source>
         <translation>Fixtures d&apos;origen</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="256"/>
+        <location filename="fixtureremap.ui" line="253"/>
         <source>Remap fixture names</source>
         <translation>Reassignar nom de fixtures</translation>
-    </message>
-    <message>
-        <location filename="fixtureremap.ui" line="268"/>
-        <source>Destination project name:</source>
-        <translation>Nom del projecte de destí:</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="115"/>
@@ -3560,8 +3534,9 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="monitor.cpp" line="363"/>
-        <source>Universe:</source>
-        <translation>Univers:</translation>
+        <source>Universe</source>
+        <oldsource>Universe:</oldsource>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="368"/>
@@ -3575,8 +3550,9 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="monitor.cpp" line="396"/>
-        <source>Size:</source>
-        <translation>Mida:</translation>
+        <source>Size</source>
+        <oldsource>Size:</oldsource>
+        <translation>Mida</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="420"/>
@@ -3623,8 +3599,9 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
-        <source>Gel color:</source>
-        <translation>Color del filtre:</translation>
+        <source>Gel color</source>
+        <oldsource>Gel color:</oldsource>
+        <translation>Color del filtre</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
@@ -3633,18 +3610,21 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
-        <source>Vertical:</source>
-        <translation>Vertical:</translation>
+        <source>Vertical</source>
+        <oldsource>Vertical:</oldsource>
+        <translation>Vertical</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
-        <source>Horizontal:</source>
-        <translation>Horitzontal:</translation>
+        <source>Horizontal</source>
+        <oldsource>Horizontal:</oldsource>
+        <translation>Horitzontal</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
-        <source>Rotation:</source>
-        <translation>Rotació:</translation>
+        <source>Rotation</source>
+        <oldsource>Rotation:</oldsource>
+        <translation>Rotació</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
@@ -3990,12 +3970,12 @@ Durada: %3
         <translation>Patró</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="77"/>
+        <location filename="rgbmatrixeditor.ui" line="74"/>
         <source>The RGB matrix pattern</source>
         <translation>Patró de la matriu RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="64"/>
+        <location filename="rgbmatrixeditor.ui" line="61"/>
         <source>Matrix start colour</source>
         <translation>Color d&apos;inici de la matriu</translation>
     </message>
@@ -4005,26 +3985,19 @@ Durada: %3
         <translation>Color final de la matriu</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="87"/>
+        <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Animated Text</source>
         <translation>Texte animat</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="99"/>
+        <location filename="rgbmatrixeditor.ui" line="96"/>
         <source>Text to display</source>
         <translation>Text a mostrar</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="106"/>
+        <location filename="rgbmatrixeditor.ui" line="103"/>
         <source>Choose the font</source>
         <translation>Escolliu una font</translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="53"/>
-        <location filename="rgbmatrixeditor.ui" line="109"/>
-        <location filename="rgbmatrixeditor.ui" line="152"/>
-        <source>...</source>
-        <translation>...</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
@@ -4032,137 +4005,137 @@ Durada: %3
         <translation>Restablir el color final</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="126"/>
+        <location filename="rgbmatrixeditor.ui" line="123"/>
         <source>Animation style</source>
         <translation>Estil de la animació</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="136"/>
+        <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>Image</source>
         <translation>Imatge</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="175"/>
+        <location filename="rgbmatrixeditor.ui" line="172"/>
         <source>Offset</source>
         <translation>Desfasament</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="181"/>
+        <location filename="rgbmatrixeditor.ui" line="178"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="188"/>
+        <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Desplaça el patró X pixels horitzontalment</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="201"/>
+        <location filename="rgbmatrixeditor.ui" line="198"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="208"/>
+        <location filename="rgbmatrixeditor.ui" line="205"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Desplaça el patró Y pixels verticalment</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="251"/>
+        <location filename="rgbmatrixeditor.ui" line="248"/>
         <source>Direction</source>
         <translation>Direcció</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="257"/>
+        <location filename="rgbmatrixeditor.ui" line="254"/>
         <source>Start from the first step</source>
         <translation>Començar des de el primer pas</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="260"/>
+        <location filename="rgbmatrixeditor.ui" line="257"/>
         <source>Forward</source>
         <translation>Endavant</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="270"/>
+        <location filename="rgbmatrixeditor.ui" line="267"/>
         <source>Start from the last step</source>
         <translation>Començar des de el darrer pas</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="273"/>
+        <location filename="rgbmatrixeditor.ui" line="270"/>
         <source>Backward</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="305"/>
+        <location filename="rgbmatrixeditor.ui" line="302"/>
         <source>Run Order</source>
         <translation>Ordre d&apos;Execució</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="311"/>
+        <location filename="rgbmatrixeditor.ui" line="308"/>
         <source>Run through over and over again</source>
         <translation>Executar una i un altre vegada</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="314"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="324"/>
+        <location filename="rgbmatrixeditor.ui" line="321"/>
         <source>Run through once and stop</source>
         <translation>Executar una vegada i aturar</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="327"/>
+        <location filename="rgbmatrixeditor.ui" line="324"/>
         <source>Single Shot</source>
         <translation>Una sola vegada</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="334"/>
+        <location filename="rgbmatrixeditor.ui" line="331"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Primer executar endavant, després enrere, un altre vegada endavant, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="337"/>
+        <location filename="rgbmatrixeditor.ui" line="334"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="347"/>
+        <location filename="rgbmatrixeditor.ui" line="344"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Veure el que fa la Matriu RGB al ser executada</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="350"/>
+        <location filename="rgbmatrixeditor.ui" line="347"/>
         <source>Test Run</source>
         <translation>Executar Test</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="368"/>
+        <location filename="rgbmatrixeditor.ui" line="365"/>
         <source>RGB matrix name</source>
         <translation>Nom de la Matriu RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="381"/>
+        <location filename="rgbmatrixeditor.ui" line="378"/>
         <source>The name of this RGB matrix function</source>
         <translation>Nom de aquesta matriu RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="392"/>
+        <location filename="rgbmatrixeditor.ui" line="389"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="412"/>
+        <location filename="rgbmatrixeditor.ui" line="409"/>
         <source>Save this matrix to a sequence</source>
         <translation>Desar aquesta matriu a una seqüència</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="438"/>
+        <location filename="rgbmatrixeditor.ui" line="435"/>
         <source>Fixture group</source>
         <translation>Grup de fixtures</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="451"/>
+        <location filename="rgbmatrixeditor.ui" line="448"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>El grup de fixtures que s&apos;emprarà com a pixel de la matriu</translation>
     </message>
@@ -4202,46 +4175,38 @@ Durada: %3
         <translation>Desactivar tots els grups de canals</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="70"/>
-        <location filename="sceneeditor.ui" line="110"/>
-        <location filename="sceneeditor.ui" line="220"/>
-        <location filename="sceneeditor.ui" line="240"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="sceneeditor.ui" line="87"/>
+        <location filename="sceneeditor.ui" line="84"/>
         <source>Add a new fixture to this scene</source>
         <translation>Afegir un nou fixture a aquesta Escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="107"/>
+        <location filename="sceneeditor.ui" line="101"/>
         <source>Enable all channel groups</source>
         <translatorcomment>Tenc dubtes entre Activar o Habilitar</translatorcomment>
         <translation>Activar tot els grups de canals</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="152"/>
+        <location filename="sceneeditor.ui" line="143"/>
         <source>Fixtures used in this scene</source>
         <translation>Fixtures emprats a aquesta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="160"/>
+        <location filename="sceneeditor.ui" line="151"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Eliminar els fixtures seleccionats de aquesta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="202"/>
+        <location filename="sceneeditor.ui" line="190"/>
         <source>Channel groups used in this scene</source>
         <translation>Grups de canals emprats a aquesta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="217"/>
+        <location filename="sceneeditor.ui" line="205"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Desactivar tots el canals de tots els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="237"/>
+        <location filename="sceneeditor.ui" line="222"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Activar tots els canals de totos els fixtures</translation>
     </message>
@@ -4368,32 +4333,23 @@ Durada: %3
         <translation>Afegir un nou comandament a la posició actual del cursor</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="49"/>
-        <location filename="scripteditor.ui" line="82"/>
-        <location filename="scripteditor.ui" line="102"/>
-        <location filename="scripteditor.ui" line="122"/>
-        <location filename="scripteditor.ui" line="149"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="scripteditor.ui" line="79"/>
+        <location filename="scripteditor.ui" line="76"/>
         <source>Cut selected text to clipboard</source>
         <translatorcomment>portapapers o porta-retalls. Tenc dubtes. Deix de moment porta-retalls</translatorcomment>
         <translation>Tallar el texte seleccionat al porta-retalls</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="99"/>
+        <location filename="scripteditor.ui" line="93"/>
         <source>Copy selected text to clipboard</source>
         <translation>Copiar el texte seleccionat al porta-retalls</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="119"/>
+        <location filename="scripteditor.ui" line="110"/>
         <source>Paste text from clipboard at cursor</source>
         <translation>Enganxar el texte del porta-retalls a el cursor</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="146"/>
+        <location filename="scripteditor.ui" line="134"/>
         <source>Undo</source>
         <translation>Desfer</translation>
     </message>
@@ -5066,11 +5022,6 @@ Durada: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="94"/>
-        <source>.00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="vcbuttonproperties.ui" line="126"/>
         <source>Key combination</source>
         <translation>Combinació de tecles</translation>
@@ -5345,198 +5296,192 @@ Durada: %3
         <translation>Triar la funció chaser per emprar com a pasos de la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="77"/>
-        <location filename="vccuelistproperties.ui" line="97"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="vccuelistproperties.ui" line="94"/>
+        <location filename="vccuelistproperties.ui" line="91"/>
         <source>Detach current chaser from the cue list</source>
         <translation>Desviincular el chaser actual de la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="128"/>
+        <location filename="vccuelistproperties.ui" line="122"/>
         <source>Playback</source>
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="134"/>
-        <location filename="vccuelistproperties.ui" line="286"/>
-        <location filename="vccuelistproperties.ui" line="438"/>
+        <location filename="vccuelistproperties.ui" line="128"/>
+        <location filename="vccuelistproperties.ui" line="274"/>
+        <location filename="vccuelistproperties.ui" line="420"/>
         <source>Key Combination</source>
         <translation>Combinació de Tecles</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="134"/>
         <source>The key combination used to stop the cue list</source>
         <translation>La combinació de tecles emprada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="144"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Vincular una combinació de tecles per aturar la llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="170"/>
-        <location filename="vccuelistproperties.ui" line="322"/>
-        <location filename="vccuelistproperties.ui" line="474"/>
+        <location filename="vccuelistproperties.ui" line="161"/>
+        <location filename="vccuelistproperties.ui" line="307"/>
+        <location filename="vccuelistproperties.ui" line="453"/>
         <source>Clear the key binding</source>
         <translation>Esborrar el vincle de tecles</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="193"/>
-        <location filename="vccuelistproperties.ui" line="345"/>
-        <location filename="vccuelistproperties.ui" line="497"/>
+        <location filename="vccuelistproperties.ui" line="181"/>
+        <location filename="vccuelistproperties.ui" line="327"/>
+        <location filename="vccuelistproperties.ui" line="473"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="199"/>
-        <location filename="vccuelistproperties.ui" line="351"/>
-        <location filename="vccuelistproperties.ui" line="503"/>
-        <location filename="vccuelistproperties.ui" line="596"/>
-        <location filename="vccuelistproperties.ui" line="669"/>
+        <location filename="vccuelistproperties.ui" line="187"/>
+        <location filename="vccuelistproperties.ui" line="333"/>
+        <location filename="vccuelistproperties.ui" line="479"/>
+        <location filename="vccuelistproperties.ui" line="572"/>
+        <location filename="vccuelistproperties.ui" line="645"/>
         <source>Input universe</source>
         <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
-        <location filename="vccuelistproperties.ui" line="603"/>
-        <location filename="vccuelistproperties.ui" line="676"/>
+        <location filename="vccuelistproperties.ui" line="194"/>
+        <location filename="vccuelistproperties.ui" line="579"/>
+        <location filename="vccuelistproperties.ui" line="652"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Univers d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="213"/>
-        <location filename="vccuelistproperties.ui" line="365"/>
-        <location filename="vccuelistproperties.ui" line="517"/>
-        <location filename="vccuelistproperties.ui" line="610"/>
-        <location filename="vccuelistproperties.ui" line="683"/>
+        <location filename="vccuelistproperties.ui" line="201"/>
+        <location filename="vccuelistproperties.ui" line="347"/>
+        <location filename="vccuelistproperties.ui" line="493"/>
+        <location filename="vccuelistproperties.ui" line="586"/>
+        <location filename="vccuelistproperties.ui" line="659"/>
         <source>Input channel</source>
         <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
-        <location filename="vccuelistproperties.ui" line="617"/>
-        <location filename="vccuelistproperties.ui" line="690"/>
+        <location filename="vccuelistproperties.ui" line="208"/>
+        <location filename="vccuelistproperties.ui" line="593"/>
+        <location filename="vccuelistproperties.ui" line="666"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Canal d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
-        <location filename="vccuelistproperties.ui" line="637"/>
-        <location filename="vccuelistproperties.ui" line="710"/>
+        <location filename="vccuelistproperties.ui" line="228"/>
+        <location filename="vccuelistproperties.ui" line="613"/>
+        <location filename="vccuelistproperties.ui" line="686"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Si està actiu, pot premer un botó extern per assignar-lo com a control que atura la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="243"/>
-        <location filename="vccuelistproperties.ui" line="395"/>
-        <location filename="vccuelistproperties.ui" line="547"/>
-        <location filename="vccuelistproperties.ui" line="640"/>
-        <location filename="vccuelistproperties.ui" line="713"/>
+        <location filename="vccuelistproperties.ui" line="231"/>
+        <location filename="vccuelistproperties.ui" line="377"/>
+        <location filename="vccuelistproperties.ui" line="523"/>
+        <location filename="vccuelistproperties.ui" line="616"/>
+        <location filename="vccuelistproperties.ui" line="689"/>
         <source>Auto Detect</source>
         <translation>Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
-        <location filename="vccuelistproperties.ui" line="650"/>
-        <location filename="vccuelistproperties.ui" line="723"/>
+        <location filename="vccuelistproperties.ui" line="241"/>
+        <location filename="vccuelistproperties.ui" line="626"/>
+        <location filename="vccuelistproperties.ui" line="699"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
         <translation>Triar un univers/canal d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="256"/>
-        <location filename="vccuelistproperties.ui" line="408"/>
-        <location filename="vccuelistproperties.ui" line="560"/>
-        <location filename="vccuelistproperties.ui" line="653"/>
-        <location filename="vccuelistproperties.ui" line="726"/>
+        <location filename="vccuelistproperties.ui" line="244"/>
+        <location filename="vccuelistproperties.ui" line="390"/>
+        <location filename="vccuelistproperties.ui" line="536"/>
+        <location filename="vccuelistproperties.ui" line="629"/>
+        <location filename="vccuelistproperties.ui" line="702"/>
         <source>Choose...</source>
         <translation>Triar...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="268"/>
         <source>Next Cue</source>
         <translation>Següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>The key combination used to step to the next cue</source>
         <translation>La combinació de tecles emprada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="290"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Vinculer la combinació de tecles emprada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="340"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Univers d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="354"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Canal d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="374"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Si està activat, pot pressionar  un botó per assignar-lo com a control que salta al següent Cue.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="387"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Triar un univers/canl d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
+        <location filename="vccuelistproperties.ui" line="414"/>
         <source>Previous Cue</source>
         <translation>Cue anterior</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="426"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>la combinació de tecles emprada per pasar al següent Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="436"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Vincular una combinació de tecles per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="486"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Univers d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="500"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Canal d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="520"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Si està actiu, pot pressionar un botó extern per assignar-lo com a control que salta al Cue anterior.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="533"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Triar un univers/canal d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="584"/>
+        <location filename="vccuelistproperties.ui" line="560"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="590"/>
+        <location filename="vccuelistproperties.ui" line="566"/>
         <source>Left Slider</source>
         <translation>Slider Esquerre</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="663"/>
+        <location filename="vccuelistproperties.ui" line="639"/>
         <source>Right Slider</source>
         <translation>Slider Dret</translation>
     </message>
@@ -5785,60 +5730,57 @@ Durada: %3
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
-        <source>Speed dial value:</source>
-        <translation>Valor del selector ràpid:</translation>
-    </message>
-    <message>
-        <location filename="vcproperties.ui" line="195"/>
-        <location filename="vcproperties.ui" line="218"/>
-        <location filename="vcproperties.ui" line="270"/>
-        <location filename="vcproperties.ui" line="300"/>
-        <location filename="vcproperties.ui" line="386"/>
-        <location filename="vcproperties.ui" line="393"/>
-        <location filename="vcproperties.ui" line="400"/>
-        <location filename="vcproperties.ui" line="556"/>
-        <source>x</source>
-        <translation>x</translation>
+        <source>Speed dial value</source>
+        <oldsource>Speed dial value:</oldsource>
+        <translation>Valor del selector ràpid</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="225"/>
-        <source>XY Pad size:</source>
-        <translation>Mida del XY Pad:</translation>
+        <source>XY Pad size</source>
+        <oldsource>XY Pad size:</oldsource>
+        <translation>Mida del XY Pad</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
-        <source>Slider size:</source>
-        <translation>Mida del Slider:</translation>
+        <source>Slider size</source>
+        <oldsource>Slider size:</oldsource>
+        <translation>Mida del Slider</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="423"/>
-        <source>Frame size:</source>
-        <translation>Mida del Marc:</translation>
+        <source>Frame size</source>
+        <oldsource>Frame size:</oldsource>
+        <translation>Mida del Marc</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="430"/>
-        <source>Speed dial size:</source>
-        <translation>Mida del selector ràpid:</translation>
+        <source>Speed dial size</source>
+        <oldsource>Speed dial size:</oldsource>
+        <translation>Mida del selector ràpid</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="485"/>
-        <source>Solo frame size:</source>
-        <translation>Mida del marc Solo:</translation>
+        <source>Solo frame size</source>
+        <oldsource>Solo frame size:</oldsource>
+        <translation>Mida del marc Solo</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="492"/>
-        <source>Cue List size:</source>
-        <translation>Mida de la Llista Cue:</translation>
+        <source>Cue List size</source>
+        <oldsource>Cue List size:</oldsource>
+        <translation>Mida de la Llista Cue</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="499"/>
-        <source>Button size:</source>
-        <translation>Mida del Botó:</translation>
+        <source>Button size</source>
+        <oldsource>Button size:</oldsource>
+        <translation>Mida del Botó</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="506"/>
-        <source>Button status style:</source>
-        <translation>Estil del estat del botó:</translation>
+        <source>Button status style</source>
+        <oldsource>Button status style:</oldsource>
+        <translation>Estil del estat del botó</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="513"/>
@@ -5852,8 +5794,9 @@ Durada: %3
     </message>
     <message>
         <location filename="vcproperties.ui" line="533"/>
-        <source>Audio triggers size:</source>
-        <translation>Disparador d&apos;Àudio:</translation>
+        <source>Audio triggers size</source>
+        <oldsource>Audio triggers size:</oldsource>
+        <translation>Disparador d&apos;Àudio</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -6335,153 +6278,147 @@ Durada: %3
         <translation>Propietats del selector ràpid</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="20"/>
+        <location filename="vcspeeddialproperties.ui" line="24"/>
         <source>Speed Dial Name</source>
         <translation>Nom del selector ràpid</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="27"/>
+        <location filename="vcspeeddialproperties.ui" line="31"/>
         <source>Title of the dial</source>
         <translation>Títol del Selector Ràpid</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="38"/>
+        <location filename="vcspeeddialproperties.ui" line="42"/>
         <source>Functions</source>
         <translation>Funcions</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="44"/>
+        <location filename="vcspeeddialproperties.ui" line="48"/>
         <source>Functions whose speed is controlled by the dial</source>
         <translation>Funcions de qui la velocitat es controlada per el Selector</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="72"/>
+        <location filename="vcspeeddialproperties.ui" line="76"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="80"/>
+        <location filename="vcspeeddialproperties.ui" line="84"/>
         <source>Add functions to be controlled</source>
         <translation>Afegir funcions per ser controlades</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="83"/>
-        <location filename="vcspeeddialproperties.ui" line="103"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="vcspeeddialproperties.ui" line="100"/>
+        <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Remove selected functions</source>
         <translation>Treure les funcions seleccionades</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="133"/>
+        <location filename="vcspeeddialproperties.ui" line="131"/>
         <source>Speeds to Adjust</source>
         <translation>Velocitats per ajustar</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="139"/>
+        <location filename="vcspeeddialproperties.ui" line="137"/>
         <source>Adjust selected functions&apos; fade in speed</source>
         <translation>Ajustar la velocitat de Fade In de las funcions seleccionades</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="142"/>
+        <location filename="vcspeeddialproperties.ui" line="140"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="149"/>
+        <location filename="vcspeeddialproperties.ui" line="147"/>
         <source>Adjust selected functions&apos; fade out speed</source>
         <translation>Ajustar la velocitat de Fade Out de las funcions seleccionades</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="152"/>
+        <location filename="vcspeeddialproperties.ui" line="150"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="159"/>
+        <location filename="vcspeeddialproperties.ui" line="157"/>
         <source>Adjust selected functions&apos; duration</source>
         <translation>Ajustar la durada de les funcions seleccionades</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="162"/>
+        <location filename="vcspeeddialproperties.ui" line="160"/>
         <source>Duration (+ tap)</source>
         <translation>Durada (+tap)</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="186"/>
+        <location filename="vcspeeddialproperties.ui" line="184"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="192"/>
+        <location filename="vcspeeddialproperties.ui" line="190"/>
         <source>Absolute Value</source>
         <translation>Valor absolut</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="198"/>
-        <location filename="vcspeeddialproperties.ui" line="285"/>
+        <location filename="vcspeeddialproperties.ui" line="196"/>
+        <location filename="vcspeeddialproperties.ui" line="283"/>
         <source>Input Universe</source>
         <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="212"/>
-        <location filename="vcspeeddialproperties.ui" line="295"/>
+        <location filename="vcspeeddialproperties.ui" line="210"/>
+        <location filename="vcspeeddialproperties.ui" line="293"/>
         <source>Input Channel</source>
         <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="226"/>
-        <location filename="vcspeeddialproperties.ui" line="305"/>
+        <location filename="vcspeeddialproperties.ui" line="224"/>
+        <location filename="vcspeeddialproperties.ui" line="303"/>
         <source>Auto Detect</source>
         <translation>Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="236"/>
-        <location filename="vcspeeddialproperties.ui" line="315"/>
+        <location filename="vcspeeddialproperties.ui" line="234"/>
+        <location filename="vcspeeddialproperties.ui" line="313"/>
         <source>Choose...</source>
         <translation>Triar...</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="243"/>
+        <location filename="vcspeeddialproperties.ui" line="241"/>
         <source>Range</source>
         <translation>Rang</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="250"/>
-        <location filename="vcspeeddialproperties.ui" line="257"/>
+        <location filename="vcspeeddialproperties.ui" line="248"/>
+        <location filename="vcspeeddialproperties.ui" line="255"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="273"/>
+        <location filename="vcspeeddialproperties.ui" line="271"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="279"/>
+        <location filename="vcspeeddialproperties.ui" line="277"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="325"/>
+        <location filename="vcspeeddialproperties.ui" line="323"/>
         <source>Key combination</source>
         <translation>Combinació de tecles</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="331"/>
+        <location filename="vcspeeddialproperties.ui" line="329"/>
         <source>Keyboard combination to control the dial tap</source>
         <translation>Combinació de tecles que controla el Tap del selector</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="341"/>
+        <location filename="vcspeeddialproperties.ui" line="339"/>
         <source>Set a key combination for this dial</source>
         <translation>Seleccionar una combinació de tecles per aquest selector</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="361"/>
+        <location filename="vcspeeddialproperties.ui" line="359"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Treure la drecera de teclat per aquest Selector</translation>
     </message>
@@ -6741,38 +6678,39 @@ Durada: %3
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
-        <source>Video name:</source>
-        <translation>Nom del vídeo:</translation>
+        <source>Video name</source>
+        <oldsource>Video name:</oldsource>
+        <translation>Nom del vídeo</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
-        <source>File name:</source>
-        <translation>Nom del arxiu:</translation>
+        <source>File name</source>
+        <oldsource>File name:</oldsource>
+        <translation>Nom del arxiu</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="45"/>
-        <source>Duration:</source>
-        <translation>Durada:</translation>
-    </message>
-    <message>
-        <location filename="videoeditor.ui" line="52"/>
-        <source>...</source>
-        <translation>...</translation>
+        <source>Duration</source>
+        <oldsource>Duration:</oldsource>
+        <translation>Durada</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="59"/>
-        <source>Resolution:</source>
-        <translation>Resolució:</translation>
+        <source>Resolution</source>
+        <oldsource>Resolution:</oldsource>
+        <translation>Resolució</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
-        <source>Audio codec:</source>
-        <translation>Códec d&apos;Àudio:</translation>
+        <source>Audio codec</source>
+        <oldsource>Audio codec:</oldsource>
+        <translation>Códec d&apos;Àudio</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
-        <source>Video codec:</source>
-        <translation>Códec de Vídeo:</translation>
+        <source>Video codec</source>
+        <oldsource>Video codec:</oldsource>
+        <translation>Códec de Vídeo</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
@@ -6786,8 +6724,9 @@ Durada: %3
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
-        <source>Output Screen:</source>
-        <translation>Pantalla de Sortida:</translation>
+        <source>Output Screen</source>
+        <oldsource>Output Screen:</oldsource>
+        <translation>Pantalla de Sortida</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>

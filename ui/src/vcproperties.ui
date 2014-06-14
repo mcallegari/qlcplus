@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="Layout">
       <attribute name="title">
@@ -185,14 +185,14 @@
           <item row="4" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>Speed dial value:</string>
+             <string>Speed dial value</string>
             </property>
            </widget>
           </item>
           <item row="3" column="2">
            <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
@@ -215,14 +215,14 @@
           <item row="2" column="2">
            <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_10">
             <property name="text">
-             <string>XY Pad size:</string>
+             <string>XY Pad size</string>
             </property>
            </widget>
           </item>
@@ -267,14 +267,14 @@
           <item row="8" column="2">
            <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Slider size:</string>
+             <string>Slider size</string>
             </property>
            </widget>
           </item>
@@ -297,7 +297,7 @@
           <item row="6" column="2">
            <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
@@ -383,21 +383,21 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
           <item row="7" column="2">
            <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
           <item row="5" column="2">
            <widget class="QLabel" name="label_11">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
@@ -420,14 +420,14 @@
           <item row="7" column="0">
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>Frame size:</string>
+             <string>Frame size</string>
             </property>
            </widget>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Speed dial size:</string>
+             <string>Speed dial size</string>
             </property>
            </widget>
           </item>
@@ -482,28 +482,28 @@
           <item row="8" column="0">
            <widget class="QLabel" name="label_16">
             <property name="text">
-             <string>Solo frame size:</string>
+             <string>Solo frame size</string>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_12">
             <property name="text">
-             <string>Cue List size:</string>
+             <string>Cue List size</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Button size:</string>
+             <string>Button size</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_19">
             <property name="text">
-             <string>Button status style:</string>
+             <string>Button status style</string>
             </property>
            </widget>
           </item>
@@ -530,7 +530,7 @@
           <item row="9" column="0">
            <widget class="QLabel" name="label_20">
             <property name="text">
-             <string>Audio triggers size:</string>
+             <string>Audio triggers size</string>
             </property>
            </widget>
           </item>
@@ -553,7 +553,7 @@
           <item row="9" column="2">
            <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>

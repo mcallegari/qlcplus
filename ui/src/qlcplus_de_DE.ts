@@ -129,8 +129,9 @@
     </message>
     <message>
         <location filename="addfixture.ui" line="265"/>
-        <source>Quick search:</source>
-        <translation>Schnellsuche:</translation>
+        <source>Quick search</source>
+        <oldsource>Quick search:</oldsource>
+        <translation>Schnellsuche</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="282"/>
@@ -173,9 +174,9 @@
         <translation>Die Startadresse vom (ersten) hinzugefügten Gerät</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="180"/>
+        <location filename="addfixture.ui" line="176"/>
         <source>Address Tool</source>
-        <translation type="unfinished">Adress-Werkzeug</translation>
+        <translation>Adress-Werkzeug</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -247,8 +248,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="229"/>
-        <source>Universe:</source>
-        <translation>Universum:</translation>
+        <source>Universe</source>
+        <oldsource>Universe:</oldsource>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="236"/>
@@ -257,13 +259,15 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="243"/>
-        <source>Name:</source>
-        <translation>Name:</translation>
+        <source>Name</source>
+        <oldsource>Name:</oldsource>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="253"/>
-        <source>Address:</source>
-        <translation>Adresse:</translation>
+        <source>Address</source>
+        <oldsource>Address:</oldsource>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="270"/>
@@ -277,23 +281,21 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
-        <source>Columns:</source>
-        <translation>Spalten:</translation>
+        <source>Columns</source>
+        <oldsource>Columns:</oldsource>
+        <translation>Spalten</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
-        <source>Rows:</source>
-        <translation>Zeilen:</translation>
+        <source>Rows</source>
+        <oldsource>Rows:</oldsource>
+        <translation>Zeilen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
-        <source>Total pixels:</source>
-        <translation>Summe Pixel:</translation>
-    </message>
-    <message>
-        <location filename="addrgbpanel.ui" line="85"/>
-        <source>100</source>
-        <translation>100</translation>
+        <source>Total pixels</source>
+        <oldsource>Total pixels:</oldsource>
+        <translation>Summe Pixel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="97"/>
@@ -327,8 +329,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
-        <source>Width:</source>
-        <translation>Breite:</translation>
+        <source>Width</source>
+        <oldsource>Width:</oldsource>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
@@ -338,8 +341,9 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="187"/>
-        <source>Height:</source>
-        <translation>Höhe:</translation>
+        <source>Height</source>
+        <oldsource>Height:</oldsource>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="282"/>
@@ -713,7 +717,7 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
     <message>
         <location filename="app.cpp" line="1219"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation>Beim Laden des Projekts sind einige Fehler aufgetreten</translation>
+        <translation>Beim Laden des Projekts sind einige Fehler aufgetreten:</translation>
     </message>
     <message>
         <location filename="app.cpp" line="356"/>
@@ -950,11 +954,6 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="audioeditor.ui" line="101"/>
         <source>Audio name</source>
         <translation>Audioname</translation>
-    </message>
-    <message>
-        <location filename="audioeditor.ui" line="115"/>
-        <source>...</source>
-        <translation>...</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
@@ -1280,7 +1279,7 @@ Dauer: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
@@ -1288,12 +1287,12 @@ Dauer: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="164"/>
+        <location filename="channelmodifiereditor.cpp" line="169"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="165"/>
+        <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1308,13 +1307,13 @@ Dauer: %3
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
-        <location filename="channelsselection.cpp" line="49"/>
+        <location filename="channelsselection.cpp" line="50"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="33"/>
-        <location filename="channelsselection.cpp" line="49"/>
+        <location filename="channelsselection.cpp" line="50"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -1324,32 +1323,32 @@ Dauer: %3
         <translation>Änderungen auf Geräte gleichen Typs übernehmen</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="53"/>
+        <location filename="channelsselection.cpp" line="54"/>
         <source>Selected</source>
         <translation>Ausgewählt</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="57"/>
+        <location filename="channelsselection.cpp" line="58"/>
         <source>Channel properties configuration</source>
         <translation>Einstellung der Kanaleigenschaften</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Can fade</source>
         <translation>Kann faden</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Behaviour</source>
         <translation>Verhalten</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="59"/>
+        <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="117"/>
+        <location filename="channelsselection.cpp" line="118"/>
         <source>Universe %1</source>
         <translation>Universum %1</translation>
     </message>
@@ -1362,248 +1361,240 @@ Dauer: %3
         <translation>Chaser Editor</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="117"/>
+        <location filename="chasereditor.ui" line="123"/>
         <source>Chaser name</source>
         <translation>Chaser Name</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="130"/>
+        <location filename="chasereditor.ui" line="136"/>
         <source>Name of the chaser being edited</source>
         <translation>Name des zu bearbeitenden Chasers</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="51"/>
+        <location filename="chasereditor.ui" line="60"/>
         <source>Step</source>
         <translation>Schritt</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="56"/>
+        <location filename="chasereditor.ui" line="65"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="61"/>
+        <location filename="chasereditor.ui" line="70"/>
         <location filename="chasereditor.cpp" line="890"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="71"/>
+        <location filename="chasereditor.ui" line="80"/>
         <location filename="chasereditor.cpp" line="891"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="76"/>
+        <location filename="chasereditor.ui" line="85"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="695"/>
+        <location filename="chasereditor.ui" line="722"/>
         <source>Add step(s) to the current position</source>
         <translation>Schritte zur aktuellen Position hinzufügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="89"/>
+        <location filename="chasereditor.ui" line="98"/>
         <source>Remove the selected step</source>
         <translation>Ausgwählten Schritt entfernen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="715"/>
+        <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch oben schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="486"/>
+        <location filename="chasereditor.ui" line="537"/>
         <source>Lower the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch unten schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="528"/>
+        <location filename="chasereditor.ui" line="576"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="558"/>
-        <location filename="chasereditor.ui" line="578"/>
-        <location filename="chasereditor.ui" line="598"/>
-        <location filename="chasereditor.ui" line="618"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="chasereditor.ui" line="141"/>
+        <location filename="chasereditor.ui" line="147"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="66"/>
+        <location filename="chasereditor.ui" line="75"/>
         <location filename="chasereditor.cpp" line="892"/>
         <source>Hold</source>
         <translation>Halten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="81"/>
+        <location filename="chasereditor.ui" line="90"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="159"/>
+        <location filename="chasereditor.ui" line="174"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="162"/>
+        <location filename="chasereditor.ui" line="177"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="178"/>
+        <location filename="chasereditor.ui" line="193"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="181"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="194"/>
+        <location filename="chasereditor.ui" line="209"/>
         <source>Switch direction at both ends</source>
         <translation>Richtung an beiden Enden wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="204"/>
+        <location filename="chasereditor.ui" line="219"/>
         <source>Execute steps in random order</source>
         <translation>Schritte in zufälliger Reihenfolge ausführen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="207"/>
+        <location filename="chasereditor.ui" line="222"/>
         <source>Random</source>
         <translation>Zufällig</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="283"/>
+        <location filename="chasereditor.ui" line="307"/>
         <source>Fade In Speed</source>
         <translation>Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="301"/>
+        <location filename="chasereditor.ui" line="334"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Einblendzeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="304"/>
-        <location filename="chasereditor.ui" line="370"/>
-        <location filename="chasereditor.ui" line="439"/>
+        <location filename="chasereditor.ui" line="337"/>
+        <location filename="chasereditor.ui" line="412"/>
+        <location filename="chasereditor.ui" line="490"/>
         <source>Common</source>
         <translation>Gemeinsame</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="317"/>
+        <location filename="chasereditor.ui" line="350"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="320"/>
-        <location filename="chasereditor.ui" line="386"/>
-        <location filename="chasereditor.ui" line="458"/>
+        <location filename="chasereditor.ui" line="353"/>
+        <location filename="chasereditor.ui" line="428"/>
+        <location filename="chasereditor.ui" line="509"/>
         <source>Per Step</source>
         <translation>Pro Schritt</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="333"/>
+        <location filename="chasereditor.ui" line="366"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Für jede Funktion eine eigene Einblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="336"/>
-        <location filename="chasereditor.ui" line="402"/>
+        <location filename="chasereditor.ui" line="369"/>
+        <location filename="chasereditor.ui" line="444"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="349"/>
+        <location filename="chasereditor.ui" line="382"/>
         <source>Fade Out Speed</source>
         <translation>Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="367"/>
+        <location filename="chasereditor.ui" line="409"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="383"/>
+        <location filename="chasereditor.ui" line="425"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="399"/>
+        <location filename="chasereditor.ui" line="441"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Für jede Funktion eine eigene Ausblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="415"/>
+        <location filename="chasereditor.ui" line="457"/>
         <source>Step Duration</source>
         <translation>Schrittdauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="436"/>
+        <location filename="chasereditor.ui" line="487"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="455"/>
+        <location filename="chasereditor.ui" line="506"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="555"/>
+        <location filename="chasereditor.ui" line="603"/>
         <source>See what the chaser does when it is run</source>
         <translation>Chaservorschau</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="575"/>
+        <location filename="chasereditor.ui" line="620"/>
         <source>Stop the chaser if running</source>
         <translation>Den laufenden Chaser stoppen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="615"/>
+        <location filename="chasereditor.ui" line="654"/>
         <source>Skip to the next step</source>
         <translation>Zum nächsten Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="595"/>
+        <location filename="chasereditor.ui" line="637"/>
         <source>Skip to the previous step</source>
         <translation>Zum vorherigen Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="197"/>
+        <location filename="chasereditor.ui" line="212"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="217"/>
+        <location filename="chasereditor.ui" line="232"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="235"/>
+        <location filename="chasereditor.ui" line="259"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="238"/>
+        <location filename="chasereditor.ui" line="262"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="278"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="257"/>
+        <location filename="chasereditor.ui" line="281"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
@@ -1856,264 +1847,259 @@ Dauer: %3
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="675"/>
+        <location filename="efxeditor.ui" line="660"/>
         <source>EFX name</source>
         <translation>Effektname</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="682"/>
+        <location filename="efxeditor.ui" line="667"/>
         <source>The name of the function being edited</source>
         <translation>Der Name der Funktion die bearbeitet wird</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="201"/>
+        <location filename="efxeditor.ui" line="189"/>
         <source>Step</source>
         <translation>Schritt</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="206"/>
+        <location filename="efxeditor.ui" line="194"/>
         <source>Fixture</source>
         <translation>Gerät</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="211"/>
+        <location filename="efxeditor.ui" line="199"/>
         <source>Reverse</source>
         <translation>Umgekehrt</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="127"/>
+        <location filename="efxeditor.ui" line="115"/>
         <source>Fixture order</source>
         <translation>Geräteanordnung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="133"/>
+        <location filename="efxeditor.ui" line="121"/>
         <source>All fixtures move in parallel</source>
         <translation>Alle Geräte bewegen sich gleichzeitig</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="136"/>
+        <location filename="efxeditor.ui" line="124"/>
         <source>Parallel</source>
         <translation>Parallel (gleichzeitig)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="146"/>
+        <location filename="efxeditor.ui" line="134"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Das Muster zu jedem Gerät in einer sequenziellen Reihenfolge verbreiten</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="149"/>
+        <location filename="efxeditor.ui" line="137"/>
         <source>Serial</source>
         <translation>Seriell (nacheinander)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="230"/>
+        <location filename="efxeditor.ui" line="218"/>
         <source>Movement</source>
         <translation>Bewegung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="221"/>
+        <location filename="efxeditor.ui" line="209"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="216"/>
-        <location filename="efxeditor.ui" line="514"/>
+        <location filename="efxeditor.ui" line="204"/>
+        <location filename="efxeditor.ui" line="502"/>
         <source>Start Offset</source>
         <translation>Startabstand</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="156"/>
+        <location filename="efxeditor.ui" line="144"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Jedes Gerät fängt umgehend an sich zu bewegen mit einem Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="159"/>
+        <location filename="efxeditor.ui" line="147"/>
         <source>Asymmetric</source>
         <translation>Asymmetrisch</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="258"/>
+        <location filename="efxeditor.ui" line="246"/>
         <source>Pattern</source>
         <translation>Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="264"/>
+        <location filename="efxeditor.ui" line="252"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Figur für die Spiegel-/Kopfbewegung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="274"/>
+        <location filename="efxeditor.ui" line="262"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="303"/>
+        <location filename="efxeditor.ui" line="291"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="310"/>
+        <location filename="efxeditor.ui" line="298"/>
         <source>Value width of the pattern</source>
         <translation>Wert für die Breite der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="323"/>
+        <location filename="efxeditor.ui" line="311"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="330"/>
+        <location filename="efxeditor.ui" line="318"/>
         <source>Value height of the pattern</source>
         <translation>Wert für die Höhe der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="343"/>
+        <location filename="efxeditor.ui" line="331"/>
         <source>X offset</source>
         <translation>X-Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="350"/>
+        <location filename="efxeditor.ui" line="338"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Mittelpunkt auf der X-Achse der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="363"/>
+        <location filename="efxeditor.ui" line="351"/>
         <source>Y offset</source>
         <translation>Y-Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="370"/>
+        <location filename="efxeditor.ui" line="358"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Mittelpunkt auf der Y-Achse der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="383"/>
+        <location filename="efxeditor.ui" line="371"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="390"/>
+        <location filename="efxeditor.ui" line="378"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="393"/>
-        <location filename="efxeditor.ui" line="504"/>
+        <location filename="efxeditor.ui" line="381"/>
+        <location filename="efxeditor.ui" line="492"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="406"/>
+        <location filename="efxeditor.ui" line="394"/>
         <source>X frequency</source>
         <translation>x Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="416"/>
+        <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Lissajous Muster X-Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="432"/>
+        <location filename="efxeditor.ui" line="420"/>
         <source>Y frequency</source>
         <translation>y Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="442"/>
+        <location filename="efxeditor.ui" line="430"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Lissajous Muster Y-Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="458"/>
+        <location filename="efxeditor.ui" line="446"/>
         <source>X phase</source>
         <translation>x Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="481"/>
+        <location filename="efxeditor.ui" line="469"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Lissajous Muster X-Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="497"/>
+        <location filename="efxeditor.ui" line="485"/>
         <source>Y phase</source>
         <translation>y Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="646"/>
+        <location filename="efxeditor.ui" line="634"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="649"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="efxeditor.ui" line="283"/>
+        <location filename="efxeditor.ui" line="271"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Lissajous Muster X-Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="524"/>
+        <location filename="efxeditor.ui" line="512"/>
         <source>Relative</source>
         <translation>Relativ</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="534"/>
+        <location filename="efxeditor.ui" line="522"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="540"/>
+        <location filename="efxeditor.ui" line="528"/>
         <source>Run the pattern forwards</source>
         <translation>Die Figur vorwärts fahren</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="531"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="553"/>
+        <location filename="efxeditor.ui" line="541"/>
         <source>Run the pattern backwards</source>
         <translation>Die Figur rückwärts fahren</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="556"/>
+        <location filename="efxeditor.ui" line="544"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="582"/>
+        <location filename="efxeditor.ui" line="570"/>
         <source>Run order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="588"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="579"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="589"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="592"/>
         <source>Single shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="611"/>
+        <location filename="efxeditor.ui" line="599"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="614"/>
+        <location filename="efxeditor.ui" line="602"/>
         <source>Ping pong</source>
         <translation>Hin und Her</translation>
     </message>
@@ -2146,7 +2132,7 @@ Dauer: %3
         <translation>Gerätegruppen Editor</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="167"/>
+        <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Fixture group name</source>
         <translation>Gerätegruppenname</translation>
     </message>
@@ -2156,35 +2142,28 @@ Dauer: %3
         <translation>Ausgewähltes Gerät entfernen</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="42"/>
-        <location filename="fixturegroupeditor.ui" line="122"/>
-        <location filename="fixturegroupeditor.ui" line="142"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="fixturegroupeditor.ui" line="72"/>
+        <location filename="fixturegroupeditor.ui" line="69"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="79"/>
-        <location filename="fixturegroupeditor.ui" line="109"/>
+        <location filename="fixturegroupeditor.ui" line="76"/>
+        <location filename="fixturegroupeditor.ui" line="106"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="89"/>
+        <location filename="fixturegroupeditor.ui" line="86"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="119"/>
+        <location filename="fixturegroupeditor.ui" line="116"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
         <translation>Geräte zur aktuellen Zeile hinzufügen/entfernen, beginnend beim ausgewähltem Element</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="139"/>
+        <location filename="fixturegroupeditor.ui" line="133"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation>Geräte zur aktuellen Spalte hinzufügen/entfernen, beginnend beim ausgewähltem Element</translation>
     </message>
@@ -2440,35 +2419,30 @@ Dauer: %3
         <translation>Auswahl trennen...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="113"/>
-        <source>...</source>
-        <translation>...</translation>
+        <location filename="fixtureremap.ui" line="265"/>
+        <source>Destination project name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="164"/>
+        <location filename="fixtureremap.ui" line="161"/>
         <source>Remapped Fixtures</source>
         <translation>Neu zugewiesene Geräte</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="169"/>
-        <location filename="fixtureremap.ui" line="201"/>
+        <location filename="fixtureremap.ui" line="166"/>
+        <location filename="fixtureremap.ui" line="198"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="196"/>
+        <location filename="fixtureremap.ui" line="193"/>
         <source>Source Fixtures</source>
         <translation>Quellgeräte</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="256"/>
+        <location filename="fixtureremap.ui" line="253"/>
         <source>Remap fixture names</source>
         <translation>Gerätenamen neu zuweisen</translation>
-    </message>
-    <message>
-        <location filename="fixtureremap.ui" line="268"/>
-        <source>Destination project name:</source>
-        <translation>Zielname des Projekts:</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="115"/>
@@ -2524,7 +2498,7 @@ Dauer: %3
     <message>
         <location filename="fixtureremap.cpp" line="427"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
-        <translation>Zur Änderung der Gerätezuweisung bitte Geräte in beiden Listen auswählen</translation>
+        <translation>Zur Änderung der Gerätezuweisung bitte Geräte in beiden Listen auswählen.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="641"/>
@@ -3570,8 +3544,9 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="monitor.cpp" line="363"/>
-        <source>Universe:</source>
-        <translation>Universum:</translation>
+        <source>Universe</source>
+        <oldsource>Universe:</oldsource>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="368"/>
@@ -3585,8 +3560,9 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="monitor.cpp" line="396"/>
-        <source>Size:</source>
-        <translation>Größe:</translation>
+        <source>Size</source>
+        <oldsource>Size:</oldsource>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="420"/>
@@ -3633,8 +3609,9 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
-        <source>Gel color:</source>
-        <translation>Farbfilter:</translation>
+        <source>Gel color</source>
+        <oldsource>Gel color:</oldsource>
+        <translation>Farbfilter</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
@@ -3643,18 +3620,21 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
-        <source>Vertical:</source>
-        <translation>Vertikal:</translation>
+        <source>Vertical</source>
+        <oldsource>Vertical:</oldsource>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
-        <source>Horizontal:</source>
-        <translation>Horizontal:</translation>
+        <source>Horizontal</source>
+        <oldsource>Horizontal:</oldsource>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
-        <source>Rotation:</source>
-        <translation>Rotation:</translation>
+        <source>Rotation</source>
+        <oldsource>Rotation:</oldsource>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
@@ -3996,27 +3976,27 @@ Dauer: %3
         <translation>RGB Matrix Editor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="368"/>
+        <location filename="rgbmatrixeditor.ui" line="365"/>
         <source>RGB matrix name</source>
         <translation>RGB-Matrix-Name</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="381"/>
+        <location filename="rgbmatrixeditor.ui" line="378"/>
         <source>The name of this RGB matrix function</source>
         <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="412"/>
+        <location filename="rgbmatrixeditor.ui" line="409"/>
         <source>Save this matrix to a sequence</source>
         <translation>Diese Matrix als Sequenz speichern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="438"/>
+        <location filename="rgbmatrixeditor.ui" line="435"/>
         <source>Fixture group</source>
         <translation>Gerätegruppe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="451"/>
+        <location filename="rgbmatrixeditor.ui" line="448"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Diese Gerätegruppe als Pixel-Matrix verwenden</translation>
     </message>
@@ -4026,31 +4006,24 @@ Dauer: %3
         <translation>Figur/Muster</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="77"/>
+        <location filename="rgbmatrixeditor.ui" line="74"/>
         <source>The RGB matrix pattern</source>
         <translation>Die RGB-Matrix-Figur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="87"/>
+        <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Animated Text</source>
         <translation>Animierter Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="99"/>
+        <location filename="rgbmatrixeditor.ui" line="96"/>
         <source>Text to display</source>
         <translation>Anzuzeigender Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="106"/>
+        <location filename="rgbmatrixeditor.ui" line="103"/>
         <source>Choose the font</source>
         <translation>Schriftart auswählen</translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="53"/>
-        <location filename="rgbmatrixeditor.ui" line="109"/>
-        <location filename="rgbmatrixeditor.ui" line="152"/>
-        <source>...</source>
-        <translation>...</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
@@ -4058,82 +4031,82 @@ Dauer: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="126"/>
+        <location filename="rgbmatrixeditor.ui" line="123"/>
         <source>Animation style</source>
         <translation>Animationsstil</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="136"/>
+        <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="175"/>
+        <location filename="rgbmatrixeditor.ui" line="172"/>
         <source>Offset</source>
         <translation>Abstand</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="181"/>
+        <location filename="rgbmatrixeditor.ui" line="178"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="188"/>
+        <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Muster X Pixel horizontal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="201"/>
+        <location filename="rgbmatrixeditor.ui" line="198"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="208"/>
+        <location filename="rgbmatrixeditor.ui" line="205"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Muster Y Pixel vertikal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="305"/>
+        <location filename="rgbmatrixeditor.ui" line="302"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="311"/>
+        <location filename="rgbmatrixeditor.ui" line="308"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="314"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="324"/>
+        <location filename="rgbmatrixeditor.ui" line="321"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="327"/>
+        <location filename="rgbmatrixeditor.ui" line="324"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="334"/>
+        <location filename="rgbmatrixeditor.ui" line="331"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="337"/>
+        <location filename="rgbmatrixeditor.ui" line="334"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="251"/>
+        <location filename="rgbmatrixeditor.ui" line="248"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="64"/>
+        <location filename="rgbmatrixeditor.ui" line="61"/>
         <source>Matrix start colour</source>
         <translation>Matrix-Startfarbe</translation>
     </message>
@@ -4144,37 +4117,37 @@ Dauer: %3
         <translation>Matrix-Endfarbe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="257"/>
+        <location filename="rgbmatrixeditor.ui" line="254"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="260"/>
+        <location filename="rgbmatrixeditor.ui" line="257"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="270"/>
+        <location filename="rgbmatrixeditor.ui" line="267"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="273"/>
+        <location filename="rgbmatrixeditor.ui" line="270"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="392"/>
+        <location filename="rgbmatrixeditor.ui" line="389"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="347"/>
+        <location filename="rgbmatrixeditor.ui" line="344"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Vorschau der RGB-Matrix</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="350"/>
+        <location filename="rgbmatrixeditor.ui" line="347"/>
         <source>Test Run</source>
         <translation>Testlauf</translation>
     </message>
@@ -4208,7 +4181,7 @@ Dauer: %3
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="107"/>
+        <location filename="sceneeditor.ui" line="101"/>
         <source>Enable all channel groups</source>
         <translation>Alle Kanalgruppen aktivieren</translation>
     </message>
@@ -4218,41 +4191,33 @@ Dauer: %3
         <translation>Alle Kanalgruppen deaktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="202"/>
+        <location filename="sceneeditor.ui" line="190"/>
         <source>Channel groups used in this scene</source>
         <translation>In der Szene verwendete Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="70"/>
-        <location filename="sceneeditor.ui" line="110"/>
-        <location filename="sceneeditor.ui" line="220"/>
-        <location filename="sceneeditor.ui" line="240"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="sceneeditor.ui" line="152"/>
+        <location filename="sceneeditor.ui" line="143"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
         <translation>Name dieser Szene</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="87"/>
+        <location filename="sceneeditor.ui" line="84"/>
         <source>Add a new fixture to this scene</source>
         <translation>Neues Gerät dieser Szene hinzufügen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="160"/>
+        <location filename="sceneeditor.ui" line="151"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Ausgewählte Gerät von Szene entfernen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="237"/>
+        <location filename="sceneeditor.ui" line="222"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Alle Gerätekanäle aktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="217"/>
+        <location filename="sceneeditor.ui" line="205"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Alle Gerätekanäle deaktivieren</translation>
     </message>
@@ -4378,31 +4343,22 @@ Dauer: %3
         <translation>Neuen Befehl an der Cursorposition hinzufügen</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="49"/>
-        <location filename="scripteditor.ui" line="82"/>
-        <location filename="scripteditor.ui" line="102"/>
-        <location filename="scripteditor.ui" line="122"/>
-        <location filename="scripteditor.ui" line="149"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="scripteditor.ui" line="79"/>
+        <location filename="scripteditor.ui" line="76"/>
         <source>Cut selected text to clipboard</source>
         <translation>Ausgewählten Text ausschneiden und in die Zwischenablage übertragen</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="99"/>
+        <location filename="scripteditor.ui" line="93"/>
         <source>Copy selected text to clipboard</source>
         <translation>Ausgewählten Text in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="119"/>
+        <location filename="scripteditor.ui" line="110"/>
         <source>Paste text from clipboard at cursor</source>
         <translation>Text aus der Zwischenablage an der Cursor-Position einfügen</translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="146"/>
+        <location filename="scripteditor.ui" line="134"/>
         <source>Undo</source>
         <translation>Rückgängig</translation>
     </message>
@@ -5182,11 +5138,6 @@ Dauer: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="94"/>
-        <source>.00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="vcbuttonproperties.ui" line="197"/>
         <source>Adjust function intensity when it is running</source>
         <translation>Funktionsintensität anpassen wenn es läuft</translation>
@@ -5342,175 +5293,175 @@ Dauer: %3
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="268"/>
         <source>Next Cue</source>
         <translation>Nächste-Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="134"/>
-        <location filename="vccuelistproperties.ui" line="286"/>
-        <location filename="vccuelistproperties.ui" line="438"/>
+        <location filename="vccuelistproperties.ui" line="128"/>
+        <location filename="vccuelistproperties.ui" line="274"/>
+        <location filename="vccuelistproperties.ui" line="420"/>
         <source>Key Combination</source>
         <translation>Tastenkombination</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="193"/>
-        <location filename="vccuelistproperties.ui" line="345"/>
-        <location filename="vccuelistproperties.ui" line="497"/>
+        <location filename="vccuelistproperties.ui" line="181"/>
+        <location filename="vccuelistproperties.ui" line="327"/>
+        <location filename="vccuelistproperties.ui" line="473"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="199"/>
-        <location filename="vccuelistproperties.ui" line="351"/>
-        <location filename="vccuelistproperties.ui" line="503"/>
-        <location filename="vccuelistproperties.ui" line="596"/>
-        <location filename="vccuelistproperties.ui" line="669"/>
+        <location filename="vccuelistproperties.ui" line="187"/>
+        <location filename="vccuelistproperties.ui" line="333"/>
+        <location filename="vccuelistproperties.ui" line="479"/>
+        <location filename="vccuelistproperties.ui" line="572"/>
+        <location filename="vccuelistproperties.ui" line="645"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="340"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Eingangs-Universum-zum-Übersrpingen zur nächsten Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="213"/>
-        <location filename="vccuelistproperties.ui" line="365"/>
-        <location filename="vccuelistproperties.ui" line="517"/>
-        <location filename="vccuelistproperties.ui" line="610"/>
-        <location filename="vccuelistproperties.ui" line="683"/>
+        <location filename="vccuelistproperties.ui" line="201"/>
+        <location filename="vccuelistproperties.ui" line="347"/>
+        <location filename="vccuelistproperties.ui" line="493"/>
+        <location filename="vccuelistproperties.ui" line="586"/>
+        <location filename="vccuelistproperties.ui" line="659"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="354"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Eingangskanal zum Überspringen zur nächsten Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="374"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Wenn eingeschaltet kann mit einem externen Schalter die Kontrolle zum Überspringen der nächsten Cue zugewiesen werden.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="243"/>
-        <location filename="vccuelistproperties.ui" line="395"/>
-        <location filename="vccuelistproperties.ui" line="547"/>
-        <location filename="vccuelistproperties.ui" line="640"/>
-        <location filename="vccuelistproperties.ui" line="713"/>
+        <location filename="vccuelistproperties.ui" line="231"/>
+        <location filename="vccuelistproperties.ui" line="377"/>
+        <location filename="vccuelistproperties.ui" line="523"/>
+        <location filename="vccuelistproperties.ui" line="616"/>
+        <location filename="vccuelistproperties.ui" line="689"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="387"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Auswahl eines Eingangs-Universum/Kanal zum Überspringen zur nächsten Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="256"/>
-        <location filename="vccuelistproperties.ui" line="408"/>
-        <location filename="vccuelistproperties.ui" line="560"/>
-        <location filename="vccuelistproperties.ui" line="653"/>
-        <location filename="vccuelistproperties.ui" line="726"/>
+        <location filename="vccuelistproperties.ui" line="244"/>
+        <location filename="vccuelistproperties.ui" line="390"/>
+        <location filename="vccuelistproperties.ui" line="536"/>
+        <location filename="vccuelistproperties.ui" line="629"/>
+        <location filename="vccuelistproperties.ui" line="702"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="128"/>
+        <location filename="vccuelistproperties.ui" line="122"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
+        <location filename="vccuelistproperties.ui" line="414"/>
         <source>Previous Cue</source>
         <translation>Vorherige Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="426"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Tastenkombination zum Springen zur vorherigen Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="436"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Verbinde eine Tastenkombination zum Überspringen zur nächsten Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="486"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Eingangs-Unviersum zum Überspringen zur nächsten Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="500"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Eingangskanal zum Überspringen zur vorherigen Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="520"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Wenn eingeschaltet kann mit einem externen Schalter die Kontrolle zum Überspringen der vorherigen Cue zugewiesen werden.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="533"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Eingangskanal-/Universum zum Wechseln zur vorherigen Cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="134"/>
         <source>The key combination used to stop the cue list</source>
         <translation>Tastenkombination zum Stoppen der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="144"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Verbinde eine Tastenkombination zum Stoppen der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
-        <location filename="vccuelistproperties.ui" line="603"/>
-        <location filename="vccuelistproperties.ui" line="676"/>
+        <location filename="vccuelistproperties.ui" line="194"/>
+        <location filename="vccuelistproperties.ui" line="579"/>
+        <location filename="vccuelistproperties.ui" line="652"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Eingangsuniversum zum Stoppen der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
-        <location filename="vccuelistproperties.ui" line="617"/>
-        <location filename="vccuelistproperties.ui" line="690"/>
+        <location filename="vccuelistproperties.ui" line="208"/>
+        <location filename="vccuelistproperties.ui" line="593"/>
+        <location filename="vccuelistproperties.ui" line="666"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Eingangskanal zum Stoppen der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
-        <location filename="vccuelistproperties.ui" line="637"/>
-        <location filename="vccuelistproperties.ui" line="710"/>
+        <location filename="vccuelistproperties.ui" line="228"/>
+        <location filename="vccuelistproperties.ui" line="613"/>
+        <location filename="vccuelistproperties.ui" line="686"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Wenn eingeschaltet kann mit einem externen Schalter die Kontrolle zum Stoppen der Cue-Liste zugewiesen werden</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
-        <location filename="vccuelistproperties.ui" line="650"/>
-        <location filename="vccuelistproperties.ui" line="723"/>
+        <location filename="vccuelistproperties.ui" line="241"/>
+        <location filename="vccuelistproperties.ui" line="626"/>
+        <location filename="vccuelistproperties.ui" line="699"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
         <translation>Auswahl eines Eingangsuniversum-/Kanal zum Stoppen der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="584"/>
+        <location filename="vccuelistproperties.ui" line="560"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="590"/>
+        <location filename="vccuelistproperties.ui" line="566"/>
         <source>Left Slider</source>
         <translation>Linker Schieberegler</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="663"/>
+        <location filename="vccuelistproperties.ui" line="639"/>
         <source>Right Slider</source>
         <translation>Rechter Schieberegler</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>The key combination used to step to the next cue</source>
         <translation>Die Tastenkombination um zur nächsten Cue zu springen</translation>
     </message>
@@ -5530,25 +5481,19 @@ Dauer: %3
         <translation>Auswahl der Chaserfunktion zur Verwendung als Schritte für die Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="77"/>
-        <location filename="vccuelistproperties.ui" line="97"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="vccuelistproperties.ui" line="94"/>
+        <location filename="vccuelistproperties.ui" line="91"/>
         <source>Detach current chaser from the cue list</source>
         <translation>Trenne aktuellen Chaser von der Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="290"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Eine Tastenkombination zuweisen um zur nächsten Cue zu springen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="170"/>
-        <location filename="vccuelistproperties.ui" line="322"/>
-        <location filename="vccuelistproperties.ui" line="474"/>
+        <location filename="vccuelistproperties.ui" line="161"/>
+        <location filename="vccuelistproperties.ui" line="307"/>
+        <location filename="vccuelistproperties.ui" line="453"/>
         <source>Clear the key binding</source>
         <translation>Tastenbindung lösen</translation>
     </message>
@@ -5805,61 +5750,58 @@ Dauer: %3
         <translation>Standardeigenschaften des Assistenten</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="195"/>
-        <location filename="vcproperties.ui" line="218"/>
-        <location filename="vcproperties.ui" line="270"/>
-        <location filename="vcproperties.ui" line="300"/>
-        <location filename="vcproperties.ui" line="386"/>
-        <location filename="vcproperties.ui" line="393"/>
-        <location filename="vcproperties.ui" line="400"/>
-        <location filename="vcproperties.ui" line="556"/>
-        <source>x</source>
-        <translation>x</translation>
-    </message>
-    <message>
         <location filename="vcproperties.ui" line="499"/>
-        <source>Button size:</source>
-        <translation>Schaltergrösse:</translation>
+        <source>Button size</source>
+        <oldsource>Button size:</oldsource>
+        <translation>Schaltergrösse</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="485"/>
-        <source>Solo frame size:</source>
-        <translation>Größe des Einzelrahmen:</translation>
+        <source>Solo frame size</source>
+        <oldsource>Solo frame size:</oldsource>
+        <translation>Größe des Einzelrahmen</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
-        <source>Slider size:</source>
-        <translation>Schiebereglergröße:</translation>
+        <source>Slider size</source>
+        <oldsource>Slider size:</oldsource>
+        <translation>Schiebereglergröße</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="430"/>
-        <source>Speed dial size:</source>
-        <translation>Schnellwahlgröße:</translation>
+        <source>Speed dial size</source>
+        <oldsource>Speed dial size:</oldsource>
+        <translation>Schnellwahlgröße</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="225"/>
-        <source>XY Pad size:</source>
-        <translation>XY-Feld-Größe:</translation>
+        <source>XY Pad size</source>
+        <oldsource>XY Pad size:</oldsource>
+        <translation>XY-Feld-Größe</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="492"/>
-        <source>Cue List size:</source>
-        <translation>Cue-Listengröße:</translation>
+        <source>Cue List size</source>
+        <oldsource>Cue List size:</oldsource>
+        <translation>Cue-Listengröße</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="423"/>
-        <source>Frame size:</source>
-        <translation>Rahmengröße:</translation>
+        <source>Frame size</source>
+        <oldsource>Frame size:</oldsource>
+        <translation>Rahmengröße</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
-        <source>Speed dial value:</source>
-        <translation>Schnellwahl-Wert:</translation>
+        <source>Speed dial value</source>
+        <oldsource>Speed dial value:</oldsource>
+        <translation>Schnellwahl-Wert</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="506"/>
-        <source>Button status style:</source>
-        <translation>Schalter-Status-Style:</translation>
+        <source>Button status style</source>
+        <oldsource>Button status style:</oldsource>
+        <translation>Schalter-Status-Style</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="513"/>
@@ -5873,7 +5815,8 @@ Dauer: %3
     </message>
     <message>
         <location filename="vcproperties.ui" line="533"/>
-        <source>Audio triggers size:</source>
+        <source>Audio triggers size</source>
+        <oldsource>Audio triggers size:</oldsource>
         <translation>Audiotrigger-Größe</translation>
     </message>
     <message>
@@ -6354,154 +6297,148 @@ Dauer: %3
         <translation>Schnellwahleigenschaften</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="20"/>
+        <location filename="vcspeeddialproperties.ui" line="24"/>
         <source>Speed Dial Name</source>
         <translation>Schnellwahlname</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="27"/>
+        <location filename="vcspeeddialproperties.ui" line="31"/>
         <source>Title of the dial</source>
         <translation>Wahltitel</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="38"/>
+        <location filename="vcspeeddialproperties.ui" line="42"/>
         <source>Functions</source>
         <translation>Funktionen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="44"/>
+        <location filename="vcspeeddialproperties.ui" line="48"/>
         <source>Functions whose speed is controlled by the dial</source>
         <translation>Schnellwahlkontrollierte Funktionen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="72"/>
+        <location filename="vcspeeddialproperties.ui" line="76"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="80"/>
+        <location filename="vcspeeddialproperties.ui" line="84"/>
         <source>Add functions to be controlled</source>
         <translation>Zu steuernde Funktionen hinzufügen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="83"/>
-        <location filename="vcspeeddialproperties.ui" line="103"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="vcspeeddialproperties.ui" line="100"/>
+        <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Remove selected functions</source>
         <translation>Ausgewählte Funktionen entfernen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="133"/>
+        <location filename="vcspeeddialproperties.ui" line="131"/>
         <source>Speeds to Adjust</source>
         <translation>Geschwindigkeitseinstellung</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="139"/>
+        <location filename="vcspeeddialproperties.ui" line="137"/>
         <source>Adjust selected functions&apos; fade in speed</source>
         <translation>Einblendgeschwindigkeit der ausgewählten Funktion regeln</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="142"/>
+        <location filename="vcspeeddialproperties.ui" line="140"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="149"/>
+        <location filename="vcspeeddialproperties.ui" line="147"/>
         <source>Adjust selected functions&apos; fade out speed</source>
         <translation>Ausblendgeschwindigkeit der ausgewählten Funktion regeln</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="152"/>
+        <location filename="vcspeeddialproperties.ui" line="150"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="159"/>
+        <location filename="vcspeeddialproperties.ui" line="157"/>
         <source>Adjust selected functions&apos; duration</source>
         <translation>Dauer der ausgewählten Funktion regeln</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="162"/>
+        <location filename="vcspeeddialproperties.ui" line="160"/>
         <source>Duration (+ tap)</source>
         <translation>Dauer (+.tap)</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="186"/>
+        <location filename="vcspeeddialproperties.ui" line="184"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="192"/>
+        <location filename="vcspeeddialproperties.ui" line="190"/>
         <source>Absolute Value</source>
         <translation>Absoluter Wert</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="198"/>
-        <location filename="vcspeeddialproperties.ui" line="285"/>
+        <location filename="vcspeeddialproperties.ui" line="196"/>
+        <location filename="vcspeeddialproperties.ui" line="283"/>
         <source>Input Universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="212"/>
-        <location filename="vcspeeddialproperties.ui" line="295"/>
+        <location filename="vcspeeddialproperties.ui" line="210"/>
+        <location filename="vcspeeddialproperties.ui" line="293"/>
         <source>Input Channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="226"/>
-        <location filename="vcspeeddialproperties.ui" line="305"/>
+        <location filename="vcspeeddialproperties.ui" line="224"/>
+        <location filename="vcspeeddialproperties.ui" line="303"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="236"/>
-        <location filename="vcspeeddialproperties.ui" line="315"/>
+        <location filename="vcspeeddialproperties.ui" line="234"/>
+        <location filename="vcspeeddialproperties.ui" line="313"/>
         <source>Choose...</source>
         <translation>Auswahl...</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="243"/>
+        <location filename="vcspeeddialproperties.ui" line="241"/>
         <source>Range</source>
         <translation>Bereich</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="250"/>
-        <location filename="vcspeeddialproperties.ui" line="257"/>
+        <location filename="vcspeeddialproperties.ui" line="248"/>
+        <location filename="vcspeeddialproperties.ui" line="255"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="273"/>
+        <location filename="vcspeeddialproperties.ui" line="271"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="279"/>
+        <location filename="vcspeeddialproperties.ui" line="277"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="325"/>
+        <location filename="vcspeeddialproperties.ui" line="323"/>
         <source>Key combination</source>
         <translation>Tastenkombination</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="331"/>
+        <location filename="vcspeeddialproperties.ui" line="329"/>
         <source>Keyboard combination to control the dial tap</source>
         <translatorcomment>wtf is the right german translation for Tap ?</translatorcomment>
         <translation>Tastenkombination für den Auswahl-Tap.</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="341"/>
+        <location filename="vcspeeddialproperties.ui" line="339"/>
         <source>Set a key combination for this dial</source>
         <translation>Tastenkombination für diese Wahl zuweisen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="361"/>
+        <location filename="vcspeeddialproperties.ui" line="359"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Entfernen der Tastenkombination für diese Wahl</translation>
     </message>
@@ -6761,38 +6698,39 @@ Dauer: %3
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
-        <source>Video name:</source>
-        <translation>Videoname:</translation>
+        <source>Video name</source>
+        <oldsource>Video name:</oldsource>
+        <translation>Videoname</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
-        <source>File name:</source>
-        <translation>Dateiname:</translation>
+        <source>File name</source>
+        <oldsource>File name:</oldsource>
+        <translation>Dateiname</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="45"/>
-        <source>Duration:</source>
-        <translation>Dauer:</translation>
-    </message>
-    <message>
-        <location filename="videoeditor.ui" line="52"/>
-        <source>...</source>
-        <translation>...</translation>
+        <source>Duration</source>
+        <oldsource>Duration:</oldsource>
+        <translation>Dauer</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="59"/>
-        <source>Resolution:</source>
-        <translation>Auflösung:</translation>
+        <source>Resolution</source>
+        <oldsource>Resolution:</oldsource>
+        <translation>Auflösung</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
-        <source>Audio codec:</source>
-        <translation>Audiocodec:</translation>
+        <source>Audio codec</source>
+        <oldsource>Audio codec:</oldsource>
+        <translation>Audiocodec</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
-        <source>Video codec:</source>
-        <translation>Videocodec:</translation>
+        <source>Video codec</source>
+        <oldsource>Video codec:</oldsource>
+        <translation>Videocodec</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
@@ -6806,8 +6744,9 @@ Dauer: %3
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
-        <source>Output Screen:</source>
-        <translation>Ausgabebildschirm:</translation>
+        <source>Output Screen</source>
+        <oldsource>Output Screen:</oldsource>
+        <translation>Ausgabebildschirm</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>

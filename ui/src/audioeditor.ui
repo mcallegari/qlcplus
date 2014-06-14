@@ -112,7 +112,7 @@
      <item row="2" column="3">
       <widget class="QToolButton" name="m_fileButton">
        <property name="text">
-        <string>...</string>
+        <string notr="true">...</string>
        </property>
       </widget>
      </item>

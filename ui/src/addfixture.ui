@@ -172,12 +172,12 @@
         </item>
         <item>
          <widget class="QToolButton" name="m_diptoolButton">
+          <property name="toolTip">
+           <string>Address Tool</string>
+          </property>
           <property name="icon">
            <iconset resource="qlcui.qrc">
             <normaloff>:/diptool.png</normaloff>:/diptool.png</iconset>
-          </property>
-          <property name="toolTip">
-           <string>Address Tool</string>
           </property>
          </widget>
         </item>
@@ -262,7 +262,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Quick search:</string>
+      <string>Quick search</string>
      </property>
     </widget>
    </item>
@@ -286,7 +286,10 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>m_buttonBox</sender>

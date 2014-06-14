@@ -45,9 +45,6 @@
      <property name="toolTip">
       <string>Add new command to cursor position</string>
      </property>
-     <property name="text">
-      <string>...</string>
-     </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
@@ -78,9 +75,6 @@
      <property name="toolTip">
       <string>Cut selected text to clipboard</string>
      </property>
-     <property name="text">
-      <string>...</string>
-     </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/editcut.png</normaloff>:/editcut.png</iconset>
@@ -98,9 +92,6 @@
      <property name="toolTip">
       <string>Copy selected text to clipboard</string>
      </property>
-     <property name="text">
-      <string>...</string>
-     </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
@@ -117,9 +108,6 @@
     <widget class="QToolButton" name="m_pasteButton">
      <property name="toolTip">
       <string>Paste text from clipboard at cursor</string>
-     </property>
-     <property name="text">
-      <string>...</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
@@ -144,9 +132,6 @@
     <widget class="QToolButton" name="m_undoButton">
      <property name="toolTip">
       <string>Undo</string>
-     </property>
-     <property name="text">
-      <string>...</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
@@ -176,6 +161,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections>
