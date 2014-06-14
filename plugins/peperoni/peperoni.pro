@@ -11,3 +11,4 @@ TRANSLATIONS += Peperoni_nl_NL.ts
 TRANSLATIONS += Peperoni_cz_CZ.ts
 TRANSLATIONS += Peperoni_pt_BR.ts
 TRANSLATIONS += Peperoni_ca_ES.ts
+TRANSLATIONS += Peperoni_ja_JP.ts
