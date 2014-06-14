@@ -41,7 +41,7 @@ ChannelModifierGraphicsView::ChannelModifierGraphicsView(QWidget *parent)
 
 void ChannelModifierGraphicsView::setHandlerDMXValue(uchar pos, uchar value)
 {
-    qDebug() << "Set new DMX value:" << pos << value;
+    //qDebug() << "Set new DMX value:" << pos << value;
     if (m_currentHandler == NULL)
         return;
 
@@ -79,7 +79,7 @@ void ChannelModifierGraphicsView::addNewHandler()
     uchar halfDMXpos = (nextHandler->m_dmxMap.first - prevHandler->m_dmxMap.first) / 2;
     uchar halfDMXval = (nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2;
     newHandler->m_dmxMap = QPair<uchar, uchar>(halfDMXpos, halfDMXval);
-    qDebug() << "Half way DMX value:" << halfDMXpos << halfDMXval;
+    //qDebug() << "Half way DMX value:" << halfDMXpos << halfDMXval;
     newHandler->m_pos = getPositionFromDMX(newHandler->m_dmxMap);
     newHandler->m_item = updateHandlerItem(NULL, newHandler->m_pos);
     newHandler->m_item->setBoundingBox(QRectF(prevHandler->m_pos.x(), m_bgRect->y(),
@@ -213,19 +213,18 @@ QPoint ChannelModifierGraphicsView::getPositionFromDMX(QPair<uchar, uchar>dmxMap
 {
     qreal xPos = m_bgRect->rect().x() + ((m_bgRect->rect().width() / 255) * (qreal)dmxMap.first);
     qreal yPos = m_bgRect->rect().y() + m_bgRect->rect().height() - ((m_bgRect->rect().height() / 255) * (qreal)dmxMap.second);
-    qDebug() << "New position from values <" << dmxMap.first << "," << dmxMap.second << "=" << xPos << yPos;
+    //qDebug() << "New position from values <" << dmxMap.first << "," << dmxMap.second << "=" << xPos << yPos;
     return QPoint(xPos, yPos);
 }
 
 QPair<uchar, uchar> ChannelModifierGraphicsView::getDMXFromPosition(QPointF pos)
 {
-    qDebug() << "Position ---------->" << pos;
     if (pos.x() < m_bgRect->x()) pos.setX(m_bgRect->x());
     if (pos.y() < m_bgRect->y()) pos.setY(m_bgRect->y());
     QPair<uchar, uchar> newPos;
     newPos.first = ((pos.x() - m_bgRect->x()) * 255) / m_bgRect->rect().width();
     newPos.second = 255 - (((pos.y() - m_bgRect->y()) * 255) / m_bgRect->rect().height());
-    qDebug() << "Elapsed DMX value:" << newPos.first << newPos.second;
+    //qDebug() << "Elapsed DMX value:" << newPos.first << newPos.second;
     return newPos;
 }
 
@@ -368,7 +367,7 @@ HandlerGraphicsItem::HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h,
 void HandlerGraphicsItem::setBoundingBox(QRectF rect)
 {
     m_boundingBox = rect;
-    qDebug() << Q_FUNC_INFO << rect;
+    //qDebug() << Q_FUNC_INFO << rect;
 }
 
 QRectF HandlerGraphicsItem::boundingBox()
@@ -397,7 +396,6 @@ void HandlerGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     //qDebug() << "Mouse move event" << event->scenePos();
     //qDebug() << "x:" << x() << "y:" << y();
     emit itemMoved(this, event, m_boundingBox);
-    //QGraphicsItem::mouseMoveEvent(event);
 }
 
 

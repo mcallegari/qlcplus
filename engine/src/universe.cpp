@@ -197,6 +197,7 @@ void Universe::reset()
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
     zeroRelativeValues();
+    m_modifiers.fill(NULL, UNIVERSE_SIZE);
 }
 
 void Universe::reset(int address, int range)
