@@ -189,10 +189,13 @@ void Monitor::initGraphicsView()
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
-        m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
-        qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
-        m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
-        m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
+        if (m_doc->fixture(fid) != NULL)
+        {
+            m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
+            qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
+            m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
+            m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
+        }
     }
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)

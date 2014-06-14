@@ -199,6 +199,9 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
     if (id == Fixture::invalidId() || m_fixtures.contains(id) == true)
         return;
 
+    if (m_doc->fixture(id) == NULL)
+        return;
+
     MonitorFixtureItem *item = new MonitorFixtureItem(m_doc, id);
     item->setZValue(2);
     item->setRealPosition(pos);
