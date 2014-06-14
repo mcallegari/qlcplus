@@ -465,7 +465,7 @@ uchar Universe::channelCapabilities(ushort channel)
 void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 {
     if (channel >= (ushort)m_modifiers.count())
-        return ;
+        return;
 
     m_modifiers[channel] = modifier;
 }

@@ -384,6 +384,8 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
             else
                 universes.at(uni)->setChannelCapability(fixture->address() + i,
                                                         channel->group());
+            ChannelModifier *mod = fixture->channelModifier(i);
+            universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
         }
         inputOutputMap()->releaseUniverses(true);
 
@@ -542,11 +544,15 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     if (m_fixtures.contains(id) == true)
     {
         Fixture* fixture = m_fixtures[id];
+        // get exclusive access to the universes list
+        QList<Universe *> universes = inputOutputMap()->claimUniverses();
+        int uni = fixture->universe();
+
+        // Set forced HTP channels
         if (!forcedHTP.isEmpty())
         {
             fixture->setForcedHTPChannels(forcedHTP);
             QList<Universe *> universes = inputOutputMap()->claimUniverses();
-            int uni = fixture->universe();
 
             for(int i = 0; i < forcedHTP.count(); i++)
             {
@@ -562,13 +568,11 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
                                                             channel->group(),
                                                             Universe::HTP);
             }
-            inputOutputMap()->releaseUniverses(true);
         }
+        // Set forced LTP channels
         if (!forcedLTP.isEmpty())
         {
             fixture->setForcedLTPChannels(forcedLTP);
-            QList<Universe *> universes = inputOutputMap()->claimUniverses();
-            int uni = fixture->universe();
 
             for(int i = 0; i < forcedLTP.count(); i++)
             {
@@ -576,8 +580,15 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
                 const QLCChannel* channel(fixture->channel(chIdx));
                 universes.at(uni)->setChannelCapability(fixture->address() + chIdx, channel->group(), Universe::LTP);
             }
-            inputOutputMap()->releaseUniverses(true);
         }
+
+        // set channels modifiers
+        for (quint32 i = 0; i < fixture->channels(); i++)
+        {
+            ChannelModifier *mod = fixture->channelModifier(i);
+            universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
+        }
+        inputOutputMap()->releaseUniverses(true);
 
         return true;
     }

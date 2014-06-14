@@ -248,7 +248,8 @@ public:
      */
     uchar channelCapabilities(ushort channel);
 
-    /** Assign a Channel Modifier to the given channel */
+    /** Assign a Channel Modifier to the given channel index
+      * $modifier can be NULL if the channel has no modifier */
     void setChannelModifier(ushort channel, ChannelModifier *modifier);
 
     /** Return the Channel Modifier assigned to the given channel
