@@ -411,6 +411,8 @@ bool Doc::deleteFixture(quint32 id)
             if (it.value() == id)
                 it.remove();
         }
+        if (m_monitorProps != NULL)
+            m_monitorProps->removeFixture(id);
 
         emit fixtureRemoved(id);
         setModified();

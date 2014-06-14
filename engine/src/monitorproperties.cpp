@@ -53,6 +53,12 @@ MonitorProperties::MonitorProperties()
     m_showLabels = false;
 }
 
+void MonitorProperties::removeFixture(quint32 fid)
+{
+    if (m_fixtureItems.contains(fid))
+        m_fixtureItems.take(fid);
+}
+
 void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();

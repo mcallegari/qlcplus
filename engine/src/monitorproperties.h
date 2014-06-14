@@ -66,6 +66,8 @@ public:
     void setGridUnits(GridUnits units) { m_gridUnits = units; }
     GridUnits gridUnits() const { return m_gridUnits; }
 
+    void removeFixture(quint32 fid);
+
     void setFixturePosition(quint32 fid, QPointF pos);
     QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
 
