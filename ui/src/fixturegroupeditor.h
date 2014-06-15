@@ -54,6 +54,7 @@ private slots:
 
     void slotCellActivated(int row, int column);
     void slotCellChanged(int row, int column);
+    void slotResized();
 
 private:
     FixtureGroup* m_grp; //! The group being edited
