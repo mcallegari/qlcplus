@@ -340,6 +340,7 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     if (m_labelVisibility)
     {
         painter->setFont(m_font);
+        painter->setBrush(QBrush(QColor(33, 33, 33)));
         painter->drawRoundedRect(m_labelRect, 2, 2);
         painter->setPen(QPen(Qt::white, 1));
         painter->drawText(m_labelRect, Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
