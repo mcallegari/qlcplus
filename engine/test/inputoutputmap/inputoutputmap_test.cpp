@@ -262,9 +262,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 3) == InputOutputMap::invalidUniverse());
 
     QVERIFY(im.setInputPatch(0, "Foobar", 0, prof->name()) == true);
-    QVERIFY(im.inputPatch(0)->plugin() == NULL);
-    QVERIFY(im.inputPatch(0)->input() == QLCIOPlugin::invalidLine());
-    QVERIFY(im.inputPatch(0)->profile() == prof);
+    QVERIFY(im.inputPatch(0) == NULL);
     QVERIFY(im.inputMapping(stub->name(), 0) == InputOutputMap::invalidUniverse());
 
     QVERIFY(im.inputPatch(1) == NULL);
@@ -322,22 +320,19 @@ void InputOutputMap_Test::setOutputPatch()
     QVERIFY(stub != NULL);
 
     QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == true);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
 
     QVERIFY(iom.setOutputPatch(4, stub->name(), 0) == false);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
 
     QVERIFY(iom.setOutputPatch(4, stub->name(), 4) == false);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
