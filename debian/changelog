@@ -1,6 +1,7 @@
 qlcplus (4.7.3) stable; urgency=low
 
   * NEW: it is now possible to assign a modifier curve to a channel
+  * NEW: added Japanese translation (many thanks to Koichiro Saito)
   * Engine: Fixed fallback IO mapping messing up plugins lines
   * Engine: Fixed audio playback on non-default device working only once
   * UI: Fix saving changes when: closing QLC+, opening file, creating new file
@@ -8,7 +9,6 @@ qlcplus (4.7.3) stable; urgency=low
   * Monitor: fixed crash when showing 2D preview of a fixture that has been removed
   * Monitor: it is now possible to set a background image to the 2D preview
   * Plugins/Peperoni: added preliminary input support (thanks to Jan Menzel)
-  * Translations: added Japanese translation (thanks to Kokichiro)
   * New fixture: Beamz LCB-252, Cameo LED RGB PAR56 Can (thanks to Sascha Büttner)
   * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35 (thanks to Robert Box)
   * New fixture: Martin RoboColor-III (thanks to Boudewijn)
