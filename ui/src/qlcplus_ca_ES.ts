@@ -1238,7 +1238,7 @@ Duració: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation>Editor de Canal</translation>
+        <translation>Editor de Modificadors de Canal</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
@@ -1290,7 +1290,7 @@ Duració: %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>Estau intentant de sobreescriure una plantilla del sistema !. Si us plau trieu un altre nom i la plantilla es desarà al directori d&apos;usuari de editor de canal.</translation>
+        <translation>Estau intentant sobreescriure una plantilla del sistema ! Si us plau escolliu un altre nom i la plantilla es desarà al directori de modificadors de canal del usuari.</translation>
     </message>
 </context>
 <context>
@@ -2414,7 +2414,7 @@ Duració: %3
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation>Projecte de destí</translation>
+        <translation>Nom del projecte de destí</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -5021,7 +5021,7 @@ Durada: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation>Temps d&apos;esvaiment:</translation>
+        <translation>Durada de Fade:</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="126"/>
