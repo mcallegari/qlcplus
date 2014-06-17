@@ -1238,57 +1238,59 @@ Duració: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de Canal</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor DMX modificat
+</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="44"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor DMX original
+</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el controlador seleccionat</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobreescriu la plantilla actual</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir un nou controlador</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Plantilles</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova Plantilla</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="169"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estau intentant de sobreescriure una plantilla del sistema !. Si us plau trieu un altre nom i la plantilla es desarà al directori d&apos;usuari de editor de canal.</translation>
     </message>
 </context>
 <context>
@@ -1338,7 +1340,7 @@ Duració: %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificador</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="118"/>
@@ -2412,7 +2414,7 @@ Duració: %3
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation type="unfinished"></translation>
+        <translation>Projecte de destí</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -3577,7 +3579,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor.cpp" line="437"/>
         <source>Set a background picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Establir una imatge de fons</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
@@ -3587,7 +3589,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor.cpp" line="730"/>
         <source>Select background image</source>
-        <translation type="unfinished">Seleccioni la imatge de fons</translation>
+        <translation>Seleccioni imatge de fons</translation>
     </message>
 </context>
 <context>
@@ -5019,7 +5021,7 @@ Durada: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;esvaiment:</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="126"/>
