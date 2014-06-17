@@ -63,7 +63,7 @@
     <message>
         <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished">Dieses Plugin unterstützt HID-basierte Joysticks und den FX5 USB DMX Adapter.</translation>
+        <translation>Dieses Plugin unterstützt HID-basierte Joysticks und den FX5 USB DMX Adapter.</translation>
     </message>
 </context>
 </TS>

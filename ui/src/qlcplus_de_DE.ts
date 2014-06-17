@@ -1244,37 +1244,37 @@ Dauer: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaländerungseditor</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Geänderter DMX Wert</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="44"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprünglicher DMX Wert</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewählten Eintrag löschen</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Vorlage überschreiben</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Eintrag hinzufügen</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagen</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
@@ -1284,7 +1284,7 @@ Dauer: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Vorlage</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="169"/>
@@ -1294,7 +1294,7 @@ Dauer: %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du versucht eine Systemvorlage zu überschreiben! Bitte wähle einen anderen Name. Die Vorlage wird im User-Verzeichnis des Kanaländerungseditors gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -1345,7 +1345,7 @@ Dauer: %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifizierer</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="118"/>
@@ -2421,7 +2421,7 @@ Dauer: %3
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielprojektname</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -3587,7 +3587,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor.cpp" line="437"/>
         <source>Set a background picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrundbild setzen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
@@ -3597,7 +3597,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor.cpp" line="730"/>
         <source>Select background image</source>
-        <translation type="unfinished">Hintergrundbild auswählen</translation>
+        <translation>Hintergrundbild auswählen</translation>
     </message>
 </context>
 <context>
@@ -4028,7 +4028,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Endfarbe zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="123"/>
@@ -5135,7 +5135,7 @@ Dauer: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Überblendzeit:</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="197"/>

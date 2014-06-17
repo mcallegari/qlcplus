@@ -11,7 +11,7 @@
     <message>
         <location filename="spiconfiguration.ui" line="20"/>
         <source>Transmission frequency:</source>
-        <translation>Transmissions-Frequenz:</translation>
+        <translation>Übertragungsfrequenz:</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="35"/>
