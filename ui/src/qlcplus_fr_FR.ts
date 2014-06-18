@@ -1246,37 +1246,39 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificateur de Canaux</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur DMX modifiée</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="44"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur DMX originale</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>???</translatorcomment>
+        <translation type="unfinished">Supprimer ce modèle</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ecraser le modèle actuel</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>???</translatorcomment>
+        <translation type="unfinished">Ajouter un nouveau modèle</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modèles</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
@@ -1286,7 +1288,7 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nouveau Modèle</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="169"/>
@@ -1296,7 +1298,7 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vous tentez d&apos;écraser un modèle système ! Merci de choisir un nom différent et le template sera enregistré dans votre dossier personnel.</translation>
     </message>
 </context>
 <context>
@@ -1337,7 +1339,7 @@ Durée : %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Can fade</source>
-        <translation>Fondu</translation>
+        <translation type="unfinished">Graduable</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
@@ -1347,7 +1349,7 @@ Durée : %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modificateur</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="118"/>
@@ -2426,7 +2428,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nom du projet final</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -3592,7 +3594,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="437"/>
         <source>Set a background picture</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Définir une image de fond</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
@@ -5094,7 +5096,7 @@ Durée : %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps de fondu :</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="197"/>
@@ -5371,7 +5373,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="374"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage au pas suivant</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage au pas suivant.</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="231"/>
@@ -5424,7 +5426,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="520"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage au pas précédent</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage au pas précédent.</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="533"/>
@@ -5613,7 +5615,7 @@ Durée : %3
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage à la page suivante</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage à la page suivante.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
