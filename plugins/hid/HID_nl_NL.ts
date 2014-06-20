@@ -37,12 +37,12 @@
     <message>
         <location filename="hidfx5device.cpp" line="61"/>
         <source>FX5 USB DMX Interface Error</source>
-        <translation type="unfinished"></translation>
+        <translation>FX5 USB DMX Interface Fout</translation>
     </message>
     <message>
         <location filename="hidfx5device.cpp" line="62"/>
         <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan de FX5 Interface niet openen. Controleer of de udev rule geïnstalleerd is.</translation>
     </message>
 </context>
 <context>
@@ -63,7 +63,7 @@
     <message>
         <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze plugin verzorgt ondersteuning voor HID gebaseerde joysticks en de FX5 USB DMX adapter.</translation>
     </message>
 </context>
 </TS>

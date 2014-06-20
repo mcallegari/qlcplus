@@ -61,7 +61,7 @@
         <location filename="addchannelsgroup.ui" line="66"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <oldsource>Apply changes to fixtures of the same type</oldsource>
-        <translation type="unfinished">Pas wijzigingen toe op fixtures van dezelfde type</translation>
+        <translation>Pas wijzigingen toe op fixtures van hetzelfde type en mode</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -189,7 +189,7 @@
     <message>
         <location filename="addfixture.ui" line="176"/>
         <source>Address Tool</source>
-        <translation type="unfinished">Adres Instellen</translation>
+        <translation>Adres Instellen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -962,7 +962,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="243"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -1238,37 +1238,39 @@ Duur: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel Modifier Editor</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangepaste DMX waarde</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="44"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Originele DMX waarde</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
+        <translatorcomment>Wat is een handler?</translatorcomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished"></translation>
+        <translation>Overschrijf het huidige template</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
+        <translatorcomment>Wat is een handler?</translatorcomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Templates</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
@@ -1278,7 +1280,7 @@ Duur: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe template</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="169"/>
@@ -1288,7 +1290,7 @@ Duur: %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>U probeert een systeem template te overschrijven ! Kies een andere naam zodat het template opgeslagen kan worden in de chanel modifier&apos;s gebruikers map.</translation>
     </message>
 </context>
 <context>
@@ -1297,7 +1299,7 @@ Duur: %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation type="unfinished">Channels Fade Configuratie</translation>
+        <translation>Channels selectie</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1319,27 +1321,27 @@ Duur: %3
     <message>
         <location filename="channelsselection.cpp" line="54"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Geselecteerd</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="58"/>
         <source>Channel properties configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel eigenschappen configuratie</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Can fade</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedrag</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifier</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="118"/>
@@ -1445,12 +1447,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="219"/>
         <source>Execute steps in random order</source>
-        <translation type="unfinished"></translation>
+        <translation>Stappen in willekeurige volgorde uitvoeren</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="222"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Willekeurig</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="232"/>
@@ -2411,7 +2413,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation type="unfinished"></translation>
+        <translation>Doel project naam</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -2524,48 +2526,48 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturetreewidget.cpp" line="70"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="75"/>
         <source>Universe</source>
-        <translation type="unfinished">Universe</translation>
+        <translation>Universe</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="80"/>
         <source>Address</source>
-        <translation type="unfinished">Adres</translation>
+        <translation>Adres</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="85"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="90"/>
         <source>Heads</source>
-        <translation type="unfinished">Heads</translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="95"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabrikant</translation>
+        <translation>Fabrikant</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="100"/>
         <source>Model</source>
-        <translation type="unfinished">Model</translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="208"/>
         <location filename="fixturetreewidget.cpp" line="216"/>
         <source>Generic</source>
-        <translation type="unfinished">Algemeen</translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="228"/>
         <source>Head</source>
-        <translation type="unfinished">Head</translation>
+        <translation>Head</translation>
     </message>
 </context>
 <context>
@@ -2723,7 +2725,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="519"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Open Video bestand</translation>
+        <translation>Open Video bestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="527"/>
@@ -2886,7 +2888,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionselection.cpp" line="307"/>
         <source>&lt;Create a new track&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Maak een nieuwe track&gt;</translation>
     </message>
 </context>
 <context>
@@ -3582,17 +3584,17 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="437"/>
         <source>Set a background picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een achtergrond afbeelding</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
         <source>Show/hide labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon/verberg labels</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="730"/>
         <source>Select background image</source>
-        <translation type="unfinished">Selecteer achtergrond afbeelding</translation>
+        <translation>Selecteer achtergrond afbeelding</translation>
     </message>
 </context>
 <context>
@@ -3600,51 +3602,52 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="14"/>
         <source>Monitor Fixture Properties Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Fixture Eigenschappen Bewerken</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
         <source>Gel color</source>
         <oldsource>Gel color:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Gel kleur</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
         <source>Position and rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie en rotatie</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
         <source>Vertical</source>
         <oldsource>Vertical:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Verticaal</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
         <source>Horizontal</source>
         <oldsource>Horizontal:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Horizontaal</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
         <source>Rotation</source>
         <oldsource>Rotation:</oldsource>
-        <translation type="unfinished">Rotatie</translation>
+        <translation>
+Rotatie</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
         <source>Set the color of the gel installed on the fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel de kleur van de gel in die in de fixture aanwezig is</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="112"/>
         <source>Reset the current color</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset de huidige kleur</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="152"/>
         <source>Fixture name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixture naam:</translation>
     </message>
 </context>
 <context>
@@ -3942,7 +3945,7 @@ Duur: %3
     <message>
         <location filename="positiontool.ui" line="14"/>
         <source>PositonTool</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie instellen</translation>
     </message>
 </context>
 <context>
@@ -4024,7 +4027,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset de eind kleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="123"/>
@@ -4250,7 +4253,7 @@ Duur: %3
     <message>
         <location filename="sceneeditor.cpp" line="174"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie gereedschap voor moving heads/scanners</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="176"/>
@@ -4585,18 +4588,18 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="191"/>
         <source>Add a &amp;track or an existing function</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg een &amp;track of bestaande functie toe</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="639"/>
         <location filename="showmanager.cpp" line="730"/>
         <source> (Copy)</source>
-        <translation type="unfinished">(Copy)</translation>
+        <translation>(Copy)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="688"/>
         <source>Track %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Track %1</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="713"/>
@@ -4621,7 +4624,7 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="781"/>
         <source>Scene for %1 - Track %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Scene for %1 - Track %2</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="807"/>
@@ -4694,12 +4697,12 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="1321"/>
         <source>Track name setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Track naam instellen</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1322"/>
         <source>Track name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Track naam:</translation>
     </message>
 </context>
 <context>
@@ -4778,7 +4781,7 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="518"/>
         <source>Channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel groepen</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="850"/>
@@ -4887,7 +4890,7 @@ Duur: %3
     <message>
         <location filename="sceneitems.cpp" line="310"/>
         <source>Change name</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzig naam</translation>
     </message>
 </context>
 <context>
@@ -5127,7 +5130,7 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade tijd:</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="197"/>
@@ -6507,7 +6510,7 @@ Kies...</translation>
     <message>
         <location filename="vcxypadarea.cpp" line="257"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift: fine, Ctrl:10x</translation>
     </message>
 </context>
 <context>
@@ -6681,13 +6684,13 @@ Kies...</translation>
     <message>
         <location filename="videoeditor.ui" line="14"/>
         <source>Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Video Editor</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
         <source>Video name</source>
         <oldsource>Video name:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Video naam</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
@@ -6705,60 +6708,60 @@ Kies...</translation>
         <location filename="videoeditor.ui" line="59"/>
         <source>Resolution</source>
         <oldsource>Resolution:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Resolutie</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Audio codec</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
         <source>Video codec</source>
         <oldsource>Video codec:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Video codec</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam van de function die gewijzigd wordt</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="175"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
         <source>Output Screen</source>
         <oldsource>Output Screen:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Output scherm</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>
         <source>Video output</source>
-        <translation type="unfinished"></translation>
+        <translation>Video output</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="225"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Venster</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
-        <translation type="unfinished">Volledig scherm</translation>
+        <translation>Volledig scherm</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="103"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Open Video bestand</translation>
+        <translation>Open Video bestand</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="111"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished">Video Bestanden (%1)</translation>
+        <translation>Video Bestanden (%1)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="113"/>

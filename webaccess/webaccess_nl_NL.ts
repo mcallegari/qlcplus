@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="362"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Netwerk configuratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="381"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="1048"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1050"/>
@@ -54,37 +54,37 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="148"/>
         <source>Passthrough</source>
-        <translation type="unfinished">Passthrough</translation>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="233"/>
         <source>Load fixture</source>
-        <translation type="unfinished">Fixture laden</translation>
+        <translation>Fixture laden</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="267"/>
         <source>System</source>
-        <translation type="unfinished">Systeem</translation>
+        <translation>Systeem</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <source>Back</source>
-        <translation type="unfinished">Terug</translation>
+        <translation>Terug</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="284"/>
         <source>Universes configuration</source>
-        <translation type="unfinished">Universes configuratie</translation>
+        <translation>Universes configuratie</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="290"/>
         <source>Audio configuration</source>
-        <translation type="unfinished">Audio configuratie</translation>
+        <translation>Audio configuratie</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="297"/>
         <source>User loaded fixtures</source>
-        <translation type="unfinished">Gebruikersfixtures</translation>
+        <translation>Gebruikersfixtures</translation>
     </message>
 </context>
 <context>
@@ -92,78 +92,78 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="62"/>
         <source>Network interface: </source>
-        <translation type="unfinished">Netwerk interface:</translation>
+        <translation>Netwerk interface:</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="67"/>
         <source>Access point name (SSID): </source>
-        <translation type="unfinished"></translation>
+        <translation>Access point name: (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="69"/>
         <source>WPA-PSK Password: </source>
-        <translation type="unfinished"></translation>
+        <translation>WPA-PSK Wachtwoord: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="74"/>
         <source>Dynamic (DHCP)</source>
-        <translation type="unfinished">Dynamisch (DHCP)</translation>
+        <translation>Dynamisch (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="76"/>
         <source>Static</source>
-        <translation type="unfinished">Statisch</translation>
+        <translation>Statisch</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="80"/>
         <source>IP Address: </source>
-        <translation type="unfinished">IP Adres:</translation>
+        <translation>IP Adres:</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="82"/>
         <source>Netmask: </source>
-        <translation type="unfinished">Netmask:</translation>
+        <translation>Netmask:</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="84"/>
         <source>Gateway: </source>
-        <translation type="unfinished">Gateway:</translation>
+        <translation>Gateway:</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="87"/>
         <location filename="webaccessnetwork.cpp" line="275"/>
         <source>Apply changes</source>
-        <translation type="unfinished">Wijzigingen doorvoeren</translation>
+        <translation>Wijzigingen doorvoeren</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="258"/>
         <source>Back</source>
-        <translation type="unfinished">Terug</translation>
+        <translation>Terug</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="264"/>
         <source>Network configuration</source>
-        <translation type="unfinished">Netwerk configuratie</translation>
+        <translation>Netwerk configuratie</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="269"/>
         <source>Project autostart</source>
-        <translation type="unfinished">Project autostart</translation>
+        <translation>Project autostart</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="273"/>
         <source>No project</source>
-        <translation type="unfinished">Geen project</translation>
+        <translation>Geen project</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="274"/>
         <source>Use current project</source>
-        <translation type="unfinished">Gebruik huidige project</translation>
+        <translation>Gebruik huidige project</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="279"/>
         <source>Reboot</source>
-        <translation type="unfinished">Herstarten</translation>
+        <translation>Herstarten</translation>
     </message>
 </context>
 <context>
@@ -171,17 +171,17 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="157"/>
         <source>Back</source>
-        <translation type="unfinished">Terug</translation>
+        <translation>Terug</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="162"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe</translation>
     </message>
 </context>
 </TS>
