@@ -564,7 +564,9 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
-                button->pressFunction();
+                if ((value == 0 && button->isOn()) ||
+                    (value != 0 && button->isOn() == false))
+                        button->pressFunction();
             }
             break;
             case VCWidget::SliderWidget:
