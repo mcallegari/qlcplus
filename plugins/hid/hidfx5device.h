@@ -33,7 +33,6 @@
 
 #define FX5_READ_TIMEOUT 100
 
-class HIDEventDevice;
 class HIDPlugin;
 
 /*****************************************************************************

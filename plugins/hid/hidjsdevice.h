@@ -36,7 +36,6 @@
 
 #include "hiddevice.h"
 
-class HIDEventDevice;
 class HIDPlugin;
 
 /*****************************************************************************
@@ -81,13 +80,6 @@ public:
 
     /** @reimp */
     void closeInput();
-    
-    /** Joysticks cannot be used as output devices */
-    /** @reimp */
-    void openOutput() {};
-
-    /** @reimp */
-    void closeOutput() {};
 
     /** @reimp */
     QString path() const;

@@ -15,7 +15,6 @@ macx:LIBS += -framework IOKit -framework CoreFoundation
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += configurehid.h \
            hiddevice.h \
-           hideventdevice.h \
            hidplugin.h \
            hidjsdevice.h \
            hidfx5device.h
@@ -24,7 +23,6 @@ FORMS += configurehid.ui
 
 SOURCES += configurehid.cpp \
            hiddevice.cpp \
-           hideventdevice.cpp \
            hidplugin.cpp \
            hidjsdevice.cpp \
            hidfx5device.cpp

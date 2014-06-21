@@ -196,7 +196,6 @@ bool HIDJsDevice::readEvent()
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
-    HIDInputEvent* e;
     int r;
 
     r = read(m_file.handle(), &ev, sizeof(struct js_event));
@@ -217,8 +216,7 @@ bool HIDJsDevice::readEvent()
             ch = quint32(m_axes + ev.number);
 
             /* Generate and post an event */
-            e = new HIDInputEvent(this, m_line, ch, val, true);
-            QApplication::postEvent(parent(), e);
+            emit valueChanged(UINT_MAX, m_line, ch, val);
         }
         else if ((ev.type & ~JS_EVENT_INIT) == JS_EVENT_AXIS)
         {
@@ -226,8 +224,8 @@ bool HIDJsDevice::readEvent()
                         double(0), double(UCHAR_MAX));
             ch = quint32(ev.number);
 
-            e = new HIDInputEvent(this, m_line, ch, val, true);
-            QApplication::postEvent(parent(), e);
+            qDebug() << "HID JS" << m_line << ch << val;
+            emit valueChanged(UINT_MAX, m_line, ch, val);
         }
         else
         {
@@ -239,9 +237,10 @@ bool HIDJsDevice::readEvent()
     else
     {
         /* This device seems to be dead */
+        /*
         e = new HIDInputEvent(this, 0, 0, 0, false);
         QApplication::postEvent(parent(), e);
-
+        */
         return false;
     }
 #elif defined(WIN32) || defined (Q_OS_WIN)

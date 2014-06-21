@@ -30,28 +30,6 @@
 #include "hidplugin.h"
 
 /*****************************************************************************
- * HIDInputEvent
- *****************************************************************************/
-
-static const QEvent::Type _HIDInputEventType = static_cast<QEvent::Type>
-        (QEvent::registerEventType());
-
-HIDInputEvent::HIDInputEvent(HIDDevice* device, quint32 input,
-                             quint32 channel, uchar value,
-                             bool alive) : QEvent(_HIDInputEventType)
-{
-    m_device = device;
-    m_input = input;
-    m_channel = channel;
-    m_value = value;
-    m_alive = alive;
-}
-
-HIDInputEvent::~HIDInputEvent()
-{
-}
-
-/*****************************************************************************
  * HID Initialization
  *****************************************************************************/
 
@@ -119,20 +97,6 @@ QStringList HIDPlugin::inputs()
     }
 
     return list;
-}
-
-void HIDPlugin::customEvent(QEvent* event)
-{
-    if (event->type() == _HIDInputEventType)
-    {
-        HIDInputEvent* e = static_cast<HIDInputEvent*> (event);
-        if (e != NULL && e->m_alive == true)
-            emit valueChanged(UINT_MAX, e->m_input, e->m_channel, e->m_value);
-        else
-            removeDevice(e->m_device);
-
-        event->accept();
-    }
 }
 
 QString HIDPlugin::pluginInfo()
