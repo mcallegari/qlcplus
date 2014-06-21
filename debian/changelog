@@ -11,9 +11,10 @@ qlcplus (4.7.3) stable; urgency=low
   * Fixture Editor: fixed gobos paths saved on Windows
   * Plugins/Peperoni: added preliminary input support (thanks to Jan Menzel)
   * Webaccess: button state now correctly switch depending on the sent value
-  * New fixture: Beamz LCB-252, Cameo LED RGB PAR56 Can (thanks to Sascha Büttner)
-  * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35 (thanks to Robert Box)
+  * New fixture: Beamz LCB-252, Cameo LED RGB PAR56 Can, Showtec Dynamic LED v3 (thanks to Sascha Büttner)
+  * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35, Kam Powercan TRI54W Slim (thanks to Robert Box)
   * New fixture: Martin RoboColor-III (thanks to Boudewijn)
+  * New fixture: StageTech LeaderScan Roto (thanks to Noel Utter)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 21 Jun 2014 12:13:14 +0200
 
