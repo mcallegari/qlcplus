@@ -63,7 +63,7 @@
     <message>
         <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished">Tento plugin umožnuje podporu pro HID joysticky a FX5 USB DMX adaptéry.</translation>
+        <translation>Tento plugin přidává podporu pro HID joysticky a FX5 USB DMX adaptéry.</translation>
     </message>
 </context>
 </TS>
