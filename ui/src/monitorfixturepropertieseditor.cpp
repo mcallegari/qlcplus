@@ -85,6 +85,7 @@ void MonitorFixturePropertiesEditor::slotSetPosition()
 {
     QPointF itemPos(m_xPosSpin->value() * 1000, m_yPosSpin->value() * 1000);
     m_fxItem->setPos(m_gfxView->realPositionToPixels(itemPos.x(), itemPos.y()));
+    m_fxItem->setRealPosition(itemPos);
     m_props->setFixturePosition(m_fxItem->fixtureID(), itemPos);
 }
 
