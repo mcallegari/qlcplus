@@ -210,6 +210,7 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 
 QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList extensions)
 {
+    Q_UNUSED(fallBackPath)
     QDir dir;
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
@@ -223,7 +224,6 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));
 #else
-    Q_UNUSED(fallBackPath)
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
