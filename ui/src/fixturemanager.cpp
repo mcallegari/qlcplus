@@ -1160,7 +1160,6 @@ void FixtureManager::removeFixture()
             m_doc->deleteFixtureGroup(id);
         }
     }
-    m_fixtures_tree->updateTree();
 }
 
 void FixtureManager::removeChannelsGroup()
