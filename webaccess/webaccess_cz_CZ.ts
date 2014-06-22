@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="362"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace sítě byla změněna. Restartuje pro aplikování změn.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="381"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="1048"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednoduchý pult</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1050"/>
@@ -97,12 +97,12 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="67"/>
         <source>Access point name (SSID): </source>
-        <translation type="unfinished"></translation>
+        <translation>Název bezdrátového přístupového bodu (SSID):</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="69"/>
         <source>WPA-PSK Password: </source>
-        <translation type="unfinished"></translation>
+        <translation>WPA-PSK Heslo:</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="74"/>
@@ -176,12 +176,12 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="162"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Strana</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev</translation>
     </message>
 </context>
 </TS>

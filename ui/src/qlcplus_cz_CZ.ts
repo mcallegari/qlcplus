@@ -189,7 +189,7 @@
     <message>
         <location filename="addfixture.ui" line="176"/>
         <source>Address Tool</source>
-        <translation type="unfinished">Pomocník adresace</translation>
+        <translation>Pomocník adresace</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -965,7 +965,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="audioeditor.ui" line="243"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -990,12 +990,12 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="audioeditor.cpp" line="98"/>
         <source>Open Audio File</source>
-        <translation type="unfinished">Otevřít soubor zvuku</translation>
+        <translation>Otevřít soubor zvuku</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="106"/>
         <source>Audio Files (%1)</source>
-        <translation type="unfinished">Zvukové soubory (%1)</translation>
+        <translation>Zvukové soubory (%1)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="108"/>
@@ -1241,37 +1241,37 @@ Délka: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor změn kanálů</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
         <source>Modified DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Změněná DMX hodnota</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="44"/>
         <source>Original DMX value</source>
-        <translation type="unfinished"></translation>
+        <translation>Původní DMX hodnota</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Odebrat zvolený prvek</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepsat tuto šablonu</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat nový prvek</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
         <source>Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablony</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="142"/>
@@ -1281,7 +1281,7 @@ Délka: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová šablona</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="169"/>
@@ -1291,7 +1291,7 @@ Délka: %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="170"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokoušíte se přepsat systémovou šablonu! Zvolte prosím jiný název a šablona bude uložena do Vaší složky modifikací a změn kanálů.</translation>
     </message>
 </context>
 <context>
@@ -1342,7 +1342,7 @@ Délka: %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifikátor</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="118"/>
@@ -1448,12 +1448,12 @@ Délka: %3
     <message>
         <location filename="chasereditor.ui" line="219"/>
         <source>Execute steps in random order</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit kroky v náhodném pořadí</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="222"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhodně</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="232"/>
@@ -2413,7 +2413,7 @@ Délka: %3
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název cílového projektu</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
@@ -2526,48 +2526,48 @@ Délka: %3
     <message>
         <location filename="fixturetreewidget.cpp" line="70"/>
         <source>Name</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="75"/>
         <source>Universe</source>
-        <translation type="unfinished">Větev</translation>
+        <translation>Větev</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="80"/>
         <source>Address</source>
-        <translation type="unfinished">Adresa</translation>
+        <translation>Adresa</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="85"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="90"/>
         <source>Heads</source>
-        <translation type="unfinished">Hlav</translation>
+        <translation>Hlav</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="95"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Výrobce</translation>
+        <translation>Výrobce</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="100"/>
         <source>Model</source>
-        <translation type="unfinished">Model</translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="208"/>
         <location filename="fixturetreewidget.cpp" line="216"/>
         <source>Generic</source>
-        <translation type="unfinished">Obecný</translation>
+        <translation>Obecný</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="228"/>
         <source>Head</source>
-        <translation type="unfinished">Hlava</translation>
+        <translation>Hlava</translation>
     </message>
 </context>
 <context>
@@ -2725,7 +2725,7 @@ Délka: %3
     <message>
         <location filename="functionmanager.cpp" line="519"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Otevřít soubor videa</translation>
+        <translation>Otevřít soubor videa</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="527"/>
@@ -2886,7 +2886,7 @@ Délka: %3
     <message>
         <location filename="functionselection.cpp" line="307"/>
         <source>&lt;Create a new track&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Vytvořit novou stopu&gt;</translation>
     </message>
 </context>
 <context>
@@ -3577,17 +3577,17 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor.cpp" line="437"/>
         <source>Set a background picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit obrázek pozadí</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
         <source>Show/hide labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit/skrýt popisky</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="730"/>
         <source>Select background image</source>
-        <translation type="unfinished">Zvolit obrázek pozadí</translation>
+        <translation>Zvolit obrázek pozadí</translation>
     </message>
 </context>
 <context>
@@ -3595,51 +3595,51 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="14"/>
         <source>Monitor Fixture Properties Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editace vlastností monitoru zařízení</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
         <source>Gel color</source>
         <oldsource>Gel color:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
         <source>Position and rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozice a rotace</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
         <source>Vertical</source>
         <oldsource>Vertical:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Svisle</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
         <source>Horizontal</source>
         <oldsource>Horizontal:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Vodorovně</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
         <source>Rotation</source>
         <oldsource>Rotation:</oldsource>
-        <translation type="unfinished">Rotace</translation>
+        <translation>Rotace</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
         <source>Set the color of the gel installed on the fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit barvu instalovanou v zařízení</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="112"/>
         <source>Reset the current color</source>
-        <translation type="unfinished"></translation>
+        <translation>Resetovat aktuální barvu</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="152"/>
         <source>Fixture name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Název zařízení:</translation>
     </message>
 </context>
 <context>
@@ -4018,7 +4018,7 @@ Délka: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Resetovat konečnou barvu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="123"/>
@@ -4579,18 +4579,18 @@ Délka: %3
     <message>
         <location filename="showmanager.cpp" line="191"/>
         <source>Add a &amp;track or an existing function</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat S&amp;topu nebo existující funkci</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="639"/>
         <location filename="showmanager.cpp" line="730"/>
         <source> (Copy)</source>
-        <translation type="unfinished">(kopie)</translation>
+        <translation>(Kopie)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="688"/>
         <source>Track %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Stopa %1</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="713"/>
@@ -4615,7 +4615,7 @@ Délka: %3
     <message>
         <location filename="showmanager.cpp" line="781"/>
         <source>Scene for %1 - Track %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Scéna pro %1 - Stopa %2</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="807"/>
@@ -4688,12 +4688,12 @@ Délka: %3
     <message>
         <location filename="showmanager.cpp" line="1321"/>
         <source>Track name setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavená názvu stopy</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1322"/>
         <source>Track name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Název stopy:</translation>
     </message>
 </context>
 <context>
@@ -4881,7 +4881,7 @@ Délka: %3
     <message>
         <location filename="sceneitems.cpp" line="310"/>
         <source>Change name</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejmenovat</translation>
     </message>
 </context>
 <context>
@@ -5121,7 +5121,7 @@ Délka: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="81"/>
         <source>Fade time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čas zesílení/zeslabení:</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="197"/>
@@ -6674,13 +6674,13 @@ Délka: %3
     <message>
         <location filename="videoeditor.ui" line="14"/>
         <source>Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor videa</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
         <source>Video name</source>
         <oldsource>Video name:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Název videa</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
@@ -6698,60 +6698,60 @@ Délka: %3
         <location filename="videoeditor.ui" line="59"/>
         <source>Resolution</source>
         <oldsource>Resolution:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Rozlišení</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Zvukový kodek</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
         <source>Video codec</source>
         <oldsource>Video codec:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Video kodek</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished"></translation>
+        <translation>Název funkce k editaci</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="175"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
         <source>Output Screen</source>
         <oldsource>Output Screen:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Výstupní obrazovka</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>
         <source>Video output</source>
-        <translation type="unfinished"></translation>
+        <translation>Video výstup</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="225"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation>V okně</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
-        <translation type="unfinished">Celá obrazovka</translation>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="103"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Otevřít soubor videa</translation>
+        <translation>Otevřít soubor videa</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="111"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished">Video soubory (%1)</translation>
+        <translation>Video soubory (%1)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="113"/>
