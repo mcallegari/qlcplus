@@ -110,6 +110,7 @@ void MasterTimerPrivate::run()
            with jumps of under a second every time. */
         sleepTime->tv_nsec = ((finish->tv_usec - current->tv_usec) * 1000) +
                              ((finish->tv_sec - current->tv_sec) * 1000000000) - 1000;
+        //qDebug() << Q_FUNC_INFO << sleepTime->tv_nsec;
         if (sleepTime->tv_nsec > 0)
         {
             tod = nanosleep(sleepTime, remainingTime);
@@ -119,12 +120,25 @@ void MasterTimerPrivate::run()
                 tod = nanosleep(sleepTime, remainingTime);
             }
         }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Time went forward in the future ! Recalibrating...";
+            gettimeofday(finish, NULL);
+            continue;
+        }
 
         /* Now take full CPU for precision (only a few nanoseconds,
            at maximum 1000 nanoseconds) */
-        while (finish->tv_usec - current->tv_usec +
-                (finish->tv_sec - current->tv_sec) * 1000000 > 5)
+        sleepTime->tv_nsec = finish->tv_usec - current->tv_usec +
+                (finish->tv_sec - current->tv_sec) * 1000000;
+        while (sleepTime->tv_nsec > 5)
         {
+            //qDebug() << Q_FUNC_INFO << "Loop here" << sleepTime->tv_nsec;
+            if (sleepTime->tv_nsec > 1000000)
+            {
+                qWarning() << Q_FUNC_INFO << "Time went back in the past ! Recalibrating...";
+                gettimeofday(finish, NULL);
+            }
             tod = gettimeofday(current, NULL);
             if (tod == -1)
             {
@@ -133,6 +147,8 @@ void MasterTimerPrivate::run()
                 m_run = false;
                 break;
             }
+            sleepTime->tv_nsec = finish->tv_usec - current->tv_usec +
+                    (finish->tv_sec - current->tv_sec) * 1000000;
         }
 
         /* Execute the next timer event */
