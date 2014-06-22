@@ -9,6 +9,7 @@ qlcplus (4.7.3) stable; urgency=low
   * Monitor: fixed crash when showing 2D preview of a fixture that has been removed
   * Monitor: it is now possible to set a background image to the 2D preview
   * Monitor: fixed fixture positioning through the Fixture Item Editor
+  * Fixture manager: fixed crash when deleting all groups/fixtures (thanks to David Garyga)
   * Fixture Editor: fixed gobos paths saved on Windows
   * Plugins/Peperoni: added preliminary input support (thanks to Jan Menzel)
   * Webaccess: button state now correctly switch depending on the sent value
