@@ -170,7 +170,10 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             }
         }
         else
+        {
             item->setText(KColumnInfo, tr("No function"));
+            item->setIcon(KColumnInfo, QIcon());
+        }
     }
     else if (bar->m_type == AudioBar::VCWidgetBar)
     {
@@ -185,10 +188,16 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             item->setIcon(KColumnInfo, VCWidget::typeToIcon(bar->widget()->type()));
         }
         else
+        {
             item->setText(KColumnInfo, tr("No widget"));
+            item->setIcon(KColumnInfo, QIcon());
+        }
     }
     else
+    {
         item->setText(KColumnInfo, tr("Not assigned"));
+        item->setIcon(KColumnInfo, QIcon());
+    }
 
     if (bar->m_type == AudioBar::FunctionBar 
         || (bar->m_type == AudioBar::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
