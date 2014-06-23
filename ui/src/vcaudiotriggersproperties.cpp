@@ -348,7 +348,7 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         filters.append(VCWidget::SpeedDialWidget);
         filters.append(VCWidget::CueListWidget);
         VCWidgetSelection ws(filters, this);
-        if (ws.exec() == QDialog::Rejected || ws.selection().size() == 0)
+        if (ws.exec() == QDialog::Rejected || ws.getSelectedWidget() == 0)
             return; // User pressed cancel or did not select any widget
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
