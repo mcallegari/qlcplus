@@ -369,6 +369,9 @@ void FunctionSelection::slotItemDoubleClicked(QTreeWidgetItem* item)
     if (item == NULL)
         return;
 
+    if (m_buttonBox->button(QDialogButtonBox::Ok)->isEnabled() == false)
+        return;
+
     accept();
 }
 
