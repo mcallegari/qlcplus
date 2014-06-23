@@ -320,6 +320,7 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
     if (prop.isValid())
     {
         FunctionSelection fs(this, m_doc);
+        fs.setMultiSelection(false);
         if (fs.exec() == QDialog::Rejected || fs.selection().size() == 0)
             return; // User pressed cancel or made an invalid selection
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
