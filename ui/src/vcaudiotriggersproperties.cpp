@@ -170,7 +170,10 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             }
         }
         else
+        {
             item->setText(KColumnInfo, tr("No function"));
+            item->setIcon(KColumnInfo, QIcon());
+        }
     }
     else if (bar->m_type == AudioBar::VCWidgetBar)
     {
@@ -185,10 +188,16 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             item->setIcon(KColumnInfo, VCWidget::typeToIcon(bar->widget()->type()));
         }
         else
+        {
             item->setText(KColumnInfo, tr("No widget"));
+            item->setIcon(KColumnInfo, QIcon());
+        }
     }
     else
+    {
         item->setText(KColumnInfo, tr("Not assigned"));
+        item->setIcon(KColumnInfo, QIcon());
+    }
 
     if (bar->m_type == AudioBar::FunctionBar 
         || (bar->m_type == AudioBar::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
@@ -311,8 +320,9 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
     if (prop.isValid())
     {
         FunctionSelection fs(this, m_doc);
-        if (fs.exec() == QDialog::Rejected)
-            return; // User pressed cancel
+        fs.setMultiSelection(false);
+        if (fs.exec() == QDialog::Rejected || fs.selection().size() == 0)
+            return; // User pressed cancel or made an invalid selection
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         Function *f = m_doc->function(fs.selection().first());
         if (bar != NULL && f != NULL)
@@ -339,8 +349,8 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         filters.append(VCWidget::SpeedDialWidget);
         filters.append(VCWidget::CueListWidget);
         VCWidgetSelection ws(filters, this);
-        if (ws.exec() == QDialog::Rejected)
-            return; // User pressed cancel
+        if (ws.exec() == QDialog::Rejected || ws.getSelectedWidget() == 0)
+            return; // User pressed cancel or did not select any widget
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
         {

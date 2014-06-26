@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QPushButton>
+
 #include "vcwidgetselection.h"
 #include "virtualconsole.h"
 #include "vcframe.h"
@@ -35,7 +37,14 @@ VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->setAllColumnsShowFocus(true);
 
+    connect(m_tree, SIGNAL(itemSelectionChanged()),
+            this, SLOT(slotItemSelectionChanged()));
+    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
+
     updateWidgetsTree();
+
+    slotItemSelectionChanged();
 }
 
 VCWidgetSelection::~VCWidgetSelection()
@@ -81,4 +90,23 @@ void VCWidgetSelection::updateWidgetsTree()
         item->setIcon(KColumnName, VCWidget::typeToIcon(widget->type()));
         item->setText(KColumnType, VCWidget::typeToString(widget->type()));
     }
+}
+
+void VCWidgetSelection::slotItemSelectionChanged()
+{
+    if (m_tree->currentIndex().row() < 0)
+    {
+        // No widget selected
+        m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    }
+    else
+        m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+}
+
+void VCWidgetSelection::slotItemDoubleClicked(QTreeWidgetItem* item)
+{
+    if (item == NULL)
+        return;
+
+    accept();
 }
