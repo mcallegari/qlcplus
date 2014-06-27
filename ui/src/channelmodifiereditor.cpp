@@ -26,7 +26,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QWidget *parent)
+ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
 {
@@ -68,7 +68,10 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QWidget *parent)
     connect(m_saveButton, SIGNAL(clicked()),
             this, SLOT(slotSaveClicked()));
 
-    updateModifiersList();
+    connect(m_unsetButton, SIGNAL(clicked()),
+            this, SLOT(slotUnsetClicked()));
+
+    updateModifiersList(modifier);
 }
 
 ChannelModifierEditor::~ChannelModifierEditor()
@@ -81,7 +84,7 @@ ChannelModifier *ChannelModifierEditor::selectedModifier()
     return m_currentTemplate;
 }
 
-void ChannelModifierEditor::updateModifiersList()
+void ChannelModifierEditor::updateModifiersList(QString modifier)
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
     m_templatesTree->clear();
@@ -89,9 +92,12 @@ void ChannelModifierEditor::updateModifiersList()
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, name);
+        if (name == modifier)
+            item->setSelected(true);
     }
-    if (m_templatesTree->topLevelItemCount() > 0)
-        m_templatesTree->setCurrentItem(m_templatesTree->topLevelItem(0));
+    if (m_templatesTree->topLevelItemCount() > 0 &&
+        m_templatesTree->selectedItems().count() == 0)
+            m_templatesTree->setCurrentItem(m_templatesTree->topLevelItem(0));
 }
 
 void ChannelModifierEditor::slotViewClicked()
@@ -191,4 +197,10 @@ void ChannelModifierEditor::slotSaveClicked()
     }
     else
         modifier->setModifierMap(map);
+}
+
+void ChannelModifierEditor::slotUnsetClicked()
+{
+    m_currentTemplate = NULL;
+    QDialog::accept();
 }

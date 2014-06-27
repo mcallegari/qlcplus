@@ -304,7 +304,7 @@ void ChannelsSelection::slotModifierButtonClicked()
     if (button == NULL)
         return;
 
-    ChannelModifierEditor cme(m_doc, this);
+    ChannelModifierEditor cme(m_doc, button->text(), this);
     if (cme.exec() == QDialog::Rejected)
         return; // User pressed cancel
 
@@ -372,8 +372,7 @@ void ChannelsSelection::accept()
                         if (button != NULL)
                         {
                             ChannelModifier *mod = m_doc->modifiersCache()->modifier(button->text());
-                            if (mod != NULL)
-                                fxi->setChannelModifier((quint32)c, mod);
+                            fxi->setChannelModifier((quint32)c, mod);
                         }
                     }
                     else

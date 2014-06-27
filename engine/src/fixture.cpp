@@ -442,11 +442,16 @@ QList<int> Fixture::forcedLTPChannels()
 
 void Fixture::setChannelModifier(quint32 idx, ChannelModifier *mod)
 {
-    qDebug() << Q_FUNC_INFO << idx << mod->name();
-
-    if (idx >= channels() || mod == NULL)
+    if (idx >= channels())
         return;
 
+    if (mod == NULL)
+    {
+        m_channelModifiers.remove(idx);
+        return;
+    }
+
+    qDebug() << Q_FUNC_INFO << idx << mod->name();
     m_channelModifiers[idx] = mod;
 }
 
