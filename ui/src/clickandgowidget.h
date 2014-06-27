@@ -139,6 +139,7 @@ protected:
     int m_height;
     int m_cols;
     int m_rows;
+    int m_cellWidth;
     int m_hoverCellIdx;
     int m_cellBarXpos;
     int m_cellBarYpos;
