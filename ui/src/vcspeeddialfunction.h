@@ -38,6 +38,7 @@ public:
     enum SpeedMultiplier
     {
         None = 0,
+        Zero,
         OneSixteenth,
         OneEighth,
         OneFourth,
