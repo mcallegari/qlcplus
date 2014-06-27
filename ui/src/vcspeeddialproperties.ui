@@ -78,17 +78,26 @@
          </column>
          <column>
           <property name="text">
-           <string>Fade In</string>
+           <string>Fade In *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade In Time to the function.</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Fade Out</string>
+           <string>Fade Out *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade Out Time to the function.</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>Duration (+tap)</string>
+           <string>Duration * (+tap)</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Duration to the function.</string>
           </property>
          </column>
         </widget>
