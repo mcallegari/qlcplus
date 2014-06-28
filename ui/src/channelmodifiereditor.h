@@ -44,13 +44,23 @@ private:
     ChannelModifierGraphicsView *m_view;
 
 protected:
+    /**
+     * Update the modifier tree view and select
+     * the given $modifier if present
+     */
     void updateModifiersList(QString modifier);
 
 protected slots:
+    /** Slot called when the user clicks on the graphics view space */
     void slotViewClicked();
+
+    /** Slot called when the user clicks on one handler of the modifier */
     void slotHandlerClicked(uchar pos, uchar value);
+
+    /** Slot called while the user is dragging a handler around */
     void slotItemDMXChanged(uchar pos, uchar value);
 
+    /** Slot called when a tree item is selected */
     void slotItemSelectionChanged();
 
     void slotOriginalDMXValueChanged(int value);

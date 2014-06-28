@@ -183,6 +183,9 @@ public:
      */
     quint32 function() const;
 
+    /** @reimp */
+    void stopFunction();
+
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
     void slotFunctionRemoved(quint32 fid);
@@ -320,9 +323,6 @@ protected:
     bool isChildOfSoloFrame() const;
 
 signals:
-    /** Signal telling the buttons function was started as a result of a toggle action */
-    void functionStarting ();
-
     /** Signal emitted when the button has actually changed the graphic state */
     void pressedState(bool on);
 

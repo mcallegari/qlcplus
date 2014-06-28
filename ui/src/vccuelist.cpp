@@ -386,6 +386,11 @@ int VCCueList::getCurrentIndex()
     return index;
 }
 
+void VCCueList::stopFunction()
+{
+    slotStop();
+}
+
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaserID)
@@ -552,6 +557,7 @@ void VCCueList::createRunner(int startIndex)
     {
         ch->useInternalRunner(false);
         ch->start(m_doc->masterTimer());
+        emit functionStarting();
         m_runner = new ChaserRunner(m_doc, ch);
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());

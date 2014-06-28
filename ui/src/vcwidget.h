@@ -303,6 +303,24 @@ private:
     bool m_allowResize;
 
     /*********************************************************************
+     * Widget Function
+     *********************************************************************/
+public:
+    /** This is a virtual method for VCWidgets attached to a Function.
+     *  At the moment only Buttons, Sliders (in playback mode) and Cue Lists
+     *  can benefit from this.
+     *  Basically when placed in a Solo frame, with this method it is
+     *  possible to stop the currently running Function */
+    virtual void stopFunction() { }
+
+signals:
+    /** Signal emitted when a VCWidget controlling a Function has been
+      * requested to start the Function.
+      * At the moment this is used by a restriceted number of widgets (see above)
+      */
+    void functionStarting();
+
+    /*********************************************************************
      * Properties
      *********************************************************************/
 public:

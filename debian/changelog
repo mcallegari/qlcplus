@@ -1,5 +1,6 @@
 qlcplus (4.7.4) stable; urgency=low
 
+  * Virtual Console: Solo Frames now handle Cue Lists and Sliders/Knobs in playback mode too
   * UI: Fixed some crashes on Function Selection and Widget Selection windows (thanks to David Garyga)
   * ClickAndGo: improved popup layout when a lot of presets need to be displayed
   * Channels Configuration: it is now possible to unset a Channel Modifier

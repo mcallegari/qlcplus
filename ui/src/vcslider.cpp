@@ -768,6 +768,17 @@ uchar VCSlider::playbackValue() const
     return m_playbackValue;
 }
 
+void VCSlider::stopFunction()
+{
+    if (mode() == Doc::Design || sliderMode() != Playback)
+        return;
+
+    if (m_slider != NULL)
+        m_slider->setValue(0);
+    else if (m_knob != NULL)
+        m_knob->setValue(0);
+}
+
 void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
 {
     Q_UNUSED(fid);
@@ -925,7 +936,10 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
         else
         {
             if (function->stopped() == true)
+            {
                 function->start(timer);
+                emit functionStarting();
+            }
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
         }
     }

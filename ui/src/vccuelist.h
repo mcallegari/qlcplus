@@ -112,6 +112,9 @@ public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
 
+    /** @reimp */
+    void stopFunction();
+
 private:
     /** Update the list of steps */
     void updateStepList();

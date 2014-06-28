@@ -388,6 +388,19 @@ quint32 VCButton::function() const
     return m_function;
 }
 
+void VCButton::stopFunction()
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (m_function != Function::invalidId() && action() == VCButton::Toggle)
+    {
+        Function *f = m_doc->function(m_function);
+        if (f != NULL && f->isRunning())
+            f->stopAndWait();
+    }
+}
+
 void VCButton::slotFunctionRemoved(quint32 fid)
 {
     /* Invalidate the button's function if it's the one that was removed */
