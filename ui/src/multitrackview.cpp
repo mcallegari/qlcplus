@@ -202,6 +202,8 @@ void MultiTrackView::addTrack(Track *track)
             this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
     connect(trackItem, SIGNAL(itemMoveUpDown(Track*,int)),
             this, SIGNAL(trackMoved(Track*,int)));
+    connect(trackItem, SIGNAL(itemRequestDelete(Track*)),
+            this, SIGNAL(trackDelete(Track*)));
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -381,7 +383,7 @@ quint32 MultiTrackView::deleteSelectedFunction()
             quint32 sceneID = track->getSceneID();
             quint32 trkID = track->id();
             QList <quint32> ids = track->functionsID();
-            QString msg = tr("Do you want to DELETE scene:") + QString("\n\n") + track->name();
+            QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (ids.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:" ) + QString("\n\n");

@@ -25,7 +25,7 @@
 #include <QList>
 
 #include "multitrackview.h"
-#include "sceneitems.h"
+#include "showitems.h"
 #include "scene.h"
 #include "show.h"
 #include "doc.h"
@@ -135,8 +135,13 @@ private:
     QSpinBox* m_bpmField;
 
 protected slots:
+    /** Slot called when the user selects a show from
+     *  the shows combo box */
     void slotShowsComboChanged(int idx);
+
+    /** Slot called when the user request to add a new show */
     void slotAddShow();
+
     void slotAddTrack();
     void slotAddSequence();
     void slotAddAudio();
@@ -173,6 +178,7 @@ protected slots:
     void slotTrackClicked(Track *track);
     void slotTrackDoubleClicked(Track *track);
     void slotTrackMoved(Track *track, int direction);
+    void slotTrackDelete(Track *track);
     void slotChangeColor();
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);

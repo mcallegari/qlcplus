@@ -41,7 +41,6 @@
 #endif
 #include "showmanager.h"
 #include "sceneeditor.h"
-#include "sceneitems.h"
 #include "qlcmacros.h"
 #include "chaser.h"
 
@@ -122,6 +121,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotTrackDoubleClicked(Track*)));
     connect(m_showview, SIGNAL(trackMoved(Track*,int)),
             this, SLOT(slotTrackMoved(Track*,int)));
+    connect(m_showview, SIGNAL(trackDelete(Track*)),
+            this, SLOT(slotTrackDelete(Track*)));
 
     // split the multitrack view into two (left: tracks, right: chaser editor)
     m_vsplitter = new QSplitter(Qt::Horizontal, this);
@@ -1106,8 +1107,6 @@ void ShowManager::slotDelete()
             m_doc->setModified();
             updateMultiTrackView();
         }
-
-        //m_doc->deleteFunction(deleteID);
     }
 }
 
@@ -1336,6 +1335,20 @@ void ShowManager::slotTrackMoved(Track *track, int direction)
         m_show->moveTrack(track, direction);
     updateMultiTrackView();
     m_doc->setModified();
+}
+
+void ShowManager::slotTrackDelete(Track *track)
+{
+    if (track == NULL)
+        return;
+
+    quint32 deleteID = m_showview->deleteSelectedFunction();
+    if (deleteID != Function::invalidId())
+    {
+        m_show->removeTrack(deleteID);
+        m_doc->setModified();
+        updateMultiTrackView();
+    }
 }
 
 void ShowManager::slotChangeColor()

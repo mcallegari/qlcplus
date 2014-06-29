@@ -96,10 +96,10 @@ HEADERS += aboutbox.h \
            rgbmatrixeditor.h \
            rgbitem.h \
            sceneeditor.h \
-           sceneitems.h \
            scripteditor.h \
            selectinputchannel.h \
            showeditor.h \
+           showitems.h \
            showmanager.h \
            simpledesk.h \
            simpledeskengine.h \
@@ -238,10 +238,10 @@ SOURCES += aboutbox.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
-           sceneitems.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
            showeditor.cpp \
+           showitems.cpp \
            showmanager.cpp \
            simpledesk.cpp \
            simpledeskengine.cpp \

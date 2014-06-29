@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  sceneitems.h
+  showitems.h
 
   Copyright (C) Heikki Junnila
 
@@ -176,6 +176,7 @@ protected slots:
     void slotMoveUpClicked();
     void slotMoveDownClicked();
     void slotChangeNameClicked();
+    void slotDeleteTrackClicked();
 
 signals:
     void itemClicked(TrackItem *);
@@ -183,6 +184,7 @@ signals:
     void itemSoloFlagChanged(TrackItem *, bool);
     void itemMuteFlagChanged(TrackItem *, bool);
     void itemMoveUpDown(Track *, int);
+    void itemRequestDelete(Track *);
 
 private:
     QString m_name;
@@ -199,6 +201,7 @@ private:
     QAction *m_moveUp;
     QAction *m_moveDown;
     QAction *m_changeName;
+    QAction *m_delete;
 };
 
 /***************************************************************************************

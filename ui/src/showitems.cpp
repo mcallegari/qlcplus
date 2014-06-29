@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  sceneitems.cpp
+  showitems.cpp
 
   Copyright (C) Massimo Callegari
 
@@ -22,7 +22,7 @@
 #include <QMenu>
 
 #include "audiodecoder.h"
-#include "sceneitems.h"
+#include "showitems.h"
 #include "chaserstep.h"
 
 /****************************************************************************
@@ -310,6 +310,10 @@ TrackItem::TrackItem(Track *track, int number)
     m_changeName = new QAction(QIcon(":/editclear.png"), tr("Change name"), this);
     connect(m_changeName, SIGNAL(triggered()),
             this, SLOT(slotChangeNameClicked()));
+
+    m_delete = new QAction(QIcon(":/editdelete.png"), tr("Delete"), this);
+    connect(m_delete, SIGNAL(triggered()),
+            this, SLOT(slotDeleteTrackClicked()));
 }
 
 Track *TrackItem::getTrack()
@@ -380,6 +384,7 @@ void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         menu.addAction(m_moveUp);
     menu.addAction(m_moveDown);
     menu.addAction(m_changeName);
+    menu.addAction(m_delete);
     menu.exec(QCursor::pos());
 }
 
@@ -461,6 +466,11 @@ void TrackItem::slotMoveDownClicked()
 void TrackItem::slotChangeNameClicked()
 {
     emit itemDoubleClicked(this);
+}
+
+void TrackItem::slotDeleteTrackClicked()
+{
+    emit itemRequestDelete(m_track);
 }
 
 

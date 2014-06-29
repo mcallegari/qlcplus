@@ -26,7 +26,7 @@
 #include <QSlider>
 #include <QWidget>
 
-#include "sceneitems.h"
+#include "showitems.h"
 #include "chaser.h"
 #include "track.h"
 
@@ -182,6 +182,7 @@ signals:
     void trackClicked(Track *track);
     void trackDoubleClicked(Track *track);
     void trackMoved(Track *, int);
+    void trackDelete(Track *);
 };
 
 /** @} */
