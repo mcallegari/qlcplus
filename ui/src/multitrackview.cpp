@@ -66,7 +66,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_header = new SceneHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
     connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)),
-            this, SLOT(slotMoveCursor(QGraphicsSceneMouseEvent *)));
+            this, SLOT(slotHeaderClicked(QGraphicsSceneMouseEvent *)));
     m_scene->addItem(m_header);
     m_snapToGrid = false;
 
@@ -566,13 +566,21 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
         && getSelectedVideo() == NULL
 #endif
        )
-            emit viewClicked(e);
+    {
+        if (e->pos().x() > TRACK_WIDTH)
+        {
+            m_cursor->setPos(e->pos().x(), 0);
+            m_cursor->setTime(getTimeFromCursor());
+            emit timeChanged(m_cursor->getTime());
+        }
+        emit viewClicked(e);
+    }
 
     QGraphicsView::mouseReleaseEvent(e);
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
 }
 
-void MultiTrackView::slotMoveCursor(QGraphicsSceneMouseEvent *event)
+void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)
 {
     m_cursor->setPos(TRACK_WIDTH +  event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromCursor());

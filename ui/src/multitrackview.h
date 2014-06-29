@@ -154,7 +154,7 @@ public slots:
     void mouseReleaseEvent(QMouseEvent * e);
 
 protected slots:
-    void slotMoveCursor(QGraphicsSceneMouseEvent *event);
+    void slotHeaderClicked(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
     void slotTrackClicked(TrackItem *track);
     void slotTrackDoubleClicked(TrackItem *track);

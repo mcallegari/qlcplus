@@ -5,6 +5,7 @@ qlcplus (4.7.4) stable; urgency=low
   * ClickAndGo: improved popup layout when a lot of presets need to be displayed
   * Channels Configuration: it is now possible to unset a Channel Modifier
   * Show Manager: added delete action to tracks context menu
+  * Show Manager: move cursor when the view is clicked even if the grid is not enabled
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 Jul 2014 12:13:14 +0200
 
