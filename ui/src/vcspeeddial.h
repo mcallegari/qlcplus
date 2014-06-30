@@ -110,12 +110,12 @@ private:
      ************************************************************************/
 public:
     /**
-     * Set the set of functions that are controlled by the dial.
+     * Set the list of functions that are controlled by the dial.
      */
     void setFunctions(const QList <VCSpeedDialFunction> functions);
 
     /**
-     * Get the set of functions that are controlled by the dial.
+     * Get the list of functions that are controlled by the dial.
      */
     QList <VCSpeedDialFunction> functions() const;
 
@@ -183,6 +183,7 @@ public:
     /** @reimp */
     void postLoad();
 };
+// Deprecated: used for loading old workspace files
 Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)
 
 /** @} */

@@ -52,6 +52,7 @@ bool VCSpeedDialFunction::loadXML(const QDomElement& root, SpeedMultiplier aFade
     }
     functionId = root.text().toUInt();
 
+    // For each multiplier: If not present in XML, use default value.
     if (root.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
         fadeInMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedFadeIn).toUInt());
     else

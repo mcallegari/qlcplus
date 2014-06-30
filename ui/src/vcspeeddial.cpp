@@ -284,7 +284,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    // Compatibility with old project files:
+    // Compatibility with old workspace files:
     // Get old style speedtype selection
     VCSpeedDialFunction::SpeedMultiplier defaultFadeInMultiplier = VCSpeedDialFunction::None;
     VCSpeedDialFunction::SpeedMultiplier defaultFadeOutMultiplier = VCSpeedDialFunction::None;

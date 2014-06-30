@@ -50,7 +50,14 @@ public:
         Sixteen
     };
 
+    /**
+     * Get the ordered list of existing speed multiplier names
+     */
     static const QStringList &speedMultiplierNames();
+    /**
+     * Get the ordered list of existing speed multiplier values, times 1000
+     * (value for multiplier 1/4 will be 250)
+     */
     static const QVector <quint32> &speedMultiplierValuesTimes1000();
 
     /************************************************************************

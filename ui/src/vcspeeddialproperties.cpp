@@ -52,8 +52,10 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     foreach (const VCSpeedDialFunction &speeddialfunction, m_dial->functions())
         createFunctionItem(speeddialfunction);
 
-    const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
+    /* Forbid editting the function name */
     m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
+    /* Combobox for editing the multipliers */
+    const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
     m_tree->setItemDelegateForColumn(COL_FADEIN, new ComboBoxDelegate(multiplierNames, this));
     m_tree->setItemDelegateForColumn(COL_FADEOUT, new ComboBoxDelegate(multiplierNames, this));
     m_tree->setItemDelegateForColumn(COL_DURATION, new ComboBoxDelegate(multiplierNames, this));
