@@ -50,6 +50,7 @@ private slots:
     void slotSourceFileClicked();
     void slotFadeInEdited();
     void slotFadeOutEdited();
+    void slotAudioDeviceChanged(int idx);
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
 

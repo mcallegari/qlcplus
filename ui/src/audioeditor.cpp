@@ -28,6 +28,18 @@
 #include "audio.h"
 #include "doc.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+  #include "audiorenderer_portaudio.h"
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+  #include "audiorenderer_waveout.h"
+ #else
+  #include "audiorenderer_alsa.h"
+ #endif
+#else
+ #include "audiorenderer_qt.h"
+#endif
+
 AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
@@ -72,6 +84,47 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
     }
+
+    QList<AudioDeviceInfo> devList;
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+    devList = AudioRendererPortAudio::getDevicesInfo();
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+    devList = AudioRendererWaveOut::getDevicesInfo();
+ #else
+    devList = AudioRendererAlsa::getDevicesInfo();
+ #endif
+#else
+    devList = AudioRendererQt::getDevicesInfo();
+#endif
+    QSettings settings;
+    QString outputName;
+    int i = 0, selIdx = 0;
+
+    m_audioDevCombo->addItem(tr("Default device"), "__qlcplusdefault__");
+    if (m_audio->audioDevice().isEmpty())
+    {
+        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        if (var.isValid() == true)
+            outputName = var.toString();
+    }
+    else
+        outputName = m_audio->audioDevice();
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            m_audioDevCombo->addItem(info.deviceName, info.privateName);
+
+            if (info.privateName == outputName)
+                selIdx = i;
+            i++;
+        }
+    }
+    m_audioDevCombo->setCurrentIndex(selIdx);
+    connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotAudioDeviceChanged(int)));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -174,6 +227,16 @@ void AudioEditor::slotFadeOutEdited()
 
     m_audio->setFadeOutSpeed(newValue);
     m_doc->setModified();
+}
+
+void AudioEditor::slotAudioDeviceChanged(int idx)
+{
+    QString audioDev = m_audioDevCombo->itemData(idx).toString();
+    qDebug() << "New audio device selected:" << audioDev;
+    if (audioDev == "__qlcplusdefault__")
+        m_audio->setAudioDevice(QString());
+    else
+        m_audio->setAudioDevice(audioDev);
 }
 
 void AudioEditor::slotPreviewToggled(bool state)

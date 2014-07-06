@@ -942,71 +942,87 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="audioeditor.ui" line="136"/>
-        <source>Bitrate:</source>
-        <translation>Bitrate:</translation>
+        <source>Bitrate</source>
+        <oldsource>Bitrate:</oldsource>
+        <translation>Bitrate</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="122"/>
-        <source>Duration:</source>
-        <translation>Dauer:</translation>
+        <source>Duration</source>
+        <oldsource>Duration:</oldsource>
+        <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="101"/>
+        <location filename="audioeditor.ui" line="78"/>
+        <source>File name</source>
+        <translation>Dateiname</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="115"/>
         <source>Audio name</source>
         <translation>Audioname</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
-        <source>Sample rate:</source>
-        <translation>Samplerate:</translation>
+        <source>Sample rate</source>
+        <oldsource>Sample rate:</oldsource>
+        <translation>Samplerate</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="236"/>
+        <location filename="audioeditor.ui" line="213"/>
         <source>Name of the function being edited</source>
         <translation>Name der zu bearbeitenden Sammlung</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="243"/>
+        <location filename="audioeditor.ui" line="230"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="129"/>
-        <source>Channels:</source>
-        <translation>Kanäle:</translation>
+        <location filename="audioeditor.ui" line="267"/>
+        <source>Audio device</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="108"/>
-        <source>File name:</source>
-        <translation>Dateiname:</translation>
+        <location filename="audioeditor.ui" line="129"/>
+        <source>Channels</source>
+        <oldsource>Channels:</oldsource>
+        <translation>Kanäle</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="64"/>
-        <source>Fade in:</source>
-        <translation>Einblenden:</translation>
+        <source>Fade in</source>
+        <oldsource>Fade in:</oldsource>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="71"/>
-        <source>Fade out:</source>
-        <translation>Ausblenden:</translation>
+        <source>Fade out</source>
+        <oldsource>Fade out:</oldsource>
+        <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="98"/>
+        <location filename="audioeditor.cpp" line="104"/>
+        <source>Default device</source>
+        <translation>Standardgerät</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.cpp" line="151"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="106"/>
+        <location filename="audioeditor.cpp" line="159"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="108"/>
+        <location filename="audioeditor.cpp" line="161"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="110"/>
+        <location filename="audioeditor.cpp" line="163"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
@@ -3707,10 +3723,6 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you want to DELETE scene:</source>
-        <translation type="obsolete">Soll die Szene GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="389"/>

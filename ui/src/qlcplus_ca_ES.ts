@@ -940,72 +940,88 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="64"/>
-        <source>Fade in:</source>
-        <translation>Fade in:</translation>
+        <source>Fade in</source>
+        <oldsource>Fade in:</oldsource>
+        <translation>Fade in</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="71"/>
-        <source>Fade out:</source>
-        <translation>Fade out:</translation>
+        <source>Fade out</source>
+        <oldsource>Fade out:</oldsource>
+        <translation>Fade out</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="101"/>
+        <location filename="audioeditor.ui" line="78"/>
+        <source>File name</source>
+        <translation>Nom del arxiu</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="115"/>
         <source>Audio name</source>
         <translation>Nom del Audio
 </translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="108"/>
-        <source>File name:</source>
-        <translation>Nom del arxiu:</translation>
-    </message>
-    <message>
         <location filename="audioeditor.ui" line="122"/>
-        <source>Duration:</source>
-        <translation>Duració:</translation>
+        <source>Duration</source>
+        <oldsource>Duration:</oldsource>
+        <translation>Duració</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
-        <source>Channels:</source>
-        <translation>Canals:</translation>
+        <source>Channels</source>
+        <oldsource>Channels:</oldsource>
+        <translation>Canals</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="136"/>
-        <source>Bitrate:</source>
-        <translation>Taxa de bits:</translation>
+        <source>Bitrate</source>
+        <oldsource>Bitrate:</oldsource>
+        <translation>Taxa de bits</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
-        <source>Sample rate:</source>
-        <translation>Freqüència de mostreig:</translation>
+        <source>Sample rate</source>
+        <oldsource>Sample rate:</oldsource>
+        <translation>Freqüència de mostreig</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="236"/>
+        <location filename="audioeditor.ui" line="213"/>
         <source>Name of the function being edited</source>
         <translation>Nom de la funció que s&apos;està editant</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="243"/>
+        <location filename="audioeditor.ui" line="230"/>
         <source>Preview</source>
         <translation>Vista prèvia</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="98"/>
+        <location filename="audioeditor.ui" line="267"/>
+        <source>Audio device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.cpp" line="104"/>
+        <source>Default device</source>
+        <translation>Dispositu per defecte</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.cpp" line="151"/>
         <source>Open Audio File</source>
         <translation>Obrir Arxiu d&apos;Audio</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="106"/>
+        <location filename="audioeditor.cpp" line="159"/>
         <source>Audio Files (%1)</source>
         <translation>Arxius d&apos;Audio (%1)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="108"/>
+        <location filename="audioeditor.cpp" line="161"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="110"/>
+        <location filename="audioeditor.cpp" line="163"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
@@ -3684,10 +3700,6 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="multitrackview.cpp" line="360"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
         <translation>Vol ESBORRAR ewl vídeo (l&apos;arxiu d&apos;origen NO serà eliminat):</translation>
-    </message>
-    <message>
-        <source>Do you want to DELETE scene:</source>
-        <translation type="obsolete">Vol ESBORAR aquesta escena:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="386"/>

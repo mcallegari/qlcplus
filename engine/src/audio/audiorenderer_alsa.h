@@ -39,7 +39,7 @@ class AudioRendererAlsa : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererAlsa(QObject * parent = 0);
+    AudioRendererAlsa(QString device, QObject * parent = 0);
     ~AudioRendererAlsa();
 
     /** @reimpl */

@@ -38,7 +38,7 @@ class AudioRendererWaveOut : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererWaveOut(QObject * parent = 0);
+    AudioRendererWaveOut(QString device, QObject * parent = 0);
     ~AudioRendererWaveOut();
 
     /** @reimpl */

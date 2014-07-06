@@ -119,19 +119,29 @@ public:
      */
     AudioDecoder* getAudioDecoder();
 
+    /**
+     * Set a specific audio device for rendering. If empty
+     * the QLC+ global device will be used
+     */
+    void setAudioDevice(QString dev);
+
+    /**
+     * Retrieve the audio device set for this function
+     */
+    QString audioDevice();
+
     void adjustAttribute(qreal fraction, int attributeIndex);
 
 protected slots:
     void slotEndOfStream();
 
 private:
-#ifdef QT_PHONON_LIB
-    Phonon::MediaObject *m_object;
-#endif
     /** Instance of an AudioDecoder to perform actual audio decoding */
     AudioDecoder *m_decoder;
     /** output interface to render audio data got from m_decoder */
     AudioRenderer *m_audio_out;
+    /** Audio device to use for rendering */
+    QString m_audioDevice;
     /** Absolute start time of Audio over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the audio object in the Show manager */

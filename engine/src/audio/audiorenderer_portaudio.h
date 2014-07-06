@@ -29,7 +29,7 @@ class AudioRendererPortAudio : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererPortAudio(QObject * parent = 0);
+    AudioRendererPortAudio(QString device, QObject * parent = 0);
     ~AudioRendererPortAudio();
 
     /** @reimpl */
@@ -68,6 +68,7 @@ private:
     PaStream *m_paStream;
     QMutex m_paMutex;
     QByteArray m_buffer;
+    QString m_device;
 
     int m_channels;
     int m_frameSize;

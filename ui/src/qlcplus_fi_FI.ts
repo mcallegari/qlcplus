@@ -940,71 +940,87 @@ The selected file has been moved or deleted.</source>
     </message>
     <message>
         <location filename="audioeditor.ui" line="136"/>
-        <source>Bitrate:</source>
+        <source>Bitrate</source>
+        <oldsource>Bitrate:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="122"/>
-        <source>Duration:</source>
+        <source>Duration</source>
+        <oldsource>Duration:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="101"/>
+        <location filename="audioeditor.ui" line="78"/>
+        <source>File name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="115"/>
         <source>Audio name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
-        <source>Sample rate:</source>
+        <source>Sample rate</source>
+        <oldsource>Sample rate:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="236"/>
+        <location filename="audioeditor.ui" line="213"/>
         <source>Name of the function being edited</source>
         <translation type="unfinished">Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="243"/>
+        <location filename="audioeditor.ui" line="230"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="129"/>
-        <source>Channels:</source>
+        <location filename="audioeditor.ui" line="267"/>
+        <source>Audio device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="108"/>
-        <source>File name:</source>
+        <location filename="audioeditor.ui" line="129"/>
+        <source>Channels</source>
+        <oldsource>Channels:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="64"/>
-        <source>Fade in:</source>
+        <source>Fade in</source>
+        <oldsource>Fade in:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="71"/>
-        <source>Fade out:</source>
+        <source>Fade out</source>
+        <oldsource>Fade out:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="98"/>
+        <location filename="audioeditor.cpp" line="104"/>
+        <source>Default device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.cpp" line="151"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="106"/>
+        <location filename="audioeditor.cpp" line="159"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="108"/>
+        <location filename="audioeditor.cpp" line="161"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="110"/>
+        <location filename="audioeditor.cpp" line="163"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>

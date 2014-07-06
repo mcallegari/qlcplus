@@ -7,6 +7,7 @@ qlcplus (4.7.4) stable; urgency=low
   * Show Manager: added delete action to tracks context menu
   * Show Manager: move cursor when the view is clicked even if the grid is not enabled
   * Show Manager: it is now possible to lock/unlock items
+  * Audio Editor: it is now possible to select a specific audio card for playback
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 Jul 2014 12:13:14 +0200
 

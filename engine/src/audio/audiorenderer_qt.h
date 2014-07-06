@@ -30,7 +30,7 @@ class AudioRendererQt : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt(QObject * parent = 0);
+    AudioRendererQt(QString device, QObject * parent = 0);
     ~AudioRendererQt();
 
     /** @reimpl */
@@ -61,6 +61,7 @@ private:
     QAudioOutput *m_audioOutput;
     QIODevice *m_output;
     QAudioFormat m_format;
+    QString m_device;
 };
 
 #endif // AUDIORENDERER_QT_H

@@ -61,14 +61,21 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>Fade in:</string>
+        <string>Fade in</string>
        </property>
       </widget>
      </item>
      <item row="9" column="1">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Fade out:</string>
+        <string>Fade out</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>File name</string>
        </property>
       </widget>
      </item>
@@ -89,6 +96,13 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="3">
+      <widget class="QToolButton" name="m_fileButton">
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="m_nameLabel">
        <property name="sizePolicy">
@@ -102,49 +116,42 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>File name:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QToolButton" name="m_fileButton">
-       <property name="text">
-        <string notr="true">...</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="0" colspan="2">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Duration:</string>
+        <string>Duration</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0" colspan="2">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Channels:</string>
+        <string>Channels</string>
        </property>
       </widget>
      </item>
      <item row="6" column="0" colspan="2">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Bitrate:</string>
+        <string>Bitrate</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0" colspan="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Sample rate:</string>
+        <string>Sample rate</string>
        </property>
       </widget>
      </item>
-     <item row="12" column="0" colspan="4">
+     <item row="10" column="0" colspan="4">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0" colspan="4">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -156,13 +163,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item row="10" column="0" colspan="4">
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
      </item>
      <item row="1" column="0" colspan="4">
       <widget class="Line" name="line">
@@ -207,6 +207,13 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="2" colspan="2">
+      <widget class="QLineEdit" name="m_nameEdit">
+       <property name="toolTip">
+        <string>Name of the function being edited</string>
+       </property>
+      </widget>
+     </item>
      <item row="9" column="2" colspan="2">
       <widget class="QLineEdit" name="m_fadeOutEdit">
        <property name="text">
@@ -214,6 +221,13 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0" colspan="2">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Preview</string>
        </property>
       </widget>
      </item>
@@ -230,21 +244,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2" colspan="2">
-      <widget class="QLineEdit" name="m_nameEdit">
-       <property name="toolTip">
-        <string>Name of the function being edited</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0" colspan="2">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Preview</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="2">
+     <item row="12" column="2">
       <widget class="QToolButton" name="m_previewButton">
        <property name="icon">
         <iconset resource="qlcui.qrc">
@@ -260,6 +260,16 @@
         <bool>true</bool>
        </property>
       </widget>
+     </item>
+     <item row="11" column="0" colspan="2">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Audio device</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="2" colspan="2">
+      <widget class="QComboBox" name="m_audioDevCombo"/>
      </item>
     </layout>
    </item>
