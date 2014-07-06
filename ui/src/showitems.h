@@ -251,6 +251,7 @@ protected:
 protected slots:
     void slotSequenceChanged(quint32);
     void slotAlignToCursorClicked();
+    void slotLockItemClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -277,6 +278,7 @@ private:
     bool m_pressed;
 
     QAction *m_alignToCursor;
+    QAction *m_lockAction;
 };
 
 /**************************************************************************
@@ -331,6 +333,7 @@ protected slots:
     void slotAudioPreviewRight(bool active);
     void slotAudioPreviewStereo(bool active);
     void slotAlignToCursorClicked();
+    void slotLockItemClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -361,6 +364,7 @@ private:
     QAction *m_previewRightAction;
     QAction *m_previewStereoAction;
     QAction *m_alignToCursor;
+    QAction *m_lockAction;
 
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
@@ -418,6 +422,7 @@ protected:
 protected slots:
     void slotVideoChanged(quint32);
     void slotAlignToCursorClicked();
+    void slotLockItemClicked();
     void slotScreenChanged();
     void slotFullscreenToggled(bool toggle);
 
@@ -443,6 +448,7 @@ private:
 
     /** Context menu actions */
     QAction *m_alignToCursor;
+    QAction *m_lockAction;
     QAction *m_fullscreenAction;
 
     bool m_pressed;

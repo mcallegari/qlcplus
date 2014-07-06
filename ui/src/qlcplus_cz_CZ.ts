@@ -1011,7 +1011,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="734"/>
+        <location filename="showitems.cpp" line="788"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -1022,35 +1022,46 @@ Délka: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="738"/>
+        <location filename="showitems.cpp" line="792"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klikněte pro přesunutí tohoto zvuku na časové ose</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="753"/>
-        <location filename="sceneitems.cpp" line="1130"/>
+        <location filename="showitems.cpp" line="810"/>
+        <location filename="showitems.cpp" line="1210"/>
         <source>Preview Left Channel</source>
         <translation>Ukázka levého kanálu</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="757"/>
+        <location filename="showitems.cpp" line="814"/>
         <source>Preview Right Channel</source>
         <translation>Ukázka pravého kanálu</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="761"/>
+        <location filename="showitems.cpp" line="818"/>
         <source>Preview Stereo Channels</source>
         <translation>Ukázka v režimu stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="766"/>
+        <location filename="showitems.cpp" line="823"/>
         <source>Align to cursor</source>
         <translation>Zarovnat ke kurzoru</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1126"/>
+        <location filename="showitems.cpp" line="826"/>
+        <location filename="showitems.cpp" line="1224"/>
+        <source>Lock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="1206"/>
         <source>Preview Mono</source>
         <translation>Ukázka v režimu mono</translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="1219"/>
+        <source>Unlock item</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1211,27 +1222,27 @@ Délka: %3
         <translation>%1 kanálů</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="173"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="174"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="188"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="192"/>
         <source>No widget</source>
         <translation>Bez ovladače</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="191"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="198"/>
         <source>Not assigned</source>
         <translation>Nepřiřazeno</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="243"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="252"/>
         <source>Volume Bar</source>
         <translation>Regulace hlasitosti</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="252"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="261"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -1284,12 +1295,17 @@ Délka: %3
         <translation>Nová šablona</translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="169"/>
+        <location filename="channelmodifiereditor.ui" line="162"/>
+        <source>Unset Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelmodifiereditor.cpp" line="175"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.cpp" line="170"/>
+        <location filename="channelmodifiereditor.cpp" line="176"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
         <translation>Pokoušíte se přepsat systémovou šablonu! Zvolte prosím jiný název a šablona bude uložena do Vaší složky modifikací a změn kanálů.</translation>
     </message>
@@ -2166,214 +2182,214 @@ Délka: %3
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="349"/>
+        <location filename="fixturemanager.cpp" line="367"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="345"/>
+        <location filename="fixturemanager.cpp" line="363"/>
         <source>Fixtures Groups</source>
         <translation>Skupiny zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="349"/>
+        <location filename="fixturemanager.cpp" line="367"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="362"/>
+        <location filename="fixturemanager.cpp" line="380"/>
         <source>Channels Groups</source>
         <translation>Skupiny kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="555"/>
+        <location filename="fixturemanager.cpp" line="573"/>
         <source>All fixtures</source>
         <translation>Všechna zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="555"/>
+        <location filename="fixturemanager.cpp" line="573"/>
         <source>This group contains all fixtures.</source>
         <translation>Tato skupina obsahuje všechna zařázení.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="567"/>
+        <location filename="fixturemanager.cpp" line="585"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Označeno více zařízení&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt;pro odebrání označených zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="573"/>
+        <location filename="fixturemanager.cpp" line="591"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Označeno více zařízení&lt;/H1&gt;&lt;P&gt;Úpravy seznamu zařízení nejsou dovoleny v režimu Provoz.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="582"/>
+        <location filename="fixturemanager.cpp" line="600"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nebyla zvolena žádná zařízení&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="588"/>
+        <location filename="fixturemanager.cpp" line="606"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nic nevybráno&lt;/H1&gt;&lt;P&gt;Zvolte zařízení ze seznamu nebo klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="640"/>
+        <location filename="fixturemanager.cpp" line="658"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ozančeno více skupin&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pro odebrání zvolené skupiny.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="648"/>
+        <location filename="fixturemanager.cpp" line="666"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nic nevybráno&lt;/H1&gt;&lt;P&gt;Zvolte skupinu kanálů ze seznamu nebo klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání nové skupiny kanálů.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="673"/>
+        <location filename="fixturemanager.cpp" line="691"/>
         <source>Add group...</source>
         <translation>Přidat skupinu...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="679"/>
-        <location filename="fixturemanager.cpp" line="787"/>
-        <location filename="fixturemanager.cpp" line="792"/>
+        <location filename="fixturemanager.cpp" line="697"/>
+        <location filename="fixturemanager.cpp" line="805"/>
+        <location filename="fixturemanager.cpp" line="810"/>
         <source>Add fixture...</source>
         <translation>Přidat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="797"/>
+        <location filename="fixturemanager.cpp" line="815"/>
         <source>Delete items</source>
         <translation>Smazat položky</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="802"/>
+        <location filename="fixturemanager.cpp" line="820"/>
         <source>Properties...</source>
         <translation>Vlastnosti...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="807"/>
+        <location filename="fixturemanager.cpp" line="825"/>
         <source>Channels Fade Configuration...</source>
         <translation>Nastavení útlumu kanálů...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="813"/>
+        <location filename="fixturemanager.cpp" line="831"/>
         <source>Add fixture to group...</source>
         <translation>Přidat zařízení do skupiny...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="816"/>
+        <location filename="fixturemanager.cpp" line="834"/>
         <source>Remove fixture from group</source>
         <translation>Odebrat zařízení ze skupiny</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="820"/>
+        <location filename="fixturemanager.cpp" line="838"/>
         <source>New Group...</source>
         <translation>Nová skupina...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="823"/>
+        <location filename="fixturemanager.cpp" line="841"/>
         <source>Move group up...</source>
         <translation>Posunout skupinu nahoru...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="829"/>
+        <location filename="fixturemanager.cpp" line="847"/>
         <source>Move group down...</source>
         <translation>Posunout skupinu dolů...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="835"/>
+        <location filename="fixturemanager.cpp" line="853"/>
         <source>Import fixtures...</source>
         <translation>Importovat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="840"/>
+        <location filename="fixturemanager.cpp" line="858"/>
         <source>Export fixtures...</source>
         <translation>Exportovat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="846"/>
+        <location filename="fixturemanager.cpp" line="864"/>
         <source>Remap fixtures...</source>
         <translation>Přesunout zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="879"/>
+        <location filename="fixturemanager.cpp" line="897"/>
         <source>Fixture manager</source>
         <translation>Správce zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="947"/>
+        <location filename="fixturemanager.cpp" line="965"/>
         <source>Generic Dimmer</source>
         <translation>Obecný stmívač</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1060"/>
+        <location filename="fixturemanager.cpp" line="1078"/>
         <source>%1 - Row %2</source>
         <translation>%1 - řádek %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1122"/>
+        <location filename="fixturemanager.cpp" line="1140"/>
         <source>Delete Fixtures</source>
         <translation>Smazat zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1123"/>
+        <location filename="fixturemanager.cpp" line="1141"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Opravdu si přejete SMAZAT zvolené položky? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1168"/>
+        <location filename="fixturemanager.cpp" line="1196"/>
         <source>Delete Channels Group</source>
         <translation>Smazat skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1169"/>
+        <location filename="fixturemanager.cpp" line="1197"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Opravdu si přejete SMAZAT zvolené skupiny? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1234"/>
+        <location filename="fixturemanager.cpp" line="1262"/>
         <source>Change fixture properties</source>
         <translation>Změnit parametry zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1271"/>
+        <location filename="fixturemanager.cpp" line="1299"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1272"/>
+        <location filename="fixturemanager.cpp" line="1300"/>
         <source>Please enter a valid address</source>
         <translation>Prosím zadejte platnou adresu</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1348"/>
+        <location filename="fixturemanager.cpp" line="1376"/>
         <source>Ungroup fixtures?</source>
         <translation>Oddělit zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1349"/>
+        <location filename="fixturemanager.cpp" line="1377"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Opravdu si přejete oddělit zvolená zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1464"/>
+        <location filename="fixturemanager.cpp" line="1492"/>
         <source>Import Fixtures List</source>
         <translation>Importovat seznam zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1469"/>
+        <location filename="fixturemanager.cpp" line="1497"/>
         <source>Export Fixtures List As</source>
         <translation>Exportovat seznam zařízení jako</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1475"/>
+        <location filename="fixturemanager.cpp" line="1503"/>
         <source>Fixtures List (*%1)</source>
         <translation>Seznam zařízení (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1477"/>
+        <location filename="fixturemanager.cpp" line="1505"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1479"/>
+        <location filename="fixturemanager.cpp" line="1507"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
@@ -3478,114 +3494,114 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="261"/>
+        <location filename="monitor.cpp" line="264"/>
         <source>Fixture Monitor</source>
         <translation>Sledování zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="293"/>
+        <location filename="monitor.cpp" line="296"/>
         <source>2D View</source>
         <translation>2D pohled</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="303"/>
         <source>Font</source>
         <translation>Styl písma</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="309"/>
+        <location filename="monitor.cpp" line="312"/>
         <source>DMX Channels</source>
         <translation>DMX kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="310"/>
+        <location filename="monitor.cpp" line="313"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zobrazit absolutní číslo DMX kanálu</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="320"/>
+        <location filename="monitor.cpp" line="323"/>
         <source>Relative Channels</source>
         <translation>Relativní kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="321"/>
+        <location filename="monitor.cpp" line="324"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zobrazit číslo kanálu relativně k zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="337"/>
+        <location filename="monitor.cpp" line="340"/>
         <source>DMX Values</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="338"/>
+        <location filename="monitor.cpp" line="341"/>
         <source>Show DMX values 0-255</source>
         <translation>Zobrazit hodnoty DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="349"/>
+        <location filename="monitor.cpp" line="352"/>
         <source>Percent Values</source>
         <translation>Procentuální hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="350"/>
+        <location filename="monitor.cpp" line="353"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zobrazit procentuální hodnoty 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="363"/>
+        <location filename="monitor.cpp" line="366"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation>Větev</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="368"/>
+        <location filename="monitor.cpp" line="371"/>
         <source>All universes</source>
         <translation>Všechny větve</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="390"/>
+        <location filename="monitor.cpp" line="393"/>
         <source>DMX View</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="396"/>
+        <location filename="monitor.cpp" line="399"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="420"/>
+        <location filename="monitor.cpp" line="423"/>
         <source>Meters</source>
         <translation>metrů</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="421"/>
+        <location filename="monitor.cpp" line="424"/>
         <source>Feet</source>
         <translation>stop</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="430"/>
+        <location filename="monitor.cpp" line="433"/>
         <source>Add fixture</source>
         <translation>Přidat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="432"/>
+        <location filename="monitor.cpp" line="435"/>
         <source>Remove fixture</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="437"/>
+        <location filename="monitor.cpp" line="440"/>
         <source>Set a background picture</source>
         <translation>Nastavit obrázek pozadí</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="440"/>
+        <location filename="monitor.cpp" line="443"/>
         <source>Show/hide labels</source>
         <translation>Zobrazit/skrýt popisky</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="730"/>
+        <location filename="monitor.cpp" line="733"/>
         <source>Select background image</source>
         <translation>Zvolit obrázek pozadí</translation>
     </message>
@@ -3645,42 +3661,46 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="317"/>
+        <location filename="multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Opravdu si přejete SMAZAT sekvenci: </translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="320"/>
-        <location filename="multitrackview.cpp" line="340"/>
-        <location filename="multitrackview.cpp" line="362"/>
-        <location filename="multitrackview.cpp" line="397"/>
+        <location filename="multitrackview.cpp" line="322"/>
+        <location filename="multitrackview.cpp" line="342"/>
+        <location filename="multitrackview.cpp" line="364"/>
+        <location filename="multitrackview.cpp" line="399"/>
         <source>Delete Functions</source>
         <translation>Smazat funkce</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="336"/>
+        <location filename="multitrackview.cpp" line="338"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Přejete si SMAZAT zvuk (zdrojový soubor NEBUDE odebrán):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="358"/>
+        <location filename="multitrackview.cpp" line="360"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
         <translation>Přejete si SMAZAT video (zdrojový soubor NEBUDE odebrán):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="384"/>
         <source>Do you want to DELETE scene:</source>
-        <translation>Opravdu si přejete si SMAZAT scénu:</translation>
+        <translation type="obsolete">Opravdu si přejete si SMAZAT scénu:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="387"/>
+        <location filename="multitrackview.cpp" line="386"/>
+        <source>Do you want to DELETE track:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="389"/>
         <source>This operation will also DELETE:</source>
         <translation>Tato operace také VYMAŽE:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="494"/>
-        <location filename="multitrackview.cpp" line="504"/>
-        <location filename="multitrackview.cpp" line="515"/>
+        <location filename="multitrackview.cpp" line="496"/>
+        <location filename="multitrackview.cpp" line="506"/>
+        <location filename="multitrackview.cpp" line="517"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3691,17 +3711,17 @@ Délka: %3
 %4</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="498"/>
+        <location filename="multitrackview.cpp" line="500"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klikněte pro přesunutí této sekvence na časové ose</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="508"/>
+        <location filename="multitrackview.cpp" line="510"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klikněte pro přesunutí tohoto zvuku na časové ose</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="519"/>
+        <location filename="multitrackview.cpp" line="521"/>
         <source>Click to move this video across the timeline</source>
         <translation>Klikněte pro přesunutí tohoto videa na časové ose</translation>
     </message>
@@ -4425,7 +4445,7 @@ Délka: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="484"/>
+        <location filename="showitems.cpp" line="496"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -4436,14 +4456,25 @@ Délka: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="488"/>
+        <location filename="showitems.cpp" line="500"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klikněte pro přesunutí této sekvence na časové ose</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="501"/>
+        <location filename="showitems.cpp" line="517"/>
         <source>Align to cursor</source>
         <translation>Zarovnat ke kurzoru</translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="520"/>
+        <location filename="showitems.cpp" line="759"/>
+        <source>Lock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="754"/>
+        <source>Unlock item</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4497,201 +4528,206 @@ Délka: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="185"/>
+        <location filename="showmanager.cpp" line="187"/>
         <source>New s&amp;how</source>
         <translation>Nové Představeníí (CTRL+&amp;h)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="197"/>
+        <location filename="showmanager.cpp" line="199"/>
         <source>New s&amp;equence</source>
         <translation>Nová Sekvence (CTRL+&amp;e)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="203"/>
+        <location filename="showmanager.cpp" line="205"/>
         <source>New &amp;audio</source>
         <translation>Nový zvuk (CTRL+&amp;a)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="210"/>
+        <location filename="showmanager.cpp" line="212"/>
         <source>New vi&amp;deo</source>
         <translation>Nové vi&amp;deo</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="217"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>&amp;Copy</source>
         <translation>Kopírovat (CTRL+&amp;C)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="224"/>
+        <location filename="showmanager.cpp" line="226"/>
         <source>&amp;Paste</source>
         <translation>Vložit (CTRL+&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="231"/>
+        <location filename="showmanager.cpp" line="233"/>
         <source>&amp;Delete</source>
         <translation>Smazat (CTRL+&amp;D)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="238"/>
+        <location filename="showmanager.cpp" line="240"/>
         <source>Change Co&amp;lor</source>
         <translation>Změnit Barvu (CTRL+&amp;L)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="245"/>
+        <location filename="showmanager.cpp" line="254"/>
         <source>Snap to &amp;Grid</source>
         <translation>Přichytit k mřížce (CTRL+&amp;G)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="252"/>
+        <location filename="showmanager.cpp" line="261"/>
         <source>St&amp;op</source>
         <translation>Zastavit (CTRL+&amp;O)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="258"/>
+        <location filename="showmanager.cpp" line="267"/>
         <source>&amp;Play</source>
         <translation>Přehrát (CTRL+&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="317"/>
+        <location filename="showmanager.cpp" line="327"/>
         <source>Time division:</source>
         <translation>Časový dělič:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="322"/>
+        <location filename="showmanager.cpp" line="332"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="530"/>
+        <location filename="showmanager.cpp" line="540"/>
         <source>New Show</source>
         <translation>Nové Představení</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="531"/>
+        <location filename="showmanager.cpp" line="541"/>
         <source>Show name setup</source>
         <translation>Nastavení názvu představení</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="532"/>
+        <location filename="showmanager.cpp" line="542"/>
         <source>Show name:</source>
         <translation>Název představení:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="191"/>
+        <location filename="showmanager.cpp" line="193"/>
         <source>Add a &amp;track or an existing function</source>
         <translation>Přidat S&amp;topu nebo existující funkci</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="639"/>
-        <location filename="showmanager.cpp" line="730"/>
+        <location filename="showmanager.cpp" line="247"/>
+        <source>Lock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="649"/>
+        <location filename="showmanager.cpp" line="740"/>
         <source> (Copy)</source>
         <translation>(Kopie)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="688"/>
+        <location filename="showmanager.cpp" line="698"/>
         <source>Track %1</source>
         <translation>Stopa %1</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="793"/>
+        <location filename="showmanager.cpp" line="723"/>
+        <location filename="showmanager.cpp" line="803"/>
         <source>New Sequence</source>
         <translation>Nová Sekvence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="772"/>
-        <location filename="showmanager.cpp" line="849"/>
-        <location filename="showmanager.cpp" line="909"/>
+        <location filename="showmanager.cpp" line="782"/>
+        <location filename="showmanager.cpp" line="859"/>
+        <location filename="showmanager.cpp" line="919"/>
         <source>Overlapping error</source>
         <translation>Chyba překrývání</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="772"/>
-        <location filename="showmanager.cpp" line="849"/>
-        <location filename="showmanager.cpp" line="909"/>
+        <location filename="showmanager.cpp" line="782"/>
+        <location filename="showmanager.cpp" line="859"/>
+        <location filename="showmanager.cpp" line="919"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="781"/>
+        <location filename="showmanager.cpp" line="791"/>
         <source>Scene for %1 - Track %2</source>
         <translation>Scéna pro %1 - Stopa %2</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="807"/>
+        <location filename="showmanager.cpp" line="817"/>
         <source>Open Audio File</source>
         <translation>Otevřít soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="816"/>
+        <location filename="showmanager.cpp" line="826"/>
         <source>Audio Files (%1)</source>
         <translation>Zvukové soubory (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="818"/>
-        <location filename="showmanager.cpp" line="878"/>
+        <location filename="showmanager.cpp" line="828"/>
+        <location filename="showmanager.cpp" line="888"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="820"/>
-        <location filename="showmanager.cpp" line="880"/>
+        <location filename="showmanager.cpp" line="830"/>
+        <location filename="showmanager.cpp" line="890"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="842"/>
+        <location filename="showmanager.cpp" line="852"/>
         <source>Unsupported audio file</source>
         <translation>Nepodporovaný soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="842"/>
+        <location filename="showmanager.cpp" line="852"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor zvuku nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="867"/>
+        <location filename="showmanager.cpp" line="877"/>
         <source>Open Video File</source>
         <translation>Otevřít soubor videa</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="876"/>
+        <location filename="showmanager.cpp" line="886"/>
         <source>Video Files (%1)</source>
         <translation>Video soubory (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="902"/>
+        <location filename="showmanager.cpp" line="912"/>
         <source>Unsupported video file</source>
         <translation>Nepodporovaný soubor videa</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="902"/>
+        <location filename="showmanager.cpp" line="912"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor videa nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="985"/>
-        <location filename="showmanager.cpp" line="1007"/>
+        <location filename="showmanager.cpp" line="995"/>
+        <location filename="showmanager.cpp" line="1017"/>
         <source>Paste error</source>
         <translation>Chyba vložení</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="985"/>
+        <location filename="showmanager.cpp" line="995"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="1007"/>
+        <location filename="showmanager.cpp" line="1017"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Pokoušíte se vložit nekompatibilní Scénu. Operace byla zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="1321"/>
+        <location filename="showmanager.cpp" line="1346"/>
         <source>Track name setup</source>
         <translation>Nastavená názvu stopy</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="1322"/>
+        <location filename="showmanager.cpp" line="1347"/>
         <source>Track name:</source>
         <translation>Název stopy:</translation>
     </message>
@@ -4869,19 +4905,24 @@ Délka: %3
 <context>
     <name>TrackItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="303"/>
+        <location filename="showitems.cpp" line="303"/>
         <source>Move up</source>
         <translation>Posunout výše</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="306"/>
+        <location filename="showitems.cpp" line="306"/>
         <source>Move down</source>
         <translation>Posunout níže</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="310"/>
+        <location filename="showitems.cpp" line="310"/>
         <source>Change name</source>
         <translation>Přejmenovat</translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="314"/>
+        <source>Delete</source>
+        <translation type="unfinished">Smazat</translation>
     </message>
 </context>
 <context>
@@ -4956,17 +4997,17 @@ Délka: %3
         <translation>Obrázky (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="499"/>
+        <location filename="vcbutton.cpp" line="512"/>
         <source>Toggle Blackout</source>
         <translation>Režim Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="501"/>
+        <location filename="vcbutton.cpp" line="514"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="727"/>
+        <location filename="vcbutton.cpp" line="740"/>
         <source>Icon</source>
         <translation>Ikona</translation>
     </message>
@@ -5235,22 +5276,22 @@ Délka: %3
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="865"/>
+        <location filename="vccuelist.cpp" line="871"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="865"/>
+        <location filename="vccuelist.cpp" line="871"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="865"/>
+        <location filename="vccuelist.cpp" line="871"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="865"/>
+        <location filename="vccuelist.cpp" line="871"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -6767,8 +6808,8 @@ Délka: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="1158"/>
-        <location filename="sceneitems.cpp" line="1267"/>
+        <location filename="showitems.cpp" line="1252"/>
+        <location filename="showitems.cpp" line="1370"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -6779,25 +6820,36 @@ Délka: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1162"/>
-        <location filename="sceneitems.cpp" line="1271"/>
+        <location filename="showitems.cpp" line="1256"/>
+        <location filename="showitems.cpp" line="1374"/>
         <source>Click to move this video across the timeline</source>
         <translation>Klikněte pro přesunutí tohoto videa na časové ose</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1176"/>
+        <location filename="showitems.cpp" line="1273"/>
         <source>Fullscreen</source>
         <translation>Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1183"/>
+        <location filename="showitems.cpp" line="1280"/>
         <source>Align to cursor</source>
         <translation>Zarovnat ke kurzoru</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1363"/>
+        <location filename="showitems.cpp" line="1283"/>
+        <location filename="showitems.cpp" line="1502"/>
+        <source>Lock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="1483"/>
         <source>Screen %1</source>
         <translation>Obrazovka %1</translation>
+    </message>
+    <message>
+        <location filename="showitems.cpp" line="1497"/>
+        <source>Unlock item</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

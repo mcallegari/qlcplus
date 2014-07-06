@@ -490,6 +490,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_locked(false)
     , m_pressed(false)
     , m_alignToCursor(NULL)
+    , m_lockAction(NULL)
 {
     Q_ASSERT(seq != NULL);
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
@@ -516,6 +517,9 @@ SequenceItem::SequenceItem(Chaser *seq)
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
+    m_lockAction = new QAction(tr("Lock item"), this);
+    connect(m_lockAction, SIGNAL(triggered()),
+            this, SLOT(slotLockItemClicked()));
 }
 
 void SequenceItem::calculateWidth()
@@ -713,6 +717,12 @@ void SequenceItem::slotAlignToCursorClicked()
     emit alignToCursor(this);
 }
 
+void SequenceItem::slotLockItemClicked()
+{
+    setLocked(!isLocked());
+    //update();
+}
+
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
@@ -739,6 +749,17 @@ void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menu.setFont(menuFont);
 
     menu.addAction(m_alignToCursor);
+    if (isLocked())
+    {
+        m_lockAction->setText(tr("Unlock item"));
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
+    }
+    else
+    {
+        m_lockAction->setText(tr("Lock item"));
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    }
+    menu.addAction(m_lockAction);
     menu.exec(QCursor::pos());
 }
 
@@ -759,6 +780,7 @@ AudioItem::AudioItem(Audio *aud)
     , m_previewRightAction(NULL)
     , m_previewStereoAction(NULL)
     , m_alignToCursor(NULL)
+    , m_lockAction(NULL)
     , m_preview(NULL)
     , m_pressed(false)
 {
@@ -801,6 +823,9 @@ AudioItem::AudioItem(Audio *aud)
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
+    m_lockAction = new QAction(tr("Lock item"), this);
+    connect(m_lockAction, SIGNAL(triggered()),
+            this, SLOT(slotLockItemClicked()));
 }
 
 void AudioItem::calculateWidth()
@@ -990,6 +1015,11 @@ void AudioItem::slotAudioPreviewStereo(bool active)
 void AudioItem::slotAlignToCursorClicked()
 {
     emit alignToCursor(this);
+}
+
+void AudioItem::slotLockItemClicked()
+{
+    setLocked(!isLocked());
 }
 
 void AudioItem::createWaveform(bool left, bool right)
@@ -1184,6 +1214,18 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         menu.addSeparator();
     }
     menu.addAction(m_alignToCursor);
+    if (isLocked())
+    {
+        m_lockAction->setText(tr("Unlock item"));
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
+    }
+    else
+    {
+        m_lockAction->setText(tr("Lock item"));
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    }
+    menu.addAction(m_lockAction);
+
     menu.exec(QCursor::pos());
 }
 
@@ -1202,6 +1244,7 @@ VideoItem::VideoItem(Video *vid)
     , m_timeScale(3)
     , m_trackIdx(-1)
     , m_alignToCursor(NULL)
+    , m_lockAction(NULL)
     , m_fullscreenAction(NULL)
     , m_pressed(false)
 {
@@ -1237,6 +1280,9 @@ VideoItem::VideoItem(Video *vid)
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
+    m_lockAction = new QAction(tr("Lock item"), this);
+    connect(m_lockAction, SIGNAL(triggered()),
+            this, SLOT(slotLockItemClicked()));
 }
 
 void VideoItem::calculateWidth()
@@ -1386,6 +1432,11 @@ void VideoItem::slotAlignToCursorClicked()
     emit alignToCursor(this);
 }
 
+void VideoItem::slotLockItemClicked()
+{
+    setLocked(!isLocked());
+}
+
 void VideoItem::slotScreenChanged()
 {
     QAction *action = (QAction *)sender();
@@ -1441,6 +1492,18 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     }
     menu.addAction(m_fullscreenAction);
     menu.addAction(m_alignToCursor);
+    if (isLocked())
+    {
+        m_lockAction->setText(tr("Unlock item"));
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
+    }
+    else
+    {
+        m_lockAction->setText(tr("Lock item"));
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    }
+    menu.addAction(m_lockAction);
+
     menu.exec(QCursor::pos());
 }
 #endif
