@@ -1151,7 +1151,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc, bool goToConsole)
+bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
 {
     Q_ASSERT(m_doc != NULL);
 
@@ -1213,7 +1213,8 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
 
-    if (m_doc->errorLog().isEmpty() == false)
+    if (m_doc->errorLog().isEmpty() == false &&
+        fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
                         tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
@@ -1289,7 +1290,7 @@ void App::slotLoadDocFromMemory(QString xmlData)
 
     QDomDocument doc;
     doc.setContent(xmlData);
-    loadXML(doc, true);
+    loadXML(doc, true, true);
 }
 
 void App::slotSaveAutostart(QString fileName)

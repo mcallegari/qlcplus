@@ -207,7 +207,7 @@ public:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(const QDomDocument& doc, bool goToConsole = false);
+    bool loadXML(const QDomDocument& doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the
