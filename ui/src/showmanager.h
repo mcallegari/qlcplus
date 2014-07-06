@@ -128,6 +128,7 @@ private:
     QAction* m_pasteAction;
     QAction* m_deleteAction;
     QAction* m_colorAction;
+    QAction* m_lockAction;
     QAction* m_snapGridAction;
     QAction* m_stopAction;
     QAction* m_playAction;
@@ -180,6 +181,7 @@ protected slots:
     void slotTrackMoved(Track *track, int direction);
     void slotTrackDelete(Track *track);
     void slotChangeColor();
+    void slotChangeLock();
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);
     void slotStepSelectionChanged(int index);

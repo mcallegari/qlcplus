@@ -231,6 +231,9 @@ public:
     void setColor(QColor col);
     QColor getColor();
 
+    void setLocked(bool locked);
+    bool isLocked();
+
     void setSelectedStep(int idx);
 
     /** Return a pointer to a Chaser associated to this item */
@@ -267,6 +270,8 @@ private:
     int m_trackIdx;
     /** index of the selected step for highlighting (-1 if none) */
     int m_selectedStep;
+    /** Locked state of the item */
+    bool m_locked;
 
     QFont m_font;
     bool m_pressed;
@@ -300,6 +305,9 @@ public:
 
     void setColor(QColor col);
     QColor getColor();
+
+    void setLocked(bool locked);
+    bool isLocked();
 
     /** Return a pointer to a Audio object associated to this item */
     Audio *getAudio();
@@ -335,6 +343,8 @@ private:
 private:
     QFont m_font;
     QColor m_color;
+    /** Locked state of the item */
+    bool m_locked;
     /** Reference to the actual Audio object */
     Audio *m_audio;
     /** width of the graphics object */
@@ -387,6 +397,9 @@ public:
     void setColor(QColor col);
     QColor getColor();
 
+    void setLocked(bool locked);
+    bool isLocked();
+
     /** Return a pointer to a Video object associated to this item */
     Video *getVideo();
 
@@ -415,6 +428,8 @@ private:
 private:
     QFont m_font;
     QColor m_color;
+    /** Locked state of the item */
+    bool m_locked;
     /** Reference to the actual Video object */
     Video *m_video;
     /** width of the graphics object */

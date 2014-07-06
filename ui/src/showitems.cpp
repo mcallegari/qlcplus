@@ -487,6 +487,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_timeScale(3)
     , m_trackIdx(-1)
     , m_selectedStep(-1)
+    , m_locked(false)
     , m_pressed(false)
     , m_alignToCursor(NULL)
 {
@@ -498,9 +499,13 @@ SequenceItem::SequenceItem(Chaser *seq)
               .arg(tr("Click to move this sequence across the timeline")));
 
     setCursor(Qt::OpenHandCursor);
-    setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
+    m_locked = m_chaser->isLocked();
+    if (m_locked == true)
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+    else
+        setFlag(QGraphicsItem::ItemIsMovable, true);
     calculateWidth();
     m_font = qApp->font();
     m_font.setBold(true);
@@ -622,15 +627,16 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         }
         stepIdx++;
     }
-/*
+
+    painter->setFont(m_font);
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft, m_chaser->name());
+    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_chaser->name());
 
-    // draw chaser name
+    // draw sequence name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft, m_chaser->name());
-*/
+    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_chaser->name());
+
     if (m_pressed)
     {
         quint32 s_time = 0;
@@ -638,8 +644,11 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
                      (double)(HALF_SECOND_WIDTH);
         painter->setFont(m_font);
-        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
+
+    if (m_locked)
+        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
 }
 
 void SequenceItem::setTimeScale(int val)
@@ -668,6 +677,18 @@ void SequenceItem::setColor(QColor col)
 QColor SequenceItem::getColor()
 {
     return m_color;
+}
+
+void SequenceItem::setLocked(bool locked)
+{
+    m_locked = locked;
+    m_chaser->setLocked(locked);
+    setFlag(QGraphicsItem::ItemIsMovable, !locked);
+}
+
+bool SequenceItem::isLocked()
+{
+    return m_locked;
 }
 
 void SequenceItem::setSelectedStep(int idx)
@@ -729,6 +750,7 @@ void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 
 AudioItem::AudioItem(Audio *aud)
     : m_color(100, 100, 100)
+    , m_locked(false)
     , m_audio(aud)
     , m_width(50)
     , m_timeScale(3)
@@ -748,10 +770,13 @@ AudioItem::AudioItem(Audio *aud)
               .arg(tr("Click to move this audio across the timeline")));
 
     setCursor(Qt::OpenHandCursor);
-    setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_audio->getColor();
-
+    m_locked = m_audio->isLocked();
+    if (m_locked == true)
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+    else
+        setFlag(QGraphicsItem::ItemIsMovable, true);
     m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
@@ -847,18 +872,21 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
+    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 
     // draw audio name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
+    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 
     if (m_pressed)
     {
         quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
                          (double)(HALF_SECOND_WIDTH);
-        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
+
+    if (m_locked)
+        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
 }
 
 void AudioItem::updateDuration()
@@ -893,6 +921,18 @@ void AudioItem::setColor(QColor col)
 QColor AudioItem::getColor()
 {
     return m_color;
+}
+
+void AudioItem::setLocked(bool locked)
+{
+    m_locked = locked;
+    m_audio->setLocked(locked);
+    setFlag(QGraphicsItem::ItemIsMovable, !locked);
+}
+
+bool AudioItem::isLocked()
+{
+    return m_locked;
 }
 
 Audio *AudioItem::getAudio()
@@ -1156,6 +1196,7 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 
 VideoItem::VideoItem(Video *vid)
     : m_color(100, 100, 100)
+    , m_locked(false)
     , m_video(vid)
     , m_width(50)
     , m_timeScale(3)
@@ -1172,10 +1213,13 @@ VideoItem::VideoItem(Video *vid)
               .arg(tr("Click to move this video across the timeline")));
 
     setCursor(Qt::OpenHandCursor);
-    setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_video->getColor();
-
+    m_locked = m_video->isLocked();
+    if (m_locked == true)
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+    else
+        setFlag(QGraphicsItem::ItemIsMovable, true);
     m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
@@ -1258,18 +1302,21 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
+    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
 
     // draw audio name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
+    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
 
     if (m_pressed)
     {
         quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
                          (double)(HALF_SECOND_WIDTH);
-        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
+
+    if (m_locked)
+        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
 }
 
 void VideoItem::updateDuration()
@@ -1309,6 +1356,18 @@ void VideoItem::setColor(QColor col)
 QColor VideoItem::getColor()
 {
     return m_color;
+}
+
+void VideoItem::setLocked(bool locked)
+{
+    m_locked = locked;
+    m_video->setLocked(locked);
+    setFlag(QGraphicsItem::ItemIsMovable, !locked);
+}
+
+bool VideoItem::isLocked()
+{
+    return m_locked;
 }
 
 Video *VideoItem::getVideo()

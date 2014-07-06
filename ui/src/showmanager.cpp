@@ -73,6 +73,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_pasteAction(NULL)
     , m_deleteAction(NULL)
     , m_colorAction(NULL)
+    , m_lockAction(NULL)
     , m_snapGridAction(NULL)
     , m_stopAction(NULL)
     , m_playAction(NULL)
@@ -242,6 +243,13 @@ void ShowManager::initActions()
            this, SLOT(slotChangeColor()));
     m_colorAction->setEnabled(false);
 
+    m_lockAction = new QAction(QIcon(":/lock.png"),
+                               tr("Lock item"), this);
+    m_lockAction->setShortcut(QKeySequence("CTRL+K"));
+    connect(m_lockAction, SIGNAL(triggered()),
+            this, SLOT(slotChangeLock()));
+    m_lockAction->setEnabled(false);
+
     m_snapGridAction = new QAction(QIcon(":/grid.png"),
                                    tr("Snap to &Grid"), this);
     m_snapGridAction->setShortcut(QKeySequence("CTRL+G"));
@@ -292,6 +300,7 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
 
     m_toolbar->addAction(m_colorAction);
+    m_toolbar->addAction(m_lockAction);
     m_toolbar->addAction(m_snapGridAction);
     m_toolbar->addSeparator();
 
@@ -1163,6 +1172,8 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     showSceneEditor(NULL);
     hideRightEditor();
     m_colorAction->setEnabled(false);
+    m_lockAction->setIcon(QIcon(":/lock.png"));
+    m_lockAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
 }
@@ -1200,6 +1211,11 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
 
     if (moved == true)
         m_doc->setModified();
@@ -1231,6 +1247,11 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
     m_doc->setModified();
 }
 
@@ -1261,6 +1282,11 @@ void ShowManager::slotVideoMoved(VideoItem *item)
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
     m_doc->setModified();
 }
 #endif
@@ -1359,6 +1385,8 @@ void ShowManager::slotChangeColor()
         QColor color = seqItem->getChaser()->getColor();
 
         color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         seqItem->getChaser()->setColor(color);
         seqItem->setColor(color);
         return;
@@ -1368,7 +1396,9 @@ void ShowManager::slotChangeColor()
     {
         QColor color = audItem->getAudio()->getColor();
 
-    color = QColorDialog::getColor(color);
+        color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         audItem->getAudio()->setColor(color);
         audItem->setColor(color);
         return;
@@ -1379,9 +1409,47 @@ void ShowManager::slotChangeColor()
     {
         QColor color = vidItem->getVideo()->getColor();
 
-    color = QColorDialog::getColor(color);
+        color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         vidItem->getVideo()->setColor(color);
         vidItem->setColor(color);
+        return;
+    }
+#endif
+}
+
+void ShowManager::slotChangeLock()
+{
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+    {
+        if (seqItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        seqItem->setLocked(!seqItem->isLocked());
+        return;
+    }
+    AudioItem *audItem = m_showview->getSelectedAudio();
+    if (audItem != NULL)
+    {
+        if (audItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        audItem->setLocked(!audItem->isLocked());
+        return;
+    }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    VideoItem *vidItem = m_showview->getSelectedVideo();
+    if (vidItem != NULL)
+    {
+        if (vidItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        vidItem->setLocked(!vidItem->isLocked());
         return;
     }
 #endif

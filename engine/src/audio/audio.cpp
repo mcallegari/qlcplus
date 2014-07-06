@@ -53,6 +53,7 @@
 #define KXMLQLCAudioSource "Source"
 #define KXMLQLCAudioStartTime "StartTime"
 #define KXMLQLCAudioColor "Color"
+#define KXMLQLCAudioLocked "Locked"
 
 /*****************************************************************************
  * Initialization
@@ -68,6 +69,7 @@ Audio::Audio(Doc* doc)
   , m_audio_out(NULL)
   , m_startTime(UINT_MAX)
   , m_color(96, 128, 83)
+  , m_locked(false)
   , m_sourceFileName("")
   , m_audioDuration(0)
 {
@@ -163,6 +165,16 @@ void Audio::setColor(QColor color)
 QColor Audio::getColor()
 {
     return m_color;
+}
+
+void Audio::setLocked(bool locked)
+{
+    m_locked = locked;
+}
+
+bool Audio::isLocked()
+{
+    return m_locked;
 }
 
 bool Audio::setSourceFileName(QString filename)
@@ -300,6 +312,8 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
     source.setAttribute(KXMLQLCAudioColor, m_color.name());
+    if (isLocked())
+        source.setAttribute(KXMLQLCAudioLocked, m_locked);
 
     text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
 
@@ -331,9 +345,11 @@ bool Audio::loadXML(const QDomElement& root)
         if (tag.tagName() == KXMLQLCAudioSource)
         {
             if (tag.hasAttribute(KXMLQLCAudioStartTime))
-                m_startTime = tag.attribute(KXMLQLCAudioStartTime).toUInt();
+                setStartTime(tag.attribute(KXMLQLCAudioStartTime).toUInt());
             if (tag.hasAttribute(KXMLQLCAudioColor))
-                m_color = QColor(tag.attribute(KXMLQLCAudioColor));
+                setColor(QColor(tag.attribute(KXMLQLCAudioColor)));
+            if (tag.hasAttribute(KXMLQLCAudioLocked))
+                setLocked(true);
             setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
