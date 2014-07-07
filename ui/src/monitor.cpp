@@ -268,6 +268,11 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
         QVariant var = settings.value(SETTINGS_GEOMETRY);
         if (var.isValid() == true)
             window->restoreGeometry(var.toByteArray());
+        else
+        {
+            window->resize(800, 600);
+            window->move(50, 50);
+        }
         AppUtil::ensureWidgetIsVisible(window);
     }
     else
