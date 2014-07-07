@@ -567,6 +567,11 @@ public:
     void appendToErrorLog(QString error);
 
     /**
+     * Clear any previously filled error log
+     */
+    void clearErrorLog();
+
+    /**
      * Retrieve the error log string, filled during a project load
      */
     QString errorLog();

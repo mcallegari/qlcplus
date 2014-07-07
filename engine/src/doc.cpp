@@ -998,7 +998,7 @@ MonitorProperties *Doc::monitorProperties()
 
 bool Doc::loadXML(const QDomElement& root)
 {
-    m_errorLog = "";
+    clearErrorLog();
 
     if (root.tagName() != KXMLQLCEngine)
     {
@@ -1130,6 +1130,11 @@ void Doc::appendToErrorLog(QString error)
 
     m_errorLog.append(error);
     m_errorLog.append("\n");
+}
+
+void Doc::clearErrorLog()
+{
+    m_errorLog = "";
 }
 
 QString Doc::errorLog()

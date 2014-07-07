@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QGestureEvent>
 #include <QSwipeGesture>
 #include <QApplication>
@@ -108,6 +109,11 @@ DocBrowser::DocBrowser(QWidget* parent)
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+    else
+    {
+        resize(800, 600);
+        move(50, 50);
+    }
     AppUtil::ensureWidgetIsVisible(this);
 
     /* Actions */
@@ -139,6 +145,13 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_browser = new QLCTextBrowser(this);
     m_browser->setOpenExternalLinks(true);
     layout()->addWidget(m_browser);
+
+    /* Close button */
+    m_closeButton = new QPushButton(this);
+    m_closeButton->setText(tr("Close"));
+    m_closeButton->setIcon(QIcon(":/uncheck.png"));
+    layout()->addWidget(m_closeButton);
+
     connect(m_browser, SIGNAL(backwardAvailable(bool)),
             this, SLOT(slotBackwardAvailable(bool)));
     connect(m_browser, SIGNAL(forwardAvailable(bool)),
@@ -151,6 +164,8 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
+    connect(m_closeButton, SIGNAL(clicked()),
+            this, SLOT(slotCloseWindow()));
 
     /* Set document search paths */
     QStringList searchPaths;
@@ -198,4 +213,9 @@ void DocBrowser::slotForwardAvailable(bool available)
 void DocBrowser::slotAboutQt()
 {
     QMessageBox::aboutQt(this, QString(APPNAME));
+}
+
+void DocBrowser::slotCloseWindow()
+{
+    this->close();
 }

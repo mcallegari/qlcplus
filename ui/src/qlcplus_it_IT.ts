@@ -894,12 +894,12 @@ The selected file has been moved or deleted.</source>
 Il file selezionato è stato spostato o eliminato.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1218"/>
+        <location filename="app.cpp" line="1219"/>
         <source>Warning</source>
         <translation>Attenzione</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1219"/>
+        <location filename="app.cpp" line="1220"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>Si sono verificati degli errori durante il caricamento del progetto:</translation>
     </message>
@@ -1840,29 +1840,34 @@ Durata: %3
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="docbrowser.cpp" line="103"/>
+        <location filename="docbrowser.cpp" line="104"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Esplora Risorse</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="114"/>
+        <location filename="docbrowser.cpp" line="120"/>
         <source>Backward</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="115"/>
+        <location filename="docbrowser.cpp" line="121"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="116"/>
+        <location filename="docbrowser.cpp" line="122"/>
         <source>Index</source>
         <translation>Indice</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="117"/>
+        <location filename="docbrowser.cpp" line="123"/>
         <source>About Qt</source>
         <translation>A proposito di Qt</translation>
+    </message>
+    <message>
+        <location filename="docbrowser.cpp" line="151"/>
+        <source>Close</source>
+        <translation>Chiudi</translation>
     </message>
 </context>
 <context>

@@ -21,6 +21,7 @@
 #define DOCBROWSER_H
 
 #include <QTextBrowser>
+#include <QPushButton>
 #include <QMainWindow>
 #include <QTime>
 
@@ -69,11 +70,13 @@ private slots:
     void slotBackwardAvailable(bool);
     void slotForwardAvailable(bool);
     void slotAboutQt();
+    void slotCloseWindow();
 
 private:
     static DocBrowser* s_instance;
     QLCTextBrowser* m_browser;
     QToolBar* m_toolbar;
+    QPushButton* m_closeButton;
 
     QAction* m_backwardAction;
     QAction* m_forwardAction;

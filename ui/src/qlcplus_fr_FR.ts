@@ -897,12 +897,12 @@ The selected file has been moved or deleted.</source>
 Celui-ci a dû être déplacé ou effacé.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1218"/>
+        <location filename="app.cpp" line="1219"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1219"/>
+        <location filename="app.cpp" line="1220"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>Des erreurs sont survenues lors du chargement du projet :</translation>
     </message>
@@ -1845,29 +1845,34 @@ Durée : %3
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="docbrowser.cpp" line="103"/>
+        <location filename="docbrowser.cpp" line="104"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Explorateur de document</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="114"/>
+        <location filename="docbrowser.cpp" line="120"/>
         <source>Backward</source>
         <translation>Arrière</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="115"/>
+        <location filename="docbrowser.cpp" line="121"/>
         <source>Forward</source>
         <translation>Avant</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="116"/>
+        <location filename="docbrowser.cpp" line="122"/>
         <source>Index</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="117"/>
+        <location filename="docbrowser.cpp" line="123"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
+    </message>
+    <message>
+        <location filename="docbrowser.cpp" line="151"/>
+        <source>Close</source>
+        <translation type="unfinished">Quitter</translation>
     </message>
 </context>
 <context>
