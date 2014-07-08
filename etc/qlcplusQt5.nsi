@@ -101,9 +101,9 @@ Section
 	File Qt5Widgets.dll
 	File Qt5Multimedia.dll
 	File Qt5MultimediaWidgets.dll
-	File icudt51.dll
-	File icuin51.dll
-	File icuuc51.dll
+	File icudt52.dll
+	File icuin52.dll
+	File icuuc52.dll
 	File /r platforms
 	File /r mediaservice
 	File Sample.qxw
@@ -164,9 +164,9 @@ Section "Uninstall"
 	Delete $INSTDIR\Qt5Widgets.dll
 	Delete $INSTDIR\Qt5Multimedia.dll
 	Delete $INSTDIR\Qt5MultimediaWidgets.dll
-	Delete $INSTDIR\icudt51.dll
-	Delete $INSTDIR\icuin51.dll
-	Delete $INSTDIR\icuuc51.dll
+	Delete $INSTDIR\icudt52.dll
+	Delete $INSTDIR\icuin52.dll
+	Delete $INSTDIR\icuuc52.dll
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\mediaservice
 	Delete $INSTDIR\Sample.qxw
