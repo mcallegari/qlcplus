@@ -981,7 +981,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiogerät</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -1070,7 +1070,7 @@ Dauer: %3
         <location filename="showitems.cpp" line="826"/>
         <location filename="showitems.cpp" line="1224"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element sperren</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1206"/>
@@ -1080,7 +1080,7 @@ Dauer: %3
     <message>
         <location filename="showitems.cpp" line="1219"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element entsperren</translation>
     </message>
 </context>
 <context>
@@ -1316,7 +1316,7 @@ Dauer: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifizierer zurücksetzen</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="175"/>
@@ -1868,7 +1868,7 @@ Dauer: %3
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Schliessen</translation>
+        <translation>Schliessen</translation>
     </message>
 </context>
 <context>
@@ -3727,7 +3727,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Soll der track GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="389"/>
@@ -4499,12 +4499,12 @@ Dauer: %3
         <location filename="showitems.cpp" line="520"/>
         <location filename="showitems.cpp" line="759"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element sperren</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="754"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element entsperren</translation>
     </message>
 </context>
 <context>
@@ -4646,7 +4646,7 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="247"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element sperren</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="649"/>
@@ -4953,7 +4953,7 @@ Dauer: %3
     <message>
         <location filename="showitems.cpp" line="314"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
@@ -6876,7 +6876,7 @@ Dauer: %3
         <location filename="showitems.cpp" line="1283"/>
         <location filename="showitems.cpp" line="1502"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element sperren</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1483"/>
@@ -6886,7 +6886,7 @@ Dauer: %3
     <message>
         <location filename="showitems.cpp" line="1497"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Element entsperren</translation>
     </message>
 </context>
 <context>
