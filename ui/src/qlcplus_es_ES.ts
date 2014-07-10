@@ -980,7 +980,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de Audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -1069,7 +1069,7 @@ Duración: %3
         <location filename="showitems.cpp" line="826"/>
         <location filename="showitems.cpp" line="1224"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear elemento</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1206"/>
@@ -1079,7 +1079,7 @@ Duración: %3
     <message>
         <location filename="showitems.cpp" line="1219"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear elemento</translation>
     </message>
 </context>
 <context>
@@ -1315,7 +1315,7 @@ Duración: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Desestablecer Modificador</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="175"/>
@@ -1868,7 +1868,7 @@ Duración: %3
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
@@ -3727,7 +3727,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Desea ELIMINAR el track:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="389"/>
@@ -4499,12 +4499,12 @@ Duración: %3
         <location filename="showitems.cpp" line="520"/>
         <location filename="showitems.cpp" line="759"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear elemento</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="754"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear elemento</translation>
     </message>
 </context>
 <context>
@@ -4645,7 +4645,7 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="247"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear elemento</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="649"/>
@@ -4952,7 +4952,7 @@ Duración: %3
     <message>
         <location filename="showitems.cpp" line="314"/>
         <source>Delete</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
 </context>
 <context>
@@ -6874,7 +6874,7 @@ Duración: %3
         <location filename="showitems.cpp" line="1283"/>
         <location filename="showitems.cpp" line="1502"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquear elemento</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1483"/>
@@ -6884,7 +6884,7 @@ Duración: %3
     <message>
         <location filename="showitems.cpp" line="1497"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear elemento</translation>
     </message>
 </context>
 <context>
