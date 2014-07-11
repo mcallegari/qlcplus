@@ -998,7 +998,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositiu d&apos;àudio</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="104"/>
@@ -1069,7 +1069,7 @@ Duració: %3
         <location filename="showitems.cpp" line="826"/>
         <location filename="showitems.cpp" line="1224"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquejar element</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1206"/>
@@ -1079,7 +1079,7 @@ Duració: %3
     <message>
         <location filename="showitems.cpp" line="1219"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>
@@ -1312,7 +1312,7 @@ Duració: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Desestablir Modificador</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="175"/>
@@ -1862,7 +1862,7 @@ Duració: %3
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Tancar</translation>
+        <translation>Tancar</translation>
     </message>
 </context>
 <context>
@@ -3709,7 +3709,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vol ESBORRAR la pista:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="389"/>
@@ -4490,12 +4490,12 @@ Durada: %3
         <location filename="showitems.cpp" line="520"/>
         <location filename="showitems.cpp" line="759"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquejar element</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="754"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>
@@ -4596,7 +4596,7 @@ Durada: %3
     <message>
         <location filename="showmanager.cpp" line="247"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquejar element</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="254"/>
@@ -4944,7 +4944,7 @@ Durada: %3
     <message>
         <location filename="showitems.cpp" line="314"/>
         <source>Delete</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
 </context>
 <context>
@@ -6858,7 +6858,7 @@ Durada: %3
         <location filename="showitems.cpp" line="1283"/>
         <location filename="showitems.cpp" line="1502"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloquejar element</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1483"/>
@@ -6868,7 +6868,7 @@ Durada: %3
     <message>
         <location filename="showitems.cpp" line="1497"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>
