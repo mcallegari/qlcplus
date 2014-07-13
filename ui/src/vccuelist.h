@@ -27,6 +27,7 @@
 #include "vcwidget.h"
 
 class QTreeWidgetItem;
+class QProgressBar;
 class QDomDocument;
 class QDomElement;
 class QTreeWidget;
@@ -153,6 +154,9 @@ private slots:
     /** Slot called whenever a function is stopped */
     void slotFunctionStopped(quint32 fid);
 
+    /** Slot called every 200ms to update the step progress bar */
+    void slotProgressTimeout();
+
 private:
     /** Create the runner that writes cue values to universes */
     void createRunner(int startIndex = -1);
@@ -164,11 +168,12 @@ private:
     QToolButton* m_playbackButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
+    QProgressBar* m_progress;
     bool m_listIsUpdating;
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner
-
+    QTimer* m_timer;
 
     /*************************************************************************
      * Crossfade
@@ -193,7 +198,6 @@ private:
 
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
-    QString m_noStyle, m_blueStyle, m_orangeStyle;
     bool m_primaryLeft;
 
 

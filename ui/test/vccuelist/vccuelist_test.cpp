@@ -761,37 +761,37 @@ void VCCueList_Test::keyboardNextPrevious()
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Unrecognized keyboard key
     cl.slotKeyPressed(QKeySequence(QKeySequence::SelectAll));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 3);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Playback
@@ -827,17 +827,17 @@ void VCCueList_Test::input()
     cl.slotInputValueChanged(0, 1, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 0);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
 
     // Runner creation thru previous input
     m_doc->setMode(Doc::Design);
@@ -853,17 +853,17 @@ void VCCueList_Test::input()
     cl.slotInputValueChanged(2, 3, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 0);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 2);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 2);
 
     cl.slotInputValueChanged(4, 5, 255);
     QVERIFY(cl.m_runner != NULL);

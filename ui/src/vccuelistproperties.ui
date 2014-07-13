@@ -75,7 +75,7 @@
          </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+           <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -92,7 +92,7 @@
          </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
          </property>
          <property name="iconSize">
           <size>

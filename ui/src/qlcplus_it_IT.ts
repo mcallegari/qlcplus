@@ -5362,12 +5362,12 @@ Durata: %3
     <message>
         <location filename="vccuelistproperties.ui" line="74"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
-        <translation>Scegli il chaser da usare come passi della lista di azioni</translation>
+        <translation>Seleziona il chaser da usare come lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="91"/>
         <source>Detach current chaser from the cue list</source>
-        <translation>Stacca il chaser corrente dalla lista di azioni</translation>
+        <translation>Disassocia il chaser corrente dalla lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="122"/>
