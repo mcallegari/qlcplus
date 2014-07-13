@@ -853,7 +853,14 @@ void VCSliderProperties::accept()
 
     /* Slider mode */
     if (m_slider->sliderMode() != m_sliderMode)
+    {
         m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
+        if (m_slider->sliderMode() == VCSlider::Submaster)
+        {
+            m_slider->setLevelValue(UCHAR_MAX);
+            m_slider->setSliderValue(UCHAR_MAX);
+        }
+    }
 
     m_slider->setCaption(m_nameEdit->text());
 

@@ -9,6 +9,7 @@ qlcplus (4.7.4) stable; urgency=low
   * Show Manager: it is now possible to lock/unlock items
   * Audio Editor: it is now possible to select a specific audio card for playback
   * Cue List widget: Added a progress bar showing the current running cue status
+  * Slider widget: when in submaster mode, restore the saved level
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 Jul 2014 12:13:14 +0200
 

@@ -544,13 +544,14 @@ void VCSlider::setSliderMode(SliderMode mode)
     }
     else if (mode == Submaster)
     {
+        uchar level = levelValue();
         if (m_slider)
         {
             m_slider->setStyleSheet(submasterStyleSheet);
-            m_slider->setValue(UCHAR_MAX);
+            m_slider->setValue(level);
         }
         else if (m_knob)
-            m_knob->setValue(UCHAR_MAX);
+            m_knob->setValue(level);
     }
 }
 
@@ -1148,6 +1149,7 @@ void VCSlider::slotSliderMoved(int value)
         else if (m_knob)
             f = SCALE(float(value), float(m_knob->minimum()),
                       float(m_knob->maximum()), float(0), float(1));
+        setLevelValue(value);
         emit submasterValueChanged((qreal)f * intensity());
     }
     break;
