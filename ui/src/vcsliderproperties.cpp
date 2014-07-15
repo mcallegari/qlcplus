@@ -832,6 +832,9 @@ void VCSliderProperties::accept()
         m_slider->setWidgetStyle(VCSlider::WSlider);
 
     /* Level page */
+    bool limitDiff =
+        (m_slider->levelLowLimit() != m_levelLowLimitSpin->value()) ||
+        (m_slider->levelHighLimit() != m_levelLowLimitSpin->value());
     m_slider->setLevelLowLimit(m_levelLowLimitSpin->value());
     m_slider->setLevelHighLimit(m_levelHighLimitSpin->value());
     storeLevelChannels();
@@ -860,6 +863,11 @@ void VCSliderProperties::accept()
             m_slider->setLevelValue(UCHAR_MAX);
             m_slider->setSliderValue(UCHAR_MAX);
         }
+    }
+    else if (limitDiff && m_slider->sliderMode() == VCSlider::Level)
+    {
+        // Force the refresh of the slider range
+        m_slider->setSliderMode(VCSlider::Level);
     }
 
     m_slider->setCaption(m_nameEdit->text());
