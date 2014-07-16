@@ -43,9 +43,13 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0" rowspan="3" colspan="2">
+
         <widget class="QTreeWidget" name="m_tree">
-         <property name="toolTip">
-          <string>Functions whose speed is controlled by the dial</string>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
          </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
@@ -59,21 +63,45 @@
          <property name="itemsExpandable">
           <bool>false</bool>
          </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <property name="animated">
-          <bool>true</bool>
-         </property>
          <property name="allColumnsShowFocus">
           <bool>true</bool>
          </property>
          <property name="expandsOnDoubleClick">
           <bool>false</bool>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="animated">
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text">
            <string>Function</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade In *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade In Time to the function.</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade Out *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade Out Time to the function.</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Duration * (+tap)</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Duration to the function.</string>
           </property>
          </column>
         </widget>
@@ -121,58 +149,6 @@
           <size>
            <width>18</width>
            <height>198</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="3" column="0">
-        <widget class="QGroupBox" name="m_speedGroup">
-         <property name="title">
-          <string>Speeds to Adjust</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QCheckBox" name="m_fadeInCheck">
-            <property name="toolTip">
-             <string>Adjust selected functions' fade in speed</string>
-            </property>
-            <property name="text">
-             <string>Fade In</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="m_fadeOutCheck">
-            <property name="toolTip">
-             <string>Adjust selected functions' fade out speed</string>
-            </property>
-            <property name="text">
-             <string>Fade Out</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="m_durationCheck">
-            <property name="toolTip">
-             <string>Adjust selected functions' duration</string>
-            </property>
-            <property name="text">
-             <string>Duration (+ tap)</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="3" column="1" colspan="2">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>186</width>
-           <height>111</height>
           </size>
          </property>
         </spacer>

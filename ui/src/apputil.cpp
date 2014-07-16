@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QComboBox>
 #include <QDesktopWidget>
 #include <QStyleFactory>
 #include <QApplication>
@@ -98,4 +99,46 @@ QStyle* AppUtil::saneStyle()
     }
 
     return s_saneStyle;
+}
+
+/*****************************************************************************
+ * ComboBoxDelegate
+ *****************************************************************************/
+
+ComboBoxDelegate::ComboBoxDelegate(const QStringList &strings, QWidget *parent)
+    : QStyledItemDelegate(parent)
+    , m_strings(strings)
+{
+}
+
+QWidget *ComboBoxDelegate::createEditor(QWidget *parent,
+        const QStyleOptionViewItem &/*option*/,
+        const QModelIndex &/*index*/) const
+{
+    QComboBox *comboBox = new QComboBox(parent);
+    comboBox->addItems(m_strings);
+    return comboBox;
+}
+
+void ComboBoxDelegate::setEditorData(QWidget *editor,
+        const QModelIndex &index) const
+{
+    int value = index.model()->data(index, Qt::UserRole).toInt();
+    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    comboBox->setCurrentIndex(value);
+}
+
+void ComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
+        const QModelIndex &index) const
+{
+    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    int value = comboBox->currentIndex();
+    model->setData(index, value, Qt::UserRole);
+    model->setData(index, comboBox->currentText(), Qt::DisplayRole);
+}
+
+void ComboBoxDelegate::updateEditorGeometry(QWidget *editor,
+        const QStyleOptionViewItem &option, const QModelIndex &/*index*/) const
+{
+    editor->setGeometry(option.rect);
 }
