@@ -27,8 +27,11 @@
 #include "enttecdmxusbprotx.h"
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#include "nanodmx.h"
+#endif
+#include "stageprofi.h"
 #include "ultradmxusbprotx.h"
-#include "dmx4all.h"
 #include "vinceusbdmx512tx.h"
 #include "qlcftdi.h"
 
@@ -53,7 +56,7 @@ QLCFTDI::~QLCFTDI()
 
 QString QLCFTDI::readLabel(ftdi_context *ftdi, char* name, char* serial, uchar label, int *ESTA_code)
 {
-    if (ftdi_usb_open_desc(ftdi, QLCFTDI::VID, QLCFTDI::PID, name, serial) < 0)
+    if (ftdi_usb_open_desc(ftdi, QLCFTDI::FTDIVID, QLCFTDI::FTDIPID, name, serial) < 0)
         return QString();
 
     if (ftdi_usb_reset(ftdi) < 0)
@@ -108,39 +111,77 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
     QList <DMXUSBWidget*> widgetList;
     quint32 input_id = 0;
 
-    struct ftdi_device_list* list = 0;
     struct ftdi_context ftdi;
+
     ftdi_init(&ftdi);
-    ftdi_usb_find_all(&ftdi, &list, QLCFTDI::VID, QLCFTDI::PID);
-    while (list != NULL)
-    {
+
 #ifdef LIBFTDI1
-        struct libusb_device* dev = list->dev;
+    libusb_device *dev;
+    libusb_device **devs;
+    int i = 0;
+
+    if (libusb_get_device_list(ftdi->usb_ctx, &devs) < 0)
+    {
+        qDebug() << "usb_find_devices() failed";
+        ftdi_error_return(-5, "libusb_get_device_list() failed");
+    }
+
+    while ((dev = devs[i++]) != NULL)
+    {
 #else
-        struct usb_device* dev = list->dev;
+    struct usb_bus *bus;
+    struct usb_device *dev;
+
+    usb_init();
+
+    if (usb_find_busses() < 0)
+    {
+        qDebug() << "usb_find_busses() failed";
+        return widgetList;
+    }
+    if (usb_find_devices() < 0)
+    {
+        qDebug() << "usb_find_devices() failed";
+        return widgetList;
+    }
+
+    for (bus = usb_get_busses(); bus; bus = bus->next)
+    {
+      for (dev = bus->devices; dev; dev = dev->next)
+      {
 #endif
         Q_ASSERT(dev != NULL);
 
-        char serial[256];
-        char name[256];
-        char vendor[256];
+        // Skip non wanted devices
+        if (dev->descriptor.idVendor != QLCFTDI::FTDIVID &&
+            dev->descriptor.idVendor != QLCFTDI::ATMELVID)
+                continue;
 
-        ftdi_usb_get_strings(&ftdi, dev,
-                             vendor, sizeof(vendor),
-                             name, sizeof(name),
-                             serial, sizeof(serial));
+        if (dev->descriptor.idProduct != QLCFTDI::FTDIPID &&
+            dev->descriptor.idProduct != QLCFTDI::DMX4ALLPID &&
+            dev->descriptor.idProduct != QLCFTDI::NANODMXPID)
+                continue;
 
-        QString ser(serial);
-        QString nme(name);
-        QString ven(vendor);
+        char ser[256];
+        char nme[256];
+        char vend[256];
+
+        ftdi_usb_get_strings(&ftdi, dev, vend, 256, nme, 256, ser, 256);
+
+        QString serial(ser);
+        QString name(nme);
+        QString vendor(vend);
+
         QMap <QString,QVariant> types(typeMap());
 
-        qDebug() << "serial: " << ser << "name:" << nme << "vendor:" << ven;
+        qDebug() << Q_FUNC_INFO << "DMX USB VID:" << QString::number(dev->descriptor.idVendor, 16) <<
+                    "PID:" << QString::number(dev->descriptor.idProduct, 16);
+        qDebug() << Q_FUNC_INFO << "DMX USB serial: " << serial << "name:" << name << "vendor:" << vendor;
 
-        if (types.contains(ser) == true)
+        if (types.contains(serial) == true)
         {
             // Force a widget with a specific serial to either type
-            DMXUSBWidget::Type type = (DMXUSBWidget::Type) types[ser].toInt();
+            DMXUSBWidget::Type type = (DMXUSBWidget::Type) types[serial].toInt();
             switch (type)
             {
             case DMXUSBWidget::OpenTX:
@@ -179,7 +220,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 break;
             }
         }
-        else if (nme.toUpper().contains("PRO MK2") == true)
+        else if (name.toUpper().contains("PRO MK2") == true)
         {
             EnttecDMXUSBProTX* protx = new EnttecDMXUSBProTX(serial, name, vendor, 1);
             widgetList << protx;
@@ -187,14 +228,16 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             EnttecDMXUSBProRX* prorx = new EnttecDMXUSBProRX(serial, name, vendor, input_id++, protx->ftdi());
             widgetList << prorx;
         }
-        else if (nme.toUpper().contains("DMX USB PRO"))
+        else if (name.toUpper().contains("DMX USB PRO"))
         {
             /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
             int ESTAID = 0;
             int DEVID = 0;
-            QString manName = readLabel(&ftdi, name, serial, USB_DEVICE_MANUFACTURER, &ESTAID);
+            QString manName = readLabel(&ftdi, name.toLatin1().data(), serial.toLatin1().data(),
+                                        USB_DEVICE_MANUFACTURER, &ESTAID);
             qDebug() << "--------> Device Manufacturer: " << manName;
-            QString devName = readLabel(&ftdi, name, serial, USB_DEVICE_NAME, &DEVID);
+            QString devName = readLabel(&ftdi, name.toLatin1().data(), serial.toLatin1().data(),
+                                        USB_DEVICE_NAME, &DEVID);
             qDebug() << "--------> Device Name: " << devName;
             qDebug() << "--------> ESTA Code: " << QString::number(ESTAID, 16) << ", Device ID: " << QString::number(DEVID, 16);
             if (ESTAID == DMXKING_ESTA_ID)
@@ -227,48 +270,35 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 widgetList << prorx;
             }
         }
-        else if (nme.toUpper().contains("USB-DMX512 CONVERTER") == true)
+        else if (name.toUpper().contains("USB-DMX512 CONVERTER") == true)
         {
             widgetList << new VinceUSBDMX512TX(serial, name, vendor);
         }
+        else if (dev->descriptor.idVendor == QLCFTDI::FTDIVID &&
+                 dev->descriptor.idProduct == QLCFTDI::DMX4ALLPID)
+        {
+            widgetList << new Stageprofi(serial, name, vendor);
+        }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+        else if (dev->descriptor.idVendor == QLCFTDI::ATMELVID &&
+                 dev->descriptor.idProduct == QLCFTDI::NANODMXPID)
+        {
+            widgetList << new NanoDMX(serial, name, vendor);
+        }
+#endif
         else
         {
             /* This is probably an Open DMX USB widget */
             widgetList << new EnttecDMXUSBOpen(serial, name, vendor, 0);
         }
-
-        list = list->next;
-    }
-
-    /* Search for DMX4ALL devices now */
-    ftdi_usb_find_all(&ftdi, &list, QLCFTDI::VID, QLCFTDI::DMX4ALLPID);
-    while (list != NULL)
-    {
-#ifdef LIBFTDI1
-        struct libusb_device* dev = list->dev;
-#else
-        struct usb_device* dev = list->dev;
+#ifndef LIBFTDI1
+      }
 #endif
-        Q_ASSERT(dev != NULL);
-
-        char serial[256];
-        char name[256];
-        char vendor[256];
-
-        ftdi_usb_get_strings(&ftdi, dev,
-                             vendor, sizeof(vendor),
-                             name, sizeof(name),
-                             serial, sizeof(serial));
-
-        QString ser(serial);
-        QString nme(name);
-        QString ven(vendor);
-
-        qDebug() << "serial: " << ser << "name:" << nme << "vendor:" << ven;
-        widgetList << new DMX4ALL(ser, nme, ven);
-
-        list = list->next;
     }
+
+#ifdef LIBFTDI1
+    libusb_free_device_list(devs, 1);
+#endif
 
     ftdi_deinit(&ftdi);
     return widgetList;
@@ -282,7 +312,7 @@ bool QLCFTDI::open()
     if (isOpen() == true)
         return true;
 
-    if (ftdi_usb_open_desc(&m_handle, QLCFTDI::VID, QLCFTDI::PID,
+    if (ftdi_usb_open_desc(&m_handle, QLCFTDI::FTDIVID, QLCFTDI::FTDIPID,
                            name().toLatin1(), serial().toLatin1()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
@@ -302,7 +332,7 @@ bool QLCFTDI::openByPID(const int PID)
     if (isOpen() == true)
         return true;
 
-    if (ftdi_usb_open(&m_handle, QLCFTDI::VID, PID) < 0)
+    if (ftdi_usb_open(&m_handle, QLCFTDI::FTDIVID, PID) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;

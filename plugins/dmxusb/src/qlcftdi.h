@@ -53,9 +53,11 @@ class QLCFTDI
      * Widget enumeration
      ************************************************************************/
 public:
-    static const int VID = 0x0403; //! FTDI Vendor ID
-    static const int PID = 0x6001; //! FTDI Product ID
-    static const int DMX4ALLPID = 0xC850; //! DMX4ALL Product ID
+    static const int FTDIVID = 0x0403;    //! FTDI Vendor ID
+    static const int ATMELVID = 0x03EB;   //! Atmel Vendor ID
+    static const int FTDIPID = 0x6001;    //! FTDI Product ID
+    static const int DMX4ALLPID = 0xC850; //! DMX4ALL FTDI Product ID
+    static const int NANODMXPID = 0x2018; //! DMX4ALL Nano DMX Product ID
 
 #if defined(FTD2XX)
     static QString readLabel(quint32 id, uchar label, int *ESTA_code);
@@ -135,7 +137,7 @@ public:
     bool open();
 
     /** Open the widget using a specific Product ID */
-    bool openByPID(const int PID);
+    bool openByPID(const int FTDIPID);
 
     /** Close the widget */
     bool close();

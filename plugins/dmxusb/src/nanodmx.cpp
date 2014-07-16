@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  dmx4all.cpp
+  nanodmx.cpp
 
   Copyright (C) Massimo Callegari
 
@@ -17,40 +17,45 @@
   limitations under the License.
 */
 
-#include "dmx4all.h"
+#include "nanodmx.h"
 
 #include <QDebug>
 
-DMX4ALL::DMX4ALL(const QString& serial, const QString& name,
+NanoDMX::NanoDMX(const QString& serial, const QString& name,
                        const QString &vendor, QLCFTDI *ftdi, quint32 id)
     : DMXUSBWidget(serial, name, vendor, ftdi, id)
 {
 }
 
-DMX4ALL::~DMX4ALL()
+NanoDMX::~NanoDMX()
 {
+    if (m_file.isOpen() == true)
+        m_file.close();
 }
 
-DMXUSBWidget::Type DMX4ALL::type() const
+DMXUSBWidget::Type NanoDMX::type() const
 {
     return DMXUSBWidget::DMX4ALL;
 }
 
-bool DMX4ALL::checkReply()
+bool NanoDMX::checkReply()
 {
-    uchar reply = ftdi()->readByte();
+    QByteArray reply = m_file.readAll();
     //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    if (reply == 'G')
+    for (int i = 0; i < reply.count(); i++)
     {
-        qDebug() << Q_FUNC_INFO << name() << "Good connection.";
-        return true;
+        if (reply[i] == 'G')
+        {
+            qDebug() << Q_FUNC_INFO << name() << "Good connection.";
+            return true;
+        }
     }
 
     qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
     return false;
 }
 
-bool DMX4ALL::sendChannelValue(int channel, uchar value)
+bool NanoDMX::sendChannelValue(int channel, uchar value)
 {
     QByteArray chanMsg;
     QString msg;
@@ -62,37 +67,25 @@ bool DMX4ALL::sendChannelValue(int channel, uchar value)
  * Open & Close
  ****************************************************************************/
 
-bool DMX4ALL::open()
+bool NanoDMX::open()
 {
-    if (isOpen() == true)
-        close();
+    // !!! This is buggy !!! Need to autodetect the
+    // right device name for this device
+    m_file.setFileName("/dev/ttyACM0");
 
-    if (ftdi()->openByPID(QLCFTDI::DMX4ALLPID) == false)
-        return close();
-
-    if (ftdi()->reset() == false)
-        return close();
-
-    if (ftdi()->setBaudRate() == false)
-        return close();
-
-    if (ftdi()->setLineProperties() == false)
-        return close();
-
-    if (ftdi()->setFlowControl() == false)
-        return close();
-
-    if (ftdi()->purgeBuffers() == false)
-        return close();
-
-    if (ftdi()->clearRts() == false)
-       return close();
+    m_file.unsetError();
+    if (m_file.open(QIODevice::ReadWrite | QIODevice::Unbuffered) == false)
+    {
+        qWarning() << "NanoDMX output cannot be opened:"
+                   << m_file.errorString();
+        return false;
+    }
 
     QByteArray initSequence;
 
     /* Check connection */
     initSequence.append("C?");
-    if (ftdi()->write(initSequence) == true)
+    if (m_file.write(initSequence) == true)
     {
         if (checkReply() == false)
             return false;
@@ -103,7 +96,7 @@ bool DMX4ALL::open()
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-    if (ftdi()->write(initSequence) == true)
+    if (m_file.write(initSequence) == true)
     {
         if (checkReply() == false)
             return false;
@@ -112,7 +105,15 @@ bool DMX4ALL::open()
     return true;
 }
 
-QString DMX4ALL::uniqueName() const
+bool NanoDMX::close()
+{
+    if (m_file.isOpen() == true)
+        m_file.close();
+
+    return true;
+}
+
+QString NanoDMX::uniqueName() const
 {
     return QString("%1").arg(name());
 }
@@ -121,7 +122,7 @@ QString DMX4ALL::uniqueName() const
  * Name & Serial
  ****************************************************************************/
 
-QString DMX4ALL::additionalInfo() const
+QString NanoDMX::additionalInfo() const
 {
     QString info;
 
@@ -144,9 +145,9 @@ QString DMX4ALL::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool DMX4ALL::writeUniverse(const QByteArray& universe)
+bool NanoDMX::writeUniverse(const QByteArray& universe)
 {
-    if (isOpen() == false)
+    if (m_file.isOpen() == false)
         return false;
 
     /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
@@ -168,7 +169,7 @@ bool DMX4ALL::writeUniverse(const QByteArray& universe)
         arrayTransfer.insert(261, char(0x01));
     }
 
-    if (ftdi()->write(arrayTransfer) == false)
+    if (m_file.write(arrayTransfer) == false)
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
         return false;

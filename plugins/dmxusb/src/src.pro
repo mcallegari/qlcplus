@@ -76,11 +76,13 @@ HEADERS += dmxusb.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
+           stageprofi.h \
            ultradmxusbprotx.h \
-           dmx4all.h \
            vinceusbdmx512.h \
            vinceusbdmx512tx.h \
            qlcftdi.h
+
+unix: HEADERS += nanodmx.h
 
 SOURCES += dmxusb.cpp \
            dmxusbwidget.cpp \
@@ -89,10 +91,12 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprorx.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
-           dmx4all.cpp \
+           stageprofi.cpp \
            ultradmxusbprotx.cpp \
            vinceusbdmx512.cpp \
            vinceusbdmx512tx.cpp
+
+unix: SOURCES += nanodmx.cpp
 
 serialport {
     SOURCES += qlcftdi-qtserial.cpp
