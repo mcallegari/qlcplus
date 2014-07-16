@@ -416,3 +416,11 @@ void InputOutputManager::slotPassthroughChanged(bool checked)
     m_doc->inputOutputMap()->saveDefaults();
 }
 
+void InputOutputManager::showEvent(QShowEvent *ev)
+{
+    Q_UNUSED(ev);
+    // force the recreation of the selected universe editor
+    m_editorUniverse = UINT_MAX;
+    updateList();
+}
+
