@@ -120,10 +120,10 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
     libusb_device **devs;
     int i = 0;
 
-    if (libusb_get_device_list(ftdi->usb_ctx, &devs) < 0)
+    if (libusb_get_device_list(ftdi.usb_ctx, &devs) < 0)
     {
         qDebug() << "usb_find_devices() failed";
-        ftdi_error_return(-5, "libusb_get_device_list() failed");
+        return widgetList;
     }
 
     while ((dev = devs[i++]) != NULL)

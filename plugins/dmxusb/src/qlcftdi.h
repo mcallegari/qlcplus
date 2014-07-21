@@ -41,6 +41,7 @@
 
 #if defined(LIBFTDI1)
   #include <unistd.h>
+  #include <libusb.h>
 #endif
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
