@@ -375,7 +375,12 @@ void PeperoniDevice::run()
                                 100);                    // Timeout (ms)
 
             if (r < 0)
+            {
                 qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed control_msg:" << usb_strerror();
+                r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
+                if (r < 0)
+                    qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk IN endpoint.";
+            }
             else
             {
                 /* read received startcode */
