@@ -554,7 +554,6 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
         if (!forcedHTP.isEmpty())
         {
             fixture->setForcedHTPChannels(forcedHTP);
-            QList<Universe *> universes = inputOutputMap()->claimUniverses();
 
             for(int i = 0; i < forcedHTP.count(); i++)
             {
