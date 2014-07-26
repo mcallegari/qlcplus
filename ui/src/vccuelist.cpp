@@ -168,6 +168,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_progress->setOrientation(Qt::Horizontal);
     m_progress->setStyleSheet(progressDisabledStyle);
     m_progress->setProperty("status", 0);
+    m_progress->setFixedHeight(20);
     grid->addWidget(m_progress, 3, 2);
 
     m_timer = new QTimer(this);
@@ -789,8 +790,8 @@ void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
         else
         {
             m_timer->stop();
-            m_progress->setValue(0);
-            m_progress->setFormat("");
+            //m_progress->setValue(0);
+            //m_progress->setFormat("");
             m_runner->postRun(timer, universes);
             delete m_runner;
             m_runner = NULL;
