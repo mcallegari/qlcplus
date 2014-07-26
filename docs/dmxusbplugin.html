@@ -20,6 +20,10 @@ The DMX USB plugin supports a variety of FTDI-based USB-to-DMX devices:
  <LI><A HREF="http://www.enttec.com/?main_menu=Products&pn=70304">Enttec DMXUSB Pro</A></LI>
  <LI><A HREF="http://www.enttec.com/?main_menu=Products&pn=70314">Enttec DMX USB PRO Mk2</A></LI>
  <LI><A HREF="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL USB-DMX STAGE-PROFI MK2</A></LI>
+ <LI><A HREF="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL NanoDMX</A></LI>
+ <LI><A HREF="http://www.guselectronics.com/usb-dmx-interface-512">Gus Electronics USB-VL344</A></LI>
+ <LI><A HREF="http://www.dmx512-online.net/en-article58.html">Vince DMX512 USB</A></LI>
+ <LI><A HREF="http://www.electrotas.com/usbdmx.html">ElectroTAS USB-DMX</A></LI>
  <LI><A HREF="http://sourceforge.net/apps/trac/qlc/wiki/FTDI-USB-COM485-Plus1">FTDI USBCOM 485+</A></LI>
 </UL>
 
@@ -48,7 +52,10 @@ Here's the meaning of each one:
 <P>
 On all Linux distributions, you need to install libftdi. If you install QLC+ with the Ubuntu
 Software Center or some other automatic installer tool, this library will be installed
-automatically for you.
+automatically for you.<br>
+In some cases, if the device doesn't output anything, it might be useful to add your user 
+to the "dialout" group with the following command:<br>
+<PRE>sudo adduser your_user_name dialout</PRE>
 </P>
 
 <H2>2.2 Mac OS X</H2>

@@ -33,7 +33,7 @@ class NanoDMX : public DMXUSBWidget
      ************************************************************************/
 public:
     NanoDMX(const QString& serial, const QString& name, const QString& vendor,
-                    QLCFTDI *ftdi = NULL, quint32 id = 0);
+                    void *usb_ref);
     virtual ~NanoDMX();
 
     /** @reimp */
@@ -61,10 +61,17 @@ public:
 private:
     bool checkReply();
     bool sendChannelValue(int channel, uchar value);
+    QString getDeviceName();
 
 private:
-    /** File handle for /dev/dmx */
+    /** File handle for /dev/ttyACMx */
     QFile m_file;
+
+#ifdef LIBFTDI1
+    libusb_device *m_device;
+#else
+    struct usb_device *m_device;
+#endif
 
     QByteArray m_universe;
 };

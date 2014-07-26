@@ -283,7 +283,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         else if (dev->descriptor.idVendor == QLCFTDI::ATMELVID &&
                  dev->descriptor.idProduct == QLCFTDI::NANODMXPID)
         {
-            widgetList << new NanoDMX(serial, name, vendor);
+            widgetList << new NanoDMX(serial, name, vendor, (void *)dev);
         }
 #endif
         else

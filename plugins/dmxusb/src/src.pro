@@ -57,7 +57,7 @@ serialport {
         } else {
             packagesExist(libftdi1) {
                 CONFIG      += link_pkgconfig
-                PKGCONFIG   += libftdi1 libusb
+                PKGCONFIG   += libftdi1 libusb-1.0
                 DEFINES     += LIBFTDI1
                 message(Building with libFTDI1 support.)
             } else {

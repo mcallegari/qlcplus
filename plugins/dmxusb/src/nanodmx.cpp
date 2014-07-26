@@ -20,11 +20,17 @@
 #include "nanodmx.h"
 
 #include <QDebug>
+#include <QDir>
 
 NanoDMX::NanoDMX(const QString& serial, const QString& name,
-                       const QString &vendor, QLCFTDI *ftdi, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, ftdi, id)
+                       const QString &vendor, void *usb_ref)
+    : DMXUSBWidget(serial, name, vendor, NULL, 0)
 {
+#ifdef LIBFTDI1
+    m_device = (libusb_device *)usb_ref;
+#else
+    m_device = (struct usb_device *)usb_ref;
+#endif
 }
 
 NanoDMX::~NanoDMX()
@@ -63,15 +69,72 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     return ftdi()->write(chanMsg);
 }
 
+QString NanoDMX::getDeviceName()
+{
+    if (m_device == NULL)
+        return QString();
+
+    QDir sysfsDevDir("/sys/bus/usb/devices");
+    QStringList devDirs = sysfsDevDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+
+    // 1- scan all the devices in the device bus
+    foreach (QString dir, devDirs)
+    {
+        if (dir.startsWith(QString::number(m_device->bus->location)) &&
+            dir.contains(".") &&
+            dir.contains(":") == false)
+        {
+            // 2- Match the product name
+            //qDebug() << "SYSFS Directory:" << dir;
+            QFile pName(QString("/sys/bus/usb/devices/%1/product").arg(dir));
+            if (pName.open(QIODevice::ReadOnly))
+            {
+                QString prodString = pName.readAll();
+                pName.close();
+                //qDebug() << "Got prod string:" << prodString.simplified() << "name:" << name;
+                if (name() == prodString.simplified())
+                {
+                    QDir devPorts("/sys/bus/usb/devices/" + dir);
+                    QStringList devDirs = devPorts.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+
+                    // 3- scan all the device ports
+                    foreach (QString portDir, devDirs)
+                    {
+                        if (portDir.startsWith(dir))
+                        {
+                            QDir ttyDir(QString("/sys/bus/usb/devices/%1/%2/tty").arg(dir).arg(portDir));
+                            qDebug() << "ttyDir:" << ttyDir.absolutePath();
+
+                            // 4- extract the tty port number
+                            if (ttyDir.exists())
+                            {
+                                QStringList ttyList = ttyDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+                                foreach(QString ttyName, ttyList)
+                                {
+                                    qDebug() << "This NanoDMX adapter will use" << QString("/dev/" + ttyName);
+                                    return QString("/dev/" + ttyName);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return QString();
+}
+
 /****************************************************************************
  * Open & Close
  ****************************************************************************/
 
 bool NanoDMX::open()
 {
-    // !!! This is buggy !!! Need to autodetect the
-    // right device name for this device
-    m_file.setFileName("/dev/ttyACM0");
+    QString ttyName = getDeviceName();
+    if (ttyName.isEmpty())
+        m_file.setFileName("/dev/ttyACM0");
+    else
+        m_file.setFileName(ttyName);
 
     m_file.unsetError();
     if (m_file.open(QIODevice::ReadWrite | QIODevice::Unbuffered) == false)
