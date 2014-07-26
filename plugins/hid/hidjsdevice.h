@@ -104,13 +104,6 @@ public:
 private:
     /** @reimp */
     void run();
-    
-    /*************************************************************************
-     * Output data
-     *************************************************************************/
- 
-    /** @reimp */
-    void outputDMX(const QByteArray &data) { Q_UNUSED(data); };
 };
 
 #endif
