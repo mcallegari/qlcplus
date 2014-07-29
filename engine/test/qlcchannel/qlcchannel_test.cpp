@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QPointer>
 #include <QtTest>
 #include <QtXml>
 

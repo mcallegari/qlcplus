@@ -20,7 +20,6 @@
 #ifndef SCENEEDITOR_H
 #define SCENEEDITOR_H
 
-#include <QPointer>
 #include <QWidget>
 #include <QList>
 #include <QMap>
@@ -150,7 +149,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     /*********************************************************************
      * Channels groups

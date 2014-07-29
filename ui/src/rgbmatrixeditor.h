@@ -20,7 +20,6 @@
 #ifndef RGBMATRIXEDITOR_H
 #define RGBMATRIXEDITOR_H
 
-#include <QPointer>
 #include <QWidget>
 #include <QHash>
 
@@ -117,7 +116,7 @@ private:
     QList <RGBMap> m_previewMaps;
     Function::Direction m_previewDirection;
 
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;

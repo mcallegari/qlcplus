@@ -1240,7 +1240,7 @@ void SimpleDesk::slotEditCueStackClicked()
         resetUniverseSliders();
 
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -1365,7 +1365,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
 void SimpleDesk::hideEvent(QHideEvent* ev)
 {
     if (m_speedDials != NULL)
-        delete m_speedDials;
+        m_speedDials->deleteLater();
     m_speedDials = NULL;
     QWidget::hideEvent(ev);
 }

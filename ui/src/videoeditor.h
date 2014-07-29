@@ -20,8 +20,6 @@
 #ifndef VIDEOEDITOR_H
 #define VIDEOEDITOR_H
 
-#include <QPointer>
-
 #include "ui_videoeditor.h"
 
 class Video;

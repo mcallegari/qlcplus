@@ -84,7 +84,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    QPointer<SpeedDialWidget>m_speedDials;
+    SpeedDialWidget *m_speedDials;
     int m_fadeOutTime;
 
 };

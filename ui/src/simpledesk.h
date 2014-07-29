@@ -20,12 +20,11 @@
 #ifndef SIMPLEDESK_H
 #define SIMPLEDESK_H
 
+#include <QScrollArea>
 #include <QModelIndex>
-#include <QPointer>
 #include <QWidget>
 #include <QList>
 #include <QHash>
-#include <QScrollArea>
 
 class GrandMasterSlider;
 class SimpleDeskEngine;
@@ -224,7 +223,7 @@ private:
     QToolButton* m_editCueStackButton;
     QToolButton* m_recordCueButton;
     QTreeView* m_cueStackView;
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
     QModelIndex m_cueDeleteIconIndex;
 
     /*********************************************************************

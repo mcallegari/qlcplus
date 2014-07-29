@@ -20,8 +20,6 @@
 #ifndef AUDIOEDITOR_H
 #define AUDIOEDITOR_H
 
-#include <QPointer>
-
 #include "ui_audioeditor.h"
 
 class SpeedDialWidget;
@@ -67,7 +65,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 };
 
 /** @} */
