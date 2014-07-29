@@ -52,28 +52,6 @@
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
-#define SLIDER_SS_COMMON  \
-    "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } " \
-    "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );" \
-    "border: 1px solid #8E8A86; margin: 0 9px; }" \
-    "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);" \
-    "border: 1px solid #666; }"
-
-const QString sliderStyleSheet =
-    SLIDER_SS_COMMON
-
-    "QSlider::handle:vertical { "
-    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-    "border: 1px solid #5c5c5c;"
-    "border-radius: 4px; margin: 0 -4px; height: 20px; }"
-
-    "QSlider::handle:vertical:hover {"
-    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-    "border: 1px solid #000; }"
-
-    "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
-    "border: 1px solid #5288A7; margin: 0 9px; }";
-
 const QString submasterStyleSheet =
     SLIDER_SS_COMMON
 
@@ -149,7 +127,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_slider->setMinimumWidth(32);
     m_slider->setMaximumWidth(80);
-    m_slider->setStyleSheet(sliderStyleSheet);
+    m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
 
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
@@ -498,7 +476,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         {
             m_slider->setRange(levelLowLimit(), levelHighLimit());
             m_slider->setValue(level);
-            m_slider->setStyleSheet(sliderStyleSheet);
+            m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         }
         else if(m_knob)
         {
@@ -531,7 +509,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         {
             m_slider->setRange(0, UCHAR_MAX);
             m_slider->setValue(level);
-            m_slider->setStyleSheet(sliderStyleSheet);
+            m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         }
         else if (m_knob)
         {
@@ -1068,7 +1046,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
         m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         m_slider->setMinimumWidth(32);
         m_slider->setMaximumWidth(80);
-        m_slider->setStyleSheet(sliderStyleSheet);
+        m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         m_hbox->addStretch();
         m_slider->show();
         connect(m_slider, SIGNAL(valueChanged(int)),

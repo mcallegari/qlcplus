@@ -37,6 +37,9 @@ public:
     /** @reimpl */
     qint64 latency();
 
+    /** @reimpl */
+    void setVolume(qreal volume);
+
 protected:
     /** @reimpl */
     void suspend();
@@ -51,6 +54,7 @@ private:
     QAudioInput *m_audioInput;
     QIODevice *m_input;
     QAudioFormat m_format;
+    qreal m_volume;
 };
 
 #endif // AUDIOCAPTURE_QT_H

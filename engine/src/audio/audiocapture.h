@@ -65,6 +65,10 @@ public:
      */
     virtual qint64 latency() = 0;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    virtual void setVolume(qreal volume) = 0;
+#endif
+
     /*!
      * Stops processing audio data, preserving buffered audio data.
      */

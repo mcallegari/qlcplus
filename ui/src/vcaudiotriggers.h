@@ -25,6 +25,10 @@
 #include <QToolButton>
 #include <QLabel>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+ #include "clickandgoslider.h"
+#endif
+
 #include "audiotriggerwidget.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
@@ -71,12 +75,18 @@ public slots:
 
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
+#if QT_VERSION >= 0x050000
+    void slotVolumeChanged(int volume);
+#endif
 
 protected:
     QHBoxLayout *m_hbox;
     QToolButton *m_button;
     QLabel *m_label;
     AudioTriggerWidget *m_spectrum;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    ClickAndGoSlider *m_volumeSlider;
+#endif
     AudioCapture *m_inputCapture;
 
     AudioBar *m_volumeBar;
