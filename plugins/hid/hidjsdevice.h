@@ -38,6 +38,13 @@
 
 class HIDPlugin;
 
+typedef struct
+{
+    uchar hidvalue;
+    double dValue;
+    uchar dmxValue;
+} HIDJSAxisStatus;
+
 /*****************************************************************************
  * HIDEventDevice
  *****************************************************************************/
@@ -62,15 +69,16 @@ protected:
     bool hasInput() { return true; }
 
 protected:
-    unsigned char m_axes;
-    unsigned char m_buttons;
+    unsigned char m_axesNumber;
+    unsigned char m_buttonsNumber;
 #if defined(WIN32) || defined (Q_OS_WIN)
     JOYCAPS m_caps;
     JOYINFOEX m_info;
     UINT m_windId;
     DWORD m_buttonsMask;
-    QByteArray m_axesValues;
 #endif
+
+    QHash <quint32, HIDJSAxisStatus> m_axesStatus;
     /*********************************************************************
      * File operations
      *********************************************************************/

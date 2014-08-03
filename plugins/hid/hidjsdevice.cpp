@@ -37,7 +37,9 @@
 #include "qlcmacros.h"
 #include "hidplugin.h"
 
-#define KPollTimeout 1000
+// device polling timeout in milliseconds
+#define KPollTimeout 50
+#define KMovementGranularity 20
 
 HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
@@ -79,17 +81,17 @@ void HIDJsDevice::init()
         return;
 
     /* Number of axes */
-    if (ioctl(m_file.handle(), JSIOCGAXES, &m_axes) < 0)
+    if (ioctl(m_file.handle(), JSIOCGAXES, &m_axesNumber) < 0)
     {
-        m_axes = 0;
+        m_axesNumber = 0;
         qWarning() << "Unable to get number of axes:"
                    << strerror(errno);
     }
 
     /* Number of buttons */
-    if (ioctl(m_file.handle(), JSIOCGBUTTONS, &m_buttons) < 0)
+    if (ioctl(m_file.handle(), JSIOCGBUTTONS, &m_buttonsNumber) < 0)
     {
-        m_buttons = 0;
+        m_buttonsNumber = 0;
         qWarning() << "Unable to get number of buttons:"
                    << strerror(errno);
     }
@@ -119,26 +121,32 @@ void HIDJsDevice::init()
              */
             if( m_caps.wCaps & JOYCAPS_HASV )
             {
-                m_axes = 6;
+                m_axesNumber = 6;
                 //joy->min[ 7 ] = -1.0; joy->max[ 7 ] = 1.0;  /* POV Y */
                 //joy->min[ 6 ] = -1.0; joy->max[ 6 ] = 1.0;  /* POV X */
             }
             else
-                m_axes = m_caps.wNumAxes;
+                m_axesNumber = m_caps.wNumAxes;
 
-            m_buttons = m_caps.wNumButtons;
-            m_axesValues.fill(0, m_axes);
+            m_buttonsNumber = m_caps.wNumButtons;
             m_windId = i;
             break;
         }
         else
         {
-            m_axes = 0;
-            m_buttons = 0;
+            m_axesNumber = 0;
+            m_buttonsNumber = 0;
             m_windId = -1;
         }
     }
 #endif
+
+    for (int i = 0; i < m_axesNumber; i++)
+    {
+        m_axesStatus[i].hidvalue = 0;
+        m_axesStatus[i].dValue = 0.0;
+        m_axesStatus[i].dmxValue = 0;
+    }
 }
 
 /*****************************************************************************
@@ -197,6 +205,7 @@ bool HIDJsDevice::readEvent()
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
     int r;
+    bool axesChanged = false;
 
     r = read(m_file.handle(), &ev, sizeof(struct js_event));
     if (r > 0)
@@ -213,7 +222,7 @@ bool HIDJsDevice::readEvent()
                 val = 0;
 
             /* Map button channels to start after axes */
-            ch = quint32(m_axes + ev.number);
+            ch = quint32(m_axesNumber + ev.number);
 
             /* Generate and post an event */
             emit valueChanged(UINT_MAX, m_line, ch, val);
@@ -224,15 +233,17 @@ bool HIDJsDevice::readEvent()
                         double(0), double(UCHAR_MAX));
             ch = quint32(ev.number);
 
-            qDebug() << "HID JS" << m_line << ch << val;
-            emit valueChanged(UINT_MAX, m_line, ch, val);
+            //qDebug() << "HID JS" << m_line << ch << val;
+            //emit valueChanged(UINT_MAX, m_line, ch, val);
+            m_axesStatus[ch].hidvalue = val;
+            axesChanged = true;
         }
         else
         {
             /* Unknown event type */
         }
 
-        return true;
+        return axesChanged;
     }
     else
     {
@@ -241,7 +252,7 @@ bool HIDJsDevice::readEvent()
         e = new HIDInputEvent(this, 0, 0, 0, false);
         QApplication::postEvent(parent(), e);
         */
-        return false;
+        return axesChanged;
     }
 #elif defined(WIN32) || defined (Q_OS_WIN)
     MMRESULT status = joyGetPosEx( m_windId, &m_info );
@@ -251,21 +262,21 @@ bool HIDJsDevice::readEvent()
 
     if ( m_buttons )
     {
-        for (int i = 0; i < m_buttons; ++i)
+        for (int i = 0; i < m_buttonsNumber; ++i)
         {
             if ((m_info.dwButtons & JOY_BUTTON_MASK(i)) !=
                 (m_buttonsMask & JOY_BUTTON_MASK(i)))
             {
                 if (m_info.dwButtons & JOY_BUTTON_MASK(i))
-                    emit valueChanged(UINT_MAX, m_line, i, 255);
+                    emit valueChanged(UINT_MAX, m_line, m_axes + i, 255);
                 else
-                    emit valueChanged(UINT_MAX, m_line, i, 0);
+                    emit valueChanged(UINT_MAX, m_line, m_axes + i, 0);
             }
         }
         m_buttonsMask = m_info.dwButtons;
     }
 
-    if ( m_axes )
+    if ( m_axesNumber )
     {
         QList<DWORD> cmpVals;
         cmpVals.append(m_info.dwXpos);
@@ -279,14 +290,17 @@ bool HIDJsDevice::readEvent()
         {
             uchar val = SCALE(double(cmpVals.at(i)), double(0), double(USHRT_MAX),
                         double(0), double(UCHAR_MAX));
-            if (val != (uchar)m_axesValues.at(i))
-                emit valueChanged(UINT_MAX, m_line, m_buttons + i, val);
-            m_axesValues[i] = val;
+            if (val != m_axesStatus[i].hidvalue)
+            {
+                //    emit valueChanged(UINT_MAX, m_line, m_buttons + i, val);
+                m_axesStatus[i].hidvalue = val;
+                axesChanged = true;
+            }
         }
     }
-    return true;
+    return axesChanged;
 #else
-    return false;
+    return axesChanged;
 #endif
 }
 
@@ -299,9 +313,9 @@ QString HIDJsDevice::infoText()
     QString info;
 
     info += QString("<B>%1</B><P>").arg(m_name);
-    info += tr("Axes: %1").arg(m_axes);
+    info += tr("Axes: %1").arg(m_axesNumber);
     info += QString("<BR/>");
-    info += tr("Buttons: %1").arg(m_buttons);
+    info += tr("Buttons: %1").arg(m_buttonsNumber);
     info += QString("</P>");
 
     return info;
@@ -320,6 +334,8 @@ void HIDJsDevice::feedBack(quint32 channel, uchar value)
 
 void HIDJsDevice::run()
 {
+    bool movementOn = false;
+
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct pollfd* fds = NULL;
     fds = new struct pollfd[1];
@@ -331,6 +347,7 @@ void HIDJsDevice::run()
 
     while (m_running == true)
     {
+        bool axesChanged = false;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
         int r = poll(fds, 1, KPollTimeout);
 
@@ -342,12 +359,34 @@ void HIDJsDevice::run()
         else if (r != 0)
         {
             if (fds[0].revents != 0)
-                readEvent();
+                axesChanged = readEvent();
         }
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        readEvent();
+        axesChanged = readEvent();
         Sleep(50);
 #endif
+        if (axesChanged == true || movementOn == true)
+        {
+            movementOn = false;
+            for (int i = 0; i < m_axesNumber; i++)
+            {
+                double moveAmount = 127 - m_axesStatus[i].hidvalue;
+                if (moveAmount != 0)
+                {
+                    m_axesStatus[i].dValue -= (moveAmount / KMovementGranularity);
+                    m_axesStatus[i].dValue = CLAMP(m_axesStatus[i].dValue, 0, 255);
+
+                    uchar newDmxValue = uchar(m_axesStatus[i].dValue);
+                    //qDebug() << "double value:" << m_axesStatus[i].dValue << "uchar val:" << newDmxValue;
+                    if (newDmxValue != m_axesStatus[i].dmxValue)
+                    {
+                        m_axesStatus[i].dmxValue = newDmxValue;
+                        emit valueChanged(UINT_MAX, m_line, i, newDmxValue);
+                    }
+                    movementOn = true;
+                }
+            }
+        }
     }
 }
 
