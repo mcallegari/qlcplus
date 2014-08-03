@@ -808,6 +808,8 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     m_levelValueMutex.lock();
 
     uchar modLevel = m_levelValue;
+    bool mixedDMXlevels = false;
+    int monitorSliderValue = -1;
 
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
     if (m_cngType == ClickAndGoWidget::RGB)
@@ -850,6 +852,20 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             if (qlcch == NULL)
                 continue;
 
+            quint32 dmx_ch = fxi->address() + lch.channel;
+            int uni = fxi->universe();
+            if (uni < universes.count())
+            {
+                uchar chValue = universes[uni]->preGMValue(dmx_ch);
+                if (monitorSliderValue == -1)
+                    monitorSliderValue = chValue;
+                else
+                {
+                    if (chValue != (uchar)monitorSliderValue)
+                        mixedDMXlevels = true;
+                }
+            }
+
             if (qlcch->group() != QLCChannel::Intensity &&
                 m_levelValueChanged == false)
             {
@@ -879,14 +895,31 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 }
             }
 
-            quint32 dmx_ch = fxi->address() + lch.channel;
-            int uni = fxi->universe();
             if (uni < universes.count())
                 universes[uni]->write(dmx_ch, modLevel * intensity());
         }
     }
     m_levelValueChanged = false;
     m_levelValueMutex.unlock();
+
+    // check if all the DMX channels controlled by this slider
+    // have the same value. If so, move the widget slider or knob
+    // to the detected position
+    if (mixedDMXlevels == false)
+    {
+        if (m_slider != NULL)
+        {
+            m_slider->blockSignals(true);
+            m_slider->setValue(monitorSliderValue);
+            m_slider->blockSignals(false);
+        }
+        if (m_knob != NULL)
+        {
+            m_knob->blockSignals(true);
+            m_knob->setValue(monitorSliderValue);
+            m_knob->blockSignals(false);
+        }
+    }
 }
 
 void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
