@@ -190,6 +190,8 @@ void HIDJsDevice::closeInput()
         m_running = false;
         wait();
     }
+    m_axesStatus.clear();
+
     if (m_file.isOpen())
         m_file.close();
 }
