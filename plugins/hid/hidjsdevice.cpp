@@ -203,11 +203,11 @@ QString HIDJsDevice::path() const
 
 bool HIDJsDevice::readEvent()
 {
+    bool axesChanged = false;
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
     int r;
-    bool axesChanged = false;
 
     r = read(m_file.handle(), &ev, sizeof(struct js_event));
     if (r > 0)
@@ -262,7 +262,7 @@ bool HIDJsDevice::readEvent()
     if ( status != JOYERR_NOERROR )
         return false;
 
-    if ( m_buttons )
+    if ( m_buttonsNumber )
     {
         for (int i = 0; i < m_buttonsNumber; ++i)
         {
@@ -270,9 +270,9 @@ bool HIDJsDevice::readEvent()
                 (m_buttonsMask & JOY_BUTTON_MASK(i)))
             {
                 if (m_info.dwButtons & JOY_BUTTON_MASK(i))
-                    emit valueChanged(UINT_MAX, m_line, m_axes + i, 255);
+                    emit valueChanged(UINT_MAX, m_line, m_axesNumber + i, 255);
                 else
-                    emit valueChanged(UINT_MAX, m_line, m_axes + i, 0);
+                    emit valueChanged(UINT_MAX, m_line, m_axesNumber + i, 0);
             }
         }
         m_buttonsMask = m_info.dwButtons;
@@ -288,7 +288,7 @@ bool HIDJsDevice::readEvent()
         cmpVals.append(m_info.dwUpos);
         cmpVals.append(m_info.dwVpos);
 
-        for (int i = 0; i < m_axes; i++)
+        for (int i = 0; i < m_axesNumber; i++)
         {
             uchar val = SCALE(double(cmpVals.at(i)), double(0), double(USHRT_MAX),
                         double(0), double(UCHAR_MAX));
