@@ -919,6 +919,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             m_knob->setValue(monitorSliderValue);
             m_knob->blockSignals(false);
         }
+        setTopLabelText(monitorSliderValue);
         updateFeedback();
     }
 }
