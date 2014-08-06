@@ -36,6 +36,8 @@
 
 #include "hiddevice.h"
 
+#define DEFAULT_SENSITIVITY 20
+
 class HIDPlugin;
 
 typedef struct
@@ -62,6 +64,11 @@ public:
 #endif
 
 protected:
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    bool openDevice();
+#endif
+
     /** Initialize the device, find out its capabilities etc. */
     void init();
 
@@ -112,6 +119,26 @@ public:
 private:
     /** @reimp */
     void run();
+
+    /*********************************************************************
+     * Axes movement behaviour
+     *********************************************************************/
+public:
+    /** Movement behaviour */
+    enum HIDJSAxesMovement {
+        Relative = 0,
+        Absolute = 1
+    };
+
+    HIDJSAxesMovement axesBehaviour() const { return m_axesBehaviour; }
+    void setAxesBehaviour(HIDJSAxesMovement type) { m_axesBehaviour = type; }
+
+    int axesSensitivity() const { return m_axesSensitivity; }
+    void setAxesSensitivity(int value) { m_axesSensitivity = value; }
+
+protected:
+    HIDJSAxesMovement m_axesBehaviour;
+    int m_axesSensitivity;
 };
 
 #endif

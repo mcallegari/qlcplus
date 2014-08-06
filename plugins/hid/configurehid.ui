@@ -6,57 +6,133 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>408</width>
-    <height>288</height>
+    <width>624</width>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Configure HID Plugin</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../ui/src/qlcui.qrc">
+    <normaloff>:/configure.png</normaloff>:/configure.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <widget class="QTreeWidget" name="m_list">
-     <property name="alternatingRowColors">
-      <bool>true</bool>
+   <item row="3" column="1">
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
      </property>
-     <property name="rootIsDecorated">
-      <bool>false</bool>
-     </property>
-     <property name="itemsExpandable">
-      <bool>false</bool>
-     </property>
-     <property name="allColumnsShowFocus">
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>Input Line</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Name</string>
-      </property>
-     </column>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="0" column="1">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Joysticks</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QTreeWidget" name="m_jslist">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Input Line</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Axes movement</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Sensitivity</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Other devices</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QTreeWidget" name="m_otherlist">
+         <column>
+          <property name="text">
+           <string>Input Line</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="1">
     <widget class="QPushButton" name="m_refreshButton">
      <property name="text">
       <string>Refresh</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QDialogButtonBox" name="m_buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../ui/src/qlcui.qrc"/>
+  <include location="../../ui/src/qlcui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>m_buttonBox</sender>

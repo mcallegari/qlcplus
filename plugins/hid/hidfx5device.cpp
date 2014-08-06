@@ -41,6 +41,7 @@ HIDFX5Device::HIDFX5Device(HIDPlugin* parent, quint32 line, const QString &name,
 {
     m_capabilities = QLCIOPlugin::Output;
     m_mode = FX5_MODE_NONE;
+    m_type = FX5USB;
     init();
 }
 

@@ -17,9 +17,7 @@
   limitations under the License.
 */
 
-#include <QApplication>
-#include <QObject>
-#include <QString>
+#include <QSettings>
 #include <QDebug>
 #include <QFile>
 
@@ -39,12 +37,14 @@
 
 // device polling timeout in milliseconds
 #define KPollTimeout 50
-#define KMovementGranularity 20
 
 HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Input;
+    m_type = Joystick;
+    m_axesBehaviour = Relative;
+    m_axesSensitivity = DEFAULT_SENSITIVITY;
     init();
 }
 
@@ -74,10 +74,33 @@ bool HIDJsDevice::isJoystick(unsigned short vid, unsigned short pid)
 }
 #endif
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+bool HIDJsDevice::openDevice()
+{
+    bool result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
+    if (result == false)
+    {
+        result = m_file.open(QIODevice::Unbuffered |
+                             QIODevice::ReadOnly);
+        if (result == false)
+        {
+            qWarning() << "Unable to open" << m_file.fileName()
+                       << ":" << m_file.errorString();
+        }
+        else
+        {
+            qDebug() << "Opened" << m_file.fileName()
+                     << "in read only mode";
+        }
+    }
+    return result;
+}
+#endif
+
 void HIDJsDevice::init()
 {
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    if (openInput() == false)
+    if (openDevice() == false)
         return;
 
     /* Number of axes */
@@ -143,9 +166,9 @@ void HIDJsDevice::init()
 
     for (int i = 0; i < m_axesNumber; i++)
     {
-        m_axesStatus[i].hidvalue = 0;
-        m_axesStatus[i].dValue = 0.0;
-        m_axesStatus[i].dmxValue = 0;
+        m_axesStatus[i].hidvalue = 127;
+        m_axesStatus[i].dValue = 127.0;
+        m_axesStatus[i].dmxValue = 127;
     }
 }
 
@@ -157,28 +180,36 @@ bool HIDJsDevice::openInput()
 {
     bool result = false;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
-    if (result == false)
-    {
-        result = m_file.open(QIODevice::Unbuffered |
-                             QIODevice::ReadOnly);
-        if (result == false)
-        {
-            qWarning() << "Unable to open" << m_file.fileName()
-                       << ":" << m_file.errorString();
-        }
-        else
-        {
-            qDebug() << "Opened" << m_file.fileName()
-                     << "in read only mode";
-        }
-    }
+    result = openDevice();
 #elif defined(WIN32) || defined (Q_OS_WIN)
+    // nothing to do on dumb Windows
     result = true;
 #endif
 
-    m_running = true;
-    start();
+    // retrieve any custom axes settings
+    // for this device/line
+    QSettings settings;
+    QString axesKey = QString("hidplugin/axes/%1").arg(name());
+    QVariant val = settings.value(axesKey);
+    if (val.isValid())
+    {
+        QStringList strVals = val.toString().split(",");
+        if (strVals.count() > 0)
+        {
+            if (strVals.at(0) == "Absolute")
+                m_axesBehaviour = Absolute;
+            else
+                m_axesBehaviour = Relative;
+        }
+        if (strVals.count() > 1)
+            m_axesSensitivity = strVals.at(1).toInt();
+    }
+
+    if (result == true)
+    {
+        m_running = true;
+        start();
+    }
 
     return result;
 }
@@ -236,9 +267,13 @@ bool HIDJsDevice::readEvent()
             ch = quint32(ev.number);
 
             //qDebug() << "HID JS" << m_line << ch << val;
-            //emit valueChanged(UINT_MAX, m_line, ch, val);
-            m_axesStatus[ch].hidvalue = val;
-            axesChanged = true;
+            if (m_axesBehaviour == Absolute)
+                emit valueChanged(UINT_MAX, m_line, ch, val);
+            else
+            {
+                m_axesStatus[ch].hidvalue = val;
+                axesChanged = true;
+            }
         }
         else
         {
@@ -294,9 +329,11 @@ bool HIDJsDevice::readEvent()
                         double(0), double(UCHAR_MAX));
             if (val != m_axesStatus[i].hidvalue)
             {
-                //    emit valueChanged(UINT_MAX, m_line, m_buttons + i, val);
+                if (m_axesBehaviour == Absolute)
+                    emit valueChanged(UINT_MAX, m_line, i, val);
+                else
+                    axesChanged = true;
                 m_axesStatus[i].hidvalue = val;
-                axesChanged = true;
             }
         }
     }
@@ -375,7 +412,7 @@ void HIDJsDevice::run()
                 double moveAmount = 127 - m_axesStatus[i].hidvalue;
                 if (moveAmount != 0)
                 {
-                    m_axesStatus[i].dValue -= (moveAmount / KMovementGranularity);
+                    m_axesStatus[i].dValue -= (moveAmount / m_axesSensitivity);
                     m_axesStatus[i].dValue = CLAMP(m_axesStatus[i].dValue, 0, 255);
 
                     uchar newDmxValue = uchar(m_axesStatus[i].dValue);
