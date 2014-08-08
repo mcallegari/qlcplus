@@ -6,7 +6,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="73"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
-        <translation>Deze plugin verzorgt DMX output voor apparaten die het ArtNet communicatie protocol ondersteunen.</translation>
+        <translation>Deze plugin zorgt voor DMX output voor apparaten die het ArtNet communicatieprotocol ondersteunen.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="90"/>
@@ -39,7 +39,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="118"/>
         <source>Packets sent: </source>
-        <translation>Packets verzonden:</translation>
+        <translation>Pakketten verzonden: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="262"/>
@@ -49,7 +49,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="271"/>
         <source>Packets received: </source>
-        <translation>Packets ontvangen:</translation>
+        <translation>Pakketten ontvangen: </translation>
     </message>
 </context>
 <context>
@@ -62,7 +62,7 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Nodes Tree</source>
-        <translation>Nodes Tree</translation>
+        <translation>Boomstructuur van apparaten</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="34"/>
@@ -77,7 +77,7 @@
     <message>
         <location filename="configureartnet.ui" line="44"/>
         <source>Long Name</source>
-        <translation>Naam </translation>
+        <translation>Lange naam</translation>
     </message>
 </context>
 </TS>

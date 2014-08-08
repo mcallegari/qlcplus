@@ -39,12 +39,12 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation>Pas dit apparaat aan een te ontdekken universe.</translation>
+        <translation type="unfinished">Patch dit apparaat aan een universe.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="143"/>
         <source>System Timer Accuracy</source>
-        <translation>System Timer precisie</translation>
+        <translation>Systeemklok precisie</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="148"/>

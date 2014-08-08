@@ -21,7 +21,7 @@
     <message>
         <location filename="configureolaio.ui" line="34"/>
         <source>Run standalone OLA daemon</source>
-        <translation>Run standalone OLA daemon</translation>
+        <translation>Start standalone OLA daemon</translation>
     </message>
 </context>
 <context>

@@ -6,12 +6,12 @@
     <message>
         <location filename="spiconfiguration.ui" line="14"/>
         <source>Configure SPI Plugin</source>
-        <translation>Configureer SPI Plugin</translation>
+        <translation>Configureer SPI plugin</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="20"/>
         <source>Transmission frequency:</source>
-        <translation>Verzend frequentie:</translation>
+        <translation>Verzendfrequentie:</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="35"/>

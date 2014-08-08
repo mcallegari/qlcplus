@@ -6,12 +6,12 @@
     <message>
         <location filename="enttecwing.cpp" line="111"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Deze plugin verzorgt DMX input voor Enttec Playback en Enttec Shortcut Wings.</translation>
+        <translation>Deze plugin zorgt voor DMX input van de Enttec Playback en Enttec Shortcut Wings.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="128"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation>Binden van UDP port %1 niet gelukt:</translation>
+        <translation>Verbinden met UDP poort %1 niet gelukt:</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="135"/>
@@ -48,7 +48,7 @@
     <message>
         <location filename="wing.cpp" line="62"/>
         <source>Firmware version %1</source>
-        <translation>Firmware versie %1</translation>
+        <translation>Firmwareversie %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="64"/>
