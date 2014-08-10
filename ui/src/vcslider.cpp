@@ -161,6 +161,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotClickAndGoColorChanged(QRgb)));
     connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar,QImage)),
             this, SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
+    connect(this, SIGNAL(monitorDMXValueChanged(int)),
+            this, SLOT(slotMonitorDMXValueChanged(int)));
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -608,6 +610,16 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
     }
 }
 
+void VCSlider::slotMonitorDMXValueChanged(int value)
+{
+    if (value != sliderValue())
+    {
+        setSliderValue(value);
+        setTopLabelText(value);
+        updateFeedback();
+    }
+}
+
 /*********************************************************************
  * Click & Go
  *********************************************************************/
@@ -805,7 +817,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
-    m_levelValueMutex.lock();
+    QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_levelValue;
     bool mixedDMXlevels = false;
@@ -900,28 +912,12 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
     m_levelValueChanged = false;
-    m_levelValueMutex.unlock();
 
     // check if all the DMX channels controlled by this slider
     // have the same value. If so, move the widget slider or knob
     // to the detected position
-    if (mixedDMXlevels == false)
-    {
-        if (m_slider != NULL)
-        {
-            m_slider->blockSignals(true);
-            m_slider->setValue(monitorSliderValue);
-            m_slider->blockSignals(false);
-        }
-        if (m_knob != NULL)
-        {
-            m_knob->blockSignals(true);
-            m_knob->setValue(monitorSliderValue);
-            m_knob->blockSignals(false);
-        }
-        setTopLabelText(monitorSliderValue);
-        updateFeedback();
-    }
+    if (mixedDMXlevels == false && monitorSliderValue != sliderValue())
+        emit monitorDMXValueChanged(monitorSliderValue);
 }
 
 void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)

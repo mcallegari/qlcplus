@@ -296,9 +296,16 @@ protected:
      */
     uchar levelValue() const;
 
+signals:
+    void monitorDMXValueChanged(int value);
+
 protected slots:
     /** Removes all level channels related to removed fixture */
     void slotFixtureRemoved(quint32 fxi_id);
+
+    /** Slot called when the DMX levels of the controlled channels
+     *  has changed */
+    void slotMonitorDMXValueChanged(int value);
 
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
