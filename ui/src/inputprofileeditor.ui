@@ -45,7 +45,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -70,6 +70,27 @@
          <property name="text">
           <string>Model</string>
          </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="m_typeLabel">
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="m_typeCombo">
+         <item>
+          <property name="text">
+           <string>MIDI</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>OSC</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
