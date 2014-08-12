@@ -1,6 +1,7 @@
 qlcplus (4.7.5) stable; urgency=low
 
   * Virtual Console: Sliders in level mode now represent the channels they control only if they have all the same value
+  * Show Manager: fixed 4.7.4 regression on time cursor position
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 

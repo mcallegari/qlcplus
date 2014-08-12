@@ -567,9 +567,10 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 #endif
        )
     {
-        if (e->pos().x() > TRACK_WIDTH)
+        quint32 xpos = mapToScene(e->pos()).x();
+        if (xpos > TRACK_WIDTH)
         {
-            m_cursor->setPos(e->pos().x(), 0);
+            m_cursor->setPos(xpos, 0);
             m_cursor->setTime(getTimeFromCursor());
             emit timeChanged(m_cursor->getTime());
         }
