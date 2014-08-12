@@ -100,10 +100,6 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     /* Profile manufacturer & model */
     m_manufacturerEdit->setText(m_profile->manufacturer());
     m_modelEdit->setText(m_profile->model());
-    if (m_profile->type() == "OSC")
-        m_typeCombo->setCurrentIndex(1);
-    else
-        m_typeCombo->setCurrentIndex(0);
 
     /* Fill up the tree with profile's channels */
     fillTree();
@@ -189,7 +185,6 @@ void InputProfileEditor::accept()
 
     m_profile->setManufacturer(m_manufacturerEdit->text());
     m_profile->setModel(m_modelEdit->text());
-    m_profile->setType(m_typeCombo->currentText());
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||
