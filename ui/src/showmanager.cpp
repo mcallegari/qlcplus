@@ -362,7 +362,11 @@ void ShowManager::updateShowsCombo()
     m_showsCombo->clear();
     foreach (Function* f, m_doc->functionsByType(Function::Show))
     {
-        m_showsCombo->addItem(f->name(), QVariant(f->id()));
+        // Insert in ascii order
+        int insertPosition = 0;
+        while (insertPosition < m_showsCombo->count() && m_showsCombo->itemText(insertPosition) <= f->name())
+            ++insertPosition;
+        m_showsCombo->insertItem(insertPosition, f->name(), QVariant(f->id()));
         if (m_show != NULL && m_show->id() != f->id())
             newIndex++;
     }
@@ -553,7 +557,10 @@ void ShowManager::slotAddShow()
         if (m_doc->addFunction(f) == true)
         {
             // modify the new selected Show index
-            m_selectedShowIndex = m_showsCombo->count();
+            int insertPosition = 0;
+            while (insertPosition < m_showsCombo->count() && m_showsCombo->itemText(insertPosition) <= m_show->name())
+                ++insertPosition;
+            m_selectedShowIndex = insertPosition;
             updateShowsCombo();
             m_copyAction->setEnabled(false);
             if (m_doc->clipboard()->hasFunction())
