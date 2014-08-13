@@ -13,6 +13,8 @@ modtemplates.files += Logarithmic_Deep.qxmt
 modtemplates.files += Logarithmic_Medium.qxmt
 modtemplates.files += Logarithmic_Shallow.qxmt
 modtemplates.files += Threshold.qxmt
+modtemplates.files += Preheat_5_Percent.qxmt
+
 
 modtemplates.path = $$INSTALLROOT/$$MODIFIERSTEMPLATEDIR
 INSTALLS += modtemplates
