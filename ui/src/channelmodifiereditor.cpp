@@ -84,9 +84,16 @@ ChannelModifier *ChannelModifierEditor::selectedModifier()
     return m_currentTemplate;
 }
 
+static bool alphabeticSort(QString const & left, QString const & right)
+{
+  return QString::compare(left, right) < 0;
+}
+
 void ChannelModifierEditor::updateModifiersList(QString modifier)
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
+    qStableSort(names.begin(), names.end(), alphabeticSort);
+
     m_templatesTree->clear();
     foreach(QString name, names)
     {
