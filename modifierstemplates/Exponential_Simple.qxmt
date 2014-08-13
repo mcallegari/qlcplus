@@ -4,9 +4,9 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.7.3 GIT</Version>
-  <Author>Massimo,,,</Author>
+  <Author>Massimo Callegari</Author>
  </Creator>
- <Name>Exponential</Name>
+ <Name>Exponential Simple</Name>
  <Handler Modified="0" Original="0"/>
  <Handler Modified="20" Original="90"/>
  <Handler Modified="60" Original="156"/>
