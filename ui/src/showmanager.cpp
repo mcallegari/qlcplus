@@ -365,7 +365,7 @@ void ShowManager::updateShowsCombo()
         // Insert in ascii order
         int insertPosition = 0;
         while (insertPosition < m_showsCombo->count() &&
-                QString::compare(m_showsCombo->itemText(insertPosition), f->name(), Qt::CaseInsensitive) <= 0)
+                QString::localeAwareCompare(m_showsCombo->itemText(insertPosition), f->name()) <= 0)
             ++insertPosition;
         m_showsCombo->insertItem(insertPosition, f->name(), QVariant(f->id()));
         if (m_show != NULL && m_show->id() != f->id())
@@ -560,7 +560,7 @@ void ShowManager::slotAddShow()
             // modify the new selected Show index
             int insertPosition = 0;
             while (insertPosition < m_showsCombo->count() &&
-                    QString::compare(m_showsCombo->itemText(insertPosition), m_show->name(), Qt::CaseInsensitive) <= 0)
+                    QString::localeAwareCompare(m_showsCombo->itemText(insertPosition), m_show->name()) <= 0)
                 ++insertPosition;
             m_selectedShowIndex = insertPosition;
             updateShowsCombo();
