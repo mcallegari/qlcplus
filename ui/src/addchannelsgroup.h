@@ -58,7 +58,7 @@ private:
     ChannelsGroup* m_chansGroup;
 
 protected:
-    QLCInputSource m_inputSource;
+    QLCInputSource *m_inputSource;
 
     int m_checkedChannels;
     bool m_isUpdating;

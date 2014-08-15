@@ -250,7 +250,9 @@ void VCCueListProperties::slotNextChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_nextInputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_nextInputSource != NULL)
+           delete m_nextInputSource;
+        m_nextInputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateNextInputSource();
     }
 }
@@ -271,7 +273,9 @@ void VCCueListProperties::slotNextAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotNextInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_nextInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
+    if (m_nextInputSource != NULL)
+       delete m_nextInputSource;
+    m_nextInputSource = new QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateNextInputSource();
 }
 
@@ -318,7 +322,9 @@ void VCCueListProperties::slotPreviousChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_previousInputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_previousInputSource != NULL)
+           delete m_previousInputSource;
+        m_previousInputSource = new QLCInputSource(sic.universe(), sic.channel());
         updatePreviousInputSource();
     }
 }
@@ -339,7 +345,9 @@ void VCCueListProperties::slotPreviousAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotPreviousInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_previousInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
+    if (m_previousInputSource != NULL)
+       delete m_previousInputSource;
+    m_previousInputSource = new QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePreviousInputSource();
 }
 
@@ -386,7 +394,9 @@ void VCCueListProperties::slotPlaybackChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_playbackInputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_playbackInputSource != NULL)
+           delete m_playbackInputSource;
+        m_playbackInputSource = new QLCInputSource(sic.universe(), sic.channel());
         updatePlaybackInputSource();
     }
 }
@@ -407,7 +417,9 @@ void VCCueListProperties::slotPlaybackAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotPlaybackInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_playbackInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
+    if (m_playbackInputSource != NULL)
+       delete m_playbackInputSource;
+    m_playbackInputSource = new QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePlaybackInputSource();
 }
 
@@ -438,7 +450,9 @@ void VCCueListProperties::slotCF1ChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_cf1InputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_cf1InputSource != NULL)
+           delete m_cf1InputSource;
+        m_cf1InputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateCrossfadeInputSource();
     }
 }
@@ -461,7 +475,9 @@ void VCCueListProperties::slotCF1AutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotCF1InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf1InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
+    if (m_cf1InputSource != NULL)
+       delete m_cf1InputSource;
+    m_cf1InputSource = new QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 
@@ -470,7 +486,9 @@ void VCCueListProperties::slotCF2ChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_cf2InputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_cf2InputSource != NULL)
+           delete m_cf2InputSource;
+        m_cf2InputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateCrossfadeInputSource();
     }
 }
@@ -493,7 +511,9 @@ void VCCueListProperties::slotCF2AutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotCF2InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf2InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
+    if (m_cf2InputSource != NULL)
+       delete m_cf2InputSource;
+    m_cf2InputSource = new QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 

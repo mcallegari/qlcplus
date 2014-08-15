@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "webaccessconfiguration.h"
 #include "inputoutputmap.h"
 #include "commonjscss.h"

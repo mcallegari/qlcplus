@@ -17,10 +17,12 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <qmath.h>
+#include <QDebug>
 #include <QImage>
-#include <QDesktopWidget>
 
 #include "clickandgowidget.h"
 #include "qlccapability.h"

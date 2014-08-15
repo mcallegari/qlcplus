@@ -18,6 +18,7 @@
 */
 
 #include <QMessageBox>
+#include <QUrl>
 
 #include "channelmodifiergraphicsview.h"
 #include "channelmodifiereditor.h"

@@ -868,9 +868,9 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
     if (m_doc->mode() == Doc::Design || isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
+    quint32 pagedCh = (page() << 16) | channel;
 
-    if (src == inputSource(nextInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), nextInputSourceId))
     {
         // Use hysteresis for values, in case the cue list is being controlled
         // by a slider. The value has to go to zero before the next non-zero
@@ -889,7 +889,7 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_nextLatestValue = value;
     }
-    else if (src == inputSource(previousInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), previousInputSourceId))
     {
         // Use hysteresis for values, in case the cue list is being controlled
         // by a slider. The value has to go to zero before the next non-zero
@@ -908,7 +908,7 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_previousLatestValue = value;
     }
-    else if (src == inputSource(playbackInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), playbackInputSourceId))
     {
         // Use hysteresis for values, in case the cue list is being controlled
         // by a slider. The value has to go to zero before the next non-zero
@@ -927,14 +927,14 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_playbackLatestValue = value;
     }
-    else if (src == inputSource(cf1InputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), cf1InputSourceId))
     {
         float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                           (float) m_slider1->minimum(),
                           (float) m_slider1->maximum());
         m_slider1->setValue(val);
     }
-    else if (src == inputSource(cf2InputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), cf2InputSourceId))
     {
         float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                           (float) m_slider2->minimum(),
@@ -1170,7 +1170,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), nextInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), nextInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1194,7 +1194,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), previousInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), previousInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1218,7 +1218,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), playbackInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), playbackInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1242,7 +1242,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), cf1InputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), cf1InputSourceId);
                 }
             }
         }
@@ -1256,7 +1256,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), cf2InputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), cf2InputSourceId);
                 }
             }
         }
@@ -1363,13 +1363,15 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tag, inputSource(playbackInputSourceId));
 
     /* Crossfade cue list */
-    if (inputSource(cf1InputSourceId).isValid())
+    QLCInputSource *cf1Src = inputSource(cf1InputSourceId);
+    if (cf1Src != NULL && cf1Src->isValid())
     {
         tag = doc->createElement(KXMLQLCVCCueListCrossfadeLeft);
         root.appendChild(tag);
         saveXMLInput(doc, &tag, inputSource(cf1InputSourceId));
     }
-    if (inputSource(cf2InputSourceId).isValid())
+    QLCInputSource *cf2Src = inputSource(cf2InputSourceId);
+    if (cf2Src != NULL && cf2Src->isValid())
     {
         tag = doc->createElement(KXMLQLCVCCueListCrossfadeRight);
         root.appendChild(tag);

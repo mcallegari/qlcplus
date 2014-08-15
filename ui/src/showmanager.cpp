@@ -26,6 +26,7 @@
 #include <QScrollBar>
 #include <QComboBox>
 #include <QSplitter>
+#include <QSettings>
 #include <QToolBar>
 #include <QSpinBox>
 #include <QLabel>

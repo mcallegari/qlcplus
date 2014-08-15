@@ -26,6 +26,7 @@
 #include <QLineEdit>
 #include <QSettings>
 #include <QDebug>
+#include <QUrl>
 
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"

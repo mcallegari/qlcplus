@@ -75,7 +75,7 @@ private:
     AudioCapture *m_capture;
 
     QKeySequence m_keySequence;
-    QLCInputSource m_inputSource;
+    QLCInputSource *m_inputSource;
 };
 
 /** @} */

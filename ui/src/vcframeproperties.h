@@ -69,7 +69,7 @@ protected:
 
 protected:
     QKeySequence m_nextKeySequence;
-    QLCInputSource m_nextInputSource;
+    QLCInputSource *m_nextInputSource;
 
     /************************************************************************
      * Previous page
@@ -86,7 +86,7 @@ protected:
 
 protected:
     QKeySequence m_previousKeySequence;
-    QLCInputSource m_previousInputSource;
+    QLCInputSource *m_previousInputSource;
 
 public slots:
     void accept();

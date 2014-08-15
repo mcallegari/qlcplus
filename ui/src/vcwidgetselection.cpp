@@ -18,6 +18,7 @@
 */
 
 #include <QPushButton>
+#include <QDebug>
 
 #include "vcwidgetselection.h"
 #include "virtualconsole.h"

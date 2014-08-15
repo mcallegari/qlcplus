@@ -73,7 +73,7 @@ protected:
     void setSubmasterPageVisibility(bool visible);
 
 protected:
-    QLCInputSource m_inputSource;
+    QLCInputSource *m_inputSource;
     int m_sliderMode;
 
     /*********************************************************************

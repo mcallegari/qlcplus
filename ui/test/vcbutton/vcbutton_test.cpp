@@ -237,7 +237,7 @@ void VCButton_Test::on()
     QWidget w;
 
     VCButton btn(&w, m_doc);
-    btn.setInputSource(QLCInputSource(0, 1));
+    btn.setInputSource(new QLCInputSource(0, 1));
 
     QCOMPARE(btn.isOn(), false);
 
@@ -579,7 +579,7 @@ void VCButton_Test::input()
     btn.setAction(VCButton::Flash);
     btn.enableStartupIntensity(true);
     btn.setStartupIntensity(qreal(1.0));
-    btn.setInputSource(QLCInputSource(0, 0));
+    btn.setInputSource(new QLCInputSource(0, 0));
 
     btn.slotInputValueChanged(0, 0, 255);
     QCOMPARE(btn.isOn(), false);

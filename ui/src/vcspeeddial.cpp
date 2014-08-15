@@ -211,13 +211,14 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
     if (isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
-    if (src == inputSource(tapInputSourceId))
+    quint32 pagedCh = (page() << 16) | channel;
+
+    if (checkInputSource(universe, pagedCh, value, sender(), tapInputSourceId))
     {
         if (value != 0)
             m_dial->tap();
     }
-    else if (src == inputSource(absoluteInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
     {
         int ms = static_cast<int> (SCALE(qreal(value), qreal(0), qreal(255),
                                          qreal(absoluteValueMin()),
@@ -332,7 +333,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), absoluteInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), absoluteInputSourceId);
                 }
                 else
                 {
@@ -354,7 +355,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), tapInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), tapInputSourceId);
                 }
                 else
                 {

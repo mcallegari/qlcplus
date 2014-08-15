@@ -84,7 +84,7 @@ protected:
 
 protected:
     QKeySequence m_nextKeySequence;
-    QLCInputSource m_nextInputSource;
+    QLCInputSource *m_nextInputSource;
 
     /************************************************************************
      * Previous Cue
@@ -101,7 +101,7 @@ protected:
 
 protected:
     QKeySequence m_previousKeySequence;
-    QLCInputSource m_previousInputSource;
+    QLCInputSource *m_previousInputSource;
 
     /************************************************************************
      * Cue List Playback
@@ -118,7 +118,7 @@ protected:
 
 protected:
     QKeySequence m_playbackKeySequence;
-    QLCInputSource m_playbackInputSource;
+    QLCInputSource *m_playbackInputSource;
 
     /************************************************************************
      * Crossfade Cue List
@@ -135,9 +135,8 @@ protected:
     void updateCrossfadeInputSource();
 
 protected:
-    QLCInputSource m_cf1InputSource;
-    QLCInputSource m_cf2InputSource;
-
+    QLCInputSource *m_cf1InputSource;
+    QLCInputSource *m_cf2InputSource;
 };
 
 /** @} */

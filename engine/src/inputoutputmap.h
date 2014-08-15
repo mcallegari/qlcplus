@@ -463,7 +463,10 @@ private slots:
     void slotPluginConfigurationChanged(QLCIOPlugin* plugin);
 
 signals:
-    /** Notifies (OutputManager) of plugin configuration changes */
+    /** Signal emitted when a profile is changed */
+    void profileChanged(quint32 universe, const QString& profileName);
+
+    /** Notifies (InputOutputManager) of plugin configuration changes */
     void pluginConfigurationChanged(const QString& pluginName);
 
     /** Everyone interested in input data should connect to this signal */
@@ -497,7 +500,7 @@ public:
      *
      * @return true if uniName & chName contain something, otherwise false
      */
-    bool inputSourceNames(const QLCInputSource& src,
+    bool inputSourceNames(const QLCInputSource *src,
                           QString& uniName, QString& chName) const;
 
     /**

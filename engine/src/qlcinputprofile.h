@@ -141,7 +141,7 @@ private:
 protected:
     /** Channel objects present in this profile. This is a QMap and not a
         QList because not all channels might be present. */
-    QMap <quint32,QLCInputChannel*> m_channels;
+    QMap <quint32, QLCInputChannel*> m_channels;
 
     /********************************************************************
      * Load & Save

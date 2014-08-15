@@ -67,7 +67,7 @@ void VCWidget_Test::initial()
     QCOMPARE(stub.lastClickPoint(), QPoint(0, 0));
 
     for (quint8 i = 0; i < 255; i++)
-        QVERIFY(stub.inputSource(i).isValid() == false);
+        QVERIFY(stub.inputSource(i) == NULL);
 }
 
 void VCWidget_Test::bgImage()
@@ -295,37 +295,37 @@ void VCWidget_Test::frame()
 
 void VCWidget_Test::inputSource()
 {
-    QLCInputSource src;
+    QLCInputSource *src;
     QWidget w;
 
     StubWidget stub(&w, m_doc);
-    stub.setInputSource(QLCInputSource(1, 2));
+    stub.setInputSource(new QLCInputSource(1, 2));
     src = stub.inputSource();
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(1));
-    QCOMPARE(src.channel(), quint32(2));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(1));
+    QCOMPARE(src->channel(), quint32(2));
 
     src = stub.inputSource(0);
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(1));
-    QCOMPARE(src.channel(), quint32(2));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(1));
+    QCOMPARE(src->channel(), quint32(2));
 
     src = stub.inputSource(1);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
     src = stub.inputSource(2);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
     src = stub.inputSource(42);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
 
-    stub.setInputSource(QLCInputSource(4, 5), 0);
+    stub.setInputSource(new QLCInputSource(3, 4), 0);
     src = stub.inputSource();
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(4));
-    QCOMPARE(src.channel(), quint32(5));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(3));
+    QCOMPARE(src->channel(), quint32(4));
 
-    stub.setInputSource(QLCInputSource());
+    stub.setInputSource(new QLCInputSource());
     src = stub.inputSource();
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
 
     // Just for coverage - the implementation does nothing
     stub.slotInputValueChanged(0, 1, 2);
@@ -345,9 +345,9 @@ void VCWidget_Test::copy()
     stub.setFrameStyle(KVCFrameStyleRaised);
     stub.move(QPoint(10, 20));
     stub.resize(QSize(20, 30));
-    stub.setInputSource(QLCInputSource(0, 12));
-    stub.setInputSource(QLCInputSource(1, 2), 15);
-    stub.setInputSource(QLCInputSource(3, 4), 1);
+    stub.setInputSource(new QLCInputSource(0, 12));
+    stub.setInputSource(new QLCInputSource(1, 2), 15);
+    stub.setInputSource(new QLCInputSource(3, 4), 1);
 
     StubWidget copy(&w, m_doc);
     copy.copyFrom(&stub);
@@ -360,10 +360,20 @@ void VCWidget_Test::copy()
     QCOMPARE(copy.frameStyle(), (int) KVCFrameStyleRaised);
     QCOMPARE(copy.pos(), QPoint(10, 20));
     QCOMPARE(copy.size(), QSize(20, 30));
-    QCOMPARE(copy.inputSource(), QLCInputSource(0, 12));
-    QCOMPARE(copy.inputSource(15), QLCInputSource(1, 2));
-    QCOMPARE(copy.inputSource(1), QLCInputSource(3, 4));
-    QVERIFY(copy.inputSource(2).isValid() == false);
+
+    QLCInputSource *src1 = new QLCInputSource(0, 12);
+    QCOMPARE(copy.inputSource()->universe(), src1->universe());
+    QCOMPARE(copy.inputSource()->channel(), src1->channel());
+
+    QLCInputSource *src2 = new QLCInputSource(1, 2);
+    QCOMPARE(copy.inputSource(15)->universe(), src2->universe());
+    QCOMPARE(copy.inputSource(15)->channel(), src2->channel());
+
+    QLCInputSource *src3 = new QLCInputSource(3, 4);
+    QCOMPARE(copy.inputSource(1)->universe(), src3->universe());
+    QCOMPARE(copy.inputSource(1)->channel(), src3->channel());
+
+    QVERIFY(copy.inputSource(2) == NULL);
 }
 
 void VCWidget_Test::stripKeySequence()
@@ -407,11 +417,15 @@ void VCWidget_Test::loadInput()
 
     StubWidget stub(&w, m_doc);
     QCOMPARE(stub.loadXMLInput(&root), true);
-    QCOMPARE(stub.inputSource(), QLCInputSource(12, 34));
+
+    QLCInputSource *src = new QLCInputSource(12, 34);
+    QCOMPARE(stub.inputSource()->universe(), src->universe());
+    QCOMPARE(stub.inputSource()->channel(), src->channel());
 
     root.setTagName("Output");
     QCOMPARE(stub.loadXMLInput(&root), false);
-    QCOMPARE(stub.inputSource(), QLCInputSource(12, 34));
+    QCOMPARE(stub.inputSource()->universe(), src->universe());
+    QCOMPARE(stub.inputSource()->channel(), src->channel());
 }
 
 void VCWidget_Test::loadAppearance()
@@ -490,10 +504,10 @@ void VCWidget_Test::saveInput()
     QDomElement root = xmldoc.createElement("Root");
     xmldoc.appendChild(root);
 
-    QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
+    QVERIFY(stub.saveXMLInput(&xmldoc, &root) == false);
     QCOMPARE(root.childNodes().count(), 0);
 
-    stub.setInputSource(QLCInputSource(34, 56));
+    stub.setInputSource(new QLCInputSource(34, 56));
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 1);
     QCOMPARE(root.firstChild().toElement().tagName(), QString("Input"));
@@ -502,7 +516,7 @@ void VCWidget_Test::saveInput()
 
     root.clear();
 
-    stub.setInputSource(QLCInputSource(34, 56), 1);
+    stub.setInputSource(new QLCInputSource(34, 56), 1);
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 0);
 }

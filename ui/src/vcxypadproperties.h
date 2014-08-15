@@ -84,8 +84,8 @@ private:
     void updateTiltInputSource();
 
 private:
-    QLCInputSource m_panInputSource;
-    QLCInputSource m_tiltInputSource;
+    QLCInputSource *m_panInputSource;
+    QLCInputSource *m_tiltInputSource;
 
     /********************************************************************
      * OK/Cancel

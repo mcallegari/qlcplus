@@ -261,8 +261,8 @@ void VCXYPad_Test::saveXML()
     pad.resize(QSize(150, 200));
     pad.move(QPoint(10, 20));
     pad.m_area->setPosition(QPointF(23, 45));
-    pad.setInputSource(QLCInputSource(0, 1), VCXYPad::panInputSourceId);
-    pad.setInputSource(QLCInputSource(2, 3), VCXYPad::tiltInputSourceId);
+    pad.setInputSource(new QLCInputSource(0, 1), VCXYPad::panInputSourceId);
+    pad.setInputSource(new QLCInputSource(2, 3), VCXYPad::tiltInputSourceId);
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
 

@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QSettings>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)

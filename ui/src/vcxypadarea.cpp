@@ -21,6 +21,7 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QCursor>
+#include <qmath.h>
 #include <QMutex>
 #include <QDebug>
 #include <QPoint>

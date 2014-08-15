@@ -72,7 +72,7 @@ protected:
 
     QKeySequence m_keySequence;
     quint32 m_function;
-    QLCInputSource m_inputSource;
+    QLCInputSource *m_inputSource;
 
     /************************************************************************
      * Speed dial

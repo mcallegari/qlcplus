@@ -26,6 +26,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <qmath.h>
 
 #include "qlcinputchannel.h"
 #include "qlcinputprofile.h"
@@ -186,7 +187,9 @@ void VCButtonProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCButtonProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource = QLCInputSource(universe, (m_button->page() << 16) | channel);
+    if (m_inputSource != NULL)
+        delete m_inputSource;
+    m_inputSource = new QLCInputSource(universe, (m_button->page() << 16) | channel);
     updateInputSource();
 }
 
@@ -195,7 +198,9 @@ void VCButtonProperties::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_inputSource != NULL)
+            delete m_inputSource;
+        m_inputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateInputSource();
     }
 }

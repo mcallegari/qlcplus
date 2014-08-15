@@ -86,11 +86,6 @@ QString HIDDevice::name()
     return m_name;
 }
 
-HIDDevice::HIDDeviceType HIDDevice::type() const
-{
-    return m_type;
-}
-
 /*****************************************************************************
  * Input data
  *****************************************************************************/

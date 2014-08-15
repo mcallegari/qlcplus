@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QCoreApplication>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDebug>

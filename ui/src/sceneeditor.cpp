@@ -29,6 +29,7 @@
 #include <QLineEdit>
 #include <QToolBar>
 #include <QLayout>
+#include <qmath.h>
 #include <QLabel>
 #include <QDebug>
 

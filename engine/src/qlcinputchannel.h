@@ -41,6 +41,9 @@ class QString;
 #define KXMLQLCInputChannelPageDown "Previous Page"
 #define KXMLQLCInputChannelPageSet "Page Set"
 #define KXMLQLCInputChannelNone "None"
+#define KXMLQLCInputChannelMovement "Movement"
+#define KXMLQLCInputChannelRelative "Relative"
+#define KXMLQLCInputChannelSensitivity "Sensitivity"
 
 class QLCInputChannel
 {
@@ -102,6 +105,26 @@ public:
 
 protected:
     QString m_name;
+
+    /*********************************************************************
+     * Slider movement behaviour specific methods
+     *********************************************************************/
+public:
+    /** Movement behaviour */
+    enum MovementType {
+        Absolute = 0,
+        Relative = 1
+    };
+
+    MovementType movementType() const;
+    void setMovementType(MovementType type);
+
+    int movementSensitivity() const;
+    void setMovementSensitivity(int value);
+
+protected:
+    MovementType m_movementType;
+    int m_movementSensitivity;
 
     /********************************************************************
      * Load & Save

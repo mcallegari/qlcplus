@@ -20,6 +20,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QApplication>
 #include <QPainter>
+#include <qmath.h>
 #include <QCursor>
 #include <QDebug>
 

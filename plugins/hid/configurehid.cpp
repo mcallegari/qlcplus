@@ -21,22 +21,16 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QPushButton>
-#include <QComboBox>
-#include <QSettings>
-#include <QSpinBox>
 #include <QString>
 #include <QTimer>
 #include <QDebug>
 
 #include "configurehid.h"
-#include "hidjsdevice.h"
 #include "hiddevice.h"
 #include "hidplugin.h"
 
-#define KColumnNumber       0
-#define KColumnName         1
-#define KColumnAxesMovement 2
-#define KColumnSensitivity  3
+#define KColumnNumber  0
+#define KColumnName    1
 
 /*****************************************************************************
  * Initialization
@@ -67,36 +61,6 @@ ConfigureHID::~ConfigureHID()
 {
 }
 
-void ConfigureHID::accept()
-{
-    for (int i = 0; i < m_jslist->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem *item = m_jslist->topLevelItem(i);
-        QComboBox *combo = (QComboBox *)m_jslist->itemWidget(item, KColumnAxesMovement);
-        QSpinBox *spin = (QSpinBox *)m_jslist->itemWidget(item, KColumnSensitivity);
-        HIDDevice *device = m_plugin->device(i);
-        if (combo == NULL || spin == NULL || device == NULL)
-            continue;
-
-        HIDJsDevice *joystick = qobject_cast<HIDJsDevice *>(device);
-        if (joystick->axesBehaviour() != combo->currentIndex() ||
-            joystick->axesSensitivity() != spin->value())
-        {
-            QString devName = item->text(KColumnName);
-            QSettings settings;
-            QString axesKey = QString("hidplugin/axes/%1").arg(devName);
-            QString axesValue = QString("%1,%2")
-                    .arg(combo->currentIndex()?"Absolute":"Relative")
-                    .arg(spin->value());
-            settings.setValue(axesKey, QVariant(axesValue));
-
-            joystick->setAxesBehaviour(HIDJsDevice::HIDJSAxesMovement(combo->currentIndex()));
-            joystick->setAxesSensitivity(spin->value());
-        }
-    }
-    QDialog::accept();
-}
-
 /*****************************************************************************
  * Interface refresh
  *****************************************************************************/
@@ -112,8 +76,7 @@ void ConfigureHID::refreshList()
 {
     QString s;
 
-    m_jslist->clear();
-    m_otherlist->clear();
+    m_list->clear();
 
     for (int i = 0; i < m_plugin->m_devices.count(); i++)
     {
@@ -123,35 +86,13 @@ void ConfigureHID::refreshList()
         dev = m_plugin->device(i);
         Q_ASSERT(dev != NULL);
 
-        if (dev->type() == HIDDevice::Joystick)
-        {
-            HIDJsDevice *joystick = qobject_cast<HIDJsDevice *>(dev);
-
-            item = new QTreeWidgetItem(m_jslist);
-
-            QComboBox *combo = new QComboBox();
-            combo->addItem(tr("Relative"), false);
-            combo->addItem(tr("Absolute"), false);
-            m_jslist->setItemWidget(item, KColumnAxesMovement, combo);
-            if (joystick->axesBehaviour() == HIDJsDevice::Absolute)
-                combo->setCurrentIndex(1);
-
-            QSpinBox *spin = new QSpinBox();
-            spin->setRange(10, 100);
-            spin->setValue(joystick->axesSensitivity());
-            m_jslist->setItemWidget(item, KColumnSensitivity, spin);
-        }
-        else
-            item = new QTreeWidgetItem(m_otherlist);
-
-        item->setText(KColumnNumber, s.setNum(dev->line() + 1));
+        item = new QTreeWidgetItem(m_list);
+        item->setText(KColumnNumber, s.setNum(i + 1));
         item->setText(KColumnName, dev->name());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
     }
-    m_jslist->resizeColumnToContents(KColumnNumber);
-    m_jslist->resizeColumnToContents(KColumnName);
-    m_otherlist->resizeColumnToContents(KColumnNumber);
-    m_otherlist->resizeColumnToContents(KColumnName);
+    m_list->resizeColumnToContents(KColumnNumber);
+    m_list->resizeColumnToContents(KColumnName);
 }
 
 void ConfigureHID::slotDeviceAdded(HIDDevice*)
@@ -159,7 +100,18 @@ void ConfigureHID::slotDeviceAdded(HIDDevice*)
     refreshList();
 }
 
-void ConfigureHID::slotDeviceRemoved(HIDDevice*)
+void ConfigureHID::slotDeviceRemoved(HIDDevice* device)
 {
-    refreshList();
+    Q_ASSERT(device != NULL);
+
+    for (int i = 0; i < m_list->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem* item = m_list->topLevelItem(i);
+        Q_ASSERT(item != NULL);
+        if (item->text(KColumnName) == device->name())
+        {
+            delete item;
+            break;
+        }
+    }
 }

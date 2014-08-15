@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QProcess>
+#include <QSettings>
 
 #include "webaccess.h"
 

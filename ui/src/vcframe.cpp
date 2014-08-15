@@ -480,11 +480,11 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     if (isEnabled() == false || value == 0)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
+    quint32 pagedCh = (page() << 16) | channel;
 
-    if (src == inputSource(previousPageInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
         slotSetPage(m_currentPage - 1);
-    else if (src == inputSource(nextPageInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId))
         slotSetPage(m_currentPage + 1);
 }
 
@@ -695,7 +695,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), nextPageInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), nextPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -719,7 +719,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), previousPageInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), previousPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {

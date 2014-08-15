@@ -51,7 +51,7 @@ class QLCIOPlugin;
 class InputPatch : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(InputPatch);
+    Q_DISABLE_COPY(InputPatch)
 
     /************************************************************************
      * Initialization

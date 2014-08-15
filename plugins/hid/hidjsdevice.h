@@ -36,16 +36,7 @@
 
 #include "hiddevice.h"
 
-#define DEFAULT_SENSITIVITY 20
-
 class HIDPlugin;
-
-typedef struct
-{
-    uchar hidvalue;
-    double dValue;
-    uchar dmxValue;
-} HIDJSAxisStatus;
 
 /*****************************************************************************
  * HIDEventDevice
@@ -83,9 +74,8 @@ protected:
     JOYINFOEX m_info;
     UINT m_windId;
     DWORD m_buttonsMask;
+    QByteArray m_axesValues;
 #endif
-
-    QHash <quint32, HIDJSAxisStatus> m_axesStatus;
     /*********************************************************************
      * File operations
      *********************************************************************/
@@ -119,26 +109,6 @@ public:
 private:
     /** @reimp */
     void run();
-
-    /*********************************************************************
-     * Axes movement behaviour
-     *********************************************************************/
-public:
-    /** Movement behaviour */
-    enum HIDJSAxesMovement {
-        Relative = 0,
-        Absolute = 1
-    };
-
-    HIDJSAxesMovement axesBehaviour() const { return m_axesBehaviour; }
-    void setAxesBehaviour(HIDJSAxesMovement type) { m_axesBehaviour = type; }
-
-    int axesSensitivity() const { return m_axesSensitivity; }
-    void setAxesSensitivity(int value) { m_axesSensitivity = value; }
-
-protected:
-    HIDJSAxesMovement m_axesBehaviour;
-    int m_axesSensitivity;
 };
 
 #endif

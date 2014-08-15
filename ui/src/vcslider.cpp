@@ -1197,7 +1197,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
     if (mode() == Doc::Design || isEnabled() == false)
         return;
 
-    if (inputSource() == QLCInputSource(universe, (page() << 16) | channel))
+    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
         /* Scale from input value range to this slider's range */
         float val;

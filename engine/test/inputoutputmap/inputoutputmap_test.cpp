@@ -454,16 +454,16 @@ void InputOutputMap_Test::inputSourceNames()
     im.loadProfiles(dir);
 
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == false);
 
     QVERIFY(im.setInputPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: Bank select MSB").arg(1));
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 50000), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 50000), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: ?").arg(50001));
 
@@ -471,13 +471,13 @@ void InputOutputMap_Test::inputSourceNames()
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: %2").arg(1).arg(stub->name()));
     QCOMPARE(ch, tr("%1: ?").arg(1));
 
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(), uni, ch) == false);
 }
 
 void InputOutputMap_Test::profileDirectories()

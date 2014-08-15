@@ -19,8 +19,10 @@
 
 #include <QFileDialog>
 #include <QLineEdit>
+#include <QSettings>
 #include <QLabel>
 #include <QDebug>
+#include <QUrl>
 
 #include "speeddialwidget.h"
 #include "audiodecoder.h"

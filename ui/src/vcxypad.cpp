@@ -406,9 +406,9 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
         return;
 
     QPointF pt = m_area->position(false);
+    quint32 pagedCh = (page() << 16) | channel;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
-    if (src == inputSource(panInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), panInputSourceId))
     {
 
         qreal areaWidth = MAX_VALUE;
@@ -422,7 +422,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
         pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
                       qreal(0), areaWidth));
     }
-    else if (src == inputSource(tiltInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), tiltInputSourceId))
     {
         qreal yOffset = 0;
         qreal areaHeight = MAX_VALUE;
@@ -543,14 +543,14 @@ bool VCXYPad::loadXML(const QDomElement* root)
             quint32 uni = 0, ch = 0;
             xpos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(QLCInputSource(uni, ch), panInputSourceId);
+                setInputSource(new QLCInputSource(uni, ch), panInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadTilt)
         {
             quint32 uni = 0, ch = 0;
             ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(QLCInputSource(uni, ch), tiltInputSourceId);
+                setInputSource(new QLCInputSource(uni, ch), tiltInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
         {

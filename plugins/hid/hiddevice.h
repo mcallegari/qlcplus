@@ -102,7 +102,6 @@ protected:
      * Device info
      *************************************************************************/
 public:
-
     /**
      * Get HID device information string to be used in plugin manager
      */
@@ -113,17 +112,8 @@ public:
      */
     virtual QString name();
 
-    /** The device type */
-    enum HIDDeviceType {
-        Joystick = 0,
-        FX5USB = 1
-    };
-
-    HIDDeviceType type() const;
-
 protected:
     QString m_name;
-    HIDDeviceType m_type;
 
     /*************************************************************************
      * Input data

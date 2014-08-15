@@ -312,8 +312,7 @@ void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, u
     if (isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
-    if (src == inputSource())
+    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
         if (m_inputCapture->isRunning() == false && value > 0)
             slotEnableButtonToggled(true);

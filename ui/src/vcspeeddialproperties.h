@@ -81,8 +81,8 @@ private slots:
     void slotDetachKey();
 
 private:
-    QLCInputSource m_absoluteInputSource;
-    QLCInputSource m_tapInputSource;
+    QLCInputSource *m_absoluteInputSource;
+    QLCInputSource *m_tapInputSource;
     QKeySequence m_tapKeySequence;
 };
 

@@ -36,9 +36,6 @@ public:
     ConfigureHID(QWidget* parent, HIDPlugin* plugin);
     virtual ~ConfigureHID();
 
-    /** @reimp */
-    void accept();
-
 private:
     HIDPlugin* m_plugin;
 
