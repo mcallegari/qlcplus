@@ -150,7 +150,7 @@ void HIDJsDevice::init()
                 m_axesNumber = m_caps.wNumAxes;
 
             m_buttonsNumber = m_caps.wNumButtons;
-            m_axesValues.fill(0, m_axes);
+            m_axesValues.fill(0, m_axesNumber);
             m_windId = i;
             break;
         }

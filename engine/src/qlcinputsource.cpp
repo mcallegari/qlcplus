@@ -20,6 +20,10 @@
 #include <QMutexLocker>
 #include <QDebug>
 
+#if defined(WIN32) || defined (Q_OS_WIN)
+ #include <Windows.h>
+#endif
+
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
 #include "qlcmacros.h"
