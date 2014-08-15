@@ -61,6 +61,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderLevelLowLimit "LowLimit"
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
+#define KXMLQLCVCSliderLevelMonitor "Monitor"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -278,9 +279,18 @@ public:
 
     /**
      * Get high limit for levels set thru the slider
-     *
      */
     uchar levelHighLimit() const;
+
+    /**
+     * Enable/disable the channels monitor when in Level mode
+     */
+    void setChannelsMonitorEnabled(bool enable);
+
+    /**
+     * Return the current status of the channels monitor
+     */
+    bool channelsMonitorEnabled();
 
 protected:
     /**
@@ -315,6 +325,7 @@ protected:
     QMutex m_levelValueMutex;
     bool m_levelValueChanged;
     uchar m_levelValue;
+    bool m_monitorChannels;
 
     /*********************************************************************
      * Playback

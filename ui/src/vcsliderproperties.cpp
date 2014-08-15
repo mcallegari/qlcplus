@@ -170,6 +170,8 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotItemExpanded()));
 
+    m_monitorValuesCheck->setChecked(m_slider->channelsMonitorEnabled());
+
     /*********************************************************************
      * Playback page
      *********************************************************************/
@@ -873,6 +875,9 @@ void VCSliderProperties::accept()
         // Force the refresh of the slider range
         m_slider->setSliderMode(VCSlider::Level);
     }
+
+    if (m_slider->sliderMode() == VCSlider::Level)
+        m_slider->setChannelsMonitorEnabled(m_monitorValuesCheck->isChecked());
 
     m_slider->setCaption(m_nameEdit->text());
 

@@ -89,6 +89,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_levelValue = 0;
     m_levelValueChanged = false;
+    m_monitorChannels = false;
 
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
@@ -505,6 +506,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         m_bottomLabel->show();
         m_cngButton->hide();
+        m_monitorChannels = false;
 
         uchar level = playbackValue();
         if (m_slider)
@@ -524,6 +526,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     }
     else if (mode == Submaster)
     {
+        m_monitorChannels = false;
         uchar level = levelValue();
         if (m_slider)
         {
@@ -584,6 +587,16 @@ void VCSlider::setLevelHighLimit(uchar value)
 uchar VCSlider::levelHighLimit() const
 {
     return m_levelHighLimit;
+}
+
+void VCSlider::setChannelsMonitorEnabled(bool enable)
+{
+    m_monitorChannels = enable;
+}
+
+bool VCSlider::channelsMonitorEnabled()
+{
+    return m_monitorChannels;
 }
 
 void VCSlider::setLevelValue(uchar value)
@@ -916,8 +929,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     // check if all the DMX channels controlled by this slider
     // have the same value. If so, move the widget slider or knob
     // to the detected position
-    if (mixedDMXlevels == false && monitorSliderValue != sliderValue())
-        emit monitorDMXValueChanged(monitorSliderValue);
+    if (m_monitorChannels &&
+        mixedDMXlevels == false &&
+        monitorSliderValue != sliderValue())
+            emit monitorDMXValueChanged(monitorSliderValue);
 }
 
 void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
@@ -1359,6 +1374,14 @@ bool VCSlider::loadXML(const QDomElement* root)
                 str = tag.attribute(KXMLQLCVCSliderClickAndGoType);
                 setClickAndGoType(ClickAndGoWidget::stringToClickAndGoType(str));
             }
+
+            if (tag.hasAttribute(KXMLQLCVCSliderLevelMonitor))
+            {
+                if (tag.attribute(KXMLQLCVCSliderLevelMonitor) == "false")
+                    setChannelsMonitorEnabled(false);
+                else
+                    setChannelsMonitorEnabled(true);
+            }
         }
         else if (tag.tagName() == KXMLQLCVCSliderLevel)
         {
@@ -1518,6 +1541,15 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Click And Go type */
     str = ClickAndGoWidget::clickAndGoTypeToString(m_cngType);
     tag.setAttribute(KXMLQLCVCSliderClickAndGoType, str);
+
+    /* Monitor channels */
+    if (sliderMode() == Level)
+    {
+        if (channelsMonitorEnabled() == true)
+            tag.setAttribute(KXMLQLCVCSliderLevelMonitor, "true");
+        else
+            tag.setAttribute(KXMLQLCVCSliderLevelMonitor, "false");
+    }
 
     /* Level */
     tag = doc->createElement(KXMLQLCVCSliderLevel);
