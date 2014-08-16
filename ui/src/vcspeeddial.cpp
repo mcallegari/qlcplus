@@ -131,7 +131,7 @@ void VCSpeedDial::setCaption(const QString& text)
 
 void VCSpeedDial::slotModeChanged(Doc::Mode mode)
 {
-    if (mode == Doc::Operate)
+    if (mode == Doc::Operate && isDisabled() == false)
     {
         m_dial->setEnabled(true);
         updateFeedback();
@@ -140,6 +140,7 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
     {
         m_dial->setEnabled(false);
     }
+    VCWidget::slotModeChanged(mode);
 }
 
 /****************************************************************************

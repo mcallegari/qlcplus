@@ -57,7 +57,8 @@ const quint8 VCFrame::previousPageInputSourceId = 1;
 
 VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
     , m_hbox(NULL)
-    , m_button(NULL)
+    , m_collapseButton(NULL)
+    , m_enableButton(NULL)
     , m_label(NULL)
     , m_collapsed(false)
     , m_showHeader(true)
@@ -94,6 +95,21 @@ VCFrame::~VCFrame()
 bool VCFrame::isBottomFrame()
 {
     return (parentWidget() != NULL && qobject_cast<VCFrame*>(parentWidget()) == NULL);
+}
+
+void VCFrame::setDisableState(bool disable)
+{
+    if (m_enableButton)
+    {
+        m_enableButton->blockSignals(true);
+        m_enableButton->setChecked(!disable);
+        m_enableButton->blockSignals(false);
+    }
+
+    foreach( VCWidget* widget, this->findChildren<VCWidget*>())
+        widget->setDisableState(disable);
+    m_disableState = disable;
+    //VCWidget::setDisableState(disable);
 }
 
 void VCFrame::setCaption(const QString& text)
@@ -150,13 +166,15 @@ void VCFrame::setHeaderVisible(bool enable)
 
     if (enable == false)
     {
-        m_button->hide();
+        m_collapseButton->hide();
         m_label->hide();
+        m_enableButton->hide();
     }
     else
     {
-        m_button->show();
+        m_collapseButton->show();
         m_label->show();
+        m_enableButton->show();
     }
 }
 
@@ -199,6 +217,11 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
     m_doc->setModified();
 }
 
+void VCFrame::slotEnableButtonClicked(bool checked)
+{
+    setDisableState(!checked);
+}
+
 void VCFrame::createHeader()
 {
     if (m_hbox != NULL)
@@ -214,19 +237,19 @@ void VCFrame::createHeader()
     layout()->addItem(m_hbox);
     vbox->addStretch();
 
-    m_button = new QToolButton(this);
-    m_button->setStyle(AppUtil::saneStyle());
-    m_button->setIconSize(QSize(32, 32));
-    m_button->setMinimumSize(QSize(32, 32));
-    m_button->setMaximumSize(QSize(32, 32));
-    m_button->setIcon(QIcon(":/expand.png"));
-    m_button->setCheckable(true);
-    QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    m_button->setStyleSheet(btnSS);
+    m_collapseButton = new QToolButton(this);
+    m_collapseButton->setStyle(AppUtil::saneStyle());
+    m_collapseButton->setIconSize(QSize(32, 32));
+    m_collapseButton->setMinimumSize(QSize(32, 32));
+    m_collapseButton->setMaximumSize(QSize(32, 32));
+    m_collapseButton->setIcon(QIcon(":/expand.png"));
+    m_collapseButton->setCheckable(true);
+    QString cBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    cBtnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_collapseButton->setStyleSheet(cBtnSS);
 
-    m_hbox->addWidget(m_button);
-    connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
+    m_hbox->addWidget(m_collapseButton);
+    connect(m_collapseButton, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
 
     m_label = new QLabel(this);
     m_label->setText(this->caption());
@@ -234,7 +257,7 @@ void VCFrame::createHeader()
     if (m_hasCustomForegroundColor)
         txtColor = this->foregroundColor().name();
     m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
 
     if (m_hasCustomFont)
         m_label->setFont(font());
@@ -246,6 +269,22 @@ void VCFrame::createHeader()
         m_label->setFont(m_font);
     }
     m_hbox->addWidget(m_label);
+
+    m_enableButton = new QToolButton(this);
+    m_enableButton->setStyle(AppUtil::saneStyle());
+    m_enableButton->setIconSize(QSize(32, 32));
+    m_enableButton->setMinimumSize(QSize(32, 32));
+    m_enableButton->setMaximumSize(QSize(32, 32));
+    m_enableButton->setIcon(QIcon(":/check.png"));
+    m_enableButton->setCheckable(true);
+    QString eBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    eBtnSS += "QToolButton:checked { background-color: #D7DE75; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_enableButton->setStyleSheet(eBtnSS);
+    m_enableButton->setEnabled(true);
+    m_enableButton->setChecked(true);
+
+    m_hbox->addWidget(m_enableButton);
+    connect(m_enableButton, SIGNAL(clicked(bool)), this, SLOT(slotEnableButtonClicked(bool)));
 }
 
 /*********************************************************************
@@ -392,6 +431,17 @@ void VCFrame::slotSetPage(int pageNum)
         }
         m_doc->setModified();
     }
+}
+
+void VCFrame::slotModeChanged(Doc::Mode mode)
+{
+    if (mode == Doc::Operate)
+    {
+        if (isDisabled())
+            slotEnableButtonClicked(false);
+    }
+
+    VCWidget::slotModeChanged(mode);
 }
 
 /*********************************************************************
@@ -619,6 +669,7 @@ QString VCFrame::getCSS()
 bool VCFrame::loadXML(const QDomElement* root)
 {
     Q_ASSERT(root != NULL);
+    bool disableState = false;
 
     if (root->tagName() != xmlTagName())
     {
@@ -666,8 +717,14 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrameIsCollapsed)
         {
             /* Collapsed */
-            if (tag.text() == KXMLQLCTrue && m_button != NULL)
-                m_button->toggle();
+            if (tag.text() == KXMLQLCTrue && m_collapseButton != NULL)
+                m_collapseButton->toggle();
+        }
+        else if (tag.tagName() == KXMLQLCVCFrameIsEnabled)
+        {
+            /* Enabled */
+            if (tag.text() == KXMLQLCFalse)
+                disableState = true;
         }
         else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
         {
@@ -880,6 +937,9 @@ bool VCFrame::loadXML(const QDomElement* root)
     if (multipageMode() == true)
         slotSetPage(0);
 
+    if (disableState == true)
+        setDisableState(true);
+
     return true;
 }
 
@@ -947,6 +1007,15 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
             text = doc->createTextNode(KXMLQLCTrue);
         else
             text = doc->createTextNode(KXMLQLCFalse);
+        tag.appendChild(text);
+        root.appendChild(tag);
+
+        /* Disabled */
+        tag = doc->createElement(KXMLQLCVCFrameIsEnabled);
+        if (isDisabled())
+            text = doc->createTextNode(KXMLQLCFalse);
+        else
+            text = doc->createTextNode(KXMLQLCTrue);
         tag.appendChild(text);
         root.appendChild(tag);
 

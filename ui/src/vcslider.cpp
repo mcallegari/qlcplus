@@ -263,7 +263,7 @@ bool VCSlider::copyFrom(const VCWidget* widget)
 }
 
 /*****************************************************************************
- * Caption
+ * GUI
  *****************************************************************************/
 
 void VCSlider::setCaption(const QString& text)
@@ -272,6 +272,17 @@ void VCSlider::setCaption(const QString& text)
 
     if (m_bottomLabel != NULL)
         setBottomLabelText(text);
+}
+
+void VCSlider::enableWidgetUI(bool enable)
+{
+    m_topLabel->setEnabled(enable);
+    if (m_slider)
+        m_slider->setEnabled(enable);
+    if (m_knob)
+        m_knob->setEnabled(enable);
+    m_bottomLabel->setEnabled(enable);
+    m_cngButton->setEnabled(enable);
 }
 
 /*****************************************************************************
@@ -301,13 +312,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        m_topLabel->setEnabled(true);
-        if (m_slider)
-            m_slider->setEnabled(true);
-        if (m_knob)
-            m_knob->setEnabled(true);
-        m_bottomLabel->setEnabled(true);
-        m_cngButton->setEnabled(true);
+        enableWidgetUI(true);
 
         if (sliderMode() == Playback)
         {
@@ -327,13 +332,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        m_topLabel->setEnabled(false);
-        if (m_slider)
-            m_slider->setEnabled(false);
-        if (m_knob)
-            m_knob->setEnabled(false);
-        m_bottomLabel->setEnabled(false);
-        m_cngButton->setEnabled(false);
+        enableWidgetUI(false);
 
         if (sliderMode() == Playback)
         {

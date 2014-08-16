@@ -140,6 +140,31 @@ protected:
     int m_type;
 
     /*********************************************************************
+     * Disable state
+     *********************************************************************/
+    /**
+     * The disable state works in conjunction with the QLC+ operate mode.
+     * Only VC Frames can set/unset the disable state of themselves and
+     * their children widgets.
+     * A widget in disable state cannot be clicked and won't accept external
+     * input signals.
+     */
+public:
+    /**
+     * Virtual method that sets the disable state flag. Afterward,
+     * it calls enableWidgetUI which (if defined) turns the VCWidget
+     * graphics element into a QWidget disable state.
+     */
+    virtual void setDisableState(bool disable);
+
+    virtual void enableWidgetUI(bool enable);
+
+    bool isDisabled();
+
+protected:
+    bool m_disableState;
+
+    /*********************************************************************
      * Page
      *********************************************************************/
 public:

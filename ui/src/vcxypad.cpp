@@ -144,6 +144,12 @@ VCXYPad::~VCXYPad()
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
+void VCXYPad::enableWidgetUI(bool enable)
+{
+    m_vSlider->setEnabled(enable);
+    m_hSlider->setEnabled(enable);
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/
@@ -465,17 +471,15 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
         it.setValue(fxi);
     }
 
-    if (mode == Doc::Operate)
+    if (mode == Doc::Operate && isDisabled() == false)
     {
         m_doc->masterTimer()->registerDMXSource(this, "XYPad");
-        m_vSlider->setEnabled(true);
-        m_hSlider->setEnabled(true);
+        enableWidgetUI(true);
     }
     else
     {
         m_doc->masterTimer()->unregisterDMXSource(this);
-        m_vSlider->setEnabled(false);
-        m_hSlider->setEnabled(false);
+        enableWidgetUI(false);
     }
 
     m_area->setMode(mode);

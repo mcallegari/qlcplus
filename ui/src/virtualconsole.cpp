@@ -1601,8 +1601,6 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
 
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
 {
-    QString config;
-
     if (mode == Doc::Operate)
     {
         // Don't allow editing or adding in operate mode

@@ -36,6 +36,7 @@
 #define KXMLQLCVCFrameAllowResize   "AllowResize"
 #define KXMLQLCVCFrameShowHeader    "ShowHeader"
 #define KXMLQLCVCFrameIsCollapsed   "Collapsed"
+#define KXMLQLCVCFrameIsEnabled     "Enabled"
 
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
@@ -74,6 +75,9 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
+    void setDisableState(bool disable);
+
+    /** @reimp */
     void setCaption(const QString& text);
 
     /** @reimp */
@@ -92,17 +96,27 @@ public:
 
     bool isHeaderVisible() const;
 
-    bool isCollapsed();  
+    bool isCollapsed();
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
+
+    /**
+     * When called, this method will set the disable state of
+     * this frame and its chidren widget accordingly to the
+     * toggle parameter
+     *
+     * @param toggle true means enable, false means disable
+     */
+    void slotEnableButtonClicked(bool checked);
 
 protected:
     void createHeader();
 
 protected:
     QHBoxLayout *m_hbox;
-    QToolButton *m_button;
+    QToolButton *m_collapseButton;
+    QToolButton *m_enableButton;
     QLabel *m_label;
     bool m_collapsed;
     bool m_showHeader;
@@ -138,6 +152,13 @@ protected:
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*************************************************************************
+     * QLC+ mode
+     *************************************************************************/
+protected slots:
+    /** @reimp */
+    void slotModeChanged(Doc::Mode mode);
 
     /*********************************************************************
      * Submasters

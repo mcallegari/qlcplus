@@ -247,6 +247,22 @@ VCCueList::~VCCueList()
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
+void VCCueList::enableWidgetUI(bool enable)
+{
+    m_tree->setEnabled(enable);
+    m_playbackButton->setEnabled(enable);
+    m_previousButton->setEnabled(enable);
+    m_nextButton->setEnabled(enable);
+
+    m_linkCheck->setEnabled(enable);
+    m_sl1TopLabel->setEnabled(enable);
+    m_slider1->setEnabled(enable);
+    m_sl1BottomLabel->setEnabled(enable);
+    m_sl2TopLabel->setEnabled(enable);
+    m_slider2->setEnabled(enable);
+    m_sl2BottomLabel->setEnabled(enable);
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/
@@ -988,18 +1004,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
             item->setBackground(COL_NUM, m_defCol);
     }
 
-    m_tree->setEnabled(enable);
-    m_playbackButton->setEnabled(enable);
-    m_previousButton->setEnabled(enable);
-    m_nextButton->setEnabled(enable);
-
-    m_linkCheck->setEnabled(enable);
-    m_sl1TopLabel->setEnabled(enable);
-    m_slider1->setEnabled(enable);
-    m_sl1BottomLabel->setEnabled(enable);
-    m_sl2TopLabel->setEnabled(enable);
-    m_slider2->setEnabled(enable);
-    m_sl2BottomLabel->setEnabled(enable);
+    enableWidgetUI(enable);
 
     /* Always start from the beginning */
     m_tree->setCurrentItem(NULL);

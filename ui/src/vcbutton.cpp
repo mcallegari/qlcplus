@@ -961,7 +961,7 @@ void VCButton::paintEvent(QPaintEvent* e)
     if (isOn() == true)
         option.state = QStyle::State_Sunken;
     else
-        option.state= QStyle::State_Raised;
+        option.state = QStyle::State_Raised;
 
     /* Custom icons are always enabled, to see them in full color also in design mode */
     if (m_action == Toggle || m_action == Flash)

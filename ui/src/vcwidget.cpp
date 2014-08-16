@@ -56,6 +56,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_id(invalidId())
+    , m_disableState(false)
     , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
@@ -173,6 +174,34 @@ QIcon VCWidget::typeToIcon(int type)
     }
     return QIcon(":/virtualconsole.png");
 }
+
+/*********************************************************************
+ * Disable state
+ *********************************************************************/
+
+void VCWidget::setDisableState(bool disable)
+{
+    m_disableState = disable;
+    if (m_doc->mode() == Doc::Operate)
+    {
+        setEnabled(!disable);
+        enableWidgetUI(!disable);
+    }
+}
+
+void VCWidget::enableWidgetUI(bool enable)
+{
+    Q_UNUSED(enable)
+}
+
+bool VCWidget::isDisabled()
+{
+    return m_disableState;
+}
+
+/*********************************************************************
+ * Page
+ *********************************************************************/
 
 void VCWidget::setPage(int pNum)
 {
@@ -991,12 +1020,16 @@ bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
 }
 
 /*****************************************************************************
- * QLC Mode change
+ * QLC+ Mode change
  *****************************************************************************/
 
 void VCWidget::slotModeChanged(Doc::Mode mode)
 {
     Q_UNUSED(mode);
+
+    // make sure to exit from a 'deep' disable state
+    if (mode == Doc::Design)
+        setEnabled(true);
 
     /* Reset mouse cursor */
     unsetCursor();
@@ -1107,6 +1140,9 @@ void VCWidget::paintEvent(QPaintEvent* e)
         option.state = QStyle::State_Raised;
     else
         option.state = QStyle::State_None;
+
+    if (m_doc->mode() == Doc::Design)
+        option.state |= QStyle::State_Enabled;
 
     /* Draw a frame border if such is specified for this widget */
     if (option.state != QStyle::State_None)
