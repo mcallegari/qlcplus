@@ -328,7 +328,9 @@ protected:
     QMutex m_levelValueMutex;
     bool m_levelValueChanged;
     uchar m_levelValue;
+
     bool m_monitorChannels;
+    uchar m_monitorValue;
 
     /*********************************************************************
      * Playback
