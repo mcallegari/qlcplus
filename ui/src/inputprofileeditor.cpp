@@ -77,6 +77,8 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotEditClicked()));
     connect(m_movementCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotMovementComboChanged(int)));
+    connect(m_sensitivitySpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotSensitivitySpinChanged(int)));
 
     /* Listen to input data */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
@@ -401,6 +403,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
             else
             {
                 m_movementCombo->setCurrentIndex(1);
+                m_sensitivitySpin->setValue(ich->movementSensitivity());
                 m_sensitivitySpin->setEnabled(true);
             }
         }
@@ -438,6 +441,29 @@ void InputProfileEditor::slotMovementComboChanged(int index)
             else
                 channel->setMovementType(QLCInputChannel::Absolute);
         }
+    }
+}
+
+void InputProfileEditor::slotSensitivitySpinChanged(int value)
+{
+    QLCInputChannel* channel;
+    quint32 chnum;
+    QTreeWidgetItem* item;
+
+    QListIterator <QTreeWidgetItem*>
+    it(m_tree->selectedItems());
+    while (it.hasNext() == true)
+    {
+        item = it.next();
+        Q_ASSERT(item != NULL);
+
+        chnum = item->text(KColumnNumber).toUInt() - 1;
+        channel = m_profile->channel(chnum);
+        Q_ASSERT(channel != NULL);
+
+        if (channel->type() == QLCInputChannel::Slider &&
+            channel->movementType() == QLCInputChannel::Relative)
+                channel->setMovementSensitivity(value);
     }
 }
 
