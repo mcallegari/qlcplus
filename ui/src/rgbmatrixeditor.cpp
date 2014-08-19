@@ -689,6 +689,8 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 
 void RGBMatrixEditor::slotLoopClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::Loop);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -696,6 +698,8 @@ void RGBMatrixEditor::slotLoopClicked()
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::PingPong);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -703,6 +707,8 @@ void RGBMatrixEditor::slotPingPongClicked()
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::SingleShot);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -710,6 +716,8 @@ void RGBMatrixEditor::slotSingleShotClicked()
 
 void RGBMatrixEditor::slotForwardClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Forward);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -717,6 +725,8 @@ void RGBMatrixEditor::slotForwardClicked()
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Backward);
     m_matrix->calculateColorDelta();
     slotRestartTest();
