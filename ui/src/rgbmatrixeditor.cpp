@@ -510,6 +510,8 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
@@ -520,6 +522,8 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
 
 void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QVariant var = m_fixtureGroupCombo->itemData(index);
     if (var.isValid() == true)
     {
@@ -536,6 +540,8 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 
 void RGBMatrixEditor::slotStartColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->startColor());
     if (col.isValid() == true)
     {
@@ -550,6 +556,8 @@ void RGBMatrixEditor::slotStartColorButtonClicked()
 
 void RGBMatrixEditor::slotEndColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->endColor());
     if (col.isValid() == true)
     {
@@ -564,6 +572,8 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
 
 void RGBMatrixEditor::slotResetEndColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setEndColor(QColor());
     m_matrix->calculateColorDelta();
     QPixmap pm(100, 26);
@@ -574,6 +584,8 @@ void RGBMatrixEditor::slotResetEndColorButtonClicked()
 
 void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
