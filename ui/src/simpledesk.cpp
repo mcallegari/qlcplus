@@ -119,6 +119,10 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
             this, SLOT(slotDocChanged()));
     connect(m_doc, SIGNAL(fixtureChanged(quint32)),
             this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupAdded(quint32)),
+            this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)),
+            this, SLOT(slotDocChanged()));
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
             this, SLOT(slotDocChanged()));

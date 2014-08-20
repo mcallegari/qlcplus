@@ -60,6 +60,9 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
 ChannelsGroup::~ChannelsGroup()
 {
     m_channels.clear();
+    if (m_input != NULL && m_input->isValid() == true)
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
 /****************************************************************************
@@ -175,7 +178,7 @@ void ChannelsGroup::setInputSource(QLCInputSource *source)
 {
     m_input = source;
     // Connect when the first valid input source is set
-    if (source->isValid() == true)
+    if (source != NULL && source->isValid() == true)
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }

@@ -4,6 +4,7 @@ qlcplus (4.7.5) stable; urgency=low
   * Virtual Console: Frames can now be enabled/disabled
   * Show Manager: fixed 4.7.4 regression on time cursor position
   * Show Manager: show names in the drop down list are now sorted alphabetically (thanks to David Garyga)
+  * Simple Desk: channel groups are now correctly updated
   * Channel Modifiers: added 6 new Exponential/Logarithmic templates (thanks to Luis García-Tornel)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
