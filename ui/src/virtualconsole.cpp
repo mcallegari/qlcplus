@@ -698,6 +698,8 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             widget->setPage(frame->currentPage());
             frame->addWidgetToPageMap(widget);
         }
+        else
+            widget->setPage(0);
     }
     else if (parent->type() == VCWidget::SoloFrameWidget)
     {
@@ -707,7 +709,11 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             widget->setPage(frame->currentPage());
             frame->addWidgetToPageMap(widget);
         }
+        else
+            widget->setPage(0);
     }
+    else
+        widget->setPage(0);
 }
 
 void VirtualConsole::slotAddButton()
