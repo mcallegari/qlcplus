@@ -99,19 +99,21 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="dmx4all.cpp" line="129"/>
         <location filename="enttecdmxusbprorx.cpp" line="84"/>
         <location filename="enttecdmxusbprotx.cpp" line="127"/>
+        <location filename="nanodmx.cpp" line="193"/>
+        <location filename="stageprofi.cpp" line="132"/>
         <location filename="ultradmxusbprotx.cpp" line="73"/>
         <location filename="vinceusbdmx512tx.cpp" line="49"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="dmx4all.cpp" line="131"/>
         <location filename="enttecdmxusbprotx.cpp" line="70"/>
         <location filename="enttecdmxusbprotx.cpp" line="72"/>
         <location filename="enttecdmxusbprotx.cpp" line="129"/>
+        <location filename="nanodmx.cpp" line="195"/>
+        <location filename="stageprofi.cpp" line="134"/>
         <location filename="ultradmxusbprotx.cpp" line="59"/>
         <location filename="ultradmxusbprotx.cpp" line="61"/>
         <location filename="ultradmxusbprotx.cpp" line="75"/>
@@ -120,18 +122,20 @@
         <translation>Sortida</translation>
     </message>
     <message>
-        <location filename="dmx4all.cpp" line="133"/>
         <location filename="enttecdmxusbopen.cpp" line="109"/>
         <location filename="enttecdmxusbprorx.cpp" line="88"/>
         <location filename="enttecdmxusbprotx.cpp" line="131"/>
+        <location filename="nanodmx.cpp" line="197"/>
+        <location filename="stageprofi.cpp" line="136"/>
         <location filename="ultradmxusbprotx.cpp" line="77"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="dmx4all.cpp" line="136"/>
         <location filename="enttecdmxusbprorx.cpp" line="91"/>
         <location filename="enttecdmxusbprotx.cpp" line="134"/>
+        <location filename="nanodmx.cpp" line="200"/>
+        <location filename="stageprofi.cpp" line="139"/>
         <location filename="ultradmxusbprotx.cpp" line="80"/>
         <location filename="vinceusbdmx512tx.cpp" line="53"/>
         <source>Serial number</source>
