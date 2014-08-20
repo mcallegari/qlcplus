@@ -148,15 +148,19 @@ void MonitorGraphicsView::updateFixture(quint32 id)
 void MonitorGraphicsView::setBackgroundImage(QString filename)
 {
     m_backgroundImage = filename;
-    m_bgPixmap = QPixmap(m_backgroundImage);
     if (m_bgItem != NULL)
     {
         m_scene->removeItem(m_bgItem);
         delete m_bgItem;
+        m_bgItem = NULL;
     }
-    m_bgItem = new QGraphicsPixmapItem(m_bgPixmap);
-    m_bgItem->setZValue(0); // make sure it goes on the bacground
-    m_scene->addItem(m_bgItem);
+    if (filename.isEmpty() == false)
+    {
+        m_bgPixmap = QPixmap(m_backgroundImage);
+        m_bgItem = new QGraphicsPixmapItem(m_bgPixmap);
+        m_bgItem->setZValue(0); // make sure it goes on the bacground
+        m_scene->addItem(m_bgItem);
+    }
     updateGrid();
 }
 

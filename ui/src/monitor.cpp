@@ -32,9 +32,9 @@
 #include <QFont>
 #include <QIcon>
 #include <QtXml>
-#include <QFileDialog>
 
 #include "monitorfixturepropertieseditor.h"
+#include "monitorbackgroundselection.h"
 #include "monitorgraphicsview.h"
 #include "fixtureselection.h"
 #include "monitorfixture.h"
@@ -87,9 +87,21 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
             this, SLOT(slotFixtureChanged(quint32)));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
+            this, SLOT(slotFunctionStarted(quint32)));
 
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+}
+
+void Monitor::slotFunctionStarted(quint32 id)
+{
+    if (m_props->displayMode() == MonitorProperties::Graphics)
+    {
+        QString bgImage = m_props->customBackground(id);
+        if (m_graphicsView != NULL && bgImage.isEmpty() == false)
+            m_graphicsView->setBackgroundImage(bgImage);
+    }
 }
 
 Monitor::~Monitor()
@@ -184,8 +196,8 @@ void Monitor::initGraphicsView()
         m_graphicsView->setGridMetrics(304.8);
     m_graphicsView->setGridSize(m_props->gridSize());
 
-    if (m_props->backgroundImage().isEmpty() == false)
-        m_graphicsView->setBackgroundImage(m_props->backgroundImage());
+    if (m_props->commonBackgroundImage().isEmpty() == false)
+        m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
@@ -728,23 +740,19 @@ void Monitor::slotRemoveFixture()
 
 void Monitor::slotSetBackground()
 {
-    QString path;
-
     Q_ASSERT(m_graphicsView != NULL);
 
-    path = m_graphicsView->backgroundImage();
+    MonitorBackgroundSelection mbgs(this, m_doc);
 
-    path = QFileDialog::getOpenFileName(this,
-                                        tr("Select background image"),
-                                        path,
-                                        "Images (*.png *.xpm *.jpg *.gif)");
-
-    if (path.isEmpty() == false)
+    if (mbgs.exec() == QDialog::Accepted)
     {
-        m_graphicsView->setBackgroundImage(path);
+        if (m_props->commonBackgroundImage().isEmpty() == false)
+            m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
+        else
+            m_graphicsView->setBackgroundImage(QString());
+
         m_doc->setModified();
     }
-    m_props->setBackgroundImage(path);
 }
 
 void Monitor::slotShowLabels(bool visible)

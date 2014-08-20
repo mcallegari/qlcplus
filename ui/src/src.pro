@@ -83,6 +83,7 @@ HEADERS += aboutbox.h \
            inputprofileeditor.h \
            knobwidget.h \
            monitor.h \
+           monitorbackgroundselection.h \
            monitorfixture.h \
            monitorfixtureitem.h \
            monitorgraphicsview.h \
@@ -160,6 +161,7 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         monitorbackgroundselection.ui \
          monitorfixturepropertieseditor.ui \
          positiontool.ui \
          rgbmatrixeditor.ui \
@@ -226,6 +228,7 @@ SOURCES += aboutbox.cpp \
            inputprofileeditor.cpp \
            knobwidget.cpp \
            monitor.cpp \
+           monitorbackgroundselection.cpp \
            monitorfixture.cpp \
            monitorfixtureitem.cpp \
            monitorgraphicsview.cpp \
