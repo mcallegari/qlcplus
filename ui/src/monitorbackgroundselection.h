@@ -55,6 +55,7 @@ private:
     MonitorProperties *m_props;
     QString m_commonBackgroundImage;
     QHash <quint32, QString> m_customBackgroundImages;
+    QString m_lastUsedPath;
 };
 
 #endif // MONITORBACKGROUNDSELECTION_H

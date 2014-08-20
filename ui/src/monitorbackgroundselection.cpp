@@ -42,6 +42,8 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
     m_commonBackgroundImage = m_props->commonBackgroundImage();
     m_customBackgroundImages = m_props->customBackgroundList();
 
+    m_lastUsedPath = QString();
+
     connect(m_noBgRadio, SIGNAL(clicked(bool)),
             this, SLOT(slotNoBackgroundChecked(bool)));
     connect(m_commonBgRadio, SIGNAL(clicked(bool)),
@@ -50,9 +52,15 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
             this, SLOT(slotCustomBackgroundChecked(bool)));
 
     if (m_commonBackgroundImage.isEmpty() == false)
+    {
         m_commonBgRadio->setChecked(true);
+        slotCommonBackgroundChecked(true);
+    }
     else if (m_customBackgroundImages.isEmpty() == false)
+    {
         m_customBgRadio->setChecked(true);
+        slotCustomBackgroundChecked(true);
+    }
     else
     {
         m_noBgRadio->setChecked(true);
@@ -146,17 +154,18 @@ void MonitorBackgroundSelection::slotCustomBackgroundChecked(bool checked)
 
 void MonitorBackgroundSelection::slotSelectCommonBackground()
 {
-    QString path = m_props->commonBackgroundImage();
+    QString filename = m_props->commonBackgroundImage();
 
-    path = QFileDialog::getOpenFileName(this,
+    filename = QFileDialog::getOpenFileName(this,
                             tr("Select background image"),
-                            path,
+                            m_lastUsedPath,
                             QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
-    if (path.isEmpty() == false)
+    if (filename.isEmpty() == false)
     {
-        m_commonLabel->setText(path);
-        m_commonBackgroundImage = path;
+        m_commonLabel->setText(filename);
+        m_commonBackgroundImage = filename;
+        m_lastUsedPath = QFileInfo(filename).canonicalPath();
     }
 }
 
@@ -169,15 +178,16 @@ void MonitorBackgroundSelection::slotAddCustomBackground()
     if (fs.exec() == QDialog::Accepted)
     {
         quint32 fid = fs.selection().first();
-        QString path = QFileDialog::getOpenFileName(this,
+        QString filename = QFileDialog::getOpenFileName(this,
                                 tr("Select background image"),
-                                path,
+                                m_lastUsedPath,
                                 QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
 
-        if (path.isEmpty() == false)
+        if (filename.isEmpty() == false)
         {
-            m_customBackgroundImages[fid] = path;
+            m_customBackgroundImages[fid] = filename;
             updateCustomTree();
+            m_lastUsedPath = QFileInfo(filename).canonicalPath();
         }
     }
 }
