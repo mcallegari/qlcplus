@@ -3428,7 +3428,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.ui" line="119"/>
         <location filename="inputprofileeditor.ui" line="230"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportamiento</translation>
+        <translation>Comportamiento</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="127"/>
@@ -3453,22 +3453,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Movement</source>
-        <translation type="unfinished">Movimiento</translation>
+        <translation>Movimiento</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absoluto</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
         <source>Relative</source>
-        <translation type="unfinished">Relativo</translation>
+        <translation>Relativo</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilidad</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -3652,44 +3652,44 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selector de Imagen de Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo común</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista personalizada de fondos</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Seleccione la imagen de fondo</translation>
+        <translation>Seleccione la imagen de fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
 </context>
 <context>
@@ -4261,7 +4261,7 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="648"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
 </context>
 <context>
@@ -6340,7 +6340,7 @@ Duración: %3
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitorea los canales seleccionados y actualiza el nivel del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="421"/>
@@ -6441,32 +6441,32 @@ Duración: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="85"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Fade In a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="93"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Fade Out a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración* (+tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Duración a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="112"/>
@@ -7129,7 +7129,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="303"/>
