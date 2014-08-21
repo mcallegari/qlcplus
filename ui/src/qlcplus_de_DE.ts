@@ -3429,27 +3429,27 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.ui" line="119"/>
         <location filename="inputprofileeditor.ui" line="230"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Verhalten</translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Movement</source>
-        <translation type="unfinished">Bewegung</translation>
+        <translation>Bewegung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absolut</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
         <source>Relative</source>
-        <translation type="unfinished">Relativ</translation>
+        <translation>Relativ</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfindlichkeit</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="127"/>
@@ -3652,44 +3652,44 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl des Hintergrundbilds</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Hintergrund</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemeinsamer Hintergrund</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Liste mit Hintergründen</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished">Funktion</translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrund</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Hintergrundbild auswählen</translation>
+        <translation>Hintergrundbild auswählen</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
 </context>
 <context>
@@ -4261,7 +4261,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="648"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
 </context>
 <context>
@@ -6306,7 +6306,7 @@ Dauer: %3
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Kanäle beobachten und Schieberegler aktualisieren</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="421"/>
@@ -6442,32 +6442,32 @@ Dauer: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="85"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Einblendzeit übergeben wird</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="93"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Ausblendzeit übergeben wird</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer * (+tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Dauer übergeben wird</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="112"/>
@@ -7166,7 +7166,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
 </context>
 </TS>
