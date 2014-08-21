@@ -3652,44 +3652,44 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selector de Imagen de Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo común</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista personalizada de fondos</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Seleccione la imagen de fondo</translation>
+        <translation>Seleccione la imagen de fondo</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
 </context>
 <context>
@@ -4261,7 +4261,7 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="648"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
 </context>
 <context>
@@ -7129,7 +7129,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="303"/>
