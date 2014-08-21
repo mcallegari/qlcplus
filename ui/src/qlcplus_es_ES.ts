@@ -3428,7 +3428,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.ui" line="119"/>
         <location filename="inputprofileeditor.ui" line="230"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportamiento</translation>
+        <translation>Comportamiento</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="127"/>
@@ -3453,22 +3453,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Movement</source>
-        <translation type="unfinished">Movimiento</translation>
+        <translation>Movimiento</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absoluto</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
         <source>Relative</source>
-        <translation type="unfinished">Relativo</translation>
+        <translation>Relativo</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilidad</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -6295,7 +6295,7 @@ Duración: %3
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitorea los canales seleccionados y actualiza el nivel del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="421"/>
@@ -6396,32 +6396,32 @@ Duración: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="85"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Fade In a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="93"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Fade Out a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración* (+tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicado antes que el tiempo sea enviado como Duración a la función.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="112"/>
