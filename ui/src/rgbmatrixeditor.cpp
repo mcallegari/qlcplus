@@ -645,7 +645,7 @@ void RGBMatrixEditor::slotImageButtonClicked()
         path = QFileDialog::getOpenFileName(this,
                                             tr("Select image"),
                                             path,
-                                            "Images (*.jpg *.xpm *.png *.gif)");
+                                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
             algo->setFilename(path);

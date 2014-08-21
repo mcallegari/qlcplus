@@ -270,6 +270,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             f->preRun(this);
             f->write(this, universes);
             emit functionListChanged();
+            emit functionStarted(f->id());
             m_functionListMutex.lock();
         }
         m_startQueue.removeOne(f);

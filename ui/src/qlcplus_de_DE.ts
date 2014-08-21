@@ -3540,116 +3540,156 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="264"/>
+        <location filename="monitor.cpp" line="276"/>
         <source>Fixture Monitor</source>
         <translation>DMX Kanal Monitor</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="301"/>
+        <location filename="monitor.cpp" line="313"/>
         <source>2D View</source>
         <translation>2D Ansicht</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="308"/>
+        <location filename="monitor.cpp" line="320"/>
         <source>Font</source>
         <translation>Schriftart</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="317"/>
+        <location filename="monitor.cpp" line="329"/>
         <source>DMX Channels</source>
         <translation>DMX Kanäle</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="318"/>
+        <location filename="monitor.cpp" line="330"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zeige absolute DMX Kanalnummern</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="328"/>
+        <location filename="monitor.cpp" line="340"/>
         <source>Relative Channels</source>
         <translation>Relative Kanalnummern</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="329"/>
+        <location filename="monitor.cpp" line="341"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zeige Kanalnummer relativ zum Gerät</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="345"/>
+        <location filename="monitor.cpp" line="357"/>
         <source>DMX Values</source>
         <translation>DMX Werte</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="346"/>
+        <location filename="monitor.cpp" line="358"/>
         <source>Show DMX values 0-255</source>
         <translation>Zeige DMX Werte (0-255)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="357"/>
+        <location filename="monitor.cpp" line="369"/>
         <source>Percent Values</source>
         <translation>Prozentuale Werte</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="358"/>
+        <location filename="monitor.cpp" line="370"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zeige prozentuale Werte (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="371"/>
+        <location filename="monitor.cpp" line="383"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="376"/>
+        <location filename="monitor.cpp" line="388"/>
         <source>All universes</source>
         <translation>Alle Universen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="398"/>
+        <location filename="monitor.cpp" line="410"/>
         <source>DMX View</source>
         <translation>DMX Ansicht</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="404"/>
+        <location filename="monitor.cpp" line="416"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="428"/>
+        <location filename="monitor.cpp" line="440"/>
         <source>Meters</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="429"/>
+        <location filename="monitor.cpp" line="441"/>
         <source>Feet</source>
         <translation>Fuß</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="438"/>
+        <location filename="monitor.cpp" line="450"/>
         <source>Add fixture</source>
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="440"/>
+        <location filename="monitor.cpp" line="452"/>
         <source>Remove fixture</source>
         <translation>Gerät entfernen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="445"/>
+        <location filename="monitor.cpp" line="457"/>
         <source>Set a background picture</source>
         <translation>Hintergrundbild setzen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="448"/>
+        <location filename="monitor.cpp" line="460"/>
         <source>Show/hide labels</source>
         <translation>Zeige/Verstecke Beschriftungen</translation>
     </message>
+</context>
+<context>
+    <name>MonitorBackgroundSelection</name>
     <message>
-        <location filename="monitor.cpp" line="738"/>
+        <location filename="monitorbackgroundselection.ui" line="14"/>
+        <source>Background Picture Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.ui" line="24"/>
+        <source>No background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.ui" line="33"/>
+        <source>Common background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.ui" line="69"/>
+        <source>Custom background list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.ui" line="79"/>
+        <source>Function</source>
+        <translation type="unfinished">Funktion</translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.ui" line="84"/>
+        <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.cpp" line="160"/>
+        <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation>Hintergrundbild auswählen</translation>
+        <translation type="unfinished">Hintergrundbild auswählen</translation>
+    </message>
+    <message>
+        <location filename="monitorbackgroundselection.cpp" line="162"/>
+        <location filename="monitorbackgroundselection.cpp" line="184"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4217,6 +4257,11 @@ Dauer: %3
         <location filename="rgbmatrixeditor.cpp" line="646"/>
         <source>Select image</source>
         <translation>Bildauswahl</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.cpp" line="648"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7117,6 +7162,11 @@ Dauer: %3
         <location filename="virtualconsole.cpp" line="1233"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="1235"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -1232,7 +1232,7 @@ void VirtualConsole::slotBackgroundImage()
     path = QFileDialog::getOpenFileName(this,
                                         tr("Select background image"),
                                         path,
-                                        "Images (*.png *.xpm *.jpg *.gif)");
+                                        QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
     if (path.isEmpty() == false)
     {
         if (m_selectedWidgets.isEmpty() == true)
