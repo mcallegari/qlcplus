@@ -3422,7 +3422,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.ui" line="119"/>
         <location filename="inputprofileeditor.ui" line="230"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportament</translation>
+        <translation>Comportament</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="127"/>
@@ -3447,22 +3447,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Movement</source>
-        <translation type="unfinished">Moviment</translation>
+        <translation>Moviment</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absolut</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
         <source>Relative</source>
-        <translation type="unfinished">Relatiu</translation>
+        <translation>Relatiu</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilitat</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -3644,44 +3644,44 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selector d&apos;Imatge de Fons</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Sense Fons</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fons Comú</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista personalitzada de fons</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished">Funció</translation>
+        <translation>Funció</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Fons</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Seleccioni la imatge de fons</translation>
+        <translation>Seleccioni la imatge de fons</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imatges</translation>
     </message>
 </context>
 <context>
@@ -4251,7 +4251,7 @@ Durada: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="648"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imatges</translation>
     </message>
 </context>
 <context>
@@ -6279,7 +6279,7 @@ Durada: %3
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoreja els canals seleccionat i actualitza el nivell del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="421"/>
@@ -6425,32 +6425,32 @@ Durada: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="85"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicat abans que els temps sigui enviat com a Fade In a la funció.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="93"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out *</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicat abant que el temps sigui enviat com a Fade Out a la funció.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="101"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Durada * (+tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador aplicat abans que el temps sigui enviat com a Durada a la funció.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="112"/>
@@ -7148,7 +7148,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Imatges</translation>
     </message>
 </context>
 </TS>
