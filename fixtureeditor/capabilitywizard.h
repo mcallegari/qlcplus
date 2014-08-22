@@ -27,6 +27,10 @@
 class QLCCapability;
 class QLCChannel;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class CapabilityWizard : public QDialog, public Ui_CapabilityWizard
 {
     Q_OBJECT
@@ -54,5 +58,7 @@ protected:
     const QLCChannel* m_channel;
 
 };
+
+/** @} */
 
 #endif

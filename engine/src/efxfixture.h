@@ -30,7 +30,7 @@ class Scene;
 class EFX;
 class Doc;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

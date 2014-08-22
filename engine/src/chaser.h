@@ -34,7 +34,7 @@ class MasterTimer;
 class ChaserRunner;
 class QDomDocument;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

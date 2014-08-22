@@ -34,6 +34,10 @@
 #include <stdio.h>
 #include <windows.h>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererWaveOut : public AudioRenderer
 {
     Q_OBJECT
@@ -73,5 +77,7 @@ private:
 private:
     UINT deviceID;
 };
+
+/** @} */
 
 #endif // AUDIORENDERER_WAVEOUT_H

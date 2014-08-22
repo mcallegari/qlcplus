@@ -35,6 +35,10 @@ class Chaser;
 class QTime;
 class Doc;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 typedef struct
 {
     int m_index;          //! Index of the step from the original Chaser
@@ -214,5 +218,7 @@ public:
      */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 };
+
+/** @} */
 
 #endif

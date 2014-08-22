@@ -27,6 +27,10 @@ extern "C"
 #include <alsa/asoundlib.h>
 }
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCaptureAlsa : public AudioCapture
 {
     Q_OBJECT
@@ -54,5 +58,7 @@ private:
     snd_pcm_t *m_captureHandle;
     char *pcm_name;
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_ALSA_H

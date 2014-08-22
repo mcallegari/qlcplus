@@ -28,6 +28,10 @@
 
 class QDomDocument;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 class Audio : public Function
 {
     Q_OBJECT
@@ -185,5 +189,7 @@ protected slots:
 signals:
     void totalTimeChanged(qint64);
 };
+
+/** @} */
 
 #endif

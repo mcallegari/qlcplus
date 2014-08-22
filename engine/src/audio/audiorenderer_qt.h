@@ -26,6 +26,10 @@
 #include <QAudioOutput>
 #include <QIODevice>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererQt : public AudioRenderer
 {
     Q_OBJECT
@@ -63,5 +67,7 @@ private:
     QAudioFormat m_format;
     QString m_device;
 };
+
+/** @} */
 
 #endif // AUDIORENDERER_QT_H

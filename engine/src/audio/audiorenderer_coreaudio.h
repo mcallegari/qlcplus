@@ -27,6 +27,10 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <AudioToolbox/AudioQueue.h>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 #define AUDIO_BUFFER_SIZE   8192
 #define AUDIO_BUFFERS_NUM   4
 
@@ -68,5 +72,7 @@ private:
     int m_buffersFilled;
     int m_bufferIndex;
 };
+
+/** @} */
 
 #endif

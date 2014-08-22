@@ -29,6 +29,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCMonitorProperties "Monitor"
 
 typedef struct
@@ -126,5 +130,7 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 };
+
+/** @} */
 
 #endif // MONITORPROPERTIES_H

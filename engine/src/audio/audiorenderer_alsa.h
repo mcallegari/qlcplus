@@ -35,6 +35,10 @@ extern "C"
 #include <alsa/asoundlib.h>
 }
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererAlsa : public AudioRenderer
 {
     Q_OBJECT
@@ -86,5 +90,7 @@ private:
     qint64 m_prebuf_fill;
     bool m_can_pause;
 };
+
+/** @} */
 
 #endif // AUDIORENDERER_ALSA_H

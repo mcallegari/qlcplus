@@ -24,6 +24,10 @@
 
 #include <QMutex>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 #define HEADERS_NUMBER   2
 
 class AudioCaptureWaveIn : public AudioCapture
@@ -55,5 +59,7 @@ private:
     int m_currentBufferIndex;
     char *m_internalBuffers[HEADERS_NUMBER];
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_WAVEIN_H

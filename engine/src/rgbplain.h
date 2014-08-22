@@ -24,7 +24,7 @@
 
 #include "rgbalgorithm.h"
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

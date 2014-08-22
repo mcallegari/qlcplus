@@ -27,7 +27,7 @@ class QScriptEngine;
 class QSize;
 class QDir;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

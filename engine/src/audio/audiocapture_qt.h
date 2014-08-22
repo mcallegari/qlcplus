@@ -24,6 +24,10 @@
 
 #include <QAudioInput>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCaptureQt : public AudioCapture
 {
     Q_OBJECT
@@ -56,5 +60,7 @@ private:
     QAudioFormat m_format;
     qreal m_volume;
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_QT_H

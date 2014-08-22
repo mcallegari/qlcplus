@@ -36,7 +36,7 @@ class FadeChannel;
 class QTime;
 class QDir;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

@@ -28,6 +28,10 @@
 class QDomDocument;
 class QVideoWidget;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 class Video : public Function
 {
     Q_OBJECT
@@ -197,5 +201,7 @@ public:
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 };
+
+/** @} */
 
 #endif

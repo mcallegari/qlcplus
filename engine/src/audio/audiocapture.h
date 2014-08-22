@@ -31,6 +31,10 @@
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MAX_FREQUENCY          5000
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCapture : public QThread
 {
     Q_OBJECT
@@ -120,5 +124,7 @@ protected:
     void *m_fftOutputBuffer;
     double m_fftMagnitudeBuffer[FREQ_SUBBANDS_MAX_NUMBER];
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_H

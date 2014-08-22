@@ -29,7 +29,7 @@ class Track;
 class Show;
 class Doc;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

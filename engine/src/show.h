@@ -30,7 +30,7 @@
 class QDomDocument;
 class ShowRunner;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

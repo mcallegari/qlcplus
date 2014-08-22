@@ -29,6 +29,10 @@ class QString;
 class QLCChannel;
 class QLCCapability;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class EditChannel : public QDialog, public Ui_EditChannel
 {
     Q_OBJECT
@@ -75,5 +79,7 @@ protected:
     void refreshCapabilities();
     QLCCapability* currentCapability();
 };
+
+/** @} */
 
 #endif
