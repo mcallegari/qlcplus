@@ -26,8 +26,7 @@
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
 #include "stageprofi.h"
-#include "ultradmxusbprotx.h"
-#include "vinceusbdmx512tx.h"
+#include "vinceusbdmx512.h"
 #include "qlcftdi.h"
 
 /**
