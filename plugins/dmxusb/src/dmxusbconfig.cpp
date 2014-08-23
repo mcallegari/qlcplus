@@ -125,11 +125,10 @@ QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     Q_ASSERT(widget != NULL);
     QComboBox* combo = new QComboBox;
     combo->setProperty(PROP_SERIAL, widget->serial());
-    combo->addItem(QString("Pro TX"), DMXUSBWidget::ProTX);
+    combo->addItem(QString("Pro RX/TX"), DMXUSBWidget::ProRXTX);
     combo->addItem(QString("Open TX"), DMXUSBWidget::OpenTX);
-    combo->addItem(QString("Pro RX"), DMXUSBWidget::ProRX);
     combo->addItem(QString("Pro Mk2"), DMXUSBWidget::ProMk2);
-    combo->addItem(QString("Ultra Pro Tx"), DMXUSBWidget::UltraProTx);
+    combo->addItem(QString("Ultra Pro"), DMXUSBWidget::UltraPro);
     combo->addItem(QString("DMX4ALL"), DMXUSBWidget::DMX4ALL);
     combo->addItem(QString("Vince TX"), DMXUSBWidget::VinceTX);
     int index = combo->findData(widget->type());

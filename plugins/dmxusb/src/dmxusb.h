@@ -61,6 +61,10 @@ public:
     /** Get currently connected widgets (input & output) */
     QList <DMXUSBWidget*> widgets() const;
 
+private:
+    /** List of references to the discovered USB widgets */
+    QList <DMXUSBWidget*> m_widgets;
+
     /************************************************************************
      * Outputs
      ************************************************************************/
@@ -81,6 +85,11 @@ public:
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
+    /**
+     *  List of references to USB widgets ordered by output lines.
+     *  If a widget has multiple outputs, it will appear in this
+     *  list multiple times
+     */
     QList <DMXUSBWidget*> m_outputs;
 
     /*************************************************************************
@@ -104,6 +113,11 @@ public:
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
 private:
+    /**
+     *  List of references to USB widgets ordered by input lines.
+     *  If a widget has multiple inputs, it will appear in this
+     *  list multiple times
+     */
     QList <DMXUSBWidget*> m_inputs;
 
     /********************************************************************

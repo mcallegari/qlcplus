@@ -60,10 +60,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    bool close();
+    bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Name & Serial
@@ -77,7 +77,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(const QByteArray& universe);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };

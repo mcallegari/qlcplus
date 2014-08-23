@@ -55,7 +55,7 @@
     <message>
         <location filename="dmxusbconfig.cpp" line="53"/>
         <source>Serial</source>
-        <translation>Seriale</translation>
+        <translation>Numero di serie</translation>
     </message>
 </context>
 <context>
@@ -68,7 +68,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="112"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canali DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="115"/>

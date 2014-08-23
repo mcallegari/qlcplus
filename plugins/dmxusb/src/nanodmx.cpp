@@ -23,9 +23,10 @@
 #include <QDir>
 
 NanoDMX::NanoDMX(const QString& serial, const QString& name,
-                       const QString &vendor, void *usb_ref)
-    : DMXUSBWidget(serial, name, vendor, NULL, 0)
+                       const QString &vendor, void *usb_ref, quint32 id)
+    : DMXUSBWidget(serial, name, vendor, 0)
 {
+    Q_UNUSED(id)
 #ifdef LIBFTDI1
     m_device = (libusb_device *)usb_ref;
 #else
@@ -127,9 +128,11 @@ QString NanoDMX::getDeviceName()
 /****************************************************************************
  * Open & Close
  ****************************************************************************/
-
-bool NanoDMX::open()
+bool NanoDMX::open(quint32 line, bool input)
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
+
     QString ttyName = getDeviceName();
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
@@ -168,16 +171,21 @@ bool NanoDMX::open()
     return true;
 }
 
-bool NanoDMX::close()
+bool NanoDMX::close(quint32 line, bool input)
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
+
     if (m_file.isOpen() == true)
         m_file.close();
 
     return true;
 }
 
-QString NanoDMX::uniqueName() const
+QString NanoDMX::uniqueName(ushort line, bool input) const
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
     return QString("%1").arg(name());
 }
 
@@ -208,21 +216,24 @@ QString NanoDMX::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool NanoDMX::writeUniverse(const QByteArray& universe)
+bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
 {
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+
     if (m_file.isOpen() == false)
         return false;
 
     /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
      * a maximum of 256 channels, I need to split a 512 universe into 2 */
 
-    QByteArray arrayTransfer(universe);
+    QByteArray arrayTransfer(data);
     arrayTransfer.prepend(char(0xFF));
     arrayTransfer.prepend(char(0x00));        // Start channel low byte
     arrayTransfer.prepend(char(0x00));        // Start channel high byte
-    if (universe.size() < 256)
+    if (data.size() < 256)
     {
-        arrayTransfer.prepend(universe.size());   // Number of channels
+        arrayTransfer.prepend(data.size());   // Number of channels
     }
     else
     {

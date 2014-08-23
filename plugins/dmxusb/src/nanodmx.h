@@ -33,7 +33,7 @@ class NanoDMX : public DMXUSBWidget
      ************************************************************************/
 public:
     NanoDMX(const QString& serial, const QString& name, const QString& vendor,
-                    void *usb_ref);
+            void *usb_ref, quint32 id = 0);
     virtual ~NanoDMX();
 
     /** @reimp */
@@ -44,19 +44,19 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    bool close();
+    bool close(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    QString uniqueName() const;
+    QString uniqueName(ushort line = 0, bool input = false) const;
 
     /** @reimp */
     QString additionalInfo() const;
 
     /** @reimp */
-    bool writeUniverse(const QByteArray& universe);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
     bool checkReply();

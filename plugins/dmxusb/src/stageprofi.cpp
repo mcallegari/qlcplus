@@ -22,8 +22,8 @@
 #include <QDebug>
 
 Stageprofi::Stageprofi(const QString& serial, const QString& name,
-                       const QString &vendor, QLCFTDI *ftdi, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, ftdi, id)
+                       const QString &vendor, quint32 id)
+    : DMXUSBWidget(serial, name, vendor, id)
 {
 }
 
@@ -65,8 +65,11 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
  * Open & Close
  ****************************************************************************/
 
-bool Stageprofi::open()
+bool Stageprofi::open(quint32 line, bool input)
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
+
     if (isOpen() == true)
         close();
 
@@ -115,8 +118,10 @@ bool Stageprofi::open()
     return true;
 }
 
-QString Stageprofi::uniqueName() const
+QString Stageprofi::uniqueName(ushort line, bool input) const
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
     return QString("%1").arg(name());
 }
 
@@ -147,21 +152,24 @@ QString Stageprofi::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool Stageprofi::writeUniverse(const QByteArray& universe)
+bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
 {
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+
     if (isOpen() == false)
         return false;
 
     /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
      * a maximum of 256 channels, I need to split a 512 universe into 2 */
 
-    QByteArray arrayTransfer(universe);
+    QByteArray arrayTransfer(data);
     arrayTransfer.prepend(char(0xFF));
     arrayTransfer.prepend(char(0x00));        // Start channel low byte
     arrayTransfer.prepend(char(0x00));        // Start channel high byte
-    if (universe.size() < 256)
+    if (data.size() < 256)
     {
-        arrayTransfer.prepend(universe.size());   // Number of channels
+        arrayTransfer.prepend(data.size());   // Number of channels
     }
     else
     {

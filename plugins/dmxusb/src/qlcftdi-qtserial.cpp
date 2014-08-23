@@ -149,7 +149,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 widgetList << prorx;
                 break;
             }
-            case DMXUSBWidget::UltraProTx:
+            case DMXUSBWidget::UltraPro:
             {
                 UltraDMXUSBProTx* protx = new UltraDMXUSBProTx(serial, name, vendor, 1, NULL, id);
                 widgetList << protx;

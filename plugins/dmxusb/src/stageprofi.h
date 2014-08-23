@@ -30,8 +30,7 @@ class Stageprofi : public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    Stageprofi(const QString& serial, const QString& name, const QString& vendor,
-                    QLCFTDI *ftdi = NULL, quint32 id = 0);
+    Stageprofi(const QString& serial, const QString& name, const QString& vendor, quint32 id = 0);
     virtual ~Stageprofi();
 
     /** @reimp */
@@ -42,16 +41,16 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    QString uniqueName() const;
+    QString uniqueName(ushort line = 0, bool input = false) const;
 
     /** @reimp */
     QString additionalInfo() const;
 
     /** @reimp */
-    bool writeUniverse(const QByteArray& universe);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
     bool checkReply();

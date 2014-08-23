@@ -73,13 +73,9 @@ HEADERS += dmxusb.h \
            dmxusbwidget.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
-           enttecdmxusbprorx.h \
-           enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
            stageprofi.h \
-           ultradmxusbprotx.h \
            vinceusbdmx512.h \
-           vinceusbdmx512tx.h \
            qlcftdi.h
 
 unix: HEADERS += nanodmx.h
@@ -88,13 +84,13 @@ SOURCES += dmxusb.cpp \
            dmxusbwidget.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
-           enttecdmxusbprorx.cpp \
-           enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
            stageprofi.cpp \
-           ultradmxusbprotx.cpp \
-           vinceusbdmx512.cpp \
-           vinceusbdmx512tx.cpp
+           vinceusbdmx512.cpp
+
+INCLUDEPATH += ../../midi/common
+HEADERS += ../../midi/common/midiprotocol.h
+SOURCES += ../../midi/common/midiprotocol.cpp
 
 unix: SOURCES += nanodmx.cpp
 
