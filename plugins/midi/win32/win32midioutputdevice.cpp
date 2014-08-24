@@ -37,12 +37,12 @@ Win32MidiOutputDevice::~Win32MidiOutputDevice()
     qDebug() << Q_FUNC_INFO;
 }
 
-void Win32MidiOutputDevice::open()
+bool Win32MidiOutputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
 
     if (m_handle != NULL)
-        return;
+        return false;
 
     MMRESULT result = midiOutOpen(&m_handle, m_id, 0, 0, 0);
     if (result != MMSYSERR_NOERROR)
@@ -50,7 +50,9 @@ void Win32MidiOutputDevice::open()
         qWarning() << Q_FUNC_INFO << "Unable to open MIDI output device with id:" << m_id
                    << "name:" << name() << ":" << result;
         m_handle = NULL;
+        return false;
     }
+    return true;
 }
 
 void Win32MidiOutputDevice::close()

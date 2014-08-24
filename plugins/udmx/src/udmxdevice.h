@@ -57,7 +57,7 @@ private:
      * Open & close
      ********************************************************************/
 public:
-    void open();
+    bool open();
     void close();
 
     const struct usb_device* device() const;

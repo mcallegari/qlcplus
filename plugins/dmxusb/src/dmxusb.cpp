@@ -85,10 +85,11 @@ QList <DMXUSBWidget*> DMXUSB::widgets() const
  * Outputs
  ****************************************************************************/
 
-void DMXUSB::openOutput(quint32 output)
+bool DMXUSB::openOutput(quint32 output)
 {
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->open(output, false);
+        return m_outputs.at(output)->open(output, false);
+    return false;
 }
 
 void DMXUSB::closeOutput(quint32 output)
@@ -182,12 +183,11 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
  * Inputs
  ****************************************************************************/
 
-void DMXUSB::openInput(quint32 input)
+bool DMXUSB::openInput(quint32 input)
 {
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
-        widget->open(input, true);
         if (widget->type() == DMXUSBWidget::ProRXTX ||
             widget->type() == DMXUSBWidget::ProMk2 ||
             widget->type() == DMXUSBWidget::UltraPro)
@@ -196,7 +196,9 @@ void DMXUSB::openInput(quint32 input)
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
+        return widget->open(input, true);
     }
+    return false;
 }
 
 void DMXUSB::closeInput(quint32 input)

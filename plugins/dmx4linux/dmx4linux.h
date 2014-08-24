@@ -61,7 +61,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output);
+    bool openOutput(quint32 output);
 
     /** @reimp */
     void closeOutput(quint32 output);
@@ -84,7 +84,7 @@ protected:
      *************************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input) { Q_UNUSED(input); }
+    bool openInput(quint32 input) { Q_UNUSED(input); return false; }
 
     /** @reimp */
     void closeInput(quint32 input) { Q_UNUSED(input); }

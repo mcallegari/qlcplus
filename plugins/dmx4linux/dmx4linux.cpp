@@ -53,17 +53,19 @@ int DMX4Linux::capabilities() const
  * Open/close
  *****************************************************************************/
 
-void DMX4Linux::openOutput(quint32 output)
+bool DMX4Linux::openOutput(quint32 output)
 {
     if (output != 0)
-        return;
+        return false;
 
     m_file.unsetError();
     if (m_file.open(QIODevice::WriteOnly | QIODevice::Unbuffered) == false)
     {
         qWarning() << "DMX4Linux output is not available:"
                    << m_file.errorString();
+        return false;
     }
+    return true;
 }
 
 void DMX4Linux::closeOutput(quint32 output)

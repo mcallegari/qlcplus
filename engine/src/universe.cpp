@@ -296,7 +296,7 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
     if (m_inputPatch == NULL)
     {
         if (plugin == NULL || input == QLCChannel::invalid())
-            return false;
+            return true;
 
         m_inputPatch = new InputPatch(m_id, this);
         if (passthrough() == false)
@@ -318,12 +318,13 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
                            this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
-            return false;
+            return true;
         }
     }
 
     if (m_inputPatch != NULL)
-        m_inputPatch->set(plugin, input, profile);
+        return m_inputPatch->set(plugin, input, profile);
+
     return true;
 }
 
@@ -344,12 +345,13 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_outputPatch;
             m_outputPatch = NULL;
-            return false;
+            return true;
         }
     }
     if (m_outputPatch != NULL)
-        m_outputPatch->set(plugin, output);
-    return true;
+        return m_outputPatch->set(plugin, output);
+
+    return false;
 }
 
 bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
@@ -371,8 +373,9 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         }
     }
     if (m_fbPatch != NULL)
-        m_fbPatch->set(plugin, output);
-    return true;
+        return m_fbPatch->set(plugin, output);
+
+    return false;
 }
 
 InputPatch *Universe::inputPatch() const

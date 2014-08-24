@@ -467,7 +467,7 @@ signals:
     void profileChanged(quint32 universe, const QString& profileName);
 
     /** Notifies (InputOutputManager) of plugin configuration changes */
-    void pluginConfigurationChanged(const QString& pluginName);
+    void pluginConfigurationChanged(const QString& pluginName, bool success);
 
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);

@@ -405,7 +405,7 @@ void InputOutputMap_Test::slotConfigurationChanged()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString)));
+    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString, bool)));
     stub->configure();
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy.at(0).size(), 1);

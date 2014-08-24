@@ -376,6 +376,11 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
     }
+    else
+    {
+        return false;
+    }
+
     if (ip != NULL && currProfile != ip->profile())
         emit profileChanged(universe, ip->profileName());
 
@@ -394,13 +399,13 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
 
     QMutexLocker locker(&m_universeMutex);
     if (isFeedback == false)
-        m_universeArray.at(universe)->setOutputPatch(
+        return m_universeArray.at(universe)->setOutputPatch(
                     doc()->ioPluginCache()->plugin(pluginName), output);
     else
-        m_universeArray.at(universe)->setFeedbackPatch(
+        return m_universeArray.at(universe)->setFeedbackPatch(
                     doc()->ioPluginCache()->plugin(pluginName), output);
 
-    return true;
+    return false;
 }
 
 InputPatch *InputOutputMap::inputPatch(quint32 universe) const
@@ -621,6 +626,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
+    bool success = false;
     for (quint32 i = 0; i < universes(); i++)
     {
         OutputPatch* op = m_universeArray.at(i)->outputPatch();
@@ -628,11 +634,19 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
         if (op != NULL && op->plugin() == plugin)
         {
             QMutexLocker locker(&m_universeMutex);
-            op->reconnect();
+            success = op->reconnect();
+        }
+
+        InputPatch* ip = m_universeArray.at(i)->inputPatch();
+
+        if (ip != NULL && ip->plugin() == plugin)
+        {
+            QMutexLocker locker(&m_universeMutex);
+            success = ip->reconnect();
         }
     }
 
-    emit pluginConfigurationChanged(plugin->name());
+    emit pluginConfigurationChanged(plugin->name(), success);
 }
 
 /*****************************************************************************

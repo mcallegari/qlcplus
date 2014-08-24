@@ -54,7 +54,7 @@ OutputPatch::~OutputPatch()
  * Plugin & Output
  ****************************************************************************/
 
-void OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
+bool OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
 {
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
         m_plugin->closeOutput(m_output);
@@ -63,10 +63,11 @@ void OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
     m_output = output;
 
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        m_plugin->openOutput(m_output);
+        return m_plugin->openOutput(m_output);
+    return false;
 }
 
-void OutputPatch::reconnect()
+bool OutputPatch::reconnect()
 {
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
     {
@@ -76,8 +77,9 @@ void OutputPatch::reconnect()
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        m_plugin->openOutput(m_output);
+        return m_plugin->openOutput(m_output);
     }
+    return false;
 }
 
 QString OutputPatch::pluginName() const

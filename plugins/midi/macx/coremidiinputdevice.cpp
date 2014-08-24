@@ -110,13 +110,13 @@ CoreMidiInputDevice::~CoreMidiInputDevice()
     close();
 }
 
-void CoreMidiInputDevice::open()
+bool CoreMidiInputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
 
     // Don't open twice
     if (m_inPort != 0)
-        return;
+        return false;
 
     OSStatus s = MIDIInputPortCreate(m_client, CFSTR("QLC Input Port"),
                                      MidiInProc, this, &m_inPort);
@@ -142,6 +142,7 @@ void CoreMidiInputDevice::open()
             m_inPort = 0;
         }
     }
+    return true;
 }
 
 void CoreMidiInputDevice::close()

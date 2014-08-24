@@ -37,7 +37,7 @@
  * When QLC has successfully loaded a plugin, it will call init() exactly
  * once for that plugin. After that, it is assumed that either the
  * plugin auto-senses the devices it supports or the user must manually try
- * to search for new devices thru a custom configuration dialog that can be
+ * to search for new devices through a custom configuration dialog that can be
  * opened with configure().
  *
  * Plugins should not leave any resources open unless open() is called. And
@@ -71,7 +71,7 @@ public:
     /**
      * Initialize the plugin. Since plugins cannot have a user-defined
      * constructor, any initialization prior to opening any HW must be
-     * done thru this second-stage initialization method. This method is
+     * done through this second-stage initialization method. This method is
      * called exactly once after each plugin has been successfully loaded
      * and before calling other plugin interface methods.
      *
@@ -126,17 +126,17 @@ public:
 public:
     /**
      * Open the specified output line so that the plugin can start sending
-     * DMX data thru that line.
+     * DMX data through that line.
      *
      * This is a pure virtual method that must be implemented by all plugins.
      *
      * @param output The output line to open
      */
-    virtual void openOutput(quint32 output) = 0;
+    virtual bool openOutput(quint32 output) = 0;
 
     /**
      * Close the specified output line so that the plugin can stop
-     * sending output data thru that line.
+     * sending output data through that line.
      *
      * This is a pure virtual method that must be implemented by all plugins.
      *
@@ -185,7 +185,7 @@ public:
      *
      * @param input The input line to open
      */
-    virtual void openInput(quint32 input) = 0;
+    virtual bool openInput(quint32 input) = 0;
 
     /**
      * Close the specified input line so that the plugin can stop sending input

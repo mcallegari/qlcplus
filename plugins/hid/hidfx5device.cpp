@@ -87,10 +87,12 @@ void HIDFX5Device::closeInput()
     updateMode();
 }
 
-void HIDFX5Device::openOutput()
+bool HIDFX5Device::openOutput()
 {
     m_mode |= FX5_MODE_OUTPUT;
     updateMode();
+
+    return true;
 }
 
 void HIDFX5Device::closeOutput()

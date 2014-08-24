@@ -54,13 +54,13 @@ public:
     /**
      * Set the plugin to use and the plugin line number to output data on
      */
-    void set(QLCIOPlugin* plugin, quint32 output);
+    bool set(QLCIOPlugin* plugin, quint32 output);
 
     /**
      * If a valid plugin and line have been set, close
      * the output line and re-open it again
      */
-    void reconnect();
+    bool reconnect();
 
     /** The plugin instance that has been assigned to a patch */
     QLCIOPlugin* plugin() const;

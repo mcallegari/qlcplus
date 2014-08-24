@@ -209,7 +209,7 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
  * Open & close
  ****************************************************************************/
 
-void PeperoniDevice::open(quint32 line, OperatingMode mode)
+bool PeperoniDevice::open(quint32 line, OperatingMode mode)
 {
     m_operatingModes[line] |= mode;
 
@@ -222,7 +222,7 @@ void PeperoniDevice::open(quint32 line, OperatingMode mode)
         if (m_handle == NULL)
         {
             qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_device->descriptor.idProduct;
-            return;
+            return false;
         }
 
         /* Use configuration #2 on X-Switch */
@@ -285,6 +285,7 @@ void PeperoniDevice::open(quint32 line, OperatingMode mode)
         m_running = true;
         start();
     }
+    return true;
 }
 
 void PeperoniDevice::close(quint32 line, OperatingMode mode)

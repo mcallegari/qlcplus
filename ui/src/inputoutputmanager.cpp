@@ -154,7 +154,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&)),
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)),
             this, SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)),

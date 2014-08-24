@@ -68,7 +68,7 @@ public:
     void closeInput();
     
     /** @reimp */
-    void openOutput();
+    bool openOutput();
 
     /** @reimp */
     void closeOutput();

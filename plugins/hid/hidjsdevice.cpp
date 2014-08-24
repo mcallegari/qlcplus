@@ -205,7 +205,6 @@ QString HIDJsDevice::path() const
 
 bool HIDJsDevice::readEvent()
 {
-
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
     int r;
@@ -236,7 +235,7 @@ bool HIDJsDevice::readEvent()
                         double(0), double(UCHAR_MAX));
             ch = quint32(ev.number);
 
-            //qDebug() << "HID JS" << m_line << ch << val;
+            qDebug() << "HID JS" << m_line << ch << val;
             emit valueChanged(UINT_MAX, m_line, ch, val);
         }
         else
@@ -360,31 +359,6 @@ void HIDJsDevice::run()
         readEvent();
         Sleep(50);
 #endif
-
-/*
-        if (axesChanged == true || movementOn == true)
-        {
-            movementOn = false;
-            for (int i = 0; i < m_axesNumber; i++)
-            {
-                double moveAmount = 127 - m_axesStatus[i].hidvalue;
-                if (moveAmount != 0)
-                {
-                    m_axesStatus[i].dValue -= (moveAmount / m_axesSensitivity);
-                    m_axesStatus[i].dValue = CLAMP(m_axesStatus[i].dValue, 0, 255);
-
-                    uchar newDmxValue = uchar(m_axesStatus[i].dValue);
-                    //qDebug() << "double value:" << m_axesStatus[i].dValue << "uchar val:" << newDmxValue;
-                    if (newDmxValue != m_axesStatus[i].dmxValue)
-                    {
-                        m_axesStatus[i].dmxValue = newDmxValue;
-                        emit valueChanged(UINT_MAX, m_line, i, newDmxValue);
-                    }
-                    movementOn = true;
-                }
-            }
-        }
-*/
     }
 }
 

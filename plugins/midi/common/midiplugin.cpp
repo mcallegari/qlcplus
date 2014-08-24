@@ -73,14 +73,14 @@ int MidiPlugin::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void MidiPlugin::openOutput(quint32 output)
+bool MidiPlugin::openOutput(quint32 output)
 {
     qDebug() << "MIDI plugin open output: " << output;
 
     MidiOutputDevice* dev = outputDevice(output);
 
     if (dev == NULL)
-        return;
+        return false;
 
     dev->open();
 
@@ -93,6 +93,7 @@ void MidiPlugin::openOutput(quint32 output)
         if (templ != NULL)
             sendSysEx(output, templ->initMessage());
     }
+    return true;
 }
 
 void MidiPlugin::closeOutput(quint32 output)
@@ -194,17 +195,18 @@ MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const
  * Inputs
  *****************************************************************************/
 
-void MidiPlugin::openInput(quint32 input)
+bool MidiPlugin::openInput(quint32 input)
 {
     qDebug() << "MIDI Plugin open Input: " << input;
 
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL && dev->isOpen() == false)
     {
-        dev->open();
         connect(dev, SIGNAL(valueChanged(QVariant,ushort,uchar)),
                 this, SLOT(slotValueChanged(QVariant,ushort,uchar)));
+        return dev->open();
     }
+    return false;
 }
 
 void MidiPlugin::closeInput(quint32 input)

@@ -154,12 +154,13 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
 /*********************************************************************
  * Outputs
  *********************************************************************/
-void OSCPlugin::openOutput(quint32 output)
+bool OSCPlugin::openOutput(quint32 output)
 {
     if (output >= QLCIOPLUGINS_UNIVERSES)
-        return;
+        return false;
 
     qDebug() << Q_FUNC_INFO << "Output on " << m_nodes[output].m_outAddrStr;
+    return true;
 }
 
 void OSCPlugin::closeOutput(quint32 output)
@@ -232,10 +233,10 @@ void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
  * Inputs
  *************************************************************************/
 
-void OSCPlugin::openInput(quint32 input)
+bool OSCPlugin::openInput(quint32 input)
 {
     if (input >= QLCIOPLUGINS_UNIVERSES)
-        return;
+        return false;
 
     qDebug() << Q_FUNC_INFO << "Input " << input << " port: " << m_nodes[input].m_port;
 
@@ -259,6 +260,7 @@ void OSCPlugin::openInput(quint32 input)
 
         lo_server_thread_start(m_nodes[input].m_serv_thread);
 	}
+    return true;
 }
 
 void OSCPlugin::closeInput(quint32 input)

@@ -139,11 +139,8 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     m_mapTree->setCurrentItem(m_mapTree->topLevelItem(0));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&)),
-            this, SLOT(slotPluginConfigurationChanged(const QString&)));
-    /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&)),
-            this, SLOT(slotPluginConfigurationChanged(const QString&)));
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)),
+            this, SLOT(slotPluginConfigurationChanged(const QString&, bool)));
 }
 
 InputOutputPatchEditor::~InputOutputPatchEditor()
@@ -390,8 +387,9 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
 
             /* Apply the patch immediately so that input data can be used in the
                input profile editor */
-            m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
-                                 m_currentInput, m_currentProfileName);
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
+                                 m_currentInput, m_currentProfileName) == false)
+                showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
         {
@@ -408,7 +406,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
+                if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false) == false)
+                    showPluginMappingError();
             }
         }
         else if (col == KMapColumnHasFeedback)
@@ -425,7 +424,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
                 m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
-                m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
+                if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true) == false)
+                    showPluginMappingError();
             }
         }
     }
@@ -437,7 +437,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentInputPluginName = KInputNone;
             m_currentInput = QLCIOPlugin::invalidLine();
 
-            m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput);
+            if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput) == false)
+                showPluginMappingError();
         }
         else if (col == KMapColumnHasOutput)
         {
@@ -445,7 +446,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentOutput = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
+            if (m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false) == false)
+                showPluginMappingError();
         }
         else if (col == KMapColumnHasFeedback)
         {
@@ -453,7 +455,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_currentFeedback = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
-            m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
+            if (m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true) == false)
+                showPluginMappingError();
         }
     }
 
@@ -483,8 +486,14 @@ void InputOutputPatchEditor::slotConfigureInputClicked()
     m_ioMap->configurePlugin(plugin);
 }
 
-void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& pluginName)
+void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& pluginName, bool success)
 {
+    if (success == false)
+    {
+        showPluginMappingError();
+        return;
+    }
+
     QTreeWidgetItem* item = pluginItem(pluginName);
     if (item == NULL)
         return;
@@ -511,6 +520,16 @@ QTreeWidgetItem* InputOutputPatchEditor::pluginItem(const QString& pluginName)
     }
 
     return NULL;
+}
+
+void InputOutputPatchEditor::showPluginMappingError()
+{
+    QMessageBox::critical(this, tr("Error"),
+                          tr("An error occurred while trying to open the selected device line.\n"
+                             "This can be caused either by a wrong system configuration or "
+                             "an unsupported input/output mode.\n"
+                             "Please refer to the plugins documentation to troubleshoot this."),
+                          QMessageBox::Close);
 }
 
 /****************************************************************************
@@ -619,8 +638,10 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
     m_currentProfileName = item->text(KProfileColumnName);
 
     /* Apply the patch immediately */
-    m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
-                               m_currentInput, m_currentProfileName);
+    if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
+                               m_currentInput, m_currentProfileName) == false)
+        showPluginMappingError();
+
     emit mappingChanged();
 }
 

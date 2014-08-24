@@ -75,16 +75,17 @@ int Velleman::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void Velleman::openOutput(quint32 output)
+bool Velleman::openOutput(quint32 output)
 {
     if (output != 0)
-        return;
+        return false;
 
     if (m_currentlyOpen == false)
     {
         StartDevice();
         m_currentlyOpen = true;
     }
+    return true;
 }
 
 void Velleman::closeOutput(quint32 output)

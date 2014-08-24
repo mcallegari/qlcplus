@@ -58,17 +58,18 @@ int HIDPlugin::capabilities() const
  * Inputs
  *****************************************************************************/
 
-void HIDPlugin::openInput(quint32 input)
+bool HIDPlugin::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
-        dev->openInput();
         connect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        return dev->openInput();
     }
     else
         qDebug() << name() << "has no input number:" << input;
+    return false;
 }
 
 void HIDPlugin::closeInput(quint32 input)
@@ -139,13 +140,14 @@ QString HIDPlugin::inputInfo(quint32 input)
 /*********************************************************************
  * Outputs
  *********************************************************************/
-void HIDPlugin::openOutput(quint32 output)
+bool HIDPlugin::openOutput(quint32 output)
 {
     HIDDevice* dev = device(output);
     if (dev != NULL)
-        dev->openOutput();
+        return dev->openOutput();
     else
         qDebug() << name() << "has no output number:" << output;
+    return false;
 }
 
 void HIDPlugin::closeOutput(quint32 output)

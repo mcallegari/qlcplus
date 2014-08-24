@@ -54,8 +54,9 @@ void HIDDevice::closeInput()
 {
 }
 
-void HIDDevice::openOutput()
+bool HIDDevice::openOutput()
 {
+    return false;
 }
 
 void HIDDevice::closeOutput()
