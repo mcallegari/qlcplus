@@ -53,35 +53,35 @@
         <translation>Deze plugin verzorgt DMX output voor apparaten die het OSC transmissie protocol ondersteunen.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="182"/>
-        <location filename="oscplugin.cpp" line="281"/>
+        <location filename="oscplugin.cpp" line="183"/>
+        <location filename="oscplugin.cpp" line="283"/>
         <source>OSC Network</source>
         <translation>OSC Netwerk</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="193"/>
+        <location filename="oscplugin.cpp" line="194"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="295"/>
+        <location filename="oscplugin.cpp" line="197"/>
+        <location filename="oscplugin.cpp" line="297"/>
         <source>Status: Not ready</source>
         <translation>Status: Niet gereed</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="199"/>
+        <location filename="oscplugin.cpp" line="200"/>
         <source>Address: </source>
         <translation>Adres:</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="202"/>
-        <location filename="oscplugin.cpp" line="298"/>
+        <location filename="oscplugin.cpp" line="203"/>
+        <location filename="oscplugin.cpp" line="300"/>
         <source>Status: Ready</source>
         <translation>Status: Gereed</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="292"/>
+        <location filename="oscplugin.cpp" line="294"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>

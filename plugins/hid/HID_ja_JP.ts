@@ -40,12 +40,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="314"/>
+        <location filename="hidjsdevice.cpp" line="313"/>
         <source>Axes: %1</source>
         <translation type="unfinished">軸: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="316"/>
+        <location filename="hidjsdevice.cpp" line="315"/>
         <source>Buttons: %1</source>
         <translation type="unfinished">ボタン: %1</translation>
     </message>
@@ -53,7 +53,7 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="114"/>
+        <location filename="hidplugin.cpp" line="115"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
         <translation type="unfinished">このプラグインは、HID対応ジョイスティックと、FX5 USB DMX アダプタをサポートします。</translation>
     </message>

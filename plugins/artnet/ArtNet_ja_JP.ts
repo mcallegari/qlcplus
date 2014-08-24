@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="90"/>
-        <location filename="artnetplugin.cpp" line="196"/>
+        <location filename="artnetplugin.cpp" line="197"/>
         <source>%1: %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21,13 +21,13 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="110"/>
-        <location filename="artnetplugin.cpp" line="266"/>
+        <location filename="artnetplugin.cpp" line="270"/>
         <source>Status: Not open</source>
         <translation type="unfinished">状態: 未接続</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
-        <location filename="artnetplugin.cpp" line="269"/>
+        <location filename="artnetplugin.cpp" line="273"/>
         <source>Status: Open</source>
         <translation type="unfinished">状態: 接続</translation>
     </message>
@@ -42,12 +42,12 @@
         <translation type="unfinished">送信されたパケット:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="262"/>
+        <location filename="artnetplugin.cpp" line="266"/>
         <source>Input</source>
         <translation type="unfinished">入力</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="271"/>
+        <location filename="artnetplugin.cpp" line="275"/>
         <source>Packets received: </source>
         <translation type="unfinished">受信したパケット:</translation>
     </message>

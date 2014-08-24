@@ -27,12 +27,12 @@
 <context>
     <name>OlaIO</name>
     <message>
-        <location filename="olaio.cpp" line="152"/>
+        <location filename="olaio.cpp" line="156"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Open Lighting Architecturen (OLA) kautta.</translation>
     </message>
     <message>
-        <location filename="olaio.cpp" line="166"/>
+        <location filename="olaio.cpp" line="170"/>
         <source>This is the output for OLA universe %1</source>
         <translation type="unfinished">Tämä on OLA-universumin %1 ulostulo</translation>
     </message>

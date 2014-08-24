@@ -3292,79 +3292,87 @@ Terugkoppeling</translation>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="401"/>
-        <location filename="inputoutputpatcheditor.cpp" line="419"/>
+        <location filename="inputoutputpatcheditor.cpp" line="399"/>
+        <location filename="inputoutputpatcheditor.cpp" line="418"/>
+        <location filename="inputoutputpatcheditor.cpp" line="527"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="402"/>
-        <location filename="inputoutputpatcheditor.cpp" line="420"/>
+        <location filename="inputoutputpatcheditor.cpp" line="400"/>
+        <location filename="inputoutputpatcheditor.cpp" line="419"/>
         <source>Output line already assigned</source>
         <translation>Output line is al toegewezen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="642"/>
-        <location filename="inputoutputpatcheditor.cpp" line="776"/>
+        <location filename="inputoutputpatcheditor.cpp" line="528"/>
+        <source>An error occurred while trying to open the selected device line.
+This can be caused either by a wrong system configuration or an unsupported input/output mode.
+Please refer to the plugins documentation to troubleshoot this.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="663"/>
+        <location filename="inputoutputpatcheditor.cpp" line="797"/>
         <source>Existing Input Profile</source>
         <translation>Bestaand Input Profiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="643"/>
-        <location filename="inputoutputpatcheditor.cpp" line="777"/>
+        <location filename="inputoutputpatcheditor.cpp" line="664"/>
+        <location filename="inputoutputpatcheditor.cpp" line="798"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Input profiel %1 bestaat al. Overschijven?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="652"/>
-        <location filename="inputoutputpatcheditor.cpp" line="786"/>
+        <location filename="inputoutputpatcheditor.cpp" line="673"/>
+        <location filename="inputoutputpatcheditor.cpp" line="807"/>
         <source>Save Input Profile</source>
         <translation>Sla input profiel op</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="653"/>
-        <location filename="inputoutputpatcheditor.cpp" line="787"/>
+        <location filename="inputoutputpatcheditor.cpp" line="674"/>
+        <location filename="inputoutputpatcheditor.cpp" line="808"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Input Profielen (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="666"/>
-        <location filename="inputoutputpatcheditor.cpp" line="803"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <location filename="inputoutputpatcheditor.cpp" line="824"/>
         <source>Saving failed</source>
         <translation>Opslaan mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="667"/>
+        <location filename="inputoutputpatcheditor.cpp" line="688"/>
         <source>Unable to save the profile to %1</source>
         <translation>Opslaan als %1 lukt niet</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="704"/>
+        <location filename="inputoutputpatcheditor.cpp" line="725"/>
         <source>Delete profile</source>
         <translation>Verwijder profiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="705"/>
+        <location filename="inputoutputpatcheditor.cpp" line="726"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Profiel &quot;%1% definitief verwijderen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="733"/>
+        <location filename="inputoutputpatcheditor.cpp" line="754"/>
         <source>File deletion failed</source>
         <translation>Verwijderen bestand mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="734"/>
+        <location filename="inputoutputpatcheditor.cpp" line="755"/>
         <source>Unable to delete file %1</source>
         <translation>Verwijderen bestand %1 mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="804"/>
+        <location filename="inputoutputpatcheditor.cpp" line="825"/>
         <source>Unable to save %1 to %2</source>
         <translation>%1 opslaan als %2 mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="836"/>
+        <location filename="inputoutputpatcheditor.cpp" line="857"/>
         <source>Default device</source>
         <translation>Standaard apparaat</translation>
     </message>

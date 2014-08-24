@@ -27,45 +27,45 @@
 <context>
     <name>E131Plugin</name>
     <message>
-        <location filename="e131plugin.cpp" line="75"/>
+        <location filename="e131plugin.cpp" line="73"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Questa plugin permette la trasmissione di segnale DMX a dispositivi che supportano il protocollo di comunicazione E1.31.</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="90"/>
-        <location filename="e131plugin.cpp" line="189"/>
+        <location filename="e131plugin.cpp" line="88"/>
+        <location filename="e131plugin.cpp" line="191"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="103"/>
+        <location filename="e131plugin.cpp" line="101"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="107"/>
-        <location filename="e131plugin.cpp" line="257"/>
+        <location filename="e131plugin.cpp" line="105"/>
+        <location filename="e131plugin.cpp" line="261"/>
         <source>Status: Not open</source>
         <translation>Stato: Non aperto</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="110"/>
-        <location filename="e131plugin.cpp" line="260"/>
+        <location filename="e131plugin.cpp" line="108"/>
+        <location filename="e131plugin.cpp" line="264"/>
         <source>Status: Open</source>
         <translation>Stato: Aperto</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="112"/>
+        <location filename="e131plugin.cpp" line="110"/>
         <source>Packets sent: </source>
         <translation>Pacchetti inviati: </translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="253"/>
+        <location filename="e131plugin.cpp" line="257"/>
         <source>Input</source>
         <translation>Ingresso</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="262"/>
+        <location filename="e131plugin.cpp" line="266"/>
         <source>Packets received: </source>
         <translation>Pacchetti ricevuti: </translation>
     </message>

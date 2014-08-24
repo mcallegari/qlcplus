@@ -4,7 +4,7 @@
 <context>
     <name>DMX4Linux</name>
     <message>
-        <location filename="dmx4linux.cpp" line="98"/>
+        <location filename="dmx4linux.cpp" line="100"/>
         <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
         <translation>Aquest plugin proveeix sortida DMX per dispositius suportats per la suite de controladors DMX4Linux.</translation>
     </message>

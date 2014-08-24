@@ -4,23 +4,23 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="125"/>
+        <location filename="win32/peperoni.cpp" line="127"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation type="unfinished">このプラグインは、Peperoni DMX デバイスにDMX信号を送信します。</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="139"/>
+        <location filename="win32/peperoni.cpp" line="141"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="221"/>
-        <location filename="unix/peperoni.cpp" line="199"/>
+        <location filename="win32/peperoni.cpp" line="223"/>
+        <location filename="unix/peperoni.cpp" line="201"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">ハードウェアを再スキャンしますか？</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="96"/>
+        <location filename="unix/peperoni.cpp" line="97"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation type="unfinished">このプラグインは、Peperoni DMX デバイスとの間でDMX信号を送受信します。</translation>
     </message>
