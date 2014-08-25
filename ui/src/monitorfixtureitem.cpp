@@ -169,6 +169,8 @@ void MonitorFixtureItem::setSize(QSize size)
     // dirty workaround to correctly display right columns on one row
     if (rows == 1)
         columns = m_heads.count();
+    if (columns == 1)
+        rows = m_heads.count();
 
     //qDebug() << "Fixture columns:" << columns;
 
