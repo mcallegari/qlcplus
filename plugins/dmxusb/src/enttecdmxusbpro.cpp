@@ -36,9 +36,6 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, con
 
     setInputsNumber(1);
 
-    m_inputsMap[inputID] = 1;
-    m_outputsMap[outputID] = 1;
-
     m_out1reqCode = ENTTEC_PRO_SEND_DMX_RQ;
     m_out2reqCode = ENTTEC_PRO_SEND_DMX_RQ2;
 
