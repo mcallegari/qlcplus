@@ -51,6 +51,28 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
             this, SLOT(slotMultipageChecked(bool)));
 
     /************************************************************************
+     * Enable frame
+     ************************************************************************/
+
+    /* Connections */
+    connect(m_enableAttachButton, SIGNAL(clicked()),
+            this, SLOT(slotEnableAttachClicked()));
+    connect(m_enableDetachButton, SIGNAL(clicked()),
+            this, SLOT(slotEnableDetachClicked()));
+    connect(m_enableAutoDetectInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotEnableAutoDetectInputToggled(bool)));
+    connect(m_enableChooseInputButton, SIGNAL(clicked()),
+            this, SLOT(slotEnableChooseInputClicked()));
+
+    /* Key binding */
+    m_enableKeySequence = QKeySequence(frame->enableKeySequence());
+    m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
+
+    /* External input */
+    m_enableInputSource = frame->inputSource(VCFrame::enableInputSourceId);
+    updateEnableInputSource();
+
+    /************************************************************************
      * Next page
      ************************************************************************/
 
@@ -170,14 +192,88 @@ void VCFrameProperties::accept()
     m_frame->setTotalPagesNumber(m_totalPagesSpin->value());
 
     /* Key sequences */
+    m_frame->setEnableKeySequence(m_enableKeySequence);
     m_frame->setNextPageKeySequence(m_nextKeySequence);
     m_frame->setPreviousPageKeySequence(m_previousKeySequence);
 
     /* Input sources */
+    m_frame->setInputSource(m_enableInputSource, VCFrame::enableInputSourceId);
     m_frame->setInputSource(m_nextInputSource, VCFrame::nextPageInputSourceId);
     m_frame->setInputSource(m_previousInputSource, VCFrame::previousPageInputSourceId);
 
     QDialog::accept();
+}
+
+/************************************************************************
+ * Enable control
+ ************************************************************************/
+
+void VCFrameProperties::slotEnableAttachClicked()
+{
+    AssignHotKey ahk(this, m_enableKeySequence);
+    if (ahk.exec() == QDialog::Accepted)
+    {
+        m_enableKeySequence = QKeySequence(ahk.keySequence());
+        m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
+    }
+}
+
+void VCFrameProperties::slotEnableDetachClicked()
+{
+    m_enableKeySequence = QKeySequence();
+    m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
+}
+
+void VCFrameProperties::slotEnableChooseInputClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        if (m_enableInputSource != NULL)
+           delete m_enableInputSource;
+        m_enableInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        updateEnableInputSource();
+    }
+}
+
+void VCFrameProperties::slotEnableAutoDetectInputToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotEnableInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotEnableInputValueChanged(quint32,quint32)));
+    }
+}
+
+void VCFrameProperties::slotEnableInputValueChanged(quint32 uni, quint32 ch)
+{
+    if (m_enableInputSource != NULL)
+       delete m_enableInputSource;
+    m_enableInputSource = new QLCInputSource(uni, ch);
+    updateEnableInputSource();
+}
+
+void VCFrameProperties::updateEnableInputSource()
+{
+    QString uniName;
+    QString chName;
+
+    if (m_doc->inputOutputMap()->inputSourceNames(m_enableInputSource, uniName, chName) == true)
+    {
+        /* Display the gathered information */
+        m_enableInputUniverseEdit->setText(uniName);
+        m_enableInputChannelEdit->setText(chName);
+    }
+    else
+    {
+        m_enableInputUniverseEdit->setText(KInputNone);
+        m_enableInputChannelEdit->setText(KInputNone);
+    }
 }
 
 /****************************************************************************

@@ -44,6 +44,7 @@
 #define KXMLQLCVCFrameKey         "Key"
 #define KXMLQLCVCFrameNext        "Next"
 #define KXMLQLCVCFramePrevious    "Previous"
+#define KXMLQLCVCFrameEnable      "Enable"
 
 class VCFrame : public VCWidget
 {
@@ -57,6 +58,7 @@ public:
     /** External input source IDs */
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
+    static const quint8 enableInputSourceId;
 
     /*********************************************************************
      * Initialization
@@ -177,22 +179,29 @@ public:
      * Key sequences
      *************************************************************************/
 public:
-    /** Set the keyboard key combination for skipping to the next cue */
+    /** Set the keyboard key combination to enable/disable the frame */
+    void setEnableKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to enable/disable the frame */
+    QKeySequence enableKeySequence() const;
+
+    /** Set the keyboard key combination for skipping to the next page */
     void setNextPageKeySequence(const QKeySequence& keySequence);
 
-    /** Get the keyboard key combination for skipping to the next cue */
+    /** Get the keyboard key combination for skipping to the next page */
     QKeySequence nextPageKeySequence() const;
 
-    /** Set the keyboard key combination for skipping to the previous cue */
+    /** Set the keyboard key combination for skipping to the previous page */
     void setPreviousPageKeySequence(const QKeySequence& keySequence);
 
-    /** Get the keyboard key combination for skipping to the previous cue */
+    /** Get the keyboard key combination for skipping to the previous page */
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
     void slotFrameKeyPressed(const QKeySequence& keySequence);
 
 private:
+    QKeySequence m_enableKeySequence;
     QKeySequence m_nextPageKeySequence;
     QKeySequence m_previousPageKeySequence;
 

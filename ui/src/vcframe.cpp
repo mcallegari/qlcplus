@@ -54,6 +54,7 @@ const QSize VCFrame::defaultSize(QSize(200, 200));
 
 const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
+const quint8 VCFrame::enableInputSourceId = 2;
 
 VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
     , m_hbox(NULL)
@@ -477,6 +478,19 @@ void VCFrame::adjustIntensity(qreal val)
  * Key Sequences
  *****************************************************************************/
 
+void VCFrame::setEnableKeySequence(const QKeySequence &keySequence)
+{
+    m_enableKeySequence = QKeySequence(keySequence);
+    /* Quite a dirty workaround, but it works without interfering with other widgets */
+    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+}
+
+QKeySequence VCFrame::enableKeySequence() const
+{
+    return m_enableKeySequence;
+}
+
 void VCFrame::setNextPageKeySequence(const QKeySequence& keySequence)
 {
     m_nextPageKeySequence = QKeySequence(keySequence);
@@ -505,7 +519,9 @@ QKeySequence VCFrame::previousPageKeySequence() const
 
 void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
 {
-    if (m_previousPageKeySequence == keySequence)
+    if (m_enableKeySequence == keySequence)
+        setDisableState(!isDisabled());
+    else if (m_previousPageKeySequence == keySequence)
         slotSetPage(m_currentPage - 1);
     else if (m_nextPageKeySequence == keySequence)
         slotSetPage(m_currentPage + 1);
@@ -532,7 +548,9 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
 
     quint32 pagedCh = (page() << 16) | channel;
 
-    if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId))
+        setDisableState(!isDisabled());
+    else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
         slotSetPage(m_currentPage - 1);
     else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId))
         slotSetPage(m_currentPage + 1);
@@ -742,6 +760,30 @@ bool VCFrame::loadXML(const QDomElement* root)
             if(tag.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(tag.attribute(KXMLQLCVCFrameCurrentPage).toInt());
         }
+        else if (tag.tagName() == KXMLQLCVCFrameEnable)
+        {
+            QDomNode subNode = tag.firstChild();
+            while (subNode.isNull() == false)
+            {
+                QDomElement subTag = subNode.toElement();
+                if (subTag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = 0, ch = 0;
+                    if (loadXMLInput(subTag, &uni, &ch) == true)
+                        setInputSource(new QLCInputSource(uni, ch), enableInputSourceId);
+                }
+                else if (subTag.tagName() == KXMLQLCVCFrameKey)
+                {
+                    setEnableKeySequence(stripKeySequence(QKeySequence(subTag.text())));
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown Frame Enable tag" << subTag.tagName();
+                }
+
+                subNode = subNode.nextSibling();
+            }
+        }
         else if (tag.tagName() == KXMLQLCVCFrameNext)
         {
             QDomNode subNode = tag.firstChild();
@@ -947,8 +989,8 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
     QDomElement tag;
+    QDomElement subtag;
     QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(vc_root != NULL);
@@ -1019,11 +1061,18 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         tag.appendChild(text);
         root.appendChild(tag);
 
+        /* Enable control */
+        tag = doc->createElement(KXMLQLCVCFrameEnable);
+        root.appendChild(tag);
+        subtag = doc->createElement(KXMLQLCVCFrameKey);
+        tag.appendChild(subtag);
+        text = doc->createTextNode(m_enableKeySequence.toString());
+        subtag.appendChild(text);
+        saveXMLInput(doc, &tag, inputSource(enableInputSourceId));
+
         /* Multipage mode */
         if (multipageMode() == true)
         {
-            QDomElement subtag;
-
             tag = doc->createElement(KXMLQLCVCFrameMultipage);
             tag.setAttribute(KXMLQLCVCFramePagesNumber, totalPagesNumber());
             tag.setAttribute(KXMLQLCVCFrameCurrentPage, currentPage());
