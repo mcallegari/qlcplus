@@ -90,6 +90,7 @@ imgs.files += images/channelmodifier.png \
               images/multipage1.png \
               images/multipage2.png \
               images/multipage3.png \
-              images/multipage4.png
+              images/multipage4.png \
+              images/pan-tilt.png
 
 INSTALLS += docs imgs
