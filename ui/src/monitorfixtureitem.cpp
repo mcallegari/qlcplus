@@ -223,10 +223,16 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
     foreach(FixtureHead *head, m_heads)
     {
         uchar alpha = 255;
-        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_masterDimmer < (quint32)ua.size())
+        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            alpha = ua.at(head->m_masterDimmer);
+            if (head->m_masterDimmer < (quint32)ua.size())
+            {
+                alpha = ua.at(head->m_masterDimmer);
+            }
+            else
+            {
+                alpha = 0; // incomplete universe is sent
+            }
         }
 
         if (head->m_rgb.count() > 0)
@@ -264,17 +270,31 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
             head->m_item->setBrush(QBrush(QColor(255, 255, 255, alpha)));
         }
 
-        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_panChannel < (quint32)ua.size())
+        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            computePanPosition(head, ua.at(head->m_panChannel));
+            if (head->m_panChannel < (quint32)ua.size())
+            {
+                computePanPosition(head, ua.at(head->m_panChannel));
+            }
+            else
+            {
+                computePanPosition(head, 0);
+            }
+
             needUpdate = true;
         }
 
-        if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_tiltChannel < (quint32)ua.size())
+        if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            computeTiltPosition(head, ua.at(head->m_tiltChannel));
+            if (head->m_tiltChannel < (quint32)ua.size())
+            {
+                computeTiltPosition(head, ua.at(head->m_tiltChannel));
+            }
+            else
+            {
+                computeTiltPosition(head, 0);
+            }
+       
             needUpdate = true;
         }
     }

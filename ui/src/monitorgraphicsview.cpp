@@ -173,9 +173,7 @@ void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
         quint32 fid = it.key();
         Fixture *fxi = m_doc->fixture(fid);
         // preliminary validity checks
-        if (fxi == NULL ||
-            fxi->universe() != (quint32)index ||
-            fxi->address() > (quint32)ua.size())
+        if (fxi == NULL || fxi->universe() != (quint32)index)
         {
             continue;
         }
