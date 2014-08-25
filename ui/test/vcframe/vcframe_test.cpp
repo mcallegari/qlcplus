@@ -185,7 +185,8 @@ void VCFrame_Test::saveXML()
     QVERIFY(node.firstChild().isNull() == false);
 
     QDomNode subFrame;
-    int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0, collapsed = 0, showheader = 0;
+    int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0;
+    int collapsed = 0, showheader = 0, enabled = 0;
 
     // Parent
     node = node.firstChild();
@@ -261,6 +262,11 @@ void VCFrame_Test::saveXML()
             showheader++;
             QCOMPARE(tag.text(), QString("True"));
         }
+        else if (tag.tagName() == QString("Enabled"))
+        {
+            enabled++;
+            QCOMPARE(tag.text(), QString("True"));
+        }
         else if (tag.tagName() == QString("Frame"))
         {
             frame++;
@@ -276,6 +282,7 @@ void VCFrame_Test::saveXML()
     QCOMPARE(allowResize, 1);
     QCOMPARE(collapsed, 1);
     QCOMPARE(showheader, 1);
+    QCOMPARE(enabled, 1);
     QCOMPARE(frame, 2);
     QVERIFY(subFrame.isNull() == false);
 
@@ -313,6 +320,11 @@ void VCFrame_Test::saveXML()
             showheader++;
             QCOMPARE(tag.text(), QString("True"));
         }
+        else if (tag.tagName() == QString("Enabled"))
+        {
+            enabled++;
+            QCOMPARE(tag.text(), QString("True"));
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -324,6 +336,7 @@ void VCFrame_Test::saveXML()
     QCOMPARE(windowstate, 2);
     QCOMPARE(collapsed, 2);
     QCOMPARE(showheader, 2);
+    QCOMPARE(enabled, 2);
     QCOMPARE(frame, 2);
     QVERIFY(subFrame.isNull() == true);
 }

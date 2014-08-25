@@ -319,7 +319,7 @@ void InputOutputMap_Test::setOutputPatch()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == true);
+    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == false);
     QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
@@ -408,7 +408,7 @@ void InputOutputMap_Test::slotConfigurationChanged()
     QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString, bool)));
     stub->configure();
     QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy.at(0).size(), 1);
+    QCOMPARE(spy.at(0).size(), 2);
     QCOMPARE(spy.at(0).at(0).toString(), QString(stub->name()));
 }
 
