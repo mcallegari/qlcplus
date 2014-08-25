@@ -108,7 +108,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         if (head.tiltMsbChannel() != QLCChannel::invalid())
         {
             fxiItem->m_tiltChannel = head.tiltMsbChannel() + fxi->address();
-            // retrieve the PAN max degrees from the fixture mode
+            // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
             if (mode != NULL)
@@ -334,35 +334,28 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawRect(0, 0, m_width, m_height);
     foreach (FixtureHead *head, m_heads)
     {
-        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
-        {
-            painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
-            painter->drawArc(head->m_item->rect().adjusted(-2 * MOVEMENT_THICKNESS, -2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS),
-                270 * 16 + head->m_panMaxDegrees * 16 / 2 - 8,
-                16);
-            painter->drawArc(head->m_item->rect().adjusted(-2 * MOVEMENT_THICKNESS, -2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS),
-                270 * 16 + head->m_panMaxDegrees * 16 / 2 - 8,
-                16);
-            painter->setPen(QPen(QColor("purple"), MOVEMENT_THICKNESS));
-            painter->drawArc(head->m_item->rect().adjusted(-2 * MOVEMENT_THICKNESS, -2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS, 2 * MOVEMENT_THICKNESS),
-                270 * 16,
-                - head->m_panDegrees * 16);
-
-        }
+        QRectF rect = head->m_item->rect();
 
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+            
             painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
-            painter->drawArc(head->m_item->rect().adjusted(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS),
-                270 * 16 - head->m_tiltMaxDegrees * 16 / 2 - 8,
-                16);
-            painter->drawArc(head->m_item->rect().adjusted(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS),
-                270 * 16 + head->m_tiltMaxDegrees * 16 / 2 - 8,
-                16);
+            painter->drawArc(rect, 270 * 16 - head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
+            painter->drawArc(rect, 270 * 16 + head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
             painter->setPen(QPen(QColor("turquoise"), MOVEMENT_THICKNESS));
-            painter->drawArc(head->m_item->rect().adjusted(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS),
-                270 * 16,
-                - head->m_tiltDegrees * 16);
+            painter->drawArc(rect, 270 * 16, - head->m_tiltDegrees * 16);
+        }
+
+        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
+        {
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+
+            painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16 - head->m_panMaxDegrees * 16 / 2 - 8, 16);
+            painter->drawArc(rect, 270 * 16 + head->m_panMaxDegrees * 16 / 2 - 8, 16);
+            painter->setPen(QPen(QColor("purple"), MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16, - head->m_panDegrees * 16);
         }
     }
 
