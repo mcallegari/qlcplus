@@ -3305,7 +3305,9 @@ p, li { white-space: pre-wrap; }
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
-        <translation type="unfinished"></translation>
+        <translation>A ocorregut un error mentre s&apos;estava intentant obrir la línia del dispositiu seleccionat..
+Això pot ser degut a una configuració errònea del sistema o a un modus d&apos;entrada/sortida no suportat.
+Si us plau, consulteu la documentació dels plugins per solucionar això.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="663"/>
