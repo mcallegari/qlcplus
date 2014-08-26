@@ -90,8 +90,8 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
 
     // Bounce the QSet into a QStringList
     QStringList list;
-    foreach (QString manuf, models)
-        list << manuf;
+    foreach (QString model, models)
+        list << model;
 
     return list;
 }
@@ -233,6 +233,33 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         qWarning() << Q_FUNC_INFO << mapPath
                    << "is not a fixture map file";
         return false;
+    }
+
+    /* Attempt to read all files not in FixtureMap */
+    QStringList definitionPaths;
+
+    {
+        // Gather a list of manufacturers
+        QListIterator <QLCFixtureDef*> it(m_defs);
+        while (it.hasNext() == true)
+            definitionPaths << it.next()->definitionSourceFile();
+    }
+
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path(dir.absoluteFilePath(it.next()));
+        if (definitionPaths.contains(path))
+            continue;
+
+        qWarning() << path << "not in" << FIXTURES_MAP_NAME;
+
+        if (path.toLower().endsWith(KExtFixture) == true)
+            loadQXF(path);
+        else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
+            loadD4(path);
+        else
+            qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
     }
 
     return true;
