@@ -115,8 +115,8 @@ bool DMXUSBWidget::close(quint32 line, bool input)
 
     qDebug() << Q_FUNC_INFO << "Line:" << line << ", Input mask:" << m_inputOpenMask << ", Output Mask:" << m_outputOpenMask;
 
-    if (isOpen() == false)
-        return true;
+    //if (isOpen() == false)
+    //    return true;
 
     if (m_inputOpenMask == 0 && m_outputOpenMask == 0)
     {

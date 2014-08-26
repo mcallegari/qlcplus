@@ -416,7 +416,13 @@ void EnttecDMXUSBPro::run()
 bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
 {
     if (isOpen() == false)
+    {
+        qDebug() << "[DMXUSB] writeUniverse: device is not open !";
         return false;
+    }
+
+    if (m_outputsMap.contains(output))
+    qDebug() << "[DMXUSB] writeUniverse: send data to output" << output << ", line:" << m_outputsMap[output];
 
     QByteArray request(data);
 
@@ -457,7 +463,6 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
                     return false;
                 }
             }
-
         }
     }
     else
