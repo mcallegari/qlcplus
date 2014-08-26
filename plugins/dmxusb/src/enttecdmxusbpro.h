@@ -48,8 +48,8 @@
 
 #define DMXKING_USB_DEVICE_MANUFACTURER 0x4D
 #define DMXKING_USB_DEVICE_NAME         0x4E
-#define DMXKING_SEND_DMX_PORT1          0x64
-#define DMXKING_SEND_DMX_PORT2          0x65
+#define DMXKING_SEND_DMX_PORT1          char(0x64)
+#define DMXKING_SEND_DMX_PORT2          char(0x65)
 
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
@@ -133,8 +133,8 @@ public:
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
-    uchar m_out1reqCode;
-    uchar m_out2reqCode;
+    char m_out1reqCode;
+    char m_out2reqCode;
     QByteArray m_outUniverse;
 };
 
