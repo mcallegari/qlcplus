@@ -36,9 +36,6 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, con
 
     setInputsNumber(1);
 
-    m_out1reqCode = ENTTEC_PRO_SEND_DMX_RQ;
-    m_out2reqCode = ENTTEC_PRO_SEND_DMX_RQ2;
-
     // Bypass rts setting by calling parent class' open method
     if (DMXUSBWidget::open() == true)
         extractSerial();
@@ -79,8 +76,6 @@ void EnttecDMXUSBPro::setMidiPortsNumber(int inputs, int outputs)
 void EnttecDMXUSBPro::setDMXKingMode()
 {
     m_dmxKingMode = true;
-    m_out1reqCode = DMXKING_SEND_DMX_PORT1;
-    m_out2reqCode = DMXKING_SEND_DMX_PORT2;
 }
 
 QString EnttecDMXUSBPro::additionalInfo() const
@@ -469,9 +464,19 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
         request.prepend((data.size() + 1) & 0xff); // Data length LSB
 
         if (m_outputsMap[output] == 1)
-            request.prepend(m_out2reqCode); // Command - second port
+        {
+            if (m_dmxKingMode)
+                request.prepend(DMXKING_SEND_DMX_PORT2); // Command - second port
+            else
+                request.prepend(ENTTEC_PRO_SEND_DMX_RQ2); // Command - second port
+        }
         else
-            request.prepend(m_out1reqCode); // Command - first port
+        {
+            if (m_dmxKingMode)
+                request.prepend(DMXKING_SEND_DMX_PORT1); // Command - first port
+            else
+                request.prepend(ENTTEC_PRO_SEND_DMX_RQ); // Command - first port
+        }
 
         request.prepend(ENTTEC_PRO_START_OF_MSG); // Start byte
         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte

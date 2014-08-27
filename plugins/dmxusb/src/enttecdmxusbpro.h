@@ -133,8 +133,6 @@ public:
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
-    char m_out1reqCode;
-    char m_out2reqCode;
     QByteArray m_outUniverse;
 };
 
