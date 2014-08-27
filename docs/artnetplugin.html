@@ -26,6 +26,11 @@ QLC+ Universe 1 --> AtNet Universe 0<br>
 QLC+ Universe 2 --> AtNet Universe 1<br>
 ...<br>
 QLC+ Universe 8 --> AtNet Universe 7<br>
+<br>
+This choice is due to some facts:<br>
+1- The first valid ArtNet universe is 0 and not 1<br>
+2- The first universe accepted by commercial ArtNet-DMX devices like eDMX and ODE is 0, so 
+to have QLC+ to work out of the box, the first ArtNet universe must be 0.<br>
 </P>
 
 <H1>Configuration</H1>
@@ -41,7 +46,10 @@ by network interface.
 <P>
 If you own one of these devices, they both have configuration tools that might come handy
 when working with QLC+. With them you can set several parameters to match the best
-configuration to input/output data from/to QLC+.<br><br>
+configuration to input/output data from/to QLC+.<br>
+For example if you want QLC+ universe 3 to output data on the first port of a eDMX,
+you need to use the tool below to change the device universe address to 2.<br>
+<br>
 Here the links to download the tools:<br>
 <A href="http://dmxking.com/downloads/eDMX_Configuration.zip">DMXKing eDMX Configuration tool</A><br>
 <A href="http://www.enttec.com/?main_menu=Products&pn=79001">ENTTEC Node Management Utility</A><br>

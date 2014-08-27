@@ -3,7 +3,8 @@ qlcplus (4.7.5) stable; urgency=low
   * NEW: Virtual Console: Sliders in level mode can now represent the channels they control only if they have all the same value
   * NEW: Virtual Console: Frames can now be enabled/disabled
   * NEW: Input Profile Editor: a slider can now be set to behave in relative or absolute mode
-  * NEW: Monitor: it is now possible to set a background picture for each function
+  * NEW: Monitor/2D: it is now possible to set a background picture for each function
+  * Monitor/2D: representation of pan/tilt is now made of circles. See documentation (Jano Svitok)
   * Plugins/DMXUSB: fixed simultaneous Input/Output on Pro devices. Added MIDI IO support to Pro Mk2
   * Plugins/ArtNet: revert universe ID numbering. QLC+ outputs data on ArtNet universe -1 (see documentation)
   * Show Manager: fixed 4.7.4 regression on time cursor position
