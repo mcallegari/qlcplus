@@ -43,7 +43,6 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     , m_tree(new QTreeWidget(this))
     , m_refreshButton(new QPushButton(tr("Refresh"), this))
     , m_closeButton(new QPushButton(tr("Close"), this))
-    , m_ignoreItemChanged(false)
 {
     Q_ASSERT(plugin != NULL);
 
@@ -101,8 +100,6 @@ void DMXUSBConfig::slotRefresh()
 {
     m_plugin->rescanWidgets();
 
-    m_ignoreItemChanged = true;
-
     m_tree->clear();
     QListIterator <DMXUSBWidget*> it(m_plugin->widgets());
     while (it.hasNext() == true)
@@ -116,8 +113,6 @@ void DMXUSBConfig::slotRefresh()
 
     m_tree->resizeColumnToContents(COL_NAME);
     m_tree->resizeColumnToContents(COL_SERIAL);
-
-    m_ignoreItemChanged = false;
 }
 
 QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)

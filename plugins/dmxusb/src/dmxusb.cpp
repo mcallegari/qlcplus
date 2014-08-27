@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   dmxusb.cpp
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -65,14 +66,13 @@ bool DMXUSB::rescanWidgets()
 
     foreach (DMXUSBWidget* widget, m_widgets)
     {
-        for (int i = 0; i < widget->outputsNumber(); i++)
-            m_outputs << widget;
+        for (int o = 0; o < widget->outputsNumber(); o++)
+            m_outputs.append(widget);
 
         for (int i = 0; i < widget->inputsNumber(); i++)
-            m_inputs << widget;
+            m_inputs.append(widget);
     }
 
-    emit configurationChanged();
     return true;
 }
 
@@ -278,6 +278,7 @@ void DMXUSB::configure()
     DMXUSBConfig config(this);
     config.exec();
     rescanWidgets();
+    emit configurationChanged();
 }
 
 bool DMXUSB::canConfigure()

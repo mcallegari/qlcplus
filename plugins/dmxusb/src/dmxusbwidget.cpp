@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   dmxusbwidget.cpp
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -37,6 +38,7 @@ DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QSt
 
 DMXUSBWidget::~DMXUSBWidget()
 {
+    //m_ftdi->close();
     delete m_ftdi;
 }
 
@@ -115,13 +117,13 @@ bool DMXUSBWidget::close(quint32 line, bool input)
 
     qDebug() << Q_FUNC_INFO << "Line:" << line << ", Input mask:" << m_inputOpenMask << ", Output Mask:" << m_outputOpenMask;
 
-    //if (isOpen() == false)
-    //    return true;
-
     if (m_inputOpenMask == 0 && m_outputOpenMask == 0)
     {
         qDebug() << Q_FUNC_INFO << "All inputs/outputs have been closed. Close FTDI too.";
-        return m_ftdi->close();
+        if (m_ftdi->isOpen())
+            return m_ftdi->close();
+        else
+            return true;
     }
 
     return true;
