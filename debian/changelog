@@ -4,7 +4,8 @@ qlcplus (4.7.5) stable; urgency=low
   * NEW: Virtual Console: Frames can now be enabled/disabled
   * NEW: Input Profile Editor: a slider can now be set to behave in relative or absolute mode
   * NEW: Monitor: it is now possible to set a background picture for each function
-  * Plugins/DMXUSB: fixed simultaneous Input/Output on Pro devices. Added MIDI IO support to Pro Mk2.
+  * Plugins/DMXUSB: fixed simultaneous Input/Output on Pro devices. Added MIDI IO support to Pro Mk2
+  * Plugins/ArtNet: revert universe ID numbering. QLC+ outputs data on ArtNet universe -1 (see documentation)
   * Show Manager: fixed 4.7.4 regression on time cursor position
   * Show Manager: show names in the drop down list are now sorted alphabetically (thanks to David Garyga)
   * Simple Desk: channel groups are now correctly updated
