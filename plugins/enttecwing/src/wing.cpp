@@ -21,6 +21,7 @@
 #include <QMessageBox>
 #include <QByteArray>
 #include <QString>
+#include <QDebug>
 
 #include "wing.h"
 

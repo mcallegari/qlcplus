@@ -22,6 +22,7 @@
 #include <QByteArray>
 #include <QUdpSocket>
 #include <QString>
+#include <QDebug>
 
 #include "playbackwing.h"
 

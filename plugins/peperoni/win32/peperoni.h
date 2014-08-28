@@ -98,7 +98,7 @@ protected:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input) { Q_UNUSED(input); }
+    bool openInput(quint32 input) { Q_UNUSED(input); return false; }
 
     /** @reimp */
     void closeInput(quint32 input) { Q_UNUSED(input); }
