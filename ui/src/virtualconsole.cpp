@@ -1656,6 +1656,11 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
 
         // Hide toolbar; there's nothing usable there in operate mode
         m_toolbar->hide();
+
+        // Make sure the virtual console contents has the focus.
+        // Without this, key combinations don't work unless
+        // the user clicks on some VC area
+        m_contents->setFocus();
     }
     else
     {

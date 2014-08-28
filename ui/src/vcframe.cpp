@@ -738,10 +738,10 @@ bool VCFrame::loadXML(const QDomElement* root)
             if (tag.text() == KXMLQLCTrue && m_collapseButton != NULL)
                 m_collapseButton->toggle();
         }
-        else if (tag.tagName() == KXMLQLCVCFrameIsEnabled)
+        else if (tag.tagName() == KXMLQLCVCFrameIsDisabled)
         {
             /* Enabled */
-            if (tag.text() == KXMLQLCFalse)
+            if (tag.text() == KXMLQLCTrue)
                 disableState = true;
         }
         else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
@@ -760,7 +760,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             if(tag.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(tag.attribute(KXMLQLCVCFrameCurrentPage).toInt());
         }
-        else if (tag.tagName() == KXMLQLCVCFrameEnable)
+        else if (tag.tagName() == KXMLQLCVCFrameEnableSource)
         {
             QDomNode subNode = tag.firstChild();
             while (subNode.isNull() == false)
@@ -1053,16 +1053,16 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         root.appendChild(tag);
 
         /* Disabled */
-        tag = doc->createElement(KXMLQLCVCFrameIsEnabled);
+        tag = doc->createElement(KXMLQLCVCFrameIsDisabled);
         if (isDisabled())
-            text = doc->createTextNode(KXMLQLCFalse);
-        else
             text = doc->createTextNode(KXMLQLCTrue);
+        else
+            text = doc->createTextNode(KXMLQLCFalse);
         tag.appendChild(text);
         root.appendChild(tag);
 
         /* Enable control */
-        tag = doc->createElement(KXMLQLCVCFrameEnable);
+        tag = doc->createElement(KXMLQLCVCFrameEnableSource);
         root.appendChild(tag);
         subtag = doc->createElement(KXMLQLCVCFrameKey);
         tag.appendChild(subtag);

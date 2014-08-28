@@ -36,7 +36,8 @@
 #define KXMLQLCVCFrameAllowResize   "AllowResize"
 #define KXMLQLCVCFrameShowHeader    "ShowHeader"
 #define KXMLQLCVCFrameIsCollapsed   "Collapsed"
-#define KXMLQLCVCFrameIsEnabled     "Enabled"
+#define KXMLQLCVCFrameIsDisabled    "Disabled"
+#define KXMLQLCVCFrameEnableSource  "Enable"
 
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
@@ -44,7 +45,6 @@
 #define KXMLQLCVCFrameKey         "Key"
 #define KXMLQLCVCFrameNext        "Next"
 #define KXMLQLCVCFramePrevious    "Previous"
-#define KXMLQLCVCFrameEnable      "Enable"
 
 class VCFrame : public VCWidget
 {
