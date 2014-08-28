@@ -36,11 +36,14 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, con
 
     setInputsNumber(1);
 
+// This never worked anyway. Just stick to the USB serial number
+/*
     // Bypass rts setting by calling parent class' open method
-    if (DMXUSBWidget::open() == true)
+    if (DMXUSBWidget::open(outputID) == true)
         extractSerial();
 
-    close();
+    close(outputID);
+*/
 }
 
 EnttecDMXUSBPro::~EnttecDMXUSBPro()

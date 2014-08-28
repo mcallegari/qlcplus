@@ -38,7 +38,6 @@ DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QSt
 
 DMXUSBWidget::~DMXUSBWidget()
 {
-    //m_ftdi->close();
     delete m_ftdi;
 }
 
