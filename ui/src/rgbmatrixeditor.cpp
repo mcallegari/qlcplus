@@ -242,7 +242,11 @@ void RGBMatrixEditor::updateSpeedDials()
 
 void RGBMatrixEditor::fillPatternCombo()
 {
+    // lock to avoid running scripts in both the ui thread and the engine thread
+    // (rgbscript algorithm creation runs scripts)
+    m_matrix->lockAlgorithm();
     m_patternCombo->addItems(RGBAlgorithm::algorithms(m_doc));
+    m_matrix->unlockAlgorithm();
     if (m_matrix->algorithm() != NULL)
     {
         int index = m_patternCombo->findText(m_matrix->algorithm()->name());
@@ -346,6 +350,10 @@ bool RGBMatrixEditor::createPreviewItems()
 {
     m_previewHash.clear();
     m_scene->clear();
+
+    // No preview in operate mode, too coslty
+    if (m_doc->mode() == Doc::Operate)
+        return false;
 
     FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
@@ -510,9 +518,11 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
+    // lock to avoid running scripts in both the ui thread and the engine thread
+    // (rgbscript algorithm creation runs scripts)
+    m_matrix->lockAlgorithm();
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
+    m_matrix->unlockAlgorithm();
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
     updateExtraOptions();
@@ -522,8 +532,6 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
 
 void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     QVariant var = m_fixtureGroupCombo->itemData(index);
     if (var.isValid() == true)
     {
@@ -540,8 +548,6 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 
 void RGBMatrixEditor::slotStartColorButtonClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->startColor());
     if (col.isValid() == true)
     {
@@ -556,8 +562,6 @@ void RGBMatrixEditor::slotStartColorButtonClicked()
 
 void RGBMatrixEditor::slotEndColorButtonClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->endColor());
     if (col.isValid() == true)
     {
@@ -572,8 +576,6 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
 
 void RGBMatrixEditor::slotResetEndColorButtonClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setEndColor(QColor());
     m_matrix->calculateColorDelta();
     QPixmap pm(100, 26);
@@ -584,13 +586,13 @@ void RGBMatrixEditor::slotResetEndColorButtonClicked()
 
 void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setText(text);
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 }
@@ -606,7 +608,9 @@ void RGBMatrixEditor::slotFontButtonClicked()
         QFont font = QFontDialog::getFont(&ok, algo->font(), this);
         if (ok == true)
         {
+            m_matrix->lockAlgorithm();
             algo->setFont(font);
+            m_matrix->unlockAlgorithm();
             slotRestartTest();
         }
     }
@@ -618,7 +622,9 @@ void RGBMatrixEditor::slotAnimationActivated(const QString& text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 }
@@ -629,7 +635,9 @@ void RGBMatrixEditor::slotImageEdited()
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setFilename(m_imageEdit->text());
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 }
@@ -648,7 +656,9 @@ void RGBMatrixEditor::slotImageButtonClicked()
                                             QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
+            m_matrix->lockAlgorithm();
             algo->setFilename(path);
+            m_matrix->unlockAlgorithm();
             m_imageEdit->setText(path);
             slotRestartTest();
         }
@@ -661,7 +671,9 @@ void RGBMatrixEditor::slotImageAnimationActivated(const QString& text)
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 }
@@ -672,8 +684,10 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setXOffset(m_xOffsetSpin->value());
         algo->setYOffset(m_yOffsetSpin->value());
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 
@@ -681,16 +695,16 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
+        m_matrix->lockAlgorithm();
         algo->setXOffset(m_xOffsetSpin->value());
         algo->setYOffset(m_yOffsetSpin->value());
+        m_matrix->unlockAlgorithm();
         slotRestartTest();
     }
 }
 
 void RGBMatrixEditor::slotLoopClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::Loop);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -698,8 +712,6 @@ void RGBMatrixEditor::slotLoopClicked()
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::PingPong);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -707,8 +719,6 @@ void RGBMatrixEditor::slotPingPongClicked()
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::SingleShot);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -716,8 +726,6 @@ void RGBMatrixEditor::slotSingleShotClicked()
 
 void RGBMatrixEditor::slotForwardClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Forward);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -725,8 +733,6 @@ void RGBMatrixEditor::slotForwardClicked()
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
-    if (m_testButton->isChecked() == true)
-        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Backward);
     m_matrix->calculateColorDelta();
     slotRestartTest();

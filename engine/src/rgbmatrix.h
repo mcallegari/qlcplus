@@ -26,6 +26,7 @@
 #include <QSize>
 #include <QPair>
 #include <QMap>
+#include <QMutex>
 
 #include "rgbscript.h"
 #include "function.h"
@@ -87,6 +88,11 @@ public:
 
 private:
     RGBAlgorithm* m_algorithm;
+    QMutex m_algorithmMutex;
+
+public:
+    void lockAlgorithm() { m_algorithmMutex.lock(); }
+    void unlockAlgorithm() { m_algorithmMutex.unlock(); }
 
     /************************************************************************
      * Colour
