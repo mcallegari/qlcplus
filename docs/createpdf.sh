@@ -21,6 +21,7 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   addrgbpanel.html \
   fixturegroupeditor.html \
   channelsgroupeditor.html \
+  channelproperties.html \
   fixturesremap.html \
   howto-add-fixtures.html \
   functionmanager.html \

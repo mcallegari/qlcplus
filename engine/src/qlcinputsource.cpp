@@ -17,25 +17,51 @@
   limitations under the License.
 */
 
-#include <QtCore>
+#include <QMutexLocker>
+#include <QDebug>
+
+#if defined(WIN32) || defined (Q_OS_WIN)
+ #include <Windows.h>
+#endif
 
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
-#include "inputpatch.h"
+#include "qlcmacros.h"
 
 quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;
 
-QLCInputSource::QLCInputSource()
-    : m_universe(invalidUniverse)
+QLCInputSource::QLCInputSource(QThread *parent)
+    : QThread(parent)
+    , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
+    , m_workingMode(Absolute)
+    , m_sensitivity(20)
+    , m_inputValue(0)
+    , m_outputValue(0)
+    , m_running(false)
 {
 }
 
-QLCInputSource::QLCInputSource(quint32 universe, quint32 channel)
-    : m_universe(universe)
+QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *parent)
+    : QThread(parent)
+    , m_universe(universe)
     , m_channel(channel)
+    , m_workingMode(Absolute)
+    , m_sensitivity(20)
+    , m_inputValue(0)
+    , m_outputValue(0)
+    , m_running(false)
 {
+}
+
+QLCInputSource::~QLCInputSource()
+{
+    if (m_running == true)
+    {
+        m_running = false;
+        wait();
+    }
 }
 
 bool QLCInputSource::isValid() const
@@ -44,26 +70,6 @@ bool QLCInputSource::isValid() const
         return true;
     else
         return false;
-}
-
-QLCInputSource& QLCInputSource::operator=(const QLCInputSource& source)
-{
-    setUniverse(source.universe());
-    setChannel(source.channel());
-    return *this;
-}
-
-bool QLCInputSource::operator==(const QLCInputSource& source) const
-{
-    if (isValid() == true && source.isValid() == true &&
-        universe() == source.universe() && channel() == source.channel())
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 void QLCInputSource::setUniverse(quint32 uni)
@@ -95,5 +101,106 @@ void QLCInputSource::setPage(ushort pgNum)
 ushort QLCInputSource::page() const
 {
     return (ushort)(m_channel >> 16);
+}
+
+/*********************************************************************
+ * Working mode
+ *********************************************************************/
+
+QLCInputSource::WorkingMode QLCInputSource::workingMode() const
+{
+    return m_workingMode;
+}
+
+void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
+{
+    m_workingMode = mode;
+
+    if (m_workingMode == Relative && m_running == false)
+    {
+        m_inputValue = 127;
+        m_running = true;
+        start();
+    }
+    else if (m_workingMode == Absolute && m_running == true)
+    {
+        m_running = false;
+        wait();
+        qDebug() << Q_FUNC_INFO << "Thread stopped for universe" << m_universe << "channel" << m_channel;
+    }
+}
+
+bool QLCInputSource::isRelative()
+{
+    if (m_workingMode == Relative)
+        return true;
+
+    return false;
+}
+
+int QLCInputSource::sensitivity() const
+{
+    return m_sensitivity;
+}
+
+void QLCInputSource::setSensitivity(int value)
+{
+    m_sensitivity = value;
+}
+
+void QLCInputSource::updateInputValue(uchar value)
+{
+    QMutexLocker locker(&m_mutex);
+    m_inputValue = value;
+}
+
+void QLCInputSource::updateOuputValue(uchar value)
+{
+    QMutexLocker locker(&m_mutex);
+    m_outputValue = value;
+}
+
+void QLCInputSource::run()
+{
+    qDebug() << Q_FUNC_INFO << "Thread started for universe" << m_universe << "channel" << m_channel;
+
+    uchar inputValueCopy = m_inputValue;
+    double dValue = m_outputValue;
+    uchar lastOutputValue = m_outputValue;
+    bool movementOn = false;
+
+    while (m_running == true)
+    {
+#if defined(WIN32) || defined (Q_OS_WIN)
+        Sleep(50);
+#else
+        usleep(50000);
+#endif
+
+        QMutexLocker locker(&m_mutex);
+
+        if (lastOutputValue != m_outputValue)
+            dValue = m_outputValue;
+
+        if (inputValueCopy != m_inputValue || movementOn == true)
+        {
+            movementOn = false;
+            inputValueCopy = m_inputValue;
+            double moveAmount = 127 - inputValueCopy;
+            if (moveAmount != 0)
+            {
+                dValue -= (moveAmount / m_sensitivity);
+                dValue = CLAMP(dValue, 0, 255);
+
+                uchar newDmxValue = uchar(dValue);
+                //qDebug() << "double value:" << dValue << "uchar val:" << newDmxValue;
+                if (newDmxValue != m_outputValue)
+                    emit inputValueChanged(m_universe, m_channel, newDmxValue);
+
+                movementOn = true;
+            }
+            lastOutputValue = m_outputValue;
+        }
+    }
 }
 

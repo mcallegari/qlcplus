@@ -71,9 +71,9 @@ lessThan(QT_MAJOR_VERSION, 5) {
                          $$(QTDIR)/bin/Qt5OpenGLd.dll \
                          $$(QTDIR)/bin/Qt5Multimediad.dll \
                          $$(QTDIR)/bin/Qt5MultimediaWidgetsd.dll 
-    qtlibs.files += $$(QTDIR)/bin/icudt51.dll \
-                    $$(QTDIR)/bin/icuin51.dll \
-                    $$(QTDIR)/bin/icuuc51.dll
+    qtlibs.files += $$(QTDIR)/bin/icudt52.dll \
+                    $$(QTDIR)/bin/icuin52.dll \
+                    $$(QTDIR)/bin/icuuc52.dll
 }
     INSTALLS += qtlibs
 

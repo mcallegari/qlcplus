@@ -28,6 +28,11 @@
 
 #include <QtGlobal>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
+
 /*!
  * Audio formats
  */
@@ -99,5 +104,7 @@ private:
     int m_chan;
     AudioFormat m_format;
 };
+
+/** @} */
 
 #endif

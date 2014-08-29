@@ -26,6 +26,10 @@
 
 #include "rgbalgorithm.h"
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 #define KXMLQLCRGBImage "Image"
 
 class RGBImage : public RGBAlgorithm
@@ -108,5 +112,7 @@ public:
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
 };
+
+/** @} */
 
 #endif

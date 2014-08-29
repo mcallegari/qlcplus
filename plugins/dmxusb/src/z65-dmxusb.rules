@@ -3,9 +3,10 @@
 # for devices with VID==0403 and PID==6001 (meaning FTDI-based devices), and
 # set their device nodes' permissions so that ALL users can read and write to
 # them. The devices nodes are found under /dev/bus/usb/xxx/yyy.
+
+# Generic FTDI Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
-SUBSYSTEM=="usb*", ACTION=="add|change", SYSFS{idVendor}=="0403", SYSFS{idProduct}=="6001", MODE="0666"
 
 # DMX4ALL Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="c850", MODE="0666"
-SUBSYSTEM=="usb*", ACTION=="add|change", SYSFS{idVendor}=="0403", SYSFS{idProduct}=="c850", MODE="0666"
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2018", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"

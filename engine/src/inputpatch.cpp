@@ -60,8 +60,10 @@ InputPatch::~InputPatch()
  * Properties
  *****************************************************************************/
 
-void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile)
+bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile)
 {
+    bool result = false;
+
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
         disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
@@ -78,7 +80,7 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     {
         connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
                 this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
-        m_plugin->openInput(m_input);
+        result = m_plugin->openInput(m_input);
 
         if (m_profile != NULL)
         {
@@ -99,9 +101,10 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
             }
         }
     }
+    return result;
 }
 
-void InputPatch::reconnect()
+bool InputPatch::reconnect()
 {
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
@@ -111,8 +114,9 @@ void InputPatch::reconnect()
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        m_plugin->openInput(m_input);
+        return m_plugin->openInput(m_input);
     }
+    return false;
 }
 
 QLCIOPlugin* InputPatch::plugin() const

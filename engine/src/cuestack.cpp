@@ -19,6 +19,7 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <qmath.h>
 #include <QDebug>
 #include <QHash>
 
@@ -433,7 +434,7 @@ void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
             FadeChannel fc;
             fc.setChannel(it.key());
             fc.setTarget(it.value());
-            int uni = floor(fc.channel() / 512);
+            int uni = qFloor(fc.channel() / 512);
             if (uni < ua.size())
                 ua[uni]->write(fc.channel() - (uni * 512), fc.target());
         }

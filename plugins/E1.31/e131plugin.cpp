@@ -29,8 +29,6 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-    QSettings settings;
-
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
@@ -119,10 +117,13 @@ QString E131Plugin::outputInfo(quint32 output)
     return str;
 }
 
-void E131Plugin::openOutput(quint32 output)
+bool E131Plugin::openOutput(quint32 output)
 {
+    if (m_IOmapping.count() == 0)
+        init();
+
     if (output >= (quint32)m_IOmapping.length())
-        return;
+        return false;
 
     qDebug() << "Open output with address :" << m_IOmapping.at(output).IPAddress;
 
@@ -132,7 +133,7 @@ void E131Plugin::openOutput(quint32 output)
         m_IOmapping[output].controller->setType(
                     (E131Controller::Type)(m_IOmapping[output].controller->type() | E131Controller::Output));
         m_IOmapping[output].controller->changeReferenceCount(E131Controller::Output, +1);
-        return;
+        return true;
     }
 
     // not open ? Create a new E131Controller
@@ -141,6 +142,7 @@ void E131Plugin::openOutput(quint32 output)
                                                     E131Controller::Output, output, this);
     m_IOmapping[output].controller = controller;
 
+    return true;
 }
 
 void E131Plugin::closeOutput(quint32 output)
@@ -192,13 +194,13 @@ QStringList E131Plugin::inputs()
     return list;
 }
 
-void E131Plugin::openInput(quint32 input)
+bool E131Plugin::openInput(quint32 input)
 {
     if (m_IOmapping.count() == 0)
         init();
 
     if (input >= (quint32)m_IOmapping.length())
-        return;
+        return false;
 
     qDebug() << "Open input with address :" << m_IOmapping.at(input).IPAddress;
 
@@ -208,7 +210,7 @@ void E131Plugin::openInput(quint32 input)
         m_IOmapping[input].controller->setType(
                     (E131Controller::Type)(m_IOmapping[input].controller->type() | E131Controller::Input));
         m_IOmapping[input].controller->changeReferenceCount(E131Controller::Input, +1);
-        return;
+        return true;
     }
 
     // not open ? Create a new ArtNetController
@@ -218,6 +220,8 @@ void E131Plugin::openInput(quint32 input)
     connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
             this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
+
+    return true;
 }
 
 void E131Plugin::closeInput(quint32 input)

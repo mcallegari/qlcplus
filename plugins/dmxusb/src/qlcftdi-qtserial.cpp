@@ -117,9 +117,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
         qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 
-        if (info.vendorIdentifier() != QLCFTDI::VID)
+        if (info.vendorIdentifier() != QLCFTDI::FTDIVID)
             continue;
-        if (info.productIdentifier() != QLCFTDI::PID &&
+        if (info.productIdentifier() != QLCFTDI::FTDIPID &&
             info.productIdentifier() != QLCFTDI::DMX4ALLPID)
             continue;
 
@@ -149,7 +149,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 widgetList << prorx;
                 break;
             }
-            case DMXUSBWidget::UltraProTx:
+            case DMXUSBWidget::UltraPro:
             {
                 UltraDMXUSBProTx* protx = new UltraDMXUSBProTx(serial, name, vendor, 1, NULL, id);
                 widgetList << protx;
@@ -214,7 +214,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         }
         else if (info.productIdentifier() == QLCFTDI::DMX4ALLPID)
         {
-            widgetList << new DMX4ALL(serial, name, vendor, NULL, id++);
+            widgetList << new Stageprofi(serial, name, vendor, NULL, id++);
         }
         else if (name.toUpper().contains("USB-DMX512 CONVERTER") == true)
         {

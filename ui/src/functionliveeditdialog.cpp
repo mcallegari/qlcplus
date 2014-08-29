@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "functionliveeditdialog.h"
 #include "rgbmatrixeditor.h"
 #include "chasereditor.h"

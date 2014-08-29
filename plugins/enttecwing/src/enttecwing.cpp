@@ -56,7 +56,7 @@ int EnttecWing::capabilities() const
     return QLCIOPlugin::Input;
 }
 
-void EnttecWing::reBindSocket()
+bool EnttecWing::reBindSocket()
 {
     if (m_socket->state() == QAbstractSocket::BoundState)
         m_socket->close();
@@ -65,21 +65,23 @@ void EnttecWing::reBindSocket()
     {
         m_errorString = m_socket->errorString();
         qWarning() << Q_FUNC_INFO << m_errorString;
+        return false;
     }
     else
     {
         m_errorString.clear();
     }
+    return true;
 }
 
 /*****************************************************************************
  * Inputs
  *****************************************************************************/
 
-void EnttecWing::openInput(quint32 input)
+bool EnttecWing::openInput(quint32 input)
 {
     Q_UNUSED(input);
-    reBindSocket();
+    return reBindSocket();
 }
 
 void EnttecWing::closeInput(quint32 input)

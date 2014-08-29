@@ -78,6 +78,9 @@ public:
     VCXYPad(QWidget* parent, Doc* doc);
     virtual ~VCXYPad();
 
+    /** @reimp */
+    void enableWidgetUI(bool enable);
+
 private:
     QHBoxLayout* m_hbox;
     QVBoxLayout* m_lvbox; // left vertical box
@@ -184,7 +187,7 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*************************************************************************
-     * QLC mode
+     * QLC+ mode
      *************************************************************************/
 protected slots:
     /** @reimp */

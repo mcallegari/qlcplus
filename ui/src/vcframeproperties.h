@@ -55,6 +55,23 @@ protected:
     Doc* m_doc;
 
     /************************************************************************
+     * Enable control
+     ************************************************************************/
+protected slots:
+    void slotEnableAttachClicked();
+    void slotEnableDetachClicked();
+    void slotEnableChooseInputClicked();
+    void slotEnableAutoDetectInputToggled(bool checked);
+    void slotEnableInputValueChanged(quint32 uni, quint32 ch);
+
+protected:
+    void updateEnableInputSource();
+
+protected:
+    QKeySequence m_enableKeySequence;
+    QLCInputSource *m_enableInputSource;
+
+    /************************************************************************
      * Next page
      ************************************************************************/
 protected slots:
@@ -69,7 +86,7 @@ protected:
 
 protected:
     QKeySequence m_nextKeySequence;
-    QLCInputSource m_nextInputSource;
+    QLCInputSource *m_nextInputSource;
 
     /************************************************************************
      * Previous page
@@ -86,7 +103,7 @@ protected:
 
 protected:
     QKeySequence m_previousKeySequence;
-    QLCInputSource m_previousInputSource;
+    QLCInputSource *m_previousInputSource;
 
 public slots:
     void accept();

@@ -19,6 +19,7 @@
 
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
+#include <QDebug>
 
 #include "dmxdumpfactoryproperties.h"
 #include "fixturetreewidget.h"

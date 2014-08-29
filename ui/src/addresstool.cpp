@@ -22,8 +22,9 @@
 
 #include <QPainter>
 #include <QPixmap>
+#include <QMouseEvent>
 
-AddressTool::AddressTool(QWidget *parent) :
+AddressTool::AddressTool(QWidget *parent, int presetValue) :
     QDialog(parent)
   , ui(new Ui::AddressTool)
   , m_dipSwitch(NULL)
@@ -40,12 +41,16 @@ AddressTool::AddressTool(QWidget *parent) :
     px.fill(Qt::black);
     ui->m_blackBtn->setIcon(QIcon(px));
 
-    m_dipSwitch = new DIPSwitchWidget(this);
+    ui->m_addressSpin->setValue(presetValue);
+
+    m_dipSwitch = new DIPSwitchWidget(this, presetValue);
     ui->m_gridLayout->addWidget(m_dipSwitch, 0, 0, 1, 5);
     m_dipSwitch->setMinimumHeight(80);
 
     connect(ui->m_addressSpin, SIGNAL(valueChanged(int)),
             m_dipSwitch, SLOT(slotSetValue(int)));
+    connect(m_dipSwitch, SIGNAL(valueChanged(int)),
+            ui->m_addressSpin, SLOT(setValue(int)));
     connect(ui->m_reverseVertCheck, SIGNAL(toggled(bool)),
             m_dipSwitch, SLOT(slotReverseVertically(bool)));
     connect(ui->m_reverseHorizCheck, SIGNAL(toggled(bool)),
@@ -56,6 +61,11 @@ AddressTool::AddressTool(QWidget *parent) :
 AddressTool::~AddressTool()
 {
     delete ui;
+}
+
+int AddressTool::getAddress()
+{
+    return (ui->m_addressSpin->value());
 }
 
 void AddressTool::slotChangeColor()
@@ -77,10 +87,10 @@ void AddressTool::slotChangeColor()
  *
  ***************************************************************************/
 
-DIPSwitchWidget::DIPSwitchWidget(QWidget *parent) :
+DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue) :
     QWidget(parent)
 {
-    m_value = 1;
+    m_value = presetValue;
     m_backCol = QColor("#0165DF");
     m_verticalReverse = false;
     m_horizontalReverse = false;
@@ -88,12 +98,14 @@ DIPSwitchWidget::DIPSwitchWidget(QWidget *parent) :
     m_font = QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
+
+    for (quint8 i=0; i < 10; ++i)
+        m_sliders[i] = new DIPSwitchSlider(this);
 }
 
 DIPSwitchWidget::~DIPSwitchWidget()
 {
 }
-
 
 void DIPSwitchWidget::slotReverseVertically(bool toggle)
 {
@@ -104,6 +116,7 @@ void DIPSwitchWidget::slotReverseVertically(bool toggle)
 void DIPSwitchWidget::slotReverseHorizontally(bool toggle)
 {
     m_horizontalReverse = toggle;
+    updateSliders();
     update();
 }
 
@@ -119,6 +132,50 @@ void DIPSwitchWidget::setColor(QColor col)
     update();
 }
 
+void DIPSwitchWidget::updateSliders()
+{
+    int margin = 20;
+    float minDiv = (width() - (margin * 2)) / 10;
+    float dipW = (minDiv / 3) * 2;
+    float xpos = margin + (minDiv / 3);
+
+    for (quint8 i = 0; i < 10; i++)
+    {
+        quint8 slider_id = i;
+        if (m_horizontalReverse) slider_id = 9 - i;
+
+        m_sliders[slider_id]->setPosition(QPoint(xpos, 20), QSize(dipW, height() - 40));
+        xpos += minDiv;
+    }
+}
+
+void DIPSwitchWidget::resizeEvent(QResizeEvent *e)
+{
+    QWidget::resizeEvent(e);
+
+    updateSliders();
+}
+
+void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
+{
+    QMap<quint8, DIPSwitchSlider*>::iterator it;
+    for (it = m_sliders.begin(); it != m_sliders.end(); ++it)
+    {
+        if (it.value()->isClicked(e->pos()))
+        {
+            quint32 newvalue = m_value ^ (1<<it.key());
+
+			if (newvalue == 0 && m_value != 512) newvalue = m_value;
+			if (newvalue == 0 ) newvalue = 1;
+            if (newvalue > 512) newvalue = 512;
+
+            m_value = newvalue;
+            update();
+            emit valueChanged(m_value);
+        }
+    }
+}
+
 void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
@@ -126,13 +183,9 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     int i, j;
     int margin = 20;
     float minDiv = (width() - (margin * 2)) / 10;
-    float dipW = (minDiv / 3) * 2;
     float xpos = margin + (minDiv / 3);
     int onPos = 15; // position of the "ON" string
     int numPos = height() - 5; // position of number labels
-    int zeroPos = height() - 22 - dipW;
-    int onePos = 21;
-    QString binVal = QString("%1").arg(m_value, 10, 2, QChar('0'));
 
     QPainter painter(this);
 
@@ -140,25 +193,19 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     painter.setBrush(QBrush(m_backCol));
     painter.drawRect(0, 0, width(), height());
 
-    // draw DIP switch empty bars
-    painter.setBrush(Qt::darkGray);
+    // draw DIP switch sliders
     for (i = 0; i < 10; i++)
-    {
-        painter.drawRect(xpos, 20, dipW, height() - 40);
-        xpos += minDiv;
-    }
+        m_sliders[i]->paint(&painter, (1<<i) & m_value, m_verticalReverse);
 
     // draw labels and value
     painter.setFont(m_font);
     painter.setPen(Qt::white);
-    painter.setBrush(Qt::white);
+
     xpos = margin + (minDiv / 3);
     if (m_verticalReverse == true)
     {
         onPos = height() - 5;
         numPos = 15;
-        zeroPos = 21;
-        onePos = height() - 22 - dipW;
     }
 
     painter.drawText(xpos, onPos, "ON");
@@ -169,10 +216,6 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
         for (i = 0, j = 9; i < 10; i++, j--)
         {
             painter.drawText((i == 9)?(xpos-2):(xpos+2), numPos, QString("%1").arg(i + 1));
-            if (binVal.at(j) == '0')
-                painter.drawRect(xpos + 1, zeroPos, dipW - 3, dipW);
-            else
-                painter.drawRect(xpos + 1, onePos, dipW - 3, dipW);
             xpos += minDiv;
         }
     }
@@ -181,13 +224,55 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
         for (i = 10, j = 0; i > 0; i--, j++)
         {
             painter.drawText((i == 10)?(xpos-2):(xpos + 2), numPos, QString("%1").arg(i));
-            if (binVal.at(j) == '0')
-                painter.drawRect(xpos + 1, zeroPos, dipW - 3, dipW);
-            else
-                painter.drawRect(xpos + 1, onePos, dipW - 3, dipW);
             xpos += minDiv;
         }
     }
 }
 
+/***************************************************************************
+ *
+ * DIPSwitchSlider class implementation
+ *
+ ***************************************************************************/
+DIPSwitchSlider::DIPSwitchSlider(QObject *parent) :
+    QObject(parent)
+{
+}
 
+DIPSwitchSlider::~DIPSwitchSlider()
+{
+}
+
+void DIPSwitchSlider::paint(QPainter *painter, bool value, bool vreverse)
+{
+    // Draw outer Rectangle
+    painter->setBrush(Qt::darkGray);
+    painter->setPen(QPen(Qt::black, 2));
+    painter->drawRect(QRect(m_pos, m_size));
+
+    // Draw inner Rectangle (slider position)
+    painter->setPen(Qt::white);
+    painter->setBrush(Qt::white);
+
+    QPoint slider_pos(m_pos.x() + 1, m_pos.y() + 1);
+    QSize slider_size(m_size.width() - 3, m_size.width() - 3);
+    if (slider_size.height() > m_size.height() / 2)
+        slider_size.setHeight(m_size.height() / 2);
+
+    if (value == vreverse) // down
+        slider_pos.setY(slider_pos.y() + m_size.height() - slider_size.height() - 3);
+
+    painter->drawRect(QRect(slider_pos, slider_size));
+}
+
+void DIPSwitchSlider::setPosition(QPoint pos, QSize size)
+{
+    m_pos = pos;
+    m_size = size;
+}
+
+
+bool DIPSwitchSlider::isClicked(QPoint click)
+{
+    return(QRect(m_pos, m_size).contains(click));
+}

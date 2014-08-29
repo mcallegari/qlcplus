@@ -27,6 +27,10 @@
 class QDomElement;
 class BusEntry;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCBus "Bus"
 #define KXMLQLCBusID "ID"
 #define KXMLQLCBusName "Name"
@@ -214,5 +218,7 @@ public:
     /** Load all buses from an XML document */
     bool loadXML(const QDomElement& root);
 };
+
+/** @} */
 
 #endif

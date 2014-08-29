@@ -28,6 +28,10 @@
 class QDomDocument;
 class QVideoWidget;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 class Video : public Function
 {
     Q_OBJECT
@@ -102,6 +106,12 @@ public:
      */
     QColor getColor();
 
+    /** Set the lock state of the item */
+    void setLocked(bool locked);
+
+    /** Get the lock state of the item */
+    bool isLocked();
+
     /**
      * Set the source file name used by this Video object
      */
@@ -151,6 +161,8 @@ private:
     quint32 m_startTime;
     /** Color to use when displaying the video object in the Show manager */
     QColor m_color;
+    /** Flag to indicate if a Video item is locked in the Show Manager timeline */
+    bool m_locked;
     /** Name of the source video file */
     QString m_sourceFileName;
     /** Duration of the video content */
@@ -189,5 +201,7 @@ public:
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 };
+
+/** @} */
 
 #endif

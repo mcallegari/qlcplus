@@ -120,6 +120,10 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
             this, SLOT(slotDocChanged()));
     connect(m_doc, SIGNAL(fixtureChanged(quint32)),
             this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupAdded(quint32)),
+            this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)),
+            this, SLOT(slotDocChanged()));
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
             this, SLOT(slotDocChanged()));
@@ -302,7 +306,7 @@ void SimpleDesk::initBottomSide()
     QHBoxLayout* hbox = new QHBoxLayout;
     hbox->setContentsMargins(0, 0, 0, 0);
     m_previousCueButton = new QToolButton(this);
-    m_previousCueButton->setIcon(QIcon(":/goprevious.png"));
+    m_previousCueButton->setIcon(QIcon(":/back.png"));
     m_previousCueButton->setIconSize(QSize(32, 32));
     m_previousCueButton->setToolTip(tr("Previous cue"));
     hbox->addWidget(m_previousCueButton);
@@ -314,7 +318,7 @@ void SimpleDesk::initBottomSide()
     hbox->addWidget(m_stopCueStackButton);
 
     m_nextCueButton = new QToolButton(this);
-    m_nextCueButton->setIcon(QIcon(":/gonext.png"));
+    m_nextCueButton->setIcon(QIcon(":/forward.png"));
     m_nextCueButton->setIconSize(QSize(32, 32));
     m_nextCueButton->setToolTip(tr("Next cue"));
     hbox->addWidget(m_nextCueButton);
@@ -355,6 +359,34 @@ void SimpleDesk::initBottomSide()
 void SimpleDesk::slotDocChanged()
 {
     m_docChanged = true;
+}
+
+int SimpleDesk::getSlidersNumber()
+{
+    return m_channelsPerPage;
+}
+
+int SimpleDesk::getCurrentUniverseIndex()
+{
+    return m_currentUniverse;
+}
+
+int SimpleDesk::getCurrentPage()
+{
+    return m_universePageSpin->value();
+}
+
+uchar SimpleDesk::getAbsoluteChannelValue(uint address)
+{
+    if (m_engine->hasChannel(address))
+        return m_engine->value(address);
+    else
+        return 0;
+}
+
+void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
+{
+    m_engine->setValue(address, value);
 }
 
 /****************************************************************************
@@ -662,16 +694,17 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     if (var.isValid() == true) // Not true with disabled sliders
     {
         quint32 chanAbsAddr = var.toUInt();
-        m_engine->setValue(chanAbsAddr, value);
-        if (m_viewModeButton->isChecked() == false)
+        if (m_viewModeButton->isChecked() == false &&
+            m_engine->hasChannel(chanAbsAddr) == false)
         {
-            quint32 chanAddr = chanAbsAddr - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
+            quint32 chanAddr = (chanAbsAddr & 0x01FF) - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
             if (chanAddr < (quint32)m_universeSliders.count())
             {
                 ConsoleChannel *chan = m_universeSliders.at(chanAddr);
                 chan->setStyleSheet(ssOverride);
             }
         }
+        m_engine->setValue(chanAbsAddr, value);
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
@@ -681,15 +714,15 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
         Fixture *fixture = m_doc->fixture(fid);
         if (fixture != NULL)
         {
-            quint32 absoluteAddr = fixture->universeAddress();
-            m_engine->setValue(absoluteAddr + chan, value);
-
-            if (m_viewModeButton->isChecked() == true)
+            quint32 chanAbsAddr = fixture->universeAddress() + chan;
+            if (m_viewModeButton->isChecked() == true &&
+                m_engine->hasChannel(chanAbsAddr) == false)
             {
                 FixtureConsole *fc = m_consoleList[fid];
                 if (fc != NULL)
                     fc->setChannelStylesheet(chan, ssOverride);
             }
+            m_engine->setValue(chanAbsAddr, value);
 
             if (m_editCueStackButton->isChecked() == true)
                 replaceCurrentCue();
@@ -1226,7 +1259,7 @@ void SimpleDesk::slotEditCueStackClicked()
         resetUniverseSliders();
 
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -1351,7 +1384,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
 void SimpleDesk::hideEvent(QHideEvent* ev)
 {
     if (m_speedDials != NULL)
-        delete m_speedDials;
+        m_speedDials->deleteLater();
     m_speedDials = NULL;
     QWidget::hideEvent(ev);
 }

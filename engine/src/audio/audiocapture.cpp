@@ -136,12 +136,11 @@ void AudioCapture::processData()
     // 4 ********* Clear FFT noise
 #ifdef CLEAR_FFT_NOISE
     //We delete some values since these will ruin our output
-    ((fftw_complex*)m_fftOutputBuffer)[0][0] = 0;
-    ((fftw_complex*)m_fftOutputBuffer)[0][1] = 0;
-    ((fftw_complex*)m_fftOutputBuffer)[1][0] = 0;
-    ((fftw_complex*)m_fftOutputBuffer)[1][1] = 0;
-    ((fftw_complex*)m_fftOutputBuffer)[2][0] = 0;
-    ((fftw_complex*)m_fftOutputBuffer)[2][1] = 0;
+    for (int n = 0; n < 5; n++)
+    {
+        ((fftw_complex*)m_fftOutputBuffer)[n][0] = 0;
+        ((fftw_complex*)m_fftOutputBuffer)[n][1] = 0;
+    }
 #endif
 
     // 5 ********* Calculate the average signal power

@@ -33,7 +33,7 @@ class GenericFader;
 class QString;
 class Fixture;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

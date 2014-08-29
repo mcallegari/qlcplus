@@ -29,6 +29,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCMonitorProperties "Monitor"
 
 typedef struct
@@ -66,6 +70,8 @@ public:
     void setGridUnits(GridUnits units) { m_gridUnits = units; }
     GridUnits gridUnits() const { return m_gridUnits; }
 
+    void removeFixture(quint32 fid);
+
     void setFixturePosition(quint32 fid, QPointF pos);
     QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
 
@@ -77,6 +83,15 @@ public:
 
     void setLabelsVisible(bool visible) { m_showLabels = visible; }
     bool labelsVisible() const { return m_showLabels; }
+
+    void setCommonBackgroundImage(QString filename) { m_commonBackgroundImage = filename; }
+    QString commonBackgroundImage() const { return m_commonBackgroundImage; }
+
+    void setCustomBackgroundItem(quint32 fid, QString path) { m_customBackgroundImages[fid] = path; }
+    void setCustomBackgroundList(QHash<quint32, QString>list) { m_customBackgroundImages = list; }
+    void resetCustomBackgroundList() { m_customBackgroundImages.clear(); }
+    QHash<quint32, QString> customBackgroundList() const { return m_customBackgroundImages; }
+    QString customBackground(quint32 id);
 
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
 
@@ -90,6 +105,8 @@ private:
     QSize m_gridSize;
     GridUnits m_gridUnits;
     bool m_showLabels;
+    QString m_commonBackgroundImage;
+    QHash <quint32, QString> m_customBackgroundImages;
     QHash <quint32, FixtureItemProperties> m_fixtureItems;
 
     /*********************************************************************
@@ -113,5 +130,7 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 };
+
+/** @} */
 
 #endif // MONITORPROPERTIES_H

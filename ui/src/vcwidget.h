@@ -140,6 +140,31 @@ protected:
     int m_type;
 
     /*********************************************************************
+     * Disable state
+     *********************************************************************/
+    /**
+     * The disable state works in conjunction with the QLC+ operate mode.
+     * Only VC Frames can set/unset the disable state of themselves and
+     * their children widgets.
+     * A widget in disable state cannot be clicked and won't accept external
+     * input signals.
+     */
+public:
+    /**
+     * Virtual method that sets the disable state flag. Afterward,
+     * it calls enableWidgetUI which (if defined) turns the VCWidget
+     * graphics element into a QWidget disable state.
+     */
+    virtual void setDisableState(bool disable);
+
+    virtual void enableWidgetUI(bool enable);
+
+    bool isDisabled();
+
+protected:
+    bool m_disableState;
+
+    /*********************************************************************
      * Page
      *********************************************************************/
 public:
@@ -303,6 +328,24 @@ private:
     bool m_allowResize;
 
     /*********************************************************************
+     * Widget Function
+     *********************************************************************/
+public:
+    /** This is a virtual method for VCWidgets attached to a Function.
+     *  At the moment only Buttons, Sliders (in playback mode) and Cue Lists
+     *  can benefit from this.
+     *  Basically when placed in a Solo frame, with this method it is
+     *  possible to stop the currently running Function */
+    virtual void stopFunction() { }
+
+signals:
+    /** Signal emitted when a VCWidget controlling a Function has been
+      * requested to start the Function.
+      * At the moment this is used by a restriceted number of widgets (see above)
+      */
+    void functionStarting();
+
+    /*********************************************************************
      * Properties
      *********************************************************************/
 public:
@@ -326,6 +369,22 @@ private:
      *********************************************************************/
 public:
     /**
+     * Check the input source with the given id against
+     * the given universe and channel
+     *
+     * @param universe the target universe to compare to
+     * @param channel the target channel to compare to
+     * @param value the value received in case a relative source needs to be updated
+     * @param sender the QObject that sent the event. This is used to check
+     *               if the event is synthetic or coming from an external controller
+     * @param id the source ID to check
+     * @return true in case source and target matches and the event
+     *         can pass through, otherwise false
+     */
+    bool checkInputSource(quint32 universe, quint32 channel,
+                          uchar value, QObject *sender, quint32 id = 0);
+
+    /**
      * Set external input $source to listen to. If a widget supports more
      * than one input source, specify an $id for each input source. Setting
      * multiple sources under the same id overwrites the previous ones.
@@ -333,7 +392,7 @@ public:
      * @param source The input source to set
      * @param id The id of the source (default: 0)
      */
-    void setInputSource(const QLCInputSource& source, quint8 id = 0);
+    void setInputSource(QLCInputSource *source, quint8 id = 0);
 
     /**
      * Get an assigned external input source. Without parameters the
@@ -341,7 +400,7 @@ public:
      *
      * @param id The id of the source to get
      */
-    QLCInputSource inputSource(quint8 id = 0) const;
+    QLCInputSource *inputSource(quint8 id = 0) const;
 
     /**
      * When cloning a widget on a multipage frame, this function
@@ -374,8 +433,17 @@ protected slots:
      */
     virtual void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+    /**
+     * Slot called when an input profile has been changed and
+     * at least one input source has been set
+     *
+     * @param universe the profile universe
+     * @param profileName the profile name
+     */
+    virtual void slotInputProfileChanged(quint32 universe, const QString& profileName);
+
 protected:
-    QHash <quint8,QLCInputSource> m_inputs;
+    QHash <quint8, QLCInputSource*> m_inputs;
 
     /*********************************************************************
      * Key sequence handler
@@ -434,7 +502,7 @@ protected:
     bool saveXMLInput(QDomDocument* doc, QDomElement* root);
     /** Save input source from $uni and $ch to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
-                      const QLCInputSource& src) const;
+                      const QLCInputSource *src) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.

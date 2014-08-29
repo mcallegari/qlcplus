@@ -85,6 +85,12 @@ public:
      */
     void updateFixture(quint32 id);
 
+    /** Set a background image for the view */
+    void setBackgroundImage(QString filename);
+
+    /** Retrieve the path to the background image currently set */
+    QString backgroundImage() { return m_backgroundImage; }
+
     /** Update the fixture values to render the 2D preview */
     void writeUniverse(int index, const QByteArray& ua);
 
@@ -134,6 +140,13 @@ private:
 
     /** Flag to enable/disable the grid rendering */
     bool m_gridEnabled;
+
+    /** Path to the view background image */
+    QString m_backgroundImage;
+
+    QPixmap m_bgPixmap;
+
+    QGraphicsPixmapItem *m_bgItem;
 
     /** Map of the rendered MonitorFixtureItem with their ID */
     QHash <quint32, MonitorFixtureItem*> m_fixtures;

@@ -39,6 +39,10 @@ extern "C"
 
 #include "audiodecoder.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioDecoderMAD : public AudioDecoder
 {
 public:
@@ -120,5 +124,6 @@ private:
     long audio_linear_round(unsigned int bits, mad_fixed_t sample);
 };
 
+/** @} */
 
 #endif

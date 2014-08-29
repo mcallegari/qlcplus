@@ -86,6 +86,12 @@ protected:
     MonitorProperties *m_props;
 
     /*********************************************************************
+     * Running functions
+     *********************************************************************/
+protected slots:
+    void slotFunctionStarted(quint32 id);
+
+    /*********************************************************************
      * Menu
      *********************************************************************/
 protected:
@@ -174,6 +180,10 @@ protected slots:
     /** Slot called when the user wants to remove
      *  a fixture from the graphics view */
     void slotRemoveFixture();
+
+    /** Slot called when the user wants to set
+     *  a background picture on the graphics view */
+    void slotSetBackground();
 
     /** Slot called when the user wants to show
      *  or hide fixtures labels */

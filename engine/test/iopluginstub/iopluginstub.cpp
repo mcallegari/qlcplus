@@ -49,10 +49,11 @@ int IOPluginStub::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void IOPluginStub::openOutput(quint32 output)
+bool IOPluginStub::openOutput(quint32 output)
 {
     if (m_openOutputs.contains(output) == false && output < 4)
         m_openOutputs.append(output);
+    return true;
 }
 
 void IOPluginStub::closeOutput(quint32 output)
@@ -96,10 +97,11 @@ void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteAr
  * Inputs
  *****************************************************************************/
 
-void IOPluginStub::openInput(quint32 input)
+bool IOPluginStub::openInput(quint32 input)
 {
     if (m_openInputs.contains(input) == false && input < 4)
         m_openInputs.append(input);
+    return true;
 }
 
 void IOPluginStub::closeInput(quint32 input)

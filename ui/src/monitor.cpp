@@ -34,6 +34,7 @@
 #include <QtXml>
 
 #include "monitorfixturepropertieseditor.h"
+#include "monitorbackgroundselection.h"
 #include "monitorgraphicsview.h"
 #include "fixtureselection.h"
 #include "monitorfixture.h"
@@ -86,9 +87,21 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
             this, SLOT(slotFixtureChanged(quint32)));
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
+            this, SLOT(slotFunctionStarted(quint32)));
 
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+}
+
+void Monitor::slotFunctionStarted(quint32 id)
+{
+    if (m_props->displayMode() == MonitorProperties::Graphics)
+    {
+        QString bgImage = m_props->customBackground(id);
+        if (m_graphicsView != NULL && bgImage.isEmpty() == false)
+            m_graphicsView->setBackgroundImage(bgImage);
+    }
 }
 
 Monitor::~Monitor()
@@ -183,12 +196,18 @@ void Monitor::initGraphicsView()
         m_graphicsView->setGridMetrics(304.8);
     m_graphicsView->setGridSize(m_props->gridSize());
 
+    if (m_props->commonBackgroundImage().isEmpty() == false)
+        m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
+
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
-        m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
-        qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
-        m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
-        m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
+        if (m_doc->fixture(fid) != NULL)
+        {
+            m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
+            qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
+            m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
+            m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
+        }
     }
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
@@ -261,6 +280,11 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
         QVariant var = settings.value(SETTINGS_GEOMETRY);
         if (var.isValid() == true)
             window->restoreGeometry(var.toByteArray());
+        else
+        {
+            window->resize(800, 600);
+            window->move(50, 50);
+        }
         AppUtil::ensureWidgetIsVisible(window);
     }
     else
@@ -356,7 +380,7 @@ void Monitor::initDMXToolbar()
     /* Universe combo box */
     m_toolBar->addSeparator();
 
-    QLabel *uniLabel = new QLabel(tr("Universe:"));
+    QLabel *uniLabel = new QLabel(tr("Universe"));
     uniLabel->setMargin(5);
     m_toolBar->addWidget(uniLabel);
 
@@ -389,7 +413,7 @@ void Monitor::initGraphicsToolbar()
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotSwitchMode()));
 
-    QLabel *label = new QLabel(tr("Size:"));
+    QLabel *label = new QLabel(tr("Size"));
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_toolBar->addWidget(label);
 
@@ -429,6 +453,9 @@ void Monitor::initGraphicsToolbar()
                        this, SLOT(slotRemoveFixture()));
 
     m_toolBar->addSeparator();
+
+    m_toolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"),
+                       this, SLOT(slotSetBackground()));
 
     action = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
     action->setCheckable(true);
@@ -708,6 +735,23 @@ void Monitor::slotRemoveFixture()
         hideFixtureItemEditor();
         if (m_graphicsView->removeFixture() == true)
             m_doc->setModified();
+    }
+}
+
+void Monitor::slotSetBackground()
+{
+    Q_ASSERT(m_graphicsView != NULL);
+
+    MonitorBackgroundSelection mbgs(this, m_doc);
+
+    if (mbgs.exec() == QDialog::Accepted)
+    {
+        if (m_props->commonBackgroundImage().isEmpty() == false)
+            m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
+        else
+            m_graphicsView->setBackgroundImage(QString());
+
+        m_doc->setModified();
     }
 }
 

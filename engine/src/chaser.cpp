@@ -43,6 +43,7 @@
 #define KXMLQLCChaserSequenceBoundScene "BoundScene"
 #define KXMLQLCChaserSequenceStartTime "StartTime"
 #define KXMLQLCChaserSequenceColor "Color"
+#define KXMLQLCChaserSequenceLocked "Locked"
 
 /*****************************************************************************
  * Initialization
@@ -55,6 +56,7 @@ Chaser::Chaser(Doc* doc)
     , m_boundSceneID(-1)
     , m_startTime(UINT_MAX)
     , m_color(85, 107, 128)
+    , m_locked(false)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
@@ -286,6 +288,16 @@ QColor Chaser::getColor()
     return m_color;
 }
 
+void Chaser::setLocked(bool locked)
+{
+    m_locked = locked;
+}
+
+bool Chaser::isLocked()
+{
+    return m_locked;
+}
+
 /*****************************************************************************
  * Speed modes
  *****************************************************************************/
@@ -385,6 +397,8 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundSceneID);
         seq.setAttribute(KXMLQLCChaserSequenceStartTime, m_startTime);
         seq.setAttribute(KXMLQLCChaserSequenceColor, m_color.name());
+        if (isLocked())
+            seq.setAttribute(KXMLQLCChaserSequenceLocked, m_locked);
         root.appendChild(seq);
     }
 
@@ -455,9 +469,11 @@ bool Chaser::loadXML(const QDomElement& root)
             QString str = tag.attribute(KXMLQLCChaserSequenceBoundScene);
             enableSequenceMode(str.toUInt());
             if (tag.hasAttribute(KXMLQLCChaserSequenceStartTime))
-                m_startTime = tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt();
+                setStartTime(tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt());
             if (tag.hasAttribute(KXMLQLCChaserSequenceColor))
-                m_color = QColor(tag.attribute(KXMLQLCChaserSequenceColor));
+                setColor(QColor(tag.attribute(KXMLQLCChaserSequenceColor)));
+            if (tag.hasAttribute(KXMLQLCChaserSequenceLocked))
+                setLocked(true);
         }
         else if (tag.tagName() == KXMLQLCFunctionStep)
         {

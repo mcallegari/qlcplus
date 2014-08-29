@@ -26,7 +26,7 @@
 #include <QSlider>
 #include <QWidget>
 
-#include "sceneitems.h"
+#include "showitems.h"
 #include "chaser.h"
 #include "track.h"
 
@@ -154,7 +154,7 @@ public slots:
     void mouseReleaseEvent(QMouseEvent * e);
 
 protected slots:
-    void slotMoveCursor(QGraphicsSceneMouseEvent *event);
+    void slotHeaderClicked(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
     void slotTrackClicked(TrackItem *track);
     void slotTrackDoubleClicked(TrackItem *track);
@@ -182,6 +182,7 @@ signals:
     void trackClicked(Track *track);
     void trackDoubleClicked(Track *track);
     void trackMoved(Track *, int);
+    void trackDelete(Track *);
 };
 
 /** @} */

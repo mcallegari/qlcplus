@@ -94,26 +94,33 @@ void VCSoloFrame::slotModeChanged(Doc::Mode mode)
     VCFrame::slotModeChanged(mode);
 
     // Get all buttons in this soloFrame
-    QListIterator <VCButton*> it(findChildren<VCButton*>());
+    QListIterator <VCWidget*> it(findChildren<VCWidget*>());
 
     while (it.hasNext() == true)
     {
-        VCButton* button = it.next();
-
-        // make sure the buttons nearest soloframe is this
-        if (thisIsNearestSoloFrameParent(button))
+        VCWidget* widget = it.next();
+        if (widget != NULL)
         {
-            if (mode == Doc::Operate)
+            if (widget->type() == VCWidget::ButtonWidget ||
+                widget->type() == VCWidget::SliderWidget ||
+                widget->type() == VCWidget::CueListWidget)
             {
-                // listen to when the button function is started
-                connect(button, SIGNAL(functionStarting()),
-                        this, SLOT(slotButtonFunctionStarting()));
-            }
-            else
-            {
-                // remove listener
-                connect(button, SIGNAL(functionStarting()),
-                        this, SLOT(slotButtonFunctionStarting()));
+                // make sure the widget's nearest soloframe is this
+                if (thisIsNearestSoloFrameParent(widget))
+                {
+                    if (mode == Doc::Operate)
+                    {
+                        // listen to when the button function is started
+                        connect(widget, SIGNAL(functionStarting()),
+                                this, SLOT(slotWidgetFunctionStarting()));
+                    }
+                    else
+                    {
+                        // remove listener
+                        disconnect(widget, SIGNAL(functionStarting()),
+                                   this, SLOT(slotWidgetFunctionStarting()));
+                    }
+                }
             }
         }
     }
@@ -137,27 +144,21 @@ bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
     return false;
 }
 
-void VCSoloFrame::slotButtonFunctionStarting()
+void VCSoloFrame::slotWidgetFunctionStarting()
 {
-    VCButton* senderButton = qobject_cast<VCButton*>(sender());
+    VCWidget* senderWidget = qobject_cast<VCWidget*>(sender());
 
-    if (senderButton != NULL)
+    if (senderWidget != NULL)
     {
-        // get every button that is a child of this soloFrame and turn their
+        // get every widget that is a child of this soloFrame and turn their
         // functions off
-        QListIterator <VCButton*> it(findChildren<VCButton*>());
+        QListIterator <VCWidget*> it(findChildren<VCWidget*>());
 
         while (it.hasNext() == true)
         {
-            VCButton* button = it.next();
-            if (button->action() == VCButton::Toggle)
-            {
-                Function* f = m_doc->function(button->function());
-                if (f != NULL)
-                {
-                    f->stopAndWait();
-                }
-            }
+            VCWidget* widget = it.next();
+            if (widget != NULL && widget != senderWidget)
+                widget->stopFunction();
         }
     }
 }

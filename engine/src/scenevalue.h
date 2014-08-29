@@ -27,7 +27,7 @@
 class QDomDocument;
 class QDomElement;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

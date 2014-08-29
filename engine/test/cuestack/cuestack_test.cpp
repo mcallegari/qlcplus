@@ -651,8 +651,8 @@ void CueStack_Test::insertStartValue()
     // HTP channel in universes
     ua[0]->write(0, 192);
     cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(127));
-    QCOMPARE(fc.current(), uchar(127));
+    QCOMPARE(fc.start(), uchar(0));
+    QCOMPARE(fc.current(), uchar(0));
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -670,8 +670,8 @@ void CueStack_Test::insertStartValue()
     // LTP channel (Pan) in universes
     ua[0]->write(0, 192);
     cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(127));
-    QCOMPARE(fc.current(), uchar(127));
+    QCOMPARE(fc.start(), uchar(192));
+    QCOMPARE(fc.current(), uchar(192));
 
     MasterTimer mt(m_doc);
     cs.postRun(&mt);

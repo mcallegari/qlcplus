@@ -26,6 +26,10 @@
 
 class QLCChannel;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class AddChannelsDialog : public QDialog, public Ui_AddChannelsDialog
 {
     Q_OBJECT
@@ -47,5 +51,7 @@ private:
     QList<QLCChannel*> m_channelsList;
 
 };
+
+/** @} */
 
 #endif // ADDCHANNELSDIALOG_H

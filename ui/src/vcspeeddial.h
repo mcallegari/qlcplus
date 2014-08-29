@@ -27,13 +27,13 @@
 class QDomDocument;
 class QDomElement;
 class SpeedDial;
+class VCSpeedDialFunction;
 
 /** @addtogroup ui_vc_props
  * @{
  */
 
 #define KXMLQLCVCSpeedDial "SpeedDial"
-#define KXMLQLCVCSpeedDialFunction "Function"
 #define KXMLQLCVCSpeedDialSpeedTypes "SpeedTypes"
 #define KXMLQLCVCSpeedDialAbsoluteValue "AbsoluteValue"
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
@@ -90,7 +90,7 @@ public:
     /** @reimp */
     void editProperties();
 
-    /************************************************************************
+     /************************************************************************
      * Speed Type
      ************************************************************************/
 public:
@@ -102,21 +102,6 @@ public:
     };
     Q_DECLARE_FLAGS(SpeedTypes, SpeedType)
 
-    /**
-     * Set the speed type that is to be controlled thru the dial. See
-     * enum SpeedType for possible values.
-     *
-     * @param type The Speed type to control
-     */
-    void setSpeedTypes(VCSpeedDial::SpeedTypes types);
-
-    /**
-     * Get the speed type that is controlled thru the dial.
-     *
-     * @return The speed type controlled by the dial
-     */
-    VCSpeedDial::SpeedTypes speedTypes() const;
-
 private:
     SpeedTypes m_speedTypes;
 
@@ -125,14 +110,14 @@ private:
      ************************************************************************/
 public:
     /**
-     * Set the set of functions that are controlled by the dial.
+     * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QSet <quint32> ids);
+    void setFunctions(const QList <VCSpeedDialFunction> functions);
 
     /**
-     * Get the set of functions that are controlled by the dial.
+     * Get the list of functions that are controlled by the dial.
      */
-    QSet <quint32> functions() const;
+    QList <VCSpeedDialFunction> functions() const;
 
     /** Simulate tap button press
      */
@@ -146,7 +131,7 @@ private slots:
     void slotDialTapped();
 
 private:
-    QSet <quint32> m_functions;
+    QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
 
     /*********************************************************************
@@ -198,6 +183,7 @@ public:
     /** @reimp */
     void postLoad();
 };
+// Deprecated: used for loading old workspace files
 Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)
 
 /** @} */

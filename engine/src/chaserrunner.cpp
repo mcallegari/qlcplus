@@ -252,7 +252,7 @@ void ChaserRunner::setCurrentStep(int step, qreal intensity)
     m_previous = false;
 }
 
-int ChaserRunner::currentStep() const
+int ChaserRunner::currentStepIndex() const
 {
     return m_lastRunStepIdx;
 }
@@ -260,6 +260,13 @@ int ChaserRunner::currentStep() const
 int ChaserRunner::runningStepsNumber() const
 {
     return m_runnerSteps.count();
+}
+
+ChaserRunnerStep *ChaserRunner::currentRunningStep()
+{
+    if (m_runnerSteps.count() > 0)
+        return m_runnerSteps.at(0);
+    return NULL;
 }
 
 int ChaserRunner::computeNextStep(int currentStep) const

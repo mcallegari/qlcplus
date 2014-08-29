@@ -1,9 +1,10 @@
 include(../variables.pri)
 
 TEMPLATE = subdirs
-TARGET = templates
+TARGET = miditemplates
 
-templates.files += APC20.qxm
+miditemplates.files += APC20.qxm
+miditemplates.files += APC40.qxm
 
-templates.path = $$INSTALLROOT/$$MIDITEMPLATEDIR
-INSTALLS += templates
+miditemplates.path = $$INSTALLROOT/$$MIDITEMPLATEDIR
+INSTALLS += miditemplates

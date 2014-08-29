@@ -29,24 +29,6 @@ class HIDPoller;
 class HIDDevice;
 
 /*****************************************************************************
- * HIDInputEvent
- *****************************************************************************/
-
-class HIDInputEvent : public QEvent
-{
-public:
-    HIDInputEvent(HIDDevice* device, quint32 input, quint32 channel,
-                  uchar value, bool alive);
-    ~HIDInputEvent();
-
-    HIDDevice* m_device;
-    quint32 m_input;
-    quint32 m_channel;
-    uchar m_value;
-    bool m_alive;
-};
-
-/*****************************************************************************
  * HIDPlugin
  *****************************************************************************/
 
@@ -89,7 +71,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input);
+    bool openInput(quint32 input);
 
     /** @reimp */
     void closeInput(quint32 input);
@@ -104,15 +86,12 @@ public:
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
-protected:
-    void customEvent(QEvent* event);
-
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output);
+    bool openOutput(quint32 output);
 
     /** @reimp */
     void closeOutput(quint32 output);

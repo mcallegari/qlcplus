@@ -326,52 +326,13 @@ QList <RGBScript> RGBScript::scripts(const Doc * doc, const QDir& dir)
 
 QDir RGBScript::systemScriptDirectory()
 {
-    QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(RGBSCRIPTDIR));
-#else
-    dir.setPath(RGBSCRIPTDIR);
-#endif
-
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*.js"));
-
-    return dir;
+    return QLCFile::systemDirectory(QString(RGBSCRIPTDIR), QString(".js"));
 }
 
 QDir RGBScript::userScriptDirectory()
 {
-    QDir dir;
-
-#if defined (Q_WS_X11) || defined(Q_OS_LINUX)
-    // If the current user is root, return the system profile dir.
-    // Otherwise return the user's home dir.
-    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
-        dir = QDir(RGBSCRIPTDIR);
-    else
-        dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERRGBSCRIPTDIR));
-#elif defined(__APPLE__) || defined(Q_OS_MAC)
-    /* User's input profile directory on OSX */
-    dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERRGBSCRIPTDIR));
-#else
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    dir.setPath(QString("%1/%2")
-                    .arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
-                    .arg(USERRGBSCRIPTDIR));
-    free(home);
-#endif
-
-    /* Ensure that the selected profile directory exists */
-    if (dir.exists() == false)
-        dir.mkpath(".");
-
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*.js"));
-
-    return dir;
+    return QLCFile::userDirectory(QString(USERRGBSCRIPTDIR), QString(RGBSCRIPTDIR),
+                                  QStringList() << QString("*%1").arg(".js"));
 }
 
 void RGBScript::setCustomScriptDirectory(const QString& path)

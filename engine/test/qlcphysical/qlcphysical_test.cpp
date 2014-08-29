@@ -164,7 +164,7 @@ void QLCPhysical_Test::load()
 
     /* Dimensions */
     QDomElement dim = doc.createElement("Dimensions");
-    dim.setAttribute("Weight", 39.4);
+    dim.setAttribute("Weight", QString::number(39.4));
     dim.setAttribute("Width", 530);
     dim.setAttribute("Height", 320);
     dim.setAttribute("Depth", 260);

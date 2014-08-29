@@ -22,7 +22,7 @@
 
 #include "functionuistate.h"
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

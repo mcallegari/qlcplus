@@ -72,24 +72,47 @@ bool HIDJsDevice::isJoystick(unsigned short vid, unsigned short pid)
 }
 #endif
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+bool HIDJsDevice::openDevice()
+{
+    bool result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
+    if (result == false)
+    {
+        result = m_file.open(QIODevice::Unbuffered |
+                             QIODevice::ReadOnly);
+        if (result == false)
+        {
+            qWarning() << "Unable to open" << m_file.fileName()
+                       << ":" << m_file.errorString();
+        }
+        else
+        {
+            qDebug() << "Opened" << m_file.fileName()
+                     << "in read only mode";
+        }
+    }
+    return result;
+}
+#endif
+
 void HIDJsDevice::init()
 {
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    if (openInput() == false)
+    if (openDevice() == false)
         return;
 
     /* Number of axes */
-    if (ioctl(m_file.handle(), JSIOCGAXES, &m_axes) < 0)
+    if (ioctl(m_file.handle(), JSIOCGAXES, &m_axesNumber) < 0)
     {
-        m_axes = 0;
+        m_axesNumber = 0;
         qWarning() << "Unable to get number of axes:"
                    << strerror(errno);
     }
 
     /* Number of buttons */
-    if (ioctl(m_file.handle(), JSIOCGBUTTONS, &m_buttons) < 0)
+    if (ioctl(m_file.handle(), JSIOCGBUTTONS, &m_buttonsNumber) < 0)
     {
-        m_buttons = 0;
+        m_buttonsNumber = 0;
         qWarning() << "Unable to get number of buttons:"
                    << strerror(errno);
     }
@@ -119,22 +142,22 @@ void HIDJsDevice::init()
              */
             if( m_caps.wCaps & JOYCAPS_HASV )
             {
-                m_axes = 6;
+                m_axesNumber = 6;
                 //joy->min[ 7 ] = -1.0; joy->max[ 7 ] = 1.0;  /* POV Y */
                 //joy->min[ 6 ] = -1.0; joy->max[ 6 ] = 1.0;  /* POV X */
             }
             else
-                m_axes = m_caps.wNumAxes;
+                m_axesNumber = m_caps.wNumAxes;
 
-            m_buttons = m_caps.wNumButtons;
-            m_axesValues.fill(0, m_axes);
+            m_buttonsNumber = m_caps.wNumButtons;
+            m_axesValues.fill(0, m_axesNumber);
             m_windId = i;
             break;
         }
         else
         {
-            m_axes = 0;
-            m_buttons = 0;
+            m_axesNumber = 0;
+            m_buttonsNumber = 0;
             m_windId = -1;
         }
     }
@@ -149,28 +172,17 @@ bool HIDJsDevice::openInput()
 {
     bool result = false;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
-    if (result == false)
-    {
-        result = m_file.open(QIODevice::Unbuffered |
-                             QIODevice::ReadOnly);
-        if (result == false)
-        {
-            qWarning() << "Unable to open" << m_file.fileName()
-                       << ":" << m_file.errorString();
-        }
-        else
-        {
-            qDebug() << "Opened" << m_file.fileName()
-                     << "in read only mode";
-        }
-    }
+    result = openDevice();
 #elif defined(WIN32) || defined (Q_OS_WIN)
+    // nothing to do on dumb Windows
     result = true;
 #endif
 
-    m_running = true;
-    start();
+    if (result == true)
+    {
+        m_running = true;
+        start();
+    }
 
     return result;
 }
@@ -193,10 +205,8 @@ QString HIDJsDevice::path() const
 
 bool HIDJsDevice::readEvent()
 {
-
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
-    HIDInputEvent* e;
     int r;
 
     r = read(m_file.handle(), &ev, sizeof(struct js_event));
@@ -214,11 +224,10 @@ bool HIDJsDevice::readEvent()
                 val = 0;
 
             /* Map button channels to start after axes */
-            ch = quint32(m_axes + ev.number);
+            ch = quint32(m_axesNumber + ev.number);
 
             /* Generate and post an event */
-            e = new HIDInputEvent(this, m_line, ch, val, true);
-            QApplication::postEvent(parent(), e);
+            emit valueChanged(UINT_MAX, m_line, ch, val);
         }
         else if ((ev.type & ~JS_EVENT_INIT) == JS_EVENT_AXIS)
         {
@@ -226,8 +235,8 @@ bool HIDJsDevice::readEvent()
                         double(0), double(UCHAR_MAX));
             ch = quint32(ev.number);
 
-            e = new HIDInputEvent(this, m_line, ch, val, true);
-            QApplication::postEvent(parent(), e);
+            qDebug() << "HID JS" << m_line << ch << val;
+            emit valueChanged(UINT_MAX, m_line, ch, val);
         }
         else
         {
@@ -239,9 +248,10 @@ bool HIDJsDevice::readEvent()
     else
     {
         /* This device seems to be dead */
+        /*
         e = new HIDInputEvent(this, 0, 0, 0, false);
         QApplication::postEvent(parent(), e);
-
+        */
         return false;
     }
 #elif defined(WIN32) || defined (Q_OS_WIN)
@@ -250,23 +260,23 @@ bool HIDJsDevice::readEvent()
     if ( status != JOYERR_NOERROR )
         return false;
 
-    if ( m_buttons )
+    if ( m_buttonsNumber )
     {
-        for (int i = 0; i < m_buttons; ++i)
+        for (int i = 0; i < m_buttonsNumber; ++i)
         {
             if ((m_info.dwButtons & JOY_BUTTON_MASK(i)) !=
                 (m_buttonsMask & JOY_BUTTON_MASK(i)))
             {
                 if (m_info.dwButtons & JOY_BUTTON_MASK(i))
-                    emit valueChanged(m_line, i, 255);
+                    emit valueChanged(UINT_MAX, m_line, m_axesNumber + i, 255);
                 else
-                    emit valueChanged(m_line, i, 0);
+                    emit valueChanged(UINT_MAX, m_line, m_axesNumber + i, 0);
             }
         }
         m_buttonsMask = m_info.dwButtons;
     }
 
-    if ( m_axes )
+    if ( m_axesNumber )
     {
         QList<DWORD> cmpVals;
         cmpVals.append(m_info.dwXpos);
@@ -276,12 +286,12 @@ bool HIDJsDevice::readEvent()
         cmpVals.append(m_info.dwUpos);
         cmpVals.append(m_info.dwVpos);
 
-        for (int i = 0; i < m_axes; i++)
+        for (int i = 0; i < m_axesNumber; i++)
         {
             uchar val = SCALE(double(cmpVals.at(i)), double(0), double(USHRT_MAX),
                         double(0), double(UCHAR_MAX));
             if (val != (uchar)m_axesValues.at(i))
-                emit valueChanged(m_line, m_buttons + i, val);
+                emit valueChanged(UINT_MAX, m_line, i, val);
             m_axesValues[i] = val;
         }
     }
@@ -300,9 +310,9 @@ QString HIDJsDevice::infoText()
     QString info;
 
     info += QString("<B>%1</B><P>").arg(m_name);
-    info += tr("Axes: %1").arg(m_axes);
+    info += tr("Axes: %1").arg(m_axesNumber);
     info += QString("<BR/>");
-    info += tr("Buttons: %1").arg(m_buttons);
+    info += tr("Buttons: %1").arg(m_buttonsNumber);
     info += QString("</P>");
 
     return info;

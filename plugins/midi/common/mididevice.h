@@ -102,7 +102,7 @@ private:
      * Virtual Open/Close
      ************************************************************************/
 public:
-    virtual void open() = 0;
+    virtual bool open() = 0;
     virtual void close() = 0;
     virtual bool isOpen() const = 0;
 };

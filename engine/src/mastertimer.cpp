@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QSettings>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -269,6 +270,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             f->preRun(this);
             f->write(this, universes);
             emit functionListChanged();
+            emit functionStarted(f->id());
             m_functionListMutex.lock();
         }
         m_startQueue.removeOne(f);

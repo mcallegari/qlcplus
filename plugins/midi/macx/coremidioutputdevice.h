@@ -33,7 +33,7 @@ public:
                          QObject* parent);
     virtual ~CoreMidiOutputDevice();
 
-    void open();
+    bool open();
     void close();
     bool isOpen() const;
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>586</width>
-    <height>353</height>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,12 +73,9 @@
          <property name="toolTip">
           <string>Choose the chaser function to use as the steps for the cue list</string>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+           <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -93,12 +90,9 @@
          <property name="toolTip">
           <string>Detach current chaser from the cue list</string>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -149,9 +143,6 @@
             <property name="toolTip">
              <string>Bind a key combination to stop the cue list</string>
             </property>
-            <property name="text">
-             <string notr="true">...</string>
-            </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
@@ -168,9 +159,6 @@
            <widget class="QToolButton" name="m_playbackDetachButton">
             <property name="toolTip">
              <string>Clear the key binding</string>
-            </property>
-            <property name="text">
-             <string notr="true">...</string>
             </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">
@@ -301,9 +289,6 @@
             <property name="toolTip">
              <string>Bind a key combination to skip to the next cue</string>
             </property>
-            <property name="text">
-             <string notr="true">...</string>
-            </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
@@ -320,9 +305,6 @@
            <widget class="QToolButton" name="m_nextDetachButton">
             <property name="toolTip">
              <string>Clear the key binding</string>
-            </property>
-            <property name="text">
-             <string notr="true">...</string>
             </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">
@@ -453,9 +435,6 @@
             <property name="toolTip">
              <string>Bind a key combination to skip to the previous cue</string>
             </property>
-            <property name="text">
-             <string notr="true">...</string>
-            </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
@@ -472,9 +451,6 @@
            <widget class="QToolButton" name="m_previousDetachButton">
             <property name="toolTip">
              <string>Clear the key binding</string>
-            </property>
-            <property name="text">
-             <string notr="true">...</string>
             </property>
             <property name="icon">
              <iconset resource="qlcui.qrc">

@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.7.1.GIT.exe"
+OutFile "QLC+_4.7.5.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -86,7 +86,6 @@ Section
 	File libsndfile-1.dll
 	File libfftw3-3.dll
 	File libstdc++-6.dll
-	File libwinpthread-1.dll
 	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
@@ -105,6 +104,7 @@ Section
 	File /r Gobos
 	File /r InputProfiles
 	File /r MidiTemplates
+	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
 
@@ -145,7 +145,6 @@ Section "Uninstall"
 	Delete $INSTDIR\libsndfile-1.dll
 	Delete $INSTDIR\libfftw3-3.dll
 	Delete $INSTDIR\libstdc++-6.dll
-	Delete $INSTDIR\libwinpthread-1.dll
 	Delete $INSTDIR\pthreadGC2.dll
 	Delete $INSTDIR\QtCore4.dll
 	Delete $INSTDIR\QtGui4.dll
@@ -159,6 +158,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\Gobos
 	RMDir /r $INSTDIR\InputProfiles
 	RMDir /r $INSTDIR\MidiTemplates
+	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
 

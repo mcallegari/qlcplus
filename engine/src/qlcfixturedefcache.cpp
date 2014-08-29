@@ -90,8 +90,8 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
 
     // Bounce the QSet into a QStringList
     QStringList list;
-    foreach (QString manuf, models)
-        list << manuf;
+    foreach (QString model, models)
+        list << model;
 
     return list;
 }
@@ -235,6 +235,33 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         return false;
     }
 
+    /* Attempt to read all files not in FixtureMap */
+    QStringList definitionPaths;
+
+    {
+        // Gather a list of manufacturers
+        QListIterator <QLCFixtureDef*> it(m_defs);
+        while (it.hasNext() == true)
+            definitionPaths << it.next()->definitionSourceFile();
+    }
+
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path(dir.absoluteFilePath(it.next()));
+        if (definitionPaths.contains(path))
+            continue;
+
+        qWarning() << path << "not in" << FIXTURES_MAP_NAME;
+
+        if (path.toLower().endsWith(KExtFixture) == true)
+            loadQXF(path);
+        else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
+            loadD4(path);
+        else
+            qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
+    }
+
     return true;
 }
 
@@ -245,56 +272,17 @@ void QLCFixtureDefCache::clear()
 }
 
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
-{
-    QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(FIXTUREDIR));
-#else
-    dir.setPath(FIXTUREDIR);
-#endif
-
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-
-    return dir;
+{   
+    return QLCFile::systemDirectory(QString(FIXTUREDIR), QString(KExtFixture));
 }
 
 QDir QLCFixtureDefCache::userDefinitionDirectory()
 {
-    QDir dir;
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    // If the current user is root, return the system fixture dir.
-    // Otherwise return a path under user's home dir.
-    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
-        dir = QDir(FIXTUREDIR);
-    else
-        dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
-#elif defined(__APPLE__) || defined (Q_OS_MAC)
-    /* User's input profile directory on OSX */
-    dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
-#else
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    dir.setPath(QString("%1/%2")
-                    .arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
-                    .arg(USERFIXTUREDIR));
-    free(home);
-#endif
-
-    // Ensure the directory exists
-    if (dir.exists() == false)
-        dir.mkpath(".");
-
-    dir.setFilter(QDir::Files);
     QStringList filters;
     filters << QString("*%1").arg(KExtFixture);
     filters << QString("*%1").arg(KExtAvolitesFixture);
-    dir.setNameFilters(filters);
 
-    return dir;
+    return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
 void QLCFixtureDefCache::loadQXF(const QString& path)

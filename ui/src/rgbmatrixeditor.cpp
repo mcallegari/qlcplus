@@ -111,7 +111,7 @@ void RGBMatrixEditor::slotFunctionManagerActive(bool active)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -498,7 +498,7 @@ void RGBMatrixEditor::slotSpeedDialToggle(bool state)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -510,6 +510,8 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
@@ -520,6 +522,8 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
 
 void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QVariant var = m_fixtureGroupCombo->itemData(index);
     if (var.isValid() == true)
     {
@@ -536,6 +540,8 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 
 void RGBMatrixEditor::slotStartColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->startColor());
     if (col.isValid() == true)
     {
@@ -550,6 +556,8 @@ void RGBMatrixEditor::slotStartColorButtonClicked()
 
 void RGBMatrixEditor::slotEndColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     QColor col = QColorDialog::getColor(m_matrix->endColor());
     if (col.isValid() == true)
     {
@@ -564,6 +572,8 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
 
 void RGBMatrixEditor::slotResetEndColorButtonClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setEndColor(QColor());
     m_matrix->calculateColorDelta();
     QPixmap pm(100, 26);
@@ -574,6 +584,8 @@ void RGBMatrixEditor::slotResetEndColorButtonClicked()
 
 void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
@@ -633,7 +645,7 @@ void RGBMatrixEditor::slotImageButtonClicked()
         path = QFileDialog::getOpenFileName(this,
                                             tr("Select image"),
                                             path,
-                                            "Images (*.jpg *.xpm *.png *.gif)");
+                                            QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
             algo->setFilename(path);
@@ -677,6 +689,8 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 
 void RGBMatrixEditor::slotLoopClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::Loop);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -684,6 +698,8 @@ void RGBMatrixEditor::slotLoopClicked()
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::PingPong);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -691,6 +707,8 @@ void RGBMatrixEditor::slotPingPongClicked()
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setRunOrder(Function::SingleShot);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -698,6 +716,8 @@ void RGBMatrixEditor::slotSingleShotClicked()
 
 void RGBMatrixEditor::slotForwardClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Forward);
     m_matrix->calculateColorDelta();
     slotRestartTest();
@@ -705,6 +725,8 @@ void RGBMatrixEditor::slotForwardClicked()
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
+    if (m_testButton->isChecked() == true)
+        m_matrix->stopAndWait();
     m_matrix->setDirection(Function::Backward);
     m_matrix->calculateColorDelta();
     slotRestartTest();

@@ -20,14 +20,6 @@
 #include <QtXml>
 #include <QMessageBox>
 
-#if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiocapture_portaudio.h"
-#elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiocapture_wavein.h"
-#else
-  #include "audiocapture_alsa.h"
-#endif
-
 #include "vcaudiotriggersproperties.h"
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
@@ -51,6 +43,9 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     , m_button(NULL)
     , m_label(NULL)
     , m_spectrum(NULL)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    , m_volumeSlider(NULL)
+#endif
     , m_inputCapture(NULL)
 {
     /* Set the class name "VCAudioTriggers" as the object name as well */
@@ -60,6 +55,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     setFrameStyle(KVCFrameStyleSunken);
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
+
     /* Main HBox */
     m_hbox = new QHBoxLayout();
     m_hbox->setGeometry(QRect(0, 0, 300, 40));
@@ -113,12 +109,30 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
         m_spectrumBars.append(asb);
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QHBoxLayout *hbox2 = new QHBoxLayout(this);
+    m_volumeSlider = new ClickAndGoSlider();
+    m_volumeSlider->setOrientation(Qt::Vertical);
+    m_volumeSlider->setRange(0, 100);
+    m_volumeSlider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_volumeSlider->setValue(100);
+    m_volumeSlider->setFixedWidth(32);
+    m_volumeSlider->setEnabled(false);
+    connect(m_volumeSlider, SIGNAL(valueChanged(int)),
+            this, SLOT(slotVolumeChanged(int)));
+#endif
     m_spectrum = new AudioTriggerWidget(this);
     m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
     m_spectrum->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    vbox->addWidget(m_spectrum);
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+    vbox->addWidget(m_spectrum);
+#else
+    vbox->addLayout(hbox2);
+    hbox2->addWidget(m_spectrum);
+    hbox2->addWidget(m_volumeSlider);
+#endif
     /* Initial size */
     QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
@@ -139,6 +153,10 @@ void VCAudioTriggers::slotDocModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Design)
         enableCapture(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else
+        m_volumeSlider->setEnabled(true);
+#endif
 }
 
 void VCAudioTriggers::enableCapture(bool enable)
@@ -174,6 +192,9 @@ void VCAudioTriggers::enableCapture(bool enable)
             m_inputCapture->stop();
 
         m_button->setChecked(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_volumeSlider->setEnabled(false);
+#endif
         disconnect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
     }
@@ -217,6 +238,13 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, double maxMagni
     }
 }
 
+#if QT_VERSION >= 0x050000
+void VCAudioTriggers::slotVolumeChanged(int volume)
+{
+    if (m_inputCapture != NULL)
+        m_inputCapture->setVolume((qreal)volume / 100);
+}
+#endif
 
 /*********************************************************************
  * DMXSource
@@ -284,8 +312,7 @@ void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, u
     if (isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
-    if (src == inputSource())
+    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
         if (m_inputCapture->isRunning() == false && value > 0)
             slotEnableButtonToggled(true);

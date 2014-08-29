@@ -34,11 +34,11 @@ typedef struct
     quint32 m_masterDimmer;
     quint32 m_panChannel;
     int m_panMaxDegrees;
-    qreal m_panXPos;
+    qreal m_panDegrees;
     QColor m_panColor;
     quint32 m_tiltChannel;
     int m_tiltMaxDegrees;
-    qreal m_tiltYPos;
+    qreal m_tiltDegrees;
     QColor m_tiltColor;
 } FixtureHead;
 

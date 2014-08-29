@@ -78,14 +78,19 @@ free_memory (void)
     GlobalFree   (hg);
 }
 
-AudioRendererWaveOut::AudioRendererWaveOut(QObject * parent) 
+AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject * parent)
 	: AudioRenderer(parent)
 {
     deviceID = WAVE_MAPPER;
-    QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
-        deviceID = QString(var.toString()).toUInt();
+    if (device.isEmpty())
+    {
+        QSettings settings;
+        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        if (var.isValid() == true)
+            deviceID = QString(var.toString()).toUInt();
+    }
+    else
+        deviceID = device.toUInt();
 }
 
 AudioRendererWaveOut::~AudioRendererWaveOut()

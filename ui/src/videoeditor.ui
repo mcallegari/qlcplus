@@ -28,35 +28,35 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Video name:</string>
+        <string>Video name</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0" colspan="2">
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>File name:</string>
+        <string>File name</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0" colspan="2">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Duration:</string>
+        <string>Duration</string>
        </property>
       </widget>
      </item>
      <item row="2" column="3">
       <widget class="QToolButton" name="m_fileButton">
        <property name="text">
-        <string>...</string>
+        <string notr="true">...</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0" colspan="2">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Resolution:</string>
+        <string>Resolution</string>
        </property>
       </widget>
      </item>
@@ -98,14 +98,14 @@
      <item row="6" column="0" colspan="2">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Audio codec:</string>
+        <string>Audio codec</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0" colspan="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Video codec:</string>
+        <string>Video codec</string>
        </property>
       </widget>
      </item>
@@ -209,7 +209,7 @@
      <item row="8" column="0" colspan="2">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>Output Screen:</string>
+        <string>Output Screen</string>
        </property>
       </widget>
      </item>

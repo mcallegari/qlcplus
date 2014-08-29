@@ -28,6 +28,10 @@
 class QTreeWidgetItem;
 class QLCFixtureMode;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class EditHead : public QDialog, public Ui_EditHead
 {
     Q_OBJECT
@@ -47,5 +51,7 @@ private slots:
 private:
     QLCFixtureHead m_head;
 };
+
+/** @} */
 
 #endif

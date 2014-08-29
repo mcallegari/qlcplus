@@ -49,6 +49,8 @@ HEADERS += aboutbox.h \
            audiobar.h \
            audioeditor.h \
            audiotriggerwidget.h \
+           channelmodifiereditor.h \
+           channelmodifiergraphicsview.h \
            channelsselection.h \
            chasereditor.h \
            clickandgoslider.h \
@@ -82,6 +84,7 @@ HEADERS += aboutbox.h \
            inputprofileeditor.h \
            knobwidget.h \
            monitor.h \
+           monitorbackgroundselection.h \
            monitorfixture.h \
            monitorfixtureitem.h \
            monitorgraphicsview.h \
@@ -95,10 +98,10 @@ HEADERS += aboutbox.h \
            rgbmatrixeditor.h \
            rgbitem.h \
            sceneeditor.h \
-           sceneitems.h \
            scripteditor.h \
            selectinputchannel.h \
            showeditor.h \
+           showitems.h \
            showmanager.h \
            simpledesk.h \
            simpledeskengine.h \
@@ -123,6 +126,7 @@ HEADERS += aboutbox.h \
            vcsliderproperties.h \
            vcsoloframe.h \
            vcspeeddial.h \
+           vcspeeddialfunction.h \
            vcspeeddialproperties.h \
            vcwidget.h \
            vcwidgetproperties.h \
@@ -144,6 +148,7 @@ FORMS += aboutbox.ui \
          assignhotkey.ui \
          audioeditor.ui \
          chasereditor.ui \
+         channelmodifiereditor.ui \
          channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
@@ -157,6 +162,7 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         monitorbackgroundselection.ui \
          monitorfixturepropertieseditor.ui \
          positiontool.ui \
          rgbmatrixeditor.ui \
@@ -189,6 +195,8 @@ SOURCES += aboutbox.cpp \
            audiobar.cpp \
            audioeditor.cpp \
            audiotriggerwidget.cpp \
+           channelmodifiereditor.cpp \
+           channelmodifiergraphicsview.cpp \
            channelsselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \
@@ -222,6 +230,7 @@ SOURCES += aboutbox.cpp \
            inputprofileeditor.cpp \
            knobwidget.cpp \
            monitor.cpp \
+           monitorbackgroundselection.cpp \
            monitorfixture.cpp \
            monitorfixtureitem.cpp \
            monitorgraphicsview.cpp \
@@ -235,10 +244,10 @@ SOURCES += aboutbox.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
-           sceneitems.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
            showeditor.cpp \
+           showitems.cpp \
            showmanager.cpp \
            simpledesk.cpp \
            simpledeskengine.cpp \
@@ -263,6 +272,7 @@ SOURCES += aboutbox.cpp \
            vcsliderproperties.cpp \
            vcsoloframe.cpp \
            vcspeeddial.cpp \
+           vcspeeddialfunction.cpp \
            vcspeeddialproperties.cpp \
            vcwidget.cpp \
            vcwidgetproperties.cpp \
@@ -288,6 +298,8 @@ TRANSLATIONS += qlcplus_it_IT.ts
 TRANSLATIONS += qlcplus_nl_NL.ts
 TRANSLATIONS += qlcplus_cz_CZ.ts
 TRANSLATIONS += qlcplus_pt_BR.ts
+TRANSLATIONS += qlcplus_ca_ES.ts
+TRANSLATIONS += qlcplus_ja_JP.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

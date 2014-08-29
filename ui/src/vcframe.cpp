@@ -54,10 +54,12 @@ const QSize VCFrame::defaultSize(QSize(200, 200));
 
 const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
+const quint8 VCFrame::enableInputSourceId = 2;
 
 VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
     , m_hbox(NULL)
-    , m_button(NULL)
+    , m_collapseButton(NULL)
+    , m_enableButton(NULL)
     , m_label(NULL)
     , m_collapsed(false)
     , m_showHeader(true)
@@ -94,6 +96,21 @@ VCFrame::~VCFrame()
 bool VCFrame::isBottomFrame()
 {
     return (parentWidget() != NULL && qobject_cast<VCFrame*>(parentWidget()) == NULL);
+}
+
+void VCFrame::setDisableState(bool disable)
+{
+    if (m_enableButton)
+    {
+        m_enableButton->blockSignals(true);
+        m_enableButton->setChecked(!disable);
+        m_enableButton->blockSignals(false);
+    }
+
+    foreach( VCWidget* widget, this->findChildren<VCWidget*>())
+        widget->setDisableState(disable);
+    m_disableState = disable;
+    //VCWidget::setDisableState(disable);
 }
 
 void VCFrame::setCaption(const QString& text)
@@ -150,13 +167,15 @@ void VCFrame::setHeaderVisible(bool enable)
 
     if (enable == false)
     {
-        m_button->hide();
+        m_collapseButton->hide();
         m_label->hide();
+        m_enableButton->hide();
     }
     else
     {
-        m_button->show();
+        m_collapseButton->show();
         m_label->show();
+        m_enableButton->show();
     }
 }
 
@@ -199,6 +218,11 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
     m_doc->setModified();
 }
 
+void VCFrame::slotEnableButtonClicked(bool checked)
+{
+    setDisableState(!checked);
+}
+
 void VCFrame::createHeader()
 {
     if (m_hbox != NULL)
@@ -214,19 +238,19 @@ void VCFrame::createHeader()
     layout()->addItem(m_hbox);
     vbox->addStretch();
 
-    m_button = new QToolButton(this);
-    m_button->setStyle(AppUtil::saneStyle());
-    m_button->setIconSize(QSize(32, 32));
-    m_button->setMinimumSize(QSize(32, 32));
-    m_button->setMaximumSize(QSize(32, 32));
-    m_button->setIcon(QIcon(":/expand.png"));
-    m_button->setCheckable(true);
-    QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-    m_button->setStyleSheet(btnSS);
+    m_collapseButton = new QToolButton(this);
+    m_collapseButton->setStyle(AppUtil::saneStyle());
+    m_collapseButton->setIconSize(QSize(32, 32));
+    m_collapseButton->setMinimumSize(QSize(32, 32));
+    m_collapseButton->setMaximumSize(QSize(32, 32));
+    m_collapseButton->setIcon(QIcon(":/expand.png"));
+    m_collapseButton->setCheckable(true);
+    QString cBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    cBtnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_collapseButton->setStyleSheet(cBtnSS);
 
-    m_hbox->addWidget(m_button);
-    connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
+    m_hbox->addWidget(m_collapseButton);
+    connect(m_collapseButton, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
 
     m_label = new QLabel(this);
     m_label->setText(this->caption());
@@ -234,7 +258,7 @@ void VCFrame::createHeader()
     if (m_hasCustomForegroundColor)
         txtColor = this->foregroundColor().name();
     m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; margin-right: 2px; }");
 
     if (m_hasCustomFont)
         m_label->setFont(font());
@@ -246,6 +270,22 @@ void VCFrame::createHeader()
         m_label->setFont(m_font);
     }
     m_hbox->addWidget(m_label);
+
+    m_enableButton = new QToolButton(this);
+    m_enableButton->setStyle(AppUtil::saneStyle());
+    m_enableButton->setIconSize(QSize(32, 32));
+    m_enableButton->setMinimumSize(QSize(32, 32));
+    m_enableButton->setMaximumSize(QSize(32, 32));
+    m_enableButton->setIcon(QIcon(":/check.png"));
+    m_enableButton->setCheckable(true);
+    QString eBtnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    eBtnSS += "QToolButton:checked { background-color: #D7DE75; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_enableButton->setStyleSheet(eBtnSS);
+    m_enableButton->setEnabled(true);
+    m_enableButton->setChecked(true);
+
+    m_hbox->addWidget(m_enableButton);
+    connect(m_enableButton, SIGNAL(clicked(bool)), this, SLOT(slotEnableButtonClicked(bool)));
 }
 
 /*********************************************************************
@@ -394,6 +434,17 @@ void VCFrame::slotSetPage(int pageNum)
     }
 }
 
+void VCFrame::slotModeChanged(Doc::Mode mode)
+{
+    if (mode == Doc::Operate)
+    {
+        if (isDisabled())
+            slotEnableButtonClicked(false);
+    }
+
+    VCWidget::slotModeChanged(mode);
+}
+
 /*********************************************************************
  * Submasters
  *********************************************************************/
@@ -427,6 +478,19 @@ void VCFrame::adjustIntensity(qreal val)
  * Key Sequences
  *****************************************************************************/
 
+void VCFrame::setEnableKeySequence(const QKeySequence &keySequence)
+{
+    m_enableKeySequence = QKeySequence(keySequence);
+    /* Quite a dirty workaround, but it works without interfering with other widgets */
+    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+}
+
+QKeySequence VCFrame::enableKeySequence() const
+{
+    return m_enableKeySequence;
+}
+
 void VCFrame::setNextPageKeySequence(const QKeySequence& keySequence)
 {
     m_nextPageKeySequence = QKeySequence(keySequence);
@@ -455,7 +519,9 @@ QKeySequence VCFrame::previousPageKeySequence() const
 
 void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
 {
-    if (m_previousPageKeySequence == keySequence)
+    if (m_enableKeySequence == keySequence)
+        setDisableState(!isDisabled());
+    else if (m_previousPageKeySequence == keySequence)
         slotSetPage(m_currentPage - 1);
     else if (m_nextPageKeySequence == keySequence)
         slotSetPage(m_currentPage + 1);
@@ -480,11 +546,13 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     if (isEnabled() == false || value == 0)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
+    quint32 pagedCh = (page() << 16) | channel;
 
-    if (src == inputSource(previousPageInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId))
+        setDisableState(!isDisabled());
+    else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
         slotSetPage(m_currentPage - 1);
-    else if (src == inputSource(nextPageInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId))
         slotSetPage(m_currentPage + 1);
 }
 
@@ -619,6 +687,7 @@ QString VCFrame::getCSS()
 bool VCFrame::loadXML(const QDomElement* root)
 {
     Q_ASSERT(root != NULL);
+    bool disableState = false;
 
     if (root->tagName() != xmlTagName())
     {
@@ -666,8 +735,14 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrameIsCollapsed)
         {
             /* Collapsed */
-            if (tag.text() == KXMLQLCTrue && m_button != NULL)
-                m_button->toggle();
+            if (tag.text() == KXMLQLCTrue && m_collapseButton != NULL)
+                m_collapseButton->toggle();
+        }
+        else if (tag.tagName() == KXMLQLCVCFrameIsDisabled)
+        {
+            /* Enabled */
+            if (tag.text() == KXMLQLCTrue)
+                disableState = true;
         }
         else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
         {
@@ -685,6 +760,30 @@ bool VCFrame::loadXML(const QDomElement* root)
             if(tag.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(tag.attribute(KXMLQLCVCFrameCurrentPage).toInt());
         }
+        else if (tag.tagName() == KXMLQLCVCFrameEnableSource)
+        {
+            QDomNode subNode = tag.firstChild();
+            while (subNode.isNull() == false)
+            {
+                QDomElement subTag = subNode.toElement();
+                if (subTag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = 0, ch = 0;
+                    if (loadXMLInput(subTag, &uni, &ch) == true)
+                        setInputSource(new QLCInputSource(uni, ch), enableInputSourceId);
+                }
+                else if (subTag.tagName() == KXMLQLCVCFrameKey)
+                {
+                    setEnableKeySequence(stripKeySequence(QKeySequence(subTag.text())));
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown Frame Enable tag" << subTag.tagName();
+                }
+
+                subNode = subNode.nextSibling();
+            }
+        }
         else if (tag.tagName() == KXMLQLCVCFrameNext)
         {
             QDomNode subNode = tag.firstChild();
@@ -695,7 +794,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), nextPageInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), nextPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -719,7 +818,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), previousPageInputSourceId);
+                        setInputSource(new QLCInputSource(uni, ch), previousPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -880,6 +979,9 @@ bool VCFrame::loadXML(const QDomElement* root)
     if (multipageMode() == true)
         slotSetPage(0);
 
+    if (disableState == true)
+        setDisableState(true);
+
     return true;
 }
 
@@ -887,8 +989,8 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
     QDomElement tag;
+    QDomElement subtag;
     QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(vc_root != NULL);
@@ -950,11 +1052,27 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         tag.appendChild(text);
         root.appendChild(tag);
 
+        /* Disabled */
+        tag = doc->createElement(KXMLQLCVCFrameIsDisabled);
+        if (isDisabled())
+            text = doc->createTextNode(KXMLQLCTrue);
+        else
+            text = doc->createTextNode(KXMLQLCFalse);
+        tag.appendChild(text);
+        root.appendChild(tag);
+
+        /* Enable control */
+        tag = doc->createElement(KXMLQLCVCFrameEnableSource);
+        root.appendChild(tag);
+        subtag = doc->createElement(KXMLQLCVCFrameKey);
+        tag.appendChild(subtag);
+        text = doc->createTextNode(m_enableKeySequence.toString());
+        subtag.appendChild(text);
+        saveXMLInput(doc, &tag, inputSource(enableInputSourceId));
+
         /* Multipage mode */
         if (multipageMode() == true)
         {
-            QDomElement subtag;
-
             tag = doc->createElement(KXMLQLCVCFrameMultipage);
             tag.setAttribute(KXMLQLCVCFramePagesNumber, totalPagesNumber());
             tag.setAttribute(KXMLQLCVCFrameCurrentPage, currentPage());

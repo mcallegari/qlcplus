@@ -698,6 +698,8 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             widget->setPage(frame->currentPage());
             frame->addWidgetToPageMap(widget);
         }
+        else
+            widget->setPage(0);
     }
     else if (parent->type() == VCWidget::SoloFrameWidget)
     {
@@ -707,7 +709,11 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             widget->setPage(frame->currentPage());
             frame->addWidgetToPageMap(widget);
         }
+        else
+            widget->setPage(0);
     }
+    else
+        widget->setPage(0);
 }
 
 void VirtualConsole::slotAddButton()
@@ -1226,7 +1232,7 @@ void VirtualConsole::slotBackgroundImage()
     path = QFileDialog::getOpenFileName(this,
                                         tr("Select background image"),
                                         path,
-                                        "Images (*.png *.xpm *.jpg *.gif)");
+                                        QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
     if (path.isEmpty() == false)
     {
         if (m_selectedWidgets.isEmpty() == true)
@@ -1601,8 +1607,6 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
 
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
 {
-    QString config;
-
     if (mode == Doc::Operate)
     {
         // Don't allow editing or adding in operate mode
@@ -1652,6 +1656,11 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
 
         // Hide toolbar; there's nothing usable there in operate mode
         m_toolbar->hide();
+
+        // Make sure the virtual console contents has the focus.
+        // Without this, key combinations don't work unless
+        // the user clicks on some VC area
+        m_contents->setFocus();
     }
     else
     {

@@ -56,10 +56,11 @@ int UDMX::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void UDMX::openOutput(quint32 output)
+bool UDMX::openOutput(quint32 output)
 {
     if (output < quint32(m_devices.size()))
-        m_devices.at(output)->open();
+        return m_devices.at(output)->open();
+    return false;
 }
 
 void UDMX::closeOutput(quint32 output)

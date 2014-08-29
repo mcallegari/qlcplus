@@ -32,7 +32,7 @@ public:
                         MIDIEntityRef entity, MIDIClientRef client, QObject* parent);
     virtual ~CoreMidiInputDevice();
 
-    void open();
+    bool open();
     void close();
     bool isOpen() const;
 

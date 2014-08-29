@@ -61,6 +61,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderLevelLowLimit "LowLimit"
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
+#define KXMLQLCVCSliderLevelMonitor "Monitor"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -92,7 +93,7 @@ public:
      * ID
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void setID(quint32 id);
 
     /*********************************************************************
@@ -107,10 +108,13 @@ protected:
     bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
-     * Caption
+     * GUI
      *********************************************************************/
 public:
     void setCaption(const QString& text);
+
+    /** @reimp */
+    void enableWidgetUI(bool enable);
 
     /*********************************************************************
      * Properties
@@ -278,9 +282,18 @@ public:
 
     /**
      * Get high limit for levels set thru the slider
-     *
      */
     uchar levelHighLimit() const;
+
+    /**
+     * Enable/disable the channels monitor when in Level mode
+     */
+    void setChannelsMonitorEnabled(bool enable);
+
+    /**
+     * Return the current status of the channels monitor
+     */
+    bool channelsMonitorEnabled();
 
 protected:
     /**
@@ -296,9 +309,16 @@ protected:
      */
     uchar levelValue() const;
 
+signals:
+    void monitorDMXValueChanged(int value);
+
 protected slots:
     /** Removes all level channels related to removed fixture */
     void slotFixtureRemoved(quint32 fxi_id);
+
+    /** Slot called when the DMX levels of the controlled channels
+     *  has changed */
+    void slotMonitorDMXValueChanged(int value);
 
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
@@ -308,6 +328,9 @@ protected:
     QMutex m_levelValueMutex;
     bool m_levelValueChanged;
     uchar m_levelValue;
+
+    bool m_monitorChannels;
+    uchar m_monitorValue;
 
     /*********************************************************************
      * Playback
@@ -342,6 +365,9 @@ public:
      * @return The current playback function level.
      */
     uchar playbackValue() const;
+
+    /** @reimp */
+    void stopFunction();
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);

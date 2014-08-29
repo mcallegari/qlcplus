@@ -52,7 +52,6 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         m_manufacturer = profile.m_manufacturer;
         m_model = profile.m_model;
         m_path = profile.m_path;
-        m_type = profile.m_type;
 
         /* Destroy all existing channels */
         destroyChannels();
@@ -101,16 +100,6 @@ QString QLCInputProfile::name() const
 QString QLCInputProfile::path() const
 {
     return m_path;
-}
-
-void QLCInputProfile::setType(const QString& type)
-{
-    m_type = type;
-}
-
-QString QLCInputProfile::type() const
-{
-    return m_type;
 }
 
 /****************************************************************************
@@ -252,10 +241,6 @@ bool QLCInputProfile::loadXML(const QDomDocument& doc)
             {
                 setModel(tag.text());
             }
-            else if (tag.tagName() == KXMLQLCInputProfileType)
-            {
-                setType(tag.text());
-            }
             else if (tag.tagName() == KXMLQLCInputChannel)
             {
                 QString str = tag.attribute(KXMLQLCInputChannelNumber);
@@ -310,12 +295,6 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     tag = doc.createElement(KXMLQLCInputProfileModel);
     root.appendChild(tag);
     text = doc.createTextNode(m_model);
-    tag.appendChild(text);
-
-    /* Type */
-    tag = doc.createElement(KXMLQLCInputProfileType);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_type);
     tag.appendChild(text);
 
     /* Write channels to the document */

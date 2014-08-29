@@ -30,6 +30,10 @@
 
 #include "audioparameters.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 /*! @brief The AudioDecoder class provides the base interface class of audio decoders.
  * @author Brad Hughes <bhughes@trolltech.com>
  * @author Ilya Kotov <forkotov@hotmail.ru>
@@ -89,5 +93,7 @@ protected:
 private:
     AudioParameters m_parameters;
 };
+
+/** @} */
 
 #endif // AUDIODECODER_H

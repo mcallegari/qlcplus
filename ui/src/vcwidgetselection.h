@@ -33,7 +33,7 @@ class VCWidget;
 class VCWidgetSelection : public QDialog, public Ui_VCWidgetSelection
 {
     Q_OBJECT
-    
+
 public:
     explicit VCWidgetSelection(QList<int> filters, QWidget *parent = 0);
     ~VCWidgetSelection();
@@ -47,6 +47,10 @@ private:
 protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
     void updateWidgetsTree();
+
+protected slots:
+    void slotItemSelectionChanged();
+    void slotItemDoubleClicked(QTreeWidgetItem* item);
 };
 
 /** @} */

@@ -27,10 +27,10 @@ MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
     , m_doc(doc)
     , m_unitValue(1000)
     , m_gridEnabled(true)
+    , m_bgItem(NULL)
 {
     m_scene = new QGraphicsScene();
     m_scene->setSceneRect(this->rect());
-    //setSceneRect(parent->rect());
     setScene(m_scene);
 
     m_gridSize = QSize(5, 5);
@@ -145,6 +145,25 @@ void MonitorGraphicsView::updateFixture(quint32 id)
     item->setPos(realPositionToPixels(item->realPosition().x(), item->realPosition().y()));
 }
 
+void MonitorGraphicsView::setBackgroundImage(QString filename)
+{
+    m_backgroundImage = filename;
+    if (m_bgItem != NULL)
+    {
+        m_scene->removeItem(m_bgItem);
+        delete m_bgItem;
+        m_bgItem = NULL;
+    }
+    if (filename.isEmpty() == false)
+    {
+        m_bgPixmap = QPixmap(m_backgroundImage);
+        m_bgItem = new QGraphicsPixmapItem(m_bgPixmap);
+        m_bgItem->setZValue(0); // make sure it goes on the bacground
+        m_scene->addItem(m_bgItem);
+    }
+    updateGrid();
+}
+
 void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
 {
     QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
@@ -154,9 +173,7 @@ void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
         quint32 fid = it.key();
         Fixture *fxi = m_doc->fixture(fid);
         // preliminary validity checks
-        if (fxi == NULL ||
-            fxi->universe() != (quint32)index ||
-            fxi->address() > (quint32)ua.size())
+        if (fxi == NULL || fxi->universe() != (quint32)index)
         {
             continue;
         }
@@ -184,8 +201,11 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
     if (id == Fixture::invalidId() || m_fixtures.contains(id) == true)
         return;
 
+    if (m_doc->fixture(id) == NULL)
+        return;
+
     MonitorFixtureItem *item = new MonitorFixtureItem(m_doc, id);
-    item->setZValue(1);
+    item->setZValue(2);
     item->setRealPosition(pos);
     m_fixtures[id] = item;
     m_scene->addItem(item);
@@ -245,7 +265,7 @@ void MonitorGraphicsView::updateGrid()
         {
             QGraphicsLineItem *item = m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset,
                                                        QPen( QColor(40, 40, 40, 255) ));
-            item->setZValue(0);
+            item->setZValue(1);
             xPos += m_cellPixels;
             m_gridItems.append(item);
         }
@@ -254,9 +274,15 @@ void MonitorGraphicsView::updateGrid()
         {
             QGraphicsLineItem *item = m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos,
                                                        QPen( QColor(40, 40, 40, 255) ));
-            item->setZValue(0);
+            item->setZValue(1);
             yPos += m_cellPixels;
             m_gridItems.append(item);
+        }
+        if (m_bgItem != NULL)
+        {
+            m_bgItem->setX(m_xOffset);
+            m_bgItem->setY(m_yOffset);
+            m_bgItem->setPixmap(m_bgPixmap.scaled(xPos - m_cellPixels - m_xOffset, yPos - m_cellPixels - m_yOffset));
         }
     }
 }

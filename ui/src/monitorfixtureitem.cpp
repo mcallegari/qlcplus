@@ -20,6 +20,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QApplication>
 #include <QPainter>
+#include <qmath.h>
 #include <QCursor>
 #include <QDebug>
 
@@ -30,7 +31,7 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define MOVEMENT_SQUARE_SIZE    6
+#define MOVEMENT_THICKNESS    3
 
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
@@ -53,9 +54,6 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
     m_font = qApp->font();
     m_font.setPixelSize(8);
-
-    int panChannel = -1;
-    int tiltChannel = -1;
 
     for (int i = 0; i < fxi->heads(); i++)
     {
@@ -91,10 +89,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         }
 
         fxiItem->m_panChannel = QLCChannel::invalid();
-        if (panChannel == -1 && head.panMsbChannel() != QLCChannel::invalid())
+        if (head.panMsbChannel() != QLCChannel::invalid())
         {
             fxiItem->m_panChannel = head.panMsbChannel() + fxi->address();
-            panChannel = fxiItem->m_panChannel;
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -103,16 +100,15 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                 if (mode->physical().focusPanMax() != 0)
                     fxiItem->m_panMaxDegrees = mode->physical().focusPanMax();
             }
-            fxiItem->m_panXPos = 0;
+            fxiItem->m_panDegrees = 0;
             qDebug() << "Pan channel on" << fxiItem->m_panChannel << "max degrees:" << fxiItem->m_panMaxDegrees;
         }
 
         fxiItem->m_tiltChannel = QLCChannel::invalid();
-        if (tiltChannel == -1 && head.tiltMsbChannel() != QLCChannel::invalid())
+        if (head.tiltMsbChannel() != QLCChannel::invalid())
         {
             fxiItem->m_tiltChannel = head.tiltMsbChannel() + fxi->address();
-            tiltChannel = fxiItem->m_tiltChannel;
-            // retrieve the PAN max degrees from the fixture mode
+            // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
             if (mode != NULL)
@@ -120,7 +116,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                 if (mode->physical().focusTiltMax() != 0)
                     fxiItem->m_tiltMaxDegrees = mode->physical().focusTiltMax();
             }
-            fxiItem->m_tiltYPos = 0;
+            fxiItem->m_tiltDegrees = 0;
             qDebug() << "Tilt channel on" << fxiItem->m_tiltChannel << "max degrees:" << fxiItem->m_tiltMaxDegrees;
         }
 
@@ -151,13 +147,6 @@ void MonitorFixtureItem::setSize(QSize size)
     // leave space to movements representation
     int headsWidth = m_width;
     int headsHeight = m_height;
-    foreach(FixtureHead *head, m_heads)
-    {
-        if (head->m_panChannel != QLCChannel::invalid())
-            headsHeight -= (MOVEMENT_SQUARE_SIZE + 1);
-        if (head->m_tiltChannel != QLCChannel::invalid())
-            headsWidth -= (MOVEMENT_SQUARE_SIZE + 1);
-    }
 
     // calculate the diameter of every single head
     double headArea = (headsWidth * headsHeight) / m_heads.count();
@@ -168,6 +157,8 @@ void MonitorFixtureItem::setSize(QSize size)
     // dirty workaround to correctly display right columns on one row
     if (rows == 1)
         columns = m_heads.count();
+    if (columns == 1)
+        rows = m_heads.count();
 
     //qDebug() << "Fixture columns:" << columns;
 
@@ -181,7 +172,7 @@ void MonitorFixtureItem::setSize(QSize size)
 
     double cellWidth = headsWidth / columns;
     double cellHeight = headsHeight / rows;
-    double headDiam = (cellWidth < cellHeight)?cellWidth:cellHeight;
+    double headDiam = (cellWidth < cellHeight) ? cellWidth : cellHeight;
     
     int ypos = (cellHeight - headDiam) / 2;
     for (int i = 0; i < rows; i++)
@@ -192,13 +183,24 @@ void MonitorFixtureItem::setSize(QSize size)
             int index = i * columns + j;
             if (index < m_heads.size())
             {
-                QGraphicsEllipseItem *head = m_heads.at(index)->m_item;
+		FixtureHead * h = m_heads.at(index);
+                QGraphicsEllipseItem *head = h->m_item;
                 head->setRect(xpos, ypos, headDiam, headDiam);
+
+                if (h->m_panChannel != QLCChannel::invalid())
+                {
+                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1, -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                }
+                if (h->m_tiltChannel != QLCChannel::invalid())
+                {
+                    head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1, -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
+                }
+ 
                 head->setZValue(2);
                 QGraphicsEllipseItem *back = m_heads.at(index)->m_back;
                 if (back != NULL)
                 {
-                    back->setRect(xpos, ypos, headDiam, headDiam);
+                    back->setRect(head->rect());
                     back->setZValue(1);
                 }
             }
@@ -222,10 +224,16 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
     foreach(FixtureHead *head, m_heads)
     {
         uchar alpha = 255;
-        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_masterDimmer < (quint32)ua.size())
+        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            alpha = ua.at(head->m_masterDimmer);
+            if (head->m_masterDimmer < (quint32)ua.size())
+            {
+                alpha = ua.at(head->m_masterDimmer);
+            }
+            else
+            {
+                alpha = 0; // incomplete universe is sent
+            }
         }
 
         if (head->m_rgb.count() > 0)
@@ -263,17 +271,31 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
             head->m_item->setBrush(QBrush(QColor(255, 255, 255, alpha)));
         }
 
-        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_panChannel < (quint32)ua.size())
+        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            computePanPosition(head, ua.at(head->m_panChannel));
+            if (head->m_panChannel < (quint32)ua.size())
+            {
+                computePanPosition(head, ua.at(head->m_panChannel));
+            }
+            else
+            {
+                computePanPosition(head, 0);
+            }
+
             needUpdate = true;
         }
 
-        if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/ &&
-            head->m_tiltChannel < (quint32)ua.size())
+        if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            computeTiltPosition(head, ua.at(head->m_tiltChannel));
+            if (head->m_tiltChannel < (quint32)ua.size())
+            {
+                computeTiltPosition(head, ua.at(head->m_tiltChannel));
+            }
+            else
+            {
+                computeTiltPosition(head, 0);
+            }
+       
             needUpdate = true;
         }
     }
@@ -312,36 +334,36 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawRect(0, 0, m_width, m_height);
     foreach (FixtureHead *head, m_heads)
     {
-        head->m_item->update();
-
-        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
-        {
-            painter->setPen(QPen(defColor, 2));
-            painter->drawLine(0, m_height - (MOVEMENT_SQUARE_SIZE / 2),
-                              m_width, m_height - (MOVEMENT_SQUARE_SIZE / 2));
-            painter->setPen(Qt::NoPen);
-            painter->setBrush(QBrush(head->m_panColor));
-            painter->drawRect(QRect(head->m_panXPos, m_height - MOVEMENT_SQUARE_SIZE,
-                                    MOVEMENT_SQUARE_SIZE, MOVEMENT_SQUARE_SIZE));
-            painter->setPen(QPen(defColor, 1));
-        }
+        QRectF rect = head->m_item->rect();
 
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            painter->setPen(QPen(defColor, 2));
-            painter->drawLine(m_width - (MOVEMENT_SQUARE_SIZE / 2), 0,
-                              m_width - (MOVEMENT_SQUARE_SIZE / 2), m_height - 10);
-            painter->setPen(Qt::NoPen);
-            painter->setBrush(QBrush(head->m_tiltColor));
-            painter->drawRect(QRect(m_width - MOVEMENT_SQUARE_SIZE, head->m_tiltYPos,
-                                    MOVEMENT_SQUARE_SIZE, MOVEMENT_SQUARE_SIZE));
-            painter->setPen(QPen(defColor, 1));
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+            
+            painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16 - head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
+            painter->drawArc(rect, 270 * 16 + head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
+            painter->setPen(QPen(QColor("turquoise"), MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16, - head->m_tiltDegrees * 16);
+        }
+
+        if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
+        {
+            rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
+
+            painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16 - head->m_panMaxDegrees * 16 / 2 - 8, 16);
+            painter->drawArc(rect, 270 * 16 + head->m_panMaxDegrees * 16 / 2 - 8, 16);
+            painter->setPen(QPen(QColor("purple"), MOVEMENT_THICKNESS));
+            painter->drawArc(rect, 270 * 16, - head->m_panDegrees * 16);
         }
     }
 
     if (m_labelVisibility)
     {
         painter->setFont(m_font);
+        painter->setPen(QPen(Qt::NoPen));
+        painter->setBrush(QBrush(QColor(33, 33, 33)));
         painter->drawRoundedRect(m_labelRect, 2, 2);
         painter->setPen(QPen(Qt::white, 1));
         painter->drawText(m_labelRect, Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
@@ -368,59 +390,14 @@ void MonitorFixtureItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 
 void MonitorFixtureItem::computeTiltPosition(FixtureHead *h, uchar value)
 {
-    QColor frontColor(0, 190, 255);
-    QColor backColor(0, 15, 200);
-    qreal tiltHeight = m_height - 10;
-
-    if (value == 128)
-    {
-        h->m_tiltYPos = 0;
-        h->m_tiltColor = frontColor;
-    }
-    else if (value < 128)
-    {
-        h->m_tiltColor = backColor;
-        // linear calculation of the position
-        h->m_tiltYPos = tiltHeight - ((tiltHeight * value) / 128);
-        //qDebug() << Q_FUNC_INFO << "value:" << value << "yPos:" << h->m_tiltYPos;
-    }
-    else
-    {
-        h->m_tiltColor = frontColor;
-        // linear calculation of the position
-        h->m_tiltYPos = tiltHeight - ((tiltHeight * (255 - value)) / 128);
-    }
+    // find the TILT degrees based on value
+    h->m_tiltDegrees = ((double)value * h->m_tiltMaxDegrees) / (256.0 - 1/256) - (h->m_tiltMaxDegrees / 2);
+    qDebug() << "TILT degrees:" << h->m_tiltDegrees;
 }
 
 void MonitorFixtureItem::computePanPosition(FixtureHead *h, uchar value)
 {
-    QColor frontColor(0, 160, 255);
-    QColor backColor(0, 200, 15);
-
     // find the PAN degrees based on value
-    double degrees = ((double)value * h->m_panMaxDegrees) / 255.0;
-    qDebug() << "PAN degrees:" << degrees;
-
-    // degrees cases and directions. Is there a better
-    // solution ?
-    if (degrees <= 90)
-    {
-        h->m_panXPos = (m_width / 2) - ((((qreal)m_width / 2) * degrees) / 90);
-        h->m_panColor = backColor;
-    }
-    else if (degrees > 90 && degrees <= 270)
-    {
-        h->m_panXPos = (m_width * (degrees - 90)) / 180;
-        h->m_panColor = frontColor;
-    }
-    else if (degrees > 270 && degrees <= 450)
-    {
-        h->m_panXPos = m_width - (m_width * (degrees - 270)) / 180;
-        h->m_panColor = backColor;
-    }
-    else if (degrees > 450 && degrees <= 630)
-    {
-        h->m_panXPos = (m_width * (degrees - 450)) / 180;
-        h->m_panColor = frontColor;
-    }
+    h->m_panDegrees = ((double)value * h->m_panMaxDegrees) / (256.0 - 1/256) - (h->m_panMaxDegrees / 2);
+    qDebug() << "PAN degrees:" << h->m_panDegrees;
 }

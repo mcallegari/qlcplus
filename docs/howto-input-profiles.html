@@ -61,11 +61,11 @@ same in both cases from now on.</B>
 <H2>Input Profile Editor</H2>
 
 <P>
-A dialog is opened with entry fields for <u>Manufacturer</u>, <u>Model</u> and <u>Type</u>.
+A dialog is opened with entry fields for <u>Manufacturer</u> and <u>Model</u>.
 </P>
 
 <P>
-<B>Enter the profile's manufacturer, the model and the input type to these fields and 
+<B>Enter the profile's manufacturer and the model to these fields and 
 then click the <u>Channels</u> tab to edit the profile's channels.</B>
 </P>
 
@@ -106,18 +106,47 @@ will be displayed, asking you to fill or change some parameters:
      the purpose of a channel.
  </li>
  <li><b>Type</b>: The channel type. This can be: 
-   <IMG SRC="qrc:/slider.png" ALIGN="absmiddle">Slider, 
-   <IMG SRC="qrc:/knob.png" ALIGN="absmiddle">Knob,
-   <IMG SRC="qrc:/button.png" ALIGN="absmiddle">Button<BR>
+   <IMG SRC="qrc:/slider.png" ALIGN="absmiddle"> Slider, 
+   <IMG SRC="qrc:/knob.png" ALIGN="absmiddle"> Knob,
+   <IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Button<BR>
    Other types:  
-   <IMG SRC="qrc:/back.png" ALIGN="absmiddle">Previous page,
-   <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">Next Page,
-   <IMG SRC="qrc:/star.png" ALIGN="absmiddle">Set Page were used for Multipage frames, but are not used now.
+   <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> Previous page,
+   <IMG SRC="qrc:/forward.png" ALIGN="absmiddle"> Next Page,
+   <IMG SRC="qrc:/star.png" ALIGN="absmiddle"> Set Page were used for Multipage frames.
  </li>
 </ul>
 <BR>
 <b>Note that you cannot add the same channel multiple times to one profile.</b>
 </P>
+
+<HR>
+
+<H3>Sliders movement properties</H3>
+<P>
+If your input profile includes slider channels <IMG SRC="qrc:/slider.png" ALIGN="absmiddle">,
+when you click on them you'll notice some extra properties showing up at the bottom of
+the input profile editor main window. With those, you can set how values received 
+from a slider should act within QLC+.<br><br>
+There are two behaviours: <u>Absolute</u> and <u>Relative</u>.<br><br>
+<b>Absolute</b> is the default setting and basically tells QLC+ to use the slider values
+exactly as they are received from an external controller.<br>
+<b>Relative</b> is a more advanced behaviour that comes handy when using a HID Joystick
+with a QLC+ <A HREF="file:vcxypad.html">XY Pad widget</a> or a 
+<A HREF="file:vcslider.html">Slider widget</a>. Values received from an external controller
+are treated as relative movement starting from the current position of a Virtual Console
+widget.<br>
+Let's make an example. Suppose you have a XY Pad in your Virtual Console, controlling and monitoring
+a group of moving heads. During your show you will have a number of scenes moving the heads
+pan and tilt. At some point you want to slightly adjust the position of the heads of just a few
+degrees. Here is when the relative movement kicks in. When you move your joystick (or external slider)
+QLC+ will adjust the heads from their current positions. The direction will depend directly
+from your external controller. The relative movement will stop when the external controller
+will return to its origin. Joysticks have a spring for that.<br>
+In addition to this, the Input Profile Editor Relative setting allows you to set a <b>Sensitivity</b>
+parameter that will instruct QLC+ about the strenght of your external controller movements.
+The higher this value is, the slower the movements will occur. The lower, the faster.
+</P>
+<HR>
 
 <H2>Back to the input profile definitions panel</H2>
 

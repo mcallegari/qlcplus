@@ -26,6 +26,7 @@
 #include <QLineEdit>
 #include <QSettings>
 #include <QDebug>
+#include <QUrl>
 
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"
@@ -56,6 +57,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
+    , m_speedDials(NULL)
     , m_liveMode(liveMode)
 {
     Q_ASSERT(chaser != NULL);
@@ -240,7 +242,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
 ChaserEditor::~ChaserEditor()
 {
     if (m_speedDials != NULL)
-        delete m_speedDials;
+        m_speedDials->deleteLater();
     m_speedDials = NULL;
 
     // double check that the Chaser still exists !
@@ -294,7 +296,7 @@ void ChaserEditor::slotFunctionManagerActive(bool active)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -479,7 +481,7 @@ void ChaserEditor::slotSpeedDialToggle(bool state)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }

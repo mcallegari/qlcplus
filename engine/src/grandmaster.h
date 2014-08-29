@@ -24,6 +24,10 @@
 #include <QString>
 #include <QSet>
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /** Contains settings for Grand Master
  *  
  *  Changing properties in Operate mode is not supported.
@@ -131,5 +135,7 @@ protected:
     uchar m_value;
     double m_fraction;
 };
+
+/** @} */
 
 #endif

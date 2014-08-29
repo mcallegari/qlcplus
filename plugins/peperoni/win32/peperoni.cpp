@@ -80,13 +80,15 @@ int Peperoni::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void Peperoni::openOutput(quint32 output)
+bool Peperoni::openOutput(quint32 output)
 {
     if (m_usbdmx == NULL)
-        return;
+        return false;
 
     if (output < quint32(m_devices.size()))
-        m_devices.at(output)->open();
+        return m_devices.at(output)->open();
+
+    return false;
 }
 
 void Peperoni::closeOutput(quint32 output)

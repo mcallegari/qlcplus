@@ -170,6 +170,8 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotItemExpanded()));
 
+    m_monitorValuesCheck->setChecked(m_slider->channelsMonitorEnabled());
+
     /*********************************************************************
      * Playback page
      *********************************************************************/
@@ -265,7 +267,9 @@ void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCSliderProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource = QLCInputSource(universe, (m_slider->page() << 16) | channel);
+    if (m_inputSource != NULL)
+        delete m_inputSource;
+    m_inputSource = new QLCInputSource(universe, (m_slider->page() << 16) | channel);
     updateInputSource();
 }
 
@@ -274,7 +278,9 @@ void VCSliderProperties::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_inputSource != NULL)
+            delete m_inputSource;
+        m_inputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateInputSource();
     }
 }
@@ -832,6 +838,9 @@ void VCSliderProperties::accept()
         m_slider->setWidgetStyle(VCSlider::WSlider);
 
     /* Level page */
+    bool limitDiff =
+        (m_slider->levelLowLimit() != m_levelLowLimitSpin->value()) ||
+        (m_slider->levelHighLimit() != m_levelLowLimitSpin->value());
     m_slider->setLevelLowLimit(m_levelLowLimitSpin->value());
     m_slider->setLevelHighLimit(m_levelHighLimitSpin->value());
     storeLevelChannels();
@@ -853,7 +862,22 @@ void VCSliderProperties::accept()
 
     /* Slider mode */
     if (m_slider->sliderMode() != m_sliderMode)
+    {
         m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
+        if (m_slider->sliderMode() == VCSlider::Submaster)
+        {
+            m_slider->setLevelValue(UCHAR_MAX);
+            m_slider->setSliderValue(UCHAR_MAX);
+        }
+    }
+    else if (limitDiff && m_slider->sliderMode() == VCSlider::Level)
+    {
+        // Force the refresh of the slider range
+        m_slider->setSliderMode(VCSlider::Level);
+    }
+
+    if (m_slider->sliderMode() == VCSlider::Level)
+        m_slider->setChannelsMonitorEnabled(m_monitorValuesCheck->isChecked());
 
     m_slider->setCaption(m_nameEdit->text());
 

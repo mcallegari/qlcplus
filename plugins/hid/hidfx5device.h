@@ -33,7 +33,6 @@
 
 #define FX5_READ_TIMEOUT 100
 
-class HIDEventDevice;
 class HIDPlugin;
 
 /*****************************************************************************
@@ -69,7 +68,7 @@ public:
     void closeInput();
     
     /** @reimp */
-    void openOutput();
+    bool openOutput();
 
     /** @reimp */
     void closeOutput();

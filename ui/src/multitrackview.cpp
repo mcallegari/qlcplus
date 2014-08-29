@@ -66,7 +66,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_header = new SceneHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
     connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)),
-            this, SLOT(slotMoveCursor(QGraphicsSceneMouseEvent *)));
+            this, SLOT(slotHeaderClicked(QGraphicsSceneMouseEvent *)));
     m_scene->addItem(m_header);
     m_snapToGrid = false;
 
@@ -202,6 +202,8 @@ void MultiTrackView::addTrack(Track *track)
             this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
     connect(trackItem, SIGNAL(itemMoveUpDown(Track*,int)),
             this, SIGNAL(trackMoved(Track*,int)));
+    connect(trackItem, SIGNAL(itemRequestDelete(Track*)),
+            this, SIGNAL(trackDelete(Track*)));
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -381,7 +383,7 @@ quint32 MultiTrackView::deleteSelectedFunction()
             quint32 sceneID = track->getSceneID();
             quint32 trkID = track->id();
             QList <quint32> ids = track->functionsID();
-            QString msg = tr("Do you want to DELETE scene:") + QString("\n\n") + track->name();
+            QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (ids.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:" ) + QString("\n\n");
@@ -559,13 +561,27 @@ void MultiTrackView::setSnapToGrid(bool enable)
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 {
-    emit viewClicked(e);
+    if (getSelectedSequence() == NULL && getSelectedAudio() == NULL
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        && getSelectedVideo() == NULL
+#endif
+       )
+    {
+        quint32 xpos = mapToScene(e->pos()).x();
+        if (xpos > TRACK_WIDTH)
+        {
+            m_cursor->setPos(xpos, 0);
+            m_cursor->setTime(getTimeFromCursor());
+            emit timeChanged(m_cursor->getTime());
+        }
+        emit viewClicked(e);
+    }
 
     QGraphicsView::mouseReleaseEvent(e);
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
 }
 
-void MultiTrackView::slotMoveCursor(QGraphicsSceneMouseEvent *event)
+void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)
 {
     m_cursor->setPos(TRACK_WIDTH +  event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromCursor());

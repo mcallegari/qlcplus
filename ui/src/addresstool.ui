@@ -67,7 +67,7 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>511</number>
+        <number>512</number>
        </property>
       </widget>
      </item>
@@ -107,7 +107,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
+      <set>QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

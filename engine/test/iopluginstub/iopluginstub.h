@@ -60,7 +60,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output);
+    bool openOutput(quint32 output);
 
     /** @reimp */
     void closeOutput(quint32 output);
@@ -90,7 +90,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input);
+    bool openInput(quint32 input);
 
     /** @reimp */
     void closeInput(quint32 input);

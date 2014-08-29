@@ -65,6 +65,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_iconPath()
+    , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
 {
@@ -387,6 +388,19 @@ quint32 VCButton::function() const
     return m_function;
 }
 
+void VCButton::stopFunction()
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (m_function != Function::invalidId() && action() == VCButton::Toggle)
+    {
+        Function *f = m_doc->function(m_function);
+        if (f != NULL && f->isRunning())
+            f->stopAndWait();
+    }
+}
+
 void VCButton::slotFunctionRemoved(quint32 fid)
 {
     /* Invalidate the button's function if it's the one that was removed */
@@ -457,8 +471,7 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     if (isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, (page() << 16) | channel);
-    if (src == inputSource())
+    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
         if (m_action == Flash)
         {
@@ -527,6 +540,16 @@ VCButton::Action VCButton::stringToAction(const QString& str)
         return StopAll;
     else
         return Toggle;
+}
+
+void VCButton::setStopAllFadeOutTime(int ms)
+{
+    m_blackoutFadeOutTime = ms;
+}
+
+int VCButton::stopAllFadeTime()
+{
+    return m_blackoutFadeOutTime;
 }
 
 /*****************************************************************************
@@ -604,6 +627,8 @@ void VCButton::pressFunction()
 
                 if (isStartupIntensityEnabled() == true)
                     f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
+                else
+                    f->adjustAttribute(intensity(), Function::Intensity);
             }
         }
     }
@@ -619,7 +644,10 @@ void VCButton::pressFunction()
     }
     else if (m_action == StopAll)
     {
-        m_doc->masterTimer()->stopAllFunctions();
+        if (stopAllFadeTime() == 0)
+            m_doc->masterTimer()->stopAllFunctions();
+        else
+            m_doc->masterTimer()->fadeAndStopAll(stopAllFadeTime());
     }
 }
 
@@ -822,6 +850,8 @@ bool VCButton::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCButtonAction)
         {
             setAction(stringToAction(tag.text()));
+            if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
+                setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
         }
         else if (tag.tagName() == KXMLQLCVCButtonKey)
         {
@@ -880,6 +910,10 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     tag = doc->createElement(KXMLQLCVCButtonAction);
     root.appendChild(tag);
     text = doc->createTextNode(actionToString(action()));
+    if (action() == StopAll && stopAllFadeTime() != 0)
+    {
+        tag.setAttribute(KXMLQLCVCButtonStopAllFadeTime, stopAllFadeTime());
+    }
     tag.appendChild(text);
 
     /* Key sequence */
@@ -927,7 +961,7 @@ void VCButton::paintEvent(QPaintEvent* e)
     if (isOn() == true)
         option.state = QStyle::State_Sunken;
     else
-        option.state= QStyle::State_Raised;
+        option.state = QStyle::State_Raised;
 
     /* Custom icons are always enabled, to see them in full color also in design mode */
     if (m_action == Toggle || m_action == Flash)

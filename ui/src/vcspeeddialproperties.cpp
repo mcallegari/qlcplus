@@ -17,17 +17,25 @@
   limitations under the License.
 */
 
+#include <QDebug>
+
 #include "vcspeeddialproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "vcspeeddial.h"
+#include "vcspeeddialfunction.h"
 #include "inputpatch.h"
+#include "apputil.h"
 #include "doc.h"
 
-#define COL_NAME 0
-#define COL_TYPE 1
 #define PROP_ID  Qt::UserRole
+
+#define COL_NAME     0
+#define COL_FADEIN   1
+#define COL_FADEOUT  2
+#define COL_DURATION 3
+
 
 VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     : QDialog(dial)
@@ -43,16 +51,16 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_nameEdit->setText(m_dial->caption());
 
     /* Functions */
-    foreach (quint32 id, m_dial->functions())
-        createFunctionItem(id);
+    foreach (const VCSpeedDialFunction &speeddialfunction, m_dial->functions())
+        createFunctionItem(speeddialfunction);
 
-    /* Speed types */
-    if (dial->speedTypes() & VCSpeedDial::FadeIn)
-        m_fadeInCheck->setChecked(true);
-    if (dial->speedTypes() & VCSpeedDial::FadeOut)
-        m_fadeOutCheck->setChecked(true);
-    if (dial->speedTypes() & VCSpeedDial::Duration)
-        m_durationCheck->setChecked(true);
+    /* Forbid editting the function name */
+    m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
+    /* Combobox for editing the multipliers */
+    const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
+    m_tree->setItemDelegateForColumn(COL_FADEIN, new ComboBoxDelegate(multiplierNames, this));
+    m_tree->setItemDelegateForColumn(COL_FADEOUT, new ComboBoxDelegate(multiplierNames, this));
+    m_tree->setItemDelegateForColumn(COL_DURATION, new ComboBoxDelegate(multiplierNames, this));
 
     /* Absolute input */
     m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
@@ -88,16 +96,6 @@ void VCSpeedDialProperties::accept()
     /* Functions */
     m_dial->setFunctions(functions());
 
-    /* Speed types */
-    VCSpeedDial::SpeedTypes types = 0;
-    if (m_fadeInCheck->isChecked() == true)
-        types |= VCSpeedDial::FadeIn;
-    if (m_fadeOutCheck->isChecked() == true)
-        types |= VCSpeedDial::FadeOut;
-    if (m_durationCheck->isChecked() == true)
-        types |= VCSpeedDial::Duration;
-    m_dial->setSpeedTypes(types);
-
     /* Input sources */
     m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
                                   m_absoluteMaxSpin->value() * 1000);
@@ -117,7 +115,10 @@ void VCSpeedDialProperties::slotAddClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(true);
-    fs.setDisabledFunctions(functions().toList());
+    QList <quint32> ids;
+    foreach (const VCSpeedDialFunction &speeddialfunction, functions())
+        ids.append(speeddialfunction.functionId);
+    fs.setDisabledFunctions(ids);
     if (fs.exec() == QDialog::Accepted)
     {
         foreach (quint32 id, fs.selection())
@@ -132,31 +133,46 @@ void VCSpeedDialProperties::slotRemoveClicked()
         delete it.next();
 }
 
-QSet <quint32> VCSpeedDialProperties::functions() const
+QList <VCSpeedDialFunction> VCSpeedDialProperties::functions() const
 {
-    QSet <quint32> set;
+    QList <VCSpeedDialFunction> list;
     for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem* item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
 
-        QVariant var = item->data(COL_NAME, PROP_ID);
-        if (var.isValid() == true)
-            set << var.toUInt();
+        QVariant id = item->data(COL_NAME, PROP_ID);
+        if (id.isValid() == true)
+        {
+            VCSpeedDialFunction speeddialfunction(id.toUInt());
+            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEIN, PROP_ID).toUInt());
+            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEOUT, PROP_ID).toUInt());
+            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_DURATION, PROP_ID).toUInt());
+            list.append(speeddialfunction);
+        }
     }
 
-    return set;
+    return list;
 }
 
-void VCSpeedDialProperties::createFunctionItem(quint32 id)
+void VCSpeedDialProperties::createFunctionItem(const VCSpeedDialFunction &speeddialfunction)
 {
-    Function* function = m_doc->function(id);
+    Function* function = m_doc->function(speeddialfunction.functionId);
     if (function != NULL)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(COL_NAME, function->name());
-        item->setText(COL_TYPE, function->typeString());
-        item->setData(COL_NAME, PROP_ID, id);
+        item->setData(COL_NAME, PROP_ID, speeddialfunction.functionId);
+
+        const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
+
+        item->setText(COL_FADEIN, multiplierNames[speeddialfunction.fadeInMultiplier]);
+        item->setData(COL_FADEIN, PROP_ID, speeddialfunction.fadeInMultiplier);
+        item->setText(COL_FADEOUT, multiplierNames[speeddialfunction.fadeOutMultiplier]);
+        item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
+        item->setText(COL_DURATION, multiplierNames[speeddialfunction.durationMultiplier]);
+        item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
     }
 }
 
@@ -190,14 +206,17 @@ void VCSpeedDialProperties::updateInputSources()
 
 void VCSpeedDialProperties::slotAbsoluteInputValueChanged(quint32 universe, quint32 channel)
 {
-    qDebug() << "Signal received !";
-    m_absoluteInputSource = QLCInputSource(universe, (m_dial->page() << 16) | channel);
+    if (m_absoluteInputSource != NULL)
+        delete m_absoluteInputSource;
+    m_absoluteInputSource = new QLCInputSource(universe, (m_dial->page() << 16) | channel);
     updateInputSources();
 }
 
 void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_tapInputSource = QLCInputSource(universe, (m_dial->page() << 16) | channel);
+    if (m_tapInputSource != NULL)
+        delete m_tapInputSource;
+    m_tapInputSource = new QLCInputSource(universe, (m_dial->page() << 16) | channel);
     updateInputSources();
 }
 
@@ -220,7 +239,9 @@ void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_absoluteInputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_absoluteInputSource != NULL)
+            delete m_absoluteInputSource;
+        m_absoluteInputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateInputSources();
     }
 }
@@ -244,7 +265,9 @@ void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_tapInputSource = QLCInputSource(sic.universe(), sic.channel());
+        if (m_tapInputSource != NULL)
+            delete m_tapInputSource;
+        m_tapInputSource = new QLCInputSource(sic.universe(), sic.channel());
         updateInputSources();
     }
 }

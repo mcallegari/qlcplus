@@ -15,7 +15,7 @@ Keep in mind that if you cannot change them from the UI, it means there is a goo
 program crashes or awkward instability.</H2>
 </P>
 
-<H1>1 QLC+ configuration location</H1>
+<H1 id="location">1 QLC+ configuration location</H1>
 
 <H2>Linux</H2>
 <P>
@@ -40,7 +40,7 @@ QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</co
 configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>.<br>
 </P>
 
-<H1>2 Configuration Reset</H1>
+<H1 id="reset">2 Configuration Reset</H1>
 <P>
 Sometimes it might be necessary to reset the QLC+ configuration and bring QLC+ to a "Factory defaults" state.<br>
 To do so, locate the configuration as explained in the first paragraph, then do the following:
@@ -50,7 +50,7 @@ To do so, locate the configuration as explained in the first paragraph, then do 
 </ul>
 </P>
 
-<H1>3 Parameters syntax</H1>
+<H1 id="syntax">3 Parameters syntax</H1>
 <P>
 Due to Qt differences on different platforms, parameters are stored in different ways depending on
 your Operating System.
@@ -81,13 +81,13 @@ editor like <a href="http://www.barebones.com/products/textwrangler/">TextWrangl
 </PRE>
 </P>
 
-<H1>4 Parameters list</H1>
+<H1 id="list">4 Parameters list</H1>
 <P>
 Most likely you will not find the following parameters in a standard QLC+
 configuration. To make them effective, you need to <B>add</B> them at the end
 of your configuration file.
 
-<H3><A NAME="SimpleDesk" HREF="#SimpleDesk"></A>4.1 Simple Desk</H3>
+<H3 id="SimpleDesk">4.1 Simple Desk</H3>
 <PRE>
 <B>Category:</B> simpledesk
 <B>Name:</B> channelsperpage
@@ -103,7 +103,7 @@ of your configuration file.
 <B>Default:</B> 15
 </PRE>
 
-<H3><A NAME="EnttecOpen" HREF="#EnttecOpen"></A>4.2 DMX USB Enttec Open frequency</H3>
+<H3 id="EnttecOpen">4.2 DMX USB Enttec Open frequency</H3>
 <PRE>
 <B>Category:</B> enttecdmxusbopen
 <B>Name:</B> frequency
@@ -112,7 +112,7 @@ of your configuration file.
 <B>Default:</B> 30
 </PRE>
 
-<H3><A NAME="EnttecOpen" HREF="#EnttecOpen"></A>4.3 DMX USB Enttec Open channels number</H3>
+<H3 id="EnttecOpenChannels">4.3 DMX USB Enttec Open channels number</H3>
 <PRE>
 <B>Category:</B> enttecdmxusbopen
 <B>Name:</B> channels
@@ -122,7 +122,7 @@ This could solve flickering issues for some cases. For example you might try wit
 <B>Default:</B> 512
 </PRE>
 
-<H3><A NAME="uDMX" HREF="#uDMX"></A>4.4 uDMX frequency</H3>
+<H3 id="uDMX">4.4 uDMX frequency</H3>
 <PRE>
 <B>Category:</B> udmx
 <B>Name:</B> frequency
@@ -131,7 +131,7 @@ This could solve flickering issues for some cases. For example you might try wit
 <B>Default:</B> 30
 </PRE>
 
-<H3><A NAME="MasterTimer" HREF="#MasterTimer"></A>4.5 Master Timer frequency</H3>
+<H3 id="MasterTimer">4.5 Master Timer frequency</H3>
 <PRE>
 <B>Category:</B> mastertimer
 <B>Name:</B> frequency

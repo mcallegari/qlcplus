@@ -19,17 +19,20 @@
 
 #include <QDebug>
 #include <QProcess>
-#include <QNetworkInterface>
+#include <QSettings>
 
 #include "webaccess.h"
 
+#include "webaccessconfiguration.h"
+#include "webaccesssimpledesk.h"
+#include "webaccessnetwork.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
-#include "inputoutputmap.h"
 #include "commonjscss.h"
 #include "vcsoloframe.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
+#include "simpledesk.h"
 #include "qlcconfig.h"
 #include "webaccess.h"
 #include "vccuelist.h"
@@ -39,30 +42,13 @@
 #include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
-#include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-   #include "audiorenderer_portaudio.h"
-   #include "audiocapture_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-   #include "audiorenderer_waveout.h"
-   #include "audiocapture_wavein.h"
- #else
-   #include "audiorenderer_alsa.h"
-   #include "audiocapture_alsa.h"
- #endif
-#else
- #include "audiorenderer_qt.h"
- #include "audiocapture_qt.h"
-#endif
+#include "audiocapture.h"
+#include "audiorenderer.h"
 
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-   #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
-#endif
 
 WebAccess* s_instance = NULL;
 
@@ -95,13 +81,15 @@ static int event_handler(struct mg_connection *conn, enum mg_event ev)
     return MG_FALSE;
 }
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent) :
     QThread(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
+  , m_sd(sdInstance)
   , m_server(NULL)
   , m_conn(NULL)
   , m_running(false)
+  , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -113,6 +101,10 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
     mg_set_option(m_server, "listening_port", "9999");
     start();
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    m_netConfig = new WebAccessNetwork();
+#endif
+
     connect(m_vc, SIGNAL(loaded()),
             this, SLOT(slotVCLoaded()));
 }
@@ -122,7 +114,9 @@ WebAccess::~WebAccess()
     m_running = false;
     wait();
     mg_destroy_server(&m_server);
-    m_interfaces.clear();
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    delete m_netConfig;
+#endif
 }
 
 void WebAccess::run()
@@ -188,7 +182,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-              "<script type=\"text/javascript\">\n" WEBSOCKET_JS
+              "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
               "</script></head><body style=\"background-color: #45484d;\">"
               "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
               "text-align: center; font:bold 24px/1.2em sans-serif;\">"
@@ -201,18 +195,24 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
                 "%s",
                 post_size, postReply.data());
 
+      m_pendingProjectLoaded = false;
+
       emit loadProject(projectXML);
 
       return MG_TRUE;
   }
   else if (QString(conn->uri) == "/config")
   {
-      content = getConfigHTML();
+      content = WebAccessConfiguration::getHTML(m_doc);
+  }
+  else if (QString(conn->uri) == "/simpleDesk")
+  {
+      content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
   }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
   else if (QString(conn->uri) == "/system")
   {
-      content = getSystemConfigHTML();
+      content = m_netConfig->getHTML();
   }
 #endif
   else if (QString(conn->uri) == "/loadFixture")
@@ -358,31 +358,15 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
     {
         if (cmdList.at(1) == "NETWORK")
         {
-            for (int i = 0; i < m_interfaces.count(); i++)
+            if (m_netConfig->updateNetworkFile(cmdList) == true)
             {
-                if (m_interfaces.at(i).name == cmdList.at(2))
-                {
-                    m_interfaces[i].enabled = true;
-                    if (cmdList.at(3) == "static")
-                        m_interfaces[i].isStatic = true;
-                    else
-                        m_interfaces[i].isStatic = false;
-                    m_interfaces[i].address = cmdList.at(4);
-                    m_interfaces[i].netmask = cmdList.at(5);
-                    m_interfaces[i].gateway = cmdList.at(6);
-                    if (m_interfaces[i].isWireless == true)
-                    {
-                        m_interfaces[i].ssid = cmdList.at(7);
-                        m_interfaces[i].wpaPass = cmdList.at(8);
-                    }
-                    if (writeNetworkFile() == false)
-                        qDebug() << "[webaccess] Error writing network configuration file !";
-                    QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
-                    return MG_TRUE;
-                }
+                QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
+                mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+                return MG_TRUE;
             }
-            qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
+            else
+                qDebug() << "[webaccess] Error writing network configuration file !";
+
             return MG_TRUE;
         }
         else if (cmdList.at(1) == "AUTOSTART")
@@ -406,6 +390,163 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         }
     }
 #endif
+    else if (cmdList[0] == "QLC+API")
+    {
+        if (cmdList.count() < 2)
+            return MG_FALSE;
+
+        QString apiCmd = cmdList[1];
+        // compose the basic API reply messages
+        QString wsAPIMessage = QString("QLC+API|%1|").arg(apiCmd);
+
+        if (apiCmd == "isProjectLoaded")
+        {
+            if (m_pendingProjectLoaded)
+            {
+                wsAPIMessage.append("true");
+                m_pendingProjectLoaded = false;
+            }
+            else
+                wsAPIMessage.append("false");
+        }
+        else if (apiCmd == "getFunctionsNumber")
+        {
+            wsAPIMessage.append(QString::number(m_doc->functions().count()));
+        }
+        else if (apiCmd == "getFunctionsList")
+        {
+            foreach(Function *f, m_doc->functions())
+                wsAPIMessage.append(QString("%1|%2|").arg(f->id()).arg(f->name()));
+            // remove trailing separator
+            wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+        }
+        else if (apiCmd == "getFunctionType")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 fID = cmdList[2].toUInt();
+            Function *f = m_doc->function(fID);
+            if (f != NULL)
+                wsAPIMessage.append(m_doc->function(fID)->typeString());
+            else
+                wsAPIMessage.append(Function::typeToString(Function::Undefined));
+        }
+        else if (apiCmd == "getFunctionStatus")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 fID = cmdList[2].toUInt();
+            Function *f = m_doc->function(fID);
+            if (f != NULL)
+            {
+                if (f->isRunning())
+                    wsAPIMessage.append("Running");
+                else
+                    wsAPIMessage.append("Stopped");
+            }
+            else
+                wsAPIMessage.append(Function::typeToString(Function::Undefined));
+        }
+        else if (apiCmd == "getWidgetsNumber")
+        {
+            VCFrame *mainFrame = m_vc->contents();
+            QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
+            wsAPIMessage.append(QString::number(chList.count()));
+        }
+        else if (apiCmd == "getWidgetsList")
+        {
+            VCFrame *mainFrame = m_vc->contents();
+            foreach(VCWidget *widget, mainFrame->findChildren<VCWidget*>())
+                wsAPIMessage.append(QString("%1|%2|").arg(widget->id()).arg(widget->caption()));
+            // remove trailing separator
+            wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+        }
+        else if (apiCmd == "getWidgetType")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            if (widget != NULL)
+                wsAPIMessage.append(widget->typeToString(widget->type()));
+            else
+                wsAPIMessage.append(widget->typeToString(VCWidget::UnknownWidget));
+        }
+        else if (apiCmd == "getWidgetStatus")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            if (widget != NULL)
+            {
+                switch(widget->type())
+                {
+                    case VCWidget::ButtonWidget:
+                    {
+                        VCButton *button = qobject_cast<VCButton*>(widget);
+                        if (button->isOn())
+                            wsAPIMessage.append("255");
+                        else
+                            wsAPIMessage.append("0");
+                    }
+                    break;
+                    case VCWidget::SliderWidget:
+                    {
+                        VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                        wsAPIMessage.append(QString::number(slider->sliderValue()));
+                    }
+                    break;
+                    case VCWidget::CueListWidget:
+                    {
+                        VCCueList *cue = qobject_cast<VCCueList*>(widget);
+                        quint32 chaserID = cue->chaserID();
+                        Function *f = m_doc->function(chaserID);
+                        if (f != NULL && f->isRunning())
+                            wsAPIMessage.append(QString("PLAY|%2|").arg(cue->getCurrentIndex()));
+                        else
+                            wsAPIMessage.append("STOP");
+                    }
+                    break;
+                }
+            }
+        }
+        else if (apiCmd == "getChannelsValues")
+        {
+            if (cmdList.count() < 4)
+                return MG_FALSE;
+
+            quint32 universeAddr = ((cmdList[2].toUInt() - 1) << 9);
+            int startAddr = cmdList[3].toInt() - 1;
+            int count = 1;
+            if (cmdList.count() == 5)
+                count = cmdList[4].toInt();
+            for (int i = startAddr; i < startAddr + count; i++)
+            {
+                uchar value = m_sd->getAbsoluteChannelValue(universeAddr + i);
+                wsAPIMessage.append(QString("%1|%2|").arg(i + 1).arg(value));
+            }
+            // remove trailing separator
+            wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+        }
+
+        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
+        return MG_TRUE;
+    }
+    else if(cmdList[0] == "CH")
+    {
+        if (cmdList.count() < 3)
+            return MG_FALSE;
+
+        uint absAddress = cmdList[1].toInt() - 1;
+        int value = cmdList[2].toInt();
+        m_sd->setAbsoluteChannelValue(absAddress, uchar(value));
+
+        return MG_TRUE;
+    }
     else if(cmdList[0] == "POLL")
         return MG_TRUE;
 
@@ -424,7 +565,9 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
-                button->pressFunction();
+                if ((value == 0 && button->isOn()) ||
+                    (value != 0 && button->isOn() == false))
+                        button->pressFunction();
             }
             break;
             case VCWidget::SliderWidget:
@@ -616,7 +759,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
-            "onchange=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\""
+            "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\""
             "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
@@ -905,6 +1048,8 @@ QString WebAccess::getVCHTML()
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
             "<span>" + tr("Load project") + "</span></a>\n"
 
+            "<a class=\"button button-blue\" href=\"/simpleDesk\"><span>" + tr("Simple Desk") + "</span></a>\n"
+
             "<a class=\"button button-blue\" href=\"/config\"><span>" + tr("Configuration") + "</span></a>\n"
 
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
@@ -922,564 +1067,15 @@ QString WebAccess::getVCHTML()
     return str;
 }
 
-QString WebAccess::getIOConfigHTML()
+QString WebAccess::getSimpleDeskHTML()
 {
-    QString html = "";
-    InputOutputMap *ioMap = m_doc->inputOutputMap();
-
-    QStringList IOplugins = ioMap->inputPluginNames();
-    foreach (QString out, ioMap->outputPluginNames())
-        if (IOplugins.contains(out) == false)
-            IOplugins.append(out);
-
-    QStringList inputLines, outputLines, feedbackLines;
-    QStringList profiles = ioMap->profileNames();
-
-    foreach (QString pluginName, IOplugins)
-    {
-        QStringList inputs = ioMap->pluginInputs(pluginName);
-        QStringList outputs = ioMap->pluginOutputs(pluginName);
-        bool hasFeedback = ioMap->pluginSupportsFeedback(pluginName);
-
-        for (int i = 0; i < inputs.count(); i++)
-            inputLines.append(QString("%1,%2,%3").arg(pluginName).arg(inputs.at(i)).arg(i));
-        for (int i = 0; i < outputs.count(); i++)
-        {
-            outputLines.append(QString("%1,%2,%3").arg(pluginName).arg(outputs.at(i)).arg(i));
-            if (hasFeedback)
-                feedbackLines.append(QString("%1,%2,%3").arg(pluginName).arg(outputs.at(i)).arg(i));
-        }
-    }
-    inputLines.prepend("None, None, -1");
-    outputLines.prepend("None, None, -1");
-    feedbackLines.prepend("None, None, -1");
-    profiles.prepend("None");
-
-    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
-
-    for (quint32 i = 0; i < ioMap->universes(); i++)
-    {
-        InputPatch* ip = ioMap->inputPatch(i);
-        OutputPatch* op = ioMap->outputPatch(i);
-        OutputPatch* fp = ioMap->feedbackPatch(i);
-        QString uniName = ioMap->getUniverseNameByIndex(i);
-        bool uniPass = ioMap->getUniversePassthrough(i);
-
-        QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();
-        quint32 currentInput = (ip == NULL)?QLCChannel::invalid():ip->input();
-        QString currentOutputPluginName = (op == NULL)?KOutputNone:op->pluginName();
-        quint32 currentOutput = (op == NULL)?QLCChannel::invalid():op->output();
-        QString currentFeedbackPluginName = (fp == NULL)?KOutputNone:fp->pluginName();
-        quint32 currentFeedback = (fp == NULL)?QLCChannel::invalid():fp->output();
-        QString currentProfileName = (ip == NULL)?KInputNone:ip->profileName();
-
-        html += "<tr align=center><td>" + uniName + "</td>\n";
-        html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
-        for (int in = 0; in < inputLines.count(); in++)
-        {
-            QStringList strList = inputLines.at(in).split(",");
-            QString selected = "";
-            if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
-                selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
-        }
-        html += "</select></td>\n";
-        html += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
-        for (int in = 0; in < outputLines.count(); in++)
-        {
-            QStringList strList = outputLines.at(in).split(",");
-            QString selected = "";
-            if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
-                selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
-        }
-        html += "</select></td>\n";
-        html += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
-        for (int in = 0; in < feedbackLines.count(); in++)
-        {
-            QStringList strList = feedbackLines.at(in).split(",");
-            QString selected = "";
-            if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
-                selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
-        }
-        html += "</select></td>\n";
-        html += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
-        for (int p = 0; p < profiles.count(); p++)
-        {
-            QString selected = "";
-            if (currentProfileName == profiles.at(p))
-                selected = "selected";
-            html += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
-        }
-        html += "</select></td>\n";
-        html += "<td><label><input type=\"checkbox\" ";
-        if (uniPass == true)
-            html +="checked=\"checked\"";
-        html += " onchange=\"ioChanged('PASSTHROUGH', " + QString::number(i) + ", this.checked);\">";
-        html += tr("Passthrough") + "</label></td>\n";
-
-        html += "</tr>\n";
-    }
-    html += "</table>\n";
-
-    return html;
-}
-
-QString WebAccess::getAudioConfigHTML()
-{
-    QString html = "";
-    QList<AudioDeviceInfo> devList;
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-    devList = AudioRendererPortAudio::getDevicesInfo();
- #elif defined(WIN32) || defined(Q_OS_WIN)
-    devList = AudioRendererWaveOut::getDevicesInfo();
- #else
-    devList = AudioRendererAlsa::getDevicesInfo();
- #endif
-#else
-    devList = AudioRendererQt::getDevicesInfo();
-#endif
-    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Input</th><th>Output</th></tr>\n";
-    html += "<tr align=center>";
-
-    QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
-                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
-    QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
-                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
-
-    QString inputName, outputName;
-    QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
-    if (var.isValid() == true)
-        inputName = var.toString();
-
-    var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
-        outputName = var.toString();
-
-    foreach( AudioDeviceInfo info, devList)
-    {
-        if (info.capabilities & AUDIO_CAP_INPUT)
-            audioInSelect += "<option value=\"" + info.privateName + "\" " +
-                             ((info.privateName == inputName)?"selected":"") + ">" +
-                             info.deviceName + "</option>\n";
-        if (info.capabilities & AUDIO_CAP_OUTPUT)
-            audioOutSelect += "<option value=\"" + info.privateName + "\" " +
-                    ((info.privateName == outputName)?"selected":"") + ">" +
-                    info.deviceName + "</option>\n";
-    }
-    audioInSelect += "</select></td>\n";
-    audioOutSelect += "</select></td>\n";
-    html += audioInSelect + audioOutSelect + "</tr>\n</table>\n";
-
-    return html;
-}
-
-QString WebAccess::getUserFixturesConfigHTML()
-{
-    QString html = "";
-    QDir userFx = QLCFixtureDefCache::userDefinitionDirectory();
-
-    if (userFx.exists() == false || userFx.isReadable() == false)
-        return "";
-
-    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>File name</th></tr>\n";
-
-    /* Attempt to read all specified files from the given directory */
-    QStringListIterator it(userFx.entryList());
-    while (it.hasNext() == true)
-    {
-        QString path(it.next());
-
-        if (path.toLower().endsWith(".qxf") == true ||
-            path.toLower().endsWith(".d4"))
-                html += "<tr><td>" + path + "</td></tr>\n";
-    }
-    html += "</table>\n";
-    html += "<br><a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
-     "<span>" + tr("Load fixture") + "</span></a>\n";
-
-    return html;
-}
-
-QString WebAccess::getConfigHTML()
-{
-    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
-    m_JScode += "function ioChanged(cmd, uni, val)\n"
-            "{\n"
-            " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
-            "};\n\n";
-    m_JScode += "</script>\n";
-
-    m_CSScode = "<style>\n"
-            "html { height: 100%; background-color: #111; }\n"
-            "body {\n"
-            " margin: 0px;\n"
-            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
-            "}\n"
-            HIDDEN_FORM_CSS
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            TABLE_CSS
-            "</style>\n";
-
-    QString extraButtons = "";
-    if (QLCFile::isRaspberry() == true)
-    {
-        extraButtons = "<a class=\"button button-blue\" href=\"/system\"><span>" + tr("System") + "</span></a>\n";
-    }
-
-    QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-                       "<input id=\"loadTrigger\" type=\"file\" "
-                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
-                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
-
-                       "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n" +
-                       extraButtons +
-                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
-                       "</div>\n";
-
-    // ********************* IO mapping ***********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
-    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Universes configuration") + "</div><br>\n";
-    bodyHTML += getIOConfigHTML();
-
-    // ********************* audio devices ********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
-    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Audio configuration") + "</div><br>\n";
-    bodyHTML += getAudioConfigHTML();
-
-    // **************** User loaded fixtures ******************
-
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
-    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("User loaded fixtures") + "</div><br>\n";
-    bodyHTML += getUserFixturesConfigHTML();
-
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
-
+    QString str = HTML_HEADER;
     return str;
 }
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-void WebAccess::resetInterface(InterfaceInfo *iface)
-{
-    iface->name = "";
-    iface->isStatic = false;
-    iface->isWireless = false;
-    iface->address = "";
-    iface->gateway = "";
-    iface->gateway = "";
-    iface->enabled = false;
-    iface->ssid = "";
-    iface->wpaPass = "";
-}
-
-void WebAccess::appendInterface(InterfaceInfo iface)
-{
-    m_interfaces.append(iface);
-}
-
-QString WebAccess::getInterfaceHTML(InterfaceInfo *iface)
-{
-    QString dhcpChk = iface->isStatic?QString():QString("checked");
-    QString staticChk = iface->isStatic?QString("checked"):QString();
-    QString visibility = iface->isStatic?QString("visible"):QString("hidden");
-    QString html = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
-    html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
-            "color:#CCCCCC; background:#222; border-radius: 7px;\">";
-
-    html += tr("Network interface: ") + iface->name + "<br>\n";
-
-    html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
-    if (iface->isWireless)
-    {
-        html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" +
-                iface->name + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
-        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" +
-                iface->name + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
-    }
-    /** IP mode radio buttons */
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
-            iface->name + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
-            iface->name + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
-
-    /** Static IP fields */
-    html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
-    html += tr("IP Address: ") + "<input type=\"text\" id=\"" +
-            iface->name + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
-    html += tr("Netmask: ") + "<input type=\"text\" id=\"" +
-            iface->name + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
-    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" +
-            iface->name + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
-    html += "</div>\n";
-    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name + "');\" >\n";
-    html += "</form></div></div>";
-
-    return html;
-}
-
-QString WebAccess::getNetworkHTML()
-{
-    QStringList systemDevs;
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
-        systemDevs.append(interface.name());
-
-    QFile netFile(IFACES_SYSTEM_FILE);
-    if (netFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
-        return "";
-
-    m_interfaces.clear();
-    InterfaceInfo currInterface;
-    resetInterface(&currInterface);
-
-    QString html = "";
-
-    QTextStream in(&netFile);
-    while ( !in.atEnd() )
-    {
-        QString line = in.readLine();
-        line = line.simplified();
-        // ignore comments
-        if (line.startsWith('#'))
-            continue;
-
-        QStringList ifaceRow = line.split(" ");
-        if (ifaceRow.count() == 0)
-            continue;
-
-        QString keyword = ifaceRow.at(0);
-        if (keyword == "iface")
-        {
-            if (currInterface.isStatic == true)
-            {
-                html += getInterfaceHTML(&currInterface);
-                appendInterface(currInterface);
-                resetInterface(&currInterface);
-            }
-
-            if (ifaceRow.count() < 4)
-                continue;
-
-            currInterface.name = ifaceRow.at(1);
-            // remove the interface from the system list
-            // the remaining interfaces will be added at the
-            // end as disabled interfaces
-            systemDevs.removeOne(currInterface.name);
-
-            if (currInterface.name.contains("wlan") || currInterface.name.contains("ra"))
-                currInterface.isWireless = true;
-
-            if (ifaceRow.at(3) == "dhcp")
-            {
-                html += getInterfaceHTML(&currInterface);
-                appendInterface(currInterface);
-                resetInterface(&currInterface);
-            }
-            else if (ifaceRow.at(3) == "static")
-                currInterface.isStatic = true;
-        }
-        else if (keyword == "address")
-            currInterface.address = ifaceRow.at(1);
-        else if (keyword == "netmask")
-            currInterface.netmask = ifaceRow.at(1);
-        else if (keyword == "gateway")
-            currInterface.gateway = ifaceRow.at(1);
-        else if (keyword == "wpa-ssid")
-            currInterface.ssid = ifaceRow.at(1);
-        else if (keyword == "wpa-psk")
-            currInterface.wpaPass = ifaceRow.at(1);
-
-        currInterface.enabled = true;
-    }
-
-    netFile.close();
-
-    if (currInterface.isStatic == true)
-    {
-        html += getInterfaceHTML(&currInterface);
-        appendInterface(currInterface);
-        resetInterface(&currInterface);
-    }
-
-    foreach(QString dev, systemDevs)
-    {
-        currInterface.name = dev;
-        currInterface.enabled = false;
-        if (currInterface.name.contains("wlan") || currInterface.name.contains("ra"))
-            currInterface.isWireless = true;
-        html += getInterfaceHTML(&currInterface);
-        appendInterface(currInterface);
-        resetInterface(&currInterface);
-    }
-
-    foreach (InterfaceInfo info, m_interfaces)
-    {
-        qDebug() << "Interface:" << info.name << "isstatic:" << info.isStatic;
-    }
-
-    return html;
-}
-
-QString WebAccess::getSystemConfigHTML()
-{
-    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
-    m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)\n"
-            "{\n"
-            " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw + \"|\" + ssid + \"|\" + wpapsk);\n"
-            "};\n"
-
-            "function showStatic(iface, enable) {\n"
-            " var divName = iface + \"StaticFields\";\n"
-            " var obj=document.getElementById(divName);\n"
-            " if (enable == true)\n"
-            "   obj.style.visibility='visible';\n"
-            " else\n"
-            "   obj.style.visibility='hidden';\n"
-            "}\n"
-
-            "function applyParams(iface) {\n"
-            " var radioGroup = iface + \"NetGroup\";\n"
-            " var radios = document.getElementsByName(radioGroup);\n"
-            " var ssidObj = document.getElementById(iface+\"SSID\");\n"
-            " var ssidVal = '';\n"
-            " if (ssidObj != null) ssidVal = ssidObj.value;\n"
-            " var wpapskObj = document.getElementById(iface+\"WPAPSK\");\n"
-            " var wpapskVal = '';\n"
-            " if (wpapskObj != null) wpapskVal = wpapskObj.value;\n"
-            " if (radios[0].checked)\n"
-            "   systemCmd(\"NETWORK\", iface, \"dhcp\", '', '', '', ssidVal, wpapskVal);\n"
-            " else if (radios[1].checked) {\n"
-            "   var addrName=iface+\"IPaddr\";\n"
-            "   var maskName=iface+\"Netmask\";\n"
-            "   var gwName=iface+\"Gateway\";\n"
-            "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
-            " document.getElementById(maskName).value, document.getElementById(gwName).value, ssidVal, wpapskVal);\n"
-            " }\n"
-            "}\n"
-
-            "function setAutostart() {\n"
-            " var radios = document.getElementsByName('autostart');\n"
-            " if (radios[0].checked)\n"
-            "   websocket.send('QLC+SYS|AUTOSTART|none');\n"
-            " else\n"
-            "   websocket.send('QLC+SYS|AUTOSTART|current');\n"
-            "}\n\n";
-
-    m_JScode += "</script>\n";
-
-    m_CSScode = "<style>\n"
-            "html { height: 100%; background-color: #111; }\n"
-            "body {\n"
-            " margin: 0px;\n"
-            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
-            "}\n"
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            "</style>\n";
-
-    QString bodyHTML = "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
-                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
-                       "</div>\n";
-
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Network configuration") + "</div>\n";
-    bodyHTML += getNetworkHTML();
-
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Project autostart") + "</div>\n";
-    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
-    bodyHTML += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
-    bodyHTML += "<input type=\"radio\" name=autostart value=\"none\">" + tr("No project") + "\n";
-    bodyHTML += "<input type=\"radio\" name=autostart value=\"current\" checked>" + tr("Use current project") + "\n";
-    bodyHTML += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"setAutostart();\" >\n";
-    bodyHTML += "</form></div>\n";
-
-    bodyHTML += "<div style=\"margin:5px 7%;\">\n";
-    bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
-    bodyHTML += "</div>\n";
-
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
-
-    return str;
-}
-
-bool WebAccess::writeNetworkFile()
-{
-    QFile netFile(IFACES_SYSTEM_FILE);
-    if (netFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
-        return false;
-
-    netFile.write(QString("auto lo\n").toLatin1());
-    netFile.write(QString("iface lo inet loopback\n").toLatin1());
-    netFile.write(QString("allow-hotplug eth0\n").toLatin1());
-
-    foreach (InterfaceInfo iface, m_interfaces)
-    {
-        if (iface.enabled == false)
-            continue;
-
-        if (iface.isWireless)
-            netFile.write((QString("auto %1\n").arg(iface.name)).toLatin1());
-
-        if (iface.isStatic == false)
-            netFile.write((QString("iface %1 inet dhcp\n").arg(iface.name)).toLatin1());
-        else
-        {
-            netFile.write((QString("iface %1 inet static\n").arg(iface.name)).toLatin1());
-            netFile.write((QString("  address %1\n").arg(iface.address)).toLatin1());
-            netFile.write((QString("  netmask %1\n").arg(iface.netmask)).toLatin1());
-            netFile.write((QString("  gateway %1\n").arg(iface.gateway)).toLatin1());
-        }
-        if (iface.isWireless)
-        {
-            if (iface.ssid.isEmpty() == false)
-                netFile.write((QString("  wpa-ssid %1\n").arg(iface.ssid)).toLatin1());
-            if (iface.wpaPass.isEmpty() == false)
-                netFile.write((QString("  wpa-psk %1\n").arg(iface.wpaPass)).toLatin1());
-        }
-    }
-
-    netFile.close();
-
-    return true;
-}
-#endif
 
 void WebAccess::slotVCLoaded()
 {
-    if (m_conn == NULL)
-        return;
-
-    QString wsMessage = QString("URL|/");
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    m_pendingProjectLoaded = true;
 }
 
 

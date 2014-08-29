@@ -36,6 +36,8 @@
 #define KXMLQLCVCFrameAllowResize   "AllowResize"
 #define KXMLQLCVCFrameShowHeader    "ShowHeader"
 #define KXMLQLCVCFrameIsCollapsed   "Collapsed"
+#define KXMLQLCVCFrameIsDisabled    "Disabled"
+#define KXMLQLCVCFrameEnableSource  "Enable"
 
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
@@ -56,6 +58,7 @@ public:
     /** External input source IDs */
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
+    static const quint8 enableInputSourceId;
 
     /*********************************************************************
      * Initialization
@@ -73,6 +76,9 @@ public:
      * GUI
      *********************************************************************/
 public:
+    /** @reimp */
+    void setDisableState(bool disable);
+
     /** @reimp */
     void setCaption(const QString& text);
 
@@ -92,17 +98,27 @@ public:
 
     bool isHeaderVisible() const;
 
-    bool isCollapsed();  
+    bool isCollapsed();
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
+
+    /**
+     * When called, this method will set the disable state of
+     * this frame and its chidren widget accordingly to the
+     * toggle parameter
+     *
+     * @param toggle true means enable, false means disable
+     */
+    void slotEnableButtonClicked(bool checked);
 
 protected:
     void createHeader();
 
 protected:
     QHBoxLayout *m_hbox;
-    QToolButton *m_button;
+    QToolButton *m_collapseButton;
+    QToolButton *m_enableButton;
     QLabel *m_label;
     bool m_collapsed;
     bool m_showHeader;
@@ -139,6 +155,13 @@ protected:
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
 
+    /*************************************************************************
+     * QLC+ mode
+     *************************************************************************/
+protected slots:
+    /** @reimp */
+    void slotModeChanged(Doc::Mode mode);
+
     /*********************************************************************
      * Submasters
      *********************************************************************/
@@ -156,22 +179,29 @@ public:
      * Key sequences
      *************************************************************************/
 public:
-    /** Set the keyboard key combination for skipping to the next cue */
+    /** Set the keyboard key combination to enable/disable the frame */
+    void setEnableKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to enable/disable the frame */
+    QKeySequence enableKeySequence() const;
+
+    /** Set the keyboard key combination for skipping to the next page */
     void setNextPageKeySequence(const QKeySequence& keySequence);
 
-    /** Get the keyboard key combination for skipping to the next cue */
+    /** Get the keyboard key combination for skipping to the next page */
     QKeySequence nextPageKeySequence() const;
 
-    /** Set the keyboard key combination for skipping to the previous cue */
+    /** Set the keyboard key combination for skipping to the previous page */
     void setPreviousPageKeySequence(const QKeySequence& keySequence);
 
-    /** Get the keyboard key combination for skipping to the previous cue */
+    /** Get the keyboard key combination for skipping to the previous page */
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
     void slotFrameKeyPressed(const QKeySequence& keySequence);
 
 private:
+    QKeySequence m_enableKeySequence;
     QKeySequence m_nextPageKeySequence;
     QKeySequence m_previousPageKeySequence;
 

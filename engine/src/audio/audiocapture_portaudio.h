@@ -22,6 +22,10 @@
 
 #include "audiocapture.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCapturePortAudio : public AudioCapture
 {
     Q_OBJECT
@@ -45,5 +49,7 @@ protected:
     /** @reimpl */
     bool readAudio(int maxSize);
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_PORTAUDIO_H

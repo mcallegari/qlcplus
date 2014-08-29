@@ -25,6 +25,7 @@
 #include "qlcinputsource.h"
 
 class VCSpeedDial;
+class VCSpeedDialFunction;
 class Doc;
 
 /** @addtogroup ui_vc_props
@@ -55,11 +56,11 @@ private slots:
     void slotRemoveClicked();
 
 private:
-    /** Generate a QSet of functions currently in the tree widget */
-    QSet <quint32> functions() const;
+    /** Generate a QList of functions currently in the tree widget */
+    QList <VCSpeedDialFunction> functions() const;
 
     /** Create a tree item for the given function $id */
-    void createFunctionItem(quint32 id);
+    void createFunctionItem(const VCSpeedDialFunction &speeddialfunction);
 
     /************************************************************************
      * Input page
@@ -80,8 +81,8 @@ private slots:
     void slotDetachKey();
 
 private:
-    QLCInputSource m_absoluteInputSource;
-    QLCInputSource m_tapInputSource;
+    QLCInputSource *m_absoluteInputSource;
+    QLCInputSource *m_tapInputSource;
     QKeySequence m_tapKeySequence;
 };
 

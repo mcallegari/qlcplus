@@ -29,6 +29,10 @@ class Chaser;
 class Scene;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCClipboard: public QObject
 {
     Q_OBJECT
@@ -70,5 +74,7 @@ private:
     QList <SceneValue> m_copySceneValues;
     Function *m_copyFunction;
 };
+
+/** @} */
 
 #endif // QLCCLIPBOARD_H

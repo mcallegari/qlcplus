@@ -20,26 +20,27 @@
 #ifndef QLCINPUTSOURCE_H
 #define QLCINPUTSOURCE_H
 
-#include <QtCore>
+#include <QThread>
+#include <QMutex>
 
 /** @addtogroup engine Engine
  * @{
  */
 
-class QLCInputSource
+class QLCInputSource: public QThread
 {
+    Q_OBJECT
+
 public:
     static quint32 invalidUniverse;
     static quint32 invalidChannel;
 
 public:
-    QLCInputSource();
-    QLCInputSource(quint32 universe, quint32 channel);
+    QLCInputSource(QThread * parent = 0);
+    QLCInputSource(quint32 universe, quint32 channel, QThread * parent = 0);
+    virtual ~QLCInputSource();
 
     bool isValid() const;
-
-    QLCInputSource& operator=(const QLCInputSource& source);
-    bool operator==(const QLCInputSource& source) const;
 
     void setUniverse(quint32 uni);
     quint32 universe() const;
@@ -53,6 +54,59 @@ public:
 private:
     quint32 m_universe;
     quint32 m_channel;
+
+    /*********************************************************************
+     * Working mode
+     *********************************************************************/
+public:
+    /** Movement behaviour */
+    enum WorkingMode {
+        Absolute = 0,
+        Relative = 1
+    };
+
+    WorkingMode workingMode() const;
+    void setWorkingMode(WorkingMode mode);
+
+    bool isRelative();
+
+    int sensitivity() const;
+    void setSensitivity(int value);
+
+    void updateInputValue(uchar value);
+    void updateOuputValue(uchar value);
+
+private:
+    /** @reimp */
+    void run();
+
+protected:
+    /** The input source mode: absolute or relative */
+    WorkingMode m_workingMode;
+
+    /** When in relative mode, this defines the sensitivity
+     *  of synthetic emitted values against the external input value */
+    int m_sensitivity;
+
+    /** The input value received from an external controller */
+    uchar m_inputValue;
+
+    /** The DMX value of a QLC+ item using this source.
+     *  It is used to keep in sync this source and QLC+ */
+    uchar m_outputValue;
+
+    /** Thread running state condition variable.
+     *  Used only in relative working mode */
+    bool m_running;
+
+    /** Mutex to syncronize input/output value updates */
+    QMutex m_mutex;
+
+signals:
+    /** Signal emitted when the input source is in relative
+     *  working mode. It emits synthetic generated values */
+    void inputValueChanged(quint32 universe, quint32 channel,
+                           uchar value, const QString& key = 0);
 };
 
 /** @} */

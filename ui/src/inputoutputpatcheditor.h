@@ -84,12 +84,13 @@ private:
     QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
     void fillMappingTree();
     QTreeWidgetItem* pluginItem(const QString& pluginName);
+    void showPluginMappingError();
 
 private slots:
     void slotMapCurrentItemChanged(QTreeWidgetItem* item);
     void slotMapItemChanged(QTreeWidgetItem* item, int col);
     void slotConfigureInputClicked();
-    void slotPluginConfigurationChanged(const QString& pluginName);
+    void slotPluginConfigurationChanged(const QString& pluginName, bool success);
 
     /************************************************************************
      * Profile page

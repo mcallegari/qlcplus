@@ -51,6 +51,8 @@ class QEvent;
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
 
+#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+
 #define KXMLQLCVCButtonKey "Key"
 
 #define KXMLQLCVCButtonIntensity "Intensity"
@@ -181,6 +183,9 @@ public:
      */
     quint32 function() const;
 
+    /** @reimp */
+    void stopFunction();
+
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
     void slotFunctionRemoved(quint32 fid);
@@ -244,8 +249,12 @@ public:
     static QString actionToString(Action action);
     static Action stringToAction(const QString& str);
 
+    void setStopAllFadeOutTime(int ms);
+    int stopAllFadeTime();
+
 protected:
     Action m_action;
+    int m_blackoutFadeOutTime;
 
     /*********************************************************************
      * Startup intensity adjustment
@@ -314,9 +323,6 @@ protected:
     bool isChildOfSoloFrame() const;
 
 signals:
-    /** Signal telling the buttons function was started as a result of a toggle action */
-    void functionStarting ();
-
     /** Signal emitted when the button has actually changed the graphic state */
     void pressedState(bool on);
 

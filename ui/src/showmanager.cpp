@@ -26,6 +26,7 @@
 #include <QScrollBar>
 #include <QComboBox>
 #include <QSplitter>
+#include <QSettings>
 #include <QToolBar>
 #include <QSpinBox>
 #include <QLabel>
@@ -41,7 +42,6 @@
 #endif
 #include "showmanager.h"
 #include "sceneeditor.h"
-#include "sceneitems.h"
 #include "qlcmacros.h"
 #include "chaser.h"
 
@@ -58,6 +58,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_currentScene(NULL)
     , m_sceneEditor(NULL)
     , m_currentEditor(NULL)
+    , m_editorFunctionID(Function::invalidId())
     , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
@@ -73,6 +74,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_pasteAction(NULL)
     , m_deleteAction(NULL)
     , m_colorAction(NULL)
+    , m_lockAction(NULL)
     , m_snapGridAction(NULL)
     , m_stopAction(NULL)
     , m_playAction(NULL)
@@ -121,6 +123,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotTrackDoubleClicked(Track*)));
     connect(m_showview, SIGNAL(trackMoved(Track*,int)),
             this, SLOT(slotTrackMoved(Track*,int)));
+    connect(m_showview, SIGNAL(trackDelete(Track*)),
+            this, SLOT(slotTrackDelete(Track*)));
 
     // split the multitrack view into two (left: tracks, right: chaser editor)
     m_vsplitter = new QSplitter(Qt::Horizontal, this);
@@ -240,6 +244,13 @@ void ShowManager::initActions()
            this, SLOT(slotChangeColor()));
     m_colorAction->setEnabled(false);
 
+    m_lockAction = new QAction(QIcon(":/lock.png"),
+                               tr("Lock item"), this);
+    m_lockAction->setShortcut(QKeySequence("CTRL+K"));
+    connect(m_lockAction, SIGNAL(triggered()),
+            this, SLOT(slotChangeLock()));
+    m_lockAction->setEnabled(false);
+
     m_snapGridAction = new QAction(QIcon(":/grid.png"),
                                    tr("Snap to &Grid"), this);
     m_snapGridAction->setShortcut(QKeySequence("CTRL+G"));
@@ -290,6 +301,7 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
 
     m_toolbar->addAction(m_colorAction);
+    m_toolbar->addAction(m_lockAction);
     m_toolbar->addAction(m_snapGridAction);
     m_toolbar->addSeparator();
 
@@ -351,7 +363,12 @@ void ShowManager::updateShowsCombo()
     m_showsCombo->clear();
     foreach (Function* f, m_doc->functionsByType(Function::Show))
     {
-        m_showsCombo->addItem(f->name(), QVariant(f->id()));
+        // Insert in ascii order
+        int insertPosition = 0;
+        while (insertPosition < m_showsCombo->count() &&
+                QString::localeAwareCompare(m_showsCombo->itemText(insertPosition), f->name()) <= 0)
+            ++insertPosition;
+        m_showsCombo->insertItem(insertPosition, f->name(), QVariant(f->id()));
         if (m_show != NULL && m_show->id() != f->id())
             newIndex++;
     }
@@ -438,11 +455,15 @@ void ShowManager::hideRightEditor()
         m_vsplitter->widget(1)->hide();
         m_currentEditor->deleteLater();
         m_currentEditor = NULL;
+        m_editorFunctionID = Function::invalidId();
     }
 }
 
 void ShowManager::showRightEditor(Chaser *chaser)
 {
+    if (chaser != NULL && m_editorFunctionID == chaser->id())
+        return;
+
     hideRightEditor();
 
     if (chaser == NULL)
@@ -451,10 +472,10 @@ void ShowManager::showRightEditor(Chaser *chaser)
     if (this->isVisible())
     {
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-        editor->showOrderAndDirection(false);
         if (m_currentEditor != NULL)
         {
+            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            editor->showOrderAndDirection(false);
             m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
             connect(m_currentEditor, SIGNAL(applyValues(QList<SceneValue>&)),
@@ -467,12 +488,16 @@ void ShowManager::showRightEditor(Chaser *chaser)
 
             m_vsplitter->widget(1)->show();
             m_currentEditor->show();
+            m_editorFunctionID = chaser->id();
         }
     }
 }
 
 void ShowManager::showRightEditor(Audio *audio)
 {
+    if (audio != NULL && m_editorFunctionID == audio->id())
+        return;
+
     hideRightEditor();
 
     if (audio == NULL)
@@ -486,6 +511,7 @@ void ShowManager::showRightEditor(Audio *audio)
             m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             m_vsplitter->widget(1)->show();
             m_currentEditor->show();
+            m_editorFunctionID = audio->id();
         }
     }
 }
@@ -493,6 +519,9 @@ void ShowManager::showRightEditor(Audio *audio)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 void ShowManager::showRightEditor(Video *video)
 {
+    if (video != NULL && m_editorFunctionID == video->id())
+        return;
+
     hideRightEditor();
 
     if (video == NULL)
@@ -530,7 +559,11 @@ void ShowManager::slotAddShow()
         if (m_doc->addFunction(f) == true)
         {
             // modify the new selected Show index
-            m_selectedShowIndex = m_showsCombo->count();
+            int insertPosition = 0;
+            while (insertPosition < m_showsCombo->count() &&
+                    QString::localeAwareCompare(m_showsCombo->itemText(insertPosition), m_show->name()) <= 0)
+                ++insertPosition;
+            m_selectedShowIndex = insertPosition;
             updateShowsCombo();
             m_copyAction->setEnabled(false);
             if (m_doc->clipboard()->hasFunction())
@@ -1081,11 +1114,10 @@ void ShowManager::slotDelete()
     {
         if (isTrack == false)
         {
-            Track *currTrack = m_show->getTrackFromSceneID(m_currentScene->id());
-            if (currTrack != NULL)
+            if (m_currentTrack != NULL)
             {
-                currTrack->removeFunctionID(deleteID);
                 hideRightEditor();
+                m_currentTrack->removeFunctionID(deleteID);
             }
         }
         else
@@ -1094,8 +1126,6 @@ void ShowManager::slotDelete()
             m_doc->setModified();
             updateMultiTrackView();
         }
-
-        //m_doc->deleteFunction(deleteID);
     }
 }
 
@@ -1152,6 +1182,8 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     showSceneEditor(NULL);
     hideRightEditor();
     m_colorAction->setEnabled(false);
+    m_lockAction->setIcon(QIcon(":/lock.png"));
+    m_lockAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
 }
@@ -1166,15 +1198,21 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     quint32 sceneID = chaser->getBoundSceneID();
 
     Function *f = m_doc->function(sceneID);
+    Scene *newScene = NULL;
     if (f != NULL)
-        m_currentScene = qobject_cast<Scene*>(f);
+        newScene = qobject_cast<Scene*>(f);
 
-    showSceneEditor(m_currentScene);
+    if (newScene != m_currentScene || m_sceneEditor == NULL)
+    {
+        m_currentScene = newScene;
+        showSceneEditor(m_currentScene);
+    }
+
     /* activate the new track */
-    m_currentTrack = m_show->getTrackFromSceneID(sceneID);
+    m_currentTrack = m_show->getTrackFromSceneID(sceneID);;
     m_showview->activateTrack(m_currentTrack);
-
     showRightEditor(chaser);
+
     if (m_currentEditor != NULL)
     {
         ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
@@ -1183,6 +1221,11 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
 
     if (moved == true)
         m_doc->setModified();
@@ -1214,6 +1257,11 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
     m_doc->setModified();
 }
 
@@ -1244,6 +1292,11 @@ void ShowManager::slotVideoMoved(VideoItem *item)
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_lockAction->setEnabled(true);
+    if (item->isLocked() == false)
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    else
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
     m_doc->setModified();
 }
 #endif
@@ -1283,16 +1336,15 @@ void ShowManager::slotUpdateTime(quint32 msec_time)
 
 void ShowManager::slotTrackClicked(Track *track)
 {
-    /*
-    Function *f = m_doc->function(track->getSceneID());
-    if (f == NULL)
-        return;
-    m_currentScene = qobject_cast<Scene*>(f);
-    showSceneEditor(m_currentScene);
-    */
     m_currentTrack = track;
     if (track->getSceneID() == Function::invalidId())
         m_currentScene = NULL;
+    else
+    {
+        Function *f = m_doc->function(track->getSceneID());
+        if (f != NULL)
+            m_currentScene = qobject_cast<Scene*>(f);
+    }
     m_deleteAction->setEnabled(true);
     m_copyAction->setEnabled(true);
 }
@@ -1321,6 +1373,20 @@ void ShowManager::slotTrackMoved(Track *track, int direction)
     m_doc->setModified();
 }
 
+void ShowManager::slotTrackDelete(Track *track)
+{
+    if (track == NULL)
+        return;
+
+    quint32 deleteID = m_showview->deleteSelectedFunction();
+    if (deleteID != Function::invalidId())
+    {
+        m_show->removeTrack(deleteID);
+        m_doc->setModified();
+        updateMultiTrackView();
+    }
+}
+
 void ShowManager::slotChangeColor()
 {
     SequenceItem *seqItem = m_showview->getSelectedSequence();
@@ -1329,6 +1395,8 @@ void ShowManager::slotChangeColor()
         QColor color = seqItem->getChaser()->getColor();
 
         color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         seqItem->getChaser()->setColor(color);
         seqItem->setColor(color);
         return;
@@ -1338,7 +1406,9 @@ void ShowManager::slotChangeColor()
     {
         QColor color = audItem->getAudio()->getColor();
 
-    color = QColorDialog::getColor(color);
+        color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         audItem->getAudio()->setColor(color);
         audItem->setColor(color);
         return;
@@ -1349,9 +1419,47 @@ void ShowManager::slotChangeColor()
     {
         QColor color = vidItem->getVideo()->getColor();
 
-    color = QColorDialog::getColor(color);
+        color = QColorDialog::getColor(color);
+        if (!color.isValid())
+            return;
         vidItem->getVideo()->setColor(color);
         vidItem->setColor(color);
+        return;
+    }
+#endif
+}
+
+void ShowManager::slotChangeLock()
+{
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+    {
+        if (seqItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        seqItem->setLocked(!seqItem->isLocked());
+        return;
+    }
+    AudioItem *audItem = m_showview->getSelectedAudio();
+    if (audItem != NULL)
+    {
+        if (audItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        audItem->setLocked(!audItem->isLocked());
+        return;
+    }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    VideoItem *vidItem = m_showview->getSelectedVideo();
+    if (vidItem != NULL)
+    {
+        if (vidItem->isLocked() == false)
+            m_lockAction->setIcon(QIcon(":/unlock.png"));
+        else
+            m_lockAction->setIcon(QIcon(":/lock.png"));
+        vidItem->setLocked(!vidItem->isLocked());
         return;
     }
 #endif
