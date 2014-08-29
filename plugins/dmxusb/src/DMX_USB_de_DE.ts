@@ -102,17 +102,17 @@
         <location filename="enttecdmxusbpro.cpp" line="96"/>
         <location filename="enttecdmxusbpro.cpp" line="101"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protokoll</translation>
+        <translation>Protokoll</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="105"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="108"/>
         <source>Serial number</source>
-        <translation type="unfinished">Seriennummer</translation>
+        <translation>Seriennummer</translation>
     </message>
 </context>
 <context>
@@ -148,22 +148,22 @@
     <message>
         <location filename="enttecdmxusbpro.cpp" line="215"/>
         <source>MIDI Input</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Eingang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>DMX Input</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX Eingang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="222"/>
         <source>MIDI Output</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Ausgang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="224"/>
         <source>DMX Output</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX Ausgang</translation>
     </message>
 </context>
 </TS>
