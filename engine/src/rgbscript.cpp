@@ -28,6 +28,7 @@
 #include <QFile>
 #include <QSize>
 #include <QDir>
+#include <QMutex>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
@@ -44,6 +45,7 @@ QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
                                                QDir::Files);
 
 QScriptEngine* RGBScript::s_engine = NULL;
+QMutex* RGBScript::s_engineMutex = NULL;
 
 /****************************************************************************
  * Initialization
@@ -129,12 +131,16 @@ bool RGBScript::evaluate()
 {
     // Create the script engine when it's first needed
     if (s_engine == NULL)
+    {
         s_engine = new QScriptEngine(QCoreApplication::instance());
+        s_engineMutex = new QMutex();
+    }
     Q_ASSERT(s_engine != NULL);
 
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
     m_apiVersion = 0;
+    s_engineMutex->lock();
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (s_engine->hasUncaughtException() == true)
     {
@@ -142,6 +148,7 @@ bool RGBScript::evaluate()
         qWarning() << msg.arg(m_fileName).arg(s_engine->uncaughtException().toString());
         foreach (QString s, s_engine->uncaughtExceptionBacktrace())
             qDebug() << s;
+        s_engineMutex->unlock();
         return false;
     }
     else
@@ -149,6 +156,7 @@ bool RGBScript::evaluate()
         m_rgbMap = m_script.property("rgbMap");
         if (m_rgbMap.isFunction() == false)
         {
+            s_engineMutex->unlock();
             qWarning() << m_fileName << "is missing the rgbMap() function!";
             return false;
         }
@@ -156,11 +164,13 @@ bool RGBScript::evaluate()
         m_rgbMapStepCount = m_script.property("rgbMapStepCount");
         if (m_rgbMapStepCount.isFunction() == false)
         {
+            s_engineMutex->unlock();
             qWarning() << m_fileName << "is missing the rgbMapStepCount() function!";
             return false;
         }
 
         m_apiVersion = m_script.property("apiVersion").toInteger();
+        s_engineMutex->unlock();
         if (m_apiVersion > 0)
         {
             return true;
@@ -179,24 +189,31 @@ bool RGBScript::evaluate()
 
 int RGBScript::rgbMapStepCount(const QSize& size)
 {
+    s_engineMutex->lock();
     if (m_rgbMapStepCount.isValid() == false)
+    {
+        s_engineMutex->unlock();
         return -1;
+    }
 
     QScriptValueList args;
     args << size.width() << size.height();
     QScriptValue value = m_rgbMapStepCount.call(QScriptValue(), args);
-    if (value.isNumber() == true)
-        return value.toInteger();
-    else
-        return -1;
+    int ret = value.isNumber() ? value.toInteger() : -1;
+    s_engineMutex->unlock();
+    return ret;
 }
 
 RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
 {
     RGBMap map;
 
+    s_engineMutex->lock();
     if (m_rgbMap.isValid() == false)
+    {
+        s_engineMutex->unlock();
         return map;
+    }
 
     QScriptValueList args;
     args << size.width() << size.height() << rgb << step;
@@ -222,25 +239,26 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
         qWarning() << "Returned value is not an array within an array!";
     }
 
+    s_engineMutex->unlock();
     return map;
 }
 
 QString RGBScript::name() const
 {
+    s_engineMutex->lock();
     QScriptValue name = m_script.property("name");
-    if (name.isValid() == true)
-        return name.toString();
-    else
-        return QString();
+    QString ret = name.isValid() ? name.toString() : QString();
+    s_engineMutex->unlock();
+    return ret;
 }
 
 QString RGBScript::author() const
 {
+    s_engineMutex->lock();
     QScriptValue author = m_script.property("author");
-    if (author.isValid() == true)
-        return author.toString();
-    else
-        return QString();
+    QString ret = author.isValid() ? author.toString() : QString();
+    s_engineMutex->unlock();
+    return ret;
 }
 
 int RGBScript::apiVersion() const

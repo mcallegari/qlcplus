@@ -242,11 +242,7 @@ void RGBMatrixEditor::updateSpeedDials()
 
 void RGBMatrixEditor::fillPatternCombo()
 {
-    // lock to avoid running scripts in both the ui thread and the engine thread
-    // (rgbscript algorithm creation runs scripts)
-    m_matrix->lockAlgorithm();
     m_patternCombo->addItems(RGBAlgorithm::algorithms(m_doc));
-    m_matrix->unlockAlgorithm();
     if (m_matrix->algorithm() != NULL)
     {
         int index = m_patternCombo->findText(m_matrix->algorithm()->name());
@@ -518,11 +514,7 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
-    // lock to avoid running scripts in both the ui thread and the engine thread
-    // (rgbscript algorithm creation runs scripts)
-    m_matrix->lockAlgorithm();
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
-    m_matrix->unlockAlgorithm();
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
     updateExtraOptions();
