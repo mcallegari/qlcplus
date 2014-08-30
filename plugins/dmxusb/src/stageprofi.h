@@ -30,7 +30,8 @@ class Stageprofi : public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    Stageprofi(const QString& serial, const QString& name, const QString& vendor, quint32 id = 0);
+    Stageprofi(const QString& serial, const QString& name, const QString& vendor,
+               quint32 outputLine, quint32 id = 0);
     virtual ~Stageprofi();
 
     /** @reimp */

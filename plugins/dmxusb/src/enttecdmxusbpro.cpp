@@ -26,13 +26,13 @@
  ****************************************************************************/
 
 EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, const QString &vendor,
-                                 quint32 outputID, quint32 inputID)
+                                 quint32 outputLine, quint32 inputLine, quint32 id)
     : QThread(NULL)
-    , DMXUSBWidget(serial, name, vendor, outputID)
+    , DMXUSBWidget(serial, name, vendor, outputLine, id)
     , m_dmxKingMode(false)
     , m_running(false)
 {
-    m_inputBaseLine = inputID;
+    m_inputBaseLine = inputLine;
 
     setInputsNumber(1);
 

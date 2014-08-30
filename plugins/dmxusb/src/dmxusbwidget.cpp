@@ -22,9 +22,10 @@
 #include <QDebug>
 #include "dmxusbwidget.h"
 
-DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QString& vendor, quint32 id)
+DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QString& vendor,
+                           quint32 outputLine, quint32 id)
 {
-    m_outputBaseLine = id;
+    m_outputBaseLine = outputLine;
     m_inputBaseLine = 0;
 
     m_inputOpenMask = 0;
@@ -143,6 +144,7 @@ void DMXUSBWidget::setOutputsNumber(int num)
     m_outputsMap.clear();
     for (ushort i = 0; i < num; i++)
         m_outputsMap[m_outputBaseLine + i] = i;
+    qDebug() << "[setOutputsNumber] base line:" << m_outputBaseLine << "outputMap:" << m_outputsMap;
 }
 
 int DMXUSBWidget::outputsNumber()

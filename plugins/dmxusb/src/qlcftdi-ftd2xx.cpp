@@ -201,11 +201,11 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 switch (type)
                 {
                 case DMXUSBWidget::OpenTX:
-                    widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++);
+                    widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++, i);
                     break;
                 case DMXUSBWidget::ProMk2:
                 {
-                    EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id);
+                    EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id, i);
                     promkii->setOutputsNumber(2);
                     promkii->setMidiPortsNumber(1, 1);
                     output_id += 3;
@@ -215,7 +215,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 }
                 case DMXUSBWidget::UltraPro:
                 {
-                    EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++);
+                    EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++, i);
                     ultra->setOutputsNumber(2);
                     ultra->setDMXKingMode();
                     output_id += 2;
@@ -223,17 +223,17 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                     break;
                 }
                 case DMXUSBWidget::VinceTX:
-                    widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
+                    widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++, i);
                     break;
                 default:
                 case DMXUSBWidget::ProRXTX:
-                    widgetList << new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++);
+                    widgetList << new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++, i);
                     break;
                 }
             }
             else if (name.toUpper().contains("PRO MK2") == true)
             {
-                EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id);
+                EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id, i);
                 promkii->setOutputsNumber(2);
                 promkii->setMidiPortsNumber(1, 1);
                 output_id += 3;
@@ -254,7 +254,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 {
                     if (DEVID == ULTRADMX_PRO_DEV_ID)
                     {
-                        EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++);
+                        EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++, i);
                         ultra->setOutputsNumber(2);
                         ultra->setDMXKingMode();
                         ultra->setRealName(devName);
@@ -263,7 +263,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                     }
                     else
                     {
-                        EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++);
+                        EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++, 0, i);
                         pro->setInputsNumber(0);
                         pro->setRealName(devName);
                         widgetList << pro;
@@ -272,23 +272,23 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 else
                 {
                     /* This is probably a Enttec DMX USB Pro widget */
-                    EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++);
+                    EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++, i);
                     pro->setRealName(devName);
                     widgetList << pro;
                 }
             }
             else if (name.toUpper().contains("USB-DMX512 CONVERTER") == true)
             {
-                widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
+                widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++, i);
             }
             else if (vendor.toUpper().contains("DMX4ALL") == true)
             {
-                widgetList << new Stageprofi(serial, name, vendor, output_id++);
+                widgetList << new Stageprofi(serial, name, vendor, output_id++, i);
             }
             else
             {
                 /* This is probably an Open DMX USB widget */
-                widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++);
+                widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++, i);
             }
         }
     }
@@ -305,7 +305,7 @@ bool QLCFTDI::open()
     FT_STATUS status = FT_Open(m_id, &m_handle);
     if (status != FT_OK)
     {
-        qWarning() << Q_FUNC_INFO << name() << status;
+        qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;
         return false;
     }
     else

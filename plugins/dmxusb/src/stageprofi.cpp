@@ -22,8 +22,8 @@
 #include <QDebug>
 
 Stageprofi::Stageprofi(const QString& serial, const QString& name,
-                       const QString &vendor, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, id)
+                       const QString &vendor, quint32 outputLine, quint32 id)
+    : DMXUSBWidget(serial, name, vendor, outputLine, id)
 {
 }
 
