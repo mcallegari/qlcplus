@@ -161,7 +161,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
     bodyHTML += tr("Page") + "<a class=\"button button-blue\" style=\"height: 30px; font-size: 24px;\" "
                 "href=\"javascript:previousPage();\">\n"
-                "<span>Previous</span></a>\n";
+                "<span>" + tr("Previous") + "</span></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
     bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
@@ -170,7 +170,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 
     bodyHTML += "<a class=\"button button-blue\" style=\"height: 30px; font-size: 24px;\" "
                 "href=\"javascript:nextPage();\">\n"
-                "<span>Next</span></a>\n";
+                "<span>" + tr("Next") + "</span></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"

@@ -856,7 +856,11 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    str += "<tr><th>#</th><th>Name</th><th>Fade In</th><th>Fade Out</th><th>Duration</th><th>Notes</th></tr>\n";
+    str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
+    str += "<th>" + tr("Fade In") + "</th>";
+    str += "<th>" + tr("Fade Out") + "</th>";
+    str += "<th>" + tr("Duration") + "</th>";
+    str += "<th>" + tr("Notes") + "</th></tr>\n";
     Chaser *chaser = cue->chaser();
     Doc *doc = m_vc->getDoc();
     if (chaser != NULL)
@@ -961,10 +965,10 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "<span id=\"play" + QString::number(cue->id()) + "\">Play</span></a>\n";
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PREV');\">\n"
-            "<span>Previous</span></a>\n";
+            "<span>" + tr("Previous") + "</span></a>\n";
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'NEXT');\">\n"
-            "<span>Next</span></a>\n";
+            "<span>" + tr("Next") + "</span></a>\n";
     str += "</div>\n";
 
     connect(cue, SIGNAL(stepChanged(int)),

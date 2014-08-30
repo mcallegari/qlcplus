@@ -66,8 +66,12 @@ enum mg_event {
   MG_AUTH,        // If callback returns MG_FALSE, authentication fails
   MG_REQUEST,     // If callback returns MG_FALSE, Mongoose continues with req
   MG_REPLY,       // If callback returns MG_FALSE, Mongoose closes connection
+  MG_RECV,        // Mongoose has received POST data chunk.
+                  // Callback should return a number of bytes to discard from
+                  // the receive buffer, or -1 to close the connection.
   MG_CLOSE,       // Connection is closed, callback return value is ignored
   MG_WS_HANDSHAKE,  // New websocket connection, handshake request
+  MG_WS_CONNECT,  // New websocket connection established
   MG_HTTP_ERROR   // If callback returns MG_FALSE, Mongoose continues with err
 };
 typedef int (*mg_handler_t)(struct mg_connection *, enum mg_event);
@@ -92,21 +96,26 @@ const char *mg_get_option(const struct mg_server *server, const char *name);
 void mg_set_listening_socket(struct mg_server *, int sock);
 int mg_get_listening_socket(struct mg_server *);
 void mg_iterate_over_connections(struct mg_server *, mg_handler_t, void *);
+struct mg_connection *mg_next(struct mg_server *, struct mg_connection *);
 void mg_wakeup_server(struct mg_server *);
+void mg_wakeup_server_ex(struct mg_server *, mg_handler_t, const char *, ...);
 struct mg_connection *mg_connect(struct mg_server *, const char *, int, int);
 
 // Connection management functions
 void mg_send_status(struct mg_connection *, int status_code);
 void mg_send_header(struct mg_connection *, const char *name, const char *val);
-void mg_send_data(struct mg_connection *, const void *data, int data_len);
-void mg_printf_data(struct mg_connection *, const char *format, ...);
+size_t mg_send_data(struct mg_connection *, const void *data, int data_len);
+size_t mg_printf_data(struct mg_connection *, const char *format, ...);
+size_t mg_write(struct mg_connection *, const void *buf, int len);
+size_t mg_printf(struct mg_connection *conn, const char *fmt, ...);
 
-int mg_websocket_write(struct mg_connection *, int opcode,
-                       const char *data, size_t data_len);
+size_t mg_websocket_write(struct mg_connection *, int opcode,
+                          const char *data, size_t data_len);
+size_t mg_websocket_printf(struct mg_connection* conn, int opcode,
+                           const char *fmt, ...);
 
-// Deprecated in favor of mg_send_* interface
-int mg_write(struct mg_connection *, const void *buf, int len);
-int mg_printf(struct mg_connection *conn, const char *fmt, ...);
+void mg_send_file(struct mg_connection *, const char *path);
+void mg_send_file_data(struct mg_connection *, int fd);
 
 const char *mg_get_header(const struct mg_connection *, const char *name);
 const char *mg_get_mime_type(const char *name, const char *default_mime_type);
@@ -122,7 +131,13 @@ int mg_parse_multipart(const char *buf, int buf_len,
 void *mg_start_thread(void *(*func)(void *), void *param);
 char *mg_md5(char buf[33], ...);
 int mg_authorize_digest(struct mg_connection *c, FILE *fp);
+int mg_url_encode(const char *src, size_t s_len, char *dst, size_t dst_len);
+int mg_url_decode(const char *src, int src_len, char *dst, int dst_len, int);
+int mg_terminate_ssl(struct mg_connection *c, const char *cert);
+int mg_forward(struct mg_connection *, const char *host, int port, int use_ssl);
 
+
+// Templates support
 struct mg_expansion {
   const char *keyword;
   void (*handler)(struct mg_connection *);
