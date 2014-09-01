@@ -4,47 +4,82 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="188"/>
+        <location filename="webaccess.cpp" line="189"/>
         <source>Loading project...</source>
         <translation>Caricamento progetto...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="229"/>
+        <location filename="webaccess.cpp" line="230"/>
         <source>Fixture stored and loaded</source>
         <translation>Fixture salvata e caricata</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="362"/>
+        <location filename="webaccess.cpp" line="363"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>La configurazione di rete è stata modificata. Riavviare per applicare le modifiche.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="381"/>
+        <location filename="webaccess.cpp" line="382"/>
         <source>Autostart configuration changed</source>
         <translation>La configurazione di avvio è stata modificata</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="621"/>
+        <location filename="webaccess.cpp" line="624"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Oggetto non ancora supportato via web</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="822"/>
+        <location filename="webaccess.cpp" line="825"/>
         <source>Enable</source>
         <translation>Abilita</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1046"/>
+        <location filename="webaccess.cpp" line="859"/>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="860"/>
+        <source>Fade In</source>
+        <translation>Fade In</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="861"/>
+        <source>Fade Out</source>
+        <translation>Fade Out</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="862"/>
+        <source>Duration</source>
+        <translation>Durata</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="863"/>
+        <source>Notes</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="968"/>
+        <source>Previous</source>
+        <translation>Precedente</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="971"/>
+        <source>Next</source>
+        <translation>Successivo</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1053"/>
         <source>Load project</source>
         <translation>Carica progetto</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1048"/>
+        <location filename="webaccess.cpp" line="1055"/>
         <source>Simple Desk</source>
         <translation>Banco Semplice</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1050"/>
+        <location filename="webaccess.cpp" line="1057"/>
         <source>Configuration</source>
         <translation>Configurazione</translation>
     </message>
@@ -52,37 +87,37 @@
 <context>
     <name>WebAccessConfiguration</name>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="148"/>
+        <location filename="webaccessconfiguration.cpp" line="150"/>
         <source>Passthrough</source>
         <translation>Passthrough</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="233"/>
+        <location filename="webaccessconfiguration.cpp" line="235"/>
         <source>Load fixture</source>
         <translation>Carica fixture</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="267"/>
+        <location filename="webaccessconfiguration.cpp" line="269"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="276"/>
+        <location filename="webaccessconfiguration.cpp" line="278"/>
         <source>Back</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="284"/>
+        <location filename="webaccessconfiguration.cpp" line="286"/>
         <source>Universes configuration</source>
         <translation>Configurazione degli universi</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="290"/>
+        <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Audio configuration</source>
         <translation>Configurazione audio</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="297"/>
+        <location filename="webaccessconfiguration.cpp" line="299"/>
         <source>User loaded fixtures</source>
         <translation>Fixture caricate dall&apos;utente</translation>
     </message>
@@ -177,6 +212,16 @@
         <location filename="webaccesssimpledesk.cpp" line="162"/>
         <source>Page</source>
         <translation>Pagina</translation>
+    </message>
+    <message>
+        <location filename="webaccesssimpledesk.cpp" line="164"/>
+        <source>Previous</source>
+        <translation>Precedente</translation>
+    </message>
+    <message>
+        <location filename="webaccesssimpledesk.cpp" line="173"/>
+        <source>Next</source>
+        <translation>Successivo</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
