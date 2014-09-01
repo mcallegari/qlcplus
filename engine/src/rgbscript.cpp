@@ -108,9 +108,14 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_contents = stream.readAll();
     file.close();
 
+    if (s_engineMutex == NULL)
+        s_engineMutex = new QMutex();
+    Q_ASSERT(s_engineMutex != NULL);
+    s_engineMutex->lock();
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(m_contents);
     if (result.state() == QScriptSyntaxCheckResult::Valid)
     {
+        s_engineMutex->unlock();
         return evaluate();
     }
     else
@@ -118,6 +123,7 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
         qWarning() << m_fileName << "Error at line:" << result.errorLineNumber()
                    << ", column:" << result.errorColumnNumber()
                    << ":" << result.errorMessage();
+        s_engineMutex->unlock();
         return false;
     }
 }
@@ -131,11 +137,11 @@ bool RGBScript::evaluate()
 {
     // Create the script engine when it's first needed
     if (s_engine == NULL)
-    {
         s_engine = new QScriptEngine(QCoreApplication::instance());
-        s_engineMutex = new QMutex();
-    }
     Q_ASSERT(s_engine != NULL);
+    if (s_engineMutex == NULL)
+        s_engineMutex = new QMutex();
+    Q_ASSERT(s_engineMutex != NULL);
 
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
