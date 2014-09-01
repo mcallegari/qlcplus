@@ -83,16 +83,15 @@ public:
     /** Get the current RGB Algorithm. */
     RGBAlgorithm* algorithm() const;
 
+    /** Get the algorithm protection mutex */
+    QMutex& algorithmMutex();
+
     /** Get a list of RGBMap steps for preview purposes, using the current algorithm. */
     QList <RGBMap> previewMaps();
 
 private:
     RGBAlgorithm* m_algorithm;
     QMutex m_algorithmMutex;
-
-public:
-    void lockAlgorithm() { m_algorithmMutex.lock(); }
-    void unlockAlgorithm() { m_algorithmMutex.unlock(); }
 
     /************************************************************************
      * Colour
