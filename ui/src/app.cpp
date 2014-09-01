@@ -73,6 +73,7 @@
 App::App()
     : QMainWindow()
     , m_tab(NULL)
+    , m_overscan(false)
     , m_progressDialog(NULL)
     , m_doc(NULL)
 
@@ -162,6 +163,11 @@ void App::startup()
     setActiveWindow(FixtureManager::staticMetaObject.className());
 }
 
+void App::enableOverscan()
+{
+    m_overscan = true;
+}
+
 void App::init()
 {
     QSettings settings;
@@ -188,9 +194,14 @@ void App::init()
             if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
-                // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.95;
-                int h = (float)geometry.height() * 0.95;
+                int w = geometry.width();
+                int h = geometry.height();
+                if (m_overscan == true)
+                {
+                    // if we're on a Raspberry Pi, introduce a 5% margin
+                    w = (float)geometry.width() * 0.95;
+                    h = (float)geometry.height() * 0.95;
+                }
                 setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
                             w, h);
             }

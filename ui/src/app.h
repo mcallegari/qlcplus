@@ -61,6 +61,7 @@ public:
     App();
     ~App();
     void startup();
+    void enableOverscan();
 
 private:
     void init();
@@ -70,6 +71,7 @@ private:
 private:
     QTabWidget* m_tab;
     QDir m_workingDirectory;
+    bool m_overscan;
 
     /*********************************************************************
      * Progress dialog

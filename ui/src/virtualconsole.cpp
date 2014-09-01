@@ -1816,7 +1816,9 @@ void VirtualConsole::postLoad()
                 m_latestWidgetId = wid + 1;
         m_widgetsMap[widget->id()] = widget;
     }
-    qDebug() << "Next ID to assign:" << m_latestWidgetId;
+    //qDebug() << "Next ID to assign:" << m_latestWidgetId;
+
+    m_contents->setFocus();
 
     emit loaded();
 }
