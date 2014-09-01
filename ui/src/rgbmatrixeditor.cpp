@@ -583,9 +583,10 @@ void RGBMatrixEditor::slotTextEdited(const QString& text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setText(text);
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setText(text);
+        }
         slotRestartTest();
     }
 }
@@ -601,9 +602,10 @@ void RGBMatrixEditor::slotFontButtonClicked()
         QFont font = QFontDialog::getFont(&ok, algo->font(), this);
         if (ok == true)
         {
-            m_matrix->algorithmMutex().lock();
-            algo->setFont(font);
-            m_matrix->algorithmMutex().unlock();
+            {
+                QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+                algo->setFont(font);
+            }
             slotRestartTest();
         }
     }
@@ -615,9 +617,10 @@ void RGBMatrixEditor::slotAnimationActivated(const QString& text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
+        }
         slotRestartTest();
     }
 }
@@ -628,9 +631,10 @@ void RGBMatrixEditor::slotImageEdited()
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setFilename(m_imageEdit->text());
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setFilename(m_imageEdit->text());
+        }
         slotRestartTest();
     }
 }
@@ -649,9 +653,10 @@ void RGBMatrixEditor::slotImageButtonClicked()
                                             QString("%1 (*.png *.bmp *.jpg *.jpeg *.gif)").arg(tr("Images")));
         if (path.isEmpty() == false)
         {
-            m_matrix->algorithmMutex().lock();
-            algo->setFilename(path);
-            m_matrix->algorithmMutex().unlock();
+            {
+                QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+                algo->setFilename(path);
+            }
             m_imageEdit->setText(path);
             slotRestartTest();
         }
@@ -664,9 +669,10 @@ void RGBMatrixEditor::slotImageAnimationActivated(const QString& text)
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
+        }
         slotRestartTest();
     }
 }
@@ -677,10 +683,11 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setXOffset(m_xOffsetSpin->value());
-        algo->setYOffset(m_yOffsetSpin->value());
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setXOffset(m_xOffsetSpin->value());
+            algo->setYOffset(m_yOffsetSpin->value());
+        }
         slotRestartTest();
     }
 
@@ -688,10 +695,11 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        m_matrix->algorithmMutex().lock();
-        algo->setXOffset(m_xOffsetSpin->value());
-        algo->setYOffset(m_yOffsetSpin->value());
-        m_matrix->algorithmMutex().unlock();
+        {
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            algo->setXOffset(m_xOffsetSpin->value());
+            algo->setYOffset(m_yOffsetSpin->value());
+        }
         slotRestartTest();
     }
 }

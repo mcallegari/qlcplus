@@ -48,6 +48,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
     , m_fixtureGroup(FixtureGroup::invalidId())
     , m_algorithm(NULL)
+    , m_algorithmMutex(QMutex::Recursive)
     , m_startColor(Qt::red)
     , m_endColor(QColor())
     , m_fader(NULL)
@@ -132,16 +133,14 @@ quint32 RGBMatrix::fixtureGroup() const
 
 void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
 {
-    m_algorithmMutex.lock();
-    if (m_algorithm != NULL)
-        delete m_algorithm;
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+    delete m_algorithm;
     m_algorithm = algo;
     if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
     {
         RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
         audio->setAudioCapture(doc()->audioInputCapture());
     }
-    m_algorithmMutex.unlock();
 }
 
 RGBAlgorithm* RGBMatrix::algorithm() const
@@ -149,11 +148,16 @@ RGBAlgorithm* RGBMatrix::algorithm() const
     return m_algorithm;
 }
 
+QMutex& RGBMatrix::algorithmMutex()
+{
+    return m_algorithmMutex;
+}
+
 QList <RGBMap> RGBMatrix::previewMaps()
 {
     QList <RGBMap> steps;
 
-    m_algorithmMutex.lock();
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL)
         return steps;
 
@@ -164,7 +168,6 @@ QList <RGBMap> RGBMatrix::previewMaps()
         for (int i = 0; i < stepCount; i++)
             steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
-    m_algorithmMutex.unlock();
 
     return steps;
 }
@@ -176,10 +179,9 @@ QList <RGBMap> RGBMatrix::previewMaps()
 void RGBMatrix::setStartColor(const QColor& c)
 {
     m_startColor = c;
-    m_algorithmMutex.lock();
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm != NULL)
         m_algorithm->setColors(m_startColor, m_endColor);
-    m_algorithmMutex.unlock();
 }
 
 QColor RGBMatrix::startColor() const
@@ -190,10 +192,9 @@ QColor RGBMatrix::startColor() const
 void RGBMatrix::setEndColor(const QColor &c)
 {
     m_endColor = c;
-    m_algorithmMutex.lock();
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm != NULL)
         m_algorithm->setColors(m_startColor, m_endColor);
-    m_algorithmMutex.unlock();
 }
 
 QColor RGBMatrix::endColor() const
@@ -213,7 +214,7 @@ void RGBMatrix::calculateColorDelta()
             return;
 
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-        m_algorithmMutex.lock();
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (grp != NULL && m_algorithm != NULL)
         {
             if (m_algorithm->rgbMapStepCount(grp->size()) > 1)
@@ -223,7 +224,6 @@ void RGBMatrix::calculateColorDelta()
                 m_cbDelta = (m_endColor.blue() - m_startColor.blue()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
             }
         }
-        m_algorithmMutex.unlock();
     }
 }
 
@@ -389,39 +389,36 @@ void RGBMatrix::preRun(MasterTimer* timer)
     Q_UNUSED(timer);
 
     FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-    m_algorithmMutex.lock();
-    if (grp != NULL && m_algorithm != NULL)
     {
-        m_direction = direction();
-
-        Q_ASSERT(m_fader == NULL);
-        m_fader = new GenericFader(doc());
-        m_fader->adjustIntensity(getAttributeValue(Intensity));
-
-        if (m_direction == Forward)
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (grp != NULL && m_algorithm != NULL)
         {
-            m_algorithmMutex.unlock();
-            m_step = 0;
-            m_stepColor = m_startColor.rgb();
-        }
-        else
-        {
-            m_step = m_algorithm->rgbMapStepCount(grp->size()) - 1;
-            m_algorithmMutex.unlock();
-            if (m_endColor.isValid())
+            m_direction = direction();
+
+            Q_ASSERT(m_fader == NULL);
+            m_fader = new GenericFader(doc());
+            m_fader->adjustIntensity(getAttributeValue(Intensity));
+
+            if (m_direction == Forward)
             {
-                m_stepColor = m_endColor.rgb();
+                m_step = 0;
+                m_stepColor = m_startColor.rgb();
             }
             else
             {
-                m_stepColor = m_startColor.rgb();
+                m_step = m_algorithm->rgbMapStepCount(grp->size()) - 1;
+                if (m_endColor.isValid())
+                {
+                    m_stepColor = m_endColor.rgb();
+                }
+                else
+                {
+                    m_stepColor = m_startColor.rgb();
+                }
             }
+            calculateColorDelta();
         }
-
-        calculateColorDelta();
     }
-    else
-        m_algorithmMutex.unlock();
 
     m_roundTime->start();
 
@@ -446,23 +443,19 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         return;
 
     // Invalid/nonexistent script
-    m_algorithmMutex.lock();
-    if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
     {
-        m_algorithmMutex.unlock();
-        return;
-    }
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
+            return;
 
-    // Get new map every time when elapsed is reset to zero
-    if (elapsed() == 0)
-    {
-        qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
-        RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
-        m_algorithmMutex.unlock();
-        updateMapChannels(map, grp);
+        // Get new map every time when elapsed is reset to zero
+        if (elapsed() == 0)
+        {
+            qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
+            RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
+            updateMapChannels(map, grp);
+        }
     }
-    else
-        m_algorithmMutex.unlock();
 
     // Run the generic fader that takes care of fading in/out individual channels
     m_fader->write(universes);
@@ -489,12 +482,9 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void RGBMatrix::roundCheck(const QSize& size)
 {
-    m_algorithmMutex.lock();
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL)
-    {
-        m_algorithmMutex.unlock();
         return;
-    }
 
     if (runOrder() == PingPong)
     {
@@ -502,7 +492,6 @@ void RGBMatrix::roundCheck(const QSize& size)
         {
             m_direction = Backward;
             m_step = m_algorithm->rgbMapStepCount(size) - 2;
-            m_algorithmMutex.unlock();
             if (m_endColor.isValid())
                 m_stepColor = m_endColor;
 
@@ -510,7 +499,6 @@ void RGBMatrix::roundCheck(const QSize& size)
         }
         else if (m_direction == Backward && (m_step - 1) < 0)
         {
-            m_algorithmMutex.unlock();
             m_direction = Forward;
             m_step = 1;
             m_stepColor = m_startColor;
@@ -518,7 +506,6 @@ void RGBMatrix::roundCheck(const QSize& size)
         }
         else
         {
-            m_algorithmMutex.unlock();
             if (m_direction == Forward)
                 m_step++;
             else
@@ -534,11 +521,8 @@ void RGBMatrix::roundCheck(const QSize& size)
                 stop();
             else
                 m_step++;
-            m_algorithmMutex.unlock();
             updateStepColor(m_direction);
         }
-        else
-            m_algorithmMutex.unlock();
     }
     else
     {
@@ -546,13 +530,11 @@ void RGBMatrix::roundCheck(const QSize& size)
         {
             if (m_step >= m_algorithm->rgbMapStepCount(size) - 1)
             {
-                m_algorithmMutex.unlock();
                 m_step = 0;
                 m_stepColor = m_startColor;
             }
             else
             {
-                m_algorithmMutex.unlock();
                 m_step++;
                 updateStepColor(m_direction);
             }
@@ -562,13 +544,11 @@ void RGBMatrix::roundCheck(const QSize& size)
             if (m_step <= 0)
             {
                 m_step = m_algorithm->rgbMapStepCount(size) - 1;
-                m_algorithmMutex.unlock();
                 if (m_endColor.isValid())
                     m_stepColor = m_endColor;
             }
             else
             {
-                m_algorithmMutex.unlock();
                 m_step--;
                 updateStepColor(m_direction);
             }
