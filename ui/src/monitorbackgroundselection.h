@@ -27,6 +27,10 @@
 class MonitorProperties;
 class Doc;
 
+/** \addtogroup ui_mon DMX Monitor */
+ * @{
+ */
+
 class MonitorBackgroundSelection : public QDialog, public Ui_MonitorBackgroundSelection
 {
     Q_OBJECT
@@ -57,5 +61,7 @@ private:
     QHash <quint32, QString> m_customBackgroundImages;
     QString m_lastUsedPath;
 };
+
+/** @} */
 
 #endif // MONITORBACKGROUNDSELECTION_H

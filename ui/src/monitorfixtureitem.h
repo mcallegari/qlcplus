@@ -25,6 +25,10 @@
 
 class Doc;
 
+/** \addtogroup ui_mon DMX Monitor */
+ * @{
+ */
+
 typedef struct
 {
     QGraphicsEllipseItem *m_item;
@@ -125,5 +129,7 @@ private:
 
     QRect m_labelRect;
 };
+
+/** @} */
 
 #endif // MONITORFIXTUREITEM_H

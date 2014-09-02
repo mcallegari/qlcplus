@@ -42,7 +42,7 @@ class Monitor;
 class QTimer;
 class Doc;
 
-/** @addtogroup ui UI
+/** \addtogroup ui_mon DMX Monitor */
  * @{
  */
 

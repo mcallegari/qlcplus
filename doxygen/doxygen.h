@@ -53,6 +53,7 @@
 
 /** \defgroup ui_simpledesk Simple Desk */
 /** \defgroup ui_io Input/Output Manager */
+/** \defgroup ui_mon DMX Monitor */
 
 /** @} */
 

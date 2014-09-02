@@ -32,7 +32,7 @@ class QFrame;
 class QLabel;
 class Doc;
 
-/** @addtogroup ui UI
+/** \addtogroup ui_mon DMX Monitor */
  * @{
  */
 

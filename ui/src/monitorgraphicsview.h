@@ -28,6 +28,10 @@
 class MonitorFixtureItem;
 class Doc;
 
+/** \addtogroup ui_mon DMX Monitor */
+ * @{
+ */
+
 class MonitorGraphicsView : public QGraphicsView
 {
     Q_OBJECT
@@ -151,5 +155,7 @@ private:
     /** Map of the rendered MonitorFixtureItem with their ID */
     QHash <quint32, MonitorFixtureItem*> m_fixtures;
 };
+
+/** @} */
 
 #endif // MONITORGRAPHICSVIEW_H

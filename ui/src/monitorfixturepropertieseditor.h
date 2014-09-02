@@ -28,6 +28,10 @@ class MonitorGraphicsView;
 class MonitorFixtureItem;
 class MonitorProperties;
 
+/** \addtogroup ui_mon DMX Monitor */
+ * @{
+ */
+
 class MonitorFixturePropertiesEditor : public QWidget, public Ui_MonitorFixturePropertiesEditor
 {
     Q_OBJECT
@@ -59,5 +63,7 @@ private:
     MonitorGraphicsView *m_gfxView;
     MonitorProperties *m_props;
 };
+
+/** @} */
 
 #endif // MONITORFIXTUREPROPERTIESEDITOR_H
