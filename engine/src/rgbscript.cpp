@@ -109,21 +109,18 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     file.close();
 
     if (s_engineMutex == NULL)
-        s_engineMutex = new QMutex();
+        s_engineMutex = new QMutex(QMutex::Recursive);
     Q_ASSERT(s_engineMutex != NULL);
-    s_engineMutex->lock();
+
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(m_contents);
     if (result.state() == QScriptSyntaxCheckResult::Valid)
-    {
-        s_engineMutex->unlock();
         return evaluate();
-    }
     else
     {
         qWarning() << m_fileName << "Error at line:" << result.errorLineNumber()
                    << ", column:" << result.errorColumnNumber()
                    << ":" << result.errorMessage();
-        s_engineMutex->unlock();
         return false;
     }
 }
@@ -140,13 +137,14 @@ bool RGBScript::evaluate()
         s_engine = new QScriptEngine(QCoreApplication::instance());
     Q_ASSERT(s_engine != NULL);
     if (s_engineMutex == NULL)
-        s_engineMutex = new QMutex();
+        s_engineMutex = new QMutex(QMutex::Recursive);
     Q_ASSERT(s_engineMutex != NULL);
 
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
     m_apiVersion = 0;
-    s_engineMutex->lock();
+
+    QMutexLocker engineLocker(s_engineMutex);
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (s_engine->hasUncaughtException() == true)
     {
@@ -154,7 +152,6 @@ bool RGBScript::evaluate()
         qWarning() << msg.arg(m_fileName).arg(s_engine->uncaughtException().toString());
         foreach (QString s, s_engine->uncaughtExceptionBacktrace())
             qDebug() << s;
-        s_engineMutex->unlock();
         return false;
     }
     else
@@ -162,7 +159,6 @@ bool RGBScript::evaluate()
         m_rgbMap = m_script.property("rgbMap");
         if (m_rgbMap.isFunction() == false)
         {
-            s_engineMutex->unlock();
             qWarning() << m_fileName << "is missing the rgbMap() function!";
             return false;
         }
@@ -170,13 +166,11 @@ bool RGBScript::evaluate()
         m_rgbMapStepCount = m_script.property("rgbMapStepCount");
         if (m_rgbMapStepCount.isFunction() == false)
         {
-            s_engineMutex->unlock();
             qWarning() << m_fileName << "is missing the rgbMapStepCount() function!";
             return false;
         }
 
         m_apiVersion = m_script.property("apiVersion").toInteger();
-        s_engineMutex->unlock();
         if (m_apiVersion > 0)
         {
             return true;
@@ -195,18 +189,14 @@ bool RGBScript::evaluate()
 
 int RGBScript::rgbMapStepCount(const QSize& size)
 {
-    s_engineMutex->lock();
+    QMutexLocker engineLocker(s_engineMutex);
     if (m_rgbMapStepCount.isValid() == false)
-    {
-        s_engineMutex->unlock();
         return -1;
-    }
 
     QScriptValueList args;
     args << size.width() << size.height();
     QScriptValue value = m_rgbMapStepCount.call(QScriptValue(), args);
     int ret = value.isNumber() ? value.toInteger() : -1;
-    s_engineMutex->unlock();
     return ret;
 }
 
@@ -214,12 +204,9 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
 {
     RGBMap map;
 
-    s_engineMutex->lock();
+    QMutexLocker engineLocker(s_engineMutex);
     if (m_rgbMap.isValid() == false)
-    {
-        s_engineMutex->unlock();
         return map;
-    }
 
     QScriptValueList args;
     args << size.width() << size.height() << rgb << step;
@@ -245,25 +232,22 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
         qWarning() << "Returned value is not an array within an array!";
     }
 
-    s_engineMutex->unlock();
     return map;
 }
 
 QString RGBScript::name() const
 {
-    s_engineMutex->lock();
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptValue name = m_script.property("name");
     QString ret = name.isValid() ? name.toString() : QString();
-    s_engineMutex->unlock();
     return ret;
 }
 
 QString RGBScript::author() const
 {
-    s_engineMutex->lock();
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptValue author = m_script.property("author");
     QString ret = author.isValid() ? author.toString() : QString();
-    s_engineMutex->unlock();
     return ret;
 }
 
