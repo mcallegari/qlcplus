@@ -27,7 +27,7 @@
 class MonitorProperties;
 class Doc;
 
-/** \addtogroup ui_mon DMX Monitor */
+/** \addtogroup ui_mon DMX Monitor
  * @{
  */
 

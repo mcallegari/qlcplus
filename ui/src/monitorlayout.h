@@ -27,7 +27,7 @@
 
 class MonitorFixture;
 
-/** \addtogroup ui_mon DMX Monitor */
+/** \addtogroup ui_mon DMX Monitor
  * @{
  */
 

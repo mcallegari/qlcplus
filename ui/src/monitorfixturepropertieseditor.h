@@ -28,7 +28,7 @@ class MonitorGraphicsView;
 class MonitorFixtureItem;
 class MonitorProperties;
 
-/** \addtogroup ui_mon DMX Monitor */
+/** \addtogroup ui_mon DMX Monitor
  * @{
  */
 
