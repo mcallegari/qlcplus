@@ -107,14 +107,9 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     m_showview->setBackgroundBrush(QBrush(QColor(88, 88, 88, 255), Qt::SolidPattern));
     connect(m_showview, SIGNAL(viewClicked ( QMouseEvent * )),
             this, SLOT(slotViewClicked( QMouseEvent * )));
-    connect(m_showview, SIGNAL(sequenceMoved(SequenceItem *, quint32, bool)),
-            this, SLOT(slotSequenceMoved(SequenceItem*, quint32, bool)));
-    connect(m_showview, SIGNAL(audioMoved(AudioItem *)),
-            this, SLOT(slotAudioMoved(AudioItem*)));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    connect(m_showview, SIGNAL(videoMoved(VideoItem *)),
-            this, SLOT(slotVideoMoved(VideoItem*)));
-#endif
+
+    connect(m_showview, SIGNAL(showItemMoved(ShowItem*,quint32,bool)),
+            this, SLOT(slotShowItemMoved(ShowItem*,quint32,bool)));
     connect(m_showview, SIGNAL(timeChanged(quint32)),
             this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
@@ -1188,36 +1183,75 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
         m_deleteAction->setEnabled(false);
 }
 
-void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved)
+void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
 {
-    qDebug() << Q_FUNC_INFO << "Sequence moved at time" << time;
-    Chaser *chaser = item->getChaser();
-    if (chaser == NULL)
+    if (item == NULL)
         return;
 
-    quint32 sceneID = chaser->getBoundSceneID();
+    quint32 fid = item->getFunctionID();
+    Function *f = m_doc->function(fid);
+    if (f == NULL)
+        return;
 
-    Function *f = m_doc->function(sceneID);
-    Scene *newScene = NULL;
-    if (f != NULL)
-        newScene = qobject_cast<Scene*>(f);
-
-    if (newScene != m_currentScene || m_sceneEditor == NULL)
+    if (f->type() == Function::Chaser)
     {
-        m_currentScene = newScene;
-        showSceneEditor(m_currentScene);
+        Chaser *chaser = qobject_cast<Chaser*>(f);
+        quint32 sceneID = chaser->getBoundSceneID();
+
+        Function *f = m_doc->function(sceneID);
+        Scene *newScene = NULL;
+        if (f != NULL)
+            newScene = qobject_cast<Scene*>(f);
+
+        if (newScene != m_currentScene || m_sceneEditor == NULL)
+        {
+            m_currentScene = newScene;
+            showSceneEditor(m_currentScene);
+        }
+
+        /* activate the new track */
+        m_currentTrack = m_show->getTrackFromSceneID(sceneID);;
+        m_showview->activateTrack(m_currentTrack);
+        showRightEditor(chaser);
+
+        if (m_currentEditor != NULL)
+        {
+            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            editor->selectStepAtTime(time);
+        }
+    }
+    else
+    {
+        // reverse lookup of Track from an item
+        foreach(Track *track, m_show->tracks())
+        {
+            foreach(quint32 tFid, track->functionsID())
+            {
+                if (tFid == fid)
+                {
+                    m_showview->activateTrack(track);
+                    m_currentTrack = track;
+                    m_currentScene = NULL;
+                    showSceneEditor(NULL);
+                    break;
+                }
+            }
+        }
+
+        if (f->type() == Function::Audio)
+        {
+            Audio *audio = qobject_cast<Audio*>(f);
+            showRightEditor(audio);
+        }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        else if (f->type() == Function::Video)
+        {
+            Video *video = qobject_cast<Video*>(f);
+            showRightEditor(video);
+        }
+#endif
     }
 
-    /* activate the new track */
-    m_currentTrack = m_show->getTrackFromSceneID(sceneID);;
-    m_showview->activateTrack(m_currentTrack);
-    showRightEditor(chaser);
-
-    if (m_currentEditor != NULL)
-    {
-        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-        editor->selectStepAtTime(time);
-    }
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
@@ -1230,76 +1264,6 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     if (moved == true)
         m_doc->setModified();
 }
-
-void ShowManager::slotAudioMoved(AudioItem *item)
-{
-    qDebug() << Q_FUNC_INFO << "Audio moved.........";
-    Audio *audio = item->getAudio();
-    if (audio == NULL)
-        return;
-    // reverse lookup of Track from an Audio item
-    foreach(Track *track, m_show->tracks())
-    {
-        foreach(quint32 fid, track->functionsID())
-        {
-            if (fid == audio->id())
-            {
-                m_showview->activateTrack(track);
-                m_currentTrack = track;
-                m_currentScene = NULL;
-                showSceneEditor(NULL);
-                break;
-            }
-        }
-    }
-
-    showRightEditor(audio);
-    m_copyAction->setEnabled(true);
-    m_deleteAction->setEnabled(true);
-    m_colorAction->setEnabled(true);
-    m_lockAction->setEnabled(true);
-    if (item->isLocked() == false)
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    else
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    m_doc->setModified();
-}
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void ShowManager::slotVideoMoved(VideoItem *item)
-{
-    qDebug() << Q_FUNC_INFO << "Video moved.........";
-    Video *video = item->getVideo();
-    if (video == NULL)
-        return;
-    // reverse lookup of Track from an Video item
-    foreach(Track *track, m_show->tracks())
-    {
-        foreach(quint32 fid, track->functionsID())
-        {
-            if (fid == video->id())
-            {
-                m_showview->activateTrack(track);
-                m_currentTrack = track;
-                m_currentScene = NULL;
-                showSceneEditor(NULL);
-                break;
-            }
-        }
-    }
-
-    showRightEditor(video);
-    m_copyAction->setEnabled(true);
-    m_deleteAction->setEnabled(true);
-    m_colorAction->setEnabled(true);
-    m_lockAction->setEnabled(true);
-    if (item->isLocked() == false)
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    else
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    m_doc->setModified();
-}
-#endif
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {

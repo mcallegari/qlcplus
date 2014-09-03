@@ -229,10 +229,10 @@ void MultiTrackView::addSequence(Chaser *chaser)
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
 
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)),
-            this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
-    connect(item, SIGNAL(alignToCursor(SequenceItem*)),
-            this, SLOT(slotAlignToCursor(SequenceItem*)));
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
+            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
+    connect(item, SIGNAL(alignToCursor(ShowItem*)),
+            this, SLOT(slotAlignToCursor(ShowItem*)));
     m_scene->addItem(item);
     m_sequences.append(item);
     int new_scene_width = item->x() + item->getWidth();
@@ -262,10 +262,10 @@ void MultiTrackView::addAudio(Audio *audio)
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "audio start time: " << audio->getStartTime() << "msec";
 
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, AudioItem *)),
-            this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *)));
-    connect(item, SIGNAL(alignToCursor(AudioItem*)),
-            this, SLOT(slotAlignToCursor(AudioItem*)));
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
+            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
+    connect(item, SIGNAL(alignToCursor(ShowItem*)),
+            this, SLOT(slotAlignToCursor(ShowItem*)));
     connect(audio, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
     m_scene->addItem(item);
     m_audio.append(item);
@@ -297,10 +297,10 @@ void MultiTrackView::addVideo(Video *video)
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "video start time: " << video->getStartTime() << "msec";
 
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, VideoItem *)),
-            this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, VideoItem *)));
-    connect(item, SIGNAL(alignToCursor(VideoItem*)),
-            this, SLOT(slotAlignToCursor(VideoItem*)));
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
+            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
+    connect(item, SIGNAL(alignToCursor(ShowItem*)),
+            this, SLOT(slotAlignToCursor(ShowItem*)));
     connect(video, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
     m_scene->addItem(item);
     m_videos.append(item);
@@ -490,38 +490,6 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
     return TRACK_WIDTH + xPos;
 }
 
-void MultiTrackView::updateItem(SequenceItem *item, quint32 time)
-{
-    item->getChaser()->setStartTime(time);
-    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-                    .arg(item->getChaser()->name())
-                    .arg(Function::speedToString(time))
-                    .arg(Function::speedToString(item->getChaser()->getDuration()))
-                    .arg(tr("Click to move this sequence across the timeline")));
-}
-
-void MultiTrackView::updateItem(AudioItem *item, quint32 time)
-{
-    item->getAudio()->setStartTime(time);
-    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-                    .arg(item->getAudio()->name())
-                    .arg(Function::speedToString(time))
-                    .arg(Function::speedToString(item->getAudio()->getDuration()))
-                    .arg(tr("Click to move this audio across the timeline")));
-}
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void MultiTrackView::updateItem(VideoItem *item, quint32 time)
-{
-    item->getVideo()->setStartTime(time);
-    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-                    .arg(item->getVideo()->name())
-                    .arg(Function::speedToString(time))
-                    .arg(Function::speedToString(item->getVideo()->getDuration()))
-                    .arg(tr("Click to move this video across the timeline")));
-}
-#endif
-
 int MultiTrackView::getActiveTrack()
 {
     int index = 0;
@@ -659,7 +627,7 @@ void MultiTrackView::slotViewScrolled(int)
     //qDebug() << Q_FUNC_INFO << "Percentage: " << value;
 }
 
-void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *event, SequenceItem *item)
+void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *item)
 {
     qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
@@ -677,7 +645,7 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *event, Sequence
     {
         qDebug() << "Drag too short (" << shift << "px) not allowed !";
         item->setPos(item->getDraggingPos());
-        s_time = item->getChaser()->getStartTime();
+        s_time = item->getStartTime();
         moved = false;
     }
     else if (m_snapToGrid == true)
@@ -693,106 +661,18 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *event, Sequence
         s_time = getTimeFromPosition(item->x());
     }
 
-    updateItem(item, s_time);
+    item->setStartTime(s_time);
 
     m_scene->update();
-    emit sequenceMoved(item, getTimeFromPosition(item->x() + event->pos().toPoint().x()), moved);
+    emit showItemMoved(item, getTimeFromPosition(item->x() + event->pos().toPoint().x()), moved);
 }
 
-void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *item)
-{
-    //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
-    // align to the appropriate track
-    int trackNum = item->getTrackIndex();
-    int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
-    int shift = qAbs(item->getDraggingPos().x() - item->x());
-    quint32 s_time = 0;
-
-    if (item->x() < TRACK_WIDTH + 2)
-    {
-        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving audio too early...
-    }
-    else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
-    {
-        qDebug() << "Drag too short (" << shift << "px) not allowed !";
-        item->setPos(item->getDraggingPos());
-        s_time = item->getAudio()->getStartTime();
-    }
-    else if (m_snapToGrid == true)
-    {
-        float step = m_header->getTimeDivisionStep();
-        float gridPos = ((int)(item->x() / step) * step);
-        item->setPos(gridPos, ypos);
-        s_time = getTimeFromPosition(gridPos);
-    }
-    else
-    {
-        item->setPos(item->x(), ypos);
-        s_time = getTimeFromPosition(item->x());
-    }
-
-    updateItem(item, s_time);
-    m_scene->update();
-    emit audioMoved(item);
-}
-
-void MultiTrackView::slotAlignToCursor(SequenceItem *item)
+void MultiTrackView::slotAlignToCursor(ShowItem *item)
 {
     item->setX(m_cursor->x());
-    updateItem(item, getTimeFromPosition(item->x()));
+    item->setStartTime(getTimeFromPosition(item->x()));
     m_scene->update();
 }
 
-void MultiTrackView::slotAlignToCursor(AudioItem *item)
-{
-    item->setX(m_cursor->x());
-    updateItem(item, getTimeFromPosition(item->x()));
-    m_scene->update();
-}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, VideoItem *item)
-{
-    //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
-    // align to the appropriate track
-    int trackNum = item->getTrackIndex();
-    int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
-    int shift = qAbs(item->getDraggingPos().x() - item->x());
-    quint32 s_time = 0;
 
-    if (item->x() < TRACK_WIDTH + 2)
-    {
-        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving video too early...
-    }
-    else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
-    {
-        qDebug() << "Drag too short (" << shift << "px) not allowed !";
-        item->setPos(item->getDraggingPos());
-        s_time = item->getVideo()->getStartTime();
-    }
-    else if (m_snapToGrid == true)
-    {
-        float step = m_header->getTimeDivisionStep();
-        float gridPos = ((int)(item->x() / step) * step);
-        item->setPos(gridPos, ypos);
-        s_time = getTimeFromPosition(gridPos);
-    }
-    else
-    {
-        item->setPos(item->x(), ypos);
-        s_time = getTimeFromPosition(item->x());
-    }
-
-    updateItem(item, s_time);
-    m_scene->update();
-    emit videoMoved(item);
-}
-
-void MultiTrackView::slotAlignToCursor(VideoItem *item)
-{
-    item->setX(m_cursor->x());
-    updateItem(item, getTimeFromPosition(item->x()));
-    m_scene->update();
-}
-
-#endif

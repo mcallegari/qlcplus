@@ -25,8 +25,8 @@
 #include <QList>
 
 #include "multitrackview.h"
+#include "sequenceitem.h"
 #include "trackitem.h"
-#include "showitems.h"
 #include "scene.h"
 #include "show.h"
 #include "doc.h"
@@ -170,6 +170,8 @@ protected slots:
      * UI events
      *********************************************************************/
     void slotViewClicked(QMouseEvent *event);
+    void slotShowItemMoved(ShowItem *item, quint32 time, bool moved);
+
     void slotSequenceMoved(SequenceItem *, quint32 time, bool moved);
     void slotAudioMoved(AudioItem *);
 #if QT_VERSION >= 0x050000

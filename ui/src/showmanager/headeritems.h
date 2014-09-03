@@ -44,7 +44,7 @@ class ShowHeaderItem :  public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    ShowHeaderItem(int);
+    ShowHeaderItem(int width);
 
     enum TimeDivision
     {

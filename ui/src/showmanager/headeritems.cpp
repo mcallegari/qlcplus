@@ -26,8 +26,8 @@
  * Header item
  *
  ****************************************************************************/
-ShowHeaderItem::ShowHeaderItem(int w)
-    : m_width(w)
+ShowHeaderItem::ShowHeaderItem(int width)
+    : m_width(width)
     , m_height(HEADER_HEIGHT)
     , m_timeStep(HALF_SECOND_WIDTH)
     , m_timeHit(2)

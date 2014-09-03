@@ -26,9 +26,13 @@
 #include <QSlider>
 #include <QWidget>
 
+#include "sequenceitem.h"
 #include "headeritems.h"
 #include "trackitem.h"
-#include "showitems.h"
+#include "audioitem.h"
+#if QT_VERSION >= 0x050000
+#include "videoitem.h"
+#endif
 #include "chaser.h"
 #include "track.h"
 
@@ -164,21 +168,11 @@ protected slots:
     void slotTrackMuteFlagChanged(TrackItem*, bool);
     void slotViewScrolled(int);
 
-    void slotSequenceMoved(QGraphicsSceneMouseEvent *event, SequenceItem *);
-    void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
-    void slotAlignToCursor(SequenceItem *);
-    void slotAlignToCursor(AudioItem *);
-#if QT_VERSION >= 0x050000
-    void slotSequenceMoved(QGraphicsSceneMouseEvent *, VideoItem *);
-    void slotAlignToCursor(VideoItem *);
-#endif
+    void slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *item);
+    void slotAlignToCursor(ShowItem *item);
 
 signals:
-    void sequenceMoved(SequenceItem *item, quint32 time, bool moved);
-    void audioMoved(AudioItem *item);
-#if QT_VERSION >= 0x050000
-    void videoMoved(VideoItem *item);
-#endif
+    void showItemMoved(ShowItem *item, quint32 time, bool moved);
     void viewClicked(QMouseEvent * e);
     void timeChanged(quint32 msec);
     void trackClicked(Track *track);

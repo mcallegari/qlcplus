@@ -110,7 +110,9 @@ HEADERS += showmanager/multitrackview.h \
            showmanager/showeditor.h \
            showmanager/headeritems.h \
            showmanager/trackitem.h \
-           showmanager/showitems.h \
+           showmanager/showitem.h \
+           showmanager/sequenceitem.h \
+           showmanager/audioitem.h \
            showmanager/showmanager.h
 
 # Virtual Console headers
@@ -267,7 +269,9 @@ SOURCES += showmanager/multitrackview.cpp \
            showmanager/showeditor.cpp \
            showmanager/headeritems.cpp \
            showmanager/trackitem.cpp \
-           showmanager/showitems.cpp \
+           showmanager/showitem.cpp \
+           showmanager/sequenceitem.cpp \
+           showmanager/audioitem.cpp \
            showmanager/showmanager.cpp
 
 # Virtual Console sources
@@ -304,9 +308,9 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/virtualconsole.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-HEADERS += videoeditor.h
+HEADERS += videoeditor.h showmanager/videoitem.h
 FORMS += videoeditor.ui
-SOURCES += videoeditor.cpp
+SOURCES += videoeditor.cpp showmanager/videoitem.cpp
 }
 
 TRANSLATIONS += qlcplus_fi_FI.ts
