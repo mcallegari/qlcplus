@@ -105,9 +105,11 @@ HEADERS += monitor/monitor.h \
            monitor/monitorlayout.h \
            monitor/monitorfixturepropertieseditor.h
 
-# Virtual Console headers
+# Show Manager headers
 HEADERS += showmanager/multitrackview.h \
            showmanager/showeditor.h \
+           showmanager/headeritems.h \
+           showmanager/trackitem.h \
            showmanager/showitems.h \
            showmanager/showmanager.h
 
@@ -260,9 +262,11 @@ SOURCES += monitor/monitor.cpp \
            monitor/monitorlayout.cpp \
            monitor/monitorfixturepropertieseditor.cpp
 
-# Virtual Console sources
+# Show Manager sources
 SOURCES += showmanager/multitrackview.cpp \
            showmanager/showeditor.cpp \
+           showmanager/headeritems.cpp \
+           showmanager/trackitem.cpp \
            showmanager/showitems.cpp \
            showmanager/showmanager.cpp
 

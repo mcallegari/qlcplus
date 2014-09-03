@@ -26,6 +26,8 @@
 #include <QSlider>
 #include <QWidget>
 
+#include "headeritems.h"
+#include "trackitem.h"
 #include "showitems.h"
 #include "chaser.h"
 #include "track.h"
@@ -98,9 +100,9 @@ private:
 public:
     /** Set the type of header. Can be Time (seconds) or BPM,
      *  in various forms (4/4, 3/4) */
-    void setHeaderType(SceneHeaderItem::TimeDivision type);
+    void setHeaderType(ShowHeaderItem::TimeDivision type);
 
-    SceneHeaderItem::TimeDivision getHeaderType();
+    ShowHeaderItem::TimeDivision getHeaderType();
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */
@@ -138,8 +140,8 @@ private:
 private:
     QGraphicsScene *m_scene;
     QSlider *m_timeSlider;
-    SceneHeaderItem *m_header;
-    SceneCursorItem *m_cursor;
+    ShowHeaderItem *m_header;
+    ShowCursorItem *m_cursor;
     QGraphicsItem * m_vdivider;
     QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;

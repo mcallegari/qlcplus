@@ -2,7 +2,7 @@
   Q Light Controller Plus
   showitems.h
 
-  Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 */
 
 
-#ifndef SCENEITEMS_H
-#define SCENEITEMS_H
+#ifndef SHOWITEM_H
+#define SHOWITEM_H
 
 #include <QGraphicsItem>
 #include <QObject>
@@ -28,7 +28,6 @@
 
 #include "chaser.h"
 #include "audio.h"
-#include "track.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
 #endif
@@ -36,173 +35,6 @@
 /** @addtogroup ui_functions
  * @{
  */
-
-#define HEADER_HEIGHT       35
-#define TRACK_HEIGHT        80
-#define TRACK_WIDTH         150
-#define HALF_SECOND_WIDTH   25
-
-/*********************************************************************
- *
- * Scene Header class. Clickable time line header
- *
- *********************************************************************/
-
-class SceneHeaderItem :  public QObject, public QGraphicsItem
-{
-    Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
-
-public:
-    SceneHeaderItem(int);
-
-    enum TimeDivision
-    {
-        Time = 0,
-        BPM_4_4,
-        BPM_3_4,
-        BPM_2_4,
-        Invalid
-    };
-
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    void setTimeScale(int val);
-    int getTimeScale();
-
-    void setTimeDivisionType(TimeDivision type);
-    TimeDivision getTimeDivisionType();
-    void setBPMValue(int value);
-
-    int getHalfSecondWidth();
-    float getTimeDivisionStep();
-
-    void setWidth(int);
-    void setHeight(int);
-
-    static QString tempoToString(TimeDivision type);
-    static TimeDivision stringToTempo(QString tempo);
-
-signals:
-    void itemClicked(QGraphicsSceneMouseEvent *);
-
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-private:
-    /** Total width of the item */
-    int m_width;
-    /** Total height of the item */
-    int m_height;
-    /** Distance in pixels between the time division bars */
-    float m_timeStep;
-    /** Divisor of the time division hit bar (the highest bar) */
-    char m_timeHit;
-    /** Scale of the time division */
-    int m_timeScale;
-    /** When BPM mode is active, this holds the number of BPM to display */
-    int m_BPMValue;
-    /** The type of time division */
-    TimeDivision m_type;
-};
-
-/***************************************************************************
- *
- * Scene Cursor class. Cursor which marks the time position in a scene
- *
- ***************************************************************************/
-class SceneCursorItem : public QGraphicsItem
-{
-public:
-    SceneCursorItem(int h);
-
-    void setHeight(int height);
-
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    void setTime(quint32 t);
-    quint32 getTime();
-private:
-    int m_height;
-    quint32 m_time;
-};
-
-/****************************************************************************
- *
- * Track class. Clickable item which informs the view the track properties change
- *
- ****************************************************************************/
-class TrackItem : public QObject, public QGraphicsItem
-{
-    Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
-
-public:
-    TrackItem(Track *track, int number);
-
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-    /** Return pointer to the Track class associated to this item */
-    Track *getTrack();
-
-    /** Return the track number */
-    int getTrackNumber();
-
-    /** Set the track name */
-    void setName(QString name);
-
-    /** Enable/disable active state which higlight the left bar */
-    void setActive(bool flag);
-
-    /** Return if this track is active or not */
-    bool isActive();
-
-    /** Set mute and solo flags on/off */
-    void setFlags(bool solo, bool mute);
-
-    /** Return the mute state of the item */
-    bool isMute();
-
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *);
-
-protected slots:
-    void slotTrackChanged(quint32 id);
-    void slotMoveUpClicked();
-    void slotMoveDownClicked();
-    void slotChangeNameClicked();
-    void slotDeleteTrackClicked();
-
-signals:
-    void itemClicked(TrackItem *);
-    void itemDoubleClicked(TrackItem *);
-    void itemSoloFlagChanged(TrackItem *, bool);
-    void itemMuteFlagChanged(TrackItem *, bool);
-    void itemMoveUpDown(Track *, int);
-    void itemRequestDelete(Track *);
-
-private:
-    QString m_name;
-    int m_number;
-    QFont m_font;
-    QFont m_btnFont;
-    bool m_isActive;
-    Track *m_track;
-    QRectF *m_muteRegion;
-    bool m_isMute;
-    QRectF *m_soloRegion;
-    bool m_isSolo;
-
-    QAction *m_moveUp;
-    QAction *m_moveDown;
-    QAction *m_changeName;
-    QAction *m_delete;
-};
 
 /***************************************************************************************
  *

@@ -63,14 +63,14 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     connect(m_timeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotTimeScaleChanged(int)));
     m_scene->addWidget(m_timeSlider);
 
-    m_header = new SceneHeaderItem(m_scene->width());
+    m_header = new ShowHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
     connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)),
             this, SLOT(slotHeaderClicked(QGraphicsSceneMouseEvent *)));
     m_scene->addItem(m_header);
     m_snapToGrid = false;
 
-    m_cursor = new SceneCursorItem(m_scene->height());
+    m_cursor = new ShowCursorItem(m_scene->height());
     m_cursor->setPos(TRACK_WIDTH, 0);
     m_cursor->setZValue(999); // make sure the cursor is always on top of everything else
     m_scene->addItem(m_cursor);
@@ -535,12 +535,12 @@ int MultiTrackView::getActiveTrack()
     return -1;
 }
 
-void MultiTrackView::setHeaderType(SceneHeaderItem::TimeDivision type)
+void MultiTrackView::setHeaderType(ShowHeaderItem::TimeDivision type)
 {
     m_header->setTimeDivisionType(type);
 }
 
-SceneHeaderItem::TimeDivision MultiTrackView::getHeaderType()
+ShowHeaderItem::TimeDivision MultiTrackView::getHeaderType()
 {
     return m_header->getTimeDivisionType();
 }

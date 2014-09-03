@@ -25,6 +25,7 @@
 #include <QList>
 
 #include "multitrackview.h"
+#include "trackitem.h"
 #include "showitems.h"
 #include "scene.h"
 #include "show.h"
