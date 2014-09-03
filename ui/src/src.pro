@@ -9,6 +9,7 @@ CONFIG += qt
 QT     += core xml gui script
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
+INCLUDEPATH     += monitor showmanager virtualconsole
 
 # Engine
 INCLUDEPATH     += ../../engine/src ../../engine/src/audio
@@ -35,14 +36,12 @@ lessThan(QT_MAJOR_VERSION, 5) {
   }
 }
 
-# Sources
+# Headers
 HEADERS += aboutbox.h \
            addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
            addrgbpanel.h \
-           addvcbuttonmatrix.h \
-           addvcslidermatrix.h \
            app.h \
            apputil.h \
            assignhotkey.h \
@@ -82,14 +81,6 @@ HEADERS += aboutbox.h \
            inputoutputpatcheditor.h \
            inputprofileeditor.h \
            knobwidget.h \
-           monitor.h \
-           monitorbackgroundselection.h \
-           monitorfixture.h \
-           monitorfixtureitem.h \
-           monitorgraphicsview.h \
-           monitorlayout.h \
-           monitorfixturepropertieseditor.h \
-           multitrackview.h \
            palettegenerator.h \
            playbackslider.h \
            positiontool.h \
@@ -99,51 +90,66 @@ HEADERS += aboutbox.h \
            sceneeditor.h \
            scripteditor.h \
            selectinputchannel.h \
-           showeditor.h \
-           showitems.h \
-           showmanager.h \
            simpledesk.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
-           universeitemwidget.h \
-           vcaudiotriggers.h \
-           vcaudiotriggersproperties.h \
-           vcbutton.h \
-           vcbuttonproperties.h \
-           vcclock.h \
-           vcclockproperties.h \
-           vccuelist.h \
-           vccuelistproperties.h \
-           vcdockarea.h \
-           vcframe.h \
-           vcframeproperties.h \
-           vclabel.h \
-           vcproperties.h \
-           vcpropertieseditor.h \
-           vcslider.h \
-           vcsliderproperties.h \
-           vcsoloframe.h \
-           vcspeeddial.h \
-           vcspeeddialfunction.h \
-           vcspeeddialproperties.h \
-           vcwidget.h \
-           vcwidgetproperties.h \
-           vcwidgetselection.h \
-           vcxypad.h \
-           vcxypadarea.h \
-           vcxypadfixture.h \
-           vcxypadfixtureeditor.h \
-           vcxypadproperties.h \
-           virtualconsole.h
+           universeitemwidget.h
 
+# Monitor headers
+HEADERS += monitor/monitor.h \
+           monitor/monitorbackgroundselection.h \
+           monitor/monitorfixture.h \
+           monitor/monitorfixtureitem.h \
+           monitor/monitorgraphicsview.h \
+           monitor/monitorlayout.h \
+           monitor/monitorfixturepropertieseditor.h
+
+# Virtual Console headers
+HEADERS += showmanager/multitrackview.h \
+           showmanager/showeditor.h \
+           showmanager/showitems.h \
+           showmanager/showmanager.h
+
+# Virtual Console headers
+HEADERS += virtualconsole/addvcbuttonmatrix.h \
+           virtualconsole/addvcslidermatrix.h \
+           virtualconsole/vcaudiotriggers.h \
+           virtualconsole/vcaudiotriggersproperties.h \
+           virtualconsole/vcbutton.h \
+           virtualconsole/vcbuttonproperties.h \
+           virtualconsole/vcclock.h \
+           virtualconsole/vcclockproperties.h \
+           virtualconsole/vccuelist.h \
+           virtualconsole/vccuelistproperties.h \
+           virtualconsole/vcdockarea.h \
+           virtualconsole/vcframe.h \
+           virtualconsole/vcframeproperties.h \
+           virtualconsole/vclabel.h \
+           virtualconsole/vcproperties.h \
+           virtualconsole/vcpropertieseditor.h \
+           virtualconsole/vcslider.h \
+           virtualconsole/vcsliderproperties.h \
+           virtualconsole/vcsoloframe.h \
+           virtualconsole/vcspeeddial.h \
+           virtualconsole/vcspeeddialfunction.h \
+           virtualconsole/vcspeeddialproperties.h \
+           virtualconsole/vcwidget.h \
+           virtualconsole/vcwidgetproperties.h \
+           virtualconsole/vcwidgetselection.h \
+           virtualconsole/vcxypad.h \
+           virtualconsole/vcxypadarea.h \
+           virtualconsole/vcxypadfixture.h \
+           virtualconsole/vcxypadfixtureeditor.h \
+           virtualconsole/vcxypadproperties.h \
+           virtualconsole/virtualconsole.h
+
+# Forms
 FORMS += aboutbox.ui \
          addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
          addrgbpanel.ui \
-         addvcbuttonmatrix.ui \
-         addvcslidermatrix.ui \
          assignhotkey.ui \
          audioeditor.ui \
          chasereditor.ui \
@@ -161,33 +167,36 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
-         monitorbackgroundselection.ui \
-         monitorfixturepropertieseditor.ui \
+         monitor/monitorbackgroundselection.ui \
+         monitor/monitorfixturepropertieseditor.ui \
          positiontool.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
          scripteditor.ui \
          selectinputchannel.ui \
-         showeditor.ui \
-         vcaudiotriggersproperties.ui \
-         vcbuttonproperties.ui \
-         vcclockproperties.ui \
-         vccuelistproperties.ui \
-         vcframeproperties.ui \
-         vcproperties.ui \
-         vcsliderproperties.ui \
-         vcspeeddialproperties.ui \
-         vcwidgetselection.ui \
-         vcxypadfixtureeditor.ui \
-         vcxypadproperties.ui
+         showmanager/showeditor.ui
 
+# Virtual Console Forms
+FORMS += virtualconsole/addvcbuttonmatrix.ui \
+         virtualconsole/addvcslidermatrix.ui \
+         virtualconsole/vcaudiotriggersproperties.ui \
+         virtualconsole/vcbuttonproperties.ui \
+         virtualconsole/vcclockproperties.ui \
+         virtualconsole/vccuelistproperties.ui \
+         virtualconsole/vcframeproperties.ui \
+         virtualconsole/vcproperties.ui \
+         virtualconsole/vcsliderproperties.ui \
+         virtualconsole/vcspeeddialproperties.ui \
+         virtualconsole/vcwidgetselection.ui \
+         virtualconsole/vcxypadfixtureeditor.ui \
+         virtualconsole/vcxypadproperties.ui
+
+# Sources
 SOURCES += aboutbox.cpp \
            addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
            addrgbpanel.cpp \
-           addvcbuttonmatrix.cpp \
-           addvcslidermatrix.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
@@ -227,14 +236,6 @@ SOURCES += aboutbox.cpp \
            inputoutputpatcheditor.cpp \
            inputprofileeditor.cpp \
            knobwidget.cpp \
-           monitor.cpp \
-           monitorbackgroundselection.cpp \
-           monitorfixture.cpp \
-           monitorfixtureitem.cpp \
-           monitorgraphicsview.cpp \
-           monitorlayout.cpp \
-           monitorfixturepropertieseditor.cpp \
-           multitrackview.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
            positiontool.cpp \
@@ -244,44 +245,60 @@ SOURCES += aboutbox.cpp \
            sceneeditor.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
-           showeditor.cpp \
-           showitems.cpp \
-           showmanager.cpp \
            simpledesk.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
-           universeitemwidget.cpp \
-           vcaudiotriggers.cpp \
-           vcaudiotriggersproperties.cpp \
-           vcbutton.cpp \
-           vcbuttonproperties.cpp \
-           vcclock.cpp \
-           vcclockproperties.cpp \
-           vccuelist.cpp \
-           vccuelistproperties.cpp \
-           vcdockarea.cpp \
-           vcframe.cpp \
-           vcframeproperties.cpp \
-           vclabel.cpp \
-           vcproperties.cpp \
-           vcpropertieseditor.cpp \
-           vcslider.cpp \
-           vcsliderproperties.cpp \
-           vcsoloframe.cpp \
-           vcspeeddial.cpp \
-           vcspeeddialfunction.cpp \
-           vcspeeddialproperties.cpp \
-           vcwidget.cpp \
-           vcwidgetproperties.cpp \
-           vcwidgetselection.cpp \
-           vcxypad.cpp \
-           vcxypadarea.cpp \
-           vcxypadfixture.cpp \
-           vcxypadfixtureeditor.cpp \
-           vcxypadproperties.cpp \
-           virtualconsole.cpp
-           
+           universeitemwidget.cpp 
+
+# Monitor sources
+SOURCES += monitor/monitor.cpp \
+           monitor/monitorbackgroundselection.cpp \
+           monitor/monitorfixture.cpp \
+           monitor/monitorfixtureitem.cpp \
+           monitor/monitorgraphicsview.cpp \
+           monitor/monitorlayout.cpp \
+           monitor/monitorfixturepropertieseditor.cpp
+
+# Virtual Console sources
+SOURCES += showmanager/multitrackview.cpp \
+           showmanager/showeditor.cpp \
+           showmanager/showitems.cpp \
+           showmanager/showmanager.cpp
+
+# Virtual Console sources
+SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
+           virtualconsole/addvcslidermatrix.cpp \
+           virtualconsole/vcaudiotriggers.cpp \
+           virtualconsole/vcaudiotriggersproperties.cpp \
+           virtualconsole/vcbutton.cpp \
+           virtualconsole/vcbuttonproperties.cpp \
+           virtualconsole/vcclock.cpp \
+           virtualconsole/vcclockproperties.cpp \
+           virtualconsole/vccuelist.cpp \
+           virtualconsole/vccuelistproperties.cpp \
+           virtualconsole/vcdockarea.cpp \
+           virtualconsole/vcframe.cpp \
+           virtualconsole/vcframeproperties.cpp \
+           virtualconsole/vclabel.cpp \
+           virtualconsole/vcproperties.cpp \
+           virtualconsole/vcpropertieseditor.cpp \
+           virtualconsole/vcslider.cpp \
+           virtualconsole/vcsliderproperties.cpp \
+           virtualconsole/vcsoloframe.cpp \
+           virtualconsole/vcspeeddial.cpp \
+           virtualconsole/vcspeeddialfunction.cpp \
+           virtualconsole/vcspeeddialproperties.cpp \
+           virtualconsole/vcwidget.cpp \
+           virtualconsole/vcwidgetproperties.cpp \
+           virtualconsole/vcwidgetselection.cpp \
+           virtualconsole/vcxypad.cpp \
+           virtualconsole/vcxypadarea.cpp \
+           virtualconsole/vcxypadfixture.cpp \
+           virtualconsole/vcxypadfixtureeditor.cpp \
+           virtualconsole/vcxypadproperties.cpp \
+           virtualconsole/virtualconsole.cpp
+
 greaterThan(QT_MAJOR_VERSION, 4) {
 HEADERS += videoeditor.h
 FORMS += videoeditor.ui

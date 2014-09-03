@@ -10,7 +10,7 @@ QT     += core gui script network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 # Engine
-INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
+INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src ../ui/src/virtualconsole
 DEPENDPATH      += ../engine/src ../ui/src
 QMAKE_LIBDIR    += ../engine/src ../ui/src
 DEFINES         += USE_WEBSOCKET NO_SSL
