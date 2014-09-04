@@ -219,7 +219,7 @@ void MultiTrackView::addSequence(Chaser *chaser)
 
     if (chaser->getStartTime() == UINT_MAX)
     {
-        updateItem(item, getTimeFromCursor());
+        item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else
@@ -252,7 +252,7 @@ void MultiTrackView::addAudio(Audio *audio)
 
     if (audio->getStartTime() == UINT_MAX)
     {
-        updateItem(item, getTimeFromCursor());
+        item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else
@@ -287,7 +287,7 @@ void MultiTrackView::addVideo(Video *video)
 
     if (video->getStartTime() == UINT_MAX)
     {
-        updateItem(item, getTimeFromCursor());
+        item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else

@@ -58,6 +58,9 @@ public:
     quint32 getStartTime();
 
     /** @reimp */
+    QString functionName();
+
+    /** @reimp */
     void setLocked(bool locked);
 
     void setSelectedStep(int idx);

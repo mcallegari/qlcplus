@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QMenu>
 
+#include "headeritems.h"
 #include "trackitem.h"
 #include "showitem.h"
 #include "function.h"
@@ -192,7 +193,32 @@ void ShowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
     // draw item background
     painter->setBrush(QBrush(m_color));
-    painter->drawRect(0, 0, m_width, 77);
+    painter->drawRect(0, 0, m_width, TRACK_HEIGHT - 3);
+
+    painter->setFont(m_font);
+}
+
+void ShowItem::postPaint(QPainter *painter)
+{
+    // draw shadow
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, functionName());
+
+    // draw sequence name
+    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
+    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, functionName());
+
+    if (m_locked)
+        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
+
+    if (m_pressed)
+    {
+        quint32 s_time = 0;
+        if (x() > TRACK_WIDTH)
+            s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
+                     (double)(HALF_SECOND_WIDTH);
+        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+    }
 }
 
 

@@ -67,26 +67,14 @@ void SequenceItem::calculateWidth()
 
 void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
     int stepIdx = 0;
 
-    if (this->isSelected() == true)
-    {
-        painter->setPen(QPen(Qt::white, 3));
-    }
-    else
-    {
-        painter->setPen(QPen(Qt::white, 1));
-        m_selectedStep = -1;
-    }
+    ShowItem::paint(painter, option, widget);
 
-    // draw chaser background
-    painter->setBrush(QBrush(m_color));
-    painter->drawRect(0, 0, m_width, 77);
+    if (this->isSelected() == false)
+        m_selectedStep = -1;
 
     foreach (ChaserStep step, m_chaser->steps())
     {
@@ -139,27 +127,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         stepIdx++;
     }
 
-    painter->setFont(m_font);
-    // draw shadow
-    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_chaser->name());
-
-    // draw sequence name
-    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_chaser->name());
-
-    if (m_pressed)
-    {
-        quint32 s_time = 0;
-        if (x() > TRACK_WIDTH)
-            s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
-                     (double)(HALF_SECOND_WIDTH);
-        painter->setFont(m_font);
-        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
-    }
-
-    if (m_locked)
-        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
+    ShowItem::postPaint(painter);
 }
 
 void SequenceItem::setTimeScale(int val)
@@ -186,6 +154,13 @@ quint32 SequenceItem::getStartTime()
     if (m_chaser)
         return m_chaser->getStartTime();
     return 0;
+}
+
+QString SequenceItem::functionName()
+{
+    if (m_chaser)
+        return m_chaser->name();
+    return QString();
 }
 
 void SequenceItem::setLocked(bool locked)

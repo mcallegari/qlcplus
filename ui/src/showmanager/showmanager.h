@@ -172,11 +172,6 @@ protected slots:
     void slotViewClicked(QMouseEvent *event);
     void slotShowItemMoved(ShowItem *item, quint32 time, bool moved);
 
-    void slotSequenceMoved(SequenceItem *, quint32 time, bool moved);
-    void slotAudioMoved(AudioItem *);
-#if QT_VERSION >= 0x050000
-    void slotVideoMoved(VideoItem *);
-#endif
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);

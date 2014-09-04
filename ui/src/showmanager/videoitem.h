@@ -57,6 +57,9 @@ public:
     quint32 getStartTime();
 
     /** @reimp */
+    QString functionName();
+
+    /** @reimp */
     void setLocked(bool locked);
 
     /** Return a pointer to a Video object associated to this item */

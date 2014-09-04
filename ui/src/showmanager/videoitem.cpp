@@ -65,20 +65,9 @@ void VideoItem::calculateWidth()
 
 void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
     float timeScale = 50/(float)m_timeScale;
 
-    if (this->isSelected() == true)
-        painter->setPen(QPen(Qt::white, 3));
-    else
-        painter->setPen(QPen(Qt::white, 1));
-    painter->setBrush(QBrush(m_color));
-
-    painter->drawRect(0, 0, m_width, TRACK_HEIGHT - 3);
-
-    painter->setFont(m_font);
+    ShowItem::paint(painter, option, widget);
 
     if (m_video->fadeInSpeed() != 0)
     {
@@ -94,23 +83,7 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
     }
 
-    // draw shadow
-    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
-
-    // draw video name
-    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
-
-    if (m_pressed)
-    {
-        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
-                         (double)(HALF_SECOND_WIDTH);
-        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
-    }
-
-    if (m_locked)
-        painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
+    ShowItem::postPaint(painter);
 }
 
 void VideoItem::updateDuration()
@@ -144,6 +117,13 @@ quint32 VideoItem::getStartTime()
     if (m_video)
         return m_video->getStartTime();
     return 0;
+}
+
+QString VideoItem::functionName()
+{
+    if (m_video)
+        return m_video->name();
+    return QString();
 }
 
 void VideoItem::setLocked(bool locked)
