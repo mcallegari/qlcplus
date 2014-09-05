@@ -18,7 +18,9 @@
 */
 
 #include <QNetworkInterface>
+#include <QTextStream>
 #include <QStringList>
+#include <QDebug>
 #include <QFile>
 
 #include "webaccessnetwork.h"
