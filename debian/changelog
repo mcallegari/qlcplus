@@ -15,6 +15,7 @@ qlcplus (4.7.5) stable; urgency=low
   * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
   * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
   * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC, BoomToneDJ Quattro Scan LED (thanks to Robert Scheffler)
+  * New fixture: Clay Paky Sharpy
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 
