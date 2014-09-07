@@ -200,11 +200,11 @@ void ShowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void ShowItem::postPaint(QPainter *painter)
 {
-    // draw shadow
+    // draw the function name shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
     painter->drawText(QRect(4, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, functionName());
 
-    // draw sequence name
+    // draw the function name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(QRect(3, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, functionName());
 

@@ -1527,7 +1527,7 @@ void ShowManager::slotFunctionRemoved(quint32 id)
 void ShowManager::updateMultiTrackView()
 {
     m_showview->resetView();
-    /* first of all get the ID of the selected scene */
+    /* first of all get the ID of the selected Show */
     int idx = m_showsCombo->currentIndex();
     if (idx == -1)
         return;

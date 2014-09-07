@@ -13,6 +13,8 @@ qlcplus (4.7.5) stable; urgency=low
   * RGB Matrix Editor: fixed crashes when changing the matrix settings while test is running (thanks to David Garyga)
   * Channel Modifiers: added 6 new Exponential/Logarithmic templates (thanks to Luis García-Tornel)
   * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
+  * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
+  * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC (thanks to Robert Scheffler)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 

@@ -46,6 +46,7 @@
   <fixture path="American-DJ-Ultra-Bar-12.qxf" mf="American DJ" md="Ultra Bar 12"/>
   <fixture path="American-DJ-Ultra-Bar-6.qxf" mf="American DJ" md="Ultra Bar 6"/>
   <fixture path="American-DJ-Ultra-Bar-9.qxf" mf="American DJ" md="Ultra Bar 9"/>
+  <fixture path="American-DJ-Ultra-Hex-Par3.qxf" mf="American DJ" md="Ultra Hex Par3"/>
   <fixture path="American-DJ-Vizi-Beam-5R.qxf" mf="American DJ" md="Vizi Beam 5R"/>
   <fixture path="American-DJ-Vizi-LED-Spot.qxf" mf="American DJ" md="Vizi LED Spot"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
@@ -80,6 +81,7 @@
   <fixture path="Chauvet-Intimidator-Scan-LED-200.qxf" mf="Chauvet" md="Intimidator Scan LED 200"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-300.qxf" mf="Chauvet" md="Intimidator Scan LED 300"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
+  <fixture path="Chauvet-Intimidator-Spot-400-IRC.qxf" mf="Chauvet" md="Intimidator Spot 400 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-LED-250.qxf" mf="Chauvet" md="Intimidator Spot LED 250"/>
   <fixture path="Chauvet-Intimidator-Spot-LED-350.qxf" mf="Chauvet" md="Intimidator Spot LED 350"/>
   <fixture path="Chauvet-LED-Splash-86b.qxf" mf="Chauvet" md="LED Splash 86b"/>
@@ -116,6 +118,7 @@
   <fixture path="Elation-Vision-250.qxf" mf="Elation" md="Vision 250"/>
   <fixture path="Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf" mf="Electroconcept" md="PAR 56 LED Full RGB 18x3W"/>
   <fixture path="Eliminator-Electro-MH25R.qxf" mf="Eliminator Lighting" md="Electro MH25R"/>
+  <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
