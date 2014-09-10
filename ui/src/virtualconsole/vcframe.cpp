@@ -522,9 +522,9 @@ void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
     if (m_enableKeySequence == keySequence)
         setDisableState(!isDisabled());
     else if (m_previousPageKeySequence == keySequence)
-        slotSetPage(m_currentPage - 1);
+        slotPreviousPage();
     else if (m_nextPageKeySequence == keySequence)
-        slotSetPage(m_currentPage + 1);
+        slotNextPage();
 }
 
 void VCFrame::updateFeedback()
@@ -551,9 +551,9 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
     if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId))
         setDisableState(!isDisabled());
     else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
-        slotSetPage(m_currentPage - 1);
+        slotPreviousPage();
     else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId))
-        slotSetPage(m_currentPage + 1);
+        slotNextPage();
 }
 
 /*****************************************************************************
