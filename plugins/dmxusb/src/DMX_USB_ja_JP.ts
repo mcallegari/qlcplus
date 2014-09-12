@@ -48,12 +48,12 @@
         <translation type="unfinished">閉じる</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Name</source>
         <translation type="unfinished">デバイス名</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Serial</source>
         <translation type="unfinished">シリアル</translation>
     </message>
@@ -99,18 +99,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
+        <location filename="enttecdmxusbpro.cpp" line="91"/>
         <location filename="enttecdmxusbpro.cpp" line="96"/>
-        <location filename="enttecdmxusbpro.cpp" line="101"/>
         <source>Protocol</source>
         <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="105"/>
+        <location filename="enttecdmxusbpro.cpp" line="100"/>
         <source>Manufacturer</source>
         <translation type="unfinished">メーカー名</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="108"/>
+        <location filename="enttecdmxusbpro.cpp" line="103"/>
         <source>Serial number</source>
         <translation type="unfinished">シリアルナンバー</translation>
     </message>
@@ -120,14 +120,14 @@
     <message>
         <location filename="nanodmx.cpp" line="201"/>
         <location filename="stageprofi.cpp" line="137"/>
-        <location filename="vinceusbdmx512.cpp" line="47"/>
+        <location filename="vinceusbdmx512.cpp" line="48"/>
         <source>Protocol</source>
         <translation type="unfinished">Protocol</translation>
     </message>
     <message>
         <location filename="nanodmx.cpp" line="203"/>
         <location filename="stageprofi.cpp" line="139"/>
-        <location filename="vinceusbdmx512.cpp" line="49"/>
+        <location filename="vinceusbdmx512.cpp" line="50"/>
         <source>Output</source>
         <translation type="unfinished">出力</translation>
     </message>
@@ -141,27 +141,27 @@
     <message>
         <location filename="nanodmx.cpp" line="208"/>
         <location filename="stageprofi.cpp" line="144"/>
-        <location filename="vinceusbdmx512.cpp" line="51"/>
+        <location filename="vinceusbdmx512.cpp" line="52"/>
         <source>Serial number</source>
         <translation type="unfinished">シリアルナンバー</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="215"/>
+        <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>MIDI Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="217"/>
+        <location filename="enttecdmxusbpro.cpp" line="212"/>
         <source>DMX Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="222"/>
+        <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>MIDI Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="224"/>
+        <location filename="enttecdmxusbpro.cpp" line="219"/>
         <source>DMX Output</source>
         <translation type="unfinished"></translation>
     </message>

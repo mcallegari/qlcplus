@@ -22,7 +22,7 @@
 <context>
     <name>PlaybackWing</name>
     <message>
-        <location filename="playbackwing.cpp" line="180"/>
+        <location filename="playbackwing.cpp" line="181"/>
         <source>at</source>
         <translation>en</translation>
     </message>
@@ -30,7 +30,7 @@
 <context>
     <name>ProgramWing</name>
     <message>
-        <location filename="programwing.cpp" line="153"/>
+        <location filename="programwing.cpp" line="154"/>
         <source>at</source>
         <translation>en</translation>
     </message>
@@ -38,7 +38,7 @@
 <context>
     <name>ShortcutWing</name>
     <message>
-        <location filename="shortcutwing.cpp" line="102"/>
+        <location filename="shortcutwing.cpp" line="103"/>
         <source>at</source>
         <translation>en</translation>
     </message>
@@ -46,12 +46,12 @@
 <context>
     <name>Wing</name>
     <message>
-        <location filename="wing.cpp" line="62"/>
+        <location filename="wing.cpp" line="63"/>
         <source>Firmware version %1</source>
         <translation>Versión de Firmware %1</translation>
     </message>
     <message>
-        <location filename="wing.cpp" line="64"/>
+        <location filename="wing.cpp" line="65"/>
         <source>Device is operating correctly.</source>
         <translation>El dispositivo está funcionando correctamente.</translation>
     </message>

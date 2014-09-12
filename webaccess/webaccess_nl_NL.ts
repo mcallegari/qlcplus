@@ -125,78 +125,78 @@
 <context>
     <name>WebAccessNetwork</name>
     <message>
-        <location filename="webaccessnetwork.cpp" line="62"/>
+        <location filename="webaccessnetwork.cpp" line="64"/>
         <source>Network interface: </source>
         <translation>Netwerkinterface: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="67"/>
+        <location filename="webaccessnetwork.cpp" line="69"/>
         <source>Access point name (SSID): </source>
         <translation>Accesspoint naam: (SSID): </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="69"/>
+        <location filename="webaccessnetwork.cpp" line="71"/>
         <source>WPA-PSK Password: </source>
         <translation>WPA-PSK Wachtwoord: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="74"/>
+        <location filename="webaccessnetwork.cpp" line="76"/>
         <source>Dynamic (DHCP)</source>
         <translation>Dynamisch (DHCP)</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="76"/>
+        <location filename="webaccessnetwork.cpp" line="78"/>
         <source>Static</source>
         <translation>Statisch</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="80"/>
+        <location filename="webaccessnetwork.cpp" line="82"/>
         <source>IP Address: </source>
         <translation>IP adres: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="82"/>
+        <location filename="webaccessnetwork.cpp" line="84"/>
         <source>Netmask: </source>
         <translation>Netmask: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="84"/>
+        <location filename="webaccessnetwork.cpp" line="86"/>
         <source>Gateway: </source>
         <translation>Gateway: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="87"/>
-        <location filename="webaccessnetwork.cpp" line="275"/>
+        <location filename="webaccessnetwork.cpp" line="89"/>
+        <location filename="webaccessnetwork.cpp" line="277"/>
         <source>Apply changes</source>
         <translation>Wijzigingen doorvoeren</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="258"/>
+        <location filename="webaccessnetwork.cpp" line="260"/>
         <source>Back</source>
         <translation>Terug</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="264"/>
+        <location filename="webaccessnetwork.cpp" line="266"/>
         <source>Network configuration</source>
         <translation>Netwerkconfiguratie</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="269"/>
+        <location filename="webaccessnetwork.cpp" line="271"/>
         <source>Project autostart</source>
         <translation>Project autostart</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="273"/>
+        <location filename="webaccessnetwork.cpp" line="275"/>
         <source>No project</source>
         <translation>Geen project</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="274"/>
+        <location filename="webaccessnetwork.cpp" line="276"/>
         <source>Use current project</source>
         <translation>Gebruik huidige project</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="279"/>
+        <location filename="webaccessnetwork.cpp" line="281"/>
         <source>Reboot</source>
         <translation>Herstarten</translation>
     </message>

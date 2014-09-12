@@ -125,78 +125,78 @@
 <context>
     <name>WebAccessNetwork</name>
     <message>
-        <location filename="webaccessnetwork.cpp" line="62"/>
+        <location filename="webaccessnetwork.cpp" line="64"/>
         <source>Network interface: </source>
         <translation>Interfície de xarxa:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="67"/>
+        <location filename="webaccessnetwork.cpp" line="69"/>
         <source>Access point name (SSID): </source>
         <translation>Nom del punt d&apos;accés (SSID):</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="69"/>
+        <location filename="webaccessnetwork.cpp" line="71"/>
         <source>WPA-PSK Password: </source>
         <translation>Contrasenya WPA-PSK:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="74"/>
+        <location filename="webaccessnetwork.cpp" line="76"/>
         <source>Dynamic (DHCP)</source>
         <translation>Dinàmica (DHCP)</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="76"/>
+        <location filename="webaccessnetwork.cpp" line="78"/>
         <source>Static</source>
         <translation>Estàtica</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="80"/>
+        <location filename="webaccessnetwork.cpp" line="82"/>
         <source>IP Address: </source>
         <translation>Direcció IP:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="82"/>
+        <location filename="webaccessnetwork.cpp" line="84"/>
         <source>Netmask: </source>
         <translation>Màscara de xarxa:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="84"/>
+        <location filename="webaccessnetwork.cpp" line="86"/>
         <source>Gateway: </source>
         <translation>Porta d&apos;enllaç:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="87"/>
-        <location filename="webaccessnetwork.cpp" line="275"/>
+        <location filename="webaccessnetwork.cpp" line="89"/>
+        <location filename="webaccessnetwork.cpp" line="277"/>
         <source>Apply changes</source>
         <translation>Aplicar canvis</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="258"/>
+        <location filename="webaccessnetwork.cpp" line="260"/>
         <source>Back</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="264"/>
+        <location filename="webaccessnetwork.cpp" line="266"/>
         <source>Network configuration</source>
         <translation>Configuració de xarxa</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="269"/>
+        <location filename="webaccessnetwork.cpp" line="271"/>
         <source>Project autostart</source>
         <translation>Inici automàtic del projecte</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="273"/>
+        <location filename="webaccessnetwork.cpp" line="275"/>
         <source>No project</source>
         <translation>Cap projecte</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="274"/>
+        <location filename="webaccessnetwork.cpp" line="276"/>
         <source>Use current project</source>
         <translation>Emprar el projecte actual</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="279"/>
+        <location filename="webaccessnetwork.cpp" line="281"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
