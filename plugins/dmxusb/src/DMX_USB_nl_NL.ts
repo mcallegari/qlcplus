@@ -6,7 +6,7 @@
     <message>
         <location filename="dmxusb.cpp" line="128"/>
         <source>This plugin provides DMX output support for</source>
-        <translation>Deze plugin verzorgt DMX output voor</translation>
+        <translation>Deze plugin zorgt voor DMX output voor</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="132"/>
@@ -68,7 +68,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="116"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DMX kanalen</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="119"/>
@@ -88,12 +88,12 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="127"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation>Pas deze widget aan een te ontdekken universe.</translation>
+        <translation type="unfinished">Patch deze widget aan een te ontdekken universe.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="128"/>
         <source>System Timer Accuracy</source>
-        <translation>System Timer precisie</translation>
+        <translation>Systeemklok precisie</translation>
     </message>
 </context>
 <context>

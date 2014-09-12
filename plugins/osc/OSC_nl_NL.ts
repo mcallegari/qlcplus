@@ -22,7 +22,7 @@
         <location filename="configureosc.ui" line="108"/>
         <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
-        <translation>Input port:</translation>
+        <translation>Input poort:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
@@ -72,7 +72,7 @@
     <message>
         <location filename="oscplugin.cpp" line="200"/>
         <source>Address: </source>
-        <translation>Adres:</translation>
+        <translation>Adres: </translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="203"/>

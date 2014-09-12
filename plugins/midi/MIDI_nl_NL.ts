@@ -87,7 +87,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="168"/>
         <source>Invalid Output</source>
-        <translation>Ongeldige Output</translation>
+        <translation>Ongeldige output</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="253"/>
@@ -145,7 +145,7 @@
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="139"/>
         <source>A timeout occurred.</source>
-        <translation>Eris een timeout opgetreden.</translation>
+        <translation>Er is een time-out opgetreden.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="141"/>
@@ -160,7 +160,7 @@
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="145"/>
         <source>The file could not be renamed.</source>
-        <translation>Het bestand kan niet hernoemt worden.</translation>
+        <translation>Het bestand kan niet hernoemd worden.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="147"/>

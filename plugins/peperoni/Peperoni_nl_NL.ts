@@ -11,7 +11,7 @@
     <message>
         <location filename="win32/peperoni.cpp" line="141"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
-        <translation>USBDMX.DLL niet gevonden, of te oud.</translation>
+        <translation>Het bestand USBDMX.DLL kon niet worden gevonden of is te oud om met QLC+ te gebruiken.</translation>
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="223"/>
@@ -57,7 +57,7 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="159"/>
         <source>Firmware version: %1</source>
-        <translation>Firmware versie: %1</translation>
+        <translation>Firmwareversie: %1</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="165"/>

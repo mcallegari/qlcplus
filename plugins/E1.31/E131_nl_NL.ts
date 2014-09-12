@@ -6,7 +6,7 @@
     <message>
         <location filename="configuree131.ui" line="14"/>
         <source>Configure E1.31 Plugin</source>
-        <translation>Configureer E1 31 Plugin</translation>
+        <translation>Configureer E1.31 Plugin</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="24"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="e131plugin.cpp" line="73"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
-        <translation>Deze plugin verzorgt DMX output voor apparaten die het E1 31 communicatie protocol ondersteunen.</translation>
+        <translation>Deze plugin zorgt voor DMX output voor apparaten die het E1.31 communicatieprotocol ondersteunen.</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="88"/>
@@ -46,7 +46,7 @@
         <location filename="e131plugin.cpp" line="105"/>
         <location filename="e131plugin.cpp" line="261"/>
         <source>Status: Not open</source>
-        <translation>Status: Niet open</translation>
+        <translation>Status: Ongeopend</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>
@@ -57,7 +57,7 @@
     <message>
         <location filename="e131plugin.cpp" line="110"/>
         <source>Packets sent: </source>
-        <translation>Pakketten verzonden:</translation>
+        <translation>Pakketten verzonden: </translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="257"/>
@@ -67,7 +67,7 @@
     <message>
         <location filename="e131plugin.cpp" line="266"/>
         <source>Packets received: </source>
-        <translation>Pakketten ontvangen:</translation>
+        <translation>Pakketten ontvangen: </translation>
     </message>
 </context>
 </TS>

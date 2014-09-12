@@ -11,7 +11,7 @@
     <message>
         <location filename="aboutbox.ui" line="69"/>
         <source>Contributors</source>
-        <translation>Co-auteurs</translation>
+        <translation>Bijdragers</translation>
     </message>
     <message>
         <location filename="aboutbox.ui" line="116"/>
@@ -22,7 +22,7 @@
     <message>
         <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
-        <translation>en co-auteurs:</translation>
+        <translation>en bijdragers:</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="42"/>
@@ -35,12 +35,12 @@
     <message>
         <location filename="addchannelsgroup.ui" line="14"/>
         <source>Select Channels</source>
-        <translation>Selecteer Channels</translation>
+        <translation>Selecteer channels</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="24"/>
         <source>Group Name</source>
-        <translation>Group naam</translation>
+        <translation>Groepnaam</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="48"/>
@@ -55,7 +55,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="58"/>
         <source>Group</source>
-        <translation>Group</translation>
+        <translation>Groep</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="66"/>
@@ -66,12 +66,12 @@
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
         <source>External Input</source>
-        <translation>Externe Input</translation>
+        <translation>Externe input</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="79"/>
         <source>Input channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input channel</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="86"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="132"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="142"/>
@@ -134,22 +134,22 @@
     <message>
         <location filename="addfixture.ui" line="39"/>
         <source>Number of fixtures to add</source>
-        <translation>Aanatl fixtures toe te voegen</translation>
+        <translation>Aantal toe te voegen fixtures</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="52"/>
         <source>Address gap</source>
-        <translation>Adres gat</translation>
+        <translation>Tussenruimte</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="65"/>
         <source>Number of empty channels to leave between added fixtures</source>
-        <translation>Aantal lege channels te behouden tussen toegevoegde fixtures</translation>
+        <translation>Aantal lege channels tussen toegevoegde fixtures</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="78"/>
         <source>Fixture Properties</source>
-        <translation>Fixture Eigenschappen</translation>
+        <translation>Fixture eigenschappen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="84"/>
@@ -184,12 +184,12 @@
     <message>
         <location filename="addfixture.ui" line="163"/>
         <source>The starting address of the (first) added fixture</source>
-        <translation>Het start adres van de (eerst) toegevoegde fixture</translation>
+        <translation>Het startadres van de (eerst) toegevoegde fixture</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="176"/>
         <source>Address Tool</source>
-        <translation>Adres Instellen</translation>
+        <translation>Adres instellen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -238,12 +238,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="14"/>
         <source>Add RGB Panel</source>
-        <translation>RGB Paneel toevoegen</translation>
+        <translation>RGB paneel toevoegen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="215"/>
         <source>Panel properties</source>
-        <translation>Paneel eigenschappen</translation>
+        <translation>Paneeleigenschappen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="229"/>
@@ -254,7 +254,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="236"/>
         <source>RGB Panel</source>
-        <translation>RGB Paneel</translation>
+        <translation>RGB paneel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="243"/>
@@ -304,27 +304,27 @@
     <message>
         <location filename="addrgbpanel.ui" line="103"/>
         <source>Top-Right</source>
-        <translation>Rechts-Boven</translation>
+        <translation>Rechtsboven</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="110"/>
         <source>Top-Left</source>
-        <translation>Links-Boven</translation>
+        <translation>Linksboven</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="120"/>
         <source>Bottom-Left</source>
-        <translation>Links-Onder</translation>
+        <translation>Linksonder</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="127"/>
         <source>Bottom-Right</source>
-        <translation>Rechts-Onder</translation>
+        <translation>Rechtsonder</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="147"/>
         <source>Physical</source>
-        <translation>fysiek</translation>
+        <translation>Fysiek</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
@@ -352,12 +352,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="288"/>
         <source>Snake</source>
-        <translation>Snake</translation>
+        <translation>Slang</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="298"/>
         <source>Zig Zag</source>
-        <translation>Zig Zag</translation>
+        <translation>Zigzag</translation>
     </message>
 </context>
 <context>
@@ -365,7 +365,7 @@
     <message>
         <location filename="addvcbuttonmatrix.ui" line="14"/>
         <source>Add Button Matrix</source>
-        <translation>Matrix Knop Toevoegen</translation>
+        <translation>Knoppenmatrix toevoegen</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="21"/>
@@ -445,7 +445,7 @@
     <message>
         <location filename="addvcbuttonmatrix.ui" line="179"/>
         <source>Place the buttons inside a normal frame</source>
-        <translation>Plaats de knoppen in een normale frame</translation>
+        <translation>Plaats de knoppen in een normaal frame</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="182"/>
@@ -468,7 +468,7 @@
     <message>
         <location filename="addvcslidermatrix.ui" line="14"/>
         <source>Add Slider Matrix</source>
-        <translation>Matrix schuifregelaar toevoegen</translation>
+        <translation>Schuifregelaar matrix toevoegen</translation>
     </message>
     <message>
         <location filename="addvcslidermatrix.ui" line="20"/>
@@ -512,12 +512,12 @@
     <message>
         <location filename="addresstool.ui" line="14"/>
         <source>Address Tool</source>
-        <translation>Adres Instellen</translation>
+        <translation>Adres instellen</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="22"/>
         <source>Reverse vertically</source>
-        <translation>Keer om vertikaal</translation>
+        <translation>Vertikaal omkeren</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="35"/>
@@ -533,7 +533,7 @@
     <message>
         <location filename="addresstool.ui" line="98"/>
         <source>Reverse Horizontally</source>
-        <translation>Keer om horizontaal</translation>
+        <translation>Horizontaal omkeren</translation>
     </message>
 </context>
 <context>
@@ -576,7 +576,7 @@
     <message>
         <location filename="app.cpp" line="291"/>
         <source>You must switch back to Design mode to close the application.</source>
-        <translation>Om programma af te sluiten ga eerst terug naar Design Mode.</translation>
+        <translation>Ga eerst terug naar Design Mode om af te sluiten.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="299"/>
@@ -601,12 +601,12 @@
     <message>
         <location filename="app.cpp" line="356"/>
         <source>Starting Q Light Controller Plus</source>
-        <translation></translation>
+        <translation>Q Light Controller Plus aan het starten</translation>
     </message>
     <message>
         <location filename="app.cpp" line="419"/>
         <source> - New Workspace</source>
-        <translation> - Nieuwe Workspace</translation>
+        <translation> - Nieuwe workspace</translation>
     </message>
     <message>
         <location filename="app.cpp" line="455"/>
@@ -622,8 +622,8 @@
         <location filename="app.cpp" line="475"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
-        <translation>Eén of meer functies zijn nog aktief.
-Deze stoppen en naar Design Mode gaan?</translation>
+        <translation>Eén of meer functies zijn nog actief.
+Wil je deze stoppen en naar Design Mode gaan?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="508"/>
@@ -649,7 +649,7 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="531"/>
         <source>&amp;New</source>
-        <translation>&amp;New</translation>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
         <location filename="app.cpp" line="532"/>
@@ -682,7 +682,7 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="543"/>
         <source>Save &amp;As...</source>
-        <translation>Opslaan &amp;Als...</translation>
+        <translation>Opslaan &amp;als...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="547"/>
@@ -709,7 +709,7 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="556"/>
         <source>Address Tool</source>
-        <translation>Adres Instellen</translation>
+        <translation>Adres instellen</translation>
     </message>
     <message>
         <location filename="app.cpp" line="559"/>
@@ -797,12 +797,12 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="673"/>
         <source>Unable to write to file</source>
-        <translation>Schrijven naar bestand mislukt</translation>
+        <translation>Schrijven naar het bestand mislukt</translation>
     </message>
     <message>
         <location filename="app.cpp" line="676"/>
         <source>A fatal error occurred</source>
-        <translation>Fatale fout</translation>
+        <translation>Fatale fout opgetreden</translation>
     </message>
     <message>
         <location filename="app.cpp" line="679"/>
@@ -827,7 +827,7 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="692"/>
         <source>An unspecified error has occurred. Nice.</source>
-        <translation>Onbekende fout. Heel fijn.</translation>
+        <translation>Er is een onbekende fout opgetreden. Fijn.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="696"/>
@@ -840,19 +840,19 @@ Deze stoppen en naar Design Mode gaan?</translation>
         <location filename="app.cpp" line="1076"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation>Huidige workspace opslaan? Wijzigingen gaan verloren indien er niet wordt opgeslagen.</translation>
+        <translation>Huidige workspace opslaan? De wijzigingen gaan verloren indien ze niet worden opgeslagen.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="792"/>
         <source>New Workspace</source>
-        <translation>Nieuwe Workspace</translation>
+        <translation>Nieuwe workspace</translation>
     </message>
     <message>
         <location filename="app.cpp" line="808"/>
         <location filename="app.cpp" line="816"/>
         <location filename="app.cpp" line="1078"/>
         <source>Open Workspace</source>
-        <translation>Open Workspace</translation>
+        <translation>Open workspace</translation>
     </message>
     <message>
         <location filename="app.cpp" line="824"/>
@@ -864,13 +864,13 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="app.cpp" line="826"/>
         <location filename="app.cpp" line="903"/>
         <source>All Files (*.*)</source>
-        <translation>Alle bestanden(*.*)</translation>
+        <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="828"/>
         <location filename="app.cpp" line="905"/>
         <source>All Files (*)</source>
-        <translation>Alle bestanden(*)</translation>
+        <translation>Alle bestanden (*)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="895"/>
@@ -924,7 +924,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="assignhotkey.cpp" line="51"/>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, and %3.</source>
-        <translation>Sla de toetscombinatie aan die toegewezen moet worden. Toegestaan is een enkele toets of een combinatie met %1, %2, and %3.</translation>
+        <translation>Sla de toetscombinatie aan die toegewezen moet worden. Toegestaan is een enkele toets of een combinatie met %1, %2, en %3.</translation>
     </message>
 </context>
 <context>
@@ -932,7 +932,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="14"/>
         <source>Audio editor</source>
-        <translation>Audio Editor</translation>
+        <translation>Audio-editor</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="136"/>
@@ -954,7 +954,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="115"/>
         <source>Audio name</source>
-        <translation>Audio naam</translation>
+        <translation>Audionaam</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
@@ -970,12 +970,12 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="230"/>
         <source>Preview</source>
-        <translation>Preview</translation>
+        <translation>Voorbeeld</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioapparaat</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -998,17 +998,17 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.cpp" line="106"/>
         <source>Default device</source>
-        <translation>Standaard apparaat</translation>
+        <translation>Standaardapparaat</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="153"/>
         <source>Open Audio File</source>
-        <translation>Open Audio bestand</translation>
+        <translation>Open audiobestand</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="161"/>
         <source>Audio Files (%1)</source>
-        <translation>Audio Bestanden (%1)</translation>
+        <translation>Audiobestanden (%1)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="163"/>
@@ -1030,35 +1030,35 @@ Start time: %2
 Duration: %3
 %4</source>
         <translation>Naam: %1
-Start tijd: %2
+Starttijd: %2
 Duur: %3
 %4</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="792"/>
         <source>Click to move this audio across the timeline</source>
-        <translation>Klik om deze audio te verplaatsen over de tijdslijn</translation>
+        <translation>Versleep om de audio te verplaatsen over de tijdlijn</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="810"/>
         <location filename="showitems.cpp" line="1210"/>
         <source>Preview Left Channel</source>
-        <translation>Preview Left Channel</translation>
+        <translation>Voorbeeld linkerkanaal</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="814"/>
         <source>Preview Right Channel</source>
-        <translation>Preview Right Channel</translation>
+        <translation>Voorbeeld rechterkanaal</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="818"/>
         <source>Preview Stereo Channels</source>
-        <translation>Preview Stereo Channels</translation>
+        <translation>Voorbeeld stereo</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="823"/>
         <source>Align to cursor</source>
-        <translation>Op lijn brenegn met cursor</translation>
+        <translation>Op lijn brengen met cursor</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="826"/>
@@ -1069,7 +1069,7 @@ Duur: %3
     <message>
         <location filename="showitems.cpp" line="1206"/>
         <source>Preview Mono</source>
-        <translation>Preview Mono</translation>
+        <translation>Voorbeeld mono</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1219"/>
@@ -1082,12 +1082,12 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="14"/>
         <source>Audio Triggers Configuration</source>
-        <translation>Audio Triggers Configuratie</translation>
+        <translation>Audiotriggers configuratie</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="97"/>
         <source>Number of spectrum bars:</source>
-        <translation>Aantal spectrum meters:</translation>
+        <translation>Aantal spectrummeters:</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="40"/>
@@ -1102,7 +1102,7 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
         <source>Widget name</source>
-        <translation>Widget naam</translation>
+        <translation>Widgetnaam</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="45"/>
@@ -1122,12 +1122,12 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="60"/>
         <source>Disable threshold</source>
-        <translation>Threshold uitzetten</translation>
+        <translation>Drempelwaarde uitzetten</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="65"/>
         <source>Enable threshold</source>
-        <translation>Threshold aanzetten</translation>
+        <translation>Drempelwaarde aanzetten</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
@@ -1142,28 +1142,28 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="119"/>
         <source>External Input</source>
-        <translation>Externe Input</translation>
+        <translation>Externe input</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="125"/>
         <source>Input Universe</source>
-        <translation>Input Universe</translation>
+        <translation>Input universe</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="132"/>
         <source>Input Channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input channel</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="139"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation>Indine aangezet is het mogelijk een externe knop te koppelen aan deze widget.</translation>
+        <translation>Indien aangezet is het mogelijk om een externe input te koppelen aan deze widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="142"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="158"/>
@@ -1195,19 +1195,19 @@ Duur: %3
         <location filename="vcaudiotriggersproperties.ui" line="225"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation>Toets combinatie die deze widget aan/uit zet</translation>
+        <translation>Toetscombinatie die deze widget aan/uit zet</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="235"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation>Definieer een toets combinaite voor deze widget</translation>
+        <translation>Stel een toetscombinatie in voor deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="255"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation>Verwijder de toets combinatie van deze widget</translation>
+        <translation>Verwijder de toetscombinatie van deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="126"/>
@@ -1252,7 +1252,7 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="252"/>
         <source>Volume Bar</source>
-        <translation>Volume Meter</translation>
+        <translation>Volumemeter</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="261"/>
@@ -1265,7 +1265,7 @@ Duur: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation>Channel Modifier Editor</translation>
+        <translation>Channel modifier editor</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
@@ -1281,7 +1281,7 @@ Duur: %3
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
         <translatorcomment>Wat is een handler?</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
@@ -1292,7 +1292,7 @@ Duur: %3
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
         <translatorcomment>Wat is een handler?</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
@@ -1312,7 +1312,7 @@ Duur: %3
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="183"/>
@@ -1331,7 +1331,7 @@ Duur: %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation>Channels selectie</translation>
+        <translation>Selecteer channels</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1363,7 +1363,7 @@ Duur: %3
     <message>
         <location filename="channelsselection.cpp" line="60"/>
         <source>Can fade</source>
-        <translation>Can fade</translation>
+        <translation>Kan faden</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
@@ -1386,12 +1386,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="14"/>
         <source>Chaser editor</source>
-        <translation>Chaser Editor</translation>
+        <translation>Chaser editor</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="60"/>
         <source>Step</source>
-        <translation>Step</translation>
+        <translation>Stap</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
@@ -1429,12 +1429,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="98"/>
         <source>Remove the selected step</source>
-        <translation>Verwijder de geselecteerde step</translation>
+        <translation>Verwijder de geselecteerde stap</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="123"/>
         <source>Chaser name</source>
-        <translation>Chaser naam</translation>
+        <translation>Naam van de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="136"/>
@@ -1444,12 +1444,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="147"/>
         <source>Run Order</source>
-        <translation>Run volgorde</translation>
+        <translation>Loopvolgorde</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="174"/>
         <source>Run through over and over again</source>
-        <translation>Run in een loop</translation>
+        <translation>Blijf de chaser continue herhalen</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="177"/>
@@ -1459,17 +1459,17 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="193"/>
         <source>Run through once and stop</source>
-        <translation>Run eenmalig</translation>
+        <translation>Speel de chaser een keer af en stop daarna</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="196"/>
         <source>Single Shot</source>
-        <translation>Single Shot</translation>
+        <translation>Eenmalig</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="209"/>
         <source>Switch direction at both ends</source>
-        <translation>Keer richting om bij einden</translation>
+        <translation>Keer richting om bij eind</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="212"/>
@@ -1509,7 +1509,7 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="281"/>
         <source>Backward</source>
-        <translation>Terug</translation>
+        <translation>Achteruit</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="307"/>
@@ -1519,26 +1519,26 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="334"/>
         <source>All steps have common fade in speed set by the chaser</source>
-        <translation>Alle steps hebben dezelfde Fade In snelheid gebaseeerd op de chaser</translation>
+        <translation>Alle stappen hebben dezelfde Fade In snelheid gebaseeerd op de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="337"/>
         <location filename="chasereditor.ui" line="412"/>
         <location filename="chasereditor.ui" line="490"/>
         <source>Common</source>
-        <translation>Gemeenschappelijk</translation>
+        <translation>Hetzelfde</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="350"/>
         <source>Each step has its own fade in speed set by the chaser</source>
-        <translation>Elke step heeft een eigen Fade In snelheid gebaseeerd op de chaser</translation>
+        <translation>Elke stap heeft een aparte Fade In snelheid gebaseeerd op de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="353"/>
         <location filename="chasereditor.ui" line="428"/>
         <location filename="chasereditor.ui" line="509"/>
         <source>Per Step</source>
-        <translation>Per Step</translation>
+        <translation>Per stap</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="366"/>
@@ -1559,12 +1559,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="409"/>
         <source>All steps have common fade out speed set by the chaser</source>
-        <translation>Alle steps hebben dezelfde Fade Out snelheid gebaseeerd op de chaser</translation>
+        <translation>Alle stappen hebben dezelfde Fade Out snelheid gebaseeerd op de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="425"/>
         <source>Each step has its own fade out speed set by the chaser</source>
-        <translation>Elke step heeft een eigen Fade Out snelheid gebaseeerd op chaser</translation>
+        <translation>Elke stap heeft een eigen Fade Out snelheid gebaseeerd op de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="441"/>
@@ -1574,12 +1574,12 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="457"/>
         <source>Step Duration</source>
-        <translation>Step duur</translation>
+        <translation>Duur</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="487"/>
         <source>All steps have common step duration set by the chaser</source>
-        <translation>Alle steps hebben dezelfde Step duur gebaseeerd op de chaser</translation>
+        <translation>Alle stappen hebben dezelfde Step duur gebaseeerd op de chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="506"/>
@@ -1589,42 +1589,42 @@ Duur: %3
     <message>
         <location filename="chasereditor.ui" line="537"/>
         <source>Lower the selected step once</source>
-        <translation>Verlaag de geselecteerde step eenmaal</translation>
+        <translation>Verplaats de stap een positie naar beneden</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="576"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Toon/verberg de speed dial window</translation>
+        <translation>Toon/verberg het speed dial venster</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="603"/>
         <source>See what the chaser does when it is run</source>
-        <translation>Bekijk wat de chaser doet wanneer gerund</translation>
+        <translation>Start de chaser om te kijken hoe het eruit ziet</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="620"/>
         <source>Stop the chaser if running</source>
-        <translation>Stop de chaser indien het loopt</translation>
+        <translation>Stop de chaser indien hij loopt</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="637"/>
         <source>Skip to the previous step</source>
-        <translation>Ga naar de vorige step</translation>
+        <translation>Vorige stap</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="654"/>
         <source>Skip to the next step</source>
-        <translation>Ga naar de volgende step</translation>
+        <translation>Volgende stap</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="722"/>
         <source>Add step(s) to the current position</source>
-        <translation>Voeg step(s) toe aan huidige positie</translation>
+        <translation>Voeg stap(pen) toe na huidige positie</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
-        <translation>Verhoog de geselecteerde step eenmaal</translation>
+        <translation>Verplaats de stap een plek naar beneden</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="73"/>
@@ -1634,7 +1634,7 @@ Duur: %3
     <message>
         <location filename="chasereditor.cpp" line="78"/>
         <source>Copy</source>
-        <translation>Kopieeren</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="83"/>
@@ -1649,27 +1649,27 @@ Duur: %3
     <message>
         <location filename="chasereditor.cpp" line="658"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
+        <translation>Poging om een niet-compatibele scene te plakken. Bewerking geannuleerd.</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="895"/>
         <source>Common Fade In</source>
-        <translation>Common Fade In</translation>
+        <translation>Gemeenschappelijke Fade In</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="896"/>
         <source>Common Fade Out</source>
-        <translation>Common Fade Out</translation>
+        <translation>Gemeenschappelijke Fade Out</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="897"/>
         <source>Common Hold</source>
-        <translation>Common Hold</translation>
+        <translation>Gemeenschappelijke Hold</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="913"/>
         <source>Multiple Steps</source>
-        <translation>Meerdere steps</translation>
+        <translation>Meerdere stappen</translation>
     </message>
 </context>
 <context>
@@ -1677,12 +1677,12 @@ Duur: %3
     <message>
         <location filename="collectioneditor.ui" line="14"/>
         <source>Collection editor</source>
-        <translation>Collection Editor</translation>
+        <translation>Collectie editor</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="26"/>
         <source>Collection name</source>
-        <translation>Collection naam</translation>
+        <translation>Naam van de collectie</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="33"/>
@@ -1697,7 +1697,7 @@ Duur: %3
     <message>
         <location filename="collectioneditor.ui" line="61"/>
         <source>Add function(s) to the collection</source>
-        <translation>Voeg functie toe aan de collection</translation>
+        <translation>Voeg functie toe aan de collectie</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="81"/>
@@ -1718,13 +1718,12 @@ Duur: %3
     <message>
         <location filename="createfixturegroup.ui" line="14"/>
         <source>Create Fixture Group</source>
-        <translation>
-Maak Fixture Group</translation>
+        <translation>Maak fixturegroep</translation>
     </message>
     <message>
         <location filename="createfixturegroup.ui" line="20"/>
         <source>Group name</source>
-        <translation>Group naam</translation>
+        <translation>Naam van de groep</translation>
     </message>
     <message>
         <location filename="createfixturegroup.ui" line="32"/>
@@ -1780,7 +1779,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="24"/>
         <source>Dump only non-zero values</source>
-        <translation>Alleen nul-waarden dumpen</translation>
+        <translation>Alleen waarden ongelijk aan nul dumpen</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="55"/>
@@ -1820,12 +1819,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="43"/>
         <source>Scene name:</source>
-        <translation>Scene naam:</translation>
+        <translation>Scenenaam:</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="72"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
-        <translation>Dump alle channels  (%1 Universes, %2 Fixtures, %3 Channels)</translation>
+        <translation>Dump alle channels (%1 Universes, %2 Fixtures, %3 Channels)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="75"/>
@@ -1838,7 +1837,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="docbrowser.cpp" line="104"/>
         <source>%1 - Document Browser</source>
-        <translation>%1 - Document Browser</translation>
+        <translation>%1 - Documentbrowser</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="120"/>
@@ -1863,7 +1862,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Sluiten</translation>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -1891,7 +1890,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="189"/>
         <source>Step</source>
-        <translation>Step</translation>
+        <translation>Stap</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="194"/>
@@ -1907,7 +1906,7 @@ Maak Fixture Group</translation>
         <location filename="efxeditor.ui" line="204"/>
         <location filename="efxeditor.ui" line="502"/>
         <source>Start Offset</source>
-        <translation>Start offset</translation>
+        <translation>Startpositie</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="209"/>
@@ -1922,7 +1921,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="121"/>
         <source>All fixtures move in parallel</source>
-        <translation>Alle fixtires bewegen parallel</translation>
+        <translation>Alle fixtures bewegen tegelijk</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="124"/>
@@ -1932,7 +1931,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="134"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
-        <translation>De pattern gaat naar elke fixture op volgorde</translation>
+        <translation>Het patroon gaat naar elke fixture op volgorde</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="137"/>
@@ -1957,12 +1956,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="246"/>
         <source>Pattern</source>
-        <translation>Pattern</translation>
+        <translation>Patroon</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="252"/>
         <source>Pattern for moving the mirror/head</source>
-        <translation>Pattern om mirror/head te bewegen</translation>
+        <translation>Patroon wat de spiegel/head volgt</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="262"/>
@@ -1977,7 +1976,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="298"/>
         <source>Value width of the pattern</source>
-        <translation>Breedte van de pattern</translation>
+        <translation>Breedte van het patroon</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="311"/>
@@ -1987,7 +1986,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="318"/>
         <source>Value height of the pattern</source>
-        <translation>Hoogte van de pattern</translation>
+        <translation>Hoogte van het patroon</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="331"/>
@@ -1997,7 +1996,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="338"/>
         <source>Pattern&apos;s center point on the X axis</source>
-        <translation>Middelpunt van de pattern op de X-as</translation>
+        <translation>Middelpunt van het patroon op de X-as</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="351"/>
@@ -2007,7 +2006,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="358"/>
         <source>Pattern&apos;s center point on the Y axis</source>
-        <translation>Middelpunt van de pattern op de Y-as</translation>
+        <translation>Middelpunt van het patroon op de Y-as</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="371"/>
@@ -2017,7 +2016,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="378"/>
         <source>Rotation of the pattern&apos;s starting point</source>
-        <translation>Rotatie van het start punt van de pattern</translation>
+        <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
     <message utf8="true">
         <location filename="efxeditor.ui" line="381"/>
@@ -2033,7 +2032,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
-        <translation>Lissajous pattern&apos;s X frequentie</translation>
+        <translation>X frequentie van de Lissajousfiguur</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="420"/>
@@ -2043,7 +2042,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="430"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
-        <translation>Lissajous pattern&apos;s Y frequentie</translation>
+        <translation>Y frequentie van de Lissajousfiguur</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="446"/>
@@ -2063,12 +2062,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="634"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Toon/verberg de speed dial window</translation>
+        <translation>Toon/verberg het speed dial venster</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="271"/>
         <source>Lissajous pattern&apos;s Y phase</source>
-        <translation>Lissajous pattern&apos;s Y fase</translation>
+        <translation>Y fase van de Lissajousfiguur</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="512"/>
@@ -2083,7 +2082,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="528"/>
         <source>Run the pattern forwards</source>
-        <translation>Start pattern voorwaarts</translation>
+        <translation>Start patroon voorwaarts</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="531"/>
@@ -2093,7 +2092,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="541"/>
         <source>Run the pattern backwards</source>
-        <translation>Start pattern achterwaarts</translation>
+        <translation>Start patroon achterwaarts</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="544"/>
@@ -2103,27 +2102,27 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="570"/>
         <source>Run order</source>
-        <translation>Run richting</translation>
+        <translation>Looprichting</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="576"/>
         <source>Run through over and over again</source>
-        <translation>Run continue</translation>
+        <translation>Blijf het patroon herhalen</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="579"/>
         <source>Loop</source>
-        <translation></translation>
+        <translation>Herhalen</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="589"/>
         <source>Run through once and stop</source>
-        <translation>Run eenmalig en stop</translation>
+        <translation>Volg het patroon een keer en stop daarna</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="592"/>
         <source>Single shot</source>
-        <translation>Single shot</translation>
+        <translation>Eenmalig</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="599"/>
@@ -2138,12 +2137,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="20"/>
         <source>See what the EFX does when it is run</source>
-        <translation>Zie wat EFX doet wanneer het runt</translation>
+        <translation>Bekijk hoe het eruit ziet als de EFX loopt</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="23"/>
         <source>&amp;Test Run</source>
-        <translation>&amp;Test en Run</translation>
+        <translation>&amp;Testen</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="712"/>
@@ -2161,17 +2160,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="14"/>
         <source>Fixture Group</source>
-        <translation>Fixture Group</translation>
+        <translation>Fixturegroep</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Fixture group name</source>
-        <translation>Fixture group naam</translation>
+        <translation>Fixturegroepnaam</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="39"/>
         <source>Remove selected fixture/head</source>
-        <translation>Verwijder geselecteerde fixture / head</translation>
+        <translation>Verwijder geselecteerde fixture/head</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="69"/>
@@ -2192,12 +2191,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="116"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
-        <translation>Voeg toe / vervang fixtures aan de huidige rij, beginnend vanaf geselecteerde cel</translation>
+        <translation>Voeg toe / vervang fixtures aan de huidige rij, beginnend vanaf de geselecteerde cel</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="133"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
-        <translation>Voeg toe / vervang fixtures aan de huidige kolom, beginnend vanaf geselecteerde cel</translation>
+        <translation>Voeg toe / vervang fixtures aan de huidige kolom, beginnend vanaf de geselecteerde cel</translation>
     </message>
 </context>
 <context>
@@ -2210,7 +2209,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="363"/>
         <source>Fixtures Groups</source>
-        <translation>Fixture Groups</translation>
+        <translation>Fixturegroepen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="367"/>
@@ -2220,7 +2219,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="380"/>
         <source>Channels Groups</source>
-        <translation>Channel Groups</translation>
+        <translation>Channel groepen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="573"/>
@@ -2230,12 +2229,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="573"/>
         <source>This group contains all fixtures.</source>
-        <translation>Deze group bevat alle fixtures.</translation>
+        <translation>Deze groep bevat alle fixtures.</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="585"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere fixtures geselecteerd&lt;/H1&gt;&lt;P&gt;Klik &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om geselecteerde fixtures te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere fixtures geselecteerd&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om de geselecteerde fixtures te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="591"/>
@@ -2245,7 +2244,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="600"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation></translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Geen fixtures&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om fixtures toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="606"/>
@@ -2255,17 +2254,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="658"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerder groups geselecteerd&lt;/H1&gt;&lt;P&gt;Klik &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om geselecteerde groups te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere groepen geselecteerd&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om geselecteerde groups te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="666"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een channel group van de lijst of klik&lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe channels group toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een channel groep van de lijst of klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe channel group toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="691"/>
         <source>Add group...</source>
-        <translation>Voeg group toe...</translation>
+        <translation>Voeg groep toe...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="697"/>
@@ -2292,27 +2291,27 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="831"/>
         <source>Add fixture to group...</source>
-        <translation>Voeg fixture toe aan group...</translation>
+        <translation>Voeg fixture toe aan groep...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="834"/>
         <source>Remove fixture from group</source>
-        <translation>Verwijder fixture van group</translation>
+        <translation>Verwijder fixture van groep</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="838"/>
         <source>New Group...</source>
-        <translation>Nieuwe group...</translation>
+        <translation>Nieuwe groep...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="841"/>
         <source>Move group up...</source>
-        <translation>Group naar boven...</translation>
+        <translation>Groep naar boven verplaatsen...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="847"/>
         <source>Move group down...</source>
-        <translation>Group naar beneden...</translation>
+        <translation>Group naar beneden verplaatsen...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="853"/>
@@ -2352,17 +2351,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1141"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Wil je de geslecteerde item verwijderen?</translation>
+        <translation>Wil je de geslecteerde items verwijderen?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1196"/>
         <source>Delete Channels Group</source>
-        <translation>Verwijder Channels Group</translation>
+        <translation>Verwijder Channels Groep</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1197"/>
         <source>Do you want to delete the selected groups?</source>
-        <translation>Wil je de geselecteerde groups verwijderen?</translation>
+        <translation>Wil je de geselecteerde groepen verwijderen?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1262"/>
@@ -2382,12 +2381,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1376"/>
         <source>Ungroup fixtures?</source>
-        <translation>Fixtures degroeperen?</translation>
+        <translation>Fixtures uit de groep halen?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1377"/>
         <source>Do you want to ungroup the selected fixtures?</source>
-        <translation>Wil je de geselecteerde fixtures degroeperen?</translation>
+        <translation>Wil je de geselecteerde fixtures uit de groep halen?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1492"/>
@@ -2397,12 +2396,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1497"/>
         <source>Export Fixtures List As</source>
-        <translation>Export lijst met fixtures Als</translation>
+        <translation>Export lijst met fixtures als</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1503"/>
         <source>Fixtures List (*%1)</source>
-        <translation>Fixtures Lijst (*%1)</translation>
+        <translation>Fixtures lijst (*%1)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1505"/>
@@ -2420,27 +2419,27 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="14"/>
         <source>Fixtures Remap</source>
-        <translation>Fixtures Herindelen</translation>
+        <translation>Fixtures herindelen</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="28"/>
         <source>Add target fixture...</source>
-        <translation>Voeg doel fixture toe...</translation>
+        <translation>Voeg doelfixture toe...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="45"/>
         <source>Remove target fixture...</source>
-        <translation>Verwijder doel fixture...</translation>
+        <translation>Verwijder doelfixture...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation>Klone en auto remap de geselecteerde bron fixture</translation>
+        <translation>Klonen en de geselecteerde bronfixture automatisch herindelen</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
         <source>Connect selections...</source>
-        <translation>Koppel selecties...</translation>
+        <translation>Verbind selecties...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="110"/>
@@ -2450,12 +2449,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="265"/>
         <source>Destination project name</source>
-        <translation>Doel project naam</translation>
+        <translation>Naam van doelproject</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="161"/>
         <source>Remapped Fixtures</source>
-        <translation>Geherindeelde fixtures</translation>
+        <translation>Heringedeelde fixtures</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="166"/>
@@ -2466,18 +2465,18 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="193"/>
         <source>Source Fixtures</source>
-        <translation>Bron fixtures</translation>
+        <translation>Bronfixtures</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="253"/>
         <source>Remap fixture names</source>
-        <translation>Deel fixture namen opnieuw in</translation>
+        <translation>Deel fixturenamen opnieuw in</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="116"/>
         <location filename="fixtureremap.cpp" line="118"/>
         <source> (remapped)</source>
-        <translation>(heringedeeld)</translation>
+        <translation> (heringedeeld)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="147"/>
@@ -2487,7 +2486,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.cpp" line="211"/>
         <source>Generic Dimmer</source>
-        <translation>Algemene Dimmer</translation>
+        <translation>Algemene dimmer</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="277"/>
@@ -2507,7 +2506,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.cpp" line="327"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation>U probeert een fixture te klonen op een adres dat al in gebruik is. Pas eerst de doel lijst aan.</translation>
+        <translation>U probeert een fixture te klonen op een adres dat al in gebruik is. Pas eerst de doellijst aan.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="388"/>
@@ -2522,7 +2521,7 @@ Maak Fixture Group</translation>
         <location filename="fixtureremap.cpp" line="405"/>
         <location filename="fixtureremap.cpp" line="518"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
-        <translation>Selecteer een bron en een doel fixture of channel om deze bewerking uit te voeren.</translation>
+        <translation>Selecteer een bron en een doelfixture of channel om deze bewerking uit te voeren.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="428"/>
@@ -2635,7 +2634,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="257"/>
         <source>New c&amp;ollection</source>
-        <translation>Nieuwe c&amp;ollection</translation>
+        <translation>Nieuwe c&amp;ollectie</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="263"/>
@@ -2655,7 +2654,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="281"/>
         <source>New au&amp;dio</source>
-        <translation>Nieuw au&amp;dio</translation>
+        <translation>Nieuwe au&amp;dio</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="288"/>
@@ -2670,12 +2669,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="300"/>
         <source>Select Startup Function</source>
-        <translation>Selecteer Opstart Functie</translation>
+        <translation>Selecteer opstartfunctie</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="305"/>
         <source>Function &amp;Wizard</source>
-        <translation>Functie &amp;Wizard</translation>
+        <translation>Functie&amp;wizard</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="312"/>
@@ -2685,7 +2684,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="318"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+        <translation>Verwij&amp;deren</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="324"/>
@@ -2695,22 +2694,22 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="366"/>
         <source>New Scene</source>
-        <translation>Nieuwe Scene</translation>
+        <translation>Nieuwe scene</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="379"/>
         <source>New Chaser</source>
-        <translation>Nieuwe Chaser</translation>
+        <translation>Nieuwe chaser</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="402"/>
         <source>New Sequence</source>
-        <translation>Nieuwe Sequence</translation>
+        <translation>Nieuwe sequence</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="415"/>
         <source>New Collection</source>
-        <translation>Nieuwe Collection</translation>
+        <translation>Nieuwe collectie</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="428"/>
@@ -2725,17 +2724,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="454"/>
         <source>New Script</source>
-        <translation>Nieuw Script</translation>
+        <translation>Nieuw script</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="466"/>
         <source>Open Audio File</source>
-        <translation>Open Audio bestand</translation>
+        <translation>Open audiobestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="474"/>
         <source>Audio Files (%1)</source>
-        <translation>Audio Bestanden (%1)</translation>
+        <translation>Audiobestanden (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="476"/>
@@ -2752,32 +2751,32 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="500"/>
         <source>Unsupported audio file</source>
-        <translation>Niet ondersteunde audio besatnd</translation>
+        <translation>Niet ondersteund audiobestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="500"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
-        <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
+        <translation>Dit audiobestand kan niet worden afgespeeld met QLC+. Sorry.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="519"/>
         <source>Open Video File</source>
-        <translation>Open Video bestand</translation>
+        <translation>Open videobestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="527"/>
         <source>Video Files (%1)</source>
-        <translation>Video Bestanden (%1)</translation>
+        <translation>Videobestanden (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>Unsupported video file</source>
-        <translation>Niet ondersteunde video bestand</translation>
+        <translation>Niet ondersteund videobestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation>Dit video bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
+        <translation>Dit videobestand kan niet worden afgespeeld met QLC+. Sorry.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="614"/>
@@ -2808,7 +2807,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="875"/>
         <source> (Copy)</source>
-        <translation>(Copy)</translation>
+        <translation> (kopie)</translation>
     </message>
 </context>
 <context>
@@ -2816,7 +2815,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionselection.ui" line="14"/>
         <source>Select Function</source>
-        <translation>Selecteer Functie</translation>
+        <translation>Selecteer functie</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="22"/>
@@ -2836,12 +2835,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionselection.ui" line="80"/>
         <source>Display collections in the list</source>
-        <translation>Toon collections in de lijst</translation>
+        <translation>Toon collecties in de lijst</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="83"/>
         <source>Collections</source>
-        <translation>Collections</translation>
+        <translation>Collecties</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="90"/>
@@ -2867,15 +2866,13 @@ Maak Fixture Group</translation>
         <location filename="functionselection.ui" line="110"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
-        <translatorcomment>Is matrixes correct?</translatorcomment>
-        <translation type="unfinished">Toon RGB Matrixes in de lijst</translation>
+        <translation>Toon RGB matrices in de lijst</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="113"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
-        <translatorcomment>Is matrixes correct?</translatorcomment>
-        <translation type="unfinished">RGB Matrixes</translation>
+        <translation>RGB matrices</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="120"/>
@@ -2933,7 +2930,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionwizard.ui" line="14"/>
         <source>Function Wizard</source>
-        <translation>Functie Wizzard</translation>
+        <translation>Functiewizard</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="38"/>
@@ -2976,13 +2973,13 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welkom bij de QLC+ wizard !&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dit is een begeleid process dat er voor zorgt dat U QLC+ binnen een paar minuten kunt gebruiken.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dit is een begeleid proces zodat u QLC+ binnen een paar minuten kunt gebruiken.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Het bestaat uit drie stappen:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- fixtures toevoegen&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- selecteer de mogelijkheden om functies mee te maken.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- voeg widgets toe aan de Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Clik op de &amp;quot;Next&amp;quot; knop om naar de volgende stap te gaan&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Klik op Volgende om naar de volgende stap te gaan&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="188"/>
@@ -3033,7 +3030,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de fixtures die U toegevoegd hebt, kan ik de functies die links getoond worden maken. Selecteer de functies die U nodig hebt en zie het resultaat aan de rechter kant!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de fixtures die u toegevoegd heeft, kan ik de functies die links getoond worden maken. Selecteer de functies die u wilt gebruiken en zie het resultaat aan de rechterkant!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="300"/>
@@ -3051,7 +3048,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de functies die U geselecteerd heeft, kan ik de volgende widgets aanmaken in de Virtual Console.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de functies die u geselecteerd heeft, kan ik de volgende widgets aanmaken in de Virtual Console. Selecteer welke u wilt gebruiken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="330"/>
@@ -3108,12 +3105,12 @@ p, li { white-space: pre-wrap; }
         <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
         <translatorcomment>Should we translate presets?</translatorcomment>
-        <translation type="unfinished">Presets solo frame</translation>
+        <translation>Presets solo frame</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="519"/>
         <source>Click &amp; Go RGB</source>
-        <translation>Click &amp; Go RGB</translation>
+        <translation>Klik &amp; Gaan RGB</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="523"/>
@@ -3131,12 +3128,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="grandmasterslider.cpp" line="142"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
-        <translation>Grand Master &lt;B&gt;limiteert&lt;/B&gt; de maximum waarde</translation>
+        <translation>Grand Master &lt;B&gt;limiteert&lt;/B&gt; de maximumwaarde van</translation>
     </message>
     <message>
         <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
-        <translation>Grand Master &lt;B&gt;verlaagt&lt;/B&gt; de huidige waarde</translation>
+        <translation>Grand Master &lt;B&gt;verlaagt&lt;/B&gt; de huidige waarde van</translation>
     </message>
     <message>
         <location filename="grandmasterslider.cpp" line="154"/>
@@ -3198,8 +3195,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="120"/>
         <source>Passthrough</source>
-        <translatorcomment>Misschien doorgeven of doorsturen?</translatorcomment>
-        <translation>Passthrough</translation>
+        <translation>Doorgeven</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="230"/>
@@ -3262,8 +3258,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="87"/>
         <source>Feedback</source>
-        <translation>
-Terugkoppeling</translation>
+        <translation>Terugkoppeling</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="123"/>
@@ -3274,17 +3269,17 @@ Terugkoppeling</translation>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="147"/>
         <source>Create a new input profile</source>
-        <translation>Maak een nieuw input profiel</translation>
+        <translation>Maak een nieuw inputprofiel</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="167"/>
         <source>Delete the selected input profile</source>
-        <translation>Verwijder de geselecteerde input profiel</translation>
+        <translation>Verwijder het geselecteerde inputprofiel</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="187"/>
         <source>Edit the selected input profile</source>
-        <translation>Wijzig de geselecteerde input profiel</translation>
+        <translation>Wijzig het geselecteerde inputprofiel</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="221"/>
@@ -3315,13 +3310,13 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <location filename="inputoutputpatcheditor.cpp" line="663"/>
         <location filename="inputoutputpatcheditor.cpp" line="797"/>
         <source>Existing Input Profile</source>
-        <translation>Bestaand Input Profiel</translation>
+        <translation>Bestaand inputprofiel</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="664"/>
         <location filename="inputoutputpatcheditor.cpp" line="798"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
-        <translation>Input profiel %1 bestaat al. Overschijven?</translation>
+        <translation>Inputprofiel %1 bestaat al. Overschijven?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="673"/>
@@ -3333,7 +3328,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <location filename="inputoutputpatcheditor.cpp" line="674"/>
         <location filename="inputoutputpatcheditor.cpp" line="808"/>
         <source>Input Profiles (*.qxi)</source>
-        <translation>Input Profielen (*.qxi)</translation>
+        <translation>Inputprofielen (*.qxi)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="687"/>
@@ -3354,7 +3349,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="726"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Profiel &quot;%1% definitief verwijderen?</translation>
+        <translation>Profiel &quot;%1&quot; definitief verwijderen?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="754"/>
@@ -3382,7 +3377,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="14"/>
         <source>Input Profile Editor</source>
-        <translation>Input Profiel Editor</translation>
+        <translation>Inputprofiel Editor</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="28"/>
@@ -3483,7 +3478,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.cpp" line="98"/>
         <source>You do not have permission to write to the file %1. You might not be able to save your modifications to the profile.</source>
-        <translation>Onvoldoende permissies om te schrijven naar bestand %1.Mogelijk kunnen wijizgingen aan het profiel niet worden opgeslagen.</translation>
+        <translation>Onvoldoende permissies om te schrijven naar bestand %1.Mogelijk worden er wijzigingen aan het profiel niet opgeslagen.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="200"/>
@@ -3493,7 +3488,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.cpp" line="201"/>
         <source>Manufacturer and/or model name is missing.</source>
-        <translation>Fabrikant en/of model naam ontbreekt.</translation>
+        <translation>Fabrikant en/of modelnaam ontbreekt.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="231"/>
@@ -3515,7 +3510,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.cpp" line="255"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Verwijder all %1 geselecteerde channels?</translation>
+        <translation>Verwijder alle %1 geselecteerde channels?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="368"/>
@@ -3527,9 +3522,12 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
-        <translation>Input channel wizard is geactiveerd. Klik op OK en bedien de ingestelde input profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
+        <translatorcomment>Input channel wizard is geactiveerd. Klik op OK en bedien de ingestelde input profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
 
-Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal handmatig aangepast moeten worden.</translation>
+Let op: de wizard maakt geen onderscheid tussen een knop of een slider, dit zal handmatig aangepast moeten worden.</translatorcomment>
+        <translation>Input channel wizard is geactiveerd. Klik op OK en bedien de ingestelde profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
+
+Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="496"/>
@@ -3552,7 +3550,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="313"/>
         <source>2D View</source>
-        <translation>2d View</translation>
+        <translation>2D weergave</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="320"/>
@@ -3613,13 +3611,13 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="410"/>
         <source>DMX View</source>
-        <translation>DMX View</translation>
+        <translation>DMX weergave</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="416"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
-        <translation>Grootte</translation>
+        <translation>Afmetingen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="440"/>
@@ -3644,7 +3642,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="457"/>
         <source>Set a background picture</source>
-        <translation>Selecteer een achtergrond afbeelding</translation>
+        <translation>Selecteer een achtergrondafbeelding</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="460"/>
@@ -3688,7 +3686,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
         <location filename="monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Selecteer achtergrond afbeelding</translation>
+        <translation>Selecteer achtergrondafbeelding</translation>
     </message>
     <message>
         <location filename="monitorbackgroundselection.cpp" line="162"/>
@@ -3708,7 +3706,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
         <source>Gel color</source>
         <oldsource>Gel color:</oldsource>
-        <translation>Gel kleur</translation>
+        <translation>Filterkleur</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
@@ -3731,13 +3729,12 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
         <source>Rotation</source>
         <oldsource>Rotation:</oldsource>
-        <translation>
-Rotatie</translation>
+        <translation>Rotatie</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
         <source>Set the color of the gel installed on the fixture</source>
-        <translation>Stel de kleur van de gel in die in de fixture aanwezig is</translation>
+        <translation>Stel de kleur van het kleurfilter in die in de fixture aanwezig is</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="112"/>
@@ -3778,7 +3775,7 @@ Rotatie</translation>
     <message>
         <location filename="multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wil je deze track verwijderen:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="389"/>
@@ -3831,18 +3828,18 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="101"/>
         <source>Shutter macros</source>
-        <translation>Shutter macros</translation>
+        <translation>Shutter macro&apos;s</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="102"/>
         <source>Gobo macros</source>
-        <translation>Gobo macros</translation>
+        <translation>Gobo macro&apos;s</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="103"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
-        <translation>Kleur macros</translation>
+        <translation>Kleur macro&apos;s</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="104"/>
@@ -3872,7 +3869,7 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Blue</source>
-        <translation>Donker Blauw</translation>
+        <translation>Donkerblauw</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
@@ -3882,12 +3879,12 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Green</source>
-        <translation>Donker Groen</translation>
+        <translation>Donkergroen</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Cyan</source>
-        <translation>Donder Cyaan</translation>
+        <translation>Donkercyaan</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
@@ -3902,27 +3899,27 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Red</source>
-        <translation>Donker Rood</translation>
+        <translation>Donkerrood</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Dark Magenta</source>
-        <translation>Donker Magenta</translation>
+        <translation>Donkermagenta</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Dark Yellow</source>
-        <translation>Donker Geel</translation>
+        <translation>Donkergeel</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Dark Gray</source>
-        <translation>Donker Grijs</translation>
+        <translation>Donkergrijs</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Light Gray</source>
-        <translation>Licht Grijs</translation>
+        <translation>Lichtgrijs</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="284"/>
@@ -3972,7 +3969,7 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="421"/>
         <source> - RGB Group</source>
-        <translation>- RGB Group</translation>
+        <translation> - RGB Groep</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="427"/>
@@ -4003,7 +4000,7 @@ Duur: %3
         <location filename="palettegenerator.cpp" line="521"/>
         <source>Cyan scene</source>
         <translatorcomment>Is het cyane scene of cyaane scene?</translatorcomment>
-        <translation type="unfinished">Cyane scene</translation>
+        <translation>Cyaane scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="522"/>
@@ -4037,7 +4034,7 @@ Duur: %3
     <message>
         <location filename="playbackslider.cpp" line="83"/>
         <source>Flash</source>
-        <translation>Flash</translation>
+        <translation>Flits</translation>
     </message>
 </context>
 <context>
@@ -4092,27 +4089,27 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="435"/>
         <source>Fixture group</source>
-        <translation>Fixture Group</translation>
+        <translation>Fixturegroep</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="448"/>
         <source>The fixture group to use as the pixel matrix</source>
-        <translation>De fixture group om als pixel matrix te gebruiken</translation>
+        <translation>De fixturegroep om als pixel matrix te gebruiken</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="28"/>
         <source>Pattern</source>
-        <translation>Pattern</translation>
+        <translation>Patroon</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="74"/>
         <source>The RGB matrix pattern</source>
-        <translation>RGB matrix pattern</translation>
+        <translation>RGB matrix patroon</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Animated Text</source>
-        <translation>Animated tekst</translation>
+        <translation>Geanimeerde tekst</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="96"/>
@@ -4127,7 +4124,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation>Reset de eind kleur</translation>
+        <translation>Reset de eindkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="123"/>
@@ -4142,7 +4139,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="172"/>
         <source>Offset</source>
-        <translation>Offset</translation>
+        <translation>Verschuiving</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="178"/>
@@ -4152,7 +4149,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="185"/>
         <source>Shift the pattern X pixels horizontally</source>
-        <translation>Verschuif de pattern X pixels horizontaal</translation>
+        <translation>Verschuif het patroon X pixels horizontaal</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="198"/>
@@ -4162,12 +4159,12 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="205"/>
         <source>Shift the pattern Y pixels vertically</source>
-        <translation>Verschuif de pattern Y pixels vertikaal</translation>
+        <translation>Verschuif het patroon Y pixels vertikaal</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="302"/>
         <source>Run Order</source>
-        <translation>Run volgorde</translation>
+        <translation>Loopvolgorde</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="308"/>
@@ -4182,17 +4179,17 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="321"/>
         <source>Run through once and stop</source>
-        <translation>Run eenmalig</translation>
+        <translation>Speel de matrix één keer af en stop daarna</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="324"/>
         <source>Single Shot</source>
-        <translation>Single Shot</translation>
+        <translation>Eenmalig</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="331"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
-        <translation>Run voorwaarts, dan achterwaarts, weer voorwaarts etc.</translation>
+        <translation>Keer richting om bij het einde.</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="334"/>
@@ -4207,18 +4204,18 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="61"/>
         <source>Matrix start colour</source>
-        <translation>Matrix start kleur</translation>
+        <translation>Matrix startkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="34"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation>Matrix eind kleur</translation>
+        <translation>Matrix eindkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="254"/>
         <source>Start from the first step</source>
-        <translation>Start vanaf de eerste step</translation>
+        <translation>Start vanaf de eerste stap</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="257"/>
@@ -4228,26 +4225,27 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="267"/>
         <source>Start from the last step</source>
-        <translation>Start vanaf de laatste step</translation>
+        <translation>Start vanaf de laatste stap</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="270"/>
         <source>Backward</source>
-        <translation>Terug</translation>
+        <translation>Achteruit</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="389"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Toon/verberg speed dial scherm</translation>
+        <translation>Toon/verberg speed dial venster</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="344"/>
         <source>See what the RGB Matrix does when it is run</source>
-        <translation>Bekijk wat de RGB matrix doet wanneer gerund</translation>
+        <translation>Bekijk wat de RGB matrix doet wanneer hij loopt</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="347"/>
         <source>Test Run</source>
+        <translatorcomment>Testen</translatorcomment>
         <translation>Test Run</translation>
     </message>
     <message>
@@ -4258,7 +4256,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="353"/>
         <source>No fixture group to control</source>
-        <translation>Geen fixture group om te bedienen</translation>
+        <translation>Geen fixturegroep om te bedienen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.cpp" line="646"/>
@@ -4287,7 +4285,7 @@ Duur: %3
     <message>
         <location filename="sceneeditor.ui" line="67"/>
         <source>Disable all channel groups</source>
-        <translation>Disable alle channel groups</translation>
+        <translation>Alle channelgroepen uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="84"/>
@@ -4297,7 +4295,7 @@ Duur: %3
     <message>
         <location filename="sceneeditor.ui" line="101"/>
         <source>Enable all channel groups</source>
-        <translation>Enable alle channel groups</translation>
+        <translation>Alle channelgroepen aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="143"/>
@@ -4313,37 +4311,37 @@ Duur: %3
     <message>
         <location filename="sceneeditor.ui" line="190"/>
         <source>Channel groups used in this scene</source>
-        <translation>Channel groups in deze scene</translation>
+        <translation>Channelgroepen in deze scene</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="205"/>
         <source>Disable all fixtures&apos; channels</source>
-        <translation>Disable alle channels van alle fixtures</translation>
+        <translation>Alle channels van alle fixtures uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="222"/>
         <source>Enable all fixtures&apos; channels</source>
-        <translation>Enable alle channels van alle fixtures</translation>
+        <translation>Alle channels van alle fixtures aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="163"/>
         <source>Enable all channels in current fixture</source>
-        <translation>Enable alle channels in deze fixture</translation>
+        <translation>Alle channels van deze fixture aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="165"/>
         <source>Disable all channels in current fixture</source>
-        <translation>Disable alle channels in deze fixture</translation>
+        <translation>Alle channels van deze fixture uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="167"/>
         <source>Copy current values to clipboard</source>
-        <translation>Kopieer huidige waardes naar clipboard</translation>
+        <translation>Kopieer huidige waardes naar het klembord</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="169"/>
         <source>Paste clipboard values to current fixture</source>
-        <translation>Plak clipboard waarden naar deze fixture</translation>
+        <translation>Plak klembordwaarden naar deze fixture</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="171"/>
@@ -4353,42 +4351,42 @@ Duur: %3
     <message>
         <location filename="sceneeditor.cpp" line="173"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
-        <translation>Kleuren gereedschap voor CMY/RGB compatibele fixtures</translation>
+        <translation>Kleurengereedschap voor CMY/RGB compatibele fixtures</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="175"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation>Positie gereedschap voor moving heads/scanners</translation>
+        <translation>Positiegereedschap voor moving heads/scanners</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="177"/>
         <source>Switch between tab view and all channels view</source>
-        <translation>Wissel tussen tab view en alle channeles view</translation>
+        <translation>Wissel tussen tabweergave en alle channelsweergave</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="179"/>
         <source>Toggle blind mode</source>
-        <translation>Schakel naar blind mode</translation>
+        <translation>Schakel naar blinde modus</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="181"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Toon/verberg speed dial window</translation>
+        <translation>Toon/verberg speed dial venster</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="183"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
-        <translation>Kloneer deze scene en voeg the toe als nieuwe step aan de geselecteerde chaser</translation>
+        <translation>Kloon deze scene en voeg toe als nieuwe step aan de geselecteerde chaser</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="185"/>
         <source>Go to next fixture tab</source>
-        <translation>Ga naar volgende fixture tab</translation>
+        <translation>Volgende fixture tab</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="189"/>
         <source>Go to previous fixture tab</source>
-        <translation>Ga naar vorige fixture tab</translation>
+        <translation>Vorige fixture tab</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="211"/>
@@ -4426,7 +4424,7 @@ Duur: %3
         <location filename="sceneeditor.cpp" line="1401"/>
         <location filename="sceneeditor.cpp" line="1402"/>
         <source>Channels Groups</source>
-        <translation>Channel Groups</translation>
+        <translation>Channelgroepen</translation>
     </message>
 </context>
 <context>
@@ -4449,17 +4447,17 @@ Duur: %3
     <message>
         <location filename="scripteditor.ui" line="76"/>
         <source>Cut selected text to clipboard</source>
-        <translation>Knip geselecteerde text naar clipboard</translation>
+        <translation>Knip geselecteerde text naar klembord</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="93"/>
         <source>Copy selected text to clipboard</source>
-        <translation>Kopieer geselecteerde text naar clipboard</translation>
+        <translation>Kopieer geselecteerde text naar klembord</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="110"/>
         <source>Paste text from clipboard at cursor</source>
-        <translation>Plak geselecteerde text van clipboard naar cursor</translation>
+        <translation>Plak geselecteerde text van klembord naar cursor</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="134"/>
@@ -4545,7 +4543,7 @@ Start time: %2
 Duration: %3
 %4</source>
         <translation>Naam: %1
-Start tijd: %2
+Starttijd: %2
 Duur: %3
 %4</translation>
     </message>
@@ -4557,7 +4555,7 @@ Duur: %3
     <message>
         <location filename="showitems.cpp" line="517"/>
         <source>Align to cursor</source>
-        <translation>Op lijn brenegn met cursor</translation>
+        <translation>Op lijn brengen met cursor</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="520"/>
@@ -4581,7 +4579,7 @@ Duur: %3
     <message>
         <location filename="showeditor.ui" line="26"/>
         <source>Show name</source>
-        <translation>Show naam</translation>
+        <translation>Shownaam</translation>
     </message>
     <message>
         <location filename="showeditor.ui" line="33"/>
@@ -4596,12 +4594,12 @@ Duur: %3
     <message>
         <location filename="showeditor.ui" line="58"/>
         <source>Steps</source>
-        <translation>Steps</translation>
+        <translation>Stappen</translation>
     </message>
     <message>
         <location filename="showeditor.ui" line="66"/>
         <source>Start Time</source>
-        <translation>Start tijd</translation>
+        <translation>Starttijd</translation>
     </message>
     <message>
         <location filename="showeditor.ui" line="74"/>
@@ -4611,7 +4609,7 @@ Duur: %3
     <message>
         <location filename="showeditor.ui" line="85"/>
         <source>Add function(s) to the collection</source>
-        <translation>Voeg functie(s) toe aan de collection</translation>
+        <translation>Voeg functie(s) toe aan de collectie</translation>
     </message>
     <message>
         <location filename="showeditor.ui" line="105"/>
@@ -4634,7 +4632,7 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="206"/>
         <source>New &amp;audio</source>
-        <translation>Nieuwe &amp;auido</translation>
+        <translation>Nieuwe &amp;audio</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="213"/>
@@ -4664,7 +4662,7 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="255"/>
         <source>Snap to &amp;Grid</source>
-        <translation>Lij uit op &amp;grid</translation>
+        <translation>Lijn uit op &amp;grid</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="262"/>
@@ -4694,12 +4692,12 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="547"/>
         <source>Show name setup</source>
-        <translation>Show name setup</translation>
+        <translation>Shownaam setup</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="548"/>
         <source>Show name:</source>
-        <translation>Show naam:</translation>
+        <translation>Shownaam:</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="194"/>
@@ -4715,7 +4713,7 @@ Duur: %3
         <location filename="showmanager.cpp" line="659"/>
         <location filename="showmanager.cpp" line="750"/>
         <source> (Copy)</source>
-        <translation>(Copy)</translation>
+        <translation> (kopie)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="708"/>
@@ -4726,14 +4724,14 @@ Duur: %3
         <location filename="showmanager.cpp" line="733"/>
         <location filename="showmanager.cpp" line="813"/>
         <source>New Sequence</source>
-        <translation>Nieuwe Sequence</translation>
+        <translation>Nieuwe sequence</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="792"/>
         <location filename="showmanager.cpp" line="869"/>
         <location filename="showmanager.cpp" line="929"/>
         <source>Overlapping error</source>
-        <translation>Overlap fout</translation>
+        <translation>Overlapfout</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="792"/>
@@ -4745,23 +4743,23 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="801"/>
         <source>Scene for %1 - Track %2</source>
-        <translation>Scene for %1 - Track %2</translation>
+        <translation>Scene voor %1 - Track %2</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="827"/>
         <source>Open Audio File</source>
-        <translation>Open Audio bestand</translation>
+        <translation>Open audiobestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="836"/>
         <source>Audio Files (%1)</source>
-        <translation>Audio Bestanden (%1)</translation>
+        <translation>Audiobestanden (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="838"/>
         <location filename="showmanager.cpp" line="898"/>
         <source>All Files (*.*)</source>
-        <translation>Alle bestanden(*.*)</translation>
+        <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="840"/>
@@ -4772,32 +4770,32 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="862"/>
         <source>Unsupported audio file</source>
-        <translation>Niet ondersteunde audio bestand</translation>
+        <translation>Niet ondersteund audiobestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="862"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
-        <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
+        <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Sorry.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="887"/>
         <source>Open Video File</source>
-        <translation>Open Video bestand</translation>
+        <translation>Open videobestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="896"/>
         <source>Video Files (%1)</source>
-        <translation>Video Bestanden (%1)</translation>
+        <translation>Videobestanden (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="922"/>
         <source>Unsupported video file</source>
-        <translation>Niet ondersteunde video bestand</translation>
+        <translation>Niet ondersteund videobestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="922"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation>Dit video bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
+        <translation>Dit video bestand kan niet worden afgespeeld met QLC+. Sorry.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1005"/>
@@ -4813,17 +4811,17 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="1027"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
+        <translation>Poging om een niet compatibele scene te plannen. Bewerking geannuleerd.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1356"/>
         <source>Track name setup</source>
-        <translation>Track naam instellen</translation>
+        <translation>Tracknaam instellen</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1357"/>
         <source>Track name:</source>
-        <translation>Track naam:</translation>
+        <translation>Tracknaam:</translation>
     </message>
 </context>
 <context>
@@ -4831,7 +4829,7 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="207"/>
         <source>View mode</source>
-        <translation>Bekijk modus</translation>
+        <translation>Weergavemodus</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="216"/>
@@ -4887,7 +4885,7 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="321"/>
         <source>Clone cue stack</source>
-        <translation>Kloneer cue stack</translation>
+        <translation>Kloon cue stack</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="327"/>
@@ -4912,7 +4910,7 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="1015"/>
         <source>No selection</source>
-        <translation>Geen selectei</translation>
+        <translation>Geen selectie</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="1038"/>
@@ -4932,12 +4930,12 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="1196"/>
         <source>Clone Cue Stack</source>
-        <translation>Kloneer cue stack</translation>
+        <translation>Kloon cue stack</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="1196"/>
         <source>Clone To Playback#</source>
-        <translation>Kloneer naar Playback#</translation>
+        <translation>Kloon naar Playback#</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="1269"/>
@@ -5016,7 +5014,7 @@ Duur: %3
     <message>
         <location filename="showitems.cpp" line="314"/>
         <source>Delete</source>
-        <translation type="unfinished">Verwijderen</translation>
+        <translation>Verwijderen</translation>
     </message>
 </context>
 <context>
@@ -5039,7 +5037,7 @@ Duur: %3
     <message>
         <location filename="universeitemwidget.cpp" line="89"/>
         <source>Feedback:</source>
-        <translation>Terugkoppeing:</translation>
+        <translation>Terugkoppeling:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="106"/>
@@ -5055,12 +5053,12 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggers.cpp" line="177"/>
         <source>Audio open error</source>
-        <translation>Audio open fout</translation>
+        <translation>Fout bij openen audio</translation>
     </message>
     <message>
         <location filename="vcaudiotriggers.cpp" line="178"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation>Er is een fout opgetreden tijdens het openen van de geselecteerde audio device. Controleer uw audio input instellingen.</translation>
+        <translation>Er is een fout opgetreden tijdens het openen van het geselecteerde audioapparaat. Controleer uw audio input instellingen.</translation>
     </message>
 </context>
 <context>
@@ -5083,7 +5081,7 @@ Duur: %3
     <message>
         <location filename="vcbutton.cpp" line="301"/>
         <source>Select button icon</source>
-        <translation>Geselecteerde knop icoon</translation>
+        <translation>Selecteer knop icoon</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="302"/>
@@ -5141,7 +5139,7 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="382"/>
         <source>The function that this button controls</source>
-        <translation>De functie door deze knop bestuurd wordt</translation>
+        <translation>De functie die door deze knop bestuurd wordt</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="392"/>
@@ -5156,22 +5154,22 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="126"/>
         <source>Key combination</source>
-        <translation>Toets combinatie</translation>
+        <translation>Toetscombinatie</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="184"/>
         <source>Keyboard combination that toggles this button</source>
-        <translation>Toets combinatie die deze knop aan/uit zet</translation>
+        <translation>Toetscombinatie die deze knop aan/uit zet</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="164"/>
         <source>Set a key combination for this button</source>
-        <translation>Definieer een toets combinatie voor deze knop</translation>
+        <translation>Stel een toetscombinatie in voor deze knop</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="144"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation>Verwijder de toets combinatie van deze knop</translation>
+        <translation>Verwijder de toetscombinatie van deze knop</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="277"/>
@@ -5211,12 +5209,12 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="313"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze console knop.</translation>
+        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze knop.</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="316"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="30"/>
@@ -5236,12 +5234,12 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="49"/>
         <source>Flash the assigned function with this button</source>
-        <translation></translation>
+        <translation>Flits de toegewezen functie met deze knop</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="52"/>
         <source>Flash function (only for scenes)</source>
-        <translation>Flash functie (alleen voor scenes)</translation>
+        <translation>Flits functie (alleen voor scenes)</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="59"/>
@@ -5261,7 +5259,7 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="197"/>
         <source>Adjust function intensity when it is running</source>
-        <translation>Pas de intensiteit van de functie aan tijdens het runnen</translation>
+        <translation>Pas de intensiteit van de functie aan als de knop actief is</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="200"/>
@@ -5352,17 +5350,17 @@ Duur: %3
     <message>
         <location filename="vccuelist.cpp" line="198"/>
         <source>Play/Stop Cue list</source>
-        <translation>Afspelen/Stoppen Clue list</translation>
+        <translation>Afspelen/Stoppen Cue list</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="207"/>
         <source>Go to previous step in the list</source>
-        <translation>Ga naar vorige step in de lijst</translation>
+        <translation>Ga naar vorige stap in de lijst</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="216"/>
         <source>Go to next step in the list</source>
-        <translation>Ga naar volgende step in de lijst</translation>
+        <translation>Ga naar volgende stap in de lijst</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="224"/>
@@ -5425,7 +5423,7 @@ Duur: %3
     <message>
         <location filename="vccuelistproperties.ui" line="74"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
-        <translation>Kies de chaser functie voor de steps van de cue list</translation>
+        <translation>Kies de chaserfunctie voor de stappen van de cue list</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="91"/>
@@ -5452,19 +5450,19 @@ Duur: %3
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
         <source>The key combination used to step to the next cue</source>
-        <translation>Toets combinatie om naar de volgende cue te gaan</translation>
+        <translation>Toetscombinatie om naar de volgende cue te gaan</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="290"/>
         <source>Bind a key combination to skip to the next cue</source>
-        <translation>Wijs een toets combinatie toe om naar de volgende cue te springen</translation>
+        <translation>Wijs een toetscombinatie toe om naar de volgende cue te springen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="161"/>
         <location filename="vccuelistproperties.ui" line="307"/>
         <location filename="vccuelistproperties.ui" line="453"/>
         <source>Clear the key binding</source>
-        <translation>Toets combinatie toewijzigingen verwijderen</translation>
+        <translation>Toetscombinatie verwijderen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="181"/>
@@ -5513,7 +5511,7 @@ Duur: %3
         <location filename="vccuelistproperties.ui" line="616"/>
         <location filename="vccuelistproperties.ui" line="689"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="387"/>
@@ -5537,12 +5535,12 @@ Duur: %3
     <message>
         <location filename="vccuelistproperties.ui" line="426"/>
         <source>The key combination used to step to the previous cue</source>
-        <translation>Toets combinatie om naar de vorige cue te gaan</translation>
+        <translation>Toetscombinatie om naar de vorige cue te gaan</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="436"/>
         <source>Bind a key combination to skip to the previous cue</source>
-        <translation>Wijs een toets combinatie toe om naar de vorige cue te springen</translation>
+        <translation>Wijs een toetscombinatie toe om naar de vorige cue te springen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="486"/>
@@ -5567,40 +5565,40 @@ Duur: %3
     <message>
         <location filename="vccuelistproperties.ui" line="134"/>
         <source>The key combination used to stop the cue list</source>
-        <translation>Toets combinatie om de cue te stoppen</translation>
+        <translation>Toetscombinatie om de cue te stoppen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="144"/>
         <source>Bind a key combination to stop the cue list</source>
-        <translation>Wijs een toets combinatie toe om de cue te stoppen</translation>
+        <translation>Wijs een toetscombinatie toe om de cue te stoppen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="194"/>
         <location filename="vccuelistproperties.ui" line="579"/>
         <location filename="vccuelistproperties.ui" line="652"/>
         <source>Input universe for stopping the cue list</source>
-        <translation>Input universe om nde cue te stoppen</translation>
+        <translation>Input universe om de cue list te stoppen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="208"/>
         <location filename="vccuelistproperties.ui" line="593"/>
         <location filename="vccuelistproperties.ui" line="666"/>
         <source>Input channel for stopping the cue list</source>
-        <translation>Input channel om de  cue te stoppen</translation>
+        <translation>Input channel om de cue te stoppen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="228"/>
         <location filename="vccuelistproperties.ui" line="613"/>
         <location filename="vccuelistproperties.ui" line="686"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
-        <translation>Indien aangezet is het mogelijk een externe knop te koppelen die de cue stopt</translation>
+        <translation>Indien aangezet is het mogelijk een externe knop te koppelen die de cue list stopt</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="241"/>
         <location filename="vccuelistproperties.ui" line="626"/>
         <location filename="vccuelistproperties.ui" line="699"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
-        <translation>Kies een input universe/channel om de cue te stoppen</translation>
+        <translation>Kies een input universe/channel om de cue list te stoppen</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="560"/>
@@ -5642,12 +5640,12 @@ Duur: %3
     <message>
         <location filename="vcframeproperties.ui" line="14"/>
         <source>Frame Properties</source>
-        <translation>Frame eigenschappen</translation>
+        <translation>Frame-eigenschappen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="22"/>
         <source>Frame name</source>
-        <translation>Frame naam</translation>
+        <translation>Framenaam</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="38"/>
@@ -5657,17 +5655,17 @@ Duur: %3
     <message>
         <location filename="vcframeproperties.ui" line="50"/>
         <source>Accept child widgets</source>
-        <translation>Accepteer child widgets</translation>
+        <translation>Accepteer widgets in widgets</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="63"/>
         <source>Allow resizing</source>
-        <translation>Sta resizing toe</translation>
+        <translation>Sta vergroten/verkleinen toe</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="76"/>
         <source>Show header</source>
-        <translation>Toon header</translation>
+        <translation>Toon titel</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="97"/>
@@ -5682,7 +5680,7 @@ Duur: %3
     <message>
         <location filename="vcframeproperties.ui" line="112"/>
         <source>Clone first page widgets</source>
-        <translation>Kloneer widgets op eerste pagina</translation>
+        <translation>Kloon widgets op eerste pagina</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="125"/>
@@ -5735,7 +5733,7 @@ Duur: %3
         <location filename="vcframeproperties.ui" line="178"/>
         <location filename="vcframeproperties.ui" line="276"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="210"/>
@@ -5762,29 +5760,29 @@ Duur: %3
         <location filename="vcframeproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next frame page</source>
         <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation>Wijs een toets combinatie toe om naar de volgende frame pagina te springen</translation>
+        <translation>Wijs een toetscombinatie toe om naar de volgende pagina te springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="322"/>
         <location filename="vcframeproperties.ui" line="381"/>
         <source>Clear the key binding</source>
-        <translation>Toets combinatie toewijzigingen verwijderen</translation>
+        <translation>Toetscombinatie verwijderen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="342"/>
         <source>The key combination used to go to the next frame page</source>
         <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation>Toets combinatie om naar de volgende frame pagina te gaan</translation>
+        <translation>Toetscombinatie om naar de volgende pagina te gaan</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="361"/>
         <source>Bind a key combination to skip to the previous frame page</source>
-        <translation>Wijs een toets combinatie toe om naar de vorige frame pagina te springen</translation>
+        <translation>Wijs een toetscombinatie toe om naar de vorige pagina te springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="401"/>
         <source>The key combination used to go to the previous frame page</source>
-        <translation>Toets combinatie om naar de vorige frame pagina te gaan</translation>
+        <translation>Toetscombinatie om naar de vorige pagina te gaan</translation>
     </message>
 </context>
 <context>
@@ -5820,7 +5818,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="30"/>
         <source>Virtual Console Size</source>
-        <translation>Virtual Console grootte</translation>
+        <translation>Virtual Console afmetingen</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="36"/>
@@ -5831,7 +5829,7 @@ Duur: %3
         <location filename="vcproperties.ui" line="43"/>
         <location filename="vcproperties.ui" line="69"/>
         <source>Widget grid layout X resolution</source>
-        <translation>Widget grid layout X resolutie</translation>
+        <translation>Breedte/hoogte van de Virtual Console in pixels</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="62"/>
@@ -5841,7 +5839,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="104"/>
         <source>Tap Modifier</source>
-        <translation>Tap Modifier</translation>
+        <translation>Taptoets</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="110"/>
@@ -5861,7 +5859,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="140"/>
         <source>Widgets default properties</source>
-        <translation>Widgets standaard eigenschappen</translation>
+        <translation>Widgets standaardeigenschappen</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
@@ -5925,7 +5923,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="523"/>
         <source>Border</source>
-        <translation>Grens</translation>
+        <translation>Rand</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="533"/>
@@ -5952,12 +5950,12 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="595"/>
         <source>Apply Grand Master only to Intensity channels.</source>
-        <translation>Pas Grand Master alleen toe op Intensity channels.</translation>
+        <translation>Pas Grand Master alleen toe op intensiteit channels.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="598"/>
         <source>Intensity</source>
-        <translation>Intensity</translation>
+        <translation>Intensiteit</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="605"/>
@@ -5987,7 +5985,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="634"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation>Grand Master limiteert de maximum channel waarden.</translation>
+        <translation>Grand Master limiteert de hoogste waarde die een channel kan hebben.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="637"/>
@@ -6027,7 +6025,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="703"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="716"/>
@@ -6037,8 +6035,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="719"/>
         <source>Choose...</source>
-        <translation>
-Kies...</translation>
+        <translation>Kies...</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="742"/>
@@ -6089,7 +6086,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="33"/>
         <source>Value display style</source>
-        <translation>Waarde display stijl</translation>
+        <translation>Weergavestijl van waarden</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="39"/>
@@ -6114,7 +6111,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="67"/>
         <source>Widget name</source>
-        <translation>Widget naam</translation>
+        <translation>Widgetnaam</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="74"/>
@@ -6179,7 +6176,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="175"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="201"/>
@@ -6209,7 +6206,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="257"/>
         <source>Low limit</source>
-        <translation>Limiet laag</translation>
+        <translation>Minimum</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="264"/>
@@ -6219,7 +6216,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="274"/>
         <source>High limit</source>
-        <translation>Limiet hoog</translation>
+        <translation>Maximum</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="281"/>
@@ -6259,7 +6256,7 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="356"/>
         <source>All</source>
-        <translation>Alle</translation>
+        <translation>Alles</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="363"/>
@@ -6280,17 +6277,17 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="376"/>
         <source>Invert</source>
-        <translation>Inverteer</translation>
+        <translation>Omkeren</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="396"/>
         <source>Choose channels by channel group</source>
-        <translation>Kies channels per channel group</translation>
+        <translation>Kies channels per channelgroep</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="399"/>
         <source>By group...</source>
-        <translation>Per group...</translation>
+        <translation>Per groep...</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
@@ -6390,12 +6387,12 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.cpp" line="683"/>
         <source>Select channels by group</source>
-        <translation>Selecteer channels per group</translation>
+        <translation>Selecteer channels per groep</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="684"/>
         <source>Select a channel group</source>
-        <translation>Selecteer een channel group</translation>
+        <translation>Selecteer een channelgroep</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="736"/>
@@ -6426,7 +6423,7 @@ Kies...</translation>
     <message>
         <location filename="vcspeeddialproperties.ui" line="31"/>
         <source>Title of the dial</source>
-        <translation>Title van de dial</translation>
+        <translation>Titel van de widget</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="42"/>
@@ -6504,7 +6501,7 @@ Kies...</translation>
         <location filename="vcspeeddialproperties.ui" line="200"/>
         <location filename="vcspeeddialproperties.ui" line="279"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="210"/>
@@ -6541,17 +6538,17 @@ Kies...</translation>
     <message>
         <location filename="vcspeeddialproperties.ui" line="305"/>
         <source>Keyboard combination to control the dial tap</source>
-        <translation>Toets combinatie om de dial tap aan te sturen</translation>
+        <translation>Toetscombinatie om de dial tap aan te sturen</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="315"/>
         <source>Set a key combination for this dial</source>
-        <translation>Definieer een toets combinatie voor deze dial</translation>
+        <translation>Definieer een toetscombinatie voor deze dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="335"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation>Verwijder de toets combinatie van deze dial</translation>
+        <translation>Verwijder de toetscombinatie van deze dial</translation>
     </message>
 </context>
 <context>
@@ -6631,7 +6628,7 @@ Kies...</translation>
     <message>
         <location filename="vcxypadarea.cpp" line="258"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation>Shift: fine, Ctrl:10x</translation>
+        <translation>Shift: fijn, Ctrl:10x</translation>
     </message>
 </context>
 <context>
@@ -6733,7 +6730,7 @@ Kies...</translation>
     <message>
         <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
-        <translation>Pan / Horizontal as</translation>
+        <translation>Pan / Horizontale as</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="159"/>
@@ -6751,7 +6748,7 @@ Kies...</translation>
         <location filename="vcxypadproperties.ui" line="200"/>
         <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
-        <translation>Auto Detectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="210"/>
@@ -6762,7 +6759,7 @@ Kies...</translation>
     <message>
         <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
-        <translation>Tilt / Vertikale as</translation>
+        <translation>Tilt / Verticale as</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="301"/>
@@ -6811,7 +6808,7 @@ Kies...</translation>
         <location filename="videoeditor.ui" line="31"/>
         <source>Video name</source>
         <oldsource>Video name:</oldsource>
-        <translation>Video naam</translation>
+        <translation>Videonaam</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
@@ -6851,7 +6848,7 @@ Kies...</translation>
     <message>
         <location filename="videoeditor.ui" line="175"/>
         <source>Preview</source>
-        <translation>Preview</translation>
+        <translation>Voorbeeld</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
@@ -6877,12 +6874,12 @@ Kies...</translation>
     <message>
         <location filename="videoeditor.cpp" line="103"/>
         <source>Open Video File</source>
-        <translation>Open Video bestand</translation>
+        <translation>Open videobestand</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="111"/>
         <source>Video Files (%1)</source>
-        <translation>Video Bestanden (%1)</translation>
+        <translation>Videobestanden (%1)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="113"/>
@@ -6905,7 +6902,7 @@ Start time: %2
 Duration: %3
 %4</source>
         <translation>Naam: %1
-Start tijd: %2
+Starttijd: %2
 Duur: %3
 %4</translation>
     </message>
@@ -6923,7 +6920,7 @@ Duur: %3
     <message>
         <location filename="showitems.cpp" line="1280"/>
         <source>Align to cursor</source>
-        <translation>Op lijn brenegn met cursor</translation>
+        <translation>Op lijn brengen met cursor</translation>
     </message>
     <message>
         <location filename="showitems.cpp" line="1283"/>
@@ -6952,22 +6949,22 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="297"/>
         <source>New Button Matrix</source>
-        <translation>Nieuwe Knop Matrix</translation>
+        <translation>Nieuw knoppenmatrix</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="300"/>
         <source>New Slider</source>
-        <translation>Nieuwe Slider</translation>
+        <translation>Nieuwe slider</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="303"/>
         <source>New Slider Matrix</source>
-        <translation>Nieuwe Slider Matrix</translation>
+        <translation>Nieuw slidermatrix</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="306"/>
         <source>New Knob</source>
-        <translation>Nieuwe Knop</translation>
+        <translation>Nieuwe knop</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="309"/>
@@ -6987,22 +6984,22 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="318"/>
         <source>New Frame</source>
-        <translation>Nieuwe Frame</translation>
+        <translation>Nieuw frame</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="321"/>
         <source>New Solo frame</source>
-        <translation>Nieuwe Solo Frame</translation>
+        <translation>Nieuw soloframe</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="324"/>
         <source>New Label</source>
-        <translation>Nieuwe Label</translation>
+        <translation>Nieuw label</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="327"/>
         <source>New Audio Triggers</source>
-        <translation>Nieuwe Audio Trigger</translation>
+        <translation>Nieuwe audiotrigger</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="330"/>
@@ -7022,7 +7019,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="361"/>
         <source>Copy</source>
-        <translation>Kopieeren</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="364"/>
@@ -7047,12 +7044,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="388"/>
         <source>Background Color</source>
-        <translation>Achtergrond kleur</translation>
+        <translation>Achtergrondkleur</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="391"/>
         <source>Background Image</source>
-        <translation>Achtergrond afbeelding</translation>
+        <translation>Achtergrondafbeelding</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="394"/>
@@ -7064,7 +7061,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="405"/>
         <source>Font Colour</source>
-        <translation>Letter kleur</translation>
+        <translation>Tekstkleur</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="418"/>
@@ -7124,7 +7121,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="519"/>
         <source>F&amp;rame</source>
-        <translation>Frame (&amp;r)</translation>
+        <translation>F&amp;rame</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="527"/>
@@ -7159,7 +7156,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole.cpp" line="1233"/>
         <source>Select background image</source>
-        <translation>Selecteer achtergrond afbeelding</translation>
+        <translation>Selecteer achtergrondafbeelding</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1235"/>

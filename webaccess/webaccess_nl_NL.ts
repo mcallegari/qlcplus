@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="363"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation>Netwerk configuratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
+        <translation>Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="382"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="webaccess.cpp" line="624"/>
         <source>Widget not supported (yet) for web access</source>
-        <translation>Widget wordt (nog) niet ondersteund in web access</translation>
+        <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="825"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="webaccess.cpp" line="1055"/>
         <source>Simple Desk</source>
-        <translation></translation>
+        <translation>Eenvoudig paneel</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1057"/>
@@ -114,12 +114,12 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Audio configuration</source>
-        <translation>Audio configuratie</translation>
+        <translation>Audioconfiguratie</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="299"/>
         <source>User loaded fixtures</source>
-        <translation>Gebruikersfixtures</translation>
+        <translation>Door gebruiker toegevoegde fixtures</translation>
     </message>
 </context>
 <context>
@@ -127,12 +127,12 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="62"/>
         <source>Network interface: </source>
-        <translation>Netwerk interface:</translation>
+        <translation>Netwerkinterface: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="67"/>
         <source>Access point name (SSID): </source>
-        <translation>Access point name: (SSID): </translation>
+        <translation>Accesspoint naam: (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="69"/>
@@ -152,17 +152,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="80"/>
         <source>IP Address: </source>
-        <translation>IP Adres:</translation>
+        <translation>IP adres: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="82"/>
         <source>Netmask: </source>
-        <translation>Netmask:</translation>
+        <translation>Netmask: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="84"/>
         <source>Gateway: </source>
-        <translation>Gateway:</translation>
+        <translation>Gateway: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="87"/>
@@ -178,7 +178,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="264"/>
         <source>Network configuration</source>
-        <translation>Netwerk configuratie</translation>
+        <translation>Netwerkconfiguratie</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="269"/>

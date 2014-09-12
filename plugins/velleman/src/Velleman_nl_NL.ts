@@ -6,7 +6,7 @@
     <message>
         <location filename="velleman.cpp" line="122"/>
         <source>This plugin provides DMX output support for the Velleman K8062D using the DLL supplied with the product.</source>
-        <translation>Deze plugin verzorgt DMX output voor de Velleman K8062D i.c.m. de DLL die bijgeleverd wordt.</translation>
+        <translation>Deze plugin verzorgt DMX output voor de Velleman K8062D i.c.m. het bijgeleverde DLL bestand.</translation>
     </message>
 </context>
 </TS>
