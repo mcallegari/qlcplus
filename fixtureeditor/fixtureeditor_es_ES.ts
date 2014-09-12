@@ -261,7 +261,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
 </context>
 <context>
