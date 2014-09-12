@@ -106,6 +106,7 @@ Section
 	File icuuc52.dll
 	File /r platforms
 	File /r mediaservice
+	File /r audio
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -169,6 +170,7 @@ Section "Uninstall"
 	Delete $INSTDIR\icuuc52.dll
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\mediaservice
+	RMDir /r $INSTDIR\audio
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
