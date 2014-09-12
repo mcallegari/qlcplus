@@ -260,7 +260,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Tancar</translation>
+        <translation>Tancar</translation>
     </message>
 </context>
 <context>

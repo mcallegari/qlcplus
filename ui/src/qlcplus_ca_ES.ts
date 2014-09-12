@@ -4611,18 +4611,18 @@ Durada: %3
     <message>
         <location filename="showmanager/showitem.cpp" line="49"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Alinear al cursor</translation>
+        <translation>Alinear al cursor</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="52"/>
         <location filename="showmanager/showitem.cpp" line="171"/>
         <source>Lock item</source>
-        <translation type="unfinished">Bloquejar element</translation>
+        <translation>Bloquejar element</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="166"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Desbloquejar element</translation>
+        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>
@@ -5659,7 +5659,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="44"/>
@@ -5684,22 +5684,22 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
         <source>External Input - Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar entrada externa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està actiu, pot moure un control extern per assignar-lo a aquest marc.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="179"/>
         <source>The key combination used to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>La combinació de tecles emprada per activar/desactivar aquest marc</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="189"/>
         <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vincula una combinació de tecles per activar/desactivar aquest marc</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="248"/>
