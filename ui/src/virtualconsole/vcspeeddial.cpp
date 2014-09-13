@@ -244,6 +244,9 @@ QKeySequence VCSpeedDial::keySequence() const
 
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_tapKeySequence == keySequence)
         m_dial->tap();
 }

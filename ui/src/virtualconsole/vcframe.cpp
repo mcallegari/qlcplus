@@ -519,6 +519,9 @@ QKeySequence VCFrame::previousPageKeySequence() const
 
 void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_enableKeySequence == keySequence)
         setDisableState(!isDisabled());
     else if (m_previousPageKeySequence == keySequence)

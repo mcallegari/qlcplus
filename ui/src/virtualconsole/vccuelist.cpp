@@ -859,6 +859,9 @@ QKeySequence VCCueList::playbackKeySequence() const
 
 void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_nextKeySequence == keySequence)
         slotNextCue();
     else if (m_previousKeySequence == keySequence)

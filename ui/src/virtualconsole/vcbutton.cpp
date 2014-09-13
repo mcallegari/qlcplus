@@ -444,12 +444,18 @@ QKeySequence VCButton::keySequence() const
 
 void VCButton::slotKeyPressed(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_keySequence == keySequence)
         pressFunction();
 }
 
 void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_keySequence == keySequence)
         releaseFunction();
 }

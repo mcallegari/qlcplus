@@ -298,6 +298,9 @@ QKeySequence VCAudioTriggers::keySequence() const
 
 void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
 {
+    if (isEnabled() == false)
+        return;
+
     if (m_keySequence == keySequence)
     {
         if (m_inputCapture->isRunning())
