@@ -36,37 +36,37 @@
     <message>
         <location filename="webaccess.cpp" line="859"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="860"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu en ouverture</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="861"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu en fermeture</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="862"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="863"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Notes</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="968"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Précédent</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="971"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1053"/>
@@ -76,7 +76,7 @@
     <message>
         <location filename="webaccess.cpp" line="1055"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Pupitre traditionnel</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1057"/>
@@ -211,22 +211,22 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="162"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Page</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="164"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Précédent</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="173"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
 </context>
 </TS>
