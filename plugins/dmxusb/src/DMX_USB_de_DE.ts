@@ -45,7 +45,7 @@
     <message>
         <location filename="dmxusbconfig.cpp" line="45"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="52"/>

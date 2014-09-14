@@ -262,7 +262,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -947,7 +947,7 @@
     <message>
         <location filename="fixtureeditor.cpp" line="193"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="194"/>
@@ -956,7 +956,7 @@
 before closing?</source>
         <translation>Willst du die Änderungen am Gerät
 &quot;%1&quot;
-vor dem Schliessen speichern?</translation>
+vor dem Schließen speichern?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="223"/>

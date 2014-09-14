@@ -36,37 +36,37 @@
     <message>
         <location filename="webaccess.cpp" line="859"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="860"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="861"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="862"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="863"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="968"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Voriger</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="971"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächster</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1053"/>
@@ -216,12 +216,12 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="164"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Voriger</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="173"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächster</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="175"/>
