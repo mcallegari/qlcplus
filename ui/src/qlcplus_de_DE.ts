@@ -583,17 +583,17 @@
     <message>
         <location filename="app.cpp" line="302"/>
         <source>You must switch back to Design mode to close the application.</source>
-        <translation>Du musst in den Designmodus wechseln um das Programm zu schliessen.</translation>
+        <translation>Du musst in den Designmodus wechseln um das Programm zu schließen.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="310"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="app.cpp" line="310"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Willst du die aktuelle Arbeitsfläche vor dem Schliessen speichern?</translation>
+        <translation>Willst du die aktuelle Arbeitsfläche vor dem Schließen speichern?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="485"/>
@@ -920,7 +920,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="assignhotkey.ui" line="43"/>
         <source>Close automatically on key press</source>
-        <translation>Nach der Tasteneingabe automatisch schliessen</translation>
+        <translation>Nach der Tasteneingabe automatisch schließen</translation>
     </message>
     <message>
         <location filename="assignhotkey.cpp" line="50"/>
@@ -1866,7 +1866,7 @@ Dauer: %3
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -4620,18 +4620,18 @@ Dauer: %3
     <message>
         <location filename="showmanager/showitem.cpp" line="49"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Am Cursor ausrichten</translation>
+        <translation>Am Cursor ausrichten</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="52"/>
         <location filename="showmanager/showitem.cpp" line="171"/>
         <source>Lock item</source>
-        <translation type="unfinished">Element sperren</translation>
+        <translation>Element sperren</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="166"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Element entsperren</translation>
+        <translation>Element entsperren</translation>
     </message>
 </context>
 <context>
@@ -5669,7 +5669,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Allgemein</translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="44"/>
@@ -5694,22 +5694,22 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
         <source>External Input - Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Eingang - Aktivieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn betätigt kann ein externes Steuerelement geändert werden um es diesem Rahmen zuzuordnen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="179"/>
         <source>The key combination used to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Tastenkombination um diesen Rahmen zu (De-)Aktivieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="189"/>
         <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Tastenkombination zuweisen um diesen Rahmen zu (De-)Aktivieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="248"/>
@@ -6500,7 +6500,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Einblendzeit übergeben wird</translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Einblendzeit übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="93"/>
@@ -6510,7 +6510,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Ausblendzeit übergeben wird</translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Ausblendzeit übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
@@ -6520,7 +6520,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Dauer übergeben wird</translation>
+        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Dauer übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="112"/>
@@ -6596,7 +6596,7 @@ Dauer: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="305"/>
         <source>Keyboard combination to control the dial tap</source>
         <translatorcomment>wtf is the right german translation for Tap ?</translatorcomment>
-        <translation>Tastenkombination für den Auswahl-Tap.</translation>
+        <translation>Tastenkombination für den Auswahl-Tap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="315"/>
