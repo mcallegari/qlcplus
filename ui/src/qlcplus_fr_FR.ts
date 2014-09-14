@@ -983,7 +983,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphérique audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -1070,7 +1070,7 @@ Durée : %3
     <message>
         <location filename="showmanager/audioitem.cpp" line="400"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
         <location filename="showmanager/audioitem.cpp" line="382"/>
@@ -1080,7 +1080,7 @@ Durée : %3
     <message>
         <location filename="showmanager/audioitem.cpp" line="395"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Déverrouiller</translation>
     </message>
 </context>
 <context>
@@ -1271,7 +1271,7 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation type="unfinished">Modificateur de Canaux</translation>
+        <translation type="unfinished">Modificateur de canaux</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
@@ -1292,7 +1292,7 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
         <source>Overwrite the current template</source>
-        <translation type="unfinished">Ecraser le modèle actuel</translation>
+        <translation type="unfinished">Écraser le modèle actuel</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
@@ -1313,12 +1313,12 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
         <source>New Template</source>
-        <translation type="unfinished">Nouveau Modèle</translation>
+        <translation type="unfinished">Nouveau modèle</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Désactiver le modificateur</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="183"/>
@@ -1328,7 +1328,7 @@ Durée : %3
     <message>
         <location filename="channelmodifiereditor.cpp" line="184"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished">Vous tentez d&apos;écraser un modèle système ! Merci de choisir un nom différent et le template sera enregistré dans votre dossier personnel.</translation>
+        <translation type="unfinished">Vous tentez d&apos;écraser un modèle système ! Merci de choisir un nom différent et le modèle sera enregistré dans votre dossier personnel.</translation>
     </message>
 </context>
 <context>
@@ -3317,7 +3317,9 @@ p, li { white-space: pre-wrap; }
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur est survenue lors de l&apos;ouverture de la ligne de périphérique sélectionnée.
+Cela peut être dû à une mauvaise configuration système ou un mode d&apos;entrée/sortie non supporté.
+Veuillez vous référer à la documentation du plugin.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="663"/>
@@ -3471,7 +3473,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Absolu</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
@@ -3481,7 +3483,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilité</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -3652,7 +3654,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor/monitor.cpp" line="457"/>
         <source>Set a background picture</source>
-        <translation type="unfinished">Définir une image de fond</translation>
+        <translation type="unfinished">Définir une image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="460"/>
@@ -3665,44 +3667,44 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélection d&apos;une image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun arrière-plan</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arrière-plan commun</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liste d&apos;arrière-plan personnalisée</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonction</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrière-plan</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitor/monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Choisir une image d&apos;arrière-plan</translation>
+        <translation>Choisir une image d&apos;arrière-plan</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitor/monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Images</translation>
     </message>
 </context>
 <context>
@@ -3793,7 +3795,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="showmanager/multitrackview.cpp" line="386"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous SUPPRIMER la piste :</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="389"/>
@@ -4564,12 +4566,12 @@ Durée : %3
     <message>
         <location filename="showmanager/sequenceitem.cpp" line="204"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
         <location filename="showmanager/sequenceitem.cpp" line="199"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Déverrouiller</translation>
     </message>
 </context>
 <context>
@@ -4631,12 +4633,12 @@ Durée : %3
         <location filename="showmanager/showitem.cpp" line="52"/>
         <location filename="showmanager/showitem.cpp" line="171"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="166"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Déverrouiller</translation>
     </message>
 </context>
 <context>
@@ -5036,7 +5038,7 @@ Durée : %3
     <message>
         <location filename="showmanager/trackitem.cpp" line="66"/>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
 </context>
 <context>
@@ -5698,22 +5700,22 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
         <source>External Input - Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Entrée externe - Actif</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à cette fenêtre.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="179"/>
         <source>The key combination used to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Le raccourci clavier qui active/désactive cette fenêtre</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="189"/>
         <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir un raccourci clavier pour activer/désactiver cette fenêtre</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="248"/>
@@ -6397,7 +6399,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Surveiller les canaux sélectionnés et mettre à jour le niveau du fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
@@ -6498,32 +6500,32 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="85"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fondu en ouverture *</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="88"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Multiplicateur appliqué avant que la durée soit envoyée comme fondu en ouverture à la fonction.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="93"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fondu en fermeture *</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="96"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Multiplicateur appliqué avant que la durée soit envoyée comme fondu en fermeture à la fonction.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Durée * (+ tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="104"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Multiplicateur appliqué avant que la durée soit envoyée comme durée à la fonction.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="112"/>
@@ -6982,7 +6984,7 @@ Durée : %3
     <message>
         <location filename="showmanager/videoitem.cpp" line="190"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
         <location filename="showmanager/videoitem.cpp" line="171"/>
@@ -6992,7 +6994,7 @@ Durée : %3
     <message>
         <location filename="showmanager/videoitem.cpp" line="185"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Déverrouiller</translation>
     </message>
 </context>
 <context>
@@ -7182,7 +7184,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Images</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="303"/>
