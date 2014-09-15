@@ -507,6 +507,13 @@ void RGBMatrix::roundCheck(const QSize& size)
                 m_step++;
             updateStepColor(m_direction);
         }
+        else
+        {
+            if (m_step <= 0)
+                stop();
+            else
+                m_step--;
+        }
     }
     else
     {
