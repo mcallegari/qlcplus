@@ -628,7 +628,7 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
     if (value != sliderValue())
     {
         setSliderValue(value);
-        setTopLabelText(value);
+        setTopLabelText(m_slider->value());
         updateFeedback();
     }
 }
