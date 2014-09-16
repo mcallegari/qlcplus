@@ -97,6 +97,7 @@ void ShowEditor::slotRemove()
 void ShowEditor::updateFunctionList()
 {
     quint32 totalDuration = 0;
+    QHash <quint32, QTreeWidgetItem*>scenesMap;
 
     m_tree->clear();
 
@@ -113,49 +114,50 @@ void ShowEditor::updateFunctionList()
 
     foreach(Track *track, m_show->tracks())
     {
+        QTreeWidgetItem* sceneItem = NULL;
         Scene *scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
-        if (scene == NULL)
+        if (scene != NULL)
         {
-            qDebug() << Q_FUNC_INFO << "Invalid scene !";
-            continue;
+            sceneItem = scenesMap[scene->id()];
+            if (sceneItem == NULL)
+            {
+                sceneItem = new QTreeWidgetItem(masterItem);
+                sceneItem->setText(NAME_COL, scene->name());
+                sceneItem->setData(NAME_COL, PROP_ID, scene->id());
+                sceneItem->setIcon(NAME_COL, QIcon(":/scene.png"));
+            }
         }
-        QTreeWidgetItem* sceneItem = new QTreeWidgetItem(masterItem);
-        sceneItem->setText(NAME_COL, scene->name());
-        sceneItem->setData(NAME_COL, PROP_ID, scene->id());
-        sceneItem->setIcon(NAME_COL, QIcon(":/scene.png"));
 
-        foreach(quint32 id, track->functionsID())
+        foreach(ShowFunction *sf, track->showFunctions())
         {
-            Function *func = m_doc->function(id);
+            Function *func = m_doc->function(sf->functionID());
             if (func == NULL)
+            {
+                qDebug() << "Cannot find Function with ID:" << sf->functionID();
                 continue;
+            }
+
+            QTreeWidgetItem *fItem = NULL;
+            if (sceneItem == NULL)
+                fItem = new QTreeWidgetItem(masterItem);
+            else
+                fItem = new QTreeWidgetItem(sceneItem);
+
+            fItem->setText(NAME_COL, func->name());
+            fItem->setData(NAME_COL, PROP_ID, func->id());
+            fItem->setText(TIME_COL, Function::speedToString(sf->startTime()));
+            fItem->setText(DUR_COL, Function::speedToString(sf->duration()));
+            if (sf->startTime() + sf->duration() > totalDuration)
+                totalDuration = sf->startTime() + sf->duration();
 
             if (func->type() == Function::Chaser)
             {
-                Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
-                QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
-                chItem->setText(NAME_COL, chaser->name());
-                chItem->setData(NAME_COL, PROP_ID, chaser->id());
-                chItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
-                chItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
-                chItem->setText(TIME_COL, Function::speedToString(chaser->getStartTime()));
-                quint32 seq_duration = chaser->getDuration();
-                chItem->setText(DUR_COL, Function::speedToString(seq_duration));
-                if (chaser->getStartTime() + seq_duration > totalDuration)
-                    totalDuration = chaser->getStartTime() + seq_duration;
+                Chaser *chaser = qobject_cast<Chaser*>(func);
+                fItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
+                fItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
             }
-            else if (func->type() == Function::Audio)
-            {
-                Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
-                QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
-                chItem->setText(NAME_COL, audio->name());
-                chItem->setData(NAME_COL, PROP_ID, audio->id());
-                chItem->setIcon(NAME_COL, QIcon(":/audio.png"));
-                chItem->setText(TIME_COL, Function::speedToString(audio->getStartTime()));
-                chItem->setText(DUR_COL, Function::speedToString(audio->getDuration()));
-                if (audio->getStartTime() + audio->getDuration() > totalDuration)
-                    totalDuration = audio->getStartTime() + audio->getDuration();
-            }
+            else
+                fItem->setIcon(NAME_COL, Function::typeToIcon(func->type()));
         }
     }
 

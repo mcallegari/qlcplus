@@ -67,36 +67,35 @@ public:
     void addTrack(Track *track);
 
     /** Add a new sequence item to the given track */
-    void addSequence(Chaser *chaser);
+    void addSequence(Chaser *chaser, Track *track = NULL, ShowFunction *sf = NULL);
 
     /** Add a new audio item to the given track */
-    void addAudio(Audio *audio);
+    void addAudio(Audio *audio, Track *track = NULL, ShowFunction *sf = NULL);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     /** Add a new video item to the given track */
-    void addVideo(Video *video);
+    void addVideo(Video *video, Track *track = NULL, ShowFunction *sf = NULL);
 #endif
 
-    /** Delete the currently selected sequence */
-    quint32 deleteSelectedFunction();
+    /** Delete the currently selected item */
+    quint32 deleteSelectedItem();
+
+    /** Delete a specific ShowFuntion and related ShowItem from the
+     *  given track */
+    void deleteShowItem(Track *track, ShowFunction *sf);
 
     /** Set the given track to active state */
     void activateTrack(Track *track);
 
-    /** get the selected sequence item. If none, returns NULL */
-    SequenceItem *getSelectedSequence();
-
-    /** get the selected audio item. If none, returns NULL */
-    AudioItem *getSelectedAudio();
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    /** get the selected video item. If none, returns NULL */
-    VideoItem *getSelectedVideo();
-#endif
+    /** get the selected Show item. If none, returns NULL */
+    ShowItem *getSelectedItem();
 
 private:
-    /** Get the index of the currently selected track */
-    int getActiveTrack();
+    /** Retrieve the index of the given Track.
+     *  If trk is NULL, this function returns the currently
+     *  selected track.
+     */
+    int getTrackIndex(Track *trk);
 
     /*********************************************************************
      * Header
@@ -135,12 +134,6 @@ private:
     /** Return the time (in msec) from a given X position */
     quint32 getTimeFromPosition(qreal pos);
 
-    void updateItem(SequenceItem *, quint32 time);
-    void updateItem(AudioItem *, quint32 time);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    void updateItem(VideoItem *, quint32 time);
-#endif
-
 private:
     QGraphicsScene *m_scene;
     QSlider *m_timeSlider;
@@ -149,11 +142,7 @@ private:
     QGraphicsItem * m_vdivider;
     QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;
-    QList <SequenceItem *> m_sequences;
-    QList <AudioItem *> m_audio;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    QList <VideoItem *> m_videos;
-#endif
+    QList <ShowItem *>m_items;
     bool m_snapToGrid;
 
 public slots:

@@ -26,6 +26,8 @@
 #include <QAction>
 #include <QFont>
 
+class ShowFunction;
+
 /** @addtogroup ui_functions
  * @{
  */
@@ -52,7 +54,16 @@ class ShowItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    ShowItem(QObject *parent = 0);
+    ShowItem(ShowFunction *function, QObject *parent = 0);
+
+protected:
+    /**
+     * @brief updateTooltip update the item's tooltip with the latest
+     * timing information
+     */
+    void updateTooltip();
+
+public:
 
     /**
      * @brief setTimeScale sets the item time scale as selected in the Show Manager
@@ -74,14 +85,14 @@ public:
      *
      * @param time the start time in milliseconds
      */
-    virtual void setStartTime(quint32 time) = 0;
+    virtual void setStartTime(quint32 time);
 
     /**
      * @brief getStartTime pure virtual method that returns the item start time
      *
      * @return the item start time in milliseconds
      */
-    virtual quint32 getStartTime() = 0;
+    virtual quint32 getStartTime();
 
     /**
      * @brief setWidth set the item width for rendering
@@ -159,7 +170,13 @@ public:
      *
      * @return the Function ID
      */
-    virtual quint32 getFunctionID();
+    virtual quint32 functionID();
+
+    /**
+     * @brief showFunction return the item's associate ShowFunction
+     * @return the ShowFuntion pointer
+     */
+    ShowFunction *showFunction() const;
 
     /**
      * @brief functionName pure virtual method that returns the item's associated
@@ -167,7 +184,7 @@ public:
      *
      * @return the Function name as a string
      */
-    virtual QString functionName() = 0;
+    virtual QString functionName();
 
     /**
      * @brief boundingRect overridden method that returns the item bounding rectangle.
@@ -259,8 +276,8 @@ protected:
     /** Track index this item belongs to */
     int m_trackIdx;
 
-    /** The Function ID associated to this item */
-    quint32 m_functionID;
+    /** The ShowFunction associated to this item */
+    ShowFunction *m_function;
 
     /** Contextual menu actions */
     QAction *m_alignToCursor;

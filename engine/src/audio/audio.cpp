@@ -305,10 +305,6 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     if (m_audioDevice.isEmpty() == false)
         source.setAttribute(KXMLQLCAudioDevice, m_audioDevice);
-    source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
-    source.setAttribute(KXMLQLCAudioColor, m_color.name());
-    if (isLocked())
-        source.setAttribute(KXMLQLCAudioLocked, m_locked);
 
     text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
 

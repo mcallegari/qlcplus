@@ -395,10 +395,6 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         QDomElement seq = doc->createElement(KXMLQLCChaserSequenceTag);
         seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundSceneID);
-        seq.setAttribute(KXMLQLCChaserSequenceStartTime, m_startTime);
-        seq.setAttribute(KXMLQLCChaserSequenceColor, m_color.name());
-        if (isLocked())
-            seq.setAttribute(KXMLQLCChaserSequenceLocked, m_locked);
         root.appendChild(seq);
     }
 

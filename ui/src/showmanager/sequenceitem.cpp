@@ -26,17 +26,17 @@
 #include "chaserstep.h"
 #include "trackitem.h"
 
-SequenceItem::SequenceItem(Chaser *seq)
-    : ShowItem()
+SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
+    : ShowItem(func)
     , m_chaser(seq)
     , m_selectedStep(-1)
 {
     Q_ASSERT(seq != NULL);
 
-    setStartTime(m_chaser->getStartTime());
-    setColor(m_chaser->getColor());
-    setLocked(m_chaser->isLocked());
-    setFunctionID(m_chaser->id());
+    if (func->color().isValid())
+        setColor(func->color());
+    else
+        setColor(ShowFunction::defaultColor(Function::Chaser));
 
     calculateWidth();
 
@@ -56,6 +56,8 @@ void SequenceItem::calculateWidth()
         else
             seq_duration += step.duration;
     }
+    if (m_function)
+        m_function->setDuration(seq_duration);
 
     if (seq_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
@@ -136,37 +138,11 @@ void SequenceItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void SequenceItem::setStartTime(quint32 time)
-{
-    if (m_chaser == NULL)
-        return;
-
-    m_chaser->setStartTime(time);
-    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-              .arg(m_chaser->name())
-              .arg(Function::speedToString(m_chaser->getStartTime()))
-              .arg(Function::speedToString(m_chaser->getDuration()))
-              .arg(tr("Click to move this sequence across the timeline")));
-}
-
-quint32 SequenceItem::getStartTime()
-{
-    if (m_chaser)
-        return m_chaser->getStartTime();
-    return 0;
-}
-
 QString SequenceItem::functionName()
 {
     if (m_chaser)
         return m_chaser->name();
     return QString();
-}
-
-void SequenceItem::setLocked(bool locked)
-{
-    ShowItem::setLocked(locked);
-    m_chaser->setLocked(locked);
 }
 
 void SequenceItem::setSelectedStep(int idx)

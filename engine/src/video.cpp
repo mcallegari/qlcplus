@@ -297,10 +297,6 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     saveXMLSpeed(doc, &root);
 
     QDomElement source = doc->createElement(KXMLQLCVideoSource);
-    source.setAttribute(KXMLQLCVideoStartTime, m_startTime);
-    source.setAttribute(KXMLQLCVideoColor, m_color.name());
-    if (isLocked())
-        source.setAttribute(KXMLQLCVideoLocked, m_locked);
     if (m_screen > 0)
         source.setAttribute(KXMLQLCVideoScreen, m_screen);
     if (m_fullscreen == true)

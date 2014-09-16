@@ -109,6 +109,7 @@ HEADERS += bus.h \
            scenevalue.h \
            script.h \
            show.h \
+           showfunction.h \
            showrunner.h \
            track.h \
            universe.h
@@ -204,6 +205,7 @@ SOURCES += bus.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \
+           showfunction.cpp \
            showrunner.cpp \
            track.cpp \
            universe.cpp

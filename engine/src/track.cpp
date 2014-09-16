@@ -110,28 +110,37 @@ bool Track::isMute()
  * Sequences
  *********************************************************************/
 
-bool Track::addFunctionID(quint32 id)
+ShowFunction* Track::createShowFunction(quint32 id)
 {
-    if (m_functions.count() > 0 && m_functions.contains(id))
+    ShowFunction *func = new ShowFunction();
+    func->setFunctionID(id);
+    m_functions.append(func);
+
+    return func;
+}
+
+bool Track::addShowFunction(ShowFunction *func)
+{
+    if (func == NULL || func->functionID() == Function::invalidId())
         return false;
-    m_functions.append(id);
+
+    m_functions.append(func);
 
     return true;
 }
 
-bool Track::removeFunctionID(quint32 id)
+bool Track::removeShowFunction(ShowFunction *function)
 {
-    if (m_functions.count() > 0 && m_functions.contains(id) == false)
+    if (m_functions.contains(function) == false)
         return false;
-    int idx = m_functions.indexOf(id);
-    if (idx < 0)
-        return false;
-    m_functions.takeAt(idx);
+
+    ShowFunction *func = m_functions.takeAt(m_functions.indexOf(function));
+    delete func;
 
     return true;
 }
 
-QList <quint32> Track::functionsID()
+QList <ShowFunction *> Track::showFunctions() const
 {
     return m_functions;
 }
@@ -142,9 +151,6 @@ QList <quint32> Track::functionsID()
 bool Track::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
     QDomElement tag;
-    QDomElement ids;
-    QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
 
@@ -156,19 +162,11 @@ bool Track::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         tag.setAttribute(KXMLQLCTrackSceneID, m_sceneID);
     tag.setAttribute(KXMLQLCTrackIsMute, m_isMute);
 
-    /* Save the list of Chasers IDs if present */
-    if (m_functions.count() > 0)
+    /* Save the list of Functions if any is present */
+    if (m_functions.isEmpty() == false)
     {
-        ids = doc->createElement(KXMLQLCTrackFunctions);
-        foreach(quint32 id, m_functions)
-        {
-            if (str.isEmpty() == false)
-                str.append(QString(","));
-            str.append(QString("%1").arg(id));
-        }
-        text = doc->createTextNode(str);
-        ids.appendChild(text);
-        tag.appendChild(ids);
+        foreach(ShowFunction *func, showFunctions())
+            func->saveXML(doc, &tag);
     }
 
     wksp_root->appendChild(tag);
@@ -218,24 +216,30 @@ bool Track::loadXML(const QDomElement& root)
     }
     m_isMute = mute;
 
-    /* look for chaser IDs */
-    if (root.hasChildNodes())
+    /* look for show functions */
+    QDomNode node = root.firstChild();
+    while (node.isNull() == false)
     {
-        QDomNode node = root.firstChild();
-        if (node.isNull() == false)
+        QDomElement tag = node.toElement();
+        if (tag.tagName() == KXMLShowFunction)
         {
-            QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCTrackFunctions)
+            ShowFunction *newFunc = new ShowFunction();
+            newFunc->loadXML(tag);
+            if (addShowFunction(newFunc) == false)
+                delete newFunc;
+        }
+        /* LEGACY code: to be removed */
+        else if (tag.tagName() == KXMLQLCTrackFunctions)
+        {
+            QString strvals = tag.text();
+            if (strvals.isEmpty() == false)
             {
-                QString strvals = tag.text();
-                if (strvals.isEmpty() == false)
-                {
-                    QStringList varray = strvals.split(",");
-                    for (int i = 0; i < varray.count(); i++)
-                        m_functions.append(QString(varray.at(i)).toUInt());
-                }
+                QStringList varray = strvals.split(",");
+                for (int i = 0; i < varray.count(); i++)
+                    createShowFunction(QString(varray.at(i)).toUInt());
             }
         }
+        node = node.nextSibling();
     }
 
     return true;

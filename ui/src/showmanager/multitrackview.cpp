@@ -128,26 +128,12 @@ void MultiTrackView::updateViewSize()
     quint32 gWidth = VIEW_DEFAULT_WIDTH;
     quint32 gHeight = VIEW_DEFAULT_HEIGHT;
 
-    // find leftmost sequence item
-    foreach (SequenceItem *item, m_sequences)
+    // find leftmost show item
+    foreach (ShowItem *item, m_items)
     {
         if (item->x() + item->getWidth() > gWidth)
             gWidth = item->x() + item->getWidth();
     }
-    // find leftmost audio item
-    foreach (AudioItem *item, m_audio)
-    {
-        if (item->x() + item->getWidth() > gWidth)
-            gWidth = item->x() + item->getWidth();
-    }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    // find leftmost video item
-    foreach (VideoItem *item, m_videos)
-    {
-        if (item->x() + item->getWidth() > gWidth)
-            gWidth = item->x() + item->getWidth();
-    }
-#endif
 
     if ((m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT > VIEW_DEFAULT_HEIGHT)
     {
@@ -165,19 +151,10 @@ void MultiTrackView::resetView()
         m_scene->removeItem(m_tracks.at(t));
     m_tracks.clear();
 
-    for (int i = 0; i < m_sequences.count(); i++)
-        m_scene->removeItem(m_sequences.at(i));
-    m_sequences.clear();
+    for (int i = 0; i < m_items.count(); i++)
+        m_scene->removeItem(m_items.at(i));
+    m_items.clear();
 
-    for (int i = 0; i < m_audio.count(); i++)
-        m_scene->removeItem(m_audio.at(i));
-    m_audio.clear();
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    for (int i = 0; i < m_videos.count(); i++)
-        m_scene->removeItem(m_videos.at(i));
-    m_videos.clear();
-#endif
     m_cursor->setPos(150, 0);
     this->horizontalScrollBar()->setSliderPosition(0);
     this->verticalScrollBar()->setSliderPosition(0);
@@ -186,6 +163,13 @@ void MultiTrackView::resetView()
 
 void MultiTrackView::addTrack(Track *track)
 {
+    // check if track already exists
+    foreach(TrackItem *item, m_tracks)
+    {
+        if (item->getTrack()->id() == track->id())
+            return;
+    }
+
     TrackItem *trackItem = new TrackItem(track, m_tracks.count());
     trackItem->setName(track->name());
     trackItem->setPos(0, HEADER_HEIGHT + (TRACK_HEIGHT * m_tracks.count()));
@@ -206,26 +190,36 @@ void MultiTrackView::addTrack(Track *track)
             this, SIGNAL(trackDelete(Track*)));
 }
 
-void MultiTrackView::addSequence(Chaser *chaser)
+void MultiTrackView::addSequence(Chaser *chaser, Track *track, ShowFunction *sf)
 {
-    SequenceItem *item = new SequenceItem(chaser);
-    int trackNum = getActiveTrack();
-    if (trackNum < 0)
-        trackNum = 0;
+    if (m_tracks.isEmpty())
+        return;
+
+    int trackNum = getTrackIndex(track);
+
+    if (track == NULL)
+        track = m_tracks.at(trackNum)->getTrack();
+
+    ShowFunction *func = sf;
+    if (func == NULL)
+        func = track->createShowFunction(chaser->id());
+
+    qDebug() << "Start time:" << func->startTime();
+    qDebug() << "Duration:" << func->duration();
+
+    SequenceItem *item = new SequenceItem(chaser, func);
     item->setTrackIndex(trackNum);
 
     int timeScale = m_timeSlider->value();
-    //m_header->setTimeScale(timeScale);
 
-    if (chaser->getStartTime() == UINT_MAX)
+    if (func->startTime() == UINT_MAX)
     {
         item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else
-    {
-        item->setPos(getPositionFromTime(chaser->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
+        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
 
@@ -234,31 +228,38 @@ void MultiTrackView::addSequence(Chaser *chaser)
     connect(item, SIGNAL(alignToCursor(ShowItem*)),
             this, SLOT(slotAlignToCursor(ShowItem*)));
     m_scene->addItem(item);
-    m_sequences.append(item);
+    m_items.append(item);
     int new_scene_width = item->x() + item->getWidth();
     if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
         setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
 }
 
-void MultiTrackView::addAudio(Audio *audio)
+void MultiTrackView::addAudio(Audio *audio, Track *track, ShowFunction *sf)
 {
-    AudioItem *item = new AudioItem(audio);
-    int trackNum = getActiveTrack();
-    if (trackNum < 0)
-        trackNum = 0;
+    if (m_tracks.isEmpty())
+        return;
+
+    int trackNum = getTrackIndex(track);
+
+    if (track == NULL)
+        track = m_tracks.at(trackNum)->getTrack();
+
+    ShowFunction *func = sf;
+    if (func == NULL)
+        func = track->createShowFunction(audio->id());
+
+    AudioItem *item = new AudioItem(audio, func);
     item->setTrackIndex(trackNum);
     int timeScale = m_timeSlider->value();
-    //m_header->setTimeScale(timeScale);
 
-    if (audio->getStartTime() == UINT_MAX)
+    if (func->startTime() == UINT_MAX)
     {
         item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else
-    {
-        item->setPos(getPositionFromTime(audio->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
+        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "audio start time: " << audio->getStartTime() << "msec";
 
@@ -268,32 +269,48 @@ void MultiTrackView::addAudio(Audio *audio)
             this, SLOT(slotAlignToCursor(ShowItem*)));
     connect(audio, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
     m_scene->addItem(item);
-    m_audio.append(item);
+    m_items.append(item);
     int new_scene_width = item->x() + item->getWidth();
     if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
         setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
 }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void MultiTrackView::addVideo(Video *video)
+void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
 {
-    VideoItem *item = new VideoItem(video);
-    int trackNum = getActiveTrack();
-    if (trackNum < 0)
-        trackNum = 0;
+    if (m_tracks.isEmpty())
+        return;
+
+    int trackNum = getTrackIndex(track);
+
+    if (track == NULL)
+        track = m_tracks.at(trackNum)->getTrack();
+
+    ShowFunction *func = sf;
+    if (func == NULL)
+        func = track->createShowFunction(video->id());
+
+    // LEGACY code to port an old project to the new code. To be removed
+    if (func->startTime() == UINT_MAX)
+    {
+        func->setStartTime(video->getStartTime());
+        func->setDuration(video->getDuration());
+        func->setColor(video->getColor());
+        func->setLocked(video->isLocked());
+    }
+
+    VideoItem *item = new VideoItem(video, func);
     item->setTrackIndex(trackNum);
     int timeScale = m_timeSlider->value();
-    //m_header->setTimeScale(timeScale);
 
-    if (video->getStartTime() == UINT_MAX)
+    if (func->startTime() == UINT_MAX)
     {
         item->setStartTime(getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     else
-    {
-        item->setPos(getPositionFromTime(video->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
+        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+
     item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "video start time: " << video->getStartTime() << "msec";
 
@@ -303,112 +320,81 @@ void MultiTrackView::addVideo(Video *video)
             this, SLOT(slotAlignToCursor(ShowItem*)));
     connect(video, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
     m_scene->addItem(item);
-    m_videos.append(item);
+    m_items.append(item);
     int new_scene_width = item->x() + item->getWidth();
     if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
         setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
 }
 #endif
 
-quint32 MultiTrackView::deleteSelectedFunction()
+quint32 MultiTrackView::deleteSelectedItem()
 {
-    foreach(SequenceItem *item, m_sequences)
+    ShowItem *selectedItem = getSelectedItem();
+    if (selectedItem != NULL)
     {
-        if (item->isSelected() == true)
-        {
-            QString msg = tr("Do you want to DELETE sequence:") + QString("\n\n") + item->getChaser()->name();
+        QString msg = tr("Do you want to DELETE item:") + QString("\n\n") + selectedItem->functionName();
 
-            // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Functions"), msg,
-                                      QMessageBox::Yes, QMessageBox::No)
-                                      == QMessageBox::Yes)
-            {
-                quint32 fID = item->getChaser()->id();
-                m_scene->removeItem(item);
-                m_sequences.removeOne(item);
-                return fID;
-            }
-        }
-    }
-
-    foreach(AudioItem *item, m_audio)
-    {
-        if (item->isSelected() == true)
-        {
-            QString msg = tr("Do you want to DELETE audio (the source file will NOT be removed):") +
-                          QString("\n\n") + item->getAudio()->name();
-
-            // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Functions"), msg,
+        // Ask for user's confirmation
+        if (QMessageBox::question(this, tr("Delete Functions"), msg,
                                   QMessageBox::Yes, QMessageBox::No)
                                   == QMessageBox::Yes)
-            {
-                quint32 fID = item->getAudio()->id();
-                m_scene->removeItem(item);
-                m_audio.removeOne(item);
-                return fID;
-            }
-            return Function::invalidId();
-        }
-    }
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    foreach(VideoItem *item, m_videos)
-    {
-        if (item->isSelected() == true)
         {
-            QString msg = tr("Do you want to DELETE video (the source file will NOT be removed):") +
-                          QString("\n\n") + item->getVideo()->name();
-
-            // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Functions"), msg,
-                                  QMessageBox::Yes, QMessageBox::No)
-                                  == QMessageBox::Yes)
-            {
-                quint32 fID = item->getVideo()->id();
-                m_scene->removeItem(item);
-                m_videos.removeOne(item);
-                return fID;
-            }
-            return Function::invalidId();
+            quint32 fID = selectedItem->functionID();
+            m_scene->removeItem(selectedItem);
+            m_items.removeOne(selectedItem);
+            return fID;
         }
+        return Function::invalidId();
     }
-#endif
 
+    int trackIndex = 0;
     foreach(TrackItem *item, m_tracks)
     {
         if (item->isActive() == true)
         {
             Track *track = item->getTrack();
-            quint32 sceneID = track->getSceneID();
-            quint32 trkID = track->id();
-            QList <quint32> ids = track->functionsID();
+            quint32 trackID = track->id();
+            QList <ShowFunction *> sfList = track->showFunctions();
             QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
-            if (ids.count() > 0)
+            if (sfList.count() > 0)
             {
                 msg += QString("\n\n") + tr("This operation will also DELETE:" ) + QString("\n\n");
-                foreach (SequenceItem *item, m_sequences)
+                foreach(ShowItem *item, m_items)
                 {
-                    Chaser *chaser = item->getChaser();
-                    if (chaser->getBoundSceneID() == sceneID)
-                        msg += chaser->name() + QString("\n");
+                    if (item->getTrackIndex() == trackIndex)
+                        msg += item->functionName() + QString("\n");
                 }
             }
 
             // Ask for user's confirmation
-            if (QMessageBox::question(this, tr("Delete Functions"), msg,
+            if (QMessageBox::question(this, tr("Delete Track"), msg,
                                   QMessageBox::Yes, QMessageBox::No)
                                   == QMessageBox::Yes)
             {
                 m_scene->removeItem(item);
                 m_tracks.removeOne(item);
-                return trkID;
+                return trackID;
             }
             return Function::invalidId();
         }
+        trackIndex++;
     }
 
     return Function::invalidId();
+}
+
+void MultiTrackView::deleteShowItem(Track *track, ShowFunction *sf)
+{
+    for (int i = 0; i < m_items.count(); i++)
+    {
+        if (m_items.at(i)->showFunction() == sf)
+        {
+            m_scene->removeItem(m_items.at(i));
+            break;
+        }
+    }
+
+    track->removeShowFunction(sf);
 }
 
 void MultiTrackView::moveCursor(quint32 timePos)
@@ -433,37 +419,14 @@ void MultiTrackView::activateTrack(Track *track)
     }
 }
 
-SequenceItem *MultiTrackView::getSelectedSequence()
+ShowItem *MultiTrackView::getSelectedItem()
 {
-    foreach(SequenceItem *item, m_sequences)
-    {
-        if (item->isSelected() == true)
+    foreach(ShowItem *item, m_items)
+        if (item->isSelected())
             return item;
-    }
-    return NULL;
-}
 
-AudioItem *MultiTrackView::getSelectedAudio()
-{
-    foreach(AudioItem *item, m_audio)
-    {
-        if (item->isSelected() == true)
-            return item;
-    }
     return NULL;
 }
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-VideoItem *MultiTrackView::getSelectedVideo()
-{
-    foreach(VideoItem *item, m_videos)
-    {
-        if (item->isSelected() == true)
-            return item;
-    }
-    return NULL;
-}
-#endif
 
 quint32 MultiTrackView::getTimeFromCursor()
 {
@@ -490,17 +453,16 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
     return TRACK_WIDTH + xPos;
 }
 
-int MultiTrackView::getActiveTrack()
+int MultiTrackView::getTrackIndex(Track *trk)
 {
-    int index = 0;
-    foreach (TrackItem *track, m_tracks)
+    for (int idx = 0; idx < m_tracks.count(); idx++)
     {
-        if (track->isActive())
-            return index;
-        index++;
+        if ((trk == NULL && m_tracks.at(idx)->isActive()) ||
+            (trk != NULL && trk == m_tracks.at(idx)->getTrack()))
+                return idx;
     }
 
-    return -1;
+    return 0;
 }
 
 void MultiTrackView::setHeaderType(ShowHeaderItem::TimeDivision type)
@@ -529,11 +491,7 @@ void MultiTrackView::setSnapToGrid(bool enable)
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 {
-    if (getSelectedSequence() == NULL && getSelectedAudio() == NULL
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        && getSelectedVideo() == NULL
-#endif
-       )
+    if (getSelectedItem() == NULL)
     {
         quint32 xpos = mapToScene(e->pos()).x();
         if (xpos > TRACK_WIDTH)
@@ -561,26 +519,14 @@ void MultiTrackView::slotTimeScaleChanged(int val)
 {
     //int oldScale = m_header->getTimeScale();
     m_header->setTimeScale(val);
-    foreach(SequenceItem *item, m_sequences)
+
+    foreach(ShowItem *item, m_items)
     {
-        quint32 newXpos = getPositionFromTime(item->getChaser()->getStartTime());
+        quint32 newXpos = getPositionFromTime(item->getStartTime());
         item->setPos(newXpos + 2, item->y());
         item->setTimeScale(val);
     }
-    foreach(AudioItem *item, m_audio)
-    {
-        quint32 newXpos = getPositionFromTime(item->getAudio()->getStartTime());
-        item->setPos(newXpos + 2, item->y());
-        item->setTimeScale(val);
-    }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    foreach(VideoItem *item, m_videos)
-    {
-        quint32 newXpos = getPositionFromTime(item->getVideo()->getStartTime());
-        item->setPos(newXpos + 2, item->y());
-        item->setTimeScale(val);
-    }
-#endif
+
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
     m_cursor->setPos(newCursorPos + 2, m_cursor->y());
     updateViewSize();

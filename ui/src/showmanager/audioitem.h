@@ -43,7 +43,7 @@ class AudioItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    AudioItem(Audio *aud);
+    AudioItem(Audio *aud, ShowFunction *func);
 
     /** @reimp */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -52,16 +52,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setStartTime(quint32 time);
-
-    /** @reimp */
-    quint32 getStartTime();
-
-    /** @reimp */
     QString functionName();
-
-    /** @reimp */
-    void setLocked(bool locked);
 
     /** Return a pointer to a Audio object associated to this item */
     Audio *getAudio();

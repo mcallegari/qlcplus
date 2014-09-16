@@ -28,17 +28,19 @@
 #include "showitem.h"
 #include "function.h"
 
-ShowItem::ShowItem(QObject *)
+ShowItem::ShowItem(ShowFunction *function, QObject *)
     : m_color(100, 100, 100)
     , m_locked(false)
     , m_pressed(false)
     , m_width(50)
     , m_timeScale(3)
     , m_trackIdx(-1)
-    , m_functionID(Function::invalidId())
+    , m_function(function)
     , m_alignToCursor(NULL)
     , m_lockAction(NULL)
 {
+    Q_ASSERT(function != NULL);
+
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
 
@@ -46,12 +48,26 @@ ShowItem::ShowItem(QObject *)
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
+    setLocked(m_function->isLocked());
+
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
     m_lockAction = new QAction(tr("Lock item"), this);
     connect(m_lockAction, SIGNAL(triggered()),
             this, SLOT(slotLockItemClicked()));
+}
+
+void ShowItem::updateTooltip()
+{
+    if (m_function == NULL)
+        return;
+
+    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+              .arg(functionName())
+              .arg(Function::speedToString(m_function->startTime()))
+              .arg(Function::speedToString(m_function->duration()))
+              .arg(tr("Click to move this item across the timeline")));
 }
 
 void ShowItem::setTimeScale(int val)
@@ -65,9 +81,26 @@ int ShowItem::getTimeScale()
     return m_timeScale;
 }
 
+void ShowItem::setStartTime(quint32 time)
+{
+    if (m_function == NULL)
+        return;
+
+    m_function->setStartTime(time);
+    updateTooltip();
+}
+
+quint32 ShowItem::getStartTime()
+{
+    if (m_function)
+        return m_function->startTime();
+    return 0;
+}
+
 void ShowItem::setWidth(int w)
 {
     m_width = w;
+    updateTooltip();
 }
 
 int ShowItem::getWidth()
@@ -93,6 +126,8 @@ int ShowItem::getTrackIndex()
 void ShowItem::setColor(QColor col)
 {
     m_color = col;
+    if (m_function)
+        m_function->setColor(col);
     update();
 }
 
@@ -104,7 +139,10 @@ QColor ShowItem::getColor()
 void ShowItem::setLocked(bool locked)
 {
     m_locked = locked;
+    if (m_function)
+        m_function->setLocked(locked);
     setFlag(QGraphicsItem::ItemIsMovable, !locked);
+    update();
 }
 
 bool ShowItem::isLocked()
@@ -114,12 +152,26 @@ bool ShowItem::isLocked()
 
 void ShowItem::setFunctionID(quint32 id)
 {
-    m_functionID = id;
+    if (m_function != NULL)
+        m_function->setFunctionID(id);
 }
 
-quint32 ShowItem::getFunctionID()
+quint32 ShowItem::functionID()
 {
-    return m_functionID;
+    if (m_function != NULL)
+        return m_function->functionID();
+
+    return Function::invalidId();
+}
+
+ShowFunction *ShowItem::showFunction() const
+{
+    return m_function;
+}
+
+QString ShowItem::functionName()
+{
+    return QString();
 }
 
 void ShowItem::slotAlignToCursorClicked()

@@ -58,6 +58,9 @@ public:
     
     /** Get the singleton instance */
     static ShowManager* instance();
+
+    /** Start from scratch; clear everything */
+    void clearContents();
     
 signals:
     /** Emitted when the FunctionManager's tab is de/activated */
@@ -156,6 +159,7 @@ protected slots:
     /*********************************************************************
      * Playback
      *********************************************************************/
+protected slots:
     void slotStopPlayback();
     void slotStartPlayback();
     void slotShowStopped();
@@ -163,12 +167,14 @@ protected slots:
     /*********************************************************************
      * Time division
      *********************************************************************/
+protected slots:
     void slotTimeDivisionTypeChanged(int idx);
     void slotBPMValueChanged(int value);
 
     /*********************************************************************
      * UI events
      *********************************************************************/
+protected slots:
     void slotViewClicked(QMouseEvent *event);
     void slotShowItemMoved(ShowItem *item, quint32 time, bool moved);
 
@@ -187,6 +193,10 @@ protected slots:
     /*********************************************************************
      * DOC events
      *********************************************************************/
+private:
+    void temporaryDocFixup();
+
+protected slots:
     void slotDocClearing();
     void slotDocLoaded();
     void slotFunctionRemoved(quint32 id);

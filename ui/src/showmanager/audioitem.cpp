@@ -28,8 +28,8 @@
 #include "headeritems.h"
 #include "audiodecoder.h"
 
-AudioItem::AudioItem(Audio *aud)
-    : ShowItem()
+AudioItem::AudioItem(Audio *aud, ShowFunction *func)
+    : ShowItem(func)
     , m_audio(aud)
     , m_previewLeftAction(NULL)
     , m_previewRightAction(NULL)
@@ -38,10 +38,10 @@ AudioItem::AudioItem(Audio *aud)
 {
     Q_ASSERT(aud != NULL);
 
-    setStartTime(m_audio->getStartTime());
-    setColor(m_audio->getColor());
-    setLocked(m_audio->isLocked());
-    setFunctionID(m_audio->id());
+    if (func->color().isValid())
+        setColor(func->color());
+    else
+        setColor(ShowFunction::defaultColor(Function::Audio));
 
     calculateWidth();
     connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
@@ -67,7 +67,11 @@ void AudioItem::calculateWidth()
     qint64 audio_duration = m_audio->getDuration();
 
     if (audio_duration != 0)
+    {
         newWidth = ((50/(float)getTimeScale()) * (float)audio_duration) / 1000;
+        if (m_function)
+            m_function->setDuration(audio_duration);
+    }
     else
         newWidth = 100;
 
@@ -121,37 +125,11 @@ void AudioItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void AudioItem::setStartTime(quint32 time)
-{
-    if (m_audio == NULL)
-        return;
-
-    m_audio->setStartTime(time);
-    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-              .arg(m_audio->name())
-              .arg(Function::speedToString(m_audio->getStartTime()))
-              .arg(Function::speedToString(m_audio->getDuration()))
-              .arg(tr("Click to move this audio across the timeline")));
-}
-
-quint32 AudioItem::getStartTime()
-{
-    if (m_audio)
-        return m_audio->getStartTime();
-    return 0;
-}
-
 QString AudioItem::functionName()
 {
     if (m_audio)
         return m_audio->name();
     return QString();
-}
-
-void AudioItem::setLocked(bool locked)
-{
-    ShowItem::setLocked(locked);
-    m_audio->setLocked(locked);
 }
 
 Audio *AudioItem::getAudio()

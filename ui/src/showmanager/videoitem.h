@@ -43,7 +43,7 @@ class VideoItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    VideoItem(Video *vid);
+    VideoItem(Video *vid, ShowFunction *func);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -51,16 +51,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setStartTime(quint32 time);
-
-    /** @reimp */
-    quint32 getStartTime();
-
-    /** @reimp */
     QString functionName();
-
-    /** @reimp */
-    void setLocked(bool locked);
 
     /** Return a pointer to a Video object associated to this item */
     Video *getVideo();

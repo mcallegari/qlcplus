@@ -43,7 +43,7 @@ class SequenceItem : public ShowItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    SequenceItem(Chaser *seq);
+    SequenceItem(Chaser *seq, ShowFunction *func);
 
     /** @reimp */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -52,16 +52,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setStartTime(quint32 time);
-
-    /** @reimp */
-    quint32 getStartTime();
-
-    /** @reimp */
     QString functionName();
-
-    /** @reimp */
-    void setLocked(bool locked);
 
     void setSelectedStep(int idx);
 

@@ -25,17 +25,17 @@
 #include "trackitem.h"
 #include "headeritems.h"
 
-VideoItem::VideoItem(Video *vid)
-    : ShowItem()
+VideoItem::VideoItem(Video *vid, ShowFunction *func)
+    : ShowItem(func)
     , m_video(vid)
     , m_fullscreenAction(NULL)
 {
     Q_ASSERT(vid != NULL);
 
-    setStartTime(m_video->getStartTime());
-    setColor(m_video->getColor());
-    setLocked(m_video->isLocked());
-    setFunctionID(m_video->id());
+    if (func->color().isValid())
+        setColor(func->color());
+    else
+        setColor(ShowFunction::defaultColor(Function::Video));
 
     calculateWidth();
     connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
@@ -54,7 +54,11 @@ void VideoItem::calculateWidth()
     qint64 video_duration = m_video->getDuration();
 
     if (video_duration != 0)
+    {
         newWidth = ((50/(float)getTimeScale()) * (float)video_duration) / 1000;
+        if (m_function)
+            m_function->setDuration(video_duration);
+    }
     else
         newWidth = 100;
 
@@ -99,37 +103,11 @@ void VideoItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void VideoItem::setStartTime(quint32 time)
-{
-    if (m_video == NULL)
-        return;
-
-    m_video->setStartTime(time);
-    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-              .arg(m_video->name())
-              .arg(Function::speedToString(m_video->getStartTime()))
-              .arg(Function::speedToString(m_video->getDuration()))
-              .arg(tr("Click to move this video across the timeline")));
-}
-
-quint32 VideoItem::getStartTime()
-{
-    if (m_video)
-        return m_video->getStartTime();
-    return 0;
-}
-
 QString VideoItem::functionName()
 {
     if (m_video)
         return m_video->name();
     return QString();
-}
-
-void VideoItem::setLocked(bool locked)
-{
-    ShowItem::setLocked(locked);
-    m_video->setLocked(locked);
 }
 
 Video *VideoItem::getVideo()
