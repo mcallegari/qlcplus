@@ -87,6 +87,7 @@ Section
 	File libfftw3-3.dll
 	File libstdc++-6.dll
 	File libwinpthread-1.dll
+	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
 	File qlcplusengine.dll
@@ -156,6 +157,7 @@ Section "Uninstall"
 	Delete $INSTDIR\libfftw3-3.dll
 	Delete $INSTDIR\libstdc++-6.dll
 	Delete $INSTDIR\libwinpthread-1.dll
+	Delete $INSTDIR\pthreadGC2.dll
 	Delete $INSTDIR\Qt5Core.dll
 	Delete $INSTDIR\Qt5Gui.dll
 	Delete $INSTDIR\Qt5OpenGL.dll
