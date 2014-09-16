@@ -902,10 +902,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
-            m_monitorValue = monitorSliderValue;
-            m_levelValue = monitorSliderValue;
+            if (invertedAppearance())
+                m_monitorValue = 255 - monitorSliderValue;
+            else
+                m_monitorValue = monitorSliderValue;
+            m_levelValue = m_monitorValue;
             m_levelValueChanged = true;
-            emit monitorDMXValueChanged(monitorSliderValue);
+            emit monitorDMXValueChanged(m_monitorValue);
 
             // return here. At the next call of this method,
             // the monitor level will kick in
