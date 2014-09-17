@@ -329,7 +329,7 @@ protected:
     bool m_levelValueChanged;
     uchar m_levelValue;
 
-    bool m_monitorChannels;
+    bool m_monitorEnabled;
     uchar m_monitorValue;
 
     /*********************************************************************

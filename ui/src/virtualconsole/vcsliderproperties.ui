@@ -207,7 +207,7 @@
              <string>Slider</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/slider.png</normaloff>:/slider.png</iconset>
             </property>
             <property name="iconSize">
@@ -224,7 +224,7 @@
              <string>Knob</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
             </property>
             <property name="iconSize">
@@ -517,7 +517,7 @@
              <string notr="true">...</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
             </property>
             <property name="iconSize">
@@ -537,7 +537,7 @@
              <string notr="true">...</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
             </property>
             <property name="iconSize">
@@ -631,8 +631,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

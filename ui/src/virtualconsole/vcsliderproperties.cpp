@@ -309,6 +309,7 @@ void VCSliderProperties::setLevelPageVisibility(bool visible)
     m_levelInvertButton->setVisible(visible);
     m_levelByGroupButton->setVisible(visible);
     m_clickngoGroup->setVisible(visible);
+    m_monitorValuesCheck->setVisible(visible);
 
     if (visible == true)
     {

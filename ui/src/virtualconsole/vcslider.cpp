@@ -89,7 +89,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_levelValue = 0;
     m_levelValueChanged = false;
-    m_monitorChannels = false;
+    m_monitorEnabled = false;
     m_monitorValue = 0;
 
     m_playbackFunction = Function::invalidId();
@@ -506,7 +506,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         m_bottomLabel->show();
         m_cngButton->hide();
-        m_monitorChannels = false;
+        m_monitorEnabled = false;
 
         uchar level = playbackValue();
         if (m_slider)
@@ -526,7 +526,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     }
     else if (mode == Submaster)
     {
-        m_monitorChannels = false;
+        m_monitorEnabled = false;
         uchar level = levelValue();
         if (m_slider)
         {
@@ -591,18 +591,20 @@ uchar VCSlider::levelHighLimit() const
 
 void VCSlider::setChannelsMonitorEnabled(bool enable)
 {
-    m_monitorChannels = enable;
+    m_monitorEnabled = enable;
 }
 
 bool VCSlider::channelsMonitorEnabled()
 {
-    return m_monitorChannels;
+    return m_monitorEnabled;
 }
 
 void VCSlider::setLevelValue(uchar value)
 {
     m_levelValueMutex.lock();
     m_levelValue = value;
+    if (m_monitorEnabled == true)
+        m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
     m_levelValueMutex.unlock();
 }
@@ -627,8 +629,17 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 {
     if (value != sliderValue())
     {
-        setSliderValue(value);
+        if (invertedAppearance())
+            m_monitorValue = 255 - value;
+        else
+            m_monitorValue = value;
+        m_levelValueMutex.lock();
+        m_levelValue = m_monitorValue;
+        m_levelValueMutex.unlock();
+        m_slider->blockSignals(true);
+        setSliderValue(m_monitorValue);
         setTopLabelText(m_slider->value());
+        m_slider->blockSignals(false);
         updateFeedback();
     }
 }
@@ -867,7 +878,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
-    if (m_monitorChannels == true)
+    if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
@@ -886,11 +897,19 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 {
                     uchar chValue = universes[uni]->preGMValue(dmx_ch);
                     if (monitorSliderValue == -1)
+                    {
                         monitorSliderValue = chValue;
+                        //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_levelValue;
+                    }
                     else
                     {
                         if (chValue != (uchar)monitorSliderValue)
+                        {
                             mixedDMXlevels = true;
+                            // no need to proceed further as mixed values cannot
+                            // be represented by one single slider
+                            break;
+                        }
                     }
                 }
             }
@@ -902,14 +921,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
-            if (invertedAppearance())
-                m_monitorValue = 255 - monitorSliderValue;
-            else
-                m_monitorValue = monitorSliderValue;
-            m_levelValue = m_monitorValue;
-            m_levelValueChanged = true;
-            emit monitorDMXValueChanged(m_monitorValue);
-
+            emit monitorDMXValueChanged(monitorSliderValue);
             // return here. At the next call of this method,
             // the monitor level will kick in
             return;
