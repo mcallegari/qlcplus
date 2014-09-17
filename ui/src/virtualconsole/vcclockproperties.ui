@@ -14,7 +14,7 @@
    <string>Clock properties</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="qlcui.qrc">
+   <iconset resource="../qlcui.qrc">
     <normaloff>:/clock.png</normaloff>:/clock.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -70,6 +70,12 @@
       </item>
       <item row="0" column="0">
        <widget class="QRadioButton" name="m_clockRadio">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Clock</string>
         </property>
@@ -102,7 +108,7 @@
       <item row="0" column="1">
        <widget class="QToolButton" name="m_addScheduleBtn">
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
         </property>
         <property name="iconSize">
@@ -116,7 +122,7 @@
       <item row="1" column="1">
        <widget class="QToolButton" name="m_removeScheduleBtn">
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
         </property>
         <property name="iconSize">
@@ -173,8 +179,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>444</width>
+    <width>445</width>
     <height>517</height>
    </rect>
   </property>
@@ -101,7 +101,7 @@
         <item>
          <widget class="QToolButton" name="m_speedDialButton">
           <property name="icon">
-           <iconset resource="qlcui.qrc">
+           <iconset resource="../qlcui.qrc">
             <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
           </property>
           <property name="iconSize">
@@ -147,7 +147,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
         </property>
         <property name="iconSize">
@@ -167,7 +167,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
         </property>
         <property name="iconSize">
@@ -266,7 +266,14 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QListWidget" name="m_attributesList"/>
+       <widget class="QListWidget" name="m_attributesList">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -277,13 +284,6 @@
       <string>External Input</string>
      </property>
      <layout class="QGridLayout" name="gridLayoutExternalInput">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Input Universe</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
@@ -307,6 +307,33 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="m_inputUniverseEdit">
+        <property name="toolTip">
+         <string>The input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Input Universe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="3">
+       <widget class="QLineEdit" name="m_inputChannelEdit">
+        <property name="toolTip">
+         <string>The particular input channel within the input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="m_autoDetectInputButton">
         <property name="toolTip">
@@ -323,26 +350,6 @@
         </property>
         <property name="flat">
          <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="3">
-       <widget class="QLineEdit" name="m_inputChannelEdit">
-        <property name="toolTip">
-         <string>The particular input channel within the input universe that sends data to this widget</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="m_inputUniverseEdit">
-        <property name="toolTip">
-         <string>The input universe that sends data to this widget</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -395,7 +402,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
         </property>
         <property name="iconSize">
@@ -415,7 +422,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset resource="qlcui.qrc">
+         <iconset resource="../qlcui.qrc">
           <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
         </property>
         <property name="iconSize">
@@ -432,8 +439,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

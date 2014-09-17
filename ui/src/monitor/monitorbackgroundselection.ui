@@ -14,7 +14,7 @@
    <string>Background Picture Selection</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="qlcui.qrc">
+   <iconset resource="../qlcui.qrc">
     <normaloff>:/image.png</normaloff>:/image.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -50,7 +50,7 @@
      <item>
       <widget class="QToolButton" name="m_commonButton">
        <property name="icon">
-        <iconset resource="qlcui.qrc">
+        <iconset resource="../qlcui.qrc">
          <normaloff>:/image.png</normaloff>:/image.png</iconset>
        </property>
        <property name="iconSize">
@@ -91,7 +91,7 @@
        <item>
         <widget class="QToolButton" name="m_customAddButton">
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
          </property>
          <property name="iconSize">
@@ -105,7 +105,7 @@
        <item>
         <widget class="QToolButton" name="m_customRemoveButton">
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
          </property>
          <property name="iconSize">
@@ -146,8 +146,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

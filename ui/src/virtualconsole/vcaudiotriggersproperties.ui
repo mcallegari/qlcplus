@@ -238,7 +238,7 @@
              <string notr="true">...</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
             </property>
             <property name="iconSize">
@@ -258,7 +258,7 @@
              <string notr="true">...</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
             </property>
             <property name="iconSize">
@@ -302,8 +302,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

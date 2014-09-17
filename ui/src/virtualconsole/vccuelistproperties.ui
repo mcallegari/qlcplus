@@ -74,7 +74,7 @@
           <string>Choose the chaser function to use as the steps for the cue list</string>
          </property>
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
          </property>
          <property name="iconSize">
@@ -91,7 +91,7 @@
           <string>Detach current chaser from the cue list</string>
          </property>
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
          </property>
          <property name="iconSize">
@@ -144,7 +144,7 @@
              <string>Bind a key combination to stop the cue list</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
             </property>
             <property name="iconSize">
@@ -161,7 +161,7 @@
              <string>Clear the key binding</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
             </property>
             <property name="iconSize">
@@ -290,7 +290,7 @@
              <string>Bind a key combination to skip to the next cue</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
             </property>
             <property name="iconSize">
@@ -307,7 +307,7 @@
              <string>Clear the key binding</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
             </property>
             <property name="iconSize">
@@ -436,7 +436,7 @@
              <string>Bind a key combination to skip to the previous cue</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
             </property>
             <property name="iconSize">
@@ -453,7 +453,7 @@
              <string>Clear the key binding</string>
             </property>
             <property name="icon">
-             <iconset resource="qlcui.qrc">
+             <iconset resource="../qlcui.qrc">
               <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
             </property>
             <property name="iconSize">
@@ -713,8 +713,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

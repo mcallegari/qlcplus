@@ -14,7 +14,7 @@
    <string>Speed Dial Properties</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="qlcui.qrc">
+   <iconset resource="../qlcui.qrc">
     <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -43,7 +43,6 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0" rowspan="3" colspan="2">
-
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -63,17 +62,17 @@
          <property name="itemsExpandable">
           <bool>false</bool>
          </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <property name="expandsOnDoubleClick">
-          <bool>false</bool>
-         </property>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
          <property name="animated">
           <bool>true</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <property name="expandsOnDoubleClick">
+          <bool>false</bool>
          </property>
          <column>
           <property name="text">
@@ -112,7 +111,7 @@
           <string>Add functions to be controlled</string>
          </property>
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
          </property>
          <property name="iconSize">
@@ -129,7 +128,7 @@
           <string>Remove selected functions</string>
          </property>
          <property name="icon">
-          <iconset resource="qlcui.qrc">
+          <iconset resource="../qlcui.qrc">
            <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
          </property>
          <property name="iconSize">
@@ -318,7 +317,7 @@
                 <string notr="true">...</string>
                </property>
                <property name="icon">
-                <iconset resource="qlcui.qrc">
+                <iconset resource="../qlcui.qrc">
                  <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
                </property>
                <property name="iconSize">
@@ -338,7 +337,7 @@
                 <string notr="true">...</string>
                </property>
                <property name="icon">
-                <iconset resource="qlcui.qrc">
+                <iconset resource="../qlcui.qrc">
                  <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
                </property>
                <property name="iconSize">
@@ -385,8 +384,8 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
-  <include location="qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>
