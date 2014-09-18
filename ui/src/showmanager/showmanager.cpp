@@ -1022,11 +1022,17 @@ void ShowManager::slotPaste()
                 return;
             }
             Audio *audio = qobject_cast<Audio*>(newCopy);
-            // Invalidate start time so the sequence will be pasted at the cursor position
-            audio->setStartTime(UINT_MAX);
-
-            Track *track = m_show->getTrackFromSceneID(m_currentScene->id());
-            m_showview->addAudio(audio, track);
+            m_showview->addAudio(audio, m_currentTrack);
+        }
+        else if (clipboardCopy->type() == Function::RGBMatrix)
+        {
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
+                return;
+            }
+            RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(newCopy);
+            m_showview->addRGBMatrix(rgbm, m_currentTrack);
         }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         else if (clipboardCopy->type() == Function::Video)
@@ -1037,11 +1043,7 @@ void ShowManager::slotPaste()
                 return;
             }
             Video *video = qobject_cast<Video*>(newCopy);
-            // Invalidate start time so the sequence will be pasted at the cursor position
-            video->setStartTime(UINT_MAX);
-
-            Track *track = m_show->getTrackFromSceneID(m_currentScene->id());
-            m_showview->addVideo(video, track);
+            m_showview->addVideo(video, m_currentTrack);
         }
 #endif
         else if (clipboardCopy->type() == Function::Scene)
@@ -1182,7 +1184,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         }
 
         /* activate the new track */
-        m_currentTrack = m_show->getTrackFromSceneID(sceneID);;
+        m_currentTrack = m_show->getTrackFromSceneID(sceneID);
         m_showview->activateTrack(m_currentTrack);
         showRightEditor(f);
 
@@ -1543,6 +1545,11 @@ void ShowManager::updateMultiTrackView()
                 {
                     Audio *audio = qobject_cast<Audio*>(fn);
                     m_showview->addAudio(audio, track, sf);
+                }
+                else if (fn->type() == Function::RGBMatrix)
+                {
+                    RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(fn);
+                    m_showview->addRGBMatrix(rgbm, track, sf);
                 }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                 else if (fn->type() == Function::Video)
