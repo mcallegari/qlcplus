@@ -2144,12 +2144,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="showmanager/efxitem.cpp" line="128"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear elemento</translation>
     </message>
     <message>
         <location filename="showmanager/efxitem.cpp" line="133"/>
         <source>Lock item</source>
-        <translation type="unfinished">Bloquear elemento</translation>
+        <translation>Bloquear elemento</translation>
     </message>
 </context>
 <context>
@@ -3751,7 +3751,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
         <location filename="showmanager/multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE item:</source>
         <oldsource>Do you want to DELETE sequence:</oldsource>
-        <translation type="unfinished">Desea BORRAR esta secuencia:</translation>
+        <translation>Desea BORRAR este elemento:</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
@@ -3761,7 +3761,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Pista</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4235,12 +4235,12 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="128"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Desbloquear elemento</translation>
     </message>
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="133"/>
         <source>Lock item</source>
-        <translation type="unfinished">Bloquear elemento</translation>
+        <translation>Bloquear elemento</translation>
     </message>
 </context>
 <context>
@@ -4518,7 +4518,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="showmanager/sequenceitem.cpp" line="175"/>
         <source>Unlock item</source>
-        <translation>Bloquear elemento</translation>
+        <translation>Desbloquear elemento</translation>
     </message>
 </context>
 <context>
@@ -4588,12 +4588,15 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre: %1
+Tiempo de inicio: %2
+Duración: %3
+%4</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Click para mover este elemento por la línea de tiempo</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="218"/>
