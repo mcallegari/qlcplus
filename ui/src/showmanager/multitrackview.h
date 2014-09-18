@@ -26,6 +26,7 @@
 #include <QSlider>
 #include <QWidget>
 
+#include "rgbmatrixitem.h"
 #include "sequenceitem.h"
 #include "headeritems.h"
 #include "trackitem.h"
@@ -72,6 +73,9 @@ public:
     /** Add a new audio item to the given track */
     void addAudio(Audio *audio, Track *track = NULL, ShowFunction *sf = NULL);
 
+    /** Add a new RGB Matrix item to the given track */
+    void addRGBMatrix(RGBMatrix *rgbm, Track *track = NULL, ShowFunction *sf = NULL);
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     /** Add a new video item to the given track */
     void addVideo(Video *video, Track *track = NULL, ShowFunction *sf = NULL);
@@ -96,6 +100,8 @@ private:
      *  selected track.
      */
     int getTrackIndex(Track *trk);
+
+    void setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum);
 
     /*********************************************************************
      * Header

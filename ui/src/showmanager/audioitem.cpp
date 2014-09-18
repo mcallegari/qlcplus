@@ -64,7 +64,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
 void AudioItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 audio_duration = m_audio->getDuration();
+    qint64 audio_duration = m_audio->totalDuration();
 
     if (audio_duration != 0)
     {
@@ -217,13 +217,13 @@ void AudioItem::createWaveform(bool left, bool right)
         qint64 dataRead = 1;
         unsigned char audioData[defaultDataLen * 4];
         quint32 audioDataOffset = 0;
-        m_preview = new QPixmap((50 * m_audio->getDuration()) / 1000, 76);
+        m_preview = new QPixmap((50 * m_audio->totalDuration()) / 1000, 76);
         m_preview->fill(Qt::transparent);
         QPainter p(m_preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration: " << m_audio->getDuration() <<
-                    ", pixmap width: " << ((50 * m_audio->getDuration()) / 1000) <<
+        qDebug() << "Audio duration: " << m_audio->totalDuration() <<
+                    ", pixmap width: " << ((50 * m_audio->totalDuration()) / 1000) <<
                     ", maxValue: " << maxValue;
         qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples;
 

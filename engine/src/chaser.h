@@ -143,8 +143,8 @@ public:
      */
     QList <ChaserStep> steps() const;
 
-    /** Get the Chaser duration in milliseconds */
-    quint32 getDuration();
+    /** Get the Chaser total duration in milliseconds */
+    quint32 totalDuration();
 
 public slots:
     /**

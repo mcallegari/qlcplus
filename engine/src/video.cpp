@@ -138,7 +138,7 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
-qint64 Video::getDuration()
+qint64 Video::totalDuration()
 {
     return m_videoDuration;
 }

@@ -56,7 +56,7 @@ public:
 
     void setSelectedStep(int idx);
 
-    /** Return a pointer to a Chaser associated to this item */
+    /** Return a pointer to a Chaser Function associated to this item */
     Chaser *getChaser();
 
 protected:
@@ -71,7 +71,7 @@ private:
     void calculateWidth();
 
 private:
-    /** Reference to the actual Chaser object which holds the sequence steps */
+    /** Reference to the actual Chaser Function which holds the sequence steps */
     Chaser *m_chaser;
 
     /** index of the selected step for highlighting (-1 if none) */

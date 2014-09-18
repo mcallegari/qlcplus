@@ -97,11 +97,7 @@ protected:
 private:
     void showSceneEditor(Scene *scene);
     void hideRightEditor();
-    void showRightEditor(Chaser *chaser);
-    void showRightEditor(Audio *audio);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    void showRightEditor(Video *video);
-#endif
+    void showRightEditor(Function *function);
 
 private:
     QSplitter* m_splitter; // main view splitter (horizontal)
@@ -147,7 +143,7 @@ protected slots:
     /** Slot called when the user request to add a new show */
     void slotAddShow();
 
-    void slotAddTrack();
+    void slotAddItem();
     void slotAddSequence();
     void slotAddAudio();
     void slotAddVideo();

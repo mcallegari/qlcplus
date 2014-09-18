@@ -229,7 +229,7 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
-quint32 Chaser::getDuration()
+quint32 Chaser::totalDuration()
 {
     quint32 duration = 0;
     foreach (ChaserStep step, m_steps)

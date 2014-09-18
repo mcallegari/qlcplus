@@ -76,33 +76,33 @@ public:
      *********************************************************************/
 public:
     /**
-     * Set the time where the Audio object is placed over a timeline
+     * Set the time where the Video object is placed over a timeline
      *
-     * @param time The start time in milliseconds of the Audio object
+     * @param time The start time in milliseconds of the Video object
      */
     void setStartTime(quint32 time);
 
     /**
-     * Returns the time where the Audio object is placed over a timeline
+     * Returns the time where the Video object is placed over a timeline
      *
-     * @return Start time in milliseconds of the Audio object
+     * @return Start time in milliseconds of the Video object
      */
     quint32 getStartTime() const;
 
     /**
-     * Returns the duration of the source audio file loaded
+     * Returns the duration of the source video file loaded
      *
-     * @return Duration in milliseconds of the source audio file
+     * @return Duration in milliseconds of the source video file
      */
-    qint64 getDuration();
+    qint64 totalDuration();
 
     /**
-     * Set the color to be used by a AudioItem
+     * Set the color to be used by a VideoItem
      */
     void setColor(QColor color);
 
     /**
-     * Get the color of this Audio object
+     * Get the color of this Video object
      */
     QColor getColor();
 

@@ -190,6 +190,35 @@ void MultiTrackView::addTrack(Track *track)
             this, SIGNAL(trackDelete(Track*)));
 }
 
+void MultiTrackView::setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum)
+{
+    qDebug() << "Start time:" << func->startTime() << "Duration:" << func->duration();
+
+    item->setTrackIndex(trackNum);
+
+    int timeScale = m_timeSlider->value();
+
+    if (func->startTime() == UINT_MAX)
+    {
+        item->setStartTime(getTimeFromCursor());
+        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
+    }
+    else
+        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+
+    item->setTimeScale(timeScale);
+
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
+            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
+    connect(item, SIGNAL(alignToCursor(ShowItem*)),
+            this, SLOT(slotAlignToCursor(ShowItem*)));
+    m_scene->addItem(item);
+    m_items.append(item);
+    int new_scene_width = item->x() + item->getWidth();
+    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
+        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
+}
+
 void MultiTrackView::addSequence(Chaser *chaser, Track *track, ShowFunction *sf)
 {
     if (m_tracks.isEmpty())
@@ -204,34 +233,8 @@ void MultiTrackView::addSequence(Chaser *chaser, Track *track, ShowFunction *sf)
     if (func == NULL)
         func = track->createShowFunction(chaser->id());
 
-    qDebug() << "Start time:" << func->startTime();
-    qDebug() << "Duration:" << func->duration();
-
     SequenceItem *item = new SequenceItem(chaser, func);
-    item->setTrackIndex(trackNum);
-
-    int timeScale = m_timeSlider->value();
-
-    if (func->startTime() == UINT_MAX)
-    {
-        item->setStartTime(getTimeFromCursor());
-        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
-    else
-        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
-
-    item->setTimeScale(timeScale);
-    qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
-
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
-            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
-    connect(item, SIGNAL(alignToCursor(ShowItem*)),
-            this, SLOT(slotAlignToCursor(ShowItem*)));
-    m_scene->addItem(item);
-    m_items.append(item);
-    int new_scene_width = item->x() + item->getWidth();
-    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
-        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
+    setItemCommonProperties(item, func, trackNum);
 }
 
 void MultiTrackView::addAudio(Audio *audio, Track *track, ShowFunction *sf)
@@ -249,30 +252,25 @@ void MultiTrackView::addAudio(Audio *audio, Track *track, ShowFunction *sf)
         func = track->createShowFunction(audio->id());
 
     AudioItem *item = new AudioItem(audio, func);
-    item->setTrackIndex(trackNum);
-    int timeScale = m_timeSlider->value();
+    setItemCommonProperties(item, func, trackNum);
+}
 
-    if (func->startTime() == UINT_MAX)
-    {
-        item->setStartTime(getTimeFromCursor());
-        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
-    else
-        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+void MultiTrackView::addRGBMatrix(RGBMatrix *rgbm, Track *track, ShowFunction *sf)
+{
+    if (m_tracks.isEmpty())
+        return;
 
-    item->setTimeScale(timeScale);
-    qDebug() << Q_FUNC_INFO << "audio start time: " << audio->getStartTime() << "msec";
+    int trackNum = getTrackIndex(track);
 
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
-            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
-    connect(item, SIGNAL(alignToCursor(ShowItem*)),
-            this, SLOT(slotAlignToCursor(ShowItem*)));
-    connect(audio, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
-    m_scene->addItem(item);
-    m_items.append(item);
-    int new_scene_width = item->x() + item->getWidth();
-    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
-        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
+    if (track == NULL)
+        track = m_tracks.at(trackNum)->getTrack();
+
+    ShowFunction *func = sf;
+    if (func == NULL)
+        func = track->createShowFunction(rgbm->id());
+
+    RGBMatrixItem *item = new RGBMatrixItem(rgbm, func);
+    setItemCommonProperties(item, func, trackNum);
 }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
@@ -290,40 +288,8 @@ void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
     if (func == NULL)
         func = track->createShowFunction(video->id());
 
-    // LEGACY code to port an old project to the new code. To be removed
-    if (func->startTime() == UINT_MAX)
-    {
-        func->setStartTime(video->getStartTime());
-        func->setDuration(video->getDuration());
-        func->setColor(video->getColor());
-        func->setLocked(video->isLocked());
-    }
-
     VideoItem *item = new VideoItem(video, func);
-    item->setTrackIndex(trackNum);
-    int timeScale = m_timeSlider->value();
-
-    if (func->startTime() == UINT_MAX)
-    {
-        item->setStartTime(getTimeFromCursor());
-        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-    }
-    else
-        item->setPos(getPositionFromTime(func->startTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
-
-    item->setTimeScale(timeScale);
-    qDebug() << Q_FUNC_INFO << "video start time: " << video->getStartTime() << "msec";
-
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, ShowItem *)),
-            this, SLOT(slotItemMoved(QGraphicsSceneMouseEvent *, ShowItem *)));
-    connect(item, SIGNAL(alignToCursor(ShowItem*)),
-            this, SLOT(slotAlignToCursor(ShowItem*)));
-    connect(video, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
-    m_scene->addItem(item);
-    m_items.append(item);
-    int new_scene_width = item->x() + item->getWidth();
-    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
-        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
+    setItemCommonProperties(item, func, trackNum);
 }
 #endif
 

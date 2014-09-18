@@ -51,7 +51,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
 void VideoItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 video_duration = m_video->getDuration();
+    qint64 video_duration = m_video->totalDuration();
 
     if (video_duration != 0)
     {

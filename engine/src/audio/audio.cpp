@@ -152,7 +152,7 @@ quint32 Audio::getStartTime() const
     return m_startTime;
 }
 
-qint64 Audio::getDuration()
+qint64 Audio::totalDuration()
 {
     return m_audioDuration;
 }
@@ -401,7 +401,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (fadeOutSpeed() != 0)
     {
-        if (getDuration() - elapsed() <= fadeOutSpeed())
+        if (totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
     }
 }

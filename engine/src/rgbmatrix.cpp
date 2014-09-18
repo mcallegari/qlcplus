@@ -46,7 +46,7 @@
 
 RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
-    , m_fixtureGroup(FixtureGroup::invalidId())
+    , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_algorithm(NULL)
     , m_algorithmMutex(QMutex::Recursive)
     , m_startColor(Qt::red)
@@ -71,6 +71,22 @@ RGBMatrix::~RGBMatrix()
     setAlgorithm(NULL);
     delete m_roundTime;
     m_roundTime = NULL;
+}
+
+quint32 RGBMatrix::totalDuration()
+{
+    if (m_fixtureGroupID == FixtureGroup::invalidId() ||
+        m_algorithm == NULL)
+            return 0;
+
+    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    if (grp != NULL)
+    {
+        qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
+        return m_algorithm->rgbMapStepCount(grp->size()) * duration();
+    }
+
+    return 0;
 }
 
 /****************************************************************************
@@ -119,12 +135,12 @@ bool RGBMatrix::copyFrom(const Function* function)
 
 void RGBMatrix::setFixtureGroup(quint32 id)
 {
-    m_fixtureGroup = id;
+    m_fixtureGroupID = id;
 }
 
 quint32 RGBMatrix::fixtureGroup() const
 {
-    return m_fixtureGroup;
+    return m_fixtureGroupID;
 }
 
 /****************************************************************************

@@ -89,6 +89,9 @@ QColor ShowFunction::defaultColor(Function::Type type)
         case Function::Audio:
             return QColor(96, 128, 83);
         break;
+        case Function::RGBMatrix:
+            return QColor(101, 155, 155);
+        break;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         case Function::Video:
             return QColor(147, 140, 20);

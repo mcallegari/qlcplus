@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audioitem.h
+  rgbmatrixitem.h
 
   Copyright (C) Massimo Callegari
 
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef AUDIOITEM_H
-#define AUDIOITEM_H
+#ifndef RGBMATRIXITEM_H
+#define RGBMATRIXITEM_H
 
 #include <QGraphicsItem>
 #include <QObject>
@@ -26,7 +26,7 @@
 #include <QFont>
 
 #include "showitem.h"
-#include "audio.h"
+#include "rgbmatrix.h"
 
 /** @addtogroup ui_functions
  * @{
@@ -34,16 +34,16 @@
 
 /**
  *
- * Audio Item. Clickable and draggable object identifying an Audio object
+ * RGBMatrix Item. Clickable and draggable object identifying a RGBMatrix object
  *
  */
-class AudioItem : public ShowItem
+class RGBMatrixItem : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    AudioItem(Audio *aud, ShowFunction *func);
+    RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func);
 
     /** @reimp */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -54,8 +54,8 @@ public:
     /** @reimp */
     QString functionName();
 
-    /** Return a pointer to a Audio Function associated to this item */
-    Audio *getAudio();
+    /** Return a pointer to a RGBMatrix Function associated to this item */
+    RGBMatrix *getRGBMatrix();
 
 public slots:
     void updateDuration();
@@ -65,33 +65,18 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 protected slots:
-    void slotAudioChanged(quint32);
+    void slotRGBMatrixChanged(quint32);
 
-    void slotAudioPreviewLeft(bool active);
-    void slotAudioPreviewRight(bool active);
-    void slotAudioPreviewStereo(bool active);
     void slotAlignToCursorClicked();
     void slotLockItemClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
-    /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 *idx, int sampleSize);
-    /** Routine that decode the whole and create the waveform QPixmap */
-    void createWaveform(bool left, bool right);
 
 private:
-    /** Reference to the actual Audio Function */
-    Audio *m_audio;
-
-    /** Context menu actions */
-    QAction *m_previewLeftAction;
-    QAction *m_previewRightAction;
-    QAction *m_previewStereoAction;
-
-    /** Pixmap holding the waveform (if enabled) */
-    QPixmap *m_preview;
+    /** Reference to the actual RGBMatrix Function */
+    RGBMatrix *m_matrix;
 };
 
 /** @} */

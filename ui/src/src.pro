@@ -113,6 +113,7 @@ HEADERS += showmanager/multitrackview.h \
            showmanager/showitem.h \
            showmanager/sequenceitem.h \
            showmanager/audioitem.h \
+           showmanager/rgbmatrixitem.h \
            showmanager/showmanager.h
 
 # Virtual Console headers
@@ -272,6 +273,7 @@ SOURCES += showmanager/multitrackview.cpp \
            showmanager/showitem.cpp \
            showmanager/sequenceitem.cpp \
            showmanager/audioitem.cpp \
+           showmanager/rgbmatrixitem.cpp \
            showmanager/showmanager.cpp
 
 # Virtual Console sources

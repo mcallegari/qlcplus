@@ -53,7 +53,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
             this, SLOT(slotPreviewToggled(bool)));
 
     m_filenameLabel->setText(m_video->getSourceFileName());
-    m_durationLabel->setText(Function::speedToString(m_video->getDuration()));
+    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
 
     for (int i = 0; i < m_video->getScreenCount(); i++)
         m_screenCombo->addItem(QString("Screen %1").arg(i + 1));
@@ -135,7 +135,7 @@ void VideoEditor::slotSourceFileClicked()
 
     m_video->setSourceFileName(fn);
     m_filenameLabel->setText(m_video->getSourceFileName());
-    m_durationLabel->setText(Function::speedToString(m_video->getDuration()));
+    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
 }
 
 void VideoEditor::slotScreenIndexChanged(int idx)

@@ -53,7 +53,7 @@ public:
     /** @reimp */
     QString functionName();
 
-    /** Return a pointer to a Video object associated to this item */
+    /** Return a pointer to a Video Function associated to this item */
     Video *getVideo();
 
 public slots:
@@ -73,7 +73,7 @@ private:
     void calculateWidth();
 
 private:
-    /** Reference to the actual Video object */
+    /** Reference to the actual Video Function */
     Video *m_video;
 
     /** Context menu actions */
