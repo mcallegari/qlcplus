@@ -26,6 +26,7 @@
 #include <QSize>
 #include <QPair>
 #include <QMap>
+#include <QMutex>
 
 #include "rgbscript.h"
 #include "function.h"
@@ -82,11 +83,15 @@ public:
     /** Get the current RGB Algorithm. */
     RGBAlgorithm* algorithm() const;
 
+    /** Get the algorithm protection mutex */
+    QMutex& algorithmMutex();
+
     /** Get a list of RGBMap steps for preview purposes, using the current algorithm. */
     QList <RGBMap> previewMaps();
 
 private:
     RGBAlgorithm* m_algorithm;
+    QMutex m_algorithmMutex;
 
     /************************************************************************
      * Colour

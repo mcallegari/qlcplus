@@ -1009,14 +1009,9 @@ void ChaserEditor::updateSpeedDials()
  ****************************************************************************/
 int ChaserEditor::getCurrentIndex()
 {
-    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
-    int index = 0;
-    if (selected.size() > 0)
-    {
-        QTreeWidgetItem* item(selected.first());
-        index = m_tree->indexOfTopLevelItem(item);
-    }
-    return index;
+    // Return the index of the current selected item
+    // Return -1 if nothing is selected
+    return m_tree->indexOfTopLevelItem(m_tree->currentItem());
 }
 
 void ChaserEditor::slotRestartTest()
@@ -1080,9 +1075,9 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
 
 void ChaserEditor::slotStepChanged(int stepNumber)
 {
-    if (m_tree->selectedItems().count() > 0)
-        m_tree->selectedItems().first()->setSelected(false);
-    m_tree->topLevelItem(stepNumber)->setSelected(true);
+    // Select only the item at step StepNumber
+    // If stepNumber is outside of bounds, select nothing
+    m_tree->setCurrentItem(m_tree->topLevelItem(stepNumber));
 }
 
 bool ChaserEditor::interruptRunning()

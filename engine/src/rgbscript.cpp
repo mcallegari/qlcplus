@@ -28,6 +28,7 @@
 #include <QFile>
 #include <QSize>
 #include <QDir>
+#include <QMutex>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
@@ -44,6 +45,7 @@ QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
                                                QDir::Files);
 
 QScriptEngine* RGBScript::s_engine = NULL;
+QMutex* RGBScript::s_engineMutex = NULL;
 
 /****************************************************************************
  * Initialization
@@ -106,11 +108,14 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_contents = stream.readAll();
     file.close();
 
+    if (s_engineMutex == NULL)
+        s_engineMutex = new QMutex(QMutex::Recursive);
+    Q_ASSERT(s_engineMutex != NULL);
+
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(m_contents);
     if (result.state() == QScriptSyntaxCheckResult::Valid)
-    {
         return evaluate();
-    }
     else
     {
         qWarning() << m_fileName << "Error at line:" << result.errorLineNumber()
@@ -131,10 +136,15 @@ bool RGBScript::evaluate()
     if (s_engine == NULL)
         s_engine = new QScriptEngine(QCoreApplication::instance());
     Q_ASSERT(s_engine != NULL);
+    if (s_engineMutex == NULL)
+        s_engineMutex = new QMutex(QMutex::Recursive);
+    Q_ASSERT(s_engineMutex != NULL);
 
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
     m_apiVersion = 0;
+
+    QMutexLocker engineLocker(s_engineMutex);
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (s_engine->hasUncaughtException() == true)
     {
@@ -179,22 +189,22 @@ bool RGBScript::evaluate()
 
 int RGBScript::rgbMapStepCount(const QSize& size)
 {
+    QMutexLocker engineLocker(s_engineMutex);
     if (m_rgbMapStepCount.isValid() == false)
         return -1;
 
     QScriptValueList args;
     args << size.width() << size.height();
     QScriptValue value = m_rgbMapStepCount.call(QScriptValue(), args);
-    if (value.isNumber() == true)
-        return value.toInteger();
-    else
-        return -1;
+    int ret = value.isNumber() ? value.toInteger() : -1;
+    return ret;
 }
 
 RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
 {
     RGBMap map;
 
+    QMutexLocker engineLocker(s_engineMutex);
     if (m_rgbMap.isValid() == false)
         return map;
 
@@ -227,20 +237,18 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
 
 QString RGBScript::name() const
 {
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptValue name = m_script.property("name");
-    if (name.isValid() == true)
-        return name.toString();
-    else
-        return QString();
+    QString ret = name.isValid() ? name.toString() : QString();
+    return ret;
 }
 
 QString RGBScript::author() const
 {
+    QMutexLocker engineLocker(s_engineMutex);
     QScriptValue author = m_script.property("author");
-    if (author.isValid() == true)
-        return author.toString();
-    else
-        return QString();
+    QString ret = author.isValid() ? author.toString() : QString();
+    return ret;
 }
 
 int RGBScript::apiVersion() const
