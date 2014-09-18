@@ -49,8 +49,8 @@ TrackItem::TrackItem(Track *track, int number)
     else
         m_name = QString("Track %1").arg(m_number + 1);
 
-    m_soloRegion = new QRectF(15.0, 10.0, 25.0, 16.0);
-    m_muteRegion = new QRectF(42.0, 10.0, 25.0, 16.0);
+    m_soloRegion = new QRectF(17.0, 10.0, 25.0, 16.0);
+    m_muteRegion = new QRectF(45.0, 10.0, 25.0, 16.0);
 
     m_moveUp = new QAction(QIcon(":/up.png"), tr("Move up"), this);
     connect(m_moveUp, SIGNAL(triggered()),
@@ -169,7 +169,7 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setBrush(QBrush(QColor(0, 255, 0, 255)));
     else
         painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
-    painter->drawRect(1, 1, 7, 40);
+    painter->drawRoundedRect(1, 1, 10, 40, 2, 2);
 
     // draw solo button
     if (m_isSolo)
@@ -178,7 +178,7 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
     painter->drawRoundedRect(m_soloRegion->toRect(), 3.0, 3.0);
     painter->setFont(m_btnFont);
-    painter->drawText(23, 23, "S");
+    painter->drawText(25, 23, "S");
 
     // draw mute button
     if (m_isMute)
@@ -186,15 +186,19 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     else
         painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
     painter->drawRoundedRect(m_muteRegion->toRect(), 3.0, 3.0);
-    painter->drawText(48, 23, "M");
+    painter->drawText(51, 23, "M");
+
+    // draw bound Scene indicator
+    if (m_track->getSceneID() != Function::invalidId())
+        painter->drawPixmap(TRACK_WIDTH - 33, 5, 24, 24, QIcon(":/scene.png").pixmap(24, 24));
 
     painter->setFont(m_font);
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(QRect(5, 47, TRACK_WIDTH - 5, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
+    painter->drawText(QRect(5, 47, TRACK_WIDTH - 7, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
     // draw track name
     painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
-    painter->drawText(QRect(4, 47, TRACK_WIDTH - 5, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
+    painter->drawText(QRect(4, 47, TRACK_WIDTH - 7, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
 }
 
 void TrackItem::slotTrackChanged(quint32 id)
