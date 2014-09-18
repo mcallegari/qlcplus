@@ -605,299 +605,299 @@
         <translation>Startuje se Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="430"/>
+        <location filename="app.cpp" line="431"/>
         <source> - New Workspace</source>
         <translation>- Nové pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="466"/>
+        <location filename="app.cpp" line="467"/>
         <source>Exit</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="485"/>
+        <location filename="app.cpp" line="486"/>
         <source>Switch to Design Mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="486"/>
+        <location filename="app.cpp" line="487"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Některé funkce stále běží.
 Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návrhu?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="519"/>
+        <location filename="app.cpp" line="520"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="520"/>
+        <location filename="app.cpp" line="521"/>
         <source>Switch to design mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="530"/>
+        <location filename="app.cpp" line="531"/>
         <source>Operate</source>
         <translation>Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="531"/>
-        <location filename="app.cpp" line="559"/>
+        <location filename="app.cpp" line="532"/>
+        <location filename="app.cpp" line="560"/>
         <source>Switch to operate mode</source>
         <translation>Přepnout do režimu Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="542"/>
+        <location filename="app.cpp" line="543"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="543"/>
+        <location filename="app.cpp" line="544"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="546"/>
+        <location filename="app.cpp" line="547"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="547"/>
+        <location filename="app.cpp" line="548"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="550"/>
+        <location filename="app.cpp" line="551"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="551"/>
+        <location filename="app.cpp" line="552"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="554"/>
+        <location filename="app.cpp" line="555"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="558"/>
+        <location filename="app.cpp" line="559"/>
         <source>&amp;Operate</source>
         <translation>&amp;Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="560"/>
+        <location filename="app.cpp" line="561"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>CTRL+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="563"/>
+        <location filename="app.cpp" line="564"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="564"/>
+        <location filename="app.cpp" line="565"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>CTRL+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="567"/>
+        <location filename="app.cpp" line="568"/>
         <source>Address Tool</source>
         <translation>Pomocník adresace</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="570"/>
+        <location filename="app.cpp" line="571"/>
         <source>Toggle &amp;Blackout</source>
         <translation>Režim &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="575"/>
+        <location filename="app.cpp" line="576"/>
         <source>Live edit a function</source>
         <translation>Live editace funkce</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="579"/>
+        <location filename="app.cpp" line="580"/>
         <source>Dump DMX values to a function</source>
         <translation>Zachytit DMX hodnoty do funkce</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="580"/>
+        <location filename="app.cpp" line="581"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="583"/>
+        <location filename="app.cpp" line="584"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="588"/>
+        <location filename="app.cpp" line="589"/>
         <source>Fade 1 second and stop</source>
         <translation>Zeslabení 1 sekundu a poté zastavit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="593"/>
+        <location filename="app.cpp" line="594"/>
         <source>Fade 5 seconds and stop</source>
         <translation>Zeslabení 5 sekund a poté zastavit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="598"/>
+        <location filename="app.cpp" line="599"/>
         <source>Fade 10 second and stop</source>
         <translation>Zeslabení 10 sekund a poté zastavit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="603"/>
+        <location filename="app.cpp" line="604"/>
         <source>Fade 30 second and stop</source>
         <translation>Zeslabení 30 sekund a poté zastavit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
+        <location filename="app.cpp" line="611"/>
         <source>Toggle Full Screen</source>
         <translation>Přepnout na celou obrazovku</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="612"/>
+        <location filename="app.cpp" line="613"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>CTRL+F11</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="616"/>
+        <location filename="app.cpp" line="617"/>
         <source>&amp;Index</source>
         <translation>&amp;Index</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="617"/>
+        <location filename="app.cpp" line="618"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="620"/>
+        <location filename="app.cpp" line="621"/>
         <source>&amp;About QLC+</source>
         <translation>&amp;O programu QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="626"/>
+        <location filename="app.cpp" line="627"/>
         <source>Workspace</source>
         <translation>Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="681"/>
+        <location filename="app.cpp" line="682"/>
         <source>Unable to read from file</source>
         <translation>Ze souboru nelze číst</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="684"/>
+        <location filename="app.cpp" line="685"/>
         <source>Unable to write to file</source>
         <translation>Do souboru nelze zapisovat</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
+        <location filename="app.cpp" line="688"/>
         <source>A fatal error occurred</source>
         <translation>Nastala kritická chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="690"/>
+        <location filename="app.cpp" line="691"/>
         <source>Unable to access resource</source>
         <translation>K tomuto zdroji se nepodařilo získat přístup</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="693"/>
+        <location filename="app.cpp" line="694"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Nelze otevřít soubor pro čtení nebo zápis</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="696"/>
+        <location filename="app.cpp" line="697"/>
         <source>Operation was aborted</source>
         <translation>Operace byla zrušena</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="699"/>
+        <location filename="app.cpp" line="700"/>
         <source>Operation timed out</source>
         <translation>Časový limit operace vypršel</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="703"/>
+        <location filename="app.cpp" line="704"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>No, nastala neočekávaná chyba. Co dodat, mrzí nás to.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="707"/>
+        <location filename="app.cpp" line="708"/>
         <source>File error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="801"/>
-        <location filename="app.cpp" line="817"/>
-        <location filename="app.cpp" line="1087"/>
+        <location filename="app.cpp" line="802"/>
+        <location filename="app.cpp" line="818"/>
+        <location filename="app.cpp" line="1088"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Přejete si uložit rozdělanou práci?
 Veškeré změny budou zahozeny, pokud je teď neuložíte.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="803"/>
+        <location filename="app.cpp" line="804"/>
         <source>New Workspace</source>
         <translation>Nové Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="819"/>
-        <location filename="app.cpp" line="827"/>
-        <location filename="app.cpp" line="1089"/>
+        <location filename="app.cpp" line="820"/>
+        <location filename="app.cpp" line="828"/>
+        <location filename="app.cpp" line="1090"/>
         <source>Open Workspace</source>
         <translation>Otevřít Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="835"/>
-        <location filename="app.cpp" line="912"/>
+        <location filename="app.cpp" line="836"/>
+        <location filename="app.cpp" line="913"/>
         <source>Workspaces (*%1)</source>
         <translation>Pracoviště (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="837"/>
-        <location filename="app.cpp" line="914"/>
+        <location filename="app.cpp" line="838"/>
+        <location filename="app.cpp" line="915"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="839"/>
-        <location filename="app.cpp" line="916"/>
+        <location filename="app.cpp" line="840"/>
+        <location filename="app.cpp" line="917"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="906"/>
+        <location filename="app.cpp" line="907"/>
         <source>Save Workspace As</source>
         <translation>Uložit Pracoviště jako</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1080"/>
+        <location filename="app.cpp" line="1081"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1081"/>
+        <location filename="app.cpp" line="1082"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>Soubor nebyl nalezen!
 Zvolený soubor byl asi smazán nebo přesunut.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1230"/>
+        <location filename="app.cpp" line="1231"/>
         <source>Warning</source>
         <translation>Výstraha</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1231"/>
+        <location filename="app.cpp" line="1232"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>Nastaly nejaké problémy při otevírání projektu:</translation>
     </message>
@@ -1027,24 +1027,8 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="130"/>
-        <source>Name: %1
-Start time: %2
-Duration: %3
-%4</source>
-        <translation>Název: %1
-Začátek: %2
-Délka: %3
-%4</translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="134"/>
-        <source>Click to move this audio across the timeline</source>
-        <translation>Klikněte pro přesunutí tohoto zvuku na časové ose</translation>
-    </message>
-    <message>
         <location filename="showmanager/audioitem.cpp" line="50"/>
-        <location filename="showmanager/audioitem.cpp" line="386"/>
+        <location filename="showmanager/audioitem.cpp" line="364"/>
         <source>Preview Left Channel</source>
         <translation>Ukázka levého kanálu</translation>
     </message>
@@ -1059,21 +1043,17 @@ Délka: %3
         <translation>Ukázka v režimu stereo</translation>
     </message>
     <message>
-        <source>Align to cursor</source>
-        <translation type="obsolete">Zarovnat ke kurzoru</translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="400"/>
+        <location filename="showmanager/audioitem.cpp" line="378"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="382"/>
+        <location filename="showmanager/audioitem.cpp" line="360"/>
         <source>Preview Mono</source>
         <translation>Ukázka v režimu mono</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="395"/>
+        <location filename="showmanager/audioitem.cpp" line="373"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2152,6 +2132,19 @@ Délka: %3
         <location filename="efxeditor.cpp" line="713"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
+    </message>
+</context>
+<context>
+    <name>EFXItem</name>
+    <message>
+        <location filename="showmanager/efxitem.cpp" line="128"/>
+        <source>Unlock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/efxitem.cpp" line="133"/>
+        <source>Lock item</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3744,58 +3737,29 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <name>MultiTrackView</name>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="319"/>
-        <source>Do you want to DELETE sequence:</source>
-        <translation>Opravdu si přejete SMAZAT sekvenci: </translation>
+        <source>Do you want to DELETE item:</source>
+        <oldsource>Do you want to DELETE sequence:</oldsource>
+        <translation type="unfinished">Opravdu si přejete SMAZAT sekvenci: </translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
-        <location filename="showmanager/multitrackview.cpp" line="342"/>
-        <location filename="showmanager/multitrackview.cpp" line="364"/>
-        <location filename="showmanager/multitrackview.cpp" line="399"/>
         <source>Delete Functions</source>
         <translation>Smazat funkce</translation>
     </message>
     <message>
-        <location filename="showmanager/multitrackview.cpp" line="338"/>
-        <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
-        <translation>Přejete si SMAZAT zvuk (zdrojový soubor NEBUDE odebrán):</translation>
+        <location filename="showmanager/multitrackview.cpp" line="354"/>
+        <source>Delete Track</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/multitrackview.cpp" line="360"/>
-        <source>Do you want to DELETE video (the source file will NOT be removed):</source>
-        <translation>Přejete si SMAZAT video (zdrojový soubor NEBUDE odebrán):</translation>
-    </message>
-    <message>
-        <location filename="showmanager/multitrackview.cpp" line="386"/>
+        <location filename="showmanager/multitrackview.cpp" line="342"/>
         <source>Do you want to DELETE track:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/multitrackview.cpp" line="389"/>
+        <location filename="showmanager/multitrackview.cpp" line="345"/>
         <source>This operation will also DELETE:</source>
         <translation>Tato operace také VYMAŽE:</translation>
-    </message>
-    <message>
-        <source>Name: %1
-Start time: %2
-Duration: %3
-%4</source>
-        <translation type="obsolete">Název: %1
-Začátek: %2
-Délka: %3
-%4</translation>
-    </message>
-    <message>
-        <source>Click to move this sequence across the timeline</source>
-        <translation type="obsolete">Klikněte pro přesunutí této sekvence na časové ose</translation>
-    </message>
-    <message>
-        <source>Click to move this audio across the timeline</source>
-        <translation type="obsolete">Klikněte pro přesunutí tohoto zvuku na časové ose</translation>
-    </message>
-    <message>
-        <source>Click to move this video across the timeline</source>
-        <translation type="obsolete">Klikněte pro přesunutí tohoto videa na časové ose</translation>
     </message>
 </context>
 <context>
@@ -4234,23 +4198,36 @@ Délka: %3
         <translation>Otestovat běh</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="257"/>
+        <location filename="rgbmatrixeditor.cpp" line="258"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="353"/>
+        <location filename="rgbmatrixeditor.cpp" line="358"/>
         <source>No fixture group to control</source>
         <translation>Žádná skupina zařízení k ovládání</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="646"/>
+        <location filename="rgbmatrixeditor.cpp" line="651"/>
         <source>Select image</source>
         <translation>Volba obrázku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="648"/>
+        <location filename="rgbmatrixeditor.cpp" line="653"/>
         <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RGBMatrixItem</name>
+    <message>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="128"/>
+        <source>Unlock item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="133"/>
+        <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4522,32 +4499,12 @@ Délka: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="145"/>
-        <source>Name: %1
-Start time: %2
-Duration: %3
-%4</source>
-        <translation>Název: %1
-Začátek: %2
-Délka: %3
-%4</translation>
-    </message>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="149"/>
-        <source>Click to move this sequence across the timeline</source>
-        <translation>Klikněte pro přesunutí této sekvence na časové ose</translation>
-    </message>
-    <message>
-        <source>Align to cursor</source>
-        <translation type="obsolete">Zarovnat ke kurzoru</translation>
-    </message>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="204"/>
+        <location filename="showmanager/sequenceitem.cpp" line="180"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="199"/>
+        <location filename="showmanager/sequenceitem.cpp" line="175"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4603,18 +4560,34 @@ Délka: %3
 <context>
     <name>ShowItem</name>
     <message>
-        <location filename="showmanager/showitem.cpp" line="49"/>
+        <location filename="showmanager/showitem.cpp" line="53"/>
         <source>Align to cursor</source>
         <translation type="unfinished">Zarovnat ke kurzoru</translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="52"/>
-        <location filename="showmanager/showitem.cpp" line="171"/>
+        <location filename="showmanager/showitem.cpp" line="56"/>
+        <location filename="showmanager/showitem.cpp" line="223"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="166"/>
+        <location filename="showmanager/showitem.cpp" line="66"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished">Název: %1
+Začátek: %2
+Délka: %3
+%4</translation>
+    </message>
+    <message>
+        <location filename="showmanager/showitem.cpp" line="70"/>
+        <source>Click to move this item across the timeline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/showitem.cpp" line="218"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4622,206 +4595,206 @@ Délka: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="183"/>
+        <location filename="showmanager/showmanager.cpp" line="194"/>
         <source>New s&amp;how</source>
         <translation>Nové Představeníí (CTRL+&amp;h)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="195"/>
+        <location filename="showmanager/showmanager.cpp" line="206"/>
         <source>New s&amp;equence</source>
         <translation>Nová Sekvence (CTRL+&amp;e)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="201"/>
+        <location filename="showmanager/showmanager.cpp" line="212"/>
         <source>New &amp;audio</source>
         <translation>Nový zvuk (CTRL+&amp;a)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="208"/>
+        <location filename="showmanager/showmanager.cpp" line="219"/>
         <source>New vi&amp;deo</source>
         <translation>Nové vi&amp;deo</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="215"/>
+        <location filename="showmanager/showmanager.cpp" line="226"/>
         <source>&amp;Copy</source>
         <translation>Kopírovat (CTRL+&amp;C)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="222"/>
+        <location filename="showmanager/showmanager.cpp" line="233"/>
         <source>&amp;Paste</source>
         <translation>Vložit (CTRL+&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="229"/>
+        <location filename="showmanager/showmanager.cpp" line="240"/>
         <source>&amp;Delete</source>
         <translation>Smazat (CTRL+&amp;D)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="236"/>
+        <location filename="showmanager/showmanager.cpp" line="247"/>
         <source>Change Co&amp;lor</source>
         <translation>Změnit Barvu (CTRL+&amp;L)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="250"/>
+        <location filename="showmanager/showmanager.cpp" line="261"/>
         <source>Snap to &amp;Grid</source>
         <translation>Přichytit k mřížce (CTRL+&amp;G)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="257"/>
+        <location filename="showmanager/showmanager.cpp" line="268"/>
         <source>St&amp;op</source>
         <translation>Zastavit (CTRL+&amp;O)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="263"/>
+        <location filename="showmanager/showmanager.cpp" line="274"/>
         <source>&amp;Play</source>
         <translation>Přehrát (CTRL+&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="323"/>
+        <location filename="showmanager/showmanager.cpp" line="334"/>
         <source>Time division:</source>
         <translation>Časový dělič:</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="328"/>
+        <location filename="showmanager/showmanager.cpp" line="339"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="541"/>
+        <location filename="showmanager/showmanager.cpp" line="539"/>
         <source>New Show</source>
         <translation>Nové Představení</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="542"/>
+        <location filename="showmanager/showmanager.cpp" line="540"/>
         <source>Show name setup</source>
         <translation>Nastavení názvu představení</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="543"/>
+        <location filename="showmanager/showmanager.cpp" line="541"/>
         <source>Show name:</source>
         <translation>Název představení:</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="189"/>
+        <location filename="showmanager/showmanager.cpp" line="200"/>
         <source>Add a &amp;track or an existing function</source>
         <translation>Přidat S&amp;topu nebo existující funkci</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="243"/>
+        <location filename="showmanager/showmanager.cpp" line="254"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="654"/>
-        <location filename="showmanager/showmanager.cpp" line="745"/>
+        <location filename="showmanager/showmanager.cpp" line="658"/>
+        <location filename="showmanager/showmanager.cpp" line="772"/>
         <source> (Copy)</source>
         <translation>(Kopie)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="703"/>
+        <location filename="showmanager/showmanager.cpp" line="731"/>
         <source>Track %1</source>
         <translation>Stopa %1</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="728"/>
-        <location filename="showmanager/showmanager.cpp" line="808"/>
+        <location filename="showmanager/showmanager.cpp" line="756"/>
+        <location filename="showmanager/showmanager.cpp" line="845"/>
         <source>New Sequence</source>
         <translation>Nová Sekvence</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="787"/>
-        <location filename="showmanager/showmanager.cpp" line="864"/>
-        <location filename="showmanager/showmanager.cpp" line="924"/>
+        <location filename="showmanager/showmanager.cpp" line="824"/>
+        <location filename="showmanager/showmanager.cpp" line="900"/>
+        <location filename="showmanager/showmanager.cpp" line="959"/>
         <source>Overlapping error</source>
         <translation>Chyba překrývání</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="787"/>
-        <location filename="showmanager/showmanager.cpp" line="864"/>
-        <location filename="showmanager/showmanager.cpp" line="924"/>
+        <location filename="showmanager/showmanager.cpp" line="824"/>
+        <location filename="showmanager/showmanager.cpp" line="900"/>
+        <location filename="showmanager/showmanager.cpp" line="959"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="796"/>
+        <location filename="showmanager/showmanager.cpp" line="833"/>
         <source>Scene for %1 - Track %2</source>
         <translation>Scéna pro %1 - Stopa %2</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="822"/>
+        <location filename="showmanager/showmanager.cpp" line="858"/>
         <source>Open Audio File</source>
         <translation>Otevřít soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="831"/>
+        <location filename="showmanager/showmanager.cpp" line="867"/>
         <source>Audio Files (%1)</source>
         <translation>Zvukové soubory (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="833"/>
-        <location filename="showmanager/showmanager.cpp" line="893"/>
+        <location filename="showmanager/showmanager.cpp" line="869"/>
+        <location filename="showmanager/showmanager.cpp" line="928"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="835"/>
-        <location filename="showmanager/showmanager.cpp" line="895"/>
+        <location filename="showmanager/showmanager.cpp" line="871"/>
+        <location filename="showmanager/showmanager.cpp" line="930"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="857"/>
+        <location filename="showmanager/showmanager.cpp" line="893"/>
         <source>Unsupported audio file</source>
         <translation>Nepodporovaný soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="857"/>
+        <location filename="showmanager/showmanager.cpp" line="893"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor zvuku nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="882"/>
+        <location filename="showmanager/showmanager.cpp" line="917"/>
         <source>Open Video File</source>
         <translation>Otevřít soubor videa</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="891"/>
+        <location filename="showmanager/showmanager.cpp" line="926"/>
         <source>Video Files (%1)</source>
         <translation>Video soubory (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="917"/>
+        <location filename="showmanager/showmanager.cpp" line="952"/>
         <source>Unsupported video file</source>
         <translation>Nepodporovaný soubor videa</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="917"/>
+        <location filename="showmanager/showmanager.cpp" line="952"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor videa nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1000"/>
-        <location filename="showmanager/showmanager.cpp" line="1022"/>
+        <location filename="showmanager/showmanager.cpp" line="1003"/>
+        <location filename="showmanager/showmanager.cpp" line="1025"/>
         <source>Paste error</source>
         <translation>Chyba vložení</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1000"/>
+        <location filename="showmanager/showmanager.cpp" line="1003"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1022"/>
+        <location filename="showmanager/showmanager.cpp" line="1025"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Pokoušíte se vložit nekompatibilní Scénu. Operace byla zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1320"/>
+        <location filename="showmanager/showmanager.cpp" line="1308"/>
         <source>Track name setup</source>
         <translation>Nastavená názvu stopy</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1321"/>
+        <location filename="showmanager/showmanager.cpp" line="1309"/>
         <source>Track name:</source>
         <translation>Název stopy:</translation>
     </message>
@@ -5091,17 +5064,17 @@ Délka: %3
         <translation>Obrázky (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="511"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="517"/>
         <source>Toggle Blackout</source>
         <translation>Režim Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="513"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="519"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="739"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
         <source>Icon</source>
         <translation>Ikona</translation>
     </message>
@@ -5119,37 +5092,37 @@ Délka: %3
         <translation>Atributy</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="355"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="362"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
         <source>Button label</source>
         <translation>Popisek tlačítka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
         <source>Text to display on the button</source>
         <translation>Text, který se má zobrazit na tlačítku</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="389"/>
         <source>The function that this button controls</source>
         <translation>Funkce kterou ovládá toto tlačítko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="392"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="399"/>
         <source>Attach a function to this button</source>
         <translation>Přiřadit funkci k tomuto tlačítku</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="412"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="419"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Odebrat přiřazenou funkci z tlačítka</translation>
     </message>
@@ -5174,17 +5147,17 @@ Délka: %3
         <translation>Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="277"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="284"/>
         <source>External Input</source>
         <translation>Externí vstup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="283"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="323"/>
         <source>Input Universe</source>
         <translation>Větev vstupu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="342"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
         <source>The input universe that sends data to this widget</source>
         <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
@@ -5194,7 +5167,7 @@ Délka: %3
         <translation>Vstupní kanál</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="332"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
     </message>
@@ -5209,12 +5182,12 @@ Délka: %3
         <translation>Zvolit...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="340"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
         <translation>Je-li aktivní, bude dostupná volba  externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="316"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="343"/>
         <source>Auto Detect</source>
         <translation>Automaticky detekovat</translation>
     </message>
@@ -5317,22 +5290,22 @@ Délka: %3
         <translation>s</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="80"/>
         <source>Clock</source>
         <translation>Hodiny</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="87"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="93"/>
         <source>Schedule</source>
         <translation>Naplánované funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="153"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="159"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="158"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="164"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
@@ -5370,22 +5343,22 @@ Délka: %3
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="971"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="971"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="971"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="971"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -5632,7 +5605,7 @@ Délka: %3
         <translation>Strana: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1156"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1159"/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
@@ -6421,17 +6394,17 @@ Délka: %3
         <translation>Přepnout do režimu submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="683"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="684"/>
         <source>Select channels by group</source>
         <translation>Zvolit kanály podle skupiny</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="684"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="685"/>
         <source>Select a channel group</source>
         <translation>Zvolist skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="736"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="737"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>
@@ -6467,122 +6440,122 @@ Délka: %3
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="80"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="79"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="85"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In *</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="88"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out *</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="96"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration * (+tap)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="104"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="112"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="111"/>
         <source>Add functions to be controlled</source>
         <translation>Přidat funkci, která má být ovládána rychlou volbou</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="129"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="128"/>
         <source>Remove selected functions</source>
         <translation>Odebrat zvolenou funkci</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="160"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="159"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="166"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="165"/>
         <source>Absolute Value</source>
         <translation>Absolutní hodnota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="172"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="171"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="258"/>
         <source>Input Universe</source>
         <translation>Větev vstupu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="186"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="269"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="185"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="268"/>
         <source>Input Channel</source>
         <translation>Kanál vstupu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="200"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="279"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="199"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="278"/>
         <source>Auto Detect</source>
         <translation>Automaticky detekovat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="210"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="289"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="209"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="288"/>
         <source>Choose...</source>
         <translation>Zvolit...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="217"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="216"/>
         <source>Range</source>
         <translation>Rozsah</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="224"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="223"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="230"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="247"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
         <source>Tap</source>
         <translation>Klepnutí/TAP</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="253"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
         <source>External Input</source>
         <translation>Externí vstup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="299"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="298"/>
         <source>Key combination</source>
         <translation>Kombinace kláves</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="305"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="304"/>
         <source>Keyboard combination to control the dial tap</source>
         <translation>Kombinace kláves pro ťuknutí (TAP)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="315"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
         <source>Set a key combination for this dial</source>
         <translation>Nastavit kombinaci kláves pro ovládání ťuknutí (TAP)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="335"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="334"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Odebrat zkratkovou klávesu</translation>
     </message>
@@ -6931,42 +6904,22 @@ Délka: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="108"/>
-        <source>Name: %1
-Start time: %2
-Duration: %3
-%4</source>
-        <translation>Název: %1
-Začátek: %2
-Délka: %3
-%4</translation>
-    </message>
-    <message>
-        <location filename="showmanager/videoitem.cpp" line="112"/>
-        <source>Click to move this video across the timeline</source>
-        <translation>Klikněte pro přesunutí tohoto videa na časové ose</translation>
-    </message>
-    <message>
         <location filename="showmanager/videoitem.cpp" line="43"/>
         <source>Fullscreen</source>
         <translation>Celá obrazovka</translation>
     </message>
     <message>
-        <source>Align to cursor</source>
-        <translation type="obsolete">Zarovnat ke kurzoru</translation>
-    </message>
-    <message>
-        <location filename="showmanager/videoitem.cpp" line="190"/>
+        <location filename="showmanager/videoitem.cpp" line="168"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="171"/>
+        <location filename="showmanager/videoitem.cpp" line="149"/>
         <source>Screen %1</source>
         <translation>Obrazovka %1</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="185"/>
+        <location filename="showmanager/videoitem.cpp" line="163"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>

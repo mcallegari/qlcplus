@@ -49,41 +49,41 @@
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="97"/>
+        <location filename="oscplugin.cpp" line="102"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Dieses Plugin bietet Eingabunterstützung für Geräte mit dem OSC-Protokoll.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="183"/>
-        <location filename="oscplugin.cpp" line="283"/>
+        <location filename="oscplugin.cpp" line="188"/>
+        <location filename="oscplugin.cpp" line="288"/>
         <source>OSC Network</source>
         <translation>OSC-Netzwerk</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="194"/>
+        <location filename="oscplugin.cpp" line="199"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="197"/>
-        <location filename="oscplugin.cpp" line="297"/>
+        <location filename="oscplugin.cpp" line="202"/>
+        <location filename="oscplugin.cpp" line="302"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
         <translation>Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="200"/>
+        <location filename="oscplugin.cpp" line="205"/>
         <source>Address: </source>
         <translation>Adresse:</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="203"/>
-        <location filename="oscplugin.cpp" line="300"/>
+        <location filename="oscplugin.cpp" line="208"/>
+        <location filename="oscplugin.cpp" line="305"/>
         <source>Status: Ready</source>
         <translation>Status: Bereit</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="294"/>
+        <location filename="oscplugin.cpp" line="299"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
