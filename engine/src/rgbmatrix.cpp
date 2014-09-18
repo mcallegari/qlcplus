@@ -520,8 +520,20 @@ void RGBMatrix::roundCheck(const QSize& size)
             if (m_step >= m_algorithm->rgbMapStepCount(size) - 1)
                 stop();
             else
+            {
                 m_step++;
-            updateStepColor(m_direction);
+                updateStepColor(m_direction);
+            }
+        }
+        else
+        {
+            if (m_step <= 0)
+                stop();
+            else
+            {
+                m_step--;
+                updateStepColor(m_direction);
+            }
         }
     }
     else
