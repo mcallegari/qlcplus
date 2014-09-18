@@ -31,6 +31,7 @@
 #include "headeritems.h"
 #include "trackitem.h"
 #include "audioitem.h"
+#include "efxitem.h"
 #if QT_VERSION >= 0x050000
 #include "videoitem.h"
 #endif
@@ -75,6 +76,9 @@ public:
 
     /** Add a new RGB Matrix item to the given track */
     void addRGBMatrix(RGBMatrix *rgbm, Track *track = NULL, ShowFunction *sf = NULL);
+
+    /** Add a new EFX item to the given track */
+    void addEFX(EFX *efx, Track *track = NULL, ShowFunction *sf = NULL);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     /** Add a new video item to the given track */

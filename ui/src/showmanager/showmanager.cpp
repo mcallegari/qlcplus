@@ -38,6 +38,7 @@
 #include "multitrackview.h"
 #include "chasereditor.h"
 #include "audioeditor.h"
+#include "efxeditor.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "videoeditor.h"
 #endif
@@ -501,13 +502,17 @@ void ShowManager::showRightEditor(Function *function)
                     this, SLOT(slotStepSelectionChanged(int)));
         }
     }
+    else if (function->type() == Function::Audio)
+    {
+        m_currentEditor = new AudioEditor(m_vsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
+    }
     else if (function->type() == Function::RGBMatrix)
     {
         m_currentEditor = new RGBMatrixEditor(m_vsplitter->widget(1), qobject_cast<RGBMatrix*> (function), m_doc);
     }
-    else if (function->type() == Function::Audio)
+    else if (function->type() == Function::EFX)
     {
-        m_currentEditor = new AudioEditor(m_vsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
+        m_currentEditor = new EFXEditor(m_vsplitter->widget(1), qobject_cast<EFX*> (function), m_doc);
     }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (function->type() == Function::Video)
@@ -584,9 +589,9 @@ void ShowManager::slotAddItem()
     //fs.setDisabledFunctions(disabledIDs);
     fs.showSequences(true);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Audio | Function::RGBMatrix);
+    fs.setFilter(Function::Scene | Function::Audio | Function::RGBMatrix | Function::EFX);
     fs.disableFilters(Function::Show | Function::Script | Function::Collection |
-                      Function::Chaser | Function::EFX);
+                      Function::Chaser);
     fs.showNewTrack(true);
 
     if (fs.exec() == QDialog::Accepted)
@@ -597,7 +602,7 @@ void ShowManager::slotAddItem()
         quint32 selectedID = ids.first();
 
         /**
-         * Here there are 6 cases:
+         * Here there are 7 cases:
          * 1) a new empty track
          * 2) an existing scene: create a new track with a 10 seconds Sequence
          * 3) an existing sequence
@@ -606,12 +611,15 @@ void ShowManager::slotAddItem()
          * 4- an existing audio:
          *    4.1) append to the selected track
          *    4.2) create a new track
-         * 5- an existing video:
+         * 5- an existing RGB Matrix:
          *    5.1) append to the selected track
          *    5.2) create a new track
-         * 6- an existing RGB Matrix:
-         *    5.1) append to the selected track
-         *    5.2) create a new track
+         * 6- an existing EFX:
+         *    6.1) append to the selected track
+         *    6.2) create a new track
+         * 7- an existing video:
+         *    7.1) append to the selected track
+         *    7.2) create a new track
          **/
 
         bool createTrack = false;
@@ -676,10 +684,22 @@ void ShowManager::slotAddItem()
             }
             else if (selectedFunc->type() == Function::RGBMatrix)
             {
-                /** 6.1) add RGB Matrix to the currently selected track */
+                /** 5.1) add RGB Matrix to the currently selected track */
                 if (m_currentTrack != NULL)
                 {
                     m_showview->addRGBMatrix(qobject_cast<RGBMatrix*>(selectedFunc), m_currentTrack);
+                    m_doc->setModified();
+                    return;
+                }
+                /** 5.2) It is necessary to create a new track */
+                createTrack = true;
+            }
+            else if (selectedFunc->type() == Function::EFX)
+            {
+                /** 6.1) add EFX to the currently selected track */
+                if (m_currentTrack != NULL)
+                {
+                    m_showview->addEFX(qobject_cast<EFX*>(selectedFunc), m_currentTrack);
                     m_doc->setModified();
                     return;
                 }
@@ -689,14 +709,14 @@ void ShowManager::slotAddItem()
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
             else if (selectedFunc->type() == Function::Video)
             {
-                /** 5.1) add video to the currently selected track */
+                /** 7.1) add video to the currently selected track */
                 if (m_currentTrack != NULL)
                 {
                     m_showview->addVideo(qobject_cast<Video*>(selectedFunc), m_currentTrack);
                     m_doc->setModified();
                     return;
                 }
-                /** 5.2) It is necessary to create a new track */
+                /** 7.2) It is necessary to create a new track */
                 createTrack = true;
             }
 #endif
@@ -764,14 +784,20 @@ void ShowManager::slotAddItem()
             }
             else if (selectedFunc->type() == Function::RGBMatrix)
             {
-                /** 6.2) add RGBMatrix to the new track */
+                /** 5.2) add RGBMatrix to the new track */
                 RGBMatrix *rgbm = qobject_cast<RGBMatrix*> (selectedFunc);
                 m_showview->addRGBMatrix(rgbm, m_currentTrack);
+            }
+            else if (selectedFunc->type() == Function::EFX)
+            {
+                /** 6.2) add EFX to the new track */
+                EFX *efx = qobject_cast<EFX*> (selectedFunc);
+                m_showview->addEFX(efx, m_currentTrack);
             }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
             else if (selectedFunc->type() == Function::Video)
             {
-                /** 5.2) add video to the new track */
+                /** 7.2) add video to the new track */
                 Video *video = qobject_cast<Video*> (selectedFunc);
                 m_showview->addVideo(video, m_currentTrack);
             }
@@ -1033,6 +1059,16 @@ void ShowManager::slotPaste()
             }
             RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(newCopy);
             m_showview->addRGBMatrix(rgbm, m_currentTrack);
+        }
+        else if (clipboardCopy->type() == Function::EFX)
+        {
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
+                return;
+            }
+            EFX *efx = qobject_cast<EFX*>(newCopy);
+            m_showview->addEFX(efx, m_currentTrack);
         }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         else if (clipboardCopy->type() == Function::Video)
@@ -1550,6 +1586,11 @@ void ShowManager::updateMultiTrackView()
                 {
                     RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(fn);
                     m_showview->addRGBMatrix(rgbm, track, sf);
+                }
+                else if (fn->type() == Function::EFX)
+                {
+                    EFX *efx = qobject_cast<EFX*>(fn);
+                    m_showview->addEFX(efx, track, sf);
                 }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                 else if (fn->type() == Function::Video)

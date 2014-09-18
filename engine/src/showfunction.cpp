@@ -92,6 +92,9 @@ QColor ShowFunction::defaultColor(Function::Type type)
         case Function::RGBMatrix:
             return QColor(101, 155, 155);
         break;
+        case Function::EFX:
+            return QColor(128, 60, 60);
+        break;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         case Function::Video:
             return QColor(147, 140, 20);

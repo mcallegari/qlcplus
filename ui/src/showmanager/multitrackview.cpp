@@ -273,6 +273,24 @@ void MultiTrackView::addRGBMatrix(RGBMatrix *rgbm, Track *track, ShowFunction *s
     setItemCommonProperties(item, func, trackNum);
 }
 
+void MultiTrackView::addEFX(EFX *efx, Track *track, ShowFunction *sf)
+{
+    if (m_tracks.isEmpty())
+        return;
+
+    int trackNum = getTrackIndex(track);
+
+    if (track == NULL)
+        track = m_tracks.at(trackNum)->getTrack();
+
+    ShowFunction *func = sf;
+    if (func == NULL)
+        func = track->createShowFunction(efx->id());
+
+    EFXItem *item = new EFXItem(efx, func);
+    setItemCommonProperties(item, func, trackNum);
+}
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 void MultiTrackView::addVideo(Video *video, Track *track, ShowFunction *sf)
 {
