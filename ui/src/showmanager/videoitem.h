@@ -51,13 +51,13 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
+    void setDuration(quint32 msec);
+
+    /** @reimp */
     QString functionName();
 
     /** Return a pointer to a Video Function associated to this item */
     Video *getVideo();
-
-public slots:
-    void updateDuration();
 
 protected:
     /** @reimp */

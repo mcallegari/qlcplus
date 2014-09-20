@@ -78,6 +78,11 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             connect(f, SIGNAL(stopped(quint32)),
                     this, SLOT(slotFunctionStopped(quint32)));
 
+            // Create a map of the functions that need to be stopped
+            // otherwise they would play endlessly
+            if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+                m_stopTimeMap[f->id()] = sfunc->startTime() + sfunc->duration();
+
             if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
                 m_totalRunTime = sfunc->startTime() + sfunc->duration();
         }
@@ -88,7 +93,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 
     qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
-#if 0
+#if 1
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
         qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();
@@ -160,6 +165,19 @@ void ShowRunner::write()
             m_currentFunctionIndex++;
         }
     }
+
+    // check if we need to stop some "endless" Functions
+    m_runningQueueMutex.lock();
+    foreach(Function *f, m_runningQueue)
+    {
+        if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+        {
+            if (m_elapsedTime == m_stopTimeMap[f->id()])
+                f->stop();
+        }
+    }
+    m_runningQueueMutex.unlock();
+
     // end of the show
     if (m_elapsedTime >= m_totalRunTime)
     {

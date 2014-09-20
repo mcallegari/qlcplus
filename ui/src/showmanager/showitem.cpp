@@ -97,6 +97,22 @@ quint32 ShowItem::getStartTime()
     return 0;
 }
 
+void ShowItem::setDuration(quint32 msec)
+{
+    if (m_function == NULL)
+        return;
+
+    m_function->setDuration(msec);
+    updateTooltip();
+}
+
+quint32 ShowItem::getDuration()
+{
+    if (m_function)
+        return m_function->duration();
+    return 0;
+}
+
 void ShowItem::setWidth(int w)
 {
     m_width = w;

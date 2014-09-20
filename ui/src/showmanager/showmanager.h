@@ -129,6 +129,7 @@ private:
     QAction* m_deleteAction;
     QAction* m_colorAction;
     QAction* m_lockAction;
+    QAction* m_timingsAction;
     QAction* m_snapGridAction;
     QAction* m_stopAction;
     QAction* m_playAction;
@@ -182,6 +183,9 @@ protected slots:
     void slotTrackDelete(Track *track);
     void slotChangeColor();
     void slotChangeLock();
+    void slotShowTimingsTool();
+    void slotShowItemStartTimeChanged(ShowItem *item, int msec);
+    void slotShowItemDurationChanged(ShowItem *item, int msec);
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);
     void slotStepSelectionChanged(int index);

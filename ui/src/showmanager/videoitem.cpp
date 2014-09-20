@@ -54,11 +54,7 @@ void VideoItem::calculateWidth()
     qint64 video_duration = m_video->totalDuration();
 
     if (video_duration != 0)
-    {
         newWidth = ((50/(float)getTimeScale()) * (float)video_duration) / 1000;
-        if (m_function)
-            m_function->setDuration(video_duration);
-    }
     else
         newWidth = 100;
 
@@ -90,17 +86,16 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     ShowItem::postPaint(painter);
 }
 
-void VideoItem::updateDuration()
-{
-    setStartTime(m_video->getStartTime());
-    prepareGeometryChange();
-    calculateWidth();
-}
-
 void VideoItem::setTimeScale(int val)
 {
     ShowItem::setTimeScale(val);
     calculateWidth();
+}
+
+void VideoItem::setDuration(quint32 msec)
+{
+    Q_UNUSED(msec)
+    // nothing to do
 }
 
 QString VideoItem::functionName()
@@ -119,6 +114,8 @@ void VideoItem::slotVideoChanged(quint32)
 {
     prepareGeometryChange();
     calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_video->totalDuration());
 }
 
 void VideoItem::slotScreenChanged()

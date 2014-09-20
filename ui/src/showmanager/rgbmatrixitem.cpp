@@ -49,11 +49,7 @@ void RGBMatrixItem::calculateWidth()
     qint64 matrix_duration = m_matrix->totalDuration();
 
     if (matrix_duration != 0)
-    {
         newWidth = ((50/(float)getTimeScale()) * (float)matrix_duration) / 1000;
-        if (m_function)
-            m_function->setDuration(matrix_duration);
-    }
     else
         newWidth = 100;
 
@@ -74,16 +70,15 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     ShowItem::postPaint(painter);
 }
 
-void RGBMatrixItem::updateDuration()
-{
-    prepareGeometryChange();
-    calculateWidth();
-}
-
 void RGBMatrixItem::setTimeScale(int val)
 {
     ShowItem::setTimeScale(val);
     calculateWidth();
+}
+
+void RGBMatrixItem::setDuration(quint32 msec)
+{
+    m_matrix->setTotalDuration(msec);
 }
 
 QString RGBMatrixItem::functionName()
@@ -102,6 +97,9 @@ void RGBMatrixItem::slotRGBMatrixChanged(quint32)
 {
     prepareGeometryChange();
     calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_matrix->totalDuration());
+    updateTooltip();
 }
 
 

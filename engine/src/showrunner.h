@@ -69,6 +69,8 @@ private:
     QList <Function *> m_runningQueue;
     QMutex m_runningQueueMutex;
 
+    QMap <quint32, quint32> m_stopTimeMap;
+
     /** Current step being played */
     int m_currentFunctionIndex;
 

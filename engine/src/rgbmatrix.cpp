@@ -73,6 +73,20 @@ RGBMatrix::~RGBMatrix()
     m_roundTime = NULL;
 }
 
+void RGBMatrix::setTotalDuration(quint32 msec)
+{
+    if (m_fixtureGroupID == FixtureGroup::invalidId() ||
+        m_algorithm == NULL)
+            return;
+
+    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    if (grp != NULL)
+    {
+        int steps = m_algorithm->rgbMapStepCount(grp->size());
+        setDuration(msec / steps);
+    }
+}
+
 quint32 RGBMatrix::totalDuration()
 {
     if (m_fixtureGroupID == FixtureGroup::invalidId() ||

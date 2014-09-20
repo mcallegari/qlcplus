@@ -28,11 +28,15 @@
 #include "speeddial.h"
 #include "apputil.h"
 
+#define WINDOW_FLAGS Qt::WindowFlags( \
+    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | \
+     Qt::WindowStaysOnTopHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
+
 #define SETTINGS_GEOMETRY "speeddialwidget/geometry"
 #define SETTINGS_DIRECTION "speeddialwidget/direction"
 
-SpeedDialWidget::SpeedDialWidget(QWidget* parent, Qt::WindowFlags flags)
-    : QWidget(parent, flags)
+SpeedDialWidget::SpeedDialWidget(QWidget* parent)
+    : QWidget(parent)
     , m_fadeIn(NULL)
     , m_fadeOut(NULL)
     , m_hold(NULL)
@@ -42,6 +46,8 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent, Qt::WindowFlags flags)
     QSettings settings;
     QVariant var;
     QBoxLayout* lay = NULL;
+
+    setWindowFlags(WINDOW_FLAGS);
 
     /* Layout with customizable direction */
     var = settings.value(SETTINGS_DIRECTION);

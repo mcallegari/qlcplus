@@ -52,13 +52,13 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
+    void setDuration(quint32 msec);
+
+    /** @reimp */
     QString functionName();
 
     /** Return a pointer to a EFX Function associated to this item */
     EFX *getEFX();
-
-public slots:
-    void updateDuration();
 
 protected:
     /** @reimp */

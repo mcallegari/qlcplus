@@ -52,13 +52,13 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
+    void setDuration(quint32 msec);
+
+    /** @reimp */
     QString functionName();
 
     /** Return a pointer to a RGBMatrix Function associated to this item */
     RGBMatrix *getRGBMatrix();
-
-public slots:
-    void updateDuration();
 
 protected:
     /** @reimp */

@@ -80,19 +80,34 @@ public:
     virtual int getTimeScale();
 
     /**
-     * @brief setStartTime pure virtual method to set the item start time and
-     * to update the item's tooltip
+     * @brief setStartTime virtual method to set the item start time.
+     *        This method doesn't update the item graphic position, so
+     *        Show Manager is in charge of doing that
      *
      * @param time the start time in milliseconds
      */
     virtual void setStartTime(quint32 time);
 
     /**
-     * @brief getStartTime pure virtual method that returns the item start time
+     * @brief getStartTime virtual method that returns the item start time
      *
      * @return the item start time in milliseconds
      */
     virtual quint32 getStartTime();
+
+    /**
+     * @brief setDuration virtual method to set the item's total duration
+     *        A subclass should reimplement this and update the item's width
+     *
+     * @param msec the item duration in milliseconds
+     */
+    virtual void setDuration(quint32 msec);
+
+    /**
+     * @brief getDuration virtual method that returns the item total duration
+     * @return the item duration in milliseconds
+     */
+    virtual quint32 getDuration();
 
     /**
      * @brief setWidth set the item width for rendering

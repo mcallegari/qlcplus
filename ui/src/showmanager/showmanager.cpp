@@ -44,6 +44,7 @@
 #endif
 #include "showmanager.h"
 #include "sceneeditor.h"
+#include "timingstool.h"
 #include "qlcmacros.h"
 #include "chaser.h"
 
@@ -77,6 +78,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_deleteAction(NULL)
     , m_colorAction(NULL)
     , m_lockAction(NULL)
+    , m_timingsAction(NULL)
     , m_snapGridAction(NULL)
     , m_stopAction(NULL)
     , m_playAction(NULL)
@@ -198,7 +200,7 @@ void ShowManager::initActions()
 
     m_addTrackAction = new QAction(QIcon(":/edit_add.png"),
                                    tr("Add a &track or an existing function"), this);
-    m_addTrackAction->setShortcut(QKeySequence("CTRL+T"));
+    m_addTrackAction->setShortcut(QKeySequence("CTRL+N"));
     connect(m_addTrackAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddItem()));
 
@@ -257,6 +259,13 @@ void ShowManager::initActions()
             this, SLOT(slotChangeLock()));
     m_lockAction->setEnabled(false);
 
+    m_timingsAction = new QAction(QIcon(":/speed.png"),
+                                  tr("Timings tool"), this);
+    m_timingsAction->setShortcut(QKeySequence("CTRL+T"));
+    connect(m_timingsAction, SIGNAL(triggered()),
+            this, SLOT(slotShowTimingsTool()));
+    m_timingsAction->setEnabled(false);
+
     m_snapGridAction = new QAction(QIcon(":/grid.png"),
                                    tr("Snap to &Grid"), this);
     m_snapGridAction->setShortcut(QKeySequence("CTRL+G"));
@@ -308,6 +317,7 @@ void ShowManager::initToolbar()
 
     m_toolbar->addAction(m_colorAction);
     m_toolbar->addAction(m_lockAction);
+    m_toolbar->addAction(m_timingsAction);
     m_toolbar->addAction(m_snapGridAction);
     m_toolbar->addSeparator();
 
@@ -1189,6 +1199,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     m_colorAction->setEnabled(false);
     m_lockAction->setIcon(QIcon(":/lock.png"));
     m_lockAction->setEnabled(false);
+    m_timingsAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
 }
@@ -1248,6 +1259,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         m_lockAction->setIcon(QIcon(":/lock.png"));
     else
         m_lockAction->setIcon(QIcon(":/unlock.png"));
+    m_timingsAction->setEnabled(true);
 
     if (moved == true)
         m_doc->setModified();
@@ -1365,6 +1377,44 @@ void ShowManager::slotChangeLock()
             m_lockAction->setIcon(QIcon(":/lock.png"));
         item->setLocked(!item->isLocked());
     }
+}
+
+void ShowManager::slotShowTimingsTool()
+{
+    ShowItem *item = m_showview->getSelectedItem();
+
+    if (item == NULL)
+        return;
+
+    TimingsTool *tt = new TimingsTool(item, this);
+    tt->setAttribute(Qt::WA_DeleteOnClose);
+    tt->setWindowTitle(item->functionName());
+    connect(tt, SIGNAL(startTimeChanged(ShowItem*,int)),
+            this, SLOT(slotShowItemStartTimeChanged(ShowItem*,int)));
+    connect(tt, SIGNAL(durationChanged(ShowItem*,int)),
+            this, SLOT(slotShowItemDurationChanged(ShowItem*,int)));
+    tt->show();
+}
+
+void ShowManager::slotShowItemStartTimeChanged(ShowItem *item, int msec)
+{
+    if (item == NULL)
+        return;
+
+    item->setStartTime(msec);
+    item->setPos(m_showview->getPositionFromTime(msec), item->y());
+    m_doc->setModified();
+}
+
+void ShowManager::slotShowItemDurationChanged(ShowItem *item, int msec)
+{
+    Q_UNUSED(msec)
+
+    if (item == NULL)
+        return;
+
+    item->setDuration(msec);
+    m_doc->setModified();
 }
 
 void ShowManager::slotToggleSnapToGrid(bool enable)

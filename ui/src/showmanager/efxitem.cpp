@@ -49,11 +49,7 @@ void EFXItem::calculateWidth()
     qint64 efx_duration = m_efx->totalDuration();
 
     if (efx_duration != 0)
-    {
         newWidth = ((50/(float)getTimeScale()) * (float)efx_duration) / 1000;
-        if (m_function)
-            m_function->setDuration(efx_duration);
-    }
     else
         newWidth = 100;
 
@@ -74,16 +70,15 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     ShowItem::postPaint(painter);
 }
 
-void EFXItem::updateDuration()
-{
-    prepareGeometryChange();
-    calculateWidth();
-}
-
 void EFXItem::setTimeScale(int val)
 {
     ShowItem::setTimeScale(val);
     calculateWidth();
+}
+
+void EFXItem::setDuration(quint32 msec)
+{
+    m_efx->setDuration(msec);
 }
 
 QString EFXItem::functionName()
@@ -102,6 +97,9 @@ void EFXItem::slotEFXChanged(quint32)
 {
     prepareGeometryChange();
     calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_efx->totalDuration());
+    updateTooltip();
 }
 
 

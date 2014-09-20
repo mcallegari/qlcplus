@@ -136,8 +136,6 @@ public:
     /** Get time in milliseconds of the current cursor position */
     quint32 getTimeFromCursor();
 
-private:
-
     /** Return position in pixel of a given time (in msec) */
     quint32 getPositionFromTime(quint32 time);
 
