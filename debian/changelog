@@ -22,6 +22,7 @@ qlcplus (4.7.5) stable; urgency=low
   * New fixture: Clay Paky Sharpy
   * New fixture: ADJ Dekker LED (thanks to Chicken)
   * New fixture: Img Stage Line Parl 73-RGB (thanks to Lukakiro)
+  * New fixtures: Eurolite TSL-200, Velleman Beam Driver 250, Laserworld CS-1000RGB (thanks to Rob Nieuwenhuizen)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 
