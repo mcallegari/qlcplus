@@ -93,7 +93,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 
     qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
-#if 1
+#if 0
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
         qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();

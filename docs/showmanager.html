@@ -108,9 +108,15 @@ The main differences are:
        If no compatible track is found, a new track will be created and bound to the
        Sequence's bound Scene.
    </li>
-   <li>Import an existing Audio: add an Audio function at the cursor position on the
-       selected track. If no track is available, it will create a new one.
-   </li> 
+   <li>Import an existing <A HREF="file:concept.html#Audio">Audio</A>: add an Audio function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#EFX">EFX</A>: add an EFX function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>: add a RGB Matrix function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
   </ul>
   A Show can have a virtually infinite number of tracks.</TD>
  </TR>
@@ -122,7 +128,7 @@ The main differences are:
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/audio.png"/></TD>
-  <TD>Create a new <A HREF="file:concept.html#Audio">audio</A> item. An audio item simply represents
+  <TD>Create a new <A HREF="file:concept.html#Audio">Audio</A> item. An audio item simply represents
   an audio file. Audio items can be added on any track, but if you want to to create a separate
   track for it, just create an new track.<br>
   <B>Note:</B> It is possible to display the waveform preview of an audio item just by right clicking it
@@ -157,7 +163,18 @@ The main differences are:
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/color.png"/></TD>
-  <TD>Assign a custom colour to the selected item</TD>
+  <TD>Assign a custom color to the selected item</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/lock.png"/></TD>
+  <TD>Lock or unlock then selected item. Once an item is locked, it cannot be dragged on the timeline anymore</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/speed.png"/></TD>
+  <TD>Open a window where you can set the selected item start time and total duration.
+      The behaviour of the latter will depend on the selected item. On Audio items it does nothing.
+      On EFXs and RGB Matrices it will set the duration of a single loop, while on Sequences
+      it will stretch all the steps timings to fit to the desired duration.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/grid.png"/></TD>
