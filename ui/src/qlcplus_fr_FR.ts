@@ -1033,7 +1033,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <name>AudioItem</name>
     <message>
         <location filename="showmanager/audioitem.cpp" line="50"/>
-        <location filename="showmanager/audioitem.cpp" line="364"/>
+        <location filename="showmanager/audioitem.cpp" line="362"/>
         <source>Preview Left Channel</source>
         <translation>Prévisualiser le canal gauche</translation>
     </message>
@@ -1048,17 +1048,17 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <translation>Prévisualiser les deux canaux (stéréo)</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="378"/>
+        <location filename="showmanager/audioitem.cpp" line="376"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="360"/>
+        <location filename="showmanager/audioitem.cpp" line="358"/>
         <source>Preview Mono</source>
         <translation>Prévisualiser le canal (mono)</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="373"/>
+        <location filename="showmanager/audioitem.cpp" line="371"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>
@@ -2149,12 +2149,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
 <context>
     <name>EFXItem</name>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="128"/>
+        <location filename="showmanager/efxitem.cpp" line="126"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="133"/>
+        <location filename="showmanager/efxitem.cpp" line="131"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
@@ -4240,12 +4240,12 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 <context>
     <name>RGBMatrixItem</name>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="128"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="126"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="133"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="131"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
@@ -4518,12 +4518,12 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="180"/>
+        <location filename="showmanager/sequenceitem.cpp" line="178"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="175"/>
+        <location filename="showmanager/sequenceitem.cpp" line="173"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>
@@ -4585,7 +4585,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
-        <location filename="showmanager/showitem.cpp" line="223"/>
+        <location filename="showmanager/showitem.cpp" line="239"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
@@ -4606,7 +4606,7 @@ Durée : %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="218"/>
+        <location filename="showmanager/showitem.cpp" line="234"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>
@@ -4614,206 +4614,211 @@ Durée : %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="194"/>
+        <location filename="showmanager/showmanager.cpp" line="196"/>
         <source>New s&amp;how</source>
         <translation>Nouveau s&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="206"/>
+        <location filename="showmanager/showmanager.cpp" line="208"/>
         <source>New s&amp;equence</source>
         <translation>Nouvelle séqu&amp;ence</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="212"/>
+        <location filename="showmanager/showmanager.cpp" line="214"/>
         <source>New &amp;audio</source>
         <translation>Nouveau son (&amp;A)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="219"/>
+        <location filename="showmanager/showmanager.cpp" line="221"/>
         <source>New vi&amp;deo</source>
         <translation>Nouvelle vi&amp;déo</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="226"/>
+        <location filename="showmanager/showmanager.cpp" line="228"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copier</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="233"/>
+        <location filename="showmanager/showmanager.cpp" line="235"/>
         <source>&amp;Paste</source>
         <translation>Coller (&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="240"/>
+        <location filename="showmanager/showmanager.cpp" line="242"/>
         <source>&amp;Delete</source>
         <translation>Supprimer (&amp;D)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="247"/>
+        <location filename="showmanager/showmanager.cpp" line="249"/>
         <source>Change Co&amp;lor</source>
         <translation>Cou&amp;leur</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="261"/>
+        <location filename="showmanager/showmanager.cpp" line="270"/>
         <source>Snap to &amp;Grid</source>
         <translation>&amp;Grille magnétique</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="268"/>
+        <location filename="showmanager/showmanager.cpp" line="277"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="274"/>
+        <location filename="showmanager/showmanager.cpp" line="283"/>
         <source>&amp;Play</source>
         <translation>Lecture (&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="334"/>
+        <location filename="showmanager/showmanager.cpp" line="344"/>
         <source>Time division:</source>
         <translation>Division temporelle :</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="339"/>
+        <location filename="showmanager/showmanager.cpp" line="349"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="539"/>
+        <location filename="showmanager/showmanager.cpp" line="549"/>
         <source>New Show</source>
         <translation>Nouveau show</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="540"/>
+        <location filename="showmanager/showmanager.cpp" line="550"/>
         <source>Show name setup</source>
         <translation>Définir le nom du show</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="541"/>
+        <location filename="showmanager/showmanager.cpp" line="551"/>
         <source>Show name:</source>
         <translation>Nom du show :</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="200"/>
+        <location filename="showmanager/showmanager.cpp" line="202"/>
         <source>Add a &amp;track or an existing function</source>
         <translation>Ajouter une pis&amp;te ou une fonction existante</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="254"/>
+        <location filename="showmanager/showmanager.cpp" line="256"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="658"/>
-        <location filename="showmanager/showmanager.cpp" line="772"/>
+        <location filename="showmanager/showmanager.cpp" line="263"/>
+        <source>Item start time and duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/showmanager.cpp" line="668"/>
+        <location filename="showmanager/showmanager.cpp" line="782"/>
         <source> (Copy)</source>
         <translation> (copie)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="731"/>
+        <location filename="showmanager/showmanager.cpp" line="741"/>
         <source>Track %1</source>
         <translation>Piste %1</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="756"/>
-        <location filename="showmanager/showmanager.cpp" line="845"/>
+        <location filename="showmanager/showmanager.cpp" line="766"/>
+        <location filename="showmanager/showmanager.cpp" line="855"/>
         <source>New Sequence</source>
         <translation>Nouvelle séquence</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="824"/>
-        <location filename="showmanager/showmanager.cpp" line="900"/>
-        <location filename="showmanager/showmanager.cpp" line="959"/>
+        <location filename="showmanager/showmanager.cpp" line="834"/>
+        <location filename="showmanager/showmanager.cpp" line="910"/>
+        <location filename="showmanager/showmanager.cpp" line="969"/>
         <source>Overlapping error</source>
         <translation>Erreur de recouvrement</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="824"/>
-        <location filename="showmanager/showmanager.cpp" line="900"/>
-        <location filename="showmanager/showmanager.cpp" line="959"/>
+        <location filename="showmanager/showmanager.cpp" line="834"/>
+        <location filename="showmanager/showmanager.cpp" line="910"/>
+        <location filename="showmanager/showmanager.cpp" line="969"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Le recouvrement n&apos;est pas permis. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="833"/>
+        <location filename="showmanager/showmanager.cpp" line="843"/>
         <source>Scene for %1 - Track %2</source>
         <translation>Scène pour %1 - Piste %2</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="858"/>
+        <location filename="showmanager/showmanager.cpp" line="868"/>
         <source>Open Audio File</source>
         <translation>Ouvrir un fichier audio</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="867"/>
+        <location filename="showmanager/showmanager.cpp" line="877"/>
         <source>Audio Files (%1)</source>
         <translation>Fichiers audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="869"/>
-        <location filename="showmanager/showmanager.cpp" line="928"/>
+        <location filename="showmanager/showmanager.cpp" line="879"/>
+        <location filename="showmanager/showmanager.cpp" line="938"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="871"/>
-        <location filename="showmanager/showmanager.cpp" line="930"/>
+        <location filename="showmanager/showmanager.cpp" line="881"/>
+        <location filename="showmanager/showmanager.cpp" line="940"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="893"/>
+        <location filename="showmanager/showmanager.cpp" line="903"/>
         <source>Unsupported audio file</source>
         <translation>Fichier audio non pris en charge</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="893"/>
+        <location filename="showmanager/showmanager.cpp" line="903"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Ce fichier audio ne peut pas être lu par QLC+, désolé.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="917"/>
+        <location filename="showmanager/showmanager.cpp" line="927"/>
         <source>Open Video File</source>
         <translation>Ouvrir un fichier vidéo</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="926"/>
+        <location filename="showmanager/showmanager.cpp" line="936"/>
         <source>Video Files (%1)</source>
         <translation>Fichiers vidéo (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="952"/>
+        <location filename="showmanager/showmanager.cpp" line="962"/>
         <source>Unsupported video file</source>
         <translation>Fichier vidéo non pris en charge</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="952"/>
+        <location filename="showmanager/showmanager.cpp" line="962"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>Ce fichier vidéo ne peut pas être lu par QLC+, désolé.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1003"/>
-        <location filename="showmanager/showmanager.cpp" line="1025"/>
+        <location filename="showmanager/showmanager.cpp" line="1013"/>
+        <location filename="showmanager/showmanager.cpp" line="1035"/>
         <source>Paste error</source>
         <translation>Erreur de collage</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1003"/>
+        <location filename="showmanager/showmanager.cpp" line="1013"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Le recouvrement par collage n&apos;est pas permis. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1025"/>
+        <location filename="showmanager/showmanager.cpp" line="1035"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>La scène vers laquelle coller est incompatible. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1308"/>
+        <location filename="showmanager/showmanager.cpp" line="1320"/>
         <source>Track name setup</source>
         <translation>Définir le nom de la piste</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1309"/>
+        <location filename="showmanager/showmanager.cpp" line="1321"/>
         <source>Track name:</source>
         <translation>Nom de la piste :</translation>
     </message>
@@ -4973,19 +4978,32 @@ Durée : %3
 <context>
     <name>SpeedDialWidget</name>
     <message>
-        <location filename="speeddialwidget.cpp" line="55"/>
+        <location filename="speeddialwidget.cpp" line="61"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="speeddialwidget.cpp" line="61"/>
+        <location filename="speeddialwidget.cpp" line="67"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="speeddialwidget.cpp" line="67"/>
+        <location filename="speeddialwidget.cpp" line="73"/>
         <source>Hold</source>
         <translation>Maintien</translation>
+    </message>
+</context>
+<context>
+    <name>TimingsTool</name>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="48"/>
+        <source>Start Time</source>
+        <translation type="unfinished">Début</translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="57"/>
+        <source>Duration</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5093,7 +5111,7 @@ Durée : %3
         <translation>Arrêter TOUTES les fonctions !</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="746"/>
         <source>Icon</source>
         <translation>Icône</translation>
     </message>
@@ -6932,17 +6950,17 @@ Durée : %3
         <translation>Plein écran</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="168"/>
+        <location filename="showmanager/videoitem.cpp" line="165"/>
         <source>Lock item</source>
         <translation type="unfinished">Verrouiller</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="149"/>
+        <location filename="showmanager/videoitem.cpp" line="146"/>
         <source>Screen %1</source>
         <translation>Écran %1</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="163"/>
+        <location filename="showmanager/videoitem.cpp" line="160"/>
         <source>Unlock item</source>
         <translation type="unfinished">Déverrouiller</translation>
     </message>

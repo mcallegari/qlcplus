@@ -67,11 +67,7 @@ void AudioItem::calculateWidth()
     qint64 audio_duration = m_audio->totalDuration();
 
     if (audio_duration != 0)
-    {
         newWidth = ((50/(float)getTimeScale()) * (float)audio_duration) / 1000;
-        if (m_function)
-            m_function->setDuration(audio_duration);
-    }
     else
         newWidth = 100;
 
@@ -113,16 +109,16 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     ShowItem::postPaint(painter);
 }
 
-void AudioItem::updateDuration()
-{
-    prepareGeometryChange();
-    calculateWidth();
-}
-
 void AudioItem::setTimeScale(int val)
 {
     ShowItem::setTimeScale(val);
     calculateWidth();
+}
+
+void AudioItem::setDuration(quint32 msec)
+{
+    Q_UNUSED(msec)
+    // nothing to do
 }
 
 QString AudioItem::functionName()
@@ -141,6 +137,8 @@ void AudioItem::slotAudioChanged(quint32)
 {
     prepareGeometryChange();
     calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_audio->totalDuration());
 }
 
 qint32 AudioItem::getSample(unsigned char *data, quint32 *idx, int sampleSize)

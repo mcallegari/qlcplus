@@ -229,13 +229,41 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
+void Chaser::setTotalDuration(quint32 msec)
+{
+    if (durationMode() == Chaser::Common)
+    {
+        setDuration(msec / m_steps.count());
+    }
+    else
+    {
+        // scale all the Chaser steps to resize
+        // to the desired duration
+        double dtDuration = (double)totalDuration();
+        for (int i = 0; i < m_steps.count(); i++)
+        {
+            uint origDuration = m_steps[i].duration;
+            m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
+            if(m_steps[i].hold)
+                m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
+            m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
+            if (m_steps[i].fadeOut)
+                m_steps[i].fadeOut = ((double)m_steps[i].fadeOut * (double)m_steps[i].duration) / (double)origDuration;
+        }
+    }
+    emit changed(this->id());
+}
+
 quint32 Chaser::totalDuration()
 {
-    quint32 duration = 0;
-    foreach (ChaserStep step, m_steps)
-        duration += step.duration;
+    quint32 totalDuration = 0;
 
-    return duration;
+    foreach (ChaserStep step, m_steps)
+    {
+        totalDuration += step.duration;
+    }
+
+    return totalDuration;
 }
 
 void Chaser::slotFunctionRemoved(quint32 fid)

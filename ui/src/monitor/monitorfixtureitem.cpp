@@ -66,12 +66,12 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         foreach (quint32 rgbComp, head.rgbChannels())
         {
             fxiItem->m_rgb.append(rgbComp + fxi->address());
-            qDebug() << "Add RGB comp at address:" << rgbComp + fxi->address();
+            //qDebug() << "Add RGB comp at address:" << rgbComp + fxi->address();
         }
         foreach (quint32 cmyComp, head.cmyChannels())
         {
             fxiItem->m_cmy.append(cmyComp + fxi->address());
-            qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
+            //qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
         }
 
         if (head.masterIntensityChannel() != QLCChannel::invalid())
@@ -392,12 +392,12 @@ void MonitorFixtureItem::computeTiltPosition(FixtureHead *h, uchar value)
 {
     // find the TILT degrees based on value
     h->m_tiltDegrees = ((double)value * h->m_tiltMaxDegrees) / (256.0 - 1/256) - (h->m_tiltMaxDegrees / 2);
-    qDebug() << "TILT degrees:" << h->m_tiltDegrees;
+    //qDebug() << "TILT degrees:" << h->m_tiltDegrees;
 }
 
 void MonitorFixtureItem::computePanPosition(FixtureHead *h, uchar value)
 {
     // find the PAN degrees based on value
     h->m_panDegrees = ((double)value * h->m_panMaxDegrees) / (256.0 - 1/256) - (h->m_panMaxDegrees / 2);
-    qDebug() << "PAN degrees:" << h->m_panDegrees;
+    //qDebug() << "PAN degrees:" << h->m_panDegrees;
 }

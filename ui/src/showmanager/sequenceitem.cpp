@@ -47,17 +47,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 void SequenceItem::calculateWidth()
 {
     int newWidth = 0;
-    unsigned long seq_duration = 0;
-
-    foreach (ChaserStep step, m_chaser->steps())
-    {
-        if (m_chaser->durationMode() == Chaser::Common)
-            seq_duration += m_chaser->duration();
-        else
-            seq_duration += step.duration;
-    }
-    if (m_function)
-        m_function->setDuration(seq_duration);
+    unsigned long seq_duration = m_chaser->totalDuration();
 
     if (seq_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
@@ -138,6 +128,11 @@ void SequenceItem::setTimeScale(int val)
     calculateWidth();
 }
 
+void SequenceItem::setDuration(quint32 msec)
+{
+    m_chaser->setTotalDuration(msec);
+}
+
 QString SequenceItem::functionName()
 {
     if (m_chaser)
@@ -160,6 +155,9 @@ void SequenceItem::slotSequenceChanged(quint32)
 {
     prepareGeometryChange();
     calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_chaser->totalDuration());
+    updateTooltip();
 }
 
 void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)

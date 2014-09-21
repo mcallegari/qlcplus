@@ -186,12 +186,32 @@ void SpeedDial::tap()
     m_tap->click();
 }
 
+void SpeedDial::setTapVisibility(bool visible)
+{
+    m_tap->setVisible(visible);
+}
+
+void SpeedDial::setInfiniteVisibility(bool visible)
+{
+    m_infiniteCheck->setVisible(visible);
+}
+
 /*****************************************************************************
  * Private
  *****************************************************************************/
 
 void SpeedDial::setSpinValues(int ms)
 {
+    // block signals to prevent each single SpinBox to send
+    // a valueChanged signal. For example going from 1m0s to 59s
+    // would send two signals: 0 and then 59000.
+    // We want to avoid that non-sense 0
+    // Just send one single signal when everything has changed
+    m_hrs->blockSignals(true);
+    m_min->blockSignals(true);
+    m_sec->blockSignals(true);
+    m_ms->blockSignals(true);
+
     if (ms == (int) Function::infiniteSpeed())
     {
         m_hrs->setValue(m_hrs->minimum());
@@ -213,6 +233,15 @@ void SpeedDial::setSpinValues(int ms)
         ms -= (m_sec->value() * MS_PER_SECOND);
 
         m_ms->setValue(ms / MS_DIV);
+    }
+    m_hrs->blockSignals(false);
+    m_min->blockSignals(false);
+    m_sec->blockSignals(false);
+    m_ms->blockSignals(false);
+    if (m_preventSignals == false)
+    {
+        m_value = spinValues();
+        emit valueChanged(m_value);
     }
 }
 

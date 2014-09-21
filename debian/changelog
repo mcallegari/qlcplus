@@ -2,6 +2,7 @@ qlcplus (4.7.5) stable; urgency=low
 
   * NEW: Show Manager: it is now possible to add RGB Matrix and EFX functions to the timeline 
   * NEW: Show Manager: it is now possible to use a function several times in the timeline
+  * NEW: Show Manager: added a timing tool to set a Show item start position and total duration
   * NEW: Virtual Console: Sliders in level mode can now represent the channels they control only if they have all the same value
   * NEW: Virtual Console: Frames can now be enabled/disabled
   * NEW: Input Profile Editor: a slider can now be set to behave in relative or absolute mode
@@ -17,11 +18,14 @@ qlcplus (4.7.5) stable; urgency=low
   * Channel Modifiers: added 6 new Exponential/Logarithmic templates (thanks to Luis García-Tornel)
   * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
   * Virtual Console: widgets key bindings on multipage frames respond only to the active page
+  * UI: Fixed unwanted time values sent by speed dials under certain circumstances
   * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
   * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC, BoomToneDJ Quattro Scan LED (thanks to Robert Scheffler)
   * New fixture: Clay Paky Sharpy
   * New fixture: ADJ Dekker LED (thanks to Chicken)
   * New fixture: Img Stage Line Parl 73-RGB (thanks to Lukakiro)
+  * New fixtures: Eurolite TSL-200, Velleman Beam Driver 250, Laserworld CS-1000RGB (thanks to Rob Nieuwenhuizen)
+  * New fixture: Cameo Multi PAR 1 (thanks to Santiago Benejam Torres)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 

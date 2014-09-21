@@ -115,6 +115,7 @@ HEADERS += showmanager/multitrackview.h \
            showmanager/audioitem.h \
            showmanager/rgbmatrixitem.h \
            showmanager/efxitem.h \
+           showmanager/timingstool.h \
            showmanager/showmanager.h
 
 # Virtual Console headers
@@ -255,7 +256,7 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
-           universeitemwidget.cpp 
+           universeitemwidget.cpp
 
 # Monitor sources
 SOURCES += monitor/monitor.cpp \
@@ -276,6 +277,7 @@ SOURCES += showmanager/multitrackview.cpp \
            showmanager/audioitem.cpp \
            showmanager/rgbmatrixitem.cpp \
            showmanager/efxitem.cpp \
+           showmanager/timingstool.cpp \
            showmanager/showmanager.cpp
 
 # Virtual Console sources

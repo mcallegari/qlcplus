@@ -27,6 +27,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 #define KXMLShowFunction "ShowFunction"
 
 class ShowFunction
@@ -81,5 +85,7 @@ public:
     /** Save ShowFunction contents to $doc, under $root */
     bool saveXML(QDomDocument* doc, QDomElement* root) const;
 };
+
+/** @} */
 
 #endif // SHOWFUNCTION_H

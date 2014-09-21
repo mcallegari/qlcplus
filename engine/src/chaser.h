@@ -143,6 +143,9 @@ public:
      */
     QList <ChaserStep> steps() const;
 
+    /** Set the Chaser total duration in milliseconds */
+    void setTotalDuration(quint32 msec);
+
     /** Get the Chaser total duration in milliseconds */
     quint32 totalDuration();
 

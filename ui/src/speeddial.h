@@ -84,6 +84,9 @@ public:
     /** Produce a tap programmatically */
     void tap();
 
+    void setInfiniteVisibility(bool visible);
+    void setTapVisibility(bool visible);
+
 signals:
     void valueChanged(int ms);
     void tapped();

@@ -52,6 +52,9 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
+    void setDuration(quint32 msec);
+
+    /** @reimp */
     QString functionName();
 
     void setSelectedStep(int idx);

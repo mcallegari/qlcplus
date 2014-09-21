@@ -57,6 +57,9 @@ public:
      * Contents
      *********************************************************************/
 public:
+    /** Set the matrix total duration in milliseconds */
+    void setTotalDuration(quint32 msec);
+
     /** Get the matrix total duration in milliseconds */
     quint32 totalDuration();
 
