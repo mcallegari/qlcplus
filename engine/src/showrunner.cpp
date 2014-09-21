@@ -78,11 +78,6 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             connect(f, SIGNAL(stopped(quint32)),
                     this, SLOT(slotFunctionStopped(quint32)));
 
-            // Create a map of the functions that need to be stopped
-            // otherwise they would play endlessly
-            if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
-                m_stopTimeMap[f->id()] = sfunc->startTime() + sfunc->duration();
-
             if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
                 m_totalRunTime = sfunc->startTime() + sfunc->duration();
         }
@@ -163,6 +158,13 @@ void ShowRunner::write()
             f->start(m_doc->masterTimer(), true, functionTimeOffset);
             m_runningQueue.append(f);
             m_currentFunctionIndex++;
+
+            // Add the Function to a map that keeps track of the functions
+            // that need to be stopped otherwise they would play endlessly.
+            // In this case we assume that it is impossible that 2 Functions
+            // with the same ID are running at the same time !
+            if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+                m_stopTimeMap[f->id()] = sf->startTime() + sf->duration();
         }
     }
 
@@ -172,6 +174,7 @@ void ShowRunner::write()
     {
         if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
         {
+            //qDebug() << "elapsed:" << m_elapsedTime << "stopTime:" << m_stopTimeMap[f->id()];
             if (m_elapsedTime == m_stopTimeMap[f->id()])
                 f->stop();
         }
