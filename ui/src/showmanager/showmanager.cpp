@@ -260,7 +260,7 @@ void ShowManager::initActions()
     m_lockAction->setEnabled(false);
 
     m_timingsAction = new QAction(QIcon(":/speed.png"),
-                                  tr("Timings tool"), this);
+                                  tr("Item start time and duration"), this);
     m_timingsAction->setShortcut(QKeySequence("CTRL+T"));
     connect(m_timingsAction, SIGNAL(triggered()),
             this, SLOT(slotShowTimingsTool()));
