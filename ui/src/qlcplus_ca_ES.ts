@@ -4653,7 +4653,7 @@ Durada: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;inici i durada del element</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="270"/>
@@ -4986,12 +4986,12 @@ Durada: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="48"/>
         <source>Start Time</source>
-        <translation type="unfinished">Temps d&apos;inici</translation>
+        <translation>Temps d&apos;inici</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="57"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durada</translation>
     </message>
 </context>
 <context>
