@@ -273,7 +273,7 @@
     <message>
         <location filename="editcapability.ui" line="22"/>
         <source>Capability Values</source>
-        <translation>Velors de capacitats</translation>
+        <translation>Valors de capacitats</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="34"/>
@@ -748,12 +748,12 @@
     <message>
         <location filename="editmode.ui" line="776"/>
         <source>Min Degrees</source>
-        <translation>Grus Mínims</translation>
+        <translation>Graus Mínims</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="783"/>
         <source>Max Degrees</source>
-        <translation>Grus Màxims</translation>
+        <translation>Graus Màxims</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="819"/>
@@ -763,7 +763,7 @@
     <message>
         <location filename="editmode.ui" line="859"/>
         <source>Pan Max Degrees</source>
-        <translation>Grus Max de Pan</translation>
+        <translation>Graus Max de Pan</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="876"/>
@@ -898,7 +898,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="393"/>
         <source>Open/close all channel items</source>
-        <translation>Aobrir/Tancar tots els elements del canal</translation>
+        <translation>Obrir/Tancar tots els elements del canal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="414"/>

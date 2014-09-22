@@ -2140,12 +2140,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="showmanager/efxitem.cpp" line="126"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Desbloquejar element</translation>
+        <translation>Desbloquejar element</translation>
     </message>
     <message>
         <location filename="showmanager/efxitem.cpp" line="131"/>
         <source>Lock item</source>
-        <translation type="unfinished">Bloquejar element</translation>
+        <translation>Bloquejar element</translation>
     </message>
 </context>
 <context>
@@ -3743,7 +3743,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="showmanager/multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE item:</source>
         <oldsource>Do you want to DELETE sequence:</oldsource>
-        <translation type="unfinished">Vol ESBORRAR aquesta seqüència:</translation>
+        <translation>Vol ESBORRAR aquest element:</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
@@ -3753,7 +3753,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Esborrar Pista</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4225,12 +4225,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="126"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Desbloquejar element</translation>
+        <translation>Desbloquejar element</translation>
     </message>
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="131"/>
         <source>Lock item</source>
-        <translation type="unfinished">Bloquejar element</translation>
+        <translation>Bloquejar element</translation>
     </message>
 </context>
 <context>
@@ -4582,12 +4582,15 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom: %1
+Temps d&apos;inici: %2
+Durada: %3
+%4</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Faixi click per moure aquest element al llarg de la línia de temps</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="234"/>
@@ -4650,7 +4653,7 @@ Duration: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;inici i durada del element</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="270"/>
@@ -4983,12 +4986,12 @@ Duration: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="48"/>
         <source>Start Time</source>
-        <translation type="unfinished">Temps d&apos;inici</translation>
+        <translation>Temps d&apos;inici</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="57"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durada</translation>
     </message>
 </context>
 <context>
