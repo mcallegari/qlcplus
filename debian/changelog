@@ -26,6 +26,7 @@ qlcplus (4.7.5) stable; urgency=low
   * New fixture: Img Stage Line Parl 73-RGB (thanks to Lukakiro)
   * New fixtures: Eurolite TSL-200, Velleman Beam Driver 250, Laserworld CS-1000RGB (thanks to Rob Nieuwenhuizen)
   * New fixture: Cameo Multi PAR 1 (thanks to Santiago Benejam Torres)
+  * New fixture: Stairville MH-100 Beam 36x3 LED (thanks to Jasper Zevering)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 
