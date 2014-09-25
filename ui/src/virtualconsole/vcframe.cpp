@@ -420,8 +420,8 @@ void VCFrame::slotSetPage(int pageNum)
             VCWidget *widget = it.key();
             if (page == m_currentPage)
             {
-                widget->show();
                 widget->setEnabled(true);
+                widget->show();
                 widget->updateFeedback();
             }
             else
@@ -431,6 +431,7 @@ void VCFrame::slotSetPage(int pageNum)
             }
         }
         m_doc->setModified();
+        emit pageChanged(m_currentPage);
     }
 }
 
@@ -678,8 +679,97 @@ QString VCFrame::getCSS()
             " height: 32px;\n"
             " font:normal 20px/1.2em sans-serif;\n"
             "}\n"
+
+            ".vcframeButton {\n"
+            " display: inline-block;\n"
+            " vertical-align: top;\n"
+            " background: #E0DFDF;\n"
+            " border-radius: 3px;\n"
+            " border: 1px solid #000;\n"
+            " margin: 2px 2px 0 0;\n"
+            " padding: 1px;\n"
+            " height: 28px;\n"
+            " width: 28px;\n"
+            "}\n"
+
+            ".vcframeButton:active { background: #868585; }\n"
+
+            ".vcframePageLabel {\n"
+            " display: inline-block;\n"
+            " vertical-align: top;\n"
+            " background: #000000;\n"
+            " border-radius: 3px;\n"
+            " margin: 2px 2px 0 0;\n"
+            " height: 32px;\n"
+            " width: 100px;\n"
+            " text-align: center;\n"
+            " color: #ff0000;\n"
+            " font:normal 20px/1.2em sans-serif;\n"
+            "}\n"
+
+            ".vcframePage {\n"
+            " visibility: hidden;\n"
+            " position: absolute;\n"
+            " top: 0;\n"
+            " left: 0;\n"
+            " width: 100%;\n"
+            " height: 100%;\n"
+            "}\n"
+
             "</style>\n";
 
+    return str;
+}
+
+QString VCFrame::getJS()
+{
+    QString str =
+      "var framesTotalPages = new Array();\n"
+      "var framesCurrentPage = new Array();\n\n"
+
+      "function updateFrameLabel(id) {\n"
+      " var framePageObj = document.getElementById(\"fr\" + id + \"Page\");\n"
+      " var newLabel = \"Page \" + (framesCurrentPage[id] + 1);\n"
+      " framePageObj.innerHTML = newLabel;\n"
+      "}\n\n"
+
+      "function frameNextPage(id) {\n"
+      " var currPage = framesCurrentPage[id];\n"
+      " var pagesNum = framesTotalPages[id];\n"
+      " if (currPage + 1 < pagesNum) {\n"
+      "  var framePageObj = document.getElementById(\"fp\" + id + \"_\" + currPage);\n"
+      "  framePageObj.style.visibility = 'hidden';\n"
+      "  framesCurrentPage[id]++;\n"
+      "  var frameNextPageObj = document.getElementById(\"fp\" + id + \"_\" + framesCurrentPage[id]);\n"
+      "  frameNextPageObj.style.visibility = 'visible';\n"
+      "  updateFrameLabel(id);\n"
+      "  websocket.send(id + \"|NEXT_PG\");\n"
+      " }\n"
+      "}\n\n"
+
+      "function framePreviousPage(id) {\n"
+      " var currPage = framesCurrentPage[id];\n"
+      " if (currPage - 1 >= 0) {\n"
+      "  var framePageObj = document.getElementById(\"fp\" + id + \"_\" + currPage);\n"
+      "  framePageObj.style.visibility = 'hidden';\n"
+      "  framesCurrentPage[id]--;\n"
+      "  var framePrevPageObj = document.getElementById(\"fp\" + id + \"_\" + framesCurrentPage[id]);\n"
+      "  framePrevPageObj.style.visibility = 'visible';\n"
+      "  updateFrameLabel(id);\n"
+      "  websocket.send(id + \"|PREV_PG\");\n"
+      " }\n"
+      "}\n\n"
+
+      "function setFramePage(id, page) {\n"
+      " var iPage = parseInt(page);\n"
+      " if (framesCurrentPage[id] == iPage || iPage >= framesTotalPages[id]) return;\n"
+      " var framePageObj = document.getElementById(\"fp\" + id + \"_\" + framesCurrentPage[id]);\n"
+      " framePageObj.style.visibility = 'hidden';\n"
+      " framesCurrentPage[id] = iPage;\n"
+      " var frameNewPageObj = document.getElementById(\"fp\" + id + \"_\" + framesCurrentPage[id]);\n"
+      " frameNewPageObj.style.visibility = 'visible';\n"
+      " updateFrameLabel(id);\n"
+      "}\n\n";
     return str;
 }
 

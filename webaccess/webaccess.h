@@ -61,7 +61,7 @@ private:
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
 
-    QString getChildrenHTML(VCWidget *frame);
+    QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
 
     QString getSimpleDeskHTML();
@@ -75,6 +75,7 @@ protected slots:
     void slotButtonToggled(bool on);
     void slotSliderValueChanged(QString val);
     void slotCueIndexChanged(int idx);
+    void slotFramePageChanged(int pageNum);
 
 protected:
     QString m_JScode;

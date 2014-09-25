@@ -139,10 +139,13 @@ public:
     virtual void addWidgetToPageMap(VCWidget *widget);
     virtual void removeWidgetFromPageMap(VCWidget *widget);
 
-protected slots:
+public slots:
     void slotPreviousPage();
     void slotNextPage();
     void slotSetPage(int pageNum);
+
+signals:
+    void pageChanged(int pageNum);
 
 protected:
     bool m_multiPageMode;
@@ -241,6 +244,9 @@ public:
 public:
     /** @reimpl */
     QString getCSS();
+
+    /** @reimpl */
+    QString getJS();
 
     /*********************************************************************
      * Load & Save

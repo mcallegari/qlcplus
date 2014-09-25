@@ -42,6 +42,9 @@
     "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
     "    playBbj.innerHTML = \"Stop\";\n" \
     "  }\n" \
+    "  else if (msgParams[1] == \"FRAME\") {\n" \
+    "    setFramePage(msgParams[0], msgParams[2]);\n" \
+    "  }\n" \
     "  else if (msgParams[0] == \"ALERT\") {\n" \
     "    alert(msgParams[1]);\n" \
     "  }\n" \

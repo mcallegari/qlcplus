@@ -19,6 +19,7 @@ qlcplus (4.7.5) stable; urgency=low
   * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
   * Virtual Console: widgets key bindings on multipage frames respond only to the active page
   * UI: Fixed unwanted time values sent by speed dials under certain circumstances
+  * Web access: correctly render and handle multipage frames
   * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
   * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC, BoomToneDJ Quattro Scan LED (thanks to Robert Scheffler)
   * New fixture: Clay Paky Sharpy
@@ -28,7 +29,7 @@ qlcplus (4.7.5) stable; urgency=low
   * New fixture: Cameo Multi PAR 1 (thanks to Santiago Benejam Torres)
   * New fixture: Stairville MH-100 Beam 36x3 LED (thanks to Jasper Zevering)
   * New fixture: Stairville SC-X50 MKII (thanks to Johan Förberg)
-  * New fixture: Light Emotion LED Parbar (thanks to tasaei)
+  * New fixture: Light Emotion LED Parbar (thanks to Dan Szabo)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 30 Aug 2014 12:13:14 +0200
 
