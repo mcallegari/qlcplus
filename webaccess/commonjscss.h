@@ -154,7 +154,7 @@
     " position: absolute;\n" \
     " right: 5px;\n" \
     " top: 5px;\n" \
-    " font-size: 20px;\n" \
+    " font-size: 18px;\n" \
     "}\n\n"
 
 #define TABLE_CSS \

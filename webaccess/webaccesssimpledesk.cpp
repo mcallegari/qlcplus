@@ -65,13 +65,43 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
               " };\n"
               "};\n\n";
 
+    JScode += "function getGroupIconName(grp) {\n"
+              " if (grp == 0) return \"intensity.png\";\n"
+              " else if (grp == 1) return \"colorwheel.png\";\n"
+              " else if (grp == 2) return \"gobo.png\";\n"
+              " else if (grp == 3) return \"speed.png\";\n"
+              " else if (grp == 4) return \"pan.png\";\n"
+              " else if (grp == 5) return \"tilt.png\";\n"
+              " else if (grp == 6) return \"shutter.png\";\n"
+              " else if (grp == 7) return \"prism.png\";\n"
+              " else if (grp == 8) return \"beam.png\";\n"
+              " else if (grp == 9) return \"star.png\";\n"
+              " else if (grp == 10) return \"configure.png\";\n"
+              " return \"\";\n"
+              "}\n\n";
+
+    JScode += "function getSliderTopCode(type) {\n"
+              " if (type == '')\n"
+              " return \"<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>\";"
+              " var aType = type.split('.');\n"
+              " if (aType.length == 1)\n"
+              "   return \"<img src=\" + getGroupIconName(parseInt(type)) + \" style='margin-left:2px;'></img>\";\n"
+              " else {\n"
+              "  if (aType[1] == '#000000')\n"
+              "    return \"<img src=\" + getGroupIconName(0) + \"></img>\";\n"
+              "  else\n"
+              "    return \"<div style='width:34px; height:34px; margin:2px 0 0 1px; background:\" + aType[1] + \";'></div>\";"
+              " }\n"
+              "}\n\n";
+
     JScode += "function drawPage(data) {\n"
               " var cObj = document.getElementById(\"slidersContainer\");\n"
               " var code = \"\";\n"
               " var cVars = data.split('|');\n"
-              " for (i = 2; i < cVars.length; i+=2) {\n"
+              " for (i = 2; i < cVars.length; i+=3) {\n"
               "   var chNum = parseInt(cVars[i]);\n"
-              "   code += \"<div class='sdSlider' style='width: 36px; height: 300px; background-color: #aaa; margin-left:2px;'>\";\n"
+              "   code += \"<div class='sdSlider' style='width: 36px; height: 332px; background-color: #aaa; margin-left:2px;'>\";\n"
+              "   code += getSliderTopCode(cVars[i + 2]);\n"
               "   code += \"<div id='sdslv\" + chNum + \"' class='sdslLabel' style='top:2px;'>\" + cVars[i + 1]  + \"</div>\";\n"
               "   code += \"<input type='range' class='vVertical' id='\" + chNum + \"' \";\n"
               "   code += \"oninput='sdSlVchange(\" + chNum + \");' ontouchmove='sdSlVchange(\" + chNum + \");' \";\n"
@@ -135,7 +165,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             "}\n"
 
             ".styled-select select {\n"
-            "   background: #888;\n"
+            "   background: #aaa;\n"
             "   width: 250px;\n"
             "   height: 30px;\n"
             "   margin-left: 15px;\n"
@@ -144,6 +174,26 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             "   border: 1px solid #bbb;\n"
             "   border-radius: 4px;\n"
             "   }"
+
+            ".universeButton {\n"
+            " display: inline-block;\n"
+            " vertical-align: top;\n"
+            " background: linear-gradient(to bottom, #F6F6F6 0%, #AAAAAA 100%);\n"
+            " background: -ms-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);\n"
+            " background: -moz-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);\n"
+            " background: -o-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #AAAAAA));\n"
+            " background: -webkit-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);\n"
+            " border-radius: 3px;\n"
+            " border: 1px solid #808080;\n"
+            " padding: 1px;\n"
+            " height: 28px;\n"
+            " width: 60px;\n"
+            " text-align: center;\n"
+            "}\n"
+
+            ".universeButton:active { background: #868585; }\n"
+
             CONTROL_BAR_CSS
             BUTTON_BASE_CSS
             BUTTON_SPAN_CSS
@@ -159,18 +209,16 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                        "</div>\n";
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
-    bodyHTML += tr("Page") + "<a class=\"button button-blue\" style=\"height: 30px; font-size: 24px;\" "
-                "href=\"javascript:previousPage();\">\n"
-                "<span>" + tr("Previous") + "</span></a>\n";
+    bodyHTML += tr("Page") + "  <a class=\"universeButton\" href=\"javascript:previousPage();\">\n"
+                "<img src=\"back.png\" width=27></img></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
     bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
                 "width: 50px; background-color: #888; border-radius: 6px;\">" +
                 QString::number(page) +  "</div></div>\n";
 
-    bodyHTML += "<a class=\"button button-blue\" style=\"height: 30px; font-size: 24px;\" "
-                "href=\"javascript:nextPage();\">\n"
-                "<span>" + tr("Next") + "</span></a>\n";
+    bodyHTML += "<a class=\"universeButton\" href=\"javascript:nextPage();\">\n"
+                "<img src=\"forward.png\" width=27></img></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"

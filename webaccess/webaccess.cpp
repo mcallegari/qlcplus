@@ -546,12 +546,31 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
                 count = cmdList[4].toInt();
             for (int i = startAddr; i < startAddr + count; i++)
             {
+                QString type = "";
                 uchar value = m_sd->getAbsoluteChannelValue(universeAddr + i);
-                wsAPIMessage.append(QString("%1|%2|").arg(i + 1).arg(value));
+                Fixture* fxi = m_doc->fixture(m_doc->fixtureForAddress(universeAddr + i));
+                if (fxi != NULL)
+                {
+                    const QLCChannel *ch = fxi->channel(universeAddr + i - fxi->universeAddress());
+                    if (ch != NULL)
+                    {
+                        if (ch->group() == QLCChannel::Intensity)
+                        {
+                            QString hexCol;
+                            hexCol.sprintf("%06X", ch->colour());
+                            type = QString("%1.#%2").arg(ch->group()).arg(hexCol);
+                        }
+                        else
+                            type = QString::number(ch->group());
+                    }
+                }
+
+                wsAPIMessage.append(QString("%1|%2|%3|").arg(i + 1).arg(value).arg(type));
             }
             // remove trailing separator
             wsAPIMessage.truncate(wsAPIMessage.length() - 1);
         }
+        //qDebug() << "Simple desk channels:" << wsAPIMessage;
 
         mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
         return MG_TRUE;

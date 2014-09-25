@@ -303,7 +303,7 @@ QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
     {
         case Pan: return QString(":/pan.png"); break;
         case Tilt: return QString(":/tilt.png"); break;
-        case Colour: return QString(":/color.png"); break;
+        case Colour: return QString(":/colorwheel.png"); break;
         case Effect: return QString(":/star.png"); break;
         case Gobo: return QString(":/gobo.png"); break;
         case Shutter: return QString(":/shutter.png"); break;
