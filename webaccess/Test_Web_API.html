@@ -94,6 +94,22 @@ function vcCueListControl(clIDObjName, clOpObjName, clStepObjName)
   }
 }
 
+function vcFrameControl(frIDObjName, frOperation)
+{
+  var frObj = document.getElementById(frIDObjName);
+  var opObj = document.getElementById(frOperation);
+
+  if (frObj && opObj)
+  {
+    if (isConnected == true)
+    {
+        websocket.send(frObj.value + "|" + opObj.value);
+    }
+    else
+      alert("You must connect to QLC+ WebSocket first !");
+  }
+}
+
 function connectToWebSocket(host) {
   var url = 'ws://' + host + '/qlcplusWS';
   websocket = new WebSocket(url);
@@ -178,10 +194,10 @@ function connectToWebSocket(host) {
       
       else if (msgParams[1] == "getChannelsValues")
       {
-	var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th></tr>";
-	for (i = 2; i < msgParams.length; i+=2)
+	var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th><th>Type</th></tr>";
+	for (i = 2; i < msgParams.length; i+=3)
 	{
-	  tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
+	  tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td><td>" + msgParams[i + 2] + "</td></tr>";
 	}
 	tableCode += "</table>";
 	document.getElementById('requestChannelsRangeBox').innerHTML = tableCode;
@@ -451,13 +467,29 @@ Load a project:
    Step (optional):<input id="clStep" type="input" value="1"></input>
   </td>
   <td colspan="2">
-    This API demonstrates how to control a Virtual Console Cue List widget. The parameters to use are:<br>
+    This API demonstrates how to control a Virtual Console Cue List widget. The parameters to be used are:<br>
     <b>Cue List ID</b>: The Cue List widget ID as retrieved with the 'getWidgetsList' API<br>
     <b>Operation</b>: The Cue List operation to perform. Possible values are 'PLAY', 'NEXT', 'PREV' and 'STEP'.
     Only the 'STEP' operation requires a third parameter. The 'PLAY' operation will stop the Cue List if called
     twice.<br>
     <b>Step</b>: The Cue List step index to play. Index starts from 0.
   </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcFrameControl('frWidgetID', 'frOperation');">Multipage frame control</div>
+
+   Frame ID:<input id="frWidgetID" type="input" value="0"></input>
+   Operation:<input id="frOperation" type="input" value="NEXT_PG"></input>
+  </td>
+  <td colspan="2">
+    This API demonstrates how to change page of a Virtual Console Frame widget in multipage mode. 
+    The parameters to be used are:<br>
+    <b>Frame ID</b>: The Frame widget ID as retrieved with the 'getWidgetsList' API<br>
+    <b>Operation</b>: The Frame operation to perform. Accepted values are 'NEXT_PG' and 'PREV_PG'.
+  </td>
+ </tr>
 
 </table>
 
