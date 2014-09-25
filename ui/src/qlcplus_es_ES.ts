@@ -4699,7 +4699,7 @@ Duración: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de inicio y duración del elemento</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="668"/>
@@ -4991,12 +4991,12 @@ Duración: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="48"/>
         <source>Start Time</source>
-        <translation type="unfinished">Tiempo de inicio</translation>
+        <translation>Tiempo de inicio</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="57"/>
         <source>Duration</source>
-        <translation type="unfinished">Duración</translation>
+        <translation>Duración</translation>
     </message>
 </context>
 <context>
