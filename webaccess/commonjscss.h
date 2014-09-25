@@ -40,7 +40,10 @@
     "  else if (msgParams[1] == \"CUE\") {\n" \
     "    setCueIndex(msgParams[0], msgParams[2]);\n" \
     "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
-    "    playBbj.innerHTML = \"Stop\";\n" \
+    "    if (msgParams[2] == \"-1\")\n" \
+    "      playBbj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n" \
+    "    else\n" \
+    "      playBbj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n" \
     "  }\n" \
     "  else if (msgParams[1] == \"FRAME\") {\n" \
     "    setFramePage(msgParams[0], msgParams[2]);\n" \
@@ -96,7 +99,7 @@
     " height: 35px;\n" \
     " margin-left: 5px;" \
     " text-decoration: none;\n" \
-    " font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica;\n" \
+    " font: bold 25px/1.2em 'Trebuchet MS',Arial, Helvetica;\n" \
     " display: inline-block;\n" \
     " text-align: center;\n" \
     " color: #fff;\n" \

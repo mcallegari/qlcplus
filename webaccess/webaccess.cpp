@@ -934,7 +934,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "px; height: " + QString::number(cue->height()) + "px; "
             "background-color: " + cue->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
+    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 34) + "px; overflow: scroll;\" >\n";
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
@@ -1040,15 +1040,18 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "</table>\n";
     str += "</div>\n";
 
-    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
-            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n"
-            "<span id=\"play" + QString::number(cue->id()) + "\">Play</span></a>\n";
-    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
-            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PREV');\">\n"
-            "<span>" + tr("Previous") + "</span></a>\n";
-    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
-            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'NEXT');\">\n"
-            "<span>" + tr("Next") + "</span></a>\n";
+    str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
+    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
+    str += "<img src=\"player_play.png\" width=27></img></a>\n";
+
+    str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
+    str += QString::number(cue->id()) + ", 'PREV');\">\n";
+    str += "<img src=\"back.png\" width=27></img></a>\n";
+
+    str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
+    str += QString::number(cue->id()) + ", 'NEXT');\">\n";
+    str += "<img src=\"forward.png\" width=27></img></a>\n";
+
     str += "</div>\n";
 
     connect(cue, SIGNAL(stepChanged(int)),

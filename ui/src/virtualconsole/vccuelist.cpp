@@ -818,6 +818,7 @@ void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
                 ch->stop();
                 ch->useInternalRunner(true);
             }
+            emit stepChanged(-1);
         }
     }
     m_mutex.unlock();
@@ -1031,6 +1032,26 @@ QString VCCueList::getCSS()
             "border-radius: 3px;\n"
             "}\n"
 
+            ".vccuelistButton {\n"
+            " display: inline-block;\n"
+            " vertical-align: top;\n"
+            " background: linear-gradient(to bottom, #F6F6F6 0%, #DFDDDC 100%);\n"
+            " background: -ms-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
+            " background: -moz-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
+            " background: -o-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #DFDDDC));\n"
+            " background: -webkit-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
+            " border-radius: 3px;\n"
+            " border: 1px solid #808080;\n"
+            " margin: 2px 2px 0 0;\n"
+            " padding: 1px;\n"
+            " height: 27px;\n"
+            " width: 30%;\n"
+            " text-align: center;\n"
+            "}\n"
+
+            ".vccuelistButton:active { background: #868585; }\n"
+
             "table.hovertable {\n"
             " font-family: verdana,arial,sans-serif;\n"
             " font-size:11px;\n"
@@ -1046,6 +1067,7 @@ QString VCCueList::getCSS()
             " padding: 3px;\n"
             " border-style: solid;\n"
             " border-color: #a9c6c9;\n"
+            " text-align: left;\n"
             "}\n"
 
             "table.hovertable tr {\n"
@@ -1084,12 +1106,12 @@ QString VCCueList::getJS()
       "function sendCueCmd(id, cmd) {\n"
       " if (cmd == \"PLAY\") {\n"
       "   var obj = document.getElementById(\"play\" + id);\n"
-      "   if (obj.innerHTML == \"Play\") {\n"
-      "     obj.innerHTML = \"Stop\";\n"
+      "   if (cueListsIndices[id] == -1) {\n"
+      "     obj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
       "     setCueIndex(id, 0);\n"
       "   }\n"
       "   else {\n"
-      "     obj.innerHTML = \"Play\";\n"
+      "     obj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n"
       "     setCueIndex(id, -1);\n"
       "   }\n"
       " }\n"
@@ -1106,7 +1128,7 @@ QString VCCueList::getJS()
 
       "function enableCue(id, idx) {\n"
       " var btnObj = document.getElementById(\"play\" + id);\n"
-      " btnObj.innerHTML = \"Stop\";\n"
+      " btnObj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
       " setCueIndex(id, idx);\n"
       " websocket.send(id + \"|STEP|\" + idx);\n"
       "}\n";
