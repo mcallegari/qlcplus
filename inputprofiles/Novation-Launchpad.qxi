@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://qlcplus.sourceforge.net/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.5 GIT</Version>
+  <Author>Maikel Boerebach</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launchpad</Model>
+ <Channel Number="104">
+  <Name>Button 105</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="105">
+  <Name>Button 106</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="106">
+  <Name>Button 107</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="107">
+  <Name>Button 108</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="108">
+  <Name>Button 109</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="109">
+  <Name>Button 110</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="110">
+  <Name>Button 111</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="111">
+  <Name>Button 112</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>Button 129</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>Button 130</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Button 131</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Button 132</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Button 133</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Button 134</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Button 135</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Button 136</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Button 137</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Button 145</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Button 146</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Button 147</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Button 148</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Button 149</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Button 150</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Button 151</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Button 152</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Button 153</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Button 161</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Button 162</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Button 163</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Button 164</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Button 165</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Button 166</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Button 167</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>Button 168</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>Button 169</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Button 177</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Button 178</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Button 179</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Button 180</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Button 181</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Button 182</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Button 183</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Button 184</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Button 185</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>Button 193</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Button 194</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>Button 195</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>Button 196</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>Button 197</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>Button 198</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>Button 199</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>Button 200</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>Button 201</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>Button 209</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Button 210</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Button 211</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Button 212</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Button 213</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Button 214</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Button 215</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Button 216</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Button 217</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>Button 225</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>Button 226</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>Button 227</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>Button 228</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="228">
+  <Name>Button 229</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="229">
+  <Name>Button 230</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="230">
+  <Name>Button 231</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="231">
+  <Name>Button 232</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="232">
+  <Name>Button 233</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="240">
+  <Name>Button 241</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="241">
+  <Name>Button 242</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="242">
+  <Name>Button 243</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="243">
+  <Name>Button 244</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="244">
+  <Name>Button 245</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="245">
+  <Name>Button 246</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="246">
+  <Name>Button 247</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="247">
+  <Name>Button 248</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="248">
+  <Name>Button 249</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
