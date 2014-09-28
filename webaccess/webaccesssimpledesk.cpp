@@ -151,7 +151,8 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             " var slObj = document.getElementById(id);\n"
             " var labelObj = document.getElementById(\"sdslv\" + id);\n"
             " labelObj.innerHTML = slObj.value;\n"
-            " var sldMsg = \"CH|\" + id + \"|\" + slObj.value;\n"
+            " var chNum = ((currentUniverse - 1) * 512) + parseInt(id);\n"
+            " var sldMsg = \"CH|\" + chNum + \"|\" + slObj.value;\n"
             " websocket.send(sldMsg);\n"
             "}\n";
     JScode += "</script>\n";

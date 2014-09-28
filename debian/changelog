@@ -21,6 +21,7 @@ qlcplus (4.7.5) stable; urgency=low
   * UI: Fixed unwanted time values sent by speed dials under certain circumstances
   * Web access: correctly render and handle multipage frames
   * Web access: improved Cue List and Simple Desk look & feel
+  * Web access: fixed Simple Desk changes on universes other than the first
   * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
   * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC, BoomToneDJ Quattro Scan LED (thanks to Robert Scheffler)
   * New fixture: Clay Paky Sharpy

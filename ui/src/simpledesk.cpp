@@ -376,6 +376,18 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
+    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    quint32 absoluteAddr = start | (m_currentUniverse << 9);
+    if (address < absoluteAddr + m_channelsPerPage && address >= absoluteAddr)
+    {
+        ConsoleChannel* slider = m_universeSliders[address - absoluteAddr];
+        slider->blockSignals(true);
+        if (m_engine->hasChannel(address) == false)
+            slider->setStyleSheet(ssOverride);
+        slider->setValue(value);
+        slider->blockSignals(false);
+    }
+
     m_engine->setValue(address, value);
 }
 
