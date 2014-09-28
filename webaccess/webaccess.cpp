@@ -539,36 +539,21 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             if (cmdList.count() < 4)
                 return MG_FALSE;
 
-            quint32 universeAddr = ((cmdList[2].toUInt() - 1) << 9);
+            quint32 universe = cmdList[2].toUInt() - 1;
             int startAddr = cmdList[3].toInt() - 1;
             int count = 1;
             if (cmdList.count() == 5)
                 count = cmdList[4].toInt();
-            for (int i = startAddr; i < startAddr + count; i++)
-            {
-                QString type = "";
-                uchar value = m_sd->getAbsoluteChannelValue(universeAddr + i);
-                Fixture* fxi = m_doc->fixture(m_doc->fixtureForAddress(universeAddr + i));
-                if (fxi != NULL)
-                {
-                    const QLCChannel *ch = fxi->channel(universeAddr + i - fxi->universeAddress());
-                    if (ch != NULL)
-                    {
-                        if (ch->group() == QLCChannel::Intensity)
-                        {
-                            QString hexCol;
-                            hexCol.sprintf("%06X", ch->colour());
-                            type = QString("%1.#%2").arg(ch->group()).arg(hexCol);
-                        }
-                        else
-                            type = QString::number(ch->group());
-                    }
-                }
 
-                wsAPIMessage.append(QString("%1|%2|%3|").arg(i + 1).arg(value).arg(type));
-            }
-            // remove trailing separator
-            wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, universe, startAddr, count));
+        }
+        else if (apiCmd == "sdResetUniverse")
+        {
+            m_sd->resetUniverse();
+            wsAPIMessage = "QLC+API|getChannelsValues|";
+            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
+                                m_doc, m_sd, m_sd->getCurrentUniverseIndex(),
+                                0, m_sd->getSlidersNumber()));
         }
         //qDebug() << "Simple desk channels:" << wsAPIMessage;
 

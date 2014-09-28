@@ -99,6 +99,7 @@ public:
     int getCurrentPage();
     uchar getAbsoluteChannelValue(uint address);
     void setAbsoluteChannelValue(uint address, uchar value);
+    void resetUniverse();
 
 private:
     void initUniversesCombo();

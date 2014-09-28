@@ -376,19 +376,16 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
-    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-    quint32 absoluteAddr = start | (m_currentUniverse << 9);
-    if (address < absoluteAddr + m_channelsPerPage && address >= absoluteAddr)
-    {
-        ConsoleChannel* slider = m_universeSliders[address - absoluteAddr];
-        slider->blockSignals(true);
-        if (m_engine->hasChannel(address) == false)
-            slider->setStyleSheet(ssOverride);
-        slider->setValue(value);
-        slider->blockSignals(false);
-    }
-
     m_engine->setValue(address, value);
+}
+
+void SimpleDesk::resetUniverse()
+{
+    // force a engine reset
+    m_engine->resetUniverse(m_currentUniverse);
+    // simulate a user click on the reset button
+    // to avoid messing up with multithread calls
+    m_universeResetButton->click();
 }
 
 /****************************************************************************
@@ -751,16 +748,26 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
             if (i >= (quint32)ua.length())
                 break;
 
-            if (m_engine->hasChannel(i + (idx << 9)) == true)
+            quint32 absAddr = i + (idx << 9);
+            ConsoleChannel *cc = m_universeSliders[i - start];
+            if (cc == NULL)
                 continue;
 
-            ConsoleChannel *cc = m_universeSliders[i - start];
-            if (cc != NULL)
+            if (m_engine->hasChannel(absAddr) == true)
             {
-                cc->blockSignals(true);
-                cc->setValue(ua.at(i), false);
-                cc->blockSignals(false);
+                if (cc->value() != m_engine->value(absAddr))
+                {
+                    cc->blockSignals(true);
+                    cc->setValue(m_engine->value(absAddr), false);
+                    cc->setStyleSheet(ssOverride);
+                    cc->blockSignals(false);
+                }
+                continue;
             }
+
+            cc->blockSignals(true);
+            cc->setValue(ua.at(i), false);
+            cc->blockSignals(false);
         }
     }
     else

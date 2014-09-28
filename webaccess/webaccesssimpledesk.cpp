@@ -18,6 +18,7 @@
 */
 
 #include <QSettings>
+#include <QDebug>
 
 #include "webaccesssimpledesk.h"
 #include "commonjscss.h"
@@ -147,6 +148,12 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
               " getPage(currentUniverse, currentPage);\n"
               "}\n\n";
 
+    JScode += "function resetUniverse() {\n"
+              " currentPage = 1;\n"
+              " var wsMsg = \"QLC+API|sdResetUniverse\";\n"
+              " websocket.send(wsMsg);\n"
+              "}\n\n";
+
     JScode += "function sdSlVchange(id) {\n"
             " var slObj = document.getElementById(id);\n"
             " var labelObj = document.getElementById(\"sdslv\" + id);\n"
@@ -176,7 +183,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             "   border-radius: 4px;\n"
             "   }"
 
-            ".universeButton {\n"
+            ".sdButton {\n"
             " display: inline-block;\n"
             " vertical-align: top;\n"
             " background: linear-gradient(to bottom, #F6F6F6 0%, #AAAAAA 100%);\n"
@@ -193,7 +200,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             " text-align: center;\n"
             "}\n"
 
-            ".universeButton:active { background: #868585; }\n"
+            ".sdButton:active { background: #868585; }\n"
 
             CONTROL_BAR_CSS
             BUTTON_BASE_CSS
@@ -210,7 +217,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                        "</div>\n";
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
-    bodyHTML += tr("Page") + "  <a class=\"universeButton\" href=\"javascript:previousPage();\">\n"
+    bodyHTML += tr("Page") + "  <a class=\"sdButton\" href=\"javascript:previousPage();\">\n"
                 "<img src=\"back.png\" width=27></img></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
@@ -218,8 +225,11 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                 "width: 50px; background-color: #888; border-radius: 6px;\">" +
                 QString::number(page) +  "</div></div>\n";
 
-    bodyHTML += "<a class=\"universeButton\" href=\"javascript:nextPage();\">\n"
+    bodyHTML += "<a class=\"sdButton\" href=\"javascript:nextPage();\">\n"
                 "<img src=\"forward.png\" width=27></img></a>\n";
+
+    bodyHTML += "<a class=\"sdButton\" href=\"javascript:resetUniverse();\">\n"
+                "<img src=\"fileclose.png\" width=27></img></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"
@@ -238,4 +248,41 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     QString str = HTML_HEADER + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
+}
+
+QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
+                                                quint32 universe, int startAddr, int chNumber)
+{
+    QString message;
+    quint32 universeAddr = (universe << 9);
+    qDebug () << "Uni addr:" << universeAddr;
+
+    for (int i = startAddr; i < startAddr + chNumber; i++)
+    {
+        QString type = "";
+        uchar value = sd->getAbsoluteChannelValue(universeAddr + i);
+        Fixture* fxi = doc->fixture(doc->fixtureForAddress(universeAddr + i));
+        if (fxi != NULL)
+        {
+            const QLCChannel *ch = fxi->channel(universeAddr + i - fxi->universeAddress());
+            if (ch != NULL)
+            {
+                if (ch->group() == QLCChannel::Intensity)
+                {
+                    QString hexCol;
+                    hexCol.sprintf("%06X", ch->colour());
+                    type = QString("%1.#%2").arg(ch->group()).arg(hexCol);
+                }
+                else
+                    type = QString::number(ch->group());
+            }
+        }
+
+        message.append(QString("%1|%2|%3|").arg(i + 1).arg(value).arg(type));
+    }
+    // remove trailing separator
+    message.truncate(message.length() - 1);
+
+    qDebug() << "Message to send:" << message;
+    return message;
 }
