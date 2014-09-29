@@ -123,6 +123,9 @@ private:
     /** Update the list of steps */
     void updateStepList();
 
+    /** timer for updating the step list */
+    QTimer* m_updateTimer;
+
 public slots:
     /** Play/stop the cue list from the current selection */
     void slotPlayback();
@@ -139,6 +142,9 @@ private slots:
 
     /** Updates name in the list if function got changed */
     void slotFunctionChanged(quint32 fid);
+
+    /** Update the step list at m_updateTimer timeout */
+    void slotUpdateStepList();
 
     /** Stop the cue list and return to start */
     void slotStop();

@@ -58,6 +58,7 @@
 #define HYSTERESIS 3 // Hysteresis for next/previous external input
 
 #define PROGRESS_INTERVAL 200
+#define UPDATE_TIMEOUT 100
 
 const quint8 VCCueList::nextInputSourceId = 0;
 const quint8 VCCueList::previousInputSourceId = 1;
@@ -174,6 +175,11 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()),
             this, SLOT(slotProgressTimeout()));
+
+    m_updateTimer = new QTimer(this);
+    connect(m_updateTimer, SIGNAL(timeout()),
+            this, SLOT(slotUpdateStepList()));
+    m_updateTimer->setSingleShot(true);
 
     /* Create control buttons */
     QHBoxLayout *hbox = new QHBoxLayout(this);
@@ -448,7 +454,7 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 void VCCueList::slotFunctionChanged(quint32 fid)
 {
     if (fid == m_chaserID)
-        updateStepList();
+        m_updateTimer->start(UPDATE_TIMEOUT);
     else
     {
         // fid might be an ID of a ChaserStep of m_chaser
@@ -459,11 +465,16 @@ void VCCueList::slotFunctionChanged(quint32 fid)
         {
             if (step.fid == fid)
             {
-                updateStepList();
+                m_updateTimer->start(UPDATE_TIMEOUT);
                 return;
             }
         }
     }
+}
+
+void VCCueList::slotUpdateStepList()
+{
+    updateStepList();
 }
 
 void VCCueList::slotPlayback()
