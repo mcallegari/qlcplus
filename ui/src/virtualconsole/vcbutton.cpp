@@ -628,13 +628,13 @@ void VCButton::pressFunction()
             }
             else
             {
-                emit functionStarting();
-                f->start(m_doc->masterTimer());
-
                 if (isStartupIntensityEnabled() == true)
                     f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
                 else
                     f->adjustAttribute(intensity(), Function::Intensity);
+
+                f->start(m_doc->masterTimer());
+                emit functionStarting();
             }
         }
     }
