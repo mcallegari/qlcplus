@@ -2144,12 +2144,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="showmanager/efxitem.cpp" line="126"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Element entsperren</translation>
+        <translation>Element entsperren</translation>
     </message>
     <message>
         <location filename="showmanager/efxitem.cpp" line="131"/>
         <source>Lock item</source>
-        <translation type="unfinished">Element sperren</translation>
+        <translation>Element sperren</translation>
     </message>
 </context>
 <context>
@@ -3751,7 +3751,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="showmanager/multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE item:</source>
         <oldsource>Do you want to DELETE sequence:</oldsource>
-        <translation type="unfinished">Soll die Sequenz GELÖSCHT werden:</translation>
+        <translation>Soll das Element GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
@@ -3761,7 +3761,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Spur löschen</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4235,12 +4235,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="126"/>
         <source>Unlock item</source>
-        <translation type="unfinished">Element entsperren</translation>
+        <translation>Element entsperren</translation>
     </message>
     <message>
         <location filename="showmanager/rgbmatrixitem.cpp" line="131"/>
         <source>Lock item</source>
-        <translation type="unfinished">Element sperren</translation>
+        <translation>Element sperren</translation>
     </message>
 </context>
 <context>
@@ -4588,7 +4588,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Name: %1
+        <translation>Name: %1
 Startzeit: %2
 Dauer: %3
 %4</translation>
@@ -4596,7 +4596,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicken um das Element über die Zeitleiste zu bewegen</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="234"/>
@@ -4700,7 +4700,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Startzeit und Dauer des Elements</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="668"/>
@@ -4992,12 +4992,12 @@ Dauer: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="48"/>
         <source>Start Time</source>
-        <translation type="unfinished">Startzeit</translation>
+        <translation>Startzeit</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="57"/>
         <source>Duration</source>
-        <translation type="unfinished">Dauer</translation>
+        <translation>Dauer</translation>
     </message>
 </context>
 <context>
