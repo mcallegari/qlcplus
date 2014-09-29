@@ -18,6 +18,10 @@ qlcplus (4.7.5) stable; urgency=low
   * Channel Modifiers: added 6 new Exponential/Logarithmic templates (thanks to Luis García-Tornel)
   * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
   * Virtual Console: widgets key bindings on multipage frames respond only to the active page
+  * Virtual Console: performances improvement when combining a Speed Dial with a Cue List (thanks to David Garyga)
+  * Virtual Console: Speed Dial restyle. Increased the Tap button size to be more usable on touchscreens
+  * Virtual Console: Speed Dial Tap button border blinks at the tapped speed
+  * Virtual Console: Do not consider the first Speed Dial tap as it is most likely unwanted
   * UI: Fixed unwanted time values sent by speed dials under certain circumstances
   * Web access: correctly render and handle multipage frames
   * Web access: improved Cue List and Simple Desk look & feel

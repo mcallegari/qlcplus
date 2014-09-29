@@ -138,6 +138,7 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
     }
     else
     {
+        m_dial->stopTimers();
         m_dial->setEnabled(false);
     }
     VCWidget::slotModeChanged(mode);

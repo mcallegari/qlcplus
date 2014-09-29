@@ -25,7 +25,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
-#include <QTime>
 
 #include "mastertimer.h"
 #include "speeddial.h"
@@ -41,6 +40,15 @@
 
 #define TIMER_HOLD   250
 #define TIMER_REPEAT 10
+
+const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
+                             "QPushButton:pressed { background-color: #AAAAAA; }"
+                             "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+
+const QString tapTickSS = "QPushButton { background-color: #DDDDDD; border: 3px solid #2B2595; border-radius: 5px; }"
+                          "QPushButton:pressed { background-color: #AAAAAA; }"
+                          "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+
 
 /****************************************************************************
  * FocusSpinBox
@@ -73,15 +81,25 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_previousDialValue(0)
     , m_preventSignals(false)
     , m_value(0)
-    , m_tapTime(new QTime(QTime::currentTime()))
+    , m_tapTime(NULL)
+    , m_tapTickTimer(NULL)
+    , m_tapTick(false)
 {
     QGridLayout* grid = new QGridLayout(this);
     grid->setSpacing(0);
+    grid->setMargin(2);
+
+    m_plus = new QToolButton(this);
+    m_plus->setIconSize(QSize(32, 32));
+    m_plus->setIcon(QIcon(":/edit_add.png"));
+    grid->addWidget(m_plus, 0, 0, Qt::AlignVCenter | Qt::AlignLeft);
+    connect(m_plus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
+    connect(m_plus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
 
     m_minus = new QToolButton(this);
     m_minus->setIconSize(QSize(32, 32));
     m_minus->setIcon(QIcon(":/edit_remove.png"));
-    grid->addWidget(m_minus, 0, 0, Qt::AlignVCenter | Qt::AlignLeft);
+    grid->addWidget(m_minus, 1, 0, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_minus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
 
@@ -89,22 +107,21 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_dial->setWrapping(true);
     m_dial->setNotchesVisible(true);
     m_dial->setTracking(true);
-    grid->addWidget(m_dial, 0, 1, 1, 2, Qt::AlignHCenter);
+    grid->addWidget(m_dial, 0, 1, 2, 2, Qt::AlignHCenter);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialChanged(int)));
 
-    m_plus = new QToolButton(this);
-    m_plus->setIconSize(QSize(32, 32));
-    m_plus->setIcon(QIcon(":/edit_add.png"));
-    grid->addWidget(m_plus, 0, 3, Qt::AlignVCenter | Qt::AlignRight);
-    connect(m_plus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
-    connect(m_plus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
+    m_tap = new QPushButton(tr("Tap"), this);
+    m_tap->setStyleSheet(tapDefaultSS);
+    m_tap->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    grid->addWidget(m_tap, 0, 3, 2, 1);
+    connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
 
     m_hrs = new FocusSpinBox(this);
     m_hrs->setRange(0, HRS_MAX);
     m_hrs->setSuffix("h");
     m_hrs->setButtonSymbols(QSpinBox::NoButtons);
     m_hrs->setToolTip(tr("Hours"));
-    grid->addWidget(m_hrs, 1, 0);
+    grid->addWidget(m_hrs, 2, 0);
     connect(m_hrs, SIGNAL(valueChanged(int)), this, SLOT(slotHoursChanged()));
     connect(m_hrs, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -113,7 +130,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_min->setSuffix("m");
     m_min->setButtonSymbols(QSpinBox::NoButtons);
     m_min->setToolTip(tr("Minutes"));
-    grid->addWidget(m_min, 1, 1);
+    grid->addWidget(m_min, 2, 1);
     connect(m_min, SIGNAL(valueChanged(int)), this, SLOT(slotMinutesChanged()));
     connect(m_min, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -122,7 +139,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_sec->setSuffix("s");
     m_sec->setButtonSymbols(QSpinBox::NoButtons);
     m_sec->setToolTip(tr("Seconds"));
-    grid->addWidget(m_sec, 1, 2);
+    grid->addWidget(m_sec, 2, 2);
     connect(m_sec, SIGNAL(valueChanged(int)), this, SLOT(slotSecondsChanged()));
     connect(m_sec, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -131,18 +148,14 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_ms->setPrefix(".");
     m_ms->setButtonSymbols(QSpinBox::NoButtons);
     m_ms->setToolTip(tr("Milliseconds"));
-    grid->addWidget(m_ms, 1, 3);
+    grid->addWidget(m_ms, 2, 3);
     connect(m_ms, SIGNAL(valueChanged(int)), this, SLOT(slotMSChanged()));
     connect(m_ms, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
     m_infiniteCheck = new QCheckBox(this);
     m_infiniteCheck->setText(tr("Infinite"));
-    grid->addWidget(m_infiniteCheck, 2, 0, 1, 2);
+    grid->addWidget(m_infiniteCheck, 3, 0, 1, 4);
     connect(m_infiniteCheck, SIGNAL(toggled(bool)), this, SLOT(slotInfiniteChecked(bool)));
-
-    m_tap = new QPushButton(tr("Tap"), this);
-    grid->addWidget(m_tap, 2, 2, 1, 2);
-    connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
 
     m_focus = m_ms;
     m_dial->setRange(m_focus->minimum(), m_focus->maximum());
@@ -150,14 +163,11 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     m_timer->setInterval(TIMER_HOLD);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotPlusMinusTimeout()));
-
-    m_tapTime->start();
 }
 
 SpeedDial::~SpeedDial()
 {
-    delete m_tapTime;
-    m_tapTime = NULL;
+    stopTimers();
 }
 
 void SpeedDial::setValue(int ms, bool emitValue)
@@ -189,6 +199,22 @@ void SpeedDial::tap()
 void SpeedDial::setTapVisibility(bool visible)
 {
     m_tap->setVisible(visible);
+}
+
+void SpeedDial::stopTimers()
+{
+    if (m_tapTime != NULL)
+    {
+        delete m_tapTime;
+        m_tapTime = NULL;
+    }
+    if (m_tapTickTimer != NULL)
+    {
+        m_tapTickTimer->stop();
+        delete m_tapTickTimer;
+        m_tapTickTimer = NULL;
+        m_tap->setStyleSheet(tapDefaultSS);
+    }
 }
 
 void SpeedDial::setInfiniteVisibility(bool visible)
@@ -429,6 +455,15 @@ void SpeedDial::slotSpinFocusGained()
 
 void SpeedDial::slotTapClicked()
 {
+    if (m_tapTime == NULL)
+    {
+        m_tapTime = new QTime(QTime::currentTime());
+        m_tapTickTimer = new QTimer();
+        connect(m_tapTickTimer, SIGNAL(timeout()),
+                this, SLOT(slotTapTimeout()));
+        m_tapTime->start();
+        return;
+    }
     // Round the elapsed time to the nearest full 10th ms.
     int remainder = m_tapTime->elapsed() % MS_DIV;
     m_value = m_tapTime->elapsed() - remainder;
@@ -436,5 +471,16 @@ void SpeedDial::slotTapClicked()
         m_value += MS_DIV;
     setSpinValues(m_value);
     m_tapTime->restart();
+    m_tapTickTimer->setInterval(m_value);
+    m_tapTickTimer->start();
     emit tapped();
+}
+
+void SpeedDial::slotTapTimeout()
+{
+    if (m_tapTick == false)
+        m_tap->setStyleSheet(tapTickSS);
+    else
+        m_tap->setStyleSheet(tapDefaultSS);
+    m_tapTick = !m_tapTick;
 }
