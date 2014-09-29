@@ -1685,7 +1685,7 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="159"/>
+        <location filename="consolechannel.cpp" line="160"/>
         <source>Intensity</source>
         <translation>明るさ</translation>
     </message>
@@ -4889,47 +4889,47 @@ Duration: %3
         <translation>キューの記録</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="522"/>
+        <location filename="simpledesk.cpp" line="531"/>
         <source>Channel groups</source>
         <translation>チャンネルグループ</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="854"/>
+        <location filename="simpledesk.cpp" line="873"/>
         <source>Cue Stack - Playback %1</source>
         <translation>キュースタック - フェーダー %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1015"/>
+        <location filename="simpledesk.cpp" line="1034"/>
         <source>No selection</source>
         <translation>選択無し</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1038"/>
+        <location filename="simpledesk.cpp" line="1057"/>
         <source>Cue name</source>
         <translation>キュー名</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1045"/>
+        <location filename="simpledesk.cpp" line="1064"/>
         <source>Multiple Cues</source>
         <translation>複数キュー</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1142"/>
+        <location filename="simpledesk.cpp" line="1161"/>
         <source>Delete cue</source>
         <translation>キューの削除</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1196"/>
+        <location filename="simpledesk.cpp" line="1215"/>
         <source>Clone Cue Stack</source>
         <translation>キュースタックの複製</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1196"/>
+        <location filename="simpledesk.cpp" line="1215"/>
         <source>Clone To Playback#</source>
         <translation>複製先フェーダー:</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1269"/>
+        <location filename="simpledesk.cpp" line="1288"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -4937,32 +4937,32 @@ Duration: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="106"/>
+        <location filename="speeddial.cpp" line="123"/>
         <source>Hours</source>
         <translation>時</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="115"/>
+        <location filename="speeddial.cpp" line="132"/>
         <source>Minutes</source>
         <translation>分</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="124"/>
+        <location filename="speeddial.cpp" line="141"/>
         <source>Seconds</source>
         <translation>秒</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="133"/>
+        <location filename="speeddial.cpp" line="150"/>
         <source>Milliseconds</source>
         <translation>ミリ秒</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="139"/>
+        <location filename="speeddial.cpp" line="156"/>
         <source>Infinite</source>
         <translation>∞</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="143"/>
+        <location filename="speeddial.cpp" line="113"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5103,7 +5103,7 @@ Duration: %3
         <translation>全ファンクション停止</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="746"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
         <source>Icon</source>
         <translation>アイコン</translation>
     </message>
@@ -5342,52 +5342,52 @@ Duration: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="100"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="101"/>
         <source>Link</source>
         <translation>連動</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="188"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="194"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>クロスフェーダー表示</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="198"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="204"/>
         <source>Play/Stop Cue list</source>
         <translation>キューリスト再生/停止</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="207"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
         <source>Go to previous step in the list</source>
         <translation>前のステップへ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="216"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
         <source>Go to next step in the list</source>
         <translation>次のステップへ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="224"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
         <source>Cue list</source>
         <translation>キューリスト</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Fade In</source>
         <translation>F.I.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Fade Out</source>
         <translation>F.O.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Duration</source>
         <translation>Duration</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Notes</source>
         <translation>メモ</translation>
     </message>
@@ -5635,7 +5635,7 @@ Duration: %3
         <translation>Page : %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1159"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1249"/>
         <source>Add</source>
         <translation>追加</translation>
     </message>

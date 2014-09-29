@@ -1685,7 +1685,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="159"/>
+        <location filename="consolechannel.cpp" line="160"/>
         <source>Intensity</source>
         <translation>Intensitat</translation>
     </message>
@@ -4885,47 +4885,47 @@ Durada: %3
         <translation>Desar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="522"/>
+        <location filename="simpledesk.cpp" line="531"/>
         <source>Channel groups</source>
         <translation>Grups de Canals</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="854"/>
+        <location filename="simpledesk.cpp" line="873"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1015"/>
+        <location filename="simpledesk.cpp" line="1034"/>
         <source>No selection</source>
         <translation>Cap selecció</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1038"/>
+        <location filename="simpledesk.cpp" line="1057"/>
         <source>Cue name</source>
         <translation>Nom del Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1045"/>
+        <location filename="simpledesk.cpp" line="1064"/>
         <source>Multiple Cues</source>
         <translation>Múltiples Cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1142"/>
+        <location filename="simpledesk.cpp" line="1161"/>
         <source>Delete cue</source>
         <translation>Esborrar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1196"/>
+        <location filename="simpledesk.cpp" line="1215"/>
         <source>Clone Cue Stack</source>
         <translation>Clonar Cue Stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1196"/>
+        <location filename="simpledesk.cpp" line="1215"/>
         <source>Clone To Playback#</source>
         <translation>Clonar a Playback#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1269"/>
+        <location filename="simpledesk.cpp" line="1288"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -4933,32 +4933,32 @@ Durada: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="106"/>
+        <location filename="speeddial.cpp" line="123"/>
         <source>Hours</source>
         <translation>Hores</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="115"/>
+        <location filename="speeddial.cpp" line="132"/>
         <source>Minutes</source>
         <translation>Minuts</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="124"/>
+        <location filename="speeddial.cpp" line="141"/>
         <source>Seconds</source>
         <translation>Segons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="133"/>
+        <location filename="speeddial.cpp" line="150"/>
         <source>Milliseconds</source>
         <translation>Milisegons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="139"/>
+        <location filename="speeddial.cpp" line="156"/>
         <source>Infinite</source>
         <translation>Infinit</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="143"/>
+        <location filename="speeddial.cpp" line="113"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5099,7 +5099,7 @@ Durada: %3
         <translation>Aturar TOTES les funcions!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="746"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
@@ -5338,52 +5338,52 @@ Durada: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="100"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="101"/>
         <source>Link</source>
         <translation>Enllaç</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="188"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="194"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Motrar/Amagar els sliders de crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="198"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="204"/>
         <source>Play/Stop Cue list</source>
         <translation>Executar/aturar la llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="207"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
         <source>Go to previous step in the list</source>
         <translation>Anar al pas anterior de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="216"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
         <source>Go to next step in the list</source>
         <translation>Anar al pas seqüent de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="224"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
         <source>Cue list</source>
         <translation>Lliste de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Duration</source>
         <translation>Durada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="974"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="986"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -5630,7 +5630,7 @@ Durada: %3
         <translation>Pàgina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1159"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1249"/>
         <source>Add</source>
         <translation>Afegir</translation>
     </message>

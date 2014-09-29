@@ -14,72 +14,68 @@
         <translation>Fixture opgeslagen en geladen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="363"/>
+        <location filename="webaccess.cpp" line="383"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="382"/>
+        <location filename="webaccess.cpp" line="402"/>
         <source>Autostart configuration changed</source>
         <translation>Autostart configuratie gewijzigd</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="624"/>
+        <location filename="webaccess.cpp" line="660"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="825"/>
+        <location filename="webaccess.cpp" line="703"/>
+        <location filename="webaccess.cpp" line="750"/>
+        <source>Page</source>
+        <translation type="unfinished">Pagina</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="909"/>
         <source>Enable</source>
         <translation>Inschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="859"/>
+        <location filename="webaccess.cpp" line="943"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="860"/>
+        <location filename="webaccess.cpp" line="944"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="861"/>
+        <location filename="webaccess.cpp" line="945"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="862"/>
+        <location filename="webaccess.cpp" line="946"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="863"/>
+        <location filename="webaccess.cpp" line="947"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="968"/>
-        <source>Previous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="971"/>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="1053"/>
+        <location filename="webaccess.cpp" line="1175"/>
         <source>Load project</source>
         <translation>Project laden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1055"/>
+        <location filename="webaccess.cpp" line="1177"/>
         <source>Simple Desk</source>
         <translation>Eenvoudig paneel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1057"/>
+        <location filename="webaccess.cpp" line="1179"/>
         <source>Configuration</source>
         <translation>Configuratie</translation>
     </message>
@@ -204,27 +200,17 @@
 <context>
     <name>WebAccessSimpleDesk</name>
     <message>
-        <location filename="webaccesssimpledesk.cpp" line="157"/>
+        <location filename="webaccesssimpledesk.cpp" line="215"/>
         <source>Back</source>
         <translation>Terug</translation>
     </message>
     <message>
-        <location filename="webaccesssimpledesk.cpp" line="162"/>
+        <location filename="webaccesssimpledesk.cpp" line="220"/>
         <source>Page</source>
         <translation>Pagina</translation>
     </message>
     <message>
-        <location filename="webaccesssimpledesk.cpp" line="164"/>
-        <source>Previous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccesssimpledesk.cpp" line="173"/>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccesssimpledesk.cpp" line="175"/>
+        <location filename="webaccesssimpledesk.cpp" line="234"/>
         <source>Universe</source>
         <translation>Universe</translation>
     </message>
