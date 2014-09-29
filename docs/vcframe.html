@@ -34,9 +34,10 @@ Frames have the following additional options, divided into 2 tabs:<br>
     only when the "Show header" option is enabled (see below).</li>
  <li><b>Accept child widgets</b>: Allow you to add widgets to the Frame.</li>
  <li><b>Allow resizing</b>: Allow the Frame height and width to be changed.</li>
- <li><b>Show header</b>: Display a useful header made up of a button and a label. The button allows
-    you to expand/collapse the Frame which can save a lot of Virtual Console space. The label
-    will display the name of the Frame.</li>
+ <li><b>Show header</b>: Display the frame header. By default it will display 3 elements: 
+ An expand/collapse button, the frame name and a enable/disable button. Some further optional
+ controls are displayed when the Frame is in multipage mode. See next paragraph.
+ </li>
 </ul>
 
 <a name="pages"><H3>Pages tab</H3></a>
@@ -67,5 +68,28 @@ Following these options to configure this functionality:
      keyboard combination here which will cause the previous page of the frame to be displayed.
  </li>
 </ul>
+
+<a name="header"><H2>Header Controls</H2></a>
+
+<P>By default a Frame is displayed with a header. Following a brief description of the
+default and optional controls that can be used either in Operate or Design mode.
+
+<UL>
+ <LI><IMG SRC="qrc:/expand.png" ALIGN="absmiddle"> <B>Expand/Collapse button</B>: when clicked, the Frame
+  size will be dramaticaly reduced, to save space on your Virtual Console. The collapsed state is saved in your project.
+ </LI>
+ <LI><B>Frame name</B>: a label displaying the Frame name</LI>
+ <LI><IMG SRC="qrc:/check.png" ALIGN="absmiddle"> <B>Enable/Disable button</B>: when clicked, the Frame will go into a
+  disable state. All the widgets inside the Frame will not respond anymore to input controls.<br>
+  This is useful, for example, to use the same input controls on widgets of different frames.
+  For example if you bound the key "G" to a button in Frame A and also to a button on Frame B, you can enable 
+  one Frame at a time to use your key binding univocally.
+ </LI>
+ <LI><IMG SRC="qrc:/back.png" ALIGN="absmiddle"> Page <IMG SRC="qrc:/forward.png" ALIGN="absmiddle"> 
+  <B>Multipage controls</B> (Optional): when a Frame is configured in multipage mode, some extra buttons will be displayed on 
+  the header, allowing you to switch between the Frame pages and to keep track of the current page you're in.
+ </LI>
+</UL>
+
 </BODY>
 </HTML>
