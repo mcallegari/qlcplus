@@ -38,6 +38,7 @@ qlcplus (4.8.0) stable; urgency=low
   * New fixture: Stairville MH-100 Beam 36x3 LED (thanks to Jasper Zevering)
   * New fixture: Stairville SC-X50 MKII (thanks to Johan Förberg)
   * New fixture: Light Emotion LED Parbar (thanks to Dan Szabo)
+  * New fixture: American DJ Inno Pocket Roll (thanks to George Qualley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Sep 2014 20:21:22 +0200
 
