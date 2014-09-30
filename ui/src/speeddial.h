@@ -90,7 +90,7 @@ public:
     /** Set the visibility of the Tap button */
     void setTapVisibility(bool visible);
 
-    void stopTimers();
+    void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
 signals:
     void valueChanged(int ms);

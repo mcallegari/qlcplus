@@ -40,6 +40,7 @@
 
 #define TIMER_HOLD   250
 #define TIMER_REPEAT 10
+#define TAP_STOP_TIMEOUT 30000
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -201,14 +202,14 @@ void SpeedDial::setTapVisibility(bool visible)
     m_tap->setVisible(visible);
 }
 
-void SpeedDial::stopTimers()
+void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
 {
-    if (m_tapTime != NULL)
+    if (stopTime && m_tapTime != NULL)
     {
         delete m_tapTime;
         m_tapTime = NULL;
     }
-    if (m_tapTickTimer != NULL)
+    if (stopTapTimer && m_tapTickTimer != NULL)
     {
         m_tapTickTimer->stop();
         delete m_tapTickTimer;
@@ -379,6 +380,9 @@ void SpeedDial::slotDialChanged(int value)
         m_focus->setValue(m_value);
     }
 
+    // stop tap button blinking if it was
+    stopTimers();
+
     // Store the current value so it can be compared on the next pass to determine the
     // dial's direction of rotation.
     m_previousDialValue = value;
@@ -391,6 +395,8 @@ void SpeedDial::slotHoursChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
+    // stop tap button blinking if it was
+    stopTimers();
 }
 
 void SpeedDial::slotMinutesChanged()
@@ -400,6 +406,8 @@ void SpeedDial::slotMinutesChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
+    // stop tap button blinking if it was
+    stopTimers();
 }
 
 void SpeedDial::slotSecondsChanged()
@@ -409,6 +417,8 @@ void SpeedDial::slotSecondsChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
+    // stop tap button blinking if it was
+    stopTimers();
 }
 
 void SpeedDial::slotMSChanged()
@@ -418,6 +428,8 @@ void SpeedDial::slotMSChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
+    // stop tap button blinking if it was
+    stopTimers();
 }
 
 void SpeedDial::slotInfiniteChecked(bool state)
@@ -443,6 +455,8 @@ void SpeedDial::slotInfiniteChecked(bool state)
         if (m_preventSignals == false)
             emit valueChanged(m_value);
     }
+    // stop tap button blinking if it was
+    stopTimers();
 }
 
 void SpeedDial::slotSpinFocusGained()
@@ -483,4 +497,9 @@ void SpeedDial::slotTapTimeout()
     else
         m_tap->setStyleSheet(tapDefaultSS);
     m_tapTick = !m_tapTick;
+
+    if (m_tapTime && m_tapTime->elapsed() >= TAP_STOP_TIMEOUT)
+    {
+        stopTimers(true, false);
+    }
 }
