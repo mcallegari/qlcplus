@@ -32,7 +32,7 @@
         <location filename="webaccess.cpp" line="703"/>
         <location filename="webaccess.cpp" line="750"/>
         <source>Page</source>
-        <translation type="unfinished">Página</translation>
+        <translation>Página</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="909"/>
