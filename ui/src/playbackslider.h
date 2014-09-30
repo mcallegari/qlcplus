@@ -22,9 +22,9 @@
 
 #include <QWidget>
 
+class ClickAndGoSlider;
 class QToolButton;
 class QLineEdit;
-class QSlider;
 class QLabel;
 
 /** @addtogroup ui UI
@@ -62,7 +62,7 @@ private slots:
 private:
     QToolButton* m_select;
     QLabel* m_value;
-    QSlider* m_slider;
+    ClickAndGoSlider* m_slider;
     QLabel* m_label;
     QToolButton* m_flash;
     int m_previousValue;

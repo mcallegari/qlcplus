@@ -23,13 +23,13 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPainter>
-#include <QSlider>
 #include <QLabel>
 #include <QDebug>
 #include <QSize>
 #include <QIcon>
 
 #include "playbackslider.h"
+#include "clickandgoslider.h"
 #include "apputil.h"
 
 PlaybackSlider::PlaybackSlider(QWidget* parent)
@@ -61,11 +61,12 @@ PlaybackSlider::PlaybackSlider(QWidget* parent)
     layout()->setAlignment(m_value, Qt::AlignHCenter);
 
     /* Value slider */
-    m_slider = new QSlider(this);
+    m_slider = new ClickAndGoSlider(this);
     m_slider->setRange(0, UCHAR_MAX);
-    m_slider->setTickInterval(16);
-    m_slider->setTickPosition(QSlider::TicksBothSides);
-    m_slider->setStyle(AppUtil::saneStyle());
+    //m_slider->setTickInterval(16);
+    //m_slider->setTickPosition(QSlider::TicksBothSides);
+    m_slider->setFixedWidth(32);
+    m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
     layout()->addWidget(m_slider);
     layout()->setAlignment(m_slider, Qt::AlignHCenter);
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
