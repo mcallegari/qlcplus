@@ -13,13 +13,13 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">blackout</Capability>
   <Capability Min="11" Max="21">Dimmer</Capability>
-  <Capability Min="22" Max="32" Color="#ff0000">Red</Capability>
-  <Capability Min="33" Max="43" Color="#ffff00">Yellow</Capability>
-  <Capability Min="44" Max="54" Color="#005500">Green</Capability>
-  <Capability Min="55" Max="65" Color="#00aaff">Cyan</Capability>
-  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
+  <Capability Color="#ff0000" Min="22" Max="32">Red</Capability>
+  <Capability Color="#ffff00" Min="33" Max="43">Yellow</Capability>
+  <Capability Color="#005500" Min="44" Max="54">Green</Capability>
+  <Capability Color="#00aaff" Min="55" Max="65">Cyan</Capability>
+  <Capability Color="#0000ff" Min="66" Max="76">Blue</Capability>
   <Capability Min="77" Max="87">Purple</Capability>
-  <Capability Min="88" Max="98" Color="#ffffff">White</Capability>
+  <Capability Color="#ffffff" Min="88" Max="98">White</Capability>
   <Capability Min="99" Max="109">Dream</Capability>
   <Capability Min="110" Max="120">Meteor</Capability>
   <Capability Min="121" Max="131">Fade</Capability>
@@ -35,119 +35,104 @@
   <Capability Min="231" Max="241">Flow 9</Capability>
   <Capability Min="242" Max="255">Sound Control</Capability>
  </Channel>
- <Channel Name="Master Dimmer/Speed">
-  <Group Byte="0">Effect</Group>
+ <Channel Name="Master">
+  <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Master dimmer(0-255)/Speed(0-255)</Capability>
  </Channel>
  <Channel Name="Flash">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Flash</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red (0-255)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">Green (0-255)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue</Capability>
- </Channel>
  <Channel Name="R1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red 1</Capability>
+  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
  </Channel>
  <Channel Name="G1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">Green 1</Capability>
+  <Capability Color="#00aa00" Min="0" Max="255">Green</Capability>
  </Channel>
  <Channel Name="B1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue 1</Capability>
+  <Capability Color="#0000ff" Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="R2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red 2</Capability>
+  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
  </Channel>
  <Channel Name="G2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">Green 2</Capability>
+  <Capability Color="#00aa00" Min="0" Max="255">Green</Capability>
  </Channel>
  <Channel Name="B2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue 2</Capability>
+  <Capability Color="#0000ff" Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="R3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red 3</Capability>
- </Channel>
- <Channel Name="R4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red 4</Capability>
+  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
  </Channel>
  <Channel Name="G3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">Green 3</Capability>
- </Channel>
- <Channel Name="G4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">Green 4</Capability>
+  <Capability Color="#00aa00" Min="0" Max="255">Green 3</Capability>
  </Channel>
  <Channel Name="B3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue 3</Capability>
+  <Capability Color="#0000ff" Min="0" Max="255">Blue 3</Capability>
+ </Channel>
+ <Channel Name="R4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="G4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
  </Channel>
  <Channel Name="B4">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue 4</Capability>
+  <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Mode Name="6 CH - Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1030" Height="290" Weight="5" Depth="100"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
-  <Channel Number="1">Master Dimmer/Speed</Channel>
+  <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
-  <Channel Number="3">Red</Channel>
-  <Channel Number="4">Green</Channel>
-  <Channel Number="5">Blue</Channel>
+  <Channel Number="3">R1</Channel>
+  <Channel Number="4">G1</Channel>
+  <Channel Number="5">B1</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
  </Mode>
  <Mode Name="9 CH - Mode ">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1030" Height="290" Weight="5" Depth="100"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
-  <Channel Number="1">Master Dimmer/Speed</Channel>
+  <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
   <Channel Number="3">R1</Channel>
   <Channel Number="4">G1</Channel>
@@ -156,26 +141,26 @@
   <Channel Number="7">G2</Channel>
   <Channel Number="8">B2</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
    <Channel>7</Channel>
+   <Channel>6</Channel>
    <Channel>8</Channel>
   </Head>
  </Mode>
  <Mode Name="15 CH - Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1030" Height="290" Weight="5" Depth="100"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
-  <Channel Number="1">Master Dimmer/Speed</Channel>
+  <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
   <Channel Number="3">R1</Channel>
   <Channel Number="4">G1</Channel>
@@ -190,23 +175,23 @@
   <Channel Number="13">G4</Channel>
   <Channel Number="14">B4</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
    <Channel>7</Channel>
+   <Channel>6</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>10</Channel>
+   <Channel>9</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>13</Channel>
+   <Channel>12</Channel>
    <Channel>14</Channel>
   </Head>
  </Mode>
