@@ -49,8 +49,9 @@ bool Stageprofi::checkReply()
             qDebug() << Q_FUNC_INFO << name() << "Good connection.";
             return true;
         }
-        qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
     }
+
+    qWarning() << Q_FUNC_INFO << name() << "got no reply";
 
     return false;
 }
@@ -84,7 +85,9 @@ bool Stageprofi::open(quint32 line, bool input)
     if (ftdi()->write(initSequence) == true)
     {
         if (checkReply() == false)
-            return false;
+        {
+            qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
+        }
     }
     else
         qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -95,7 +98,9 @@ bool Stageprofi::open(quint32 line, bool input)
     if (ftdi()->write(initSequence) == true)
     {
         if (checkReply() == false)
-            return false;
+        {
+            qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
+        }
     }
 
     return true;
@@ -159,7 +164,8 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
             }
             else
             {
-                checkReply();
+                //checkReply();
+                ftdi()->purgeBuffers();
                 return true;
             }
         }
