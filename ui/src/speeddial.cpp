@@ -472,9 +472,12 @@ void SpeedDial::slotTapClicked()
     if (m_tapTime == NULL)
     {
         m_tapTime = new QTime(QTime::currentTime());
-        m_tapTickTimer = new QTimer();
-        connect(m_tapTickTimer, SIGNAL(timeout()),
-                this, SLOT(slotTapTimeout()));
+        if (m_tapTickTimer == NULL)
+        {
+            m_tapTickTimer = new QTimer();
+            connect(m_tapTickTimer, SIGNAL(timeout()),
+                    this, SLOT(slotTapTimeout()));
+        }
         m_tapTime->start();
         return;
     }
@@ -485,8 +488,11 @@ void SpeedDial::slotTapClicked()
         m_value += MS_DIV;
     setSpinValues(m_value);
     m_tapTime->restart();
-    m_tapTickTimer->setInterval(m_value);
-    m_tapTickTimer->start();
+    if (m_tapTickTimer)
+    {
+        m_tapTickTimer->setInterval(m_value);
+        m_tapTickTimer->start();
+    }
     emit tapped();
 }
 
