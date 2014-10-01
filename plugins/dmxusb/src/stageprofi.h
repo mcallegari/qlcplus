@@ -58,6 +58,7 @@ private:
     bool sendChannelValue(int channel, uchar value);
 
 private:
+    /** local copy of the universe last data sent */
     QByteArray m_universe;
 };
 

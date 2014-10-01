@@ -11,6 +11,7 @@ qlcplus (4.8.0) stable; urgency=low
   * Plugins/DMXUSB: fixed simultaneous Input/Output on Pro devices. Added MIDI IO support to Pro Mk2
   * Plugins/ArtNet: revert universe ID numbering. QLC+ outputs data on [ArtNet universe]-1 (see documentation)
   * Plugins/OSC: Fixed crash when trying to output data on a non-specified output address
+  * Plugins/DMXUSB: Fixed DMX4ALL Stageprofi MK2 freezing on Windows and malfunctioning
   * Show Manager: fixed 4.7.4 regression on time cursor position
   * Show Manager: show names in the drop down list are now sorted alphabetically (thanks to David Garyga)
   * Simple Desk: channel groups are now correctly updated
@@ -40,7 +41,7 @@ qlcplus (4.8.0) stable; urgency=low
   * New fixture: Light Emotion LED Parbar (thanks to Dan Szabo)
   * New fixture: American DJ Inno Pocket Roll (thanks to George Qualley)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Sep 2014 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 1 Oct 2014 20:21:22 +0200
 
 qlcplus (4.7.4) stable; urgency=low
 
