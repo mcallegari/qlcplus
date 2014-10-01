@@ -35,7 +35,7 @@ serialport {
     CONFIG(ftd2xx) {
         win32 {
             # Windows target
-            FTD2XXDIR    = C:/Qt/CDM20828
+            FTD2XXDIR    = C:/Qt/CDM21200
             LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
             INCLUDEPATH += $$FTD2XXDIR
             QMAKE_LFLAGS += -shared

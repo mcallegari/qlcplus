@@ -74,8 +74,16 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     if (isOpen() == true)
         return true; //close();
 
-    if (m_ftdi->open() == false)
-        return close(line);
+    if (this->type() == DMXUSBWidget::DMX4ALL)
+    {
+        if (m_ftdi->openByPID(QLCFTDI::DMX4ALLPID) == false)
+            return close();
+    }
+    else
+    {
+        if (m_ftdi->open() == false)
+            return close(line);
+    }
 
     if (m_ftdi->reset() == false)
         return close(line);

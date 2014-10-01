@@ -169,8 +169,6 @@ QString DMXUSB::outputInfo(quint32 output)
 
 void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    Q_UNUSED(universe)
-
     if (output < quint32(m_outputs.size()))
     {
         QByteArray wholeuniverse(512, 0);

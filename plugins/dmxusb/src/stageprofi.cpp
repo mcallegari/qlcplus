@@ -19,6 +19,7 @@
 
 #include "stageprofi.h"
 
+#include <QString>
 #include <QDebug>
 
 Stageprofi::Stageprofi(const QString& serial, const QString& name,
@@ -38,18 +39,20 @@ DMXUSBWidget::Type Stageprofi::type() const
 
 bool Stageprofi::checkReply()
 {
-    QByteArray reply = ftdi()->read(16);
-    //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    for (int i = 0; i < reply.count(); i++)
+    for (int i = 0; i < 16; i++)
     {
-        if (reply[i] == 'G')
+        QByteArray reply = ftdi()->read(1);
+        //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
+
+        if (reply.count() > 0 && reply[0] == 'G')
         {
             qDebug() << Q_FUNC_INFO << name() << "Good connection.";
             return true;
         }
     }
 
-    qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
+    qWarning() << Q_FUNC_INFO << name() << "got no reply";
+
     return false;
 }
 
@@ -70,29 +73,10 @@ bool Stageprofi::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
-    if (isOpen() == true)
-        close();
+    m_universe = QByteArray(512, 0);
 
-    if (ftdi()->openByPID(QLCFTDI::DMX4ALLPID) == false)
-        return close();
-
-    if (ftdi()->reset() == false)
-        return close();
-
-    if (ftdi()->setBaudRate() == false)
-        return close();
-
-    if (ftdi()->setLineProperties() == false)
-        return close();
-
-    if (ftdi()->setFlowControl() == false)
-        return close();
-
-    if (ftdi()->purgeBuffers() == false)
-        return close();
-
-    if (ftdi()->clearRts() == false)
-       return close();
+    if (DMXUSBWidget::open() == false)
+        return false;
 
     QByteArray initSequence;
 
@@ -101,7 +85,9 @@ bool Stageprofi::open(quint32 line, bool input)
     if (ftdi()->write(initSequence) == true)
     {
         if (checkReply() == false)
-            return false;
+        {
+            qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
+        }
     }
     else
         qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -112,7 +98,9 @@ bool Stageprofi::open(quint32 line, bool input)
     if (ftdi()->write(initSequence) == true)
     {
         if (checkReply() == false)
-            return false;
+        {
+            qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
+        }
     }
 
     return true;
@@ -160,35 +148,29 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
     if (isOpen() == false)
         return false;
 
-    /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
-     * a maximum of 256 channels, I need to split a 512 universe into 2 */
+    for (int i = 0; i < data.size(); i++)
+    {
+        if (data[i] != m_universe[i])
+        {
+            QString chData;
+            chData.sprintf("C%03dL%03d", i, uchar(data[i]));
 
-    QByteArray arrayTransfer(data);
-    arrayTransfer.prepend(char(0xFF));
-    arrayTransfer.prepend(char(0x00));        // Start channel low byte
-    arrayTransfer.prepend(char(0x00));        // Start channel high byte
-    if (data.size() < 256)
-    {
-        arrayTransfer.prepend(data.size());   // Number of channels
-    }
-    else
-    {
-        arrayTransfer.prepend(char(0xFF));   // First 256 channels
-        arrayTransfer.insert(259, char(0xFF));
-        arrayTransfer.insert(260, char(0x00));
-        arrayTransfer.insert(261, char(0x01));
-    }
+            m_universe[i] = data[i];
 
-    if (ftdi()->write(arrayTransfer) == false)
-    {
-        qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-        return false;
+            if (ftdi()->write(chData.toLatin1()) == false)
+            {
+                qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+                return false;
+            }
+            else
+            {
+                //checkReply();
+                ftdi()->purgeBuffers();
+                return true;
+            }
+        }
     }
-    else
-    {
-        ftdi()->purgeBuffers();
-        return true;
-    }
+    return true;
 }
 
 
