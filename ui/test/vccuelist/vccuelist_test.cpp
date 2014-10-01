@@ -166,6 +166,9 @@ void VCCueList_Test::functionRemoved()
 
     // Chaser members are removed from list
     m_doc->deleteFunction(c->steps().first().fid);
+    QCOMPARE(cl.m_tree->topLevelItemCount(), 4);
+    // deferred changes arrive afetr 100ms
+    QTest::qWait(150);
     QCOMPARE(cl.m_tree->topLevelItemCount(), 3);
     QCOMPARE(cl.m_tree->topLevelItem(0)->text(0), QString("1"));
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(0), QString("2"));
