@@ -127,9 +127,16 @@ void QLCFixtureEditor::init()
     // When the def already has an author, disable the field to prevent modification.
     m_authorEdit->setText(m_fixtureDef->author());
     if (m_authorEdit->text().length() > 0)
-        m_authorEdit->setEnabled(false);
+    {
+        // Temporarily allow editing author name since most definitions contain wrong name:
+        // m_authorEdit->setEnabled(false); 
+    }
     else
+    {
         m_authorEdit->setText(QLCFile::currentUserName());
+    }
+    connect(m_authorEdit, SIGNAL(textEdited(const QString&)),
+            this, SLOT(slotAuthorTextEdited(const QString&)));
 
     /* Channel page */
     connect(m_addChannelButton, SIGNAL(clicked()),
@@ -367,6 +374,12 @@ void QLCFixtureEditor::slotManufacturerTextEdited(const QString &text)
 void QLCFixtureEditor::slotModelTextEdited(const QString &text)
 {
     m_fixtureDef->setModel(text);
+    setModified();
+}
+
+void QLCFixtureEditor::slotAuthorTextEdited(const QString &text)
+{
+    m_fixtureDef->setAuthor(text);
     setModified();
 }
 

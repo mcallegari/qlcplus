@@ -166,11 +166,14 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
+    QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
-        return QString(getenv("USER"));
+        name.append(getenv("USER"));
     else
-        return QString(passwd->pw_gecos);
+        name.append(passwd->pw_gecos);
+    name.remove(",,,");
+    return name;
 #endif
 }
 
