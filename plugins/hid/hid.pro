@@ -15,7 +15,6 @@ macx:LIBS += -framework IOKit -framework CoreFoundation
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += configurehid.h \
            hiddevice.h \
-           hideventdevice.h \
            hidplugin.h \
            hidjsdevice.h \
            hidfx5device.h
@@ -24,7 +23,6 @@ FORMS += configurehid.ui
 
 SOURCES += configurehid.cpp \
            hiddevice.cpp \
-           hideventdevice.cpp \
            hidplugin.cpp \
            hidjsdevice.cpp \
            hidfx5device.cpp
@@ -48,6 +46,8 @@ TRANSLATIONS += HID_it_IT.ts
 TRANSLATIONS += HID_nl_NL.ts
 TRANSLATIONS += HID_cz_CZ.ts
 TRANSLATIONS += HID_pt_BR.ts
+TRANSLATIONS += HID_ca_ES.ts
+TRANSLATIONS += HID_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

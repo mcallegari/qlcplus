@@ -127,9 +127,9 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.m_previousKeySequence, QKeySequence());
     QCOMPARE(cl.m_playbackKeySequence, QKeySequence());
 
-    QVERIFY(cl.inputSource(VCCueList::nextInputSourceId).isValid() == false);
-    QVERIFY(cl.inputSource(VCCueList::previousInputSourceId).isValid() == false);
-    QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId).isValid() == false);
+    QVERIFY(cl.inputSource(VCCueList::nextInputSourceId) == NULL);
+    QVERIFY(cl.inputSource(VCCueList::previousInputSourceId) == NULL);
+    QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId) == NULL);
 }
 
 void VCCueList_Test::chaser()
@@ -166,6 +166,9 @@ void VCCueList_Test::functionRemoved()
 
     // Chaser members are removed from list
     m_doc->deleteFunction(c->steps().first().fid);
+    QCOMPARE(cl.m_tree->topLevelItemCount(), 4);
+    // deferred changes arrive afetr 100ms
+    QTest::qWait(150);
     QCOMPARE(cl.m_tree->topLevelItemCount(), 3);
     QCOMPARE(cl.m_tree->topLevelItem(0)->text(0), QString("1"));
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(0), QString("2"));
@@ -394,11 +397,17 @@ void VCCueList_Test::loadXML()
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(1), s2->name());
     QCOMPARE(cl.m_tree->topLevelItem(2)->text(1), s3->name());
     QCOMPARE(cl.m_tree->topLevelItem(3)->text(1), c4->name());
-    QCOMPARE(cl.inputSource(VCCueList::nextInputSourceId), QLCInputSource(0, 1));
+    QLCInputSource *ni = cl.inputSource(VCCueList::nextInputSourceId);
+    QCOMPARE(ni->universe(), quint32(0));
+    QCOMPARE(ni->channel(), quint32(1));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceD));
-    QCOMPARE(cl.inputSource(VCCueList::previousInputSourceId), QLCInputSource(2, 3));
+    QLCInputSource *pi = cl.inputSource(VCCueList::previousInputSourceId);
+    QCOMPARE(pi->universe(), quint32(2));
+    QCOMPARE(pi->channel(), quint32(3));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceC));
-    QCOMPARE(cl.inputSource(VCCueList::playbackInputSourceId), QLCInputSource(4, 5));
+    QLCInputSource *pli = cl.inputSource(VCCueList::playbackInputSourceId);
+    QCOMPARE(pli->universe(), quint32(4));
+    QCOMPARE(pli->channel(), quint32(5));
     QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
 
     QCOMPARE(cl.pos(), QPoint(3, 4));
@@ -427,9 +436,9 @@ void VCCueList_Test::saveXML()
     cl.setChaser(c->id());
 
     cl.setCaption("Testing");
-    cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
+    cl.setInputSource(new QLCInputSource(0, 1), VCCueList::nextInputSourceId);
+    cl.setInputSource(new QLCInputSource(1, 2), VCCueList::previousInputSourceId);
+    cl.setInputSource(new QLCInputSource(2, 3), VCCueList::playbackInputSourceId);
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
@@ -761,37 +770,37 @@ void VCCueList_Test::keyboardNextPrevious()
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Unrecognized keyboard key
     cl.slotKeyPressed(QKeySequence(QKeySequence::SelectAll));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 3);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Playback
@@ -809,9 +818,9 @@ void VCCueList_Test::input()
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
-    cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
+    cl.setInputSource(new QLCInputSource(0, 1), VCCueList::nextInputSourceId);
+    cl.setInputSource(new QLCInputSource(2, 3), VCCueList::previousInputSourceId);
+    cl.setInputSource(new QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
@@ -827,17 +836,17 @@ void VCCueList_Test::input()
     cl.slotInputValueChanged(0, 1, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 0);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 1);
 
     // Runner creation thru previous input
     m_doc->setMode(Doc::Design);
@@ -853,17 +862,17 @@ void VCCueList_Test::input()
     cl.slotInputValueChanged(2, 3, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 0);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 255);
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 2);
+    QCOMPARE(cl.m_runner->currentStepIndex(), 2);
 
     cl.slotInputValueChanged(4, 5, 255);
     QVERIFY(cl.m_runner != NULL);

@@ -117,10 +117,14 @@ void OlaIO::setServerEmbedded(bool embedServer)
  * Outputs
  ****************************************************************************/
 
-void OlaIO::openOutput(quint32 output)
+bool OlaIO::openOutput(quint32 output)
 {
     if (output >= UNIVERSE_COUNT)
+    {
         qWarning() << Q_FUNC_INFO << "output" << output << "is out of range";
+        return false;
+    }
+    return true;
 }
 
 void OlaIO::closeOutput(quint32 output)

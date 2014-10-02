@@ -194,11 +194,23 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
         dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                     .arg(GOBODIR));
         dir = dir.cleanPath(dir.path());
+#elif defined(WIN32) || defined(Q_OS_WIN)
+        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
+                    .arg(QDir::separator())
+                    .arg(GOBODIR));
 #else
         dir.setPath(GOBODIR);
 #endif
         if (modFilename.contains(dir.path()))
-            modFilename.remove(dir.path() + QDir::separator() );
+        {
+            modFilename.remove(dir.path());
+            // The following line is a dirty workaround for an issue raised on Windows
+            // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
+            // while QDir::separator() returns "\"
+            // So, to avoid any string mismatch I remove the first character
+            // no matter what it is
+            modFilename.remove(0, 1);
+        }
 
         tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
     }

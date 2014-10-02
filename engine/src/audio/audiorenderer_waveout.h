@@ -34,11 +34,15 @@
 #include <stdio.h>
 #include <windows.h>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererWaveOut : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererWaveOut(QObject * parent = 0);
+    AudioRendererWaveOut(QString device, QObject * parent = 0);
     ~AudioRendererWaveOut();
 
     /** @reimpl */
@@ -73,5 +77,7 @@ private:
 private:
     UINT deviceID;
 };
+
+/** @} */
 
 #endif // AUDIORENDERER_WAVEOUT_H

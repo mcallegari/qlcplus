@@ -11,7 +11,7 @@
     <message>
         <location filename="spiconfiguration.ui" line="20"/>
         <source>Transmission frequency:</source>
-        <translation>Transmissions-Frequenz:</translation>
+        <translation>Übertragungsfrequenz:</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="35"/>
@@ -37,7 +37,7 @@
 <context>
     <name>SPIPlugin</name>
     <message>
-        <location filename="spiplugin.cpp" line="133"/>
+        <location filename="spiplugin.cpp" line="128"/>
         <source>This plugin provides DMX output for SPI devices.</source>
         <translation>Diese Plugin unterstützt DMX-Ausgabe für SPI-Geräte.</translation>
     </message>

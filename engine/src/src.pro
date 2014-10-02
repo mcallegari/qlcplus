@@ -45,8 +45,9 @@ HEADERS += avolitesd4parser.h \
            qlcinputchannel.h \
            qlcinputprofile.h \
            qlcinputsource.h \
-           qlcphysical.h \
-           qlccapability.h
+           qlcmodifierscache.h \
+           qlcphysical.h
+
 # Audio
 HEADERS += audio/audio.h \
            audio/audiodecoder.h \
@@ -66,6 +67,7 @@ else {
 # Engine
 HEADERS += bus.h \
            channelsgroup.h \
+           channelmodifier.h \
            chaser.h \
            chaserrunner.h \
            chaserstep.h \
@@ -107,6 +109,7 @@ HEADERS += bus.h \
            scenevalue.h \
            script.h \
            show.h \
+           showfunction.h \
            showrunner.h \
            track.h \
            universe.h
@@ -127,6 +130,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputchannel.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
+           qlcmodifierscache.cpp \
            qlcphysical.cpp
 
 # Audio
@@ -160,6 +164,7 @@ else {
 # Engine
 SOURCES += bus.cpp \
            channelsgroup.cpp \
+           channelmodifier.cpp \
            chaser.cpp \
            chaserrunner.cpp \
            chaserstep.cpp \
@@ -200,6 +205,7 @@ SOURCES += bus.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \
+           showfunction.cpp \
            showrunner.cpp \
            track.cpp \
            universe.cpp
@@ -268,6 +274,8 @@ macx {
     conf.commands += echo \"$$LITERAL_HASH define USERINPUTPROFILEDIR \\\"$$USERINPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define MIDITEMPLATEDIR \\\"$$MIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERMIDITEMPLATEDIR \\\"$$USERMIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define MODIFIERSTEMPLATEDIR \\\"$$MODIFIERSTEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERMODIFIERSTEMPLATEDIR \\\"$$USERMODIFIERSTEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
@@ -289,6 +297,8 @@ unix:!macx {
     conf.commands += echo \"$$LITERAL_HASH define USERINPUTPROFILEDIR \\\"$$USERINPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define MIDITEMPLATEDIR \\\"$$INSTALLROOT/$$MIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERMIDITEMPLATEDIR \\\"$$USERMIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define MODIFIERSTEMPLATEDIR \\\"$$INSTALLROOT/$$MODIFIERSTEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERMODIFIERSTEMPLATEDIR \\\"$$USERMODIFIERSTEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$INSTALLROOT/$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$INSTALLROOT/$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
@@ -310,6 +320,8 @@ win32 {
     conf.commands += @echo $$LITERAL_HASH define USERINPUTPROFILEDIR \"$$USERINPUTPROFILEDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define MIDITEMPLATEDIR \"$$MIDITEMPLATEDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERMIDITEMPLATEDIR \"$$USERMIDITEMPLATEDIR\" >> $$CONFIGFILE &&
+    conf.commands += @echo $$LITERAL_HASH define MODIFIERSTEMPLATEDIR \"$$MODIFIERSTEMPLATEDIR\" >> $$CONFIGFILE &&
+    conf.commands += @echo $$LITERAL_HASH define USERMODIFIERSTEMPLATEDIR \"$$USERMODIFIERSTEMPLATEDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define FIXTUREDIR \"$$FIXTUREDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERFIXTUREDIR \"$$USERFIXTUREDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define PLUGINDIR \"$$PLUGINDIR\" >> $$CONFIGFILE &&

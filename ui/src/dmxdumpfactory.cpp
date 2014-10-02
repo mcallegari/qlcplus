@@ -19,6 +19,7 @@
 
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
+#include <QDebug>
 
 #include "dmxdumpfactoryproperties.h"
 #include "fixturetreewidget.h"
@@ -185,7 +186,7 @@ void DmxDumpFactory::accept()
         for (int f = 0; f < uniItem->childCount(); f++)
         {
             QTreeWidgetItem *fixItem = uniItem->child(f);
-            quint32 fxID = fixItem->data(KColumnName, Qt::UserRole).toUInt();
+            quint32 fxID = fixItem->data(KColumnName, PROP_ID).toUInt();
             Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
@@ -193,34 +194,35 @@ void DmxDumpFactory::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
+                    quint32 channel = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
 
                     if (m_dumpAllRadio->isChecked())
                     {
-                        dumpMask[baseAddress + c] = 1;
-                        uchar value = preGMValues.at(baseAddress + c);
+                        dumpMask[baseAddress + channel] = 1;
+                        uchar value = preGMValues.at(baseAddress + channel);
                         if (m_nonZeroCheck->isChecked() == false ||
                            (m_nonZeroCheck->isChecked() == true && value > 0))
                         {
-                            SceneValue sv = SceneValue(fxID, c, value);
+                            SceneValue sv = SceneValue(fxID, channel, value);
                             newScene->setValue(sv);
                         }
                     }
                     else
                     {
-                        //qDebug() << "Fix: " << fxID << "chan:" << c << "addr:" << (baseAddress + c);
+                        //qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" << (baseAddress + channel);
                         if (chanItem->checkState(KColumnName) == Qt::Checked)
                         {
-                            dumpMask[baseAddress + c] = 1;
-                            uchar value = preGMValues.at(baseAddress + c);
+                            dumpMask[baseAddress + channel] = 1;
+                            uchar value = preGMValues.at(baseAddress + channel);
                             if (m_nonZeroCheck->isChecked() == false ||
                                (m_nonZeroCheck->isChecked() == true && value > 0))
                             {
-                                SceneValue sv = SceneValue(fxID, c, value);
+                                SceneValue sv = SceneValue(fxID, channel, value);
                                 newScene->setValue(sv);
                             }
                         }
                         else
-                            dumpMask[baseAddress + c] = 0;
+                            dumpMask[baseAddress + channel] = 0;
                     }
                 }
             }

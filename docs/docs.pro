@@ -15,6 +15,7 @@ docs.files = \
              capabilitywizard.html \
              channeleditor.html \
              channelsgroupeditor.html \
+             channelproperties.html \
              chasereditor.html \
              collectioneditor.html \
              commandlineparameters.html \
@@ -78,7 +79,8 @@ docs.files = \
              webinterface.html
              
 imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
-imgs.files += images/efx-general.png \
+imgs.files += images/channelmodifier.png \
+              images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
               images/mainwindow.png \
@@ -88,6 +90,7 @@ imgs.files += images/efx-general.png \
               images/multipage1.png \
               images/multipage2.png \
               images/multipage3.png \
-              images/multipage4.png
+              images/multipage4.png \
+              images/pan-tilt.png
 
 INSTALLS += docs imgs

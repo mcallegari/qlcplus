@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = qlcplus
 
-INCLUDEPATH  += ../ui/src
+INCLUDEPATH  += ../ui/src ../ui/src/virtualconsole
 INCLUDEPATH  += ../engine/src
 INCLUDEPATH  += ../webaccess
 

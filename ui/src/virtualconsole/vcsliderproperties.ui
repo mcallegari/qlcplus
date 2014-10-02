@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VCSliderProperties</class>
+ <widget class="QDialog" name="VCSliderProperties">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>511</width>
+    <height>455</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Slider properties</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="General">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="3" column="0">
+        <widget class="QGroupBox" name="m_valueGroup">
+         <property name="title">
+          <string>Value display style</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="m_valueExactRadio">
+            <property name="toolTip">
+             <string>Show exact DMX values</string>
+            </property>
+            <property name="text">
+             <string>Actual</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_valuePercentageRadio">
+            <property name="toolTip">
+             <string>Show value as percentage</string>
+            </property>
+            <property name="text">
+             <string>Percentage</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QLabel" name="m_nameLabel">
+           <property name="text">
+            <string>Widget name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="m_nameEdit">
+           <property name="toolTip">
+            <string>Name of the slider</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="1">
+        <widget class="QGroupBox" name="m_sliderMovementGroup">
+         <property name="title">
+          <string>Slider movement</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="m_sliderMovementNormalRadio">
+            <property name="text">
+             <string>Normal</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_sliderMovementInvertedRadio">
+            <property name="text">
+             <string>Inverted</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QGroupBox" name="m_externalInputGroup">
+         <property name="title">
+          <string>External Input</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="m_inputUniverseLabel">
+            <property name="text">
+             <string>Input universe</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_inputUniverseEdit">
+            <property name="toolTip">
+             <string>The input universe that sends data to this widget</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="m_inputChannelLabel">
+            <property name="text">
+             <string>Input channel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_inputChannelEdit">
+            <property name="toolTip">
+             <string>The particular input channel within the input universe that sends data to this widget</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>298</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="m_chooseInputButton">
+            <property name="toolTip">
+             <string>Choose an external input universe &amp; channel that this widget should listen to</string>
+            </property>
+            <property name="text">
+             <string>Choose...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="m_autoDetectInputButton">
+            <property name="toolTip">
+             <string>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</string>
+            </property>
+            <property name="text">
+             <string>Auto Detect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <spacer>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Widget appearance</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QRadioButton" name="m_widgetSliderRadio">
+            <property name="text">
+             <string>Slider</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../qlcui.qrc">
+              <normaloff>:/slider.png</normaloff>:/slider.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_widgetKnobRadio">
+            <property name="text">
+             <string>Knob</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../qlcui.qrc">
+              <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Level">
+      <attribute name="title">
+       <string>Level</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="m_levelValueRangeGroup">
+         <property name="title">
+          <string>Value range</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="QLabel" name="m_levelLowLimitLabel">
+            <property name="text">
+             <string>Low limit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_levelLowLimitSpin">
+            <property name="toolTip">
+             <string>Lowest DMX value that can be set with this slider</string>
+            </property>
+            <property name="maximum">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="m_levelHighLimitLabel">
+            <property name="text">
+             <string>High limit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_levelHighLimitSpin">
+            <property name="toolTip">
+             <string>Highest DMX value that can be set with this slider</string>
+            </property>
+            <property name="maximum">
+             <number>255</number>
+            </property>
+            <property name="value">
+             <number>255</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="m_levelCapabilityButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Set value range from the selected capability</string>
+            </property>
+            <property name="text">
+             <string>From capability</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTreeWidget" name="m_levelList">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Type</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Range</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QPushButton" name="m_levelAllButton">
+           <property name="toolTip">
+            <string>Select all channels</string>
+           </property>
+           <property name="text">
+            <string>All</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_levelNoneButton">
+           <property name="toolTip">
+            <string>Unselect everything</string>
+           </property>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_levelInvertButton">
+           <property name="toolTip">
+            <string>Invert selection</string>
+           </property>
+           <property name="text">
+            <string>Invert</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_levelByGroupButton">
+           <property name="toolTip">
+            <string>Choose channels by channel group</string>
+           </property>
+           <property name="text">
+            <string>By group...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_monitorValuesCheck">
+         <property name="text">
+          <string>Monitor the selected channels and update the slider level</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="m_clickngoGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Click &amp;&amp; Go</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="m_cngNoneCheck">
+            <property name="text">
+             <string>None</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngColorCheck">
+            <property name="text">
+             <string>Intensity</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngRGBCheck">
+            <property name="text">
+             <string>RGB</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngCMYCheck">
+            <property name="text">
+             <string>CMY</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngPresetCheck">
+            <property name="text">
+             <string>Gobo/Effect/Macro</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="m_levelSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="m_switchToLevelModeButton">
+         <property name="toolTip">
+          <string>Make the slider control the level of a set of channels</string>
+         </property>
+         <property name="text">
+          <string>Switch to Level Mode</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Playback">
+      <attribute name="title">
+       <string>Playback</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="m_playbackFunctionGroup">
+         <property name="title">
+          <string>Function</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLineEdit" name="m_playbackFunctionEdit">
+            <property name="toolTip">
+             <string>Function that is attached to the slider</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="m_attachPlaybackFunctionButton">
+            <property name="toolTip">
+             <string>Attach a function to the slider</string>
+            </property>
+            <property name="text">
+             <string notr="true">...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../qlcui.qrc">
+              <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="m_detachPlaybackFunctionButton">
+            <property name="toolTip">
+             <string>Detach the current function from the slider</string>
+            </property>
+            <property name="text">
+             <string notr="true">...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../qlcui.qrc">
+              <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="m_playbackSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="m_switchToPlaybackModeButton">
+         <property name="toolTip">
+          <string>Make the slider control a function</string>
+         </property>
+         <property name="text">
+          <string>Switch to Playback Mode</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Submaster</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="m_submasterInfo">
+         <property name="text">
+          <string>Slider submaster mode is active</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="m_submasterSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>329</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="m_switchToSubmasterModeButton">
+         <property name="toolTip">
+          <string>Make the slider act as a submaster</string>
+         </property>
+         <property name="text">
+          <string>Switch to Submaster Mode</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>VCSliderProperties</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>257</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>VCSliderProperties</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>325</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

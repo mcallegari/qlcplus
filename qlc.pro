@@ -12,6 +12,7 @@ SUBDIRS      += gobos
 SUBDIRS      += inputprofiles
 SUBDIRS      += rgbscripts
 SUBDIRS      += miditemplates
+SUBDIRS      += modifierstemplates
 SUBDIRS      += fixtureeditor
 SUBDIRS      += etc
 SUBDIRS      += docs
@@ -36,8 +37,9 @@ unix:coverage.commands += ./coverage.sh
 win32:coverage.commands = @echo Get a better OS.
 
 # Translations (update these also to translate.sh and translate.bat)
-translations.files += qlcplus_de_DE.qm qlcplus_es_ES.qm qlcplus_fi_FI.qm qlcplus_fr_FR.qm
+translations.files += qlcplus_de_DE.qm qlcplus_es_ES.qm qlcplus_fr_FR.qm
 translations.files += qlcplus_it_IT.qm qlcplus_nl_NL.qm qlcplus_cz_CZ.qm qlcplus_pt_BR.qm
+translations.files += qlcplus_ca_ES.qm qlcplus_ja_JP.qm
 translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 INSTALLS           += translations
 

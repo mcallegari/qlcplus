@@ -33,7 +33,7 @@ class GenericFader;
 class QString;
 class Fixture;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -113,6 +113,13 @@ public:
      *********************************************************************/
 private:
     virtual FunctionUiState * createUiState();
+
+    /*********************************************************************
+     * Contents
+     *********************************************************************/
+public:
+    /** Get the EFX total duration in milliseconds */
+    quint32 totalDuration();
 
     /*********************************************************************
      * Algorithm

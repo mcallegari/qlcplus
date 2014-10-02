@@ -25,13 +25,14 @@
 #include "audiodecoder.h"
 #include "audiorenderer_portaudio.h"
 
-AudioRendererPortAudio::AudioRendererPortAudio(QObject * parent)
+AudioRendererPortAudio::AudioRendererPortAudio(QString device, QObject * parent)
     : AudioRenderer(parent)
 {
     m_channels = 0;
     m_frameSize = 0;
 
     m_paStream = NULL;
+    m_device = device;
 }
 
 AudioRendererPortAudio::~AudioRendererPortAudio()
@@ -84,12 +85,17 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
     if( err != paNoError )
         return false;
 
-    QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
-        outputParameters.device = QString(var.toString()).toInt();
+    if (m_device.isEmpty())
+    {
+        QSettings settings;
+        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        if (var.isValid() == true)
+            outputParameters.device = QString(var.toString()).toInt();
+        else
+            outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+    }
     else
-        outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+        outputParameters.device = m_device.toInt();
 
     if (outputParameters.device == paNoDevice)
     {

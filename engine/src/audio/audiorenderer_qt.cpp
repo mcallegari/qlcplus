@@ -24,12 +24,12 @@
 #include "audiodecoder.h"
 #include "audiorenderer_qt.h"
 
-AudioRendererQt::AudioRendererQt(QObject * parent)
+AudioRendererQt::AudioRendererQt(QString device, QObject * parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
 {
-
+    m_device = device;
 }
 
 AudioRendererQt::~AudioRendererQt()
@@ -48,7 +48,12 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
     QString devName = "";
     QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultOutputDevice();
 
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    QVariant var;
+    if (m_device.isEmpty())
+        var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    else
+        var = QVariant(m_device);
+
     if (var.isValid() == true)
     {
         devName = var.toString();
@@ -134,7 +139,7 @@ QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
         info.deviceName = deviceInfo.deviceName();
-        info.privateName = QString::number(i);
+        info.privateName = deviceInfo.deviceName(); //QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
         if (inDevs.contains(deviceInfo.deviceName()))

@@ -26,11 +26,6 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define PROP_ID       Qt::UserRole
-#define PROP_UNIVERSE Qt::UserRole + 1
-#define PROP_GROUP    Qt::UserRole + 2
-#define PROP_HEAD     Qt::UserRole + 3
-
 #define KColumnName 0
 
 FixtureTreeWidget::FixtureTreeWidget(Doc *doc, quint32 flags, QWidget *parent)
@@ -249,6 +244,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             cItem->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
             cItem->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            cItem->setData(KColumnName, PROP_CHANNEL, c);
             if (m_typeColumn > 0)
             {
                 if (channel->group() == QLCChannel::Intensity &&

@@ -21,7 +21,14 @@
 #define DOXYGEN_H
 
 
-/** \defgroup engine Engine */
+/** \defgroup engine Engine 
+ *  @{
+ */
+
+/** \defgroup engine_functions Functions */
+/** \defgroup engine_audio Audio */
+
+/** @} */
 
 
 /** \defgroup fixtureeditor Fixture Editor */
@@ -46,9 +53,17 @@
 
 /** \defgroup ui_simpledesk Simple Desk */
 /** \defgroup ui_io Input/Output Manager */
+/** \defgroup ui_mon DMX Monitor */
 
 /** @} */
 
 /** \defgroup webaccess Web access */
+
+// Define simple version of Qt containers so that doxygen recognizes them:
+
+template<class T> class QList { public: T element; };
+template<class T> class QVector { public: T element; };
+template<class T> class QSet { public: T element; };
+template<class T1,T2> class QMap { public: T1 key; T2 value; };
 
 #endif

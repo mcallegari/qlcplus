@@ -4,7 +4,7 @@
 <context>
     <name>Velleman</name>
     <message>
-        <location filename="velleman.cpp" line="121"/>
+        <location filename="velleman.cpp" line="122"/>
         <source>This plugin provides DMX output support for the Velleman K8062D using the DLL supplied with the product.</source>
         <translation>Questa plugin permette la trasmissione di segnale DMX per interfacce Velleman K8062D usando la DLL fornita con il prodotto.</translation>
     </message>

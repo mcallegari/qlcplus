@@ -4,17 +4,17 @@
 <context>
     <name>EnttecWing</name>
     <message>
-        <location filename="enttecwing.cpp" line="111"/>
+        <location filename="enttecwing.cpp" line="113"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Deze plugin verzorgt DMX input voor Enttec Playback en Enttec Shortcut Wings.</translation>
+        <translation>Deze plugin zorgt voor DMX input van de Enttec Playback en Enttec Shortcut Wings.</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="128"/>
+        <location filename="enttecwing.cpp" line="130"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation>Binden van UDP port %1 niet gelukt:</translation>
+        <translation>Verbinden met UDP poort %1 niet gelukt:</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="135"/>
+        <location filename="enttecwing.cpp" line="137"/>
         <source>Listening to UDP port %1.</source>
         <translation>Luisteren naar UDP port %1.</translation>
     </message>
@@ -22,7 +22,7 @@
 <context>
     <name>PlaybackWing</name>
     <message>
-        <location filename="playbackwing.cpp" line="180"/>
+        <location filename="playbackwing.cpp" line="181"/>
         <source>at</source>
         <translation>te</translation>
     </message>
@@ -30,7 +30,7 @@
 <context>
     <name>ProgramWing</name>
     <message>
-        <location filename="programwing.cpp" line="153"/>
+        <location filename="programwing.cpp" line="154"/>
         <source>at</source>
         <translation>te</translation>
     </message>
@@ -38,7 +38,7 @@
 <context>
     <name>ShortcutWing</name>
     <message>
-        <location filename="shortcutwing.cpp" line="102"/>
+        <location filename="shortcutwing.cpp" line="103"/>
         <source>at</source>
         <translation>te</translation>
     </message>
@@ -46,12 +46,12 @@
 <context>
     <name>Wing</name>
     <message>
-        <location filename="wing.cpp" line="62"/>
+        <location filename="wing.cpp" line="63"/>
         <source>Firmware version %1</source>
-        <translation>Firmware versie %1</translation>
+        <translation>Firmwareversie %1</translation>
     </message>
     <message>
-        <location filename="wing.cpp" line="64"/>
+        <location filename="wing.cpp" line="65"/>
         <source>Device is operating correctly.</source>
         <translation>Apparaat werkt correct.</translation>
     </message>

@@ -21,6 +21,7 @@
 #include <QDomElement>
 #include <math.h>
 
+#include "channelmodifier.h"
 #include "inputoutputmap.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
@@ -41,15 +42,17 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
+    , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_usedChannels(0)
     , m_totalChannels(0)
     , m_totalChannelsChanged(false)
     , m_hasChanged(false)
-    , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
+    m_modifiers.fill(NULL, UNIVERSE_SIZE);
+
     m_name = QString("Universe %1").arg(id + 1);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
@@ -194,6 +197,7 @@ void Universe::reset()
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
     zeroRelativeValues();
+    m_modifiers.fill(NULL, UNIVERSE_SIZE);
 }
 
 void Universe::reset(int address, int range)
@@ -291,8 +295,9 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
              << ", input:" << input << ", profile:" << ((profile == NULL)?"None":profile->name());
     if (m_inputPatch == NULL)
     {
-        if (input == QLCChannel::invalid())
-            return false;
+        if (plugin == NULL || input == QLCChannel::invalid())
+            return true;
+
         m_inputPatch = new InputPatch(m_id, this);
         if (passthrough() == false)
             connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
@@ -313,23 +318,25 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
                            this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
-            return false;
+            return true;
         }
     }
 
     if (m_inputPatch != NULL)
-        m_inputPatch->set(plugin, input, profile);
+        return m_inputPatch->set(plugin, input, profile);
+
     return true;
 }
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
-    qDebug() << "[Universe] setInputPatch - ID:" << m_id
+    qDebug() << "[Universe] setOutputPatch - ID:" << m_id
              << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
     if (m_outputPatch == NULL)
     {
-        if (output == QLCChannel::invalid())
+        if (plugin == NULL || output == QLCChannel::invalid())
             return false;
+
         m_outputPatch = new OutputPatch(this);
     }
     else
@@ -338,12 +345,13 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_outputPatch;
             m_outputPatch = NULL;
-            return false;
+            return true;
         }
     }
     if (m_outputPatch != NULL)
-        m_outputPatch->set(plugin, output);
-    return true;
+        return m_outputPatch->set(plugin, output);
+
+    return false;
 }
 
 bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
@@ -365,8 +373,9 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         }
     }
     if (m_fbPatch != NULL)
-        m_fbPatch->set(plugin, output);
-    return true;
+        return m_fbPatch->set(plugin, output);
+
+    return false;
 }
 
 InputPatch *Universe::inputPatch() const
@@ -457,6 +466,22 @@ uchar Universe::channelCapabilities(ushort channel)
     return m_channelsMask->at(channel);
 }
 
+void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
+{
+    if (channel >= (ushort)m_modifiers.count())
+        return;
+
+    m_modifiers[channel] = modifier;
+}
+
+ChannelModifier *Universe::channelModifier(ushort channel)
+{
+    if (channel >= (ushort)m_modifiers.count())
+        return NULL;
+
+    return m_modifiers.at(channel);
+}
+
 /****************************************************************************
  * Writing
  ****************************************************************************/
@@ -470,6 +495,9 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
+
+    if (m_modifiers.at(channel) != NULL)
+        value = m_modifiers.at(channel)->getValue(value);
 
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {

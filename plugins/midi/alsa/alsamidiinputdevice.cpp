@@ -59,11 +59,12 @@ AlsaMidiInputDevice::~AlsaMidiInputDevice()
     m_address = NULL;
 }
 
-void AlsaMidiInputDevice::open()
+bool AlsaMidiInputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
     m_thread->addDevice(this);
     m_open = true;
+    return true;
 }
 
 void AlsaMidiInputDevice::close()

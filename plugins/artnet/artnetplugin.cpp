@@ -125,13 +125,13 @@ QString ArtNetPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void ArtNetPlugin::openOutput(quint32 output)
+bool ArtNetPlugin::openOutput(quint32 output)
 {
     if (m_IOmapping.count() == 0)
         init();
 
     if (output >= (quint32)m_IOmapping.length())
-        return;
+        return false;
 
     qDebug() << "Open output with address :" << m_IOmapping.at(output).IPAddress;
 
@@ -141,7 +141,7 @@ void ArtNetPlugin::openOutput(quint32 output)
         m_IOmapping[output].controller->setType(
                     (ArtNetController::Type)(m_IOmapping[output].controller->type() | ArtNetController::Output));
         m_IOmapping[output].controller->changeReferenceCount(ArtNetController::Output, +1);
-        return;
+        return true;
     }
 
     // not open ? Create a new ArtNetController
@@ -149,6 +149,7 @@ void ArtNetPlugin::openOutput(quint32 output)
                                                         m_netInterfaces, m_IOmapping.at(output).MACAddress,
                                                         ArtNetController::Output, output, this);
     m_IOmapping[output].controller = controller;
+    return true;
 }
 
 void ArtNetPlugin::closeOutput(quint32 output)
@@ -199,12 +200,13 @@ QStringList ArtNetPlugin::inputs()
     return list;
 }
 
-void ArtNetPlugin::openInput(quint32 input)
+bool ArtNetPlugin::openInput(quint32 input)
 {
     if (m_IOmapping.count() == 0)
         init();
+
     if (input >= (quint32)m_IOmapping.length())
-        return;
+        return false;
 
     qDebug() << "Open input with address :" << m_IOmapping.at(input).IPAddress;
 
@@ -214,7 +216,7 @@ void ArtNetPlugin::openInput(quint32 input)
         m_IOmapping[input].controller->setType(
                     (ArtNetController::Type)(m_IOmapping[input].controller->type() | ArtNetController::Input));
         m_IOmapping[input].controller->changeReferenceCount(ArtNetController::Input, +1);
-        return;
+        return true;
     }
 
     // not open ? Create a new ArtNetController
@@ -224,6 +226,8 @@ void ArtNetPlugin::openInput(quint32 input)
     connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
             this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
+
+    return true;
 }
 
 void ArtNetPlugin::closeInput(quint32 input)

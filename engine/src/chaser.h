@@ -34,7 +34,7 @@ class MasterTimer;
 class ChaserRunner;
 class QDomDocument;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -143,8 +143,11 @@ public:
      */
     QList <ChaserStep> steps() const;
 
-    /** Get the Chaser duration in milliseconds */
-    quint32 getDuration();
+    /** Set the Chaser total duration in milliseconds */
+    void setTotalDuration(quint32 msec);
+
+    /** Get the Chaser total duration in milliseconds */
+    quint32 totalDuration();
 
 public slots:
     /**
@@ -210,6 +213,12 @@ public:
      */
     QColor getColor();
 
+    /** Set the lock state of the item */
+    void setLocked(bool locked);
+
+    /** Get the lock state of the item */
+    bool isLocked();
+
 private:
     /** This Chaser is a Sequence that uses always the same Scene for each step */
     bool m_isSequence;
@@ -219,6 +228,8 @@ private:
     quint32 m_startTime;
     /** Color to use when displaying the sequence in the Show manager */
     QColor m_color;
+    /** Flag to indicate if a Sequence item is locked in the Show Manager timeline */
+    bool m_locked;
 
     /*********************************************************************
      * Speed modes

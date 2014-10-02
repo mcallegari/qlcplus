@@ -30,7 +30,7 @@ class QDomElement;
 
 class Doc;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

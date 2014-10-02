@@ -20,6 +20,7 @@
     padding:0px;
 }
 
+
 .qlcTable td{
     vertical-align:middle;
     background-color:#dddddd;
@@ -32,8 +33,9 @@
     color:#000000;
 }
 
+
 .qlcTable tr:first-child td{
-    border-width:0px 0px 1px 1px;
+    border-width:0px 1px 1px 0px;
 }
 .qlcTable tr:first-child td:first-child{
     border-width:0px 1px 1px 0px;
@@ -44,6 +46,9 @@
     border-radius: 0 7px 0 0;
 }
 .qlcTable tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+.qlcTable tr:last-child td:first-child{
     border-width:0px 1px 0px 0px;
     border-radius: 0 0 0 7px;
 }

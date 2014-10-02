@@ -60,7 +60,7 @@ protected:
      ********************************************************************/
 public:
     /** Open this device for DMX output */
-    void open();
+    bool open();
 
     /** Close this device */
     void close();

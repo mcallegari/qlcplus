@@ -32,7 +32,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define KXMLQlcplusNamespace "http://qlcplus.sourceforge.net/"
+#define KXMLQLCplusNamespace "http://qlcplus.sourceforge.net/"
 
 QDomDocument QLCFile::readXML(const QString& path)
 {
@@ -85,7 +85,7 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     QDomText text;
 
     root = doc.createElement(content);
-    root.setAttribute("xmlns", KXMLQlcplusNamespace + content);
+    root.setAttribute("xmlns", KXMLQLCplusNamespace + content);
 
     doc.appendChild(root);
 
@@ -166,11 +166,14 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
+    QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
-        return QString(getenv("USER"));
+        name.append(getenv("USER"));
     else
-        return QString(passwd->pw_gecos);
+        name.append(passwd->pw_gecos);
+    name.remove(",,,");
+    return name;
 #endif
 }
 
@@ -190,4 +193,55 @@ bool QLCFile::isRaspberry()
 #else
     return false;
 #endif
+}
+
+QDir QLCFile::systemDirectory(QString path, QString extension)
+{
+    QDir dir;
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                                   .arg(path));
+#else
+    dir.setPath(path);
+#endif
+
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(extension));
+
+    return dir;
+}
+
+QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList extensions)
+{
+    Q_UNUSED(fallBackPath)
+    QDir dir;
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    // If the current user is root, return the system fixture dir.
+    // Otherwise return a path under user's home dir.
+    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
+        dir = QDir(fallBackPath);
+    else
+        dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));
+#elif defined(__APPLE__) || defined (Q_OS_MAC)
+    /* User's input profile directory on OSX */
+    dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));
+#else
+    /* User's input profile directory on Windows */
+    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+    dir.setPath(QString("%1/%2")
+                    .arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
+                    .arg(path));
+    free(home);
+#endif
+
+    // Ensure the directory exists
+    if (dir.exists() == false)
+        dir.mkpath(".");
+
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(extensions);
+
+    return dir;
 }

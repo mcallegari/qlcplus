@@ -92,6 +92,13 @@ qint64 AudioCaptureQt::latency()
     return 0; // TODO
 }
 
+void AudioCaptureQt::setVolume(qreal volume)
+{
+    m_volume = volume;
+    if (m_audioInput != NULL)
+        m_audioInput->setVolume(volume);
+}
+
 void AudioCaptureQt::suspend()
 {
 }

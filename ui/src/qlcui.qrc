@@ -22,7 +22,6 @@
         <file alias="configure.png">../../gfx/configure.png</file>
         <file alias="cuelist.png">../../gfx/cuelist.png</file>
         <file alias="current.png">../../gfx/current.png</file>
-        <file alias="delete.png">../../gfx/delete.png</file>
         <file alias="design.png">../../gfx/design.png</file>
         <file alias="detach.png">../../gfx/detach.png</file>
         <file alias="dimmer.png">../../gfx/dimmer.png</file>
@@ -44,7 +43,6 @@
         <file alias="edit_remove.png">../../gfx/edit_remove.png</file>
         <file alias="effect.png">../../gfx/effect.png</file>
         <file alias="efx.png">../../gfx/efx.png</file>
-        <file alias="empty.png">../../gfx/empty.png</file>
         <file alias="exit.png">../../gfx/exit.png</file>
         <file alias="expand.png">../../gfx/expand.png</file>
         <file alias="fade.png">../../gfx/fade.png</file>
@@ -71,8 +69,6 @@
         <file alias="function.png">../../gfx/function.png</file>
         <file alias="global.png">../../gfx/global.png</file>
         <file alias="gobo.png">../../gfx/gobo.png</file>
-        <file alias="gonext.png">../../gfx/gonext.png</file>
-        <file alias="goprevious.png">../../gfx/goprevious.png</file>
         <file alias="grid.png">../../gfx/grid.png</file>
         <file alias="group.png">../../gfx/group.png</file>
         <file alias="hazer.png">../../gfx/hazer.png</file>
@@ -83,7 +79,7 @@
         <file alias="intensity.png">../../gfx/intensity.png</file>
         <file alias="laser.png">../../gfx/laser.png</file>
         <file alias="liveedit.png">../../gfx/liveedit.png</file>
-        <file alias="keyboard.png">../../gfx/keyboard.png</file>
+	<file alias="lock.png">../../gfx/lock.png</file>
         <file alias="key_bindings.png">../../gfx/key_bindings.png</file>
         <file alias="knob.png">../../gfx/knob.png</file>
         <file alias="label.png">../../gfx/label.png</file>
@@ -123,6 +119,7 @@
         <file alias="uncheck.png">../../gfx/uncheck.png</file>
         <file alias="undo.png">../../gfx/undo.png</file>
         <file alias="ungroup.png">../../gfx/ungroup.png</file>
+	<file alias="unlock.png">../../gfx/unlock.png</file>
         <file alias="up.png">../../gfx/up.png</file>
         <file alias="video.png">../../gfx/video.png</file>
         <file alias="virtualconsole.png">../../gfx/virtualconsole.png</file>

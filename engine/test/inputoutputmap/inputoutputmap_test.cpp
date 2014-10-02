@@ -262,9 +262,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 3) == InputOutputMap::invalidUniverse());
 
     QVERIFY(im.setInputPatch(0, "Foobar", 0, prof->name()) == true);
-    QVERIFY(im.inputPatch(0)->plugin() == NULL);
-    QVERIFY(im.inputPatch(0)->input() == QLCIOPlugin::invalidLine());
-    QVERIFY(im.inputPatch(0)->profile() == prof);
+    QVERIFY(im.inputPatch(0) == NULL);
     QVERIFY(im.inputMapping(stub->name(), 0) == InputOutputMap::invalidUniverse());
 
     QVERIFY(im.inputPatch(1) == NULL);
@@ -321,23 +319,20 @@ void InputOutputMap_Test::setOutputPatch()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == true);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == false);
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
 
     QVERIFY(iom.setOutputPatch(4, stub->name(), 0) == false);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
 
     QVERIFY(iom.setOutputPatch(4, stub->name(), 4) == false);
-    QVERIFY(iom.outputPatch(0)->plugin() == NULL);
-    QVERIFY(iom.outputPatch(0)->output() == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
     QVERIFY(iom.outputPatch(3) == NULL);
@@ -410,10 +405,10 @@ void InputOutputMap_Test::slotConfigurationChanged()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString)));
+    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString, bool)));
     stub->configure();
     QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy.at(0).size(), 1);
+    QCOMPARE(spy.at(0).size(), 2);
     QCOMPARE(spy.at(0).at(0).toString(), QString(stub->name()));
 }
 
@@ -459,16 +454,16 @@ void InputOutputMap_Test::inputSourceNames()
     im.loadProfiles(dir);
 
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == false);
 
     QVERIFY(im.setInputPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: Bank select MSB").arg(1));
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 50000), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 50000), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: ?").arg(50001));
 
@@ -476,13 +471,13 @@ void InputOutputMap_Test::inputSourceNames()
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: %2").arg(1).arg(stub->name()));
     QCOMPARE(ch, tr("%1: ?").arg(1));
 
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(), uni, ch) == false);
 }
 
 void InputOutputMap_Test::profileDirectories()

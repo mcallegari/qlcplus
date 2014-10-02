@@ -30,14 +30,19 @@
 
 #include "audiorenderer_alsa.h"
 
-AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
+AudioRendererAlsa::AudioRendererAlsa(QString device, QObject * parent)
     : AudioRenderer(parent)
 {
     QString dev_name = "default";
-    QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
-        dev_name = var.toString();
+    if (device.isEmpty())
+    {
+        QSettings settings;
+        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        if (var.isValid() == true)
+            dev_name = var.toString();
+    }
+    else
+        dev_name = device;
 
     m_use_mmap = false;
     pcm_name = strdup(dev_name.toLatin1().data());
@@ -50,6 +55,7 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
 
 AudioRendererAlsa::~AudioRendererAlsa()
 {
+    qDebug() << Q_FUNC_INFO;
     uninitialize();
     free (pcm_name);
 }
@@ -423,8 +429,11 @@ void AudioRendererAlsa::resume()
 
 void AudioRendererAlsa::uninitialize()
 {
+    qDebug() << Q_FUNC_INFO;
+
     if (!m_inited)
         return;
+
     m_inited = false;
     if (pcm_handle)
     {

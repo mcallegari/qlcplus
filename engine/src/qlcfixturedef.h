@@ -88,6 +88,10 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+
+    /** Get the temporary definition file absolute path */
+    QString definitionSourceFile() const;
+
     /** Set the temporary definition file absolute path */
     void setDefinitionSourceFile(const QString& absPath);
 

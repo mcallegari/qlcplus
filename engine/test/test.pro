@@ -1,5 +1,4 @@
 TEMPLATE = subdirs
-CONFIG  += ordered
 SUBDIRS += bus
 SUBDIRS += chaser
 SUBDIRS += chaserrunner

@@ -27,6 +27,10 @@
 class QWidget;
 class QLCCapability;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class EditCapability : public QDialog, public Ui_EditCapability
 {
     Q_OBJECT
@@ -59,5 +63,7 @@ public slots:
     void slotColor2ButtonPressed();
 
 };
+
+/** @} */
 
 #endif

@@ -18,6 +18,7 @@
 */
 
 #include <QPushButton>
+#include <QDebug>
 
 #include "addrgbpanel.h"
 #include "ui_addrgbpanel.h"

@@ -39,6 +39,7 @@
 #endif
 
 #include "virtualconsole.h"
+#include "simpledesk.h"
 #include "webaccess.h"
 #include "app.h"
 #include "doc.h"
@@ -69,6 +70,9 @@ namespace QLCArgs
 
     /** If true, create and run a class to enable a web server for remote controlling */
     bool enableWebAccess = false;
+
+    /** If true, enable a 5% of overscan when in fullscreen mode (Raspberry Only) */
+    bool enableOverscan = false;
 
     /** If not null, defines the place for a close button that in virtual console */
     QRect closeButtonRect = QRect();
@@ -223,6 +227,10 @@ bool parseArgs()
             if (it.hasNext() == true && it.peekNext() == "resize")
                 QLCArgs::fullScreenResize = true;
         }
+        else if (arg == "-r" || arg == "--overscan")
+        {
+            QLCArgs::enableOverscan = true;
+        }
         else if (arg == "-h" || arg == "--help")
         {
             printUsage();
@@ -313,6 +321,10 @@ int main(int argc, char** argv)
         QLCArgs::dbgBox->show();
     }
 #endif
+
+    if (QLCArgs::enableOverscan == true)
+        app.enableOverscan();
+
     app.startup();
     app.show();
 
@@ -332,13 +344,14 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
-        WebAccess *m_webAccess = new WebAccess(app.doc(), VirtualConsole::instance());
+        WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(),
+                                               SimpleDesk::instance());
 
-        QObject::connect(m_webAccess, SIGNAL(toggleDocMode()),
+        QObject::connect(webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));
-        QObject::connect(m_webAccess, SIGNAL(loadProject(QString)),
+        QObject::connect(webAccess, SIGNAL(loadProject(QString)),
                 &app, SLOT(slotLoadDocFromMemory(QString)));
-        QObject::connect(m_webAccess, SIGNAL(storeAutostartProject(QString)),
+        QObject::connect(webAccess, SIGNAL(storeAutostartProject(QString)),
                 &app, SLOT(slotSaveAutostart(QString)));
     }
 

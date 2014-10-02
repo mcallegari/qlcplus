@@ -20,7 +20,6 @@
 #ifndef CHASEREDITOR_H
 #define CHASEREDITOR_H
 
-#include <QPointer>
 #include <QWidget>
 #include "ui_chasereditor.h"
 #include "scene.h"
@@ -132,7 +131,7 @@ private:
     void updateSpeedDials();
 
 private:
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     /************************************************************************
      * Test

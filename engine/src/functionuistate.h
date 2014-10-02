@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 

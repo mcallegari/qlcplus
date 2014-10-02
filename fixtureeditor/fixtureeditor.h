@@ -32,6 +32,10 @@ class QLCFixtureMode;
 class QLCFixtureDef;
 class QLCChannel;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class QLCFixtureEditor : public QWidget, public Ui_FixtureEditor
 {
     Q_OBJECT
@@ -75,6 +79,7 @@ protected:
 protected slots:
     void slotManufacturerTextEdited(const QString &text);
     void slotModelTextEdited(const QString &text);
+    void slotAuthorTextEdited(const QString &text);
     void slotTypeActivated(const QString &text);
 
 protected:
@@ -130,5 +135,7 @@ public slots:
 private:
     QLCPhysical m_physicalCopy;
 };
+
+/** @} */
 
 #endif

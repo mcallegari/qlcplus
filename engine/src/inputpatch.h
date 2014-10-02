@@ -51,7 +51,7 @@ class QLCIOPlugin;
 class InputPatch : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(InputPatch);
+    Q_DISABLE_COPY(InputPatch)
 
     /************************************************************************
      * Initialization
@@ -75,10 +75,10 @@ public:
      * @param input An input line within that plugin to assign
      * @param profile An input profile for a patch (NULL for none)
      */
-    void set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile);
+    bool set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile);
 
     /** Close & open the current plugin-input combination (if any) */
-    void reconnect();
+    bool reconnect();
 
     /** The plugin instance that has been assigned to a patch */
     QLCIOPlugin* plugin() const;

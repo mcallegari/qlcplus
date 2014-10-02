@@ -73,6 +73,7 @@
 App::App()
     : QMainWindow()
     , m_tab(NULL)
+    , m_overscan(false)
     , m_progressDialog(NULL)
     , m_doc(NULL)
 
@@ -162,6 +163,11 @@ void App::startup()
     setActiveWindow(FixtureManager::staticMetaObject.className());
 }
 
+void App::enableOverscan()
+{
+    m_overscan = true;
+}
+
 void App::init()
 {
     QSettings settings;
@@ -188,9 +194,14 @@ void App::init()
             if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
-                // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.95;
-                int h = (float)geometry.height() * 0.95;
+                int w = geometry.width();
+                int h = geometry.height();
+                if (m_overscan == true)
+                {
+                    // if we're on a Raspberry Pi, introduce a 5% margin
+                    w = (float)geometry.width() * 0.95;
+                    h = (float)geometry.height() * 0.95;
+                }
                 setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
                             w, h);
             }
@@ -294,25 +305,14 @@ void App::closeEvent(QCloseEvent* e)
         return;
     }
 
-    if (m_doc->isModified() == true && m_doc->isKiosk() == false)
+    if (m_doc->isKiosk() == false)
     {
-        result = QMessageBox::information(this, tr("Close"),
-                                          tr("Do you wish to save the current workspace " \
-                                             "before closing the application?"),
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
-                                          QMessageBox::Cancel);
-
-        if (result == QMessageBox::Yes)
-        {
-            slotFileSave();
-            e->accept();
-        }
-        else if (result == QMessageBox::No)
+        if( saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
+                                            "before closing the application?")) == true)
         {
             e->accept();
         }
-        else if (result == QMessageBox::Cancel)
+        else
         {
             e->ignore();
         }
@@ -378,6 +378,7 @@ void App::clearDocument()
     m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
     SimpleDesk::instance()->clearContents();
+    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
@@ -398,8 +399,11 @@ void App::initDoc()
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
-    //m_doc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
     m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
+
+    /* Load channel modifiers templates */
+    m_doc->modifiersCache()->load(QLCModifiersCache::systemTemplateDirectory(), true);
+    m_doc->modifiersCache()->load(QLCModifiersCache::userTemplateDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
@@ -706,6 +710,42 @@ bool App::handleFileError(QFile::FileError error)
     return false;
 }
 
+bool App::saveModifiedDoc(const QString & title, const QString & message)
+{
+    // if it's not modified, there's nothing to save
+    if (m_doc->isModified() == false)
+        return true;
+
+    int result = QMessageBox::warning(this, title,
+                                          message,
+                                          QMessageBox::Yes,
+                                          QMessageBox::No,
+                                          QMessageBox::Cancel);
+    if (result == QMessageBox::Yes)
+    {
+        slotFileSave();
+        // we check whether m_doc is not modified anymore, rather than 
+        // result of slotFileSave() since the latter returns NoError
+        // in cases like when the user pressed cancel in the save dialog
+        if (m_doc->isModified() == false) 
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else if (result == QMessageBox::No)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void App::updateFileOpenMenu(QString addRecent)
 {
     QSettings settings;
@@ -759,40 +799,15 @@ void App::updateFileOpenMenu(QString addRecent)
 
 bool App::slotFileNew()
 {
-    bool result = false;
-
-    if (m_doc->isModified())
+    QString msg(tr("Do you wish to save the current workspace?\n" \
+                   "Changes will be lost if you don't save them."));
+    if (saveModifiedDoc(tr("New Workspace"), msg) == false)
     {
-        QString msg(tr("Do you wish to save the current workspace?\n" \
-                       "Changes will be lost if you don't save them."));
-        int result = QMessageBox::warning(this, tr("New Workspace"),
-                                          msg,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
-                                          QMessageBox::Cancel);
-        if (result == QMessageBox::Yes)
-        {
-            slotFileSave();
-            clearDocument();
-            result = true;
-        }
-        else if (result == QMessageBox::No)
-        {
-            clearDocument();
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
-    }
-    else
-    {
-        clearDocument();
-        result = true;
+        return false;
     }
 
-    return result;
+    clearDocument();
+    return true;
 }
 
 QFile::FileError App::slotFileOpen()
@@ -800,27 +815,12 @@ QFile::FileError App::slotFileOpen()
     QString fn;
 
     /* Check that the user is aware of losing previous changes */
-    if (m_doc->isModified() == true)
+    QString msg(tr("Do you wish to save the current workspace?\n" \
+                   "Changes will be lost if you don't save them."));
+    if (saveModifiedDoc(tr("Open Workspace"), msg) == false)
     {
-        QString msg(tr("Do you wish to save the current workspace?\n" \
-                       "Changes will be lost if you don't save them."));
-        int result = QMessageBox::warning(this, tr("Open Workspace"),
-                                          msg,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
-                                          QMessageBox::Cancel);
-        if (result == QMessageBox::Yes)
-        {
-            /* Save first, but don't proceed unless it succeeded. */
-            QFile::FileError error = slotFileSaveAs();
-            if (handleFileError(error) == false)
-                return error;
-        }
-        else if (result == QMessageBox::Cancel)
-        {
-            /* Second thoughts... Cancel loading. */
-            return QFile::NoError;
-        }
+        /* Second thoughts... Cancel loading. */
+        return QFile::NoError;
     }
 
     /* Create a file open dialog */
@@ -1085,27 +1085,12 @@ void App::slotRecentFileClicked(QAction *recent)
     }
 
     /* Check that the user is aware of losing previous changes */
-    if (m_doc->isModified() == true)
+    QString msg(tr("Do you wish to save the current workspace?\n" \
+                   "Changes will be lost if you don't save them."));
+    if (saveModifiedDoc(tr("Open Workspace"), msg) == false)
     {
-        QString msg(tr("Do you wish to save the current workspace?\n" \
-                       "Changes will be lost if you don't save them."));
-        int result = QMessageBox::warning(this, tr("Open Workspace"),
-                                          msg,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
-                                          QMessageBox::Cancel);
-        if (result == QMessageBox::Yes)
-        {
-            /* Save first, but don't proceed unless it succeeded. */
-            QFile::FileError error = slotFileSaveAs();
-            if (handleFileError(error) == false)
-                return;
-        }
-        else if (result == QMessageBox::Cancel)
-        {
-            /* Second thoughts... Cancel loading. */
-            return;
-        }
+        /* Second thoughts... Cancel loading. */
+        return;
     }
 
     m_workingDirectory = QFileInfo(recentAbsPath).absoluteDir();
@@ -1178,7 +1163,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc, bool goToConsole)
+bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
 {
     Q_ASSERT(m_doc != NULL);
 
@@ -1240,7 +1225,8 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
 
-    if (m_doc->errorLog().isEmpty() == false)
+    if (m_doc->errorLog().isEmpty() == false &&
+        fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
                         tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
@@ -1303,8 +1289,6 @@ QFile::FileError App::saveXML(const QString& fileName)
         retval = QFile::ReadError;
     }
 
-    file.close();
-
     return retval;
 }
 
@@ -1318,7 +1302,7 @@ void App::slotLoadDocFromMemory(QString xmlData)
 
     QDomDocument doc;
     doc.setContent(xmlData);
-    loadXML(doc, true);
+    loadXML(doc, true, true);
 }
 
 void App::slotSaveAutostart(QString fileName)

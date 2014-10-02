@@ -53,6 +53,12 @@ namespace AppUtil
     QStyle* saneStyle();
 };
 
+/*****************************************************************************
+ * NoEditDelegate
+ *****************************************************************************/
+/**
+ * Set as Item Delegate to make sure that the item will never be editable.
+ */
 class NoEditDelegate: public QStyledItemDelegate
 {
 public:
@@ -61,6 +67,39 @@ public:
     {
         return 0;
     }
+};
+
+/*****************************************************************************
+ * ComboBoxDelegate
+ *****************************************************************************/
+/**
+ * Set as ItemDelegate to make the item editable by a combobox.
+ * Value is the index of the selected string.
+ */
+class ComboBoxDelegate : public QStyledItemDelegate
+{
+private:
+    const QStringList m_strings;
+
+public:
+    /**
+     * Create a combobox delegate.
+     * @param strings The selectable strings in the combobox, arranged in order.
+     */
+    ComboBoxDelegate(const QStringList &strings, QWidget *parent = 0);
+
+    QWidget *createEditor(QWidget *parent,
+            const QStyleOptionViewItem &option,
+            const QModelIndex &index) const;
+
+    void setEditorData(QWidget *editor,
+            const QModelIndex &index) const;
+
+    void setModelData(QWidget *editor, QAbstractItemModel *model,
+            const QModelIndex &index) const;
+
+    void updateEditorGeometry(QWidget *editor,
+            const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
 /** @} */

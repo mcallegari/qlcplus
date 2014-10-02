@@ -38,9 +38,9 @@
  ****************************************************************************/
 
 EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                                   quint32 id, QObject* parent)
+                                   quint32 outputLine, quint32 id, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(serial, name, vendor, NULL, id)
+    , DMXUSBWidget(serial, name, vendor, outputLine, id)
     , m_running(false)
     , m_universe(QByteArray(513, 0))
     , m_frequency(30)
@@ -76,22 +76,26 @@ DMXUSBWidget::Type EnttecDMXUSBOpen::type() const
  * Open & Close
  ****************************************************************************/
 
-bool EnttecDMXUSBOpen::open()
+bool EnttecDMXUSBOpen::open(quint32 line, bool input)
 {
-    if (DMXUSBWidget::open() == false)
-        return close();
+    Q_UNUSED(input)
+
+    if (DMXUSBWidget::open(line) == false)
+        return close(line);
 
     if (ftdi()->clearRts() == false)
-        return close();
+        return close(line);
 
     start(QThread::TimeCriticalPriority);
     return true;
 }
 
-bool EnttecDMXUSBOpen::close()
+bool EnttecDMXUSBOpen::close(quint32 line, bool input)
 {
+    Q_UNUSED(input)
+
     stop();
-    return DMXUSBWidget::close();
+    return DMXUSBWidget::close(line);
 }
 
 /****************************************************************************
@@ -131,9 +135,12 @@ QString EnttecDMXUSBOpen::additionalInfo() const
  * Thread
  ****************************************************************************/
 
-bool EnttecDMXUSBOpen::writeUniverse(const QByteArray& universe)
+bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
 {
-    m_universe.replace(1, MIN(universe.size(), m_universe.size()), universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+
+    m_universe.replace(1, MIN(data.size(), m_universe.size()), data);
     return true;
 }
 

@@ -23,6 +23,7 @@
 #include <QHostAddress>
 #include <QByteArray>
 #include <QObject>
+#include <QMap>
 
 #include "qlcmacros.h"
 #include "wing.h"

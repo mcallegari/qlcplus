@@ -49,8 +49,11 @@ class VinceUSBDMX512 : public DMXUSBWidget
      ************************************************************************/
 public:
     VinceUSBDMX512(const QString& serial, const QString& name, const QString& vendor,
-                   QLCFTDI *ftdi = NULL, quint32 id = 0);
+                   quint32 outputLine, quint32 id = 0);
     virtual ~VinceUSBDMX512();
+
+    /** @reimp */
+    Type type() const;
 
 protected:
     /** Requests commands */
@@ -63,21 +66,21 @@ protected:
     };
 
     /****************************************************************************
+     * Name & Serial
+     ****************************************************************************/
+public:
+    /** @reimp */
+    QString additionalInfo() const;
+
+    /****************************************************************************
      * Open & Close
      ****************************************************************************/
 public:
     /** @reimp */
-    virtual bool open();
+    bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    virtual bool close();
-
-    /************************************************************************
-     * Name & Serial
-     ************************************************************************/
-public:
-    /** @reimp */
-    virtual QString uniqueName() const;
+    virtual bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Write & Read
@@ -99,6 +102,16 @@ protected:
      * @return The available data
      */
     QByteArray readData(bool* ok = NULL);
+
+    /************************************************************************
+     * Write universe
+     ************************************************************************/
+public:
+    /** @reimp */
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+
+private:
+    QByteArray m_universe;
 };
 
 #endif

@@ -101,6 +101,9 @@ signals:
     /** Tells that the list of running functions has changed */
     void functionListChanged();
 
+    /** Emitted when a Function is started */
+    void functionStarted(quint32 id);
+
 private:
     /** Execute one timer tick for each registered Function */
     void timerTickFunctions(QList<Universe *> universes);

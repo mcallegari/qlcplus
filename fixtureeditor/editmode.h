@@ -30,6 +30,10 @@ class QLCFixtureHead;
 class QLCFixtureDef;
 class QLCChannel;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 class EditMode : public QDialog, public Ui_EditMode
 {
     Q_OBJECT
@@ -109,5 +113,7 @@ private:
 protected slots:
     void accept();
 };
+
+/** @} */
 
 #endif

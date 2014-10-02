@@ -20,6 +20,10 @@ The DMX USB plugin supports a variety of FTDI-based USB-to-DMX devices:
  <LI><A HREF="http://www.enttec.com/?main_menu=Products&pn=70304">Enttec DMXUSB Pro</A></LI>
  <LI><A HREF="http://www.enttec.com/?main_menu=Products&pn=70314">Enttec DMX USB PRO Mk2</A></LI>
  <LI><A HREF="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL USB-DMX STAGE-PROFI MK2</A></LI>
+ <LI><A HREF="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL NanoDMX</A></LI>
+ <LI><A HREF="http://www.guselectronics.com/usb-dmx-interface-512">Gus Electronics USB-VL344</A></LI>
+ <LI><A HREF="http://www.dmx512-online.net/en-article58.html">Vince DMX512 USB</A></LI>
+ <LI><A HREF="http://www.electrotas.com/usbdmx.html">ElectroTAS USB-DMX</A></LI>
  <LI><A HREF="http://sourceforge.net/apps/trac/qlc/wiki/FTDI-USB-COM485-Plus1">FTDI USBCOM 485+</A></LI>
 </UL>
 
@@ -33,12 +37,12 @@ You will see a list of DMX USB devices currently connected to your computer. Eac
 where you can force the device type.<br>
 Here's the meaning of each one:
 <UL>
- <LI><B>Pro TX</B>: Enttec USB DMX Pro or most of the DMXKing devices in transmit (output) mode</LI>
- <LI><B>Open TX</B>: Enttec USB DMX Open (output only)</LI>
- <LI><B>Pro RX</B>: Enttec USB DMX Pro in receive (input) mode</LI>
- <LI><B>Pro Mk2</B>: Enttec USB DMX Pro Mk2 - 2 outputs and 1 input available</LI>
- <LI><B>Ultra Pro Tx</B>: DMXKing ultraDMX Pro output.</LI>
+ <LI><B>Open TX</B>: Enttec USB DMX Open (and clones) in output mode</LI>
+ <LI><B>Pro RX/TX</B>: Enttec USB DMX Pro or most of the DMXKing devices</LI>
+ <LI><B>Pro Mk2</B>: Enttec USB DMX Pro Mk2 - 2 DMX outputs, 1 DMX input, 1 MIDI IN and 1 MIDI OUT ports are available</LI>
+ <LI><B>Ultra Pro</B>: DMXKing ultraDMX Pro with 2 outputs and 1 input</LI>
  <LI><B>DMX4ALL</B>: DMX4ALL USB-DMX STAGE-PROFI MK2</LI>
+ <LI><B>Vince Tx</B>: Vince DMX512 USB in output mode</LI>
 </UL>
 </P>
 
@@ -48,7 +52,10 @@ Here's the meaning of each one:
 <P>
 On all Linux distributions, you need to install libftdi. If you install QLC+ with the Ubuntu
 Software Center or some other automatic installer tool, this library will be installed
-automatically for you.
+automatically for you.<br>
+In some cases, if the device doesn't output anything, it might be useful to add your user 
+to the "dialout" group with the following command:<br>
+<PRE>sudo adduser your_user_name dialout</PRE>
 </P>
 
 <H2>2.2 Mac OS X</H2>
@@ -56,7 +63,17 @@ automatically for you.
 On the Apple Mac OS X, you don't need any drivers at all since QLC+ uses the OS X native USB
 interface. Installing the D2XX drivers should cause no harm, but <B>DO NOT INSTALL VCP drivers</B> as they will definitely interfere
 with QLC+. If you have previously installed the VCP drivers, consult the
-<A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to uninstall them.
+<A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to uninstall them.<br>
+<br>
+<B>OSX Mavericks issues</B>: The problem is in a new Apple USB driver. The procedure to disable it follows below.<br>
+<B>Please note that this can compromise the behaviour of other USB devices, so do it only 
+if you know what you're doing! </B><br>
+From a terminal type the following commands:<br>
+<PRE>
+cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
+sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
+sudo touch /System/Library/Extensions
+</PRE>
 </P>
 
 <H2>2.3 Windows</H2>
@@ -66,7 +83,45 @@ Consult the <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm
 <B>DO NOT INSTALL VCP drivers</B> as they will probably interfere with the D2XX interface.
 </P>
 
-<H1>4 Tuning</H1>
+<H1>4 ENTTEC DMX USB Pro supported modes</H1>
+<P>
+Following a grid showing the IO modes supported by QLC+ for devices like DMX USB Pro and Pro Mk2.<br>
+If a mode is not listed here, it means it is not supported by QLC+ or the device itself because of hardware limitations, 
+so please do not report them as issues in the QLC+ forum.<br>
+<br>
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD></TD>
+  <TD>1</TD><TD>2</TD><TD>3</TD><TD>4</TD><TD>5</TD><TD>6</TD><TD>7</TD><TD>8</TD><TD>9</TD><TD>10</TD><TD>11</TD><TD>12</TD><TD>13</TD><TD>14</TD>
+ </TR>
+ <TR>
+  <TD>DMX1 IN</TD>
+  <TD>o</TD><TD> </TD><TD> </TD><TD>o</TD> <TD></TD> <TD></TD><TD>o</TD><TD> </TD><TD> </TD><TD>o </TD><TD>  </TD><TD>  </TD><TD>o </TD><TD>  </TD>
+ </TR>
+ <TR>
+  <TD>DMX1 OUT</TD>
+  <TD> </TD><TD>o</TD><TD> </TD><TD> </TD><TD>o</TD><TD> </TD><TD> </TD><TD>o</TD><TD> </TD><TD>  </TD><TD>o </TD><TD>  </TD><TD>  </TD><TD>o </TD>
+ </TR>
+ <TR>
+  <TD>DMX2 OUT (1)</TD>
+  <TD> </TD><TD> </TD><TD>o</TD><TD>o</TD><TD>o</TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>  </TD><TD>  </TD><TD>  </TD><TD>  </TD><TD>  </TD>
+ </TR>
+ <TR>
+  <TD>MIDI IN (2)</TD>
+  <TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>o</TD><TD>o</TD><TD>o</TD><TD> </TD><TD>  </TD><TD>  </TD><TD>o </TD><TD>o </TD><TD>o </TD>
+ </TR>
+ <TR>
+  <TD>MIDI OUT (2)</TD>
+  <TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>o</TD><TD>o </TD><TD>o </TD><TD>o </TD><TD>o </TD><TD>o  </TD>
+ </TR>
+</TABLE>
+<br>
+(1) DMX2 OUT is available only on DMX USB Mk2 Pro<br>
+(2) MIDI IN and MIDI OUT are available only on DMX USB Mk2 Pro with a 5-way breakout cable. MIDI OUT signals are sent
+from 1 to 512 as described in the <a href="midiplugin.html#channelsmap">MIDI plugin channels map</A><br>
+</P>
+
+<H1>5 Tuning</H1>
 <P>
 <B>Note: Manual tuning should never be performed except for some very particular cases. Use it at your own risk !</B><BR>
 It is possible to change the DMX frame frequency for Enttec Open (and like) devices with a

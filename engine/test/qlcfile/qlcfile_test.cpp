@@ -45,7 +45,10 @@ void QLCFile_Test::readXML()
     QCOMPARE(doc.firstChild().toElement().tagName(), QString("Workspace"));
     QCOMPARE(doc.firstChild().firstChild().toElement().tagName(), QString("Creator"));
 
-	QString path("readonly.xml");
+    QString source("readonly.xml.in");
+    QString path("readonly.xml");
+    QFile(source).copy(path);
+
 #if !defined(WIN32) && !defined(Q_OS_WIN)
 	QFile::Permissions perms = QFile::permissions(path);
 	QFile::setPermissions(path, 0);

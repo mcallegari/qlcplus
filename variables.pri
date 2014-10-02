@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.7.2 GIT
+APPVERSION = 4.8.0
 
 #############################################################################
 # Compiler & linker configuration
@@ -18,8 +18,12 @@ CONFIG         += warn_on
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
-CONFIG         -= release # Enable this when making a release
-CONFIG         += debug   # Disable this when making a release
+# Enable the following 2 lines when making a release
+CONFIG         -= release
+#DEFINES        += QT_NO_DEBUG_OUTPUT
+
+# Disable this when making a release
+CONFIG         += debug
 
 # Disable these if you don't want to see SVN revision in the About Box
 #unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
@@ -92,6 +96,16 @@ macx:MIDITEMPLATEDIR       = $$DATADIR/MidiTemplates
 win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
 unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
 macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
+
+# Channel modifiers templates
+win32:MODIFIERSTEMPLATEDIR      = ModifiersTemplates
+unix:!macx:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
+macx:MODIFIERSTEMPLATEDIR       = $$DATADIR/ModifiersTemplates
+
+# User midi templates
+win32:USERMODIFIERSTEMPLATEDIR      = $$USERDATADIR/ModifiersTemplates
+unix:!macx:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
+macx:USERMODIFIERSTEMPLATEDIR       = $$USERDATADIR/ModifiersTemplates
 
 # Fixtures
 win32:FIXTUREDIR      = Fixtures

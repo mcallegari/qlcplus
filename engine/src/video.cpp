@@ -34,6 +34,7 @@
 #define KXMLQLCVideoSource "Source"
 #define KXMLQLCVideoStartTime "StartTime"
 #define KXMLQLCVideoColor "Color"
+#define KXMLQLCVideoLocked "Locked"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
 
@@ -47,6 +48,7 @@ Video::Video(Doc* doc)
   , m_videoPlayer(NULL)
   , m_startTime(UINT_MAX)
   , m_color(147, 140, 20)
+  , m_locked(false)
   , m_sourceFileName("")
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
@@ -136,7 +138,7 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
-qint64 Video::getDuration()
+qint64 Video::totalDuration()
 {
     return m_videoDuration;
 }
@@ -149,6 +151,16 @@ void Video::setColor(QColor color)
 QColor Video::getColor()
 {
     return m_color;
+}
+
+void Video::setLocked(bool locked)
+{
+    m_locked = locked;
+}
+
+bool Video::isLocked()
+{
+    return m_locked;
 }
 
 bool Video::setSourceFileName(QString filename)
@@ -285,8 +297,6 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     saveXMLSpeed(doc, &root);
 
     QDomElement source = doc->createElement(KXMLQLCVideoSource);
-    source.setAttribute(KXMLQLCVideoStartTime, m_startTime);
-    source.setAttribute(KXMLQLCVideoColor, m_color.name());
     if (m_screen > 0)
         source.setAttribute(KXMLQLCVideoScreen, m_screen);
     if (m_fullscreen == true)
@@ -322,17 +332,19 @@ bool Video::loadXML(const QDomElement& root)
         if (tag.tagName() == KXMLQLCVideoSource)
         {
             if (tag.hasAttribute(KXMLQLCVideoStartTime))
-                m_startTime = tag.attribute(KXMLQLCVideoStartTime).toUInt();
+                setStartTime(tag.attribute(KXMLQLCVideoStartTime).toUInt());
             if (tag.hasAttribute(KXMLQLCVideoColor))
-                m_color = QColor(tag.attribute(KXMLQLCVideoColor));
+                setColor(QColor(tag.attribute(KXMLQLCVideoColor)));
+            if (tag.hasAttribute(KXMLQLCVideoLocked))
+                setLocked(true);
             if (tag.hasAttribute(KXMLQLCVideoScreen))
-                m_screen = tag.attribute(KXMLQLCVideoScreen).toInt();
+                setScreen(tag.attribute(KXMLQLCVideoScreen).toInt());
             if (tag.hasAttribute(KXMLQLCVideoFullscreen))
             {
                 if (tag.attribute(KXMLQLCVideoFullscreen) == "1")
-                    m_fullscreen = true;
+                    setFullscreen(true);
                 else
-                    m_fullscreen = false;
+                    setFullscreen(false);
             }
             setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }

@@ -87,6 +87,11 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
     return *this;
 }
 
+QString QLCFixtureDef::definitionSourceFile() const
+{
+    return m_defFileAbsolutePath;
+}
+
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
     m_defFileAbsolutePath = absPath;

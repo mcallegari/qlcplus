@@ -23,9 +23,14 @@
 #include <QThread>
 #include "mongoose.h"
 
-class VirtualConsole;
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+class WebAccessNetwork;
+#endif
+
 class VCAudioTriggers;
+class VirtualConsole;
 class VCSoloFrame;
+class SimpleDesk;
 class VCCueList;
 class VCWidget;
 class VCButton;
@@ -34,24 +39,11 @@ class VCLabel;
 class VCFrame;
 class Doc;
 
-typedef struct
-{
-    bool enabled;
-    QString name;
-    bool isStatic;
-    bool isWireless;
-    QString address;
-    QString netmask;
-    QString gateway;
-    QString ssid;
-    QString wpaPass;
-} InterfaceInfo;
-
 class WebAccess : public QThread
 {
     Q_OBJECT
 public:
-    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent = 0);
+    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -69,23 +61,10 @@ private:
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
 
-    QString getChildrenHTML(VCWidget *frame);
+    QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
 
-    QString getIOConfigHTML();
-    QString getAudioConfigHTML();
-    QString getUserFixturesConfigHTML();
-    QString getConfigHTML();
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    void resetInterface(InterfaceInfo *iface);
-    void appendInterface(InterfaceInfo iface);
-    QString getInterfaceHTML(InterfaceInfo *iface);
-    QString getNetworkHTML();
-    QString getSystemConfigHTML();
-
-    bool writeNetworkFile();
-#endif
+    QString getSimpleDeskHTML();
 
 private:
     /** Input data thread worker method */
@@ -96,6 +75,7 @@ protected slots:
     void slotButtonToggled(bool on);
     void slotSliderValueChanged(QString val);
     void slotCueIndexChanged(int idx);
+    void slotFramePageChanged(int pageNum);
 
 protected:
     QString m_JScode;
@@ -112,11 +92,14 @@ protected:
     bool m_xyPadFound;
     bool m_speedDialFound;
     bool m_audioTriggersFound;
-    QList<InterfaceInfo>m_interfaces;
 
 protected:
     Doc *m_doc;
     VirtualConsole *m_vc;
+    SimpleDesk *m_sd;
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    WebAccessNetwork *m_netConfig;
+#endif
 
     struct mg_server *m_server;
     struct mg_connection *m_conn;

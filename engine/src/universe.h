@@ -26,8 +26,9 @@
 
 #include "qlcchannel.h"
 
-class InputOutputMap;
 class QLCInputProfile;
+class ChannelModifier;
+class InputOutputMap;
 class QLCIOPlugin;
 class GrandMaster;
 class OutputPatch;
@@ -176,6 +177,8 @@ protected:
      * Patches
      ************************************************************************/
 public:
+    /** Returns true if this universe is patched with an input, output OR feedback
+     *  otherwise returns false */
     bool isPatched();
 
     bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
@@ -227,10 +230,9 @@ private:
     OutputPatch* m_fbPatch;
 
     /************************************************************************
-     * Channels capabilities
+     * Channels capabilities and modifiers
      ************************************************************************/
 public:
-
     /**
      * Define the capabilities of a channel in this universe
      *
@@ -245,6 +247,22 @@ public:
      * @param channel The channel absolute index in the universe
      */
     uchar channelCapabilities(ushort channel);
+
+    /** Assign a Channel Modifier to the given channel index
+      * $modifier can be NULL if the channel has no modifier */
+    void setChannelModifier(ushort channel, ChannelModifier *modifier);
+
+    /** Return the Channel Modifier assigned to the given channel
+      * or NULL if none or not valid */
+    ChannelModifier *channelModifier(ushort channel);
+
+protected:
+    /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
+    QByteArray* m_channelsMask;
+
+    /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
+     *  a DMX value right before HTP/LTP check and before being assigned to preGM */
+    QVector<ChannelModifier*> m_modifiers;
 
     /************************************************************************
      * Values
@@ -317,8 +335,6 @@ protected:
     QSet <int> m_intensityChannels;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
     QSet <int> m_nonIntensityChannels;
-    /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
-    QByteArray* m_channelsMask;
     /** Array of values BEFORE the Grand Master changes */
     QByteArray* m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */

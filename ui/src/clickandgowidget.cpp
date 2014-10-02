@@ -17,10 +17,12 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <qmath.h>
+#include <QDebug>
 #include <QImage>
-#include <QDesktopWidget>
 
 #include "clickandgowidget.h"
 #include "qlccapability.h"
@@ -43,6 +45,7 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_height = 10;
     m_cols = 0;
     m_rows = 0;
+    m_cellWidth = CELL_W;
     m_hoverCellIdx = 0;
     m_cellBarXpos = 1;
     m_cellBarYpos = 1;
@@ -313,15 +316,23 @@ void ClickAndGoWidget::setupPresetPicker()
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
-    m_width = CELL_W * m_cols;
+    m_width = m_cellWidth * m_cols;
     m_height = CELL_H * m_rows;
 
+    // first check if the menu fits vertically
     if (m_height > screen.height())
     {
         m_rows = qFloor((qreal)screen.height() / CELL_H);
         m_cols = qCeil((qreal)m_resources.size() / m_rows);
-        m_width = CELL_W * m_cols;
+        m_width = m_cellWidth * m_cols;
         m_height = CELL_H * m_rows;
+    }
+
+    // then check if it has to be rescaled horizontally
+    if (m_width > screen.width())
+    {
+        m_cellWidth = screen.width() / m_cols;
+        m_width = m_cellWidth * m_cols;
     }
  
     int x = 0;
@@ -337,16 +348,16 @@ void ClickAndGoWidget::setupPresetPicker()
     {
         PresetResource res = m_resources.at(i);
         painter.setPen(Qt::black);
-        painter.drawRect(x, y, CELL_W, CELL_H);
+        painter.drawRect(x, y, m_cellWidth, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
-        painter.drawText(x + 43, y + 4, CELL_W - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
+        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
         if (i % m_cols == m_cols - 1)
         {
             y += CELL_H;
             x = 0;
         }
         else
-            x += CELL_W;
+            x += m_cellWidth;
          
     }  
 }
@@ -380,7 +391,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
             float f = SCALE(float(m_cellBarWidth),
                         float(0),
-                        float(CELL_W),
+                        float(m_cellWidth),
                         float(0), float(res.m_max - res.m_min));
             emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
@@ -406,12 +417,12 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     else if (m_type == Preset)
     {
         // calculate the index of the resource where the cursor is
-        int floorX = qFloor(event->x() / CELL_W);
+        int floorX = qFloor(event->x() / m_cellWidth);
         int floorY = qFloor(event->y() / CELL_H);
         int tmpCellIDx = (floorY * m_cols) + floorX;
         if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
             return;
-        m_cellBarXpos = floorX * CELL_W;
+        m_cellBarXpos = floorX * m_cellWidth;
         m_cellBarYpos = floorY * CELL_H;
         m_cellBarWidth = event->x() - m_cellBarXpos;
         m_hoverCellIdx = tmpCellIDx;

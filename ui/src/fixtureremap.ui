@@ -109,9 +109,6 @@
          <property name="toolTip">
           <string>Disconnect selections...</string>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
@@ -265,7 +262,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Destination project name:</string>
+        <string>Destination project name</string>
        </property>
       </widget>
      </item>

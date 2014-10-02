@@ -152,17 +152,17 @@
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>6</Channel>
-   <Channel>9</Channel>
-  </Head>
-  <Head>
    <Channel>4</Channel>
-   <Channel>7</Channel>
-   <Channel>10</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
    <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
  </Mode>
@@ -195,17 +195,17 @@
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>6</Channel>
-   <Channel>9</Channel>
-  </Head>
-  <Head>
    <Channel>4</Channel>
-   <Channel>7</Channel>
-   <Channel>10</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
    <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
  </Mode>
@@ -264,11 +264,11 @@
    <Channel>14</Channel>
   </Head>
   <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
    <Channel>19</Channel>
-   <Channel>15</Channel>
-   <Channel>16</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

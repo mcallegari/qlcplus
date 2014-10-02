@@ -9,7 +9,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../../plugins/interfaces
 INCLUDEPATH += ../../../engine/src
-INCLUDEPATH += ../../src
+INCLUDEPATH += ../../src ../../src/virtualconsole
 DEPENDPATH  += ../../src
 
 QMAKE_LIBDIR += ../../../engine/src

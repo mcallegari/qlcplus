@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddVCButtonMatrix</class>
+ <widget class="QDialog" name="AddVCButtonMatrix">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>469</width>
+    <height>415</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add Button Matrix</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0" rowspan="3">
+    <widget class="QTreeWidget" name="m_tree">
+     <column>
+      <property name="text">
+       <string>Function</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Type</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QToolButton" name="m_addButton">
+     <property name="toolTip">
+      <string>Add functions to be attached to the buttons in the matrix</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../qlcui.qrc">
+       <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QToolButton" name="m_removeButton">
+     <property name="toolTip">
+      <string>Remove selected functions from the list of functions to attach</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../qlcui.qrc">
+       <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" rowspan="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>174</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0">
+    <widget class="QGroupBox" name="m_dimensionsGroup">
+     <property name="title">
+      <string>Dimensions</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Horizontal button count</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="m_horizontalSpin">
+        <property name="toolTip">
+         <string>Number of buttons per horizontal row</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="value">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Button size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="m_sizeSpin">
+        <property name="toolTip">
+         <string>Created buttons' size</string>
+        </property>
+        <property name="suffix">
+         <string> px</string>
+        </property>
+        <property name="minimum">
+         <number>20</number>
+        </property>
+        <property name="value">
+         <number>60</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Vertical button count</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="m_verticalSpin">
+        <property name="toolTip">
+         <string>Number of buttons per vertical column</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Allocation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="m_allocationEdit">
+        <property name="toolTip">
+         <string>Functions / Buttons</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="m_frameGroup">
+     <property name="title">
+      <string>Frame</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QRadioButton" name="m_frameNormalRadio">
+        <property name="toolTip">
+         <string>Place the buttons inside a normal frame</string>
+        </property>
+        <property name="text">
+         <string>Normal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="m_frameSoloRadio">
+        <property name="toolTip">
+         <string>Place the buttons inside a frame that ensures that only one of them is pressed at a time</string>
+        </property>
+        <property name="text">
+         <string>Solo</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotAddClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>363</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotRemoveClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>384</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_horizontalSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotHorizontalChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_verticalSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotVerticalChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>164</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>381</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_sizeSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotButtonSizeChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>370</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_frameNormalRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AddVCButtonMatrix</receiver>
+   <slot>slotNormalFrameToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>347</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotAddClicked()</slot>
+  <slot>slotRemoveClicked()</slot>
+  <slot>slotHorizontalChanged()</slot>
+  <slot>slotVerticalChanged()</slot>
+  <slot>slotButtonSizeChanged()</slot>
+  <slot>slotNormalFrameToggled(bool)</slot>
+ </slots>
+</ui>

@@ -170,6 +170,8 @@ FixtureManager* FixtureManager::instance()
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
 {
+    QList<QTreeWidgetItem*> groupsToDelete;
+
     for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem* grpItem = m_fixtures_tree->topLevelItem(i);
@@ -180,10 +182,23 @@ void FixtureManager::slotFixtureRemoved(quint32 id)
             Q_ASSERT(fxiItem != NULL);
             QVariant var = fxiItem->data(KColumnName, PROP_FIXTURE);
             if (var.isValid() == true && var.toUInt() == id)
+            {
                 delete fxiItem;
+                break;
+            }
         }
         if (grpItem->childCount() == 0)
-            delete grpItem;
+            groupsToDelete << grpItem;
+    }
+    foreach (QTreeWidgetItem* groupToDelete, groupsToDelete)
+    {
+        QVariant var = groupToDelete->data(KColumnName, PROP_GROUP);
+        // If the group is a fixture group, delete it from doc.
+        // If not, it is a universe, just "hide" it from the ui.
+        if (var.isValid() == true)
+            m_doc->deleteFixtureGroup(groupToDelete->data(KColumnName, PROP_GROUP).toUInt());
+        else
+            delete groupToDelete;
     }
 }
 
@@ -275,7 +290,10 @@ void FixtureManager::slotFixtureGroupRemoved(quint32 id)
         Q_ASSERT(item != NULL);
         QVariant var = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() && var.toUInt() == id)
+        {
             delete item;
+            break;
+        }
     }
 
     updateGroupMenu();
@@ -1127,38 +1145,48 @@ void FixtureManager::removeFixture()
     }
 
     QListIterator <QTreeWidgetItem*> it(m_fixtures_tree->selectedItems());
+
+    // We put items to delete in sets,
+    // so no segfault happens when the same fixture is selected twice
+    QSet <quint32> groupsToDelete;
+    QSet <quint32> fixturesToDelete;
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
         Q_ASSERT(item != NULL);
 
+        // Is the item a fixture ?
         QVariant var = item->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == true)
-        {
-            quint32 id = var.toUInt();
-
-            /** @todo This is REALLY bogus here, since Fixture or Doc should do
-                this. However, FixtureManager is the only place to destroy fixtures,
-                so it's rather safe to reset the fixture's address space here. */
-            Fixture* fxi = m_doc->fixture(id);
-            Q_ASSERT(fxi != NULL);
-            QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
-            int universe = fxi->universe();
-            if (universe < ua.count())
-                ua[universe]->reset(fxi->address(), fxi->channels());
-            m_doc->inputOutputMap()->releaseUniverses();
-
-            m_doc->deleteFixture(id);
-        }
+            fixturesToDelete << var.toUInt();
         else
         {
+            // Is the item a fixture group ?
             var = item->data(KColumnName, PROP_GROUP);
-            if (var.isValid() == false)
-                continue;
-
-            quint32 id = var.toUInt();
-            m_doc->deleteFixtureGroup(id);
+            if (var.isValid() == true)
+                groupsToDelete << var.toUInt();
         }
+    }
+
+    // delete fixture groups
+    foreach (quint32 id, groupsToDelete)
+        m_doc->deleteFixtureGroup(id);
+
+    // delete fixtures
+    foreach (quint32 id, fixturesToDelete)
+    {
+        /** @todo This is REALLY bogus here, since Fixture or Doc should do
+            this. However, FixtureManager is the only place to destroy fixtures,
+            so it's rather safe to reset the fixture's address space here. */
+        Fixture* fxi = m_doc->fixture(id);
+        Q_ASSERT(fxi != NULL);
+        QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+        int universe = fxi->universe();
+        if (universe < ua.count())
+            ua[universe]->reset(fxi->address(), fxi->channels());
+        m_doc->inputOutputMap()->releaseUniverses();
+
+        m_doc->deleteFixture(id);
     }
 }
 
@@ -1328,7 +1356,7 @@ void FixtureManager::slotProperties()
 
 void FixtureManager::slotFadeConfig()
 {
-    ChannelsSelection cfg(m_doc, this, ChannelsSelection::PropertiesMode);
+    ChannelsSelection cfg(m_doc, this, ChannelsSelection::ConfigurationMode);
     if (cfg.exec() == QDialog::Rejected)
         return; // User pressed cancel
     m_doc->setModified();

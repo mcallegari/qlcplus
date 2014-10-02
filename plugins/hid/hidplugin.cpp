@@ -30,28 +30,6 @@
 #include "hidplugin.h"
 
 /*****************************************************************************
- * HIDInputEvent
- *****************************************************************************/
-
-static const QEvent::Type _HIDInputEventType = static_cast<QEvent::Type>
-        (QEvent::registerEventType());
-
-HIDInputEvent::HIDInputEvent(HIDDevice* device, quint32 input,
-                             quint32 channel, uchar value,
-                             bool alive) : QEvent(_HIDInputEventType)
-{
-    m_device = device;
-    m_input = input;
-    m_channel = channel;
-    m_value = value;
-    m_alive = alive;
-}
-
-HIDInputEvent::~HIDInputEvent()
-{
-}
-
-/*****************************************************************************
  * HID Initialization
  *****************************************************************************/
 
@@ -80,17 +58,18 @@ int HIDPlugin::capabilities() const
  * Inputs
  *****************************************************************************/
 
-void HIDPlugin::openInput(quint32 input)
+bool HIDPlugin::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
-        dev->openInput();
-        connect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+        connect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        return dev->openInput();
     }
     else
         qDebug() << name() << "has no input number:" << input;
+    return false;
 }
 
 void HIDPlugin::closeInput(quint32 input)
@@ -99,8 +78,8 @@ void HIDPlugin::closeInput(quint32 input)
     if (dev != NULL)
     {
         dev->closeInput();
-        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                   this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                   this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     }
     else
         qDebug() << name() << "has no input number:" << input;
@@ -119,20 +98,6 @@ QStringList HIDPlugin::inputs()
     }
 
     return list;
-}
-
-void HIDPlugin::customEvent(QEvent* event)
-{
-    if (event->type() == _HIDInputEventType)
-    {
-        HIDInputEvent* e = static_cast<HIDInputEvent*> (event);
-        if (e != NULL && e->m_alive == true)
-            emit valueChanged(UINT_MAX, e->m_input, e->m_channel, e->m_value);
-        else
-            removeDevice(e->m_device);
-
-        event->accept();
-    }
 }
 
 QString HIDPlugin::pluginInfo()
@@ -175,13 +140,14 @@ QString HIDPlugin::inputInfo(quint32 input)
 /*********************************************************************
  * Outputs
  *********************************************************************/
-void HIDPlugin::openOutput(quint32 output)
+bool HIDPlugin::openOutput(quint32 output)
 {
     HIDDevice* dev = device(output);
     if (dev != NULL)
-        dev->openOutput();
+        return dev->openOutput();
     else
         qDebug() << name() << "has no output number:" << output;
+    return false;
 }
 
 void HIDPlugin::closeOutput(quint32 output)

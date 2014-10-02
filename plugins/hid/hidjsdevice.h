@@ -36,7 +36,6 @@
 
 #include "hiddevice.h"
 
-class HIDEventDevice;
 class HIDPlugin;
 
 /*****************************************************************************
@@ -56,6 +55,11 @@ public:
 #endif
 
 protected:
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    bool openDevice();
+#endif
+
     /** Initialize the device, find out its capabilities etc. */
     void init();
 
@@ -63,8 +67,8 @@ protected:
     bool hasInput() { return true; }
 
 protected:
-    unsigned char m_axes;
-    unsigned char m_buttons;
+    unsigned char m_axesNumber;
+    unsigned char m_buttonsNumber;
 #if defined(WIN32) || defined (Q_OS_WIN)
     JOYCAPS m_caps;
     JOYINFOEX m_info;
@@ -81,13 +85,6 @@ public:
 
     /** @reimp */
     void closeInput();
-    
-    /** Joysticks cannot be used as output devices */
-    /** @reimp */
-    void openOutput() {};
-
-    /** @reimp */
-    void closeOutput() {};
 
     /** @reimp */
     QString path() const;
@@ -112,13 +109,6 @@ public:
 private:
     /** @reimp */
     void run();
-    
-    /*************************************************************************
-     * Output data
-     *************************************************************************/
- 
-    /** @reimp */
-    void outputDMX(const QByteArray &data) { Q_UNUSED(data); };
 };
 
 #endif

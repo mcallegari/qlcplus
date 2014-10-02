@@ -35,14 +35,18 @@ class Chaser;
 class QTime;
 class Doc;
 
+/** @addtogroup engine_functions Functions
+ * @{
+ */
+
 typedef struct
 {
     int m_index;          //! Index of the step from the original Chaser
     Function* m_function; //! Currently active function
     quint32 m_elapsed;    //! Elapsed milliseconds
-    uint m_fadeIn;        //! Step fade In speed
-    uint m_fadeOut;       //! Step fade Out speed
-    uint m_duration;      //! Step duration
+    uint m_fadeIn;        //! Step fade in in ms
+    uint m_fadeOut;       //! Step fade out in ms
+    uint m_duration;      //! Step hold in ms
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -115,12 +119,12 @@ public:
      *
      * @return Current step number
      */
-    int currentStep() const;
+    int currentStepIndex() const;
 
     /**
      * Compute next step for manual fading 
      */
-    int computeNextStep(int currentStep) const;
+    int computeNextStep(int currentStepIndex) const;
 
     /**
      * Get the running step number.
@@ -130,11 +134,16 @@ public:
     int runningStepsNumber() const;
 
     /**
+     * Get the first step of the running list.
+     * If none is running this returns NULL
+     */
+    ChaserRunnerStep *currentRunningStep();
+
+private:
+    /**
      * Shuffle the current steps order
      */
     static void shuffle(QVector<int> & data);
-
-private:
 
     /**
      * Retrieve the randomized index of a
@@ -209,5 +218,7 @@ public:
      */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 };
+
+/** @} */
 
 #endif

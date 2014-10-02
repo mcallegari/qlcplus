@@ -26,6 +26,7 @@
 #include <QSize>
 #include <QPair>
 #include <QMap>
+#include <QMutex>
 
 #include "rgbscript.h"
 #include "function.h"
@@ -36,7 +37,7 @@ class FadeChannel;
 class QTime;
 class QDir;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -51,6 +52,16 @@ class RGBMatrix : public Function
 public:
     RGBMatrix(Doc* parent);
     ~RGBMatrix();
+
+    /*********************************************************************
+     * Contents
+     *********************************************************************/
+public:
+    /** Set the matrix total duration in milliseconds */
+    void setTotalDuration(quint32 msec);
+
+    /** Get the matrix total duration in milliseconds */
+    quint32 totalDuration();
 
     /*********************************************************************
      * Copying
@@ -70,7 +81,7 @@ public:
     quint32 fixtureGroup() const;
 
 private:
-    quint32 m_fixtureGroup;
+    quint32 m_fixtureGroupID;
 
     /************************************************************************
      * Algorithm
@@ -82,14 +93,18 @@ public:
     /** Get the current RGB Algorithm. */
     RGBAlgorithm* algorithm() const;
 
+    /** Get the algorithm protection mutex */
+    QMutex& algorithmMutex();
+
     /** Get a list of RGBMap steps for preview purposes, using the current algorithm. */
     QList <RGBMap> previewMaps();
 
 private:
     RGBAlgorithm* m_algorithm;
+    QMutex m_algorithmMutex;
 
     /************************************************************************
-     * Colour
+     * Color
      ************************************************************************/
 public:
     void setStartColor(const QColor& c);

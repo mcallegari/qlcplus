@@ -25,46 +25,79 @@
 #endif
 
 #include <QByteArray>
-#include <QObject>
+#include <QThread>
 
 #include "dmxusbwidget.h"
 
 #define ENTTEC_PRO_DMX_ZERO      char(0x00)
 #define ENTTEC_PRO_RECV_DMX_PKT  char(0x05)
 #define ENTTEC_PRO_SEND_DMX_RQ   char(0x06)
-#define ENTTEC_PRO_READ_SERIAL   char(0x0a)
-#define ENTTEC_PRO_ENABLE_API2   char(0x0d)
-#define ENTTEC_PRO_SEND_DMX_RQ2  char(0xa9)
-#define ENTTEC_PRO_PORT_ASS_REQ  char(0xcb)
-#define ENTTEC_PRO_START_OF_MSG  char(0x7e)
-#define ENTTEC_PRO_END_OF_MSG    char(0xe7)
+#define ENTTEC_PRO_READ_SERIAL   char(0x0A)
+#define ENTTEC_PRO_ENABLE_API2   char(0x0D)
+#define ENTTEC_PRO_SEND_DMX_RQ2  char(0xA9)
+#define ENTTEC_PRO_PORT_ASS_REQ  char(0xCB)
+#define ENTTEC_PRO_START_OF_MSG  char(0x7E)
+#define ENTTEC_PRO_END_OF_MSG    char(0xE7)
+#define ENTTEC_PRO_MIDI_OUT_MSG  char(0xBE)
+#define ENTTEC_PRO_MIDI_IN_MSG   0xE8
+
+#define DMXKING_ESTA_ID          0x6A6B
+#define ULTRADMX_DMX512A_DEV_ID  0x00
+#define ULTRADMX_PRO_DEV_ID      0x02
+#define ULTRADMX_MICRO_DEV_ID    0x03
+
+#define DMXKING_USB_DEVICE_MANUFACTURER 0x4D
+#define DMXKING_USB_DEVICE_NAME         0x4E
+#define DMXKING_SEND_DMX_PORT1          char(0x64)
+#define DMXKING_SEND_DMX_PORT2          char(0x65)
 
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
  */
-class EnttecDMXUSBPro : public DMXUSBWidget
+class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
 {
+    Q_OBJECT
+
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
     EnttecDMXUSBPro(const QString& serial, const QString& name, const QString& vendor,
-                    QLCFTDI *ftdi = NULL, quint32 id = 0);
+                    quint32 outputLine, quint32 inputLine = 0, quint32 id = 0);
+
     virtual ~EnttecDMXUSBPro();
+
+    /** @reimp */
+    Type type() const;
+
+    void setMidiPortsNumber(int inputs, int outputs);
+
+    void setDMXKingMode();
+
+    /** @reimp */
+    QString additionalInfo() const;
+
+private:
+    QHash<quint32, ushort> m_midiInputsMap;
+    QHash<quint32, ushort> m_mididOutputsMap;
+    bool m_dmxKingMode;
 
     /****************************************************************************
      * Open & Close
      ****************************************************************************/
+private:
+     bool configureLine(ushort dmxLine, ushort midiLine);
+
 public:
     /** @reimp */
-    virtual bool open();
+    virtual bool open(quint32 line, bool input = false);
 
     /************************************************************************
      * Name & Serial
      ************************************************************************/
 public:
     /** @reimp */
-    virtual QString uniqueName() const;
+    QString uniqueName(ushort line = 0, bool input = false) const;
 
 private:
     /** Extract the widget's unique serial number (printed on the bottom) */
@@ -72,6 +105,35 @@ private:
 
 private:
     QString m_proSerial;
+
+    /************************************************************************
+     * DMX reception
+     ************************************************************************/
+signals:
+    /** Tells that the value of a received DMX channel has changed */
+    void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
+
+private:
+    /** Stop DMX receiver thread */
+    void stopThread();
+
+    /** DMX receiver thread worker method */
+    void run();
+
+private:
+    bool m_running;
+    QMutex m_mutex;
+    QByteArray m_universe;
+
+    /************************************************************************
+     * Write universe
+     ************************************************************************/
+public:
+    /** @reimp */
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+
+private:
+    QByteArray m_outUniverse;
 };
 
 #endif

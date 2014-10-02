@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   show.h
 
   Copyright (c) Massimo Callegari
@@ -30,7 +30,7 @@
 class QDomDocument;
 class ShowRunner;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -77,7 +77,7 @@ public:
      * Add a track to this show. If the track is already a
      * member of the show, this call fails.
      *
-     * @param fid The track to add
+     * @param id The track to add
      * @return true if successful, otherwise false
      */
     bool addTrack(Track *track, quint32 id = Track::invalidId());
@@ -86,7 +86,7 @@ public:
      * Remove a track from this show. If the track is not a
      * member of the show, this call fails.
      *
-     * @param fid The track to remove
+     * @param id The track to remove
      * @return true if successful, otherwise false
      */
     bool removeTrack(quint32 id);

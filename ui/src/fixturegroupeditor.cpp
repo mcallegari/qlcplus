@@ -73,6 +73,7 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     m_table->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 #endif
 
+    m_table->setIconSize(QSize(20, 20));
     updateTable();
 }
 
@@ -82,6 +83,7 @@ FixtureGroupEditor::~FixtureGroupEditor()
 
 void FixtureGroupEditor::updateTable()
 {
+    qDebug() << Q_FUNC_INFO;
     // Store these since they might get reset
     int savedRow = m_row;
     int savedCol = m_column;
@@ -90,6 +92,8 @@ void FixtureGroupEditor::updateTable()
                this, SLOT(slotCellChanged(int,int)));
     disconnect(m_table, SIGNAL(cellPressed(int,int)),
                this, SLOT(slotCellActivated(int,int)));
+    disconnect(m_table->horizontalHeader(), SIGNAL(sectionResized(int,int,int)),
+            this, SLOT(slotResized()));
 
     m_table->clear();
 
@@ -108,16 +112,13 @@ void FixtureGroupEditor::updateTable()
         if (fxi == NULL)
             continue;
 
-        QIcon icon = QIcon(":/fixture.png");
+        QIcon icon = fxi->getIconFromType(fxi->type());
         QString str = QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name())
                                                .arg(head.head + 1)
                                                .arg(fxi->address() + 1)
                                                .arg(fxi->universe() + 1);
 
         QTableWidgetItem* item = new QTableWidgetItem(icon, str);
-        QFont font = item->font();
-        font.setPointSize(font.pointSize() - 2);
-        item->setFont(font);
         item->setData(PROP_FIXTURE, head.fxi);
         item->setData(PROP_HEAD, head.head);
         item->setToolTip(str);
@@ -129,6 +130,8 @@ void FixtureGroupEditor::updateTable()
             this, SLOT(slotCellActivated(int,int)));
     connect(m_table, SIGNAL(cellChanged(int,int)),
             this, SLOT(slotCellChanged(int,int)));
+    connect(m_table->horizontalHeader(), SIGNAL(sectionResized(int,int,int)),
+            this, SLOT(slotResized()));
 
     if (savedRow < m_table->rowCount() && savedCol < m_table->columnCount())
     {
@@ -142,6 +145,7 @@ void FixtureGroupEditor::updateTable()
     }
 
     m_table->setCurrentCell(m_row, m_column);
+    slotResized();
 }
 
 void FixtureGroupEditor::slotNameEdited(const QString& text)
@@ -216,6 +220,41 @@ void FixtureGroupEditor::slotCellChanged(int row, int column)
     updateTable();
     m_table->setCurrentCell(row, column);
     slotCellActivated(row, column);
+}
+
+void FixtureGroupEditor::slotResized()
+{
+    disconnect(m_table, SIGNAL(cellChanged(int,int)),
+               this, SLOT(slotCellChanged(int,int)));
+
+    float cellWidth = (float)(m_table->columnWidth(0) - m_table->iconSize().width());
+    QFont font = m_table->font();
+    QFontMetrics fm(font);
+    float pSizeF = font.pointSizeF();
+
+    for (int y = 0; y < m_table->rowCount(); y++)
+    {
+        for (int x = 0; x < m_table->columnCount(); x++)
+        {
+            QTableWidgetItem* item = m_table->item(y, x);
+            if (item != NULL)
+            {
+                QFont scaledFont = font;
+                float baseWidth  = (float)fm.width(item->text());
+
+                float factor = cellWidth / baseWidth;
+                if (factor != 1)
+                    scaledFont.setPointSizeF((pSizeF * factor) + 2);
+                else
+                    scaledFont.setPointSize(font.pointSize() - 2);
+
+                item->setFont(scaledFont);
+            }
+        }
+    }
+
+    connect(m_table, SIGNAL(cellChanged(int,int)),
+            this, SLOT(slotCellChanged(int,int)));
 }
 
 void FixtureGroupEditor::addFixtureHeads(Qt::ArrowType direction)

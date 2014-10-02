@@ -24,7 +24,7 @@
 #include <QPixmap>
 #include <QMouseEvent>
 
-AddressTool::AddressTool(QWidget *parent) :
+AddressTool::AddressTool(QWidget *parent, int presetValue) :
     QDialog(parent)
   , ui(new Ui::AddressTool)
   , m_dipSwitch(NULL)
@@ -41,7 +41,9 @@ AddressTool::AddressTool(QWidget *parent) :
     px.fill(Qt::black);
     ui->m_blackBtn->setIcon(QIcon(px));
 
-    m_dipSwitch = new DIPSwitchWidget(this);
+    ui->m_addressSpin->setValue(presetValue);
+
+    m_dipSwitch = new DIPSwitchWidget(this, presetValue);
     ui->m_gridLayout->addWidget(m_dipSwitch, 0, 0, 1, 5);
     m_dipSwitch->setMinimumHeight(80);
 
@@ -59,6 +61,11 @@ AddressTool::AddressTool(QWidget *parent) :
 AddressTool::~AddressTool()
 {
     delete ui;
+}
+
+int AddressTool::getAddress()
+{
+    return (ui->m_addressSpin->value());
 }
 
 void AddressTool::slotChangeColor()
@@ -80,10 +87,10 @@ void AddressTool::slotChangeColor()
  *
  ***************************************************************************/
 
-DIPSwitchWidget::DIPSwitchWidget(QWidget *parent) :
+DIPSwitchWidget::DIPSwitchWidget(QWidget *parent, int presetValue) :
     QWidget(parent)
 {
-    m_value = 1;
+    m_value = presetValue;
     m_backCol = QColor("#0165DF");
     m_verticalReverse = false;
     m_horizontalReverse = false;

@@ -65,6 +65,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/qlcplus/fixtures/*
 /usr/share/qlcplus/inputprofiles/*
 /usr/share/qlcplus/miditemplates/*
+/usr/share/qlcplus/modifierstemplates/*
 /usr/share/qlcplus/gobos/*
 /usr/share/qlcplus/rgbscripts/*
 /usr/share/qlcplus/Sample.qxw

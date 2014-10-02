@@ -67,6 +67,9 @@ protected slots:
     void slotRemoveClicked();
     void slotEditClicked();
     void slotWizardClicked(bool checked);
+    void slotItemClicked(QTreeWidgetItem *item, int col);
+    void slotMovementComboChanged(int index);
+    void slotSensitivitySpinChanged(int value);
 
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
     void slotTimerTimeout();

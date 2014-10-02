@@ -23,6 +23,10 @@
 #include "audiorenderer.h"
 #include "audiodecoder.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererNull : public AudioRenderer
 {
     Q_OBJECT
@@ -54,5 +58,7 @@ protected:
     void resume() { }
 
 };
+
+/** @} */
 
 #endif

@@ -28,6 +28,12 @@ class FixtureGroup;
 class Fixture;
 class Doc;
 
+#define PROP_ID       Qt::UserRole
+#define PROP_UNIVERSE Qt::UserRole + 1
+#define PROP_GROUP    Qt::UserRole + 2
+#define PROP_HEAD     Qt::UserRole + 3
+#define PROP_CHANNEL  Qt::UserRole + 4
+
 class FixtureTreeWidget : public QTreeWidget
 {
     Q_OBJECT

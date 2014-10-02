@@ -26,8 +26,9 @@
 class QScriptEngine;
 class QSize;
 class QDir;
+class QMutex;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -64,6 +65,7 @@ public:
 
 private:
     static QScriptEngine* s_engine; //! The engine that runs all scripts
+    static QMutex* s_engineMutex;   //! Protection
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 

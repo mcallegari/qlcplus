@@ -610,7 +610,6 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    qDebug() << "Scene postRun. ID: " << id();
     if (m_fader == NULL)
         return;
     QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());

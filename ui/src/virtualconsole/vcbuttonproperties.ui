@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VCButtonProperties</class>
+ <widget class="QDialog" name="VCButtonProperties">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>445</width>
+    <height>517</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Button properties</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="8" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>On button press...</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QRadioButton" name="m_toggle">
+        <property name="toolTip">
+         <string>Toggle the assigned function on/off with this button</string>
+        </property>
+        <property name="text">
+         <string>Toggle function on/off</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="m_flash">
+        <property name="toolTip">
+         <string>Flash the assigned function with this button</string>
+        </property>
+        <property name="text">
+         <string>Flash function (only for scenes)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="m_blackout">
+        <property name="text">
+         <string>Toggle Blackout</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="m_stopAll">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Stop All Functions</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="m_safFadeLabel">
+          <property name="text">
+           <string>Fade time:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="m_fadeOutEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">.00</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="m_speedDialButton">
+          <property name="icon">
+           <iconset resource="../qlcui.qrc">
+            <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Key combination</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>3</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>12</number>
+      </property>
+      <item row="1" column="2">
+       <widget class="QToolButton" name="m_detachKey">
+        <property name="toolTip">
+         <string>Remove the button's keyboard shortcut key</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../qlcui.qrc">
+          <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QToolButton" name="m_attachKey">
+        <property name="toolTip">
+         <string>Set a key combination for this button</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../qlcui.qrc">
+          <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLineEdit" name="m_keyEdit">
+        <property name="toolTip">
+         <string>Keyboard combination that toggles this button</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QGroupBox" name="m_intensityGroup">
+     <property name="toolTip">
+      <string>Adjust function intensity when it is running</string>
+     </property>
+     <property name="title">
+      <string>Adjust Function Intensity</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QSlider" name="m_intensitySlider">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Function's adjusted intensity percentage when run</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="invertedControls">
+         <bool>false</bool>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+        <property name="tickInterval">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="m_intensityEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="maxLength">
+         <number>4</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Attributes</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QListWidget" name="m_attributesList">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>External Input</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutExternalInput">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Input Channel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="m_chooseInputButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Choose an external input universe &amp; channel that this button should listen to.</string>
+        </property>
+        <property name="text">
+         <string>Choose...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="m_inputUniverseEdit">
+        <property name="toolTip">
+         <string>The input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Input Universe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="3">
+       <widget class="QLineEdit" name="m_inputChannelEdit">
+        <property name="toolTip">
+         <string>The particular input channel within the input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="m_autoDetectInputButton">
+        <property name="toolTip">
+         <string>When toggled, you can click an external button to assign it to this virtual console button.</string>
+        </property>
+        <property name="text">
+         <string>Auto Detect</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="m_generalGroup">
+     <property name="title">
+      <string>General</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutGeneral">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_nameLabel">
+        <property name="text">
+         <string>Button label</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="m_nameEdit">
+        <property name="toolTip">
+         <string>Text to display on the button</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_functionLabel">
+        <property name="text">
+         <string>Function</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="m_functionEdit">
+        <property name="toolTip">
+         <string>The function that this button controls</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QToolButton" name="m_attachFunction">
+        <property name="toolTip">
+         <string>Attach a function to this button</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../qlcui.qrc">
+          <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QToolButton" name="m_detachFunction">
+        <property name="toolTip">
+         <string>Detach the button's function attachment</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../qlcui.qrc">
+          <normaloff>:/detach.png</normaloff>:/detach.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>VCButtonProperties</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>VCButtonProperties</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

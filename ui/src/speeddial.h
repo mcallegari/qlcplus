@@ -84,6 +84,14 @@ public:
     /** Produce a tap programmatically */
     void tap();
 
+    /** Set the visibility of the Infinite option */
+    void setInfiniteVisibility(bool visible);
+
+    /** Set the visibility of the Tap button */
+    void setTapVisibility(bool visible);
+
+    void stopTimers(bool stopTime = true, bool stopTapTimer = true);
+
 signals:
     void valueChanged(int ms);
     void tapped();
@@ -109,6 +117,7 @@ private slots:
     void slotInfiniteChecked(bool state);
     void slotSpinFocusGained();
     void slotTapClicked();
+    void slotTapTimeout();
 
 private:
     QTimer* m_timer;
@@ -128,6 +137,8 @@ private:
     int m_value;
 
     QTime* m_tapTime;
+    QTimer* m_tapTickTimer;
+    bool m_tapTick;
 };
 
 /** @} */

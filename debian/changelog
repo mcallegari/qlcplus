@@ -1,8 +1,109 @@
+qlcplus (4.8.0) stable; urgency=low
+
+  * NEW: Show Manager: it is now possible to add RGB Matrix and EFX functions to the timeline 
+  * NEW: Show Manager: it is now possible to use a function several times in the timeline
+  * NEW: Show Manager: added a timing tool to set a Show item start position and total duration
+  * NEW: Virtual Console: Sliders in level mode can now represent the channels they control only if they have all the same value (EXPERIMENTAL)
+  * NEW: Virtual Console: Frames can now be enabled/disabled
+  * NEW: Input Profile Editor: a slider can now be set to behave in relative or absolute mode
+  * NEW: Monitor/2D: it is now possible to set a background picture for specific QLC+ Functions
+  * Monitor/2D: representation of pan/tilt is now made of circles. See documentation (Jano Svitok)
+  * Plugins/DMXUSB: fixed simultaneous Input/Output on Pro devices. Added MIDI IO support to Pro Mk2
+  * Plugins/ArtNet: revert universe ID numbering. QLC+ outputs data on [ArtNet universe]-1 (see documentation)
+  * Plugins/OSC: Fixed crash when trying to output data on a non-specified output address
+  * Plugins/DMXUSB: Fixed DMX4ALL Stageprofi MK2 freezing on Windows and malfunctioning
+  * Show Manager: fixed 4.7.4 regression on time cursor position
+  * Show Manager: show names in the drop down list are now sorted alphabetically (thanks to David Garyga)
+  * Simple Desk: channel groups are now correctly updated
+  * RGB Matrix Editor: fixed crashes when changing the matrix settings while test is running (thanks to David Garyga)
+  * Channel Modifiers: added 6 new Exponential/Logarithmic templates (thanks to Luis García-Tornel)
+  * Virtual Console: when going to operate mode, grab the focus to allow key combinations to work
+  * Virtual Console: widgets key bindings on multipage frames respond only to the active page
+  * Virtual Console: performances improvement when combining a Speed Dial with a Cue List (thanks to David Garyga)
+  * Virtual Console: Speed Dial restyle. Increased the Tap button size to be more usable on touchscreens
+  * Virtual Console: Speed Dial Tap button border blinks at the tapped speed
+  * Virtual Console: Do not consider the first Speed Dial tap as it is most likely unwanted
+  * UI: Fixed unwanted time values sent by speed dials under certain circumstances
+  * Web access: correctly render and handle multipage frames
+  * Web access: improved Cue List and Simple Desk look & feel
+  * Web access: fixed Simple Desk changes on universes other than the first
+  * Web access: added Simple Desk universe reset button 
+  * New input profiles: Akai APCMini and Novation Launchpad (thanks to Maikel Boerebach)
+  * New fixture: ETC Desire D40 Vivid (thanks to Richard Manner)
+  * New fixtures: American DJ Ultra Hex Par3, Chauvet Intimidator Spot 400 IRC, BoomToneDJ Quattro Scan LED (thanks to Robert Scheffler)
+  * New fixture: Clay Paky Sharpy
+  * New fixture: ADJ Dekker LED (thanks to Chicken)
+  * New fixture: Img Stage Line Parl 73-RGB (thanks to Lukakiro)
+  * New fixtures: Eurolite TSL-200, Velleman Beam Driver 250, Laserworld CS-1000RGB (thanks to Rob Nieuwenhuizen)
+  * New fixture: Cameo Multi PAR 1 (thanks to Santiago Benejam Torres)
+  * New fixture: Stairville MH-100 Beam 36x3 LED (thanks to Jasper Zevering)
+  * New fixture: Stairville SC-X50 MKII (thanks to Johan Förberg)
+  * New fixture: Light Emotion LED Parbar (thanks to Dan Szabo)
+  * New fixture: American DJ Inno Pocket Roll (thanks to George Qualley)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 1 Oct 2014 20:21:22 +0200
+
+qlcplus (4.7.4) stable; urgency=low
+
+  * NEW: added support for DMX4ALL Nano DMX adapter (Linux only at the moment)
+  * Virtual Console: Solo Frames now handle Cue Lists and Sliders/Knobs in playback mode too
+  * UI: Fixed some crashes on Function Selection and Widget Selection windows (thanks to David Garyga)
+  * ClickAndGo: improved popup layout when a lot of presets need to be displayed
+  * Channels Configuration: it is now possible to unset a Channel Modifier
+  * Channels Configuration: fixed regression causing QLC+ to hang when forcing a channel to HTP
+  * Show Manager: added delete action to tracks context menu
+  * Show Manager: move cursor when the view is clicked even if the grid is not enabled
+  * Show Manager: it is now possible to lock/unlock items
+  * Audio Editor: it is now possible to select a specific audio card for playback
+  * Cue List widget: Added a progress bar showing the current running cue status
+  * Slider widget: when in submaster mode, restore the saved level
+  * Speed Dial widget: added time divisors in configuration panel (thanks to David Garyga)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 Jul 2014 12:13:14 +0200
+
+qlcplus (4.7.3) stable; urgency=low
+
+  * NEW: it is now possible to assign a modifier curve to a channel
+  * NEW: added Japanese translation (many thanks to Koichiro Saito)
+  * Engine: Fixed fallback IO mapping messing up plugins lines
+  * Engine: Fixed audio playback on non-default device working only once
+  * UI: Fix saving changes when: closing QLC+, opening file, creating new file
+  * VirtualConsole: fixed XY Pad tilt on universes other than 1
+  * Monitor: fixed crash when showing 2D preview of a fixture that has been removed
+  * Monitor: it is now possible to set a background image to the 2D preview
+  * Monitor: fixed fixture positioning through the Fixture Item Editor
+  * Fixture manager: fixed crash when deleting all groups/fixtures (thanks to David Garyga)
+  * Fixture Editor: fixed gobos paths saved on Windows
+  * Plugins/Peperoni: added preliminary input support (thanks to Jan Menzel)
+  * Webaccess: button state now correctly switch depending on the sent value
+  * New fixture: Beamz LCB-252, Cameo LED RGB PAR56 Can, Showtec Dynamic LED v3 (thanks to Sascha Büttner)
+  * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35, Kam Powercan TRI54W Slim (thanks to Robert Box)
+  * New fixture: Martin RoboColor-III (thanks to Boudewijn)
+  * New fixture: StageTech LeaderScan Roto (thanks to Noel Utter)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Jun 2014 12:13:14 +0200
+
 qlcplus (4.7.2) stable; urgency=low
 
-  * DIP switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+  * DIP Switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+  * Fixture Manager: Added DIP Switch tool to fixture add panel to select an address by DIP configuration (thanks to Florian Euchner)
+  * Simple Desk: fixed CPU waste and channels highlight on universes other than 1
+  * Simple Desk: fixed cue stacks playback
+  * Show Manager: fixed wrong track association causing copy & paste errors
+  * Show Manager: fixed audio deletion crash
+  * Virtual Console: Buttons can now stop all functions with a fade out time
+  * Plugins/HID: fixed regression causing non working input
+  * Plugins/Peperoni: added support for newer firmware versions (thanks to Jan Menzel)
+  * Plugins/Peperoni: added support for 2 universes output on USBDMX21
+  * Webaccess: preliminary implementation of Simple Desk
+  * Webaccess: Added Web API for developers who want to control QLC+ via HTML+Javascript+Websocket
+  * Added Catalan translation (thanks to Santiago Benejam Torres)
+  * New fixture: Flash Butrym LED Moving Head Mini Beam 18x3W RGB CREE (thanks to laserandi)
+  * New fixture: Chauvet Wedge Tri, Chauvet Gobo Zoom LED 2.0 (thanks to Jef M)
+  * New fixture: Studio Due City Color 1800, Star Lights Mini Wash Moving Head (thanks to Tolmino)
+  * New fixture: lightmaXX Platinum Line Mini TRI PAR 7x3W, lightmaXX Star Sphere 6 RGBAW (thanks to Flo)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 11 May 2014 12:13:14 +0200
 
 qlcplus (4.7.1) stable; urgency=low
 

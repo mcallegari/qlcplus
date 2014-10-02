@@ -20,6 +20,7 @@
 */
 
 #include <QString>
+#include <QDebug>
 
 #include "qlccapability.h"
 #include "qlcfixturedef.h"

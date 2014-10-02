@@ -4,12 +4,12 @@
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="94"/>
+        <location filename="udmx.cpp" line="95"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
         <translation>Deze plugin verzorgt DMX output voor Anyma uDMX apparaten.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="188"/>
+        <location filename="udmx.cpp" line="189"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Hardware opnieuw scannen?</translation>
     </message>
@@ -39,12 +39,12 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation>Pas dit apparaat aan een te ontdekken universe.</translation>
+        <translation type="unfinished">Patch dit apparaat aan een universe.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="143"/>
         <source>System Timer Accuracy</source>
-        <translation>System Timer precisie</translation>
+        <translation>Systeemklok precisie</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="148"/>

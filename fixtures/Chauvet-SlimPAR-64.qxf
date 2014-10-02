@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0</Version>
+  <Version>4.7.2</Version>
   <Author>Chris Laurie</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -52,7 +52,7 @@
  <Mode Name="7ch">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="224" Height="56" Weight="1,2" Depth="241"/>
+   <Dimensions Width="224" Height="241" Weight="0" Depth="56"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1" DmxConnector="3-pin"/>
@@ -68,7 +68,7 @@
  <Mode Name="3ch">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="224" Height="56" Weight="1,2" Depth="241"/>
+   <Dimensions Width="224" Height="241" Weight="0" Depth="56"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1" DmxConnector="3-pin"/>

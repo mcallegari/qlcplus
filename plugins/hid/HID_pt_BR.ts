@@ -25,22 +25,6 @@
     </message>
 </context>
 <context>
-    <name>HID</name>
-    <message>
-        <location filename="hid.cpp" line="150"/>
-        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HIDEventDevice</name>
-    <message>
-        <location filename="hideventdevice.cpp" line="339"/>
-        <source>N/A</source>
-        <translation>N/A</translation>
-    </message>
-</context>
-<context>
     <name>HIDFX5Device</name>
     <message>
         <location filename="hidfx5device.cpp" line="61"/>
@@ -56,14 +40,22 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="303"/>
+        <location filename="hidjsdevice.cpp" line="313"/>
         <source>Axes: %1</source>
         <translation>Eixos: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="305"/>
+        <location filename="hidjsdevice.cpp" line="315"/>
         <source>Buttons: %1</source>
         <translation>Botões: %1</translation>
+    </message>
+</context>
+<context>
+    <name>HIDPlugin</name>
+    <message>
+        <location filename="hidplugin.cpp" line="115"/>
+        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

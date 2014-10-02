@@ -61,7 +61,7 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <IMG SRC="qrc:/edit_add.png">
+   <IMG SRC="qrc:/attach.png">
   </TD>
   <TD>
    Associate a <A HREF="file:concept.html#Chaser">Chaser</A> with the Cue List using
@@ -70,7 +70,7 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <IMG SRC="qrc:/edit_remove.png">
+   <IMG SRC="qrc:/detach.png">
   </TD>
   <TD>
    Remove the selected Chaser from the Cue List.
@@ -120,10 +120,31 @@ by double clicking on the Cue List widget.<br>
 
 <P>
 When switching QLC+ to <A HREF="file:concept.html#Modes">Operate Mode</A>, the Cue List will
-become active, allowing the selection of the desired steps included in the associated Chaser.<br><br>
-Four buttons are displayed at the bottom of the Cue List widget:<br><br>
+become active, allowing the selection of the desired steps included in the associated Chaser.<br>
+Pressing the ENTER key will start the selected step.<br><br>
+The following items are displayed at the bottom of the Cue List widget:<br><br>
 
 <TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Cue progress bar</B>
+  </TD>
+  <TD>
+   A progress bar showing the current running step status.<br>
+   When a fade in speed is set and is not set to "default" the bar will 
+   be colored in <span style="background-color:#63C10B">green</span>.<br>
+   During the hold time the bar will be colored in <span style="background-color:#0F9BEC">blue</span>.
+   The text displayed on the bar is the time remaining for the cue to end.<br>
+   If the step duration is set to inifinite (&infin;), the bar will just display the fade in progress
+   in <span style="background-color:#63C10B">green</span>.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/slider.png"></TD>
+  <TD>When clicked, this button will open/close a side panel showing two sliders for controlling crossfade.
+  (See next chapter)
+  </TD>
+ </TR>
  <TR>
   <TD><IMG src="qrc:/player_play.png"><IMG src="qrc:/player_stop.png"></TD>
   <TD>Start/stop the replay of the Cue List from the currently selected step</TD>
@@ -138,17 +159,8 @@ Four buttons are displayed at the bottom of the Cue List widget:<br><br>
   <TD>Go to the next step in the Cue List, which will then be replayed. 
   When reaching the bottom, the next step will be the first of the Cue List</TD>
  </TR>
- <TR>
-  <TD><IMG src="qrc:/slider.png"></TD>
-  <TD>When clicked, this button will open/close a side panel showing two sliders for controlling crossfade.<br>
-  </TD>
- </TR>
 </TABLE>
 
-</P>
-
-<P>
-Pressing ENTER key will start the selected step.
 </P>
 
 <br>

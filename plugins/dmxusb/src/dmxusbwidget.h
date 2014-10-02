@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller PLus
   dmxusbwidget.h
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,19 +36,19 @@ public:
      * @param name The name of the widget
      * @param id The ID of the device in FTD2XX (0 when libftdi is used)
      */
-    DMXUSBWidget(const QString& serial, const QString& name, const QString &vendor, QLCFTDI *ftdi = NULL, quint32 id = 0);
+    DMXUSBWidget(const QString& serial, const QString& name, const QString &vendor, quint32 outputLine, quint32 id = 0);
+
     virtual ~DMXUSBWidget();
 
     /** Widget types */
     enum Type
     {
-        ProTX,     //! Enttec Pro widget using the TX side of the dongle
-        OpenTX,    //! Enttec Open widget (only TX)
-        ProRX,     //! Enttec Pro widget using the RX side of the dongle
-        ProMk2,    //! Enttec Pro Mk2 widget using 2 TX outputs
-        UltraProTx, //! DMXKing Ultra Pro widget using 2 TX ports
-        DMX4ALL,
-        VinceTX    //! Vince USB-DMX512 widget using the TX side of the dongle
+        ProRXTX,    //! Enttec Pro widget using the TX side of the dongle
+        OpenTX,     //! Enttec Open widget (only TX)
+        ProMk2,     //! Enttec Pro Mk2 widget using 2 TX outputs
+        UltraPro,   //! DMXKing Ultra Pro widget using 2 TX ports
+        DMX4ALL,    //! DMX4ALL widget
+        VinceTX     //! Vince USB-DMX512 widget using the TX side of the dongle
     };
 
     /** Get the type of the widget */
@@ -68,14 +69,14 @@ public:
      *
      * @return true if widget was opened successfully (or was already open)
      */
-    virtual bool open();
+    virtual bool open(quint32 line = 0, bool input = false);
 
     /**
      * Close widget, preventing any further operations
      *
      * @param true if widget was closed successfully (or was already closed)
      */
-    virtual bool close();
+    virtual bool close(quint32 line = 0, bool input = false);
 
     /**
      * Check, whether widget has been opened
@@ -83,6 +84,79 @@ public:
      * @return true if widget is open, otherwise false
      */
     virtual bool isOpen();
+
+private:
+    /** Bitmask storing whenever an input line is open (1) or not (0) */
+    quint32 m_inputOpenMask;
+
+    /** Bitmask storing whenever an output line is open (1) or not (0) */
+    quint32 m_outputOpenMask;
+
+    /********************************************************************
+     * Outputs
+     ********************************************************************/
+public:
+    /**
+     * Set the number of output lines this widget supports
+     * @param num the output lines number
+     */
+    virtual void setOutputsNumber(int num);
+
+    /**
+     * Return the number of output lines supported by this widget
+     */
+    virtual int outputsNumber();
+
+    /**
+     * Return a list of the output line names
+     */
+    virtual QStringList outputNames();
+
+protected:
+    /** The number of output lines supported by this widget */
+    int m_outputsNumber;
+
+    /** The QLC+ output line number where this widget outputs start */
+    quint32 m_outputBaseLine;
+
+    /**
+     * Map storing the association between the DMXUSB plugin lines and
+     * the actual device output lines
+     */
+    QHash<quint32, ushort> m_outputsMap;
+
+    /********************************************************************
+     * Inputs
+     ********************************************************************/
+public:
+    /**
+     * Set the number of input lines this widget supports
+     * @param num the input lines number
+     */
+    virtual void setInputsNumber(int num);
+
+    /**
+     * Return the number of input lines supported by this widget
+     */
+    virtual int inputsNumber();
+
+    /**
+     * Return a list of the input line names
+     */
+    virtual QStringList inputNames();
+
+protected:
+    /** The number of output lines supported by this widget */
+    int m_inputsNumber;
+
+    /** The QLC+ input line number where this widget inputs start */
+    quint32 m_inputBaseLine;
+
+    /**
+     * Map storing the association between the DMXUSB plugin lines and
+     * the actual device input lines
+     */
+    QHash<quint32, ushort> m_inputsMap;
 
     /********************************************************************
      * Serial & name
@@ -107,7 +181,7 @@ public:
      *
      * @return widget's unique name as: "<name> (S/N: <serial>)"
      */
-    virtual QString uniqueName() const;
+    virtual QString uniqueName(ushort line = 0, bool input = false) const;
 
     /** Set the real device name extracted from serial using label 78 */
     void setRealName(QString devName);
@@ -143,7 +217,7 @@ public:
      * @param universe The DMX universe to send
      * @return true if the values were sent successfully, otherwise false
      */
-    virtual bool writeUniverse(const QByteArray& universe);
+    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 };
 
 #endif

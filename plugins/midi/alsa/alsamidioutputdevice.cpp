@@ -57,7 +57,7 @@ AlsaMidiOutputDevice::~AlsaMidiOutputDevice()
     m_receiver_address = NULL;
 }
 
-void AlsaMidiOutputDevice::open()
+bool AlsaMidiOutputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
     m_open = true;
@@ -71,6 +71,8 @@ void AlsaMidiOutputDevice::open()
     snd_seq_port_subscribe_set_sender(sub, m_sender_address);
     snd_seq_port_subscribe_set_dest(sub, m_receiver_address);
     snd_seq_subscribe_port(m_alsa, sub);
+
+    return true;
 }
 
 void AlsaMidiOutputDevice::close()

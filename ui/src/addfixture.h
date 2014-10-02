@@ -190,6 +190,9 @@ protected slots:
 
     /** Callback for fixture search filter changes */
     void slotSearchFilterChanged(QString filter);
+
+    /** Callback for button to open the Address Tool */
+    void slotDiptoolButtonClicked();
 };
 
 /** @} */

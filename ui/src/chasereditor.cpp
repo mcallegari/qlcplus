@@ -26,6 +26,7 @@
 #include <QLineEdit>
 #include <QSettings>
 #include <QDebug>
+#include <QUrl>
 
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"
@@ -56,6 +57,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
+    , m_speedDials(NULL)
     , m_liveMode(liveMode)
 {
     Q_ASSERT(chaser != NULL);
@@ -240,7 +242,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
 ChaserEditor::~ChaserEditor()
 {
     if (m_speedDials != NULL)
-        delete m_speedDials;
+        m_speedDials->deleteLater();
     m_speedDials = NULL;
 
     // double check that the Chaser still exists !
@@ -294,7 +296,7 @@ void ChaserEditor::slotFunctionManagerActive(bool active)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -479,7 +481,7 @@ void ChaserEditor::slotSpeedDialToggle(bool state)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -1007,14 +1009,9 @@ void ChaserEditor::updateSpeedDials()
  ****************************************************************************/
 int ChaserEditor::getCurrentIndex()
 {
-    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
-    int index = 0;
-    if (selected.size() > 0)
-    {
-        QTreeWidgetItem* item(selected.first());
-        index = m_tree->indexOfTopLevelItem(item);
-    }
-    return index;
+    // Return the index of the current selected item
+    // Return -1 if nothing is selected
+    return m_tree->indexOfTopLevelItem(m_tree->currentItem());
 }
 
 void ChaserEditor::slotRestartTest()
@@ -1078,9 +1075,9 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
 
 void ChaserEditor::slotStepChanged(int stepNumber)
 {
-    if (m_tree->selectedItems().count() > 0)
-        m_tree->selectedItems().first()->setSelected(false);
-    m_tree->topLevelItem(stepNumber)->setSelected(true);
+    // Select only the item at step StepNumber
+    // If stepNumber is outside of bounds, select nothing
+    m_tree->setCurrentItem(m_tree->topLevelItem(stepNumber));
 }
 
 bool ChaserEditor::interruptRunning()

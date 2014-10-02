@@ -71,9 +71,9 @@ lessThan(QT_MAJOR_VERSION, 5) {
                          $$(QTDIR)/bin/Qt5OpenGLd.dll \
                          $$(QTDIR)/bin/Qt5Multimediad.dll \
                          $$(QTDIR)/bin/Qt5MultimediaWidgetsd.dll 
-    qtlibs.files += $$(QTDIR)/bin/icudt51.dll \
-                    $$(QTDIR)/bin/icuin51.dll \
-                    $$(QTDIR)/bin/icuuc51.dll
+    qtlibs.files += $$(QTDIR)/bin/icudt52.dll \
+                    $$(QTDIR)/bin/icuin52.dll \
+                    $$(QTDIR)/bin/icuuc52.dll
 }
     INSTALLS += qtlibs
 
@@ -82,12 +82,17 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
     release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
     INSTALLS += qtplatform
+	
+	qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
+    debug:qtaudio.files = $$(QTDIR)/plugins/audio/qtaudio_windowsd.dll
+    release:qtaudio.files = $$(QTDIR)/plugins/audio/qtaudio_windows.dll
+    INSTALLS += qtaudio
     
     qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
     debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
                           $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
     release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
-                            $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+                            $$(QTDIR)/plugins/mediaservice/qtmedia_audioengine.dll
     INSTALLS += qtmedia
 }
 

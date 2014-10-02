@@ -87,10 +87,12 @@ void HIDFX5Device::closeInput()
     updateMode();
 }
 
-void HIDFX5Device::openOutput()
+bool HIDFX5Device::openOutput()
 {
     m_mode |= FX5_MODE_OUTPUT;
     updateMode();
+
+    return true;
 }
 
 void HIDFX5Device::closeOutput()
@@ -160,7 +162,7 @@ void HIDFX5Device::run()
                     if (value != 0)
                     if ((unsigned char)m_dmx_in_cmp.at(channel) != value)
                     {
-                        emit valueChanged(m_line, channel, value);
+                        emit valueChanged(UINT_MAX, m_line, channel, value);
                         m_dmx_in_cmp[channel] = value;
                     }
                 }
@@ -184,7 +186,7 @@ void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
             return;
         QByteArray chunk = universe.mid(startOff, 32);
         if (chunk.size() < 32)
-            chunk.append((char)0x0, 32 - chunk.size());
+            chunk.append(QByteArray(32 - chunk.size(), (char)0x0));
         if(forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
         {
             /** Save different data to m_dmx_cmp */

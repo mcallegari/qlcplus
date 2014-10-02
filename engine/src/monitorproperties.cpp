@@ -33,6 +33,10 @@
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridUnits "Units"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
+#define KXMLQLCMonitorCommonBackground "Background"
+
+#define KXMLQLCMonitorCustomBgItem "BackgroundItem"
+#define KXMLQLCMonitorCustomBgFuncID "ID"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
 #define KXMLQLCMonitorFixtureID "ID"
@@ -52,6 +56,12 @@ MonitorProperties::MonitorProperties()
     m_showLabels = false;
 }
 
+void MonitorProperties::removeFixture(quint32 fid)
+{
+    if (m_fixtureItems.contains(fid))
+        m_fixtureItems.take(fid);
+}
+
 void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
@@ -69,12 +79,21 @@ void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
     m_fixtureItems[fid].m_gelColor = col;
 }
 
+QString MonitorProperties::customBackground(quint32 id)
+{
+    if (m_customBackgroundImages.contains(id))
+        return m_customBackgroundImages[id];
+
+    return QString();
+}
+
 void MonitorProperties::reset()
 {
     m_gridSize = QSize(5, 5);
     m_gridUnits = Meters;
     m_showLabels = false;
     m_fixtureItems.clear();
+    m_commonBackgroundImage = QString();
 }
 
 /*********************************************************************
@@ -119,6 +138,16 @@ bool MonitorProperties::loadXML(const QDomElement &root)
             setChannelStyle(ChannelStyle(tag.text().toInt()));
         else if (tag.tagName() == KXMLQLCMonitorValues)
             setValueStyle(ValueStyle(tag.text().toInt()));
+        else if (tag.tagName() == KXMLQLCMonitorCommonBackground)
+            setCommonBackgroundImage(tag.text());
+        else if (tag.tagName() == KXMLQLCMonitorCustomBgItem)
+        {
+            if (tag.hasAttribute(KXMLQLCMonitorCustomBgFuncID))
+            {
+                quint32 fid = tag.attribute(KXMLQLCMonitorCustomBgFuncID).toUInt();
+                setCustomBackgroundItem(fid, tag.text());
+            }
+        }
         else if (tag.tagName() == KXMLQLCMonitorGrid)
         {
             int w = 5, h = 5;
@@ -190,6 +219,30 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     }
     else if (displayMode() == Graphics)
     {
+        if (commonBackgroundImage().isEmpty() == false)
+        {
+            tag = doc->createElement(KXMLQLCMonitorCommonBackground);
+            root.appendChild(tag);
+            text = doc->createTextNode(commonBackgroundImage());
+            tag.appendChild(text);
+        }
+        else if(customBackgroundList().isEmpty() == false)
+        {
+
+            QHashIterator <quint32, QString> it(customBackgroundList());
+            while (it.hasNext() == true)
+            {
+                it.next();
+
+                tag = doc->createElement(KXMLQLCMonitorCustomBgItem);
+                root.appendChild(tag);
+                quint32 fid = it.key();
+                tag.setAttribute(KXMLQLCMonitorCustomBgFuncID, fid);
+                text = doc->createTextNode(it.value());
+                tag.appendChild(text);
+            }
+        }
+
         tag = doc->createElement(KXMLQLCMonitorGrid);
         tag.setAttribute(KXMLQLCMonitorGridWidth, gridSize().width());
         tag.setAttribute(KXMLQLCMonitorGridHeight, gridSize().height());

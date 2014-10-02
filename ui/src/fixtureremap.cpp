@@ -20,6 +20,7 @@
 #include <QProgressDialog>
 #include <QMessageBox>
 #include <QScrollBar>
+#include <QDebug>
 #include <QDir>
 
 #include "vcaudiotriggers.h"

@@ -38,7 +38,7 @@ class Doc;
 
 class FunctionUiState;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
