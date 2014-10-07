@@ -198,6 +198,8 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         setName(tr("File not found"));
+        m_audioDuration = 0;
+        emit changed(id());
         return true;
     }
 
@@ -211,6 +213,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -224,6 +227,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -267,12 +271,6 @@ void Audio::slotEndOfStream()
         m_decoder->seek(0);
     }
     Function::postRun(NULL, QList<Universe *>());
-}
-
-void Audio::slotTotalTimeChanged(qint64)
-{
-    qDebug() << "Audio duration: " << m_audioDuration;
-    emit totalTimeChanged(m_audioDuration);
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)

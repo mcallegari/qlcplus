@@ -43,8 +43,12 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Audio));
 
+    if (func->duration() == 0)
+        func->setDuration(aud->totalDuration());
+
     calculateWidth();
-    connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
+    connect(m_audio, SIGNAL(changed(quint32)),
+            this, SLOT(slotAudioChanged(quint32)));
 
     /* Preview actions */
     m_previewLeftAction = new QAction(tr("Preview Left Channel"), this);

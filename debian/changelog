@@ -1,5 +1,7 @@
 qlcplus (4.8.1) stable; urgency=low
 
+  * Show Manager: fixed audio and video playback
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 Nov 2014 20:21:22 +0200
 
 qlcplus (4.8.0) stable; urgency=low

@@ -37,8 +37,14 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Video));
 
+    if (func->duration() == 0)
+        func->setDuration(m_video->totalDuration());
+
     calculateWidth();
-    connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
+    connect(m_video, SIGNAL(changed(quint32)),
+            this, SLOT(slotVideoChanged(quint32)));
+    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
+            this, SLOT(slotVideoDurationChanged(qint64)));
 
     m_fullscreenAction = new QAction(tr("Fullscreen"), this);
     m_fullscreenAction->setCheckable(true);
@@ -111,6 +117,14 @@ Video *VideoItem::getVideo()
 }
 
 void VideoItem::slotVideoChanged(quint32)
+{
+    prepareGeometryChange();
+    calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_video->totalDuration());
+}
+
+void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
     calculateWidth();

@@ -65,6 +65,7 @@ protected:
 
 protected slots:
     void slotVideoChanged(quint32);
+    void slotVideoDurationChanged(qint64);
     void slotScreenChanged();
     void slotFullscreenToggled(bool toggle);
 
