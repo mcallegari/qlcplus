@@ -1029,7 +1029,7 @@ The selected file has been moved or deleted.</source>
     <name>AudioItem</name>
     <message>
         <location filename="showmanager/audioitem.cpp" line="54"/>
-        <location filename="showmanager/audioitem.cpp" line="367"/>
+        <location filename="showmanager/audioitem.cpp" line="357"/>
         <source>Preview Left Channel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1044,18 +1044,8 @@ The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="381"/>
-        <source>Lock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="363"/>
+        <location filename="showmanager/audioitem.cpp" line="353"/>
         <source>Preview Mono</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="376"/>
-        <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2135,19 +2125,6 @@ The selected file has been moved or deleted.</source>
         <location filename="efxeditor.cpp" line="713"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
-    </message>
-</context>
-<context>
-    <name>EFXItem</name>
-    <message>
-        <location filename="showmanager/efxitem.cpp" line="147"/>
-        <source>Unlock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/efxitem.cpp" line="152"/>
-        <source>Lock item</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4203,19 +4180,6 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
 </context>
 <context>
-    <name>RGBMatrixItem</name>
-    <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="146"/>
-        <source>Unlock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="151"/>
-        <source>Lock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SceneEditor</name>
     <message>
         <location filename="sceneeditor.ui" line="20"/>
@@ -4481,19 +4445,6 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
 </context>
 <context>
-    <name>SequenceItem</name>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="179"/>
-        <source>Lock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="174"/>
-        <source>Unlock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ShowEditor</name>
     <message>
         <location filename="showmanager/showeditor.ui" line="14"/>
@@ -4550,7 +4501,8 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
-        <location filename="showmanager/showitem.cpp" line="241"/>
+        <location filename="showmanager/showitem.cpp" line="85"/>
+        <location filename="showmanager/showitem.cpp" line="261"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4568,7 +4520,8 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="236"/>
+        <location filename="showmanager/showitem.cpp" line="80"/>
+        <location filename="showmanager/showitem.cpp" line="256"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6927,18 +6880,8 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="180"/>
-        <source>Lock item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="showmanager/videoitem.cpp" line="161"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager/videoitem.cpp" line="175"/>
-        <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

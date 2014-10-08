@@ -123,17 +123,6 @@ void EFXItem::slotEFXChanged(quint32)
     updateTooltip();
 }
 
-
-void EFXItem::slotAlignToCursorClicked()
-{
-    emit alignToCursor(this);
-}
-
-void EFXItem::slotLockItemClicked()
-{
-    setLocked(!isLocked());
-}
-
 void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
@@ -141,18 +130,8 @@ void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }

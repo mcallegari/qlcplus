@@ -604,5 +604,3 @@ void MultiTrackView::slotAlignToCursor(ShowItem *item)
     m_scene->update();
 }
 
-
-

@@ -169,18 +169,8 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
     }
     menu.addAction(m_fullscreenAction);
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }

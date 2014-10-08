@@ -70,8 +70,6 @@ protected slots:
     void slotAudioPreviewLeft(bool active);
     void slotAudioPreviewRight(bool active);
     void slotAudioPreviewStereo(bool active);
-    void slotAlignToCursorClicked();
-    void slotLockItemClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */

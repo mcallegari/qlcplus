@@ -63,6 +63,14 @@ protected:
      */
     void updateTooltip();
 
+    /**
+     * @brief getDefaultActions get the list of the default actions
+     *        that can be performed on an item
+     * @return a QList of QAction pointers
+     */
+
+    QList<QAction *> getDefaultActions();
+
 public:
 
     /**

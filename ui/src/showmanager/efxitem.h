@@ -67,9 +67,6 @@ protected:
 protected slots:
     void slotEFXChanged(quint32);
 
-    void slotAlignToCursorClicked();
-    void slotLockItemClicked();
-
 private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();

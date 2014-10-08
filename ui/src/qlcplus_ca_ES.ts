@@ -1030,7 +1030,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <name>AudioItem</name>
     <message>
         <location filename="showmanager/audioitem.cpp" line="54"/>
-        <location filename="showmanager/audioitem.cpp" line="367"/>
+        <location filename="showmanager/audioitem.cpp" line="357"/>
         <source>Preview Left Channel</source>
         <translation>Vista prèvia del Canal Esquerra</translation>
     </message>
@@ -1045,19 +1045,9 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Vista Prèvia Canals Estèreo</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="381"/>
-        <source>Lock item</source>
-        <translation>Bloquejar element</translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="363"/>
+        <location filename="showmanager/audioitem.cpp" line="353"/>
         <source>Preview Mono</source>
         <translation>Vista Prèvia Mono</translation>
-    </message>
-    <message>
-        <location filename="showmanager/audioitem.cpp" line="376"/>
-        <source>Unlock item</source>
-        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>
@@ -2133,19 +2123,6 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="efxeditor.cpp" line="713"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vol treure els fixtures seleccionats?</translation>
-    </message>
-</context>
-<context>
-    <name>EFXItem</name>
-    <message>
-        <location filename="showmanager/efxitem.cpp" line="147"/>
-        <source>Unlock item</source>
-        <translation>Desbloquejar element</translation>
-    </message>
-    <message>
-        <location filename="showmanager/efxitem.cpp" line="152"/>
-        <source>Lock item</source>
-        <translation>Bloquejar element</translation>
     </message>
 </context>
 <context>
@@ -4221,19 +4198,6 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
 </context>
 <context>
-    <name>RGBMatrixItem</name>
-    <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="146"/>
-        <source>Unlock item</source>
-        <translation>Desbloquejar element</translation>
-    </message>
-    <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="151"/>
-        <source>Lock item</source>
-        <translation>Bloquejar element</translation>
-    </message>
-</context>
-<context>
     <name>SceneEditor</name>
     <message>
         <location filename="sceneeditor.ui" line="20"/>
@@ -4503,19 +4467,6 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
 </context>
 <context>
-    <name>SequenceItem</name>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="179"/>
-        <source>Lock item</source>
-        <translation>Bloquejar element</translation>
-    </message>
-    <message>
-        <location filename="showmanager/sequenceitem.cpp" line="174"/>
-        <source>Unlock item</source>
-        <translation>Desbloquejar element</translation>
-    </message>
-</context>
-<context>
     <name>ShowEditor</name>
     <message>
         <location filename="showmanager/showeditor.ui" line="14"/>
@@ -4572,7 +4523,8 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
-        <location filename="showmanager/showitem.cpp" line="241"/>
+        <location filename="showmanager/showitem.cpp" line="85"/>
+        <location filename="showmanager/showitem.cpp" line="261"/>
         <source>Lock item</source>
         <translation>Bloquejar element</translation>
     </message>
@@ -4593,7 +4545,8 @@ Durada: %3
         <translation>Faixi click per moure aquest element al llarg de la línia de temps</translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="236"/>
+        <location filename="showmanager/showitem.cpp" line="80"/>
+        <location filename="showmanager/showitem.cpp" line="256"/>
         <source>Unlock item</source>
         <translation>Desbloquejar element</translation>
     </message>
@@ -6946,19 +6899,9 @@ Durada: %3
         <translation>Pantalla completa</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="180"/>
-        <source>Lock item</source>
-        <translation>Bloquejar element</translation>
-    </message>
-    <message>
         <location filename="showmanager/videoitem.cpp" line="161"/>
         <source>Screen %1</source>
         <translation>Pantalla %1</translation>
-    </message>
-    <message>
-        <location filename="showmanager/videoitem.cpp" line="175"/>
-        <source>Unlock item</source>
-        <translation>Desbloquejar element</translation>
     </message>
 </context>
 <context>

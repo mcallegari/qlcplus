@@ -67,7 +67,27 @@ void ShowItem::updateTooltip()
               .arg(functionName())
               .arg(Function::speedToString(m_function->startTime()))
               .arg(Function::speedToString(m_function->duration()))
-              .arg(tr("Click to move this item across the timeline")));
+               .arg(tr("Click to move this item across the timeline")));
+}
+
+QList<QAction *> ShowItem::getDefaultActions()
+{
+    QList<QAction *> actions;
+    actions.append(m_alignToCursor);
+
+    if (isLocked())
+    {
+        m_lockAction->setText(tr("Unlock item"));
+        m_lockAction->setIcon(QIcon(":/unlock.png"));
+    }
+    else
+    {
+        m_lockAction->setText(tr("Lock item"));
+        m_lockAction->setIcon(QIcon(":/lock.png"));
+    }
+    actions.append(m_lockAction);
+
+    return actions;
 }
 
 void ShowItem::setTimeScale(int val)

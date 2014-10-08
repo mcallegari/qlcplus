@@ -187,16 +187,6 @@ void AudioItem::slotAudioPreviewStereo(bool active)
     createWaveform(active, active);
 }
 
-void AudioItem::slotAlignToCursorClicked()
-{
-    emit alignToCursor(this);
-}
-
-void AudioItem::slotLockItemClicked()
-{
-    setLocked(!isLocked());
-}
-
 void AudioItem::createWaveform(bool left, bool right)
 {
     if ((left == true || right == true) && m_audio->getAudioDecoder() != NULL)
@@ -370,18 +360,9 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
         menu.addSeparator();
     }
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }
