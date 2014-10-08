@@ -1,6 +1,9 @@
-qlcplus (4.8.1) stable; urgency=low
+qlcplus (4.8.1) stable; urgency=high
 
+  * Virtual Console: fixed Buttons background color on Windows
   * Show Manager: fixed audio and video playback
+  * Plugins/HID: Fixed FX5 input not reaching 0 value (thanks to Babbsdrebbler)
+  * Fixture Editor: allow author name editing (Jano Svitok)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 Nov 2014 20:21:22 +0200
 

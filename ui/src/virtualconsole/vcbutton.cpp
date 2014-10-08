@@ -38,6 +38,10 @@
 #include <QSize>
 #include <QPen>
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+ #include <QStyleFactory>
+#endif
+
 #include "qlcinputsource.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
@@ -108,7 +112,11 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     else
         m_ledStyle = false;
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+    setStyle(QStyleFactory::create("fusion"));
+#else
     setStyle(AppUtil::saneStyle());
+#endif
 
     /* Listen to function removals */
     connect(m_doc, SIGNAL(functionRemoved(quint32)),
