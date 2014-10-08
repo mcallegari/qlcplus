@@ -66,6 +66,7 @@
   <fixture path="Cameo-Multi-PAR-1.qxf" mf="Cameo" md="Multi Par 1"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
+  <fixture path="Chauvet-4Bar.qxf" mf="Chauvet" md="4Bar"/>
   <fixture path="Chauvet-4Play.qxf" mf="Chauvet" md="4Play"/>
   <fixture path="Chauvet-6-Spot.qxf" mf="Chauvet" md="6 Spot"/>
   <fixture path="Chauvet-Circus-2.qxf" mf="Chauvet" md="Circus 2.0"/>
@@ -86,6 +87,7 @@
   <fixture path="Chauvet-Intimidator-Scan-LED-300.qxf" mf="Chauvet" md="Intimidator Scan LED 300"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
   <fixture path="Chauvet-Intimidator-Spot-400-IRC.qxf" mf="Chauvet" md="Intimidator Spot 400 IRC"/>
+  <fixture path="Chauvet-Intimidator-Spot-Duo.qxf" mf="Chauvet" md="Intimidator Spot Duo"/>
   <fixture path="Chauvet-Intimidator-Spot-LED-250.qxf" mf="Chauvet" md="Intimidator Spot LED 250"/>
   <fixture path="Chauvet-Intimidator-Spot-LED-350.qxf" mf="Chauvet" md="Intimidator Spot LED 350"/>
   <fixture path="Chauvet-LED-Splash-86b.qxf" mf="Chauvet" md="LED Splash 86b"/>
