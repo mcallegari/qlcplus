@@ -38,6 +38,9 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Chaser));
 
+    if (func->duration() == 0)
+        func->setDuration(seq->totalDuration());
+
     calculateWidth();
 
     connect(m_chaser, SIGNAL(changed(quint32)),
