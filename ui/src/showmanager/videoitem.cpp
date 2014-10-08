@@ -98,9 +98,10 @@ void VideoItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void VideoItem::setDuration(quint32 msec)
+void VideoItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(msec)
+    Q_UNUSED(stretch)
     // nothing to do
 }
 

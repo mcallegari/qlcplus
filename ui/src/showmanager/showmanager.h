@@ -185,7 +185,7 @@ protected slots:
     void slotChangeLock();
     void slotShowTimingsTool();
     void slotShowItemStartTimeChanged(ShowItem *item, int msec);
-    void slotShowItemDurationChanged(ShowItem *item, int msec);
+    void slotShowItemDurationChanged(ShowItem *item, int msec, bool stretch);
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);
     void slotStepSelectionChanged(int index);

@@ -1387,12 +1387,24 @@ void ShowManager::slotShowTimingsTool()
         return;
 
     TimingsTool *tt = new TimingsTool(item, this);
-    tt->setAttribute(Qt::WA_DeleteOnClose);
-    tt->setWindowTitle(item->functionName());
+
+    Function *func = m_doc->function(item->functionID());
+    if (func != NULL)
+    {
+        if (func->type() == Function::Audio)
+            tt->showDurationControls(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        if (func->type() == Function::Video)
+            tt->showDurationControls(false);
+#endif
+        if (func->type() == Function::RGBMatrix || func->type() == Function::EFX)
+            tt->showDurationOptions(true);
+    }
+
     connect(tt, SIGNAL(startTimeChanged(ShowItem*,int)),
             this, SLOT(slotShowItemStartTimeChanged(ShowItem*,int)));
-    connect(tt, SIGNAL(durationChanged(ShowItem*,int)),
-            this, SLOT(slotShowItemDurationChanged(ShowItem*,int)));
+    connect(tt, SIGNAL(durationChanged(ShowItem*,int,bool)),
+            this, SLOT(slotShowItemDurationChanged(ShowItem*,int,bool)));
     tt->show();
 }
 
@@ -1401,19 +1413,20 @@ void ShowManager::slotShowItemStartTimeChanged(ShowItem *item, int msec)
     if (item == NULL)
         return;
 
-    item->setStartTime(msec);
-    item->setPos(m_showview->getPositionFromTime(msec), item->y());
-    m_doc->setModified();
+    if (item->isLocked() == false)
+    {
+        item->setStartTime(msec);
+        item->setPos(m_showview->getPositionFromTime(msec), item->y());
+        m_doc->setModified();
+    }
 }
 
-void ShowManager::slotShowItemDurationChanged(ShowItem *item, int msec)
+void ShowManager::slotShowItemDurationChanged(ShowItem *item, int msec, bool stretch)
 {
-    Q_UNUSED(msec)
-
     if (item == NULL)
         return;
 
-    item->setDuration(msec);
+    item->setDuration(msec, stretch);
     m_doc->setModified();
 }
 

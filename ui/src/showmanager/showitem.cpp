@@ -97,8 +97,10 @@ quint32 ShowItem::getStartTime()
     return 0;
 }
 
-void ShowItem::setDuration(quint32 msec)
+void ShowItem::setDuration(quint32 msec, bool stretch)
 {
+    Q_UNUSED(stretch)
+
     if (m_function == NULL)
         return;
 

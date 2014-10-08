@@ -52,7 +52,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setDuration(quint32 msec);
+    void setDuration(quint32 msec, bool stretch);
 
     /** @reimp */
     QString functionName();

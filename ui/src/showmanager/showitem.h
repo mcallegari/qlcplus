@@ -101,7 +101,7 @@ public:
      *
      * @param msec the item duration in milliseconds
      */
-    virtual void setDuration(quint32 msec);
+    virtual void setDuration(quint32 msec, bool stretch);
 
     /**
      * @brief getDuration virtual method that returns the item total duration

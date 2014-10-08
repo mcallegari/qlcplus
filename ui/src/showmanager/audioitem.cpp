@@ -119,9 +119,10 @@ void AudioItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void AudioItem::setDuration(quint32 msec)
+void AudioItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(msec)
+    Q_UNUSED(stretch)
     // nothing to do
 }
 

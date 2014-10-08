@@ -128,8 +128,9 @@ void SequenceItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void SequenceItem::setDuration(quint32 msec)
+void SequenceItem::setDuration(quint32 msec, bool stretch)
 {
+    Q_UNUSED(stretch)
     m_chaser->setTotalDuration(msec);
 }
 

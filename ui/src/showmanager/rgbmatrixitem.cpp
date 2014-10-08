@@ -46,7 +46,7 @@ RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
 void RGBMatrixItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 matrix_duration = m_matrix->totalDuration();
+    qint64 matrix_duration = m_function->duration();
 
     if (matrix_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)matrix_duration) / 1000;
@@ -63,9 +63,20 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    //float timeScale = 50/(float)m_timeScale;
+    float xpos = 0;
+    float timeScale = 50/(float)m_timeScale;
+    quint32 matrixDuration = m_matrix->totalDuration();
 
     ShowItem::paint(painter, option, widget);
+
+    int loopCount = qFloor(m_function->duration() / matrixDuration);
+    for (int i = 0; i < loopCount; i++)
+    {
+        xpos += ((timeScale * (float)matrixDuration) / 1000);
+        // draw loop vertical delimiter
+        painter->setPen(QPen(Qt::white, 1));
+        painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
+    }
 
     ShowItem::postPaint(painter);
 }
@@ -76,9 +87,18 @@ void RGBMatrixItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void RGBMatrixItem::setDuration(quint32 msec)
+void RGBMatrixItem::setDuration(quint32 msec, bool stretch)
 {
-    m_matrix->setTotalDuration(msec);
+    if (stretch == true)
+        m_matrix->setTotalDuration(msec);
+    else
+    {
+        if (m_function)
+            m_function->setDuration(msec);
+        prepareGeometryChange();
+        calculateWidth();
+        updateTooltip();
+    }
 }
 
 QString RGBMatrixItem::functionName()
@@ -96,9 +116,9 @@ RGBMatrix *RGBMatrixItem::getRGBMatrix()
 void RGBMatrixItem::slotRGBMatrixChanged(quint32)
 {
     prepareGeometryChange();
-    calculateWidth();
     if (m_function)
         m_function->setDuration(m_matrix->totalDuration());
+    calculateWidth();
     updateTooltip();
 }
 
