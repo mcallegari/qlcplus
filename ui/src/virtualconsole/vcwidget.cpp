@@ -250,6 +250,8 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         setInputSource(src, id);
     }
 
+    m_page = widget->m_page;
+
     return true;
 }
 

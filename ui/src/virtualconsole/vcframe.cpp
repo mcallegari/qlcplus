@@ -586,10 +586,14 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
     setHeaderVisible(frame->m_showHeader);
 
+    setTotalPagesNumber(frame->m_totalPagesNumber);
+    setMultipageMode(frame->m_multiPageMode);
+
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
+        VCWidget* childCopy = NULL;
 
         /* findChildren() is recursive, so the list contains all
            possible child widgets below this frame. Each frame must
@@ -597,8 +601,14 @@ bool VCFrame::copyFrom(const VCWidget* widget)
            save only such widgets that have this widget as their
            direct parent. */
         if (child->parentWidget() == widget)
-            child->createCopy(this);
+            childCopy = child->createCopy(this);
+
+        if (m_multiPageMode && childCopy != NULL)
+            addWidgetToPageMap(childCopy);
     }
+
+    if (m_multiPageMode)
+        slotSetPage(frame->m_currentPage);
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
