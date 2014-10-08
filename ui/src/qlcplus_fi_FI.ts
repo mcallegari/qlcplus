@@ -1028,33 +1028,33 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="50"/>
-        <location filename="showmanager/audioitem.cpp" line="362"/>
+        <location filename="showmanager/audioitem.cpp" line="54"/>
+        <location filename="showmanager/audioitem.cpp" line="367"/>
         <source>Preview Left Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="54"/>
+        <location filename="showmanager/audioitem.cpp" line="58"/>
         <source>Preview Right Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="58"/>
+        <location filename="showmanager/audioitem.cpp" line="62"/>
         <source>Preview Stereo Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="376"/>
+        <location filename="showmanager/audioitem.cpp" line="381"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="358"/>
+        <location filename="showmanager/audioitem.cpp" line="363"/>
         <source>Preview Mono</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="371"/>
+        <location filename="showmanager/audioitem.cpp" line="376"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2140,12 +2140,12 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>EFXItem</name>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="126"/>
+        <location filename="showmanager/efxitem.cpp" line="147"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="131"/>
+        <location filename="showmanager/efxitem.cpp" line="152"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3966,7 +3966,7 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="playbackslider.cpp" line="83"/>
+        <location filename="playbackslider.cpp" line="84"/>
         <source>Flash</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4205,12 +4205,12 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>RGBMatrixItem</name>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="126"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="146"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="131"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="151"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4483,12 +4483,12 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="178"/>
+        <location filename="showmanager/sequenceitem.cpp" line="179"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="173"/>
+        <location filename="showmanager/sequenceitem.cpp" line="174"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4550,7 +4550,7 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
-        <location filename="showmanager/showitem.cpp" line="239"/>
+        <location filename="showmanager/showitem.cpp" line="241"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4568,7 +4568,7 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="234"/>
+        <location filename="showmanager/showitem.cpp" line="236"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4907,32 +4907,32 @@ Duration: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="123"/>
+        <location filename="speeddial.cpp" line="124"/>
         <source>Hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="132"/>
+        <location filename="speeddial.cpp" line="133"/>
         <source>Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="141"/>
+        <location filename="speeddial.cpp" line="142"/>
         <source>Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="150"/>
+        <location filename="speeddial.cpp" line="151"/>
         <source>Milliseconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="156"/>
+        <location filename="speeddial.cpp" line="157"/>
         <source>Infinite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="113"/>
+        <location filename="speeddial.cpp" line="114"/>
         <source>Tap</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4958,13 +4958,28 @@ Duration: %3
 <context>
     <name>TimingsTool</name>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="48"/>
+        <location filename="showmanager/timingstool.cpp" line="50"/>
         <source>Start Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="57"/>
+        <location filename="showmanager/timingstool.cpp" line="59"/>
         <source>Duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="67"/>
+        <source>Duration options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="69"/>
+        <source>Stretch the original function duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="70"/>
+        <source>Loop function until duration is reached</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5038,42 +5053,42 @@ Duration: %3
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="85"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="89"/>
         <source>Choose...</source>
         <translation>Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="89"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="93"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="127"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="135"/>
         <source>Button %1</source>
         <translation type="unfinished">Nappi %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="301"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="309"/>
         <source>Select button icon</source>
         <translation>Valitse ikoni</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="302"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="310"/>
         <source>Images (%1)</source>
         <translation>Kuvatiedostot (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="517"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="525"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="519"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="527"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="753"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>
@@ -6907,22 +6922,22 @@ Duration: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="43"/>
+        <location filename="showmanager/videoitem.cpp" line="49"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="165"/>
+        <location filename="showmanager/videoitem.cpp" line="180"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="146"/>
+        <location filename="showmanager/videoitem.cpp" line="161"/>
         <source>Screen %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="160"/>
+        <location filename="showmanager/videoitem.cpp" line="175"/>
         <source>Unlock item</source>
         <translation type="unfinished"></translation>
     </message>

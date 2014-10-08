@@ -1030,33 +1030,33 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="50"/>
-        <location filename="showmanager/audioitem.cpp" line="362"/>
+        <location filename="showmanager/audioitem.cpp" line="54"/>
+        <location filename="showmanager/audioitem.cpp" line="367"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="54"/>
+        <location filename="showmanager/audioitem.cpp" line="58"/>
         <source>Preview Right Channel</source>
         <translation>Vorschau rechter Kanal</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="58"/>
+        <location filename="showmanager/audioitem.cpp" line="62"/>
         <source>Preview Stereo Channels</source>
         <translation>Vorschau Stereo-Kanäle</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="376"/>
+        <location filename="showmanager/audioitem.cpp" line="381"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="358"/>
+        <location filename="showmanager/audioitem.cpp" line="363"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="371"/>
+        <location filename="showmanager/audioitem.cpp" line="376"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
@@ -2142,12 +2142,12 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>EFXItem</name>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="126"/>
+        <location filename="showmanager/efxitem.cpp" line="147"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
     <message>
-        <location filename="showmanager/efxitem.cpp" line="131"/>
+        <location filename="showmanager/efxitem.cpp" line="152"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
@@ -3994,7 +3994,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Auswahl</translation>
     </message>
     <message>
-        <location filename="playbackslider.cpp" line="83"/>
+        <location filename="playbackslider.cpp" line="84"/>
         <source>Flash</source>
         <translation>Blitz</translation>
     </message>
@@ -4233,12 +4233,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>RGBMatrixItem</name>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="126"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="146"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
     <message>
-        <location filename="showmanager/rgbmatrixitem.cpp" line="131"/>
+        <location filename="showmanager/rgbmatrixitem.cpp" line="151"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
@@ -4511,12 +4511,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="178"/>
+        <location filename="showmanager/sequenceitem.cpp" line="179"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
     <message>
-        <location filename="showmanager/sequenceitem.cpp" line="173"/>
+        <location filename="showmanager/sequenceitem.cpp" line="174"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
@@ -4578,7 +4578,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
-        <location filename="showmanager/showitem.cpp" line="239"/>
+        <location filename="showmanager/showitem.cpp" line="241"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
@@ -4599,7 +4599,7 @@ Dauer: %3
         <translation>Klicken um das Element über die Zeitleiste zu bewegen</translation>
     </message>
     <message>
-        <location filename="showmanager/showitem.cpp" line="234"/>
+        <location filename="showmanager/showitem.cpp" line="236"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
@@ -4939,32 +4939,32 @@ Dauer: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="123"/>
+        <location filename="speeddial.cpp" line="124"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="132"/>
+        <location filename="speeddial.cpp" line="133"/>
         <source>Minutes</source>
         <translation>Minuten</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="141"/>
+        <location filename="speeddial.cpp" line="142"/>
         <source>Seconds</source>
         <translation>Sekunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="150"/>
+        <location filename="speeddial.cpp" line="151"/>
         <source>Milliseconds</source>
         <translation>Millisekunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="156"/>
+        <location filename="speeddial.cpp" line="157"/>
         <source>Infinite</source>
         <translation>Unendlich</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="113"/>
+        <location filename="speeddial.cpp" line="114"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -4990,14 +4990,29 @@ Dauer: %3
 <context>
     <name>TimingsTool</name>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="48"/>
+        <location filename="showmanager/timingstool.cpp" line="50"/>
         <source>Start Time</source>
         <translation>Startzeit</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="57"/>
+        <location filename="showmanager/timingstool.cpp" line="59"/>
         <source>Duration</source>
         <translation>Dauer</translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="67"/>
+        <source>Duration options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="69"/>
+        <source>Stretch the original function duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager/timingstool.cpp" line="70"/>
+        <source>Loop function until duration is reached</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5070,42 +5085,42 @@ Dauer: %3
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="85"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="89"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="89"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="93"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="127"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="135"/>
         <source>Button %1</source>
         <translation>Schalter %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="301"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="309"/>
         <source>Select button icon</source>
         <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="302"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="310"/>
         <source>Images (%1)</source>
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="517"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="525"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="519"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="527"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="745"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="753"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -6941,22 +6956,22 @@ Dauer: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="43"/>
+        <location filename="showmanager/videoitem.cpp" line="49"/>
         <source>Fullscreen</source>
         <translation>Vollbild</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="165"/>
+        <location filename="showmanager/videoitem.cpp" line="180"/>
         <source>Lock item</source>
         <translation>Element sperren</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="146"/>
+        <location filename="showmanager/videoitem.cpp" line="161"/>
         <source>Screen %1</source>
         <translation>Bildschirm %1</translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="160"/>
+        <location filename="showmanager/videoitem.cpp" line="175"/>
         <source>Unlock item</source>
         <translation>Element entsperren</translation>
     </message>
