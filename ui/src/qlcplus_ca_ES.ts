@@ -4949,17 +4949,17 @@ Durada: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="67"/>
         <source>Duration options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcions de duració</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="69"/>
         <source>Stretch the original function duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Exten la duració original de la funció</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Loop function until duration is reached</source>
-        <translation type="unfinished"></translation>
+        <translation>Executa la funció repetidament fins que s&apos;arribi a la duració</translation>
     </message>
 </context>
 <context>
