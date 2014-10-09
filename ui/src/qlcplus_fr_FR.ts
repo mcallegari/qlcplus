@@ -3735,7 +3735,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <location filename="showmanager/multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE item:</source>
         <oldsource>Do you want to DELETE sequence:</oldsource>
-        <translation type="unfinished">Voulez-vous SUPPRIMER la séquence :</translation>
+        <translation>Voulez-vous SUPPRIMER l&apos;élément :</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
@@ -3745,7 +3745,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer la piste</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4211,7 +4211,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.cpp" line="653"/>
         <source>Images</source>
-        <translation type="unfinished">Images</translation>
+        <translation>Images</translation>
     </message>
 </context>
 <context>
@@ -4532,7 +4532,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="showmanager/showitem.cpp" line="53"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Aligner sur le curseur</translation>
+        <translation>Aligner sur le curseur</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
@@ -4547,7 +4547,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Nom : %1
+        <translation>Nom : %1
 Début : %2
 Durée : %3
 %4</translation>
@@ -4555,7 +4555,7 @@ Durée : %3
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cliquer pour déplacer cet élément à travers la timeline</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
@@ -4659,7 +4659,7 @@ Durée : %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Début et durée de l&apos;élément</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="668"/>
@@ -4956,22 +4956,22 @@ Durée : %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="59"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="67"/>
         <source>Duration options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Options de durée</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="69"/>
         <source>Stretch the original function duration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Étendre la durée de la fonction d&apos;origine</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Loop function until duration is reached</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Répéter la fonction jusqu&apos;à ce que la durée soit atteinte</translation>
     </message>
 </context>
 <context>
