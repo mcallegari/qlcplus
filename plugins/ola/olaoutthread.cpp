@@ -198,7 +198,7 @@ bool OlaStandaloneClient::init()
     if (!m_tcp_socket)
     {
         ola::network::IPV4SocketAddress server_address(
-            ola::network::IPV4Address::Loopback(), OLA_DEFAULT_PORT);
+            ola::network::IPV4Address::Loopback(), ola::OLA_DEFAULT_PORT);
         m_tcp_socket = ola::network::TCPSocket::Connect(server_address);
         if (!m_tcp_socket)
         {
