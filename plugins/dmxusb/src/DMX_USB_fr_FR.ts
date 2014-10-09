@@ -69,7 +69,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="enttecdmxusbopen.cpp" line="116"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="119"/>
@@ -103,17 +103,17 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <location filename="enttecdmxusbpro.cpp" line="91"/>
         <location filename="enttecdmxusbpro.cpp" line="96"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protocole</translation>
+        <translation>Protocole</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="100"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricant</translation>
+        <translation>Fabricant</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="103"/>
         <source>Serial number</source>
-        <translation type="unfinished">N° de série</translation>
+        <translation>N° de série</translation>
     </message>
 </context>
 <context>
@@ -149,22 +149,22 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>MIDI Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée MIDI</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="212"/>
         <source>DMX Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>MIDI Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie MIDI</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="219"/>
         <source>DMX Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie DMX</translation>
     </message>
 </context>
 </TS>
