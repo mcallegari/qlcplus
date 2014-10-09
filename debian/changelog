@@ -7,7 +7,8 @@ qlcplus (4.8.1) stable; urgency=high
   * Fixture Editor: allow author name editing (Jano Svitok)
   * Show Manager: allow to stretch or loop EFXs and RGB Matrices when changing the duration
   * Virtual Console: fixed multipage frames cloning (thanks to David Garyga)
-  * New fxtures: Chauvet 4Bar, Chauvet Intimidator Spot Duo (thanks to Shikhir Arora)
+  * New fixture: Chauvet-Q-Beam-260-LED (thanks to Peter)
+  * New fixtures: Chauvet 4Bar, Chauvet Intimidator Spot Duo (thanks to Shikhir Arora)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 Nov 2014 20:21:22 +0200
 
