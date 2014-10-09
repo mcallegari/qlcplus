@@ -213,7 +213,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="94"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>La base commune du nom pour toutes les fonctions (utilisez # pour créer un nombre incrémental)</translation>
+        <translation>La base commune du nom pour toutes les fonctions (utilisez # pour créer un nombre incrémental).</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="97"/>
@@ -261,7 +261,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -935,7 +935,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="551"/>
         <source>Open/close all mode items</source>
-        <translation type="unfinished">Déplier/Replier tous les modes</translation>
+        <translation>Déplier/Replier tous les modes</translation>
     </message>
 </context>
 <context>
