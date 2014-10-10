@@ -110,6 +110,7 @@
   <fixture path="Clay-Paky-A.LEDA-Wash-K20.qxf" mf="Clay Paky" md="A.LEDA Wash K20"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K5.qxf" mf="Clay Paky" md="A.LEDA Wash K5"/>
   <fixture path="Clay-Paky-Alpha-Beam-300.qxf" mf="Clay Paky" md="Alpha Beam 300"/>
+  <fixture path="Clay-Paky-Alpha-Wash-700.qxf" mf="Clay Paky" md="Alpha Wash 700"/>
   <fixture path="Clay-Paky-Atlas.qxf" mf="Clay Paky" md="Atlas"/>
   <fixture path="Clay-Paky-Mini-Scan-HPE.qxf" mf="Clay Paky" md="Mini Scan HPE"/>
   <fixture path="Clay-Paky-Sharpy.qxf" mf="Clay Paky" md="Sharpy"/>
@@ -360,6 +361,7 @@
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
+  <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBA.qxf" mf="Stairville" md="LED Par56 MKII RGBA"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBW.qxf" mf="Stairville" md="LED Par56 MKII RGBW"/>
   <fixture path="Stairville-LED-PAR56.qxf" mf="Stairville" md="LED PAR56"/>

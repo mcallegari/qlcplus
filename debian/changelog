@@ -9,6 +9,7 @@ qlcplus (4.8.1) stable; urgency=high
   * Virtual Console: fixed multipage frames cloning (thanks to David Garyga)
   * New fixtures: Chauvet-Q-Beam-260-LED, Pro-Lights Omni Tri 9 (thanks to Peter)
   * New fixtures: Chauvet 4Bar, Chauvet Intimidator Spot Duo (thanks to Shikhir Arora)
+  * New fixtures: Stairville LED Flood Panel 7x3W, Clay Paky Alpha Wash 700 (thanks to Robert Scheffler)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 Nov 2014 20:21:22 +0200
 
