@@ -11,7 +11,7 @@ qlcplus (4.8.1) stable; urgency=high
   * New fixtures: Chauvet 4Bar, Chauvet Intimidator Spot Duo (thanks to Shikhir Arora)
   * New fixtures: Stairville LED Flood Panel 7x3W, Clay Paky Alpha Wash 700 (thanks to Robert Scheffler)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 Nov 2014 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 10 Oct 2014 20:21:22 +0200
 
 qlcplus (4.8.0) stable; urgency=low
 
