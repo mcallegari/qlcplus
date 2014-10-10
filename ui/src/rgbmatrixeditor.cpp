@@ -233,7 +233,7 @@ void RGBMatrixEditor::updateSpeedDials()
     if ((int)m_matrix->duration() < 0)
         m_speedDials->setDuration(m_matrix->duration());
     else
-        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed());
+        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
@@ -755,7 +755,7 @@ void RGBMatrixEditor::slotHoldChanged(int ms)
     if (ms < 0)
         duration = ms;
     else
-        duration = m_matrix->fadeInSpeed() + ms + m_matrix->fadeOutSpeed();
+        duration = m_matrix->fadeInSpeed() + ms;
     m_matrix->setDuration(duration);
 }
 
@@ -928,7 +928,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             RGBMap map = m_previewMaps[currentStep];
             ChaserStep step;
             step.fid = grpScene->id();
-            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed();
+            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
             step.duration = m_matrix->duration();
             step.fadeIn = m_matrix->fadeInSpeed();
             step.fadeOut = m_matrix->fadeOutSpeed();
