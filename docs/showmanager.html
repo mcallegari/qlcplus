@@ -108,6 +108,9 @@ The main differences are:
        If no compatible track is found, a new track will be created and bound to the
        Sequence's bound Scene.
    </li>
+   <li>Import an existing <A HREF="file:concept.html#Chaser">Chaser</A>: add a Chaser function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
    <li>Import an existing <A HREF="file:concept.html#Audio">Audio</A>: add an Audio function at the cursor 
        position on the selected track. If no track is available, it will create a new one.
    </li>
@@ -171,10 +174,12 @@ The main differences are:
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/speed.png"/></TD>
-  <TD>Open a window where you can set the selected item start time and total duration.
-      The behaviour of the latter will depend on the selected item. On Audio items it does nothing.
-      On EFXs and RGB Matrices it will set the duration of a single loop, while on Sequences
-      it will stretch all the steps timings to fit to the desired duration.</TD>
+  <TD>Open a window where you can adjust the selected item start time and total duration.
+      The behaviour of the latter will depend on the selected item.<br>
+      On Audio and Video items it does nothing.<br>
+      On Sequences and Chasers it will stretch all the steps timings to fit to the desired duration.<br>
+      On EFXs and RGB Matrices some extra options will be displayed, allowing to stretch the original function
+      or loop the function until the desired duration is reached.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/grid.png"/></TD>
