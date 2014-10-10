@@ -3272,7 +3272,9 @@ p, li { white-space: pre-wrap; }
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een fout opgetreden tijdens het openen van de geselecteerde device line.
+Dit kan komen door een verkeerde systeem configuratie of een niet ondersteunde input/output mode.
+Zie de plugin documentatie voor uitleg over dit onderwerp.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="663"/>
@@ -3396,7 +3398,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <location filename="inputprofileeditor.ui" line="119"/>
         <location filename="inputprofileeditor.ui" line="230"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Gedrag</translation>
+        <translation>Gedrag</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="127"/>
@@ -3421,22 +3423,22 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Movement</source>
-        <translation type="unfinished">Beweging</translation>
+        <translation>Beweging</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="256"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absoluut</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="261"/>
         <source>Relative</source>
-        <translation type="unfinished">Relatief</translation>
+        <translation>Relatief</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="269"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Gevoeligheid</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -3623,32 +3625,32 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtergrond afbeelding selectie</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen achtergrond</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard achtergrond</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangepaste achtergrond overzicht</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Functie</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtergrond</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.cpp" line="160"/>
@@ -3660,7 +3662,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="monitor/monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitor/monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen</translation>
     </message>
 </context>
 <context>
@@ -3731,7 +3733,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verwijder track</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4199,7 +4201,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.cpp" line="653"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen</translation>
     </message>
 </context>
 <context>
@@ -4527,7 +4529,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="showmanager/showitem.cpp" line="85"/>
         <location filename="showmanager/showitem.cpp" line="261"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Item vergrendelen</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="66"/>
@@ -4535,18 +4537,21 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam: %1
+Starttijd: %2
+Duur: %3
+%4</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik om dit item over de tijdlijn te verplaatsen</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
         <location filename="showmanager/showitem.cpp" line="256"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef item vrij</translation>
     </message>
 </context>
 <context>
@@ -4639,12 +4644,12 @@ Duration: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="256"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vergrendel item</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Item starttijd en duur</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="668"/>
@@ -4936,27 +4941,27 @@ Duration: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="50"/>
         <source>Start Time</source>
-        <translation type="unfinished">Starttijd</translation>
+        <translation>Starttijd</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="59"/>
         <source>Duration</source>
-        <translation type="unfinished">Duur</translation>
+        <translation>Duur</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="67"/>
         <source>Duration options</source>
-        <translation type="unfinished"></translation>
+        <translation>Duur opties</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="69"/>
         <source>Stretch the original function duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Originele functie duur uitrekken</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Loop function until duration is reached</source>
-        <translation type="unfinished"></translation>
+        <translation>Herhaal de functie tot de duur bereikt is</translation>
     </message>
 </context>
 <context>
@@ -5615,7 +5620,7 @@ Duration: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Algemeen</translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="44"/>
@@ -5640,22 +5645,23 @@ Duration: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
         <source>External Input - Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe input - Inschakelen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Wat is de vertaling van control? aansturing?</translatorcomment>
+        <translation>Indien aangezet is het mogelijk om een externe aansturing te koppelen aan dit frame.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="179"/>
         <source>The key combination used to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Toetskombinatie om het frame aan of uit te schakelen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="189"/>
         <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijs een toetscombinatie toe om dit frame aan of uit te schakelen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="248"/>
@@ -6291,7 +6297,7 @@ Duration: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor de geselecteerde channels en pas het slider niveau aan</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
@@ -6437,32 +6443,32 @@ Duration: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Getal waarmee vermenigvuldigd wordt voordat de tijd als Fade In Tijd naar de functie verstuurd wordt.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Getal waarmee vermenigvuldigd wordt voordat de tijd als Fade Out Tijd naar de functie verstuurd wordt.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duur * (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Getal waarmee vermenigvuldigd wordt voordat de tijd als Duur naar de functie verstuurd wordt.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="111"/>
@@ -7126,7 +7132,7 @@ Duration: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1235"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen</translation>
     </message>
 </context>
 </TS>

@@ -32,7 +32,7 @@
         <location filename="webaccess.cpp" line="703"/>
         <location filename="webaccess.cpp" line="750"/>
         <source>Page</source>
-        <translation type="unfinished">Pagina</translation>
+        <translation>Pagina</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="909"/>
@@ -42,27 +42,27 @@
     <message>
         <location filename="webaccess.cpp" line="943"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="944"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="945"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="946"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Duur</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="947"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notities</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1175"/>
