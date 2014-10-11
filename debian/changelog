@@ -1,3 +1,9 @@
+qlcplus (4.8.2) stable; urgency=low
+
+  * New fixtures: NJD Spectre, Chauvet Eclipse RGB (thanks to Charles Oldham)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 5 Nov 2014 20:21:22 +0200
+
 qlcplus (4.8.1) stable; urgency=high
 
   * Virtual Console: fixed Buttons background color on Windows

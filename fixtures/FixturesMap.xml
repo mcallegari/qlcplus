@@ -77,6 +77,7 @@
   <fixture path="Chauvet-ColorStrip-Mini.qxf" mf="Chauvet" md="ColorStrip Mini"/>
   <fixture path="Chauvet-DMF-10.qxf" mf="Chauvet" md="DMF-10"/>
   <fixture path="Chauvet-DMX-Mega-Strobe-III.qxf" mf="Chauvet" md="DMX Mega Strobe III"/>
+  <fixture path="Chauvet-Eclipse-RGB.qxf" mf="Chauvet" md="Eclipse RGB"/>
   <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
   <fixture path="Chauvet-Gobo-Zoom-LED-2.0.qxf" mf="Chauvet" md="Gobo Zoom LED 2.0"/>
   <fixture path="Chauvet-Gyser-RGB.qxf" mf="Chauvet" md="Gyser RGB"/>
@@ -287,6 +288,7 @@
   <fixture path="Movitec-WL-250.qxf" mf="Movitec" md="WL-250"/>
   <fixture path="Movitec-WL-575.qxf" mf="Movitec" md="WL-575"/>
   <fixture path="Nicols-Strob-LED-W.qxf" mf="Nicols" md="Strob LED W"/>
+  <fixture path="NJD-Spectre.qxf" mf="NJD" md="Spectre"/>
   <fixture path="Optima-Lighting-PAR64-LED.qxf" mf="Optima Lighting" md="PAR64 LED"/>
   <fixture path="PixelRANGE-PixelPar-44.qxf" mf="PixelRANGE" md="PixelPar 44"/>
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
