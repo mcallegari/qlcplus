@@ -2,6 +2,7 @@ qlcplus (4.8.2) stable; urgency=low
 
   * New fixtures: NJD Spectre, Chauvet Eclipse RGB, American DJ Dotz TPar, Abstract Twister 4 (thanks to Charles Oldham)
   * New fixture: American DJ Galaxian Sky (thanks to Chicken)
+  * New fixtures: Cameo Strobe 3x3.5W, Cameo Strobe 6x10W (thanks to Janosch Frank)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 5 Nov 2014 20:21:22 +0200
 
