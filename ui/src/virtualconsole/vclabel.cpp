@@ -81,7 +81,7 @@ void VCLabel::editProperties()
 
 QString VCLabel::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             ".vclabel-wrapper {\n"
             "position: absolute;\n"
             "}\n\n"

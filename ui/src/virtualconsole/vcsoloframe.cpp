@@ -165,7 +165,7 @@ void VCSoloFrame::slotWidgetFunctionStarting()
 
 QString VCSoloFrame::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             " .vcsoloframe {\n"
             " position: absolute;\n"
             " border-radius: 4px;\n"

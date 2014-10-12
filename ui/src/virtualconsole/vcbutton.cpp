@@ -768,7 +768,7 @@ void VCButton::adjustIntensity(qreal val)
 
 QString VCButton::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             ".vcbutton-wrapper {\n"
             "position: absolute;\n"
             "}\n\n"

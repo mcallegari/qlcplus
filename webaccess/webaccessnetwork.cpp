@@ -241,7 +241,7 @@ QString WebAccessNetwork::getHTML()
 
     m_JScode += "</script>\n";
 
-    QString m_CSScode = "<style>\n"
+    QString m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "html { height: 100%; background-color: #111; }\n"
             "body {\n"
             " margin: 0px;\n"
@@ -283,7 +283,7 @@ QString WebAccessNetwork::getHTML()
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
-    return str;
+    return str.toUtf8();
 }
 
 bool WebAccessNetwork::updateNetworkFile(QStringList cmdList)

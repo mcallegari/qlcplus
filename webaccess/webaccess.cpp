@@ -187,7 +187,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
               "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
               "text-align: center; font:bold 24px/1.2em sans-serif;\">"
               + tr("Loading project...") +
-              "</div></body></html>").toLatin1();
+              "</div></body></html>").toUtf8();
       int post_size = postReply.length();
       mg_printf(conn, "HTTP/1.1 200 OK\r\n"
                 "Content-Type: text/html\r\n"
@@ -229,7 +229,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
                     "<script type=\"text/javascript\">\n"
                     " alert(\"" + tr("Fixture stored and loaded") + "\");"
                     " window.location = \"/config\"\n"
-                    "</script></head></html>").toLatin1();
+                    "</script></head></html>").toUtf8();
       int post_size = postReply.length();
       mg_printf(conn, "HTTP/1.1 200 OK\r\n"
                       "Content-Type: text/html\r\n"
@@ -266,7 +266,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 
   // Prepare the message we're going to send
   int content_length = content.length();
-  QByteArray contentArray = content.toLatin1();
+  QByteArray contentArray = content.toUtf8();
 
   // Send HTTP reply to the client
   mg_printf(conn,
@@ -381,7 +381,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             if (m_netConfig->updateNetworkFile(cmdList) == true)
             {
                 QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+                mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
                 return MG_TRUE;
             }
             else
@@ -400,7 +400,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             else
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
             return MG_TRUE;
         }
         else if (cmdList.at(1) == "REBOOT")
@@ -557,7 +557,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         }
         //qDebug() << "Simple desk channels:" << wsAPIMessage;
 
-        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
+        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toUtf8().data(), wsAPIMessage.length());
         return MG_TRUE;
     }
     else if(cmdList[0] == "CH")
@@ -1151,7 +1151,7 @@ QString WebAccess::getVCHTML()
 {
     m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
 
-    m_CSScode = "<style>\n"
+    m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "body { margin: 0px; }\n"
             HIDDEN_FORM_CSS
             CONTROL_BAR_CSS
@@ -1166,9 +1166,10 @@ QString WebAccess::getVCHTML()
     QSize mfSize = mainFrame->size();
     QString widgetsHTML =
             "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-            "<input id=\"loadTrigger\" type=\"file\" "
-            "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
-            "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+				"<input id=\"loadTrigger\" type=\"file\" "
+				"onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
+				"<input id=\"submitTrigger\" type=\"submit\"/>"
+            "</form>"
 
             "<div class=\"controlBar\">\n"
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
