@@ -1149,7 +1149,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
 QString WebAccess::getVCHTML()
 {
-    m_JScode = "<script  type=\"text/javascript\">\n" WEBSOCKET_JS;
+    m_JScode = "<script type=\"text/javascript\">\n" WEBSOCKET_JS;
 
     m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "body { margin: 0px; }\n"
@@ -1184,7 +1184,7 @@ QString WebAccess::getVCHTML()
             "<div style=\"position: relative; "
             "width: " + QString::number(mfSize.width()) +
             "px; height: " + QString::number(mfSize.height()) + "px; "
-            "background-color: " + mainFrame->backgroundColor().name() + "; \" />\n";
+            "background-color: " + mainFrame->backgroundColor().name() + "; \" >\n";
 
     widgetsHTML += getChildrenHTML(mainFrame, 0, 0);
 

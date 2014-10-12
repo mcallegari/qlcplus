@@ -86,10 +86,10 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
               " return \"<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>\";"
               " var aType = type.split('.');\n"
               " if (aType.length == 1)\n"
-              "   return \"<img src=\" + getGroupIconName(parseInt(type)) + \" style='margin-left:2px;'></img>\";\n"
+              "   return \"<img src=\" + getGroupIconName(parseInt(type)) + \" style='margin-left:2px;'/>\";\n"
               " else {\n"
               "  if (aType[1] == '#000000')\n"
-              "    return \"<img src=\" + getGroupIconName(0) + \"></img>\";\n"
+              "    return \"<img src=\" + getGroupIconName(0) + \"/>\";\n"
               "  else\n"
               "    return \"<div style='width:34px; height:34px; margin:2px 0 0 1px; background:\" + aType[1] + \";'></div>\";"
               " }\n"
@@ -164,7 +164,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
             "}\n";
     JScode += "</script>\n";
 
-    QString CSScode = "<style>\n"
+    QString CSScode = "<style  type=\"text/css\">\n"
             "html { height: 100%; background-color: #111; }\n"
             "body {\n"
             " margin: 0px;\n"
@@ -218,7 +218,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
     bodyHTML += tr("Page") + "  <a class=\"sdButton\" href=\"javascript:previousPage();\">\n"
-                "<img src=\"back.png\" width=27></img></a>\n";
+                "<img src=\"back.png\" width=\"27\" /></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
     bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
@@ -226,10 +226,10 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                 QString::number(page) +  "</div></div>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:nextPage();\">\n"
-                "<img src=\"forward.png\" width=27></img></a>\n";
+                "<img src=\"forward.png\" width=\"27\"/></a>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:resetUniverse();\">\n"
-                "<img src=\"fileclose.png\" width=27></img></a>\n";
+                "<img src=\"fileclose.png\" width=\"27\"/></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"
