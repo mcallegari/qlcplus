@@ -1149,7 +1149,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
 QString WebAccess::getVCHTML()
 {
-    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    m_JScode = "<script  type=\"text/javascript\">\n" WEBSOCKET_JS;
 
     m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "body { margin: 0px; }\n"

@@ -239,7 +239,7 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
 
 QString WebAccessConfiguration::getHTML(Doc *doc)
 {
-    QString m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    QString m_JScode = "<script  type=\"text/javascript\">\n" WEBSOCKET_JS;
     m_JScode += "function ioChanged(cmd, uni, val)\n"
             "{\n"
             " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"

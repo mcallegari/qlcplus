@@ -36,7 +36,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     int uni = sd->getCurrentUniverseIndex() + 1;
     int page = sd->getCurrentPage();
 
-    QString JScode = "<script language=\"javascript\" type=\"text/javascript\">\n";
+    QString JScode = "<script  type=\"text/javascript\">\n";
 
     JScode += "var currentUniverse = " + QString::number(uni) + ";\n";
     JScode += "var currentPage = " + QString::number(page) + ";\n";
