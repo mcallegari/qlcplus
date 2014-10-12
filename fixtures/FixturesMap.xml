@@ -367,6 +367,7 @@
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
+  <fixture path="Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf" mf="Stairville" md="HL-x9 Quad Color Flood&#10;9x8W"/>
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
   <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBA.qxf" mf="Stairville" md="LED Par56 MKII RGBA"/>
