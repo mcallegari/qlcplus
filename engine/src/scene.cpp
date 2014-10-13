@@ -114,14 +114,15 @@ FunctionUiState * Scene::createUiState()
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     m_valueListMutex.lock();
-    int index = m_values.indexOf(scv);
-    if (index == -1)
-    {
-        m_values.append(scv);
-        qSort(m_values.begin(), m_values.end());
-    }
+
+    QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
+    if (it == m_values.end())
+        m_values.insert(scv, scv.value);
     else
-        m_values.replace(index, scv);
+    {
+        const_cast<uchar&>(it.key().value) = scv.value;
+        it.value() = scv.value;
+    }
 
     // if the scene is running, we must
     // update/add the changed channel
@@ -153,7 +154,7 @@ void Scene::setValue(quint32 fxi, quint32 ch, uchar value)
 void Scene::unsetValue(quint32 fxi, quint32 ch)
 {
     m_valueListMutex.lock();
-    m_values.removeAll(SceneValue(fxi, ch, 0));
+    m_values.remove(SceneValue(fxi, ch, 0));
     m_valueListMutex.unlock();
 
     emit changed(this->id());
@@ -161,26 +162,17 @@ void Scene::unsetValue(quint32 fxi, quint32 ch)
 
 uchar Scene::value(quint32 fxi, quint32 ch)
 {
-    SceneValue scv(fxi, ch, 0);
-    int index = m_values.indexOf(scv);
-    if (index == -1)
-        return 0;
-    else
-        return m_values.at(index).value;
+    return m_values.value(SceneValue(fxi, ch, 0), 0);
 }
 
 bool Scene::checkValue(SceneValue val)
 {
-    int index = m_values.indexOf(val);
-    if (index == -1)
-        return false;
-    else
-        return true;
+    return m_values.contains(val);
 }
 
 QList <SceneValue> Scene::values() const
 {
-    return m_values;
+    return m_values.keys();
 }
 
 QColor Scene::colorValue(quint32 fxi)
@@ -296,11 +288,11 @@ QList<quint32> Scene::channelGroups()
 
 void Scene::slotFixtureRemoved(quint32 fxi_id)
 {
-    QMutableListIterator <SceneValue> it(m_values);
+    QMutableMapIterator <SceneValue, uchar> it(m_values);
     while (it.hasNext() == true)
     {
-        SceneValue scv = it.next();
-        if (scv.fxi == fxi_id)
+        SceneValue value(it.next().key());
+        if (value.fxi == fxi_id)
             it.remove();
     }
 
@@ -347,13 +339,13 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     /* Scene contents */
-    QListIterator <SceneValue> it(m_values);
+    QMapIterator <SceneValue, uchar> it(m_values);
     qint32 currFixID = -1;
     int chanCount = 0;
     QString fixValues;
     while (it.hasNext() == true)
     {
-        SceneValue sv = it.next();
+        SceneValue sv = it.next().key();
         if (currFixID == -1) currFixID = sv.fxi;
         if ((qint32)sv.fxi != currFixID)
         {
@@ -481,10 +473,10 @@ void Scene::postLoad()
     }
 
     // Remove such fixtures and channels that don't exist
-    QMutableListIterator <SceneValue> it(m_values);
+    QMutableMapIterator <SceneValue, uchar> it(m_values);
     while (it.hasNext() == true)
     {
-        SceneValue value(it.next());
+        SceneValue value(it.next().key());
         Fixture* fxi = doc()->fixture(value.fxi);
         if (fxi == NULL || fxi->channel(value.channel) == NULL)
             it.remove();
@@ -567,10 +559,10 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
     if (elapsed() == 0)
     {
         m_valueListMutex.lock();
-        QListIterator <SceneValue> it(m_values);
+        QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {
-            SceneValue value(it.next());
+            SceneValue value(it.next().key());
             bool canFade = true;
 
             FadeChannel fc;

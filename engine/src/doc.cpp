@@ -604,18 +604,12 @@ QList <Fixture*> Doc::fixtures() const
 
 Fixture* Doc::fixture(quint32 id) const
 {
-    if (m_fixtures.contains(id) == true)
-        return m_fixtures[id];
-    else
-        return NULL;
+    return m_fixtures.value(id, NULL);
 }
 
 quint32 Doc::fixtureForAddress(quint32 universeAddress) const
 {
-    if (m_addresses.contains(universeAddress) == true)
-        return m_addresses[universeAddress];
-    else
-        return Fixture::invalidId();
+    return m_addresses.value(universeAddress, Fixture::invalidId());
 }
 
 int Doc::totalPowerConsumption(int& fuzzy) const
