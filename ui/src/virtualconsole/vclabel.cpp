@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vclabel.cpp
 
   Copyright (c) Heikki Junnila, Stefan Krumm

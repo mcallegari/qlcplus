@@ -133,6 +133,8 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcframe.h \
            virtualconsole/vcframeproperties.h \
            virtualconsole/vclabel.h \
+           virtualconsole/vcmatrix.h \
+           virtualconsole/vcmatrixproperties.h \
            virtualconsole/vcproperties.h \
            virtualconsole/vcpropertieseditor.h \
            virtualconsole/vcslider.h \
@@ -191,6 +193,7 @@ FORMS += virtualconsole/addvcbuttonmatrix.ui \
          virtualconsole/vcclockproperties.ui \
          virtualconsole/vccuelistproperties.ui \
          virtualconsole/vcframeproperties.ui \
+         virtualconsole/vcmatrixproperties.ui \
          virtualconsole/vcproperties.ui \
          virtualconsole/vcsliderproperties.ui \
          virtualconsole/vcspeeddialproperties.ui \
@@ -295,6 +298,8 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcframe.cpp \
            virtualconsole/vcframeproperties.cpp \
            virtualconsole/vclabel.cpp \
+           virtualconsole/vcmatrix.cpp \
+           virtualconsole/vcmatrixproperties.cpp \
            virtualconsole/vcproperties.cpp \
            virtualconsole/vcpropertieseditor.cpp \
            virtualconsole/vcslider.cpp \
