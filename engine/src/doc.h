@@ -329,6 +329,8 @@ private slots:
 protected:
     /** Fixtures map: < ID, Fixture instance > */
     QMap <quint32,Fixture*> m_fixtures;
+    /** Fixtures hash for a quicker access */
+    QHash <quint32,Fixture*> m_fixtures_hash;
 
     /** Map of the addresses occupied by fixtures */
     QHash <quint32, quint32> m_addresses;

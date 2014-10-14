@@ -138,6 +138,7 @@ void Doc::clearContents()
     while (fxit.hasNext() == true)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
+        m_fixtures_hash.remove(fxi->id());
         quint32 fxID = fxi->id();
         delete fxi;
         emit fixtureRemoved(fxID);
@@ -326,7 +327,7 @@ quint32 Doc::createFixtureId()
     /* This results in an endless loop if there are UINT_MAX-1 fixtures. That,
        however, seems a bit unlikely. Are there even 4294967295-1 fixtures in
        total in the whole world? */
-    while (m_fixtures.contains(m_latestFixtureId) == true ||
+    while (m_fixtures_hash.contains(m_latestFixtureId) == true ||
            m_latestFixtureId == Fixture::invalidId())
     {
         m_latestFixtureId++;
@@ -343,7 +344,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     if (id == Fixture::invalidId())
         id = createFixtureId();
 
-    if (m_fixtures.contains(id) == true || id == Fixture::invalidId())
+    if (m_fixtures_hash.contains(id) == true || id == Fixture::invalidId())
     {
         qWarning() << Q_FUNC_INFO << "a fixture with ID" << id << "already exists!";
         return false;
@@ -352,6 +353,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     {
         fixture->setID(id);
         m_fixtures[id] = fixture;
+        m_fixtures_hash.insert(id, fixture);
 
         /* Patch fixture change signals thru Doc */
         connect(fixture, SIGNAL(changed(quint32)),
@@ -398,10 +400,11 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
 
 bool Doc::deleteFixture(quint32 id)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures_hash.contains(id) == true)
     {
         Fixture* fxi = m_fixtures.take(id);
         Q_ASSERT(fxi != NULL);
+        m_fixtures_hash.remove(id);
 
         /* Keep track of fixture addresses */
         QMutableHashIterator <uint,uint> it(m_addresses);
@@ -432,9 +435,9 @@ bool Doc::deleteFixture(quint32 id)
 
 bool Doc::moveFixture(quint32 id, quint32 newAddress)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures_hash.contains(id) == true)
     {
-        Fixture* fixture = m_fixtures[id];
+        Fixture* fixture = m_fixtures_hash[id];
         // remove it
         QMutableHashIterator <uint,uint> it(m_addresses);
         while (it.hasNext() == true)
@@ -466,6 +469,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     while (fxit.hasNext() == true)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
+        m_fixtures_hash.remove(fxi->id());
         delete fxi;
     }
     m_latestFixtureId = 0;
@@ -494,6 +498,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
             newFixture->setChannels(fixture->channels());
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         m_fixtures[id] = newFixture;
+        m_fixtures_hash.insert(id, newFixture);
 
         /* Patch fixture change signals thru Doc */
         connect(newFixture, SIGNAL(changed(quint32)),
@@ -512,9 +517,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 
 bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures_hash.contains(id) == true)
     {
-        Fixture* fixture = m_fixtures[id];
+        Fixture* fixture = m_fixtures_hash[id];
         int address = fixture->address();
         // remove it
         QMutableHashIterator <uint,uint> it(m_addresses);
@@ -543,9 +548,9 @@ bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
 
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures_hash.contains(id) == true)
     {
-        Fixture* fixture = m_fixtures[id];
+        Fixture* fixture = m_fixtures_hash[id];
         // get exclusive access to the universes list
         QList<Universe *> universes = inputOutputMap()->claimUniverses();
         int uni = fixture->universe();
@@ -604,7 +609,7 @@ QList <Fixture*> Doc::fixtures() const
 
 Fixture* Doc::fixture(quint32 id) const
 {
-    return m_fixtures.value(id, NULL);
+    return m_fixtures_hash.value(id, NULL);
 }
 
 quint32 Doc::fixtureForAddress(quint32 universeAddress) const
