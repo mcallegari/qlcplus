@@ -515,6 +515,9 @@ private slots:
     /** Slot that catches function change signals */
     void slotFunctionChanged(quint32 fid);
 
+    /** Slot that catches function name change signals */
+    void slotFunctionNameChanged(quint32 fid);
+
 signals:
     /** Signal that a function has been added */
     void functionAdded(quint32 function);
@@ -524,6 +527,9 @@ signals:
 
     /** Signal that a function has been changed */
     void functionChanged(quint32 function);
+
+    /** Signal that a function has been changed */
+    void functionNameChanged(quint32 function);
 
 protected:
     /** Functions */

@@ -151,7 +151,7 @@ void Function::setName(const QString& name)
 {
     m_name = QString(name);
 
-    emit changed(m_id);
+    emit nameChanged(m_id);
 }
 
 QString Function::name() const

@@ -878,6 +878,10 @@ bool Doc::addFunction(Function* func, quint32 id)
         connect(func, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged(quint32)));
 
+        // Listen to function name changes
+        connect(func, SIGNAL(nameChanged(quint32)),
+                this, SLOT(slotFunctionNameChanged(quint32)));
+
         // Make the function listen to fixture removals
         connect(this, SIGNAL(fixtureRemoved(quint32)),
                 func, SLOT(slotFixtureRemoved(quint32)));
@@ -976,6 +980,12 @@ void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();
     emit functionChanged(fid);
+}
+
+void Doc::slotFunctionNameChanged(quint32 fid)
+{
+    setModified();
+    emit functionNameChanged(fid);
 }
 
 /*********************************************************************
