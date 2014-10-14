@@ -182,7 +182,7 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach(SceneValue scv, m_values)
+    foreach(SceneValue scv, m_values.keys())
     {
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
@@ -514,7 +514,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
     {
         // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
         // so enforce all values that the user has chosen to flash.
-        foreach (const SceneValue& sv, m_values)
+        foreach (const SceneValue& sv, m_values.keys())
         {
             FadeChannel fc;
             fc.setFixture(doc(), sv.fxi);
