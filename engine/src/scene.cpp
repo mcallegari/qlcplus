@@ -645,12 +645,12 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
                              const QList<Universe*> ua)
 {
     const QHash <FadeChannel,FadeChannel>& channels(timer->fader()->channels());
-    if (channels.contains(fc) == true)
+    QHash <FadeChannel,FadeChannel>::const_iterator existing_it = channels.find(fc);
+    if (existing_it != channels.constEnd())
     {
         // MasterTimer's GenericFader contains the channel so grab its current
         // value as the new starting value to get a smoother fade
-        FadeChannel existing = channels[fc];
-        fc.setStart(existing.current());
+        fc.setStart(existing_it.value().current());
         fc.setCurrent(fc.start());
     }
     else
