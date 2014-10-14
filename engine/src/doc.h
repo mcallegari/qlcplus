@@ -327,10 +327,8 @@ private slots:
     void slotFixtureChanged(quint32 fxi_id);
 
 protected:
-    /** Fixtures map: < ID, Fixture instance > */
-    QMap <quint32,Fixture*> m_fixtures;
-    /** Fixtures hash for a quicker access */
-    QHash <quint32,Fixture*> m_fixtures_hash;
+    /** Fixtures hash: < ID, Fixture instance > */
+    QHash <quint32,Fixture*> m_fixtures;
 
     /** Map of the addresses occupied by fixtures */
     QHash <quint32, quint32> m_addresses;
