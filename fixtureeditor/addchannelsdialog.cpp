@@ -21,7 +21,7 @@
 #include "addchannelsdialog.h"
 #include "ui_addchannelsdialog.h"
 
-AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QList<QLCChannel *> modeList, QWidget *parent) :
+AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList, QWidget *parent) :
     QDialog(parent)
   , m_channelsList(allList)
 {
@@ -67,7 +67,7 @@ QList<QLCChannel *> AddChannelsDialog::getModeChannelsList()
     return retList;
 }
 
-void AddChannelsDialog::fillChannelsTrees(QList<QLCChannel *> allList, QList<QLCChannel *> modeList)
+void AddChannelsDialog::fillChannelsTrees(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList)
 {
     int i = 0;
     foreach (QLCChannel *ch, allList)

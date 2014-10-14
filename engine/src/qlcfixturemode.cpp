@@ -20,7 +20,7 @@
 #include <iostream>
 #include <QString>
 #include <QDebug>
-#include <QList>
+#include <QVector>
 #include <QtXml>
 
 #include "qlcfixturemode.h"
@@ -63,7 +63,7 @@ QLCFixtureMode& QLCFixtureMode::operator=(const QLCFixtureMode& mode)
         Q_ASSERT(m_fixtureDef != NULL);
 
         quint32 i = 0;
-        QListIterator <QLCChannel*> it(mode.m_channels);
+        QVectorIterator <QLCChannel*> it(mode.m_channels);
         while (it.hasNext() == true)
         {
             /* Since m_fixtureDef might not be the same as
@@ -150,7 +150,7 @@ bool QLCFixtureMode::insertChannel(QLCChannel* channel, quint32 index)
 
 bool QLCFixtureMode::removeChannel(const QLCChannel* channel)
 {
-    QMutableListIterator <QLCChannel*> it(m_channels);
+    QMutableVectorIterator <QLCChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         if (it.next() == channel)
@@ -172,7 +172,7 @@ void QLCFixtureMode::removeAllChannels()
 
 QLCChannel* QLCFixtureMode::channel(const QString& name) const
 {
-    QListIterator <QLCChannel*> it(m_channels);
+    QVectorIterator <QLCChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         QLCChannel* ch = it.next();
@@ -192,7 +192,7 @@ QLCChannel* QLCFixtureMode::channel(quint32 ch) const
         return m_channels.at(ch);
 }
 
-QList <QLCChannel*> QLCFixtureMode::channels() const
+QVector <QLCChannel*> QLCFixtureMode::channels() const
 {
     return m_channels;
 }
@@ -225,7 +225,7 @@ void QLCFixtureMode::insertHead(int index, const QLCFixtureHead& head)
 
 void QLCFixtureMode::removeHead(int index)
 {
-    m_heads.removeAt(index);
+    m_heads.remove(index);
 }
 
 void QLCFixtureMode::replaceHead(int index, const QLCFixtureHead& head)
@@ -234,7 +234,7 @@ void QLCFixtureMode::replaceHead(int index, const QLCFixtureHead& head)
         m_heads[index] = head;
 }
 
-QList <QLCFixtureHead> QLCFixtureMode::heads() const
+QVector <QLCFixtureHead> QLCFixtureMode::heads() const
 {
     return m_heads;
 }
@@ -357,7 +357,7 @@ bool QLCFixtureMode::saveXML(QDomDocument* doc, QDomElement* root)
     m_physical.saveXML(doc, &tag);
 
     /* Channels */
-    QListIterator <QLCChannel*> it(m_channels);
+    QVectorIterator <QLCChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         chtag = doc->createElement(KXMLQLCFixtureModeChannel);
@@ -371,7 +371,7 @@ bool QLCFixtureMode::saveXML(QDomDocument* doc, QDomElement* root)
     }
 
     /* Heads */
-    QListIterator <QLCFixtureHead> hit(m_heads);
+    QVectorIterator <QLCFixtureHead> hit(m_heads);
     while (hit.hasNext() == true)
         hit.next().saveXML(doc, &tag);
 
