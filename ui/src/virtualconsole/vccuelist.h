@@ -140,8 +140,11 @@ private slots:
     /** Removes destroyed functions from the list */
     void slotFunctionRemoved(quint32 fid);
 
-    /** Updates name in the list if function got changed */
+    /** Updates the list if chaser got changed */
     void slotFunctionChanged(quint32 fid);
+
+    /** Updates name in the list if function got changed */
+    void slotFunctionNameChanged(quint32 fid);
 
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();

@@ -242,6 +242,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(functionChanged(quint32)),
             this, SLOT(slotFunctionChanged(quint32)));
+    connect(m_doc, SIGNAL(functionNameChanged(quint32)),
+            this, SLOT(slotFunctionNameChanged(quint32)));
 
     m_nextLatestValue = 0;
     m_previousLatestValue = 0;
@@ -452,6 +454,12 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 }
 
 void VCCueList::slotFunctionChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+        m_updateTimer->start(UPDATE_TIMEOUT);
+}
+
+void VCCueList::slotFunctionNameChanged(quint32 fid)
 {
     if (fid == m_chaserID)
         m_updateTimer->start(UPDATE_TIMEOUT);
