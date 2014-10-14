@@ -271,8 +271,8 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
 
     QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
                        "<input id=\"loadTrigger\" type=\"file\" "
-                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
-                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\">\n"
+                       "<input id=\"submitTrigger\" type=\"submit\"></form>"
 
                        "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n" +

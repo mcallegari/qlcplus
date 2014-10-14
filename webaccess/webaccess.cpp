@@ -667,7 +667,7 @@ void WebAccess::slotFramePageChanged(int pageNum)
     VCWidget *frame = (VCWidget *)sender();
 
     QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
-    QByteArray ba = wsMessage.toLatin1();
+    QByteArray ba = wsMessage.toUtf8();
 
     mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, ba.data(), ba.length());
 }
@@ -698,12 +698,12 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
             str += "<div style=\"position: absolute; top: 0; right:0; z-index: 1;\">\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=27></img></a>\n";
+            str += "<img src=\"back.png\" width=\"27\"></a>\n";
             str += "<div class=\"vcframePageLabel\" id=\"fr" + QString::number(frame->id()) + "Page\">";
             str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div>\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"forward.png\" width=27></img></a>\n";
+            str += "<img src=\"forward.png\" width=\"27\"></a>\n";
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
@@ -745,12 +745,12 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
             str += "<div style=\"position: absolute; top: 0; right:0; z-index: 1;\">\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=27></img></a>\n";
+            str += "<img src=\"back.png\" width=\"27\"></a>\n";
             str += "<div class=\"vcframePageLabel\" id=\"fr" + QString::number(frame->id()) + "Page\">";
             str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div>\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"forward.png\" width=27></img></a>\n";
+            str += "<img src=\"forward.png\" width=\"27\"></a>\n";
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
@@ -776,7 +776,7 @@ void WebAccess::slotButtonToggled(bool on)
     else
         wsMessage.append("|BUTTON|0");
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
 }
 
 QString WebAccess::getButtonHTML(VCButton *btn)
@@ -816,7 +816,7 @@ void WebAccess::slotSliderValueChanged(QString val)
 
     QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -843,13 +843,13 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
-            "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\""
+            "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
             "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
             "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
             "min=\"0\" max=\"255\" step=\"1\" value=\"" +
-            QString::number(slider->sliderValue()) + "\" />\n";
+            QString::number(slider->sliderValue()) + "\">\n";
 
     str += "<div id=\"sln" + slID + "\" "
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
@@ -919,7 +919,7 @@ void WebAccess::slotCueIndexChanged(int idx)
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
 }
 
 QString WebAccess::getCueListHTML(VCCueList *cue)
@@ -1046,15 +1046,15 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
-    str += "<img src=\"player_play.png\" width=27></img></a>\n";
+    str += "<img src=\"player_play.png\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
-    str += "<img src=\"back.png\" width=27></img></a>\n";
+    str += "<img src=\"back.png\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'NEXT');\">\n";
-    str += "<img src=\"forward.png\" width=27></img></a>\n";
+    str += "<img src=\"forward.png\" width=\"27\"></a>\n";
 
     str += "</div>\n";
 
@@ -1168,8 +1168,8 @@ QString WebAccess::getVCHTML()
             "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
 				"<input id=\"loadTrigger\" type=\"file\" "
 				"onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
-				"<input id=\"submitTrigger\" type=\"submit\"/>"
-            "</form>"
+				"<input id=\"submitTrigger\" type=\"submit\"/>\n"
+            "</form>\n"
 
             "<div class=\"controlBar\">\n"
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
@@ -1184,13 +1184,13 @@ QString WebAccess::getVCHTML()
             "<div style=\"position: relative; "
             "width: " + QString::number(mfSize.width()) +
             "px; height: " + QString::number(mfSize.height()) + "px; "
-            "background-color: " + mainFrame->backgroundColor().name() + "; \" >\n";
+            "background-color: " + mainFrame->backgroundColor().name() + ";\">\n";
 
     widgetsHTML += getChildrenHTML(mainFrame, 0, 0);
 
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
+    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n</html>";
     return str;
 }
 

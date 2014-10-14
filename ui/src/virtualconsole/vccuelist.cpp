@@ -1118,11 +1118,11 @@ QString VCCueList::getJS()
       " if (cmd == \"PLAY\") {\n"
       "   var obj = document.getElementById(\"play\" + id);\n"
       "   if (cueListsIndices[id] == -1) {\n"
-      "     obj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
+      "     obj.innerHTML = \"<img src=\\\"player_stop.png\\\" width=\\\"27\\\">\";\n"
       "     setCueIndex(id, 0);\n"
       "   }\n"
       "   else {\n"
-      "     obj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n"
+      "     obj.innerHTML = \"<img src=\\\"player_play.png\\\" width=\\\"27\\\">\";\n"
       "     setCueIndex(id, -1);\n"
       "   }\n"
       " }\n"
@@ -1139,7 +1139,7 @@ QString VCCueList::getJS()
 
       "function enableCue(id, idx) {\n"
       " var btnObj = document.getElementById(\"play\" + id);\n"
-      " btnObj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
+      " btnObj.innerHTML = \"<img src=\\\"player_stop.png\\\" width=\\\"27\\\">\";\n"
       " setCueIndex(id, idx);\n"
       " websocket.send(id + \"|STEP|\" + idx);\n"
       "}\n";
