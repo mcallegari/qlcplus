@@ -128,7 +128,10 @@ bool QLCFixtureMode::insertChannel(QLCChannel* channel, quint32 index)
     {
         if (m_channels.contains(channel) == false)
         {
-            m_channels.insert(index, channel);
+            if (index >= quint32(m_channels.size()))
+                m_channels.append(channel);
+            else
+                m_channels.insert(index, channel);
             return true;
         }
         else
@@ -225,7 +228,8 @@ void QLCFixtureMode::insertHead(int index, const QLCFixtureHead& head)
 
 void QLCFixtureMode::removeHead(int index)
 {
-    m_heads.remove(index);
+    if (index >= 0 && index < m_heads.size())
+        m_heads.remove(index);
 }
 
 void QLCFixtureMode::replaceHead(int index, const QLCFixtureHead& head)
