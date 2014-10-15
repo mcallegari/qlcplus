@@ -234,34 +234,29 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="104"/>
+        <location filename="../ui/src/docbrowser.cpp" line="103"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Prohlížeč dokumentů</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="120"/>
+        <location filename="../ui/src/docbrowser.cpp" line="114"/>
         <source>Backward</source>
         <translation>Dozadu</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="121"/>
+        <location filename="../ui/src/docbrowser.cpp" line="115"/>
         <source>Forward</source>
         <translation>Dopředu</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="122"/>
+        <location filename="../ui/src/docbrowser.cpp" line="116"/>
         <source>Index</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="123"/>
+        <location filename="../ui/src/docbrowser.cpp" line="117"/>
         <source>About Qt</source>
         <translation>O aplikaci Qt</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="151"/>
-        <source>Close</source>
-        <translation>Zavřít</translation>
     </message>
 </context>
 <context>

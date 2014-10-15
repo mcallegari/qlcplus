@@ -25,6 +25,14 @@
     </message>
 </context>
 <context>
+    <name>HIDEventDevice</name>
+    <message>
+        <location filename="hideventdevice.cpp" line="339"/>
+        <source>N/A</source>
+        <translation>N/A</translation>
+    </message>
+</context>
+<context>
     <name>HIDFX5Device</name>
     <message>
         <location filename="hidfx5device.cpp" line="61"/>
@@ -40,12 +48,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="313"/>
+        <location filename="hidjsdevice.cpp" line="303"/>
         <source>Axes: %1</source>
         <translation>Osy: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="315"/>
+        <location filename="hidjsdevice.cpp" line="305"/>
         <source>Buttons: %1</source>
         <translation>Tlačítka: %1</translation>
     </message>
@@ -53,7 +61,7 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="115"/>
+        <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
         <translation>Tento plugin přidává podporu pro HID joysticky a FX5 USB DMX adaptéry.</translation>
     </message>
