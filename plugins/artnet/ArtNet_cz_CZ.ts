@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="90"/>
-        <location filename="artnetplugin.cpp" line="196"/>
+        <location filename="artnetplugin.cpp" line="197"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
@@ -21,13 +21,13 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="110"/>
-        <location filename="artnetplugin.cpp" line="266"/>
+        <location filename="artnetplugin.cpp" line="270"/>
         <source>Status: Not open</source>
         <translation>Stav: Neotevřený</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
-        <location filename="artnetplugin.cpp" line="269"/>
+        <location filename="artnetplugin.cpp" line="273"/>
         <source>Status: Open</source>
         <translation>Stav: Otevřený</translation>
     </message>
@@ -42,12 +42,12 @@
         <translation>Odeslané pakety:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="262"/>
+        <location filename="artnetplugin.cpp" line="266"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="271"/>
+        <location filename="artnetplugin.cpp" line="275"/>
         <source>Packets received: </source>
         <translation>Přijaté pakety:</translation>
     </message>
