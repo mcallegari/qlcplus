@@ -70,6 +70,7 @@ HEADERS += aboutbox.h \
            fixturetreewidget.h \
            functionmanager.h \
            fixtureremap.h \
+           flowlayout.h \
            functionliveeditdialog.h \
            functionselection.h \
            functionstreewidget.h \
@@ -134,6 +135,7 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcframeproperties.h \
            virtualconsole/vclabel.h \
            virtualconsole/vcmatrix.h \
+           virtualconsole/vcmatrixcontrol.h \
            virtualconsole/vcmatrixproperties.h \
            virtualconsole/vcproperties.h \
            virtualconsole/vcpropertieseditor.h \
@@ -234,6 +236,7 @@ SOURCES += aboutbox.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
            fixturetreewidget.cpp \
+           flowlayout.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
@@ -299,6 +302,7 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcframeproperties.cpp \
            virtualconsole/vclabel.cpp \
            virtualconsole/vcmatrix.cpp \
+           virtualconsole/vcmatrixcontrol.cpp \
            virtualconsole/vcmatrixproperties.cpp \
            virtualconsole/vcproperties.cpp \
            virtualconsole/vcpropertieseditor.cpp \

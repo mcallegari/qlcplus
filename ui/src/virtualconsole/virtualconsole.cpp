@@ -479,13 +479,13 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
     m_addMenu->addAction(m_addCueListAction);
+    m_addMenu->addAction(m_addMatrixAction);
     m_addMenu->addAction(m_addAudioTriggersAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addFrameAction);
     m_addMenu->addAction(m_addSoloFrameAction);
     m_addMenu->addAction(m_addLabelAction);
     m_addMenu->addAction(m_addClockAction);
-    m_addMenu->addAction(m_addMatrixAction);
 
     /* Edit menu */
     m_editMenu = new QMenu(this);
@@ -554,12 +554,12 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addSpeedDialAction);
     m_toolbar->addAction(m_addXYPadAction);
     m_toolbar->addAction(m_addCueListAction);
+    m_toolbar->addAction(m_addMatrixAction);
     m_toolbar->addAction(m_addFrameAction);
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
     m_toolbar->addAction(m_addAudioTriggersAction);
     m_toolbar->addAction(m_addClockAction);
-    m_toolbar->addAction(m_addMatrixAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);

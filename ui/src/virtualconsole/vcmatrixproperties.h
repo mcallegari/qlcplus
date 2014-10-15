@@ -41,25 +41,67 @@ public:
     explicit VCMatrixProperties(VCMatrix* button, Doc* doc);
     ~VCMatrixProperties();
 
-protected slots:
-    void slotAttachFunction();
-    void slotSetFunction(quint32 fid = Function::invalidId());
-
-    void slotAutoDetectInputToggled(bool checked);
-    void slotInputValueChanged(quint32 universe, quint32 channel);
-    void slotChooseInputClicked();
-
-    void accept();
-
-protected:
-    void updateInputSource();
-
 protected:
     VCMatrix* m_matrix;
     Doc* m_doc;
 
+    /*********************************************************************
+     * RGB Matrix attachment
+     *********************************************************************/
+protected slots:
+    void slotAttachFunction();
+    void slotSetFunction(quint32 fid = Function::invalidId());
+
+protected:
     quint32 m_function;
-    QLCInputSource *m_inputSource;
+
+    /*********************************************************************
+     * Slider External input
+     *********************************************************************/
+protected slots:
+    void slotAutoDetectSliderInputToggled(bool checked);
+    void slotSliderInputValueChanged(quint32 universe, quint32 channel);
+    void slotChooseSliderInputClicked();
+
+protected:
+    void updateSliderInputSource();
+
+protected:
+    QLCInputSource *m_sliderInputSource;
+
+    /*********************************************************************
+     * Custom controls
+     *********************************************************************/
+private:
+    void updateTree();
+    VCMatrixControl *getSelectedControl();
+    void addControl(VCMatrixControl *control);
+    void removeControl(quint8 id);
+    void updateControlInputSource(QLCInputSource *source);
+
+protected slots:
+    void slotTreeSelectionChanged();
+    void slotAddStartColorClicked();
+    void slotAddEndColorClicked();
+    void slotAddAnimationClicked();
+    void slotAddTextClicked();
+    void slotRemoveClicked();
+
+    void slotAutoDetectControlInputToggled(bool checked);
+    void slotControlInputValueChanged(quint32 universe, quint32 channel);
+    void slotChooseControlInputClicked();
+
+    void slotAttachKey();
+    void slotDetachKey();
+
+protected:
+    quint8 m_lastAssignedID;
+    QList<VCMatrixControl *> m_controls;
+
+protected slots:
+    /** @reimp */
+    void accept();
+
 
 };
 

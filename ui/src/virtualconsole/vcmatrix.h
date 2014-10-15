@@ -20,15 +20,20 @@
 #ifndef VCMATRIX_H
 #define VCMATRIX_H
 
+#include <QPushButton>
+#include <QToolButton>
+#include <QComboBox>
+#include <QLabel>
+#include <QHash>
+
 #include "vcwidget.h"
+#include "vcmatrixcontrol.h"
 
 class ClickAndGoSlider;
 class ClickAndGoWidget;
 class QDomDocument;
 class QDomElement;
-class QToolButton;
-class QComboBox;
-class QLabel;
+class FlowLayout;
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -68,6 +73,7 @@ private:
     QToolButton *m_endColorButton;
     ClickAndGoWidget *m_ecCnGWidget;
     QComboBox *m_presetCombo;
+    FlowLayout *m_controlsLayout;
 
     /*********************************************************************
      * Clipboard
@@ -89,6 +95,7 @@ private slots:
     void slotSliderMoved(int value);
     void slotStartColorChanged(QRgb color);
     void slotEndColorChanged(QRgb color);
+    void slotAnimationChanged(QString name);
 
     /*********************************************************************
      * Properties
@@ -137,6 +144,20 @@ public:
 
 private:
     bool m_instantApply;
+
+    /*********************************************************************
+     * Custom controls
+     *********************************************************************/
+public:
+    void addCustomControl(VCMatrixControl *control);
+    void resetCustomControls();
+    QList<VCMatrixControl *> customControls() const;
+
+protected slots:
+    void slotCustomControlClicked();
+
+protected:
+    QHash<QPushButton *, VCMatrixControl *> m_controls;
 
     /*********************************************************************
      * QLC+ Mode
