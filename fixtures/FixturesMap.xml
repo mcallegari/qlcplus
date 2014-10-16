@@ -315,6 +315,7 @@
   <fixture path="Proel-Dreamlight-250-Eclipse-Spot.qxf" mf="Proel" md="Dreamlight 250 Eclipse Spot"/>
   <fixture path="Proel-Moving-Head-3Wx108-LED-RGBW.qxf" mf="Proel" md="Moving Head 3Wx108 LED RGBW"/>
   <fixture path="Proel-Tarkus-575-Spot.qxf" mf="Proel" md="Tarkus 575 Spot"/>
+  <fixture path="Pulse-ECO-LED-PAR56.qxf" mf="Pulse" md="ECO LED PAR56"/>
   <fixture path="QTX-SL-Series.qxf" mf="QTX" md="SL Series"/>
   <fixture path="ReelEfx-DF-50.qxf" mf="ReelEfx" md="DF-50"/>
   <fixture path="Robe-ClubScan-150CT.qxf" mf="Robe" md="ClubScan 150 CT"/>
@@ -371,6 +372,7 @@
   <fixture path="Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf" mf="Stairville" md="HL-x9 Quad Color Flood&#10;9x8W"/>
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
   <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
+  <fixture path="Stairville-LED-PAR56-10MM-UV.qxf" mf="Stairville" md="LED PAR56 10MM UV"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBA.qxf" mf="Stairville" md="LED Par56 MKII RGBA"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBW.qxf" mf="Stairville" md="LED Par56 MKII RGBW"/>
   <fixture path="Stairville-LED-PAR56.qxf" mf="Stairville" md="LED PAR56"/>

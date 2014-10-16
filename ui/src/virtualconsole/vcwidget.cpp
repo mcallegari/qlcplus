@@ -852,8 +852,8 @@ bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) 
     }
     else
     {
-        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toInt();
-        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toInt();
+        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
+        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
     }
 
     return true;

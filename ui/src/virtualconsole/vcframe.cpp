@@ -42,6 +42,7 @@
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcmatrix.h"
 #include "qlcfile.h"
 #include "vcframe.h"
 #include "vclabel.h"
@@ -1060,7 +1061,7 @@ bool VCFrame::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCClock)
         {
-            /* Create a new label into its parent */
+            /* Create a new VCClock into its parent */
             VCClock* clock = new VCClock(this, m_doc);
             if (clock->loadXML(&tag) == false)
                 delete clock;
@@ -1069,6 +1070,19 @@ bool VCFrame::loadXML(const QDomElement* root)
                 if (multipageMode() == true)
                     addWidgetToPageMap(clock);
                 clock->show();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCMatrix)
+        {
+            /* Create a new VCMatrix into its parent */
+            VCMatrix* matrix = new VCMatrix(this, m_doc);
+            if (matrix->loadXML(&tag) == false)
+                delete matrix;
+            else
+            {
+                if (multipageMode() == true)
+                    addWidgetToPageMap(matrix);
+                matrix->show();
             }
         }
         else

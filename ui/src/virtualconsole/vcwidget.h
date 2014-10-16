@@ -123,7 +123,8 @@ public:
         SpeedDialWidget,
         CueListWidget,
         LabelWidget,
-        AudioTriggersWidget
+        AudioTriggersWidget,
+        MatrixWidget
     };
 
 public:

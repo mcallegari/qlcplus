@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vclabel.cpp
 
   Copyright (c) Heikki Junnila, Stefan Krumm
@@ -145,9 +145,6 @@ bool VCLabel::loadXML(const QDomElement* root)
 bool VCLabel::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(vc_root != NULL);

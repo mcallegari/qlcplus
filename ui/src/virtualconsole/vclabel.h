@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vclabel.h
 
   Copyright (c) Heikki Junnila, Stefan Krumm
@@ -25,7 +25,6 @@
 class QDomDocument;
 class QDomElement;
 class QPaintEvent;
-class MasterTimer;
 class Doc;
 
 /** @addtogroup ui_vc_widgets

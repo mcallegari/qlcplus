@@ -51,6 +51,7 @@
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcmatrix.h"
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
@@ -94,6 +95,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addLabelAction(NULL)
     , m_addAudioTriggersAction(NULL)
     , m_addClockAction(NULL)
+    , m_addMatrixAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -330,6 +332,9 @@ void VirtualConsole::initActions()
     m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
     connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
 
+    m_addMatrixAction = new QAction(QIcon(":/rgbmatrix.png"), tr("New RGB Matrix"), this);
+    connect(m_addMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddRGBMatrix()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -346,6 +351,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addLabelAction);
     m_addActionGroup->addAction(m_addAudioTriggersAction);
     m_addActionGroup->addAction(m_addClockAction);
+    m_addActionGroup->addAction(m_addMatrixAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -473,6 +479,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
     m_addMenu->addAction(m_addCueListAction);
+    m_addMenu->addAction(m_addMatrixAction);
     m_addMenu->addAction(m_addAudioTriggersAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addFrameAction);
@@ -547,6 +554,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addSpeedDialAction);
     m_toolbar->addAction(m_addXYPadAction);
     m_toolbar->addAction(m_addCueListAction);
+    m_toolbar->addAction(m_addMatrixAction);
     m_toolbar->addAction(m_addFrameAction);
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
@@ -950,6 +958,17 @@ void VirtualConsole::slotAddClock()
 
     VCClock* clock = new VCClock(parent, m_doc);
     setupWidget(clock, parent);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddRGBMatrix()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCMatrix* matrix = new VCMatrix(parent, m_doc);
+    setupWidget(matrix, parent);
     m_doc->setModified();
 }
 
@@ -1633,6 +1652,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addLabelAction->setShortcut(QKeySequence());
         m_addAudioTriggersAction->setShortcut(QKeySequence());
         m_addClockAction->setShortcut(QKeySequence());
+        m_addMatrixAction->setShortcut(QKeySequence());
 
         m_editCutAction->setShortcut(QKeySequence());
         m_editCopyAction->setShortcut(QKeySequence());
@@ -1688,6 +1708,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
         m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
         m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
+        m_addMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+R"));
 
         m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
         m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
