@@ -265,8 +265,10 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
       content = getVCHTML();
 
   // Prepare the message we're going to send
-  int content_length = content.length();
   QByteArray contentArray = content.toUtf8();
+
+  //For UTF8 we need to know the amount of bytes, not number of characters.
+  int content_length = contentArray.size();
 
   // Send HTTP reply to the client
   mg_printf(conn,
