@@ -65,7 +65,7 @@ public:
 
     void clearTree();
 
-    void functionChanged(quint32 fid);
+    void functionNameChanged(quint32 fid);
 
     /** Add the Function with the given ID and returns
      *  a pointer to the created item */

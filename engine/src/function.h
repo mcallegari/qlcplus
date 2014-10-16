@@ -131,6 +131,9 @@ signals:
     /** Signal telling that the contents of this function have changed */
     void changed(quint32 fid);
 
+    /** Signal telling that the name of this function have changed */
+    void nameChanged(quint32 fid);
+
     /*********************************************************************
      * Copying
      *********************************************************************/

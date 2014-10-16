@@ -121,7 +121,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
 
     connect(m_doc, SIGNAL(cleared()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
-    connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
+    connect(m_doc, SIGNAL(functionNameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
 
     QSettings settings;
@@ -203,9 +203,9 @@ void FunctionManager::slotDocLoaded()
     }
 }
 
-void FunctionManager::slotFunctionChanged(quint32 id)
+void FunctionManager::slotFunctionNameChanged(quint32 id)
 {
-    m_tree->functionChanged(id);
+    m_tree->functionNameChanged(id);
 }
 
 void FunctionManager::slotFunctionAdded(quint32 id)

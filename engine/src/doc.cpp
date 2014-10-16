@@ -351,7 +351,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     else
     {
         fixture->setID(id);
-        m_fixtures[id] = fixture;
+        m_fixtures.insert(id, fixture);
 
         /* Patch fixture change signals thru Doc */
         connect(fixture, SIGNAL(changed(quint32)),
@@ -493,7 +493,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         else
             newFixture->setChannels(fixture->channels());
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
-        m_fixtures[id] = newFixture;
+        m_fixtures.insert(id, newFixture);
 
         /* Patch fixture change signals thru Doc */
         connect(newFixture, SIGNAL(changed(quint32)),
@@ -599,23 +599,24 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
 
 QList <Fixture*> Doc::fixtures() const
 {
-    return m_fixtures.values();
+    QMap <quint32, Fixture*> fixturesMap;
+    QHashIterator <quint32, Fixture*> hashIt(m_fixtures);
+    while (hashIt.hasNext())
+    {
+        hashIt.next();
+        fixturesMap.insert(hashIt.key(), hashIt.value());
+    }
+    return fixturesMap.values();
 }
 
 Fixture* Doc::fixture(quint32 id) const
 {
-    if (m_fixtures.contains(id) == true)
-        return m_fixtures[id];
-    else
-        return NULL;
+    return m_fixtures.value(id, NULL);
 }
 
 quint32 Doc::fixtureForAddress(quint32 universeAddress) const
 {
-    if (m_addresses.contains(universeAddress) == true)
-        return m_addresses[universeAddress];
-    else
-        return Fixture::invalidId();
+    return m_addresses.value(universeAddress, Fixture::invalidId());
 }
 
 int Doc::totalPowerConsumption(int& fuzzy) const
@@ -879,6 +880,10 @@ bool Doc::addFunction(Function* func, quint32 id)
         connect(func, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged(quint32)));
 
+        // Listen to function name changes
+        connect(func, SIGNAL(nameChanged(quint32)),
+                this, SLOT(slotFunctionNameChanged(quint32)));
+
         // Make the function listen to fixture removals
         connect(this, SIGNAL(fixtureRemoved(quint32)),
                 func, SLOT(slotFixtureRemoved(quint32)));
@@ -977,6 +982,12 @@ void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();
     emit functionChanged(fid);
+}
+
+void Doc::slotFunctionNameChanged(quint32 fid)
+{
+    setModified();
+    emit functionNameChanged(fid);
 }
 
 /*********************************************************************
