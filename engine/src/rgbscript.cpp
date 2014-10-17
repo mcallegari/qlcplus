@@ -48,7 +48,6 @@ QScriptEngine* RGBScript::s_engine = NULL;
 QMutex* RGBScript::s_engineMutex = NULL;
 QMap<QString, RGBScript*>* RGBScript::s_scriptsMap = NULL;
 
-
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -110,8 +109,6 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_contents = stream.readAll();
     file.close();
 
-    initEngine();
-
     QMutexLocker engineLocker(s_engineMutex);
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(m_contents);
     if (result.state() == QScriptSyntaxCheckResult::Valid)
@@ -132,8 +129,6 @@ QString RGBScript::fileName() const
 
 bool RGBScript::evaluate()
 {
-    initEngine();
-
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
     m_apiVersion = 0;
@@ -179,7 +174,6 @@ bool RGBScript::evaluate()
 
 void RGBScript::initEngine()
 {
-    // Create the script engine when it's first needed
     if (s_engineMutex == NULL)
     {
         s_engineMutex = new QMutex(QMutex::Recursive);
@@ -328,6 +322,7 @@ QList <RGBScript*> RGBScript::scripts(const Doc * doc)
 
 void RGBScript::loadScripts(const Doc * doc, const QDir& dir)
 {
+    // Create the script engine when it's first needed
     initEngine();
 
     QMutexLocker engineLocker(s_engineMutex);

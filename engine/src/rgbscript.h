@@ -66,11 +66,12 @@ public:
 private:
     static QScriptEngine* s_engine; //! The engine that runs all scripts
     static QMutex* s_engineMutex;   //! Protection
-    static QMap<QString, RGBScript*>* s_scriptsMap; //! the scripts, path-based map
+    static QMap<QString, RGBScript*>* s_scriptsMap; //! One instance of each script, filename-based map
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
 private:
+    /** Init engine, engine mutex, and scripts map */
     static void initEngine();
 
     /************************************************************************
