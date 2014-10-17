@@ -283,7 +283,7 @@ QString WebAccessNetwork::getHTML()
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
-    return str.toUtf8();
+    return str;
 }
 
 bool WebAccessNetwork::updateNetworkFile(QStringList cmdList)

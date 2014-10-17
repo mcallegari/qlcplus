@@ -247,7 +247,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 
     QString str = HTML_HEADER + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
-    return str.toUtf8();
+    return str;
 }
 
 QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,

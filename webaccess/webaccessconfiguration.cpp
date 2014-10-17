@@ -301,5 +301,5 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
-    return str.toUtf8();
+    return str;
 }
