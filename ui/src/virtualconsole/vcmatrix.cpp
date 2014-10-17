@@ -35,7 +35,7 @@
 #include "rgbtext.h"
 #include "doc.h"
 
-const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; width:32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { border: 2px solid #00E600; }"
                              "QPushButton:disabled { border: 2px solid #BBBBBB; }";
 
@@ -50,7 +50,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
     QHBoxLayout *hBox = new QHBoxLayout(this);
     hBox->setContentsMargins(3, 3, 3, 10);
-    hBox->setSpacing(3);
+    hBox->setSpacing(5);
 
     m_slider = new ClickAndGoSlider();
     m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
@@ -298,20 +298,22 @@ void VCMatrix::addCustomControl(VCMatrixControl *control)
     if (control->m_type == VCMatrixControl::StartColor)
     {
         controlButton->setStyleSheet(controlBtnSS.arg(control->m_color.name()));
+        controlButton->setFixedWidth(36);
         controlButton->setText("S");
     }
     else if (control->m_type == VCMatrixControl::EndColor)
     {
         controlButton->setStyleSheet(controlBtnSS.arg(control->m_color.name()));
+        controlButton->setFixedWidth(36);
         controlButton->setText("E");
     }
     else if (control->m_type == VCMatrixControl::Animation ||
              control->m_type == VCMatrixControl::Text)
     {
-        controlButton->setFixedHeight(32);
+        controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMaximumWidth(80);
         controlButton->setToolTip(control->m_resource);
-        controlButton->setText(control->m_resource);
+        controlButton->setText(fontMetrics().elidedText(control->m_resource, Qt::ElideRight, 72));
     }
     if (mode() == Doc::Design)
         controlButton->setEnabled(false);
@@ -402,6 +404,24 @@ void VCMatrix::slotModeChanged(Doc::Mode mode)
  * External input
  *********************************************************************/
 
+void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
+{
+    if (isEnabled() == false)
+        return;
+
+    QHashIterator<QPushButton *, VCMatrixControl *> it(m_controls);
+    while(it.hasNext())
+    {
+        it.next();
+        VCMatrixControl *control = it.value();
+        if (control->m_keySequence == keySequence)
+        {
+            QPushButton *button = it.key();
+            button->click();
+        }
+    }
+}
+
 void VCMatrix::updateFeedback()
 {
     sendFeedback(m_slider->value());
@@ -418,6 +438,22 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     if (checkInputSource(universe, pagedCh, value, sender()))
     {
         m_slider->setValue((int) value);
+    }
+    else
+    {
+        QHashIterator<QPushButton *, VCMatrixControl *> it(m_controls);
+        while(it.hasNext())
+        {
+            it.next();
+            VCMatrixControl *control = it.value();
+            if (control->m_inputSource != NULL &&
+                control->m_inputSource->universe() == universe &&
+                control->m_inputSource->channel() == pagedCh)
+            {
+                QPushButton *button = it.key();
+                button->click();
+            }
+        }
     }
 }
 

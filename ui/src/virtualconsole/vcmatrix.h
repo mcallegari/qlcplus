@@ -166,9 +166,12 @@ public slots:
     void slotModeChanged(Doc::Mode mode);
 
     /*********************************************************************
-     * External input
+     * External input / key binding
      *********************************************************************/
 public:
+    /** @reimp */
+    void slotKeyPressed(const QKeySequence& keySequence);
+
     /** @reimp */
     void updateFeedback();
 
