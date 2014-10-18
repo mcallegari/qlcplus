@@ -13,7 +13,7 @@ for(i, FLAVORS):{
     qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTMULTIMEDIAWIDGETS_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTOPENGL_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
-    qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/mediaservice/$$FILE $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    # qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/mediaservice/$$FILE $$INSTALLROOT/PlugIns/mediaservice/$$FILE
 
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"

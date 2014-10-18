@@ -115,7 +115,14 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
     m_output = m_audioOutput->start();
 
     if( m_audioOutput->error() != QAudio::NoError )
+    {
+        qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
         return false;
+    }
+
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_output->write(QByteArray(2048, 0));
+#endif
 
     return true;
 }
