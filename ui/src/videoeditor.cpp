@@ -54,6 +54,10 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
 
     m_filenameLabel->setText(m_video->getSourceFileName());
     m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
+    QSize res = video->getResolution();
+    m_resolutionLabel->setText(QString("%1x%2").arg(res.width()).arg(res.height()));
+    m_vcodecLabel->setText(video->getVideoCodec());
+    m_acodecLabel->setText(video->getAudioCodec());
 
     for (int i = 0; i < m_video->getScreenCount(); i++)
         m_screenCombo->addItem(QString("Screen %1").arg(i + 1));

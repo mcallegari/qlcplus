@@ -7,7 +7,7 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia multimediawidgets
 
 INCLUDEPATH     += monitor showmanager virtualconsole
 

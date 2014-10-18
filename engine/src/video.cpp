@@ -17,16 +17,13 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
+#include <QApplication>
 #include <QDomDocument>
 #include <QVideoWidget>
 #include <QDomElement>
-#include <QDesktopWidget>
-#include <QApplication>
-
 #include <QDebug>
 #include <QFile>
-
-#include <QMessageBox>
 
 #include "video.h"
 #include "doc.h"
@@ -143,6 +140,21 @@ qint64 Video::totalDuration()
     return m_videoDuration;
 }
 
+QSize Video::getResolution()
+{
+    return m_resolution;
+}
+
+QString Video::getAudioCodec()
+{
+    return m_audioCodec;
+}
+
+QString Video::getVideoCodec()
+{
+    return m_videoCodec;
+}
+
 void Video::setColor(QColor color)
 {
     m_color = color;
@@ -174,13 +186,13 @@ bool Video::setSourceFileName(QString filename)
         m_videoPlayer = new QMediaPlayer(0, QMediaPlayer::VideoSurface);
         m_videoWidget = new QVideoWidget;
         m_videoPlayer->setVideoOutput(m_videoWidget);
-        m_videoPlayer->setMedia(QUrl::fromLocalFile(m_sourceFileName));
         connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
                 this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
         connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SIGNAL(metaDataChanged(QString,QVariant)));
+                this, SLOT(slotMetaDataChanged(QString,QVariant)));
         connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
                 this, SLOT(slotTotalTimeChanged(qint64)));
+        m_videoPlayer->setMedia(QUrl::fromLocalFile(m_sourceFileName));
     }
     else
     {
@@ -267,6 +279,22 @@ void Video::slotTotalTimeChanged(qint64 duration)
     m_videoDuration = duration;
     qDebug() << "Video duration: " << m_videoDuration;
     emit totalTimeChanged(m_videoDuration);
+}
+
+void Video::slotMetaDataChanged(QString key, QVariant data)
+{
+    qDebug() << Q_FUNC_INFO << "Got meta data:" << key;
+    if (key == "Resolution")
+    {
+        m_resolution = data.toSize();
+        if (m_videoWidget != NULL)
+            m_videoWidget->setGeometry(0, 0, m_resolution.width(), m_resolution.height());
+    }
+    else if (key == "VideoCodec")
+        m_videoCodec = data.toString();
+    else if (key == "AudioCodec")
+        m_audioCodec = data.toString();
+    emit metaDataChanged(key, data);
 }
 
 void Video::slotFunctionRemoved(quint32 fid)
@@ -376,7 +404,10 @@ void Video::preRun(MasterTimer* timer)
     }
     if (m_fullscreen == true)
         m_videoWidget->setFullScreen(true);
+
+    //m_videoWidget->setGeometry(0, 0, 640, 480);
     m_videoWidget->show();
+    //m_videoPlayer->setVideoOutput(m_videoWidget);
 
     m_videoPlayer->play();
     Function::preRun(timer);

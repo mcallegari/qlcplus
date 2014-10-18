@@ -96,6 +96,10 @@ public:
      */
     qint64 totalDuration();
 
+    QSize getResolution();
+    QString getAudioCodec();
+    QString getVideoCodec();
+
     /**
      * Set the color to be used by a VideoItem
      */
@@ -147,6 +151,7 @@ public:
 protected slots:
     void slotStatusChanged(QMediaPlayer::MediaStatus status);
     void slotTotalTimeChanged(qint64 duration);
+    void slotMetaDataChanged(QString key, QVariant data);
 
 signals:
     void totalTimeChanged(qint64);
@@ -167,6 +172,8 @@ private:
     QString m_sourceFileName;
     /** Duration of the video content */
     qint64 m_videoDuration;
+    /** The video codec as strings */
+    QString m_audioCodec, m_videoCodec;
     /** Resolution of the video content */
     QSize m_resolution;
     /** Index of the screen where to render the video */
