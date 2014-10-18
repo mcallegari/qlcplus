@@ -125,7 +125,7 @@ macx:USERFIXTUREDIR       = $$USERDATADIR/Fixtures
 # Plugins
 win32:PLUGINDIR      = Plugins
 unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
-macx:PLUGINDIR       = Plugins
+macx:PLUGINDIR       = PlugIns
 
 # Translations
 win32:TRANSLATIONDIR      =

@@ -179,6 +179,10 @@ include(mediaservice-nametool.pri)
 INSTALLS += platformplugins
 INSTALLS += audioplugins
 INSTALLS += mediaservice
+
+qtconf.path   = $$INSTALLROOT/Resources
+qtconf.files += qt.conf
+INSTALLS      += qtconf
 }
 
 INSTALLS += qtnametool
