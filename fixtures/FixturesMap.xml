@@ -144,6 +144,7 @@
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
   <fixture path="Eurolite-LED-PAR64-RGBA.qxf" mf="Eurolite" md="LED PAR64 RGBA"/>
   <fixture path="Eurolite-LED-PAR64-White.qxf" mf="Eurolite" md="LED PAR64 White"/>
+  <fixture path="Eurolite-LED-SLS-180-RGB.qxf" mf="Eurolite" md="LED SLS-180 RGB"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
   <fixture path="Eurolite-TC-150.qxf" mf="Eurolite" md="TC-150"/>
@@ -196,6 +197,7 @@
   <fixture path="Futurelight-PHS-250.qxf" mf="Futurelight" md="PHS-250"/>
   <fixture path="Futurelight-PHS-700.qxf" mf="Futurelight" md="PHS-700"/>
   <fixture path="Futurelight-PHW-250.qxf" mf="Futurelight" md="PHW-250"/>
+  <fixture path="Futurelight-PHW-260.qxf" mf="Futurelight" md="PHW-260"/>
   <fixture path="Futurelight-PHW-700.qxf" mf="Futurelight" md="PHW-700"/>
   <fixture path="Futurelight-PSC-1200.qxf" mf="Futurelight" md="PSC-1200"/>
   <fixture path="Futurelight-PSC-250.qxf" mf="Futurelight" md="PSC-250"/>
