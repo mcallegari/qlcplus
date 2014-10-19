@@ -60,18 +60,7 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
     while (it.hasNext() == true)
     {
         QString str(it.next());
-        if (str == KXMLQLCInputChannelButton)
-            m_typeCombo->addItem(QIcon(":/button.png"), str);
-        else if (str == KXMLQLCInputChannelKnob)
-            m_typeCombo->addItem(QIcon(":/knob.png"), str);
-        else if (str == KXMLQLCInputChannelSlider)
-            m_typeCombo->addItem(QIcon(":/slider.png"), str);
-        else if (str == KXMLQLCInputChannelPageUp)
-            m_typeCombo->addItem(QIcon(":/forward.png"), str);
-        else if (str == KXMLQLCInputChannelPageDown)
-            m_typeCombo->addItem(QIcon(":/back.png"), str);
-        else if (str == KXMLQLCInputChannelPageSet)
-            m_typeCombo->addItem(QIcon(":/star.png"), str);
+        m_typeCombo->addItem(QLCInputChannel::stringToIcon(str), str);
     }
 
     if (channel != NULL && profile != NULL)
