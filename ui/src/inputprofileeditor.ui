@@ -81,16 +81,6 @@
        </item>
        <item row="2" column="1">
         <widget class="QComboBox" name="m_typeCombo">
-         <item>
-          <property name="text">
-           <string>MIDI</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>OSC</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>

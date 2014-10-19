@@ -7,7 +7,7 @@
  </Creator>
  <Manufacturer>Enttec</Manufacturer>
  <Model>Playback Wing</Model>
- <Type>MIDI</Type>
+ <Type>Enntec</Type>
  <Channel Number="0">
   <Name>Slider 1</Name>
   <Type>Slider</Type>

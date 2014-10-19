@@ -8,6 +8,7 @@
  </Creator>
  <Manufacturer>Akai</Manufacturer>
  <Model>APC Mini</Model>
+ <Type>MIDI</Type>
  <Channel Number="48">
   <Name>Slider 1</Name>
   <Type>Slider</Type>

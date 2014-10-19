@@ -26,6 +26,13 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
+#define KXMLQLCInputProfileTypeMidi "MIDI"
+#define KXMLQLCInputProfileTypeOsc "OSC"
+#define KXMLQLCInputProfileTypeHid "HID"
+#define KXMLQLCInputProfileTypeDmx "DMX"
+#define KXMLQLCInputProfileTypeEnttec "Enttec"
+
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -103,14 +110,59 @@ QString QLCInputProfile::path() const
     return m_path;
 }
 
-void QLCInputProfile::setType(const QString& type)
+void QLCInputProfile::setType(QLCInputProfile::Type type)
 {
     m_type = type;
 }
 
-QString QLCInputProfile::type() const
+QLCInputProfile::Type QLCInputProfile::type() const
 {
     return m_type;
+}
+
+QString QLCInputProfile::typeToString(Type type)
+{
+    switch (type)
+    {
+    case Midi:
+        return KXMLQLCInputProfileTypeMidi;
+    case Osc:
+        return KXMLQLCInputProfileTypeOsc;
+    case Hid:
+        return KXMLQLCInputProfileTypeHid;
+    case Dmx:
+        return KXMLQLCInputProfileTypeDmx;
+    case Enttec:
+        return KXMLQLCInputProfileTypeEnttec;
+    default:
+        return QString();
+    }
+}
+
+QLCInputProfile::Type QLCInputProfile::stringToType(const QString& str)
+{
+    if (str == KXMLQLCInputProfileTypeMidi)
+        return Midi;
+    else if (str == KXMLQLCInputProfileTypeOsc)
+        return Osc;
+    else if (str == KXMLQLCInputProfileTypeHid)
+        return Hid;
+    else if (str == KXMLQLCInputProfileTypeDmx)
+        return Dmx;
+    else // if (str == KXMLQLCInputProfileTypeEnttec)
+        return Enttec;
+}
+
+QList<QLCInputProfile::Type> QLCInputProfile::types()
+{
+    QList<Type> result;
+    result 
+        << Midi 
+        << Osc
+        << Hid
+        << Dmx
+        << Enttec;
+    return result;
 }
 
 /****************************************************************************
@@ -254,7 +306,7 @@ bool QLCInputProfile::loadXML(const QDomDocument& doc)
             }
             else if (tag.tagName() == KXMLQLCInputProfileType)
             {
-                setType(tag.text());
+                setType(stringToType(tag.text()));
             }
             else if (tag.tagName() == KXMLQLCInputChannel)
             {
@@ -315,7 +367,7 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     /* Type */
     tag = doc.createElement(KXMLQLCInputProfileType);
     root.appendChild(tag);
-    text = doc.createTextNode(m_type);
+    text = doc.createTextNode(typeToString(m_type));
     tag.appendChild(text);
 
     /* Write channels to the document */

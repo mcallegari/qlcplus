@@ -7,7 +7,7 @@
  </Creator>
  <Manufacturer>Enttec</Manufacturer>
  <Model>Shortcut Wing</Model>
- <Type>MIDI</Type>
+ <Type>Enttec</Type>
  <Channel Number="0">
   <Name>Button 1</Name>
   <Type>Button</Type>

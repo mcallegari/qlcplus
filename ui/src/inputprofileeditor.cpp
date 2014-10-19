@@ -103,14 +103,19 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
         }
     }
 
+    QList<QLCInputProfile::Type> types = QLCInputProfile::types();
+    for (int i = 0; i < types.size(); ++i)
+    {
+        const QLCInputProfile::Type type = types.at(i);
+        m_typeCombo->addItem(QLCInputProfile::typeToString(type), type);
+        if (m_profile->type() == type)
+            m_typeCombo->setCurrentIndex(i);
+    }
+
     /* Profile manufacturer & model */
     m_manufacturerEdit->setText(m_profile->manufacturer());
     m_modelEdit->setText(m_profile->model());
-    if (m_profile->type() == "OSC")
-        m_typeCombo->setCurrentIndex(1);
-    else
-        m_typeCombo->setCurrentIndex(0);
-
+  
     m_behaviourBox->hide();
     /* Fill up the tree with profile's channels */
     fillTree();
@@ -183,7 +188,7 @@ void InputProfileEditor::accept()
 
     m_profile->setManufacturer(m_manufacturerEdit->text());
     m_profile->setModel(m_modelEdit->text());
-    m_profile->setType(m_typeCombo->currentText());
+    m_profile->setType(static_cast<QLCInputProfile::Type>(m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt()));
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||

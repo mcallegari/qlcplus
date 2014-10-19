@@ -8,6 +8,7 @@
  </Creator>
  <Manufacturer>Novation</Manufacturer>
  <Model>Launchpad</Model>
+ <Type>MIDI</Type>
  <Channel Number="104">
   <Name>Up Button</Name>
   <Type>Button</Type>

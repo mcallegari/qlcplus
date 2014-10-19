@@ -7,7 +7,7 @@
  </Creator>
  <Manufacturer>Logitech</Manufacturer>
  <Model>WingMan Attack 2</Model>
- <Type>MIDI</Type>
+ <Type>HID</Type>
  <Channel Number="0" >
   <Name>Slider 1</Name>
   <Type>Slider</Type>
