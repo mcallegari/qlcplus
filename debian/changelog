@@ -3,6 +3,7 @@ qlcplus (4.8.2) stable; urgency=low
   * NEW: Virtual Console: introduced new widget based on RGB Matrix to control animations
   * Engine: improved perfomance of chaser loading and playback (thanks to David Garyga)
   * Engine: improved loading of RGB Matrix scripts (thanks to David Garyga)
+  * Webaccess: improved UTF-8 and HTML5 conformance (thanks to Janosch Frank)
   * New fixtures: NJD Spectre, Chauvet Eclipse RGB, American DJ Dotz TPar, Abstract Twister 4, Pulse ECO LED PAR56 (thanks to Charles Oldham)
   * New fixture: American DJ Galaxian Sky (thanks to Chicken)
   * New fixtures: Cameo Strobe 3x3.5W, Cameo Strobe 6x10W, Stairville HL-x9 Quad Color Flood 9x8W (thanks to Janosch Frank)
