@@ -76,6 +76,7 @@
 
 /* Profile column structure */
 #define KProfileColumnName 0
+#define KProfileColumnType 1
 
 InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap *ioMap, Doc *doc)
     : QWidget(parent)
@@ -574,6 +575,7 @@ void InputOutputPatchEditor::fillProfileTree()
         item = new QTreeWidgetItem(m_profileTree);
         updateProfileItem(it.next(), item);
     }
+    m_profileTree->resizeColumnToContents(KProfileColumnName);
 }
 
 void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetItem* item)
@@ -581,6 +583,11 @@ void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(KProfileColumnName, name);
+    QLCInputProfile * prof = m_ioMap->profile(name);
+    if (prof)
+    {
+        item->setText(KProfileColumnType, QLCInputProfile::typeToString(prof->type()));
+    }
 
     item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
     if (m_currentProfileName == name)

@@ -14,22 +14,13 @@
    <string>Input/Output patch editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
+   <property name="margin">
     <number>0</number>
    </property>
    <item row="0" column="0">
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="Mapping">
       <attribute name="title">
@@ -123,24 +114,6 @@
        <string>Profile</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" rowspan="4">
-        <widget class="QTreeWidget" name="m_profileTree">
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <property name="itemsExpandable">
-          <bool>false</bool>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Profile</string>
-          </property>
-         </column>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QToolButton" name="m_addProfileButton">
          <property name="toolTip">
@@ -213,6 +186,29 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="0" column="0" rowspan="4">
+        <widget class="QTreeWidget" name="m_profileTree">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Profile</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Type</string>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </widget>
