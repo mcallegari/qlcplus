@@ -1,70 +1,188 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>InputChannelEditor</class>
- <widget class="QDialog" name="InputChannelEditor" >
-  <property name="geometry" >
+ <widget class="QDialog" name="InputChannelEditor">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>432</width>
-    <height>139</height>
+    <width>440</width>
+    <height>229</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Input Channel Editor</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
       <string>Input Channel</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>Number</string>
-        </property>
-       </widget>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="2">
+       <widget class="QComboBox" name="m_typeCombo"/>
       </item>
-      <item row="0" column="1" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
          <string>Name</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
-         <string>Type</string>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Number</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QSpinBox" name="m_numberSpin" >
-        <property name="minimum" >
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="m_nameEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QSpinBox" name="m_numberSpin">
+        <property name="minimum">
          <number>1</number>
         </property>
-        <property name="maximum" >
+        <property name="maximum">
          <number>65535</number>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="m_nameEdit" />
-      </item>
-      <item row="1" column="2" >
-       <widget class="QComboBox" name="m_typeCombo" />
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QGroupBox" name="m_midiGroup">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Midi</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_midiChannelLabel">
+        <property name="text">
+         <string>Channel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QSpinBox" name="m_midiChannelSpin">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="m_midiMessageLabel">
+        <property name="text">
+         <string>Message</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="m_midiParamLabel">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Parameter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QComboBox" name="m_midiMessageCombo">
+        <item>
+         <property name="text">
+          <string>Control Change</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Note On/Off</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Note Aftertouch</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Program Change</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Channel Aftertouch</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pitch Wheel</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Beat Clock: Start/Stop/Continue</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Beat Clock: Beat</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QSpinBox" name="m_midiParamSpin">
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>128</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="m_midiNoteLabel">
+        <property name="text">
+         <string>Note</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLabel" name="m_midiNote">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
@@ -79,11 +197,11 @@
    <receiver>InputChannelEditor</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -95,11 +213,11 @@
    <receiver>InputChannelEditor</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

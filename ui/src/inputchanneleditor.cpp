@@ -27,6 +27,19 @@
 #include "qlcinputchannel.h"
 #include "inputchanneleditor.h"
 
+#define KMidiMessageCC 0
+#define KMidiMessageNoteOnOff 1
+#define KMidiMessageNoteAftertouch 2
+#define KMidiMessagePC 3
+#define KMidiMessageChannelAftertouch 4
+#define KMidiMessagePitchWheel 5
+#define KMidiMessageMBCPlayback 6
+#define KMidiMessageMBCBeat 7
+
+#define KMidiChannelOffset 4096
+
+#include "../../plugins/midi/common/midiprotocol.h"
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -81,12 +94,31 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
         /* Channel type */
         type = QLCInputChannel::typeToString(channel->type());
         m_typeCombo->setCurrentIndex(m_typeCombo->findText(type));
+
+        if (profile->type() == QLCInputProfile::Midi)
+        {
+            slotNumberChanged(m_numberSpin->value());
+
+            connect(m_midiChannelSpin, SIGNAL(valueChanged(int)),
+                this, SLOT(slotMidiChanged()));
+            connect(m_midiMessageCombo, SIGNAL(activated(int)),
+                this, SLOT(slotMidiChanged()));
+            connect(m_midiParamSpin, SIGNAL(valueChanged(int)),
+                this, SLOT(slotMidiChanged()));
+        }
+        else
+        {
+            m_midiGroup->hide();
+            adjustSize();
+        }
     }
     else
     {
         /* Multiple channels are being edited. Disable the channel
            number spin. */
         m_numberSpin->setEnabled(false);
+        m_midiGroup->hide();
+        adjustSize();
     }
 }
 
@@ -116,6 +148,19 @@ QLCInputChannel::Type InputChannelEditor::type() const
 void InputChannelEditor::slotNumberChanged(int number)
 {
     m_channel = number - 1;
+
+    int midiChannel = 0;
+    int midiMessage = 0;
+    int midiParam = 0;
+
+    numberToMidi(m_channel, midiChannel, midiMessage, midiParam);
+
+    m_midiChannelSpin->setValue(midiChannel);
+    m_midiMessageCombo->setCurrentIndex(midiMessage);
+    if (midiParam > 0)
+        m_midiParamSpin->setValue(midiParam);
+
+    enableMidiParam(midiMessage, midiParam);
 }
 
 void InputChannelEditor::slotNameEdited(const QString& text)
@@ -127,3 +172,160 @@ void InputChannelEditor::slotTypeActivated(const QString& text)
 {
     m_type = QLCInputChannel::stringToType(text);
 }
+
+/****************************************************************************
+ * MIDI
+ ****************************************************************************/
+
+void InputChannelEditor::numberToMidi(int number, int & channel, int & message, int & param)
+{
+    channel = number / KMidiChannelOffset + 1;
+    number = number % KMidiChannelOffset;
+    if (number <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
+    {
+        message = KMidiMessageCC;
+        param = number - CHANNEL_OFFSET_CONTROL_CHANGE + 1;
+    } 
+    else if (number <= CHANNEL_OFFSET_NOTE_MAX)
+    {
+        message = KMidiMessageNoteOnOff;
+        param = number - CHANNEL_OFFSET_NOTE + 1;
+    } 
+    else if (number <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
+    {
+        message = KMidiMessageNoteAftertouch;
+        param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH + 1;
+    } 
+    else if (number <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
+    {
+        message = KMidiMessagePC;
+        param = number - CHANNEL_OFFSET_PROGRAM_CHANGE + 1;
+    } 
+    else if (number == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
+    {
+        message = KMidiMessageChannelAftertouch;
+        param = 0;
+    } 
+    else if (number == CHANNEL_OFFSET_MBC_PLAYBACK)
+    {
+        message = KMidiMessageMBCPlayback;
+        param = 0;
+    } 
+    else // if (number == CHANNEL_OFFSET_MBC_BEAT)
+    {
+        message = KMidiMessageMBCBeat;
+        param = 0;
+    } 
+}
+
+int InputChannelEditor::midiToNumber(int channel, int message, int param)
+{
+    switch (message)
+    {
+    case KMidiMessageCC:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + (param - 1);
+    case KMidiMessageNoteOnOff:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE + (param - 1);
+    case KMidiMessageNoteAftertouch:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + (param - 1);
+    case KMidiMessagePC:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE + (param - 1);
+    case KMidiMessageChannelAftertouch:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CHANNEL_AFTERTOUCH;
+    case KMidiMessagePitchWheel:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PITCH_WHEEL;
+    case KMidiMessageMBCPlayback:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_PLAYBACK;
+    case KMidiMessageMBCBeat:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_BEAT;
+    default:
+        return 0;
+    }
+}
+
+void InputChannelEditor::slotMidiChanged()
+{
+    int midiChannel = m_midiChannelSpin->value();
+    int midiMessage = m_midiMessageCombo->currentIndex();
+    int midiParam = m_midiParamSpin->value();
+
+    enableMidiParam(midiMessage, midiParam);
+
+    m_channel = midiToNumber(midiChannel, midiMessage, midiParam);
+    m_numberSpin->setValue(m_channel + 1);
+}
+
+void InputChannelEditor::enableMidiParam(int midiMessage, int midiParam)
+{
+    switch (midiMessage)
+    {
+    case KMidiMessageNoteOnOff:
+    case KMidiMessageNoteAftertouch:
+        m_midiParamLabel->setEnabled(true);
+        m_midiParamSpin->setEnabled(true);
+
+        m_midiNoteLabel->setEnabled(true);
+        m_midiNote->setEnabled(true);
+        m_midiNote->setText(noteToString(midiParam));
+        break;
+
+    case KMidiMessageCC:
+    case KMidiMessagePC:
+        m_midiParamLabel->setEnabled(true);
+        m_midiParamSpin->setEnabled(true);
+
+        m_midiNoteLabel->setEnabled(false);
+        m_midiNote->setEnabled(false);
+        m_midiNote->setText("--");
+        break;
+
+    case KMidiMessageChannelAftertouch:
+    case KMidiMessagePitchWheel:
+    case KMidiMessageMBCPlayback:
+    case KMidiMessageMBCBeat:
+        m_midiParamLabel->setEnabled(false);
+        m_midiParamSpin->setEnabled(false);
+
+        m_midiNoteLabel->setEnabled(false);
+        m_midiNote->setEnabled(false);
+        m_midiNote->setText("--");
+        break;
+    }
+}
+
+QString InputChannelEditor::noteToString(int note)
+{
+    int octave = (note - 1) / 12 - 1;
+    int pitch = (note - 1) % 12;
+
+    switch(pitch)
+    {
+    case 0:
+        return QString("C%1").arg(octave);
+    case 1:
+        return QString("C#%1").arg(octave);
+    case 2:
+        return QString("D%1").arg(octave);
+    case 3:
+        return QString("D#%1").arg(octave);
+    case 4:
+        return QString("E%1").arg(octave);
+    case 5:
+        return QString("F%1").arg(octave);
+    case 6:
+        return QString("F#%1").arg(octave);
+    case 7:
+        return QString("G%1").arg(octave);
+    case 8:
+        return QString("G#%1").arg(octave);
+    case 9:
+        return QString("A%1").arg(octave);
+    case 10:
+        return QString("A#%1").arg(octave);
+    case 11:
+        return QString("B%1").arg(octave);
+    default:
+        return "--";
+    }
+}
+
