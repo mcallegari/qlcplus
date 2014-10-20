@@ -3,9 +3,10 @@
 
 
 #define HTML_HEADER \
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" \
-    "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" \
-    "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+	"<!DOCTYPE html>\n" \
+    "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" >\n" \
+	"<title>QLC+ Webaccess</title>\n"
+
 
 #define WEBSOCKET_JS \
     "var websocket;\n" \
@@ -41,9 +42,9 @@
     "    setCueIndex(msgParams[0], msgParams[2]);\n" \
     "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
     "    if (msgParams[2] == \"-1\")\n" \
-    "      playBbj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n" \
+    "      playBbj.innerHTML = \"<img src=\\\"player_play.png\\\" width=\\\"27\\\">\";\n" \
     "    else\n" \
-    "      playBbj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n" \
+    "      playBbj.innerHTML = \"<img src=\\\"player_stop.png\\\" width=\\\"27\\\">\";\n" \
     "  }\n" \
     "  else if (msgParams[1] == \"FRAME\") {\n" \
     "    setFramePage(msgParams[0], msgParams[2]);\n" \

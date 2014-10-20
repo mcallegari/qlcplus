@@ -1044,7 +1044,7 @@ void VCCueList::editProperties()
 
 QString VCCueList::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             ".vccuelist {\n"
             "position: absolute;\n"
             "border: 1px solid #777777;\n"
@@ -1126,11 +1126,11 @@ QString VCCueList::getJS()
       " if (cmd == \"PLAY\") {\n"
       "   var obj = document.getElementById(\"play\" + id);\n"
       "   if (cueListsIndices[id] == -1) {\n"
-      "     obj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
+      "     obj.innerHTML = \"<img src=\\\"player_stop.png\\\" width=\\\"27\\\">\";\n"
       "     setCueIndex(id, 0);\n"
       "   }\n"
       "   else {\n"
-      "     obj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n"
+      "     obj.innerHTML = \"<img src=\\\"player_play.png\\\" width=\\\"27\\\">\";\n"
       "     setCueIndex(id, -1);\n"
       "   }\n"
       " }\n"
@@ -1147,7 +1147,7 @@ QString VCCueList::getJS()
 
       "function enableCue(id, idx) {\n"
       " var btnObj = document.getElementById(\"play\" + id);\n"
-      " btnObj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
+      " btnObj.innerHTML = \"<img src=\\\"player_stop.png\\\" width=\\\"27\\\">\";\n"
       " setCueIndex(id, idx);\n"
       " websocket.send(id + \"|STEP|\" + idx);\n"
       "}\n";

@@ -722,7 +722,7 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
 
 QString VCWidget::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             ".vcwidget {\n"
             "position: absolute;\n"
             "border: 1px solid #777777;\n"

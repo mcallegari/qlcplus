@@ -196,7 +196,7 @@ QString WebAccessNetwork::getNetworkHTML()
 
 QString WebAccessNetwork::getHTML()
 {
-    QString m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    QString m_JScode = "<script type=\"text/javascript\">\n" WEBSOCKET_JS;
     m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)\n"
             "{\n"
             " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw + \"|\" + ssid + \"|\" + wpapsk);\n"
@@ -241,7 +241,7 @@ QString WebAccessNetwork::getHTML()
 
     m_JScode += "</script>\n";
 
-    QString m_CSScode = "<style>\n"
+    QString m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "html { height: 100%; background-color: #111; }\n"
             "body {\n"
             " margin: 0px;\n"

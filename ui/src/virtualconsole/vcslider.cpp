@@ -1301,7 +1301,7 @@ void VCSlider::adjustIntensity(qreal val)
 
 QString VCSlider::getCSS()
 {
-    QString str = "<style>\n"
+    QString str = "<style type=\"text/css\" media=\"screen\">\n"
             ".vcslider {\n"
             "position: absolute;\n"
             "border: 1px solid #777777;\n"

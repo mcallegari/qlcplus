@@ -239,14 +239,14 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
 
 QString WebAccessConfiguration::getHTML(Doc *doc)
 {
-    QString m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    QString m_JScode = "<script  type=\"text/javascript\">\n" WEBSOCKET_JS;
     m_JScode += "function ioChanged(cmd, uni, val)\n"
             "{\n"
             " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
             "};\n\n";
     m_JScode += "</script>\n";
 
-    QString m_CSScode = "<style>\n"
+    QString m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
             "html { height: 100%; background-color: #111; }\n"
             "body {\n"
             " margin: 0px;\n"
@@ -271,8 +271,8 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
 
     QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
                        "<input id=\"loadTrigger\" type=\"file\" "
-                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
-                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\">\n"
+                       "<input id=\"submitTrigger\" type=\"submit\"></form>"
 
                        "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n" +
