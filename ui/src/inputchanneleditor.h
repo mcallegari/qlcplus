@@ -23,6 +23,7 @@
 #include <QDialog>
 
 #include "qlcinputchannel.h"
+#include "qlcinputprofile.h"
 #include "ui_inputchanneleditor.h"
 
 class QLCInputChannel;
@@ -42,7 +43,8 @@ class InputChannelEditor : public QDialog, public Ui_InputChannelEditor
 public:
     InputChannelEditor(QWidget* parent,
                        const QLCInputProfile* profile,
-                       const QLCInputChannel* channel);
+                       const QLCInputChannel* channel,
+                       QLCInputProfile::Type profileType);
     virtual ~InputChannelEditor();
 
     /********************************************************************

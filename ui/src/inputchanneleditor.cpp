@@ -46,7 +46,8 @@
 
 InputChannelEditor::InputChannelEditor(QWidget* parent,
                                        const QLCInputProfile* profile,
-                                       const QLCInputChannel* channel)
+                                       const QLCInputChannel* channel,
+                                       QLCInputProfile::Type profileType)
         : QDialog(parent)
 {
     m_channel = 0;
@@ -92,10 +93,11 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
         m_nameEdit->setText(channel->name());
 
         /* Channel type */
+        m_type = channel->type();
         type = QLCInputChannel::typeToString(channel->type());
         m_typeCombo->setCurrentIndex(m_typeCombo->findText(type));
 
-        if (profile->type() == QLCInputProfile::Midi)
+        if (profileType == QLCInputProfile::Midi)
         {
             slotNumberChanged(m_numberSpin->value());
 

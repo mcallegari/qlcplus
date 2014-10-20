@@ -188,7 +188,7 @@ void InputProfileEditor::accept()
 
     m_profile->setManufacturer(m_manufacturerEdit->text());
     m_profile->setModel(m_modelEdit->text());
-    m_profile->setType(static_cast<QLCInputProfile::Type>(m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt()));
+    m_profile->setType(currentProfileType());
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||
@@ -210,7 +210,7 @@ void InputProfileEditor::accept()
 void InputProfileEditor::slotAddClicked()
 {
     QLCInputChannel* channel = new QLCInputChannel();
-    InputChannelEditor ice(this, m_profile, channel);
+    InputChannelEditor ice(this, m_profile, channel, currentProfileType());
 add:
     if (ice.exec() == QDialog::Accepted)
     {
@@ -300,7 +300,7 @@ void InputProfileEditor::slotEditClicked()
         Q_ASSERT(channel != NULL);
 
         /* Edit the channel and update its item if necessary */
-        InputChannelEditor ice(this, m_profile, channel);
+        InputChannelEditor ice(this, m_profile, channel, currentProfileType());
 edit:
         if (ice.exec() == QDialog::Accepted)
         {
@@ -331,7 +331,7 @@ edit:
     else if (m_tree->selectedItems().count() > 1)
     {
         /* Multiple channels selected. Apply changes to all of them */
-        InputChannelEditor ice(this, NULL, NULL);
+        InputChannelEditor ice(this, NULL, NULL, QLCInputProfile::Dmx);
         if (ice.exec() == QDialog::Accepted)
         {
             QListIterator <QTreeWidgetItem*>
@@ -563,4 +563,9 @@ void InputProfileEditor::slotTimerTimeout()
 const QLCInputProfile* InputProfileEditor::profile() const
 {
     return m_profile;
+}
+
+QLCInputProfile::Type InputProfileEditor::currentProfileType() const
+{
+    return static_cast<QLCInputProfile::Type>(m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt());
 }
