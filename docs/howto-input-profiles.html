@@ -61,16 +61,28 @@ same in both cases from now on.</B>
 <H2>Input Profile Editor</H2>
 
 <P>
-A dialog is opened with entry fields for <u>Manufacturer</u> and <u>Model</u>.
+A dialog is opened with entry fields for <u>Manufacturer</u>, <u>Model</u> and <u>Type</u>.
 </P>
 
 <P>
-<B>Enter the profile's manufacturer and the model to these fields and 
-then click the <u>Channels</u> tab to edit the profile's channels.</B>
+<B>First enter the profile's manufacturer and the model to these fields and select profile type.</B>
+</P>
+
+<P><B>Type</b> is one of:
+<UL>
+<LI>MIDI - for MIDI profiles, usually used with <A HREF="file:midiplugin.html">MIDI plugin</A></LI>
+<LI>OSC - for OSC profiles, used with <A HREF="file:oscplugin.html">OSC plugin</A></LI>
+<LI>HID - for HID profiles, used with <A HREF="file:hidplugin.html">HID plugin</A></LI>
+<LI>DMX - generic DMX profiles</LI>
+<LI>ENTTEC - ENTTEC Wing profiles, used with Enttec Wing plugin</LI>
+</UL>
+
+So far, the only difference is that MIDI profiles show MIDI message parameters in the channel editor.
 </P>
 
 <P>
-Now you have two choices for adding channel definitions: <u>Manual</u> and <u>Automatic</u>:
+<B>Now click the <u>Channels</u> tab to edit the profile's channels.</B>
+You have two choices for adding channel definitions: <u>Manual</u> and <u>Automatic</u>:
 </P>
 <HR>
 <P>
@@ -115,6 +127,17 @@ will be displayed, asking you to fill or change some parameters:
    <IMG SRC="qrc:/star.png" ALIGN="absmiddle"> Set Page were used for Multipage frames.
  </li>
 </ul>
+</P>
+<P>
+For MIDI profiles the dialog contains additional fields:
+<UL>
+<LI>Channel</LI>
+<LI>Message</LI>
+<LI>Param</LI>
+<LI>Note</LI>
+</UL>
+where you can enter the channel specification (which translates to channel number) in a more intuitive way.
+</P>
 <BR>
 <b>Note that you cannot add the same channel multiple times to one profile.</b>
 </P>
