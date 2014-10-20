@@ -465,7 +465,7 @@ void QLCFixtureEditor::slotRemoveChannel()
     Q_ASSERT(channel != NULL);
 
     if (QMessageBox::question(this, "Remove Channel",
-                              tr("Are you sure you wish to remove channel: %1")
+                              tr("Are you sure you wish to remove channel: %1 ?")
                               .arg(channel->name()),
                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
     {
@@ -781,7 +781,7 @@ void QLCFixtureEditor::slotRemoveMode()
     QLCFixtureMode* mode = currentMode();
 
     if (QMessageBox::question(this, tr("Remove Mode"),
-                              tr("Are you sure you wish to remove mode: %1").arg(mode->name()),
+                              tr("Are you sure you wish to remove mode: %1 ?").arg(mode->name()),
                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
     {
         m_fixtureDef->removeMode(mode);
