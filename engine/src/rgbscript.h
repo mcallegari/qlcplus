@@ -66,8 +66,13 @@ public:
 private:
     static QScriptEngine* s_engine; //! The engine that runs all scripts
     static QMutex* s_engineMutex;   //! Protection
+    static QMap<QString, RGBScript*>* s_scriptsMap; //! One instance of each script, filename-based map
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
+
+private:
+    /** Init engine, engine mutex, and scripts map */
+    static void initEngine();
 
     /************************************************************************
      * RGBAlgorithm API
@@ -114,10 +119,10 @@ public:
     static QStringList scriptNames(const Doc * doc);
 
     /** Get available (user, system and custom) scripts */
-    static QList <RGBScript> scripts(const Doc * doc);
+    static QList <RGBScript*> scripts(const Doc * doc);
 
-    /** Get available scripts from the given directory path */
-    static QList <RGBScript> scripts(const Doc * doc, const QDir& path);
+    /** Load available scripts from the given directory path */
+    static void loadScripts(const Doc * doc, const QDir& path);
 
     /** The system RGBScript directory */
     static QDir systemScriptDirectory();

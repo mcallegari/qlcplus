@@ -93,7 +93,7 @@ void RGBScript_Test::scripts()
     QVERIFY(dir.entryList().size() > 0);
 
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QList <RGBScript> list = RGBScript::scripts(m_doc);
+    QList <RGBScript*> list = RGBScript::scripts(m_doc);
     QVERIFY(list.size() >= 0);
 }
 
