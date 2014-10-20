@@ -9,6 +9,7 @@ profiles.files += Akai-APCMini.qxi
 profiles.files += Behringer-BCF2000.qxi
 profiles.files += Behringer-BCF2000inMackieControlMode.qxi
 profiles.files += Behringer-LC2412.qxi
+profiles.file  += Elation-MIDIcon.qxi
 profiles.files += Enttec-PlaybackWing.qxi
 profiles.files += Enttec-ShortcutWing.qxi
 profiles.files += KORG-nanoKONTROL.qxi
