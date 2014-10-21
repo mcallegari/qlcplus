@@ -183,8 +183,8 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &u
     dmx.clear();
     //char sequence = data.at(12);
     //qDebug() << "Sequence: " << sequence;
-    // phisycal skipped
-    universe = (data.at(13) << 8) + data.at(14);
+    // physical skipped
+    universe = (data.at(14) << 8) + data.at(13);
     if (universe > 0)
         universe--;
     // net skipped
