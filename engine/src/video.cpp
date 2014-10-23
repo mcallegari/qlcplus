@@ -18,6 +18,7 @@
 */
 
 #include <QDesktopWidget>
+#include <QMediaPlayer>
 #include <QApplication>
 #include <QDomDocument>
 #include <QVideoWidget>
@@ -66,6 +67,11 @@ Video::~Video()
         m_videoPlayer->stop();
         delete m_videoPlayer;
     }
+    if (m_videoWidget != NULL)
+    {
+        m_videoWidget->deleteLater();
+        m_videoWidget = NULL;
+    }
 }
 
 /*****************************************************************************
@@ -106,10 +112,29 @@ bool Video::copyFrom(const Function* function)
 
 QStringList Video::getCapabilities()
 {
-    QStringList caps = QMediaPlayer::supportedMimeTypes();
+    QStringList caps;
+    QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
     qDebug() << "Supported video types:" << caps;
-    if (caps.isEmpty())
-        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg";
+    if (mimeTypes.isEmpty())
+        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+    else
+    {
+        foreach(QString mime, mimeTypes)
+        {
+            if (mime.startsWith("video/"))
+            {
+                if (mime.endsWith("/3gpp")) caps << "*.3gp";
+                else if (mime.endsWith("/mp4")) caps << "*.mp4";
+                else if (mime.endsWith("/avi")) caps << "*.avi";
+                else if (mime.endsWith("/m2ts")) caps << "*.m2ts";
+                else if (mime.endsWith("m4v")) caps << "*.m4v";
+                else if (mime.endsWith("/mpeg")) caps << "*.mpeg";
+                else if (mime.endsWith("/mpg")) caps << "*.mpg";
+                else if (mime.endsWith("/quicktime")) caps << "*.mov";
+                else if (mime.endsWith("matroska")) caps << "*.mkv";
+            }
+        }
+    }
     return caps;
 }
 
@@ -177,15 +202,30 @@ bool Video::isLocked()
 
 bool Video::setSourceFileName(QString filename)
 {
+    if (!m_sourceFileName.isEmpty())
+    {
+        if (m_videoWidget != NULL)
+        {
+            //m_videoWidget->deleteLater();
+            delete m_videoWidget;
+            m_videoWidget = NULL;
+        }
+        if (m_videoPlayer != NULL)
+        {
+            delete m_videoPlayer;
+            m_videoPlayer = NULL;
+        }
+    }
+
     m_sourceFileName = filename;
     qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceFileName;
 
     if (QFile(m_sourceFileName).exists())
     {
         setName(QFileInfo(m_sourceFileName).fileName());
-        m_videoPlayer = new QMediaPlayer(0, QMediaPlayer::VideoSurface);
-        m_videoWidget = new QVideoWidget;
-        m_videoPlayer->setVideoOutput(m_videoWidget);
+        m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
+        m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
+
         connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
                 this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
         connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
@@ -230,8 +270,8 @@ bool Video::fullscreen()
 
 void Video::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    //if (m_video_out != NULL && attributeIndex == Intensity)
-    //    m_video_out->adjustIntensity(fraction);
+    if (m_videoWidget != NULL)
+        m_videoWidget->setBrightness(-100.0 * fraction);
     Function::adjustAttribute(fraction, attributeIndex);
 }
 
@@ -255,15 +295,14 @@ void Video::slotStatusChanged(QMediaPlayer::MediaStatus status)
         case QMediaPlayer::EndOfMedia:
         {
             if (m_videoPlayer != NULL)
-            {
                 m_videoPlayer->stop();
-                m_videoWidget->hide();
-                /*m_videoWidget->deleteLater();
-                delete m_videoWidget;
-                m_videoWidget = NULL;
 
-                delete m_videoPlayer;
-                m_videoPlayer = NULL;*/
+            if (m_videoWidget != NULL)
+            {
+                m_videoWidget->hide();
+                m_videoWidget->deleteLater();
+                //delete m_videoWidget;
+                m_videoWidget = NULL;
             }
             Function::postRun(NULL, QList<Universe *>());
             break;
@@ -395,18 +434,27 @@ void Video::postLoad()
  *********************************************************************/
 void Video::preRun(MasterTimer* timer)
 {
+    m_videoWidget = new QVideoWidget;
+    //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
+    m_videoPlayer->setVideoOutput(m_videoWidget);
+
     if (m_startTime != UINT_MAX)
         m_videoPlayer->setPosition(m_startTime);
+
+    if (m_resolution.isEmpty() && m_fullscreen == false)
+        m_videoWidget->setGeometry(0, 0, 640, 480);
+
     if (m_screen > 0 && getScreenCount() > m_screen)
     {
         QRect rect = qApp->desktop()->screenGeometry(m_screen);
         m_videoWidget->move(rect.topLeft());
     }
+
+    m_videoWidget->show();
+
     if (m_fullscreen == true)
         m_videoWidget->setFullScreen(true);
 
-    //m_videoWidget->setGeometry(0, 0, 640, 480);
-    m_videoWidget->show();
     //m_videoPlayer->setVideoOutput(m_videoWidget);
 
     m_videoPlayer->play();
