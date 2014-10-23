@@ -183,6 +183,9 @@ void VCAudioTriggers::enableCapture(bool enable)
 
         m_inputCapture->start();
         m_button->setChecked(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_volumeSlider->setEnabled(true);
+#endif
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
     }
