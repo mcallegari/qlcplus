@@ -49,8 +49,8 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     setFrameStyle(KVCFrameStyleSunken);
 
     QHBoxLayout *hBox = new QHBoxLayout(this);
-    hBox->setContentsMargins(3, 3, 3, 10);
-    hBox->setSpacing(5);
+    //hBox->setContentsMargins(3, 3, 3, 10);
+    //hBox->setSpacing(5);
 
     m_slider = new ClickAndGoSlider();
     m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
@@ -377,6 +377,9 @@ void VCMatrix::slotCustomControlClicked()
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
+            m_presetCombo->blockSignals(true);
+            m_presetCombo->setCurrentText(control->m_resource);
+            m_presetCombo->blockSignals(false);
         }
         else if (control->m_type == VCMatrixControl::Text)
         {
