@@ -44,6 +44,7 @@ Video::Video(Doc* doc)
   : Function(doc, Function::Video)
   , m_doc(doc)
   , m_videoPlayer(NULL)
+  , m_videoWidget(NULL)
   , m_startTime(UINT_MAX)
   , m_color(147, 140, 20)
   , m_locked(false)
@@ -225,6 +226,9 @@ bool Video::setSourceFileName(QString filename)
         setName(QFileInfo(m_sourceFileName).fileName());
         m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
         m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
+        m_videoWidget = new QVideoWidget;
+        //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
+        m_videoPlayer->setVideoOutput(m_videoWidget);
 
         connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
                 this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
@@ -270,8 +274,14 @@ bool Video::fullscreen()
 
 void Video::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_videoWidget != NULL)
-        m_videoWidget->setBrightness(-100.0 * fraction);
+    if (attributeIndex == Function::Intensity)
+    {
+        if (m_videoWidget != NULL)
+        {
+            int b = -100 - (int)((qreal)-100.0 * fraction);
+            m_videoWidget->setBrightness(b);
+        }
+    }
     Function::adjustAttribute(fraction, attributeIndex);
 }
 
@@ -300,9 +310,8 @@ void Video::slotStatusChanged(QMediaPlayer::MediaStatus status)
             if (m_videoWidget != NULL)
             {
                 m_videoWidget->hide();
-                m_videoWidget->deleteLater();
-                //delete m_videoWidget;
-                m_videoWidget = NULL;
+                //m_videoWidget->deleteLater();
+                //m_videoWidget = NULL;
             }
             Function::postRun(NULL, QList<Universe *>());
             break;
@@ -324,11 +333,7 @@ void Video::slotMetaDataChanged(QString key, QVariant data)
 {
     qDebug() << Q_FUNC_INFO << "Got meta data:" << key;
     if (key == "Resolution")
-    {
         m_resolution = data.toSize();
-        if (m_videoWidget != NULL)
-            m_videoWidget->setGeometry(0, 0, m_resolution.width(), m_resolution.height());
-    }
     else if (key == "VideoCodec")
         m_videoCodec = data.toString();
     else if (key == "AudioCodec")
@@ -434,15 +439,16 @@ void Video::postLoad()
  *********************************************************************/
 void Video::preRun(MasterTimer* timer)
 {
-    m_videoWidget = new QVideoWidget;
-    //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
-    m_videoPlayer->setVideoOutput(m_videoWidget);
-
     if (m_startTime != UINT_MAX)
         m_videoPlayer->setPosition(m_startTime);
 
-    if (m_resolution.isEmpty() && m_fullscreen == false)
-        m_videoWidget->setGeometry(0, 0, 640, 480);
+    if (m_fullscreen == false)
+    {
+        if (m_resolution.isEmpty())
+            m_videoWidget->setGeometry(0, 0, 640, 480);
+        else
+            m_videoWidget->setGeometry(0, 0, m_resolution.width(), m_resolution.height());
+    }
 
     if (m_screen > 0 && getScreenCount() > m_screen)
     {
@@ -450,12 +456,10 @@ void Video::preRun(MasterTimer* timer)
         m_videoWidget->move(rect.topLeft());
     }
 
-    m_videoWidget->show();
-
     if (m_fullscreen == true)
         m_videoWidget->setFullScreen(true);
 
-    //m_videoPlayer->setVideoOutput(m_videoWidget);
+    m_videoWidget->show();
 
     m_videoPlayer->play();
     Function::preRun(timer);
