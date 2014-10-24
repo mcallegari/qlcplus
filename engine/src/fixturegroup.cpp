@@ -184,13 +184,8 @@ bool FixtureGroup::resignHead(const QLCPoint& pt)
 
 void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
 {
-    GroupHead ah;
-    GroupHead bh;
-
-    if (m_heads.contains(a) == true)
-        ah = m_heads[a];
-    if (m_heads.contains(b) == true)
-        bh = m_heads[b];
+    GroupHead ah = m_heads.value(a);
+    GroupHead bh = m_heads.value(b);
 
     if (ah.isValid() == true)
         m_heads[b] = ah;
@@ -207,10 +202,7 @@ void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
 
 GroupHead FixtureGroup::head(const QLCPoint& pt) const
 {
-    if (m_heads.contains(pt) == true)
-        return m_heads[pt];
-    else
-        return GroupHead();
+    return m_heads.value(pt);
 }
 
 QList <GroupHead> FixtureGroup::headList() const
