@@ -702,9 +702,10 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
     // To create a nice and smooth fade, get the starting value from
     // m_fader's existing FadeChannel (if any). Otherwise just assume
     // we're starting from zero.
-    if (m_fader->channels().contains(fc) == true)
+    QHash <FadeChannel,FadeChannel>::const_iterator oldChannelIterator = m_fader->channels().find(fc);
+    if (oldChannelIterator != m_fader->channels().end())
     {
-        FadeChannel old = m_fader->channels()[fc];
+        FadeChannel old = oldChannelIterator.value();
         fc.setCurrent(old.current());
         fc.setStart(old.current());
     }
