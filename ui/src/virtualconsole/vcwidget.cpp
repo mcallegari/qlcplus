@@ -716,28 +716,6 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
     emit keyReleased(keySequence);
 }
 
-/*********************************************************************
- * Web access
- *********************************************************************/
-
-QString VCWidget::getCSS()
-{
-    QString str = "<style type=\"text/css\" media=\"screen\">\n"
-            ".vcwidget {\n"
-            "position: absolute;\n"
-            "border: 1px solid #777777;\n"
-            "border-radius: 3px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "}\n"
-            "</style>";
-    return str;
-}
-
-QString VCWidget::getJS()
-{
-    return QString();
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

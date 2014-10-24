@@ -285,12 +285,6 @@ public:
      * Web access
      *********************************************************************/
 public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
-
     /** Play a specific cue at the given index */
     void playCueAtIndex(int idx);
 

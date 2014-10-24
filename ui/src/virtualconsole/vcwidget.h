@@ -468,16 +468,6 @@ signals:
     void keyReleased(const QKeySequence& keySequence);
 
     /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** Return a string with the CSS style of a widget */
-    virtual QString getCSS();
-
-    /** Return the Javascript code related to the widget */
-    virtual QString getJS();
-
-    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

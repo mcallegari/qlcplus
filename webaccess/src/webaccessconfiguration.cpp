@@ -239,29 +239,24 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
 
 QString WebAccessConfiguration::getHTML(Doc *doc)
 {
-    QString m_JScode = "<script  type=\"text/javascript\">\n" WEBSOCKET_JS;
+    QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
+    m_JScode += "<script  type=\"text/javascript\">\n";
     m_JScode += "function ioChanged(cmd, uni, val)\n"
             "{\n"
             " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
             "};\n\n";
     m_JScode += "</script>\n";
 
-    QString m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
-            "html { height: 100%; background-color: #111; }\n"
-            "body {\n"
-            " margin: 0px;\n"
-            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
-            "}\n"
-            HIDDEN_FORM_CSS
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            TABLE_CSS
-            "</style>\n";
+    QString m_CSScode =
+                 "<style type=\"text/css\" media=\"screen\">\n"
+                 "html { height: 100%; background-color: #111; }\n"
+                 "body {\n"
+                 " margin: 0px;\n"
+                 " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
+                 " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 "}\n"
+                 "</style>\n"
+                 "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
 
     QString extraButtons = "";
     if (QLCFile::isRaspberry() == true)

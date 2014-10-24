@@ -6,11 +6,11 @@ TARGET   = qlcplus
 
 INCLUDEPATH  += ../ui/src ../ui/src/virtualconsole
 INCLUDEPATH  += ../engine/src
-INCLUDEPATH  += ../webaccess
+INCLUDEPATH  += ../webaccess/src
 
 QMAKE_LIBDIR += ../ui/src
 QMAKE_LIBDIR += ../engine/src
-QMAKE_LIBDIR += ../webaccess
+QMAKE_LIBDIR += ../webaccess/src
 LIBS         += -lqlcplusengine
 LIBS         += -lqlcplusui
 LIBS         += -lqlcpluswebaccess

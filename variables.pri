@@ -141,3 +141,8 @@ macx:RGBSCRIPTDIR       = $$DATADIR/RGBScripts
 win32:USERRGBSCRIPTDIR      = $$USERDATADIR/RGBScripts
 unix:!macx:USERRGBSCRIPTDIR = $$USERDATADIR/rgbscripts
 macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
+
+# RGB Scripts
+win32:WEBFILESDIR      = Web
+unix:!macx:WEBFILESDIR = $$DATADIR/web
+macx:WEBFILESDIR       = $$DATADIR/Web

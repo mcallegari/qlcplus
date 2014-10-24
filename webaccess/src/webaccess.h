@@ -52,6 +52,7 @@ public:
 
 private:
     QString loadXMLPost(struct mg_connection *conn, QString &filename);
+    bool sendFile(struct mg_connection *conn, QString filename, QString contentType);
     QString getWidgetHTML(VCWidget *widget);
     QString getFrameHTML(VCFrame *frame);
     QString getSoloFrameHTML(VCSoloFrame *frame);
@@ -80,18 +81,6 @@ protected slots:
 protected:
     QString m_JScode;
     QString m_CSScode;
-
-    bool m_genericFound;
-    bool m_buttonFound;
-    bool m_frameFound;
-    bool m_soloFrameFound;
-    bool m_labelFound;
-    bool m_cueListFound;
-    bool m_sliderFound;
-    bool m_knobFound;
-    bool m_xyPadFound;
-    bool m_speedDialFound;
-    bool m_audioTriggersFound;
 
 protected:
     Doc *m_doc;

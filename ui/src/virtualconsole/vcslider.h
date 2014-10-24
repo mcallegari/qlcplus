@@ -529,16 +529,6 @@ public:
     /** @reimp */
     void adjustIntensity(qreal val);
 
-    /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
-
 signals:
     void valueChanged(QString val);
 

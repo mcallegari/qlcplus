@@ -151,20 +151,32 @@ QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
     return XMLdata;
 }
 
+bool WebAccess::sendFile(mg_connection *conn, QString filename, QString contentType)
+{
+    QFile resFile(filename);
+    if (resFile.open(QIODevice::ReadOnly))
+    {
+        QByteArray resContent = resFile.readAll();
+        qDebug() << "Resource file lenght:" << resContent.length();
+        resFile.close();
+        QString head = "HTTP/1.1 200 OK\r\n";
+        head += "Content-Type: " + contentType + "\r\n";
+        head += "Content-Length: %d\r\n\r\n";
+        mg_printf(conn, head.toLatin1().data(),
+                  resContent.length());
+        mg_write(conn, resContent.data(), resContent.length());
+        mg_write(conn, "\r\n", 2);
+        return true;
+    }
+    else
+        qDebug() << "Failed to open file:" << filename;
+
+    return false;
+}
+
 // This function will be called by mongoose on every new request.
 mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 {
-  m_genericFound = false;
-  m_buttonFound = false;
-  m_frameFound = false;
-  m_soloFrameFound = false;
-  m_labelFound = false;
-  m_cueListFound = false;
-  m_sliderFound = false;
-  m_knobFound = false;
-  m_xyPadFound = false;
-  m_speedDialFound = false;
-  m_audioTriggersFound = false;
 
   QString content;
 
@@ -241,23 +253,20 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   }
   else if (QString(conn->uri).endsWith(".png"))
   {
-      QFile imgFile(QString(":%1").arg(QString(conn->uri)));
-      if (imgFile.open(QIODevice::ReadOnly))
-      {
-          QByteArray imgContent = imgFile.readAll();
-          qDebug() << "IMG file lenght:" << imgContent.length();
-          imgFile.close();
-          mg_printf(conn,
-                    "HTTP/1.1 200 OK\r\n"
-                    "Content-Type: image/png\r\n"
-                    "Content-Length: %d\r\n\r\n",
-                    imgContent.length());
-          mg_write(conn, imgContent.data(), imgContent.length());
-          mg_write(conn, "\r\n", 2);
+      if (sendFile(conn, QString(":%1").arg(QString(conn->uri)), "image/png") == true)
           return MG_TRUE;
-      }
-      else
-        qDebug() << "Failed to open file";
+  }
+  else if (QString(conn->uri).endsWith(".css"))
+  {
+      QString clUri = QString(conn->uri).mid(1);
+      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/css") == true)
+          return MG_TRUE;
+  }
+  else if (QString(conn->uri).endsWith(".js"))
+  {
+      QString clUri = QString(conn->uri).mid(1);
+      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+          return MG_TRUE;
   }
   else if (QString(conn->uri) != "/")
       return MG_TRUE;
@@ -646,12 +655,6 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
 
 QString WebAccess::getWidgetHTML(VCWidget *widget)
 {
-    if (m_genericFound == false)
-    {
-        m_CSScode += widget->getCSS();
-        m_genericFound = true;
-    }
-
     QString str = "<div class=\"vcwidget\" style=\""
             "left: " + QString::number(widget->x()) + "px; "
             "top: " + QString::number(widget->y()) + "px; "
@@ -684,13 +687,7 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
           "px; height: " + QString::number(frame->height()) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
           "border: 1px solid " + border.name() + ";\">\n";
-    if (m_frameFound == false)
-    {
-        if (m_soloFrameFound == false)
-            m_JScode += frame->getJS();
-        m_CSScode += frame->getCSS();
-        m_frameFound = true;
-    }
+
     if (frame->isHeaderVisible())
     {
         str += "<div class=\"vcframeHeader\" style=\"color:" +
@@ -731,13 +728,7 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
           "px; height: " + QString::number(frame->height()) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
           "border: 1px solid " + border.name() + ";\">\n";
-    if (m_soloFrameFound == false)
-    {
-        if (m_frameFound == false)
-            m_JScode += frame->getJS();
-        m_CSScode += frame->getCSS();
-        m_soloFrameFound = true;
-    }
+
     if (frame->isHeaderVisible())
     {
         str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
@@ -783,13 +774,6 @@ void WebAccess::slotButtonToggled(bool on)
 
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
-    if (m_buttonFound == false)
-    {
-        m_JScode += btn->getJS();
-        m_CSScode += btn->getCSS();
-        m_buttonFound = true;
-    }
-
     QString onCSS = "";
     if (btn->isOn())
         onCSS = "border: 3px solid #00E600;";
@@ -823,13 +807,6 @@ void WebAccess::slotSliderValueChanged(QString val)
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
-    if (m_sliderFound == false)
-    {
-        m_JScode += slider->getJS();
-        m_CSScode += slider->getCSS();
-        m_sliderFound = true;
-    }
-
     QString slID = QString::number(slider->id());
 
     QString str = "<div class=\"vcslider\" style=\""
@@ -865,12 +842,6 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
 QString WebAccess::getLabelHTML(VCLabel *label)
 {
-    if (m_labelFound == false)
-    {
-        m_CSScode += label->getCSS();
-        m_labelFound = true;
-    }
-
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(label->x()) + "px; "
             "top: " + QString::number(label->y()) + "px;\">\n";
@@ -886,13 +857,6 @@ QString WebAccess::getLabelHTML(VCLabel *label)
 
 QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 {
-    if (m_audioTriggersFound == false)
-    {
-        m_CSScode += triggers->getCSS();
-        m_JScode += triggers->getJS();
-        m_audioTriggersFound = true;
-    }
-
     QString str = "<div class=\"vcaudiotriggers\" style=\"left: " + QString::number(triggers->x()) +
           "px; top: " + QString::number(triggers->y()) + "px; width: " +
            QString::number(triggers->width()) +
@@ -926,13 +890,6 @@ void WebAccess::slotCueIndexChanged(int idx)
 
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
-    if (m_cueListFound == false)
-    {
-        m_CSScode += cue->getCSS();
-        m_JScode += cue->getJS();
-        m_cueListFound = true;
-    }
-
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
             "class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
             "px; top: " + QString::number(cue->y()) + "px; width: " +
@@ -1151,18 +1108,11 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
 QString WebAccess::getVCHTML()
 {
-    m_JScode = "<script type=\"text/javascript\">\n" WEBSOCKET_JS;
-
-    m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
-            "body { margin: 0px; }\n"
-            HIDDEN_FORM_CSS
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            "</style>\n";
+    m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
+    m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
+    m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
+               "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
+               "<script type=\"text/javascript\">\n";
 
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
@@ -1192,7 +1142,7 @@ QString WebAccess::getVCHTML()
 
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n</html>";
+    QString str = HTML_HEADER + m_CSScode + m_JScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n</html>";
     return str;
 }
 

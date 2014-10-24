@@ -762,48 +762,6 @@ void VCButton::adjustIntensity(qreal val)
     VCWidget::adjustIntensity(val);
 }
 
-/*********************************************************************
- * Web access
- *********************************************************************/
-
-QString VCButton::getCSS()
-{
-    QString str = "<style type=\"text/css\" media=\"screen\">\n"
-            ".vcbutton-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-
-            ".vcbutton {\n"
-            "display: table-cell;\n"
-            "border: 3px solid #A0A0A0;\n"
-            "border-radius: 4px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-decoration: none;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    return str;
-}
-
-QString VCButton::getJS()
-{
-    QString str = "function buttonClick(id) {\n"
-                " var obj = document.getElementById(id);\n"
-                " if (obj.value == \"0\" || obj.value == undefined) {\n"
-                "  obj.value = \"255\";\n"
-                "  obj.style.border = \"3px solid #00E600\";\n"
-                " }\n"
-                " else {\n"
-                "  obj.value = \"0\";\n"
-                "  obj.style.border = \"3px solid #A0A0A0\";\n"
-                " }\n"
-                " websocket.send(id + \"|\" + obj.value);\n"
-                "}\n";
-    return str;
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

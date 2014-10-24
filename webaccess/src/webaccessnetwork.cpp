@@ -196,65 +196,18 @@ QString WebAccessNetwork::getNetworkHTML()
 
 QString WebAccessNetwork::getHTML()
 {
-    QString m_JScode = "<script type=\"text/javascript\">\n" WEBSOCKET_JS;
-    m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)\n"
-            "{\n"
-            " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw + \"|\" + ssid + \"|\" + wpapsk);\n"
-            "};\n"
+    QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
+    m_JScode += "<script type=\"text/javascript\" src=\"networkconfig.js\"></script>\n";
 
-            "function showStatic(iface, enable) {\n"
-            " var divName = iface + \"StaticFields\";\n"
-            " var obj=document.getElementById(divName);\n"
-            " if (enable == true)\n"
-            "   obj.style.visibility='visible';\n"
-            " else\n"
-            "   obj.style.visibility='hidden';\n"
-            "}\n"
-
-            "function applyParams(iface) {\n"
-            " var radioGroup = iface + \"NetGroup\";\n"
-            " var radios = document.getElementsByName(radioGroup);\n"
-            " var ssidObj = document.getElementById(iface+\"SSID\");\n"
-            " var ssidVal = '';\n"
-            " if (ssidObj != null) ssidVal = ssidObj.value;\n"
-            " var wpapskObj = document.getElementById(iface+\"WPAPSK\");\n"
-            " var wpapskVal = '';\n"
-            " if (wpapskObj != null) wpapskVal = wpapskObj.value;\n"
-            " if (radios[0].checked)\n"
-            "   systemCmd(\"NETWORK\", iface, \"dhcp\", '', '', '', ssidVal, wpapskVal);\n"
-            " else if (radios[1].checked) {\n"
-            "   var addrName=iface+\"IPaddr\";\n"
-            "   var maskName=iface+\"Netmask\";\n"
-            "   var gwName=iface+\"Gateway\";\n"
-            "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
-            " document.getElementById(maskName).value, document.getElementById(gwName).value, ssidVal, wpapskVal);\n"
-            " }\n"
-            "}\n"
-
-            "function setAutostart() {\n"
-            " var radios = document.getElementsByName('autostart');\n"
-            " if (radios[0].checked)\n"
-            "   websocket.send('QLC+SYS|AUTOSTART|none');\n"
-            " else\n"
-            "   websocket.send('QLC+SYS|AUTOSTART|current');\n"
-            "}\n\n";
-
-    m_JScode += "</script>\n";
-
-    QString m_CSScode = "<style type=\"text/css\" media=\"screen\">\n"
-            "html { height: 100%; background-color: #111; }\n"
-            "body {\n"
-            " margin: 0px;\n"
-            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
-            "}\n"
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            "</style>\n";
+    QString m_CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
+    m_CSScode += "<style type=\"text/css\" media=\"screen\">\n"
+                 "html { height: 100%; background-color: #111; }\n"
+                 "body {\n"
+                 " margin: 0px;\n"
+                 " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
+                 " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 "}\n"
+                 "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"

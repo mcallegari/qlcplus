@@ -1295,65 +1295,6 @@ void VCSlider::adjustIntensity(qreal val)
     }
 }
 
-/*********************************************************************
- * Web access
- *********************************************************************/
-
-QString VCSlider::getCSS()
-{
-    QString str = "<style type=\"text/css\" media=\"screen\">\n"
-            ".vcslider {\n"
-            "position: absolute;\n"
-            "border: 1px solid #777777;\n"
-            "border-radius: 3px;\n"
-            "}\n"
-
-            ".vcslLabel {\n"
-            "height:20px;\n"
-            "text-align:center;\n"
-            "font:normal 16px sans-serif;\n"
-            "}\n"
-
-            "input[type=\"range\"].vVertical {\n"
-            "-webkit-appearance: none;\n"
-            "height: 4px;\n"
-            "border: 1px solid #8E8A86;\n"
-            "background-color: #888888;\n"
-            "-webkit-transform:rotate(270deg);\n"
-            "-webkit-transform-origin: 0% 50%;\n"
-            "-moz-transform:rotate(270deg);\n"
-            "-o-transform:rotate(270deg);\n"
-            "-ms-transform:rotate(270deg);\n"
-            "-ms-transform-origin:0% 50%;\n"
-            "transform:rotate(270deg);\n"
-            "transform-origin:0% 50%;\n"
-            "}\n"
-
-            "input[type=\"range\"]::-webkit-slider-thumb {\n"
-            "-webkit-appearance: none;\n"
-            "background-color: #999999;\n"
-            "border-radius: 4px;\n"
-            "border: 1px solid #5c5c5c;\n"
-            "width: 20px;\n"
-            "height: 36px;\n"
-            "}\n"
-            "</style>\n";
-
-    return str;
-}
-
-QString VCSlider::getJS()
-{
-    QString str = "function slVchange(id) {\n"
-            " var slObj = document.getElementById(id);\n"
-            " var obj = document.getElementById(\"slv\" + id);\n"
-            " obj.innerHTML = slObj.value;\n"
-            " var sldMsg = id + \"|\" + slObj.value;\n"
-            " websocket.send(sldMsg);\n"
-            "}\n";
-    return str;
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
