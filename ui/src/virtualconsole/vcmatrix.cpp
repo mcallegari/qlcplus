@@ -378,7 +378,11 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
             m_presetCombo->blockSignals(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
             m_presetCombo->setCurrentText(control->m_resource);
+#else
+            m_presetCombo->setCurrentIndex(m_presetCombo->findText(control->m_resource));
+#endif
             m_presetCombo->blockSignals(false);
         }
         else if (control->m_type == VCMatrixControl::Text)
