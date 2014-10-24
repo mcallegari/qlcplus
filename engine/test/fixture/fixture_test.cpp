@@ -260,8 +260,8 @@ void Fixture_Test::fixtureDef()
     QCOMPARE(fxi.panLsbChannel(), quint32(8));
     QCOMPARE(fxi.tiltLsbChannel(), quint32(10));
     QCOMPARE(fxi.masterIntensityChannel(), quint32(1));
-    QCOMPARE(fxi.rgbChannels(), QList <quint32> ());
-    QCOMPARE(fxi.cmyChannels(), QList <quint32> () << 2 << 3 << 4);
+    QCOMPARE(fxi.rgbChannels(), QVector <quint32> ());
+    QCOMPARE(fxi.cmyChannels(), QVector <quint32> () << 2 << 3 << 4);
 }
 
 void Fixture_Test::channels()
