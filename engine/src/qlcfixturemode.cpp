@@ -238,7 +238,7 @@ void QLCFixtureMode::replaceHead(int index, const QLCFixtureHead& head)
         m_heads[index] = head;
 }
 
-QVector <QLCFixtureHead> QLCFixtureMode::heads() const
+QVector <QLCFixtureHead> const& QLCFixtureMode::heads() const
 {
     return m_heads;
 }
