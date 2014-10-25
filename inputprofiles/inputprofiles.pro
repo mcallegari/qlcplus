@@ -15,6 +15,7 @@ profiles.files += Enttec-ShortcutWing.qxi
 profiles.files += KORG-nanoKONTROL.qxi
 profiles.files += KORG-nanoKONTROL2.qxi
 profiles.files += KORG-nanoPAD.qxi
+profiles.files += KORG-nanoPAD2.qxi
 profiles.files += Logitech-WingManAttack2.qxi
 profiles.files += Novation-Launchpad.qxi
 profiles.files += Generic-MIDI.qxi
