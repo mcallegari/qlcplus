@@ -28,6 +28,7 @@ scripts.files += randomrow.js
 scripts.files += randomsingle.js
 scripts.files += singlerandom.js
 scripts.files += squaresfromcenter.js
+scripts.files += stripes.js
 scripts.files += verticalfall.js
 
 scripts.path = $$INSTALLROOT/$$RGBSCRIPTDIR

@@ -76,7 +76,9 @@ object so that QLC+ knows how to use the script and to show it to the user (you)
 to declare the following properties for the returned script object:
 </P>
 <UL>
- <LI><B>apiVersion:</B> The API version that the script follows. Currently '1' is correct number. 0 will cause the script to be treated as invalid.</LI>
+ <LI><B>apiVersion:</B> The API version that the script follows. Currently, the accepted values are '1' or '2'.<br>
+ apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br> 
+ Any other value will cause the script to be treated as invalid.</LI>
  <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
  <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
 </UL>
@@ -91,7 +93,7 @@ With this in mind we add declarations for these three properties to the script:
     (
     function() {
         <FONT color="green">var</FONT> algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
-        algo.apiVersion = <FONT color="orange">1</FONT>; <FONT color="blue">// Must be currently '1'</FONT>
+        algo.apiVersion = <FONT color="orange">2</FONT>; <FONT color="blue">// Can be '1' or '2'</FONT>
         algo.name = <FONT color="darkyellow">"My cool RGB script"</FONT>;
         algo.author = <FONT color="darkyellow">"Your name"</FONT>;
         <FONT color="green">return</FONT> algo;
@@ -214,6 +216,103 @@ full and ready template for any RGB script for your indulgence.
   </TD>
  </TR>
 </TABLE>
+
+<A name="apiv2"></A><H2>API version 2</H2>
+<P>
+RGB Script API version 2 introduces the concept of <b>Properties</b>. With properties, a Script can interact with the QLC+
+engine by exchanging parameters, thus extending the possibilities of a RGB Script.<br>
+Examples of such properties can be the animation orientation, the number of objects to be rendered, etc..<br>
+<br>
+Adding properties to your script is fairly easy, but requires a specific syntax explained in this paragraph.<br>
+Let's make an example:
+
+<PRE>
+    algo.orientation = <FONT color="orange">0</FONT>;
+    algo.properties = <FONT color="green">new</FONT> Array();
+    algo.properties.push(<FONT color="red">"name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation"</FONT>);
+</PRE>
+The three lines above specifies the following:
+<OL>
+  <LI>The script has an internal property represented by the variable 'orientation'</LI>
+  <LI>Create the properties array. This is needed just once</LI>
+  <LI>Push (add) the property description into the properties array.
+    This is what the QLC+ engine will actually read to exchange data with the script</LI>
+</OL>
+The third line is indeeed the most interesting and the syntax of the string stored in the properties array must be
+followed to avoid errors during the script loading.<br>
+Attributes must be in the form '<b>name:value</b>' and each attribute must be separated from the others by a pipe '<b>|</b>' character.<br>
+Following a table of the accepted attributes and the meaning of their values.<br>
+
+<TABLE class="qlcTable">
+<TR>
+<TD><B>Attribute name</B></TD><TD><B>Attribute value</B></TD>
+</TR>
+<TR>
+ <TD><b>name</b></TD>
+ <TD>The name used by QLC+ to uniquely identify a property. The same name must not be used twice in a script.
+     It is a good practice to use the same name of the 'algo' variable that actually stores the property.
+ </TD>
+</TR>
+<TR>
+ <TD><b>type</b></TD>
+ <TD>This is a fundamental attribute to allow QLC+ to correctly handle a property. The 'type' attribute must be
+ placed before the 'values' attribute.<br>
+ Accepted values are:<br>
+ <UL>
+  <LI><b>list</b>: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor</LI>
+  <LI><b>range</b>: defined a range of integer values that this property can handle</LI>
+  <LI><b>integer</b>: an integer value that QLC+ can exchange with the script</LI>
+  <LI><b>string</b>: a string that QLC+ can exchange with the script</LI>
+ </UL>
+ The type attribute implicitely defines also how the QLC+ RGB Matrix editor will display the property.
+ For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box, 
+ a 'string' is displayed as an editable text box.
+ </TD>
+</TR>
+<TR>
+ <TD><b>display</b></TD>
+ <TD>An string that QLC+ will display in the RGB Matrix editor for the user. It is a good practice to
+ use a meaningful and human readable string to allow users to immediately understand what a property does
+ </TD>
+</TR>
+<TR>
+ <TD><b>values</b></TD>
+ <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the 
+ property can assume. A 'list' type will look like 'one,two,three' while a 'range' type will look like '2,10'.<br>
+ Values must be separated by a comma ',' character. A 'range' type cannot have more than two values.
+</TR>
+<TR>
+ <TD><b>write</b></TD>
+ <TD>Defines the name of the Script function that QLC+ should call to write the property value.<br>
+ In this function the Script's writer should implement all the necessary actions to apply the property change.<br>
+ The write method of the example above is the following:<br>
+ <PRE>
+    algo.setOrientation = <b>function</b>(_orientation) {
+	if (_orientation == "Vertical")
+	  algo.orientation = 1;
+	else
+	  algo.orientation = 0;
+    }
+ </PRE>
+ </TD>
+</TR>
+<TR>
+ <TD><b>read</b></TD>
+ <TD>Defines the name of the Script function that QLC+ should call to read the property value.<br>
+ The read method of the example above is the following:<br>
+ <PRE>
+    algo.getOrientation = <b>function</b>() {
+        if (algo.orientation == 1)
+	  return "Vertical";
+	else
+	  return "Horizontal";
+    }
+ </PRE>
+ </TD>
+</TR>
+</TABLE>
+
+</P>
 
 <H2>Development Tool</H2>
 

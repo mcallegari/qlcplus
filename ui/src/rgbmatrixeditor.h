@@ -64,6 +64,8 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void resetCapabilities(QLayoutItem *item);
+    void displayCapabilities(RGBScript *script);
 
     bool createPreviewItems();
 
@@ -107,6 +109,9 @@ private slots:
     void slotFixtureGroupChanged(quint32 id);
 
     void slotSaveToSequenceClicked();
+
+    void slotPropertyComboChanged(QString value);
+    void slotPropertySpinChanged(int value);
 
 private:
     Doc* m_doc;

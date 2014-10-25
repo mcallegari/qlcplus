@@ -79,6 +79,9 @@
       </widget>
      </item>
      <item>
+      <layout class="QGridLayout" name="m_capabilitiesGroup"/>
+     </item>
+     <item>
       <widget class="QGroupBox" name="m_textGroup">
        <property name="title">
         <string>Animated Text</string>

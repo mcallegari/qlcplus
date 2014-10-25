@@ -27,6 +27,9 @@
 #include <QFontDialog>
 #include <QGradient>
 #include <QSettings>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QLabel>
 #include <QTimer>
 #include <QDebug>
 #include <QMutex>
@@ -280,6 +283,8 @@ void RGBMatrixEditor::fillImageAnimationCombo()
 
 void RGBMatrixEditor::updateExtraOptions()
 {
+    resetCapabilities(m_capabilitiesGroup->layout());
+
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Audio)
@@ -290,6 +295,11 @@ void RGBMatrixEditor::updateExtraOptions()
         m_startColorButton->show();
         m_endColorButton->show();
         m_resetEndColorButton->show();
+        if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Script)
+        {
+            RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
+            displayCapabilities(script);
+        }
     }
     else if (m_matrix->algorithm()->type() == RGBAlgorithm::Plain)
     {
@@ -340,6 +350,96 @@ void RGBMatrixEditor::updateExtraOptions()
 
         m_xOffsetSpin->setValue(text->xOffset());
         m_yOffsetSpin->setValue(text->yOffset());
+    }
+}
+
+/**
+ * Helper function. Deletes all child widgets of the given layout @a item.
+ */
+void RGBMatrixEditor::resetCapabilities(QLayoutItem *item)
+{
+    if (item->layout()) {
+        // Process all child items recursively.
+        for (int i = item->layout()->count() - 1; i >= 0; i--)
+            resetCapabilities(item->layout()->itemAt(i));
+    }
+    delete item->widget();
+}
+
+void RGBMatrixEditor::displayCapabilities(RGBScript *script)
+{
+    if (script == NULL)
+        return;
+
+    int gridRowIdx = 0;
+
+    QList<RGBScriptProperty> capabilities = script->properties();
+    foreach(RGBScriptProperty cap, capabilities)
+    {
+        switch(cap.m_type)
+        {
+            case RGBScriptProperty::List:
+            {
+                QLabel *capLabel = new QLabel(cap.m_displayName);
+                m_capabilitiesGroup->addWidget(capLabel, gridRowIdx, 0);
+                QComboBox *capCombo = new QComboBox(this);
+                capCombo->addItems(cap.m_listValues);
+                capCombo->setProperty("pName", cap.m_name);
+                connect(capCombo, SIGNAL(currentIndexChanged(QString)),
+                        this, SLOT(slotPropertyComboChanged(QString)));
+                m_capabilitiesGroup->addWidget(capCombo, gridRowIdx, 1);
+                if (m_matrix != NULL)
+                {
+                    QString pValue = m_matrix->property(cap.m_name);
+                    if (!pValue.isEmpty())
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+                        capCombo->setCurrentText(pValue);
+#else
+                        capCombo->setCurrentIndex(capCombo->findText(pValue));
+#endif
+                    else
+                    {
+                        pValue = script->property(cap.m_name);
+                        if (!pValue.isEmpty())
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+                            capCombo->setCurrentText(pValue);
+#else
+                            capCombo->setCurrentIndex(capCombo->findText(pValue));
+#endif
+                    }
+                }
+                gridRowIdx++;
+            }
+            break;
+            case RGBScriptProperty::Range:
+            {
+                QLabel *capLabel = new QLabel(cap.m_displayName);
+                m_capabilitiesGroup->addWidget(capLabel, gridRowIdx, 0);
+                QSpinBox *capSpin = new QSpinBox(this);
+                capSpin->setRange(cap.m_rangeMinValue, cap.m_rangeMaxValue);
+                capSpin->setProperty("pName", cap.m_name);
+                connect(capSpin, SIGNAL(valueChanged(int)),
+                        this, SLOT(slotPropertySpinChanged(int)));
+                m_capabilitiesGroup->addWidget(capSpin, gridRowIdx, 1);
+                if (m_matrix != NULL)
+                {
+                    QString pValue = m_matrix->property(cap.m_name);
+                    if (!pValue.isEmpty())
+                        capSpin->setValue(pValue.toInt());
+                    else
+                    {
+                        pValue = script->property(cap.m_name);
+                        if (!pValue.isEmpty())
+                            capSpin->setValue(pValue.toInt());
+                    }
+                }
+                gridRowIdx++;
+            }
+            break;
+            default:
+                qWarning() << "Type" << cap.m_type << "not handled yet";
+            break;
+        }
     }
 }
 
@@ -973,5 +1073,33 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             m_testButton->click();
         else if (createPreviewItems() == true)
             m_previewTimer->start(MasterTimer::tick());
+    }
+}
+
+void RGBMatrixEditor::slotPropertyComboChanged(QString value)
+{
+    qDebug() << "Capability combo changed to" << value;
+    if (m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
+        QComboBox *combo = (QComboBox *)sender();
+        QString pName = combo->property("pName").toString();
+        script->setProperty(pName, value);
+        m_matrix->setProperty(pName, value);
+    }
+}
+
+void RGBMatrixEditor::slotPropertySpinChanged(int value)
+{
+    qDebug() << "Capability spin changed to" << value;
+    if (m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
+        QSpinBox *spin = (QSpinBox *)sender();
+        QString pName = spin->property("pName").toString();
+        script->setProperty(pName, QString::number(value));
+        m_matrix->setProperty(pName, QString::number(value));
     }
 }

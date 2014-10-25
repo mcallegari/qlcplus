@@ -103,6 +103,7 @@ HEADERS += bus.h \
            rgbimage.h \
            rgbplain.h \
            rgbscript.h \
+           rgbscriptproperty.h \
            rgbtext.h \
            scene.h \
            sceneuistate.h \

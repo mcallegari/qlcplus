@@ -22,6 +22,7 @@
 
 #include <QScriptValue>
 #include "rgbalgorithm.h"
+#include "rgbscriptproperty.h"
 
 class QScriptEngine;
 class QSize;
@@ -107,6 +108,26 @@ private:
     QScriptValue m_script;          //! The script itself
     QScriptValue m_rgbMap;          //! rgbMap() function
     QScriptValue m_rgbMapStepCount; //! rgbMapStepCount() function
+
+    /************************************************************************
+     * Properties
+     ************************************************************************/
+public:
+    /** Return a list of the loaded script properties */
+    QList<RGBScriptProperty> properties();
+
+    /** Set a property to the given value */
+    bool setProperty(QString propertyName, QString value);
+
+    /** Read the value of the property with the given name */
+    QString property(QString propertyName);
+
+private:
+    /** Load the script properties if any is available */
+    bool loadProperties();
+
+private:
+    QList<RGBScriptProperty> m_properties; //! the script properties list
 
     /************************************************************************
      * System & User Scripts

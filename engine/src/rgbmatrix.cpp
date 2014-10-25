@@ -40,6 +40,10 @@
 #define KXMLQLCRGBMatrixEndColor "EndColor"
 #define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
 
+#define KXMLQLCRGBMatrixProperty "Property"
+#define KXMLQLCRGBMatrixPropertyName "Name"
+#define KXMLQLCRGBMatrixPropertyValue "Value"
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -281,6 +285,19 @@ void RGBMatrix::updateStepColor(Function::Direction direction)
                              m_stepColor.blue() - m_cbDelta);
 }
 
+/************************************************************************
+ * Properties
+ ************************************************************************/
+
+void RGBMatrix::setProperty(QString propName, QString value)
+{
+    m_properties[propName] = value;
+}
+
+QString RGBMatrix::property(QString propName)
+{
+    return m_properties[propName];
+}
 
 /****************************************************************************
  * Load & Save
@@ -333,6 +350,12 @@ bool RGBMatrix::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLQLCRGBMatrixEndColor)
         {
             setEndColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
+        }
+        else if (tag.tagName() == KXMLQLCRGBMatrixProperty)
+        {
+            QString name = tag.attribute(KXMLQLCRGBMatrixPropertyName);
+            QString value = tag.attribute(KXMLQLCRGBMatrixPropertyValue);
+            setProperty(name, value);
         }
         else
         {
@@ -395,6 +418,17 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root.appendChild(tag);
     text = doc->createTextNode(QString::number(fixtureGroup()));
     tag.appendChild(text);
+
+    /* Properties */
+    QHashIterator<QString, QString> it(m_properties);
+    while(it.hasNext())
+    {
+        it.next();
+        tag = doc->createElement(KXMLQLCRGBMatrixProperty);
+        tag.setAttribute(KXMLQLCRGBMatrixPropertyName, it.key());
+        tag.setAttribute(KXMLQLCRGBMatrixPropertyValue, it.value());
+        root.appendChild(tag);
+    }
 
     return true;
 }

@@ -123,6 +123,20 @@ private:
     QColor m_endColor;
 
     /************************************************************************
+     * Properties
+     ************************************************************************/
+public:
+    /** Set the value of the property with the given name */
+    void setProperty(QString propName, QString value);
+
+    /** Retrieve the value of the property with the given name */
+    QString property(QString propName);
+
+private:
+    /** A map of the custom properties for this matrix */
+    QHash<QString, QString>m_properties;
+
+    /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
