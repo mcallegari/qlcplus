@@ -349,33 +349,33 @@ quint32 Fixture::masterIntensityChannel(int head) const
     }
 }
 
-QList <quint32> Fixture::rgbChannels(int head) const
+QVector <quint32> Fixture::rgbChannels(int head) const
 {
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
             return m_fixtureMode->heads().at(head).rgbChannels();
         else
-            return QList <quint32> ();
+            return QVector <quint32> ();
     }
     else
     {
-        return QList <quint32> ();
+        return QVector <quint32> ();
     }
 }
 
-QList <quint32> Fixture::cmyChannels(int head) const
+QVector <quint32> Fixture::cmyChannels(int head) const
 {
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
             return m_fixtureMode->heads().at(head).cmyChannels();
         else
-            return QList <quint32> ();
+            return QVector <quint32> ();
     }
     else
     {
-        return QList <quint32> ();
+        return QVector <quint32> ();
     }
 }
 

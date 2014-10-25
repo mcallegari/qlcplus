@@ -278,10 +278,10 @@ public:
     quint32 masterIntensityChannel(int head = 0) const;
 
     /** @see QLCFixtureHead */
-    QList <quint32> rgbChannels(int head = 0) const;
+    QVector <quint32> rgbChannels(int head = 0) const;
 
     /** @see QLCFixtureHead */
-    QList <quint32> cmyChannels(int head = 0) const;
+    QVector <quint32> cmyChannels(int head = 0) const;
 
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);

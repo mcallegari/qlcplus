@@ -218,7 +218,7 @@ public:
     /**
      * Get a list of available fixture heads within the fixture mode
      */
-    QVector <QLCFixtureHead> heads() const;
+    QVector <QLCFixtureHead> const& heads() const;
 
     /**
      * Find a head number for the given channel number

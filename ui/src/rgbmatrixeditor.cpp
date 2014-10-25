@@ -872,7 +872,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             Fixture *fxi = m_doc->fixture(head.fxi);
             if (fxi == NULL)
                 continue;
-            QList<quint32> rgbCh = fxi->rgbChannels(head.head);
+            QVector <quint32> rgbCh = fxi->rgbChannels(head.head);
             if (rgbCh.count() == 3)
             {
                 grpScene->setValue(head.fxi, rgbCh.at(0), 0);
@@ -943,7 +943,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                     Fixture *fxi = m_doc->fixture(head.fxi);
                     if (fxi == NULL)
                         continue;
-                    QList<quint32> rgbCh = fxi->rgbChannels(head.head);
+                    QVector <quint32> rgbCh = fxi->rgbChannels(head.head);
                     if (rgbCh.count() == 3)
                     {
                         step.values.append(SceneValue(head.fxi, rgbCh.at(0), rgb.red()));

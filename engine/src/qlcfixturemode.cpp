@@ -189,10 +189,7 @@ QLCChannel* QLCFixtureMode::channel(const QString& name) const
 
 QLCChannel* QLCFixtureMode::channel(quint32 ch) const
 {
-    if (ch >= quint32(m_channels.size()))
-        return NULL;
-    else
-        return m_channels.at(ch);
+    return m_channels.value(ch, NULL);
 }
 
 QVector <QLCChannel*> QLCFixtureMode::channels() const
@@ -238,7 +235,7 @@ void QLCFixtureMode::replaceHead(int index, const QLCFixtureHead& head)
         m_heads[index] = head;
 }
 
-QVector <QLCFixtureHead> QLCFixtureMode::heads() const
+QVector <QLCFixtureHead> const& QLCFixtureMode::heads() const
 {
     return m_heads;
 }

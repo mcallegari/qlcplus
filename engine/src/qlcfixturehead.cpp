@@ -101,12 +101,12 @@ quint32 QLCFixtureHead::masterIntensityChannel() const
     return m_masterIntensityChannel;
 }
 
-QList <quint32> QLCFixtureHead::rgbChannels() const
+QVector <quint32> QLCFixtureHead::rgbChannels() const
 {
     return m_rgbChannels;
 }
 
-QList <quint32> QLCFixtureHead::cmyChannels() const
+QVector <quint32> QLCFixtureHead::cmyChannels() const
 {
     return m_cmyChannels;
 }

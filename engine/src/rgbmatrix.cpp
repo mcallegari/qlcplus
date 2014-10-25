@@ -625,25 +625,25 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 
             QLCFixtureHead head = fxi->head(grpHead.head);
 
-            QList <quint32> rgb = head.rgbChannels();
-            QList <quint32> cmy = head.cmyChannels();
+            QVector <quint32> rgb = head.rgbChannels();
+            QVector <quint32> cmy = head.cmyChannels();
             if (rgb.size() == 3)
             {
                 // RGB color mixing
                 FadeChannel fc;
                 fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(rgb.takeFirst());
+                fc.setChannel(rgb.at(0));
                 fc.setTarget(qRed(map[y][x]));
                 insertStartValues(fc);
                 m_fader->add(fc);
 
-                fc.setChannel(rgb.takeFirst());
+                fc.setChannel(rgb.at(1));
                 fc.setTarget(qGreen(map[y][x]));
                 insertStartValues(fc);
                 m_fader->add(fc);
 
-                fc.setChannel(rgb.takeFirst());
+                fc.setChannel(rgb.at(2));
                 fc.setTarget(qBlue(map[y][x]));
                 insertStartValues(fc);
                 m_fader->add(fc);
@@ -656,17 +656,17 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 FadeChannel fc;
                 fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(cmy.takeFirst());
+                fc.setChannel(cmy.at(0));
                 fc.setTarget(col.cyan());
                 insertStartValues(fc);
                 m_fader->add(fc);
 
-                fc.setChannel(cmy.takeFirst());
+                fc.setChannel(cmy.at(1));
                 fc.setTarget(col.magenta());
                 insertStartValues(fc);
                 m_fader->add(fc);
 
-                fc.setChannel(cmy.takeFirst());
+                fc.setChannel(cmy.at(2));
                 fc.setTarget(col.yellow());
                 insertStartValues(fc);
                 m_fader->add(fc);
@@ -702,9 +702,10 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
     // To create a nice and smooth fade, get the starting value from
     // m_fader's existing FadeChannel (if any). Otherwise just assume
     // we're starting from zero.
-    if (m_fader->channels().contains(fc) == true)
+    QHash <FadeChannel,FadeChannel>::const_iterator oldChannelIterator = m_fader->channels().find(fc);
+    if (oldChannelIterator != m_fader->channels().end())
     {
-        FadeChannel old = m_fader->channels()[fc];
+        FadeChannel old = oldChannelIterator.value();
         fc.setCurrent(old.current());
         fc.setStart(old.current());
     }

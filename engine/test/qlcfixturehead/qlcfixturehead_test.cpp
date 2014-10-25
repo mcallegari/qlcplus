@@ -188,8 +188,8 @@ void QLCFixtureHead_Test::cacheChannelsRgbMaster()
     QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.tiltMsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.rgbChannels(), QList <quint32> () << 0 << 1 << 2);
-    QCOMPARE(head.cmyChannels(), QList <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector <quint32> () << 0 << 1 << 2);
+    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
     QCOMPARE(head.masterIntensityChannel(), quint32(3));
 }
 
@@ -225,8 +225,8 @@ void QLCFixtureHead_Test::cacheChannelsCmyMaster()
     QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.tiltMsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.rgbChannels(), QList <quint32> ());
-    QCOMPARE(head.cmyChannels(), QList <quint32> () << 0 << 1 << 3);
+    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
+    QCOMPARE(head.cmyChannels(), QVector <quint32> () << 0 << 1 << 3);
     QCOMPARE(head.masterIntensityChannel(), quint32(2));
 }
 
@@ -262,8 +262,8 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.panLsbChannel(), quint32(1));
     QCOMPARE(head.tiltMsbChannel(), quint32(2));
     QCOMPARE(head.tiltLsbChannel(), quint32(3));
-    QCOMPARE(head.rgbChannels(), QList <quint32> ());
-    QCOMPARE(head.cmyChannels(), QList <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
+    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
     QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
 
     head.cacheChannels((QLCFixtureMode*) 0xDEADBEEF);
@@ -271,8 +271,8 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.panLsbChannel(), quint32(1));
     QCOMPARE(head.tiltMsbChannel(), quint32(2));
     QCOMPARE(head.tiltLsbChannel(), quint32(3));
-    QCOMPARE(head.rgbChannels(), QList <quint32> ());
-    QCOMPARE(head.cmyChannels(), QList <quint32> ());
+    QCOMPARE(head.rgbChannels(), QVector <quint32> ());
+    QCOMPARE(head.cmyChannels(), QVector <quint32> ());
     QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
 }
 
