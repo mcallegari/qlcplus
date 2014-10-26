@@ -481,6 +481,16 @@ void RGBMatrix::preRun(MasterTimer* timer)
                 }
             }
             calculateColorDelta();
+            if (m_algorithm->type() == RGBAlgorithm::Script)
+            {
+                RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+                QHashIterator<QString, QString> it(m_properties);
+                while(it.hasNext())
+                {
+                    it.next();
+                    script->setProperty(it.key(), it.value());
+                }
+            }
         }
     }
 
@@ -505,10 +515,9 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
     // No time to do anything.
     if (duration() == 0)
         return;
-
-    // Invalid/nonexistent script
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
+        // Invalid/nonexistent script
         if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
             return;
 

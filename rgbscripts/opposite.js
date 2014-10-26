@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  stripes.js
+  opposite.js
 
   Copyright (c) Massimo Callegari
 
@@ -25,9 +25,8 @@ var testAlgo;
   {
     var algo = new Object;
     algo.apiVersion = 2;
-    algo.name = "Stripes";
+    algo.name = "Opposite";
     algo.author = "Massimo Callegari";
-
     algo.orientation = 0;
     algo.properties = new Array();
     algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation");
@@ -56,11 +55,41 @@ var testAlgo;
 	    map[y] = new Array();
 	    for (var x = 0; x < width; x++)
 	    {
-		if ((algo.orientation == 0 && x == step) ||
-		    (algo.orientation == 1 && y == step))
-		    map[y][x] = rgb;
+	        if (algo.orientation == 1)
+		{
+		    if ((x % 2) == 0)
+                    {
+                        if (y == step)
+                            map[y][x] = rgb;
+                        else
+                            map[y][x] = 0;
+                    }
+                    else
+                    {
+                        if (y == ((height - 1) - step))
+                            map[y][x] = rgb;
+                        else
+                            map[y][x] = 0;
+                    }
+		}
 		else
-		    map[y][x] = 0;
+		{
+		    if ((y % 2) == 0)
+		    {
+			if (x == step)
+			    map[y][x] = rgb;
+			else
+			    map[y][x] = 0;
+		    }
+		    else
+		    {
+			if (x == ((width - 1) - step))
+			    map[y][x] = rgb;
+			else
+			    map[y][x] = 0;
+		    }
+		}
+		
 	    }
 	}
 
@@ -79,5 +108,5 @@ var testAlgo;
     testAlgo = algo;
 
     return algo;
-  }
+    }
 )()
