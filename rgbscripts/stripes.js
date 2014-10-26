@@ -87,9 +87,9 @@ var testAlgo;
 	// Each row is lit completely at a time, so because there are $height rows
 	// in the map, the number of steps must be $height to light all rows per round.
 	if (algo.orientation == 0)
-	  return height;
-	else
 	  return width;
+	else
+	  return height;
     }
 
     // Development tool access

@@ -88,9 +88,9 @@ var testAlgo;
 	// columns in the map, the number of steps must be $width to light all
 	// columns per round.
 	if (algo.orientation == 0)
-	  return height;
-	else
 	  return width;
+	else
+	  return height;
     }
 
     // Development tool access
