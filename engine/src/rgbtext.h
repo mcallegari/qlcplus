@@ -113,6 +113,9 @@ public:
     RGBAlgorithm::Type type() const;
 
     /** @reimp */
+    int acceptColors() const;
+
+    /** @reimp */
     bool loadXML(const QDomElement& root);
 
     /** @reimp */

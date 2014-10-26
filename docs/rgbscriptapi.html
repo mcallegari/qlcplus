@@ -81,6 +81,13 @@ to declare the following properties for the returned script object:
  Any other value will cause the script to be treated as invalid.</LI>
  <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
  <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
+ <LI><B>acceptColors (optional):</B> Informs QLC+ if the script can accept a start color, an end color or none.<br>
+ 'acceptColors = 0' means no colors are accepted/needed. It means that the script will autonomously generate the colors
+ information for the matrix pixels.<br>
+ 'acceptColors = 1' means only the start color is needed by the script.<br>
+ 'acceptColors = 2' means both start and end colors will be accepted by the script.<br> 
+ If 'acceptColors' is not provided, QLC+ will default to value '2'.
+ </LI>
 </UL>
 
 <P>
@@ -96,6 +103,7 @@ With this in mind we add declarations for these three properties to the script:
         algo.apiVersion = <FONT color="orange">2</FONT>; <FONT color="blue">// Can be '1' or '2'</FONT>
         algo.name = <FONT color="darkyellow">"My cool RGB script"</FONT>;
         algo.author = <FONT color="darkyellow">"Your name"</FONT>;
+        algo.acceptColors = <FONT color="orange">2</FONT>; <FONT color="blue">// Can be '0', '1' or '2'</FONT>
         <FONT color="green">return</FONT> algo;
     }
     )()</PRE>

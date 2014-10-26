@@ -265,6 +265,17 @@ RGBAlgorithm::Type RGBScript::type() const
     return RGBAlgorithm::Script;
 }
 
+int RGBScript::acceptColors() const
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QScriptValue accColors = m_script.property("acceptColors");
+    if (accColors.isValid())
+        return accColors.toInt32();
+    // if no property is provided, let's assume the script
+    // will accept both start and end colors
+    return 2;
+}
+
 bool RGBScript::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
 {
     Q_ASSERT(doc != NULL);

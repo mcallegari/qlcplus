@@ -27,6 +27,7 @@ var testAlgo;
         algo.apiVersion = 1;
         algo.name = "Vertical fall";
         algo.author = "Massimo Callegari";
+	algo.acceptColors = 1;
         
         var util = new Object;
         util.initialized = false;

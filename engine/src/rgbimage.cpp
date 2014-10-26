@@ -252,6 +252,11 @@ RGBAlgorithm::Type RGBImage::type() const
     return RGBAlgorithm::Image;
 }
 
+int RGBImage::acceptColors() const
+{
+    return 0;
+}
+
 bool RGBImage::loadXML(const QDomElement& root)
 {
     if (root.tagName() != KXMLQLCRGBAlgorithm)

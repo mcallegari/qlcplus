@@ -292,6 +292,11 @@ RGBAlgorithm::Type RGBText::type() const
     return RGBAlgorithm::Text;
 }
 
+int RGBText::acceptColors() const
+{
+    return 2; // start and end colors accepted
+}
+
 bool RGBText::loadXML(const QDomElement& root)
 {
     if (root.tagName() != KXMLQLCRGBAlgorithm)

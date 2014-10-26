@@ -85,6 +85,13 @@ public:
     /** Get the algorithm's type */
     virtual Type type() const = 0;
 
+    /** Return if the algorithm accepts/needs colors:
+     *  0 = colors not accepted (e.g. the algorithm will generate them on its own)
+     *  1 = only start color is accepted
+     *  2 = start and end colors are both accepted
+     */
+    virtual int acceptColors() const = 0;
+
     /************************************************************************
      * RGB Colors
      ************************************************************************/

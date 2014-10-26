@@ -292,9 +292,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_textGroup->hide();
         m_imageGroup->hide();
         m_offsetGroup->hide();
-        m_startColorButton->show();
-        m_endColorButton->show();
-        m_resetEndColorButton->show();
+
         if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Script)
         {
             RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
@@ -306,18 +304,12 @@ void RGBMatrixEditor::updateExtraOptions()
         m_textGroup->hide();
         m_imageGroup->hide();
         m_offsetGroup->hide();
-        m_startColorButton->show();
-        m_endColorButton->hide();
-        m_resetEndColorButton->hide();
     }
     else if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
         m_textGroup->hide();
         m_imageGroup->show();
         m_offsetGroup->show();
-        m_startColorButton->hide();
-        m_endColorButton->hide();
-        m_resetEndColorButton->hide();
 
         RGBImage* image = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(image != NULL);
@@ -336,9 +328,6 @@ void RGBMatrixEditor::updateExtraOptions()
         m_textGroup->show();
         m_offsetGroup->show();
         m_imageGroup->hide();
-        m_startColorButton->show();
-        m_endColorButton->show();
-        m_resetEndColorButton->show();
 
         RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
@@ -350,6 +339,29 @@ void RGBMatrixEditor::updateExtraOptions()
 
         m_xOffsetSpin->setValue(text->xOffset());
         m_yOffsetSpin->setValue(text->yOffset());
+    }
+
+    if (m_matrix->algorithm() != NULL)
+    {
+        int accColors = m_matrix->algorithm()->acceptColors();
+        if (accColors == 0)
+        {
+            m_startColorButton->hide();
+            m_endColorButton->hide();
+            m_resetEndColorButton->hide();
+        }
+        else if (accColors == 1)
+        {
+            m_startColorButton->show();
+            m_endColorButton->hide();
+            m_resetEndColorButton->hide();
+        }
+        else
+        {
+            m_startColorButton->show();
+            m_endColorButton->show();
+            m_resetEndColorButton->show();
+        }
     }
 }
 
