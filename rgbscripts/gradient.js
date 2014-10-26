@@ -90,7 +90,6 @@ var testAlgo;
 	return "Vertical";
       else
 	return "Horizontal";
-      util.initialize();
     }
 
     util.initialize = function()
