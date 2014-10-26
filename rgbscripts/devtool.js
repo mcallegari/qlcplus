@@ -4,9 +4,9 @@ function init()
     var h = document.getElementById("height");
 
     if (!w.value)
-        w.value = 5;
+        w.value = 15;
     if (!h.value)
-        h.value = 5;
+        h.value = 15;
 
     updateProperties();
     updateStepCount();
@@ -137,7 +137,10 @@ function writeCurrentStep()
             for (var x = 0; x < width; x++)
             {
                 var cell = row.insertCell(x);
-                cell.style.backgroundColor = rgb[y][x].toString(16);
+		var rgbStr = rgb[y][x].toString(16);
+		while (rgbStr.length != 6)
+		  rgbStr = "0" + rgbStr;
+                cell.style.backgroundColor = rgbStr;
                 cell.style.height = 20;
                 cell.style.width = 20;
             }

@@ -15,6 +15,7 @@ scripts.files += fillunfillrows.js
 scripts.files += fillunfillsquaresfromcenter.js
 scripts.files += fullcolumnsfromcenter.js
 scripts.files += fullrowsfromcenter.js
+scripts.files += gradient.js
 scripts.files += oppositecolumns.js
 scripts.files += oppositerows.js
 scripts.files += randomcolumn.js

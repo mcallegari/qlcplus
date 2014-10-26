@@ -71,11 +71,6 @@ var testAlgo;
             util.color = rgb;
 	    util.initialized = true;
 	}
-	
-	util.isInitialized = function()
-        {
-            return util.initialized;
-        }
         
         util.getColor = function()
         {
@@ -123,7 +118,7 @@ var testAlgo;
          */
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (util.isInitialized() == false)
+            if (util.initialized == false)
                 util.initialize(rgb, width, height);
             
             if (util.getColor() != rgb)
