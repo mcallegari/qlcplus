@@ -61,6 +61,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_allowChildren(false)
     , m_allowResize(true)
     , m_intensity(1.0)
+    , m_liveEdit(false)
 {
     Q_ASSERT(parent != NULL);
     Q_ASSERT(doc != NULL);
@@ -182,7 +183,7 @@ QIcon VCWidget::typeToIcon(int type)
 void VCWidget::setDisableState(bool disable)
 {
     m_disableState = disable;
-    if (m_doc->mode() == Doc::Operate)
+    if (mode() == Doc::Operate)
     {
         setEnabled(!disable);
         enableWidgetUI(!disable);
@@ -1006,9 +1007,29 @@ bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
  * QLC+ Mode change
  *****************************************************************************/
 
+void VCWidget::setLiveEdit(bool liveEdit)
+{
+    if (liveEdit)
+    {
+        m_liveEdit = true;
+    }
+    else
+    {
+        m_liveEdit = false;
+    }
+
+    if (!m_disableState)
+    {
+        //setEnabled(!liveEdit);
+        enableWidgetUI(!liveEdit);
+    }
+    unsetCursor();
+    update();
+}
+
 void VCWidget::slotModeChanged(Doc::Mode mode)
 {
-    Q_UNUSED(mode);
+    m_liveEdit = false;
 
     // make sure to exit from a 'deep' disable state
     if (mode == Doc::Design)
@@ -1024,6 +1045,8 @@ void VCWidget::slotModeChanged(Doc::Mode mode)
 Doc::Mode VCWidget::mode() const
 {
     Q_ASSERT(m_doc != NULL);
+    if (m_liveEdit)
+        return Doc::Design;
     return m_doc->mode();
 }
 
@@ -1124,7 +1147,7 @@ void VCWidget::paintEvent(QPaintEvent* e)
     else
         option.state = QStyle::State_None;
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         option.state |= QStyle::State_Enabled;
 
     /* Draw a frame border if such is specified for this widget */

@@ -205,7 +205,7 @@ void VCAudioTriggers::enableCapture(bool enable)
 
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 {
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (toggle == true)
@@ -223,7 +223,7 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, double maxMagni
     m_spectrum->displaySpectrum(spectrumBands, maxMagnitude, power);
     m_volumeBar->m_value = m_spectrum->getUcharVolume();
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (m_volumeBar->m_type == AudioBar::FunctionBar)
@@ -257,7 +257,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (m_volumeBar->m_type == AudioBar::DMXBar)

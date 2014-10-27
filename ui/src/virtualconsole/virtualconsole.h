@@ -377,6 +377,16 @@ public:
      */
     bool checkStartupFunction(quint32 fid);
 
+private:
+    bool m_liveEdit;
+
+public:
+    void toggleLiveEdit();
+
+private:
+    void enableEdit();
+    void disableEdit();
+
 public slots:
     /** Slot that catches main application mode changes */
     void slotModeChanged(Doc::Mode mode);
