@@ -904,7 +904,7 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (m_doc->mode() == Doc::Design || isEnabled() == false)
+    if (mode() == Doc::Design || isEnabled() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;

@@ -142,6 +142,7 @@ public slots:
     void slotRunningFunctionsChanged();
     void slotDumpDmxIntoFunction();
     void slotFunctionLiveEdit();
+    void slotLiveEditVirtualConsole();
 
     void slotHelpIndex();
     void slotHelpAbout();
@@ -162,6 +163,7 @@ private:
     QAction* m_controlPanicAction;
     QAction* m_dumpDmxAction;
     QAction* m_liveEditAction;
+    QAction* m_liveEditVirtualConsoleAction;
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;

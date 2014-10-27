@@ -520,9 +520,14 @@ protected:
     bool loadXMLWindowState(const QDomElement* tag, int* x, int* y,
                             int* w, int* h, bool* visible);
 
+
     /*********************************************************************
      * QLC+ Mode change
      *********************************************************************/
+protected:
+    bool m_liveEdit;
+public:
+    void setLiveEdit(bool liveEdit);
 protected slots:
     /** Listens to Doc mode changes */
     virtual void slotModeChanged(Doc::Mode mode);
