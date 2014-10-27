@@ -133,6 +133,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_contents(NULL)
 
     , m_tapModifierDown(false)
+    , m_liveEdit(false)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -1624,114 +1625,149 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
  * Main application mode
  *****************************************************************************/
 
+void VirtualConsole::toggleLiveEdit()
+{
+    if (m_liveEdit)
+    {
+        m_liveEdit = false;
+        disableEdit();
+    }
+    else
+    {
+        m_liveEdit = true;
+        enableEdit();
+    }
+
+    QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
+    while (widgetIt != m_widgetsMap.end())
+    {
+        VCWidget* widget = widgetIt.value();
+        widget->setLiveEdit(m_liveEdit);
+        ++widgetIt;
+    }
+}
+
+void VirtualConsole::enableEdit()
+{
+    // Allow editing and adding in design mode
+    m_toolsSettingsAction->setEnabled(true);
+    m_editActionGroup->setEnabled(true);
+    m_addActionGroup->setEnabled(true);
+    m_bgActionGroup->setEnabled(true);
+    m_fgActionGroup->setEnabled(true);
+    m_fontActionGroup->setEnabled(true);
+    m_frameActionGroup->setEnabled(true);
+    m_stackingActionGroup->setEnabled(true);
+
+    // Set action shortcuts for design mode
+    m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
+    m_addButtonMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+M"));
+    m_addSliderAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
+    m_addSliderMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+I"));
+    m_addKnobAction->setShortcut(QKeySequence("CTRL+SHIFT+K"));
+    m_addSpeedDialAction->setShortcut(QKeySequence("CTRL+SHIFT+D"));
+    m_addXYPadAction->setShortcut(QKeySequence("CTRL+SHIFT+X"));
+    m_addCueListAction->setShortcut(QKeySequence("CTRL+SHIFT+C"));
+    m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
+    m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
+    m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
+    m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
+    m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
+    m_addMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+R"));
+
+    m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
+    m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
+    m_editPasteAction->setShortcut(QKeySequence("CTRL+V"));
+    m_editDeleteAction->setShortcut(QKeySequence("Delete"));
+    m_editPropertiesAction->setShortcut(QKeySequence("CTRL+E"));
+
+    m_bgColorAction->setShortcut(QKeySequence("SHIFT+B"));
+    m_bgImageAction->setShortcut(QKeySequence("SHIFT+I"));
+    m_bgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+B"));
+    m_fgColorAction->setShortcut(QKeySequence("SHIFT+F"));
+    m_fgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+F"));
+    m_fontAction->setShortcut(QKeySequence("SHIFT+O"));
+    m_resetFontAction->setShortcut(QKeySequence("SHIFT+ALT+O"));
+    m_frameSunkenAction->setShortcut(QKeySequence("SHIFT+S"));
+    m_frameRaisedAction->setShortcut(QKeySequence("SHIFT+R"));
+    m_frameNoneAction->setShortcut(QKeySequence("SHIFT+ALT+S"));
+
+    m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
+    m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
+
+    // Show toolbar
+    m_toolbar->show();
+}
+
+void VirtualConsole::disableEdit()
+{
+    // Don't allow editing or adding in operate mode
+    m_toolsSettingsAction->setEnabled(false);
+    m_editActionGroup->setEnabled(false);
+    m_addActionGroup->setEnabled(false);
+    m_bgActionGroup->setEnabled(false);
+    m_fgActionGroup->setEnabled(false);
+    m_fontActionGroup->setEnabled(false);
+    m_frameActionGroup->setEnabled(false);
+    m_stackingActionGroup->setEnabled(false);
+
+    // Disable action shortcuts in operate mode
+    m_addButtonAction->setShortcut(QKeySequence());
+    m_addButtonMatrixAction->setShortcut(QKeySequence());
+    m_addSliderAction->setShortcut(QKeySequence());
+    m_addSliderMatrixAction->setShortcut(QKeySequence());
+    m_addKnobAction->setShortcut(QKeySequence());
+    m_addSpeedDialAction->setShortcut(QKeySequence());
+    m_addXYPadAction->setShortcut(QKeySequence());
+    m_addCueListAction->setShortcut(QKeySequence());
+    m_addFrameAction->setShortcut(QKeySequence());
+    m_addSoloFrameAction->setShortcut(QKeySequence());
+    m_addLabelAction->setShortcut(QKeySequence());
+    m_addAudioTriggersAction->setShortcut(QKeySequence());
+    m_addClockAction->setShortcut(QKeySequence());
+    m_addMatrixAction->setShortcut(QKeySequence());
+
+    m_editCutAction->setShortcut(QKeySequence());
+    m_editCopyAction->setShortcut(QKeySequence());
+    m_editPasteAction->setShortcut(QKeySequence());
+    m_editDeleteAction->setShortcut(QKeySequence());
+    m_editPropertiesAction->setShortcut(QKeySequence());
+
+    m_bgColorAction->setShortcut(QKeySequence());
+    m_bgImageAction->setShortcut(QKeySequence());
+    m_bgDefaultAction->setShortcut(QKeySequence());
+    m_fgColorAction->setShortcut(QKeySequence());
+    m_fgDefaultAction->setShortcut(QKeySequence());
+    m_fontAction->setShortcut(QKeySequence());
+    m_resetFontAction->setShortcut(QKeySequence());
+    m_frameSunkenAction->setShortcut(QKeySequence());
+    m_frameRaisedAction->setShortcut(QKeySequence());
+    m_frameNoneAction->setShortcut(QKeySequence());
+
+    m_stackingRaiseAction->setShortcut(QKeySequence());
+    m_stackingLowerAction->setShortcut(QKeySequence());
+
+    // Hide toolbar; there's nothing usable there in operate mode
+    m_toolbar->hide();
+
+    // Make sure the virtual console contents has the focus.
+    // Without this, key combinations don't work unless
+    // the user clicks on some VC area
+    m_contents->setFocus();
+}
+
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        // Don't allow editing or adding in operate mode
-        m_toolsSettingsAction->setEnabled(false);
-        m_editActionGroup->setEnabled(false);
-        m_addActionGroup->setEnabled(false);
-        m_bgActionGroup->setEnabled(false);
-        m_fgActionGroup->setEnabled(false);
-        m_fontActionGroup->setEnabled(false);
-        m_frameActionGroup->setEnabled(false);
-        m_stackingActionGroup->setEnabled(false);
-
-        // Disable action shortcuts in operate mode
-        m_addButtonAction->setShortcut(QKeySequence());
-        m_addButtonMatrixAction->setShortcut(QKeySequence());
-        m_addSliderAction->setShortcut(QKeySequence());
-        m_addSliderMatrixAction->setShortcut(QKeySequence());
-        m_addKnobAction->setShortcut(QKeySequence());
-        m_addSpeedDialAction->setShortcut(QKeySequence());
-        m_addXYPadAction->setShortcut(QKeySequence());
-        m_addCueListAction->setShortcut(QKeySequence());
-        m_addFrameAction->setShortcut(QKeySequence());
-        m_addSoloFrameAction->setShortcut(QKeySequence());
-        m_addLabelAction->setShortcut(QKeySequence());
-        m_addAudioTriggersAction->setShortcut(QKeySequence());
-        m_addClockAction->setShortcut(QKeySequence());
-        m_addMatrixAction->setShortcut(QKeySequence());
-
-        m_editCutAction->setShortcut(QKeySequence());
-        m_editCopyAction->setShortcut(QKeySequence());
-        m_editPasteAction->setShortcut(QKeySequence());
-        m_editDeleteAction->setShortcut(QKeySequence());
-        m_editPropertiesAction->setShortcut(QKeySequence());
-
-        m_bgColorAction->setShortcut(QKeySequence());
-        m_bgImageAction->setShortcut(QKeySequence());
-        m_bgDefaultAction->setShortcut(QKeySequence());
-        m_fgColorAction->setShortcut(QKeySequence());
-        m_fgDefaultAction->setShortcut(QKeySequence());
-        m_fontAction->setShortcut(QKeySequence());
-        m_resetFontAction->setShortcut(QKeySequence());
-        m_frameSunkenAction->setShortcut(QKeySequence());
-        m_frameRaisedAction->setShortcut(QKeySequence());
-        m_frameNoneAction->setShortcut(QKeySequence());
-
-        m_stackingRaiseAction->setShortcut(QKeySequence());
-        m_stackingLowerAction->setShortcut(QKeySequence());
-
-        // Hide toolbar; there's nothing usable there in operate mode
-        m_toolbar->hide();
-
-        // Make sure the virtual console contents has the focus.
-        // Without this, key combinations don't work unless
-        // the user clicks on some VC area
-        m_contents->setFocus();
+        disableEdit();
     }
     else
     {
-        // Allow editing and adding in design mode
-        m_toolsSettingsAction->setEnabled(true);
-        m_editActionGroup->setEnabled(true);
-        m_addActionGroup->setEnabled(true);
-        m_bgActionGroup->setEnabled(true);
-        m_fgActionGroup->setEnabled(true);
-        m_fontActionGroup->setEnabled(true);
-        m_frameActionGroup->setEnabled(true);
-        m_stackingActionGroup->setEnabled(true);
-
-        // Set action shortcuts for design mode
-        m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
-        m_addButtonMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+M"));
-        m_addSliderAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
-        m_addSliderMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+I"));
-        m_addKnobAction->setShortcut(QKeySequence("CTRL+SHIFT+K"));
-        m_addSpeedDialAction->setShortcut(QKeySequence("CTRL+SHIFT+D"));
-        m_addXYPadAction->setShortcut(QKeySequence("CTRL+SHIFT+X"));
-        m_addCueListAction->setShortcut(QKeySequence("CTRL+SHIFT+C"));
-        m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
-        m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
-        m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
-        m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
-        m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
-        m_addMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+R"));
-
-        m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
-        m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
-        m_editPasteAction->setShortcut(QKeySequence("CTRL+V"));
-        m_editDeleteAction->setShortcut(QKeySequence("Delete"));
-        m_editPropertiesAction->setShortcut(QKeySequence("CTRL+E"));
-
-        m_bgColorAction->setShortcut(QKeySequence("SHIFT+B"));
-        m_bgImageAction->setShortcut(QKeySequence("SHIFT+I"));
-        m_bgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+B"));
-        m_fgColorAction->setShortcut(QKeySequence("SHIFT+F"));
-        m_fgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+F"));
-        m_fontAction->setShortcut(QKeySequence("SHIFT+O"));
-        m_resetFontAction->setShortcut(QKeySequence("SHIFT+ALT+O"));
-        m_frameSunkenAction->setShortcut(QKeySequence("SHIFT+S"));
-        m_frameRaisedAction->setShortcut(QKeySequence("SHIFT+R"));
-        m_frameNoneAction->setShortcut(QKeySequence("SHIFT+ALT+S"));
-
-        m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
-        m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
-
-        // Show toolbar
-        m_toolbar->show();
+        if (m_liveEdit)
+            m_liveEdit = false;
+        else
+            enableEdit();
     }
 }
 
