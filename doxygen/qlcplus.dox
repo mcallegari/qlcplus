@@ -27,6 +27,8 @@ INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 8
 ALIASES                =
+ALIASES                += reimpl="reimplemented\n"
+ALIASES                += reimp="reimplemented\n"
 TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
@@ -97,17 +99,27 @@ WARN_LOGFILE           =
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = doxygen.h \
-                         ..
+                         ../engine \
+                         ../fixtureeditor \
+                         ../hotplugmonitor \
+                         ../launcher \
+                         ../main \
+                         ../plugins \
+                         ../ui \
+                         ../webaccess
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = YES
-EXCLUDE                = doc \
-                         doxygen
+EXCLUDE                = ../plugins/hid/hidapi.h \
+                         ../plugins/hid/linux \
+                         ../plugins/hid/macx \
+                         ../plugins/hid/win32
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = .svn \
                          */test/* \
                          moc_*.* \
-                         ui_*.*
+                         ui_*.* \
+                         */debian/*
 EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       =

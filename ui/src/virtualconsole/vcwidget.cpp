@@ -241,6 +241,9 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     setGeometry(widget->geometry());
     setCaption(widget->caption());
 
+    m_allowChildren = widget->m_allowChildren;
+    m_allowResize = widget->m_allowResize;
+
     QHashIterator <quint8, QLCInputSource*> it(widget->m_inputs);
     while (it.hasNext() == true)
     {
