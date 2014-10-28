@@ -580,7 +580,7 @@ void App::initActions()
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
 
-    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
+    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Live edit the virtual console"), this);
     connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
     m_liveEditVirtualConsoleAction->setEnabled(false);
 
