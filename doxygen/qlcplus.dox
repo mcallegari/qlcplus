@@ -27,6 +27,8 @@ INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 8
 ALIASES                =
+ALIASES                += reimpl="reimplemented\n"
+ALIASES                += reimp="reimplemented\n"
 TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
@@ -104,7 +106,7 @@ INPUT                  = doxygen.h \
                          ../main \
                          ../plugins \
                          ../ui \
-                         ../webaccess \
+                         ../webaccess
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = YES
