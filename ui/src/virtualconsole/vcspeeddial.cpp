@@ -68,7 +68,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
-    slotModeChanged(doc->mode());
+    slotModeChanged(mode());
 }
 
 VCSpeedDial::~VCSpeedDial()
