@@ -64,8 +64,8 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
-    void resetCapabilities(QLayoutItem *item);
-    void displayCapabilities(RGBScript *script);
+    void resetProperties(QLayoutItem *item);
+    void displayProperties(RGBScript *script);
 
     bool createPreviewItems();
 
@@ -109,6 +109,7 @@ private slots:
     void slotFixtureGroupChanged(quint32 id);
 
     void slotSaveToSequenceClicked();
+    void slotShapeToggle(bool);
 
     void slotPropertyComboChanged(QString value);
     void slotPropertySpinChanged(int value);

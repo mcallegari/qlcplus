@@ -34,12 +34,13 @@ var testAlgo;
     algo.fadeMode = 0;
     algo.properties.push("name:fadeMode|type:list|display:Fade Mode|values:Don't Fade,Fade In,Fade Out|write:setFade|read:getFade");
     algo.fillSquares = 0;
-    algo.properties.push("name:fillSquares|type:list|display:Fill squares|values:No, Yes|write:setFill|read:getFill");
+    algo.properties.push("name:fillSquares|type:list|display:Fill squares|values:No,Yes|write:setFill|read:getFill");
 
     var util = new Object;
     util.initialized = false;
-    util.squares = new Array();
     util.squaresMaxSize = 0;
+    
+    var squares = new Array();
     
     function Square(x, y, step)
     {
@@ -100,9 +101,9 @@ var testAlgo;
       if (size > 0)
 	util.squaresMaxSize = size;
 
-      util.squares = new Array();
+      squares = new Array();
       for (var i = 0; i < algo.squaresAmount; i++)
-	util.squares[i] = new Square(-1, -1, 0);
+	squares[i] = new Square(-1, -1, 0);
 
       util.initialized = true;
     }
@@ -143,25 +144,25 @@ var testAlgo;
 	
 	for (var i = 0; i < algo.squaresAmount; i++)
 	{
-	  var color = util.getColor(util.squares[i].step, rgb);
-	  //alert("Square " + i + " xCenter: " + util.squares[i].xCenter + " color: " + color.toString(16));
-	  if (util.squares[i].xCenter == -1)
+	  var color = util.getColor(squares[i].step, rgb);
+	  //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
+	  if (squares[i].xCenter == -1)
 	  {
 	    var seed = Math.floor(Math.random()*100)
             if (seed > 50) continue;
-	    util.squares[i].xCenter = Math.floor(Math.random() * width);
-	    util.squares[i].yCenter = Math.floor(Math.random() * height);
-	    map[util.squares[i].yCenter][util.squares[i].xCenter] = color;
+	    squares[i].xCenter = Math.floor(Math.random() * width);
+	    squares[i].yCenter = Math.floor(Math.random() * height);
+	    map[squares[i].yCenter][squares[i].xCenter] = color;
 	  }
 	  else
 	  {
-	    var firstY = util.squares[i].yCenter - util.squares[i].step;
-	    var side = (util.squares[i].step * 2) + 1;
+	    var firstY = squares[i].yCenter - squares[i].step;
+	    var side = (squares[i].step * 2) + 1;
 	    for (var sy = firstY; sy <= (firstY + side); sy++)
 	    {
 	      if (sy < 0 || sy >= height) continue;
 
-	      var firstX = util.squares[i].xCenter - util.squares[i].step;
+	      var firstX = squares[i].xCenter - squares[i].step;
 
 	      for (var sx = firstX; sx <= firstX + side; sx++)
 	      {
@@ -177,12 +178,12 @@ var testAlgo;
 	    }
 	  }
 
-	  util.squares[i].step++;
-	  if (util.squares[i].step >= (util.squaresMaxSize / 2))
+	  squares[i].step++;
+	  if (squares[i].step >= (util.squaresMaxSize / 2))
 	  {
-	    util.squares[i].xCenter = -1;
-	    util.squares[i].yCenter = -1;
-	    util.squares[i].step = 0;
+	    squares[i].xCenter = -1;
+	    squares[i].yCenter = -1;
+	    squares[i].step = 0;
 	  }
 	}
 	

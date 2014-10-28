@@ -72,11 +72,6 @@ var testAlgo;
             util.color = rgb;
 	    util.initialized = true;
 	}
-        
-        util.getColor = function()
-        {
-            return util.color;
-        }
 	
 	util.getNextStep = function(width, height)
         {
@@ -111,10 +106,7 @@ var testAlgo;
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (util.initialized == false)
-                util.initialize(rgb, width, height);
-            
-            if (util.getColor() != rgb)
+            if (util.initialized == false || util.color != rgb)
                 util.initialize(rgb, width, height);
 
             return util.getNextStep(width, height);

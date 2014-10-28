@@ -112,7 +112,7 @@
         <file alias="soloframe.png">../../gfx/soloframe.png</file>
         <file alias="speed.png">../../gfx/speed.png</file>
         <file alias="star.png">../../gfx/star.png</file>
-        <file alias="stop.png">../../gfx/stop.png</file>
+        <file alias="square.png">../../gfx/square.png</file>
         <file alias="strobe.png">../../gfx/strobe.png</file>
         <file alias="tabview.png">../../gfx/tabview.png</file>
         <file alias="tilt.png">../../gfx/tilt.png</file>

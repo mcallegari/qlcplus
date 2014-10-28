@@ -302,7 +302,7 @@ void SimpleDesk::initBottomSide()
     hbox->addWidget(m_previousCueButton);
 
     m_stopCueStackButton = new QToolButton(this);
-    m_stopCueStackButton->setIcon(QIcon(":/stop.png"));
+    m_stopCueStackButton->setIcon(QIcon(":/player_stop.png"));
     m_stopCueStackButton->setIconSize(QSize(32, 32));
     m_stopCueStackButton->setToolTip(tr("Stop cue stack"));
     hbox->addWidget(m_stopCueStackButton);

@@ -25,6 +25,7 @@
 #include <QList>
 #include <QSize>
 #include <QPair>
+#include <QHash>
 #include <QMap>
 #include <QMutex>
 
