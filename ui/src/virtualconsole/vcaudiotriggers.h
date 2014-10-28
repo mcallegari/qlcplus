@@ -58,8 +58,7 @@ public:
     VCAudioTriggers(QWidget* parent, Doc* doc);
     virtual ~VCAudioTriggers();
 
-protected slots:
-    void slotDocModeChanged(Doc::Mode mode);
+    void enableWidgetUI(bool enable);
 
     /*********************************************************************
      * GUI
