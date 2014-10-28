@@ -73,6 +73,11 @@ VCSpeedDial::~VCSpeedDial()
 {
 }
 
+void VCSpeedDial::enableWidgetUI(bool enable)
+{
+    m_dial->setEnabled(enable);
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/
@@ -133,13 +138,13 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate && isDisabled() == false)
     {
-        m_dial->setEnabled(true);
+        enableWidgetUI(true);
         updateFeedback();
     }
     else
     {
         m_dial->stopTimers();
-        m_dial->setEnabled(false);
+        enableWidgetUI(false);
     }
     VCWidget::slotModeChanged(mode);
 }
