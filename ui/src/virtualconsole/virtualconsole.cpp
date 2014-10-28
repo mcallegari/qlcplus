@@ -1647,6 +1647,11 @@ void VirtualConsole::toggleLiveEdit()
     }
 }
 
+bool VirtualConsole::liveEdit() const
+{
+    return m_liveEdit;
+}
+
 void VirtualConsole::enableEdit()
 {
     // Allow editing and adding in design mode

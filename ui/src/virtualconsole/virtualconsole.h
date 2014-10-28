@@ -380,6 +380,7 @@ private:
 
 public:
     void toggleLiveEdit();
+    bool liveEdit() const;
 
 private:
     void enableEdit();

@@ -61,7 +61,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_allowChildren(false)
     , m_allowResize(true)
     , m_intensity(1.0)
-    , m_liveEdit(false)
+    , m_liveEdit(VirtualConsole::instance()->liveEdit())
 {
     Q_ASSERT(parent != NULL);
     Q_ASSERT(doc != NULL);
@@ -1026,7 +1026,8 @@ void VCWidget::setLiveEdit(bool liveEdit)
 
 void VCWidget::slotModeChanged(Doc::Mode mode)
 {
-    m_liveEdit = false;
+    if (mode == Doc::Operate)
+        m_liveEdit = false;
 
     // make sure to exit from a 'deep' disable state
     if (mode == Doc::Design)
