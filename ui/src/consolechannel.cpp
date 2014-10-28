@@ -41,8 +41,10 @@
  * Initialization
  *****************************************************************************/
 
-ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable)
+ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable, ChannelType type)
     : QGroupBox(parent)
+    , m_channelType(type)
+    , m_isOverridden(false)
     , m_doc(doc)
     , m_fixture(fixture)
     , m_channel(channel)
@@ -57,7 +59,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(channel != QLCChannel::invalid());
-
+    
     if (isCheckable == true)
         setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
@@ -169,6 +171,42 @@ void ConsoleChannel::init()
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotChecked(bool)));
+
+    setStyleSheet(
+        "ConsoleChannel { border: 1px solid gray; border-radius: 4px; margin-right: 1px; }\n"
+        "ConsoleChannel[checkable=\"true\"] { margin-top: 16px; }\n"
+        "ConsoleChannel[checkable=\"true\"]::title { top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; }\n"
+        "ConsoleChannel[checkable=\"true\"]::indicator { width: 18px; height: 18px; }\n"
+        "ConsoleChannel[checkable=\"true\"]::indicator:checked { image: url(:/checkbox_full.png) }\n"
+        "ConsoleChannel[checkable=\"true\"]::indicator:unchecked { image: url(:/checkbox_empty.png) }\n"
+        "ConsoleChannel[checkable=\"false\"] { margin-top: 1px; }\n"
+        "ConsoleChannel[overridden=\"true\"] { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF2D2D, stop: 1 #FF5050); }\n"
+        "ConsoleChannel[overridden=\"false\"][selected=\"true\"] { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); }\n"
+        "ConsoleChannel[overridden=\"false\"][selected=\"false\"][channelType=\"0\"] { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); }\n"
+        "ConsoleChannel[overridden=\"false\"][selected=\"false\"][channelType=\"1\"] { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); }\n"
+        "ConsoleChannel[overridden=\"false\"][selected=\"false\"][channelType=\"2\"] { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); }\n");
+    style()->unpolish(this);
+    style()->polish(this);
+    update();
+}
+
+int ConsoleChannel::channelType() const
+{
+    return m_channelType;
+}
+
+bool ConsoleChannel::isOverridden() const
+{
+    return m_isOverridden;
+}
+
+void ConsoleChannel::setOverridden(bool overridden)
+{
+    m_isOverridden = overridden;
+
+    style()->unpolish(this);
+    style()->polish(this);
+    update();
 }
 
 /*****************************************************************************
@@ -583,24 +621,9 @@ bool ConsoleChannel::isSelected()
 void ConsoleChannel::slotControlClicked()
 {
     qDebug() << "CONTROL modifier + click";
-    if (m_selected == false)
-    {
-        m_originalStyle = this->styleSheet();
-        int topMargin = isCheckable()?16:1;
+    m_selected = !m_selected;
 
-        QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                         "QGroupBox::indicator { width: 18px; height: 18px; } "
-                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
-        QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); "
-                                 "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                                 (isCheckable()?common:"")).arg(topMargin);
-        setStyleSheet(ssSelected);
-        m_selected = true;
-    }
-    else
-    {
-        this->setStyleSheet(m_originalStyle);
-        m_selected = false;
-    }
+    style()->unpolish(this);
+    style()->polish(this);
+    update();
 }

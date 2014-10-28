@@ -47,17 +47,33 @@ class ConsoleChannel : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(ConsoleChannel)
+    Q_PROPERTY(bool overridden READ isOverridden WRITE setOverridden)
+    Q_PROPERTY(int channelType READ channelType)
+    Q_PROPERTY(bool selected READ isSelected)
+    Q_ENUMS(ChannelType)
+
+public:
+    enum ChannelType { Even, Odd, None };
 
     /*************************************************************************
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
+    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true, ChannelType type = None);
 
     ~ConsoleChannel();
 
+    int channelType() const;
+
+    bool isOverridden() const;
+    void setOverridden(bool overriden);
+
 private:
     void init();
+
+private:
+    ChannelType m_channelType;
+    bool m_isOverridden;
 
     /*************************************************************************
      * Fixture & Channel

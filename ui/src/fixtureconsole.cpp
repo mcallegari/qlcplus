@@ -46,26 +46,6 @@ FixtureConsole::FixtureConsole(QWidget* parent, Doc* doc, GroupType type, bool s
     m_layout = new QHBoxLayout(this);
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 1, 0, 1);
-
-    int topMargin = m_showCheckBoxes?16:1;
-
-    QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                     "QGroupBox::indicator { width: 18px; height: 18px; } "
-                     "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                     "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
-
-    if (m_groupType == GroupEven)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
-    else if (m_groupType == GroupOdd)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
-    else
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
 }
 
 FixtureConsole::~FixtureConsole()
@@ -75,6 +55,19 @@ FixtureConsole::~FixtureConsole()
 /*****************************************************************************
  * Fixture
  *****************************************************************************/
+
+static ConsoleChannel::ChannelType convert(FixtureConsole::GroupType type)
+{
+    switch(type)
+    {
+    case FixtureConsole::GroupOdd:
+        return ConsoleChannel::Odd;
+    case FixtureConsole::GroupEven:
+        return ConsoleChannel::Even;
+    default:
+        return ConsoleChannel::None;
+    }
+}
 
 void FixtureConsole::setFixture(quint32 id)
 {
@@ -96,8 +89,7 @@ void FixtureConsole::setFixture(quint32 id)
         if (ch->group() == QLCChannel::NoGroup)
             continue;
 
-        ConsoleChannel* cc = new ConsoleChannel(this, m_doc, id, i, m_showCheckBoxes);
-        cc->setStyleSheet(m_styleSheet);
+        ConsoleChannel* cc = new ConsoleChannel(this, m_doc, id, i, m_showCheckBoxes, convert(m_groupType));
 
         m_layout->addWidget(cc);
         m_channels.append(cc);
@@ -229,21 +221,21 @@ uchar FixtureConsole::value(quint32 ch) const
         return 0;
 }
 
-void FixtureConsole::setChannelStylesheet(quint32 ch, QString ss)
+void FixtureConsole::setChannelOverride(quint32 ch, bool override)
 {
     ConsoleChannel* cc = channel(ch);
     if (cc != NULL)
-        cc->setStyleSheet(ss);
+        cc->setOverridden(override);
 }
 
-void FixtureConsole::resetChannelsStylesheet()
+void FixtureConsole::resetChannelOverrides()
 {
     QListIterator <ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
         Q_ASSERT(cc != NULL);
-        cc->setStyleSheet(m_styleSheet);
+        cc->setOverridden(false);
     }
 }
 
