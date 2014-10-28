@@ -760,7 +760,7 @@ void VirtualConsole::slotAddButtonMatrix()
     else
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
@@ -774,7 +774,7 @@ void VirtualConsole::slotAddButtonMatrix()
         {
             VCButton* button = new VCButton(frame, m_doc);
             Q_ASSERT(button != NULL);
-            button->setID(newWidgetId());
+            addWidgetInMap(button);
             button->move(QPoint(10 + (x * sz), 10 + (y * sz)));
             button->resize(QSize(sz, sz));
             button->show();
@@ -831,7 +831,7 @@ void VirtualConsole::slotAddSliderMatrix()
 
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
@@ -843,7 +843,7 @@ void VirtualConsole::slotAddSliderMatrix()
     {
         VCSlider* slider = new VCSlider(frame, m_doc);
         Q_ASSERT(slider != NULL);
-        slider->setID(newWidgetId());
+        addWidgetInMap(slider);
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
@@ -1126,6 +1126,7 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
+            addWidgetInMap(copy);
             checkWidgetPage(copy, parent);
             copy->move(p);
             copy->show();
@@ -1535,13 +1536,18 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
 }
 
+void VirtualConsole::addWidgetInMap(VCWidget* widget)
+{
+    widget->setID(newWidgetId());
+    m_widgetsMap.insert(widget->id(), widget);
+}
+
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
 {
     Q_ASSERT(widget != NULL);
     Q_ASSERT(parent != NULL);
 
-    widget->setID(newWidgetId());
-    m_widgetsMap.insert(widget->id(), widget);
+    addWidgetInMap(widget);
     checkWidgetPage(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());

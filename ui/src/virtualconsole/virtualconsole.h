@@ -320,6 +320,7 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    void addWidgetInMap(VCWidget* widget);
     void setupWidget(VCWidget *widget, VCWidget *parent);
 
     VCWidget *widget(quint32 id);
