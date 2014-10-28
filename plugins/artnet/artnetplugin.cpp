@@ -178,6 +178,9 @@ void ArtNetPlugin::closeOutput(quint32 output)
 
 void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    if (output >= (quint32)m_IOmapping.count())
+        return;
+
     ArtNetController *controller = m_IOmapping[output].controller;
     if (controller != NULL)
         controller->sendDmx(universe, data);
