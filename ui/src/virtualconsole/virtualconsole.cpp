@@ -179,10 +179,15 @@ Doc *VirtualConsole::getDoc()
 
 quint32 VirtualConsole::newWidgetId()
 {
-    quint32 currId = m_latestWidgetId;
-    m_latestWidgetId++;
-    qDebug() << Q_FUNC_INFO << "Creating new ID: " << currId;
-    return currId;
+    /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
+       however, seems a bit unlikely. */
+    while (m_widgetsMap.contains(m_latestWidgetId) ||
+           m_latestWidgetId == VCWidget::invalidId())
+    {
+        m_latestWidgetId++;
+    }
+
+    return m_latestWidgetId;
 }
 
 /*****************************************************************************
@@ -1536,7 +1541,7 @@ void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
     Q_ASSERT(parent != NULL);
 
     widget->setID(newWidgetId());
-    m_widgetsMap[widget->id()] = widget;
+    m_widgetsMap.insert(widget->id(), widget);
     checkWidgetPage(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());
@@ -1549,20 +1554,7 @@ VCWidget *VirtualConsole::widget(quint32 id)
     if (id == VCWidget::invalidId())
         return NULL;
 
-    return m_widgetsMap[id];
-/*
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
-    foreach (QObject *object, widgetsList)
-    {
-        VCWidget *widget = (VCWidget *)object;
-        quint32 wid = widget->id();
-        if (wid == id)
-            return widget;
-    }
-
-    return NULL;
-*/
+    return m_widgetsMap.value(id, NULL);
 }
 
 void VirtualConsole::initContents()
@@ -1826,18 +1818,22 @@ void VirtualConsole::postLoad()
     /* Go through widgets, check IDs and register */
     /* widgets to the map */
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
+    QList<VCWidget *> invalidWidgetsList;
     foreach (VCWidget *widget, widgetsList)
     {
         quint32 wid = widget->id();
-        if(wid == VCWidget::invalidId())
-            widget->setID(newWidgetId());
+        if (wid != VCWidget::invalidId() && !m_widgetsMap.contains(wid))
+            m_widgetsMap.insert(wid, widget);
         else
-            if (wid >= m_latestWidgetId)
-                m_latestWidgetId = wid + 1;
-        m_widgetsMap[widget->id()] = widget;
+            invalidWidgetsList.append(widget);
     }
-    //qDebug() << "Next ID to assign:" << m_latestWidgetId;
+    foreach (VCWidget *widget, invalidWidgetsList)
+    {
+        quint32 wid = newWidgetId();
+        widget->setID(wid);
+        Q_ASSERT(!m_widgetsMap.contains(wid));
+        m_widgetsMap.insert(wid, widget);
+    }
 
     m_contents->setFocus();
 
