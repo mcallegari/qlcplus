@@ -1643,6 +1643,7 @@ void VirtualConsole::toggleLiveEdit()
         widget->setLiveEdit(m_liveEdit);
         ++widgetIt;
     }
+    m_contents->setLiveEdit(m_liveEdit);
 }
 
 bool VirtualConsole::liveEdit() const
@@ -1777,6 +1778,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
                 widget->cancelLiveEdit();
                 ++widgetIt;
             }
+            m_contents->cancelLiveEdit();
         }
         else
             enableEdit();
