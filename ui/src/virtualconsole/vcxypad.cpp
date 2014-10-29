@@ -136,7 +136,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sliderInteraction = false;
     m_inputValueChanged = false;
 
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 }
 
 VCXYPad::~VCXYPad()

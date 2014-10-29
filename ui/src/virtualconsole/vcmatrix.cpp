@@ -135,7 +135,8 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
         resize(defaultSize);
 
     /* Update the slider according to current mode */
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 }
 
 VCMatrix::~VCMatrix()
