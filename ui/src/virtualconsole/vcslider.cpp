@@ -186,7 +186,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setSliderMode(Playback);
 
     /* Update the slider according to current mode */
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 
     /* Listen to fixture removals so that LevelChannels can be removed when
        they no longer point to an existing fixture->channel */
