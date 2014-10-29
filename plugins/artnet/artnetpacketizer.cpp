@@ -127,7 +127,7 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append('\0'); // Physical
     data.append((char)(universe & 0x00FF));
     data.append((char)(universe >> 8));
-    int padLength = values.length() % 2; // length must be even
+    int padLength = values.isEmpty() ? 2 : (values.length() % 2); // length must be even in the range 2-512
     int len = values.length() + padLength;
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
