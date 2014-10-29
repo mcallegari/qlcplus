@@ -1024,11 +1024,13 @@ void VCWidget::setLiveEdit(bool liveEdit)
     update();
 }
 
+void VCWidget::cancelLiveEdit()
+{
+    m_liveEdit = false;
+}
+
 void VCWidget::slotModeChanged(Doc::Mode mode)
 {
-    if (mode == Doc::Operate)
-        m_liveEdit = false;
-
     // make sure to exit from a 'deep' disable state
     if (mode == Doc::Design)
         setEnabled(true);

@@ -1770,7 +1770,16 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
     else
     {
         if (m_liveEdit)
+        {
             m_liveEdit = false;
+            QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
+            while (widgetIt != m_widgetsMap.end())
+            {
+                VCWidget* widget = widgetIt.value();
+                widget->cancelLiveEdit();
+                ++widgetIt;
+            }
+        }
         else
             enableEdit();
     }

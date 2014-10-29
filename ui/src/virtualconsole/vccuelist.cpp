@@ -236,7 +236,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     else
         resize(QSize(300, 220));
 
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 
     connect(m_doc, SIGNAL(functionRemoved(quint32)),
             this, SLOT(slotFunctionRemoved(quint32)));
