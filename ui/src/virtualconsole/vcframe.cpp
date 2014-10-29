@@ -602,10 +602,14 @@ bool VCFrame::copyFrom(const VCWidget* widget)
            save only such widgets that have this widget as their
            direct parent. */
         if (child->parentWidget() == widget)
+        {
             childCopy = child->createCopy(this);
+            VirtualConsole::instance()->addWidgetInMap(childCopy);
+        }
 
         if (m_multiPageMode && childCopy != NULL)
             addWidgetToPageMap(childCopy);
+
     }
 
     if (m_multiPageMode)
@@ -638,7 +642,7 @@ void VCFrame::editProperties()
                     if (child->page() == 0 && child->parentWidget() == this)
                     {
                         VCWidget *newWidget = child->createCopy(this);
-                        newWidget->setID(VirtualConsole::instance()->newWidgetId());
+                        VirtualConsole::instance()->addWidgetInMap(newWidget);
                         newWidget->setPage(pg);
                         newWidget->remapInputSources(pg);
                         newWidget->show();

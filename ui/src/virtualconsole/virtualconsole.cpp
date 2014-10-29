@@ -179,10 +179,15 @@ Doc *VirtualConsole::getDoc()
 
 quint32 VirtualConsole::newWidgetId()
 {
-    quint32 currId = m_latestWidgetId;
-    m_latestWidgetId++;
-    qDebug() << Q_FUNC_INFO << "Creating new ID: " << currId;
-    return currId;
+    /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
+       however, seems a bit unlikely. */
+    while (m_widgetsMap.contains(m_latestWidgetId) ||
+           m_latestWidgetId == VCWidget::invalidId())
+    {
+        m_latestWidgetId++;
+    }
+
+    return m_latestWidgetId;
 }
 
 /*****************************************************************************
@@ -755,7 +760,7 @@ void VirtualConsole::slotAddButtonMatrix()
     else
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
@@ -769,7 +774,7 @@ void VirtualConsole::slotAddButtonMatrix()
         {
             VCButton* button = new VCButton(frame, m_doc);
             Q_ASSERT(button != NULL);
-            button->setID(newWidgetId());
+            addWidgetInMap(button);
             button->move(QPoint(10 + (x * sz), 10 + (y * sz)));
             button->resize(QSize(sz, sz));
             button->show();
@@ -826,7 +831,7 @@ void VirtualConsole::slotAddSliderMatrix()
 
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
@@ -838,7 +843,7 @@ void VirtualConsole::slotAddSliderMatrix()
     {
         VCSlider* slider = new VCSlider(frame, m_doc);
         Q_ASSERT(slider != NULL);
-        slider->setID(newWidgetId());
+        addWidgetInMap(slider);
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
@@ -1121,6 +1126,7 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
+            addWidgetInMap(copy);
             checkWidgetPage(copy, parent);
             copy->move(p);
             copy->show();
@@ -1530,13 +1536,18 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
 }
 
+void VirtualConsole::addWidgetInMap(VCWidget* widget)
+{
+    widget->setID(newWidgetId());
+    m_widgetsMap.insert(widget->id(), widget);
+}
+
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
 {
     Q_ASSERT(widget != NULL);
     Q_ASSERT(parent != NULL);
 
-    widget->setID(newWidgetId());
-    m_widgetsMap[widget->id()] = widget;
+    addWidgetInMap(widget);
     checkWidgetPage(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());
@@ -1549,20 +1560,7 @@ VCWidget *VirtualConsole::widget(quint32 id)
     if (id == VCWidget::invalidId())
         return NULL;
 
-    return m_widgetsMap[id];
-/*
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
-    foreach (QObject *object, widgetsList)
-    {
-        VCWidget *widget = (VCWidget *)object;
-        quint32 wid = widget->id();
-        if (wid == id)
-            return widget;
-    }
-
-    return NULL;
-*/
+    return m_widgetsMap.value(id, NULL);
 }
 
 void VirtualConsole::initContents()
@@ -1826,18 +1824,22 @@ void VirtualConsole::postLoad()
     /* Go through widgets, check IDs and register */
     /* widgets to the map */
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
+    QList<VCWidget *> invalidWidgetsList;
     foreach (VCWidget *widget, widgetsList)
     {
         quint32 wid = widget->id();
-        if(wid == VCWidget::invalidId())
-            widget->setID(newWidgetId());
+        if (wid != VCWidget::invalidId() && !m_widgetsMap.contains(wid))
+            m_widgetsMap.insert(wid, widget);
         else
-            if (wid >= m_latestWidgetId)
-                m_latestWidgetId = wid + 1;
-        m_widgetsMap[widget->id()] = widget;
+            invalidWidgetsList.append(widget);
     }
-    //qDebug() << "Next ID to assign:" << m_latestWidgetId;
+    foreach (VCWidget *widget, invalidWidgetsList)
+    {
+        quint32 wid = newWidgetId();
+        widget->setID(wid);
+        Q_ASSERT(!m_widgetsMap.contains(wid));
+        m_widgetsMap.insert(wid, widget);
+    }
 
     m_contents->setFocus();
 
