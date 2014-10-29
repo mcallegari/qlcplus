@@ -72,7 +72,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
 /usr/lib/qt4/plugins/qlcplus/libartnet.so
-/usr/lib/qt4/plugins/qlcplus/libhid.so
+/usr/lib/qt4/plugins/qlcplus/libhidplugin.so
 /usr/lib/qt4/plugins/qlcplus/libosc.so
 /usr/lib/qt4/plugins/qlcplus/libpeperoni.so
 /usr/lib/qt4/plugins/qlcplus/libenttecwing.so
@@ -85,5 +85,6 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /etc/udev/rules.d/z65-dmxusb.rules
 /etc/udev/rules.d/z65-anyma-udmx.rules
 /etc/udev/rules.d/z65-peperoni.rules
+/etc/udev/rules.d/z65-fx5-hid.rules
 /etc/udev/rules.d/z65-spi.rules
 
