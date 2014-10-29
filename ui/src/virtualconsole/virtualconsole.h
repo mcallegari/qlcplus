@@ -62,10 +62,11 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
+    Doc *getDoc();
+
+protected:
     /** Create a new channels group ID */
     quint32 newWidgetId();
-
-    Doc *getDoc();
 
 protected:
     static VirtualConsole* s_instance;
