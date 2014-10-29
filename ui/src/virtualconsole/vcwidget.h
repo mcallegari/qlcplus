@@ -535,6 +535,7 @@ protected slots:
 
 protected:
     /** Shortcut for inheritors to check current mode */
+    /** Does not reflect application mode, but virtualconsole mode */
     Doc::Mode mode() const;
 
     /*********************************************************************
