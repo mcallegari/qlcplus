@@ -162,6 +162,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
     enableStartupIntensity(button->isStartupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
     setAction(button->action());
+    m_on = button->m_on;
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
