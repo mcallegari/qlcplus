@@ -1013,20 +1013,13 @@ bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
 
 void VCWidget::setLiveEdit(bool liveEdit)
 {
-    if (liveEdit)
-    {
-        m_liveEdit = true;
-    }
-    else
-    {
-        m_liveEdit = false;
-    }
+    m_liveEdit = liveEdit;
 
-    if (!m_disableState)
-    {
-        //setEnabled(!liveEdit);
-        enableWidgetUI(!liveEdit);
-    }
+    if (m_disableState)
+        setEnabled(m_liveEdit);
+    else
+        enableWidgetUI(!m_liveEdit);
+
     unsetCursor();
     update();
 }
