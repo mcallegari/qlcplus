@@ -37,15 +37,16 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   selectfixture.html \
   showmanager.html \
   virtualconsole.html \
+  vcframe.html \
+  vcsoloframe.html \
   vcbutton.html \
   vcbuttonmatrix.html \
   vcslider.html \
   vcslidermatrix.html \
+  vcmatrix.html \
   vcspeeddial.html \
-  vcxypad.html \
   vccuelist.html \
-  vcframe.html \
-  vcsoloframe.html \
+  vcxypad.html \
   vclabel.html \
   audiotriggers.html \
   selectinputchannel.html \
