@@ -80,6 +80,9 @@ public:
     void setDisableState(bool disable);
 
     /** @reimp */
+    void setLiveEdit(bool liveEdit);
+
+    /** @reimp */
     void setCaption(const QString& text);
 
     /** @reimp */

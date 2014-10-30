@@ -527,7 +527,7 @@ protected:
 protected:
     bool m_liveEdit;
 public:
-    void setLiveEdit(bool liveEdit);
+    virtual void setLiveEdit(bool liveEdit);
     void cancelLiveEdit();
 protected slots:
     /** Listens to Doc mode changes */
