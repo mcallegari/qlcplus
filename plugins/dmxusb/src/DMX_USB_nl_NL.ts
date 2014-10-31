@@ -68,7 +68,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="116"/>
         <source>DMX Channels</source>
-        <translation type="unfinished">DMX kanalen</translation>
+        <translation>DMX kanalen</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="119"/>
