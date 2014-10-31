@@ -3134,67 +3134,68 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="69"/>
         <source>Midi</source>
-        <translation type="unfinished"></translation>
+        <translation>Midi</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="75"/>
         <source>Channel</source>
-        <translation type="unfinished">Channel</translation>
+        <translation>Channel</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="92"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Bericht</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="102"/>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="110"/>
         <source>Control Change</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Controle wijziging?</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="115"/>
         <source>Note On/Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Noot aan/uit</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="120"/>
         <source>Note Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Noot Aftertouch</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="125"/>
         <source>Program Change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Program Change</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="130"/>
         <source>Channel Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Channel Aftertouch </translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="135"/>
         <source>Pitch Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pitch wiel</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="140"/>
         <source>Beat Clock: Start/Stop/Continue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beat Cock: Start/Stop/Doorgaan</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="145"/>
         <source>Beat Clock: Beat</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beat Clock: Beat</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="166"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Noot</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="29"/>
@@ -3317,7 +3318,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="208"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="217"/>
@@ -4095,7 +4096,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="441"/>
         <source>Toggle between circle and square preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Wissel tussen cirkel en vierkant voorvertoning</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="467"/>
@@ -4140,7 +4141,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschappen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="135"/>
@@ -5894,7 +5895,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="141"/>
         <source>Matrix %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix %1</translation>
     </message>
 </context>
 <context>
@@ -5902,225 +5903,225 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>RGB Matrix properties</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB Matrix eigenschappen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Algemeen</translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="46"/>
         <source>The function that this widget controls</source>
         <oldsource>The function that this matrix controls</oldsource>
-        <translation type="unfinished">De functie die door deze knop bestuurd wordt</translation>
+        <translation>De functie die door deze widget bestuurd wordt</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="56"/>
         <source>Widget name</source>
-        <translation type="unfinished">Widgetnaam</translation>
+        <translation>Widgetnaam</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>Matrix Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Functie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
         <source>Detach the matrix function attachment</source>
         <oldsource>Detach the button&apos;s function attachment</oldsource>
-        <translation type="unfinished">Ontkoppel de functie van de knop</translation>
+        <translation>Ontkoppel de functie van de knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="90"/>
         <source>Attach a function to this widget</source>
         <oldsource>Attach a function to this button</oldsource>
-        <translation type="unfinished">Koppel een functie aan deze knop</translation>
+        <translation>Koppel een functie aan deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="110"/>
         <source>Text to display on the widget</source>
         <oldsource>Text to display on the button</oldsource>
-        <translation type="unfinished">Tekst om te tonen op de knop</translation>
+        <translation>Tekst om te tonen op de widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="117"/>
         <source>Apply color and preset changes immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas kleur en preset wijzigingen direct toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="126"/>
         <source>Slider External Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider Externe Input</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="132"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="434"/>
         <source>Input universe</source>
-        <translation type="unfinished">Input Universe</translation>
+        <translation>Input Universe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="139"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">De input universe die data stuurt naar deze widget</translation>
+        <translation>De input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="149"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Input channel</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="156"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="179"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
+        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="182"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="397"/>
         <source>Choose...</source>
-        <translation type="unfinished">Kies...</translation>
+        <translation>Kies...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation type="unfinished">Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
+        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="407"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Autodetectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="219"/>
         <source>Custom Controls</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Custom Controls</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
         <source> Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="238"/>
         <source> Add preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset toevoegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="250"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="255"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarde</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
         <source> Add start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg start kleur toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="274"/>
         <source> Add end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg eind kleur toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="291"/>
         <source>Key combination</source>
-        <translation type="unfinished">Toetscombinatie</translation>
+        <translation>Toetscombinatie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="306"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Verwijder de toetscombinatie van deze knop</translation>
+        <translation>Verwijder de toetscombinatie van deze knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="326"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Stel een toetscombinatie in voor deze knop</translation>
+        <translation>Stel een toetscombinatie in voor deze knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="346"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Toetscombinatie die deze knop aan/uit zet</translation>
+        <translation>Toetscombinatie die deze knop aan/uit zet</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="365"/>
         <source>External Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe input</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="384"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Het specifieke input channel in binnen het input universe dat data stuurt naar deze control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies een externe input universe en channel waarnaar deze control moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="404"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Indien aangezet is het mogelijk om een externe knop te koppelen aan deze control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="417"/>
         <source>The input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>De input universe die data stuurt naar deze control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
         <source> Add text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst toeveogen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="133"/>
         <source>No function</source>
-        <translation type="unfinished">Geen functie</translation>
+        <translation>Geen functie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="209"/>
         <source>Start Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Start kleur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="215"/>
         <source>End Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind kleur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="221"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="306"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animatie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="228"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="322"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="305"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies een animatie preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="321"/>
         <source>Enter a text</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een tekst in</translation>
     </message>
 </context>
 <context>
@@ -7295,7 +7296,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
         <source>New RGB Matrix</source>
-        <translation type="unfinished">Nieuwe RGB Matrix</translation>
+        <translation>Nieuwe RGB Matrix</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="357"/>
