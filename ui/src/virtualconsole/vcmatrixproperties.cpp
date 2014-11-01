@@ -21,6 +21,7 @@
 #include <QInputDialog>
 #include <QTreeWidget>
 
+#include "vcmatrixpresetselection.h"
 #include "vcmatrixproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
@@ -217,9 +218,25 @@ void VCMatrixProperties::updateTree()
                 item->setBackground(1, QBrush(control->m_color));
             break;
             case VCMatrixControl::Animation:
+            {
                 item->setIcon(0, QIcon(":/script.png"));
                 item->setText(0, tr("Animation"));
-                item->setText(1, control->m_resource);
+                QString presetName = control->m_resource;
+                if (!control->m_properties.isEmpty())
+                {
+                    presetName += " (";
+                    QHashIterator<QString, QString> it(control->m_properties);
+                    while(it.hasNext())
+                    {
+                        it.next();
+                        presetName += it.value();
+                        if (it.hasNext())
+                            presetName += ",";
+                    }
+                    presetName += ")";
+                }
+                item->setText(1, presetName);
+            }
             break;
             case VCMatrixControl::Image:
             break;
@@ -301,15 +318,14 @@ void VCMatrixProperties::slotAddEndColorClicked()
 
 void VCMatrixProperties::slotAddAnimationClicked()
 {
-    bool ok;
-    QString text = QInputDialog::getItem(this, tr("Select an animation preset"),
-                                         tr("Animation"), RGBScript::scriptNames(m_doc), 0,
-                                         false, &ok);
-    if (ok && !text.isEmpty())
+    VCMatrixPresetSelection ps(m_doc, this);
+
+    if (ps.exec() == QDialog::Accepted)
     {
         VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
         newControl->m_type = VCMatrixControl::Animation;
-        newControl->m_resource = text;
+        newControl->m_resource = ps.selectedPreset();
+        newControl->m_properties = ps.customizedProperties();
         addControl(newControl);
         updateTree();
     }

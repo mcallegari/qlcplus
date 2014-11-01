@@ -35,6 +35,7 @@ VCMatrixControl::VCMatrixControl(const VCMatrixControl *vcmc)
     , m_type(vcmc->m_type)
     , m_color(vcmc->m_color)
     , m_resource(vcmc->m_resource)
+    , m_properties(vcmc->m_properties)
     , m_keySequence(vcmc->m_keySequence)
 {
     if (vcmc->m_inputSource == NULL)
@@ -110,6 +111,15 @@ bool VCMatrixControl::loadXML(const QDomElement &root)
         {
             m_resource = tag.text();
         }
+        else if (tag.tagName() == KXMLQLCVCMatrixControlProperty)
+        {
+            if (tag.hasAttribute(KXMLQLCVCMatrixControlPropertyName))
+            {
+                QString pName = tag.attribute(KXMLQLCVCMatrixControlPropertyName);
+                QString pValue = tag.text();
+                m_properties[pName] = pValue;
+            }
+        }
         else if (tag.tagName() == KXMLQLCVCMatrixControlInput)
         {
             if (tag.hasAttribute(KXMLQLCVCMatrixControlInputUniverse) &&
@@ -162,6 +172,20 @@ bool VCMatrixControl::saveXML(QDomDocument *doc, QDomElement *mtx_root)
         root.appendChild(tag);
         text = doc->createTextNode(m_resource);
         tag.appendChild(text);
+    }
+
+    if (!m_properties.isEmpty())
+    {
+        QHashIterator<QString, QString> it(m_properties);
+        while(it.hasNext())
+        {
+            it.next();
+            tag = doc->createElement(KXMLQLCVCMatrixControlProperty);
+            tag.setAttribute(KXMLQLCVCMatrixControlPropertyName, it.key());
+            root.appendChild(tag);
+            text = doc->createTextNode(it.value());
+            tag.appendChild(text);
+        }
     }
 
     /* External input source */

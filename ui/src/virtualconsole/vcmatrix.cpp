@@ -311,9 +311,24 @@ void VCMatrix::addCustomControl(VCMatrixControl *control)
              control->m_type == VCMatrixControl::Text)
     {
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
+        controlButton->setMinimumWidth(36);
         controlButton->setMaximumWidth(80);
-        controlButton->setToolTip(control->m_resource);
-        controlButton->setText(fontMetrics().elidedText(control->m_resource, Qt::ElideRight, 72));
+        QString btnLabel = control->m_resource;
+        if (!control->m_properties.isEmpty())
+        {
+            btnLabel += " (";
+            QHashIterator<QString, QString> it(control->m_properties);
+            while(it.hasNext())
+            {
+                it.next();
+                btnLabel += it.value();
+                if (it.hasNext())
+                    btnLabel += ",";
+            }
+            btnLabel += ")";
+        }
+        controlButton->setToolTip(btnLabel);
+        controlButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
     }
     if (mode() == Doc::Design)
         controlButton->setEnabled(false);
@@ -374,6 +389,16 @@ void VCMatrix::slotCustomControlClicked()
         else if (control->m_type == VCMatrixControl::Animation)
         {
             RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, control->m_resource);
+            if (!control->m_properties.isEmpty())
+            {
+                RGBScript *script = static_cast<RGBScript*> (algo);
+                QHashIterator<QString, QString> it(control->m_properties);
+                while(it.hasNext())
+                {
+                    it.next();
+                    script->setProperty(it.key(), it.value());
+                }
+            }
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();

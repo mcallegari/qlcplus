@@ -37,6 +37,8 @@ class QDomElement;
 #define KXMLQLCVCMatrixControlType     "Type"
 #define KXMLQLCVCMatrixControlColor    "Color"
 #define KXMLQLCVCMatrixControlResource "Resource"
+#define KXMLQLCVCMatrixControlProperty "Property"
+#define KXMLQLCVCMatrixControlPropertyName "Name"
 
 #define KXMLQLCVCMatrixControlInput         "Input"
 #define KXMLQLCVCMatrixControlInputUniverse "Universe"
@@ -87,7 +89,7 @@ public:
     /** The control type */
     ControlType m_type;
 
-    /** The preset color if m_type == Color */
+    /** The preset color if m_type == StartColor or EndColor */
     QColor m_color;
 
     /** Resource can be:
@@ -96,6 +98,9 @@ public:
      *  - the matrix text
      */
     QString m_resource;
+
+    /** A map holding the requested script properties */
+    QHash<QString, QString> m_properties;
 
     QLCInputSource *m_inputSource;
     QKeySequence m_keySequence;
