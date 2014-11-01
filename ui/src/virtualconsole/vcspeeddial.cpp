@@ -44,8 +44,10 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     , m_dial(NULL)
     , m_absoluteValueMin(0)
     , m_absoluteValueMax(1000 * 10)
+    , m_visibilityMask(SpeedDial::defaultVisibilityMask())
 {
     new QVBoxLayout(this);
+    layout()->setMargin(0);
 
     m_dial = new SpeedDial(this);
     layout()->addWidget(m_dial);
@@ -273,6 +275,18 @@ uint VCSpeedDial::absoluteValueMax() const
     return m_absoluteValueMax;
 }
 
+ushort VCSpeedDial::visibilityMask()
+{
+    return m_visibilityMask;
+}
+
+void VCSpeedDial::setVisibilityMask(ushort mask)
+{
+    if (m_dial != NULL)
+        m_dial->setVisibilityMask(mask);
+    m_visibilityMask = mask;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -385,6 +399,10 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         {
             loadXMLAppearance(&tag);
         }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialVisibilityMask)
+        {
+            setVisibilityMask(tag.text().toUShort());
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown speed dial tag:" << tag.tagName();
@@ -411,6 +429,14 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Appearance */
     saveXMLAppearance(doc, &root);
+
+    if (m_visibilityMask != SpeedDial::defaultVisibilityMask())
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialVisibilityMask);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(QString::number(m_visibilityMask));
+        tag.appendChild(text);
+    }
 
     /* Absolute input */
     QDomElement absInput = doc->createElement(KXMLQLCVCSpeedDialAbsoluteValue);

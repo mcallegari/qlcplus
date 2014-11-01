@@ -40,6 +40,7 @@ class VCSpeedDialFunction;
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
 #define KXMLQLCVCSpeedDialTapKey "Key"
+#define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 
 class VCSpeedDial : public VCWidget
 {
@@ -169,6 +170,20 @@ public:
 private:
     uint m_absoluteValueMin;
     uint m_absoluteValueMax;
+
+    /*************************************************************************
+     * Elements visibility
+     *************************************************************************/
+public:
+    /** Return the widget's elements visibility bitmask */
+    ushort visibilityMask();
+
+    /** Set the visibility of the widget's elements
+      * according to the provided bitmask */
+    void setVisibilityMask(ushort mask);
+
+private:
+    ushort m_visibilityMask;
 
     /*************************************************************************
      * Load & Save

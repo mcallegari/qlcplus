@@ -48,8 +48,10 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     /* Create dials */
     m_startDial = new SpeedDial(this);
     m_startDial->setTitle(tr("Start Time"));
-    m_startDial->setInfiniteVisibility(false);
-    m_startDial->setTapVisibility(false);
+    ushort dialMask = m_startDial->visibilityMask();
+    dialMask = (dialMask & ~SpeedDial::Infinite);
+    dialMask = (dialMask & ~SpeedDial::Tap);
+    m_startDial->setVisibilityMask(dialMask);
     m_startDial->setValue(m_item->getStartTime());
     layout()->addWidget(m_startDial);
     connect(m_startDial, SIGNAL(valueChanged(int)),
@@ -57,8 +59,7 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
 
     m_durationDial = new SpeedDial(this);
     m_durationDial->setTitle(tr("Duration"));
-    m_durationDial->setInfiniteVisibility(false);
-    m_durationDial->setTapVisibility(false);
+    m_durationDial->setVisibilityMask(dialMask);
     m_durationDial->setValue(m_item->getDuration());
     layout()->addWidget(m_durationDial);
     connect(m_durationDial, SIGNAL(valueChanged(int)),
