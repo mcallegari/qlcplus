@@ -149,6 +149,7 @@ QString VCWidget::typeToString(int type)
         case SpeedDialWidget: return QString(tr("Speed dial"));
         case CueListWidget: return QString(tr("Cue list"));
         case LabelWidget: return QString(tr("Label"));
+        case AudioTriggersWidget: return QString(tr("Audio Triggers"));
         case AnimationWidget: return QString(tr("Animation"));
         case UnknownWidget:
         default:
@@ -169,6 +170,7 @@ QIcon VCWidget::typeToIcon(int type)
         case SpeedDialWidget: return QIcon(":/speed.png");
         case CueListWidget: return QIcon(":/cuelist.png");
         case LabelWidget: return QIcon(":/label.png");
+        case AudioTriggersWidget: return QIcon(":/audioinput.png");
         case AnimationWidget: return QIcon(":/rgbmatrix.png");
         case UnknownWidget:
         default:
