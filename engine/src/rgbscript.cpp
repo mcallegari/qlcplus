@@ -480,9 +480,13 @@ QStringList RGBScript::scriptNames(const Doc * doc)
 
 QList <RGBScript*> RGBScript::scripts(const Doc * doc)
 {
-    loadScripts(doc, userScriptDirectory());
-    loadScripts(doc, systemScriptDirectory());
-    loadScripts(doc, customScriptDirectory());
+    initEngine();
+    if (s_scriptsMap->isEmpty())
+    {
+        loadScripts(doc, userScriptDirectory());
+        loadScripts(doc, systemScriptDirectory());
+        loadScripts(doc, customScriptDirectory());
+    }
     return s_scriptsMap->values();
 }
 
