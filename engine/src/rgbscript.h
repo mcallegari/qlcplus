@@ -68,6 +68,7 @@ private:
     static QScriptEngine* s_engine; //! The engine that runs all scripts
     static QMutex* s_engineMutex;   //! Protection
     static QMap<QString, RGBScript*>* s_scriptsMap; //! One instance of each script, filename-based map
+    static RGBScript* s_dummyScript; //! Dummy empty script
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
@@ -137,7 +138,7 @@ private:
      ************************************************************************/
 public:
     /** Get a script by its public name */
-    static RGBScript script(const Doc * doc, const QString& name);
+    static RGBScript const& script(const Doc * doc, const QString& name);
 
     /** Get available (user, system and custom) script names */
     static QStringList scriptNames(const Doc * doc);

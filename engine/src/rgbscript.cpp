@@ -47,6 +47,7 @@ QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
 QScriptEngine* RGBScript::s_engine = NULL;
 QMutex* RGBScript::s_engineMutex = NULL;
 QMap<QString, RGBScript*>* RGBScript::s_scriptsMap = NULL;
+RGBScript* RGBScript::s_dummyScript = NULL;
 
 /****************************************************************************
  * Initialization
@@ -450,17 +451,20 @@ bool RGBScript::loadProperties()
  * System & User Scripts
  ****************************************************************************/
 
-RGBScript RGBScript::script(const Doc * doc, const QString& name)
+RGBScript const& RGBScript::script(const Doc * doc, const QString& name)
 {
     QListIterator <RGBScript*> it(scripts(doc));
     while (it.hasNext() == true)
     {
-        RGBScript script(*it.next());
-        if (script.name() == name)
-            return script;
+        RGBScript* script(it.next());
+        if (script->name() == name)
+            return *script;
     }
 
-    return RGBScript(doc);
+    if (s_dummyScript == NULL)
+        s_dummyScript = new RGBScript(doc);
+    Q_ASSERT(s_dummyScript != NULL);
+    return *s_dummyScript;
 }
 
 QStringList RGBScript::scriptNames(const Doc * doc)
@@ -476,9 +480,13 @@ QStringList RGBScript::scriptNames(const Doc * doc)
 
 QList <RGBScript*> RGBScript::scripts(const Doc * doc)
 {
-    loadScripts(doc, userScriptDirectory());
-    loadScripts(doc, systemScriptDirectory());
-    loadScripts(doc, customScriptDirectory());
+    initEngine();
+    if (s_scriptsMap->isEmpty())
+    {
+        loadScripts(doc, userScriptDirectory());
+        loadScripts(doc, systemScriptDirectory());
+        loadScripts(doc, customScriptDirectory());
+    }
     return s_scriptsMap->values();
 }
 
