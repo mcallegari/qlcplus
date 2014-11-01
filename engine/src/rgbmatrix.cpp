@@ -66,7 +66,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     setName(tr("New RGB Matrix"));
     setDuration(500);
 
-    RGBScript scr = RGBScript::script(doc, "Full Columns");
+    RGBScript scr = RGBScript::script(doc, "Stripes");
     setAlgorithm(scr.clone());
 }
 

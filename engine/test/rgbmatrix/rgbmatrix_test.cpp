@@ -85,7 +85,7 @@ void RGBMatrix_Test::initial()
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
     QCOMPARE(mtx.duration(), uint(500));
     QVERIFY(mtx.algorithm() != NULL);
-    QCOMPARE(mtx.algorithm()->name(), QString("Full Columns"));
+    QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 }
 
 void RGBMatrix_Test::group()
@@ -123,7 +123,7 @@ void RGBMatrix_Test::copy()
     mtx.setStartColor(Qt::magenta);
     mtx.setEndColor(Qt::yellow);
     mtx.setFixtureGroup(0);
-    mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Columns"));
+    mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
@@ -133,14 +133,14 @@ void RGBMatrix_Test::copy()
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
-    QCOMPARE(copyMtx->algorithm()->name(), QString("Full Columns"));
+    QCOMPARE(copyMtx->algorithm()->name(), QString("Stripes"));
 }
 
 void RGBMatrix_Test::previewMaps()
 {
     RGBMatrix mtx(m_doc);
     QVERIFY(mtx.algorithm() != NULL);
-    QCOMPARE(mtx.algorithm()->name(), QString("Full Columns"));
+    QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 
     QList <RGBMap> maps = mtx.previewMaps();
     QCOMPARE(maps.size(), 0); // No fixture group
@@ -169,9 +169,9 @@ void RGBMatrix_Test::loadSave()
     mtx->setStartColor(Qt::magenta);
     mtx->setEndColor(Qt::blue);
     mtx->setFixtureGroup(42);
-    mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Rows"));
+    mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx->algorithm() != NULL);
-    QCOMPARE(mtx->algorithm()->name(), QString("Full Rows"));
+    QCOMPARE(mtx->algorithm()->name(), QString("Stripes"));
 
     mtx->setName("Xyzzy");
     mtx->setDirection(Function::Backward);
