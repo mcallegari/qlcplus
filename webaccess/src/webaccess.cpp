@@ -1030,14 +1030,19 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
     QString unifiedHTML;
     QStringList pagesHTML;
-    for (int i = 0; i < pagesNum; i++)
+    VCFrame *lframe = (VCFrame *)frame;
+
+    if (lframe->multipageMode() == true)
     {
-        QString fpID = QString("fp%1_%2").arg(frame->id()).arg(i);
-        QString pg = "<div class=\"vcframePage\" id=\"" + fpID + "\"";
-        if (i == currentPageIdx)
-            pg += " style=\"visibility: visible;\"";
-        pg += ">\n";
-        pagesHTML << pg;
+        for (int i = 0; i < pagesNum; i++)
+        {
+            QString fpID = QString("fp%1_%2").arg(frame->id()).arg(i);
+            QString pg = "<div class=\"vcframePage\" id=\"" + fpID + "\"";
+            if (i == currentPageIdx)
+                pg += " style=\"visibility: visible;\"";
+            pg += ">\n";
+            pagesHTML << pg;
+        }
     }
 
     QList<VCWidget *> chList = frame->findChildren<VCWidget*>();
@@ -1085,7 +1090,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
                 str = getWidgetHTML(widget);
             break;
         }
-        if (pagesNum > 0)
+        if (lframe->multipageMode() == true && pagesNum > 0)
         {
             pagesHTML[widget->page()] += str;
             if (restoreDisable)

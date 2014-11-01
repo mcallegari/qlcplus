@@ -10,6 +10,7 @@ qlcplus (4.8.2) stable; urgency=low
   * Input Profiles: added Elation MIDIcon
   * Input Profiles: MIDI messages can be entered directly
   * Webaccess: improved UTF-8 and HTML5 conformance (thanks to Janosch Frank)
+  * Webaccess: fixed crash occurring on nested multipage/non-multipage frames
   * ArtNet: fixed dmx output packet length (even number in the range 2-512), fixed input dmx packet parsing
   * New fixtures: NJD Spectre, Chauvet Eclipse RGB, American DJ Dotz TPar, Abstract Twister 4, Pulse ECO LED PAR56 (thanks to Charles Oldham)
   * New fixture: American DJ Galaxian Sky (thanks to Chicken)
