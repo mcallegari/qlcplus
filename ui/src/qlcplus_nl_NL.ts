@@ -3262,66 +3262,66 @@ p, li { white-space: pre-wrap; }
         <translation>Input/Output patch editor</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="27"/>
+        <location filename="inputoutputpatcheditor.ui" line="36"/>
         <source>Mapping</source>
         <translation>Indeling</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="52"/>
+        <location filename="inputoutputpatcheditor.ui" line="61"/>
         <source>Plugin</source>
         <translation>Plugin</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="57"/>
-        <location filename="inputoutputpatcheditor.ui" line="227"/>
+        <location filename="inputoutputpatcheditor.ui" line="66"/>
+        <location filename="inputoutputpatcheditor.ui" line="236"/>
         <source>Device</source>
         <translation>Apparaat</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="62"/>
-        <location filename="inputoutputpatcheditor.ui" line="232"/>
+        <location filename="inputoutputpatcheditor.ui" line="71"/>
+        <location filename="inputoutputpatcheditor.ui" line="241"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="70"/>
-        <location filename="inputoutputpatcheditor.ui" line="237"/>
+        <location filename="inputoutputpatcheditor.ui" line="79"/>
+        <location filename="inputoutputpatcheditor.ui" line="246"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="78"/>
+        <location filename="inputoutputpatcheditor.ui" line="87"/>
         <source>Feedback</source>
         <translation>Terugkoppeling</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="114"/>
-        <location filename="inputoutputpatcheditor.ui" line="203"/>
+        <location filename="inputoutputpatcheditor.ui" line="123"/>
+        <location filename="inputoutputpatcheditor.ui" line="212"/>
         <source>Profile</source>
         <translation>Profiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="120"/>
+        <location filename="inputoutputpatcheditor.ui" line="129"/>
         <source>Create a new input profile</source>
         <translation>Maak een nieuw inputprofiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="140"/>
+        <location filename="inputoutputpatcheditor.ui" line="149"/>
         <source>Delete the selected input profile</source>
         <translation>Verwijder het geselecteerde inputprofiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="160"/>
+        <location filename="inputoutputpatcheditor.ui" line="169"/>
         <source>Edit the selected input profile</source>
         <translation>Wijzig het geselecteerde inputprofiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="208"/>
+        <location filename="inputoutputpatcheditor.ui" line="217"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="217"/>
+        <location filename="inputoutputpatcheditor.ui" line="226"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
@@ -4970,32 +4970,32 @@ Duur: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="124"/>
+        <location filename="speeddial.cpp" line="136"/>
         <source>Hours</source>
         <translation>Uren</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="133"/>
+        <location filename="speeddial.cpp" line="145"/>
         <source>Minutes</source>
         <translation>Minuten</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="142"/>
+        <location filename="speeddial.cpp" line="154"/>
         <source>Seconds</source>
         <translation>Seconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="151"/>
+        <location filename="speeddial.cpp" line="163"/>
         <source>Milliseconds</source>
         <translation>Milliseconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="157"/>
+        <location filename="speeddial.cpp" line="169"/>
         <source>Infinite</source>
         <translation>Oneindig</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="114"/>
+        <location filename="speeddial.cpp" line="123"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5026,22 +5026,22 @@ Duur: %3
         <translation>Starttijd</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="59"/>
+        <location filename="showmanager/timingstool.cpp" line="61"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="67"/>
+        <location filename="showmanager/timingstool.cpp" line="68"/>
         <source>Duration options</source>
         <translation>Duur opties</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="69"/>
+        <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Stretch the original function duration</source>
         <translation>Originele functie duur uitrekken</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="70"/>
+        <location filename="showmanager/timingstool.cpp" line="71"/>
         <source>Loop function until duration is reached</source>
         <translation>Herhaal de functie tot de duur bereikt is</translation>
     </message>
@@ -5682,7 +5682,7 @@ Duur: %3
         <translation>Pagina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1154"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1158"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
@@ -5893,17 +5893,36 @@ Duur: %3
 <context>
     <name>VCMatrix</name>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="141"/>
-        <source>Matrix %1</source>
-        <translation>Matrix %1</translation>
+        <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
+        <source>Animation %1</source>
+        <translation type="unfinished">Animatie %1</translation>
+    </message>
+</context>
+<context>
+    <name>VCMatrixPresetSelection</name>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
+        <source>Select an animation preset</source>
+        <translation type="unfinished">Kies een animatie preset</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
+        <source>Pattern</source>
+        <translation type="unfinished">Patroon</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
+        <source>Properties</source>
+        <translation type="unfinished">Eigenschappen</translation>
     </message>
 </context>
 <context>
     <name>VCMatrixProperties</name>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
-        <source>RGB Matrix properties</source>
-        <translation>RGB Matrix eigenschappen</translation>
+        <source>Animation widget properties</source>
+        <oldsource>RGB Matrix properties</oldsource>
+        <translation type="unfinished">RGB Matrix eigenschappen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
@@ -5923,8 +5942,9 @@ Duur: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
-        <source>Matrix Function</source>
-        <translation>Matrix Functie</translation>
+        <source>RGB Matrix Function</source>
+        <oldsource>Matrix Function</oldsource>
+        <translation type="unfinished">Matrix Functie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
@@ -5989,8 +6009,9 @@ Duur: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
+        <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
+        <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
+        <translation type="unfinished">Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6087,39 +6108,33 @@ Duur: %3
         <translation>Tekst toeveogen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="133"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="134"/>
         <source>No function</source>
         <translation>Geen functie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="209"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="210"/>
         <source>Start Color</source>
         <translation>Start kleur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="215"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="216"/>
         <source>End Color</source>
         <translation>Eind kleur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="221"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="306"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="223"/>
         <source>Animation</source>
         <translation>Animatie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="228"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="322"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="245"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="338"/>
         <source>Text</source>
         <translation>Tekst</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="305"/>
-        <source>Select an animation preset</source>
-        <translation>Kies een animatie preset</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="321"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="337"/>
         <source>Enter a text</source>
         <translation>Voer een tekst in</translation>
     </message>
@@ -6183,203 +6198,211 @@ Duur: %3
         <translation>Widgets standaardeigenschappen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="188"/>
+        <location filename="virtualconsole/vcproperties.ui" line="169"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
         <translation>Speed dial waarde</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="225"/>
+        <location filename="virtualconsole/vcproperties.ui" line="162"/>
         <source>XY Pad size</source>
         <oldsource>XY Pad size:</oldsource>
         <translation>XY Pad grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="277"/>
+        <location filename="virtualconsole/vcproperties.ui" line="226"/>
         <source>Slider size</source>
         <oldsource>Slider size:</oldsource>
         <translation>Slider grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="423"/>
+        <location filename="virtualconsole/vcproperties.ui" line="332"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
         <translation>Frame grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="430"/>
+        <location filename="virtualconsole/vcproperties.ui" line="549"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
         <translation>Speed dial grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="485"/>
+        <location filename="virtualconsole/vcproperties.ui" line="247"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
         <translation>Solo frame grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="492"/>
+        <location filename="virtualconsole/vcproperties.ui" line="523"/>
         <source>Cue List size</source>
         <oldsource>Cue List size:</oldsource>
         <translation>Cue list grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="499"/>
+        <location filename="virtualconsole/vcproperties.ui" line="516"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
         <translation>Knop grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcproperties.ui" line="572"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
         <translation>Button status stijl</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="513"/>
+        <location filename="virtualconsole/vcproperties.ui" line="506"/>
         <source>LED</source>
         <translation>LED</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="523"/>
+        <location filename="virtualconsole/vcproperties.ui" line="254"/>
         <source>Border</source>
         <translation>Rand</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="533"/>
+        <location filename="virtualconsole/vcproperties.ui" line="233"/>
         <source>Audio triggers size</source>
         <oldsource>Audio triggers size:</oldsource>
         <translation>Audio triggers grootte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="543"/>
-        <location filename="virtualconsole/vcproperties.ui" line="566"/>
+        <location filename="virtualconsole/vcproperties.ui" line="365"/>
+        <location filename="virtualconsole/vcproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcproperties.ui" line="589"/>
+        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="583"/>
+        <location filename="virtualconsole/vcproperties.ui" line="579"/>
+        <source>Animation size</source>
+        <oldsource>RGB Matrix size</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcproperties.ui" line="629"/>
         <source>Grand Master</source>
         <translation>Grand Master</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="589"/>
+        <location filename="virtualconsole/vcproperties.ui" line="635"/>
         <source>Channels</source>
         <translation>Channels</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="595"/>
+        <location filename="virtualconsole/vcproperties.ui" line="641"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Pas Grand Master alleen toe op intensiteit channels.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="598"/>
+        <location filename="virtualconsole/vcproperties.ui" line="644"/>
         <source>Intensity</source>
         <translation>Intensiteit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="605"/>
+        <location filename="virtualconsole/vcproperties.ui" line="651"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Pas Grand Master toe op alle channels.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="608"/>
+        <location filename="virtualconsole/vcproperties.ui" line="654"/>
         <source>All channels</source>
         <translation>Alle channels</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="618"/>
+        <location filename="virtualconsole/vcproperties.ui" line="664"/>
         <source>Values</source>
         <translation>Waarden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="624"/>
+        <location filename="virtualconsole/vcproperties.ui" line="670"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Grand Master verlaagt levels procentueel.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="627"/>
+        <location filename="virtualconsole/vcproperties.ui" line="673"/>
         <source>Reduce</source>
         <translation>Verlagen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="634"/>
+        <location filename="virtualconsole/vcproperties.ui" line="680"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Grand Master limiteert de hoogste waarde die een channel kan hebben.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="637"/>
+        <location filename="virtualconsole/vcproperties.ui" line="683"/>
         <source>Limit</source>
         <translation>Limiet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="647"/>
+        <location filename="virtualconsole/vcproperties.ui" line="693"/>
         <source>External Input</source>
         <translation>Externe Input</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="653"/>
+        <location filename="virtualconsole/vcproperties.ui" line="699"/>
         <source>Input Universe</source>
         <translation>Input Universe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="660"/>
+        <location filename="virtualconsole/vcproperties.ui" line="706"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Input universe voor Grand Master slider.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="670"/>
+        <location filename="virtualconsole/vcproperties.ui" line="716"/>
         <source>Input Channel</source>
         <translation>Input Channel</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="677"/>
+        <location filename="virtualconsole/vcproperties.ui" line="723"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Input channel voor Grand Master slider.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="700"/>
+        <location filename="virtualconsole/vcproperties.ui" line="746"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan de Grand Master slider.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="703"/>
+        <location filename="virtualconsole/vcproperties.ui" line="749"/>
         <source>Auto Detect</source>
         <translation>Autodetectie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="716"/>
+        <location filename="virtualconsole/vcproperties.ui" line="762"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Kies een externe input universe en channel waarnaar Grand Master moet luisteren.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="719"/>
+        <location filename="virtualconsole/vcproperties.ui" line="765"/>
         <source>Choose...</source>
         <translation>Kies...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="742"/>
+        <location filename="virtualconsole/vcproperties.ui" line="788"/>
         <source>Slider movement</source>
         <translation>Beweging slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="748"/>
+        <location filename="virtualconsole/vcproperties.ui" line="794"/>
         <source>Normal</source>
         <translation>Normaal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="755"/>
+        <location filename="virtualconsole/vcproperties.ui" line="801"/>
         <source>Inverted</source>
         <translation>Omgekeerd</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="442"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="460"/>
         <source>%1: Unknown</source>
         <translation>%1: Onbekend</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="458"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="476"/>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
@@ -6724,7 +6747,7 @@ Duur: %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="56"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="58"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
@@ -6871,6 +6894,51 @@ Duur: %3
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Verwijder de toetscombinatie van deze dial</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
+        <source>Appearance</source>
+        <translation type="unfinished">Uiterlijk</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
+        <source>Show plus and minus buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
+        <source>Show the central dial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
+        <source>Show the tap button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
+        <source>Show the hours field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
+        <source>Show the minutes field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
+        <source>Show the seconds field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
+        <source>Show the milliseconds field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
+        <source>Show the infinite option</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VCWidget</name>
@@ -6915,13 +6983,18 @@ Duur: %3
         <translation>Label</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="154"/>
-        <location filename="virtualconsole/vcwidget.cpp" line="156"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
+        <source>Animation</source>
+        <translation type="unfinished">Animatie</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcwidget.cpp" line="155"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="157"/>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="506"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="508"/>
         <source>This widget has no properties</source>
         <translation>Deze widget heeft geen eigenschappen</translation>
     </message>
@@ -7229,229 +7302,229 @@ Duur: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="296"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="301"/>
         <source>New Button</source>
         <translation>Nieuwe knop</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="299"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="304"/>
         <source>New Button Matrix</source>
         <translation>Nieuw knoppenmatrix</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="307"/>
         <source>New Slider</source>
         <translation>Nieuwe slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="310"/>
         <source>New Slider Matrix</source>
         <translation>Nieuw slidermatrix</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="313"/>
         <source>New Knob</source>
         <translation>Nieuwe knop</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Speed Dial</source>
         <translation>Nieuwe Speed Dial</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="319"/>
         <source>New XY pad</source>
         <translation>Nieuwe XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="322"/>
         <source>New Cue list</source>
         <translation>Nieuwe cue lijst</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Frame</source>
         <translation>Nieuw frame</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Solo frame</source>
         <translation>Nieuw soloframe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
         <source>New Label</source>
         <translation>Nieuw label</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="334"/>
         <source>New Audio Triggers</source>
         <translation>Nieuwe audiotrigger</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="332"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="337"/>
         <source>New Clock</source>
         <translation>Nieuwe klok</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
-        <source>New RGB Matrix</source>
-        <translation>Nieuwe RGB Matrix</translation>
+        <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
+        <source>New Animation</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="357"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
         <source>Virtual Console Settings</source>
         <translation>Instellingen Virtual Console</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="364"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="369"/>
         <source>Cut</source>
         <translation>Knippen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="367"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="372"/>
         <source>Copy</source>
         <translation>Kopiëren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="375"/>
         <source>Paste</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="374"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="379"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="377"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Widget Properties</source>
         <translation>Widget eigenschappen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="380"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Rename Widget</source>
         <translation>Hernoem widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="394"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
         <source>Background Color</source>
         <translation>Achtergrondkleur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="397"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="402"/>
         <source>Background Image</source>
         <translation>Achtergrondafbeelding</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="400"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="414"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="427"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="405"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="432"/>
         <source>Default</source>
         <translation>Standaard</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="411"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="416"/>
         <source>Font Colour</source>
         <translation>Tekstkleur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="424"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="429"/>
         <source>Font</source>
         <translation>Lettertype</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="437"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="442"/>
         <source>Sunken</source>
         <translation>Verlaagd</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="440"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="445"/>
         <source>Raised</source>
         <translation>Verhoogd</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="443"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="448"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="454"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="459"/>
         <source>Bring to front</source>
         <translation>Naar voorgrond</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="457"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="462"/>
         <source>Send to back</source>
         <translation>Naar achtergrond</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="471"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="476"/>
         <source>&amp;Add</source>
         <translation>Toevoegen (&amp;a)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="492"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="497"/>
         <source>&amp;Edit</source>
         <translation>Wijzigen (&amp;e)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="504"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="509"/>
         <source>&amp;Background</source>
         <translation>Achtergrond (&amp;b)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="512"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="517"/>
         <source>&amp;Foreground</source>
         <translation>Voorgrond (&amp;f)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="519"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="524"/>
         <source>F&amp;ont</source>
         <translation>Lettertype (&amp;f)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="526"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="531"/>
         <source>F&amp;rame</source>
         <translation>F&amp;rame</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="534"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="539"/>
         <source>Stacking &amp;order</source>
         <translation>Opstapeling en v&amp;olgorde</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="868"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="873"/>
         <source>Knob %1</source>
         <translation>Knop %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1135"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1142"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Geselecteerde widgets verwijderen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1136"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1143"/>
         <source>Delete widgets</source>
         <translation>Verwijder widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1199"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
         <source>Rename widgets</source>
         <translation>Hernoem widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1199"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
         <source>Caption:</source>
         <translation>Opschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1252"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
         <source>Select background image</source>
         <translation>Selecteer achtergrondafbeelding</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1254"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
         <source>Images</source>
         <translation>Afbeeldingen</translation>
     </message>

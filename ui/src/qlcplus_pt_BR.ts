@@ -3272,66 +3272,66 @@ p, li { white-space: pre-wrap; }
         <translation>Editor de patch de Entrada/Saída </translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="27"/>
+        <location filename="inputoutputpatcheditor.ui" line="36"/>
         <source>Mapping</source>
         <translation>Mapa</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="52"/>
+        <location filename="inputoutputpatcheditor.ui" line="61"/>
         <source>Plugin</source>
         <translation>Plugin</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="57"/>
-        <location filename="inputoutputpatcheditor.ui" line="227"/>
+        <location filename="inputoutputpatcheditor.ui" line="66"/>
+        <location filename="inputoutputpatcheditor.ui" line="236"/>
         <source>Device</source>
         <translation>Dispositivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="62"/>
-        <location filename="inputoutputpatcheditor.ui" line="232"/>
+        <location filename="inputoutputpatcheditor.ui" line="71"/>
+        <location filename="inputoutputpatcheditor.ui" line="241"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="70"/>
-        <location filename="inputoutputpatcheditor.ui" line="237"/>
+        <location filename="inputoutputpatcheditor.ui" line="79"/>
+        <location filename="inputoutputpatcheditor.ui" line="246"/>
         <source>Output</source>
         <translation>Saída</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="78"/>
+        <location filename="inputoutputpatcheditor.ui" line="87"/>
         <source>Feedback</source>
         <translation>Feedback</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="114"/>
-        <location filename="inputoutputpatcheditor.ui" line="203"/>
+        <location filename="inputoutputpatcheditor.ui" line="123"/>
+        <location filename="inputoutputpatcheditor.ui" line="212"/>
         <source>Profile</source>
         <translation>Perfil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="120"/>
+        <location filename="inputoutputpatcheditor.ui" line="129"/>
         <source>Create a new input profile</source>
         <translation>Criar um novo perfil de Entrada </translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="140"/>
+        <location filename="inputoutputpatcheditor.ui" line="149"/>
         <source>Delete the selected input profile</source>
         <translation>Eliminar o perfil de entrada seleccionado</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="160"/>
+        <location filename="inputoutputpatcheditor.ui" line="169"/>
         <source>Edit the selected input profile</source>
         <translation>Editar o perfil de entrada seleccionado</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="208"/>
+        <location filename="inputoutputpatcheditor.ui" line="217"/>
         <source>Type</source>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="217"/>
+        <location filename="inputoutputpatcheditor.ui" line="226"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
@@ -4973,32 +4973,32 @@ Duration: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="124"/>
+        <location filename="speeddial.cpp" line="136"/>
         <source>Hours</source>
         <translation>Horas</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="133"/>
+        <location filename="speeddial.cpp" line="145"/>
         <source>Minutes</source>
         <translation>Minutos</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="142"/>
+        <location filename="speeddial.cpp" line="154"/>
         <source>Seconds</source>
         <translation>Segundos</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="151"/>
+        <location filename="speeddial.cpp" line="163"/>
         <source>Milliseconds</source>
         <translation>Milisegundos</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="157"/>
+        <location filename="speeddial.cpp" line="169"/>
         <source>Infinite</source>
         <translation>Infinito</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="114"/>
+        <location filename="speeddial.cpp" line="123"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5029,22 +5029,22 @@ Duration: %3
         <translation type="unfinished">Tiempo de início</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="59"/>
+        <location filename="showmanager/timingstool.cpp" line="61"/>
         <source>Duration</source>
         <translation type="unfinished">Duração</translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="67"/>
+        <location filename="showmanager/timingstool.cpp" line="68"/>
         <source>Duration options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="69"/>
+        <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Stretch the original function duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/timingstool.cpp" line="70"/>
+        <location filename="showmanager/timingstool.cpp" line="71"/>
         <source>Loop function until duration is reached</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5687,7 +5687,7 @@ Duration: %3
         <translation>Página: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1154"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1158"/>
         <source>Add</source>
         <translation>Adicionar</translation>
     </message>
@@ -5898,8 +5898,26 @@ Duration: %3
 <context>
     <name>VCMatrix</name>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="141"/>
-        <source>Matrix %1</source>
+        <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
+        <source>Animation %1</source>
+        <translation type="unfinished">Animação %1</translation>
+    </message>
+</context>
+<context>
+    <name>VCMatrixPresetSelection</name>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
+        <source>Select an animation preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
+        <source>Pattern</source>
+        <translation type="unfinished">Padrão</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
+        <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5907,7 +5925,8 @@ Duration: %3
     <name>VCMatrixProperties</name>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
-        <source>RGB Matrix properties</source>
+        <source>Animation widget properties</source>
+        <oldsource>RGB Matrix properties</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5928,7 +5947,8 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
-        <source>Matrix Function</source>
+        <source>RGB Matrix Function</source>
+        <oldsource>Matrix Function</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5994,7 +6014,8 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
+        <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
+        <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
         <translation type="unfinished">Quando activo, pode pressionar um botão ou roda externos para o atribuir a este fader da consola virtual.</translation>
     </message>
     <message>
@@ -6092,39 +6113,33 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="133"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="134"/>
         <source>No function</source>
         <translation type="unfinished">Sem função</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="209"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="210"/>
         <source>Start Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="215"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="216"/>
         <source>End Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="221"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="306"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="223"/>
         <source>Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="228"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="322"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="245"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="338"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="305"/>
-        <source>Select an animation preset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="321"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="337"/>
         <source>Enter a text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6144,7 +6159,7 @@ Duration: %3
         <translation>Widget de resolução de grelha  X </translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="719"/>
+        <location filename="virtualconsole/vcproperties.ui" line="765"/>
         <source>Choose...</source>
         <translation>Seleccionar...</translation>
     </message>
@@ -6194,198 +6209,206 @@ Duration: %3
         <translation>Propriedades dos widgets por defeito</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="499"/>
+        <location filename="virtualconsole/vcproperties.ui" line="516"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
         <translation>Tamanho do botão</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="485"/>
+        <location filename="virtualconsole/vcproperties.ui" line="247"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
         <translation>Tamanho da moldura Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="277"/>
+        <location filename="virtualconsole/vcproperties.ui" line="226"/>
         <source>Slider size</source>
         <oldsource>Slider size:</oldsource>
         <translation>Tamanho do Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="430"/>
+        <location filename="virtualconsole/vcproperties.ui" line="549"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
         <translation>Tamanho do selector de velocidade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="225"/>
+        <location filename="virtualconsole/vcproperties.ui" line="162"/>
         <source>XY Pad size</source>
         <oldsource>XY Pad size:</oldsource>
         <translation>Tamanho do Pad XY</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="492"/>
+        <location filename="virtualconsole/vcproperties.ui" line="523"/>
         <source>Cue List size</source>
         <oldsource>Cue List size:</oldsource>
         <translation>Tamanho da Cue List</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="423"/>
+        <location filename="virtualconsole/vcproperties.ui" line="332"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
         <translation>Tamanho da moldura</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="188"/>
+        <location filename="virtualconsole/vcproperties.ui" line="169"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
         <translation>Valor do selector de velocidade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcproperties.ui" line="572"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
         <translation>Estilo do estado do botão</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="513"/>
+        <location filename="virtualconsole/vcproperties.ui" line="506"/>
         <source>LED</source>
         <translation>LED</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="523"/>
+        <location filename="virtualconsole/vcproperties.ui" line="254"/>
         <source>Border</source>
         <translation>Rebordo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="533"/>
+        <location filename="virtualconsole/vcproperties.ui" line="233"/>
         <source>Audio triggers size</source>
         <oldsource>Audio triggers size:</oldsource>
         <translation>Tamanho dos Triggers de audio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="543"/>
-        <location filename="virtualconsole/vcproperties.ui" line="566"/>
+        <location filename="virtualconsole/vcproperties.ui" line="365"/>
+        <location filename="virtualconsole/vcproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcproperties.ui" line="589"/>
+        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="583"/>
+        <location filename="virtualconsole/vcproperties.ui" line="579"/>
+        <source>Animation size</source>
+        <oldsource>RGB Matrix size</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcproperties.ui" line="629"/>
         <source>Grand Master</source>
         <translation>Grand Master</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="589"/>
+        <location filename="virtualconsole/vcproperties.ui" line="635"/>
         <source>Channels</source>
         <translation>Canais</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="595"/>
+        <location filename="virtualconsole/vcproperties.ui" line="641"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Aplicar Grand Master só aos canais de Intensidade.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="598"/>
+        <location filename="virtualconsole/vcproperties.ui" line="644"/>
         <source>Intensity</source>
         <translation>Intensidade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="605"/>
+        <location filename="virtualconsole/vcproperties.ui" line="651"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Aplicar Grand Master a todos os canais. </translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="608"/>
+        <location filename="virtualconsole/vcproperties.ui" line="654"/>
         <source>All channels</source>
         <translation>todos os canais</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="618"/>
+        <location filename="virtualconsole/vcproperties.ui" line="664"/>
         <source>Values</source>
         <translation>Valores</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="624"/>
+        <location filename="virtualconsole/vcproperties.ui" line="670"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Fazer com que o Gradn Master reduza os níveis percentualmente.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="627"/>
+        <location filename="virtualconsole/vcproperties.ui" line="673"/>
         <source>Reduce</source>
         <translation>Reduzir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="634"/>
+        <location filename="virtualconsole/vcproperties.ui" line="680"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Fazer com que o Gradn Master limite o valor máximo dos canais.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="637"/>
+        <location filename="virtualconsole/vcproperties.ui" line="683"/>
         <source>Limit</source>
         <translation>Limitar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="647"/>
+        <location filename="virtualconsole/vcproperties.ui" line="693"/>
         <source>External Input</source>
         <translation>Entrada externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="653"/>
+        <location filename="virtualconsole/vcproperties.ui" line="699"/>
         <source>Input Universe</source>
         <translation>Universo de entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="660"/>
+        <location filename="virtualconsole/vcproperties.ui" line="706"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Universo de entrada para o fader do Grand Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="670"/>
+        <location filename="virtualconsole/vcproperties.ui" line="716"/>
         <source>Input Channel</source>
         <translation>Canal de entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="677"/>
+        <location filename="virtualconsole/vcproperties.ui" line="723"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Canal de entrada para o fader do Grand Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="700"/>
+        <location filename="virtualconsole/vcproperties.ui" line="746"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Quando activo, pode mover um fader ou roda externos para o atribuir ao fader do Grand Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="703"/>
+        <location filename="virtualconsole/vcproperties.ui" line="749"/>
         <source>Auto Detect</source>
         <translation>Detectar automaticamente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="716"/>
+        <location filename="virtualconsole/vcproperties.ui" line="762"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Seleccionar um universo e canal de entrada que o fader do Grand Master deve escutar.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="742"/>
+        <location filename="virtualconsole/vcproperties.ui" line="788"/>
         <source>Slider movement</source>
         <translation>Movimento do fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="748"/>
+        <location filename="virtualconsole/vcproperties.ui" line="794"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="755"/>
+        <location filename="virtualconsole/vcproperties.ui" line="801"/>
         <source>Inverted</source>
         <translation>Invertido</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="442"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="460"/>
         <source>%1: Unknown</source>
         <translation>%1: Desconhecido</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="458"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="476"/>
         <source>Unknown</source>
         <translation>Desconhecido</translation>
     </message>
@@ -6732,7 +6755,7 @@ Duration: %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="56"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="58"/>
         <source>Duration</source>
         <translation>Duração</translation>
     </message>
@@ -6879,6 +6902,51 @@ Duration: %3
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Remover a tecla de atalho para este selector</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
+        <source>Appearance</source>
+        <translation type="unfinished">Aparência</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
+        <source>Show plus and minus buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
+        <source>Show the central dial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
+        <source>Show the tap button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
+        <source>Show the hours field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
+        <source>Show the minutes field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
+        <source>Show the seconds field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
+        <source>Show the milliseconds field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
+        <source>Show the infinite option</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VCWidget</name>
@@ -6923,13 +6991,18 @@ Duration: %3
         <translation>Etiqueta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="154"/>
-        <location filename="virtualconsole/vcwidget.cpp" line="156"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
+        <source>Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcwidget.cpp" line="155"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="157"/>
         <source>Unknown</source>
         <translation>Desconhecido</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="506"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="508"/>
         <source>This widget has no properties</source>
         <translation>Este widget não tem propriedades</translation>
     </message>
@@ -7237,229 +7310,229 @@ Duration: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="364"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="369"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="367"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="372"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="375"/>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="374"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="379"/>
         <source>Delete</source>
         <translation>Apagar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="400"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="414"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="427"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="405"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="432"/>
         <source>Default</source>
         <translation>Por defeito</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="424"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="429"/>
         <source>Font</source>
         <translation>Fonte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="437"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="442"/>
         <source>Sunken</source>
         <translation>Fundido</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="440"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="445"/>
         <source>Raised</source>
         <translation>Elevado</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="443"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="448"/>
         <source>None</source>
         <translation>Nenhum</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="471"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="476"/>
         <source>&amp;Add</source>
         <translation>&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="492"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="497"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="296"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="301"/>
         <source>New Button</source>
         <translation>Novo Botão</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="299"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="304"/>
         <source>New Button Matrix</source>
         <translation>Nova Matriz de Botões</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="307"/>
         <source>New Slider</source>
         <translation>Novo Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="313"/>
         <source>New Knob</source>
         <translation>Nova Roda</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Speed Dial</source>
         <translation>Novo Selector de Velocidade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="319"/>
         <source>New XY pad</source>
         <translation>Novo XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="322"/>
         <source>New Cue list</source>
         <translation>Nova Lista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Frame</source>
         <translation>Nova Moldura</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Solo frame</source>
         <translation>Nova Moldura Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
         <source>New Label</source>
         <translation>Nova Etiqueta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="334"/>
         <source>New Audio Triggers</source>
         <translation>Novo Trigger de Audio </translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="332"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="337"/>
         <source>New Clock</source>
         <translation>NovoRelógio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
-        <source>New RGB Matrix</source>
-        <translation type="unfinished">Nova Matriz RGB</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="357"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
         <source>Virtual Console Settings</source>
         <translation>Configurações da Consola Virtual</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="377"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Widget Properties</source>
         <translation>Propriedades de widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="380"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Rename Widget</source>
         <translation>Renomear widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="394"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
         <source>Background Color</source>
         <translation>Cor de Fundo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="397"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="402"/>
         <source>Background Image</source>
         <translation>Imagem de Fundo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="411"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="416"/>
         <source>Font Colour</source>
         <translation>Cor da Fonte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="454"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="459"/>
         <source>Bring to front</source>
         <translation>Trazer para a frente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="457"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="462"/>
         <source>Send to back</source>
         <translation>Mandar para trás</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="504"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="509"/>
         <source>&amp;Background</source>
         <translation>&amp;Fundo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="512"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="517"/>
         <source>&amp;Foreground</source>
         <translation>&amp;Primeiro Plano</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="519"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="524"/>
         <source>F&amp;ont</source>
         <translation>F&amp;onte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="526"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="531"/>
         <source>F&amp;rame</source>
         <translation>&amp;Moldura</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="534"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="539"/>
         <source>Stacking &amp;order</source>
         <translation>&amp;Ordem de sobreposição</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1254"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="310"/>
         <source>New Slider Matrix</source>
         <translation>Nova Matriz de Faders </translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="868"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
+        <source>New Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/virtualconsole.cpp" line="873"/>
         <source>Knob %1</source>
         <translation>Roda %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1135"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1142"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Deseja eliminar o widget seleccionado?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1136"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1143"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1199"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
         <source>Rename widgets</source>
         <translation>Renomear widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1199"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
         <source>Caption:</source>
         <translation>Legenda:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1252"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
         <source>Select background image</source>
         <translation>Seleccionar imagem de fundo</translation>
     </message>
