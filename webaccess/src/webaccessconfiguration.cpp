@@ -254,6 +254,11 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
                  " margin: 0px;\n"
                  " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
                  " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 "}\n\n"
+                 "form {\n"
+                 "position: absolute;\n"
+                 "top: -100px;\n"
+                 "visibility: hidden;\n"
                  "}\n"
                  "</style>\n"
                  "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";

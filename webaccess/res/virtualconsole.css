@@ -1,5 +1,11 @@
 body { margin: 0px; }
 
+form {
+ position: absolute;
+ top: -100px;
+ visibility: hidden;
+}
+
 .vcbutton-wrapper {
  position: absolute;
 }
