@@ -48,7 +48,7 @@ class VCAudioTriggers : public VCWidget, public DMXSource
     Q_DISABLE_COPY(VCAudioTriggers)
 
 public:
-    /** Default size for newly-created frames */
+    /** Default size for newly-created widget */
     static const QSize defaultSize;
 
     /*********************************************************************

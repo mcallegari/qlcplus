@@ -1004,6 +1004,7 @@ void VirtualConsole::slotToolsSettings()
         settings.setValue(SETTINGS_FRAME_SIZE, vcpe.frameSize());
         settings.setValue(SETTINGS_SOLOFRAME_SIZE, vcpe.soloFrameSize());
         settings.setValue(SETTINGS_AUDIOTRIGGERS_SIZE, vcpe.audioTriggersSize());
+        settings.setValue(SETTINGS_RGBMATRIX_SIZE, vcpe.rgbMatrixSize());
 
         m_doc->setModified();
     }

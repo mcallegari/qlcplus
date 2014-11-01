@@ -54,6 +54,10 @@ class VCMatrix : public VCWidget
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrix)
 
+public:
+    /** Default size for newly-created widget */
+    static const QSize defaultSize;
+
     /*********************************************************************
      * Initialization
      *********************************************************************/

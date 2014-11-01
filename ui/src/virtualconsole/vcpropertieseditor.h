@@ -47,6 +47,7 @@ class VCFrame;
 #define SETTINGS_FRAME_SIZE         "virtualconsole/framesize"
 #define SETTINGS_SOLOFRAME_SIZE     "virtualconsole/soloframesize"
 #define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
+#define SETTINGS_RGBMATRIX_SIZE     "virtualconsole/rgbmatrixsize"
 
 class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
 {
@@ -73,6 +74,7 @@ public:
     QSize frameSize();
     QSize soloFrameSize();
     QSize audioTriggersSize();
+    QSize rgbMatrixSize();
 
 private:
     VCProperties m_properties;

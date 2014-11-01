@@ -25,6 +25,7 @@
 #include <QtXml>
 
 #include "vcmatrixproperties.h"
+#include "vcpropertieseditor.h"
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
 #include "rgbalgorithm.h"
@@ -38,6 +39,8 @@
 const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { border: 2px solid #00E600; }"
                              "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+
+const QSize VCMatrix::defaultSize(QSize(160, 120));
 
 VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
@@ -123,7 +126,13 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
     setType(VCWidget::MatrixWidget);
     setCaption(QString());
-    resize(QSize(160, 120));
+    /* Initial size */
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_RGBMATRIX_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(defaultSize);
 
     /* Update the slider according to current mode */
     slotModeChanged(mode());
