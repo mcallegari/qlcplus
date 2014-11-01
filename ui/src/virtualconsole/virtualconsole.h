@@ -169,7 +169,7 @@ protected:
     QAction* m_addLabelAction;
     QAction* m_addAudioTriggersAction;
     QAction* m_addClockAction;
-    QAction* m_addMatrixAction;
+    QAction* m_addAnimationAction;
 
     QAction* m_toolsSettingsAction;
 
@@ -234,7 +234,7 @@ public slots:
     void slotAddLabel();
     void slotAddAudioTriggers();
     void slotAddClock();
-    void slotAddRGBMatrix();
+    void slotAddAnimation();
 
     /*********************************************************************
      * Tools menu callbacks

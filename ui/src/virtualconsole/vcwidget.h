@@ -124,7 +124,7 @@ public:
         CueListWidget,
         LabelWidget,
         AudioTriggersWidget,
-        MatrixWidget
+        AnimationWidget
     };
 
 public:

@@ -576,7 +576,7 @@
           <item row="10" column="0">
            <widget class="QLabel" name="label_22">
             <property name="text">
-             <string>RGB Matrix size</string>
+             <string>Animation size</string>
             </property>
            </widget>
           </item>
@@ -599,7 +599,7 @@
           <item row="10" column="2">
            <widget class="QLabel" name="label_23">
             <property name="text">
-             <string>x</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>

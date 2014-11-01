@@ -124,7 +124,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_controlsLayout = new FlowLayout();
     vbox->addLayout(m_controlsLayout);
 
-    setType(VCWidget::MatrixWidget);
+    setType(VCWidget::AnimationWidget);
     setCaption(QString());
     /* Initial size */
     QSettings settings;
@@ -147,7 +147,7 @@ void VCMatrix::setID(quint32 id)
     VCWidget::setID(id);
 
     if (caption().isEmpty())
-        setCaption(tr("Matrix %1").arg(id));
+        setCaption(tr("Animation %1").arg(id));
 }
 
 /*********************************************************************

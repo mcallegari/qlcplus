@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RGB Matrix properties</string>
+   <string>Animation widget properties</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../qlcui.qrc">
@@ -60,7 +60,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="m_functionLabel">
            <property name="text">
-            <string>Matrix Function</string>
+            <string>RGB Matrix Function</string>
            </property>
           </widget>
          </item>
@@ -186,7 +186,7 @@
           <item row="2" column="1">
            <widget class="QPushButton" name="m_autoDetectInputButton">
             <property name="toolTip">
-             <string>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</string>
+             <string>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</string>
             </property>
             <property name="text">
              <string>Auto Detect</string>
