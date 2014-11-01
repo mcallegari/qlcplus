@@ -187,8 +187,7 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &u
     //qDebug() << "Sequence: " << sequence;
     // char physical = data.at(13) // skipped
     universe = (data.at(15) << 8) + data.at(14);
-    if (universe > 0)
-        universe--;
+
     unsigned int msb = (data.at(16)&0xff);
     unsigned int lsb = (data.at(17)&0xff);
     int length = (msb << 8) | lsb;
