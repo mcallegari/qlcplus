@@ -60,15 +60,6 @@
 
 SimpleDesk* SimpleDesk::s_instance = NULL;
 
-QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                 " border: 1px solid gray; border-radius: 4px; }";
-QString ssOverride = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF2D2D, stop: 1 #FF5050); "
-                     " border: 1px solid gray; border-radius: 4px; }";
-
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -490,7 +481,7 @@ void SimpleDesk::initSliderView(bool fullMode)
                 {
                     SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
                     console->setSceneValue(scv);
-                    console->setChannelStylesheet(i, ssOverride);
+                    console->setChannelOverride(i, true);
                 }
             }
             fixturesLayout->addWidget(console);
@@ -621,24 +612,17 @@ void SimpleDesk::slotUniversePageChanged(int page)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
             if (m_engine->hasChannel((m_currentUniverse << 9) + (start + i)))
-                slider->setStyleSheet(ssOverride);
+                slider->setOverridden(true);
             else
-                slider->setStyleSheet(ssNone);
+                slider->setOverridden(false);
         }
         else
         {
             uint ch = (absoluteAddr + i) - fx->universeAddress();
-            slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
+            slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false, (fx->id() % 2 == 0) ? ConsoleChannel::Odd : ConsoleChannel::Even);
             if (m_engine->hasChannel(absoluteAddr + i))
             {
-                slider->setStyleSheet(ssOverride);
-            }
-            else
-            {
-                if (fx->id() % 2 == 0)
-                    slider->setStyleSheet(ssOdd);
-                else
-                    slider->setStyleSheet(ssEven);
+                slider->setOverridden(true);
             }
         }
 
@@ -682,7 +666,7 @@ void SimpleDesk::slotUniverseResetClicked()
             it.next();
             FixtureConsole *fc = it.value();
             Q_ASSERT(fc != NULL);
-            fc->resetChannelsStylesheet();
+            fc->resetChannelOverrides();
         }
     }
 }
@@ -700,7 +684,7 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
             if (chanAddr < (quint32)m_universeSliders.count())
             {
                 ConsoleChannel *chan = m_universeSliders.at(chanAddr);
-                chan->setStyleSheet(ssOverride);
+                chan->setOverridden(true);
             }
         }
         m_engine->setValue(chanAbsAddr, value);
@@ -719,7 +703,7 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
             {
                 FixtureConsole *fc = m_consoleList[fid];
                 if (fc != NULL)
-                    fc->setChannelStylesheet(chan, ssOverride);
+                    fc->setChannelOverride(chan, true);
             }
             m_engine->setValue(chanAbsAddr, value);
 
@@ -759,7 +743,7 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
                 {
                     cc->blockSignals(true);
                     cc->setValue(m_engine->value(absAddr), false);
-                    cc->setStyleSheet(ssOverride);
+                    cc->setOverridden(true);
                     cc->blockSignals(false);
                 }
                 continue;

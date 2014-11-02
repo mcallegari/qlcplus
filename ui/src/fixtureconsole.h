@@ -61,9 +61,9 @@ public:
 
 private:
     Doc* m_doc;
-    GroupType m_groupType;
+    const GroupType m_groupType;
     QHBoxLayout* m_layout;
-    bool m_showCheckBoxes;
+    const bool m_showCheckBoxes;
 
     /*********************************************************************
      * Fixture
@@ -107,10 +107,10 @@ public:
     uchar value(quint32 ch) const;
 
     /** Set the stylesheet of the ConsoleChannel at the given index */
-    void setChannelStylesheet(quint32 ch, QString ss);
+    void setChannelOverride(quint32 ch, bool override);
 
     /** Reset all the channels stylesheet to the original value */
-    void resetChannelsStylesheet();
+    void resetChannelOverrides();
 
 signals:
     /** Emitted when the value of a channel object changes (continuous) */
@@ -128,7 +128,6 @@ private:
 
 private:
     QList<ConsoleChannel*> m_channels;
-    QString m_styleSheet;
 };
 
 /** @} */
