@@ -431,7 +431,6 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="153"/>
         <source>Allocation</source>
-        <translatorcomment>Nicht ganz sicher</translatorcomment>
         <translation>Belegung</translation>
     </message>
     <message>
@@ -5898,7 +5897,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
         <source>Animation %1</source>
-        <translation type="unfinished">Animation %1</translation>
+        <translation>Animation %1</translation>
     </message>
 </context>
 <context>
@@ -5906,17 +5905,17 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished">Eine Animationseinstellung wählen</translation>
+        <translation>Eine Animationseinstellung wählen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
         <source>Properties</source>
-        <translation type="unfinished">Eigenschaften</translation>
+        <translation>Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -5925,7 +5924,7 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
-        <translation type="unfinished">RGB Matrix Eigenschaften</translation>
+        <translation>Eigenschaften der Animationsschaltfläche</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
@@ -5947,7 +5946,7 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
-        <translation type="unfinished">Matrix Funktion</translation>
+        <translation>RGB Matrix Funktion</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
@@ -6014,7 +6013,7 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
+        <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen der Animationsschaltfläche zuzuweisen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6030,7 +6029,6 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
         <source> Remove</source>
-        <translatorcomment>Is the space at the beginning wanted???</translatorcomment>
         <translation> Entfernen</translation>
     </message>
     <message>
@@ -6289,7 +6287,7 @@ Dauer: %3
         <location filename="virtualconsole/vcproperties.ui" line="579"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Animationsgröße</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="629"/>
@@ -6906,47 +6904,47 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
         <source>Appearance</source>
-        <translation type="unfinished">Aussehen</translation>
+        <translation>Aussehen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
         <source>Show plus and minus buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Plus- und Minusknöpfe anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>Show the central dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Drehrad anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
         <source>Show the tap button</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapknopf anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
         <source>Show the hours field</source>
-        <translation type="unfinished"></translation>
+        <translation>Stundenfeld anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
         <source>Show the minutes field</source>
-        <translation type="unfinished"></translation>
+        <translation>Minutenfeld anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Show the seconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekundenfeld anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
         <source>Show the milliseconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Millisekundenfeld anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Show the infinite option</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Option &quot;unendlich&quot; anzeigen</translation>
     </message>
 </context>
 <context>
@@ -6994,7 +6992,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Animation</source>
-        <translation type="unfinished">Animation</translation>
+        <translation>Animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="155"/>
@@ -7430,7 +7428,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
