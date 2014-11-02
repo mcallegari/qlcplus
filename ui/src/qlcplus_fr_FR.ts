@@ -3149,67 +3149,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="69"/>
         <source>Midi</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="75"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="92"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Message</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="102"/>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètre</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="110"/>
         <source>Control Change</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="115"/>
         <source>Note On/Off</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="120"/>
         <source>Note Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="125"/>
         <source>Program Change</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="130"/>
         <source>Channel Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="135"/>
         <source>Pitch Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="140"/>
         <source>Beat Clock: Start/Stop/Continue</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="145"/>
         <source>Beat Clock: Beat</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="166"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Note</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="29"/>
@@ -3332,7 +3332,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="217"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="226"/>
@@ -4106,7 +4106,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.ui" line="441"/>
         <source>Toggle between circle and square preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Basculer entre un aperçu circulaire et carré</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="467"/>
@@ -4151,7 +4151,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="135"/>
@@ -5904,7 +5904,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
         <source>Animation %1</source>
-        <translation type="unfinished">Animation %1</translation>
+        <translation>Animation %1</translation>
     </message>
 </context>
 <context>
@@ -5912,7 +5912,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner un préréglage d&apos;animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
@@ -5922,7 +5922,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés</translation>
     </message>
 </context>
 <context>
@@ -5931,221 +5931,221 @@ Durée : %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés du widget d&apos;animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Général</translation>
+        <translation>Général</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="46"/>
         <source>The function that this widget controls</source>
         <oldsource>The function that this matrix controls</oldsource>
-        <translation type="unfinished">La fonction que ce bouton contrôle</translation>
+        <translation>La fonction que ce widget contrôle</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="56"/>
         <source>Widget name</source>
-        <translation type="unfinished">Nom du widget</translation>
+        <translation>Nom du widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Fonction de matrice RVB</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
         <source>Detach the matrix function attachment</source>
         <oldsource>Detach the button&apos;s function attachment</oldsource>
-        <translation type="unfinished">Détacher la fonction liée au bouton</translation>
+        <translation>Détacher la fonction de matrice</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="90"/>
         <source>Attach a function to this widget</source>
         <oldsource>Attach a function to this button</oldsource>
-        <translation type="unfinished">Attacher une fonction au bouton</translation>
+        <translation>Attacher une fonction à ce widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="110"/>
         <source>Text to display on the widget</source>
         <oldsource>Text to display on the button</oldsource>
-        <translation type="unfinished">Le texte à afficher sur le bouton</translation>
+        <translation>Le texte à afficher sur le widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="117"/>
         <source>Apply color and preset changes immediately</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Appliquer directement les changements de couleur et préréglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="126"/>
         <source>Slider External Input</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Entrée externe du fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="132"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="434"/>
         <source>Input universe</source>
-        <translation type="unfinished">Univers d&apos;entrée</translation>
+        <translation>Univers d&apos;entrée</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="139"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="149"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal d&apos;entrée</translation>
+        <translation>Canal d&apos;entrée</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="156"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="179"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget</translation>
+        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="182"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="397"/>
         <source>Choose...</source>
-        <translation type="unfinished">Choisir...</translation>
+        <translation>Choisir...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Lorsqu&apos;elle est activée, bougez un fader ou un bouton rotatif externe afin de l&apos;assigner à ce groupe</translation>
+        <translation>Lorsqu&apos;elle est activée, bougez un fader ou un bouton rotatif externe afin de l&apos;assigner à ce fader de widget d&apos;animation.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="407"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Auto-détection</translation>
+        <translation>Auto-détection</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="219"/>
         <source>Custom Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages personnalisés</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
         <source> Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="238"/>
         <source> Add preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un préréglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="250"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="255"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
         <source> Add start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une couleur de début</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="274"/>
         <source> Add end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une couleur de fin</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="291"/>
         <source>Key combination</source>
-        <translation type="unfinished">Raccourci clavier</translation>
+        <translation>Raccourci clavier</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="306"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Enlever le raccourci clavier pour ce bouton</translation>
+        <translation>Enlever le raccourci clavier pour ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="326"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Définir un raccourci clavier pour contrôler ce bouton</translation>
+        <translation>Définir un raccourci clavier pour contrôler ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="346"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Le raccourci clavier qui contrôle ce bouton</translation>
+        <translation>Le raccourci clavier qui contrôle ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="365"/>
         <source>External Input</source>
-        <translation type="unfinished">Entrée externe</translation>
+        <translation>Entrée externe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="384"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Le canal de l&apos;univers d&apos;entrée qui contrôle ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="404"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à cette réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="417"/>
         <source>The input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;univers d&apos;entrée qui contrôle ce réglage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
         <source> Add text</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter du texte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="134"/>
         <source>No function</source>
-        <translation type="unfinished">Aucune fonction</translation>
+        <translation>Aucune fonction</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="210"/>
         <source>Start Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de début</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="216"/>
         <source>End Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fin</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="223"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="245"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="338"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="337"/>
         <source>Enter a text</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisir le texte</translation>
     </message>
 </context>
 <context>
@@ -6294,7 +6294,7 @@ Durée : %3
         <location filename="virtualconsole/vcproperties.ui" line="579"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Taille de l&apos;animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="629"/>
@@ -6909,47 +6909,47 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
         <source>Appearance</source>
-        <translation type="unfinished">Apparence</translation>
+        <translation>Apparence</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
         <source>Show plus and minus buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les boutons plus et moins</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>Show the central dial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afficher le contrôleur central</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
         <source>Show the tap button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afficher le bouton du tap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
         <source>Show the hours field</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le champ des heures</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
         <source>Show the minutes field</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le champ des minutes</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Show the seconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le champ des secondes</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
         <source>Show the milliseconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le champ des millisecondes</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Show the infinite option</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher l&apos;option infinie</translation>
     </message>
 </context>
 <context>
@@ -6997,7 +6997,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="155"/>
@@ -7508,7 +7508,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle animation</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="873"/>
