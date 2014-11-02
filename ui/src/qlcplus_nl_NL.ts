@@ -5895,7 +5895,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
         <source>Animation %1</source>
-        <translation type="unfinished">Animatie %1</translation>
+        <translation>Animatie %1</translation>
     </message>
 </context>
 <context>
@@ -5903,17 +5903,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished">Kies een animatie preset</translation>
+        <translation>Kies een animatie preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
         <source>Pattern</source>
-        <translation type="unfinished">Patroon</translation>
+        <translation>Patroon</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
         <source>Properties</source>
-        <translation type="unfinished">Eigenschappen</translation>
+        <translation>Eigenschappen</translation>
     </message>
 </context>
 <context>
@@ -5922,7 +5922,7 @@ Duur: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
-        <translation type="unfinished">RGB Matrix eigenschappen</translation>
+        <translation>Animatie widget eigenschappen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
@@ -5944,7 +5944,7 @@ Duur: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
-        <translation type="unfinished">Matrix Functie</translation>
+        <translation>RGB Matrix Functie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
@@ -6011,7 +6011,7 @@ Duur: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
+        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze animatie widget slider.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6279,7 +6279,7 @@ Duur: %3
         <location filename="virtualconsole/vcproperties.ui" line="579"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Animatie grootte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="629"/>
@@ -6897,47 +6897,47 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
         <source>Appearance</source>
-        <translation type="unfinished">Uiterlijk</translation>
+        <translation>Uiterlijk</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
         <source>Show plus and minus buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon plus en min knoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>Show the central dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de central dial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
         <source>Show the tap button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de tap knoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
         <source>Show the hours field</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon het uren veld</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
         <source>Show the minutes field</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon het minuten veld</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Show the seconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon het seconden veld</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
         <source>Show the milliseconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon het milliseconden veld</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Show the infinite option</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de oneindige optie</translation>
     </message>
 </context>
 <context>
@@ -6985,7 +6985,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Animation</source>
-        <translation type="unfinished">Animatie</translation>
+        <translation>Animatie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="155"/>
@@ -7369,7 +7369,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe animatie</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
