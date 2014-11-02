@@ -5888,7 +5888,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
         <source>Animation %1</source>
-        <translation type="unfinished">Animació %1</translation>
+        <translation>Animació %1</translation>
     </message>
 </context>
 <context>
@@ -5896,17 +5896,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished">Seleccioni un preset d&apos;animació</translation>
+        <translation>Seleccioni un preset d&apos;animació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
         <source>Pattern</source>
-        <translation type="unfinished">Patró</translation>
+        <translation>Patró</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
         <source>Properties</source>
-        <translation type="unfinished">Propietats</translation>
+        <translation>Propietats</translation>
     </message>
 </context>
 <context>
@@ -5915,7 +5915,7 @@ Durada: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
-        <translation type="unfinished">Propietats de la Matriu RBG</translation>
+        <translation>Propietats del widget d&apos;animació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
@@ -5937,7 +5937,7 @@ Durada: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
-        <translation type="unfinished">Funció de Matriu</translation>
+        <translation>Funció de Matriu RGB</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
@@ -6004,7 +6004,7 @@ Durada: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Si està actiu, pot moure un slider/perilla extern per assignar-lo a aquest slider de la Consola Virtual.</translation>
+        <translation>Si està actiu, pot moure un slider/perilla extern per assignar-lo a aquest widget d&apos;animació de la Consola Virtual.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6272,7 +6272,7 @@ Durada: %3
         <location filename="virtualconsole/vcproperties.ui" line="579"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Mida de la animació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="629"/>
@@ -6750,7 +6750,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="14"/>
         <source>Speed Dial Properties</source>
-        <translation>Propietats del selector ràpid</translation>
+        <translation>Propietats del selector de velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="24"/>
@@ -6890,47 +6890,47 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
         <source>Appearance</source>
-        <translation type="unfinished">Aparença</translation>
+        <translation>Aparença</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
         <source>Show plus and minus buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra els botons mes i menys</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>Show the central dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el dial central</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
         <source>Show the tap button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el botó tap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
         <source>Show the hours field</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el camp d&apos;hores</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
         <source>Show the minutes field</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el camp minuts</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Show the seconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra els camp segons</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
         <source>Show the milliseconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el camp milisegons</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Show the infinite option</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra la opció infinit</translation>
     </message>
 </context>
 <context>
@@ -6978,7 +6978,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Animation</source>
-        <translation type="unfinished">Animació</translation>
+        <translation>Animació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="155"/>
@@ -7362,7 +7362,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova animació</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
