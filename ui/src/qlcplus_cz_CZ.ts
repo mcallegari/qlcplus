@@ -978,7 +978,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="audioeditor.ui" line="267"/>
         <source>Audio device</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvukové zařízení</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -1281,7 +1281,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="183"/>
@@ -1831,7 +1831,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="docbrowser.cpp" line="151"/>
         <source>Close</source>
-        <translation type="unfinished">Zavřít</translation>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>
@@ -3134,22 +3134,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="69"/>
         <source>Midi</source>
-        <translation type="unfinished"></translation>
+        <translation>Midi</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="75"/>
         <source>Channel</source>
-        <translation type="unfinished">Kanál</translation>
+        <translation>Kanál</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="92"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Zpráva</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="102"/>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametr</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="110"/>
@@ -3194,7 +3194,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="166"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="29"/>
@@ -3317,7 +3317,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="217"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="226"/>
@@ -3467,7 +3467,7 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <location filename="inputprofileeditor.ui" line="130"/>
         <location filename="inputprofileeditor.ui" line="241"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Chování</translation>
+        <translation>Chování</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="138"/>
@@ -3492,22 +3492,22 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="253"/>
         <source>Movement</source>
-        <translation type="unfinished">Pohyb</translation>
+        <translation>Pohyb</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="267"/>
         <source>Absolute</source>
-        <translation type="unfinished"></translation>
+        <translation>Absolutní</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="272"/>
         <source>Relative</source>
-        <translation type="unfinished">Relativní</translation>
+        <translation>Relativní</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="280"/>
         <source>Sensitivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Citlivost</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="97"/>
@@ -3689,44 +3689,44 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="14"/>
         <source>Background Picture Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběr obrázka pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="24"/>
         <source>No background</source>
-        <translation type="unfinished"></translation>
+        <translation>Bez pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="33"/>
         <source>Common background</source>
-        <translation type="unfinished"></translation>
+        <translation>Společné pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="69"/>
         <source>Custom background list</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="79"/>
         <source>Function</source>
-        <translation type="unfinished">Funkce</translation>
+        <translation>Funkce</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.ui" line="84"/>
         <source>Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázek pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.cpp" line="160"/>
         <location filename="monitor/monitorbackgroundselection.cpp" line="182"/>
         <source>Select background image</source>
-        <translation type="unfinished">Zvolit obrázek pozadí</translation>
+        <translation>Zvolit obrázek pozadí</translation>
     </message>
     <message>
         <location filename="monitor/monitorbackgroundselection.cpp" line="162"/>
         <location filename="monitor/monitorbackgroundselection.cpp" line="184"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky</translation>
     </message>
 </context>
 <context>
@@ -3787,7 +3787,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="showmanager/multitrackview.cpp" line="319"/>
         <source>Do you want to DELETE item:</source>
         <oldsource>Do you want to DELETE sequence:</oldsource>
-        <translation type="unfinished">Opravdu si přejete SMAZAT sekvenci: </translation>
+        <translation>Opravdu si přejete SMAZAT položku: </translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
@@ -3797,12 +3797,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat stopu</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
         <source>Do you want to DELETE track:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu si přejete SMAZAT stopu: </translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="345"/>
@@ -4087,7 +4087,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="441"/>
         <source>Toggle between circle and square preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepnout mezi náhledem kruhu a čtverce</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="467"/>
@@ -4132,7 +4132,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="84"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="135"/>
@@ -4273,7 +4273,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.cpp" line="787"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky</translation>
     </message>
 </context>
 <context>
@@ -4594,14 +4594,14 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/showitem.cpp" line="53"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Zarovnat ke kurzoru</translation>
+        <translation>Zarovnat ke kurzoru</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="56"/>
         <location filename="showmanager/showitem.cpp" line="85"/>
         <location filename="showmanager/showitem.cpp" line="261"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknout položku</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="66"/>
@@ -4609,7 +4609,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Název: %1
+        <translation>Název: %1
 Začátek: %2
 Délka: %3
 %4</translation>
@@ -4617,13 +4617,13 @@ Délka: %3
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kliknutím posunout položku po časové osi</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
         <location filename="showmanager/showitem.cpp" line="256"/>
         <source>Unlock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Odemknout položku</translation>
     </message>
 </context>
 <context>
@@ -4716,12 +4716,12 @@ Délka: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="256"/>
         <source>Lock item</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknout položku</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="263"/>
         <source>Item start time and duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Začátek a délka položky</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="676"/>
@@ -5013,22 +5013,22 @@ Délka: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="50"/>
         <source>Start Time</source>
-        <translation type="unfinished">Počáteční čas</translation>
+        <translation>Počáteční čas</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="61"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Délka</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="68"/>
         <source>Duration options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti délky</translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="70"/>
         <source>Stretch the original function duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Natáhni původní délku funkce </translation>
     </message>
     <message>
         <location filename="showmanager/timingstool.cpp" line="71"/>
@@ -5056,7 +5056,7 @@ Délka: %3
     <message>
         <location filename="showmanager/trackitem.cpp" line="66"/>
         <source>Delete</source>
-        <translation type="unfinished">Smazat</translation>
+        <translation>Smazat</translation>
     </message>
 </context>
 <context>
@@ -5692,7 +5692,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Obecné</translation>
+        <translation>Obecné</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="44"/>
@@ -5717,7 +5717,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
         <source>External Input - Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Externí vstup - povolit rámeček</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
@@ -5884,7 +5884,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="150"/>
         <source>Animation %1</source>
-        <translation type="unfinished">Animace %1</translation>
+        <translation>Animace %1</translation>
     </message>
 </context>
 <context>
@@ -5892,17 +5892,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
         <source>Select an animation preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběr predvolby animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
         <source>Pattern</source>
-        <translation type="unfinished">Vzor</translation>
+        <translation>Vzor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti</translation>
     </message>
 </context>
 <context>
@@ -5911,221 +5911,221 @@ Délka: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti ovladače animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
         <source>General</source>
-        <translation type="unfinished">Obecné</translation>
+        <translation>Obecné</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="46"/>
         <source>The function that this widget controls</source>
         <oldsource>The function that this matrix controls</oldsource>
-        <translation type="unfinished">Funkce kterou ovládá toto tlačítko</translation>
+        <translation>Funkce kterou ovládá toto tlačítko</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="56"/>
         <source>Widget name</source>
-        <translation type="unfinished">Název ovladače</translation>
+        <translation>Název ovladače</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>RGB šablona</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
         <source>Detach the matrix function attachment</source>
         <oldsource>Detach the button&apos;s function attachment</oldsource>
-        <translation type="unfinished">Odebrat přiřazenou funkci z tlačítka</translation>
+        <translation>Odebrat přiřazenou funkci z tlačítka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="90"/>
         <source>Attach a function to this widget</source>
         <oldsource>Attach a function to this button</oldsource>
-        <translation type="unfinished">Přiřadit funkci k tomuto tlačítku</translation>
+        <translation>Přiřadit funkci k tomuto tlačítku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="110"/>
         <source>Text to display on the widget</source>
         <oldsource>Text to display on the button</oldsource>
-        <translation type="unfinished">Text, který se má zobrazit na tlačítku</translation>
+        <translation>Text, který se má zobrazit na tlačítku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="117"/>
         <source>Apply color and preset changes immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít změny farby a předvolby okamžitě</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="126"/>
         <source>Slider External Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Externí vstup šavle</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="132"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="434"/>
         <source>Input universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="139"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupů, která bude odesílat data pro tuto skupinu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="149"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní kanál</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="156"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanál větve vstupů, který bude odesílat data pro tuto skupinu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="179"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit</translation>
+        <translation>Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="182"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="397"/>
         <source>Choose...</source>
-        <translation type="unfinished">Zvolit...</translation>
+        <translation>Zvolit...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="189"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení virtuální šavle.</translation>
+        <translation>Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení animační šavle.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="407"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automaticky detekovat</translation>
+        <translation>Automaticky detekovat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="219"/>
         <source>Custom Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní ovladače</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
         <source> Remove</source>
-        <translation type="unfinished"></translation>
+        <translation> Odebrat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="238"/>
         <source> Add preset</source>
-        <translation type="unfinished"></translation>
+        <translation> Přidat předvolbu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="250"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="255"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Hodnota</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
         <source> Add start color</source>
-        <translation type="unfinished"></translation>
+        <translation> Přidej počáteční barvu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="274"/>
         <source> Add end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidej koneční farbu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="291"/>
         <source>Key combination</source>
-        <translation type="unfinished">Kombinace kláves</translation>
+        <translation>Kombinace kláves</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="306"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
+        <translation>Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="326"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
+        <translation>Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="346"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Kombinace kláves která přepne toto tlačítko</translation>
+        <translation>Kombinace kláves která přepne toto tlačítko</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="365"/>
         <source>External Input</source>
-        <translation type="unfinished">Externí vstup</translation>
+        <translation>Externí vstup</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="384"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="404"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="417"/>
         <source>The input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
         <source> Add text</source>
-        <translation type="unfinished"></translation>
+        <translation> Přidej text</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="134"/>
         <source>No function</source>
-        <translation type="unfinished">Bez funkce</translation>
+        <translation>Bez funkce</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="210"/>
         <source>Start Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Počáteční barva</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="216"/>
         <source>End Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Konečná barva</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="223"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="245"/>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="338"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="337"/>
         <source>Enter a text</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadaj text</translation>
     </message>
 </context>
 <context>
@@ -6268,7 +6268,7 @@ Délka: %3
         <location filename="virtualconsole/vcproperties.ui" line="579"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Velikost animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="629"/>
@@ -6625,7 +6625,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation type="unfinished"></translation>
+        <translation>Sleduj vybrané kanály a uprav polohu šavle</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
@@ -6771,32 +6771,32 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In *</source>
-        <translation type="unfinished"></translation>
+        <translation>Zesílení *</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobitel, který se vynásobí čas než je poslán ako čas zesílení do funkce.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out *</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeslabení *</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobitel, který se vynásobí čas než je poslán ako čas zeslabení do funkce.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration * (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Délka * (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobitel, který se vynásobí čas než je poslán ako délka do funkce.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="111"/>
@@ -6886,47 +6886,47 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
         <source>Appearance</source>
-        <translation type="unfinished">Vzhled</translation>
+        <translation>Vzhled</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
         <source>Show plus and minus buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz plus a minus</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>Show the central dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz střední kolečko</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
         <source>Show the tap button</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz tlačítko klepnutí (tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
         <source>Show the hours field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz hodiny</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
         <source>Show the minutes field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz minuty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Show the seconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz sekundy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
         <source>Show the milliseconds field</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz milisekundy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Show the infinite option</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobraz nekonečno</translation>
     </message>
 </context>
 <context>
@@ -6974,7 +6974,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="155"/>
@@ -7358,7 +7358,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová animace</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
@@ -7515,7 +7515,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky</translation>
     </message>
 </context>
 </TS>
