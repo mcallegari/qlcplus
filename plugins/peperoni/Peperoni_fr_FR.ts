@@ -22,7 +22,7 @@
     <message>
         <location filename="unix/peperoni.cpp" line="97"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plugin permet le support de l&apos;entrée et la sortie des interfaces Peperoni.</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="144"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="159"/>
@@ -72,24 +72,24 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="180"/>
         <source>Input line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne d&apos;entrée</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="182"/>
         <location filename="unix/peperonidevice.cpp" line="199"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvert</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="184"/>
         <location filename="unix/peperonidevice.cpp" line="201"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermé</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="197"/>
         <source>Output line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne de sortie</translation>
     </message>
 </context>
 </TS>

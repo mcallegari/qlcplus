@@ -21,7 +21,7 @@
     <message>
         <location filename="webaccess.cpp" line="402"/>
         <source>Autostart configuration changed</source>
-        <translation>La configuration du démarrage automatique a été modifiée.</translation>
+        <translation>Configuration du démarrage automatique modifiée</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="660"/>
