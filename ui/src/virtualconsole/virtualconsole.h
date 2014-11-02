@@ -379,12 +379,13 @@ public:
 
 private:
     bool m_liveEdit;
-
 public:
+    /** Toggle Virtual Console live editting */
     void toggleLiveEdit();
     bool liveEdit() const;
 
 private:
+    /** Enable or disable the Virtual Console edit tools */
     void enableEdit();
     void disableEdit();
 

@@ -527,6 +527,10 @@ protected:
 protected:
     bool m_liveEdit;
 public:
+    /**
+     * Virtual method that sets the liveEdit flag.
+     * If widget is not disabled, this calls enableWidgetUI.
+     */
     virtual void setLiveEdit(bool liveEdit);
     void cancelLiveEdit();
 protected slots:

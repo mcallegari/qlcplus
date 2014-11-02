@@ -1626,17 +1626,21 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
 
 void VirtualConsole::toggleLiveEdit()
 {
+    // No live edit in Design Mode
+    Q_ASSERT(m_doc->mode() == Doc::Operate);
+
     if (m_liveEdit)
-    {
+    { // live edit was on, disable live edit
         m_liveEdit = false;
         disableEdit();
     }
     else
-    {
+    { // live edit was off, enable live edit
         m_liveEdit = true;
         enableEdit();
     }
 
+    // inform the widgets of the live edit status
     QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
     while (widgetIt != m_widgetsMap.end())
     {
@@ -1764,13 +1768,16 @@ void VirtualConsole::disableEdit()
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
-    {
+    { // Switch from Design mode to Operate mode
+        // Hide edit tools
         disableEdit();
     }
     else
-    {
+    { // Switch from Operate mode to Design mode
         if (m_liveEdit)
         {
+            // Edit tools already shown,
+            // inform the widgets that we are out of live edit mode
             m_liveEdit = false;
             QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
             while (widgetIt != m_widgetsMap.end())
@@ -1782,7 +1789,10 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
             m_contents->cancelLiveEdit();
         }
         else
+        {
+            // Show edit tools
             enableEdit();
+        }
     }
 }
 
