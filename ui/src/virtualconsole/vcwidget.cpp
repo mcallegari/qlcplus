@@ -1013,6 +1013,9 @@ bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
 
 void VCWidget::setLiveEdit(bool liveEdit)
 {
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     m_liveEdit = liveEdit;
 
     if (m_disableState)

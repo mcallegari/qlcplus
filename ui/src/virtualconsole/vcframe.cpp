@@ -116,6 +116,9 @@ void VCFrame::setDisableState(bool disable)
 
 void VCFrame::setLiveEdit(bool liveEdit)
 {
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     m_liveEdit = liveEdit;
 
     if (!m_disableState)
