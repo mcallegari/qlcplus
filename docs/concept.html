@@ -21,7 +21,7 @@ This page has been arranged in alphabetical order to facilitate searching for a
 specific topic.
 </P>
 
-<H3><IMG SRC="qrc:/audio.png"> <A NAME="Audio" HREF="#Audio">Audio</A></H3>
+<H3 id="Audio"><IMG SRC="qrc:/audio.png"> Audio</H3>
 <P>
 An audio <A HREF="#Functions">function</A> is an object representing an audio
 file stored in a disk.<br>
@@ -36,7 +36,7 @@ Like most of the QLC+ functions, Audio supports fade in and fade out times.<br>
 Especially on Windows, you might experience unwanted crashes.
 </P>
 
-<H3><IMG SRC="qrc:/blackout.png"> <A NAME="Blackout" HREF="#Blackout">Blackout</A></H3>
+<H3 id="Blackout"><IMG SRC="qrc:/blackout.png"> Blackout</H3>
 
 <P>
 Blackout is used to set all channels in all universes to zero and keep them
@@ -45,7 +45,7 @@ have been set to them manually. When blackout is turned off, the <U>current
 values</U> of all channels are sent to each universe.
 </P>
 
-<A NAME="Capabilities" HREF="#Capabilities"><H3>Capabilities</H3></A>
+<H3 id="Capabilities">Capabilities</H3>
 
 <P>
 Some channels in intelligent fixtures provide many kinds of functions, or
@@ -62,7 +62,7 @@ three properties:
  <LI>Name: The friendly name of a capability.</LI>
 </UL>
 
-<A NAME="Channelgroups" HREF="#Channelgroups"><H3>Channel Groups</H3></A>
+<H3 id="Channelgroups">Channel Groups</H3>
 <P>
 Channel groups can be added and defined in the <A HREF="file:fixturemanager.html">Fixture Manager</A>
 panel by using the <A HREF="file:channelsgroupeditor.html">Channel groups editor</A>.<br>
@@ -70,7 +70,7 @@ Channel groups can have a user defined name and can group together any user defi
 selected from an existing Fixtures list.
 </P>
 
-<H3><IMG SRC="qrc:/chaser.png"> <A NAME="Chaser" HREF="#Chaser">Chaser</A></H3>
+<H3 id="Chaser"><IMG SRC="qrc:/chaser.png"> Chaser</H3>
 
 <P>
 A chaser <A HREF="#Functions">function</A> is built up from multiple scenes that are
@@ -101,7 +101,7 @@ Function Manager</A>. The scenes inside a chaser are not duplicated when a chase
 is copied. Only the order and direction are copied to the new one.
 </P>
 
-<A NAME="ClickAndGo" HREF="#ClickAndGo"><H3>Click And Go</H3></A>
+<H3 id="ClickAndGo">Click And Go</H3>
 <P>
 Click And Go is a technology that allows the user to quickly access macros and colours 
 in a completely visual way and with just a couple of clicks. This can lead to 
@@ -115,7 +115,7 @@ So far, three types of widgets are available:
 An overview with screenshots is available <A href="http://qlcplus.sourceforge.net/clickandgo.html">here</A>
 </P>
 
-<H3><IMG SRC="qrc:/collection.png"> <A NAME="Collection" HREF="#Collection">Collection</A></H3>
+<H3 id="Collection"><IMG SRC="qrc:/collection.png"> Collection</H3>
 
 <P>
 A collection <A HREF="#Functions">function</A> encapsulates multiple functions
@@ -135,7 +135,7 @@ Function Manager</A>. The functions contained in a collection are not duplicated
 list of functions is copied.
 </P>
 
-<A NAME="DMX" HREF="#DMX"><H3>DMX</H3></A>
+<H3 id="DMX">DMX</H3>
 
 <P>
 <a href="http://en.wikipedia.org/wiki/DMX512">DMX</a> is short for 
@@ -152,7 +152,7 @@ standard. Actual hardware abstraction (whether it's analogue 0-10V, DMX or some
 other method) is achieved through <A HREF="#OutputPlugins">output plugins</A>.
 </P>
 
-<H3><IMG SRC="qrc:/efx.png"> <A NAME="EFX" HREF="#EFX">EFX</A></H3>
+<H3 id="EFX"><IMG SRC="qrc:/efx.png"> EFX</H3>
 
 <P>
 An EFX <A HREF="#Functions">function</A> is mainly used to automate moving
@@ -191,7 +191,7 @@ Copies of EFX functions can be created with the <A HREF="file:functionmanager.ht
 Function Manager</A>. All of the EFX's contents are copied to the duplicate.
 </P>
 
-<H3><IMG SRC="qrc:/fixture.png"> <A NAME="Fixtures" HREF="#Fixtures">Fixtures</A></H3>
+<H3 id="Fixtures"><IMG SRC="qrc:/fixture.png"> Fixtures</H3>
 
 <P>
 A fixture is essentially one lighting device. It can be, for example, one
@@ -244,17 +244,17 @@ dimmer racks. Users can create instances of these generic dimmer entities just b
 defining the number of channels each one of them should have.
 </P>
 
-<H3><IMG SRC="qrc:/group.png"> <A NAME="FixtureGroup" HREF="#FixtureGroup">Fixture Group</A></H3>
+<H3 id="FixtureGroup"><IMG SRC="qrc:/group.png"> Fixture Group</H3>
 
 <P>
-A fixture group is, as the name says, a group of <A HREF="concept.html#Fixtures">fixtures</A>.
+A fixture group is, as the name says, a group of <A HREF="#Fixtures">fixtures</A>.
 They also define (at a rather basic level) the actual physical, real world arrangement of
 these fixtures. This knowledge can be used, for example, in the RGB Matrix to produce a
 wall of RGB-mixable lights that can act as individual pixels in a graphic pattern or
 scrolling text.
 </P>
 
-<A NAME="FixtureMode" HREF="#FixtureMode"><H3>Fixture Mode</H3></A>
+<H3 id="FixtureMode">Fixture Mode</H3>
 
 <P>
 Many manufacturers design their intelligent lights in such a way that they can
@@ -265,7 +265,7 @@ Instead of creating a completely new fixture definition for each variation,
 they have been bundled together in QLC+'s fixture definitions into fixture modes.
 </P>
 
-<H3><IMG SRC="qrc:/function.png"> <A NAME="Functions" HREF="#Functions">Functions</A></H3>
+<H3 id="Functions"><IMG SRC="qrc:/function.png"> Functions</H3>
 
 <P>
 The number of functions is practically unlimited. Functions are used to
@@ -300,7 +300,7 @@ As of version 3.3.0, each function has its own speed settings:
 <LI><B>Duration:</B> The duration of the current step (not applicable on Scenes)</LI>
 </P>
 
-<A NAME="GrandMaster" HREF="#GrandMaster"><H3>Grand Master</H3></A>
+<H3 id="GrandMaster">Grand Master</H3>
 
 <P>
 The Grand Master is used as the final master slider before values are written
@@ -322,7 +322,7 @@ the Grand Master slider. For example, Grand Master at 127 will result in all the
 affected channels' maximum values being limited at exactly 127.</LI>
 </UL>
 
-<A NAME="Head" HREF="#Head"><H3>Head</H3></A>
+<H3 id="Head">Head</H3>
 
 <P>
 A head represents an individual light output device in a fixture. Usually, a single fixture
@@ -340,13 +340,13 @@ controls the light output of all the heads together.
 </P>
 
 <P>
-Each head belongs to a <A HREF="concept.html#FixtureMode">Fixture Mode</A> because in one
+Each head belongs to a <A HREF="#FixtureMode">Fixture Mode</A> because in one
 mode, a fixture might provide enough channels to control each of its heads individually
 while in another mode, only a handful of channels might be provided for controlling all the
 heads simultaneously.
 </P>
 
-<A NAME="HTP" HREF="#HTP"><H3>HTP (Highest Takes Precedence)</H3></A>
+<H3 id="HTP">HTP (Highest Takes Precedence)</H3>
 
 <P>
 HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
@@ -366,12 +366,12 @@ intensity decreases until it reaches the 50% set by slider 1 and stays at 50% un
 is dragged down. 
 </P>
 <P>
-A crossfade between 2 <A HREF="file:concept.html#Scene">Scenes</A>  will replace the HTP levels in the first scene with the HTP levels of the second.
+A crossfade between 2 <A HREF="#Scene">Scenes</A>  will replace the HTP levels in the first scene with the HTP levels of the second.
 The new HTP levels will be combined with HTP levels from other functions and virtual console widgets as above.
-See also <A HREF="concept.html#LTP">LTP</A>.
+See also <A HREF="#LTP">LTP</A>.
 </P>
 
-<H3><IMG SRC="qrc:/input_output.png"> <A NAME="InputOutputPlugins" HREF="#InputOutputPlugins">Input/Output plugins</A></H3>
+<H3 id="InputOutputPlugins"><IMG SRC="qrc:/input_output.png"> Input/Output plugins</H3>
 
 <P>
 QLC+ supports a variety of plugins to send and receive data from/to the external world.<br>
@@ -405,7 +405,7 @@ dubbed <u>output</u> to separate it from QLC+'s internal universes. You could
 think of them as individual XLR output connectors in your DMX hardware.
 </P>
 
-<A NAME="InputProfiles" HREF="#InputProfiles"><H3>Input profiles</H3></A>
+<H3 id="InputProfiles">Input profiles</H3>
 
 <P>
 Input profiles can be thought of as <A HREF="#Fixtures">fixtures'</A> cousins;
@@ -414,21 +414,28 @@ An input device can be, for example, a slider board like the Behringer BCF-2000,
 Korg nanoKONTROL, an Enttec Playback Wing...
 </P>
 
-<A NAME="LTP" HREF="#LTP"><H3>LTP (Latest Takes Precedence)</H3></A>
+<H3 id="LTP">LTP (Latest Takes Precedence)</H3>
 
 <P>
-LTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
-one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, it is used for channels that have been assigned to groups other than the <B>Intensity</B> group, such as pan, tilt, gobo, strobe speed and other <I>intelligent fixture parameters</I>
+LTP is a rule that decides what level is sent to out to a DMX universe by a channel
+when the channel is being controlled by more than one <A HREF="#Functions">function</A>
+or Virtual Console widget. Generally, it is used for channels that have been assigned
+to groups other than the <B>Intensity</B> group, such as pan, tilt, gobo, strobe speed
+and other <I>intelligent fixture parameters</I>
 </P>
 <P>
-The LTP rule is simple: the latest level that has been set by a function or a Virtual Console widget gets sent out to the DMX
-universe. 
+The LTP rule is simple: the latest level that has been set by a function or a Virtual Console 
+widget gets sent out to the DMX universe. 
 </P>
 <P>
-During a crossfade between <A HREF="file:concept.html#Scene">Scenes</A> , LTP levels will often be changed. This has to be handled with some care as some LTP levels need to jump immediately to a new level, for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might need to change gradually from one level to another during a crossfade. Different timings can be achieved by combining scenes in a <A HREF="#Collection">Collection</A> . See also <A HREF="concept.html#HTP">HTP</A>.
+During a crossfade between <A HREF="#Scene">Scenes</A>, LTP levels will often be changed. 
+This has to be handled with some care as some LTP levels need to jump immediately to a new level, 
+for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might 
+need to change gradually from one level to another during a crossfade. Different timings can be 
+achieved by combining scenes in a <A HREF="#Collection">Collection</A>. See also <A HREF="#HTP">HTP</A>.
 </P>
 
-<H3><IMG SRC="qrc:/operate.png"> <A NAME="Modes" HREF="#Modes">Modes</A></H3>
+<H3 id="Modes"><IMG SRC="qrc:/operate.png"> Modes</H3>
 
 <P>
 Q Light Controller Plus is based on the common concept of having two distinct
@@ -443,12 +450,12 @@ create and edit <A HREF="#Functions">functions</A> and
 eventually control the user's lighting fixtures.</LI>
 </UL>
 
-<H3><IMG SRC="qrc:/rgbmatrix.png"> <A NAME="RGBMatrix" HREF="#RGBMatrix">RGB Matrix</A></H3>
+<H3 id="RGBMatrix"><IMG SRC="qrc:/rgbmatrix.png"> RGB Matrix</H3>
 
 <P>
 An RGB matrix <A HREF="#Functions">function</A> can be used to impose simple graphics
 and text on a matrix (a grid or a wall) of RGB and/or monochrome fixture <A HREF="#Head">heads</A>.
-The RGB matrix function has been designed to be extendable with <A HREF="concept.html#RGBScript">scripts</A>
+The RGB matrix function has been designed to be extendable with <A HREF="#RGBScript">scripts</A>
 that can be written by users.
 </P>
 
@@ -459,15 +466,15 @@ Each RGB matrix has its own speed settings:
 <LI><B>Duration:</B> The duration of the current step/frame</LI>
 </P>
 
-<H3><IMG SRC="qrc:/script.png"> <A NAME="RGBScript" HREF="#RGBScript">RGB Script</A></H3>
+<H3 id="RGBScript"><IMG SRC="qrc:/script.png"> RGB Script</H3>
 
 <P>
 An RGB script is a program written in <A HREF="http://www.ecmascript.org/">ECMAScript</A>
 (also known as JavaScript) that produces the necessary image data for <A HREF="#RGBMatrix">RGB Matrix</A>
-functions. Learn more from the <A HREF="rgbscriptapi.html">RGB Script API</A> page.
+functions. Learn more from the <A HREF="file:rgbscriptapi.html">RGB Script API</A> page.
 </P>
 
-<H3><IMG SRC="qrc:/scene.png"> <A NAME="Scene" HREF="#Scene">Scene</A></H3>
+<H3 id="Scene"><IMG SRC="qrc:/scene.png"> Scene</H3>
 
 <P>
 A scene <A HREF="#Functions">function</A> comprises the values of selected
@@ -476,17 +483,17 @@ time it takes for its channels to reach their target values depends on the
 scene's speed settings:
 
 <P>
-As of version 3.3.0, each function has its own speed settings:
+Each function has its own speed settings:
 <LI><B>Fade In:</B> The time used to fade all channels to their target values, from whatever value they had</LI>
 <LI><B>Fade Out:</B> The time used to fade HTP/intensity channels back to zero. Note that ONLY <A HREF="#HTP">HTP</A> channels are affected by this setting.</LI>
 </P>
 
 <P>
-Copies of scene functions can be created with the <A HREF="functionmanager.html">
+Copies of scene functions can be created with the <A HREF="file:functionmanager.html">
 Function Manager</A>. All of the scene's contents are copied to the duplicate.
 </P>
 
-<H3><IMG SRC="qrc:/sequence.png"> <A NAME="Sequence" HREF="#Sequence">Sequence</A></H3>
+<H3 id="Sequence"><IMG SRC="qrc:/sequence.png"> Sequence</H3>
 <P>
 A Sequence has some of the functionality of a <A HREF="#Chaser">Chaser</A>.<br>
 It is equivalent to a Chaser in which each step is a single <A HREF="#Scene">Scene</A> and every one of those Scenes controls the
@@ -494,17 +501,17 @@ same set of channels. A Sequence is bound to one specific Scene, which means tha
 Sequence can only control the enabled channels of that Scene.<br>
 When creating new steps in a Sequence, no Function selection pop-up will appear, since a Sequence
 step cannot include other Functions, unlike a Chaser step.<br>
-When a Sequence is created, a special sequence icon will appear in the <A HREF="functionmanager.html">Function Manager</A>
+When a Sequence is created, a special sequence icon will appear in the <A HREF="file:functionmanager.html">Function Manager</A>
 as a child of the Scene to which it is bound.<br>
 To understand the difference between a Sequence and a Chaser, you are invited to read the second paragraph
-of the <A HREF="showmanager.html">Show Manager</A> documentation.
+of the <A HREF="file:showmanager.html">Show Manager</A> documentation.
 </P>
 
-<H3><IMG SRC="qrc:/show.png"> <A NAME="Show" HREF="#Show">Show</A></H3>
+<H3 id="Show"><IMG SRC="qrc:/show.png"> Show</H3>
 <P>
 A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Sequence">Sequences</A> and <A HREF="#Audio">Audio</A> to create
-a time driven light show. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the
-<A HREF="showeditor.html">Show Editor</A>.
+a time driven light show. A Show can be created only with the <A HREF="file:showmanager.html">Show Manager</A> and can be inspected and renamed with the
+<A HREF="file:showeditor.html">Show Editor</A>.
 </P>
 
 </BODY>
