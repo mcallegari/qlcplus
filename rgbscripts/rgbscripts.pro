@@ -3,10 +3,11 @@ include(../variables.pri)
 TEMPLATE = subdirs
 TARGET   = scripts
 
+scripts.files += circles.js
 scripts.files += evenodd.js
 scripts.files += fill.js
-scripts.files += fillunfill.js
 scripts.files += fillfromcenter.js
+scripts.files += fillunfill.js
 scripts.files += fillunfillfromcenter.js
 scripts.files += fillunfillsquaresfromcenter.js
 scripts.files += gradient.js
