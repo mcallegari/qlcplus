@@ -754,7 +754,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="583"/>
         <source>Toggle Virtual Console Live edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa/Desactiva la edición en vivo de la Consola Virtual</translation>
     </message>
     <message>
         <location filename="app.cpp" line="588"/>
@@ -6997,7 +6997,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Disparos de Audio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="154"/>
