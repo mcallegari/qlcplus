@@ -679,7 +679,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="583"/>
         <source>Toggle Virtual Console Live edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editieren der virtuellen Konsole im Livemodus umschalten</translation>
     </message>
     <message>
         <location filename="app.cpp" line="597"/>
@@ -6997,7 +6997,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiotrigger</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="154"/>
