@@ -187,23 +187,30 @@ QMutex& RGBMatrix::algorithmMutex()
     return m_algorithmMutex;
 }
 
-QList <RGBMap> RGBMatrix::previewMaps()
+int RGBMatrix::stepsCount()
 {
-    QList <RGBMap> steps;
-
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL)
-        return steps;
+        return 0;
 
     FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
     if (grp != NULL)
-    {
-        int stepCount = m_algorithm->rgbMapStepCount(grp->size());
-        for (int i = 0; i < stepCount; i++)
-            steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
-    }
+        return m_algorithm->rgbMapStepCount(grp->size());
 
-    return steps;
+    return 0;
+}
+
+RGBMap RGBMatrix::previewMap(int step)
+{
+    RGBMap map;
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+    if (m_algorithm == NULL)
+        return map;
+    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    if (grp != NULL)
+    {
+        map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), step);
+    }
+    return map;
 }
 
 /****************************************************************************

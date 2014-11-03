@@ -119,7 +119,6 @@ private:
     RGBMatrix* m_matrix; // The RGBMatrix being edited
 
     QList <RGBScript> m_scripts;
-    QList <RGBMap> m_previewMaps;
     Function::Direction m_previewDirection;
 
     SpeedDialWidget *m_speedDials;

@@ -495,20 +495,17 @@ bool RGBMatrixEditor::createPreviewItems()
     }
 
     m_matrix->calculateColorDelta();
-    m_previewMaps = m_matrix->previewMaps();
 
-    if ((m_previewDirection == Function::Forward) || m_previewMaps.isEmpty())
+    if (m_previewDirection == Function::Forward)
     {
         m_previewStep = 0;
     }
     else
     {
-        m_previewStep = m_previewMaps.size() - 1;
+        m_previewStep = m_matrix->stepsCount() - 1;
     }
 
-    RGBMap map;
-    if (m_previewStep < m_previewMaps.size())
-        map = m_previewMaps[m_previewStep];
+    RGBMap map = m_matrix->previewMap(m_previewStep);
 
     if (map.isEmpty())
         return false;
@@ -558,13 +555,16 @@ void RGBMatrixEditor::slotPreviewTimeout()
     if (m_matrix->duration() <= 0)
         return;
 
+    RGBMap map;
+
     m_previewIterator += MasterTimer::tick();
     if (m_previewIterator >= m_matrix->duration())
     {
+        int stepsCount = m_matrix->stepsCount();
         //qDebug() << "previewTimeout. Step:" << m_previewStep;
         if (m_matrix->runOrder() == RGBMatrix::PingPong)
         {
-            if (m_previewDirection == Function::Forward && (m_previewStep + 1) == m_previewMaps.size())
+            if (m_previewDirection == Function::Forward && (m_previewStep + 1) == stepsCount)
                 m_previewDirection = Function::Backward;
             else if (m_previewDirection == Function::Backward && (m_previewStep - 1) < 0)
                 m_previewDirection = Function::Forward;
@@ -573,7 +573,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
         if (m_previewDirection == Function::Forward)
         {
             m_previewStep++;
-            if (m_previewStep >= m_previewMaps.size())
+            if (m_previewStep >= stepsCount)
             {
                 m_previewStep = 0;
                 m_matrix->setStepColor(m_matrix->startColor());
@@ -586,7 +586,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
             m_previewStep--;
             if (m_previewStep < 0)
             {
-                m_previewStep = m_previewMaps.size() - 1;
+                m_previewStep = stepsCount - 1;
                 if (m_matrix->endColor().isValid())
                     m_matrix->setStepColor(m_matrix->endColor());
                 else
@@ -595,13 +595,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
             else
                 m_matrix->updateStepColor(m_previewDirection);
         }
-        m_previewMaps = m_matrix->previewMaps();
+        map = m_matrix->previewMap(m_previewStep);
         m_previewIterator = 0;
     }
-
-    RGBMap map;
-    if (m_previewStep >= 0 && m_previewStep < m_previewMaps.size())
-        map = m_previewMaps[m_previewStep];
 
     for (int y = 0; y < map.size(); y++)
     {
@@ -917,7 +913,6 @@ void RGBMatrixEditor::slotTestClicked()
 void RGBMatrixEditor::slotRestartTest()
 {
     m_previewTimer->stop();
-    m_previewMaps = m_matrix->previewMaps();
 
     if (m_testButton->isChecked() == true)
     {
@@ -1020,15 +1015,14 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         }
         m_doc->addFunction(grpScene);
 
-        int mapSize = m_previewMaps.size();
-        int totalSteps = mapSize;
+        int totalSteps = m_matrix->stepsCount();
         int increment = 1;
         int currentStep = 0;
         m_matrix->setStepColor(m_matrix->startColor());
 
         if (m_matrix->direction() == Function::Backward)
         {
-            currentStep = mapSize - 1;
+            currentStep = totalSteps - 1;
             increment = -1;
             if (m_matrix->endColor().isValid())
                 m_matrix->setStepColor(m_matrix->endColor());
@@ -1057,9 +1051,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
         for (int i = 0; i < totalSteps; i++)
         {
-            m_previewMaps = m_matrix->previewMaps();
-
-            RGBMap map = m_previewMaps[currentStep];
+            RGBMap map = m_matrix->previewMap(currentStep);
             ChaserStep step;
             step.fid = grpScene->id();
             step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
@@ -1092,12 +1084,11 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             }
             chaser->addStep(step);
             currentStep += increment;
-            if (currentStep == mapSize && m_matrix->runOrder() == RGBMatrix::PingPong)
+            if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
             {
-                currentStep = mapSize - 2;
+                currentStep = totalSteps - 2;
                 increment = -1;
             }
-            m_previewMaps = m_matrix->previewMaps();
             m_matrix->updateStepColor(m_matrix->direction());
         }
 

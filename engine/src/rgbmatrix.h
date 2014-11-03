@@ -97,8 +97,11 @@ public:
     /** Get the algorithm protection mutex */
     QMutex& algorithmMutex();
 
-    /** Get a list of RGBMap steps for preview purposes, using the current algorithm. */
-    QList <RGBMap> previewMaps();
+    /** Get the number of steps of the current algorithm */
+    int stepsCount();
+
+    /** Get the preview of the current algorithm at the given step */
+    RGBMap previewMap(int step);
 
 private:
     RGBAlgorithm* m_algorithm;

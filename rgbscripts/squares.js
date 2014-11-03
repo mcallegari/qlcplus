@@ -205,7 +205,10 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return width;
+      if (height < width)
+        return height;
+      else
+        return width;
     }
 
     // Development tool access

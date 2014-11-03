@@ -142,22 +142,30 @@ void RGBMatrix_Test::previewMaps()
     QVERIFY(mtx.algorithm() != NULL);
     QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 
-    QList <RGBMap> maps = mtx.previewMaps();
-    QCOMPARE(maps.size(), 0); // No fixture group
+    int steps = mtx.stepsCount();
+    QCOMPARE(steps, 0);
+
+    RGBMap map = mtx.previewMap(0);
+    QCOMPARE(map.size(), 0); // No fixture group
 
     mtx.setFixtureGroup(0);
-    maps = mtx.previewMaps();
-    QCOMPARE(maps.size(), 5);
-    for (int z = 0; z < 5; z++)
+    steps = mtx.stepsCount();
+    QCOMPARE(steps, 5);
+
+    map = mtx.previewMap(0);
+    QCOMPARE(map.size(), 5);
+
+    for (int z = 0; z < steps; z++)
     {
+        map = mtx.previewMap(z);
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
             {
                 if (x == z)
-                    QCOMPARE(maps[z][y][x], QColor(Qt::black).rgb());
+                    QCOMPARE(map[y][x], QColor(Qt::black).rgb());
                 else
-                    QCOMPARE(maps[z][y][x], uint(0));
+                    QCOMPARE(map[y][x], uint(0));
             }
         }
     }
