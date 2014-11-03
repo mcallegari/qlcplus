@@ -68,11 +68,17 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
-    slotModeChanged(doc->mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 }
 
 VCSpeedDial::~VCSpeedDial()
 {
+}
+
+void VCSpeedDial::enableWidgetUI(bool enable)
+{
+    m_dial->setEnabled(enable);
 }
 
 /*****************************************************************************
@@ -135,13 +141,13 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate && isDisabled() == false)
     {
-        m_dial->setEnabled(true);
+        enableWidgetUI(true);
         updateFeedback();
     }
     else
     {
         m_dial->stopTimers();
-        m_dial->setEnabled(false);
+        enableWidgetUI(false);
     }
     VCWidget::slotModeChanged(mode);
 }

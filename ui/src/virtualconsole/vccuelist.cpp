@@ -236,7 +236,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     else
         resize(QSize(300, 220));
 
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 
     connect(m_doc, SIGNAL(functionRemoved(quint32)),
             this, SLOT(slotFunctionRemoved(quint32)));
@@ -904,7 +905,7 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (m_doc->mode() == Doc::Design || isEnabled() == false)
+    if (mode() == Doc::Design || isEnabled() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;

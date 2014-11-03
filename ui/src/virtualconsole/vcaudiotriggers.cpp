@@ -149,13 +149,12 @@ VCAudioTriggers::~VCAudioTriggers()
 {
 }
 
-void VCAudioTriggers::slotDocModeChanged(Doc::Mode mode)
+void VCAudioTriggers::enableWidgetUI(bool enable)
 {
-    if (mode == Doc::Design)
-        enableCapture(false);
+    if (m_button)
+        m_button->setEnabled(enable);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else
-        m_volumeSlider->setEnabled(true);
+    m_volumeSlider->setEnabled(enable);
 #endif
 }
 
@@ -183,9 +182,6 @@ void VCAudioTriggers::enableCapture(bool enable)
 
         m_inputCapture->start();
         m_button->setChecked(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        m_volumeSlider->setEnabled(true);
-#endif
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
     }
@@ -195,9 +191,6 @@ void VCAudioTriggers::enableCapture(bool enable)
             m_inputCapture->stop();
 
         m_button->setChecked(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        m_volumeSlider->setEnabled(false);
-#endif
         disconnect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
     }
@@ -205,7 +198,7 @@ void VCAudioTriggers::enableCapture(bool enable)
 
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 {
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (toggle == true)
@@ -223,7 +216,7 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, double maxMagni
     m_spectrum->displaySpectrum(spectrumBands, maxMagnitude, power);
     m_volumeBar->m_value = m_spectrum->getUcharVolume();
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (m_volumeBar->m_type == AudioBar::FunctionBar)
@@ -257,7 +250,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         return;
 
     if (m_volumeBar->m_type == AudioBar::DMXBar)
@@ -393,8 +386,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        if (m_button)
-            m_button->setEnabled(true);
+        enableWidgetUI(true);
 
         foreach(AudioBar *bar, getAudioBars())
         {
@@ -407,8 +399,8 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        if (m_button)
-            m_button->setEnabled(false);
+        enableWidgetUI(false);
+        enableCapture(false);
         m_doc->masterTimer()->unregisterDMXSource(this);
     }
     VCWidget::slotModeChanged(mode);

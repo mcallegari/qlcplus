@@ -520,15 +520,26 @@ protected:
     bool loadXMLWindowState(const QDomElement* tag, int* x, int* y,
                             int* w, int* h, bool* visible);
 
+
     /*********************************************************************
      * QLC+ Mode change
      *********************************************************************/
+protected:
+    bool m_liveEdit;
+public:
+    /**
+     * Virtual method that sets the liveEdit flag.
+     * If widget is not disabled, this calls enableWidgetUI.
+     */
+    virtual void setLiveEdit(bool liveEdit);
+    void cancelLiveEdit();
 protected slots:
     /** Listens to Doc mode changes */
     virtual void slotModeChanged(Doc::Mode mode);
 
 protected:
     /** Shortcut for inheritors to check current mode */
+    /** Does not reflect application mode, but virtualconsole mode */
     Doc::Mode mode() const;
 
     /*********************************************************************

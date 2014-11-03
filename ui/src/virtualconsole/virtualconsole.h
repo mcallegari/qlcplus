@@ -377,6 +377,18 @@ public:
      */
     bool checkStartupFunction(quint32 fid);
 
+private:
+    bool m_liveEdit;
+public:
+    /** Toggle Virtual Console live editting */
+    void toggleLiveEdit();
+    bool liveEdit() const;
+
+private:
+    /** Enable or disable the Virtual Console edit tools */
+    void enableEdit();
+    void disableEdit();
+
 public slots:
     /** Slot that catches main application mode changes */
     void slotModeChanged(Doc::Mode mode);

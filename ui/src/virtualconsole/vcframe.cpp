@@ -114,6 +114,18 @@ void VCFrame::setDisableState(bool disable)
     //VCWidget::setDisableState(disable);
 }
 
+void VCFrame::setLiveEdit(bool liveEdit)
+{
+    m_liveEdit = liveEdit;
+
+    if (!m_disableState)
+        enableWidgetUI(!m_liveEdit);
+
+    unsetCursor();
+    update();
+}
+
+
 void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)

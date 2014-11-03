@@ -59,6 +59,9 @@ public:
     VCSpeedDial(QWidget* parent, Doc* doc);
     ~VCSpeedDial();
 
+    /** @reimp */
+    virtual void enableWidgetUI(bool enable);
+
     /*************************************************************************
      * Clipboard
      *************************************************************************/
