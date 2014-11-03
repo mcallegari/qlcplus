@@ -5,14 +5,10 @@ TARGET   = scripts
 
 scripts.files += evenodd.js
 scripts.files += fill.js
+scripts.files += fillunfill.js
 scripts.files += fillfromcenter.js
-scripts.files += fillunfillcolumnsfromcenter.js
-scripts.files += fillunfillcolumns.js
-scripts.files += fillunfillrowsfromcenter.js
-scripts.files += fillunfillrows.js
+scripts.files += fillunfillfromcenter.js
 scripts.files += fillunfillsquaresfromcenter.js
-scripts.files += fullcolumnsfromcenter.js
-scripts.files += fullrowsfromcenter.js
 scripts.files += gradient.js
 scripts.files += opposite.js
 scripts.files += randomcolumn.js
@@ -25,6 +21,7 @@ scripts.files += singlerandom.js
 scripts.files += squares.js
 scripts.files += squaresfromcenter.js
 scripts.files += stripes.js
+scripts.files += stripesfromcenter.js
 scripts.files += verticalfall.js
 
 scripts.path = $$INSTALLROOT/$$RGBSCRIPTDIR
