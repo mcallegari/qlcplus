@@ -497,6 +497,7 @@ void App::slotModeDesign()
             m_doc->masterTimer()->stopAllFunctions();
     }
 
+    m_liveEditVirtualConsoleAction->setChecked(false);
     m_doc->setMode(Doc::Design);
 }
 
