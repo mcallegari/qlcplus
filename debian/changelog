@@ -2,6 +2,7 @@ qlcplus (4.8.2) stable; urgency=low
 
   * NEW: Virtual Console: introduced new widget based on RGB Matrix to control animations (see documentation)
   * NEW: RGB Matrix: introduced API version 2. It is now possible to define Script properties accessible from QLC+ (see documentation)
+  * NEW: Virtual Console: introducing EXPERIMENTAL Virtual Console live edit (thanks to David Garyga)
   * RGB Matrix Editor: added a toggle button to preview circles or squares
   * Virtual Console: improved Speed Dial layout and allow to set the visibility of each element of the widget
   * Engine: improved perfomance of chaser loading and playback (thanks to David Garyga)

@@ -580,8 +580,9 @@ void App::initActions()
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
 
-    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("EXPERIMENTAL: Toggle Virtual Console Live edit"), this);
+    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
     connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
+    m_liveEditVirtualConsoleAction->setCheckable(true);
     m_liveEditVirtualConsoleAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
