@@ -21,6 +21,10 @@ qlcplus (4.8.2) stable; urgency=low
   * New fixture: Stairville LED PAR56 10MM-UV (thanks to Hadley Denton)
   * New fixture: Eurolite LED SLS-180 RGB (thanks to Peter)
   * New fixture: Futurelight PHW-260 (thanks to Alessandro Grechi)
+  * New fixture: Martin RUSH Par 1 RGBW (thanks to Russell)
+  * New fixture: Chauvet SlimPAR QUAD 12 IRC (thanks to Robert Box)
+  * New fixture: Cameo LED Colour Bar RGBA (CLBAR10RGBA) (thanks to René Brixel)
+  * New fixture: Showtec Led Air Cone Pro (thanks to Joep Admiraal)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 5 Nov 2014 20:21:22 +0200
 
