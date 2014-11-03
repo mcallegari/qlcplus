@@ -6,7 +6,6 @@ TARGET   = scripts
 scripts.files += evenodd.js
 scripts.files += fill.js
 scripts.files += fillfromcenter.js
-scripts.files += fillsquaresfromcenter.js
 scripts.files += fillunfillcolumnsfromcenter.js
 scripts.files += fillunfillcolumns.js
 scripts.files += fillunfillrowsfromcenter.js

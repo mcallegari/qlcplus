@@ -91,9 +91,9 @@ var testAlgo;
     algo.getFill = function()
     {
       if (algo.fillSquares == 1)
-	return "Yes";
+        return "Yes";
       else
-	return "No";
+        return "No";
     }
 
     util.initialize = function(size)
