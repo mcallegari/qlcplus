@@ -33,7 +33,7 @@ class Doc;
 class RGBScriptsCache
 {
 public:
-    RGBScriptsCache(Doc* doc);
+    explicit RGBScriptsCache(Doc* doc);
 
     /**
      * Return a list of strings containing the cached scripts names.
