@@ -46,11 +46,11 @@ public:
     RGBScript const& script(QString name) const;
 
     /**
-     * Load channel modifiers templates from the given path. Ignores duplicates.
-     * Returns true even if $dir doesn't contain any template,
+     * Load RGB scripts from the given path. Ignores duplicates.
+     * Returns true even if $dir doesn't contain any script,
      * if it is still accessible (and exists).
      *
-     * @param dir The directory to load templates from.
+     * @param dir The directory to load scripts from.
      * @return true, if the path could be accessed, otherwise false.
      */
     bool load(const QDir& dir);
