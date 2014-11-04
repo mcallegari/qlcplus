@@ -39,12 +39,12 @@
       <item>
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Gap</string>
+         <string>Width</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="m_gapSpin" >
+       <widget class="QSpinBox" name="m_widthSpin" >
         <property name="toolTip" >
          <string>Number of values per capability</string>
         </property>
@@ -180,7 +180,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_gapSpin</sender>
+   <sender>m_widthSpin</sender>
    <signal>valueChanged(int)</signal>
    <receiver>CapabilityWizard</receiver>
    <slot>slotCreateCapabilities()</slot>
