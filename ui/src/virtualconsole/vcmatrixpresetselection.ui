@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../qlcui.qrc">
-    <normaloff>:/rgbmatrix.png</normaloff>:/rgbmatrix.png</iconset>
+    <normaloff>:/animation.png</normaloff>:/animation.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

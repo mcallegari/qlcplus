@@ -338,7 +338,7 @@ void VirtualConsole::initActions()
     m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
     connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
 
-    m_addAnimationAction = new QAction(QIcon(":/rgbmatrix.png"), tr("New Animation"), this);
+    m_addAnimationAction = new QAction(QIcon(":/animation.png"), tr("New Animation"), this);
     connect(m_addAnimationAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAnimation()), Qt::QueuedConnection);
 
     /* Put add actions under the same group */
