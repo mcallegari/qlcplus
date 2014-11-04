@@ -37,17 +37,12 @@
 #endif
 
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
-                                               QDir::Name | QDir::IgnoreCase,
-                                               QDir::Files);
-
 QScriptEngine* RGBScript::s_engine = NULL;
 QMutex* RGBScript::s_engineMutex = NULL;
-QMap<QString, RGBScript*>* RGBScript::s_scriptsMap = NULL;
-RGBScript* RGBScript::s_dummyScript = NULL;
 
 /****************************************************************************
  * Initialization
@@ -92,6 +87,9 @@ RGBAlgorithm* RGBScript::clone() const
 
 bool RGBScript::load(const QDir& dir, const QString& fileName)
 {
+    // Create the script engine when it's first needed
+    initEngine();
+
     m_contents.clear();
     m_script = QScriptValue();
     m_rgbMap = QScriptValue();
@@ -181,11 +179,9 @@ void RGBScript::initEngine()
     {
         s_engineMutex = new QMutex(QMutex::Recursive);
         s_engine = new QScriptEngine(QCoreApplication::instance());
-        s_scriptsMap = new QMap<QString, RGBScript*>();
     }
     Q_ASSERT(s_engineMutex != NULL);
     Q_ASSERT(s_engine != NULL);
-    Q_ASSERT(s_scriptsMap != NULL);
 }
 
 /****************************************************************************
@@ -445,87 +441,4 @@ bool RGBScript::loadProperties()
     }
 
     return true;
-}
-
-/****************************************************************************
- * System & User Scripts
- ****************************************************************************/
-
-RGBScript const& RGBScript::script(const Doc * doc, const QString& name)
-{
-    QListIterator <RGBScript*> it(scripts(doc));
-    while (it.hasNext() == true)
-    {
-        RGBScript* script(it.next());
-        if (script->name() == name)
-            return *script;
-    }
-
-    if (s_dummyScript == NULL)
-        s_dummyScript = new RGBScript(doc);
-    Q_ASSERT(s_dummyScript != NULL);
-    return *s_dummyScript;
-}
-
-QStringList RGBScript::scriptNames(const Doc * doc)
-{
-    QStringList names;
-
-    QListIterator <RGBScript*> it(scripts(doc));
-    while (it.hasNext() == true)
-        names << it.next()->name();
-
-    return names;
-}
-
-QList <RGBScript*> RGBScript::scripts(const Doc * doc)
-{
-    initEngine();
-    if (s_scriptsMap->isEmpty())
-    {
-        loadScripts(doc, userScriptDirectory());
-        loadScripts(doc, systemScriptDirectory());
-        loadScripts(doc, customScriptDirectory());
-    }
-    return s_scriptsMap->values();
-}
-
-void RGBScript::loadScripts(const Doc * doc, const QDir& dir)
-{
-    // Create the script engine when it's first needed
-    initEngine();
-
-    QMutexLocker engineLocker(s_engineMutex);
-    foreach (QString file, dir.entryList())
-    {
-        if (!s_scriptsMap->contains(file))
-        {
-            RGBScript* script = new RGBScript(doc);
-            if (script->load(dir, file) == true)
-                s_scriptsMap->insert(file, script);
-            else
-                delete script;
-        }
-    }
-}
-
-QDir RGBScript::systemScriptDirectory()
-{
-    return QLCFile::systemDirectory(QString(RGBSCRIPTDIR), QString(".js"));
-}
-
-QDir RGBScript::userScriptDirectory()
-{
-    return QLCFile::userDirectory(QString(USERRGBSCRIPTDIR), QString(RGBSCRIPTDIR),
-                                  QStringList() << QString("*%1").arg(".js"));
-}
-
-void RGBScript::setCustomScriptDirectory(const QString& path)
-{
-    s_customScriptDirectory.setPath(path);
-}
-
-QDir RGBScript::customScriptDirectory()
-{
-    return s_customScriptDirectory;
 }

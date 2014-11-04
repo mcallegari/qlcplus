@@ -104,6 +104,7 @@ HEADERS += bus.h \
            rgbplain.h \
            rgbscript.h \
            rgbscriptproperty.h \
+           rgbscriptscache.h \
            rgbtext.h \
            scene.h \
            sceneuistate.h \
@@ -200,6 +201,7 @@ SOURCES += bus.cpp \
            rgbimage.cpp \
            rgbplain.cpp \
            rgbscript.cpp \
+           rgbscriptscache.cpp \
            rgbtext.cpp \
            scene.cpp \
            sceneuistate.cpp \

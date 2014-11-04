@@ -25,6 +25,7 @@
 #include "vcmatrixpresetselection.h"
 #include "ui_vcmatrixpresetselection.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "doc.h"
 
 VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
@@ -34,7 +35,7 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     Q_ASSERT(doc != NULL);
 
     setupUi(this);
-    m_presetCombo->addItems(RGBScript::scriptNames(m_doc));
+    m_presetCombo->addItems(m_doc->rgbScriptsCache()->names());
     slotUpdatePresetProperties();
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUpdatePresetProperties()));
@@ -120,7 +121,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
 void VCMatrixPresetSelection::slotUpdatePresetProperties()
 {
     resetProperties(m_propertiesLayout->layout());
-    RGBScript selScript = RGBScript::script(m_doc, m_presetCombo->currentText());
+    RGBScript selScript = m_doc->rgbScriptsCache()->script(m_presetCombo->currentText());
     displayProperties(&selScript);
 }
 

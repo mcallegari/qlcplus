@@ -50,6 +50,7 @@
 #include "app.h"
 #include "doc.h"
 
+#include "rgbscriptscache.h"
 #include "qlcfixturedefcache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
@@ -405,6 +406,10 @@ void App::initDoc()
     /* Load channel modifiers templates */
     m_doc->modifiersCache()->load(QLCModifiersCache::systemTemplateDirectory(), true);
     m_doc->modifiersCache()->load(QLCModifiersCache::userTemplateDirectory());
+
+    /* Load RGB scripts */
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::systemScriptsDirectory());
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),

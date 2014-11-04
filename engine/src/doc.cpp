@@ -39,6 +39,7 @@
 #include "efx.h"
 #include "doc.h"
 #include "bus.h"
+#include "rgbscriptscache.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -57,6 +58,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_modifiersCache(new QLCModifiersCache)
+    , m_rgbScriptsCache(new RGBScriptsCache(this))
     , m_ioPluginCache(new IOPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
@@ -210,6 +212,11 @@ QLCFixtureDefCache* Doc::fixtureDefCache() const
 QLCModifiersCache* Doc::modifiersCache() const
 {
     return m_modifiersCache;
+}
+
+RGBScriptsCache* Doc::rgbScriptsCache() const
+{
+    return m_rgbScriptsCache;
 }
 
 IOPluginCache* Doc::ioPluginCache() const
