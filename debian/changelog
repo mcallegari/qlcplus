@@ -25,6 +25,7 @@ qlcplus (4.8.2) stable; urgency=low
   * New fixture: Chauvet SlimPAR QUAD 12 IRC (thanks to Robert Box)
   * New fixture: Cameo LED Colour Bar RGBA (CLBAR10RGBA) (thanks to René Brixel)
   * New fixture: Showtec Led Air Cone Pro (thanks to Joep Admiraal)
+  * New fixture: American DJ Dotz Bar 1.4
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 5 Nov 2014 20:21:22 +0200
 
