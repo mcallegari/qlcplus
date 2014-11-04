@@ -8,6 +8,7 @@ qlcplus (4.8.2) stable; urgency=low
   * Engine: improved perfomance of chaser loading and playback (thanks to David Garyga)
   * Engine: improved loading of RGB Matrix scripts (thanks to David Garyga)
   * Simple Desk: fixed crash on speed dial window open/close
+  * Chaser Editor: fixed editing cases when using infinite times (thanks to uchris)
   * Input Profiles: added KORG nanoPAD2 profile (thanks to Daniel Åhr)
   * Input Profiles: added Elation MIDIcon
   * Input Profiles: MIDI messages can be entered directly
