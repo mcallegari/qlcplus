@@ -202,6 +202,7 @@ protected:
     QSpinBox* m_gridWSpin;
     QSpinBox *m_gridHSpin;
     QComboBox *m_unitsCombo;
+    QAction *m_labelsAction;
 };
 
 /** @} */
