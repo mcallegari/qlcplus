@@ -21,6 +21,7 @@
 #include <QFont>
 
 #include "monitorproperties.h"
+#include "doc.h"
 #include <QDomDocument>
 #include <QDomElement>
 
@@ -100,7 +101,7 @@ void MonitorProperties::reset()
  * Load & Save
  *********************************************************************/
 
-bool MonitorProperties::loadXML(const QDomElement &root)
+bool MonitorProperties::loadXML(const QDomElement &root, const Doc * mainDocument)
 {
     if (root.tagName() != KXMLQLCMonitorProperties)
     {
@@ -139,13 +140,13 @@ bool MonitorProperties::loadXML(const QDomElement &root)
         else if (tag.tagName() == KXMLQLCMonitorValues)
             setValueStyle(ValueStyle(tag.text().toInt()));
         else if (tag.tagName() == KXMLQLCMonitorCommonBackground)
-            setCommonBackgroundImage(tag.text());
+            setCommonBackgroundImage(mainDocument->denormalizeComponentPath(tag.text()));
         else if (tag.tagName() == KXMLQLCMonitorCustomBgItem)
         {
             if (tag.hasAttribute(KXMLQLCMonitorCustomBgFuncID))
             {
                 quint32 fid = tag.attribute(KXMLQLCMonitorCustomBgFuncID).toUInt();
-                setCustomBackgroundItem(fid, tag.text());
+                setCustomBackgroundItem(fid, mainDocument->denormalizeComponentPath(tag.text()));
             }
         }
         else if (tag.tagName() == KXMLQLCMonitorGrid)
@@ -185,7 +186,7 @@ bool MonitorProperties::loadXML(const QDomElement &root)
     return true;
 }
 
-bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
+bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root, const Doc * mainDocument) const
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);
@@ -223,7 +224,7 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         {
             tag = doc->createElement(KXMLQLCMonitorCommonBackground);
             root.appendChild(tag);
-            text = doc->createTextNode(commonBackgroundImage());
+            text = doc->createTextNode(mainDocument->normalizeComponentPath(commonBackgroundImage()));
             tag.appendChild(text);
         }
         else if(customBackgroundList().isEmpty() == false)
@@ -238,7 +239,7 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
                 root.appendChild(tag);
                 quint32 fid = it.key();
                 tag.setAttribute(KXMLQLCMonitorCustomBgFuncID, fid);
-                text = doc->createTextNode(it.value());
+                text = doc->createTextNode(mainDocument->normalizeComponentPath(it.value()));
                 tag.appendChild(text);
             }
         }

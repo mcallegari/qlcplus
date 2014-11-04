@@ -790,7 +790,7 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCWidgetBackgroundImage)
         {
             if (tag.text() != KXMLQLCVCWidgetBackgroundImageNone)
-                setBackgroundImage(tag.text());
+                setBackgroundImage(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCVCWidgetFont)
         {
@@ -908,7 +908,7 @@ bool VCWidget::saveXMLAppearance(QDomDocument* doc, QDomElement* frame_root)
     tag = doc->createElement(KXMLQLCVCWidgetBackgroundImage);
     root.appendChild(tag);
     if (backgroundImage().isEmpty() == false)
-        str = m_backgroundImage;
+        str = m_doc->normalizeComponentPath(m_backgroundImage);
     else
         str = KXMLQLCVCWidgetBackgroundImageNone;
     text = doc->createTextNode(str);

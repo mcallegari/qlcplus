@@ -1055,9 +1055,7 @@ bool Doc::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCMonitorProperties)
         {
-            if (m_monitorProps == NULL)
-                m_monitorProps = new MonitorProperties();
-            m_monitorProps->loadXML(tag);
+            monitorProperties()->loadXML(tag, this);
         }
         else
         {
@@ -1128,7 +1126,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     if (m_monitorProps != NULL)
-        m_monitorProps->saveXML(doc, &root);
+        m_monitorProps->saveXML(doc, &root, this);
 
     return true;
 }
