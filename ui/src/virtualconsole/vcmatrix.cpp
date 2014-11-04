@@ -31,6 +31,7 @@
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
 #include "rgbmatrix.h"
+#include "rgbscriptscache.h"
 #include "vcmatrix.h"
 #include "function.h"
 #include "rgbtext.h"
@@ -114,7 +115,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
     m_presetCombo = new QComboBox(this);
     //m_presetCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    m_presetCombo->addItems(RGBScript::scriptNames(m_doc));
+    m_presetCombo->addItems(doc->rgbScriptsCache()->names());
     connect(m_presetCombo, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(slotAnimationChanged(QString)));
     vbox->addWidget(m_presetCombo);

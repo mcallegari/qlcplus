@@ -25,6 +25,7 @@
 #include "rgbalgorithm_test.h"
 #include "rgbalgorithm.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #undef private
 
 #include "doc.h"
@@ -39,7 +40,7 @@ void RGBAlgorithm_Test::initTestCase()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
+    QVERIFY(m_doc->rgbScriptsCache()->load(dir));
 }
 
 void RGBAlgorithm_Test::cleanupTestCase()
@@ -79,6 +80,12 @@ void RGBAlgorithm_Test::algorithm()
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
     QCOMPARE(algo->name(), QString("Stripes"));
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
     delete algo;
 }
 

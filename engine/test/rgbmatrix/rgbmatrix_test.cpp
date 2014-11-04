@@ -27,13 +27,14 @@
 #include "fixturegroup.h"
 #include "mastertimer.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "rgbmatrix.h"
 #include "fixture.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
 
-#define INTERNAL_SCRIPTDIR "../../../rgbscripts/"
+#define INTERNAL_SCRIPTDIR "../../../rgbscripts"
 #define INTERNAL_FIXTUREDIR "../../../fixtures/"
 
 void RGBMatrix_Test::initTestCase()
@@ -64,8 +65,8 @@ void RGBMatrix_Test::initTestCase()
         grp->assignFixture(fxi->id());
     }
 
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QVERIFY(RGBScript::scripts(m_doc).size() != 0);
+    QVERIFY(m_doc->rgbScriptsCache()->load(QDir(INTERNAL_SCRIPTDIR)));
+    QVERIFY(m_doc->rgbScriptsCache()->names().size() != 0);
 }
 
 void RGBMatrix_Test::cleanupTestCase()

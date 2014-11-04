@@ -67,8 +67,6 @@ public:
 private:
     static QScriptEngine* s_engine; //! The engine that runs all scripts
     static QMutex* s_engineMutex;   //! Protection
-    static QMap<QString, RGBScript*>* s_scriptsMap; //! One instance of each script, filename-based map
-    static RGBScript* s_dummyScript; //! Dummy empty script
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
@@ -132,37 +130,6 @@ private:
 
 private:
     QList<RGBScriptProperty> m_properties; //! the script properties list
-
-    /************************************************************************
-     * System & User Scripts
-     ************************************************************************/
-public:
-    /** Get a script by its public name */
-    static RGBScript const& script(const Doc * doc, const QString& name);
-
-    /** Get available (user, system and custom) script names */
-    static QStringList scriptNames(const Doc * doc);
-
-    /** Get available (user, system and custom) scripts */
-    static QList <RGBScript*> scripts(const Doc * doc);
-
-    /** Load available scripts from the given directory path */
-    static void loadScripts(const Doc * doc, const QDir& path);
-
-    /** The system RGBScript directory */
-    static QDir systemScriptDirectory();
-
-    /** The user RGBScript directory */
-    static QDir userScriptDirectory();
-
-    /** Set the custom RGBScript directory */
-    static void setCustomScriptDirectory(const QString& path);
-
-    /** Get the custom RGBScript directory */
-    static QDir customScriptDirectory();
-
-private:
-    static QDir s_customScriptDirectory;
 };
 
 /** @} */

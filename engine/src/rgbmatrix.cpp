@@ -34,6 +34,7 @@
 #include "rgbmatrix.h"
 #include "qlcmacros.h"
 #include "rgbaudio.h"
+#include "rgbscriptscache.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
@@ -66,7 +67,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     setName(tr("New RGB Matrix"));
     setDuration(500);
 
-    RGBScript scr = RGBScript::script(doc, "Stripes");
+    RGBScript scr = doc->rgbScriptsCache()->script("Stripes");
     setAlgorithm(scr.clone());
 }
 
