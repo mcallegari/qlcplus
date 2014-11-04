@@ -724,7 +724,7 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
     <message>
         <location filename="app.cpp" line="583"/>
         <source>Toggle Virtual Console Live edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa/Desactiva l&apos;edició en viu de la Consola Virtual</translation>
     </message>
     <message>
         <location filename="app.cpp" line="588"/>
@@ -6983,7 +6983,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Disparador d&apos;Àudio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="154"/>
