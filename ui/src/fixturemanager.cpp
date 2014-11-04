@@ -807,7 +807,7 @@ void FixtureManager::initActions()
             this, SLOT(slotAdd()));
 
     m_addRGBAction = new QAction(QIcon(":/rgbpanel.png"),
-                              tr("Add fixture..."), this);
+                              tr("Add RGB panel..."), this);
     connect(m_addRGBAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBPanel()));
 
