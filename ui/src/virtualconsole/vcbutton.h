@@ -200,6 +200,7 @@ protected:
 public:
     void setOn(bool on);
     bool isOn() const;
+    void updateOnState();
 
 protected:
     bool m_on;
