@@ -2254,7 +2254,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="810"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un panel RGB...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>
