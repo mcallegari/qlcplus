@@ -68,6 +68,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/qlcplus/modifierstemplates/*
 /usr/share/qlcplus/gobos/*
 /usr/share/qlcplus/rgbscripts/*
+/usr/share/qlcplus/web/*
 /usr/share/qlcplus/Sample.qxw
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
