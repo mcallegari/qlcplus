@@ -107,6 +107,7 @@ Section
 	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
+	File /r Web
 
 	WriteRegStr HKCR ".qxw" "" "QLightControllerPlus.Document"
 	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
@@ -161,6 +162,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
+	RMDir /r $INSTDIR\Web
 
 	RMDir $INSTDIR
 
