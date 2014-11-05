@@ -2250,7 +2250,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="810"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir panell RGB...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>
