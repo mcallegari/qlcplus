@@ -5003,7 +5003,7 @@ Durata: %3
     <message>
         <location filename="speeddial.cpp" line="169"/>
         <source>Infinite</source>
-        <translation>Inifinito</translation>
+        <translation>Infinito</translation>
     </message>
     <message>
         <location filename="speeddial.cpp" line="123"/>
