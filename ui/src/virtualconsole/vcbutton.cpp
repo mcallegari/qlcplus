@@ -706,13 +706,13 @@ void VCButton::releaseFunction()
 
 void VCButton::slotFunctionRunning(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
         setOn(true);
 }
 
 void VCButton::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
     {
         setOn(false);
         blink(250);
@@ -721,6 +721,10 @@ void VCButton::slotFunctionStopped(quint32 fid)
 
 void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 {
+    // Do not change the state of the button for Blackout or Stop All Functions buttons
+    if (m_action != Toggle && m_action != Flash)
+        return;
+
     if (fid != m_function)
         return;
 
