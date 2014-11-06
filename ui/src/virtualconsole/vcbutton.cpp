@@ -377,7 +377,6 @@ void VCButton::setFunction(quint32 fid)
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
         m_function = fid;
-
         setToolTip(function->name());
     }
     else
@@ -431,6 +430,32 @@ void VCButton::setOn(bool on)
     updateFeedback();
 
     update();
+}
+
+void VCButton::updateOnState()
+{
+    bool on;
+    if (m_action == Blackout)
+    {
+        on = m_doc->inputOutputMap()->blackout();
+    }
+    else if (m_action == StopAll)
+    {
+        on = false;
+    }
+    else if (m_action == Flash)
+    {
+        on = false;
+    }
+    else // (m_action == Toggle)
+    {
+        on = false;
+        Function* function = m_doc->function(m_function);
+        if (function != NULL)
+            on = function->isRunning();
+    }
+    if (m_on != on)
+        setOn(on);
 }
 
 /*****************************************************************************
@@ -508,16 +533,19 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 
 void VCButton::setAction(Action action)
 {
+    // Blackout signal connection
     if (m_action == Blackout && action != Blackout)
         disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
-                   this, SLOT(slotBlackoutChanged(bool)));
+                this, SLOT(slotBlackoutChanged(bool)));
     else if (m_action != Blackout && action == Blackout)
         connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
                 this, SLOT(slotBlackoutChanged(bool)));
 
+    // Action update
     m_action = action;
     updateIcon();
 
+    // Update tooltip
     if (m_action == Blackout)
         setToolTip(tr("Toggle Blackout"));
     else if (m_action == StopAll)
@@ -678,13 +706,13 @@ void VCButton::releaseFunction()
 
 void VCButton::slotFunctionRunning(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
         setOn(true);
 }
 
 void VCButton::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
     {
         setOn(false);
         blink(250);
@@ -693,6 +721,10 @@ void VCButton::slotFunctionStopped(quint32 fid)
 
 void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 {
+    // Do not change the state of the button for Blackout or Stop All Functions buttons
+    if (m_action != Toggle && m_action != Flash)
+        return;
+
     if (fid != m_function)
         return;
 
