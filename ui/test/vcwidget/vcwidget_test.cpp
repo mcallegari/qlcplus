@@ -81,7 +81,7 @@ void VCWidget_Test::bgImage()
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
 
     stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    //QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 1);
@@ -90,7 +90,7 @@ void VCWidget_Test::bgImage()
     QCOMPARE(spy.size(), 2);
 
     stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    //QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 3);
@@ -482,7 +482,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    //QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 
     root.setTagName("Appiarenz");
@@ -490,7 +490,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    //QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 }
 
