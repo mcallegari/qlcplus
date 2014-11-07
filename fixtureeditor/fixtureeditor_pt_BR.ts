@@ -187,8 +187,8 @@
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
-        <source>Gap</source>
-        <translation>Intervalo</translation>
+        <source>Width</source>
+        <translation type="unfinished">Largura</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>

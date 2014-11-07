@@ -5121,17 +5121,17 @@ Duration: %3
         <translation>Kuvatiedostot (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="522"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="550"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="524"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="552"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="750"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="782"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>

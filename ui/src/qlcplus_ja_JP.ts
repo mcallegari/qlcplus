@@ -5151,17 +5151,17 @@ Duration: %3
         <translation>画像 (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="522"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="550"/>
         <source>Toggle Blackout</source>
         <translation>暗転</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="524"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="552"/>
         <source>Stop ALL functions!</source>
         <translation>全ファンクション停止</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="750"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="782"/>
         <source>Icon</source>
         <translation>アイコン</translation>
     </message>

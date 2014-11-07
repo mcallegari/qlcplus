@@ -5152,17 +5152,17 @@ Durata: %3
         <translation>Immagini (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="522"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="550"/>
         <source>Toggle Blackout</source>
         <translation>Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="524"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="552"/>
         <source>Stop ALL functions!</source>
         <translation>Ferma TUTTE le funzioni!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="750"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="782"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>

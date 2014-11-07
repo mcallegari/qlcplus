@@ -193,8 +193,8 @@
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
-        <source>Gap</source>
-        <translation>Gat</translation>
+        <source>Width</source>
+        <translation type="unfinished">Breedte</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
