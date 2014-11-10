@@ -467,7 +467,7 @@ void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
             fc.setCurrent(fc.start());
             fc.setTarget(0);
             // Give zero-fading to MasterTimer because EFX will stop after this call
-            timer->fader()->add(fc);
+            timer->faderAdd(fc);
             // Remove the previously up-faded channel from EFX's internal fader to allow
             // MasterTimer's fader take HTP precedence.
             m_parent->m_fader->remove(fc);
