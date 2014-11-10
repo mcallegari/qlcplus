@@ -638,7 +638,7 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
                 fc.setFadeTime(overrideFadeOutSpeed());
             fc.setTarget(0);
         }
-        timer->fader()->add(fc);
+        timer->faderAdd(fc);
     }
 
     Q_ASSERT(m_fader != NULL);
@@ -651,7 +651,7 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
                              const QList<Universe*> ua)
 {
-    const QHash <FadeChannel,FadeChannel>& channels(timer->fader()->channels());
+    QHash <FadeChannel,FadeChannel> channels(timer->faderChannels());
     QHash <FadeChannel,FadeChannel>::const_iterator existing_it = channels.find(fc);
     if (existing_it != channels.constEnd())
     {

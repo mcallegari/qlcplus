@@ -27,6 +27,7 @@
 
 class MasterTimerPrivate;
 class GenericFader;
+class FadeChannel;
 class DMXSource;
 class Function;
 class Universe;
@@ -159,19 +160,23 @@ private:
     /*************************************************************************
      * Generic Fader
      *************************************************************************/
-public:
+private:
     /**
      * Get a pointer to the MasterTimer's GenericFader. The pointer must not be
      * deleted. The fader can be used e.g. by Scene functions to gracefully fade
      * down such intensity (HTP) channels that are no longer in use.
      */
     GenericFader* fader() const;
+public:
+    void faderAdd(const FadeChannel& ch);
+    QHash<FadeChannel,FadeChannel> faderChannels() const;
 
 private:
     /** Execute one timer tick for the GenericFader */
     void timerTickFader(QList<Universe *> universes);
 
 private:
+    QMutex m_faderMutex;
     GenericFader* m_fader;
 
 private:
