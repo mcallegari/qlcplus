@@ -78,7 +78,6 @@ ChaserRunner::~ChaserRunner()
 {
     clearRunningList();
     delete m_roundTime;
-    m_roundTime = NULL;
 }
 
 /****************************************************************************
@@ -89,12 +88,27 @@ void ChaserRunner::slotChaserChanged()
 {
     // Handle (possible) speed change on the next write() pass
     m_updateOverrideSpeeds = true;
-    // Recalculate the speed of each running step
+    QList<ChaserRunnerStep*> delList;
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        step->m_fadeIn = stepFadeIn(step->m_index);
-        step->m_fadeOut = stepFadeOut(step->m_index);
-        step->m_duration = stepDuration(step->m_index);
+        if (!m_chaser->steps().contains(ChaserStep(step->m_function->id())))
+        {
+            // Disappearing function: remove step
+            delList.append(step);
+        }
+        else
+        {
+            // Recalculate the speed of each running step
+            step->m_fadeIn = stepFadeIn(step->m_index);
+            step->m_fadeOut = stepFadeOut(step->m_index);
+            step->m_duration = stepDuration(step->m_index);
+        }
+    }
+    foreach(ChaserRunnerStep* step, delList)
+    {
+        step->m_function->stop(m_chaser->id());
+        delete step;
+        m_runnerSteps.removeAll(step);
     }
 }
 
