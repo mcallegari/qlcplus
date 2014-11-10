@@ -855,7 +855,7 @@ void Function::incrementElapsed()
 {
     // Don't wrap around. UINT_MAX is the maximum fade/hold time.
     // This check makes no sense. this will wrap around.
-    //if (m_elapsed < UINT_MAX)
+    if (m_elapsed <= UINT_MAX - MasterTimer::tick())
         m_elapsed += MasterTimer::tick();
 }
 
