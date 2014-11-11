@@ -4,7 +4,13 @@ SUBDIRS              += dmxusb
 SUBDIRS              += peperoni
 SUBDIRS              += udmx
 SUBDIRS              += midi
-unix:SUBDIRS         += ola
+unix {
+  system(pkg-config --exists libola) {
+    system(pkg-config --exists libolaserver) {
+      SUBDIRS        += ola
+    }
+  }
+}
 !macx:!win32:SUBDIRS += dmx4linux
 SUBDIRS              += velleman
 SUBDIRS              += enttecwing
