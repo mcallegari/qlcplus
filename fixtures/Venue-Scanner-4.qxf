@@ -6,8 +6,8 @@
   <Version>4.6.1</Version>
   <Author>Davey D</Author>
  </Creator>
- <Manufacturer>venue</Manufacturer>
- <Model>scanner 4</Model>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>Scanner 4</Model>
  <Type>Scanner</Type>
  <Channel Name="pan">
   <Group Byte="0">Pan</Group>

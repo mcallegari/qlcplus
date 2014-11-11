@@ -412,5 +412,5 @@
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
   <fixture path="Velleman-Beam-Driver-250.qxf" mf="Velleman" md="Beam Driver 250"/>
   <fixture path="Venue-LEDPAR64.qxf" mf="Venue" md="LED PAR64"/>
-  <fixture path="Venue-Scanner-4.qxf" mf="venue" md="scanner 4"/>
+  <fixture path="Venue-Scanner-4.qxf" mf="Venue" md="Scanner 4"/>
 </FixturesMap>
