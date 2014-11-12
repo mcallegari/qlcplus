@@ -7,8 +7,7 @@
   <Author>Janosch Frank</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
- <Model>HL-x9 Quad Color Flood
-9x8W</Model>
+ <Model>HL-x9 Quad Color Flood 9x8W</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
