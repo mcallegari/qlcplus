@@ -62,7 +62,7 @@ Chaser::Chaser(Doc* doc)
     , m_holdMode(Common)
     , m_startStepIndex(-1)
     , m_runner(NULL)
-    , m_useInternalRunner(true)
+    //, m_useInternalRunner(true)
 {
     setName(tr("New Chaser"));
 
@@ -550,13 +550,14 @@ void Chaser::postLoad()
 
 void Chaser::tap()
 {
-    if (m_useInternalRunner && m_runner != NULL && durationMode() == Common)
+    if (/*m_useInternalRunner && */(!m_runner.isNull()) && durationMode() == Common)
         m_runner->tap();
 }
 
 void Chaser::setStepIndex(int idx)
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    // if (m_useInternalRunner && m_runner != NULL)
+    if (!m_runner.isNull())
         m_runner->setCurrentStep(idx);
     else
         m_startStepIndex = idx;
@@ -564,13 +565,15 @@ void Chaser::setStepIndex(int idx)
 
 void Chaser::previous()
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    //if (m_useInternalRunner && m_runner != NULL)
+    if (!m_runner.isNull())
         m_runner->previous();
 }
 
 void Chaser::next()
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    //if (m_useInternalRunner && m_runner != NULL)
+    if (!m_runner.isNull())
         m_runner->next();
 }
 
@@ -578,11 +581,16 @@ void Chaser::next()
  * Running
  *****************************************************************************/
 
-ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, int startStepIdx)
+void Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, int startStepIdx)
 {
     if (self == NULL || doc == NULL)
-        return NULL;
+        return;
 
+    QMutexLocker runnerLocker(&m_runnerLocker);
+
+    Q_ASSERT(m_runner.isNull());
+
+    m_runner =
     ChaserRunner* runner = new ChaserRunner(doc, self, startTime);
     Q_ASSERT(runner != NULL);
     runner->moveToThread(QCoreApplication::instance()->thread());
@@ -590,47 +598,69 @@ ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, in
     if (startStepIdx != -1)
         runner->setCurrentStep(startStepIdx);
 
-    return runner;
+    m_runner = QSharedPointer<ChaserRunner>(runner);
 }
 
-void Chaser::useInternalRunner(bool enable)
+void Chaser::setStep()
 {
-    m_useInternalRunner = enable;
+
+}
+
+//void Chaser::setExternalRunner(QSharedPointer<ChaserRunner> const& runner)
+//{
+//    QMutexLocker runnerLocker(m_runnerMutex);
+//    m_useInternalRunner = false;
+//    m_runner = runner;
+//}
+//
+
+QSharedPointer<ChaserRunner> Chaser::getRunner() const
+{
+    QMutexLocker runnerLocker(&m_runnerLocker);
+    return m_runner;
 }
 
 void Chaser::preRun(MasterTimer* timer)
 {
-    if (m_useInternalRunner)
+    //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
+    QMutexLocker runnerLocker(&m_runnerLocker);
+    // if (m_useInternalRunner)
+    if (m_runner.isNull())
     {
-        Q_ASSERT(m_runner == NULL);
-        m_runner = createRunner(this, doc(), elapsed(), m_startStepIndex);
+        // Q_ASSERT(m_runner == NULL);
+        createRunner(this, doc(), elapsed(), m_startStepIndex);
         m_startStepIndex = -1;
-        connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     }
+    connect(m_runner.data(), SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
+
     Function::preRun(timer);
 }
 
 void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 {
-    if (m_useInternalRunner)
-    {
-        Q_ASSERT(m_runner != NULL);
+    //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
+    // QMutexLocker runnerLocker(&m_runnerLocker);
+    //if (m_useInternalRunner)
+    //{
+        Q_ASSERT(!m_runner.isNull());
 
         if (m_runner->write(timer, universes) == false)
             stop();
-    }
+    //}
 
     incrementElapsed();
 }
 
 void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
+    //if (m_useInternalRunner && m_runner != NULL)
     {
         m_runner->postRun(timer, universes);
 
-        delete m_runner;
-        m_runner = NULL;
+        m_runner.clear();
+        //delete m_runner;
+        //m_runner = NULL;
     }
 
     Function::postRun(timer, universes);
@@ -642,7 +672,7 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Chaser::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_useInternalRunner && m_runner != NULL && attributeIndex == Intensity)
+    if (/*m_useInternalRunner && */ (!m_runner.isNull()) && attributeIndex == Intensity)
         m_runner->adjustIntensity(fraction);
     Function::adjustAttribute(fraction, attributeIndex);
 }

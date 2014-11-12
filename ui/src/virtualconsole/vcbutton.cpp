@@ -358,11 +358,11 @@ void VCButton::setFunction(quint32 fid)
     {
         /* Get rid of old function connections */
         disconnect(old, SIGNAL(running(quint32)),
-                   this, SLOT(slotFunctionRunning(quint32)));
+                this, SLOT(slotFunctionRunning(quint32)));
         disconnect(old, SIGNAL(stopped(quint32)),
-                   this, SLOT(slotFunctionStopped(quint32)));
+                this, SLOT(slotFunctionStopped(quint32)));
         disconnect(old, SIGNAL(flashing(quint32,bool)),
-                   this, SLOT(slotFunctionFlashing(quint32,bool)));
+                this, SLOT(slotFunctionFlashing(quint32,bool)));
     }
 
     Function* function = m_doc->function(fid);

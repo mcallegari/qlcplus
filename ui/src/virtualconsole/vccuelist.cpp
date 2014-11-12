@@ -315,22 +315,29 @@ bool VCCueList::copyFrom(const VCWidget* widget)
 void VCCueList::setChaser(quint32 id)
 {
     Function *old = m_doc->function(m_chaserID);
-    if (old != NULL)
-    {
-        disconnect(old, SIGNAL(stopped(quint32)),
-            this, SLOT(slotChaserStopped(quint32)));
-    }
 
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
 
     if (chaser == NULL)
         m_chaserID = Function::invalidId();
     else
-    {
         m_chaserID = id;
-        connect(chaser, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotFunctionStopped(quint32)));
+
+    if (old == NULL && chaser != NULL)
+    {
+        connect(old, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
+        connect(old, SIGNAL(stopped(quint32)),
+                this, SLOT(slotFunctionStopped(quint32)));
     }
+    else if (old != NULL && chaser == NULL)
+    {
+        disconnect(old, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
+        disconnect(old, SIGNAL(stopped(quint32)),
+                this, SLOT(slotFunctionStopped(quint32)));
+    }
+
     updateStepList();
 }
 
@@ -448,10 +455,7 @@ void VCCueList::stopFunction()
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaserID)
-    {
         setChaser(Function::invalidId());
-        updateStepList();
-    }
 }
 
 void VCCueList::slotFunctionChanged(quint32 fid)
@@ -497,10 +501,8 @@ void VCCueList::slotPlayback()
     }
     else
     {
-        m_mutex.lock();
         int index = getCurrentIndex();
         createRunner(index);
-        m_mutex.unlock();
     }
 }
 
@@ -510,12 +512,10 @@ void VCCueList::slotNextCue()
         return;
 
     /* Create the runner only when the first/last cue is engaged. */
-    m_mutex.lock();
     if (m_runner == NULL)
         createRunner();
     else
         m_runner->next();
-    m_mutex.unlock();
 }
 
 void VCCueList::slotPreviousCue()
@@ -524,12 +524,10 @@ void VCCueList::slotPreviousCue()
         return;
 
     /* Create the runner only when the first/last cue is engaged. */
-    m_mutex.lock();
     if (m_runner == NULL)
         createRunner(m_tree->topLevelItemCount() - 1); // Start from end
     else
         m_runner->previous();
-    m_mutex.unlock();
 }
 
 void VCCueList::slotStop()
@@ -537,23 +535,10 @@ void VCCueList::slotStop()
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
     if (m_runner != NULL)
         m_stop = true;
-    m_playbackButton->setIcon(QIcon(":/player_play.png"));
-    m_sl1BottomLabel->setText("");
-    m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
-    m_sl2BottomLabel->setText("");
-    m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
-    // reset any previously set background
-    QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
-    if (item != NULL)
-        item->setBackground(COL_NUM, m_defCol);
-    m_mutex.unlock();
-
-    /* Start from the beginning */
-    //m_tree->setCurrentItem(NULL);
 }
+
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
@@ -572,7 +557,6 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
     m_primaryIndex = m_tree->indexOfTopLevelItem(item);
     if (m_runner == NULL)
         createRunner(m_primaryIndex);
@@ -580,7 +564,6 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
     setSlidersInfo(m_primaryIndex);
-    m_mutex.unlock();
 }
 
 void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
@@ -605,20 +588,31 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 {
     if (fid == m_chaserID && m_runner != NULL)
     {
+        m_playbackButton->setIcon(QIcon(":/player_play.png"));
+        m_sl1BottomLabel->setText("");
+        m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
+        m_sl2BottomLabel->setText("");
+        m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
+        // reset any previously set background
+        QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+        if (item != NULL)
+            item->setBackground(COL_NUM, m_defCol);
+
         qDebug() << Q_FUNC_INFO << "Cue stopped";
         Chaser* ch = chaser();
         if (ch != NULL)
             ch->useInternalRunner(true);
-        slotStop();
+        m_stop = true;
     }
 }
 
 void VCCueList::slotProgressTimeout()
 {
-    if (m_runner == NULL)
+    if (m_chaser == NULL)
         return;
 
     ChaserRunnerStep *step = m_runner->currentRunningStep();
+    QSharedPointer<ChaserRunner> runner = chaser.getRunner();
     if (step != NULL)
     {
         int status = m_progress->property("status").toInt();
@@ -816,7 +810,6 @@ void VCCueList::slotSlider2ValueChanged(int value)
 
 void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
 {
-    m_mutex.lock();
     if (m_runner != NULL)
     {
         if (m_stop == false)
@@ -841,7 +834,6 @@ void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
             emit stepChanged(-1);
         }
     }
-    m_mutex.unlock();
 }
 
 /*****************************************************************************
@@ -1012,11 +1004,9 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     else
     {
         m_doc->masterTimer()->unregisterDMXSource(this);
-        m_mutex.lock();
         if (m_runner != NULL)
             delete m_runner;
         m_runner = NULL;
-        m_mutex.unlock();
         m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
         m_sl1BottomLabel->setText("");
         m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
@@ -1048,7 +1038,6 @@ void VCCueList::playCueAtIndex(int idx)
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
     m_primaryIndex = idx;
     if (m_runner == NULL)
         createRunner(m_primaryIndex);
@@ -1056,7 +1045,6 @@ void VCCueList::playCueAtIndex(int idx)
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
     setSlidersInfo(m_primaryIndex);
-    m_mutex.unlock();
 }
 
 /*****************************************************************************

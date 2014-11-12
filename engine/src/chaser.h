@@ -301,9 +301,13 @@ public:
      * @param doc The engine object
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
-    static ChaserRunner* createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
+private:
+    void createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
+public:
+    QSharedPointer<ChaserRunner> const& getRunner() const;
 
-    void useInternalRunner(bool enable);
+    void setStartValues(int startTime, int startStepIdx);
+    // void useInternalRunner(bool enable);
 
     /** @reimpl */
     void preRun(MasterTimer* timer);
@@ -319,8 +323,9 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
-    ChaserRunner* m_runner;
-    bool m_useInternalRunner;
+    QMutex m_runnerMutex;
+    QSharedPointer<ChaserRunner> m_runner;
+    // bool m_useInternalRunner;
 
     /*************************************************************************
      * Intensity

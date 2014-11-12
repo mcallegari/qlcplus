@@ -183,8 +183,8 @@ private:
     QProgressBar* m_progress;
     bool m_listIsUpdating;
 
-    ChaserRunner* m_runner;
-    QMutex m_mutex; // Guards m_runner
+    Chaser* m_chaser;
+    // QSharedPointer<ChaserRunner> m_runner;
     QTimer* m_timer;
 
     /*************************************************************************
