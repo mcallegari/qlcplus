@@ -288,6 +288,8 @@ public:
 
 private:
     int m_startStepIndex;
+    qreal m_startValue;
+    bool m_hasStartValue;
 
     /*********************************************************************
      * Running
@@ -302,11 +304,12 @@ public:
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
 private:
-    void createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
+    void createRunner(quint32 startTime = 0, int startStepIdx = 0);
 public:
-    QSharedPointer<ChaserRunner> const& getRunner() const;
+    QSharedPointer<ChaserRunner> getRunner() const;
 
-    void setStartValues(int startTime, int startStepIdx);
+    void setStartValue(qreal startValue);
+    // void setStartStepIndex(int startStepIdx);
     // void useInternalRunner(bool enable);
 
     /** @reimpl */

@@ -62,7 +62,7 @@ class Doc;
  * @see VCWidget
  * @see VirtualConsole
  */
-class VCCueList : public VCWidget, public DMXSource
+class VCCueList : public VCWidget //, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueList)
@@ -149,9 +149,6 @@ private slots:
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();
 
-    /** Stop the cue list and return to start */
-    void slotStop();
-
     /** Called when m_runner skips to another step */
     void slotCurrentStepChanged(int stepNumber);
 
@@ -166,12 +163,17 @@ private slots:
     /** Slot called whenever a function is stopped */
     void slotFunctionStopped(quint32 fid);
 
+    /** Slot called whenever a function is stopped */
+    void slotFunctionRunning(quint32 fid);
+
     /** Slot called every 200ms to update the step progress bar */
     void slotProgressTimeout();
 
 private:
     /** Create the runner that writes cue values to universes */
-    void createRunner(int startIndex = -1);
+    //void createRunner(int startIndex = -1);
+    void startChaser(int startIndex = -1);
+    void stopChaser();
 
 private:
     quint32 m_chaserID;
@@ -183,7 +185,7 @@ private:
     QProgressBar* m_progress;
     bool m_listIsUpdating;
 
-    Chaser* m_chaser;
+    // Chaser* m_chaser;
     // QSharedPointer<ChaserRunner> m_runner;
     QTimer* m_timer;
 
@@ -218,11 +220,11 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    // void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     /** Flag indicating, whether stop button has been pressed */
-    bool m_stop;
+    //bool m_stop;
 
     /*************************************************************************
      * Key sequences

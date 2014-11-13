@@ -61,6 +61,7 @@ Chaser::Chaser(Doc* doc)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
     , m_startStepIndex(-1)
+    , m_runnerMutex(QMutex::Recursive)
     , m_runner(NULL)
     //, m_useInternalRunner(true)
 {
@@ -550,12 +551,14 @@ void Chaser::postLoad()
 
 void Chaser::tap()
 {
+    QMutexLocker runnerLocker(&m_runnerMutex);
     if (/*m_useInternalRunner && */(!m_runner.isNull()) && durationMode() == Common)
         m_runner->tap();
 }
 
 void Chaser::setStepIndex(int idx)
 {
+    QMutexLocker runnerLocker(&m_runnerMutex);
     // if (m_useInternalRunner && m_runner != NULL)
     if (!m_runner.isNull())
         m_runner->setCurrentStep(idx);
@@ -565,6 +568,7 @@ void Chaser::setStepIndex(int idx)
 
 void Chaser::previous()
 {
+    QMutexLocker runnerLocker(&m_runnerMutex);
     //if (m_useInternalRunner && m_runner != NULL)
     if (!m_runner.isNull())
         m_runner->previous();
@@ -572,6 +576,7 @@ void Chaser::previous()
 
 void Chaser::next()
 {
+    QMutexLocker runnerLocker(&m_runnerMutex);
     //if (m_useInternalRunner && m_runner != NULL)
     if (!m_runner.isNull())
         m_runner->next();
@@ -581,57 +586,46 @@ void Chaser::next()
  * Running
  *****************************************************************************/
 
-void Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, int startStepIdx)
+void Chaser::setStartValue(qreal startValue)
 {
-    if (self == NULL || doc == NULL)
-        return;
+    m_startValue = startValue;
+    m_hasStartValue = true;
+}
 
-    QMutexLocker runnerLocker(&m_runnerLocker);
-
+void Chaser::createRunner(quint32 startTime, int startStepIdx)
+{
     Q_ASSERT(m_runner.isNull());
 
-    m_runner =
-    ChaserRunner* runner = new ChaserRunner(doc, self, startTime);
-    Q_ASSERT(runner != NULL);
-    runner->moveToThread(QCoreApplication::instance()->thread());
-    runner->setParent(self);
+    m_runner = QSharedPointer<ChaserRunner>(new ChaserRunner(doc(), this, startTime));
+    m_runner->moveToThread(QCoreApplication::instance()->thread());
+    m_runner->setParent(this);
     if (startStepIdx != -1)
-        runner->setCurrentStep(startStepIdx);
-
-    m_runner = QSharedPointer<ChaserRunner>(runner);
+        m_runner->setCurrentStep(startStepIdx);
 }
-
-void Chaser::setStep()
-{
-
-}
-
-//void Chaser::setExternalRunner(QSharedPointer<ChaserRunner> const& runner)
-//{
-//    QMutexLocker runnerLocker(m_runnerMutex);
-//    m_useInternalRunner = false;
-//    m_runner = runner;
-//}
-//
 
 QSharedPointer<ChaserRunner> Chaser::getRunner() const
 {
-    QMutexLocker runnerLocker(&m_runnerLocker);
-    return m_runner;
+    QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+    // Make a copy before unlocking the mutex
+    QSharedPointer<ChaserRunner> runner(m_runner);
+    return runner;
 }
 
 void Chaser::preRun(MasterTimer* timer)
 {
     //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
-    QMutexLocker runnerLocker(&m_runnerLocker);
     // if (m_useInternalRunner)
-    if (m_runner.isNull())
+    // if (m_runner.isNull())
     {
-        // Q_ASSERT(m_runner == NULL);
-        createRunner(this, doc(), elapsed(), m_startStepIndex);
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        Q_ASSERT(m_runner == NULL);
+        createRunner(elapsed(), m_startStepIndex);
+        if (m_hasStartValue)
+            m_runner->setCurrentStep(m_startStepIndex, m_startValue);
+        m_hasStartValue = false;
         m_startStepIndex = -1;
+        connect(m_runner.data(), SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     }
-    connect(m_runner.data(), SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
 
     Function::preRun(timer);
 }
@@ -641,12 +635,13 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
     //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
     // QMutexLocker runnerLocker(&m_runnerLocker);
     //if (m_useInternalRunner)
-    //{
+    {
+        QMutexLocker runnerLocker(&m_runnerMutex);
         Q_ASSERT(!m_runner.isNull());
 
         if (m_runner->write(timer, universes) == false)
             stop();
-    //}
+    }
 
     incrementElapsed();
 }
@@ -656,6 +651,8 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
     //qDebug() << Q_FUNC_INFO << m_useInternalRunner;
     //if (m_useInternalRunner && m_runner != NULL)
     {
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        Q_ASSERT(!m_runner.isNull());
         m_runner->postRun(timer, universes);
 
         m_runner.clear();

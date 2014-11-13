@@ -400,8 +400,8 @@ void VCButton::stopFunction()
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
     {
         Function *f = m_doc->function(m_function);
-        if (f != NULL && f->isRunning())
-            f->stopAndWait();
+        if (f != NULL && !f->stopped())
+            f->stop();
     }
 }
 
