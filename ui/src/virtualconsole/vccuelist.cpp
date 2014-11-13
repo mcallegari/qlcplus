@@ -346,7 +346,7 @@ void VCCueList::setChaser(quint32 id)
     updateStepList();
 
     /* Current status */
-    if (chaser != NULL && chaser->isRunning())
+    if (chaser != NULL && !chaser->stopped())
     {
         QSharedPointer<ChaserRunner> runner = chaser->getRunner();
         Q_ASSERT(!runner.isNull());
@@ -632,10 +632,6 @@ void VCCueList::slotFunctionStopped(quint32 fid)
         emit stepChanged(-1);
 
         qDebug() << Q_FUNC_INFO << "Cue stopped";
-        // Chaser* ch = chaser();
-        // if (ch != NULL)
-        //     ch->useInternalRunner(true);
-        //m_stop = true;
     }
 }
 
@@ -1072,7 +1068,7 @@ void VCCueList::playCueAtIndex(int idx)
     if (ch == NULL)
         return;
 
-    if (ch->isRunning())
+    if (!ch->stopped())
     {
         QSharedPointer<ChaserRunner> runner = ch->getRunner();
         Q_ASSERT(!runner.isNull());
