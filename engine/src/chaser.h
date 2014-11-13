@@ -309,8 +309,6 @@ public:
     QSharedPointer<ChaserRunner> getRunner() const;
 
     void setStartValue(qreal startValue);
-    // void setStartStepIndex(int startStepIdx);
-    // void useInternalRunner(bool enable);
 
     /** @reimpl */
     void preRun(MasterTimer* timer);
