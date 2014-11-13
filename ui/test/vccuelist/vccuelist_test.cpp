@@ -616,8 +616,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s2);
@@ -627,8 +627,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s3);
@@ -638,8 +638,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s3); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s2);
@@ -649,8 +649,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);
@@ -661,8 +661,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the last cue
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s4);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s4);
@@ -673,8 +673,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the next cue
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s4); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);
@@ -729,8 +729,8 @@ void VCCueList_Test::manualActivation()
     // Another item
     cl.slotItemActivated(cl.m_tree->topLevelItem(0));
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[1], s3); // the function will be removed in the next round
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);

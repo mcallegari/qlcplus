@@ -61,10 +61,9 @@ Chaser::Chaser(Doc* doc)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
     , m_startStepIndex(-1)
-    , m_hasStartValue(false)
+    , m_hasStartIntensity(false)
     , m_runnerMutex(QMutex::Recursive)
     , m_runner(NULL)
-    //, m_useInternalRunner(true)
 {
     setName(tr("New Chaser"));
 
@@ -584,10 +583,10 @@ void Chaser::next()
  * Running
  *****************************************************************************/
 
-void Chaser::setStartValue(qreal startValue)
+void Chaser::setStartIntensity(qreal startIntensity)
 {
-    m_startValue = startValue;
-    m_hasStartValue = true;
+    m_startIntensity = startIntensity;
+    m_hasStartIntensity = true;
 }
 
 void Chaser::createRunner(quint32 startTime, int startStepIdx)
@@ -615,9 +614,9 @@ void Chaser::preRun(MasterTimer* timer)
         QMutexLocker runnerLocker(&m_runnerMutex);
         Q_ASSERT(m_runner == NULL);
         createRunner(elapsed(), m_startStepIndex);
-        if (m_hasStartValue)
-            m_runner->setCurrentStep(m_startStepIndex, m_startValue);
-        m_hasStartValue = false;
+        if (m_hasStartIntensity)
+            m_runner->setCurrentStep(m_startStepIndex, m_startIntensity);
+        m_hasStartIntensity = false;
         m_startStepIndex = -1;
         connect(m_runner.data(), SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     }

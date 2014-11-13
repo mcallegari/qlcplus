@@ -700,7 +700,7 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
     ch->setStepIndex(startIndex);
-    ch->setStartValue((qreal)m_slider1->value() / 100.0);
+    ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
     ch->start(m_doc->masterTimer());
     emit functionStarting();
 }

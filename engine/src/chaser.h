@@ -278,6 +278,7 @@ public:
     /** @reimpl */
     void tap();
 
+    /** Set the current step index, or the startup step index if not started */
     void setStepIndex(int idx);
 
     /** Skip to the previous step */
@@ -287,9 +288,12 @@ public:
     void next();
 
 private:
+    /** Step index at chaser start */
     int m_startStepIndex;
-    qreal m_startValue;
-    bool m_hasStartValue;
+
+    /** Intensity at start */
+    qreal m_startIntensity;
+    bool m_hasStartIntensity;
 
     /*********************************************************************
      * Running
@@ -308,7 +312,7 @@ private:
 public:
     QSharedPointer<ChaserRunner> getRunner() const;
 
-    void setStartValue(qreal startValue);
+    void setStartIntensity(qreal startIntensity);
 
     /** @reimpl */
     void preRun(MasterTimer* timer);
