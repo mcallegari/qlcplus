@@ -344,6 +344,15 @@ void VCCueList::setChaser(quint32 id)
     }
 
     updateStepList();
+
+    /* Current status */
+    if (chaser != NULL && chaser->isRunning())
+    {
+        QSharedPointer<ChaserRunner> runner = chaser->getRunner();
+        Q_ASSERT(!runner.isNull());
+        slotFunctionRunning(m_chaserID);
+        slotCurrentStepChanged(runner->currentStepIndex());
+    }
 }
 
 quint32 VCCueList::chaserID() const
@@ -556,16 +565,6 @@ void VCCueList::slotPreviousCue()
         startChaser(m_tree->topLevelItemCount() - 1);
     }
 }
-
-//void VCCueList::slotStop()
-//{
-//    if (mode() != Doc::Operate)
-//        return;
-//
-//    if (m_runner != NULL)
-//        m_stop = true;
-//}
-//
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
@@ -870,44 +869,6 @@ void VCCueList::slotSlider2ValueChanged(int value)
     }
     updateFeedback();
 }
-/*****************************************************************************
- * DMX Source
- *****************************************************************************/
-
-// void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
-// {
-//     Chaser* ch = chaser();
-//     if (ch == NULL || ch->stopped())
-//         return;
-// 
-//     QSharedPointer<ChaserRunner> runner = ch->getRunner();
-//     Q_ASSERT(!runner.isNull());
-// 
-//     if (m_runner != NULL)
-//     {
-//         // TODO based on chaser state
-//         if (m_stop == false)
-//         {
-//             m_runner->write(timer, universes);
-//         }
-//         else
-//         {
-//             m_timer->stop();
-//             //m_progress->setValue(0);
-//             //m_progress->setFormat("");
-//             m_runner->postRun(timer, universes);
-//             delete m_runner;
-//             m_runner = NULL;
-//             m_stop = false;
-//             Chaser* ch = chaser();
-//             if (ch != NULL)
-//             {
-//                 ch->stop();
-//                 ch->useInternalRunner(true);
-//             }
-//         }
-//     }
-// }
 
 /*****************************************************************************
  * Key Sequences
@@ -1066,8 +1027,6 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     bool enable = false;
     if (mode == Doc::Operate)
     {
-        // Q_ASSERT(m_runner == NULL);
-        // m_doc->masterTimer()->registerDMXSource(this, "CueList");
         m_progress->setStyleSheet(progressFadeStyle);
         m_progress->setRange(0, m_progress->width());
         enable = true;
@@ -1076,10 +1035,6 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        // m_doc->masterTimer()->unregisterDMXSource(this);
-        //if (m_runner != NULL)
-        //    delete m_runner;
-        //m_runner = NULL;
         m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
         m_sl1BottomLabel->setText("");
         m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
