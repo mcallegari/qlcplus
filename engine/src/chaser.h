@@ -320,7 +320,7 @@ private:
     /*********************************************************************
      * Running
      *********************************************************************/
-public:
+private:
     /**
      * Create a ChaserRunner object from the given Chaser. The chaser's
      * step mutex is locked & unlocked in this method.
@@ -329,11 +329,8 @@ public:
      * @param doc The engine object
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
-private:
     void createRunner(quint32 startTime = 0, int startStepIdx = 0);
 public:
-    //QSharedPointer<ChaserRunner> getRunner() const;
-
     void setStartIntensity(qreal startIntensity);
 
     /** @reimpl */
@@ -351,8 +348,7 @@ signals:
 
 private:
     QMutex m_runnerMutex;
-    QSharedPointer<ChaserRunner> m_runner;
-    // bool m_useInternalRunner;
+    ChaserRunner* m_runner;
 
     /*************************************************************************
      * Intensity
