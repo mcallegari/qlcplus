@@ -579,6 +579,71 @@ void Chaser::next()
         m_runner->next();
 }
 
+void Chaser::stopStep(int stepIndex)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (!m_runner.isNull())
+        m_runner->stopStep(stepIndex);
+}
+
+void Chaser::setCurrentStep(int step, qreal intensity)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (!m_runner.isNull())
+        m_runner->setCurrentStep(step, intensity);
+}
+
+int Chaser::currentStepIndex() const
+{
+    int ret = m_startStepIndex;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (!m_runner.isNull())
+            ret = m_runner->currentStepIndex();
+    }
+    return ret;
+}
+
+int Chaser::computeNextStep(int currentStepIndex) const
+{
+    int ret = m_startStepIndex;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (!m_runner.isNull())
+            ret = m_runner->computeNextStep(currentStepIndex);
+    }
+    return ret;
+}
+
+int Chaser::runningStepsNumber() const
+{
+    int ret = 0;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (!m_runner.isNull())
+            ret = m_runner->runningStepsNumber();
+    }
+    return ret;
+}
+
+ChaserRunnerStep* Chaser::currentRunningStep() const
+{
+    ChaserRunnerStep* ret = NULL;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (!m_runner.isNull())
+            ret = m_runner->currentRunningStep();
+    }
+    return ret;
+}
+
+void Chaser::adjustIntensity(qreal fraction, int stepIndex)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (!m_runner.isNull())
+        m_runner->adjustIntensity(fraction, stepIndex);
+}
+
 /*****************************************************************************
  * Running
  *****************************************************************************/
@@ -600,13 +665,13 @@ void Chaser::createRunner(quint32 startTime, int startStepIdx)
         m_runner->setCurrentStep(startStepIdx);
 }
 
-QSharedPointer<ChaserRunner> Chaser::getRunner() const
-{
-    QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
-    // Make a copy before unlocking the mutex
-    QSharedPointer<ChaserRunner> runner(m_runner);
-    return runner;
-}
+//QSharedPointer<ChaserRunner> Chaser::getRunner() const
+//{
+//    QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+//    // Make a copy before unlocking the mutex
+//    QSharedPointer<ChaserRunner> runner(m_runner);
+//    return runner;
+//}
 
 void Chaser::preRun(MasterTimer* timer)
 {

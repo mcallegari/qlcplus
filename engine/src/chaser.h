@@ -32,6 +32,8 @@ class QString;
 class ChaserStep;
 class MasterTimer;
 class ChaserRunner;
+struct st_ChaserRunnerStep;
+typedef struct st_ChaserRunnerStep ChaserRunnerStep;
 class QDomDocument;
 
 /** @addtogroup engine_functions Functions
@@ -273,6 +275,7 @@ public:
 
     /*********************************************************************
      * Start/Next/Previous
+     * ChaserRunner wrappers
      *********************************************************************/
 public:
     /** @reimpl */
@@ -286,6 +289,27 @@ public:
 
     /** Skip to the next step */
     void next();
+
+    /** Stop a specific running step */
+    void stopStep(int stepIndex);
+
+    /** Set the NEW current step number */
+    void setCurrentStep(int step, qreal intensity = 1.0);
+
+    /** Get the current step number */
+    int currentStepIndex() const;
+
+    /** Compute next step for manual fading */
+    int computeNextStep(int currentStepIndex) const;
+
+    /** Get the running step number. */
+    int runningStepsNumber() const;
+
+    /** Get the first step of the running list. If none is running this returns NULL */
+    ChaserRunnerStep *currentRunningStep() const;
+
+    /** Adjust the intensities of chaser steps. */
+    void adjustIntensity(qreal fraction, int stepIndex = -1);
 
 private:
     /** Step index at chaser start */
@@ -310,7 +334,7 @@ public:
 private:
     void createRunner(quint32 startTime = 0, int startStepIdx = 0);
 public:
-    QSharedPointer<ChaserRunner> getRunner() const;
+    //QSharedPointer<ChaserRunner> getRunner() const;
 
     void setStartIntensity(qreal startIntensity);
 

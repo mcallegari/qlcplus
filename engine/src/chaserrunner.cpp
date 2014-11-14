@@ -262,7 +262,7 @@ int ChaserRunner::runningStepsNumber() const
     return m_runnerSteps.count();
 }
 
-ChaserRunnerStep *ChaserRunner::currentRunningStep()
+ChaserRunnerStep* ChaserRunner::currentRunningStep() const
 {
     if (m_runnerSteps.count() > 0)
         return m_runnerSteps.at(0);
