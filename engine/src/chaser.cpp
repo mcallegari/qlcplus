@@ -547,6 +547,7 @@ void Chaser::postLoad()
 
 /*****************************************************************************
  * Next/Previous
+ * Protected ChaserRunner wrappers
  *****************************************************************************/
 
 void Chaser::tap()
@@ -563,6 +564,12 @@ void Chaser::setStepIndex(int idx)
         m_runner->setCurrentStep(idx);
     else
         m_startStepIndex = idx;
+}
+
+void Chaser::setStartIntensity(qreal startIntensity)
+{
+    m_startIntensity = startIntensity;
+    m_hasStartIntensity = true;
 }
 
 void Chaser::previous()
@@ -655,12 +662,6 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex)
  * Running
  *****************************************************************************/
 
-void Chaser::setStartIntensity(qreal startIntensity)
-{
-    m_startIntensity = startIntensity;
-    m_hasStartIntensity = true;
-}
-
 void Chaser::createRunner(quint32 startTime, int startStepIdx)
 {
     Q_ASSERT(m_runner == NULL);
@@ -724,7 +725,11 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Chaser::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_runner != NULL && attributeIndex == Intensity)
-        m_runner->adjustIntensity(fraction);
+    {
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        QMutexLocker stepListLocker(&m_stepListMutex);
+        if (m_runner != NULL && attributeIndex == Intensity)
+            m_runner->adjustIntensity(fraction);
+    }
     Function::adjustAttribute(fraction, attributeIndex);
 }

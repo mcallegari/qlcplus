@@ -276,6 +276,9 @@ public:
      * ChaserRunner wrappers
      *********************************************************************/
 public:
+    /** Set the intensity at start */
+    void setStartIntensity(qreal startIntensity);
+
     /** @reimpl */
     void tap();
 
@@ -331,8 +334,6 @@ private:
      */
     void createRunner(quint32 startTime = 0, int startStepIdx = 0);
 public:
-    void setStartIntensity(qreal startIntensity);
-
     /** @reimpl */
     void preRun(MasterTimer* timer);
 
