@@ -26,14 +26,12 @@
 
 #include "function.h"
 #include "scene.h"
+#include "chaserrunner.h"
 
 class QFile;
 class QString;
 class ChaserStep;
 class MasterTimer;
-class ChaserRunner;
-struct st_ChaserRunnerStep;
-typedef struct st_ChaserRunnerStep ChaserRunnerStep;
 class QDomDocument;
 
 /** @addtogroup engine_functions Functions
@@ -306,7 +304,7 @@ public:
     int runningStepsNumber() const;
 
     /** Get the first step of the running list. If none is running this returns NULL */
-    ChaserRunnerStep *currentRunningStep() const;
+    ChaserRunnerStep currentRunningStep() const;
 
     /** Adjust the intensities of chaser steps. */
     void adjustIntensity(qreal fraction, int stepIndex = -1);

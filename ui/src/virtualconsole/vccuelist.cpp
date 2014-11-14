@@ -44,6 +44,7 @@
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
+#include "chaserrunner.h"
 #include "doc.h"
 
 #define COL_NUM      0
@@ -350,6 +351,8 @@ void VCCueList::setChaser(quint32 id)
         slotFunctionRunning(m_chaserID);
         slotCurrentStepChanged(chaser->currentStepIndex());
     }
+    else
+        slotFunctionStopped(m_chaserID);
 }
 
 quint32 VCCueList::chaserID() const
@@ -636,14 +639,14 @@ void VCCueList::slotProgressTimeout()
     if (ch == NULL || ch->stopped())
         return;
 
-    ChaserRunnerStep* step = ch->currentRunningStep();
-    if (step != NULL)
+    ChaserRunnerStep step(ch->currentRunningStep());
+    if (step.m_function != NULL)
     {
         int status = m_progress->property("status").toInt();
         int newstatus;
-        if (step->m_fadeIn == Function::defaultSpeed())
+        if (step.m_fadeIn == Function::defaultSpeed())
             newstatus = 1;
-        else if (step->m_elapsed > (quint32)step->m_fadeIn)
+        else if (step.m_elapsed > (quint32)step.m_fadeIn)
             newstatus = 1;
         else
             newstatus = 0;
@@ -656,12 +659,12 @@ void VCCueList::slotProgressTimeout()
                 m_progress->setStyleSheet(progressHoldStyle);
             m_progress->setProperty("status", newstatus);
         }
-        if (step->m_duration == Function::infiniteSpeed())
+        if (step.m_duration == Function::infiniteSpeed())
         {
-            if (newstatus == 0 && step->m_fadeIn != Function::defaultSpeed())
+            if (newstatus == 0 && step.m_fadeIn != Function::defaultSpeed())
             {
-                double progress = ((double)step->m_elapsed / (double)step->m_fadeIn) * (double)m_progress->width();
-                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step->m_fadeIn - step->m_elapsed)));
+                double progress = ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
+                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
             }
             else
@@ -673,8 +676,8 @@ void VCCueList::slotProgressTimeout()
         }
         else
         {
-            double progress = ((double)step->m_elapsed / (double)step->m_duration) * (double)m_progress->width();
-            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step->m_duration - step->m_elapsed)));
+            double progress = ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
+            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
             m_progress->setValue(progress);
         }
     }

@@ -626,13 +626,20 @@ int Chaser::runningStepsNumber() const
     return ret;
 }
 
-ChaserRunnerStep* Chaser::currentRunningStep() const
+ChaserRunnerStep Chaser::currentRunningStep() const
 {
-    ChaserRunnerStep* ret = NULL;
+    ChaserRunnerStep ret;
+    ret.m_function = NULL;
     {
         QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
         if (!m_runner.isNull())
-            ret = m_runner->currentRunningStep();
+        {
+            ChaserRunnerStep* step = m_runner->currentRunningStep();
+            if (step != NULL)
+            {
+                ret = *step;
+            }
+        }
     }
     return ret;
 }

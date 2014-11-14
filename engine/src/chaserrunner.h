@@ -39,7 +39,7 @@ class Doc;
  * @{
  */
 
-typedef struct st_ChaserRunnerStep
+typedef struct
 {
     int m_index;          //! Index of the step from the original Chaser
     Function* m_function; //! Currently active function
