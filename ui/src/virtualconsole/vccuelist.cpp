@@ -252,7 +252,6 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
 VCCueList::~VCCueList()
 {
-    //m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
 void VCCueList::enableWidgetUI(bool enable)
@@ -601,7 +600,6 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
 
     step.note = itemText;
     ch->replaceStep(step, idx);
-    // updateStepList();
 }
 
 void VCCueList::slotFunctionRunning(quint32 fid)
@@ -703,31 +701,6 @@ void VCCueList::stopChaser()
         return;
     ch->stop();
 }
-
-//void VCCueList::createRunner(int startIndex)
-//{
-//    Q_ASSERT(m_runner == NULL);
-//
-//    Chaser* ch = chaser();
-//    if (ch != NULL)
-//    {
-//        ch->useInternalRunner(false);
-//        ch->start(m_doc->masterTimer());
-//        emit functionStarting();
-//        m_runner = new ChaserRunner(m_doc, ch);
-//        Q_ASSERT(m_runner != NULL);
-//        //m_runner->moveToThread(QCoreApplication::instance()->thread());
-//        //m_runner->setParent(ch);
-//        m_runner->setCurrentStep(startIndex, (qreal)m_slider1->value() / 100);
-//        m_primaryIndex = startIndex;
-//
-//        connect(m_runner, SIGNAL(currentStepChanged(int)),
-//                this, SLOT(slotCurrentStepChanged(int)));
-//        m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-//        setSlidersInfo(startIndex);
-//        m_timer->start(PROGRESS_INTERVAL);
-//    }
-//}
 
 /*****************************************************************************
  * Crossfade

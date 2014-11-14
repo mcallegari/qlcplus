@@ -62,7 +62,7 @@ class Doc;
  * @see VCWidget
  * @see VirtualConsole
  */
-class VCCueList : public VCWidget //, public DMXSource
+class VCCueList : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueList)
@@ -160,19 +160,19 @@ private slots:
         Note that only 'Notes" column is considered */
     void slotItemChanged(QTreeWidgetItem*item, int column);
 
-    /** Slot called whenever a function is stopped */
-    void slotFunctionStopped(quint32 fid);
+    /** Slot called whenever a function is started */
+    void slotFunctionRunning(quint32 fid);
 
     /** Slot called whenever a function is stopped */
-    void slotFunctionRunning(quint32 fid);
+    void slotFunctionStopped(quint32 fid);
 
     /** Slot called every 200ms to update the step progress bar */
     void slotProgressTimeout();
 
 private:
-    /** Create the runner that writes cue values to universes */
-    //void createRunner(int startIndex = -1);
+    /** Start associated chaser */
     void startChaser(int startIndex = -1);
+    /** Stop associated */
     void stopChaser();
 
 private:
@@ -185,8 +185,6 @@ private:
     QProgressBar* m_progress;
     bool m_listIsUpdating;
 
-    // Chaser* m_chaser;
-    // QSharedPointer<ChaserRunner> m_runner;
     QTimer* m_timer;
 
     /*************************************************************************
@@ -213,18 +211,6 @@ private:
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
     bool m_primaryLeft;
-
-
-    /*************************************************************************
-     * DMX Source
-     *************************************************************************/
-public:
-    /** @reimp */
-    // void writeDMX(MasterTimer* timer, QList<Universe*> universes);
-
-private:
-    /** Flag indicating, whether stop button has been pressed */
-    //bool m_stop;
 
     /*************************************************************************
      * Key sequences
@@ -291,6 +277,7 @@ public:
     void playCueAtIndex(int idx);
 
 signals:
+    /** Signal to webaccess */
     void stepChanged(int idx);
 
     /*************************************************************************
