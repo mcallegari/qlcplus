@@ -255,10 +255,7 @@ bool VCSlider::copyFrom(const VCWidget* widget)
 
     /* Copy mode & current value */
     setSliderMode(slider->sliderMode());
-    if (m_slider)
-        m_slider->setValue(slider->sliderValue());
-    else if (m_knob)
-        m_knob->setValue(slider->sliderValue());
+    setSliderValue(slider->sliderValue());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -1081,7 +1078,12 @@ void VCSlider::setSliderValue(uchar value)
 int VCSlider::sliderValue() const
 {
     if (m_widgetMode == WSlider && m_slider)
-        return m_slider->value();
+    {
+        if (invertedAppearance())
+            return 255 - m_slider->value();
+        else
+            return m_slider->value();
+    }
     else if (m_widgetMode == WKnob && m_knob)
         return m_knob->value();
 
