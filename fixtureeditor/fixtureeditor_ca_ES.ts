@@ -172,7 +172,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
         <source>Values</source>
-        <translation>Velors</translation>
+        <translation>Valors</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="25"/>
@@ -187,7 +187,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
         <source>Width</source>
-        <translation type="unfinished">Ample</translation>
+        <translation>Ample</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>

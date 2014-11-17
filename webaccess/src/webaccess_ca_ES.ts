@@ -212,17 +212,17 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="56"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pàgina anterior</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="64"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pròxima pàgina</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="67"/>
         <source>Reset universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Reinicia univers</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="69"/>
