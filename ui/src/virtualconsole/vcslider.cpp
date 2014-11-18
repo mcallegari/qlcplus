@@ -637,10 +637,16 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
         m_levelValueMutex.lock();
         m_levelValue = m_monitorValue;
         m_levelValueMutex.unlock();
-        m_slider->blockSignals(true);
+        if (m_slider)
+            m_slider->blockSignals(true);
+        else if (m_knob)
+            m_knob->blockSignals(true);
         setSliderValue(m_monitorValue, true);
-        setTopLabelText(m_slider->value());
-        m_slider->blockSignals(false);
+        setTopLabelText(sliderValue());
+        if (m_slider)
+            m_slider->blockSignals(false);
+        else if (m_knob)
+            m_knob->blockSignals(false);
         updateFeedback();
     }
 }
