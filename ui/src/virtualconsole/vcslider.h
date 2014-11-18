@@ -431,7 +431,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value);
+    void setSliderValue(uchar value, bool noScale = false);
 
     int sliderValue() const;
 

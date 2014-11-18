@@ -634,10 +634,16 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
         m_levelValueMutex.lock();
         m_levelValue = m_monitorValue;
         m_levelValueMutex.unlock();
-        m_slider->blockSignals(true);
-        setSliderValue(m_monitorValue);
-        setTopLabelText(m_slider->value());
-        m_slider->blockSignals(false);
+        if (m_slider)
+            m_slider->blockSignals(true);
+        else if (m_knob)
+            m_knob->blockSignals(true);
+        setSliderValue(m_monitorValue, true);
+        setTopLabelText(sliderValue());
+        if (m_slider)
+            m_slider->blockSignals(false);
+        else if (m_knob)
+            m_knob->blockSignals(false);
         updateFeedback();
     }
 }
@@ -1049,16 +1055,19 @@ QString VCSlider::topLabelText()
  * Slider
  *****************************************************************************/
 
-void VCSlider::setSliderValue(uchar value)
+void VCSlider::setSliderValue(uchar value, bool noScale)
 {
-    float val;
+    float val = value;
 
     if (m_widgetMode == WSlider && m_slider)
     {
         /* Scale from input value range to this slider's range */
-        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+        if (!noScale)
+        {
+            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                     (float) m_slider->minimum(),
                     (float) m_slider->maximum());
+        }
 
         if (m_slider->invertedAppearance() == true)
             m_slider->setValue(m_slider->maximum() - (int) val);
@@ -1068,9 +1077,12 @@ void VCSlider::setSliderValue(uchar value)
     else if (m_widgetMode == WKnob && m_knob)
     {
         /* Scale from input value range to this knob's range */
-        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+        if (!noScale)
+        {
+            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                     (float) m_knob->minimum(),
                     (float) m_knob->maximum());
+        }
         m_knob->setValue((int) val);
     }
 }
