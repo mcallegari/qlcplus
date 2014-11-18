@@ -49,6 +49,7 @@ public:
 
     mg_result beginRequestHandler(struct mg_connection *conn);
     mg_result websocketDataHandler(struct mg_connection *conn);
+    mg_result closeHandler(struct mg_connection* conn);
 
 private:
     QString loadXMLPost(struct mg_connection *conn, QString &filename);
@@ -100,9 +101,9 @@ signals:
     void toggleDocMode();
     void loadProject(QString xmlData);
     void storeAutostartProject(QString filename);
-    
+
 public slots:
-    
+
 };
 
 #endif // WEBACCESS_H
