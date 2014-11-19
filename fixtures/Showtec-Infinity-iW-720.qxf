@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>uchris</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Infinity iW-720</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">0-540°</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">0-270°</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 maximum speed, 255 minimum speed</Capability>
+ </Channel>
+ <Channel Name="Red 1 - top+topright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Green 1 - top+topright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue 1 - top+topright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="White 1 - top+topright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Red 2 - bottom+bottomright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Green 2 - bottom+bottomright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue 2 - bottom+bottomright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="White 2 - bottom+bottomright">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Red 3 - lefttop+leftbottom">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Green 3 - lefttop+leftbottom">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue 3 - lefttop+leftbottom">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="White 3 - lefttop+leftbottom">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Red 4 - middle">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Green 4 - middle">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue 4 - middle">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="White 4 - middle">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity 0-100%</Capability>
+ </Channel>
+ <Channel Name="Built-in Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="9">Color 1</Capability>
+  <Capability Min="10" Max="14">Color 2</Capability>
+  <Capability Min="15" Max="19">Color 3</Capability>
+  <Capability Min="20" Max="24">Color 4</Capability>
+  <Capability Min="25" Max="29">Color 5</Capability>
+  <Capability Min="30" Max="34">Color 6</Capability>
+  <Capability Min="35" Max="39">Color 7</Capability>
+  <Capability Min="40" Max="44">Color 8</Capability>
+  <Capability Min="45" Max="49">Color 9</Capability>
+  <Capability Min="50" Max="54">Color 10</Capability>
+  <Capability Min="55" Max="59">Color 11</Capability>
+  <Capability Min="60" Max="64">Color 12</Capability>
+  <Capability Min="65" Max="69">Color 13</Capability>
+  <Capability Min="70" Max="74">Color 14</Capability>
+  <Capability Min="75" Max="79">Color 15</Capability>
+  <Capability Min="80" Max="84">Color 16</Capability>
+  <Capability Min="85" Max="89">Color 17</Capability>
+  <Capability Min="90" Max="94">Color 18</Capability>
+  <Capability Min="95" Max="99">Color 19</Capability>
+  <Capability Min="100" Max="104">Color 20</Capability>
+  <Capability Min="105" Max="109">Color 21</Capability>
+  <Capability Min="110" Max="114">Color 22</Capability>
+  <Capability Min="115" Max="119">Color 23</Capability>
+  <Capability Min="120" Max="124">Color 24</Capability>
+  <Capability Min="125" Max="129">Color 25</Capability>
+  <Capability Min="130" Max="134">Color 26</Capability>
+  <Capability Min="135" Max="139">Color 27</Capability>
+  <Capability Min="140" Max="144">Color 28</Capability>
+  <Capability Min="145" Max="149">Color 29</Capability>
+  <Capability Min="150" Max="154">Color 30</Capability>
+  <Capability Min="155" Max="159">Color 31</Capability>
+  <Capability Min="160" Max="164">Color 32</Capability>
+  <Capability Min="165" Max="169">Color 33</Capability>
+  <Capability Min="170" Max="174">Color 34</Capability>
+  <Capability Min="175" Max="179">No Function</Capability>
+  <Capability Min="180" Max="201">CW Color-flow from fast to slow</Capability>
+  <Capability Min="202" Max="207">Stop color at this point</Capability>
+  <Capability Min="208" Max="229">CCW Color-flow from fast to slow</Capability>
+  <Capability Min="230" Max="234">No Function</Capability>
+  <Capability Min="235" Max="249">Color Jump from fast to slow</Capability>
+  <Capability Min="250" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Built-in LED">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15"> No Function</Capability>
+  <Capability Min="16" Max="31">Built-in 1 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="32" Max="47">Built-in 2 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="48" Max="63">Built-in 3 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="64" Max="79">Built-in 4 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="80" Max="95">Built-in 5 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="96" Max="111">Built-in 6 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="112" Max="127">Built-in 7 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="128" Max="143">Built-in 8 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="144" Max="159">Built-in 9 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="160" Max="175">Built-in 10 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="176" Max="191">Built-in 11 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="192" Max="207">Built-in 12 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="208" Max="223">Built-in 13 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="224" Max="239">Built-in 14 (Dimmer and Shutter/Strobe must be open)</Capability>
+  <Capability Min="240" Max="255">Built-in 15 (Dimmer and Shutter/Strobe must be open)</Capability>
+ </Channel>
+ <Channel Name="Built-in Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From slow to fast (Use in combination with Built-in LED)</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">From black to brightest (Shutter and Colors RGBW must be open)</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Close</Capability>
+  <Capability Min="20" Max="24">Shutter Open</Capability>
+  <Capability Min="25" Max="64">Shutter effect 1, from fast to slow</Capability>
+  <Capability Min="65" Max="69">Shutter Open</Capability>
+  <Capability Min="70" Max="84">Strobe effect 2 (fast on and slow off), from fast to slow</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
+  <Capability Min="90" Max="104">Strobe effect 3 (slow on and fast off), from fast to slow</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
+  <Capability Min="110" Max="124">Strobe effect 4 (random strobe), from fast to slow</Capability>
+  <Capability Min="125" Max="129">Shutter open</Capability>
+  <Capability Min="130" Max="144">Strobe effect 5 (random strobe fast on and slow off), from fast to slow</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
+  <Capability Min="150" Max="164">Strobe effect 6 (random strobe slow on and fast off), from fast to slow</Capability>
+  <Capability Min="165" Max="169">Shutter open</Capability>
+  <Capability Min="170" Max="184">Strobe effect 7 (pulse strobe), from fast to slow</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
+  <Capability Min="190" Max="204">Strobe effect 8 (random pulse frequency strobe), from fast to slow</Capability>
+  <Capability Min="205" Max="209">Shutter open</Capability>
+  <Capability Min="210" Max="224">Strobe effect 9 (strobe light, gradually destroy), from fast to slow</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="244">Strobe effect 10 (pulse strobe), from fast to slow</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">From big to small</Capability>
+ </Channel>
+ <Channel Name="Channel Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="14">Blackout during Pan/Tilt movement</Capability>
+  <Capability Min="15" Max="49">Reserved</Capability>
+  <Capability Min="50" Max="54">Reset Pan after 3 seconds</Capability>
+  <Capability Min="55" Max="59">Reset Tilt after 3 seconds</Capability>
+  <Capability Min="60" Max="64">Reset Zoom after 3 seconds</Capability>
+  <Capability Min="65" Max="69">Reserved</Capability>
+  <Capability Min="70" Max="74">Reset all</Capability>
+  <Capability Min="75" Max="114">Reserved</Capability>
+  <Capability Min="115" Max="119">Pan/Tilt Speed Fast</Capability>
+  <Capability Min="120" Max="124">Pan/Tilt Speed Slow</Capability>
+  <Capability Min="125" Max="129">Fan Full Speed</Capability>
+  <Capability Min="130" Max="134">Fan Temperature controlled</Capability>
+  <Capability Min="135" Max="139">Dimming Fast</Capability>
+  <Capability Min="140" Max="144">Dimming Smooth</Capability>
+  <Capability Min="145" Max="239">No Function</Capability>
+  <Capability Min="240" Max="247">XY Smoothing model open</Capability>
+  <Capability Min="248" Max="255">XY Smoothing model to shut down</Capability>
+ </Channel>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="8" Max="23">Built-in Program 1</Capability>
+  <Capability Min="24" Max="39">Built-in Program 2</Capability>
+  <Capability Min="40" Max="55">Built-in Program 3</Capability>
+  <Capability Min="56" Max="71">Built-in Program 4</Capability>
+  <Capability Min="72" Max="87">Built-in Program 5</Capability>
+  <Capability Min="88" Max="103">Built-in Program 6</Capability>
+  <Capability Min="104" Max="119">Built-in Program 7</Capability>
+  <Capability Min="120" Max="135">Built-in Program 8</Capability>
+  <Capability Min="136" Max="151">Sound-controlled Program 1</Capability>
+  <Capability Min="152" Max="167">Sound-controlled Program 2</Capability>
+  <Capability Min="168" Max="183">Sound-controlled Program 3</Capability>
+  <Capability Min="184" Max="199">Sound-controlled Program 4</Capability>
+  <Capability Min="200" Max="215">Sound-controlled Program 5</Capability>
+  <Capability Min="216" Max="231">Sound-controlled Program 6</Capability>
+  <Capability Min="232" Max="247">Sound-controlled Program 7</Capability>
+  <Capability Min="248" Max="255">Sound-controlled Program 8</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Mode Name="29 Channel">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="8" Height="388" Width="290" Depth="204"/>
+   <Lens DegreesMin="7" DegreesMax="50" Name="Other"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Red 1 - top+topright</Channel>
+  <Channel Number="6">Green 1 - top+topright</Channel>
+  <Channel Number="7">Blue 1 - top+topright</Channel>
+  <Channel Number="8">White 1 - top+topright</Channel>
+  <Channel Number="9">Red 2 - bottom+bottomright</Channel>
+  <Channel Number="10">Green 2 - bottom+bottomright</Channel>
+  <Channel Number="11">Blue 2 - bottom+bottomright</Channel>
+  <Channel Number="12">White 2 - bottom+bottomright</Channel>
+  <Channel Number="13">Red 3 - lefttop+leftbottom</Channel>
+  <Channel Number="14">Green 3 - lefttop+leftbottom</Channel>
+  <Channel Number="15">Blue 3 - lefttop+leftbottom</Channel>
+  <Channel Number="16">White 3 - lefttop+leftbottom</Channel>
+  <Channel Number="17">Red 4 - middle</Channel>
+  <Channel Number="18">Green 4 - middle</Channel>
+  <Channel Number="19">Blue 4 - middle</Channel>
+  <Channel Number="20">White 4 - middle</Channel>
+  <Channel Number="21">Built-in Colors</Channel>
+  <Channel Number="22">Built-in LED</Channel>
+  <Channel Number="23">Built-in Speed</Channel>
+  <Channel Number="24">Dimmer</Channel>
+  <Channel Number="25">Shutter/Strobe</Channel>
+  <Channel Number="26">Zoom</Channel>
+  <Channel Number="27">Channel Functions</Channel>
+  <Channel Number="28">Built-in Programs</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="8" Height="388" Width="290" Depth="204"/>
+   <Lens DegreesMin="7" DegreesMax="50" Name="Other"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Built-in LED</Channel>
+  <Channel Number="8">Built-in Speed</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Shutter/Strobe</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Channel Functions</Channel>
+  <Channel Number="13">Built-in Programs</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>
