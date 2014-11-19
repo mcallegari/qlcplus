@@ -57,6 +57,7 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
     {
         case StartColor: return "StartColor"; break;
         case EndColor: return "EndColor"; break;
+        case ResetEndColor: return "ResetEndColor"; break;
         case Animation: return "Animation"; break;
         case Image: return "Image"; break;
         case Text: return "Text"; break;
@@ -68,6 +69,7 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
 {
     if (str == "StartColor") return StartColor;
     else if (str == "EndColor") return EndColor;
+    else if (str == "ResetEndColor") return ResetEndColor;
     else if (str == "Animation") return Animation;
     else if (str == "Image") return Image;
     else if (str == "Text") return Text;

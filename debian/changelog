@@ -1,3 +1,9 @@
+qlcplus (4.8.3) stable; urgency=low
+
+  * Virtual Console/Animation: added end color reset control
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Dec 2014 20:21:22 +0200
+
 qlcplus (4.8.2) stable; urgency=low
 
   * NEW: Virtual Console: introduced new widget based on RGB Matrix to control animations (see documentation)

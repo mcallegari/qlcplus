@@ -83,6 +83,7 @@ protected slots:
     void slotTreeSelectionChanged();
     void slotAddStartColorClicked();
     void slotAddEndColorClicked();
+    void slotAddEndColorResetClicked();
     void slotAddAnimationClicked();
     void slotAddTextClicked();
     void slotRemoveClicked();

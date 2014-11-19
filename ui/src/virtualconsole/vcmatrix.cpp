@@ -39,7 +39,7 @@
 
 const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { border: 2px solid #00E600; }"
-                             "QPushButton:disabled { border: 2px solid #BBBBBB; }";
+                             "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
@@ -318,6 +318,15 @@ void VCMatrix::addCustomControl(VCMatrixControl *control)
         controlButton->setFixedWidth(36);
         controlButton->setText("E");
     }
+    else if (control->m_type == VCMatrixControl::ResetEndColor)
+    {
+        controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
+        controlButton->setMinimumWidth(36);
+        controlButton->setMaximumWidth(80);
+        QString btnLabel = tr("End Color Reset");
+        controlButton->setToolTip(btnLabel);
+        controlButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
+    }
     else if (control->m_type == VCMatrixControl::Animation ||
              control->m_type == VCMatrixControl::Text)
     {
@@ -395,6 +404,15 @@ void VCMatrix::slotCustomControlClicked()
 
             m_endColorButton->setIcon(px);
             matrix->setEndColor(control->m_color);
+            matrix->calculateColorDelta();
+        }
+        else if (control->m_type == VCMatrixControl::ResetEndColor)
+        {
+            QPixmap px(42, 42);
+            px.fill(Qt::transparent);
+
+            m_endColorButton->setIcon(px);
+            matrix->setEndColor(QColor());
             matrix->calculateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::Animation)

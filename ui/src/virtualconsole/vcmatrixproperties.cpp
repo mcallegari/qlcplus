@@ -88,6 +88,8 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
             this, SLOT(slotAddStartColorClicked()));
     connect(m_addEndColorButton, SIGNAL(clicked()),
             this, SLOT(slotAddEndColorClicked()));
+    connect(m_addEndColorResetButton, SIGNAL(clicked()),
+            this, SLOT(slotAddEndColorResetClicked()));
     connect(m_addPresetButton, SIGNAL(clicked()),
             this, SLOT(slotAddAnimationClicked()));
     connect(m_addTextButton, SIGNAL(clicked()),
@@ -217,6 +219,10 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
+            case VCMatrixControl::ResetEndColor:
+                item->setIcon(0, QIcon(":/fileclose.png"));
+                item->setText(0, tr("End Color Reset"));
+            break;
             case VCMatrixControl::Animation:
             {
                 item->setIcon(0, QIcon(":/script.png"));
@@ -314,6 +320,14 @@ void VCMatrixProperties::slotAddEndColorClicked()
         addControl(newControl);
         updateTree();
     }
+}
+
+void VCMatrixProperties::slotAddEndColorResetClicked()
+{
+    VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+    newControl->m_type = VCMatrixControl::ResetEndColor;
+    addControl(newControl);
+    updateTree();
 }
 
 void VCMatrixProperties::slotAddAnimationClicked()

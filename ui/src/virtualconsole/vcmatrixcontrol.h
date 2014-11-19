@@ -61,6 +61,7 @@ public:
     {
         StartColor = 0,
         EndColor,
+        ResetEndColor,
         Animation,
         Image,
         Text
