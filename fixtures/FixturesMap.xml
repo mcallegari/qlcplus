@@ -62,6 +62,7 @@
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
   <fixture path="Blizzard-Lighting-Puck-Fab5.qxf" mf="Blizzard Lighting" md="Puck Fab5"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
+  <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
   <fixture path="BoomToneDJ_Slim_PAR_7x3W_LED_RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
