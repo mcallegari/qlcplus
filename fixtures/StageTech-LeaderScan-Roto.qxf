@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.3 GIT</Version>
+  <Version>4.8.2</Version>
   <Author>Noel Utter</Author>
  </Creator>
  <Manufacturer>StageTech</Manufacturer>
@@ -28,29 +28,29 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="11">White</Capability>
-  <Capability Color="#ffffff" Color2="#c53cff" Min="12" Max="22">White / Mauve</Capability>
-  <Capability Color="#c53cff" Min="23" Max="33">Mauve</Capability>
-  <Capability Color="#c53cff" Color2="#1937ff" Min="34" Max="44">Mauve / Dark Cyan</Capability>
-  <Capability Color="#1937ff" Min="45" Max="55">Dark Cyan</Capability>
-  <Capability Color="#1937ff" Color2="#10ac6b" Min="56" Max="66">Dark Cyan / Green</Capability>
-  <Capability Color="#10ac6b" Min="67" Max="77">Green</Capability>
-  <Capability Color="#10ac6b" Color2="#ffce0a" Min="78" Max="88">Green / Amber</Capability>
-  <Capability Color="#ffce0a" Min="89" Max="99">Amber</Capability>
-  <Capability Color="#ffce0a" Color2="#0000a0" Min="100" Max="110">Amber / UV Blue</Capability>
-  <Capability Color="#0000a0" Min="111" Max="121">UV Blue</Capability>
-  <Capability Color="#0000a0" Color2="#aa0000" Min="122" Max="133">UV Blue / Red</Capability>
-  <Capability Color="#aa0000" Min="134" Max="144">Red</Capability>
-  <Capability Color="#aa0000" Color2="#ffff00" Min="145" Max="155">Red / Yellow</Capability>
-  <Capability Color="#ffff00" Min="156" Max="166">Yellow</Capability>
-  <Capability Color="#ffff00" Color2="#40acff" Min="167" Max="177">Yellow / Cyan</Capability>
-  <Capability Color="#40acff" Min="178" Max="188">Cyan</Capability>
-  <Capability Color="#40acff" Color2="#e251c8" Min="189" Max="199">Cyan / Pink</Capability>
-  <Capability Color="#e251c8" Min="200" Max="210">Pink</Capability>
-  <Capability Color="#e251c8" Color2="#aaff00" Min="211" Max="221">Pink / Light green</Capability>
-  <Capability Color="#aaff00" Min="222" Max="232">Light green</Capability>
-  <Capability Color="#aaff00" Color2="#ff8c00" Min="233" Max="243">Light green / Orange</Capability>
-  <Capability Color="#ff8c00" Min="244" Max="250">Orange</Capability>
+  <Capability Min="0" Max="11" Color="#ffffff">White</Capability>
+  <Capability Color2="#c53cff" Min="12" Max="22" Color="#ffffff">White / Mauve</Capability>
+  <Capability Min="23" Max="33" Color="#c53cff">Mauve</Capability>
+  <Capability Color2="#1937ff" Min="34" Max="44" Color="#c53cff">Mauve / Dark Cyan</Capability>
+  <Capability Min="45" Max="55" Color="#1937ff">Dark Cyan</Capability>
+  <Capability Color2="#10ac6b" Min="56" Max="66" Color="#1937ff">Dark Cyan / Green</Capability>
+  <Capability Min="67" Max="77" Color="#10ac6b">Green</Capability>
+  <Capability Color2="#ffce0a" Min="78" Max="88" Color="#10ac6b">Green / Amber</Capability>
+  <Capability Min="89" Max="99" Color="#ffce0a">Amber</Capability>
+  <Capability Color2="#0000a0" Min="100" Max="110" Color="#ffce0a">Amber / UV Blue</Capability>
+  <Capability Min="111" Max="121" Color="#0000a0">UV Blue</Capability>
+  <Capability Color2="#aa0000" Min="122" Max="133" Color="#0000a0">UV Blue / Red</Capability>
+  <Capability Min="134" Max="144" Color="#aa0000">Red</Capability>
+  <Capability Color2="#ffff00" Min="145" Max="155" Color="#aa0000">Red / Yellow</Capability>
+  <Capability Min="156" Max="166" Color="#ffff00">Yellow</Capability>
+  <Capability Color2="#40acff" Min="167" Max="177" Color="#ffff00">Yellow / Cyan</Capability>
+  <Capability Min="178" Max="188" Color="#40acff">Cyan</Capability>
+  <Capability Color2="#e251c8" Min="189" Max="199" Color="#40acff">Cyan / Pink</Capability>
+  <Capability Min="200" Max="210" Color="#e251c8">Pink</Capability>
+  <Capability Color2="#aaff00" Min="211" Max="221" Color="#e251c8">Pink / Light green</Capability>
+  <Capability Min="222" Max="232" Color="#aaff00">Light green</Capability>
+  <Capability Color2="#ff8c00" Min="233" Max="243" Color="#aaff00">Light green / Orange</Capability>
+  <Capability Min="244" Max="250" Color="#ff8c00">Orange</Capability>
   <Capability Min="251" Max="253">Rainbow 1</Capability>
   <Capability Min="254" Max="255">Rainbow 2</Capability>
  </Channel>
@@ -74,11 +74,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="9500"/>
-   <Dimensions Weight="0" Width="0" Depth="0" Height="0"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="250"/>
+   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="6900"/>
+   <Dimensions Width="250" Height="550" Weight="12" Depth="150"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Gobo</Channel>
