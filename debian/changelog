@@ -8,6 +8,7 @@ qlcplus (4.8.3) stable; urgency=low
   * New fixture: American DJ DJ Spot 250 (thanks to 007ghg7)
   * New fixture: Blizzard Lighting Weather System (thanks to James Elliott)
   * New fixtures: Starway AXIS 250 16Bits, FullKolor, NanoKolor, TourKolor, Servo Beam 5R (thanks to Thierry Rodolfo)
+  * New fixture: Contest PSC-930 (thanks to Noel Utter)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Dec 2014 20:21:22 +0200
 
