@@ -409,6 +409,11 @@
   <fixture path="Stairville-xBrick-Full-Colour.qxf" mf="Stairville" md="xBrick Full-Colour"/>
   <fixture path="Stairville-ZF-1500.qxf" mf="Stairville" md="ZF-1500"/>
   <fixture path="Star-Lights-mini-Wash-Moving-Head.qxf" mf="Star-Lights" md="LED 3W Mini Moving Head"/>
+  <fixture path="Starway-AXIS-250-16Bits.qxf" mf="Starway" md="AXIS 250 16Bits"/>
+  <fixture path="Starway-FullKolor.qxf" mf="Starway" md="FullKolor"/>
+  <fixture path="Starway-NanoKolor.qxf" mf="Starway" md="NanoKolor"/>
+  <fixture path="Starway-Servo-Beam-5R.qxf" mf="Starway" md="Servo Beam 5R"/>
+  <fixture path="Starway-TourKolor.qxf" mf="Starway" md="TourKolor"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
