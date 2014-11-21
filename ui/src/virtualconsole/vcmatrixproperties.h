@@ -81,6 +81,8 @@ private:
 
 protected slots:
     void slotTreeSelectionChanged();
+    void slotAddStartColorKnobClicked();
+    void slotAddEndColorKnobClicked();
     void slotAddStartColorClicked();
     void slotAddEndColorClicked();
     void slotAddEndColorResetClicked();
@@ -97,7 +99,7 @@ protected slots:
 
 protected:
     quint8 m_lastAssignedID;
-    QList<VCMatrixControl *> m_controls;
+    QList<VCMatrixControl*> m_controls;
 
 protected slots:
     /** @reimp */

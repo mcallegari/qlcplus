@@ -153,15 +153,16 @@ private:
      * Custom controls
      *********************************************************************/
 public:
-    void addCustomControl(VCMatrixControl *control);
+    void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
 
 protected slots:
     void slotCustomControlClicked();
+    void slotCustomControlValueChanged();
 
 protected:
-    QHash<QPushButton *, VCMatrixControl *> m_controls;
+    QHash<QWidget *, VCMatrixControl *> m_controls;
 
     /*********************************************************************
      * QLC+ Mode

@@ -71,7 +71,7 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     /* Custom controls */
     foreach(const VCMatrixControl *control, m_matrix->customControls())
     {
-        m_controls.append(new VCMatrixControl(control));
+        m_controls.append(new VCMatrixControl(*control));
         if (control->m_id > m_lastAssignedID)
             m_lastAssignedID = control->m_id;
     }
@@ -84,6 +84,10 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotTreeSelectionChanged()));
 
+    connect(m_addStartColorKnobButton, SIGNAL(clicked()),
+            this, SLOT(slotAddStartColorKnobClicked()));
+    connect(m_addEndColorKnobButton, SIGNAL(clicked()),
+            this, SLOT(slotAddEndColorKnobClicked()));
     connect(m_addStartColorButton, SIGNAL(clicked()),
             this, SLOT(slotAddStartColorClicked()));
     connect(m_addEndColorButton, SIGNAL(clicked()),
@@ -109,6 +113,10 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
 
 VCMatrixProperties::~VCMatrixProperties()
 {
+    foreach (VCMatrixControl* control, m_controls)
+    {
+        delete control;
+    }
 }
 
 /*********************************************************************
@@ -208,12 +216,14 @@ void VCMatrixProperties::updateTree()
         switch(control->m_type)
         {
             case VCMatrixControl::StartColor:
+            case VCMatrixControl::StartColorKnob:
                 item->setIcon(0, QIcon(":/color.png"));
                 item->setText(0, tr("Start Color"));
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
             case VCMatrixControl::EndColor:
+            case VCMatrixControl::EndColorKnob:
                 item->setIcon(0, QIcon(":/color.png"));
                 item->setText(0, tr("End Color"));
                 item->setText(1, control->m_color.name());
@@ -291,6 +301,40 @@ void VCMatrixProperties::removeControl(quint8 id)
         if (m_controls.at(i)->m_id == id)
         {
             m_controls.removeAt(i);
+            return;
+        }
+    }
+}
+
+void VCMatrixProperties::slotAddStartColorKnobClicked()
+{
+    QColor col(Qt::red);
+    while ((col = QColorDialog::getColor()).isValid())
+    {
+        if (col == Qt::red || col == Qt::green || col == Qt::blue)
+        {
+            VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+            newControl->m_type = VCMatrixControl::StartColorKnob;
+            newControl->m_color = col;
+            addControl(newControl);
+            updateTree();
+            return;
+        }
+    }
+}
+
+void VCMatrixProperties::slotAddEndColorKnobClicked()
+{
+    QColor col(Qt::red);
+    while ((col = QColorDialog::getColor()).isValid())
+    {
+        if (col == Qt::red || col == Qt::green || col == Qt::blue)
+        {
+            VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+            newControl->m_type = VCMatrixControl::EndColorKnob;
+            newControl->m_color = col;
+            addControl(newControl);
+            updateTree();
             return;
         }
     }
@@ -481,10 +525,8 @@ void VCMatrixProperties::accept()
 
     m_matrix->resetCustomControls();
     for (int i = 0; i < m_controls.count(); i++)
-        m_matrix->addCustomControl(m_controls.at(i));
+        m_matrix->addCustomControl(*m_controls.at(i));
 
     /* Close dialog */
     QDialog::accept();
 }
-
-
