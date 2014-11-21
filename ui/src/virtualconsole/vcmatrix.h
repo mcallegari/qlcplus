@@ -49,6 +49,8 @@ class FlowLayout;
 #define KXMLQLCVCMatrixStartColor "StartColor"
 #define KXMLQLCVCMatrixEndColor "EndColor"
 
+#define KXMLQLCVCMatrixHideBasicControls "HideBasicControls"
+
 class VCMatrix : public VCWidget
 {
     Q_OBJECT
@@ -85,6 +87,9 @@ private:
 public:
     VCWidget* createCopy(VCWidget* parent);
 
+protected:
+    bool copyFrom(const VCWidget* widget);
+
     /*********************************************************************
      * GUI
      *********************************************************************/
@@ -100,6 +105,7 @@ private slots:
     void slotStartColorChanged(QRgb color);
     void slotEndColorChanged(QRgb color);
     void slotAnimationChanged(QString name);
+    void slotToggleVisible();
 
     /*********************************************************************
      * Properties
@@ -144,7 +150,7 @@ public:
      * Returns if changes should be applied immediately or
      * at the next loop
      */
-    bool instantChanges();
+    bool instantChanges() const;
 
 private:
     bool m_instantApply;

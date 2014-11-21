@@ -60,6 +60,15 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     //hBox->setContentsMargins(3, 3, 3, 10);
     //hBox->setSpacing(5);
 
+    QPushButton* visibleButton = new QPushButton(this);
+    // visibleButton->setText(QString("HIDE"));
+    visibleButton->setFixedWidth(8);
+    visibleButton->setFixedHeight(8);
+    hBox->addWidget(visibleButton);
+
+    connect(visibleButton, SIGNAL(clicked()),
+                this, SLOT(slotToggleVisible()));
+
     m_slider = new ClickAndGoSlider();
     m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
     m_slider->setFixedWidth(32);
@@ -174,6 +183,39 @@ VCWidget *VCMatrix::createCopy(VCWidget *parent)
     }
 
     return matrix;
+}
+
+bool VCMatrix::copyFrom(const VCWidget* widget)
+{
+    const VCMatrix* matrix = qobject_cast <const VCMatrix*> (widget);
+    if (matrix == NULL)
+        return false;
+
+    /* Copy button-specific stuff */
+    setFunction(matrix->function());
+    setInstantChanges(matrix->instantChanges());
+    if (!matrix->m_slider->isVisible())
+        slotToggleVisible();
+
+    {
+        resetCustomControls();
+        QList<VCMatrixControl const*> newControls;
+        foreach(VCMatrixControl const* control, matrix->customControls())
+        {
+            // add sorted by ID
+            QList<VCMatrixControl const*>::iterator it = newControls.begin();
+            while (it != newControls.end() && (*it)->m_id < control->m_id)
+                ++it;
+            newControls.insert(it, control);
+        }
+        foreach (VCMatrixControl const* control, newControls)
+        {
+            addCustomControl(*control);
+        }
+    }
+
+    /* Copy common stuff */
+    return VCWidget::copyFrom(widget);
 }
 
 /*********************************************************************
@@ -292,6 +334,15 @@ void VCMatrix::slotAnimationChanged(QString name)
         matrix->calculateColorDelta();
 }
 
+void VCMatrix::slotToggleVisible()
+{
+    m_slider->setVisible(!m_slider->isVisible());
+    // m_label->setVisible(!m_label->isVisible());
+    m_startColorButton->setVisible(!m_startColorButton->isVisible());
+    m_endColorButton->setVisible(!m_endColorButton->isVisible());
+    m_presetCombo->setVisible(!m_presetCombo->isVisible());
+}
+
 /*********************************************************************
  * Properties
  *********************************************************************/
@@ -326,7 +377,7 @@ void VCMatrix::setInstantChanges(bool instantly)
     m_instantApply = instantly;
 }
 
-bool VCMatrix::instantChanges()
+bool VCMatrix::instantChanges() const
 {
     return m_instantApply;
 }
@@ -688,6 +739,7 @@ bool VCMatrix::loadXML(const QDomElement *root)
 
     /* Children */
     node = root->firstChild();
+    QList<VCMatrixControl> newControls;
     while (node.isNull() == false)
     {
         tag = node.toElement();
@@ -720,7 +772,17 @@ bool VCMatrix::loadXML(const QDomElement *root)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(tag))
-                addCustomControl(control);
+            {
+                // add sorted by ID
+                QList<VCMatrixControl>::iterator it = newControls.begin();
+                while (it != newControls.end() && it->m_id < control.m_id)
+                    ++it;
+                newControls.insert(it, control);
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCMatrixHideBasicControls)
+        {
+            slotToggleVisible();
         }
         else
         {
@@ -728,6 +790,11 @@ bool VCMatrix::loadXML(const QDomElement *root)
         }
 
         node = node.nextSibling();
+    }
+
+    foreach (VCMatrixControl const& control, newControls)
+    {
+        addCustomControl(control);
     }
 
     return true;
@@ -763,6 +830,9 @@ bool VCMatrix::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     if (instantChanges() == true)
         tag.setAttribute(KXMLQLCVCMatrixInstantApply, "true");
+
+    if (!m_slider->isVisible())
+        tag.setAttribute(KXMLQLCVCMatrixHideBasicControls, "true");
 
     /* Slider External input */
     saveXMLInput(doc, &root);
