@@ -156,7 +156,11 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 VCMatrix::~VCMatrix()
 {
     foreach(VCMatrixControl* control, m_controls)
+    {
+        if (control->m_inputSource != NULL)
+            setInputSource(NULL, control->m_id + 1);
         delete control;
+    }
 }
 
 void VCMatrix::setID(quint32 id)
@@ -478,6 +482,8 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
 
     m_controls[controlWidget] = new VCMatrixControl(control);
     m_controlsLayout->addWidget(controlWidget);
+
+    setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id + 1);
 }
 
 void VCMatrix::resetCustomControls()
@@ -697,8 +703,9 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     {
         m_slider->setValue((int) value);
     }
+
     QHashIterator<QWidget *, VCMatrixControl *> it(m_controls);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         VCMatrixControl *control = it.value();
