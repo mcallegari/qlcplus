@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1996,7 +1996,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="381"/>
         <location filename="efxeditor.ui" line="492"/>
         <source>°</source>
@@ -2253,7 +2253,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="810"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB-Panel hinzufügen...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>

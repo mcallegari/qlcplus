@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>WebAccess</name>
     <message>
@@ -212,17 +212,17 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="56"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorige Seite</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="64"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächste Seite</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="67"/>
         <source>Reset universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum zurücksetzen</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="69"/>
