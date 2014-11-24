@@ -450,8 +450,7 @@ private slots:
 
 protected:
     QHBoxLayout* m_hbox;
-    ClickAndGoSlider* m_slider;
-    KnobWidget* m_knob;
+    QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
