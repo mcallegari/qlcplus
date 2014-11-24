@@ -119,8 +119,11 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     QPointF pixPoint = QPointF(((width() - m_background->width()) / 2), arcWidth);
 
     QPainter painter(this);
-    float degrees = SCALE(value(), minimum(), maximum(),
-                          0.0, 330.0);
+    float degrees = 0.0;
+    if (invertedAppearance())
+        degrees = SCALE(value(), minimum(), maximum(), 330.0, 0.0);
+    else
+        degrees = SCALE(value(), minimum(), maximum(), 0.0, 330.0);
 
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     painter.drawPixmap(pixPoint, *m_background);
@@ -141,7 +144,10 @@ void KnobWidget::paintEvent(QPaintEvent *e)
     if (this->isEnabled() == false)
         col = Qt::lightGray;
     painter.setPen(QPen(col, penWidth - 3));
-    painter.drawArc(valRect, -105 * 16, -degrees * 16);
+    if (invertedAppearance())
+        painter.drawArc(valRect, -75 * 16, (330-degrees) * 16);
+    else
+        painter.drawArc(valRect, -105 * 16, -degrees * 16);
 
 }
 

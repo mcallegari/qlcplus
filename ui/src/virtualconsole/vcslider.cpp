@@ -403,6 +403,9 @@ bool VCSlider::invertedAppearance() const
     if (m_slider)
         return m_slider->invertedAppearance();
 
+    if (m_knob)
+        return m_knob->invertedAppearance();
+
     return false;
 }
 
@@ -412,6 +415,11 @@ void VCSlider::setInvertedAppearance(bool invert)
     {
         m_slider->setInvertedAppearance(invert);
         m_slider->setInvertedControls(invert);
+    }
+    if (m_knob)
+    {
+        m_knob->setInvertedAppearance(invert);
+        m_knob->setInvertedControls(invert);
     }
 }
 
@@ -859,6 +867,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (m_slider)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
+        if (m_knob)
+            f = SCALE(float(m_levelValue), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(200));
+
         if ((uchar)f != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter((uchar)f);
@@ -873,6 +885,9 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (m_slider)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
+        if (m_knob)
+            f = SCALE(float(m_levelValue), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(200));
         if ((uchar)f != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter((uchar)f);
@@ -1083,7 +1098,10 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
                     (float) m_knob->minimum(),
                     (float) m_knob->maximum());
         }
-        m_knob->setValue((int) val);
+        if (m_knob->invertedAppearance() == true)
+            m_knob->setValue(m_knob->maximum() - (int) val);
+        else
+            m_knob->setValue((int) val);
     }
 }
 
@@ -1097,7 +1115,12 @@ int VCSlider::sliderValue() const
             return m_slider->value();
     }
     else if (m_widgetMode == WKnob && m_knob)
-        return m_knob->value();
+    {
+        if (invertedAppearance())
+            return 255 - m_knob->value();
+        else
+            return m_knob->value();
+    }
 
     return 0;
 }
@@ -1199,7 +1222,11 @@ void VCSlider::updateFeedback()
     }
     else if (m_knob)
     {
-        fbv = (int)SCALE(float(m_knob->value()), float(m_knob->minimum()),
+        if (invertedAppearance() == true)
+            fbv = m_knob->maximum() - m_knob->value();
+        else
+            fbv = m_knob->value();
+        fbv = (int)SCALE(float(fbv), float(m_knob->minimum()),
                          float(m_knob->maximum()), float(0), float(UCHAR_MAX));
     }
     sendFeedback(fbv);
@@ -1290,7 +1317,10 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
             val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                         (float) m_knob->minimum(),
                         (float) m_knob->maximum());
-            m_knob->setValue((int) val);
+            if (m_knob->invertedAppearance() == true)
+                m_knob->setValue((m_knob->maximum() - (int) val) + m_knob->minimum());
+            else
+                m_knob->setValue((int) val);
         }
     }
 }
