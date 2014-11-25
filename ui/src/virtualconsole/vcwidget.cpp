@@ -1117,6 +1117,8 @@ void VCWidget::move(const QPoint& point)
 
     // Move
     QWidget::move(pt);
+
+    m_doc->setModified();
 }
 
 QPoint VCWidget::lastClickPoint() const
