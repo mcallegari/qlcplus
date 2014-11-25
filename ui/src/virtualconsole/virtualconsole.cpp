@@ -1180,6 +1180,7 @@ void VirtualConsole::slotEditDelete()
 
         updateActions();
     }
+    m_doc->setModified();
 }
 
 void VirtualConsole::slotEditProperties()
@@ -1387,6 +1388,8 @@ void VirtualConsole::slotStackingRaise()
     VCWidget* widget;
     foreach(widget, m_selectedWidgets)
         widget->raise();
+
+    m_doc->setModified();
 }
 
 void VirtualConsole::slotStackingLower()
@@ -1399,6 +1402,8 @@ void VirtualConsole::slotStackingLower()
     VCWidget* widget;
     foreach(widget, m_selectedWidgets)
         widget->lower();
+
+    m_doc->setModified();
 }
 
 void VirtualConsole::slotEnableAudioTriggers(quint32 id)
