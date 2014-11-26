@@ -40,6 +40,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_allowChildrenCheck->setChecked(frame->allowChildren());
     m_allowResizeCheck->setChecked(frame->allowResize());
     m_showHeaderCheck->setChecked(frame->isHeaderVisible());
+    m_showEnableButtonCheck->setChecked(frame->isEnableButtonVisible());
     m_enablePaging->setChecked(frame->multipageMode());
     if (frame->multipageMode() == true)
         m_showHeaderCheck->setEnabled(false);
@@ -188,6 +189,7 @@ void VCFrameProperties::accept()
         }
     }
     m_frame->setHeaderVisible(m_showHeaderCheck->isChecked());
+    m_frame->setEnableButtonVisible(m_showEnableButtonCheck->isChecked());
     m_frame->setMultipageMode(m_enablePaging->isChecked());
     m_frame->setTotalPagesNumber(m_totalPagesSpin->value());
 

@@ -38,6 +38,7 @@
 #define KXMLQLCVCFrameIsCollapsed   "Collapsed"
 #define KXMLQLCVCFrameIsDisabled    "Disabled"
 #define KXMLQLCVCFrameEnableSource  "Enable"
+#define KXMLQLCVCFrameShowEnableButton "ShowEnableButton"
 
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
@@ -101,7 +102,11 @@ public:
 
     bool isHeaderVisible() const;
 
-    bool isCollapsed();
+    void setEnableButtonVisible(bool enable);
+
+    bool isEnableButtonVisible() const;
+
+    bool isCollapsed() const;
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
@@ -125,6 +130,7 @@ protected:
     QLabel *m_label;
     bool m_collapsed;
     bool m_showHeader;
+    bool m_showEnableButton;
     int m_width, m_height;
 
     /*********************************************************************
