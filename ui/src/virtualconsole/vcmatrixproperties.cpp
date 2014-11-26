@@ -109,6 +109,13 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
 
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
+
+    quint32 visibilityMask = m_matrix->visibilityMask();
+    if (visibilityMask & VCMatrix::ShowSlider) m_sliderCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowLabel) m_labelCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowStartColorButton) m_startColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowEndColorButton) m_endColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
 }
 
 VCMatrixProperties::~VCMatrixProperties()
@@ -526,6 +533,14 @@ void VCMatrixProperties::accept()
     m_matrix->resetCustomControls();
     for (int i = 0; i < m_controls.count(); i++)
         m_matrix->addCustomControl(*m_controls.at(i));
+
+    quint32 visibilityMask = 0;
+    if (m_sliderCheck->isChecked()) visibilityMask |= VCMatrix::ShowSlider;
+    if (m_labelCheck->isChecked()) visibilityMask |= VCMatrix::ShowLabel;
+    if (m_startColorButtonCheck->isChecked()) visibilityMask |= VCMatrix::ShowStartColorButton;
+    if (m_endColorButtonCheck->isChecked()) visibilityMask |= VCMatrix::ShowEndColorButton;
+    if (m_presetComboCheck->isChecked()) visibilityMask |= VCMatrix::ShowPresetCombo;
+    m_matrix->setVisibilityMask(visibilityMask);
 
     /* Close dialog */
     QDialog::accept();

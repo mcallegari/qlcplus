@@ -49,12 +49,23 @@ class FlowLayout;
 #define KXMLQLCVCMatrixStartColor "StartColor"
 #define KXMLQLCVCMatrixEndColor "EndColor"
 
-#define KXMLQLCVCMatrixHideBasicControls "HideBasicControls"
+#define KXMLQLCVCMatrixVisibilityMask "Visibility"
 
 class VCMatrix : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrix)
+
+public:
+    enum Visibility
+    {
+        None                 = 0,
+        ShowSlider           = 1 << 0,
+        ShowLabel            = 1 << 1,
+        ShowStartColorButton = 1 << 2,
+        ShowEndColorButton   = 1 << 3,
+        ShowPresetCombo      = 1 << 4,
+    };
 
 public:
     /** Default size for newly-created widget */
@@ -105,7 +116,6 @@ private slots:
     void slotStartColorChanged(QRgb color);
     void slotEndColorChanged(QRgb color);
     void slotAnimationChanged(QString name);
-    void slotToggleVisible();
 
     /*********************************************************************
      * Properties
@@ -154,6 +164,17 @@ public:
 
 private:
     bool m_instantApply;
+
+    /*********************************************************************
+     * Base items visibility
+     *********************************************************************/
+public:
+    void setVisibilityMask(quint32 mask);
+    quint32 visibilityMask() const;
+    static quint32 defaultVisibilityMask();
+
+private:
+    quint32 m_visibilityMask;
 
     /*********************************************************************
      * Custom controls

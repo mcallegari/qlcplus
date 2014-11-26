@@ -30,7 +30,6 @@
 #include "clickandgowidget.h"
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
-// #include "knobwidget.h"
 #include "vcmatrixknobwidget.h"
 #include "rgbmatrix.h"
 #include "rgbscriptscache.h"
@@ -51,6 +50,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
     , m_matrixID(Function::invalidId())
     , m_instantApply(true)
+    , m_visibilityMask(VCMatrix::defaultVisibilityMask())
 {
     /* Set the class name "VCLabel" as the object name as well */
     setObjectName(VCMatrix::staticMetaObject.className());
@@ -59,15 +59,6 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     QHBoxLayout *hBox = new QHBoxLayout(this);
     //hBox->setContentsMargins(3, 3, 3, 10);
     //hBox->setSpacing(5);
-
-    QPushButton* visibleButton = new QPushButton(this);
-    // visibleButton->setText(QString("HIDE"));
-    visibleButton->setFixedWidth(8);
-    visibleButton->setFixedHeight(8);
-    hBox->addWidget(visibleButton);
-
-    connect(visibleButton, SIGNAL(clicked()),
-                this, SLOT(slotToggleVisible()));
 
     m_slider = new ClickAndGoSlider();
     m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
@@ -198,8 +189,7 @@ bool VCMatrix::copyFrom(const VCWidget* widget)
     /* Copy button-specific stuff */
     setFunction(matrix->function());
     setInstantChanges(matrix->instantChanges());
-    if (!matrix->m_slider->isVisible())
-        slotToggleVisible();
+    setVisibilityMask(matrix->visibilityMask());
 
     {
         resetCustomControls();
@@ -338,13 +328,39 @@ void VCMatrix::slotAnimationChanged(QString name)
         matrix->calculateColorDelta();
 }
 
-void VCMatrix::slotToggleVisible()
+void VCMatrix::setVisibilityMask(quint32 mask)
 {
-    m_slider->setVisible(!m_slider->isVisible());
-    // m_label->setVisible(!m_label->isVisible());
-    m_startColorButton->setVisible(!m_startColorButton->isVisible());
-    m_endColorButton->setVisible(!m_endColorButton->isVisible());
-    m_presetCombo->setVisible(!m_presetCombo->isVisible());
+    if (mask & ShowSlider) m_slider->show();
+    else m_slider->hide();
+
+    if (mask & ShowLabel) m_label->show();
+    else m_label->hide();
+
+    if (mask & ShowStartColorButton) m_startColorButton->show();
+    else m_startColorButton->hide();
+
+    if (mask & ShowEndColorButton) m_endColorButton->show();
+    else m_endColorButton->hide();
+
+    if (mask & ShowPresetCombo) m_presetCombo->show();
+    else m_presetCombo->hide();
+
+    m_visibilityMask = mask;
+}
+
+quint32 VCMatrix::visibilityMask() const
+{
+    return m_visibilityMask;
+}
+
+quint32 VCMatrix::defaultVisibilityMask()
+{
+    return ShowSlider
+        | ShowLabel
+        | ShowStartColorButton
+        | ShowEndColorButton
+        | ShowPresetCombo
+        ;
 }
 
 /*********************************************************************
@@ -787,9 +803,9 @@ bool VCMatrix::loadXML(const QDomElement *root)
                 newControls.insert(it, control);
             }
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixHideBasicControls)
+        else if (tag.tagName() == KXMLQLCVCMatrixVisibilityMask)
         {
-            slotToggleVisible();
+            setVisibilityMask(tag.text().toUInt());
         }
         else
         {
@@ -838,8 +854,14 @@ bool VCMatrix::saveXML(QDomDocument *doc, QDomElement *vc_root)
     if (instantChanges() == true)
         tag.setAttribute(KXMLQLCVCMatrixInstantApply, "true");
 
-    if (!m_slider->isVisible())
-        tag.setAttribute(KXMLQLCVCMatrixHideBasicControls, "true");
+    /* Default controls visibility  */
+    if (m_visibilityMask != VCMatrix::defaultVisibilityMask())
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCMatrixVisibilityMask);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(QString::number(m_visibilityMask));
+        tag.appendChild(text);
+    }
 
     /* Slider External input */
     saveXMLInput(doc, &root);
