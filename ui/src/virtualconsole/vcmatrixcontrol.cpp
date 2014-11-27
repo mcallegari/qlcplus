@@ -129,6 +129,16 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
         return StartColor;
 }
 
+bool VCMatrixControl::operator<(VCMatrixControl const& right) const
+{
+    return m_id < right.m_id;
+}
+
+bool VCMatrixControl::compare(VCMatrixControl const* left, VCMatrixControl const* right)
+{
+    return *left < *right;
+}
+
 bool VCMatrixControl::loadXML(const QDomElement &root)
 {
     QDomNode node;

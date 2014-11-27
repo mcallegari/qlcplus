@@ -89,6 +89,9 @@ protected:
     static QString typeToString(ControlType type);
     static ControlType stringToType(QString str);
 
+public:
+    bool operator<(VCMatrixControl const& right) const;
+    static bool compare(VCMatrixControl const* left, VCMatrixControl const* right);
     /************************************************************************
      * Load & Save
      ***********************************************************************/
@@ -123,7 +126,6 @@ public:
 
     QLCInputSource *m_inputSource;
     QKeySequence m_keySequence;
-
 };
 
 /** @} */

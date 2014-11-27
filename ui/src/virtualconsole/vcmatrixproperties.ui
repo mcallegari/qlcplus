@@ -118,6 +118,41 @@
            </property>
           </widget>
          </item>
+         <item row="4" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_labelCheck">
+           <property name="text">
+            <string>Show Label</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_sliderCheck">
+           <property name="text">
+            <string>Show Slider</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_startColorButtonCheck">
+           <property name="text">
+            <string>Show Start Color Button</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_endColorButtonCheck">
+           <property name="text">
+            <string>Show End Color Button</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_presetComboCheck">
+           <property name="text">
+            <string>Show Preset Combo</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -480,52 +515,6 @@
              </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Default controls</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QCheckBox" name="m_sliderCheck">
-           <property name="text">
-            <string>Show Slider</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_labelCheck">
-           <property name="text">
-            <string>Show Label</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_startColorButtonCheck">
-           <property name="text">
-            <string>Show Start Color Button</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_endColorButtonCheck">
-           <property name="text">
-            <string>Show End Color Button</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_presetComboCheck">
-           <property name="text">
-            <string>Show Preset Combo</string>
-           </property>
           </widget>
          </item>
         </layout>

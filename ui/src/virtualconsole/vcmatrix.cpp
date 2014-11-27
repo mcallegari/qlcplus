@@ -191,21 +191,10 @@ bool VCMatrix::copyFrom(const VCWidget* widget)
     setInstantChanges(matrix->instantChanges());
     setVisibilityMask(matrix->visibilityMask());
 
+    resetCustomControls();
+    foreach (VCMatrixControl const* control, matrix->customControls())
     {
-        resetCustomControls();
-        QList<VCMatrixControl const*> newControls;
-        foreach(VCMatrixControl const* control, matrix->customControls())
-        {
-            // add sorted by ID
-            QList<VCMatrixControl const*>::iterator it = newControls.begin();
-            while (it != newControls.end() && (*it)->m_id < control->m_id)
-                ++it;
-            newControls.insert(it, control);
-        }
-        foreach (VCMatrixControl const* control, newControls)
-        {
-            addCustomControl(*control);
-        }
+        addCustomControl(*control);
     }
 
     /* Copy common stuff */
@@ -516,7 +505,9 @@ void VCMatrix::resetCustomControls()
 
 QList<VCMatrixControl *> VCMatrix::customControls() const
 {
-    return m_controls.values();
+    QList<VCMatrixControl*> controls = m_controls.values();
+    qSort(controls.begin(), controls.end(), VCMatrixControl::compare);
+    return controls;
 }
 
 void VCMatrix::slotCustomControlClicked()
@@ -762,6 +753,7 @@ bool VCMatrix::loadXML(const QDomElement *root)
 
     /* Children */
     node = root->firstChild();
+    // Sorted list for new controls
     QList<VCMatrixControl> newControls;
     while (node.isNull() == false)
     {
@@ -795,13 +787,7 @@ bool VCMatrix::loadXML(const QDomElement *root)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(tag))
-            {
-                // add sorted by ID
-                QList<VCMatrixControl>::iterator it = newControls.begin();
-                while (it != newControls.end() && it->m_id < control.m_id)
-                    ++it;
-                newControls.insert(it, control);
-            }
+                newControls.insert(qLowerBound(newControls.begin(), newControls.end(), control), control);
         }
         else if (tag.tagName() == KXMLQLCVCMatrixVisibilityMask)
         {
@@ -816,9 +802,7 @@ bool VCMatrix::loadXML(const QDomElement *root)
     }
 
     foreach (VCMatrixControl const& control, newControls)
-    {
         addCustomControl(control);
-    }
 
     return true;
 }

@@ -29,13 +29,6 @@
 #include "inputpatch.h"
 #include "rgbscript.h"
 
-static bool compareControlsID(const VCMatrixControl *ctl1, const VCMatrixControl *ctl2)
-{
-    if (ctl1->m_id < ctl2->m_id)
-        return true;
-    return false;
-}
-
 VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     : QDialog(matrix)
     , m_doc(doc)
@@ -75,7 +68,6 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
         if (control->m_id > m_lastAssignedID)
             m_lastAssignedID = control->m_id;
     }
-    qSort(m_controls.begin(), m_controls.end(), compareControlsID);
 
     m_controlsTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
