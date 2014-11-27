@@ -64,6 +64,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     , m_label(NULL)
     , m_collapsed(false)
     , m_showHeader(true)
+    , m_showEnableButton(true)
     , m_multiPageMode(false)
     , m_currentPage(0)
     , m_totalPagesNumber(1)
@@ -191,7 +192,8 @@ void VCFrame::setHeaderVisible(bool enable)
     {
         m_collapseButton->show();
         m_label->show();
-        m_enableButton->show();
+        if (m_showEnableButton)
+            m_enableButton->show();
     }
 }
 
@@ -200,7 +202,20 @@ bool VCFrame::isHeaderVisible() const
     return m_showHeader;
 }
 
-bool VCFrame::isCollapsed()
+void VCFrame::setEnableButtonVisible(bool show)
+{
+    if (show && m_showHeader) m_enableButton->show();
+    else m_enableButton->hide();
+
+    m_showEnableButton = show;
+}
+
+bool VCFrame::isEnableButtonVisible() const
+{
+    return m_showEnableButton;
+}
+
+bool VCFrame::isCollapsed() const
 {
     return m_collapsed;
 }
@@ -299,6 +314,8 @@ void VCFrame::createHeader()
     m_enableButton->setStyleSheet(eBtnSS);
     m_enableButton->setEnabled(true);
     m_enableButton->setChecked(true);
+    if (!m_showEnableButton)
+        m_enableButton->hide();
 
     m_hbox->addWidget(m_enableButton);
     connect(m_enableButton, SIGNAL(clicked(bool)), this, SLOT(slotEnableButtonClicked(bool)));
@@ -601,6 +618,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
         return false;
 
     setHeaderVisible(frame->m_showHeader);
+    setEnableButtonVisible(frame->m_showEnableButton);
 
     setTotalPagesNumber(frame->m_totalPagesNumber);
     setMultipageMode(frame->m_multiPageMode);
@@ -754,6 +772,13 @@ bool VCFrame::loadXML(const QDomElement* root)
                 setHeaderVisible(true);
             else
                 setHeaderVisible(false);
+        }
+        else if (tag.tagName() == KXMLQLCVCFrameShowEnableButton)
+        {
+            if (tag.text() == KXMLQLCTrue)
+                setEnableButtonVisible(true);
+            else
+                setEnableButtonVisible(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrameMultipage)
         {
@@ -1054,6 +1079,15 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         /* ShowHeader */
         tag = doc->createElement(KXMLQLCVCFrameShowHeader);
         if (isHeaderVisible())
+            text = doc->createTextNode(KXMLQLCTrue);
+        else
+            text = doc->createTextNode(KXMLQLCFalse);
+        tag.appendChild(text);
+        root.appendChild(tag);
+
+        /* ShowEnableButton */
+        tag = doc->createElement(KXMLQLCVCFrameShowEnableButton);
+        if (isEnableButtonVisible())
             text = doc->createTextNode(KXMLQLCTrue);
         else
             text = doc->createTextNode(KXMLQLCFalse);
