@@ -73,6 +73,7 @@ protected:
      * Custom controls
      *********************************************************************/
 private:
+    static QList<QColor> rgbColorList();
     void updateTree();
     VCMatrixControl *getSelectedControl();
     void addControl(VCMatrixControl *control);

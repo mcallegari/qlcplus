@@ -149,7 +149,7 @@ VCMatrix::~VCMatrix()
     foreach(VCMatrixControl* control, m_controls)
     {
         if (control->m_inputSource != NULL)
-            setInputSource(NULL, control->m_id + 1);
+            setInputSource(NULL, control->m_id);
         delete control;
     }
 }
@@ -271,7 +271,7 @@ void VCMatrix::slotStartColorChanged(QRgb color)
         {
             VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(widget);
             knob->blockSignals(true);
-            knob->setValue(control->colorToValue(color));
+            knob->setValue(control->rgbToValue(color));
             knob->blockSignals(false);
         }
     }
@@ -302,7 +302,7 @@ void VCMatrix::slotEndColorChanged(QRgb color)
         {
             VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(widget);
             knob->blockSignals(true);
-            knob->setValue(control->colorToValue(color));
+            knob->setValue(control->rgbToValue(color));
             knob->blockSignals(false);
         }
     }
@@ -499,7 +499,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     m_controls[controlWidget] = new VCMatrixControl(control);
     m_controlsLayout->addWidget(controlWidget);
 
-    setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id + 1);
+    setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id);
 }
 
 void VCMatrix::resetCustomControls()
@@ -549,7 +549,7 @@ void VCMatrix::slotCustomControlClicked()
                 {
                     VCMatrixKnobWidget* updatedKnob = reinterpret_cast<VCMatrixKnobWidget*>(updatedWidget);
                     updatedKnob->blockSignals(true);
-                    updatedKnob->setValue(updatedControl->colorToValue(control->m_color.rgb()));
+                    updatedKnob->setValue(updatedControl->rgbToValue(control->m_color.rgb()));
                     updatedKnob->blockSignals(false);
                 }
             }
@@ -574,7 +574,7 @@ void VCMatrix::slotCustomControlClicked()
                 {
                     VCMatrixKnobWidget* updatedKnob = reinterpret_cast<VCMatrixKnobWidget*>(updatedWidget);
                     updatedKnob->blockSignals(true);
-                    updatedKnob->setValue(updatedControl->colorToValue(control->m_color.rgb()));
+                    updatedKnob->setValue(updatedControl->rgbToValue(control->m_color.rgb()));
                     updatedKnob->blockSignals(false);
                 }
             }
@@ -638,7 +638,7 @@ void VCMatrix::slotCustomControlValueChanged()
         if (control->m_type == VCMatrixControl::StartColorKnob)
         {
             QRgb color = matrix->startColor().rgb();
-            QRgb knobValueColor = control->valueToColor(knob->value());
+            QRgb knobValueColor = control->valueToRgb(knob->value());
             color = (color & ~control->m_color.rgb()) | (knobValueColor & control->m_color.rgb());
 
             QPixmap px(42, 42);
@@ -651,7 +651,7 @@ void VCMatrix::slotCustomControlValueChanged()
         else if (control->m_type == VCMatrixControl::EndColorKnob)
         {
             QRgb color = matrix->endColor().rgb();
-            QRgb knobValueColor = control->valueToColor(knob->value());
+            QRgb knobValueColor = control->valueToRgb(knob->value());
             color = (color & ~control->m_color.rgb()) | (knobValueColor & control->m_color.rgb());
 
             QPixmap px(42, 42);

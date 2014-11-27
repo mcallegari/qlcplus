@@ -50,52 +50,28 @@ VCMatrixControl::~VCMatrixControl()
     delete m_inputSource;
 }
 
-quint8 VCMatrixControl::colorToValue(QRgb color) const
+quint8 VCMatrixControl::rgbToValue(QRgb color) const
 {
-    switch(m_type)
-    {
-        case StartColor:
-        case EndColor:
-        case Animation:
-        case Image:
-        case Text:
-        case ResetEndColor:
-            return 0;
-        case StartColorKnob:
-        case EndColorKnob:
-            if (m_color == Qt::red)
-                return QColor(color).red();
-            if (m_color == Qt::green)
-                return QColor(color).green();
-            if (m_color == Qt::blue)
-                return QColor(color).blue();
-    }
+    if (m_color == Qt::red)
+        return QColor(color).red();
+    if (m_color == Qt::green)
+        return QColor(color).green();
+    if (m_color == Qt::blue)
+        return QColor(color).blue();
 
     // We're never supposed to be here
     Q_ASSERT(false);
     return 0;
 }
 
-QRgb VCMatrixControl::valueToColor(quint8 value) const
+QRgb VCMatrixControl::valueToRgb(quint8 value) const
 {
-    switch(m_type)
-    {
-        case StartColor:
-        case EndColor:
-        case Animation:
-        case Image:
-        case Text:
-        case ResetEndColor:
-            return QRgb();
-        case StartColorKnob:
-        case EndColorKnob:
-            if (m_color == Qt::red)
-                return qRgb(value, 0, 0);
-            if (m_color == Qt::green)
-                return qRgb(0, value, 0);
-            if (m_color == Qt::blue)
-                return qRgb(0, 0, value);
-    }
+    if (m_color == Qt::red)
+        return qRgb(value, 0, 0);
+    if (m_color == Qt::green)
+        return qRgb(0, value, 0);
+    if (m_color == Qt::blue)
+        return qRgb(0, 0, value);
 
     // We're never supposed to be here
     Q_ASSERT(false);

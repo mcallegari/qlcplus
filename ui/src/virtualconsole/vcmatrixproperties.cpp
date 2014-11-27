@@ -296,6 +296,15 @@ VCMatrixControl *VCMatrixProperties::getSelectedControl()
  * Custom controls
  *********************************************************************/
 
+QList<QColor> VCMatrixProperties::rgbColorList()
+{
+    QList<QColor> colors;
+    colors.append(QColor(Qt::red));
+    colors.append(QColor(Qt::green));
+    colors.append(QColor(Qt::blue));
+    return colors;
+}
+
 void VCMatrixProperties::addControl(VCMatrixControl *control)
 {
     m_controls.append(control);
@@ -315,36 +324,26 @@ void VCMatrixProperties::removeControl(quint8 id)
 
 void VCMatrixProperties::slotAddStartColorKnobClicked()
 {
-    QColor col(Qt::red);
-    while ((col = QColorDialog::getColor()).isValid())
+    foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
-        if (col == Qt::red || col == Qt::green || col == Qt::blue)
-        {
-            VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-            newControl->m_type = VCMatrixControl::StartColorKnob;
-            newControl->m_color = col;
-            addControl(newControl);
-            updateTree();
-            return;
-        }
+        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        newControl->m_type = VCMatrixControl::StartColorKnob;
+        newControl->m_color = col;
+        addControl(newControl);
     }
+    updateTree();
 }
 
 void VCMatrixProperties::slotAddEndColorKnobClicked()
 {
-    QColor col(Qt::red);
-    while ((col = QColorDialog::getColor()).isValid())
+    foreach (QColor col, VCMatrixProperties::rgbColorList())
     {
-        if (col == Qt::red || col == Qt::green || col == Qt::blue)
-        {
-            VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-            newControl->m_type = VCMatrixControl::EndColorKnob;
-            newControl->m_color = col;
-            addControl(newControl);
-            updateTree();
-            return;
-        }
+        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        newControl->m_type = VCMatrixControl::EndColorKnob;
+        newControl->m_color = col;
+        addControl(newControl);
     }
+    updateTree();
 }
 
 void VCMatrixProperties::slotAddStartColorClicked()
@@ -418,6 +417,39 @@ void VCMatrixProperties::slotRemoveClicked()
         return;
     QTreeWidgetItem *selItem = m_controlsTree->selectedItems().first();
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+
+    {
+        // For R/G/B Knobs:
+        // Remove the two others
+        VCMatrixControl *control = getSelectedControl();
+        if (control != NULL)
+        {
+            if (control->m_type == VCMatrixControl::StartColorKnob
+                    || control->m_type == VCMatrixControl::EndColorKnob)
+            {
+                if (control->m_color == Qt::red)
+                {
+                    removeControl(ctlID + 1);
+                    removeControl(ctlID + 2);
+                }
+                else if (control->m_color == Qt::green)
+                {
+                    removeControl(ctlID - 1);
+                    removeControl(ctlID + 1);
+                }
+                else if (control->m_color == Qt::blue)
+                {
+                    removeControl(ctlID - 2);
+                    removeControl(ctlID - 1);
+                }
+                else
+                {
+                    Q_ASSERT(false);
+                }
+            }
+        }
+    }
+
     removeControl(ctlID);
     updateTree();
 }

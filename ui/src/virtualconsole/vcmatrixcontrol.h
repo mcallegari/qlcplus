@@ -74,10 +74,17 @@ public:
         Knob
     };
 
-    quint8 colorToValue(QRgb color) const;
-    QRgb valueToColor(quint8 value) const;
     WidgetType widgetType() const;
 
+    /** This is for Control Knobs:
+     *  extract the value for this knob from and RGB color
+     */
+    quint8 rgbToValue(QRgb color) const;
+
+    /** This is for Control Knobs:
+     *  get the rgb value for this value of the knob
+     */
+    QRgb valueToRgb(quint8 value) const;
 protected:
     static QString typeToString(ControlType type);
     static ControlType stringToType(QString str);
