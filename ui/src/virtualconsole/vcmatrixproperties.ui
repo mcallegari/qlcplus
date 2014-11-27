@@ -332,13 +332,13 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QPushButton" name="m_addStartColorKnobButton">
+          <widget class="QPushButton" name="m_addStartColorKnobsButton">
            <property name="text">
-            <string> Add start color knob</string>
+            <string> Add start color knobs</string>
            </property>
            <property name="icon">
             <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
            </property>
           </widget>
          </item>
@@ -354,13 +354,13 @@
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QPushButton" name="m_addEndColorKnobButton">
+          <widget class="QPushButton" name="m_addEndColorKnobsButton">
            <property name="text">
-            <string> Add end color knob</string>
+            <string> Add end color knobs</string>
            </property>
            <property name="icon">
             <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
            </property>
           </widget>
          </item>

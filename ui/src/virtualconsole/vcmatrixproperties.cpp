@@ -84,14 +84,14 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotTreeSelectionChanged()));
 
-    connect(m_addStartColorKnobButton, SIGNAL(clicked()),
-            this, SLOT(slotAddStartColorKnobClicked()));
-    connect(m_addEndColorKnobButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobClicked()));
     connect(m_addStartColorButton, SIGNAL(clicked()),
             this, SLOT(slotAddStartColorClicked()));
+    connect(m_addStartColorKnobsButton, SIGNAL(clicked()),
+            this, SLOT(slotAddStartColorKnobsClicked()));
     connect(m_addEndColorButton, SIGNAL(clicked()),
             this, SLOT(slotAddEndColorClicked()));
+    connect(m_addEndColorKnobsButton, SIGNAL(clicked()),
+            this, SLOT(slotAddEndColorKnobsClicked()));
     connect(m_addEndColorResetButton, SIGNAL(clicked()),
             this, SLOT(slotAddEndColorResetClicked()));
     connect(m_addPresetButton, SIGNAL(clicked()),
@@ -223,16 +223,26 @@ void VCMatrixProperties::updateTree()
         switch(control->m_type)
         {
             case VCMatrixControl::StartColor:
-            case VCMatrixControl::StartColorKnob:
                 item->setIcon(0, QIcon(":/color.png"));
                 item->setText(0, tr("Start Color"));
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
+            case VCMatrixControl::StartColorKnob:
+                item->setIcon(0, QIcon(":/knob.png"));
+                item->setText(0, tr("Start Color Knob"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+            break;
             case VCMatrixControl::EndColor:
-            case VCMatrixControl::EndColorKnob:
                 item->setIcon(0, QIcon(":/color.png"));
                 item->setText(0, tr("End Color"));
+                item->setText(1, control->m_color.name());
+                item->setBackground(1, QBrush(control->m_color));
+            break;
+            case VCMatrixControl::EndColorKnob:
+                item->setIcon(0, QIcon(":/knob.png"));
+                item->setText(0, tr("End Color Knob"));
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
@@ -322,30 +332,6 @@ void VCMatrixProperties::removeControl(quint8 id)
     }
 }
 
-void VCMatrixProperties::slotAddStartColorKnobClicked()
-{
-    foreach (QColor col, VCMatrixProperties::rgbColorList())
-    {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::StartColorKnob;
-        newControl->m_color = col;
-        addControl(newControl);
-    }
-    updateTree();
-}
-
-void VCMatrixProperties::slotAddEndColorKnobClicked()
-{
-    foreach (QColor col, VCMatrixProperties::rgbColorList())
-    {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::EndColorKnob;
-        newControl->m_color = col;
-        addControl(newControl);
-    }
-    updateTree();
-}
-
 void VCMatrixProperties::slotAddStartColorClicked()
 {
     QColor col = QColorDialog::getColor();
@@ -359,6 +345,18 @@ void VCMatrixProperties::slotAddStartColorClicked()
     }
 }
 
+void VCMatrixProperties::slotAddStartColorKnobsClicked()
+{
+    foreach (QColor col, VCMatrixProperties::rgbColorList())
+    {
+        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        newControl->m_type = VCMatrixControl::StartColorKnob;
+        newControl->m_color = col;
+        addControl(newControl);
+    }
+    updateTree();
+}
+
 void VCMatrixProperties::slotAddEndColorClicked()
 {
     QColor col = QColorDialog::getColor();
@@ -370,6 +368,18 @@ void VCMatrixProperties::slotAddEndColorClicked()
         addControl(newControl);
         updateTree();
     }
+}
+
+void VCMatrixProperties::slotAddEndColorKnobsClicked()
+{
+    foreach (QColor col, VCMatrixProperties::rgbColorList())
+    {
+        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+        newControl->m_type = VCMatrixControl::EndColorKnob;
+        newControl->m_color = col;
+        addControl(newControl);
+    }
+    updateTree();
 }
 
 void VCMatrixProperties::slotAddEndColorResetClicked()
