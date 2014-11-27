@@ -26,12 +26,12 @@
 
 #include "function.h"
 #include "scene.h"
+#include "chaserrunner.h"
 
 class QFile;
 class QString;
 class ChaserStep;
 class MasterTimer;
-class ChaserRunner;
 class QDomDocument;
 
 /** @addtogroup engine_functions Functions
@@ -273,11 +273,16 @@ public:
 
     /*********************************************************************
      * Start/Next/Previous
+     * ChaserRunner wrappers
      *********************************************************************/
 public:
+    /** Set the intensity at start */
+    void setStartIntensity(qreal startIntensity);
+
     /** @reimpl */
     void tap();
 
+    /** Set the current step index, or the startup step index if not started */
     void setStepIndex(int idx);
 
     /** Skip to the previous step */
@@ -286,13 +291,39 @@ public:
     /** Skip to the next step */
     void next();
 
+    /** Stop a specific running step */
+    void stopStep(int stepIndex);
+
+    /** Set the NEW current step number */
+    void setCurrentStep(int step, qreal intensity = 1.0);
+
+    /** Get the current step number */
+    int currentStepIndex() const;
+
+    /** Compute next step for manual fading */
+    int computeNextStep(int currentStepIndex) const;
+
+    /** Get the running step number. */
+    int runningStepsNumber() const;
+
+    /** Get the first step of the running list. If none is running this returns NULL */
+    ChaserRunnerStep currentRunningStep() const;
+
+    /** Adjust the intensities of chaser steps. */
+    void adjustIntensity(qreal fraction, int stepIndex = -1);
+
 private:
+    /** Step index at chaser start */
     int m_startStepIndex;
+
+    /** Intensity at start */
+    qreal m_startIntensity;
+    bool m_hasStartIntensity;
 
     /*********************************************************************
      * Running
      *********************************************************************/
-public:
+private:
     /**
      * Create a ChaserRunner object from the given Chaser. The chaser's
      * step mutex is locked & unlocked in this method.
@@ -301,10 +332,8 @@ public:
      * @param doc The engine object
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
-    static ChaserRunner* createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
-
-    void useInternalRunner(bool enable);
-
+    void createRunner(quint32 startTime = 0, int startStepIdx = 0);
+public:
     /** @reimpl */
     void preRun(MasterTimer* timer);
 
@@ -319,8 +348,8 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
+    QMutex m_runnerMutex;
     ChaserRunner* m_runner;
-    bool m_useInternalRunner;
 
     /*************************************************************************
      * Intensity

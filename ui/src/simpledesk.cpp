@@ -1256,6 +1256,9 @@ void SimpleDesk::slotCloneCueStackClicked()
 
 void SimpleDesk::slotDialDestroyed(QObject *)
 {
+    if (m_speedDials != NULL)
+        m_speedDials->deleteLater();
+    m_speedDials = NULL;
     m_editCueStackButton->setChecked(false);
 }
 

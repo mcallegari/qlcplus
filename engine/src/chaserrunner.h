@@ -67,7 +67,7 @@ private:
     /************************************************************************
      * Speed
      ************************************************************************/
-public:
+private:
     /** Get the currently active fade in value (See Chaser::SpeedMode) */
     uint stepFadeIn(int stepIdx) const;
 
@@ -100,7 +100,7 @@ public:
     void tap();
 
     /**
-     * Stop a specific runnign step
+     * Stop a specific running step
      * @param stepIndex Index of the running step to stop
      */
     void stopStep(int stepIndex);
@@ -137,7 +137,7 @@ public:
      * Get the first step of the running list.
      * If none is running this returns NULL
      */
-    ChaserRunnerStep *currentRunningStep();
+    ChaserRunnerStep* currentRunningStep() const;
 
 private:
     /**
