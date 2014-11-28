@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1996,7 +1996,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="381"/>
         <location filename="efxeditor.ui" line="492"/>
         <source>°</source>
@@ -2253,7 +2253,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="810"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB-Panel hinzufügen...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>
@@ -4973,7 +4973,7 @@ Dauer: %3
         <translation>Zur Wiedergabe kopieren#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1299"/>
+        <location filename="simpledesk.cpp" line="1302"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -5401,52 +5401,52 @@ Dauer: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="101"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="100"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="194"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="193"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Anzeigen/Ausblenden Crossfaderegler</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="204"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="203"/>
         <source>Play/Stop Cue list</source>
         <translation>Start/Stop Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="212"/>
         <source>Go to previous step in the list</source>
         <translation>Zum vorherigen Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="221"/>
         <source>Go to next step in the list</source>
         <translation>Zum nächsten Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
         <source>Cue list</source>
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="995"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="995"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="995"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="995"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -5688,13 +5688,13 @@ Dauer: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="333"/>
-        <location filename="virtualconsole/vcframe.cpp" line="429"/>
+        <location filename="virtualconsole/vcframe.cpp" line="350"/>
+        <location filename="virtualconsole/vcframe.cpp" line="446"/>
         <source>Page: %1</source>
         <translation>Seite: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1173"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1207"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -5737,148 +5737,153 @@ Dauer: %3
         <translation>Show-Überschrift</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="94"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="95"/>
+        <source>Show enable button</source>
+        <translation>Aktivierungsknopf anzeigen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
         <source>External Input - Enable</source>
         <translation>Externer Eingang - Aktivieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="160"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
         <translation>Wenn betätigt kann ein externes Steuerelement geändert werden um es diesem Rahmen zuzuordnen.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="179"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="192"/>
         <source>The key combination used to enable/disable the frame</source>
         <translation>Die Tastenkombination um diesen Rahmen zu (De-)Aktivieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="189"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="202"/>
         <source>Bind a key combination to enable/disable the frame</source>
         <translation>Eine Tastenkombination zuweisen um diesen Rahmen zu (De-)Aktivieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="248"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="261"/>
         <source>Pages</source>
         <translation>Seiten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="254"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="267"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="263"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="276"/>
         <source>Clone first page widgets</source>
         <translation>Assistenten der ersten Seite duplizieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="276"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="289"/>
         <source>External Input - Next page</source>
         <translation>Externer Eingang -Nächste Seite</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="100"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="282"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="390"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="295"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="403"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="289"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="397"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="120"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="302"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="410"/>
         <source>The input universe that sends data to this widget</source>
         <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="117"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="299"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="407"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="130"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="312"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="420"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="124"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="306"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="414"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="137"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="319"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="427"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="160"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="316"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="367"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="329"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="380"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
         <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="163"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="319"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="370"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="176"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="332"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="383"/>
         <source>Choose...</source>
         <translation>Auswahl...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="326"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="339"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="150"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="329"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="163"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="342"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="440"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="374"/>
         <source>External Input - Previous page</source>
         <translation>Externer Eingang -Vorherige Seite</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="424"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="437"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
         <translation>Wenn betätigt kann ein externer Regler/Schalter bewegt werden um diesem Rahmen hinzugefügt zu werden.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="440"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="453"/>
         <source>Number of pages:</source>
         <translation>Anzahl der Seiten:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="447"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="186"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="460"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="519"/>
         <source>Key Combination</source>
         <translation>Tastenkombination</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="453"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="466"/>
         <source>Bind a key combination to skip to the next frame page</source>
         <oldsource>Bind a key combination to skip to the next cue</oldsource>
         <translation>Eine Tastenkombination zuweisen um zur nächsten Cue zu springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="209"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="473"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="532"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="222"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="486"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="545"/>
         <source>Clear the key binding</source>
         <translation>Tastenbindung lösen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="493"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="506"/>
         <source>The key combination used to go to the next frame page</source>
         <oldsource>The key combination used to step to the next cue</oldsource>
         <translation>Die Tastenkombination um zur nächsten Cue zu springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="512"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="525"/>
         <source>Bind a key combination to skip to the previous frame page</source>
         <translation>Eine Tastenkombination zuweisen um zur vorherigen Rahmenseite zu springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="552"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="565"/>
         <source>The key combination used to go to the previous frame page</source>
         <translation>Tastenkombination um zur vorherigen Rahmenseite zu wechseln</translation>
     </message>
@@ -5907,6 +5912,11 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrix.cpp" line="152"/>
         <source>Animation %1</source>
         <translation>Animation %1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="326"/>
+        <source>End Color Reset</source>
+        <translation>Endfarbenreset</translation>
     </message>
 </context>
 <context>
@@ -6119,33 +6129,43 @@ Dauer: %3
         <translation> Text hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="134"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="455"/>
+        <source> Add end color reset</source>
+        <translation> Endfarbenreset hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="136"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="210"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="212"/>
         <source>Start Color</source>
         <translation>Anfangsfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="216"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="218"/>
         <source>End Color</source>
         <translation>Endfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="223"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="224"/>
+        <source>End Color Reset</source>
+        <translation>Endfarbenreset</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="229"/>
         <source>Animation</source>
         <translation>Animation</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="245"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="338"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="251"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="352"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="337"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="351"/>
         <source>Enter a text</source>
         <translation>Einen Text eingeben</translation>
     </message>
@@ -6422,7 +6442,7 @@ Dauer: %3
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="211"/>
+        <location filename="virtualconsole/vcslider.cpp" line="210"/>
         <source>Slider %1</source>
         <translation>Schieberegler %1</translation>
     </message>
@@ -7530,22 +7550,22 @@ Dauer: %3
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1207"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1208"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1207"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1208"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1260"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1262"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1263"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
