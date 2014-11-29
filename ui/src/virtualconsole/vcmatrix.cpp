@@ -42,7 +42,7 @@ static const QString controlBtnSS = "QPushButton { background-color: %1; height:
                                     "QPushButton:pressed { border: 2px solid #00E600; }"
                                     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
-static const QString controlKnbSS = "QDial { background-color: %1; color: #FFFFFF; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }";
+static const QString controlKnbSS = "QDial { background-color: %1; color: #FFFFFF; height: 32px; }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
@@ -250,11 +250,11 @@ void VCMatrix::slotStartColorChanged(QRgb color)
     px.fill(col);
     m_startColorButton->setIcon(px);
 
-    for (QHash<QWidget *, VCMatrixControl *>::iterator controlIt = m_controls.begin();
-            controlIt != m_controls.end(); ++controlIt)
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
     {
-        QWidget* widget = controlIt.key();
-        VCMatrixControl* control = controlIt.value();
+        QWidget* widget = it.key();
+        VCMatrixControl* control = it.value();
 
         if (control->m_type == VCMatrixControl::StartColorKnob)
         {
@@ -281,11 +281,11 @@ void VCMatrix::slotEndColorChanged(QRgb color)
     px.fill(col);
     m_endColorButton->setIcon(px);
 
-    for (QHash<QWidget *, VCMatrixControl *>::iterator controlIt = m_controls.begin();
-            controlIt != m_controls.end(); ++controlIt)
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
     {
-        QWidget* widget = controlIt.key();
-        VCMatrixControl* control = controlIt.value();
+        QWidget* widget = it.key();
+        VCMatrixControl* control = it.value();
 
         if (control->m_type == VCMatrixControl::EndColorKnob)
         {
@@ -493,12 +493,12 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
 
 void VCMatrix::resetCustomControls()
 {
-    for (QHash<QWidget *, VCMatrixControl *>::iterator controlIt = m_controls.begin();
-            controlIt != m_controls.end(); ++controlIt)
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
     {
-        m_controlsLayout->removeWidget(controlIt.key());
-        delete controlIt.key();
-        delete controlIt.value();
+        m_controlsLayout->removeWidget(it.key());
+        delete it.key();
+        delete it.value();
     }
     m_controls.clear();
 }
@@ -530,11 +530,11 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
 
-            for (QHash<QWidget *, VCMatrixControl *>::iterator controlIt = m_controls.begin();
-                    controlIt != m_controls.end(); ++controlIt)
+            for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+                    it != m_controls.end(); ++it)
             {
-                QWidget* updatedWidget = controlIt.key();
-                VCMatrixControl* updatedControl = controlIt.value();
+                QWidget* updatedWidget = it.key();
+                VCMatrixControl* updatedControl = it.value();
 
                 if (updatedControl->m_type == VCMatrixControl::StartColorKnob)
                 {
@@ -555,11 +555,11 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
 
-            for (QHash<QWidget *, VCMatrixControl *>::iterator controlIt = m_controls.begin();
-                    controlIt != m_controls.end(); ++controlIt)
+            for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+                    it != m_controls.end(); ++it)
             {
-                QWidget* updatedWidget = controlIt.key();
-                VCMatrixControl* updatedControl = controlIt.value();
+                QWidget* updatedWidget = it.key();
+                VCMatrixControl* updatedControl = it.value();
 
                 if (updatedControl->m_type == VCMatrixControl::EndColorKnob)
                 {
@@ -679,10 +679,9 @@ void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
     if (isEnabled() == false)
         return;
 
-    QHashIterator<QWidget *, VCMatrixControl *> it(m_controls);
-    while(it.hasNext())
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
     {
-        it.next();
         VCMatrixControl *control = it.value();
         if (control->m_keySequence == keySequence &&
                 control->widgetType() == VCMatrixControl::Button) // Only for buttons
@@ -696,6 +695,18 @@ void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
 void VCMatrix::updateFeedback()
 {
     sendFeedback(m_slider->value());
+
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
+    {
+        VCMatrixControl *control = it.value();
+        if (control->widgetType() == VCMatrixControl::Knob &&
+                control->m_inputSource != NULL)
+        {
+            VCMatrixKnobWidget* knob  = reinterpret_cast<VCMatrixKnobWidget*>(it.key());
+            sendFeedback(knob->value(), control->m_id);
+        }
+    }
 }
 
 void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -711,10 +722,9 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         m_slider->setValue((int) value);
     }
 
-    QHashIterator<QWidget *, VCMatrixControl *> it(m_controls);
-    while (it.hasNext())
+    for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
+            it != m_controls.end(); ++it)
     {
-        it.next();
         VCMatrixControl *control = it.value();
         if (control->m_inputSource != NULL &&
                 control->m_inputSource->universe() == universe &&
