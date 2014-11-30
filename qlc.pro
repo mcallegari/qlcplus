@@ -4,18 +4,13 @@ TEMPLATE = subdirs
 
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
-SUBDIRS      += ui
-SUBDIRS      += webaccess
-SUBDIRS      += main
-SUBDIRS      += fixtures
-SUBDIRS      += gobos
-SUBDIRS      += inputprofiles
-SUBDIRS      += rgbscripts
-SUBDIRS      += miditemplates
-SUBDIRS      += modifierstemplates
-SUBDIRS      += fixtureeditor
+#SUBDIRS      += ui
+SUBDIRS      += qmlui
+#SUBDIRS      += webaccess
+#SUBDIRS      += main
+SUBDIRS      += resources
+!android:SUBDIRS      += fixtureeditor
 SUBDIRS      += etc
-SUBDIRS      += docs
 macx:SUBDIRS += launcher
 SUBDIRS      += plugins
 
