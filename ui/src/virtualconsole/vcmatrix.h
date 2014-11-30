@@ -144,6 +144,19 @@ public:
      */
     quint32 function() const;
 
+private slots:
+    /** Update slider when function stops. */
+    void slotFunctionStopped();
+    /** Update slider when function starts. */
+    void slotFunctionAttributeChanged(int attrIndex, qreal fraction);
+    /** Update widget when function changes. */
+    void slotFunctionChanged();
+    void slotUpdate();
+
+private:
+    /** timer for updating the step list */
+    QTimer* m_updateTimer;
+
     /*********************************************************************
      * Instant changes apply
      *********************************************************************/
