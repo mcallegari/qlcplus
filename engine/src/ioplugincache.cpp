@@ -25,7 +25,9 @@
 #   include <windows.h>
 #endif
 
+#if !defined(Q_OS_ANDROID)
 #include "hotplugmonitor.h"
+#endif
 #include "ioplugincache.h"
 #include "qlcioplugin.h"
 #include "qlcconfig.h"
@@ -73,7 +75,9 @@ void IOPluginCache::load(const QDir& dir)
                 m_plugins << ptr;
                 connect(ptr, SIGNAL(configurationChanged()),
                         this, SLOT(slotConfigurationChanged()));
+#if !defined(Q_OS_ANDROID)
                 HotPlugMonitor::connectListener(ptr);
+#endif
                 // QLCi18n::loadTranslation(p->name().replace(" ", "_"));
             }
             else

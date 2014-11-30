@@ -23,7 +23,9 @@
 
 #include "audiocapture.h"
 
+#ifdef HAS_FFTW3
 #include "fftw3.h"
+#endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
@@ -51,8 +53,10 @@ AudioCapture::~AudioCapture()
         delete[] m_audioBuffer;
     if (m_fftInputBuffer)
         delete[] m_fftInputBuffer;
+#ifdef HAS_FFTW3
     if (m_fftOutputBuffer)
         fftw_free(m_fftOutputBuffer);
+#endif
 }
 
 void AudioCapture::setBandsNumber(int number)
@@ -81,8 +85,9 @@ bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 
 
     m_audioBuffer = new int16_t[m_captureSize];
     m_fftInputBuffer = new double[m_captureSize];
+#ifdef HAS_FFTW3
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
-
+#endif
     m_isInitialized = true;
 
     return true;
@@ -97,6 +102,7 @@ void AudioCapture::stop()
 
 void AudioCapture::processData()
 {
+#ifdef HAS_FFTW3
     unsigned int i;
     quint64 pwrSum = 0;
 
@@ -170,6 +176,7 @@ void AudioCapture::processData()
         if (m_maxMagnitude < m_fftMagnitudeBuffer[b])
             m_maxMagnitude = m_fftMagnitudeBuffer[b];
     }
+#endif
 }
 
 void AudioCapture::run()

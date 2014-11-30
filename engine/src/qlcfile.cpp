@@ -166,6 +166,9 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
+ #if defined(Q_OS_ANDROID)
+    return QString(getenv("USER"));
+ #else
     QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
@@ -174,6 +177,7 @@ QString QLCFile::currentUserName()
         name.append(passwd->pw_gecos);
     name.remove(",,,");
     return name;
+ #endif
 #endif
 }
 

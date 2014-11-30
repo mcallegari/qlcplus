@@ -251,7 +251,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        min = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get high limit attribute (critical) */
@@ -263,7 +263,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        max = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        max = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get (optional) resource name for gobo/effect/... */

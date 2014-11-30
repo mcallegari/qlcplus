@@ -513,7 +513,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
         int val = m_relativeValues[channel];
         if (m_preGMValues != NULL)
             val += (uchar)m_preGMValues->at(channel);
-        value = CLAMP(val, 0, UCHAR_MAX);
+        value = CLAMP(val, 0, (int)UCHAR_MAX);
     }
 
     value = applyGM(channel, value);
@@ -540,7 +540,7 @@ bool Universe::writeRelative(int channel, uchar value)
     int val = m_relativeValues[channel];
     if (m_preGMValues != NULL)
         val += (uchar)m_preGMValues->at(channel);
-    value = CLAMP(val, 0, UCHAR_MAX);
+    value = CLAMP(val, 0, (int)UCHAR_MAX);
 
     value = applyGM(channel, value);
     (*m_postGMValues)[channel] = char(value);
