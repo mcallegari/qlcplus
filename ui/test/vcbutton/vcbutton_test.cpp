@@ -222,8 +222,8 @@ void VCButton_Test::iconPath()
 
     VCButton btn(&w, m_doc);
     m_doc->resetModified();
-    btn.setIconPath("../../../gfx/qlcplus.png");
-    QCOMPARE(btn.iconPath(), QString("../../../gfx/qlcplus.png"));
+    btn.setIconPath("../../../resources/icons/png/qlcplus.png");
+    QCOMPARE(btn.iconPath(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(m_doc->isModified(), true);
 
     m_doc->resetModified();
@@ -280,7 +280,7 @@ void VCButton_Test::copy()
 
     VCButton btn(&w, m_doc);
     btn.setCaption("Foobar");
-    btn.setIconPath("../../../gfx/qlcplus.png");
+    btn.setIconPath("../../../resources/icons/png/qlcplus.png");
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
@@ -291,7 +291,7 @@ void VCButton_Test::copy()
     VCButton* copy = qobject_cast<VCButton*> (btn.createCopy(&parent));
     QVERIFY(copy != NULL);
     QCOMPARE(copy->caption(), QString("Foobar"));
-    QCOMPARE(copy->iconPath(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(copy->iconPath(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(copy->function(), sc->id());
     QCOMPARE(copy->action(), VCButton::Flash);
     QCOMPARE(copy->keySequence(), QKeySequence(keySequenceB));
@@ -306,7 +306,7 @@ void VCButton_Test::load()
 
     Scene* sc = new Scene(m_doc);
     m_doc->addFunction(sc);
-    m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+    m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Button");
@@ -354,7 +354,7 @@ void VCButton_Test::load()
     VCButton btn(&w, m_doc);
     QCOMPARE(btn.loadXML(&root), true);
     QCOMPARE(btn.caption(), QString("Pertti"));
-    QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../gfx/qlcplus.png")).canonicalFilePath());
+    QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../resources/icons/png/qlcplus.png")).canonicalFilePath());
     QCOMPARE(btn.function(), sc->id());
     QCOMPARE(btn.action(), VCButton::Flash);
     QCOMPARE(btn.keySequence(), QKeySequence(keySequenceA));
@@ -366,7 +366,7 @@ void VCButton_Test::load()
     intensity.setAttribute("Adjust", "False");
     QCOMPARE(btn.loadXML(&root), true);
     QCOMPARE(btn.caption(), QString("Pertti"));
-    QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../gfx/qlcplus.png")).canonicalFilePath());
+    QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../resources/icons/png/qlcplus.png")).canonicalFilePath());
     QCOMPARE(btn.function(), sc->id());
     QCOMPARE(btn.action(), VCButton::Flash);
     QCOMPARE(btn.keySequence(), QKeySequence(keySequenceA));
@@ -385,11 +385,11 @@ void VCButton_Test::save()
 
     Scene* sc = new Scene(m_doc);
     m_doc->addFunction(sc);
-    m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+    m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
     VCButton btn(&w, m_doc);
     btn.setCaption("Foobar");
-    btn.setIconPath("../../../gfx/qlcplus.png");
+    btn.setIconPath("../../../resources/icons/png/qlcplus.png");
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
@@ -656,7 +656,7 @@ void VCButton_Test::paint()
     btn.setOn(false);
     btn.update();
     QTest::qWait(1);
-    btn.setIconPath("../../../gfx/qlcplus.png");
+    btn.setIconPath("../../../resources/icons/png/qlcplus.png");
     btn.update();
     QTest::qWait(1);
     btn.setCaption("Foobar");
