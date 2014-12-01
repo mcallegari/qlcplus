@@ -205,6 +205,8 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(path));
+#elif defined(Q_OS_ANDROID)
+    dir.setPath(QString("assets:/%1").arg(path.remove(0, path.lastIndexOf("/") + 1)));
 #else
     dir.setPath(path);
 #endif
