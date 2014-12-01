@@ -44,7 +44,7 @@ static const QString controlBtnSS = "QPushButton { background-color: %1; height:
                                     "QPushButton:pressed { border: 2px solid #00E600; }"
                                     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
-static const QString controlKnbSS = "QDial { background-color: %1; color: #FFFFFF; height: 32px; }";
+static const QString controlKnbSS = "QDial { background-color: %1; color: #FFFFFF; }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
@@ -543,6 +543,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlKnob;
         controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.name()));
         controlKnob->setFixedWidth(36);
+        controlKnob->setFixedHeight(36);
         controlKnob->setToolTip("Start");
     }
     else if (control.m_type == VCMatrixControl::EndColorKnob)
@@ -551,6 +552,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlKnob;
         controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.name()));
         controlKnob->setFixedWidth(36);
+        controlKnob->setFixedHeight(36);
         controlKnob->setToolTip("End");
     }
 
