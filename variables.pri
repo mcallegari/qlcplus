@@ -69,7 +69,7 @@ android:LIBSDIR    = /libs/armeabi-v7a
 win32:DATADIR      =
 unix:!macx:DATADIR = share/qlcplus
 macx:DATADIR       = Resources
-android:DATADIR    = Resources
+android:DATADIR    = /assets
 
 # User Data
 win32:USERDATADIR      = QLC+

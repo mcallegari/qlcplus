@@ -6,7 +6,7 @@ include(../deployment.pri)
 TEMPLATE = app
 TARGET = qlcplus-qml
 
-QT += qml quick widgets svg xml
+QT += qml quick widgets svg xml script
 QT += multimedia multimediawidgets
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
