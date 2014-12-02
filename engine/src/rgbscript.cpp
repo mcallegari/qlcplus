@@ -303,6 +303,23 @@ QList<RGBScriptProperty> RGBScript::properties()
     return m_properties;
 }
 
+QHash<QString, QString> RGBScript::propertiesAsStrings()
+{
+    QHash<QString, QString> properties;
+    foreach(RGBScriptProperty cap, m_properties)
+    {
+        QScriptValue readMethod = m_script.property(cap.m_readMethod);
+        if (readMethod.isFunction())
+        {
+            QScriptValueList args;
+            QScriptValue value = readMethod.call(QScriptValue(), args);
+            if (value.isValid())
+                properties.insert(cap.m_name, value.toString());
+        }
+    }
+    return properties;
+}
+
 bool RGBScript::setProperty(QString propertyName, QString value)
 {
     foreach(RGBScriptProperty cap, m_properties)

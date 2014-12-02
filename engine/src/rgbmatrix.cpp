@@ -168,14 +168,17 @@ quint32 RGBMatrix::fixtureGroup() const
 
 void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
 {
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    delete m_algorithm;
-    m_algorithm = algo;
-    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
     {
-        RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
-        audio->setAudioCapture(doc()->audioInputCapture());
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        delete m_algorithm;
+        m_algorithm = algo;
+        if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
+        {
+            RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
+            audio->setAudioCapture(doc()->audioInputCapture());
+        }
     }
+    emit changed(id());
 }
 
 RGBAlgorithm* RGBMatrix::algorithm() const
@@ -221,9 +224,12 @@ RGBMap RGBMatrix::previewMap(int step)
 void RGBMatrix::setStartColor(const QColor& c)
 {
     m_startColor = c;
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    if (m_algorithm != NULL)
-        m_algorithm->setColors(m_startColor, m_endColor);
+    {
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm != NULL)
+            m_algorithm->setColors(m_startColor, m_endColor);
+    }
+    emit changed(id());
 }
 
 QColor RGBMatrix::startColor() const
@@ -234,9 +240,12 @@ QColor RGBMatrix::startColor() const
 void RGBMatrix::setEndColor(const QColor &c)
 {
     m_endColor = c;
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    if (m_algorithm != NULL)
-        m_algorithm->setColors(m_startColor, m_endColor);
+    {
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm != NULL)
+            m_algorithm->setColors(m_startColor, m_endColor);
+    }
+    emit changed(id());
 }
 
 QColor RGBMatrix::endColor() const

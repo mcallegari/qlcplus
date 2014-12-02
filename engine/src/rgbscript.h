@@ -118,6 +118,9 @@ public:
     /** Return a list of the loaded script properties */
     QList<RGBScriptProperty> properties();
 
+    /** Return properties as strings */
+    QHash<QString, QString> propertiesAsStrings();
+
     /** Set a property to the given value */
     bool setProperty(QString propertyName, QString value);
 
