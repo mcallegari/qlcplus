@@ -415,6 +415,31 @@ void VCMatrix::slotUpdate()
 
     QColor startColor = matrix->startColor();
     QColor endColor = matrix->endColor();
+    QString algorithmName;
+    RGBAlgorithm::Type algorithmType = RGBAlgorithm::Plain;
+    QHash<QString, QString> algorithmProperties;
+    QString algorithmText;
+
+    {
+        QMutexLocker(&matrix->algorithmMutex());
+
+        RGBAlgorithm* algo = matrix->algorithm();
+        if (algo != NULL)
+        {
+            algorithmName = algo->name();
+            algorithmType = algo->type();
+            if (algorithmType == RGBAlgorithm::Script)
+            {
+                algorithmProperties = reinterpret_cast<RGBScript*>(algo)->propertiesAsStrings();
+            }
+            else if (algorithmType == RGBAlgorithm::Text)
+            {
+                algorithmText = reinterpret_cast<RGBText*>(algo)->text();
+            }
+        }
+    }
+
+    // Start / End color buttons
     QPixmap px(42, 42);
     px.fill(startColor);
     m_startColorButton->setIcon(px);
@@ -424,6 +449,19 @@ void VCMatrix::slotUpdate()
         px.fill(endColor);
     m_endColorButton->setIcon(px);
 
+    // Algo combo box
+    if (algorithmName != QString())
+    {
+        m_presetCombo->blockSignals(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+        m_presetCombo->setCurrentText(algorithmName);
+#else
+        m_presetCombo->setCurrentIndex(m_presetCombo->findText(algorithmName));
+#endif
+        m_presetCombo->blockSignals(false);
+    }
+
+    // Custom Buttons
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
             it != m_controls.end(); ++it)
     {
@@ -444,21 +482,47 @@ void VCMatrix::slotUpdate()
             knob->setValue(control->rgbToValue(endColor.rgb()));
             knob->blockSignals(false);
         }
-    }
-
-    {
-        QMutexLocker(&matrix->algorithmMutex());
-
-        RGBAlgorithm* algo = matrix->algorithm();
-        if (algo != NULL)
+        else if (control->m_type == VCMatrixControl::StartColor)
         {
-            m_presetCombo->blockSignals(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-            m_presetCombo->setCurrentText(algo->name());
-#else
-            m_presetCombo->setCurrentIndex(m_presetCombo->findText(algo->name()));
-#endif
-            m_presetCombo->blockSignals(false);
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+            button->setDown(startColor == control->m_color);
+        }
+        else if (control->m_type == VCMatrixControl::EndColor)
+        {
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+            button->setDown(endColor == control->m_color);
+        }
+        else if (control->m_type == VCMatrixControl::Animation)
+        {
+            bool on = false;
+            if (algorithmType == RGBAlgorithm::Script)
+            {
+                if (algorithmName == control->m_resource)
+                {
+                    on = true;
+                    for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
+                            it != control->m_properties.end(); ++it)
+                    {
+                        if (algorithmProperties.value(it.key(), QString()) != it.value())
+                            on = false;
+                    }
+                }
+            }
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+            button->setDown(on);
+        }
+        else if (control->m_type == VCMatrixControl::Text)
+        {
+            bool on = false;
+            if (algorithmType == RGBAlgorithm::Text)
+            {
+                if (algorithmText == control->m_resource)
+                {
+                    on = true;
+                }
+            }
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+            button->setDown(on);
         }
     }
 }
@@ -550,7 +614,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     {
         VCMatrixKnobWidget *controlKnob = new VCMatrixKnobWidget(this);
         controlWidget = controlKnob;
-        controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.name()));
+        controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.darker(250).name()));
         controlKnob->setFixedWidth(36);
         controlKnob->setFixedHeight(36);
         controlKnob->setToolTip("End");
@@ -735,11 +799,18 @@ void VCMatrix::updateFeedback()
             it != m_controls.end(); ++it)
     {
         VCMatrixControl *control = it.value();
-        if (control->widgetType() == VCMatrixControl::Knob &&
-                control->m_inputSource != NULL)
+        if (control->m_inputSource != NULL)
         {
-            VCMatrixKnobWidget* knob  = reinterpret_cast<VCMatrixKnobWidget*>(it.key());
-            sendFeedback(knob->value(), control->m_id);
+            if (control->widgetType() == VCMatrixControl::Knob)
+            {
+                VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(it.key());
+                sendFeedback(knob->value(), control->m_id);
+            }
+            else // if (control->widgetType() == VCMatrixControl::Button)
+            {
+                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+                sendFeedback(button->isDown() ? 0xff : 0);
+            }
         }
     }
 }
