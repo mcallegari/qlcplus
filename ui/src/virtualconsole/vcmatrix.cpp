@@ -41,7 +41,7 @@
 #define UPDATE_TIMEOUT 50
 
 static const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                                    "QPushButton:pressed { border: 2px solid #00E600; }"
+                                    "QPushButton:pressed { border: 2px solid #0000FF; }"
                                     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 static const QString controlKnbSS = "QDial { background-color: %1; }";
@@ -228,6 +228,10 @@ void VCMatrix::enableWidgetUI(bool enable)
 
     foreach(QWidget *ctlBtn, m_controls.keys())
         ctlBtn->setEnabled(enable);
+
+    // Update buttons state
+    if (enable)
+        slotUpdate();
 }
 
 void VCMatrix::slotSliderMoved(int value)
