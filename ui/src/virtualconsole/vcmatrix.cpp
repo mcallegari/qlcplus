@@ -44,7 +44,7 @@ static const QString controlBtnSS = "QPushButton { background-color: %1; height:
                                     "QPushButton:pressed { border: 2px solid #00E600; }"
                                     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
-static const QString controlKnbSS = "QDial { background-color: %1; color: #FFFFFF; }";
+static const QString controlKnbSS = "QDial { background-color: %1; }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
@@ -608,7 +608,14 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.name()));
         controlKnob->setFixedWidth(36);
         controlKnob->setFixedHeight(36);
-        controlKnob->setToolTip("Start");
+        QString knobLabel;
+        if (control.m_color == Qt::red)
+            knobLabel = tr("Start color Red component");
+        else if (control.m_color == Qt::green)
+            knobLabel = tr("Start color Green component");
+        else if (control.m_color == Qt::blue)
+            knobLabel = tr("Start color Blue component");
+        controlKnob->setToolTip(knobLabel);
     }
     else if (control.m_type == VCMatrixControl::EndColorKnob)
     {
@@ -617,7 +624,14 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.darker(250).name()));
         controlKnob->setFixedWidth(36);
         controlKnob->setFixedHeight(36);
-        controlKnob->setToolTip("End");
+        QString knobLabel;
+        if (control.m_color == Qt::red)
+            knobLabel = tr("End color Red component");
+        else if (control.m_color == Qt::green)
+            knobLabel = tr("End color Green component");
+        else if (control.m_color == Qt::blue)
+            knobLabel = tr("End color Blue component");
+        controlKnob->setToolTip(knobLabel);
     }
 
     Q_ASSERT(controlWidget != NULL);
