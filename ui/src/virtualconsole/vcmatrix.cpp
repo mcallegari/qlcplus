@@ -679,12 +679,14 @@ void VCMatrix::slotCustomControlClicked()
             matrix->setStartColor(control->m_color);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
+            btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::EndColor)
         {
             matrix->setEndColor(control->m_color);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
+            btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::ResetEndColor)
         {
@@ -708,6 +710,7 @@ void VCMatrix::slotCustomControlClicked()
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
+            btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::Text)
         {
@@ -717,6 +720,7 @@ void VCMatrix::slotCustomControlClicked()
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
                 matrix->calculateColorDelta();
+            btn->setDown(true);
         }
     }
 }
