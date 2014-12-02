@@ -92,6 +92,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 connect(propCombo, SIGNAL(currentIndexChanged(QString)),
                         this, SLOT(slotPropertyComboChanged(QString)));
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
+                m_properties[prop.m_name] = pValue;
                 gridRowIdx++;
             }
             break;
@@ -108,6 +109,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 connect(propSpin, SIGNAL(valueChanged(int)),
                         this, SLOT(slotPropertySpinChanged(int)));
                 m_propertiesLayout->addWidget(propSpin, gridRowIdx, 1);
+                m_properties[prop.m_name] = pValue;
                 gridRowIdx++;
             }
             break;
