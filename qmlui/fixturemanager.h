@@ -51,7 +51,7 @@ signals:
     void fixturesCountChanged();
 
 protected slots:
-    void slotDocLoaded();
+
 
 private:
     void createQMLFixture(quint32 fxID, qreal x, qreal y);
