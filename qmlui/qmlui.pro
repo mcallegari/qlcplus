@@ -1,7 +1,7 @@
 include(../variables.pri)
 
 # Default rules for deployment.
-include(../deployment.pri)
+#include(../deployment.pri)
 
 TEMPLATE = app
 TARGET = qlcplus-qml
