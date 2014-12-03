@@ -65,12 +65,18 @@ class Fixture : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)
 
+    Q_PROPERTY(quint32 id READ id WRITE setID NOTIFY changed)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY changed)
+    Q_PROPERTY(quint32 universe READ universe WRITE setUniverse NOTIFY changed)
+    Q_PROPERTY(quint32 address READ address WRITE setAddress NOTIFY changed)
+    Q_PROPERTY(quint32 channels READ channels WRITE setChannels NOTIFY changed)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent);
+    Fixture(QObject* parent = 0);
 
     /** Destructor */
     ~Fixture();

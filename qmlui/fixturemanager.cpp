@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QQuickItem>
+#include <QQmlContext>
 #include <QQmlComponent>
 
 #include "fixturemanager.h"
@@ -35,7 +36,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     Q_ASSERT(m_doc != NULL);
 
     connect(m_doc, SIGNAL(loaded()),
-            this, SIGNAL(docLoaded()));
+            this, SLOT(slotDocLoaded()));
 }
 
 quint32 FixtureManager::invalidFixture()
@@ -77,12 +78,32 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         m_doc->addFixture(fxi);
         createQMLFixture(fxi->id(), xPos, yPos);
     }
+    m_fixtureList.clear();
+    m_fixtureList = m_doc->fixtures();
+    emit fixturesCountChanged();
+
     return true;
 }
 
 int FixtureManager::fixturesCount()
 {
     return m_doc->fixtures().count();
+}
+
+QQmlListProperty<Fixture> FixtureManager::fixtures()
+{
+    m_fixtureList.clear();
+    m_fixtureList = m_doc->fixtures();
+    return QQmlListProperty<Fixture>(this, m_fixtureList);
+}
+
+void FixtureManager::slotDocLoaded()
+{
+    m_fixtureList.clear();
+    foreach(Fixture *fixture, m_doc->fixtures())
+        m_fixtureList.append(fixture);
+    m_view->rootContext()->setContextProperty("fixtureList", QVariant::fromValue(m_fixtureList));
+    emit docLoaded();
 }
 
 void FixtureManager::createQMLFixture(quint32 fxID, qreal x, qreal y)

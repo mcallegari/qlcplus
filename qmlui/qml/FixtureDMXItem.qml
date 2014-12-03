@@ -18,17 +18,45 @@
 */
 
 import QtQuick 2.2
+import com.qlcplus.classes 1.0
 
 Rectangle {
-    property int fixtureID: fixtureManager.invalidFixture()
-    property int xPos: 0;
-    property int yPos: 0;
+    property Fixture fixtureObj;
 
-    width: 100
-    height: 100
-    x: xPos
-    y: yPos
+    width: channelsRow.width
+    height: fxColumn.height
+    color: "#777"
+    border.width: 1
+    border.color: "#aaa"
+    radius: 3
 
-    color: "red";
-    radius: 10
+    Column {
+        id: fxColumn
+        Rectangle {
+            color: "#ccc"
+            width: parent.width
+            height: 20
+            radius: 3
+
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 2
+                text: fixtureObj.name
+            }
+        }
+        Row {
+            id: channelsRow
+            Repeater {
+                model: fixtureObj.channels
+                delegate:
+                    Rectangle {
+                        color: "transparent"
+                        border.width: 1
+                        border.color: "#bbb"
+                        width: 30
+                        height: 50
+                    }
+            }
+        }
+    }
 }

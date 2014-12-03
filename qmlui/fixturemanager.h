@@ -20,19 +20,22 @@
 #ifndef FIXTUREMANAGER_H
 #define FIXTUREMANAGER_H
 
+#include <QQmlListProperty>
 #include <QQuickView>
 #include <QObject>
 #include <QList>
 
 class Doc;
+class Fixture;
 
 class FixtureManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
+    Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
 
 public:
-    explicit FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     Q_INVOKABLE quint32 invalidFixture();
     Q_INVOKABLE quint32 fixtureForAddress(quint32 index);
@@ -41,13 +44,14 @@ public:
                                 qreal xPos, qreal yPos);
 
     int fixturesCount();
+    QQmlListProperty<Fixture> fixtures();
 
 signals:
     void docLoaded();
     void fixturesCountChanged();
 
-public slots:
-
+protected slots:
+    void slotDocLoaded();
 
 private:
     void createQMLFixture(quint32 fxID, qreal x, qreal y);
@@ -55,7 +59,7 @@ private:
 private:
     QQuickView *m_view;
     Doc *m_doc;
-
+    QList<Fixture *> m_fixtureList;
 };
 
 #endif // FIXTUREMANAGER_H

@@ -49,6 +49,8 @@ App::~App()
 
 void App::startup()
 {
+    qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
+
     m_view = new QQuickView();
 
     m_view->setTitle("Q Light Controller Plus");
