@@ -132,7 +132,7 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
     data.append(values);
-    data.append(0, padLength);
+    data.append(QByteArray(padLength, 0));
 
     if (m_sequence[universe] == 0xff)
         m_sequence[universe] = 1;
