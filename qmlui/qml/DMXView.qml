@@ -25,13 +25,14 @@ Flickable {
     anchors.fill: parent
     anchors.margins: 20
 
-    contentHeight: parent.height
+    contentHeight: flowLayout.height
 
     property variant fxList: fixtureManager.fixtures
 
     Flow {
+        id: flowLayout
         spacing: 5
-        anchors.fill: parent
+        width: parent.width
 
         Repeater {
             model: fixtureManager.fixturesCount
