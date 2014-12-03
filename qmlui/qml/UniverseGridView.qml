@@ -30,6 +30,7 @@ Flickable {
     contentHeight: destGrid.height + uniText.height
 
     property int uniStartAddr: viewUniverseCombo.currentIndex * 512
+    property int cellWidth: width / destGrid.columns
 
     Text {
         id: uniText
@@ -58,7 +59,7 @@ Flickable {
                     //property string colorKey
                     property alias dropProxy: dragTarget
 
-                    width: parent.width / destGrid.columns
+                    width: cellWidth
                     height: width
 
                     Rectangle {
