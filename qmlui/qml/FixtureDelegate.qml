@@ -92,7 +92,7 @@ Item {
 
         //onPressed: if(drag.active) FxDragJS.startDrag(mouse);
         onPressed: {
-                //fxDraggableItem.clicked();
+                fxDraggableItem.clicked();
                 FxDragJS.initProperties();
         }
         onPositionChanged: if(drag.active == true) FxDragJS.handleDrag(mouse);

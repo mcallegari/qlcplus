@@ -38,10 +38,11 @@ Rectangle {
         onDocLoadedChanged: {
             console.log("Doc loaded !! ----")
             viewUniverseCombo.model = ioManager.universes
+            var tmpView = currentViewQML
             // clear the previously loaded view
-            previewLoader.source = ""
+            currentViewQML = ""
             // restore the previous view with new data
-            previewLoader.source = currentViewQML
+            currentViewQML = tmpView
         }
 
         LeftPanel {
