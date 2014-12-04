@@ -132,7 +132,7 @@
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
-  <fixture path="Contest-PSC930.qxf" mf="Contest" md="PSC930"/>
+  <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
   <fixture path="Contest-Tri4U.qxf" mf="Contest" md="Tri4U"/>
   <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
   <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
@@ -147,6 +147,7 @@
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
+  <fixture path="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar.qxf" mf="Eurolite" md="LED CBB-3 COB RBG 3x15W Bar"/>
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
   <fixture path="Eurolite-LED-PAR-56-RGB-DMX.qxf" mf="Eurolite" md="LED PAR 56 RGB DMX"/>
   <fixture path="Eurolite-LED-PAR56.qxf" mf="Eurolite" md="LED PAR56"/>
