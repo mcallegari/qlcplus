@@ -13,7 +13,7 @@ qlcplus (4.8.3) stable; urgency=low
   * New fixture: Blizzard Lighting Weather System (thanks to James Elliott)
   * New fixtures: Starway AXIS 250 16Bits, FullKolor, NanoKolor, TourKolor, Servo Beam 5R (thanks to Thierry Rodolfo)
   * New fixture: Contest PSC-930 (thanks to Noel Utter)
-  * New fixture: Eurolite LED CBB-3 COB RBG 3x15W Bar (thanks to Thomas Demmel)
+  * New fixtures: Eurolite LED CBB-3 COB RBG 3x15W Bar, lightmaXX Platinum Line Mini PAR QUAD 7x8W (thanks to Thomas Demmel)
   * New fixture: Pulse SlimLite 56 (thanks to Jimmy Traylor)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Dec 2014 20:21:22 +0200
