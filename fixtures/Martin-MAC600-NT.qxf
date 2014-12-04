@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC 600 NT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter, strobe, reset, lamp">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
+  <Capability Min="50" Max="112">Strobe on (fast->slow)</Capability>
+  <Capability Min="113" Max="115">Shutter closed</Capability>
+  <Capability Min="116" Max="122">Shutter open (Reduced lamp power w/electronic ballast)</Capability>
+  <Capability Min="123" Max="127">Shutter closed</Capability>
+  <Capability Min="128" Max="147">Random strobe, fast</Capability>
+  <Capability Min="148" Max="167">Random strobe, medium</Capability>
+  <Capability Min="168" Max="187">Random strobe, slow</Capability>
+  <Capability Min="188" Max="207">Shutter closed</Capability>
+  <Capability Min="208" Max="217">Reset fixture</Capability>
+  <Capability Min="218" Max="227">Shutter closed</Capability>
+  <Capability Min="228" Max="237">Lamp power on</Capability>
+  <Capability Min="238" Max="247">Shutter closed</Capability>
+  <Capability Min="248" Max="255">Lamp power off Note: T ≥ 5 seconds</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">White > Cyan</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">White > Magenta</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">White > Yellow</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="40">White > Color 1 (Continuous scroll)</Capability>
+  <Capability Min="41" Max="80">Color 1 > Color 2 (Continuous scroll)</Capability>
+  <Capability Min="81" Max="120">Color 2 > Color 3 (Continuous scroll)</Capability>
+  <Capability Min="121" Max="160">Color 3 > Color 4 (Continuous scroll)</Capability>
+  <Capability Min="161" Max="165">Color 4 (Stepped scroll)</Capability>
+  <Capability Min="166" Max="170">Color 3 (Stepped scroll)</Capability>
+  <Capability Min="171" Max="175">Color 2 (Stepped scroll)</Capability>
+  <Capability Min="176" Max="180">Color 1 (Stepped scroll)</Capability>
+  <Capability Min="181" Max="185" Color="#ffffff">White (Stepped scroll)</Capability>
+  <Capability Min="186" Max="214">CW, fast > slow (Continuous rotation)</Capability>
+  <Capability Min="215" Max="243">CCW, slow &lt; fast  (Continuous rotation)</Capability>
+  <Capability Min="244" Max="247">Random color, fast (Random CMY color)</Capability>
+  <Capability Min="248" Max="251">Random color, medium (Random CMY color)</Capability>
+  <Capability Min="252" Max="255">Random color, slow (Random CMY color)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">No Frost > Full Frost</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -> slow</Capability>
+  <Capability Min="246" Max="248">Tracking, PTSP NORM</Capability>
+  <Capability Min="249" Max="251">Tracking, PTSP FAST</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -> slow</Capability>
+  <Capability Min="246" Max="248">Tracking, SCUT OFF</Capability>
+  <Capability Min="249" Max="251">Tracking, SCUT ON</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Cold > Warm (0-178 mireds)</Capability>
+ </Channel>
+ <Channel Name="Beam Shaper">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="255">Beam shaper left > right</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
+   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">CTC</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Beam Shaper</Channel>
+  <Channel Number="8">Frost</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Physical>
+   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
+   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">CTC</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Beam Shaper</Channel>
+  <Channel Number="8">Frost</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Physical>
+   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
+   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">CTC</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Beam Shaper</Channel>
+  <Channel Number="8">Frost</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Pan/tilt speed</Channel>
+  <Channel Number="12">Effect speed</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Physical>
+   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
+   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">CTC</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Beam Shaper</Channel>
+  <Channel Number="8">Frost</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt fine</Channel>
+  <Channel Number="13">Pan/tilt speed</Channel>
+  <Channel Number="14">Effect speed</Channel>
+ </Mode>
+</FixtureDefinition>

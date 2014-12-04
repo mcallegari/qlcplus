@@ -134,6 +134,7 @@
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
   <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
   <fixture path="Contest-Tri4U.qxf" mf="Contest" md="Tri4U"/>
+  <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
   <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
   <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
   <fixture path="Dune-Lighting-MOVLED60W.qxf" mf="Dune Lighting" md="MOV-LED/60W"/>
@@ -154,6 +155,7 @@
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
   <fixture path="Eurolite-LED-PAR64-RGBA.qxf" mf="Eurolite" md="LED PAR64 RGBA"/>
   <fixture path="Eurolite-LED-PAR64-White.qxf" mf="Eurolite" md="LED PAR64 White"/>
+  <fixture path="Eurolite-LED-PMB-4-COB-RGB-30W-Bar.qxf" mf="Eurolite" md="LED PMB-4 COB RGB 30W Bar"/>
   <fixture path="Eurolite-LED-SLS-180-RGB.qxf" mf="Eurolite" md="LED SLS-180 RGB"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
@@ -283,6 +285,7 @@
   <fixture path="Martin-MAC250plus.qxf" mf="Martin" md="MAC250+"/>
   <fixture path="Martin-MAC300.qxf" mf="Martin" md="MAC300"/>
   <fixture path="Martin-MAC500.qxf" mf="Martin" md="MAC500"/>
+  <fixture path="Martin-MAC600-NT.qxf" mf="Martin" md="MAC 600 NT"/>
   <fixture path="Martin-MiniMAC-Maestro.qxf" mf="Martin" md="MiniMAC Maestro"/>
   <fixture path="Martin-MiniMAC-Profile.qxf" mf="Martin" md="MiniMAC Profile"/>
   <fixture path="Martin-MiniMAC-Wash.qxf" mf="Martin" md="MiniMAC Wash"/>
@@ -417,6 +420,8 @@
   <fixture path="Starway-FullKolor.qxf" mf="Starway" md="FullKolor"/>
   <fixture path="Starway-NanoKolor.qxf" mf="Starway" md="NanoKolor"/>
   <fixture path="Starway-Servo-Beam-5R.qxf" mf="Starway" md="Servo Beam 5R"/>
+  <fixture path="Starway-Servocolor-600.qxf" mf="Starway" md="Servocolor 600"/>
+  <fixture path="Starway-Servocolor-800.qxf" mf="Starway" md="ServoColor 800"/>
   <fixture path="Starway-TourKolor.qxf" mf="Starway" md="TourKolor"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
