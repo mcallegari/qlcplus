@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.2</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>JEM K1 Hazer</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Haze Density">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Stanby</Capability>
+  <Capability Min="20" Max="219">Proportional output level control</Capability>
+  <Capability Min="220" Max="255">Prime</Capability>
+ </Channel>
+ <Channel Name="Fan Speed">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="219">0-100%, heaters on</Capability>
+  <Capability Min="220" Max="244">Auto fan mode</Capability>
+  <Capability Min="245" Max="255">Machine shutdown, heaters off</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="544" Depth="344" Height="459"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="675"/>
+  </Physical>
+  <Channel Number="0">Haze Density</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+ </Mode>
+</FixtureDefinition>
