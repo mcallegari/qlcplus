@@ -1,7 +1,11 @@
 qlcplus (4.8.3) stable; urgency=low
 
   * Virtual Console/Animation: added end color reset control
+  * Virtual Console/Animation: added R/G/B custom control knobs for start and end colors (David Garyga) 
   * Virtual Console/Audio Triggers: fix crash when changing the input device while a trigger is running (David Garyga)
+  * Virtual Console/Frames: added option to hide the enable/disable button (David Garyga)
+  * Engine: fixed issue with function staying on in a fast running chaser (David Garyga)
+  * Engine: fixed channels forced to HTP/LTP multiple times
   * Webaccess: fix crash when trying to update a closed connection (David Garyga)
   * New fixtures: Cameo LED Mini PAR CAN RGB 7x3W/RGBW 7x8W/White 7x4W (thanks to Joachim Wiedorn)
   * New fixtures: Showtec Infinity iW 715 and iW 720 (thanks to uchris)
