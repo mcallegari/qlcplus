@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Generic</Manufacturer>
+ <Model>Generic Smoke</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Pump">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Fan">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
+   <Dimensions Width="300" Weight="0" Depth="400" Height="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+  </Physical>
+  <Channel Number="0">Pump</Channel>
+  <Channel Number="1">Fan</Channel>
+ </Mode>
+</FixtureDefinition>

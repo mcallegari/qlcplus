@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Vari-Lite</Manufacturer>
+ <Model>VL2500 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine 0.3°</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine 0.3°</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan intensity</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow intensity</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta intensity</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="216">Index</Capability>
+  <Capability Min="217" Max="255">Spins</Capability>
+ </Channel>
+ <Channel Name="Beam Diffuser">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">0 &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">Open/Closed</Capability>
+  <Capability Min="6" Max="12">Random</Capability>
+  <Capability Min="13" Max="255">Speed Range</Capability>
+ </Channel>
+ <Channel Name="F Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 &lt; Max</Capability>
+ </Channel>
+ <Channel Name="C Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 &lt; Max</Capability>
+ </Channel>
+ <Channel Name="B Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="1">No Function</Capability>
+  <Capability Min="2" Max="4">Display On</Capability>
+  <Capability Min="5" Max="80">No Function</Capability>
+  <Capability Min="81" Max="87">Luminaire Reset</Capability>
+  <Capability Min="88" Max="164">No Function</Capability>
+  <Capability Min="165" Max="171">Lamp Off</Capability>
+  <Capability Min="172" Max="248">No Function</Capability>
+  <Capability Min="249" Max="255">Lamp On</Capability>
+ </Channel>
+ <Mode Name="Normal Mode">
+  <Physical>
+   <Bulb ColourTemperature="5600" Type="HMI 700W" Lumens="0"/>
+   <Dimensions Depth="650" Height="480" Width="478" Weight="26.1"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="55.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Pan</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Tilt Fine</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Yellow</Channel>
+  <Channel Number="7">Magenta</Channel>
+  <Channel Number="8">Color Wheel</Channel>
+  <Channel Number="9">Beam Diffuser</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">F Time</Channel>
+  <Channel Number="12">C Time</Channel>
+  <Channel Number="13">B Time</Channel>
+  <Channel Number="14">Control</Channel>
+ </Mode>
+</FixtureDefinition>

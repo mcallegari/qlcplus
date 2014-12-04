@@ -216,6 +216,7 @@
   <fixture path="Futurelight-PSC-575.qxf" mf="Futurelight" md="PSC-575"/>
   <fixture path="Futurelight-XF-200.qxf" mf="Futurelight" md="XF-200"/>
   <fixture path="Generic-Generic-RGB.qxf" mf="Generic" md="Generic RGB"/>
+  <fixture path="Generic-Generic-Smoke.qxf" mf="Generic" md="Generic Smoke"/>
   <fixture path="Geni-OBY-5.qxf" mf="Geni" md="OBY 5"/>
   <fixture path="Geni-OBY-600.qxf" mf="Geni" md="OBY 600"/>
   <fixture path="GLP-Impression.qxf" mf="GLP" md="Impression"/>
@@ -276,6 +277,7 @@
   <fixture path="Martin-EFX-600.qxf" mf="Martin" md="EFX-600"/>
   <fixture path="Martin-EFX-700.qxf" mf="Martin" md="EFX-700"/>
   <fixture path="Martin-EFX-800.qxf" mf="Martin" md="EFX-800"/>
+  <fixture path="Martin-JEM-K1-Hazer.qxf" mf="Martin" md="JEM K1 Hazer"/>
   <fixture path="Martin-JEM-ZR44.qxf" mf="Martin" md="JEM ZR44"/>
   <fixture path="Martin-MAC-101.qxf" mf="Martin" md="MAC 101"/>
   <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
@@ -426,6 +428,7 @@
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
+  <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
