@@ -417,10 +417,10 @@ void Fixture::setForcedHTPChannels(QList<int> indices)
     if (indices.count() > (int)channels())
         return;
     m_forcedHTPIndices = indices;
+    // cross check: if a channel is forced HTP it must be removed from
+    // the forced LTP list (if present)
     for (int i = 0; i < m_forcedHTPIndices.count(); i++)
-    {
-
-    }
+        m_forcedLTPIndices.removeAll(m_forcedHTPIndices.at(i));
 }
 
 QList<int> Fixture::forcedHTPChannels()
@@ -433,6 +433,10 @@ void Fixture::setForcedLTPChannels(QList<int> indices)
     if (indices.count() > (int)channels())
         return;
     m_forcedLTPIndices = indices;
+    // cross check: if a channel is forced LTP it must be removed from
+    // the forced HTP list (if present)
+    for (int i = 0; i < m_forcedLTPIndices.count(); i++)
+        m_forcedHTPIndices.removeAll(m_forcedLTPIndices.at(i));
 }
 
 QList<int> Fixture::forcedLTPChannels()
