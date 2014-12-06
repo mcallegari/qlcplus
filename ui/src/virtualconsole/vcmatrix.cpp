@@ -28,9 +28,9 @@
 #include "vcpropertieseditor.h"
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
+#include "knobwidget.h"
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
-#include "vcmatrixknobwidget.h"
 #include "rgbmatrix.h"
 #include "rgbscriptscache.h"
 #include "vcmatrix.h"
@@ -43,8 +43,6 @@
 static const QString controlBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
                                     "QPushButton:pressed { border: 2px solid #0000FF; }"
                                     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
-
-static const QString controlKnbSS = "QDial { background-color: %1; }";
 
 const QSize VCMatrix::defaultSize(QSize(160, 120));
 
@@ -474,14 +472,14 @@ void VCMatrix::slotUpdate()
 
         if (control->m_type == VCMatrixControl::StartColorKnob)
         {
-            VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(widget);
+            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
             knob->blockSignals(true);
             knob->setValue(control->rgbToValue(startColor.rgb()));
             knob->blockSignals(false);
         }
         else if (control->m_type == VCMatrixControl::EndColorKnob)
         {
-            VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(widget);
+            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
             knob->blockSignals(true);
             knob->setValue(control->rgbToValue(endColor.rgb()));
             knob->blockSignals(false);
@@ -607,9 +605,9 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::StartColorKnob)
     {
-        VCMatrixKnobWidget *controlKnob = new VCMatrixKnobWidget(this);
+        KnobWidget *controlKnob = new KnobWidget(this);
         controlWidget = controlKnob;
-        controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.name()));
+        controlKnob->setColor(control.m_color);
         controlKnob->setFixedWidth(36);
         controlKnob->setFixedHeight(36);
         QString knobLabel;
@@ -623,9 +621,9 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     }
     else if (control.m_type == VCMatrixControl::EndColorKnob)
     {
-        VCMatrixKnobWidget *controlKnob = new VCMatrixKnobWidget(this);
+        KnobWidget *controlKnob = new KnobWidget(this);
         controlWidget = controlKnob;
-        controlKnob->setStyleSheet(controlKnbSS.arg(control.m_color.darker(250).name()));
+        controlKnob->setColor(control.m_color.darker(250));
         controlKnob->setFixedWidth(36);
         controlKnob->setFixedHeight(36);
         QString knobLabel;
@@ -642,7 +640,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
 
     if (control.widgetType() == VCMatrixControl::Knob)
     {
-        connect(reinterpret_cast<VCMatrixKnobWidget*>(controlWidget), SIGNAL(valueChanged(int)),
+        connect(reinterpret_cast<KnobWidget*>(controlWidget), SIGNAL(valueChanged(int)),
                 this, SLOT(slotCustomControlValueChanged()));
     }
     else
@@ -745,7 +743,7 @@ void VCMatrix::slotCustomControlClicked()
 
 void VCMatrix::slotCustomControlValueChanged()
 {
-    VCMatrixKnobWidget *knob = qobject_cast<VCMatrixKnobWidget*>(sender());
+    KnobWidget *knob = qobject_cast<KnobWidget*>(sender());
     VCMatrixControl *control = m_controls[knob];
     if (control != NULL)
     {
@@ -825,7 +823,7 @@ void VCMatrix::updateFeedback()
         {
             if (control->widgetType() == VCMatrixControl::Knob)
             {
-                VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(it.key());
+                KnobWidget* knob = reinterpret_cast<KnobWidget*>(it.key());
                 sendFeedback(knob->value(), control->m_id);
             }
             else // if (control->widgetType() == VCMatrixControl::Button)
@@ -860,7 +858,7 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         {
             if (control->widgetType() == VCMatrixControl::Knob)
             {
-                VCMatrixKnobWidget* knob = reinterpret_cast<VCMatrixKnobWidget*>(it.key());
+                KnobWidget* knob = reinterpret_cast<KnobWidget*>(it.key());
                 knob->setValue(value);
             }
             else
