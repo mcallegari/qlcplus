@@ -5733,7 +5733,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="95"/>
         <source>Show enable button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar botó d&apos;activació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
@@ -5907,37 +5907,37 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="579"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir el Color Final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="617"/>
         <source>Start color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Vermell del color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="619"/>
         <source>Start color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Verd del color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="621"/>
         <source>Start color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Blau del color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="633"/>
         <source>End color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Vermell del color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
         <source>End color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Verd del color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="637"/>
         <source>End color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Component Blau del color final</translation>
     </message>
 </context>
 <context>
@@ -6014,27 +6014,27 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="124"/>
         <source>Show Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Etiqueta</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="131"/>
         <source>Show Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Slider</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="138"/>
         <source>Show Start Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Botó Color Inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="145"/>
         <source>Show End Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Botó Color Final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="152"/>
         <source>Show Preset Combo</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Combo de Presets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="161"/>
@@ -6094,17 +6094,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="372"/>
         <source> Add start color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir perilla de color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
         <source> Add end color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir perilla de color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="405"/>
         <source> Add end color reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir restablir color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="438"/>
@@ -6202,7 +6202,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="225"/>
         <source>Start Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Perilla color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="231"/>
@@ -6212,12 +6212,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="237"/>
         <source>End Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Perilla color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="243"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="248"/>
