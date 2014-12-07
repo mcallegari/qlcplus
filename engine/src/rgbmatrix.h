@@ -174,7 +174,7 @@ private:
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp);
 
     /** Grab starting values for a fade channel from $fader if available */
-    void insertStartValues(FadeChannel& fc) const;
+    void insertStartValues(FadeChannel& fc, uint fadeTime) const;
 
 private:
     Function::Direction m_direction;
