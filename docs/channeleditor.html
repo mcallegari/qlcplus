@@ -10,7 +10,7 @@
 <H1>Channel Editor</H1>
 <P>
 The Channel Editor is used to edit individual channels and the DMX value ranges of
-each capability (a green colour, a certain gobo, prism rotation, etc..) that a
+each capability (a green color, a certain gobo, prism rotation, etc..) that a
 fixture channel provides. Refer to your fixture's manual to get a detailed
 list of the fixture's channels and DMX values.
 </P>
@@ -33,9 +33,9 @@ list of the fixture's channels and DMX values.
   <TD>
    <P>The channel's logical group (its role in the fixture). </P>
 
-   <LI>Assign a channel to the <B>Colour</B> group if the channel controls a fixed colour
-       wheel or pre-defined colour macros. <I>Don't</I> assign individual RGB/CMY colour channels
-       to the </B>Colour</B> group but instead use the <B>Intensity</B> group as described below.
+   <LI>Assign a channel to the <B>Color</B> group if the channel controls a fixed color
+       wheel or pre-defined color macros. <I>Don't</I> assign individual RGB/CMY color channels
+       to the </B>Color</B> group but instead use the <B>Intensity</B> group as described below.
        The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
    <BR>
    <LI>Assign a channel to the <B>Gobo</B> group if the channel controls gobo wheel position
@@ -76,21 +76,21 @@ list of the fixture's channels and DMX values.
    <LI>Assign a channel to the <B>Intensity</B> group if the channel should obey the <A HREF="file:concept.html#HTP">HTP</A> rule.
        Also, the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
        channels by default. Note also when you create RGB/CMY channels, that they should be
-       assigned to the <I>Intensity</I> group, and <B>NOT the Colour group</B>. The Colour Tool
+       assigned to the <I>Intensity</I> group, and <B>NOT the Color group</B>. The Color Tool
        in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
-       <B>Intensity</B> channels for RGB/CMY, whose <B>Colour</B> properties have been set
-       accordingly (see the <B>Colour</B> setting below).</LI>
+       <B>Intensity</B> channels for RGB/CMY, whose <B>Color</B> properties have been set
+       accordingly (see the <B>Color</B> setting below).</LI>
   </TD>
  </TR>
  <TR>
   <TD>
-   <B>Colour</B>
+   <B>Color</B>
   </TD>
   <TD>
    Only available when the channel has been assigned to the <B>Intensity</B> group. It indicates
-   whether the channel controls a specific colour out of the primary colours
+   whether the channel controls a specific color out of the primary colors
    <B>Red, Green, Blue</B> or <B>Cyan, Magenta, Yellow</B>. If the channel controls the
-   fixture's master intensity, the <B>Generic</B> colour setting should be used.
+   fixture's master intensity, the <B>Generic</B> color setting should be used.
   </TD>
  </TR>
  <TR>
@@ -114,8 +114,8 @@ list of the fixture's channels and DMX values.
    Shows you a list of DMX value ranges for the currently edited channel. If a
    channel provides only one capability (for example pan or dimmer) the only
    thing needed in the list is one capability with a range of 0 to 255.
-   For more elaborate capabilities, such as colours or gobos, you should create
-   capability ranges for each of the colours (for example 0-15 white, 16-32 blue...)
+   For more elaborate capabilities, such as colors or gobos, you should create
+   capability ranges for each of the colors (for example 0-15 white, 16-32 blue...)
   </TD>
  </TR>
  <TR>

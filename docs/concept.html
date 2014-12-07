@@ -50,7 +50,7 @@ values</U> of all channels are sent to each universe.
 <P>
 Some channels in intelligent fixtures provide many kinds of functions, or
 <I>capabilities</I> like switching the lamp on when the channel value is [240-255],
-setting a red colour on a colour wheel when the value is exactly [15], or simply
+setting a red color on a color wheel when the value is exactly [15], or simply
 controlling the fixture's dimmer intensity with values [0-255]. Each of these
 individual function is called a <U>capability</U> and each of them has these
 three properties:
@@ -103,13 +103,13 @@ is copied. Only the order and direction are copied to the new one.
 
 <H3 id="ClickAndGo">Click And Go</H3>
 <P>
-Click And Go is a technology that allows the user to quickly access macros and colours 
+Click And Go is a technology that allows the user to quickly access macros and colors 
 in a completely visual way and with just a couple of clicks. This can lead to 
 more efficient live shows and more freedom to choose the desired result very easily.<br>
 So far, three types of widgets are available:
 <UL>
- <LI>Single Colour (applies to: Red, Green, Blue, Cyan, Yellow, Magenta, Amber and White intensity channels)</LI>
- <LI>RGB Colour Picker. Controls values for selected RGB channels with a single click</LI>
+ <LI>Single Color (applies to: Red, Green, Blue, Cyan, Yellow, Magenta, Amber and White intensity channels)</LI>
+ <LI>RGB Color Picker. Controls values for selected RGB channels with a single click</LI>
  <LI>Gobo/Macro Picker. Access and display a Gobo/Macro defined in the Fixture definition</LI>
 </UL>
 An overview with screenshots is available <A href="http://qlcplus.sourceforge.net/clickandgo.html">here</A>
@@ -178,13 +178,13 @@ in a fixture library that contains the following properties for each fixture:
 <UL>
 <LI>Manufacturer (e.g. Martin)</LI>
 <LI>Model (e.g. MAC250)</LI>
-<LI>Type (Colour Changer, Scanner, Moving Head, Smoke, Haze, Fan...)</LI>
+<LI>Type (Color Changer, Scanner, Moving Head, Smoke, Haze, Fan...)</LI>
 <LI>Physical properties (bulb type, beam angle, dimensions...)</LI>
 <LI>Channels:
 <UL>
- <LI>Channel group (Intensity, Pan, Tilt, Gobo, Colour, Speed etc.)</LI>
+ <LI>Channel group (Intensity, Pan, Tilt, Gobo, Color, Speed etc.)</LI>
  <LI>8bit and 16bit channel bindings for pan &amp; tilt groups</LI>
- <LI>Optional primary colour for intensity channels (RGB/CMY)
+ <LI>Optional primary color for intensity channels (RGB/CMY)
  <LI>Value ranges for channel features (e.g. 0-5:Lamp on, 6-15:Strobe etc..)</LI>
 </UL>
 </LI>
@@ -321,7 +321,7 @@ heads simultaneously.
 
 <P>
 HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
-one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, intensity channels obey the HTP rule. This includes generic intensity channels used to control <I>light intensity</I> with dimmers and also channels controlling the intensity of a colour, typically in an LED fixture.
+one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, intensity channels obey the HTP rule. This includes generic intensity channels used to control <I>light intensity</I> with dimmers and also channels controlling the intensity of a color, typically in an LED fixture.
 </P>
 <P>
 The HTP rule is simple: the highest level (nearer 100%) that is currently being sent to a channel is the one

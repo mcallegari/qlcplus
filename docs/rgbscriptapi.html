@@ -174,9 +174,9 @@ So, now we add this support function to the script:
 This function is the actual brains of the script. It produces two-dimensional arrays whose
 size MUST be <B>height</B> times <B>width</B>. I.e. the array returned from this function
 must contain <B>height</B> items and each of these items must be an array that contains
-<B>width</B> items that must be 32bit integers, representing an RGB colour as understood by
+<B>width</B> items that must be 32bit integers, representing an RGB color as understood by
 <A HREF="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</A> without alpha
-channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the colour
+channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the color
 selected by user in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
 parameter tells the step number requested by the RGB Matrix function and is guaranteed
 to be within (0, rgbMapStepCount(w, h) - 1).
@@ -187,7 +187,7 @@ to be within (0, rgbMapStepCount(w, h) - 1).
 <UL>
  <LI><B>width: </B> The width of the grid</LI>
  <LI><B>height:</B> The height of the grid</LI>
- <LI><B>rgb:</B> The colour selected by user</LI>
+ <LI><B>rgb:</B> The color selected by user</LI>
  <LI><B>step:</B> Current step number to produce (between 0 and rgbMapStepCount(w, h) - 1)</LI>
  <LI><B>Return value:</B> An array containing [height] arrays each containing [width] integers</LI>
 </UL>
