@@ -235,32 +235,25 @@ public:
     quint32 channelAddress(quint32 channel) const;
 
     /**
-     * Get a channel by its name from the given group of channels.
-     * Comparison is done as a "contains" operation, i.e. the given name
-     * can be a substring of a longer name. If group is empty, it is ignored.
+     * Get a channel from the given group of channels and by its primary color
      *
-     * @param name The name of the channel to search for
-     * @param cs Case sensitivity of the search
      * @param group Group name of the channel
+     * @param colour Primary color to search for
      * @return The first matching channel number
      */
-    quint32 channel(const QString& name,
-                    Qt::CaseSensitivity cs = Qt::CaseSensitive,
-                    QLCChannel::Group group = QLCChannel::NoGroup) const;
+    quint32 channel(QLCChannel::Group group,
+        QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /**
-     * Get a set of channels by their name from the given group of channels.
-     * Comparison is done as a "contains" operation, i.e. the given name
-     * can be a substring of a longer name. If group is empty, it is ignored.
+     * Get a set of channels from the given group of channels and by their primary color
      *
-     * @param name The name of the channel to search for
-     * @param cs Case sensitivity of the search
      * @param group Group name of the channel
+     * @param color Primary color to search for
      * @return A QSet containing the matching channel numbers
      */
-    QSet <quint32> channels(const QString& name,
-                    Qt::CaseSensitivity cs = Qt::CaseSensitive,
-                    QLCChannel::Group group = QLCChannel::NoGroup) const;
+    QSet <quint32> channels(
+                    QLCChannel::Group group,
+                    QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /** @see QLCFixtureHead */
     quint32 panMsbChannel(int head = 0) const;
