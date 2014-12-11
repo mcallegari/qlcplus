@@ -20,13 +20,12 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
-#include <QMediaPlayer>
 #include <QColor>
+#include <QVariant>
 
 #include "function.h"
 
 class QDomDocument;
-class QVideoWidget;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -68,9 +67,6 @@ public:
     /** Get the list of the extensions supported by the video decoding system */
     static QStringList getCapabilities();
 
-    /** Get the number of available screens in the system */
-    static int getScreenCount();
-
     /*********************************************************************
      * Properties
      *********************************************************************/
@@ -90,15 +86,46 @@ public:
     quint32 getStartTime() const;
 
     /**
+     * Set the video duration retrieved from the source parsing
+     */
+    void setTotalDuration(qint64 duration);
+
+    /**
      * Returns the duration of the source video file loaded
      *
      * @return Duration in milliseconds of the source video file
      */
     qint64 totalDuration();
 
-    QSize getResolution();
-    QString getAudioCodec();
-    QString getVideoCodec();
+    /**
+     * Sets the video resolution as a QSize variable
+     */
+    void setResolution(QSize size);
+
+    /**
+     * Returns the video resolution as a QSize variable
+     */
+    QSize resolution();
+
+    /**
+     * Sets the audio codec for this Video Function
+     */
+    void setAudioCodec(QString codec);
+
+    /**
+     * Returns the audio codec detected from the media source
+     */
+    QString audioCodec();
+
+    /**
+     * Sets the video codec for this Video Function
+     */
+    void setVideoCodec(QString codec);
+
+    /**
+     * Returns the video codec detected from the media source
+     */
+    QString videoCodec();
 
     /**
      * Set the color to be used by a VideoItem
@@ -119,12 +146,12 @@ public:
     /**
      * Set the source file name used by this Video object
      */
-    bool setSourceFileName(QString filename);
+    bool setSourceUrl(QString filename);
 
     /**
      * Retrieve the source file name used by this Video object
      */
-    QString getSourceFileName();
+    QString sourceUrl();
 
     /**
      * Set the screen index where to render the video
@@ -148,28 +175,23 @@ public:
 
     void adjustAttribute(qreal fraction, int attributeIndex);
 
-protected slots:
-    void slotStatusChanged(QMediaPlayer::MediaStatus status);
-    void slotTotalTimeChanged(qint64 duration);
-    void slotMetaDataChanged(QString key, QVariant data);
-
 signals:
+    void sourceChanged(QString url);
     void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
+    void requestPlayback();
+    void requestStop();
+    void requestBrightnessAdjust(int value);
 
 private:
-    /** output interface to render video data */
-    QMediaPlayer *m_videoPlayer;
-    /** Qt widget that actually displays the video */
-    QVideoWidget *m_videoWidget;
     /** Absolute start time of video over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the video object in the Show manager */
     QColor m_color;
     /** Flag to indicate if a Video item is locked in the Show Manager timeline */
     bool m_locked;
-    /** Name of the source video file */
-    QString m_sourceFileName;
+    /** URL of the video media source */
+    QString m_sourceUrl;
     /** Duration of the video content */
     qint64 m_videoDuration;
     /** The video codec as strings */

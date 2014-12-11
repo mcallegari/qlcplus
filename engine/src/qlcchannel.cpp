@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QApplication>
 #include <QStringList>
 #include <QPainter>
 #include <iostream>
@@ -202,10 +201,10 @@ QPixmap QLCChannel::drawIntensity(QColor color, QString str) const
     QPainter painter(&pm);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QFont tfont = QApplication::font();
+    /*QFont tfont = QApplication::font();
     tfont.setBold(true);
     tfont.setPixelSize(14);
-    painter.setFont(tfont);
+    painter.setFont(tfont);*/
 
     pm.fill(color);
     if (str == "B")

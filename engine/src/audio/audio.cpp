@@ -23,8 +23,6 @@
 #include <QDebug>
 #include <QFile>
 
-#include <QMessageBox>
-
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE
   #include "audiodecoder_sndfile.h"

@@ -326,9 +326,9 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/virtualconsole.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-HEADERS += videoeditor.h showmanager/videoitem.h
+HEADERS += videoeditor.h showmanager/videoitem.h videoprovider.h
 FORMS += videoeditor.ui
-SOURCES += videoeditor.cpp showmanager/videoitem.cpp
+SOURCES += videoeditor.cpp showmanager/videoitem.cpp videoprovider.cpp
 }
 
 TRANSLATIONS += qlcplus_fi_FI.ts

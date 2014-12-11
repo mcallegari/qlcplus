@@ -548,7 +548,7 @@ void FunctionManager::slotAddVideo()
 
     Function* f = new Video(m_doc);
     Video *video = qobject_cast<Video*> (f);
-    if (video->setSourceFileName(fn) == false)
+    if (video->setSourceUrl(fn) == false)
     {
         QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
         return;
