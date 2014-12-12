@@ -460,9 +460,12 @@ int VCCueList::getCurrentIndex()
     return index;
 }
 
-void VCCueList::stopFunction()
+void VCCueList::notifyFunctionStarting(quint32 fid)
 {
     if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_chaserID)
         return;
 
     stopChaser();
@@ -691,7 +694,7 @@ void VCCueList::startChaser(int startIndex)
     ch->setStepIndex(startIndex);
     ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
     ch->start(m_doc->masterTimer());
-    emit functionStarting();
+    emit functionStarting(m_chaserID);
 }
 
 void VCCueList::stopChaser()
