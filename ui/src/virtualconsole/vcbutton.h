@@ -184,7 +184,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
