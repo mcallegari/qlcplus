@@ -66,6 +66,7 @@ public:
 
 protected slots:
     void slotFunctionAdded(quint32 id);
+    void slotFunctionRemoved(quint32 id);
 
 private:
     Doc *m_doc;

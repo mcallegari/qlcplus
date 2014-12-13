@@ -32,11 +32,13 @@ VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     Q_ASSERT(doc != NULL);
     connect(m_doc, SIGNAL(functionAdded(quint32)),
             this, SLOT(slotFunctionAdded(quint32)));
+    connect(m_doc, SIGNAL(functionRemoved(quint32)),
+            this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 VideoProvider::~VideoProvider()
 {
-
+    m_videoMap.clear();
 }
 
 void VideoProvider::slotFunctionAdded(quint32 id)
@@ -50,7 +52,15 @@ void VideoProvider::slotFunctionAdded(quint32 id)
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
     }
+}
 
+void VideoProvider::slotFunctionRemoved(quint32 id)
+{
+    if (m_videoMap.contains(id))
+    {
+        VideoWidget *vw = m_videoMap.take(id);
+        delete vw;
+    }
 }
 
 /*********************************************************************
