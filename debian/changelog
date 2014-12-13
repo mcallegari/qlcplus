@@ -5,6 +5,8 @@ qlcplus (4.8.3) stable; urgency=low
   * Virtual Console/Audio Triggers: fix crash when changing the input device while a trigger is running (David Garyga)
   * Virtual Console/Frames: added option to hide the enable/disable button (David Garyga)
   * Virtual Console/Knobs: now they can be inverted like sliders (Jano Svitok)
+  * Virtual Console/Sliders: fix inverted monitor value (David Garyga)
+  * Virtual Console/Live Edit: fix some widgets state when live editing (David Garyga)
   * Engine: It is now possible to set a network URL on videos
   * Engine: fixed issue with function staying on in a fast running chaser (David Garyga)
   * Engine: fixed channels forced to HTP/LTP multiple times
@@ -13,6 +15,7 @@ qlcplus (4.8.3) stable; urgency=low
   * Scene Editor: Channel's primary color rather than its name is used to determine Color Tool availability (Jano Svitok)
   * Plugins/ArtNet: fixed malformed output packets (4.8.2 regression)
   * Webaccess: fix crash when trying to update a closed connection (David Garyga)
+  * Application: fix doc modified flag not set on widget deletion, cut/paste, and raise (David Garyga)
   * New fixtures: Cameo LED Mini PAR CAN RGB 7x3W/RGBW 7x8W/White 7x4W (thanks to Joachim Wiedorn)
   * New fixtures: Showtec Infinity iW 715 and iW 720 (thanks to uchris)
   * New fixture: American DJ DJ Spot 250 (thanks to 007ghg7)
