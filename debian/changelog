@@ -4,6 +4,7 @@ qlcplus (4.8.3) stable; urgency=low
   * Virtual Console/Animation: added R/G/B custom control knobs for start and end colors (David Garyga) 
   * Virtual Console/Audio Triggers: fix crash when changing the input device while a trigger is running (David Garyga)
   * Virtual Console/Frames: added option to hide the enable/disable button (David Garyga)
+  * Virtual Console/Solo Frames: can have multiple widgets associated to the same function (David Garyga)
   * Engine: It is now possible to set a network URL on videos
   * Engine: fixed issue with function staying on in a fast running chaser (David Garyga)
   * Engine: fixed channels forced to HTP/LTP multiple times
