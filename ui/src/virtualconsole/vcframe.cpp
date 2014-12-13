@@ -413,6 +413,8 @@ int VCFrame::totalPagesNumber()
 
 int VCFrame::currentPage()
 {
+    if (m_multiPageMode == false)
+        return 0;
     return m_currentPage;
 }
 
