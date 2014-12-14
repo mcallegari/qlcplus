@@ -311,6 +311,24 @@ bool Script::waiting()
     }
 }
 
+quint32 Script::getValueFromString(QString str, bool *ok)
+{
+    if (str.startsWith("random") == false)
+        return str.toUInt(ok);
+
+    QString strippedStr = str.remove("random(");
+    strippedStr.remove(")");
+    if (strippedStr.contains(",") == false)
+        return -1;
+
+    QStringList valList = strippedStr.split(",");
+    int min = valList.at(0).toInt();
+    int max = valList.at(1).toInt();
+
+    *ok = true;
+    return qrand() % ((max + 1) - min) + min;
+}
+
 bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)
 {
     if (index < 0 || index >= m_lines.size())
@@ -459,14 +477,14 @@ QString Script::handleWait(const QList<QStringList>& tokens)
     if (tokens.size() > 2)
         return QString("Too many arguments");
 
-    double time = 0;
-    bool ok = false;
+    uint time = 0;
 
-    time = tokens[0][1].toDouble(&ok);
-    if (ok == false)
+    if (tokens[0][1].contains(".") == false)
         return QString("Invalid wait time: %1").arg(tokens[0][1]);
 
-    m_waitCount = time * MasterTimer::frequency();
+    time = Function::stringToSpeed(tokens[0][1]);
+
+    m_waitCount = time / MasterTimer::tick();
 
     return QString();
 }
@@ -497,7 +515,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     uchar value = 0;
     double time = 0;
 
-    id = tokens[0][1].toUInt(&ok);
+    id = getValueFromString(tokens[0][1], &ok);
     if (ok == false)
         return QString("Invalid fixture (ID: %1)").arg(tokens[0][1]);
 
@@ -509,11 +527,11 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
         {
             ok = false;
             if (list[0] == "val" || list[0] == "value")
-                value = uchar(list[1].toUInt(&ok));
+                value = uchar(getValueFromString(list[1], &ok));
             else if (list[0] == "ch" || list[0] == "channel")
-                ch = list[1].toUInt(&ok);
+                ch = getValueFromString(list[1], &ok);
             else if (list[0] == "time")
-                time = list[1].toDouble(&ok);
+                time = Function::stringToSpeed(list[1]);
             else
                 return QString("Unrecognized keyword: %1").arg(list[0]);
 

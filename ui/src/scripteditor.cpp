@@ -22,6 +22,7 @@
 #include <QFileDialog>
 #include <QTextCursor>
 #include <QMessageBox>
+#include <QFormLayout>
 #include <QFileInfo>
 #include <QAction>
 #include <QDebug>
@@ -33,6 +34,7 @@
 #include "assignhotkey.h"
 #include "scripteditor.h"
 #include "mastertimer.h"
+#include "speeddial.h"
 #include "script.h"
 #include "doc.h"
 
@@ -116,21 +118,65 @@ void ScriptEditor::initAddMenu()
     connect(m_addCommentAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddComment()));
 
+    m_addRandomAction = new QAction(QIcon(":/other.png"), tr("Random Number"), this);
+    connect(m_addRandomAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddRandom()));
+
+    m_addFilePathAction = new QAction(QIcon(":/fileopen.png"), tr("File Path"), this);
+    connect(m_addFilePathAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddFilePath()));
+
     m_addMenu = new QMenu(this);
     m_addMenu->addAction(m_addStartFunctionAction);
     m_addMenu->addAction(m_addStopFunctionAction);
+    //m_addMenu->addAction(m_addSetHtpAction);
+    //m_addMenu->addAction(m_addSetLtpAction);
+    m_addMenu->addAction(m_addSetFixtureAction);
     m_addMenu->addAction(m_addSystemCommandAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addWaitAction);
     //m_addMenu->addAction(m_addWaitKeyAction);
     m_addMenu->addSeparator();
-    //m_addMenu->addAction(m_addSetHtpAction);
-    //m_addMenu->addAction(m_addSetLtpAction);
-    m_addMenu->addAction(m_addSetFixtureAction);
-    m_addMenu->addSeparator();
     m_addMenu->addAction(m_addCommentAction);
+    m_addMenu->addAction(m_addRandomAction);
+    m_addMenu->addAction(m_addFilePathAction);
 
     m_addButton->setMenu(m_addMenu);
+}
+
+QString ScriptEditor::getFilePath()
+{
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Executable File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    QStringList filters;
+#if defined(WIN32) || defined(Q_OS_WIN)
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    if (!m_lastUsedPath.isEmpty())
+        dialog.setDirectory(m_lastUsedPath);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return QString();
+
+    QString fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return QString();
+
+    return fn;
 }
 
 void ScriptEditor::slotNameEdited(const QString& name)
@@ -191,17 +237,32 @@ void ScriptEditor::slotAddStopFunction()
 
 void ScriptEditor::slotAddWait()
 {
-    bool ok = false;
-    double val = QInputDialog::getDouble(this, tr("Wait"), tr("Seconds to wait"),
-                                         1.0,     // Default
-                                         0,       // Min
-                                         INT_MAX, // Max
-                                         3,       // Decimals
-                                         &ok);
-    if (ok == true)
+    QDialog dialog(this);
+    // Use a layout allowing to have a label next to each field
+    QVBoxLayout dLayout(&dialog);
+
+    dLayout.addWidget(new QLabel(tr("Enter the desired time")));
+    SpeedDial *sd = new SpeedDial(this);
+    ushort dialMask = sd->visibilityMask();
+    dialMask = (dialMask & ~SpeedDial::Infinite);
+    dialMask = (dialMask & ~SpeedDial::Tap);
+    sd->setVisibilityMask(dialMask);
+    sd->setValue(1000);
+    dLayout.addWidget(sd);
+
+    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    dLayout.addWidget(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    // Show the dialog as modal
+    if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n").arg(Script::waitCmd).arg(val));
+        m_editor->textCursor().insertText(QString("%1:%2\n")
+                              .arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
     }
 }
 
@@ -256,33 +317,8 @@ void ScriptEditor::slotAddSetFixture()
 
 void ScriptEditor::slotAddSystemCommand()
 {
-    /* Create a file open dialog */
-    QFileDialog dialog(this);
-    dialog.setWindowTitle(tr("Open Executable File"));
-    dialog.setAcceptMode(QFileDialog::AcceptOpen);
-
-    QStringList filters;
-#if defined(WIN32) || defined(Q_OS_WIN)
-    filters << tr("All Files (*.*)");
-#else
-    filters << tr("All Files (*)");
-#endif
-    dialog.setNameFilters(filters);
-
-    /* Append useful URLs to the dialog */
-    QList <QUrl> sidebar;
-    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
-    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
-    dialog.setSidebarUrls(sidebar);
-
-    dialog.setDirectory(m_lastUsedPath);
-
-    /* Get file name */
-    if (dialog.exec() != QDialog::Accepted)
-        return;
-
-    QString fn = dialog.selectedFiles().first();
-    if (fn.isEmpty() == true)
+    QString fn = getFilePath();
+    if (fn.isEmpty())
         return;
 
     QFileInfo fInfo(fn);
@@ -317,10 +353,56 @@ void ScriptEditor::slotAddComment()
                                         QLineEdit::Normal, QString(), &ok);
     if (ok == true)
     {
+        //m_editor->moveCursor(QTextCursor::StartOfLine);
+        m_editor->textCursor().insertText(QString("// %1").arg(str));
+        //m_editor->moveCursor(QTextCursor::EndOfLine);
+    }
+}
+
+void ScriptEditor::slotAddRandom()
+{
+    QDialog dialog(this);
+    // Use a layout allowing to have a label next to each field
+    QFormLayout dLayout(&dialog);
+
+    dLayout.addRow(new QLabel(tr("Enter the range for the randomization")));
+
+    QSpinBox *minSB = new QSpinBox(this);
+    minSB->setRange(0, 999);
+    QSpinBox *maxSB = new QSpinBox(this);
+    maxSB->setRange(0, 999);
+    maxSB->setValue(255);
+    dLayout.addRow(tr("Minimum value"), minSB);
+    dLayout.addRow(tr("Maximum value"), maxSB);
+
+    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
+    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+                               Qt::Horizontal, &dialog);
+    dLayout.addRow(&buttonBox);
+    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+    // Show the dialog as modal
+    if (dialog.exec() == QDialog::Accepted)
+    {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("// %1\n").arg(str));
+        m_editor->textCursor().insertText(QString("random(%1,%2)")
+                              .arg(minSB->value()).arg(maxSB->value()));
         m_editor->moveCursor(QTextCursor::EndOfLine);
     }
+}
+
+void ScriptEditor::slotAddFilePath()
+{
+    QString fn = getFilePath();
+    if (fn.isEmpty())
+        return;
+
+    QFileInfo fInfo(fn);
+    m_lastUsedPath = fInfo.absolutePath();
+
+    //m_editor->textCursor().insertText(QUrl::toPercentEncoding(fn));
+    m_editor->textCursor().insertText(fn);
 }
 
 void ScriptEditor::slotTestRun()

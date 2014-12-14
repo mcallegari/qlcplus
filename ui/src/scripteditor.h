@@ -59,6 +59,7 @@ private:
      ************************************************************************/
 private:
     void initAddMenu();
+    QString getFilePath();
 
 private slots:
     void slotNameEdited(const QString& text);
@@ -73,6 +74,8 @@ private slots:
     void slotAddSetFixture();
     void slotAddSystemCommand();
     void slotAddComment();
+    void slotAddRandom();
+    void slotAddFilePath();
 
 private:
     QAction* m_addStartFunctionAction;
@@ -84,6 +87,8 @@ private:
     QAction* m_addSetFixtureAction;
     QAction* m_addSystemCommandAction;
     QAction* m_addCommentAction;
+    QAction* m_addRandomAction;
+    QAction* m_addFilePathAction;
     QMenu* m_addMenu;
 
     /************************************************************************

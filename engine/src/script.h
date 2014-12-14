@@ -134,6 +134,14 @@ private:
     bool waiting();
 
     /**
+     * Parse a string in the form "random(min,max)" and returns
+     * a randomized value between min and max
+     *
+     * @return the randomized value requested
+     */
+    quint32 getValueFromString(QString str, bool *ok);
+
+    /**
      * Handle "startfunction" command.
      *
      * @param tokens A list of keyword:value pairs
