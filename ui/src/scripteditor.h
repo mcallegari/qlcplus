@@ -52,6 +52,7 @@ private:
     QTextDocument* m_document;
     Script* m_script;
     Doc* m_doc;
+    QString m_lastUsedPath;
 
     /************************************************************************
      * Add menu
@@ -70,6 +71,7 @@ private slots:
     void slotAddSetHtp();
     void slotAddSetLtp();
     void slotAddSetFixture();
+    void slotAddSystemCommand();
     void slotAddComment();
 
 private:
@@ -80,8 +82,15 @@ private:
     QAction* m_addSetHtpAction;
     QAction* m_addSetLtpAction;
     QAction* m_addSetFixtureAction;
+    QAction* m_addSystemCommandAction;
     QAction* m_addCommentAction;
     QMenu* m_addMenu;
+
+    /************************************************************************
+     * Test execution
+     ************************************************************************/
+protected slots:
+    void slotTestRun();
 };
 
 /** @} */

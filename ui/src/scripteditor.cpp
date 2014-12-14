@@ -19,14 +19,17 @@
 
 #include <QTextDocument>
 #include <QInputDialog>
+#include <QFileDialog>
 #include <QTextCursor>
+#include <QMessageBox>
+#include <QFileInfo>
 #include <QAction>
 #include <QDebug>
 #include <QMenu>
 #include <cmath>
 
 #include "functionselection.h"
-#include "fixtureselection.h"
+#include "channelsselection.h"
 #include "assignhotkey.h"
 #include "scripteditor.h"
 #include "mastertimer.h"
@@ -37,6 +40,7 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     : QWidget(parent)
     , m_script(script)
     , m_doc(doc)
+    , m_lastUsedPath(QString())
 {
     setupUi(this);
     initAddMenu();
@@ -59,6 +63,8 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     m_editor->moveCursor(QTextCursor::End);
     connect(m_document, SIGNAL(contentsChanged()), this, SLOT(slotContentsChanged()));
 
+    connect(m_testPlayButton, SIGNAL(clicked()), this, SLOT(slotTestRun()));
+
     // Set focus to the editor
     m_nameEdit->setFocus();
 }
@@ -67,6 +73,9 @@ ScriptEditor::~ScriptEditor()
 {
     delete m_document;
     m_document = NULL;
+
+    if (m_testPlayButton->isChecked() == true)
+        m_script->stopAndWait();
 }
 
 void ScriptEditor::initAddMenu()
@@ -99,6 +108,10 @@ void ScriptEditor::initAddMenu()
     connect(m_addSetFixtureAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSetFixture()));
 
+    m_addSystemCommandAction = new QAction(QIcon(":/player_play.png"), tr("System Command"), this);
+    connect(m_addSystemCommandAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddSystemCommand()));
+
     m_addCommentAction = new QAction(QIcon(":/label.png"), tr("Comment"), this);
     connect(m_addCommentAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddComment()));
@@ -106,12 +119,13 @@ void ScriptEditor::initAddMenu()
     m_addMenu = new QMenu(this);
     m_addMenu->addAction(m_addStartFunctionAction);
     m_addMenu->addAction(m_addStopFunctionAction);
+    m_addMenu->addAction(m_addSystemCommandAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addWaitAction);
-    m_addMenu->addAction(m_addWaitKeyAction);
+    //m_addMenu->addAction(m_addWaitKeyAction);
     m_addMenu->addSeparator();
-    m_addMenu->addAction(m_addSetHtpAction);
-    m_addMenu->addAction(m_addSetLtpAction);
+    //m_addMenu->addAction(m_addSetHtpAction);
+    //m_addMenu->addAction(m_addSetLtpAction);
     m_addMenu->addAction(m_addSetFixtureAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addCommentAction);
@@ -219,23 +233,81 @@ void ScriptEditor::slotAddSetLtp()
 
 void ScriptEditor::slotAddSetFixture()
 {
-    FixtureSelection fs(this, m_doc);
-    fs.setMultiSelection(true);
-    if (fs.exec() == QDialog::Accepted)
+    ChannelsSelection cfg(m_doc, this);
+    if (cfg.exec() == QDialog::Rejected)
+        return; // User pressed cancel
+
+    QList<SceneValue> channelsList = cfg.channelsList();
+    foreach(SceneValue sv, channelsList)
     {
-        foreach (quint32 id, fs.selection())
+        Fixture* fxi = m_doc->fixture(sv.fxi);
+        if (fxi != NULL)
         {
-            Fixture* fxi = m_doc->fixture(id);
-            if (fxi != NULL)
-            {
-                m_editor->moveCursor(QTextCursor::StartOfLine);
-                m_editor->textCursor().insertText(QString("%1:%2 ch:0 val:0 // %2\n")
-                                                    .arg(Script::setFixtureCmd)
-                                                    .arg(fxi->id()).arg(fxi->name()));
-                m_editor->moveCursor(QTextCursor::Down);
-            }
+            const QLCChannel* channel = fxi->channel(sv.channel);
+            m_editor->moveCursor(QTextCursor::StartOfLine);
+            m_editor->textCursor().insertText(QString("%1:%2 ch:%3 val:0 // %4, %5\n")
+                                                .arg(Script::setFixtureCmd)
+                                                .arg(fxi->id()).arg(sv.channel)
+                                                .arg(fxi->name()).arg(channel->name()));
+            m_editor->moveCursor(QTextCursor::Down);
         }
     }
+}
+
+void ScriptEditor::slotAddSystemCommand()
+{
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Executable File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    QStringList filters;
+#if defined(WIN32) || defined(Q_OS_WIN)
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    dialog.setDirectory(m_lastUsedPath);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QString fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return;
+
+    QFileInfo fInfo(fn);
+    if (fInfo.isExecutable() == false)
+    {
+        QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file !"));
+        return;
+    }
+    m_lastUsedPath = fInfo.absolutePath();
+
+    QString args = QInputDialog::getText(this, tr("Enter the program arguments (leave empty if not required)"), "",
+                                        QLineEdit::Normal, QString());
+
+    QStringList argsList = args.split(" ");
+    QString formattedArgs;
+    foreach(QString arg, argsList)
+    {
+        formattedArgs.append(QString("arg:%1 ").arg(arg));
+    }
+
+    m_editor->moveCursor(QTextCursor::StartOfLine);
+    m_editor->textCursor().insertText(QString("%1:%2 %3\n")
+                                        .arg(Script::systemCmd)
+                                        .arg(fn).arg(formattedArgs));
+    m_editor->moveCursor(QTextCursor::Down);
 }
 
 void ScriptEditor::slotAddComment()
@@ -249,4 +321,12 @@ void ScriptEditor::slotAddComment()
         m_editor->textCursor().insertText(QString("// %1\n").arg(str));
         m_editor->moveCursor(QTextCursor::EndOfLine);
     }
+}
+
+void ScriptEditor::slotTestRun()
+{
+    if (m_testPlayButton->isChecked() == true)
+        m_script->start(m_doc->masterTimer());
+    else
+        m_script->stopAndWait();
 }

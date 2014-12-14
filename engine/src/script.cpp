@@ -20,6 +20,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomText>
+#include <QProcess>
 #include <QDebug>
 #include <QUrl>
 
@@ -31,7 +32,7 @@
 #include "script.h"
 #include "doc.h"
 
-#define KXMLQLCScriptContents "Contents"
+#define KXMLQLCScriptCommand "Command"
 
 const QString Script::startFunctionCmd = QString("startfunction");
 const QString Script::stopFunctionCmd = QString("stopfunction");
@@ -40,6 +41,7 @@ const QString Script::waitCmd = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
 
 const QString Script::setFixtureCmd = QString("setfixture");
+const QString Script::systemCmd = QString("systemcommand");
 
 const QString Script::labelCmd = QString("label");
 const QString Script::jumpCmd = QString("jump");
@@ -107,7 +109,10 @@ bool Script::setData(const QString& str)
     {
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
         foreach (QString line, lines)
-            m_lines << tokenizeLine(line + QString("\n"));
+        {
+            if (!line.isEmpty())
+                m_lines << tokenizeLine(line + QString("\n"));
+        }
     }
 
     // Map all labels to their individual line numbers for fast jumps
@@ -125,9 +130,22 @@ bool Script::setData(const QString& str)
     return true;
 }
 
+bool Script::appendData(const QString &str)
+{
+    m_data.append(str + QString("\n"));
+    m_lines << tokenizeLine(str + QString("\n"));
+
+    return true;
+}
+
 QString Script::data() const
 {
     return m_data;
+}
+
+QStringList Script::dataLines() const
+{
+    return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
 }
 
 /****************************************************************************
@@ -167,9 +185,10 @@ bool Script::loadXML(const QDomElement& root)
         {
             loadXMLRunOrder(tag);
         }
-        else if (tag.tagName() == KXMLQLCScriptContents)
+        else if (tag.tagName() == KXMLQLCScriptCommand)
         {
-            setData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            appendData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            //appendData(tag.text().toUtf8());
         }
         else
         {
@@ -208,10 +227,14 @@ bool Script::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     saveXMLRunOrder(doc, &root);
 
     /* Contents */
-    tag = doc->createElement(KXMLQLCScriptContents);
-    root.appendChild(tag);
-    text = doc->createTextNode(QUrl::toPercentEncoding(data()));
-    tag.appendChild(text);
+    foreach(QString cmd, dataLines())
+    {
+        tag = doc->createElement(KXMLQLCScriptCommand);
+        root.appendChild(tag);
+        text = doc->createTextNode(QUrl::toPercentEncoding(cmd));
+        //text = doc->createTextNode(cmd.toUtf8());
+        tag.appendChild(text);
+    }
 
     return true;
 }
@@ -335,6 +358,10 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     else if (tokens[0][0] == Script::setFixtureCmd)
     {
         error = handleSetFixture(tokens, universes);
+    }
+    else if (tokens[0][0] == Script::systemCmd)
+    {
+        error = handleSystemCommand(tokens);
     }
     else if (tokens[0][0] == Script::labelCmd)
     {
@@ -545,6 +572,21 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     }
 }
 
+QString Script::handleSystemCommand(const QList<QStringList> &tokens)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    QString programName = tokens[0][1];
+    QStringList programArgs;
+    for (int i = 1; i < tokens.size(); i++)
+        programArgs << tokens[i][1];
+
+    QProcess *newProcess = new QProcess();
+    newProcess->start(programName, programArgs);
+
+    return QString();
+}
+
 QString Script::handleLabel(const QList<QStringList>& tokens)
 {
     // A label just exists. Not much to do here.
@@ -654,6 +696,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             }
 
             tokens << (QStringList() << keyword.trimmed() << value.trimmed());
+            qDebug() << "Tokens:" << tokens;
         }
     }
 
