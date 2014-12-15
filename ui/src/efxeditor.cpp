@@ -320,8 +320,7 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        if (m_efx->stopped() == false)
-            m_efx->stopAndWait();
+        m_efx->stopAndWait();
         m_testButton->setChecked(false);
         m_testButton->setEnabled(false);
     }

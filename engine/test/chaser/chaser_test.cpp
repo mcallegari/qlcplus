@@ -852,6 +852,8 @@ void Chaser_Test::tap()
     QTest::qWait(MasterTimer::tick());
     c->tap();
     QCOMPARE(c->m_runner->m_next, true);
+    c->stop();
+    m_doc->masterTimer()->timerTick();
 }
 
 void Chaser_Test::preRun()
@@ -863,7 +865,7 @@ void Chaser_Test::preRun()
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
-    c->m_stop = true;
+    c->stop();
 
     c->preRun(&timer);
     QVERIFY(c->m_runner != NULL);
@@ -897,7 +899,7 @@ void Chaser_Test::write()
     MasterTimer timer(m_doc);
 
     QVERIFY(c->isRunning() == false);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->stopping() == true);
     c->start(&timer);
 
     timer.timerTick();
@@ -905,7 +907,7 @@ void Chaser_Test::write()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->stopping() == false);
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
     }
@@ -914,7 +916,7 @@ void Chaser_Test::write()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->stopping() == false);
         QVERIFY(s1->isRunning() == false);
         QVERIFY(s2->isRunning() == true);
     }

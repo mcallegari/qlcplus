@@ -506,12 +506,12 @@ void VCButton_Test::toggle()
     QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
     btn.slotKeyReleased(QKeySequence(keySequenceB));
     m_doc->masterTimer()->timerTick(); // Allow MasterTimer to take the function under execution
-    QCOMPARE(sc->stopped(), false);
+    QCOMPARE(sc->stopping(), false);
     QCOMPARE(btn.isOn(), true);
 
     ev = QMouseEvent(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
     btn.mousePressEvent(&ev);
-    QCOMPARE(sc->m_stop, true);
+    QCOMPARE(sc->stopping(), true);
     QCOMPARE(btn.isOn(), true);
 
     btn.slotFunctionStopped(sc->id());
@@ -612,10 +612,10 @@ void VCButton_Test::input()
     QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
 
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(sc->m_stop, false);
+    QCOMPARE(sc->stopping(), false);
 
     btn.slotInputValueChanged(0, 0, 255);
-    QCOMPARE(sc->m_stop, true);
+    QCOMPARE(sc->stopping(), true);
 
     // Test that blackout gets toggled thru ext input
     btn.setAction(VCButton::Blackout);
@@ -712,7 +712,7 @@ void VCButton_Test::toggleAndFlash()
     m_doc->masterTimer()->timerTick();
     QCOMPARE(toggleBtn.isOn(), false);
     QCOMPARE(flashBtn.isOn(), false);
-    QCOMPARE(sc->m_stop, true);
+    QCOMPARE(sc->stopping(), true);
     toggleBtn.slotFunctionStopped(sc->id());
 }
 
