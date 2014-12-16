@@ -169,7 +169,8 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
 
 void VCAudioTriggers::stopFunction()
 {
-    enableCapture(false);
+    if (m_button->isChecked() == true)
+        enableCapture(false);
 }
 
 void VCAudioTriggers::enableCapture(bool enable)
@@ -195,7 +196,9 @@ void VCAudioTriggers::enableCapture(bool enable)
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         if (m_inputCapture->isRunning() == false)
             m_inputCapture->start();
+        m_button->blockSignals(true);
         m_button->setChecked(true);
+        m_button->blockSignals(false);
     }
     else
     {
@@ -208,7 +211,9 @@ void VCAudioTriggers::enableCapture(bool enable)
             m_inputCapture->stop();
         }
 
+        m_button->blockSignals(true);
         m_button->setChecked(false);
+        m_button->blockSignals(false);
         disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
     }

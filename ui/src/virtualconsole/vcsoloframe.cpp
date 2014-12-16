@@ -103,7 +103,8 @@ void VCSoloFrame::slotModeChanged(Doc::Mode mode)
         {
             if (widget->type() == VCWidget::ButtonWidget ||
                 widget->type() == VCWidget::SliderWidget ||
-                widget->type() == VCWidget::CueListWidget)
+                widget->type() == VCWidget::CueListWidget ||
+                widget->type() == VCWidget::AudioTriggersWidget)
             {
                 // make sure the widget's nearest soloframe is this
                 if (thisIsNearestSoloFrameParent(widget))
