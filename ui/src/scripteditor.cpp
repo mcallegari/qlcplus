@@ -176,6 +176,10 @@ QString ScriptEditor::getFilePath()
     if (fn.isEmpty() == true)
         return QString();
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+    fn.replace("/", "\\");
+#endif
+
     if (fn.contains(" "))
         return QString("\"%1\"").arg(fn);
     else
@@ -325,11 +329,13 @@ void ScriptEditor::slotAddSystemCommand()
         return;
 
     QFileInfo fInfo(fn);
+#if !defined(WIN32) && !defined(Q_OS_WIN)
     if (fInfo.isExecutable() == false)
     {
         QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file !"));
         return;
     }
+#endif
     m_lastUsedPath = fInfo.absolutePath();
 
     QString args = QInputDialog::getText(this, tr("Enter the program arguments (leave empty if not required)"), "",
