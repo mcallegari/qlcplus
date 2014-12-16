@@ -42,7 +42,6 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {
-    m_subBandsNumber = FREQ_SUBBANDS_DEFAULT_NUMBER;
 }
 
 AudioCapture::~AudioCapture()
@@ -55,15 +54,37 @@ AudioCapture::~AudioCapture()
         fftw_free(m_fftOutputBuffer);
 }
 
-void AudioCapture::setBandsNumber(int number)
+int AudioCapture::defaultBarsNumber()
 {
-    if (number > 0 && number < FREQ_SUBBANDS_MAX_NUMBER)
-        m_subBandsNumber = number;
+    return FREQ_SUBBANDS_DEFAULT_NUMBER;
 }
 
-int AudioCapture::bandsNumber()
+void AudioCapture::registerBandsNumber(int number)
 {
-    return m_subBandsNumber;
+    if (number > 0 && number < FREQ_SUBBANDS_MAX_NUMBER)
+    {
+        qDebug() << "[AudioCapture] registering" << number << "bands";
+        if (m_fftMagnitudeMap.contains(number) == false)
+        {
+            BandsData newBands;
+            newBands.m_registerCounter = 1;
+            newBands.m_fftMagnitudeBuffer = QVector<double>(number);
+            m_fftMagnitudeMap[number] = newBands;
+        }
+        else
+            m_fftMagnitudeMap[number].m_registerCounter++;
+    }
+}
+
+void AudioCapture::unregisterBandsNumber(int number)
+{
+    if (m_fftMagnitudeMap.contains(number))
+    {
+        qDebug() << "[AudioCapture] unregistering" << number << "bands";
+        m_fftMagnitudeMap[number].m_registerCounter--;
+        if (m_fftMagnitudeMap[number].m_registerCounter == 0)
+            m_fftMagnitudeMap.remove(number);
+    }
 }
 
 bool AudioCapture::isInitialized()
@@ -90,9 +111,41 @@ bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 
 
 void AudioCapture::stop()
 {
-    m_userStop = true;
-    while (this->isRunning())
-        usleep(10000);
+    if (m_fftMagnitudeMap.isEmpty())
+    {
+        qDebug() << "[AudioCapture] No clients need us anymore. Shutting down...";
+        m_userStop = true;
+        while (this->isRunning())
+            usleep(10000);
+    }
+}
+
+double AudioCapture::fillBandsData(int number)
+{
+    // m_fftOutputBuffer contains the real and imaginary data of a spectrum
+    // representing all the frequencies from 0 to m_sampleRate Hz.
+    // I will just consider 0 to 5000Hz and will calculate average magnitude
+    // for the number of desired bands.
+    unsigned int i = 0;
+    int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
+    double maxMagnitude = 0;
+
+    for (int b = 0; b < number; b++)
+    {
+        quint64 magnitudeSum = 0;
+        for (int s = 0; s < subBandWidth; s++, i++)
+        {
+            if (i == m_captureSize)
+                break;
+            magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
+                                  (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
+        }
+        double bandMagnitude = (magnitudeSum / subBandWidth);
+        m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
+        if (maxMagnitude < bandMagnitude)
+            maxMagnitude = bandMagnitude;
+    }
+    return maxMagnitude;
 }
 
 void AudioCapture::processData()
@@ -147,28 +200,12 @@ void AudioCapture::processData()
     m_signalPower = pwrSum / m_captureSize;
 
     // 6 ********* Calculate vector magnitude
-
-    // m_fftOutputBuffer contains the real and imaginary data of a spectrum
-    // representing all the frequencies from 0 to m_sampleRate Hz.
-    // I will just consider 0 to 5000Hz and will calculate average magnitude
-    // for the number of desired bands.
-    i = 0;
-    int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / m_subBandsNumber;
-    m_maxMagnitude = 0;
-
-    for (int b = 0; b < m_subBandsNumber; b++)
+    foreach(int barsNumber, m_fftMagnitudeMap.keys())
     {
-        quint64 magnitudeSum = 0;
-        for (int s = 0; s < subBandWidth; s++, i++)
-        {
-            if (i == m_captureSize)
-                break;
-            magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
-                                  (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
-        }
-        m_fftMagnitudeBuffer[b] = (magnitudeSum / subBandWidth);
-        if (m_maxMagnitude < m_fftMagnitudeBuffer[b])
-            m_maxMagnitude = m_fftMagnitudeBuffer[b];
+        double maxMagnitude = fillBandsData(barsNumber);
+        emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
+                           m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
+                           maxMagnitude, m_signalPower);
     }
 }
 
@@ -184,7 +221,6 @@ void AudioCapture::run()
             if (readAudio(m_captureSize) == true)
             {
                 processData();
-                emit dataProcessed(m_fftMagnitudeBuffer, m_maxMagnitude, m_signalPower);
             }
             else
             {

@@ -23,7 +23,9 @@
 
 #include <stdint.h>
 #include <QThread>
+#include <QVector>
 #include <QMutex>
+#include <QMap>
 
 #define SETTINGS_AUDIO_INPUT_DEVICE  "audio/input"
 
@@ -34,6 +36,12 @@
 /** @addtogroup engine_audio Audio
  * @{
  */
+
+typedef struct
+{
+    int m_registerCounter;
+    QVector<double> m_fftMagnitudeBuffer;
+} BandsData;
 
 class AudioCapture : public QThread
 {
@@ -47,8 +55,19 @@ public:
 
     ~AudioCapture();
 
-    void setBandsNumber(int number);
-    int bandsNumber();
+    int defaultBarsNumber();
+
+    /**
+     * Request the given number of frequency bands to the
+     * audiocapture engine
+     */
+    void registerBandsNumber(int number);
+
+    /**
+     * Cancel a previous request of bars
+     */
+    void unregisterBandsNumber(int number);
+    //int bandsNumber();
 
     bool isInitialized();
 
@@ -92,12 +111,20 @@ public:
     void stop();
 
 private:
+    /** This is called at every processData to fill a single BandsData structure */
+    double fillBandsData(int number);
+
+    /** This is the method where captured audio data is processed in this order
+     *  1) calculates the signal power, which will be the volume bar
+     *  2) perform the FFT
+     *  3) retrieve the signal magnitude for each registered number of bands
+     */
     void processData();
 
     bool m_userStop, m_pause;
 
 signals:
-    void dataProcessed(double *spectrumBands, double maxMagnitude, quint32 power);
+    void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 protected:
     /*!
@@ -116,13 +143,13 @@ protected:
     int16_t *m_audioBuffer;
 
     quint32 m_signalPower;
-    double m_maxMagnitude;
-    int m_subBandsNumber;
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
     void *m_fftOutputBuffer;
-    double m_fftMagnitudeBuffer[FREQ_SUBBANDS_MAX_NUMBER];
+
+    /** Map of the registered clients (key is the number of bands) */
+    QMap <int, BandsData> m_fftMagnitudeMap;
 };
 
 /** @} */

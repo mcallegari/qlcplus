@@ -43,14 +43,13 @@
 #define KColumnMaxThreshold     5
 #define KColumnDivisor          6
 
-AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, AudioCapture *capture)
+AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc,
+                                                       int bandsNumber, int maxFrequency)
     : QDialog(triggers)
     , m_doc(doc)
-    , m_capture(capture)
+    , m_maxFrequency(maxFrequency)
 {
     setupUi(this);
-
-    Q_ASSERT(capture != NULL);
 
     m_triggers = triggers;
 
@@ -58,7 +57,7 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers
 
     m_barsNumSpin->setFixedWidth(70);
     m_barsNumSpin->setFixedHeight(30);
-    m_barsNumSpin->setValue(m_capture->bandsNumber());
+    m_barsNumSpin->setValue(bandsNumber);
 
     connect(m_barsNumSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateTree()));
@@ -252,7 +251,7 @@ void AudioTriggersConfiguration::updateTree()
     volItem->setText(KColumnName, tr("Volume Bar"));
     updateTreeItem(volItem, 1000);
 
-    double freqIncr = (double)m_capture->maxFrequency() / m_barsNumSpin->value();
+    double freqIncr = (double)m_maxFrequency / m_barsNumSpin->value();
     double freqCount = 0.0;
 
     for (int i = 0; i < m_barsNumSpin->value(); i++)

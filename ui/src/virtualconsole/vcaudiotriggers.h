@@ -60,20 +60,19 @@ public:
 
     void enableWidgetUI(bool enable);
 
+    void stopFunction();
+
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
     void enableCapture(bool enable);
 
-signals:
-    void enableRequest(quint32 id);
-
 public slots:
     void slotEnableButtonToggled(bool toggle);
 
 protected slots:
-    void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
+    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
 #endif

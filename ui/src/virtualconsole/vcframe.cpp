@@ -980,8 +980,6 @@ bool VCFrame::loadXML(const QDomElement* root)
                 if (multipageMode() == true)
                     addWidgetToPageMap(triggers);
                 triggers->show();
-                connect(triggers, SIGNAL(enableRequest(quint32)),
-                        VirtualConsole::instance(), SLOT(slotEnableAudioTriggers(quint32)));
             }
         }
         else if (tag.tagName() == KXMLQLCVCClock)

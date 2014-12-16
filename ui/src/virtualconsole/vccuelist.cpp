@@ -181,7 +181,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_updateTimer->setSingleShot(true);
 
     /* Create control buttons */
-    QHBoxLayout *hbox = new QHBoxLayout(this);
+    QHBoxLayout *hbox = new QHBoxLayout();
     hbox->setSpacing(2);
 
     m_crossfadeButton = new QToolButton(this);

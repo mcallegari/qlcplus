@@ -951,8 +951,6 @@ void VirtualConsole::slotAddAudioTriggers()
 
     VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
     setupWidget(triggers, parent);
-    connect(triggers, SIGNAL(enableRequest(quint32)),
-            this, SLOT(slotEnableAudioTriggers(quint32)));
     m_doc->setModified();
 }
 
@@ -1404,25 +1402,6 @@ void VirtualConsole::slotStackingLower()
         widget->lower();
 
     m_doc->setModified();
-}
-
-void VirtualConsole::slotEnableAudioTriggers(quint32 id)
-{
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-    VCAudioTriggers *enableWidget = NULL;
-    foreach (VCWidget *widget, widgetsList)
-    {
-        if (widget->type() == VCWidget::AudioTriggersWidget)
-        {
-            VCAudioTriggers *triggers = (VCAudioTriggers *)widget;
-            if (widget->id() == id)
-                enableWidget = triggers;
-            else
-                triggers->enableCapture(false);
-        }
-    }
-    if (enableWidget != NULL)
-        enableWidget->enableCapture(true);
 }
 
 /*****************************************************************************

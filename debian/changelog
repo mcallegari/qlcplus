@@ -3,6 +3,8 @@ qlcplus (4.8.3) stable; urgency=low
   * Virtual Console/Animation: added end color reset control
   * Virtual Console/Animation: added R/G/B custom control knobs for start and end colors (David Garyga) 
   * Virtual Console/Audio Triggers: fix crash when changing the input device while a trigger is running (David Garyga)
+  * Virtual Console/Audio Triggers: fixed incorrect number of bars when reconfiguring the widget
+  * Virtual Console/Audio Triggers: multiple triggers at the same time and with different number of bars are now supported
   * Virtual Console/Frames: added option to hide the enable/disable button (David Garyga)
   * Virtual Console/Knobs: now they can be inverted like sliders (Jano Svitok)
   * Virtual Console/Sliders: fix inverted monitor value (David Garyga)
@@ -13,6 +15,7 @@ qlcplus (4.8.3) stable; urgency=low
   * Engine: fixed universe passthrough flag not restored on project load
   * Fixture Manager: recompute address overlap when fixture mode changes (Jano Svitok)
   * Scene Editor: Channel's primary color rather than its name is used to determine Color Tool availability (Jano Svitok)
+  * RGB Matrix Editor: correctly update colors when the algorithm is changed
   * Plugins/ArtNet: fixed malformed output packets (4.8.2 regression)
   * Webaccess: fix crash when trying to update a closed connection (David Garyga)
   * Application: fix doc modified flag not set on widget deletion, cut/paste, and raise (David Garyga)

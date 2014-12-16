@@ -40,6 +40,12 @@ RGBAudio::RGBAudio(const RGBAudio& a, QObject *parent)
 
 RGBAudio::~RGBAudio()
 {
+    if (m_audioInput != NULL && m_bandsNumber > 0)
+    {
+        m_audioInput->unregisterBandsNumber(m_bandsNumber);
+        if (m_audioInput->isRunning())
+            m_audioInput->stop();
+    }
 }
 
 RGBAlgorithm* RGBAudio::clone() const
@@ -51,17 +57,24 @@ RGBAlgorithm* RGBAudio::clone() const
 void RGBAudio::setAudioCapture(AudioCapture *cap)
 {
     qDebug() << Q_FUNC_INFO << "Audio capture set";
+    if (cap == NULL)
+        return;
+
     m_audioInput = cap;
-    connect(m_audioInput, SIGNAL(dataProcessed(double*,double,quint32)),
-            this, SLOT(slotAudioChanged(double*,double,quint32)));
+    connect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
+            this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
     m_bandsNumber = -1;
 }
 
-void RGBAudio::slotAudioChanged(double *spectrumBands, double maxMagnitude, quint32 power)
+void RGBAudio::slotAudioBarsChanged(double *spectrumBands, int size,
+                                    double maxMagnitude, quint32 power)
 {
+    if (size != m_bandsNumber)
+        return;
+
     m_mutex.lock();
     m_spectrumValues.clear();
-    for (int i = 0; i < m_audioInput->bandsNumber(); i++)
+    for (int i = 0; i < m_bandsNumber; i++)
         m_spectrumValues.append(spectrumBands[i]);
     m_maxMagnitude = maxMagnitude;
     m_volumePower = power;
@@ -124,9 +137,10 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     if (m_bandsNumber == -1)
     {
         m_bandsNumber = size.width();
-        m_audioInput->setBandsNumber(m_bandsNumber);
+        qDebug() << "[RGBAudio] set" << m_bandsNumber << "bars";
         if (m_audioInput->isInitialized() == false)
             m_audioInput->initialize(44100, 1, 2048);
+        m_audioInput->registerBandsNumber(m_bandsNumber);
         m_audioInput->start();
         m_mutex.unlock();
         return map;
