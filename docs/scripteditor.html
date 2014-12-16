@@ -85,7 +85,8 @@ Each line of a script will be executed by QLC+ in a sequential order.
       This can be useful to randomize DMX values set through the setfixture keyword. See below.
     </LI>
     <LI><IMG SRC="qrc:/fileopen.png" width=24 align="absmiddle"> <B>File Path</B>: Open a file dialog
-      to select a file. The absolute path and the file name will be insterted at the editor current position
+      to select a file. The absolute path and the file name will be insterted at the editor current position.<br>
+      If a path contains spaces, it will be writen within quotes
     </LI>
    </UL>
   </TD>
@@ -166,9 +167,15 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <B>Description</B>: execute a program or a script at the provided absolute path with the (optional) provided arguments.<br>
     <B>Syntax</B>: systemcommand:programPath arg:arg1 arg:arg2 ... arg:argN<br><br>
     <I>programPath</I> is the absolute path of an executable program or script. For example "/usr/bin/vlc" or "C:\Tools\myTool.exe"<br>
+    If the path to an executable contains spaces, it must be written between quotes.<br>
     <I>arg1 ... argN</I> are the arguments to be used when executing <I>programPath</I>. If no arguments are
     needed, then the arg: keywords are not necessary.<br>
-    <B>Example</B>: <PRE>systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen</PRE>
+    If an argument contans spaces it must be written between quotes.<br>
+    <B>Example</B>: 
+      <PRE>
+        systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen
+        systemcommand:"C:\Program Files\Tools\My Tool.exe" arg:"D:\My Files\My file.txt"
+      </PRE>
   </TD>
  </TR>
  <TR>
