@@ -675,8 +675,10 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 left = right + 1;
             }
 
-            // Try to see if there is something inside quotes
-            int quoteleft = line.indexOf("\"", left);
+            // Try to see if there is a value between quotes
+            int quoteleft = -1;
+            if (line.mid(left, 1) == "\"")
+                quoteleft = left + 1;
             if (quoteleft != -1)
             {
                 int quoteright = line.indexOf("\"", quoteleft + 1);

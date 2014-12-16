@@ -176,7 +176,10 @@ QString ScriptEditor::getFilePath()
     if (fn.isEmpty() == true)
         return QString();
 
-    return fn;
+    if (fn.contains(" "))
+        return QString("\"%1\"").arg(fn);
+    else
+        return fn;
 }
 
 void ScriptEditor::slotNameEdited(const QString& name)
