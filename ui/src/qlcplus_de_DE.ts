@@ -1996,7 +1996,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -4462,7 +4462,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.ui" line="156"/>
         <source>Test the execution of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausführung des Skripts testen</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="176"/>
@@ -4532,7 +4532,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.cpp" line="113"/>
         <source>System Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Systemkommando</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="117"/>
@@ -4542,62 +4542,62 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.cpp" line="121"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zufällige Zahl</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="125"/>
         <source>File Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateipfad</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="151"/>
         <source>Open Executable File</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausführbare Datei öffnen</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="156"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle Dateien (*.*)</translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="158"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="251"/>
         <source>Enter the desired time</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewünschte Zeit eingeben</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Invalid executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige ausführbare Datei</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Please select an executable file !</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte eine ausführbare Datei auswählen!</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="341"/>
         <source>Enter the program arguments (leave empty if not required)</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumente für das Programm angeben (Leer lassen falls nicht benötigt)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="377"/>
         <source>Enter the range for the randomization</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereich für Zufallszahlen angeben</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="384"/>
         <source>Minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalwert</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="385"/>
         <source>Maximum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximalwert</translation>
     </message>
     <message>
         <source>Seconds to wait</source>
@@ -5180,12 +5180,12 @@ Dauer: %3
 <context>
     <name>VCAudioTriggers</name>
     <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="187"/>
+        <location filename="virtualconsole/vcaudiotriggers.cpp" line="189"/>
         <source>Audio open error</source>
         <translation>Fehle beim Öffnen von Audio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="188"/>
+        <location filename="virtualconsole/vcaudiotriggers.cpp" line="190"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
         <translation>Bein Initialisieren des ausgewählten Audiogerätes ist ein Fehler aufgetreten. Bitte Audioeingangseinstellungen prüfen.</translation>
     </message>
@@ -5218,17 +5218,17 @@ Dauer: %3
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="550"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="553"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="552"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="555"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="782"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="785"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -5497,22 +5497,22 @@ Dauer: %3
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -5755,12 +5755,12 @@ Dauer: %3
     <name>VCFrame</name>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="350"/>
-        <location filename="virtualconsole/vcframe.cpp" line="446"/>
+        <location filename="virtualconsole/vcframe.cpp" line="448"/>
         <source>Page: %1</source>
         <translation>Seite: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1205"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1196"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -7419,8 +7419,7 @@ Dauer: %3
     <message>
         <location filename="videoeditor.ui" line="170"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation>Eine beliebige URL für das Video eingeben</translation>
-        <translation type="unfinished"></translation>
+        <translation>Eine beliebiege URL für dieses Video angeben</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="255"/>
@@ -7692,37 +7691,37 @@ Dauer: %3
         <translation>&amp;Sortierungsreihenfolge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="874"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="859"/>
         <source>Knob %1</source>
         <translation>Knopf %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1141"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1126"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Das ausgewählte Element löschen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1142"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1127"/>
         <source>Delete widgets</source>
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1185"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1185"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1238"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
