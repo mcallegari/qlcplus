@@ -60,7 +60,8 @@ public:
 
     void enableWidgetUI(bool enable);
 
-    void stopFunction();
+    /** @reimp */
+    virtual void notifyFunctionStarting(quint32 fid);
 
     /*********************************************************************
      * GUI

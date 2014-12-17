@@ -167,8 +167,10 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
 #endif
 }
 
-void VCAudioTriggers::stopFunction()
+void VCAudioTriggers::notifyFunctionStarting(quint32 fid)
 {
+    // Stop on any other function started
+    Q_UNUSED(fid);
     if (m_button->isChecked() == true)
         enableCapture(false);
 }
@@ -191,7 +193,8 @@ void VCAudioTriggers::enableCapture(bool enable)
             }
         }
         m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());
-        emit functionStarting();
+        // Invalid ID: Stop every other widget
+        emit functionStarting(Function::invalidId());
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         if (m_inputCapture->isRunning() == false)
