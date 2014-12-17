@@ -374,7 +374,7 @@ void VCFrame::setMultipageMode(bool enable)
             while (it.hasNext() == true)
             {
                 VCWidget* child = it.next();
-                m_pagesMap.insert(child, child->page());
+                addWidgetToPageMap(child);
             }
         }
     }
@@ -413,6 +413,8 @@ int VCFrame::totalPagesNumber()
 
 int VCFrame::currentPage()
 {
+    if (m_multiPageMode == false)
+        return 0;
     return m_currentPage;
 }
 
@@ -640,7 +642,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
             VirtualConsole::instance()->addWidgetInMap(childCopy);
         }
 
-        if (m_multiPageMode && childCopy != NULL)
+        if (childCopy != NULL)
             addWidgetToPageMap(childCopy);
 
     }
@@ -690,7 +692,7 @@ void VCFrame::editProperties()
                             widget->remapInputSources(pg);
                         }
 
-                        m_pagesMap.insert(newWidget, pg);
+                        addWidgetToPageMap(newWidget);
                     }
                 }
             }
@@ -869,8 +871,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete frame;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(frame);
+                addWidgetToPageMap(frame);
                 frame->show();
             }
         }
@@ -882,8 +883,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete label;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(label);
+                addWidgetToPageMap(label);
                 label->show();
             }
         }
@@ -895,8 +895,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete button;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(button);
+                addWidgetToPageMap(button);
                 button->show();
             }
         }
@@ -908,8 +907,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete xypad;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(xypad);
+                addWidgetToPageMap(xypad);
                 xypad->show();
             }
         }
@@ -921,8 +919,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete slider;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(slider);
+                addWidgetToPageMap(slider);
                 slider->show();
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
@@ -939,8 +936,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete soloframe;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(soloframe);
+                addWidgetToPageMap(soloframe);
                 soloframe->show();
             }
         }
@@ -952,8 +948,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete cuelist;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(cuelist);
+                addWidgetToPageMap(cuelist);
                 cuelist->show();
             }
         }
@@ -965,8 +960,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete dial;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(dial);
+                addWidgetToPageMap(dial);
                 dial->show();
             }
         }
@@ -977,8 +971,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete triggers;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(triggers);
+                addWidgetToPageMap(triggers);
                 triggers->show();
             }
         }
@@ -990,8 +983,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete clock;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(clock);
+                addWidgetToPageMap(clock);
                 clock->show();
             }
         }
@@ -1003,8 +995,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete matrix;
             else
             {
-                if (multipageMode() == true)
-                    addWidgetToPageMap(matrix);
+                addWidgetToPageMap(matrix);
                 matrix->show();
             }
         }

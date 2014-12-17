@@ -337,14 +337,14 @@ public:
      *  can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void stopFunction() { }
+    virtual void notifyFunctionStarting(quint32 fid) { Q_UNUSED(fid); }
 
 signals:
     /** Signal emitted when a VCWidget controlling a Function has been
       * requested to start the Function.
       * At the moment this is used by a restriceted number of widgets (see above)
       */
-    void functionStarting();
+    void functionStarting(quint32 fid);
 
     /*********************************************************************
      * Properties

@@ -704,27 +704,12 @@ VCWidget* VirtualConsole::closestParent() const
 
 void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
 {
-    if (parent->type() == VCWidget::FrameWidget)
+    if (parent->type() == VCWidget::FrameWidget
+            || parent->type() == VCWidget::SoloFrameWidget)
     {
         VCFrame *frame = (VCFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
-    }
-    else if (parent->type() == VCWidget::SoloFrameWidget)
-    {
-        VCSoloFrame *frame = (VCSoloFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
+        widget->setPage(frame->currentPage());
+        frame->addWidgetToPageMap(widget);
     }
     else
         widget->setPage(0);
@@ -1156,17 +1141,11 @@ void VirtualConsole::slotEditDelete()
 
             if (parent != NULL)
             {
-                if (parent->type() == VCWidget::FrameWidget)
+                if (parent->type() == VCWidget::FrameWidget ||
+                        parent->type() == VCWidget::SoloFrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
-                }
-                else if (parent->type() == VCWidget::SoloFrameWidget)
-                {
-                    VCSoloFrame *frame = (VCSoloFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
+                    frame->removeWidgetFromPageMap(widget);
                 }
             }
 
