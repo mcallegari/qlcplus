@@ -1141,17 +1141,11 @@ void VirtualConsole::slotEditDelete()
 
             if (parent != NULL)
             {
-                if (parent->type() == VCWidget::FrameWidget)
+                if (parent->type() == VCWidget::FrameWidget ||
+                        parent->type() == VCWidget::SoloFrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
-                }
-                else if (parent->type() == VCWidget::SoloFrameWidget)
-                {
-                    VCSoloFrame *frame = (VCSoloFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
+                    frame->removeWidgetFromPageMap(widget);
                 }
             }
 
