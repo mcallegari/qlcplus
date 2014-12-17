@@ -374,7 +374,7 @@ void VCFrame::setMultipageMode(bool enable)
             while (it.hasNext() == true)
             {
                 VCWidget* child = it.next();
-                m_pagesMap.insert(child, child->page());
+                addWidgetToPageMap(child);
             }
         }
     }
@@ -642,7 +642,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
             VirtualConsole::instance()->addWidgetInMap(childCopy);
         }
 
-        if (m_multiPageMode && childCopy != NULL)
+        if (childCopy != NULL)
             addWidgetToPageMap(childCopy);
 
     }
@@ -692,7 +692,7 @@ void VCFrame::editProperties()
                             widget->remapInputSources(pg);
                         }
 
-                        m_pagesMap.insert(newWidget, pg);
+                        addWidgetToPageMap(newWidget);
                     }
                 }
             }
