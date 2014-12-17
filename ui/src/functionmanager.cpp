@@ -119,7 +119,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
     m_tree->updateTree();
 
-    connect(m_doc, SIGNAL(cleared()), this, SLOT(slotDocClearing()));
+    connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_doc, SIGNAL(functionNameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
@@ -152,7 +152,7 @@ void FunctionManager::slotModeChanged()
 
 void FunctionManager::slotDocClearing()
 {
-    deleteCurrentEditor();
+    deleteCurrentEditor(false); // Synchronous delete
     m_tree->clearTree();
 }
 
@@ -970,12 +970,18 @@ void FunctionManager::editFunction(Function* function)
     }
 }
 
-void FunctionManager::deleteCurrentEditor()
+void FunctionManager::deleteCurrentEditor(bool async)
 {
-    if (m_editor != NULL)
-        m_editor->deleteLater();
-    if (m_scene_editor != NULL)
-        m_scene_editor->deleteLater();
+    if (async)
+    {
+        if (m_editor) m_editor->deleteLater();
+        if (m_scene_editor) m_scene_editor->deleteLater();
+    }
+    else
+    {
+        delete m_editor;
+        delete m_scene_editor;
+    }
 
     m_editor = NULL;
     m_scene_editor = NULL;
