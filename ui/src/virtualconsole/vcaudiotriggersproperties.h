@@ -23,7 +23,6 @@
 #include <QDialog>
 
 #include "ui_vcaudiotriggersproperties.h"
-#include "audiocapture.h"
 #include "doc.h"
 
 class VCAudioTriggers;
@@ -37,8 +36,8 @@ class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfig
     Q_OBJECT
     
 public:
-    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers = 0, Doc *doc = 0,
-                                        AudioCapture *capture = 0);
+    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc,
+                                        int bandsNumber, int maxFrequency);
     ~AudioTriggersConfiguration();
 
     /** @reimp */
@@ -72,8 +71,7 @@ protected:
 private:
     Doc *m_doc;
     VCAudioTriggers *m_triggers;
-    AudioCapture *m_capture;
-
+    int m_maxFrequency;
     QKeySequence m_keySequence;
     QLCInputSource *m_inputSource;
 };

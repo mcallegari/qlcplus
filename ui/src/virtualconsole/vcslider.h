@@ -367,7 +367,7 @@ public:
     uchar playbackValue() const;
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);

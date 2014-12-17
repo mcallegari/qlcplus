@@ -11,6 +11,7 @@ QT      += core xml script gui
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
+  win32:QT += widgets
 }
 
 CONFIG += link_pkgconfig

@@ -55,6 +55,7 @@ docs.files = \
              selectfunction.html \
              selectfixture.html \
              selectinputchannel.html \
+             scripteditor.html \
              showeditor.html \
              showmanager.html \
              simpledesk.html \

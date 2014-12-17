@@ -52,12 +52,14 @@ private:
     QTextDocument* m_document;
     Script* m_script;
     Doc* m_doc;
+    QString m_lastUsedPath;
 
     /************************************************************************
      * Add menu
      ************************************************************************/
 private:
     void initAddMenu();
+    QString getFilePath();
 
 private slots:
     void slotNameEdited(const QString& text);
@@ -70,7 +72,10 @@ private slots:
     void slotAddSetHtp();
     void slotAddSetLtp();
     void slotAddSetFixture();
+    void slotAddSystemCommand();
     void slotAddComment();
+    void slotAddRandom();
+    void slotAddFilePath();
 
 private:
     QAction* m_addStartFunctionAction;
@@ -80,8 +85,17 @@ private:
     QAction* m_addSetHtpAction;
     QAction* m_addSetLtpAction;
     QAction* m_addSetFixtureAction;
+    QAction* m_addSystemCommandAction;
     QAction* m_addCommentAction;
+    QAction* m_addRandomAction;
+    QAction* m_addFilePathAction;
     QMenu* m_addMenu;
+
+    /************************************************************************
+     * Test execution
+     ************************************************************************/
+protected slots:
+    void slotTestRun();
 };
 
 /** @} */

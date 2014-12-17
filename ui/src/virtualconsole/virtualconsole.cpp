@@ -704,27 +704,12 @@ VCWidget* VirtualConsole::closestParent() const
 
 void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
 {
-    if (parent->type() == VCWidget::FrameWidget)
+    if (parent->type() == VCWidget::FrameWidget
+            || parent->type() == VCWidget::SoloFrameWidget)
     {
         VCFrame *frame = (VCFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
-    }
-    else if (parent->type() == VCWidget::SoloFrameWidget)
-    {
-        VCSoloFrame *frame = (VCSoloFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
+        widget->setPage(frame->currentPage());
+        frame->addWidgetToPageMap(widget);
     }
     else
         widget->setPage(0);
@@ -951,8 +936,6 @@ void VirtualConsole::slotAddAudioTriggers()
 
     VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
     setupWidget(triggers, parent);
-    connect(triggers, SIGNAL(enableRequest(quint32)),
-            this, SLOT(slotEnableAudioTriggers(quint32)));
     m_doc->setModified();
 }
 
@@ -1158,17 +1141,11 @@ void VirtualConsole::slotEditDelete()
 
             if (parent != NULL)
             {
-                if (parent->type() == VCWidget::FrameWidget)
+                if (parent->type() == VCWidget::FrameWidget ||
+                        parent->type() == VCWidget::SoloFrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
-                }
-                else if (parent->type() == VCWidget::SoloFrameWidget)
-                {
-                    VCSoloFrame *frame = (VCSoloFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
+                    frame->removeWidgetFromPageMap(widget);
                 }
             }
 
@@ -1404,25 +1381,6 @@ void VirtualConsole::slotStackingLower()
         widget->lower();
 
     m_doc->setModified();
-}
-
-void VirtualConsole::slotEnableAudioTriggers(quint32 id)
-{
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-    VCAudioTriggers *enableWidget = NULL;
-    foreach (VCWidget *widget, widgetsList)
-    {
-        if (widget->type() == VCWidget::AudioTriggersWidget)
-        {
-            VCAudioTriggers *triggers = (VCAudioTriggers *)widget;
-            if (widget->id() == id)
-                enableWidget = triggers;
-            else
-                triggers->enableCapture(false);
-        }
-    }
-    if (enableWidget != NULL)
-        enableWidget->enableCapture(true);
 }
 
 /*****************************************************************************
