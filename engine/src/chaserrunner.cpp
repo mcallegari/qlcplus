@@ -405,7 +405,7 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (step->m_function != NULL && !step->m_function->stopped())
+        if (step->m_function != NULL && step->m_function->isRunning())
         {
             step->m_function->stop();
             step->m_function = NULL;
@@ -603,7 +603,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         if (step->m_duration != Function::infiniteSpeed() &&
              step->m_elapsed >= step->m_duration)
         {
-            if (step->m_function != NULL && !step->m_function->stopped())
+            if (step->m_function != NULL && step->m_function->isRunning())
             {
                 step->m_function->stop();
                 step->m_function = NULL;

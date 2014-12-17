@@ -748,6 +748,7 @@ void Function::preRun(MasterTimer* timer)
     Q_UNUSED(timer);
 
     qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
+    m_stop = false;
     m_running = true;
 
     emit running(m_id);
@@ -814,7 +815,6 @@ void Function::start(MasterTimer* timer, bool child, quint32 startTime,
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    m_stop = false;
     timer->startFunction(this);
 }
 

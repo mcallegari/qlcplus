@@ -11,7 +11,6 @@ qlcplus (4.8.3) stable; urgency=low
   * Virtual Console/Live Edit: fix some widgets state when live editing (David Garyga)
   * Virtual Console/Solo Frames: can have multiple widgets associated to the same function (David Garyga)
   * Engine: It is now possible to set a network URL on videos
-  * Engine: fixed issue with function staying on in a fast running chaser (David Garyga)
   * Engine: fixed channels forced to HTP/LTP multiple times
   * Engine: fixed universe passthrough flag not restored on project load
   * Fixture Manager: recompute address overlap when fixture mode changes (Jano Svitok)
