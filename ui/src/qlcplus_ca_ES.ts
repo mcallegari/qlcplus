@@ -4455,7 +4455,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="156"/>
         <source>Test the execution of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova l&apos;execució d&apos;aquest script</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="176"/>
@@ -4527,7 +4527,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="113"/>
         <source>System Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordre del sistema</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="117"/>
@@ -4537,62 +4537,62 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="121"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre aleatori</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="125"/>
         <source>File Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta de l&apos;arxiu</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="151"/>
         <source>Open Executable File</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrir arxiu executable</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="156"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Tots els arxius (*.*)</translation>
+        <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="158"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Tots els arxius (*)</translation>
+        <translation>Tots els arxius (*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="251"/>
         <source>Enter the desired time</source>
-        <translation type="unfinished"></translation>
+        <translation>Entri el temps desitjat</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Invalid executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Executable no vàlid</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Please select an executable file !</source>
-        <translation type="unfinished"></translation>
+        <translation>Si us plau trieu un arxiu executable !</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="341"/>
         <source>Enter the program arguments (leave empty if not required)</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduïu els arguments del programa (deixar en blanc si no es requereix)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="377"/>
         <source>Enter the range for the randomization</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduïu el rang per a l&apos;assignació a l&apos;atzar</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="384"/>
         <source>Minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor mínim</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="385"/>
         <source>Maximum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor màxim</translation>
     </message>
     <message>
         <source>Seconds to wait</source>
@@ -7405,7 +7405,7 @@ Durada: %3
     <message>
         <location filename="videoeditor.ui" line="170"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Establir una URL arbitrària per aquest vídeo</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="255"/>
@@ -7461,12 +7461,12 @@ Durada: %3
     <message>
         <location filename="videoeditor.cpp" line="161"/>
         <source>Video source URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL font de vídeo</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="162"/>
         <source>Enter a URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entri una URL:</translation>
     </message>
 </context>
 <context>
