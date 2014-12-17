@@ -32,10 +32,17 @@ list of the fixture's channels and DMX values.
   </TD>
   <TD>
    <P>The channel's logical group (its role in the fixture). </P>
-
+   <LI>Assign a channel to the <B>Intensity</B> group if the channel should obey the <A HREF="file:concept.html#HTP">HTP</A> rule.
+       Also, the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
+       channels by default. Note also when you create RGBAW/CMY channels, that they should be
+       assigned to the <I>Intensity</I> group, and <B>NOT the Color group</B>. The Color Tool
+       in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
+       <B>Intensity</B> channels for RGBAW/CMY, whose <B>Color</B> properties have been set
+       accordingly (see the <B>Color</B> setting below).</LI>
+   <BR>
    <LI>Assign a channel to the <B>Color</B> group if the channel controls a fixed color
-       wheel or pre-defined color macros. <I>Don't</I> assign individual RGB/CMY color channels
-       to the </B>Color</B> group but instead use the <B>Intensity</B> group as described below.
+       wheel or pre-defined color macros. <I>Don't</I> assign individual RGBAW/CMY color channels
+       to the </B>Color</B> group but instead use the <B>Intensity</B> group as described above
        The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
    <BR>
    <LI>Assign a channel to the <B>Gobo</B> group if the channel controls gobo wheel position
@@ -72,14 +79,6 @@ list of the fixture's channels and DMX values.
    <LI>Assign pan channel(s) to the <B>Pan</B> group and respectively, tilt channel(s) to
        the <B>Tilt</B> group. See the <B>Control Byte</B> property below.
        The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
-   <BR>
-   <LI>Assign a channel to the <B>Intensity</B> group if the channel should obey the <A HREF="file:concept.html#HTP">HTP</A> rule.
-       Also, the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
-       channels by default. Note also when you create RGB/CMY channels, that they should be
-       assigned to the <I>Intensity</I> group, and <B>NOT the Color group</B>. The Color Tool
-       in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
-       <B>Intensity</B> channels for RGB/CMY, whose <B>Color</B> properties have been set
-       accordingly (see the <B>Color</B> setting below).</LI>
   </TD>
  </TR>
  <TR>
@@ -89,7 +88,7 @@ list of the fixture's channels and DMX values.
   <TD>
    Only available when the channel has been assigned to the <B>Intensity</B> group. It indicates
    whether the channel controls a specific color out of the primary colors
-   <B>Red, Green, Blue</B> or <B>Cyan, Magenta, Yellow</B>. If the channel controls the
+   <B>Red, Green, Blue, Cyan, Magenta, Yellow, Amber or White</B>. If the channel controls the
    fixture's master intensity, the <B>Generic</B> color setting should be used.
   </TD>
  </TR>
