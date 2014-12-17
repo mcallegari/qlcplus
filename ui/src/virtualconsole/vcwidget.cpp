@@ -100,6 +100,10 @@ VCWidget::~VCWidget()
 {
     qDeleteAll(m_inputs);
     m_inputs.clear();
+
+    VirtualConsole* vc = VirtualConsole::instance();
+    if (vc != NULL)
+        vc->removeWidgetFromMap(this);
 }
 
 /*****************************************************************************

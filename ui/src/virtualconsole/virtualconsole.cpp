@@ -1150,7 +1150,6 @@ void VirtualConsole::slotEditDelete()
             /* Consume the selected list until it is empty and
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
-            m_widgetsMap.remove(widget->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
 
@@ -1551,6 +1550,11 @@ void VirtualConsole::addWidgetInMap(VCWidget* widget)
     qDebug() << Q_FUNC_INFO << "id=" << wid;
     widget->setID(wid);
     m_widgetsMap.insert(wid, widget);
+}
+
+void VirtualConsole::removeWidgetFromMap(VCWidget* widget)
+{
+    m_widgetsMap.remove(widget->id());
 }
 
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
