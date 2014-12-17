@@ -81,7 +81,8 @@ Function::Function(Doc* doc, Type t)
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
-    , m_stop(true)
+    , m_stopped(true)
+    , m_stopping(true)
     , m_running(false)
     , m_startedAsChild(false)
 {
@@ -749,6 +750,7 @@ void Function::preRun(MasterTimer* timer)
 
     qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
     m_running = true;
+    m_stopped = false;
 
     emit running(m_id);
 }
@@ -762,7 +764,7 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-    m_stop = true;
+    m_stopped = true;
     //m_overrideFadeInSpeed = defaultSpeed();
     //m_overrideFadeOutSpeed = defaultSpeed();
     //m_overrideDuration = defaultSpeed();
@@ -814,7 +816,7 @@ void Function::start(MasterTimer* timer, bool child, quint32 startTime,
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    m_stop = false;
+    m_stopping = false;
     timer->startFunction(this);
 }
 
@@ -826,12 +828,13 @@ bool Function::startedAsChild() const
 void Function::stop()
 {
     qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id;
-    m_stop = true;
+    m_stopped = true;
+    m_stopping = true;
 }
 
-bool Function::stopped() const
+bool Function::stopping() const
 {
-    return m_stop;
+    return m_stopping || m_stopped;
 }
 
 bool Function::stopAndWait()
@@ -839,7 +842,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    m_stop = true;
+    stop();
 
     QTime watchdog;
     watchdog.start();

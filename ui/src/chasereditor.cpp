@@ -247,8 +247,7 @@ ChaserEditor::~ChaserEditor()
 
     // double check that the Chaser still exists !
     if (m_liveMode == false &&
-        m_doc->functions().contains(m_chaser) == true &&
-        m_chaser->stopped() == false)
+        m_doc->functions().contains(m_chaser) == true)
         m_chaser->stopAndWait();
 }
 
@@ -260,8 +259,7 @@ void ChaserEditor::showOrderAndDirection(bool show)
 
 void ChaserEditor::stopTest()
 {
-    if (m_chaser->stopped() == false)
-        m_chaser->stopAndWait();
+    m_chaser->stopAndWait();
 }
 
 void ChaserEditor::selectStepAtTime(quint32 time)
@@ -1089,7 +1087,7 @@ int ChaserEditor::getCurrentIndex()
 
 void ChaserEditor::slotRestartTest()
 {
-    if (m_chaser->stopped() == false)
+    if (m_chaser->isRunning())
     {
         // Toggle off, toggle on. Derp.
         m_testStopButton->click();
@@ -1102,7 +1100,7 @@ void ChaserEditor::slotTestPlay()
     m_testPreviousButton->setEnabled(true);
     m_testNextButton->setEnabled(true);
 
-    if (m_chaser->stopped() == true)
+    if (!m_chaser->isRunning())
     {
         int idx = getCurrentIndex();
         if (idx >= 0)
@@ -1116,8 +1114,7 @@ void ChaserEditor::slotTestStop()
     m_testPreviousButton->setEnabled(false);
     m_testNextButton->setEnabled(false);
 
-    if (m_chaser->stopped() == false)
-        m_chaser->stopAndWait();
+    m_chaser->stopAndWait();
 }
 
 void ChaserEditor::slotTestPreviousClicked()
@@ -1136,7 +1133,7 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
     {
         m_testPlayButton->setEnabled(false);
         m_testStopButton->setEnabled(false);
-        if (m_liveMode == false && m_chaser->stopped() == false)
+        if (m_liveMode == false)
             m_chaser->stop();
     }
     else
@@ -1155,15 +1152,8 @@ void ChaserEditor::slotStepChanged(int stepNumber)
 
 bool ChaserEditor::interruptRunning()
 {
-    if (m_chaser->stopped() == false)
-    {
-        m_chaser->stopAndWait();
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    m_chaser->stopAndWait();
+    return true;
 }
 
 void ChaserEditor::continueRunning(bool running)

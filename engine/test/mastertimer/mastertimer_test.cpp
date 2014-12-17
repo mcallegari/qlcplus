@@ -122,6 +122,47 @@ void MasterTimer_Test::startStopFunction()
     QTest::qWait(100);
 
     QVERIFY(mt->runningFunctions() == 0);
+
+    mt->startFunction(&fs);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    fs.stop();
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 0);
+    fs.start(mt);
+    fs.stop();
+    QVERIFY(mt->runningFunctions() == 0);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 0);
+
+    fs.start(mt);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    fs.start(mt);
+    fs.stop();
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 0);
+
+    fs.stop();
+    fs.start(mt);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+
+    fs.stop();
+    fs.start(mt);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+    mt->timerTick();
+    QVERIFY(mt->runningFunctions() == 1);
+
+    fs.stop();
+    mt->timerTick();
 }
 
 void MasterTimer_Test::registerUnregisterDMXSource()

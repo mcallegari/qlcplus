@@ -345,7 +345,7 @@ void VCCueList::setChaser(quint32 id)
     updateStepList();
 
     /* Current status */
-    if (chaser != NULL && !chaser->stopped())
+    if (chaser != NULL && chaser->isRunning())
     {
         slotFunctionRunning(m_chaserID);
         slotCurrentStepChanged(chaser->currentStepIndex());
@@ -637,7 +637,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 void VCCueList::slotProgressTimeout()
 {
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     ChaserRunnerStep step(ch->currentRunningStep());
@@ -711,7 +711,7 @@ void VCCueList::stopChaser()
 void VCCueList::setSlidersInfo(int index)
 {
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     int tmpIndex = ch->computeNextStep(index);
@@ -752,7 +752,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
         m_slider2->setValue(100 - value);
 
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
@@ -795,7 +795,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
         m_slider1->setValue(100 - value);
 
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
@@ -1032,7 +1032,7 @@ void VCCueList::playCueAtIndex(int idx)
     if (ch == NULL)
         return;
 
-    if (!ch->stopped())
+    if (ch->isRunning())
     {
         ch->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
     }

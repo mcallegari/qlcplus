@@ -150,9 +150,9 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
 {
     if (m_function == NULL)
         return;
-    if (m_value >= m_maxThreshold && m_function->isRunning() == false)
+    if (m_value >= m_maxThreshold && m_function->stopping() == true)
         m_function->start(doc->masterTimer());
-    else if (m_value < m_minThreshold && m_function->isRunning() == true)
+    else if (m_value < m_minThreshold && m_function->stopping() == false)
         m_function->stop();
 }
 
@@ -183,8 +183,8 @@ void AudioBar::checkWidgetFunctionality()
         if (m_value >= m_maxThreshold && !m_tapped)
         {
             if (m_skippedBeats == 0)
-               speedDial->tap();
-            
+                speedDial->tap();
+
             m_tapped = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }

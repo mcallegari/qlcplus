@@ -257,28 +257,25 @@ void Script::write(MasterTimer* timer, QList<Universe *> universes)
 {
     incrementElapsed();
 
-    if (stopped() == false)
+    if (waiting() == false)
     {
-        if (waiting() == false)
+        // Not currently waiting for anything. Free to proceed to next command.
+        while (m_currentCommand < m_lines.size() && stopping() == false)
         {
-            // Not currently waiting for anything. Free to proceed to next command.
-            while (m_currentCommand < m_lines.size() && stopped() == false)
-            {
-                bool continueLoop = executeCommand(m_currentCommand, timer, universes);
-                m_currentCommand++;
-                if (continueLoop == false)
-                    break; // Executed command told to skip to the next cycle
-            }
-
-            // In case wait() is the last command, don't stop the script prematurely
-            if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
-                stop();
+            bool continueLoop = executeCommand(m_currentCommand, timer, universes);
+            m_currentCommand++;
+            if (continueLoop == false)
+                break; // Executed command told to skip to the next cycle
         }
 
-        // Handle GenericFader tasks (setltp/sethtp/setfixture)
-        if (m_fader != NULL)
-            m_fader->write(universes);
+        // In case wait() is the last command, don't stop the script prematurely
+        if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
+            stop();
     }
+
+    // Handle GenericFader tasks (setltp/sethtp/setfixture)
+    if (m_fader != NULL)
+        m_fader->write(universes);
 }
 
 void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
@@ -424,7 +421,7 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == true)
+        if (function->stopping())
             function->start(timer, true);
         else
             qWarning() << "Function (" << function->name() << ") is already running.";
@@ -456,10 +453,7 @@ QString Script::handleStopFunction(const QList <QStringList>& tokens)
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == false)
-            function->stop();
-        else
-            qWarning() << "Function (" << function->name() << ") is not running.";
+        function->stop();
 
         m_startedFunctions.removeAll(function);
         return QString();

@@ -522,7 +522,7 @@ public:
      *
      * MasterTimer calls this method for each function to get their DMX
      * data for the given array of universes. This method will be called
-     * for each running function until Function::stopped() returns true.
+     * for each running function until Function::stopping() returns true.
      *
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
@@ -619,12 +619,12 @@ public:
     void stop();
 
     /**
-     * Check, whether the function should be stopped ASAP. Functions can use this
-     * to check, whether they should continue running or bail out.
+     * Check, whether the function is stopped or going to be stopped after the
+     * next tick to check, whether they should continue running or bail out.
      *
      * @return true if the function should be stopped, otherwise false.
      */
-    bool stopped() const;
+    bool stopping() const;
 
     /**
      * Mark the function to be stopped and block the calling thread until it is
@@ -645,7 +645,8 @@ public:
 
 private:
     /** Stop flag, private to keep functions from modifying it. */
-    bool m_stop;
+    bool m_stopped;
+    bool m_stopping;
     bool m_running;
 
     QMutex m_stopMutex;

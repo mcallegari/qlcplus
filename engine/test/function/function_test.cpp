@@ -44,7 +44,7 @@ void Function_Test::initial()
     QCOMPARE(stub->runOrder(), Function::Loop);
     QCOMPARE(stub->direction(), Function::Forward);
     QCOMPARE(stub->elapsed(), quint32(0));
-    QCOMPARE(stub->stopped(), true);
+    QCOMPARE(stub->stopping(), true);
     QCOMPARE(stub->fadeInSpeed(), uint(0));
     QCOMPARE(stub->fadeOutSpeed(), uint(0));
     QCOMPARE(stub->duration(), uint(0));
@@ -173,7 +173,7 @@ void Function_Test::preRunPostRun()
 
     QSignalSpy spyStopped(stub, SIGNAL(stopped(quint32)));
     stub->postRun(NULL, QList<Universe*>());
-    QVERIFY(stub->stopped() == true);
+    QVERIFY(stub->stopping() == true);
     QVERIFY(stub->isRunning() == false);
     QCOMPARE(stub->elapsed(), quint32(0));
     QCOMPARE(spyRunning.size(), 1);

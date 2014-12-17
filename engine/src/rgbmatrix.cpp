@@ -456,7 +456,7 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 
 void RGBMatrix::tap()
 {
-    if (stopped() == false)
+    if (isRunning())
     {
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
