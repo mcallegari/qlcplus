@@ -393,8 +393,8 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
-    m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
+    m_doc->clearContents();
     SimpleDesk::instance()->clearContents();
     ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
