@@ -1151,6 +1151,8 @@ void VirtualConsole::slotEditDelete()
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
             m_widgetsMap.remove(widget->id());
+            foreach (VCWidget* child, getChildren(widget))
+                m_widgetsMap.remove(child->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
 
