@@ -4464,7 +4464,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.ui" line="156"/>
         <source>Test the execution of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar la ejecución de este script</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="176"/>
@@ -4534,7 +4534,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.cpp" line="113"/>
         <source>System Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Comando de Sistema</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="117"/>
@@ -4544,62 +4544,62 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.cpp" line="121"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número aleatorio</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="125"/>
         <source>File Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta de archivo</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="151"/>
         <source>Open Executable File</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir archivo ejecutable</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="156"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Todos los archivos (*.*)</translation>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="158"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Todos los archivos (*)</translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="251"/>
         <source>Enter the desired time</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar el tiempo deseado</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Invalid executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecutable inválido</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="335"/>
         <source>Please select an executable file !</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Por favor, seleccionar un archivo ejecutable!</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="341"/>
         <source>Enter the program arguments (leave empty if not required)</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar los argumentos del programa (dejar vacío si no son necesarios)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="377"/>
         <source>Enter the range for the randomization</source>
-        <translation type="unfinished"></translation>
+        <translation>Insertar el rango para los valores aleatorios</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="384"/>
         <source>Minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor mínimo</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="385"/>
         <source>Maximum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor máximo</translation>
     </message>
     <message>
         <source>Seconds to wait</source>
@@ -6310,7 +6310,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="403"/>
         <source>Enter a text</source>
-        <translation>Ingresar text</translation>
+        <translation>Ingresar texto</translation>
     </message>
 </context>
 <context>
@@ -7419,7 +7419,7 @@ Duración: %3
     <message>
         <location filename="videoeditor.ui" line="170"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer una URL arbitraria para este Video</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="255"/>
@@ -7475,12 +7475,12 @@ Duración: %3
     <message>
         <location filename="videoeditor.cpp" line="161"/>
         <source>Video source URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL del origen del video</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="162"/>
         <source>Enter a URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingresar una URL:</translation>
     </message>
 </context>
 <context>
