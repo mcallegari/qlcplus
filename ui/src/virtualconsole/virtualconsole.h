@@ -316,6 +316,7 @@ public:
     void resetContents();
 
     void addWidgetInMap(VCWidget* widget);
+    void removeWidgetFromMap(VCWidget* widget);
     void setupWidget(VCWidget *widget, VCWidget *parent);
 
     VCWidget *widget(quint32 id);

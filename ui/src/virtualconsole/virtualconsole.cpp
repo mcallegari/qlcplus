@@ -1135,7 +1135,6 @@ void VirtualConsole::slotEditDelete()
             /* Consume the selected list until it is empty and
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
-            m_widgetsMap.remove(widget->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
 
@@ -1503,8 +1502,38 @@ void VirtualConsole::resetContents()
 
 void VirtualConsole::addWidgetInMap(VCWidget* widget)
 {
-    widget->setID(newWidgetId());
-    m_widgetsMap.insert(widget->id(), widget);
+    // Valid ID ?
+    if (widget->id() != VCWidget::invalidId())
+    {
+
+        // Maybe we don't know this widget yet
+        if (!m_widgetsMap.contains(widget->id()))
+        {
+            m_widgetsMap.insert(widget->id(), widget);
+            return;
+        }
+
+        // Maybe we already know this widget
+        if (m_widgetsMap[widget->id()] == widget)
+        {
+            qDebug() << Q_FUNC_INFO << "widget" << widget->id() << "already in map";
+            return;
+        }
+
+        // This widget id conflicts with another one we have to change it.
+        qDebug() << Q_FUNC_INFO << "widget id" << widget->id() << "conflicts, creating a new ID";
+    }
+
+    quint32 wid = newWidgetId();
+    Q_ASSERT(!m_widgetsMap.contains(wid));
+    qDebug() << Q_FUNC_INFO << "id=" << wid;
+    widget->setID(wid);
+    m_widgetsMap.insert(wid, widget);
+}
+
+void VirtualConsole::removeWidgetFromMap(VCWidget* widget)
+{
+    m_widgetsMap.remove(widget->id());
 }
 
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
@@ -1849,23 +1878,27 @@ void VirtualConsole::postLoad()
 
     /* Go through widgets, check IDs and register */
     /* widgets to the map */
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+    /* This code is the same as the one in addWidgetInMap() */
+    /* We have to repeat it to limit conflicts if */
+    /* one widget was not saved with a valid ID, */
+    /* as addWidgetInMap ensures the widget WILL be added */
+    QList<VCWidget *> widgetsList = getChildren(m_contents);
     QList<VCWidget *> invalidWidgetsList;
     foreach (VCWidget *widget, widgetsList)
     {
         quint32 wid = widget->id();
-        if (wid != VCWidget::invalidId() && !m_widgetsMap.contains(wid))
-            m_widgetsMap.insert(wid, widget);
+        if (wid != VCWidget::invalidId())
+        {
+            if (!m_widgetsMap.contains(wid))
+                m_widgetsMap.insert(wid, widget);
+            else if (m_widgetsMap[wid] != widget)
+                invalidWidgetsList.append(widget);
+        }
         else
             invalidWidgetsList.append(widget);
     }
     foreach (VCWidget *widget, invalidWidgetsList)
-    {
-        quint32 wid = newWidgetId();
-        widget->setID(wid);
-        Q_ASSERT(!m_widgetsMap.contains(wid));
-        m_widgetsMap.insert(wid, widget);
-    }
+        addWidgetInMap(widget);
 
     m_contents->setFocus();
 
@@ -1875,7 +1908,7 @@ void VirtualConsole::postLoad()
 
 bool VirtualConsole::checkStartupFunction(quint32 fid)
 {
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+    QList<VCWidget *> widgetsList = getChildren(m_contents);
 
     foreach (VCWidget *widget, widgetsList)
     {
