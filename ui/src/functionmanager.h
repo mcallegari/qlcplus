@@ -165,7 +165,8 @@ private:
     /** Open an editor for the given function */
     void editFunction(Function* function);
 
-    void deleteCurrentEditor();
+    /** Delete current editor. Can be synchronous. */
+    void deleteCurrentEditor(bool async = true);
 
 private:
     QWidget* m_editor;
