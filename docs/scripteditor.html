@@ -180,7 +180,7 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <I>arg1 ... argN</I> are the arguments to be used when executing <I>programPath</I>. If no arguments are
     needed, then the arg: keywords are not necessary.<br>
     If an argument contans spaces it must be written between quotes.<br>
-    <B>Example</B>: 
+    <B>Examples</B>: 
       <PRE>
         systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen
         systemcommand:"C:\Program Files\Tools\My Tool.exe" arg:"D:\My Files\My file.txt"
@@ -208,9 +208,16 @@ Here's a table describing each keyword accepted by the Script engine and its syn
   <TD>
     <B>Type</B>: keyword<br>
     <B>Description</B>: wait for the provided amount of time before executing the next line of code.<br>
+      Note that a wait time can be randomized too, following the <i>random</i> syntax described below.<br>
     <B>Syntax</B>: wait:time<br><br>
-    <I>time</I> is a string representing the wait time in the QLC+ way: 00h00m00s.00<br>
-    <B>Example</B>: <PRE>wait:03s.20 // Waits for 3 seconds and 200 milliseconds</PRE>
+    <I>time</I> can be either an integer number of milliseconds or a string 
+    representing the wait time in the QLC+ way: 00h00m00s.00<br>
+    <B>Examples</B>: 
+      <PRE>
+        wait:1800 // Waits for 1 second and 800 milliseconds
+	wait:03s.20 // Waits for 3 seconds and 200 milliseconds
+	wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
+      </PRE>
   </TD>
  </TR>
  <TR>
@@ -235,8 +242,10 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <B>Syntax</B>: random(min,max)<br><br>
     <I>min</I> is the minimum integer value the randomization can reach<br>
     <I>max</I> is the maximum integer value the randomization can reach<br>
-    <B>Example</B>:
+    <B>Examples</B>:
     <PRE>
+    // set channel 6 of fixture with ID:10 to DMX value 200
+    setfixture:10 ch:5 val:200
     // set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
     setfixture:1 ch:2 val:random(20,235)
     </PRE>

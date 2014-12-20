@@ -327,7 +327,12 @@ bool Script::waiting()
 quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
-        return str.toUInt(ok);
+    {
+        if (str.contains("."))
+            return Function::stringToSpeed(str);
+        else
+            return str.toUInt(ok);
+    }
 
     QString strippedStr = str.remove("random(");
     strippedStr.remove(")");
@@ -335,8 +340,16 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = valList.at(0).toInt();
-    int max = valList.at(1).toInt();
+    int min = 0;
+    if (valList.at(0).contains("."))
+        min = Function::stringToSpeed(valList.at(0));
+    else
+        min = valList.at(0).toInt();
+    int max = 0;
+    if (valList.at(1).contains("."))
+        max = Function::stringToSpeed(valList.at(1));
+    else
+        max = valList.at(1).toInt();
 
     *ok = true;
     return qrand() % ((max + 1) - min) + min;
@@ -490,12 +503,10 @@ QString Script::handleWait(const QList<QStringList>& tokens)
     if (tokens.size() > 2)
         return QString("Too many arguments");
 
-    uint time = 0;
+    bool ok = false;
+    uint time = getValueFromString(tokens[0][1], &ok);
 
-    if (tokens[0][1].contains(".") == false)
-        return QString("Invalid wait time: %1").arg(tokens[0][1]);
-
-    time = Function::stringToSpeed(tokens[0][1]);
+    qDebug() << "Wait time:" << time;
 
     m_waitCount = time / MasterTimer::tick();
 
@@ -544,7 +555,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
             else if (list[0] == "ch" || list[0] == "channel")
                 ch = getValueFromString(list[1], &ok);
             else if (list[0] == "time")
-                time = Function::stringToSpeed(list[1]);
+                time = getValueFromString(list[1], &ok);
             else
                 return QString("Unrecognized keyword: %1").arg(list[0]);
 

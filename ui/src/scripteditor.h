@@ -64,6 +64,7 @@ private:
 private slots:
     void slotNameEdited(const QString& text);
     void slotContentsChanged();
+    void slotFunctionStopped(quint32 id);
 
     void slotAddStartFunction();
     void slotAddStopFunction();
