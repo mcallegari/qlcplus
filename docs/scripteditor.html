@@ -211,12 +211,11 @@ Here's a table describing each keyword accepted by the Script engine and its syn
       Note that a wait time can be randomized too, following the <i>random</i> syntax described below.<br>
     <B>Syntax</B>: wait:time<br><br>
     <I>time</I> can be either an integer number of milliseconds or a string 
-    representing the wait time in the QLC+ way: 00h00m00s.00<br>
+    representing the wait time in the QLC+ way: **h**m**s.**<br>
     <B>Examples</B>: 
       <PRE>
         wait:1800 // Waits for 1 second and 800 milliseconds
 	wait:03s.20 // Waits for 3 seconds and 200 milliseconds
-	wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
       </PRE>
   </TD>
  </TR>
@@ -240,14 +239,14 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <B>Type</B>: Helper macro<br>
     <B>Description</B>: generates a random integer number between the provided minimum and maximum values<br>
     <B>Syntax</B>: random(min,max)<br><br>
-    <I>min</I> is the minimum integer value the randomization can reach<br>
-    <I>max</I> is the maximum integer value the randomization can reach<br>
+    <I>min</I> is the minimum value the randomization can reach. It can be either an integer number or a time string<br>
+    <I>max</I> is the maximum value the randomization can reach. It can be either an integer number or a time string<br>
     <B>Examples</B>:
     <PRE>
-    // set channel 6 of fixture with ID:10 to DMX value 200
-    setfixture:10 ch:5 val:200
-    // set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
-    setfixture:1 ch:2 val:random(20,235)
+      wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
+
+      // set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
+      setfixture:1 ch:2 val:random(20,235)
     </PRE>
   </TD>
  </TR>
