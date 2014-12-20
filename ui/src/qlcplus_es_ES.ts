@@ -4491,7 +4491,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.ui" line="195"/>
         <source>Check the syntax of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Validar la sintaxis de este script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="86"/>
@@ -4601,7 +4601,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.cpp" line="426"/>
         <source>No syntax errors found in the script</source>
-        <translation type="unfinished"></translation>
+        <translation>No se encotraron errores en el script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="433"/>
@@ -4609,12 +4609,15 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
 %2
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Error de sintaxis en la línea %1:
+%2
+
+</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="436"/>
         <source>Script check results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultados de la validación del script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="362"/>
