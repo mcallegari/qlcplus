@@ -199,7 +199,11 @@ void VideoEditor::slotPreviewToggled(bool state)
 void VideoEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_video->id())
+    {
+        m_previewButton->blockSignals(true);
         m_previewButton->setChecked(false);
+        m_previewButton->blockSignals(false);
+    }
 }
 
 void VideoEditor::slotDurationChanged(qint64 duration)

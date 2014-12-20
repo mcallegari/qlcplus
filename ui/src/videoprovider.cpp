@@ -121,6 +121,7 @@ void VideoWidget::slotTotalTimeChanged(qint64 duration)
 
 void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
 {
+    qDebug() << Q_FUNC_INFO << status;
     switch (status)
     {
         case QMediaPlayer::UnknownMediaStatus:
@@ -185,6 +186,8 @@ void VideoWidget::slotPlaybackVideo()
 
     if (m_video->getStartTime() != UINT_MAX)
         m_videoPlayer->setPosition(m_video->getStartTime());
+    else
+        m_videoPlayer->setPosition(0);
 
     int screen = m_video->screen();
     QRect rect = qApp->desktop()->screenGeometry(screen);

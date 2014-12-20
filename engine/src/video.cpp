@@ -384,7 +384,6 @@ void Video::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Video::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer)
-    Q_UNUSED(universes)
     emit requestStop();
+    Function::postRun(timer, universes);
 }
