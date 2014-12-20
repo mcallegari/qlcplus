@@ -4483,7 +4483,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="195"/>
         <source>Check the syntax of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Comproveu la sintaxi d&apos;aquest script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="86"/>
@@ -4594,7 +4594,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="426"/>
         <source>No syntax errors found in the script</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;han trobat errors al script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="433"/>
@@ -4602,12 +4602,15 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 %2
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Error de sintaxi a la línia %1:
+%2
+
+</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="436"/>
         <source>Script check results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultats de la validació del script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="362"/>
