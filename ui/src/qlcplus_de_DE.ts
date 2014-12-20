@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1996,7 +1996,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -2116,10 +2116,6 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="efxeditor.ui" line="656"/>
         <source>See what the EFX does when it is run</source>
         <translation>Effekt-Vorschau</translation>
-    </message>
-    <message>
-        <source>&amp;Test Run</source>
-        <translation type="obsolete">&amp;Testlauf</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="710"/>
@@ -4270,10 +4266,6 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Vorschau der RGB-Matrix</translation>
     </message>
     <message>
-        <source>Test Run</source>
-        <translation type="obsolete">Testlauf</translation>
-    </message>
-    <message>
         <location filename="rgbmatrixeditor.cpp" line="263"/>
         <source>None</source>
         <translation>Nichts</translation>
@@ -4495,116 +4487,135 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Rückgängig</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="85"/>
+        <location filename="scripteditor.ui" line="195"/>
+        <source>Check the syntax of this script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="86"/>
         <source>Start Function</source>
         <translation>Funktion starten</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="89"/>
+        <location filename="scripteditor.cpp" line="90"/>
         <source>Stop Function</source>
         <translation>Funktion stoppen</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="93"/>
+        <location filename="scripteditor.cpp" line="94"/>
         <source>Wait</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="97"/>
+        <location filename="scripteditor.cpp" line="98"/>
         <source>Wait Key</source>
         <translation>Pausentaste</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="101"/>
+        <location filename="scripteditor.cpp" line="102"/>
         <source>Set HTP</source>
         <translation>Setze HTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="105"/>
+        <location filename="scripteditor.cpp" line="106"/>
         <source>Set LTP</source>
         <translation>Setze LTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="109"/>
+        <location filename="scripteditor.cpp" line="110"/>
         <source>Set Fixture</source>
         <translation>Setze Gerät</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="113"/>
+        <location filename="scripteditor.cpp" line="114"/>
         <source>System Command</source>
         <translation>Systemkommando</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="117"/>
+        <location filename="scripteditor.cpp" line="118"/>
         <source>Comment</source>
         <translation>Kommentar</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="121"/>
+        <location filename="scripteditor.cpp" line="122"/>
         <source>Random Number</source>
         <translation>Zufällige Zahl</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="125"/>
+        <location filename="scripteditor.cpp" line="126"/>
         <source>File Path</source>
         <translation>Dateipfad</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="151"/>
+        <location filename="scripteditor.cpp" line="152"/>
         <source>Open Executable File</source>
         <translation>Ausführbare Datei öffnen</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="156"/>
+        <location filename="scripteditor.cpp" line="157"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="158"/>
+        <location filename="scripteditor.cpp" line="159"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="251"/>
+        <location filename="scripteditor.cpp" line="252"/>
         <source>Enter the desired time</source>
         <translation>Gewünschte Zeit eingeben</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="335"/>
+        <location filename="scripteditor.cpp" line="336"/>
         <source>Invalid executable</source>
         <translation>Ungültige ausführbare Datei</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="335"/>
+        <location filename="scripteditor.cpp" line="336"/>
         <source>Please select an executable file !</source>
         <translation>Bitte eine ausführbare Datei auswählen!</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="341"/>
+        <location filename="scripteditor.cpp" line="342"/>
         <source>Enter the program arguments (leave empty if not required)</source>
         <translation>Argumente für das Programm angeben (Leer lassen falls nicht benötigt)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="377"/>
+        <location filename="scripteditor.cpp" line="378"/>
         <source>Enter the range for the randomization</source>
         <translation>Bereich für Zufallszahlen angeben</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="384"/>
+        <location filename="scripteditor.cpp" line="385"/>
         <source>Minimum value</source>
         <translation>Minimalwert</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="385"/>
+        <location filename="scripteditor.cpp" line="386"/>
         <source>Maximum value</source>
         <translation>Maximalwert</translation>
     </message>
     <message>
-        <source>Seconds to wait</source>
-        <translation type="obsolete">Sekunden Pause</translation>
+        <location filename="scripteditor.cpp" line="426"/>
+        <source>No syntax errors found in the script</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="361"/>
+        <location filename="scripteditor.cpp" line="433"/>
+        <source>Syntax error at line %1:
+%2
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="436"/>
+        <source>Script check results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="362"/>
         <source>Add Comment</source>
         <translation>Kommentar hinzufügen</translation>
     </message>
@@ -7706,22 +7717,22 @@ Dauer: %3
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1185"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1185"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1238"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1242"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>

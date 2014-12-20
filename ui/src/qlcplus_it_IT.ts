@@ -2119,10 +2119,6 @@ Il file selezionato è stato spostato o eliminato.</translation>
         <translation>Guarda cosa fa l&apos;EFX quando è in esecuzione</translation>
     </message>
     <message>
-        <source>&amp;Test Run</source>
-        <translation type="obsolete">&amp;Prova esecuzione</translation>
-    </message>
-    <message>
         <location filename="efxeditor.cpp" line="710"/>
         <source>Remove fixtures</source>
         <translation>Rimuovi fixture</translation>
@@ -4271,10 +4267,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Guarda cosa fa la matrice RGB quando è in esecuzione</translation>
     </message>
     <message>
-        <source>Test Run</source>
-        <translation type="obsolete">Prova esecuzione</translation>
-    </message>
-    <message>
         <location filename="rgbmatrixeditor.cpp" line="263"/>
         <source>None</source>
         <translation>Nessuno</translation>
@@ -4496,116 +4488,137 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="85"/>
+        <location filename="scripteditor.ui" line="195"/>
+        <source>Check the syntax of this script</source>
+        <translation>Verifica la sintassi di questo script</translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="86"/>
         <source>Start Function</source>
         <translation>Avvia Funzione</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="89"/>
+        <location filename="scripteditor.cpp" line="90"/>
         <source>Stop Function</source>
         <translation>Interrompi Funzione</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="93"/>
+        <location filename="scripteditor.cpp" line="94"/>
         <source>Wait</source>
         <translation>Attesa</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="97"/>
+        <location filename="scripteditor.cpp" line="98"/>
         <source>Wait Key</source>
         <translation>Tasto di attesa</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="101"/>
+        <location filename="scripteditor.cpp" line="102"/>
         <source>Set HTP</source>
         <translation>Imposta HTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="105"/>
+        <location filename="scripteditor.cpp" line="106"/>
         <source>Set LTP</source>
         <translation>Imposta LTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="109"/>
+        <location filename="scripteditor.cpp" line="110"/>
         <source>Set Fixture</source>
         <translation>Imposta fixture</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="113"/>
+        <location filename="scripteditor.cpp" line="114"/>
         <source>System Command</source>
         <translation>Comando di sistema</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="117"/>
+        <location filename="scripteditor.cpp" line="118"/>
         <source>Comment</source>
         <translation>Commento</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="121"/>
+        <location filename="scripteditor.cpp" line="122"/>
         <source>Random Number</source>
         <translation>Numero casuale</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="125"/>
+        <location filename="scripteditor.cpp" line="126"/>
         <source>File Path</source>
         <translation>Percorso di un file</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="151"/>
+        <location filename="scripteditor.cpp" line="152"/>
         <source>Open Executable File</source>
         <translation>Apri un file eseguibile</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="156"/>
+        <location filename="scripteditor.cpp" line="157"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="158"/>
+        <location filename="scripteditor.cpp" line="159"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="251"/>
+        <location filename="scripteditor.cpp" line="252"/>
         <source>Enter the desired time</source>
         <translation>Inserisci il tempo desiderato</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="335"/>
+        <location filename="scripteditor.cpp" line="336"/>
         <source>Invalid executable</source>
         <translation>Eseguibile non valido</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="335"/>
+        <location filename="scripteditor.cpp" line="336"/>
         <source>Please select an executable file !</source>
         <translation>Devi selezionare un file eseguibile !</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="341"/>
+        <location filename="scripteditor.cpp" line="342"/>
         <source>Enter the program arguments (leave empty if not required)</source>
         <translation>Inserisci i parametri del programma (lascia vuoto se non richiesti)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="377"/>
+        <location filename="scripteditor.cpp" line="378"/>
         <source>Enter the range for the randomization</source>
         <translation>Inserisci l&apos;intervallo per la generazione casuale</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="384"/>
+        <location filename="scripteditor.cpp" line="385"/>
         <source>Minimum value</source>
         <translation>Valore minimo</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="385"/>
+        <location filename="scripteditor.cpp" line="386"/>
         <source>Maximum value</source>
         <translation>Valore massimo</translation>
     </message>
     <message>
-        <source>Seconds to wait</source>
-        <translation type="obsolete">Secondi di attesa</translation>
+        <location filename="scripteditor.cpp" line="426"/>
+        <source>No syntax errors found in the script</source>
+        <translation>Nessun errore di sintassi rilevato in questo script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="361"/>
+        <location filename="scripteditor.cpp" line="433"/>
+        <source>Syntax error at line %1:
+%2
+
+</source>
+        <translation>Errore di sintassi alla linea %1:
+%2
+</translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="436"/>
+        <source>Script check results</source>
+        <translation>Risultati della verifica dello script</translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="362"/>
         <source>Add Comment</source>
         <translation>Aggiungi commento</translation>
     </message>
@@ -5180,12 +5193,12 @@ Durata: %3
 <context>
     <name>VCAudioTriggers</name>
     <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="187"/>
+        <location filename="virtualconsole/vcaudiotriggers.cpp" line="189"/>
         <source>Audio open error</source>
         <translation>Errore di apertura dell&apos;audio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="188"/>
+        <location filename="virtualconsole/vcaudiotriggers.cpp" line="190"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
         <translation>Si è verificato un errore durante l&apos;inizializzazione del dispositivo audio selezionato. Controlla le impostazioni di ingresso audio.</translation>
     </message>
@@ -5218,17 +5231,17 @@ Durata: %3
         <translation>Immagini (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="550"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="553"/>
         <source>Toggle Blackout</source>
         <translation>Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="552"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="555"/>
         <source>Stop ALL functions!</source>
         <translation>Ferma TUTTE le funzioni!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="782"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="785"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
@@ -5497,22 +5510,22 @@ Durata: %3
         <translation>Lista di azioni</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="978"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
         <source>Notes</source>
         <translation>Note</translation>
     </message>
@@ -5755,12 +5768,12 @@ Durata: %3
     <name>VCFrame</name>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="350"/>
-        <location filename="virtualconsole/vcframe.cpp" line="446"/>
+        <location filename="virtualconsole/vcframe.cpp" line="448"/>
         <source>Page: %1</source>
         <translation>Pagina %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1205"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1196"/>
         <source>Add</source>
         <translation>Aggiungi</translation>
     </message>
@@ -7679,7 +7692,7 @@ Durata: %3
         <translation>&amp;Ordine di Sovrapposizione</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1261"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1242"/>
         <source>Images</source>
         <translation>Immagini</translation>
     </message>
@@ -7694,32 +7707,32 @@ Durata: %3
         <translation>Nuova Animazione</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="874"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="859"/>
         <source>Knob %1</source>
         <translation>Manopola %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1141"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1126"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vuoi cancellare gli oggetti selezionati?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1142"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1127"/>
         <source>Delete widgets</source>
         <translation>Elimina oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
         <source>Rename widgets</source>
         <translation>Rinomina gli oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
         <source>Caption:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
         <source>Select background image</source>
         <translation>Seleziona l&apos;immagine di sfondo</translation>
     </message>
