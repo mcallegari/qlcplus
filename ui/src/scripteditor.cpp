@@ -66,6 +66,7 @@ ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
     connect(m_document, SIGNAL(contentsChanged()), this, SLOT(slotContentsChanged()));
 
     connect(m_testPlayButton, SIGNAL(clicked()), this, SLOT(slotTestRun()));
+    connect(m_checkButton, SIGNAL(clicked()), this, SLOT(slotCheckSyntax()));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -412,6 +413,27 @@ void ScriptEditor::slotAddFilePath()
 
     //m_editor->textCursor().insertText(QUrl::toPercentEncoding(fn));
     m_editor->textCursor().insertText(fn);
+}
+
+void ScriptEditor::slotCheckSyntax()
+{
+    QString errResult;
+    QString scriptText = m_document->toPlainText();
+    m_script->setData(scriptText);
+    QList<int> errLines = m_script->syntaxErrorsLines();
+    if (errLines.isEmpty())
+    {
+        errResult.append(tr("No syntax errors found in the script"));
+    }
+    else
+    {
+        QStringList lines = scriptText.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+        foreach(int line, errLines)
+        {
+            errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));
+        }
+    }
+    QMessageBox::information(this, tr("Script check results"), errResult);
 }
 
 void ScriptEditor::slotTestRun()

@@ -102,16 +102,24 @@ bool Script::copyFrom(const Function* function)
 bool Script::setData(const QString& str)
 {
     m_data = str;
+    m_syntaxErrorLines.clear();
 
     // Construct individual code lines from the data
     m_lines.clear();
     if (m_data.isEmpty() == false)
     {
+        int i = 1;
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
         foreach (QString line, lines)
         {
-            if (!line.isEmpty())
-                m_lines << tokenizeLine(line + QString("\n"));
+            bool ok = false;
+            if (line.isEmpty() == false)
+            {
+                m_lines << tokenizeLine(line + QString("\n"), &ok);
+                if (ok == false)
+                    m_syntaxErrorLines.append(i);
+            }
+            i++;
         }
     }
 
@@ -146,6 +154,11 @@ QString Script::data() const
 QStringList Script::dataLines() const
 {
     return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+}
+
+QList<int> Script::syntaxErrorsLines()
+{
+    return m_syntaxErrorLines;
 }
 
 /****************************************************************************
@@ -644,6 +657,9 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     QString keyword;
     QString value;
 
+    if (ok != NULL)
+        *ok = true; // in case, this is set to false afterwards
+
     if (str.simplified().startsWith("//") == true || str.simplified().isEmpty() == true)
     {
         tokens << QStringList(); // Return an empty string list for commented lines
@@ -686,7 +702,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 {
                     // Don't include the "" in the string
                     value = line.mid(quoteleft, quoteright - quoteleft);
-                    left = quoteright + 1;
+                    left = quoteright + 2;
                 }
                 else
                 {
@@ -719,9 +735,6 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             qDebug() << "Tokens:" << tokens;
         }
     }
-
-    if (ok != NULL)
-        *ok = true;
 
     return tokens;
 }

@@ -76,6 +76,7 @@ private slots:
     void slotAddComment();
     void slotAddRandom();
     void slotAddFilePath();
+    void slotCheckSyntax();
 
 private:
     QAction* m_addStartFunctionAction;

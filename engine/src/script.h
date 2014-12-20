@@ -87,6 +87,8 @@ public:
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
 
+    QList<int> syntaxErrorsLines();
+
 private:
     QString m_data;
 
@@ -226,6 +228,7 @@ private:
     QList <QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script
+    QList <int> m_syntaxErrorLines;
 
     GenericFader* m_fader;
 };

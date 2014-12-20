@@ -14,7 +14,7 @@
    <string>Script editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0" rowspan="8" colspan="3">
+   <item row="2" column="0" rowspan="10" colspan="3">
     <widget class="QTextEdit" name="m_editor">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -135,7 +135,7 @@
      </property>
     </widget>
    </item>
-   <item row="9" column="3">
+   <item row="11" column="3">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -181,6 +181,30 @@
       <widget class="QLineEdit" name="m_nameEdit"/>
      </item>
     </layout>
+   </item>
+   <item row="9" column="3">
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="3">
+    <widget class="QToolButton" name="m_checkButton">
+     <property name="toolTip">
+      <string>Check the syntax of this script</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/check.png</normaloff>:/check.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
