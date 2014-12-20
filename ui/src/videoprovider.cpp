@@ -186,19 +186,24 @@ void VideoWidget::slotPlaybackVideo()
     if (m_video->getStartTime() != UINT_MAX)
         m_videoPlayer->setPosition(m_video->getStartTime());
 
+    int screen = m_video->screen();
+    QRect rect = qApp->desktop()->screenGeometry(screen);
+
     if (m_video->fullscreen() == false)
     {
         QSize resolution = m_video->resolution();
         if (resolution.isEmpty())
-            m_videoWidget->setGeometry(0, 0, 640, 480);
+            m_videoWidget->setGeometry(0, 50, 640, 480);
         else
-            m_videoWidget->setGeometry(0, 0, resolution.width(), resolution.height());
+            m_videoWidget->setGeometry(0, 50, resolution.width(), resolution.height());
+    }
+    else
+    {
+        m_videoWidget->setGeometry(rect);
     }
 
-    int screen = m_video->screen();
     if (screen > 0 && getScreenCount() > screen)
     {
-        QRect rect = qApp->desktop()->screenGeometry(screen);
         m_videoWidget->move(rect.topLeft());
     }
 
