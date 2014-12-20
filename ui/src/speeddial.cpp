@@ -283,7 +283,12 @@ int SpeedDial::spinValues() const
         value += m_hrs->value() * MS_PER_HOUR;
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
-        value += m_ms->value() * MS_DIV;
+        QString msText = m_ms->text();
+        int msInt = m_ms->value();
+        if (msInt < 10 && msText.contains("0") == false)
+            value += (msInt * MS_DIV * 10);
+        else
+            value += (msInt * MS_DIV);
     }
     else
     {
