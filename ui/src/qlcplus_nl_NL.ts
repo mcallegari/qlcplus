@@ -35,7 +35,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="14"/>
         <source>Select Channels</source>
-        <translation>Selecteer channels</translation>
+        <translation>Selecteer kanalen</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="24"/>
@@ -71,12 +71,12 @@
     <message>
         <location filename="addchannelsgroup.ui" line="79"/>
         <source>Input channel</source>
-        <translation>Input channel</translation>
+        <translation>Input kanaal</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="86"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>Het specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="109"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="119"/>
         <source>Choose an external input universe and channel that this group should listen to</source>
-        <translation>Kies een externe input universe en channel waarnaar deze group moet luisteren</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze group moet luisteren</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="122"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="addfixture.ui" line="65"/>
         <source>Number of empty channels to leave between added fixtures</source>
-        <translation>Aantal lege channels tussen toegevoegde fixtures</translation>
+        <translation>Aantal lege kanalen tussen toegevoegde fixtures</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="78"/>
@@ -194,17 +194,17 @@
     <message>
         <location filename="addfixture.ui" line="189"/>
         <source>Channels</source>
-        <translation>Channels</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="205"/>
         <source>Number of channels in the selected fixture</source>
-        <translation>Aantal channels in de geselecteerde fixture</translation>
+        <translation>Aantal kanalen in de geselecteerde fixture</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="221"/>
         <source>List of channels in the selected fixture mode</source>
-        <translation>Lijst van channels in de geselecteerde fixture mode</translation>
+        <translation>Lijst van kanalen in de geselecteerde fixture mode</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="234"/>
@@ -986,7 +986,7 @@ The selected file has been moved or deleted.</source>
         <location filename="audioeditor.ui" line="129"/>
         <source>Channels</source>
         <oldsource>Channels:</oldsource>
-        <translation>Channels</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="64"/>
@@ -1042,7 +1042,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="showmanager/audioitem.cpp" line="62"/>
         <source>Preview Stereo Channels</source>
-        <translation>Voorbeeld stereo</translation>
+        <translation>Voorbeeld stereokanalen</translation>
     </message>
     <message>
         <location filename="showmanager/audioitem.cpp" line="353"/>
@@ -1125,7 +1125,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="132"/>
         <source>Input Channel</source>
-        <translation>Input channel</translation>
+        <translation>Input kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="139"/>
@@ -1141,7 +1141,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="158"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>Het specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="168"/>
@@ -1152,7 +1152,7 @@ The selected file has been moved or deleted.</source>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren.</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze widget moet luisteren.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="187"/>
@@ -1205,7 +1205,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="141"/>
         <source>%1 channels</source>
-        <translation>%1 channels</translation>
+        <translation>%1 kanalen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="173"/>
@@ -1238,7 +1238,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation>Channel modifier editor</translation>
+        <translation>Kanaal Aanpassingen Editor</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
@@ -1265,7 +1265,7 @@ The selected file has been moved or deleted.</source>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
         <translatorcomment>Wat is een handler?</translatorcomment>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
@@ -1285,7 +1285,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="183"/>
@@ -1295,7 +1295,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.cpp" line="184"/>
         <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>U probeert een systeem template te overschrijven ! Kies een andere naam zodat het template opgeslagen kan worden in de chanel modifier&apos;s gebruikers map.</translation>
+        <translation>U probeert een systeem template te overschrijven ! Kies een andere naam zodat het template opgeslagen kan worden in de kanaal aanpassingen gebruikers map.</translation>
     </message>
 </context>
 <context>
@@ -1304,7 +1304,7 @@ The selected file has been moved or deleted.</source>
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation>Selecteer channels</translation>
+        <translation>Selecteer kanalen</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1331,7 +1331,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelsselection.cpp" line="58"/>
         <source>Channel properties configuration</source>
-        <translation>Channel eigenschappen configuratie</translation>
+        <translation>Kanaal eigenschappen configuratie</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="60"/>
@@ -1597,7 +1597,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
-        <translation>Verplaats de stap een plek naar beneden</translation>
+        <translation>Verplaats de stap een positie omhoog</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="73"/>
@@ -1762,7 +1762,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="dmxdumpfactory.ui" line="138"/>
         <source>Dump selected channels</source>
-        <translation>Dump geselecteerde channels</translation>
+        <translation>Dump geselecteerde kanalen</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="82"/>
@@ -1797,7 +1797,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="dmxdumpfactory.cpp" line="72"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
-        <translation>Dump alle channels (%1 Universes, %2 Fixtures, %3 Channels)</translation>
+        <translation>Dump alle kanalen (%1 Universes, %2 Fixtures, %3 Kanalen)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="75"/>
@@ -2182,12 +2182,12 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="367"/>
         <source>Channels</source>
-        <translation>Channels</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="380"/>
         <source>Channels Groups</source>
-        <translation>Channel groepen</translation>
+        <translation>Kanaalgroepen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="573"/>
@@ -2227,7 +2227,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="666"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een channel groep van de lijst of klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe channel group toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een kanaal groep van de lijst of klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe kanaalgroep toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="691"/>
@@ -2258,7 +2258,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="825"/>
         <source>Channels Fade Configuration...</source>
-        <translation>Channels Fade configuratie...</translation>
+        <translation>Kanalen Fade configuratie...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="831"/>
@@ -2328,7 +2328,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="1196"/>
         <source>Delete Channels Group</source>
-        <translation>Verwijder Channels Groep</translation>
+        <translation>Verwijder Kanalengroep</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1197"/>
@@ -2493,7 +2493,7 @@ The selected file has been moved or deleted.</source>
         <location filename="fixtureremap.cpp" line="405"/>
         <location filename="fixtureremap.cpp" line="518"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
-        <translation>Selecteer een bron en een doelfixture of channel om deze bewerking uit te voeren.</translation>
+        <translation>Selecteer een bron en een doelfixture of kanaal om deze bewerking uit te voeren.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="428"/>
@@ -3110,12 +3110,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="grandmasterslider.cpp" line="154"/>
         <source>intensity channels</source>
-        <translation>intensiteit channels</translation>
+        <translation>intensiteit kanalen</translation>
     </message>
     <message>
         <location filename="grandmasterslider.cpp" line="157"/>
         <source>all channels</source>
-        <translation>alle channels</translation>
+        <translation>alle kanalen</translation>
     </message>
 </context>
 <context>
@@ -3123,12 +3123,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="14"/>
         <source>Input Channel Editor</source>
-        <translation>Input Channel Editor</translation>
+        <translation>Input Kanaal Editor</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="20"/>
         <source>Input Channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="36"/>
@@ -3143,7 +3143,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="75"/>
         <source>Channel</source>
-        <translation>Channel</translation>
+        <translation>Kanaal</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="92"/>
@@ -3179,7 +3179,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="130"/>
         <source>Channel Aftertouch</source>
-        <translation type="unfinished">Channel Aftertouch </translation>
+        <translation type="unfinished">Kanaal Aftertouch</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="135"/>
@@ -3458,12 +3458,12 @@ Zie de plugin documentatie voor uitleg over dit onderwerp.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="90"/>
         <source>Channels</source>
-        <translation>Channels</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="115"/>
         <source>Channel</source>
-        <translation>Channel</translation>
+        <translation>Kanaal</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="120"/>
@@ -3479,22 +3479,22 @@ Zie de plugin documentatie voor uitleg over dit onderwerp.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="138"/>
         <source>Add a new channel description</source>
-        <translation>Voeg een nieuwe channel omschrijving toe</translation>
+        <translation>Voeg een nieuwe kanaal omschrijving toe</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="158"/>
         <source>Remove the selected channels</source>
-        <translation>Verwijder de geselecteerde channels</translation>
+        <translation>Verwijder de geselecteerde kanalen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="178"/>
         <source>Edit the selected channel</source>
-        <translation>Wijzig de geselecteerde channel</translation>
+        <translation>Wijzig het geselecteerde kanaal</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="198"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
-        <translation>Voeg automatisch channels toe bij het bedienen van de controls</translation>
+        <translation>Voeg automatisch kanalen toe bij het bedienen van de controls</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="253"/>
@@ -3540,28 +3540,28 @@ Zie de plugin documentatie voor uitleg over dit onderwerp.</translation>
         <location filename="inputprofileeditor.cpp" line="228"/>
         <location filename="inputprofileeditor.cpp" line="324"/>
         <source>Channel already exists</source>
-        <translation>Channel bestaat al</translation>
+        <translation>Kanaal bestaat al</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="229"/>
         <location filename="inputprofileeditor.cpp" line="325"/>
         <source>Channel %1 already exists</source>
-        <translation>Channel %1 bestaat al</translation>
+        <translation>Kanaal %1 bestaat al</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="251"/>
         <source>Delete channels</source>
-        <translation>Verwijder channels</translation>
+        <translation>Verwijder kanalen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="252"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Verwijder alle %1 geselecteerde channels?</translation>
+        <translation>Alle %1 geselecteerde kanalen verwijderen?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="365"/>
         <source>Channel wizard activated</source>
-        <translation>Channel wizard geactiveerd</translation>
+        <translation>Kanaal wizard geactiveerd</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="366"/>
@@ -3571,9 +3571,9 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translatorcomment>Input channel wizard is geactiveerd. Klik op OK en bedien de ingestelde input profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
 
 Let op: de wizard maakt geen onderscheid tussen een knop of een slider, dit zal handmatig aangepast moeten worden.</translatorcomment>
-        <translation>Input channel wizard is geactiveerd. Klik op OK en bedien de ingestelde profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
+        <translation>Input kanaal wizard is geactiveerd. Klik op OK en bedien de ingestelde profiel controls. Zij moeten in de lijst verschijnen. Klik opnieuw op de wizard knop om de auto-detectie te stoppen.
 
-Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</translation>
+De wizard kent het verschil tussen een knop en een slider niet. Deze dient handmatig aangepast te worden.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="493"/>
@@ -3606,22 +3606,22 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor/monitor.cpp" line="330"/>
         <source>DMX Channels</source>
-        <translation>DMX Channels</translation>
+        <translation>DMX Kanalen</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="331"/>
         <source>Show absolute DMX channel numbers</source>
-        <translation>Toon absolute DMX channel nummers</translation>
+        <translation>Toon absolute DMX kanaal nummers</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="341"/>
         <source>Relative Channels</source>
-        <translation>Relatieve Channels</translation>
+        <translation>Relatieve Kanalen</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="342"/>
         <source>Show channel numbers relative to fixture</source>
-        <translation>Toon channel nummers relatief aan de fixture</translation>
+        <translation>Toon kanaal nummers relatief aan de fixture</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="358"/>
@@ -4300,7 +4300,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.ui" line="67"/>
         <source>Disable all channel groups</source>
-        <translation>Alle channelgroepen uitzetten</translation>
+        <translation>Alle kanaalgroepen uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="84"/>
@@ -4310,7 +4310,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.ui" line="101"/>
         <source>Enable all channel groups</source>
-        <translation>Alle channelgroepen aanzetten</translation>
+        <translation>Alle kanaalgroepen aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="143"/>
@@ -4326,27 +4326,27 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.ui" line="190"/>
         <source>Channel groups used in this scene</source>
-        <translation>Channelgroepen in deze scene</translation>
+        <translation>Kanaalgroepen in deze scene</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="205"/>
         <source>Disable all fixtures&apos; channels</source>
-        <translation>Alle channels van alle fixtures uitzetten</translation>
+        <translation>Kanalen van alle fixtures uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="222"/>
         <source>Enable all fixtures&apos; channels</source>
-        <translation>Alle channels van alle fixtures aanzetten</translation>
+        <translation>Kanalen van alle fixtures aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="156"/>
         <source>Enable all channels in current fixture</source>
-        <translation>Alle channels van deze fixture aanzetten</translation>
+        <translation>Alle kanalen van deze fixture aanzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="158"/>
         <source>Disable all channels in current fixture</source>
-        <translation>Alle channels van deze fixture uitzetten</translation>
+        <translation>Alle kanalen van deze fixture uitzetten</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="160"/>
@@ -4376,7 +4376,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.cpp" line="170"/>
         <source>Switch between tab view and all channels view</source>
-        <translation>Wissel tussen tabweergave en alle channelsweergave</translation>
+        <translation>Wissel tussen tabweergave en alle kanalenweergave</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="172"/>
@@ -4439,7 +4439,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="sceneeditor.cpp" line="1394"/>
         <location filename="sceneeditor.cpp" line="1395"/>
         <source>Channels Groups</source>
-        <translation>Channelgroepen</translation>
+        <translation>Kanaalgroepen</translation>
     </message>
 </context>
 <context>
@@ -4623,7 +4623,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="selectinputchannel.ui" line="14"/>
         <source>Select input channel</source>
-        <translation>Selecteer input channel</translation>
+        <translation>Selecteer input kanaal</translation>
     </message>
     <message>
         <location filename="selectinputchannel.ui" line="24"/>
@@ -4633,7 +4633,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="selectinputchannel.cpp" line="169"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
-        <translation>&lt;Dubbelklik hier om een channel nummer handmatig in te voeren&gt;</translation>
+        <translation>&lt;Dubbelklik hier om een kanaal nummer handmatig in te voeren&gt;</translation>
     </message>
 </context>
 <context>
@@ -5009,7 +5009,7 @@ Duur: %3
     <message>
         <location filename="simpledesk.cpp" line="531"/>
         <source>Channel groups</source>
-        <translation>Channel groepen</translation>
+        <translation>Kanaalgroepen</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="873"/>
@@ -5326,17 +5326,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="290"/>
         <source>Input Channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>Het specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="303"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Kies een externe input universe en channel waarnaar deze group moet luisteren.</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze group moet luisteren.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="306"/>
@@ -5629,12 +5629,12 @@ Duur: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="595"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="655"/>
         <source>Input channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="312"/>
         <source>Input channel for skipping to the next cue</source>
-        <translation>Input channel om naar de volgende cue te gaan</translation>
+        <translation>Input kanaal om naar de volgende cue te gaan</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="319"/>
@@ -5653,7 +5653,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="332"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
-        <translation>Kies een input universe/channel om naar de volgende cue te springen</translation>
+        <translation>Kies een input universe/kanaal om naar de volgende cue te springen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
@@ -5687,7 +5687,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="461"/>
         <source>Input channel for skipping to the previous cue</source>
-        <translation>Input universe om naar de vorige cue te springen</translation>
+        <translation>Input kanaal om naar de vorige cue te springen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="468"/>
@@ -5697,7 +5697,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="481"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
-        <translation>Kies een input universe/channel om naar de vorige cue te springen</translation>
+        <translation>Kies een input universe/kanaal om naar de vorige cue te springen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="242"/>
@@ -5721,7 +5721,7 @@ Duur: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="602"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="662"/>
         <source>Input channel for stopping the cue list</source>
-        <translation>Input channel om de cue te stoppen</translation>
+        <translation>Input kanaal om de cue te stoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="170"/>
@@ -5735,7 +5735,7 @@ Duur: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="622"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="682"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
-        <translation>Kies een input universe/channel om de cue list te stoppen</translation>
+        <translation>Kies een input universe/kanaal om de cue list te stoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="569"/>
@@ -5874,21 +5874,21 @@ Duur: %3
         <location filename="virtualconsole/vcframeproperties.ui" line="312"/>
         <location filename="virtualconsole/vcframeproperties.ui" line="420"/>
         <source>Input channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="137"/>
         <location filename="virtualconsole/vcframeproperties.ui" line="319"/>
         <location filename="virtualconsole/vcframeproperties.ui" line="427"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>De specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
         <location filename="virtualconsole/vcframeproperties.ui" line="329"/>
         <location filename="virtualconsole/vcframeproperties.ui" line="380"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze widget moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="176"/>
@@ -6139,17 +6139,17 @@ Duur: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="184"/>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
         <source>Input channel</source>
-        <translation>Input channel</translation>
+        <translation>Input kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="191"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>De specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="214"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze widget moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="217"/>
@@ -6250,12 +6250,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="301"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation>Het specifieke input channel in binnen het input universe dat data stuurt naar deze control</translation>
+        <translation>Het specifieke input kanaal in binnen het input universe dat data stuurt naar deze control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="311"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation>Kies een externe input universe en channel waarnaar deze control moet luisteren</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze control moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="321"/>
@@ -6469,12 +6469,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="635"/>
         <source>Channels</source>
-        <translation>Channels</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="641"/>
         <source>Apply Grand Master only to Intensity channels.</source>
-        <translation>Pas Grand Master alleen toe op intensiteit channels.</translation>
+        <translation>Pas Grand Master alleen toe op intensiteit kanalen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="644"/>
@@ -6484,12 +6484,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="651"/>
         <source>Apply Grand Master to all channels.</source>
-        <translation>Pas Grand Master toe op alle channels.</translation>
+        <translation>Pas Grand Master toe op alle kanalen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="654"/>
         <source>All channels</source>
-        <translation>Alle channels</translation>
+        <translation>Alle kanalen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="664"/>
@@ -6509,7 +6509,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="680"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation>Grand Master limiteert de hoogste waarde die een channel kan hebben.</translation>
+        <translation>Grand Master limiteert de hoogste waarde die een kanaal kan hebben.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="683"/>
@@ -6534,12 +6534,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="716"/>
         <source>Input Channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="723"/>
         <source>Input channel for Grand Master slider.</source>
-        <translation>Input channel voor Grand Master slider.</translation>
+        <translation>Input kanaal voor Grand Master slider.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="746"/>
@@ -6554,7 +6554,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="762"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
-        <translation>Kies een externe input universe en channel waarnaar Grand Master moet luisteren.</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar Grand Master moet luisteren.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="765"/>
@@ -6675,17 +6675,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
         <source>Input channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="139"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>Het specifieke input kanaal in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="162"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze widget moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="165"/>
@@ -6775,7 +6775,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
         <source>Select all channels</source>
-        <translation>Selecteer alle channels</translation>
+        <translation>Selecteer alle kanalen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
@@ -6806,7 +6806,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="396"/>
         <source>Choose channels by channel group</source>
-        <translation>Kies channels per channelgroep</translation>
+        <translation>Kies channels per kanaalgroep</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
@@ -6816,7 +6816,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
         <source>Monitor the selected channels and update the slider level</source>
-        <translation>Monitor de geselecteerde channels en pas het slider niveau aan</translation>
+        <translation>Monitor de geselecteerde kanalen en pas het slider niveau aan</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
@@ -6846,7 +6846,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="481"/>
         <source>Make the slider control the level of a set of channels</source>
-        <translation>Laat de slider het niveau van een aantal channels regelen</translation>
+        <translation>Laat de slider het niveau van een aantal kanalen regelen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
@@ -6911,12 +6911,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="684"/>
         <source>Select channels by group</source>
-        <translation>Selecteer channels per groep</translation>
+        <translation>Selecteer kanalen per groep</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="685"/>
         <source>Select a channel group</source>
-        <translation>Selecteer een channelgroep</translation>
+        <translation>Selecteer een kanaalgroep</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="741"/>
@@ -7019,7 +7019,7 @@ Duur: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="185"/>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="268"/>
         <source>Input Channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="199"/>
@@ -7321,7 +7321,7 @@ Duur: %3
         <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
         <location filename="virtualconsole/vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
-        <translation>Input Channel</translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="200"/>
