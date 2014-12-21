@@ -1,5 +1,6 @@
 qlcplus (4.8.3) stable; urgency=low
 
+  * Engine/UI: Fixed and improved the Script Function. Please see the documentation
   * Virtual Console/Animation: added end color reset control
   * Virtual Console/Animation: added R/G/B custom control knobs for start and end colors (David Garyga) 
   * Virtual Console/Audio Triggers: fix crash when changing the input device while a trigger is running (David Garyga)
