@@ -724,7 +724,7 @@ Wil je deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="605"/>
         <source>Toggle Virtual Console Live edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtual Console Live Edit aan/uit</translation>
     </message>
     <message>
         <location filename="app.cpp" line="610"/>
@@ -2243,7 +2243,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="810"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg RGB Panel toe...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>
@@ -4452,7 +4452,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="156"/>
         <source>Test the execution of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Test het uitvoeren van dit script</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="176"/>
@@ -4487,7 +4487,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="195"/>
         <source>Check the syntax of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer de syntax van dit script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="86"/>
@@ -4527,7 +4527,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="114"/>
         <source>System Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Systeem commando</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="118"/>
@@ -4537,67 +4537,67 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="122"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Willekeurig nummer</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="126"/>
         <source>File Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestandslocatie</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="152"/>
         <source>Open Executable File</source>
-        <translation type="unfinished"></translation>
+        <translation>Open uitvoerbaar bestand</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="157"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle bestanden (*.*)</translation>
+        <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="159"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle bestanden (*)</translation>
+        <translation>Alle bestanden (*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="252"/>
         <source>Enter the desired time</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer de gewenste tijd in</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="336"/>
         <source>Invalid executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig uitvoerbaar bestand</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="336"/>
         <source>Please select an executable file !</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een uitvoerbaar bestand in!</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="342"/>
         <source>Enter the program arguments (leave empty if not required)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer de programma parameters in (laat leeg indien niet gewenst)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="378"/>
         <source>Enter the range for the randomization</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer het bereik in voor het willekeurig maken</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="385"/>
         <source>Minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimum waarde</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="386"/>
         <source>Maximum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale waarde</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="426"/>
         <source>No syntax errors found in the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen syntax fouten gevonden in het script</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="433"/>
@@ -4605,12 +4605,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 %2
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Syntax fout op regel %1:%2</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="436"/>
         <source>Script check results</source>
-        <translation type="unfinished"></translation>
+        <translation>Script controle resultaat</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="362"/>
@@ -5812,7 +5812,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="95"/>
         <source>Show enable button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de aan knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
@@ -5990,37 +5990,37 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="577"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind kleur reset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="615"/>
         <source>Start color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Start kleur Rood component</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="617"/>
         <source>Start color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Start kleur Groen component</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="619"/>
         <source>Start color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Start kleur Blauw component</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="631"/>
         <source>End color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind kleur Rood component</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="633"/>
         <source>End color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind kleur Groen component</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
         <source>End color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind kleur Blauw component</translation>
     </message>
 </context>
 <context>
@@ -6097,27 +6097,27 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="124"/>
         <source>Show Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon Label</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="131"/>
         <source>Show Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon Slider</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="138"/>
         <source>Show Start Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toone Start Kleur Knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="145"/>
         <source>Show End Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon Eind Kleur Knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="152"/>
         <source>Show Preset Combo</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon preset Combo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="161"/>
@@ -6177,17 +6177,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="372"/>
         <source> Add start color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg start kleur knoppen toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
         <source> Add end color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg eind kleur knoppen toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="405"/>
         <source> Add end color reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg eind kleur reset toe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="438"/>
@@ -6285,7 +6285,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="225"/>
         <source>Start Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Start Kleur Knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="231"/>
@@ -6295,12 +6295,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="237"/>
         <source>End Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind Kleur Knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="243"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Eind Kleur Reset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="248"/>
@@ -7165,7 +7165,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio Triggers</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="154"/>
@@ -7422,7 +7422,7 @@ Duur: %3
     <message>
         <location filename="videoeditor.ui" line="170"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel een arbitraire URL in voor deze Video</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="255"/>
@@ -7478,12 +7478,12 @@ Duur: %3
     <message>
         <location filename="videoeditor.cpp" line="161"/>
         <source>Video source URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Video bron URL</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="162"/>
         <source>Enter a URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een URL in:</translation>
     </message>
 </context>
 <context>
