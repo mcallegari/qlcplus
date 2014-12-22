@@ -129,7 +129,6 @@ void VCFrame::setLiveEdit(bool liveEdit)
     update();
 }
 
-
 void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)

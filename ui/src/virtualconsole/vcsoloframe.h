@@ -63,9 +63,11 @@ protected:
      *  is this Solo Frame. Otherwise false is returned */
     bool thisIsNearestSoloFrameParent(QWidget* widget);
 
-public:
-    virtual void addWidgetToPageMap(VCWidget *widget);
-    virtual void removeWidgetFromPageMap(VCWidget *widget);
+    void updateChildrenConnection(bool doConnect);
+
+    /** @reimp */
+    virtual void setLiveEdit(bool liveEdit);
+
 protected slots:
     virtual void slotModeChanged(Doc::Mode mode);
 

@@ -89,31 +89,39 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
 * Solo behaviour
 *****************************************************************************/
 
-void VCSoloFrame::addWidgetToPageMap(VCWidget *widget)
+void VCSoloFrame::updateChildrenConnection(bool doConnect)
 {
-    VCFrame::addWidgetToPageMap(widget);
-
-    if (thisIsNearestSoloFrameParent(widget))
+    QListIterator <VCWidget*> it(findChildren<VCWidget*>());
+    while (it.hasNext())
     {
-        connect(widget, SIGNAL(functionStarting(quint32)),
-                this, SLOT(slotWidgetFunctionStarting(quint32)));
-    }
-}
-
-void VCSoloFrame::removeWidgetFromPageMap(VCWidget *widget)
-{
-    VCFrame::removeWidgetFromPageMap(widget);
-
-    if (thisIsNearestSoloFrameParent(widget))
-    {
-        disconnect(widget, SIGNAL(functionStarting(quint32)),
-                this, SLOT(slotWidgetFunctionStarting(quint32)));
+        VCWidget* widget = it.next();
+        if (widget != NULL && thisIsNearestSoloFrameParent(widget))
+        {
+            if (doConnect)
+                connect(widget, SIGNAL(functionStarting(quint32)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32)));
+            else
+                disconnect(widget, SIGNAL(functionStarting(quint32)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32)));
+        }
     }
 }
 
 void VCSoloFrame::slotModeChanged(Doc::Mode mode)
 {
     VCFrame::slotModeChanged(mode);
+
+    updateChildrenConnection(mode == Doc::Operate);
+}
+
+void VCSoloFrame::setLiveEdit(bool liveEdit)
+{
+    VCFrame::setLiveEdit(liveEdit);
+
+    if (m_doc->mode() == Doc::Design)
+        return;
+
+    updateChildrenConnection(!liveEdit);
 }
 
 bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
