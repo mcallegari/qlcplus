@@ -1289,6 +1289,7 @@ void FixtureManager::editFixtureProperties()
             /* Generic dimmer */
             fxi->setFixtureDefinition(NULL, NULL);
             fxi->setChannels(af.channels());
+            m_doc->changeFixtureMode(fxi->id(), NULL);
         }
 
         m_fixtures_tree->updateFixtureItem(item, fxi);
