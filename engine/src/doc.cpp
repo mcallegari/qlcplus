@@ -531,7 +531,7 @@ bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
             if (it.value() == id)
                 it.remove();
         }
-        // add it with new carachteristics
+        // add it with new characteristics
         int channels;
         if (mode != NULL)
             channels = mode->channels().count();
