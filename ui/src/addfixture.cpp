@@ -310,7 +310,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         child = new QTreeWidgetItem(parent);
         child->setText(KColumnName, model);
 
-        if (manuf == selectManufacturer &&
+        if (selectManufacturer == KXMLFixtureGeneric &&
                 model == selectModel)
         {
             parent->setExpanded(true);
