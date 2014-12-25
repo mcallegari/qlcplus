@@ -1084,6 +1084,10 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                         step.values.append(SceneValue(head.fxi, master, 255));
                 }
             }
+            // !! Important !! matrix's heads can be displaced randomly but in a sequence
+            // we absolutely need ordered values. So do it now !
+            qSort(step.values.begin(), step.values.end());
+
             chaser->addStep(step);
             currentStep += increment;
             if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)

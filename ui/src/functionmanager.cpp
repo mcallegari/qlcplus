@@ -171,12 +171,13 @@ void FunctionManager::slotDocLoaded()
             Scene *scene = qobject_cast<Scene*>(sceneFunc);
             scene->setChildrenFlag(true);
             int i = 0;
+            int sceneValuesCount = scene->values().count();
             foreach(ChaserStep step, chaser->steps())
             {
                 // Since I saved only the non-zero values in the XML files, at the first chance I need
                 // to fix the values against the bound scene, and restore all the zero values previously there
-                //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-                if (scene->values().count() != step.values.count())
+                //qDebug() << Q_FUNC_INFO << "Scene values: " << scene->values().count() << ", step values: " <<  step.values.count();
+                if (sceneValuesCount != step.values.count())
                 {
                     int j = 0;
                     // 1- copy the list
