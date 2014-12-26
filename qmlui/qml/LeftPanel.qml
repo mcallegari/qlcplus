@@ -80,9 +80,9 @@ Rectangle {
                 width: collapseWidth - 4
                 height: collapseWidth - 4
                 imgSource: "qrc:/fixture.svg"
-                isCheckable: true
+                checkable: true
                 tooltip: qsTr("Add Fixtures")
-                onChecked: {
+                onToggled: {
                     editorSource = "qrc:///FixtureBrowser.qml"
                     animatePanel();
                 }
@@ -94,9 +94,9 @@ Rectangle {
                 width: collapseWidth - 4
                 height: collapseWidth - 4
                 imgSource: "qrc:/group.svg"
-                isCheckable: true
+                checkable: true
                 tooltip: qsTr("Fixture Groups")
-                onChecked: {
+                onCheckedChanged: {
                     animatePanel();
                 }
             }
@@ -157,7 +157,7 @@ Rectangle {
         }
 
         MouseArea {
-            id: clickArea
+            id: lpClickArea
             anchors.fill: parent
             z: 1
             x: parent.width - width

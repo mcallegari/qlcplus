@@ -29,6 +29,7 @@ class QDomElement;
 class QDomDocument;
 class FixtureBrowser;
 class FixtureManager;
+class FunctionManager;
 class InputOutputManager;
 
 
@@ -53,6 +54,7 @@ private:
     QQuickView *m_view;
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
+    FunctionManager *m_functionManager;
     InputOutputManager *m_ioManager;
 
     /*********************************************************************

@@ -23,6 +23,7 @@
 #include "app.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "functionmanager.h"
 #include "inputoutputmanager.h"
 
 #include "rgbscriptscache.h"
@@ -64,14 +65,17 @@ void App::startup()
     //        this, SIGNAL(docLoadedChanged()));
     //qmlRegisterType<App>("com.qlcplus.app", 1, 0, "App");
 
+    m_ioManager = new InputOutputManager(m_doc);
+    m_view->rootContext()->setContextProperty("ioManager", m_ioManager);
+
     m_fixtureBrowser = new FixtureBrowser(m_view, m_doc);
     m_view->rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
 
     m_fixtureManager = new FixtureManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
-    m_ioManager = new InputOutputManager(m_doc);
-    m_view->rootContext()->setContextProperty("ioManager", m_ioManager);
+    m_functionManager = new FunctionManager(m_doc);
+    m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));

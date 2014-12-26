@@ -24,6 +24,7 @@ Rectangle {
     property bool isOpen: false
     property int collapseWidth: 50
     property int expandedWidth: 450
+    property string editorSource: ""
     x: 0
     y: 0
     width: collapseWidth
@@ -34,6 +35,7 @@ Rectangle {
     function animatePanel() {
         if (rightSidePanel.isOpen == false)
         {
+            editorLoader.source = editorSource;
             animateOpen.start();
             rightSidePanel.isOpen = true;
         }
@@ -41,6 +43,20 @@ Rectangle {
         {
             animateClose.start();
             rightSidePanel.isOpen = false;
+        }
+    }
+
+    Rectangle {
+        id: editorArea
+        x: collapseWidth
+        width: rightSidePanel.width - collapseWidth;
+        height: parent.height
+        color: "transparent"
+
+        Loader {
+            id: editorLoader
+            //objectName: "editorLoader"
+            anchors.fill: parent
         }
     }
 
@@ -61,8 +77,10 @@ Rectangle {
                 width: collapseWidth - 4
                 height: collapseWidth - 4
                 imgSource: "qrc:/functions.svg"
-                isCheckable: true
-                onChecked: {
+                tooltip: qsTr("Function Manager")
+                checkable: true
+                onToggled: {
+                    editorSource = "qrc:///FunctionManager.qml"
                     animatePanel();
                 }
             }
@@ -83,17 +101,6 @@ Rectangle {
         properties: "width";
         to: collapseWidth;
         duration: 200
-    }
-
-    MouseArea {
-        id: clickArea
-        width: collapseWidth
-        height: parent.height
-        z: 1
-        x: 0
-        hoverEnabled: true
-        cursorShape: Qt.OpenHandCursor
-        onClicked: animatePanel("")
     }
 
     Rectangle {
@@ -125,9 +132,25 @@ Rectangle {
                 position: 1
                 color: "#141414"
             }
+        }
 
+        MouseArea {
+            id: rpClickArea
+            anchors.fill: parent
+            z: 1
+            x: parent.width - width
+            hoverEnabled: true
+            cursorShape: Qt.OpenHandCursor
+            drag.target: rightSidePanel
+            drag.axis: Drag.XAxis
+            drag.minimumX: collapseWidth
 
-
+            onPositionChanged: {
+                if (drag.active == true) {
+                    rightSidePanel.width = rightSidePanel.parent.width - rightSidePanel.x
+                }
+            }
+            //onClicked: animatePanel("")
         }
     }
 }

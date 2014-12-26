@@ -110,7 +110,7 @@ void FixtureManager::createQMLFixture(quint32 fxID, qreal x, qreal y)
     {
         QQuickItem *twoDView = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
         QQmlComponent fixtureComponent(m_view->engine(),
-                        QUrl("qrc:/FixtureDMXItem.qml"));
+                        QUrl("qrc:/Fixture2DItem.qml"));
         QQuickItem *newView = qobject_cast<QQuickItem*>(fixtureComponent.create());
         newView->setParentItem(twoDView);
         newView->setProperty("fixtureID", fxID);

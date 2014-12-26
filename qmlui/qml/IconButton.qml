@@ -27,24 +27,40 @@ Rectangle {
     width: 38
     height: 38
 
-    property color bgColor: "#6F6F6F"
-    property color hoverColor: "#0978FF"
+    property color bgColor: "#5F5F5F"
+    property color hoverColor: "#B6B6B6"
     property color pressColor: "#054A9E"
     property color checkedColor: "#0978FF"
 
-    property bool isCheckable: false
-    property bool isChecked: false
+    property bool checkable: false
+    property bool checked: false
+
+    property ExclusiveGroup exclusiveGroup: null
+
     property string imgSource: ""
 
     property string tooltip: ""
 
     signal clicked
-    signal checked
+    signal toggled
 
     color: bgColor
     radius: 5
     border.color: "#1D1D1D"
     border.width: 2
+
+    onExclusiveGroupChanged: {
+        if (exclusiveGroup)
+            exclusiveGroup.bindCheckable(baseIconButton)
+    }
+    onCheckedChanged: {
+        if (checked == true) {
+            baseIconButton.color = checkedColor
+        }
+        else {
+            baseIconButton.color = bgColor
+        }
+    }
 
     BorderImage {
         id: btnIcon
@@ -57,27 +73,16 @@ Rectangle {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: { if (isCheckable == false) baseIconButton.color = hoverColor }
-        onExited: { if (isCheckable == false) baseIconButton.color = bgColor; Tooltip.hideText() }
-        onPressed: { if (isCheckable == false) baseIconButton.color = pressColor }
+        onEntered: { if (checked == false) baseIconButton.color = hoverColor }
+        onExited: { if (checked == false) baseIconButton.color = bgColor; Tooltip.hideText() }
         onReleased: {
-            if (isCheckable == false)
+            if (checkable == true)
             {
-                baseIconButton.color = hoverColor
-                baseIconButton.clicked();
+                checked = !checked
+                baseIconButton.toggled(checked);
             }
             else
-            {
-                if (isChecked == false) {
-                    baseIconButton.color = checkedColor;
-                    isChecked = true
-                }
-                else {
-                    baseIconButton.color = bgColor;
-                    isChecked = false
-                }
-                baseIconButton.checked();
-            }
+                baseIconButton.clicked();
         }
 
         onCanceled: Tooltip.hideText()

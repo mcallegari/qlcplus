@@ -19,21 +19,23 @@ QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
 win32:QMAKE_LFLAGS += -shared
 
+HEADERS += \
+    app.h \
+    fixturebrowser.h \
+    fixturemanager.h \
+    functionmanager.h \
+    inputoutputmanager.h 
+
 SOURCES += main.cpp \
     app.cpp \
     fixturebrowser.cpp \
-    inputoutputmanager.cpp \
-    fixturemanager.cpp
+    fixturemanager.cpp \
+    functionmanager.cpp \
+    inputoutputmanager.cpp
 
 RESOURCES += qml.qrc
 
 OTHER_FILES += 
-
-HEADERS += \
-    app.h \
-    fixturebrowser.h \
-    inputoutputmanager.h \
-    fixturemanager.h
 
 # Installation
 target.path = $$INSTALLROOT/$$BINDIR
