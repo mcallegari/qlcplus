@@ -212,6 +212,7 @@ void VCSliderProperties::slotModeLevelClicked()
         case ClickAndGoWidget::Yellow:
         case ClickAndGoWidget::Amber:
         case ClickAndGoWidget::White:
+        case ClickAndGoWidget::UV:
             m_cngColorCheck->setChecked(true);
         break;
         case ClickAndGoWidget::RGB:
@@ -758,7 +759,7 @@ void VCSliderProperties::checkMajorColor(int *comp, int *max, int type)
 void VCSliderProperties::storeLevelChannels()
 {
     int red = 0, green = 0, blue = 0;
-    int cyan = 0, magenta = 0, yellow = 0, amber = 0, white = 0;
+    int cyan = 0, magenta = 0, yellow = 0, amber = 0, white = 0, uv = 0;
     int majorColor = 0;
     /* Clear all channels from the slider first */
     m_slider->clearLevelChannels();
@@ -825,6 +826,11 @@ void VCSliderProperties::storeLevelChannels()
                         {
                             white++;
                             checkMajorColor(&white, &majorColor, ClickAndGoWidget::White);
+                        }
+                        else if (ch->colour() == QLCChannel::UV)
+                        {
+                            uv++;
+                            checkMajorColor(&uv, &majorColor, ClickAndGoWidget::UV);
                         }
                     }
                 }
