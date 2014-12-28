@@ -123,7 +123,7 @@ public:
     Group group() const;
 
     /** Get the channel's representation icon */
-    QIcon getIconFromGroup(Group grp) const;
+    QIcon getIcon() const;
 
     /** Get the channel's icon resource name */
     QString getIconNameFromGroup(QLCChannel::Group grp) const;

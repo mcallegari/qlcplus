@@ -599,7 +599,7 @@ void QLCFixtureEditor::updateChannelItem(const QLCChannel* channel, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(CH_COL_NAME, channel->name());
-    item->setIcon(CH_COL_NAME, channel->getIconFromGroup(channel->group()));
+    item->setIcon(CH_COL_NAME, channel->getIcon());
     item->setText(CH_COL_GRP, QLCChannel::groupToString(channel->group()));
     item->setData(CH_COL_NAME, PROP_PTR, (qulonglong) channel);
 
@@ -952,7 +952,7 @@ void QLCFixtureEditor::updateModeItem(const QLCFixtureMode* mode,
 
         QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
         chitem->setText(MODE_COL_NAME, ch->name());
-        chitem->setIcon(MODE_COL_NAME, ch->getIconFromGroup(ch->group()));
+        chitem->setIcon(MODE_COL_NAME, ch->getIcon());
         chitem->setText(MODE_COL_CHS, QString("%1").arg(i + 1));
         chitem->setFlags(0); /* No selection etc. */
     }

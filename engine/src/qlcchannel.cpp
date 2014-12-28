@@ -277,12 +277,12 @@ QString QLCChannel::getIntensityColorCode() const
     return QString(":/intensity.png");
 }
 
-QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
+QIcon QLCChannel::getIcon() const
 {
-    if (grp == Intensity)
+    if (group() == Intensity)
         return getIntensityIcon();
     else
-        return QIcon(getIconNameFromGroup(grp));
+        return QIcon(getIconNameFromGroup(group()));
 }
 
 QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const

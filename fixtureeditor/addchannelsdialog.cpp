@@ -79,7 +79,7 @@ void AddChannelsDialog::fillChannelsTrees(QList<QLCChannel *> allList, QVector<Q
             item = new QTreeWidgetItem(m_modeTree);
 
         item->setText(0, ch->name());
-        item->setIcon(0, ch->getIconFromGroup(ch->group()));
+        item->setIcon(0, ch->getIcon());
         item->setData(0, Qt::UserRole, QVariant(i));
         i++;
     }

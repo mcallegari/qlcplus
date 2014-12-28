@@ -243,7 +243,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             QTreeWidgetItem *cItem = new QTreeWidgetItem(item);
             cItem->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
-            cItem->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            cItem->setIcon(KColumnName, channel->getIcon());
             cItem->setData(KColumnName, PROP_CHANNEL, c);
             if (m_typeColumn > 0)
             {

@@ -465,7 +465,7 @@ void FixtureManager::updateChannelsGroupView()
 
             const QLCChannel* ch = fxi->channel(scv.channel);
             if (ch != NULL)
-                grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
+                grpItem->setIcon(KColumnName, ch->getIcon());
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
