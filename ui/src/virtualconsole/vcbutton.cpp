@@ -793,7 +793,12 @@ void VCButton::adjustIntensity(qreal val)
 {
     Function* func = m_doc->function(m_function);
     if (func != NULL)
-        func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+    {
+        if (isStartupIntensityEnabled())
+            func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+        else
+            func->adjustAttribute(val, Function::Intensity);
+    }
 
     VCWidget::adjustIntensity(val);
 }
