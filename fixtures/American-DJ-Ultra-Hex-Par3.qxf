@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.4</Version>
+  <Version>4.8.3 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -26,14 +26,17 @@
  </Channel>
  <Channel Name="White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White 0% - 100%</Capability>
  </Channel>
  <Channel Name="Amber">
   <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
   <Capability Min="0" Max="255">Amber 0% - 100%</Capability>
  </Channel>
  <Channel Name="UV">
   <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
   <Capability Min="0" Max="255">UV 0% - 100%</Capability>
  </Channel>
  <Channel Name="Master dimmer">

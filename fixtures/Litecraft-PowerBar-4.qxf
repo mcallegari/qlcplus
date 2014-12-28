@@ -26,6 +26,7 @@
  </Channel>
  <Channel Name="White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
@@ -69,6 +70,7 @@
  </Channel>
  <Channel Name="Zone 1 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Zone 1 White</Capability>
  </Channel>
  <Channel Name="Zone 2 Red">
@@ -88,6 +90,7 @@
  </Channel>
  <Channel Name="Zone 2 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Zone 2 White</Capability>
  </Channel>
  <Channel Name="Zone 3 Red">
@@ -107,6 +110,7 @@
  </Channel>
  <Channel Name="Zone 3 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Zone 3 White</Capability>
  </Channel>
  <Channel Name="Zone 4 Red">
@@ -126,6 +130,7 @@
  </Channel>
  <Channel Name="Zone 4 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Zone 4 White</Capability>
  </Channel>
  <Mode Name="4 channel mode">

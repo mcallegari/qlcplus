@@ -25,10 +25,12 @@
  </Channel>
  <Channel Name="Global Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Global White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Strobe Effect">
@@ -111,10 +113,12 @@
  </Channel>
  <Channel Name="Zone 1 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Zone 1 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Zone 2 Red">
@@ -129,10 +133,12 @@
  </Channel>
  <Channel Name="Zone 2 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Zone 2 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Line 1 Red">
@@ -147,10 +153,12 @@
  </Channel>
  <Channel Name="Line 1 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Line 1 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Line 2 Red">
@@ -165,10 +173,12 @@
  </Channel>
  <Channel Name="Line 2 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Line 2 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Line 3 Red">
@@ -183,10 +193,12 @@
  </Channel>
  <Channel Name="Line 3 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Line 3 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 1 Red">
@@ -201,10 +213,12 @@
  </Channel>
  <Channel Name="Frame 1 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 1 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 2 Red">
@@ -219,10 +233,12 @@
  </Channel>
  <Channel Name="Frame 2 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 2 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 3 Red">
@@ -237,10 +253,12 @@
  </Channel>
  <Channel Name="Frame 3 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 3 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 4 Red">
@@ -255,10 +273,12 @@
  </Channel>
  <Channel Name="Frame 4 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 4 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 5 Red">
@@ -273,10 +293,12 @@
  </Channel>
  <Channel Name="Frame 5 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 5 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Channel Name="Frame 6 Red">
@@ -291,10 +313,12 @@
  </Channel>
  <Channel Name="Frame 6 Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue</Capability>
  </Channel>
  <Channel Name="Frame 6 White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White</Capability>
  </Channel>
  <Mode Name="Global">

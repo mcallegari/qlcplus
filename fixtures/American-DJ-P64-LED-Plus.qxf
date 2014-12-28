@@ -16,6 +16,7 @@
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green intensity (0 to 100%)</Capability>
  </Channel>
  <Channel Name="Blue">

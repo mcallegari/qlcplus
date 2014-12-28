@@ -75,14 +75,17 @@
  </Channel>
  <Channel Name="Red 5">
   <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
   <Capability Min="0" Max="255">Head 5 Red 0-100%</Capability>
  </Channel>
  <Channel Name="Green 5">
   <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
   <Capability Min="0" Max="255">Head 5 Green 0-100%</Capability>
  </Channel>
  <Channel Name="Blue 5">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Head 5 Blue 0-100%</Capability>
  </Channel>
  <Channel Name="Red 6">
@@ -122,6 +125,7 @@
  </Channel>
  <Channel Name="Green 8">
   <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
   <Capability Min="0" Max="255">Head 8 Green 0-100%</Capability>
  </Channel>
  <Channel Name="Blue 8">
