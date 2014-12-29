@@ -18,4 +18,5 @@ SUBDIRS              += hid
 SUBDIRS              += osc
 SUBDIRS              += artnet
 SUBDIRS              += E1.31
+SUBDIRS              += loopback
 !macx:!win32:SUBDIRS += spi
