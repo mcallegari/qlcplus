@@ -274,6 +274,39 @@ void InputOutputPatchEditor::fillMappingTree()
                         outputId++;
                     }
                 }
+                else // input is mapped to different universe, let's check if outputs are available
+                {
+                    // check if this plugin has also an output
+                    if (outputs.contains(inputs.at(l)))
+                    {
+                        quint32 outUni = m_ioMap->outputMapping(pluginName, outputId);
+                        if (outUni == InputOutputMap::invalidUniverse() ||
+                           (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+                        {
+                            //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
+                            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
+                            pitem->setText(KMapColumnPluginName, pluginName);
+                            pitem->setText(KMapColumnDeviceName, inputs.at(l));
+                            pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
+                            if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
+                                pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
+                            else
+                                pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                            // add feedback
+                            if (hasFeedback)
+                            {
+                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
+                                    pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
+                                else
+                                    pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                            }
+                            pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
+                            pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                        }
+                        outputId++;
+                    }
+
+                }
                 inputId++;
             }
             // 3rd case: output only plugins
