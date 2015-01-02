@@ -371,7 +371,7 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
-            return false;
+            return true;
         }
     }
     if (m_fbPatch != NULL)
