@@ -41,6 +41,7 @@ docs.files = \
              index.html \
              kioskmode.html \
              liveedit.html \
+             loopbackplugin.html \
              mainwindow.html \
              midiplugin.html \
              modeeditor.html \
