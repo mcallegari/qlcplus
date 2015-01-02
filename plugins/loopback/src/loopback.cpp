@@ -30,16 +30,22 @@
 
 Loopback::~Loopback()
 {
-    closeOutput(0);
-    closeInput(0);
-    delete [] m_values;
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+    {
+        closeOutput(i);
+        closeInput(i);
+        delete [] m_values[i];
+    }
 }
 
 void Loopback::init()
 {
-    m_values = new qint32[512];
-    m_outputCurrentlyOpen = false;
-    m_inputCurrentlyOpen = false;
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+    {
+        m_values[i] = new qint32[512];
+        m_outputCurrentlyOpen[i] = false;
+        m_inputCurrentlyOpen[i] = false;
+    }
 }
 
 QString Loopback::name()
@@ -58,31 +64,32 @@ int Loopback::capabilities() const
 
 bool Loopback::openOutput(quint32 output)
 {
-    if (output != 0)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
-    if (m_outputCurrentlyOpen == false)
+    if (m_outputCurrentlyOpen[output] == false)
     {
-        m_outputCurrentlyOpen = true;
+        m_outputCurrentlyOpen[output] = true;
     }
     return true;
 }
 
 void Loopback::closeOutput(quint32 output)
 {
-    if (output != 0)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
-    if (m_outputCurrentlyOpen == true)
+    if (m_outputCurrentlyOpen[output] == true)
     {
-        m_outputCurrentlyOpen = false;
+        m_outputCurrentlyOpen[output] = false;
     }
 }
 
 QStringList Loopback::outputs()
 {
     QStringList list;
-    list << QString("1: Loopback");
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
     return list;
 }
 
@@ -92,31 +99,32 @@ QStringList Loopback::outputs()
 
 bool Loopback::openInput(quint32 input)
 {
-    if (input != 0)
+    if (input >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
-    if (m_inputCurrentlyOpen == false)
+    if (m_inputCurrentlyOpen[input] == false)
     {
-        m_inputCurrentlyOpen = true;
+        m_inputCurrentlyOpen[input] = true;
     }
     return true;
 }
 
 void Loopback::closeInput(quint32 input)
 {
-    if (input != 0)
+    if (input >= QLCIOPLUGINS_UNIVERSES)
         return;
 
-    if (m_inputCurrentlyOpen == true)
+    if (m_inputCurrentlyOpen[input] == true)
     {
-        m_inputCurrentlyOpen = false;
+        m_inputCurrentlyOpen[input] = false;
     }
 }
 
 QStringList Loopback::inputs()
 {
     QStringList list;
-    list << QString("1: Loopback");
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
     return list;
 }
 
@@ -140,13 +148,20 @@ QString Loopback::pluginInfo()
 
 QString Loopback::outputInfo(quint32 output)
 {
+    if (output >= QLCIOPLUGINS_UNIVERSES)
+        return QString();
+
     QString str;
 
-    if (output != QLCIOPlugin::invalidLine() && output == 0)
+    str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
+    str += QString("<P>");
+    if (m_outputCurrentlyOpen[output] == true)
+        str += tr("Status: Used");
+    else
     {
-        str += QString("<H3>%1</H3>").arg(outputs()[output]);
+        str += tr("Status: Not used");
     }
-
+    str += QString("</P>");
     str += QString("</BODY>");
     str += QString("</HTML>");
 
@@ -155,13 +170,20 @@ QString Loopback::outputInfo(quint32 output)
 
 QString Loopback::inputInfo(quint32 input)
 {
+    if (input >= QLCIOPLUGINS_UNIVERSES)
+        return QString();
+
     QString str;
 
-    if (input != QLCIOPlugin::invalidLine() && input == 0)
+    str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
+    str += QString("<P>");
+    if (m_inputCurrentlyOpen[input] == true)
+        str += tr("Status: Used");
+    else
     {
-        str += QString("<H3>%1</H3>").arg(inputs()[input]);
+        str += tr("Status: Not used");
     }
-
+    str += QString("</P>");
     str += QString("</BODY>");
     str += QString("</HTML>");
 
@@ -172,22 +194,22 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 {
     Q_UNUSED(universe)
 
-    if (output != 0 || m_outputCurrentlyOpen == false)
+    if (output >= QLCIOPLUGINS_UNIVERSES || m_outputCurrentlyOpen[output] == false)
         return;
 
     for (int i = 0; i < data.size(); i++)
     {
-        if (m_inputCurrentlyOpen && m_values[i] != (qint32) data[i])
+        if (m_inputCurrentlyOpen[output] && m_values[output][i] != (qint32) data[i])
         {
-            emit valueChanged(UINT_MAX, 0, i, data[i]);
+            emit valueChanged(UINT_MAX, output, i, data[i]);
         }
-        m_values[i] = (qint32) data[i];
+        m_values[output][i] = (qint32) data[i];
     }
 }
 
 void Loopback::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &)
 {
-    if (input != 0 || m_inputCurrentlyOpen == false)
+    if (input >= QLCIOPLUGINS_UNIVERSES || m_inputCurrentlyOpen[input] == false)
         return;
 
     emit valueChanged(UINT_MAX, input, channel, value);
