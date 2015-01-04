@@ -6,7 +6,7 @@
     <message>
         <location filename="loopback.cpp" line="135"/>
         <source>This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este plugin provee un bucle DMX. Los datos de cada Salida son reenviados a su respectiva Entrada.</translation>
     </message>
 </context>
 </TS>
