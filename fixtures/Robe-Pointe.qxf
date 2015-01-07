@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.2</Version>
+  <Version>4.8.3</Version>
   <Author>Moehritz</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -205,7 +205,7 @@
   <Group Byte="0">Beam</Group>
  </Channel>
  <Channel Name="Focus fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
  </Channel>
  <Channel Name="Autofocus">
   <Group Byte="0">Beam</Group>
@@ -234,11 +234,11 @@
  </Channel>
  <Mode Name="Main">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Weight="15" Width="364" Height="575" Depth="260"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="575" Width="364" Weight="15" Depth="260"/>
+   <Lens Name="Other" DegreesMin="5" DegreesMax="20"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="470"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
