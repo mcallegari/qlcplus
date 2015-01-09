@@ -80,8 +80,8 @@ void VCWidget_Test::bgImage()
     QCOMPARE(stub.backgroundImage(), QString());
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 1);
@@ -89,8 +89,8 @@ void VCWidget_Test::bgImage()
     stub.setBackgroundColor(QColor(Qt::red));
     QCOMPARE(spy.size(), 2);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 3);
@@ -114,7 +114,7 @@ void VCWidget_Test::bgColor()
     QCOMPARE(stub.palette().brush(QPalette::Window).color(), QColor(Qt::red));
     QCOMPARE(spy.size(), 1);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 2);
 
     stub.setBackgroundColor(QColor(Qt::red));
@@ -165,7 +165,7 @@ void VCWidget_Test::resetBg()
     QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), QColor(Qt::cyan));
     QCOMPARE(spy.size(), 3);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 4);
 
     stub.resetBackgroundColor();
@@ -203,11 +203,11 @@ void VCWidget_Test::resetFg()
     QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), w.palette().color(QPalette::WindowText));
     QCOMPARE(spy.size(), 3);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 4);
 
     stub.resetForegroundColor();
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.foregroundColor(), w.palette().color(QPalette::WindowText));
@@ -477,12 +477,12 @@ void VCWidget_Test::loadAppearance()
 
     fgText.setData("Default");
     bgText.setData("Default");
-    bgImageText.setData("../../../gfx/qlcplus.png");
+    bgImageText.setData("../../../resources/icons/png/qlcplus.png");
     QVERIFY(stub.loadXMLAppearance(&root) == true);
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 
     root.setTagName("Appiarenz");
@@ -490,7 +490,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 }
 
@@ -591,7 +591,7 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
     QWidget w;
 
     StubWidget stub(&w, m_doc);
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Root");
@@ -614,7 +614,7 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
         else if (tag.tagName() == "BackgroundImage")
         {
             bgimage++;
-            QCOMPARE(tag.text(), QString("../../../gfx/qlcplus.png"));
+            QCOMPARE(tag.text(), QString("../../../resources/icons/png/qlcplus.png"));
         }
         else if (tag.tagName() == "ForegroundColor")
         {

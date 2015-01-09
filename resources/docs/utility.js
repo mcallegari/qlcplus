@@ -5,7 +5,7 @@ function replaceqrc()
     for (var i = 0; i < imgs.length; i++)     
     {
         var src = imgs[i].src;
-        imgs[i].src = src.replace("qrc:", "../gfx");
+        imgs[i].src = src.replace("qrc:", "../icons/png");
     }
 }
 

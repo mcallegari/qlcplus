@@ -7,15 +7,9 @@ SUBDIRS      += engine
 SUBDIRS      += ui
 SUBDIRS      += webaccess
 SUBDIRS      += main
-SUBDIRS      += fixtures
-SUBDIRS      += gobos
-SUBDIRS      += inputprofiles
-SUBDIRS      += rgbscripts
-SUBDIRS      += miditemplates
-SUBDIRS      += modifierstemplates
+SUBDIRS      += resources
 SUBDIRS      += fixtureeditor
 SUBDIRS      += etc
-SUBDIRS      += docs
 macx:SUBDIRS += launcher
 SUBDIRS      += plugins
 
