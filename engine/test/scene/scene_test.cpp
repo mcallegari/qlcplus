@@ -38,7 +38,7 @@
 #undef private
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Scene_Test::initTestCase()
 {

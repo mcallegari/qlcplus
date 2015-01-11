@@ -27,7 +27,7 @@
 
 #include "doc.h"
 
-#define INTERNAL_SCRIPTDIR "../../../rgbscripts"
+#include "../common/resource_paths.h"
 
 void RGBScript_Test::initTestCase()
 {

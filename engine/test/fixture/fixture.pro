@@ -14,4 +14,4 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += fixture_test.cpp
-HEADERS += fixture_test.h
+HEADERS += fixture_test.h ../common/resource_paths.h

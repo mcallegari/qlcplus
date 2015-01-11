@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += cuestack_test.cpp
-HEADERS += cuestack_test.h
+HEADERS += cuestack_test.h ../common/resource_paths.h
+

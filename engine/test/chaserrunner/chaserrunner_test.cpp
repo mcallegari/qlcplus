@@ -39,7 +39,7 @@
 #undef protected
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void ChaserRunner_Test::initTestCase()
 {

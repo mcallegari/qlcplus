@@ -34,8 +34,7 @@
 #include "doc.h"
 #undef private
 
-#define INTERNAL_SCRIPTDIR "../../../rgbscripts"
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void RGBMatrix_Test::initTestCase()
 {

@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += qlcfixturedefcache_test.cpp
-HEADERS += qlcfixturedefcache_test.h
+HEADERS += qlcfixturedefcache_test.h ../common/resource_paths.h
+

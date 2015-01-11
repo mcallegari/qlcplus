@@ -18,4 +18,4 @@ LIBS        += -lqlcplusengine -lqlcplusui
 
 # Test sources
 SOURCES += vcxypadfixtureeditor_test.cpp
-HEADERS += vcxypadfixtureeditor_test.h
+HEADERS += vcxypadfixtureeditor_test.h ../common/resource_paths.h

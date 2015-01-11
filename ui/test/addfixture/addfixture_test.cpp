@@ -33,7 +33,7 @@
 #include "addfixture.h"
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void AddFixture_Test::initTestCase()
 {

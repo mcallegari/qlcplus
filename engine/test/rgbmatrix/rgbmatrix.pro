@@ -15,4 +15,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += rgbmatrix_test.cpp ../mastertimer/mastertimer_stub.cpp
-HEADERS += rgbmatrix_test.h ../mastertimer/mastertimer_stub.h
+HEADERS += rgbmatrix_test.h ../mastertimer/mastertimer_stub.h ../common/resource_paths.h
+
