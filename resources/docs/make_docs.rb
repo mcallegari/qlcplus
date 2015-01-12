@@ -18,14 +18,14 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-VERSION = (File.read('../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
+VERSION = (File.read('../../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
 
 if !options[:destination].empty?
   FileUtils.mkdir_p options[:destination]
   FileUtils.mkdir_p File.join(options[:destination], 'gfx')
   FileUtils.cp_r Dir.glob('*.css'), options[:destination]
   FileUtils.cp_r 'images', options[:destination]
-  FileUtils.cp_r Dir.glob('../resources/icons/png/*.png'), File.join(options[:destination], 'gfx')
+  FileUtils.cp_r Dir.glob('../icons/png/*.png'), File.join(options[:destination], 'gfx')
 
   Dir.glob("*.html") do |filename|
     text = File.read(filename)
