@@ -86,6 +86,7 @@ imgs.files += images/channelmodifier.png \
               images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
+              images/locale.png \
               images/mainwindow.png \
               images/tutorial1_1.png \
               images/tutorial1_2.png \
