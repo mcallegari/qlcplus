@@ -531,8 +531,12 @@ bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
             if (it.value() == id)
                 it.remove();
         }
-        // add it with new carachteristics
-        int channels = mode->channels().count();
+        // add it with new characteristics
+        int channels;
+        if (mode != NULL)
+            channels = mode->channels().count();
+        else // generic dimmer
+            channels = fixture->channels();
         for (int i = address; i < address + channels; i++)
         {
             m_addresses[i] = id;

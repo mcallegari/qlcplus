@@ -17,11 +17,8 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QMediaPlayer>
-#include <QApplication>
 #include <QDomDocument>
-#include <QVideoWidget>
 #include <QDomElement>
 #include <QDebug>
 #include <QFile>
@@ -43,12 +40,10 @@
 Video::Video(Doc* doc)
   : Function(doc, Function::Video)
   , m_doc(doc)
-  , m_videoPlayer(NULL)
-  , m_videoWidget(NULL)
   , m_startTime(UINT_MAX)
   , m_color(147, 140, 20)
   , m_locked(false)
-  , m_sourceFileName("")
+  , m_sourceUrl("")
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
   , m_screen(0)
@@ -63,16 +58,6 @@ Video::Video(Doc* doc)
 
 Video::~Video()
 {
-    if (m_videoPlayer != NULL)
-    {
-        m_videoPlayer->stop();
-        delete m_videoPlayer;
-    }
-    if (m_videoWidget != NULL)
-    {
-        m_videoWidget->deleteLater();
-        m_videoWidget = NULL;
-    }
 }
 
 /*****************************************************************************
@@ -104,7 +89,7 @@ bool Video::copyFrom(const Function* function)
     if (vid == NULL)
         return false;
 
-    setSourceFileName(vid->m_sourceFileName);
+    setSourceUrl(vid->m_sourceUrl);
     m_videoDuration = vid->m_videoDuration;
     m_color = vid->m_color;
 
@@ -139,15 +124,6 @@ QStringList Video::getCapabilities()
     return caps;
 }
 
-int Video::getScreenCount()
-{
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        return desktop->screenCount();
-
-    return -1;
-}
-
 /*********************************************************************
  * Properties
  *********************************************************************/
@@ -161,22 +137,46 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
+void Video::setTotalDuration(qint64 duration)
+{
+    m_videoDuration = duration;
+    emit totalTimeChanged(m_videoDuration);
+}
+
 qint64 Video::totalDuration()
 {
     return m_videoDuration;
 }
 
-QSize Video::getResolution()
+void Video::setResolution(QSize size)
+{
+    m_resolution = size;
+    emit metaDataChanged("Resolution", QVariant(m_resolution));
+}
+
+QSize Video::resolution()
 {
     return m_resolution;
 }
 
-QString Video::getAudioCodec()
+void Video::setAudioCodec(QString codec)
+{
+    m_audioCodec = codec;
+    emit metaDataChanged("AudioCodec", QVariant(m_audioCodec));
+}
+
+QString Video::audioCodec()
 {
     return m_audioCodec;
 }
 
-QString Video::getVideoCodec()
+void Video::setVideoCodec(QString codec)
+{
+    m_videoCodec = codec;
+    emit metaDataChanged("VideoCodec", QVariant(m_videoCodec));
+}
+
+QString Video::videoCodec()
 {
     return m_videoCodec;
 }
@@ -201,55 +201,32 @@ bool Video::isLocked()
     return m_locked;
 }
 
-bool Video::setSourceFileName(QString filename)
+bool Video::setSourceUrl(QString filename)
 {
-    if (!m_sourceFileName.isEmpty())
+    m_sourceUrl = filename;
+    qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceUrl;
+
+    if (m_sourceUrl.contains("://"))
     {
-        if (m_videoWidget != NULL)
-        {
-            //m_videoWidget->deleteLater();
-            delete m_videoWidget;
-            m_videoWidget = NULL;
-        }
-        if (m_videoPlayer != NULL)
-        {
-            delete m_videoPlayer;
-            m_videoPlayer = NULL;
-        }
-    }
-
-    m_sourceFileName = filename;
-    qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceFileName;
-
-    if (QFile(m_sourceFileName).exists())
-    {
-        setName(QFileInfo(m_sourceFileName).fileName());
-        m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
-        m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
-        m_videoWidget = new QVideoWidget;
-        //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
-        m_videoPlayer->setVideoOutput(m_videoWidget);
-
-        connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
-                this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
-        connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SLOT(slotMetaDataChanged(QString,QVariant)));
-        connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
-                this, SLOT(slotTotalTimeChanged(qint64)));
-        m_videoPlayer->setMedia(QUrl::fromLocalFile(m_sourceFileName));
+        QUrl url(m_sourceUrl);
+        setName(url.fileName());
     }
     else
     {
-        setName(tr("File not found"));
-        return true;
+        if (QFile(m_sourceUrl).exists())
+            setName(QFileInfo(m_sourceUrl).fileName());
+        else
+            setName(tr("File not found"));
     }
+
+    emit sourceChanged(m_sourceUrl);
 
     return true;
 }
 
-QString Video::getSourceFileName()
+QString Video::sourceUrl()
 {
-    return m_sourceFileName;
+    return m_sourceUrl;
 }
 
 void Video::setScreen(int index)
@@ -276,69 +253,10 @@ void Video::adjustAttribute(qreal fraction, int attributeIndex)
 {
     if (attributeIndex == Function::Intensity)
     {
-        if (m_videoWidget != NULL)
-        {
-            int b = -100 - (int)((qreal)-100.0 * fraction);
-            m_videoWidget->setBrightness(b);
-        }
+        int b = -100 - (int)((qreal)-100.0 * fraction);
+        emit requestBrightnessAdjust(b);
     }
     Function::adjustAttribute(fraction, attributeIndex);
-}
-
-void Video::slotStatusChanged(QMediaPlayer::MediaStatus status)
-{
-    switch (status)
-    {
-        case QMediaPlayer::UnknownMediaStatus:
-        case QMediaPlayer::NoMedia:
-        case QMediaPlayer::LoadedMedia:
-        case QMediaPlayer::BufferingMedia:
-        case QMediaPlayer::BufferedMedia:
-            //setStatusInfo(QString());
-            break;
-        case QMediaPlayer::LoadingMedia:
-            //setStatusInfo(tr("Loading..."));
-            break;
-        case QMediaPlayer::StalledMedia:
-            //setStatusInfo(tr("Media Stalled"));
-            break;
-        case QMediaPlayer::EndOfMedia:
-        {
-            if (m_videoPlayer != NULL)
-                m_videoPlayer->stop();
-
-            if (m_videoWidget != NULL)
-            {
-                m_videoWidget->hide();
-                //m_videoWidget->deleteLater();
-                //m_videoWidget = NULL;
-            }
-            Function::postRun(NULL, QList<Universe *>());
-            break;
-        }
-        case QMediaPlayer::InvalidMedia:
-            //displayErrorMessage();
-            break;
-    }
-}
-
-void Video::slotTotalTimeChanged(qint64 duration)
-{
-    m_videoDuration = duration;
-    qDebug() << "Video duration: " << m_videoDuration;
-    emit totalTimeChanged(m_videoDuration);
-}
-
-void Video::slotMetaDataChanged(QString key, QVariant data)
-{
-    qDebug() << Q_FUNC_INFO << "Got meta data:" << key;
-    if (key == "Resolution")
-        m_resolution = data.toSize();
-    else if (key == "VideoCodec")
-        m_videoCodec = data.toString();
-    else if (key == "AudioCodec")
-        m_audioCodec = data.toString();
-    emit metaDataChanged(key, data);
 }
 
 void Video::slotFunctionRemoved(quint32 fid)
@@ -374,7 +292,10 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     if (m_fullscreen == true)
         source.setAttribute(KXMLQLCVideoFullscreen, true);
 
-    text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
+    if (m_sourceUrl.contains("://"))
+        text = doc->createTextNode(m_sourceUrl);
+    else
+        text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceUrl));
 
     source.appendChild(text);
     root.appendChild(source);
@@ -418,7 +339,10 @@ bool Video::loadXML(const QDomElement& root)
                 else
                     setFullscreen(false);
             }
-            setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
+            if (tag.text().contains("://") == true)
+                setSourceUrl(tag.text());
+            else
+                setSourceUrl(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
         {
@@ -439,29 +363,7 @@ void Video::postLoad()
  *********************************************************************/
 void Video::preRun(MasterTimer* timer)
 {
-    if (m_startTime != UINT_MAX)
-        m_videoPlayer->setPosition(m_startTime);
-
-    if (m_fullscreen == false)
-    {
-        if (m_resolution.isEmpty())
-            m_videoWidget->setGeometry(0, 0, 640, 480);
-        else
-            m_videoWidget->setGeometry(0, 0, m_resolution.width(), m_resolution.height());
-    }
-
-    if (m_screen > 0 && getScreenCount() > m_screen)
-    {
-        QRect rect = qApp->desktop()->screenGeometry(m_screen);
-        m_videoWidget->move(rect.topLeft());
-    }
-
-    if (m_fullscreen == true)
-        m_videoWidget->setFullScreen(true);
-
-    m_videoWidget->show();
-
-    m_videoPlayer->play();
+    emit requestPlayback();
     Function::preRun(timer);
 }
 
@@ -482,7 +384,6 @@ void Video::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Video::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer)
-    Q_UNUSED(universes)
-    slotStatusChanged(QMediaPlayer::EndOfMedia);
+    emit requestStop();
+    Function::postRun(timer, universes);
 }

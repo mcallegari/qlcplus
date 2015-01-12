@@ -103,7 +103,7 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">near to far</Capability>
  </Channel>
- <Channel Name="DImmer">
+ <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
  </Channel>
  <Channel Name="Shutter/Strobe">

@@ -117,7 +117,7 @@ public:
     int getCurrentIndex();
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 private:
     /** Update the list of steps */

@@ -50,9 +50,8 @@ class VCMatrixControl
 {
 
 public:
-    VCMatrixControl(quint8 id);
-
-    VCMatrixControl(const VCMatrixControl *vcmc);
+    explicit VCMatrixControl(quint8 id);
+    explicit VCMatrixControl(VCMatrixControl const& vcmc);
 
     /** Destructor */
     ~VCMatrixControl();
@@ -61,16 +60,38 @@ public:
     {
         StartColor = 0,
         EndColor,
-        ResetEndColor,
         Animation,
         Image,
-        Text
+        Text,
+        ResetEndColor,
+        StartColorKnob,
+        EndColorKnob
     };
 
-protected:
-    QString typeToString(ControlType type);
-    ControlType stringToType(QString str);
+    enum WidgetType
+    {
+        Button,
+        Knob
+    };
 
+    WidgetType widgetType() const;
+
+    /** This is for Control Knobs:
+     *  extract the value for this knob from and RGB color
+     */
+    quint8 rgbToValue(QRgb color) const;
+
+    /** This is for Control Knobs:
+     *  get the rgb value for this value of the knob
+     */
+    QRgb valueToRgb(quint8 value) const;
+protected:
+    static QString typeToString(ControlType type);
+    static ControlType stringToType(QString str);
+
+public:
+    bool operator<(VCMatrixControl const& right) const;
+    static bool compare(VCMatrixControl const* left, VCMatrixControl const* right);
     /************************************************************************
      * Load & Save
      ***********************************************************************/
@@ -105,7 +126,6 @@ public:
 
     QLCInputSource *m_inputSource;
     QKeySequence m_keySequence;
-
 };
 
 /** @} */

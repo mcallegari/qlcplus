@@ -30,7 +30,7 @@
 #include "doc.h"
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void MasterTimer_Test::initTestCase()
 {

@@ -11,10 +11,12 @@
  <Type>Color Changer</Type>
  <Channel Name="Cold White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Cold White</Capability>
  </Channel>
  <Channel Name="Warm White">
   <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">Warm White</Capability>
  </Channel>
  <Channel Name="Master">
@@ -59,22 +61,22 @@
  </Channel>
  <Mode Name="2-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2" Width="168" Depth="186" Height="186"/>
-   <Lens DegreesMin="35" DegreesMax="35" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2" Width="168" Depth="186" Height="186"/>
-   <Lens DegreesMin="35" DegreesMax="35" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
@@ -84,11 +86,11 @@
  </Mode>
  <Mode Name="6-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2" Width="168" Depth="186" Height="186"/>
-   <Lens DegreesMin="35" DegreesMax="35" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>

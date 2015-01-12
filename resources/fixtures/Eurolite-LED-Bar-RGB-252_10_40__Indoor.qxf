@@ -11,7 +11,6 @@
  <Type>Color Changer</Type>
  <Channel Name="Mode">
   <Group Byte="0">Maintenance</Group>
-  <Colour>Red</Colour>
   <Capability Min="0" Max="0">Black out</Capability>
   <Capability Min="1" Max="15">Dimmer 1 (RGB mix, seperated segments)</Capability>
   <Capability Min="16" Max="31">Dimmer 2 (RGB mix, all segments)</Capability>
@@ -36,7 +35,6 @@
  </Channel>
  <Channel Name="Flash">
   <Group Byte="0">Shutter</Group>
-  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Flash (0=const, 255=fast)</Capability>
  </Channel>
  <Channel Name="Red1 / All Red / Select Color">

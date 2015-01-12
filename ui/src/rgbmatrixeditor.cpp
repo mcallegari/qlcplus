@@ -646,6 +646,8 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
+    if (algo != NULL)
+        algo->setColors(m_matrix->startColor(), m_matrix->endColor());
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
     updateExtraOptions();
@@ -1082,6 +1084,10 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                         step.values.append(SceneValue(head.fxi, master, 255));
                 }
             }
+            // !! Important !! matrix's heads can be displaced randomly but in a sequence
+            // we absolutely need ordered values. So do it now !
+            qSort(step.values.begin(), step.values.end());
+
             chaser->addStep(step);
             currentStep += increment;
             if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)

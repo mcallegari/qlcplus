@@ -73,6 +73,7 @@ protected:
      * Custom controls
      *********************************************************************/
 private:
+    static QList<QColor> rgbColorList();
     void updateTree();
     VCMatrixControl *getSelectedControl();
     void addControl(VCMatrixControl *control);
@@ -82,7 +83,9 @@ private:
 protected slots:
     void slotTreeSelectionChanged();
     void slotAddStartColorClicked();
+    void slotAddStartColorKnobsClicked();
     void slotAddEndColorClicked();
+    void slotAddEndColorKnobsClicked();
     void slotAddEndColorResetClicked();
     void slotAddAnimationClicked();
     void slotAddTextClicked();
@@ -97,7 +100,7 @@ protected slots:
 
 protected:
     quint8 m_lastAssignedID;
-    QList<VCMatrixControl *> m_controls;
+    QList<VCMatrixControl*> m_controls;
 
 protected slots:
     /** @reimp */

@@ -41,6 +41,7 @@ docs.files = \
              index.html \
              kioskmode.html \
              liveedit.html \
+             loopbackplugin.html \
              mainwindow.html \
              midiplugin.html \
              modeeditor.html \
@@ -55,6 +56,7 @@ docs.files = \
              selectfunction.html \
              selectfixture.html \
              selectinputchannel.html \
+             scripteditor.html \
              showeditor.html \
              showmanager.html \
              simpledesk.html \
@@ -84,6 +86,7 @@ imgs.files += images/channelmodifier.png \
               images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
+              images/locale.png \
               images/mainwindow.png \
               images/tutorial1_1.png \
               images/tutorial1_2.png \

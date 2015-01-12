@@ -56,6 +56,10 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+ #include "videoprovider.h"
+#endif
+
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
@@ -101,6 +105,9 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    , m_videoProvider(NULL)
+#endif
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -140,6 +147,11 @@ App::~App()
 
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    if (m_videoProvider != NULL)
+        delete m_videoProvider;
+#endif
 
     if (m_doc != NULL)
         delete m_doc;
@@ -275,6 +287,10 @@ void App::init()
         QString styleSheet = QLatin1String(ssFile.readAll());
         this->setStyleSheet(styleSheet);
     }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_videoProvider = new VideoProvider(m_doc, this);
+#endif
 }
 
 void App::setActiveWindow(const QString& name)
@@ -377,8 +393,8 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
-    m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
+    m_doc->clearContents();
     SimpleDesk::instance()->clearContents();
     ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();

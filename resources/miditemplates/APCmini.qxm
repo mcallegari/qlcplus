@@ -1,0 +1,9 @@
+<!DOCTYPE MidiTemplate>
+<MidiTemplate>
+ <Creator>
+  <Author>Joep Admiraal</Author>
+ </Creator>
+ <Description>Sets the APC mini into Ableton mode 2. This is needed to control the button led's.</Description>
+ <Name>APC mini Ableton mode 2</Name>
+ <InitMessage>F0 47 7F 28 60 00 04 41 09 01 04 F7</InitMessage>
+</MidiTemplate>

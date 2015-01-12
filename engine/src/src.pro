@@ -11,8 +11,9 @@ TARGET   = qlcplusengine
 #CONFIG  += qt
 QT      += core xml script gui
 greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets multimedia multimediawidgets
+  QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
+  win32:QT += widgets
 }
 
 CONFIG += link_pkgconfig

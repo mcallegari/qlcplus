@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
 #include <QMenu>
@@ -153,7 +154,11 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    int screenCount = m_video->getScreenCount();
+    int screenCount = 0;
+    QDesktopWidget *desktop = qApp->desktop();
+    if (desktop != NULL)
+        screenCount = desktop->screenCount();
+
     if (screenCount > 0)
     {
         for (int i = 0; i < screenCount; i++)

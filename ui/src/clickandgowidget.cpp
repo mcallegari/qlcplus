@@ -191,6 +191,8 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         setupGradient(Qt::black, 0xFFFF7E00);
     else if (type == White)
         setupGradient(Qt::black, Qt::white);
+    else if (type == UV)
+        setupGradient(Qt::black, 0xFF9400D3);
     else if (type == RGB || type == CMY)
     {
         setupColorPicker();
@@ -223,6 +225,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Yellow: return "Yellow"; break;
         case Amber: return "Amber"; break;
         case White: return "White"; break;
+        case UV: return "UV"; break;
         case RGB: return "RGB"; break;
         case CMY: return "CMY"; break;
         case Preset: return "Preset"; break;
@@ -239,6 +242,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Yellow") return Yellow;
     else if (str == "Amber") return Amber;
     else if (str == "White") return White;
+    else if (str == "UV") return UV;
     else if (str == "RGB") return RGB;
     else if (str == "CMY") return CMY;
     else if (str == "Preset") return Preset;

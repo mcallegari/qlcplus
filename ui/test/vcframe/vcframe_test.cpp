@@ -186,7 +186,7 @@ void VCFrame_Test::saveXML()
 
     QDomNode subFrame;
     int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0;
-    int collapsed = 0, showheader = 0, disabled = 0, enableInput = 0;
+    int collapsed = 0, showheader = 0, disabled = 0, enableInput = 0, showEnableButton = 0;
 
     // Parent
     node = node.firstChild();
@@ -329,6 +329,10 @@ void VCFrame_Test::saveXML()
         {
             enableInput++;
         }
+        else if (tag.tagName() == QString("ShowEnableButton"))
+        {
+            showEnableButton++;
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -342,6 +346,7 @@ void VCFrame_Test::saveXML()
     QCOMPARE(showheader, 2);
     QCOMPARE(disabled, 2);
     QCOMPARE(enableInput, 1);
+    QCOMPARE(showEnableButton, 1);
     QCOMPARE(frame, 2);
     QVERIFY(subFrame.isNull() == true);
 }

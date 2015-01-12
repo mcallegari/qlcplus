@@ -168,14 +168,17 @@ quint32 RGBMatrix::fixtureGroup() const
 
 void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
 {
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    delete m_algorithm;
-    m_algorithm = algo;
-    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
     {
-        RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
-        audio->setAudioCapture(doc()->audioInputCapture());
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        delete m_algorithm;
+        m_algorithm = algo;
+        if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
+        {
+            RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
+            audio->setAudioCapture(doc()->audioInputCapture());
+        }
     }
+    emit changed(id());
 }
 
 RGBAlgorithm* RGBMatrix::algorithm() const
@@ -221,9 +224,12 @@ RGBMap RGBMatrix::previewMap(int step)
 void RGBMatrix::setStartColor(const QColor& c)
 {
     m_startColor = c;
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    if (m_algorithm != NULL)
-        m_algorithm->setColors(m_startColor, m_endColor);
+    {
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm != NULL)
+            m_algorithm->setColors(m_startColor, m_endColor);
+    }
+    emit changed(id());
 }
 
 QColor RGBMatrix::startColor() const
@@ -234,9 +240,12 @@ QColor RGBMatrix::startColor() const
 void RGBMatrix::setEndColor(const QColor &c)
 {
     m_endColor = c;
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-    if (m_algorithm != NULL)
-        m_algorithm->setColors(m_startColor, m_endColor);
+    {
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm != NULL)
+            m_algorithm->setColors(m_startColor, m_endColor);
+    }
+    emit changed(id());
 }
 
 QColor RGBMatrix::endColor() const
@@ -657,6 +666,12 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
     quint32 mdAssigned = QLCChannel::invalid();
     quint32 mdFxi = Fixture::invalidId();
 
+    uint fadeTime = 0;
+    if (overrideFadeInSpeed() == defaultSpeed())
+        fadeTime = fadeInSpeed();
+    else
+        fadeTime = overrideFadeInSpeed();
+
     // Create/modify fade channels for ALL pixels in the color map.
     for (int y = 0; y < map.size(); y++)
     {
@@ -686,17 +701,17 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 
                 fc.setChannel(rgb.at(0));
                 fc.setTarget(qRed(map[y][x]));
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
 
                 fc.setChannel(rgb.at(1));
                 fc.setTarget(qGreen(map[y][x]));
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
 
                 fc.setChannel(rgb.at(2));
                 fc.setTarget(qBlue(map[y][x]));
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
             }
             else if (cmy.size() == 3)
@@ -709,17 +724,17 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 
                 fc.setChannel(cmy.at(0));
                 fc.setTarget(col.cyan());
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
 
                 fc.setChannel(cmy.at(1));
                 fc.setTarget(col.magenta());
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
 
                 fc.setChannel(cmy.at(2));
                 fc.setTarget(col.yellow());
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
             }
 
@@ -739,14 +754,14 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                     if (mdAssigned == QLCChannel::invalid())
                         mdAssigned = head.masterIntensityChannel();
                 }
-                insertStartValues(fc);
+                insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
             }
         }
     }
 }
 
-void RGBMatrix::insertStartValues(FadeChannel& fc) const
+void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
 {
     Q_ASSERT(m_fader != NULL);
 
@@ -773,7 +788,9 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
     if (fc.target() == 0)
         fc.setFadeTime(fadeOutSpeed());
     else
-        fc.setFadeTime(fadeInSpeed());
+    {
+        fc.setFadeTime(fadeTime);
+    }
 }
 
 /*********************************************************************

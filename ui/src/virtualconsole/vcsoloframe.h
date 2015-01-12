@@ -63,13 +63,18 @@ protected:
      *  is this Solo Frame. Otherwise false is returned */
     bool thisIsNearestSoloFrameParent(QWidget* widget);
 
+    void updateChildrenConnection(bool doConnect);
+
+    /** @reimp */
+    virtual void setLiveEdit(bool liveEdit);
+
 protected slots:
     virtual void slotModeChanged(Doc::Mode mode);
 
     /** Slot called when a Function attached to a widget has
      *  been requested to start.
      */
-    void slotWidgetFunctionStarting();
+    void slotWidgetFunctionStarting(quint32 fid);
 
     /*************************************************************************
      * Load & Save

@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QApplication>
 #include <QStringList>
 #include <QPainter>
 #include <iostream>
@@ -50,6 +49,7 @@
 #define KXMLQLCChannelColourYellow     QString("Yellow")
 #define KXMLQLCChannelColourAmber      QString("Amber")
 #define KXMLQLCChannelColourWhite      QString("White")
+#define KXMLQLCChannelColourUV         QString("UV")
 
 QLCChannel::QLCChannel()
 {
@@ -202,10 +202,10 @@ QPixmap QLCChannel::drawIntensity(QColor color, QString str) const
     QPainter painter(&pm);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QFont tfont = QApplication::font();
+    /*QFont tfont = QApplication::font();
     tfont.setBold(true);
     tfont.setPixelSize(14);
-    painter.setFont(tfont);
+    painter.setFont(tfont);*/
 
     pm.fill(color);
     if (str == "B")
@@ -219,30 +219,24 @@ QIcon QLCChannel::getIntensityIcon() const
 {
     QPixmap pm(32, 32);
 
-    if (m_colour == QLCChannel::Red ||
-        m_name.contains("red", Qt::CaseInsensitive) == true)
-            pm = drawIntensity(Qt::red, "R");
-    else if (m_colour == QLCChannel::Green ||
-             m_name.contains("green", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::green, "G");
-    else if (m_colour == QLCChannel::Blue ||
-             m_name.contains("blue", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::blue, "B");
-    else if (m_colour == QLCChannel::Cyan ||
-             m_name.contains("cyan", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::cyan, "C");
-    else if (m_colour == QLCChannel::Magenta ||
-             m_name.contains("magenta", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::magenta, "M");
-    else if (m_colour == QLCChannel::Yellow ||
-             m_name.contains("yellow", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::yellow, "Y");
-    else if (m_colour == QLCChannel::Amber ||
-             m_name.contains("amber", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(QColor(0xFFFF7E00), "A");
-    else if (m_colour == QLCChannel::White ||
-             m_name.contains("white", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::white, "W");
+    if (m_colour == QLCChannel::Red)
+        pm = drawIntensity(Qt::red, "R");
+    else if (m_colour == QLCChannel::Green)
+        pm = drawIntensity(Qt::green, "G");
+    else if (m_colour == QLCChannel::Blue) 
+        pm = drawIntensity(Qt::blue, "B");
+    else if (m_colour == QLCChannel::Cyan)
+        pm = drawIntensity(Qt::cyan, "C");
+    else if (m_colour == QLCChannel::Magenta)
+        pm = drawIntensity(Qt::magenta, "M");
+    else if (m_colour == QLCChannel::Yellow)
+        pm = drawIntensity(Qt::yellow, "Y");
+    else if (m_colour == QLCChannel::Amber)
+        pm = drawIntensity(QColor(0xFFFF7E00), "A");
+    else if (m_colour == QLCChannel::White)
+        pm = drawIntensity(Qt::white, "W");
+    else if (m_colour == QLCChannel::UV)
+        pm = drawIntensity(QColor(0xFF9400D3), "UV");
     else
     {
         // None of the primary colours matched and since this is an
@@ -255,30 +249,24 @@ QIcon QLCChannel::getIntensityIcon() const
 
 QString QLCChannel::getIntensityColorCode() const
 {
-    if (m_colour == QLCChannel::Red ||
-        m_name.contains("red", Qt::CaseInsensitive) == true)
-            return QString("#FF0000");
-    else if (m_colour == QLCChannel::Green ||
-             m_name.contains("green", Qt::CaseInsensitive) == true)
-                return QString("#00FF00");
-    else if (m_colour == QLCChannel::Blue ||
-             m_name.contains("blue", Qt::CaseInsensitive) == true)
-                return QString("#0000FF");
-    else if (m_colour == QLCChannel::Cyan ||
-             m_name.contains("cyan", Qt::CaseInsensitive) == true)
-                return QString("#00FFFF");
-    else if (m_colour == QLCChannel::Magenta ||
-             m_name.contains("magenta", Qt::CaseInsensitive) == true)
-                return QString("#FF00FF");
-    else if (m_colour == QLCChannel::Yellow ||
-             m_name.contains("yellow", Qt::CaseInsensitive) == true)
-                return QString("#FFFF00");
-    else if (m_colour == QLCChannel::Amber ||
-             m_name.contains("amber", Qt::CaseInsensitive) == true)
-                return QString("#FF7E00");
-    else if (m_colour == QLCChannel::White ||
-             m_name.contains("white", Qt::CaseInsensitive) == true)
-                return QString("#FFFFFF");
+    if (m_colour == QLCChannel::Red)
+        return QString("#FF0000");
+    else if (m_colour == QLCChannel::Green)
+        return QString("#00FF00");
+    else if (m_colour == QLCChannel::Blue)
+        return QString("#0000FF");
+    else if (m_colour == QLCChannel::Cyan)
+        return QString("#00FFFF");
+    else if (m_colour == QLCChannel::Magenta)
+        return QString("#FF00FF");
+    else if (m_colour == QLCChannel::Yellow)
+        return QString("#FFFF00");
+    else if (m_colour == QLCChannel::Amber)
+        return QString("#FF7E00");
+    else if (m_colour == QLCChannel::White)
+        return QString("#FFFFFF");
+    else if (m_colour == QLCChannel::UV)
+        return QString("#9400D3");
     else
     {
         // None of the primary colours matched and since this is an
@@ -289,12 +277,12 @@ QString QLCChannel::getIntensityColorCode() const
     return QString(":/intensity.png");
 }
 
-QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
+QIcon QLCChannel::getIcon() const
 {
-    if (grp == Intensity)
+    if (group() == Intensity)
         return getIntensityIcon();
     else
-        return QIcon(getIconNameFromGroup(grp));
+        return QIcon(getIconNameFromGroup(group()));
 }
 
 QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
@@ -358,6 +346,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourYellow;
     list << KXMLQLCChannelColourAmber;
     list << KXMLQLCChannelColourWhite;
+    list << KXMLQLCChannelColourUV;
     return list;
 }
 
@@ -381,6 +370,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourAmber;
     case White:
         return KXMLQLCChannelColourWhite;
+    case UV:
+        return KXMLQLCChannelColourUV;
     case NoColour:
     default:
         return KXMLQLCChannelColourGeneric;
@@ -405,6 +396,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return Amber;
     else if (str == KXMLQLCChannelColourWhite)
         return White;
+    else if (str == KXMLQLCChannelColourUV)
+        return UV;
     else
         return NoColour;
 }

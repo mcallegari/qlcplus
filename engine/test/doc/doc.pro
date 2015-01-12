@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += doc_test.cpp
-HEADERS += doc_test.h
+HEADERS += doc_test.h ../common/resource_paths.h
+

@@ -34,7 +34,7 @@
 
 RGBText::RGBText(const Doc * doc)
     : RGBAlgorithm(doc)
-    , m_text(" Q LIGHT CONTROLLER ")
+    , m_text(" Q LIGHT CONTROLLER + ")
     , m_animationStyle(Horizontal)
     , m_xOffset(0)
     , m_yOffset(0)

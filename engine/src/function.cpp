@@ -558,7 +558,14 @@ uint Function::stringToSpeed(QString speed)
 
     QStringList msecs = speed.split(".");
     if (msecs.count() > 0)
-        value += (msecs.at(msecs.count() - 1).toUInt() * 10);
+    {
+        QString msecStr = msecs.at(msecs.count() - 1);
+        uint msecInt = msecStr.toUInt();
+        if (msecInt < 10 && msecStr.contains("0") == false)
+            value += (msecInt * 100);
+        else
+            value += (msecInt * 10);
+    }
 
     return value;
 }
@@ -748,6 +755,7 @@ void Function::preRun(MasterTimer* timer)
     Q_UNUSED(timer);
 
     qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
+    m_stop = false;
     m_running = true;
 
     emit running(m_id);
@@ -814,7 +822,6 @@ void Function::start(MasterTimer* timer, bool child, quint32 startTime,
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    m_stop = false;
     timer->startFunction(this);
 }
 

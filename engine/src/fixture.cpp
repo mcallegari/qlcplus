@@ -201,8 +201,8 @@ quint32 Fixture::channelAddress(quint32 channel) const
         return QLCChannel::invalid();
 }
 
-quint32 Fixture::channel(const QString& name, Qt::CaseSensitivity cs,
-                         QLCChannel::Group group) const
+quint32 Fixture::channel(QLCChannel::Group group,
+    QLCChannel::PrimaryColour color) const
 {
     if (m_fixtureDef == NULL && m_fixtureMode == NULL)
     {
@@ -226,7 +226,7 @@ quint32 Fixture::channel(const QString& name, Qt::CaseSensitivity cs,
                 /* Given group name doesn't match */
                 continue;
             }
-            else if (ch->name().contains(name, cs) == true)
+            else if (group != QLCChannel::Intensity || ch->colour() == color)
             {
                 /* Found the channel */
                 return i;
@@ -238,8 +238,7 @@ quint32 Fixture::channel(const QString& name, Qt::CaseSensitivity cs,
     }
 }
 
-QSet <quint32> Fixture::channels(const QString& name, Qt::CaseSensitivity cs,
-                                 QLCChannel::Group group) const
+QSet <quint32> Fixture::channels(QLCChannel::Group group, QLCChannel::PrimaryColour color) const
 {
     QSet <quint32> set;
     if (m_fixtureDef != NULL && m_fixtureMode != NULL)
@@ -255,7 +254,7 @@ QSet <quint32> Fixture::channels(const QString& name, Qt::CaseSensitivity cs,
                 /* Given group name doesn't match */
                 continue;
             }
-            else if (ch->name().contains(name, cs) == true)
+            else if (group != QLCChannel::Intensity || ch->colour() == color)
             {
                 /* Found the channel */
                 set << i;
@@ -336,10 +335,7 @@ quint32 Fixture::masterIntensityChannel(int head) const
 
         if (dimmerCh == QLCChannel::invalid())
         {
-            QList <quint32> dList = channels("dimmer", Qt::CaseInsensitive, QLCChannel::Intensity).toList();
-
-            if (dList.count() > 0)
-                dimmerCh = dList.at(0);
+            dimmerCh = channel(QLCChannel::Intensity, QLCChannel::NoColour);
         }
         return dimmerCh;
     }

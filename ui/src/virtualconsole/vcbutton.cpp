@@ -392,9 +392,12 @@ quint32 VCButton::function() const
     return m_function;
 }
 
-void VCButton::stopFunction()
+void VCButton::notifyFunctionStarting(quint32 fid)
 {
     if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_function)
         return;
 
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
@@ -667,7 +670,7 @@ void VCButton::pressFunction()
                     f->adjustAttribute(intensity(), Function::Intensity);
 
                 f->start(m_doc->masterTimer());
-                emit functionStarting();
+                emit functionStarting(m_function);
             }
         }
     }
@@ -790,7 +793,12 @@ void VCButton::adjustIntensity(qreal val)
 {
     Function* func = m_doc->function(m_function);
     if (func != NULL)
-        func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+    {
+        if (isStartupIntensityEnabled())
+            func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+        else
+            func->adjustAttribute(val, Function::Intensity);
+    }
 
     VCWidget::adjustIntensity(val);
 }

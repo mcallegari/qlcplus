@@ -89,46 +89,44 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
 * Solo behaviour
 *****************************************************************************/
 
-void VCSoloFrame::slotModeChanged(Doc::Mode mode)
+void VCSoloFrame::updateChildrenConnection(bool doConnect)
 {
-    VCFrame::slotModeChanged(mode);
-
-    // Get all buttons in this soloFrame
     QListIterator <VCWidget*> it(findChildren<VCWidget*>());
-
-    while (it.hasNext() == true)
+    while (it.hasNext())
     {
         VCWidget* widget = it.next();
-        if (widget != NULL)
+        if (widget != NULL && thisIsNearestSoloFrameParent(widget))
         {
-            if (widget->type() == VCWidget::ButtonWidget ||
-                widget->type() == VCWidget::SliderWidget ||
-                widget->type() == VCWidget::CueListWidget)
-            {
-                // make sure the widget's nearest soloframe is this
-                if (thisIsNearestSoloFrameParent(widget))
-                {
-                    if (mode == Doc::Operate)
-                    {
-                        // listen to when the button function is started
-                        connect(widget, SIGNAL(functionStarting()),
-                                this, SLOT(slotWidgetFunctionStarting()));
-                    }
-                    else
-                    {
-                        // remove listener
-                        disconnect(widget, SIGNAL(functionStarting()),
-                                   this, SLOT(slotWidgetFunctionStarting()));
-                    }
-                }
-            }
+            if (doConnect)
+                connect(widget, SIGNAL(functionStarting(quint32)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32)));
+            else
+                disconnect(widget, SIGNAL(functionStarting(quint32)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32)));
         }
     }
 }
 
+void VCSoloFrame::slotModeChanged(Doc::Mode mode)
+{
+    VCFrame::slotModeChanged(mode);
+
+    updateChildrenConnection(mode == Doc::Operate);
+}
+
+void VCSoloFrame::setLiveEdit(bool liveEdit)
+{
+    VCFrame::setLiveEdit(liveEdit);
+
+    if (m_doc->mode() == Doc::Design)
+        return;
+
+    updateChildrenConnection(!liveEdit);
+}
+
 bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
 {
-	VCSoloFrame* sf;
+    VCSoloFrame* sf;
 
     while (widget != NULL)
     {
@@ -137,14 +135,14 @@ bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
         sf = qobject_cast<VCSoloFrame*>(widget);
         if (sf != NULL)
         {
-			return sf == this;
-		}
+            return sf == this;
+        }
     }
 
     return false;
 }
 
-void VCSoloFrame::slotWidgetFunctionStarting()
+void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid)
 {
     VCWidget* senderWidget = qobject_cast<VCWidget*>(sender());
 
@@ -158,7 +156,7 @@ void VCSoloFrame::slotWidgetFunctionStarting()
         {
             VCWidget* widget = it.next();
             if (widget != NULL && widget != senderWidget)
-                widget->stopFunction();
+                widget->notifyFunctionStarting(fid);
         }
     }
 }

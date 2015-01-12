@@ -174,7 +174,7 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
             QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
-            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            item->setIcon(KColumnName, channel->getIcon());
             item->setText(KColumnUniverse, QString::number(uni));
             item->setText(KColumnID, QString::number(fxi->id()));
             item->setText(KColumnChIdx, QString::number(c));
@@ -251,7 +251,7 @@ void FixtureRemap::slotAddTargetFixture()
             QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
-            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            item->setIcon(KColumnName, channel->getIcon());
             item->setText(KColumnUniverse, QString::number(universe));
             item->setText(KColumnID, QString::number(fxi->id()));
             item->setText(KColumnChIdx, QString::number(c));
@@ -364,7 +364,7 @@ void FixtureRemap::slotCloneSourceFixture()
         QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
         item->setText(KColumnName, QString("%1:%2").arg(c + 1)
                       .arg(channel->name()));
-        item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+        item->setIcon(KColumnName, channel->getIcon());
         item->setText(KColumnUniverse, QString::number(tgtFix->universe()));
         item->setText(KColumnID, QString::number(tgtFix->id()));
         item->setText(KColumnChIdx, QString::number(c));

@@ -23,8 +23,6 @@
 #include <QDebug>
 #include <QFile>
 
-#include <QMessageBox>
-
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE
   #include "audiodecoder_sndfile.h"
@@ -387,6 +385,9 @@ void Audio::preRun(MasterTimer* timer)
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
+    else
+        return; // avoid this function to even start
+
     Function::preRun(timer);
 }
 
@@ -399,7 +400,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (fadeOutSpeed() != 0)
     {
-        if (totalDuration() - elapsed() <= fadeOutSpeed())
+        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
     }
 }

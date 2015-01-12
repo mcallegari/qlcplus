@@ -21,10 +21,12 @@ TEMPLATE = subdirs
  SUBDIRS              += artnet
  SUBDIRS              += E1.31
  !macx:!win32:SUBDIRS += spi
+ SUBDIRS              += loopback
 
 } else {
 
  SUBDIRS              += artnet
  SUBDIRS              += E1.31
+ SUBDIRS              += loopback
 
 }

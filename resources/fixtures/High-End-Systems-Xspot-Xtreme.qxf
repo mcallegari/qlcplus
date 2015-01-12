@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.8.3 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>High End Systems</Manufacturer>
@@ -162,15 +162,18 @@ from a minimum?700W; does not go to black</Capability>
   <Capability Min="240" Max="255">MSpeed Control Blink</Capability>
  </Channel>
  <Channel Name="Red">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
   <Capability Min="0" Max="255">See Manual</Capability>
  </Channel>
  <Channel Name="Green">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
   <Capability Min="0" Max="255">See Manual</Capability>
  </Channel>
  <Channel Name="Blue">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">see manual</Capability>
  </Channel>
  <Channel Name="Color Temp Orange">
@@ -299,11 +302,11 @@ Blink</Capability>
   <Capability Min="208" Max="255">MSpeed Control
 Reserved</Capability>
  </Channel>
- <Channel Name="Effects Rotate&#10;Coarse&#10;">
+ <Channel Name="Effects Rotate&#xa;Coarse&#xa;">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">see manual</Capability>
  </Channel>
- <Channel Name="Effects Rotate&#10;Fine&#10;">
+ <Channel Name="Effects Rotate&#xa;Fine&#xa;">
   <Group Byte="1">Effect</Group>
   <Capability Min="0" Max="255">Low Order Byte position 0-360 degrees</Capability>
  </Channel>

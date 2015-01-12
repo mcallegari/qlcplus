@@ -145,6 +145,7 @@
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Color Macro">

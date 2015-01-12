@@ -29,7 +29,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void QLCFixtureDefCache_Test::init()
 {

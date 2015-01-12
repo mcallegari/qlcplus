@@ -119,7 +119,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
     m_tree->updateTree();
 
-    connect(m_doc, SIGNAL(cleared()), this, SLOT(slotDocClearing()));
+    connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_doc, SIGNAL(functionNameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
@@ -152,7 +152,7 @@ void FunctionManager::slotModeChanged()
 
 void FunctionManager::slotDocClearing()
 {
-    deleteCurrentEditor();
+    deleteCurrentEditor(false); // Synchronous delete
     m_tree->clearTree();
 }
 
@@ -171,12 +171,13 @@ void FunctionManager::slotDocLoaded()
             Scene *scene = qobject_cast<Scene*>(sceneFunc);
             scene->setChildrenFlag(true);
             int i = 0;
+            int sceneValuesCount = scene->values().count();
             foreach(ChaserStep step, chaser->steps())
             {
                 // Since I saved only the non-zero values in the XML files, at the first chance I need
                 // to fix the values against the bound scene, and restore all the zero values previously there
-                //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-                if (scene->values().count() != step.values.count())
+                //qDebug() << Q_FUNC_INFO << "Scene values: " << scene->values().count() << ", step values: " <<  step.values.count();
+                if (sceneValuesCount != step.values.count())
                 {
                     int j = 0;
                     // 1- copy the list
@@ -548,7 +549,7 @@ void FunctionManager::slotAddVideo()
 
     Function* f = new Video(m_doc);
     Video *video = qobject_cast<Video*> (f);
-    if (video->setSourceFileName(fn) == false)
+    if (video->setSourceUrl(fn) == false)
     {
         QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
         return;
@@ -970,12 +971,18 @@ void FunctionManager::editFunction(Function* function)
     }
 }
 
-void FunctionManager::deleteCurrentEditor()
+void FunctionManager::deleteCurrentEditor(bool async)
 {
-    if (m_editor != NULL)
-        m_editor->deleteLater();
-    if (m_scene_editor != NULL)
-        m_scene_editor->deleteLater();
+    if (async)
+    {
+        if (m_editor) m_editor->deleteLater();
+        if (m_scene_editor) m_scene_editor->deleteLater();
+    }
+    else
+    {
+        delete m_editor;
+        delete m_scene_editor;
+    }
 
     m_editor = NULL;
     m_scene_editor = NULL;

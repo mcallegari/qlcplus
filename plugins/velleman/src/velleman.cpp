@@ -130,7 +130,7 @@ QString Velleman::outputInfo(quint32 output)
 {
     QString str;
 
-    if (output == QLCIOPlugin::invalidLine() && output == 0)
+    if (output != QLCIOPlugin::invalidLine() && output == 0)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
     }

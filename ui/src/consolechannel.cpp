@@ -343,22 +343,19 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     fnt.setBold(true);
     m_presetButton->setFont(fnt);
 
-    if (channel->colour() == QLCChannel::Red ||
-        channel->name().contains("red", Qt::CaseInsensitive) == true)
+    if (channel->colour() == QLCChannel::Red)
     {
         m_presetButton->setText("R"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Red);
     }
-    else if (channel->colour() == QLCChannel::Green ||
-             channel->name().contains("green", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Green)
     {
         m_presetButton->setText("G"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Green);
     }
-    else if (channel->colour() == QLCChannel::Blue ||
-             channel->name().contains("blue", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Blue)
     {
         QPalette pal = m_presetButton->palette();
         pal.setColor(QPalette::ButtonText, Qt::white); // Improve contrast
@@ -367,40 +364,41 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Blue);
     }
-    else if (channel->colour() == QLCChannel::Cyan ||
-             channel->name().contains("cyan", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Cyan)
     {
         m_presetButton->setText("C"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Cyan);
     }
-    else if (channel->colour() == QLCChannel::Magenta ||
-             channel->name().contains("magenta", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Magenta)
     {
         m_presetButton->setText("M"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Magenta);
     }
-    else if (channel->colour() == QLCChannel::Yellow ||
-             channel->name().contains("yellow", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Yellow)
     {
         m_presetButton->setText("Y"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Yellow);
     }
-    else if (channel->colour() == QLCChannel::Amber ||
-             channel->name().contains("amber", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::Amber)
     {
         m_presetButton->setText("A"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Amber);
     }
-    else if (channel->colour() == QLCChannel::White ||
-             channel->name().contains("white", Qt::CaseInsensitive) == true)
+    else if (channel->colour() == QLCChannel::White)
     {
         m_presetButton->setText("W"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::White);
+    }
+    else if (channel->colour() == QLCChannel::UV)
+    {
+        m_presetButton->setText("UV"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::UV);
     }
     else
     {

@@ -16,8 +16,56 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="8" column="2" colspan="2">
-      <widget class="QComboBox" name="m_screenCombo"/>
+     <item row="1" column="0" colspan="5">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2" colspan="3">
+      <widget class="QToolButton" name="m_previewButton">
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/player_play.png</normaloff>:/player_play.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="5">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QToolButton" name="m_fileButton">
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0" colspan="5">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="m_nameLabel">
@@ -32,24 +80,10 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>File name</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="0" colspan="2">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Duration</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QToolButton" name="m_fileButton">
-       <property name="text">
-        <string notr="true">...</string>
        </property>
       </widget>
      </item>
@@ -60,8 +94,95 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="2" colspan="2">
+     <item row="6" column="0" colspan="2">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Audio codec</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0" colspan="2">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Video codec</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0" colspan="2">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Preview</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="2">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Output Screen</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2" colspan="3">
+      <widget class="QLabel" name="m_resolutionLabel">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2" colspan="3">
+      <widget class="QComboBox" name="m_screenCombo"/>
+     </item>
+     <item row="6" column="2" colspan="3">
       <widget class="QLabel" name="m_acodecLabel">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2" colspan="3">
+      <widget class="QLabel" name="m_vcodecLabel">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QToolButton" name="m_urlButton">
+       <property name="toolTip">
+        <string>Set an arbitrary URL for this Video</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/global.png</normaloff>:/global.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="3">
+      <widget class="QLabel" name="m_durationLabel">
        <property name="font">
         <font>
          <weight>75</weight>
@@ -95,125 +216,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0" colspan="2">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Audio codec</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0" colspan="2">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Video codec</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0" colspan="4">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="7" column="0" colspan="4">
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2" colspan="2">
-      <widget class="QLabel" name="m_vcodecLabel">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="4">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2" colspan="2">
-      <widget class="QLabel" name="m_resolutionLabel">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2" colspan="2">
-      <widget class="QLineEdit" name="m_nameEdit">
-       <property name="toolTip">
-        <string>Name of the function being edited</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0" colspan="2">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Preview</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2" colspan="2">
-      <widget class="QLabel" name="m_durationLabel">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="2">
-      <widget class="QToolButton" name="m_previewButton">
-       <property name="icon">
-        <iconset resource="qlcui.qrc">
-         <normaloff>:/player_play.png</normaloff>:/player_play.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0" colspan="2">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Output Screen</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0" colspan="4">
+     <item row="9" column="0" colspan="5">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string>Video output</string>
@@ -237,6 +240,20 @@
          </widget>
         </item>
        </layout>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>File name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" colspan="3">
+      <widget class="QLineEdit" name="m_nameEdit">
+       <property name="toolTip">
+        <string>Name of the function being edited</string>
+       </property>
       </widget>
      </item>
     </layout>

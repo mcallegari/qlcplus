@@ -43,7 +43,7 @@
 #undef protected
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Doc_Test::initTestCase()
 {

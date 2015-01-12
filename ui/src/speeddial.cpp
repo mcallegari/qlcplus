@@ -90,13 +90,13 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_tapTick(false)
     , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
-    QVBoxLayout* vbox = new QVBoxLayout(this);
-    vbox->setSpacing(0);
-    vbox->setMargin(2);
+    new QVBoxLayout(this);
+    layout()->setSpacing(0);
+    layout()->setMargin(2);
 
-    QHBoxLayout* topHBox = new QHBoxLayout(this);
-    QVBoxLayout* pmVBox = new QVBoxLayout(this);
-    vbox->addItem(topHBox);
+    QHBoxLayout* topHBox = new QHBoxLayout();
+    QVBoxLayout* pmVBox = new QVBoxLayout();
+    layout()->addItem(topHBox);
 
     m_plus = new QToolButton(this);
     m_plus->setIconSize(QSize(32, 32));
@@ -126,8 +126,8 @@ SpeedDial::SpeedDial(QWidget* parent)
     topHBox->addWidget(m_tap);
     connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
 
-    QHBoxLayout* timeHBox = new QHBoxLayout(this);
-    vbox->addItem(timeHBox);
+    QHBoxLayout* timeHBox = new QHBoxLayout();
+    layout()->addItem(timeHBox);
 
     m_hrs = new FocusSpinBox(this);
     m_hrs->setRange(0, HRS_MAX);
@@ -167,7 +167,7 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     m_infiniteCheck = new QCheckBox(this);
     m_infiniteCheck->setText(tr("Infinite"));
-    vbox->addWidget(m_infiniteCheck);
+    layout()->addWidget(m_infiniteCheck);
     connect(m_infiniteCheck, SIGNAL(toggled(bool)), this, SLOT(slotInfiniteChecked(bool)));
 
     m_focus = m_ms;
@@ -283,7 +283,12 @@ int SpeedDial::spinValues() const
         value += m_hrs->value() * MS_PER_HOUR;
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
-        value += m_ms->value() * MS_DIV;
+        QString msText = m_ms->text();
+        int msInt = m_ms->value();
+        if (msInt < 10 && msText.contains("0") == false)
+            value += (msInt * MS_DIV * 10);
+        else
+            value += (msInt * MS_DIV);
     }
     else
     {
