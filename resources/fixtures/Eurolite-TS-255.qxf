@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
-  <Author/>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TS-255</Model>
@@ -19,14 +19,14 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="31">White</Capability>
-  <Capability Min="32" Max="63">Red</Capability>
-  <Capability Min="64" Max="95">Yellow</Capability>
-  <Capability Min="96" Max="127">Violet</Capability>
-  <Capability Min="128" Max="159">Green</Capability>
-  <Capability Min="160" Max="191">Orange</Capability>
-  <Capability Min="192" Max="223">Blue</Capability>
-  <Capability Min="224" Max="255">Pink</Capability>
+  <Capability Min="0" Max="31" Color="#ffffff">White</Capability>
+  <Capability Min="32" Max="63" Color="#ff0000">Red</Capability>
+  <Capability Min="64" Max="95" Color="#ffff00">Yellow</Capability>
+  <Capability Min="96" Max="127" Color="#aa00ff">Violet</Capability>
+  <Capability Min="128" Max="159" Color="#00ff00">Green</Capability>
+  <Capability Min="160" Max="191" Color="#ffaa00">Orange</Capability>
+  <Capability Min="192" Max="223" Color="#0055ff">Blue</Capability>
+  <Capability Min="224" Max="255" Color="#ff55ff">Pink</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
