@@ -120,7 +120,7 @@ public:
     void calculateColorDelta();
     void setStepColor(QColor color);
     QColor stepColor();
-    void updateStepColor(Function::Direction direction);
+    void updateStepColor(int step);
 
 private:
     QColor m_startColor;
@@ -183,6 +183,7 @@ private:
     QTime* m_roundTime;
     QColor m_stepColor;
     int m_crDelta, m_cgDelta, m_cbDelta;
+    int m_stepCount;
 
     /*********************************************************************
      * Attributes
