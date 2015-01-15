@@ -277,8 +277,6 @@ void RGBMatrix::calculateColorDelta()
                 m_cgDelta = m_endColor.green() - m_startColor.green();
                 m_cbDelta = m_endColor.blue() - m_startColor.blue();
             }
-
-            qDebug() << "step count" << m_stepCount << "delta" << m_crDelta << m_cgDelta << m_cbDelta;
         }
     }
 }
