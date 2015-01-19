@@ -18,7 +18,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-VERSION = (File.read('../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
+VERSION = (File.read('../../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
 
 if !options[:destination].empty?
   FileUtils.mkdir_p options[:destination]
