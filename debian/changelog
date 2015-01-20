@@ -3,7 +3,10 @@ qlcplus (4.8.4) stable; urgency=low
   * RGB Matrix Editor: fixed conversion to a Sequence
   * Fixture Editor: added UV primary color (Jano Svitok)
   * MIDI templates: added APC mini sysex template (thanks to Joep Admiraal)
-  * Docs: New Mixxx tutorial (Markus Baertschi)
+  * Experimental Loopback plugin (see docs, Jano Svitok)
+  * Monitor: save both DMX view and 2D view settings (only current mode settings were saved, Jano Svitok)
+  * New fixture: Robe Pointe (thanks to Moehritz)
+  * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Jan 2014 20:21:22 +0200
 

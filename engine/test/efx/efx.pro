@@ -15,4 +15,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += efx_test.cpp ../mastertimer/mastertimer_stub.cpp
-HEADERS += efx_test.h ../mastertimer/mastertimer_stub.h
+HEADERS += efx_test.h ../mastertimer/mastertimer_stub.h ../common/resource_paths.h
+

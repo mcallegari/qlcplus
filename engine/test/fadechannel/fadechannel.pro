@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += fadechannel_test.cpp
-HEADERS += fadechannel_test.h
+HEADERS += fadechannel_test.h ../common/resource_paths.h
+

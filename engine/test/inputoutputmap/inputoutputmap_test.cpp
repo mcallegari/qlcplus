@@ -34,7 +34,7 @@
 
 #define TESTPLUGINDIR "../iopluginstub"
 #define ENGINEDIR "../../src"
-#define PROFILEDIR "../../../inputprofiles"
+#include "../common/resource_paths.h"
 
 static QDir testPluginDir()
 {
@@ -431,7 +431,7 @@ void InputOutputMap_Test::loadInputProfiles()
     QVERIFY(im.profileNames().isEmpty() == true);
 
     // Should be able to load profiles
-    dir.setPath(PROFILEDIR);
+    dir.setPath(INTERNAL_PROFILEDIR);
     im.loadProfiles(dir);
     QStringList names(im.profileNames());
     QVERIFY(names.size() > 0);
@@ -448,7 +448,7 @@ void InputOutputMap_Test::inputSourceNames()
     IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QDir dir(PROFILEDIR);
+    QDir dir(INTERNAL_PROFILEDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
     im.loadProfiles(dir);

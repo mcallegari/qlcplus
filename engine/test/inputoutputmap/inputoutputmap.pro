@@ -15,4 +15,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += inputoutputmap_test.cpp
-HEADERS += inputoutputmap_test.h
+HEADERS += inputoutputmap_test.h ../common/resource_paths.h
+

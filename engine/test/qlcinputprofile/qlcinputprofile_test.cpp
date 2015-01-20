@@ -25,7 +25,7 @@
 #include "qlcinputchannel.h"
 #include "qlcchannel.h"
 
-#define PROFILEDIR "../../../inputprofiles/"
+#include "../common/resource_paths.h"
 
 void QLCInputProfile_Test::manufacturer()
 {
@@ -358,7 +358,7 @@ void QLCInputProfile_Test::loader()
     prof = QLCInputProfile::loader("broken.xml");
     QVERIFY(prof == NULL);
 
-    QString path(PROFILEDIR "Generic-MIDI.qxi");
+    QString path(INTERNAL_PROFILEDIR "Generic-MIDI.qxi");
     prof = QLCInputProfile::loader(path);
     QVERIFY(prof != NULL);
     QCOMPARE(prof->path(), path);

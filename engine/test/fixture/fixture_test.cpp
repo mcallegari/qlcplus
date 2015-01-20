@@ -31,7 +31,7 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Fixture_Test::initTestCase()
 {

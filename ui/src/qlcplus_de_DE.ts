@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1996,7 +1996,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -4489,7 +4489,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.ui" line="195"/>
         <source>Check the syntax of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Syntax des Skriptes prüfen</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="86"/>
@@ -4599,7 +4599,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.cpp" line="426"/>
         <source>No syntax errors found in the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Syntaxfehler im Skript gefunden</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="433"/>
@@ -4607,12 +4607,14 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 %2
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaxfehler bei Zeile %1:
+%2
+</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="436"/>
         <source>Script check results</source>
-        <translation type="unfinished"></translation>
+        <translation>Ergebnisse der Skriptprüfung</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="362"/>

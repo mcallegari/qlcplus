@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += qlcinputprofile_test.cpp
-HEADERS += qlcinputprofile_test.h
+HEADERS += qlcinputprofile_test.h ../common/resource_paths.h
+
