@@ -35,6 +35,8 @@ typedef struct
     QGraphicsEllipseItem *m_back;
     QList <quint32> m_rgb;
     QList <quint32> m_cmy;
+    QList <quint32> m_colorWheels;
+    QHash<quint32, QList<QColor> > m_colorValues;
     quint32 m_masterDimmer;
     quint32 m_panChannel;
     int m_panMaxDegrees;
@@ -94,6 +96,7 @@ protected:
 private:
     void computeTiltPosition(FixtureHead *h, uchar value);
     void computePanPosition(FixtureHead *h, uchar value);
+    QColor computeColor(FixtureHead *head, const QByteArray & us);
 
 signals:
     void itemDropped(MonitorFixtureItem *);

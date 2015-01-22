@@ -313,6 +313,39 @@ void QLCFixtureHead_Test::doublePanTilt()
     QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
 }
 
+void QLCFixtureHead_Test::cacheChannelsColor()
+{
+    QLCFixtureMode mode(m_fixtureDef);
+    QCOMPARE(mode.channels().size(), 0);
+
+    m_ch1->setGroup(QLCChannel::Pan);
+    m_ch1->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch1, 0);
+
+    m_ch2->setGroup(QLCChannel::Colour);
+    m_ch2->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch2, 1);
+
+    m_ch3->setGroup(QLCChannel::Tilt);
+    m_ch3->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch3, 2);
+
+    m_ch4->setGroup(QLCChannel::Colour);
+    m_ch4->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch4, 3);
+
+    QLCFixtureHead head;
+    head.addChannel(0);
+    head.addChannel(1);
+    head.addChannel(2);
+    head.addChannel(3);
+    head.cacheChannels(&mode);
+
+    QCOMPARE(quint32(head.colorWheels().count()), quint32(2));
+    QCOMPARE(head.colorWheels().at(0), quint32(1));
+    QCOMPARE(head.colorWheels().at(1), quint32(3));
+}
+
 void QLCFixtureHead_Test::dimmerHead()
 {
     QLCDimmerHead dh(5);

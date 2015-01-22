@@ -115,6 +115,8 @@ public:
      */
     QVector <quint32> cmyChannels() const;
 
+    QVector <quint32> colorWheels() const;
+
     /** Find some interesting channels from $mode and store their indices. */
     void cacheChannels(const QLCFixtureMode* mode);
 
@@ -142,6 +144,9 @@ protected:
 
     /** The CMY mix intensity channels */
     QVector <quint32> m_cmyChannels;
+
+    /** The color wheel channels */
+    QVector <quint32> m_colorWheels;
 
     /************************************************************************
      * Load & Save

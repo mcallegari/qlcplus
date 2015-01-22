@@ -28,6 +28,7 @@
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "qlccapability.h"
 #include "fixture.h"
 #include "doc.h"
 
@@ -118,6 +119,39 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             }
             fxiItem->m_tiltDegrees = 0;
             qDebug() << "Tilt channel on" << fxiItem->m_tiltChannel << "max degrees:" << fxiItem->m_tiltMaxDegrees;
+        }
+
+        QLCFixtureMode *mode = fxi->fixtureMode();
+        if (mode != NULL)
+        {
+            foreach (quint32 wheel, head.colorWheels())
+            {
+               QList<QColor> values;
+               QLCChannel *ch = mode->channel(wheel);
+               if (ch == NULL)
+                   continue;
+ 
+               bool containsColor = false;
+               for(quint32 i = 0; i < 256; ++i)
+               {
+                   QLCCapability *cap = ch->searchCapability(i);
+                   if (cap != NULL)
+                   {
+                       values << cap->resourceColor1();
+                       containsColor = true;
+                   }
+                   else
+                   {
+                       values << QColor();
+                   }
+               }
+
+               if (containsColor)
+               {
+                   fxiItem->m_colorValues[wheel + fxi->address()] = values;
+                   fxiItem->m_colorWheels << (wheel + fxi->address());
+               }
+            }
         }
 
         m_heads.append(fxiItem);
@@ -217,6 +251,48 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
+QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua)
+{
+    foreach (uchar c, head->m_colorWheels)
+    {
+        const uchar val = (c < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
+        QColor col = head->m_colorValues[c].at(val);
+        if (col.isValid())
+            return col;
+    }
+
+    if (head->m_rgb.count() > 0)
+    {
+        uchar r = 0, g = 0, b = 0;
+        if (head->m_rgb.at(0) < (quint32)ua.count())
+            r = ua.at(head->m_rgb.at(0));
+        if (head->m_rgb.at(1) < (quint32)ua.count())
+            g = ua.at(head->m_rgb.at(1));
+        if (head->m_rgb.at(2) < (quint32)ua.count())
+            b = ua.at(head->m_rgb.at(2));
+        return QColor(r, g, b);
+    }
+
+    if (head->m_cmy.count() > 0)
+    {
+        uchar c = 0, m = 0, y = 0;
+        if (head->m_cmy.at(0) < (quint32)ua.count())
+            c = ua.at(head->m_cmy.at(0));
+        if (head->m_cmy.at(1) < (quint32)ua.count())
+            m = ua.at(head->m_cmy.at(1));
+        if (head->m_cmy.at(2) < (quint32)ua.count())
+            y = ua.at(head->m_cmy.at(2));
+        return QColor::fromCmyk(c, m, y, 0);
+    }
+    
+    if (m_gelColor.isValid())
+    {
+        return m_gelColor;
+    }
+
+    return QColor(255,255,255);
+}
+
 void MonitorFixtureItem::updateValues(const QByteArray & ua)
 {
     bool needUpdate = false;
@@ -236,40 +312,9 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
             }
         }
 
-        if (head->m_rgb.count() > 0)
-        {
-            uchar r = 0, g = 0, b = 0;
-            if (head->m_rgb.at(0) < (quint32)ua.count())
-                r = ua.at(head->m_rgb.at(0));
-            if (head->m_rgb.at(1) < (quint32)ua.count())
-                g = ua.at(head->m_rgb.at(1));
-            if (head->m_rgb.at(2) < (quint32)ua.count())
-                b = ua.at(head->m_rgb.at(2));
-            head->m_item->setBrush(QBrush(QColor(r, g, b, alpha)));
-        }
-        else if (head->m_cmy.count() > 0)
-        {
-            uchar c = 0, m = 0, y = 0;
-            if (head->m_cmy.at(0) < (quint32)ua.count())
-                c = ua.at(head->m_cmy.at(0));
-            if (head->m_cmy.at(1) < (quint32)ua.count())
-                m = ua.at(head->m_cmy.at(1));
-            if (head->m_cmy.at(2) < (quint32)ua.count())
-                y = ua.at(head->m_cmy.at(2));
-            QColor col = QColor::fromCmyk(c, m, y, 0);
-            col.setAlpha(alpha);
-            head->m_item->setBrush(QBrush(col));
-        }
-        else if (m_gelColor.isValid())
-        {
-            QColor col = m_gelColor;
-            col.setAlpha(alpha);
-            head->m_item->setBrush(QBrush(col));
-        }
-        else
-        {
-            head->m_item->setBrush(QBrush(QColor(255, 255, 255, alpha)));
-        }
+        QColor col = computeColor(head, ua);
+        col.setAlpha(alpha);
+        head->m_item->setBrush(QBrush(col));
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
