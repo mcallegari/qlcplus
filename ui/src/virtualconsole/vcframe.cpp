@@ -71,6 +71,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     , m_nextPageBtn(NULL)
     , m_prevPageBtn(NULL)
     , m_pageLabel(NULL)
+    , m_pagesLoop(false)
 {
     /* Set the class name "VCFrame" as the object name as well */
     setObjectName(VCFrame::staticMetaObject.className());
@@ -417,6 +418,16 @@ int VCFrame::currentPage()
     return m_currentPage;
 }
 
+void VCFrame::setPagesLoop(bool pagesLoop)
+{
+    m_pagesLoop = pagesLoop;
+}
+
+bool VCFrame::pagesLoop() const
+{
+    return m_pagesLoop;
+}
+
 void VCFrame::addWidgetToPageMap(VCWidget *widget)
 {
     m_pagesMap.insert(widget, widget->page());
@@ -429,12 +440,18 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::slotPreviousPage()
 {
-    slotSetPage(m_currentPage - 1);
+    if (m_pagesLoop && m_currentPage == 0)
+        slotSetPage(m_totalPagesNumber - 1);
+    else
+        slotSetPage(m_currentPage - 1);
 }
 
 void VCFrame::slotNextPage()
 {
-    slotSetPage(m_currentPage + 1);
+    if (m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
+        slotSetPage(0);
+    else
+        slotSetPage(m_currentPage + 1);
 }
 
 void VCFrame::slotSetPage(int pageNum)
@@ -623,6 +640,8 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
     setTotalPagesNumber(frame->m_totalPagesNumber);
     setMultipageMode(frame->m_multiPageMode);
+
+    setPagesLoop(frame->m_pagesLoop);
 
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
@@ -861,6 +880,13 @@ bool VCFrame::loadXML(const QDomElement* root)
 
                 subNode = subNode.nextSibling();
             }
+        }
+        else if (tag.tagName() == KXMLQLCVCFramePagesLoop)
+        {
+            if (tag.text() == KXMLQLCTrue)
+                setPagesLoop(true);
+            else
+                setPagesLoop(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
@@ -1134,6 +1160,15 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
             text = doc->createTextNode(m_previousPageKeySequence.toString());
             subtag.appendChild(text);
             saveXMLInput(doc, &tag, inputSource(previousPageInputSourceId));
+
+            /* Pages Loop */
+            tag = doc->createElement(KXMLQLCVCFramePagesLoop);
+            if (m_pagesLoop)
+                text = doc->createTextNode(KXMLQLCTrue);
+            else
+                text = doc->createTextNode(KXMLQLCFalse);
+            tag.appendChild(text);
+            root.appendChild(tag);
         }
     }
 
