@@ -7,7 +7,9 @@ qlcplus (4.8.4) stable; urgency=low
   * Monitor: save both DMX view and 2D view settings (only current mode settings were saved, Jano Svitok)
   * Docs: New Mixxx tutorial (Markus Baertschi)
   * RGB Scripts: added new Plasma script and added 'radial' orientation to Gradient (thanks to Tim Cullingworth)
+  * Virtual Console: VCFrame pages now may loop (David Garyga)
   * Monitor: show color of color filters (so far only RGB/CMY channels where shown, Jano Svitok)
+ 
   * New fixture: Robe Pointe (thanks to Moehritz)
   * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
 
