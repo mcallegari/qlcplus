@@ -253,9 +253,9 @@ void MonitorFixtureItem::setSize(QSize size)
 
 QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua)
 {
-    foreach (uchar c, head->m_colorWheels)
+    foreach (quint32 c, head->m_colorWheels)
     {
-        const uchar val = (c < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
+        const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
         QColor col = head->m_colorValues[c].at(val);
         if (col.isValid())
             return col;
