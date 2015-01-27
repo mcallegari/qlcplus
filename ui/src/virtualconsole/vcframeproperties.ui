@@ -585,7 +585,7 @@
           <item row="2" column="2" colspan="2">
            <widget class="QCheckBox" name="m_pagesLoopCheck">
             <property name="text">
-             <string>Page scroll loops</string>
+             <string>Pages circular scrolling</string>
             </property>
            </widget>
           </item>
