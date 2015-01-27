@@ -126,7 +126,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
     while ((dev = devs[i++]) != NULL)
     {
-        libusb_get_device_descriptor (dev, &dev_descriptor);
+        libusb_get_device_descriptor(dev, &dev_descriptor);
 #else
     struct usb_bus *bus;
     struct usb_device *dev;
