@@ -216,9 +216,16 @@ private:
     /**
      * If a newly created widget belongs to a multipage frame,
      * then assign the current frame page to the widget and
-     * inform the frame of the new addition
+     * inform the frame of the new addition.
+     * This shall be called every time a widget is added in a frame.
      */
-    void checkWidgetPage(VCWidget *widget, VCWidget *parent);
+    void connectWidgetToParent(VCWidget *widget, VCWidget *parent);
+
+    /**
+     * If a widget is moved away from a frame (because of
+     * a deletion or a cut/paste), this shall be called.
+     */
+    void disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent);
 
 public slots:
     void slotAddButton();
