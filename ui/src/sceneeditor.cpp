@@ -100,11 +100,7 @@ SceneEditor::~SceneEditor()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (m_source != NULL)
-    {
-        delete m_source;
-        m_source = NULL;
-    }
+    delete m_source;
 
     QSettings settings;
     quint32 id = m_chaserCombo->itemData(m_chaserCombo->currentIndex()).toUInt();
@@ -363,7 +359,7 @@ void SceneEditor::slotTabChanged(int tab)
     QLCClipboard *clipboard = m_doc->clipboard();
 
     sceneUiState()->setCurrentTab(tab);
-    
+
     if (tab == KTabGeneral)
     {
         m_enableCurrentAction->setEnabled(false);
@@ -551,7 +547,7 @@ void SceneEditor::slotPositionTool()
     if (fc != NULL)
     {
         QList<SceneValue> origValues = fc->values();
-        
+
         Fixture* fxi = m_doc->fixture(fc->fixture());
         QPointF pos;
         QRectF range;
@@ -810,7 +806,6 @@ void SceneEditor::slotSpeedDialToggle(bool state)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
-
 }
 
 void SceneEditor::slotBlindToggled(bool state)
@@ -898,6 +893,11 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                 console->setChecked(false);
                 m_consoleList.append(console);
 
+                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+                connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                        this, SLOT(slotChecked(quint32,quint32,bool)));
+
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
                 {
@@ -908,10 +908,6 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                         console->setSceneValue(scv);
                 }
 
-                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
-                connect(console, SIGNAL(checked(quint32,quint32,bool)),
-                        this, SLOT(slotChecked(quint32,quint32,bool)));
                 fixturesLayout->addWidget(console);
                 c++;
             }

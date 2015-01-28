@@ -1,6 +1,7 @@
 qlcplus (4.8.4) stable; urgency=low
 
   * RGB Matrix Editor: fixed conversion to a Sequence
+  * Scene Editor: fix preview in non-tabbed mode (David Garyga)
   * Fixture Editor: added UV primary color (Jano Svitok)
   * MIDI templates: added APC mini sysex template (thanks to Joep Admiraal)
   * Experimental Loopback plugin (see docs, Jano Svitok)
