@@ -15,9 +15,9 @@
   <Capability Color2="#ff00ff" Min="20" Max="39" Color="#ff0000">Red &amp; pink - speed from slow to fast</Capability>
   <Capability Color2="#ffaa00" Min="40" Max="59" Color="#00aa00">Green &amp; amber - speed from slow to fast</Capability>
   <Capability Color2="#ffffff" Min="60" Max="79" Color="#0000ff">Blue &amp; white - speed from slow to fast</Capability>
-  <Capability Res="C:/QLC+/Gobos/Others/rainbow.png" Min="80" Max="99">3-color jump - speed from slow to fast</Capability>
-  <Capability Res="C:/QLC+/Gobos/Others/rainbow.png" Min="100" Max="119">7-color jump - speed from slow to fast</Capability>
-  <Capability Res="C:/QLC+/Gobos/Others/rainbow.png" Min="120" Max="139">7-color fade - speed from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="80" Max="99">3-color jump - speed from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="100" Max="119">7-color jump - speed from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="120" Max="139">7-color fade - speed from slow to fast</Capability>
   <Capability Min="140" Max="159">Strobe mode - speed from slow to fast</Capability>
   <Capability Min="160" Max="179">Sound activated 1 - OFF without sound</Capability>
   <Capability Min="180" Max="199">Sound activated 2 - ON without sound</Capability>
