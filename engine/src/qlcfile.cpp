@@ -199,14 +199,19 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 {
     QDir dir;
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(path));
+         dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                    .arg(path));
+#elif defined(WIN32) || defined(Q_OS_WIN)
+        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
+                    .arg(QDir::separator())
+                    .arg(path));
 #else
     dir.setPath(path);
 #endif
 
     dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(extension));
+    if (!extension.isEmpty())
+        dir.setNameFilters(QStringList() << QString("*%1").arg(extension));
 
     return dir;
 }

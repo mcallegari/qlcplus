@@ -12,6 +12,7 @@ qlcplus (4.8.4) stable; urgency=low
   * Virtual Console: Fix issues with cut-paste from one frame to another (David Garyga)
   * Monitor: show color of color filters (so far only RGB/CMY channels where shown, Jano Svitok)
   * Input Profile editor: fix off-by-one for MIDI note numbers (72 is C5, Jano Svitok, spotted by Markus Baertschi)
+  * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
   * New fixture: Robe Pointe (thanks to Moehritz)
   * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
 

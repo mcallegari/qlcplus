@@ -11,12 +11,8 @@
 void loadTranslation(const QString& locale, QApplication& app)
 {
     QString file(QString("launcher_%1").arg(locale));
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
-                 .arg(TRANSLATIONDIR));
-#else
-    QString path(TRANSLATIONDIR);
-#endif
+    QString path = QLCFile::systemDirectory(TRANSLATIONDIR).path();
+
     QTranslator* translator = new QTranslator(&app);
     if (translator->load(file, path) == true)
     {

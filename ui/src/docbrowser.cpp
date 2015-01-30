@@ -33,6 +33,7 @@
 
 #include "docbrowser.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 #include "apputil.h"
 
 #define SETTINGS_GEOMETRY "documentbrowser/geometry"
@@ -169,13 +170,7 @@ DocBrowser::DocBrowser(QWidget* parent)
 
     /* Set document search paths */
     QStringList searchPaths;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    searchPaths << QString("%1/../%2/html/")
-    .arg(QApplication::applicationDirPath())
-    .arg(DOCSDIR);
-#else
-    searchPaths << QString("%1/html/").arg(DOCSDIR);
-#endif
+    searchPaths << QLCFile::systemDirectory(QString("%1/html/").arg(DOCSDIR)).path();
 
     m_browser->setSearchPaths(searchPaths);
     m_browser->setSource(QUrl("file:index.html"));
