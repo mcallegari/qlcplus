@@ -46,6 +46,7 @@ QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
     , m_rgbChannels(head.m_rgbChannels)
     , m_cmyChannels(head.m_cmyChannels)
     , m_colorWheels(head.m_colorWheels)
+    , m_shutterChannels(head.m_shutterChannels)
 {
 }
 
@@ -115,6 +116,11 @@ QVector <quint32> QLCFixtureHead::cmyChannels() const
 QVector <quint32> QLCFixtureHead::colorWheels() const
 {
     return m_colorWheels;
+}
+
+QVector <quint32> QLCFixtureHead::shutterChannels() const
+{
+    return m_shutterChannels;
 }
 
 void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
@@ -211,6 +217,11 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
             if (ch->controlByte() == QLCChannel::MSB)
                 m_colorWheels << i;
         }
+        else if (ch->group() == QLCChannel::Shutter)
+        {
+            if (ch->controlByte() == QLCChannel::MSB)
+                m_shutterChannels << i;
+        }
     }
 
     if (r != QLCChannel::invalid() && g != QLCChannel::invalid() && b != QLCChannel::invalid())
@@ -219,6 +230,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         m_cmyChannels << c << m << y;
 
     qSort(m_colorWheels);
+    qSort(m_shutterChannels);
 
     // Allow only one caching round per head
     m_channelsCached = true;

@@ -152,6 +152,41 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    fxiItem->m_colorWheels << (wheel + fxi->address());
                }
             }
+
+            foreach (quint32 shutter, head.shutterChannels())
+            {
+               QList<bool> values;
+               QLCChannel *ch = mode->channel(shutter);
+               if (ch == NULL)
+                   continue;
+ 
+               bool containsShutter = false;
+               for(quint32 i = 0; i < 256; ++i)
+               {
+                   QLCCapability *cap = ch->searchCapability(i);
+                   if (cap != NULL)
+                   {
+                       if (cap->name().contains("close", Qt::CaseInsensitive) 
+                           || cap->name().contains("blackout", Qt::CaseInsensitive))
+                       {
+                           values << false;
+                           containsShutter = true;
+                       }
+                       else
+                           values << true;
+                   }
+                   else
+                   {
+                       values << true;
+                   }
+               }
+
+               if (containsShutter)
+               {
+                   fxiItem->m_shutterValues[shutter + fxi->address()] = values;
+                   fxiItem->m_shutterChannels << (shutter + fxi->address());
+               }
+            }
         }
 
         m_heads.append(fxiItem);
@@ -293,27 +328,40 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua
     return QColor(255,255,255);
 }
 
+uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
+{
+    uchar alpha = 255;
+    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        if (head->m_masterDimmer < (quint32)ua.size())
+        {
+            alpha = ua.at(head->m_masterDimmer);
+        }
+        else
+        {
+            alpha = 0; // incomplete universe is sent
+        }
+    }
+
+    foreach (quint32 c, head->m_shutterChannels)
+    {
+        const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
+        if (head->m_shutterValues[c].at(val) == false)
+            alpha = 0;
+    }
+
+    return alpha;
+}
+
 void MonitorFixtureItem::updateValues(const QByteArray & ua)
 {
     bool needUpdate = false;
 
     foreach(FixtureHead *head, m_heads)
     {
-        uchar alpha = 255;
-        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
-        {
-            if (head->m_masterDimmer < (quint32)ua.size())
-            {
-                alpha = ua.at(head->m_masterDimmer);
-            }
-            else
-            {
-                alpha = 0; // incomplete universe is sent
-            }
-        }
 
         QColor col = computeColor(head, ua);
-        col.setAlpha(alpha);
+        col.setAlpha(computeAlpha(head, ua));
         head->m_item->setBrush(QBrush(col));
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)

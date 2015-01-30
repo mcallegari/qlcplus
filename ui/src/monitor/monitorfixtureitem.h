@@ -33,10 +33,30 @@ typedef struct
 {
     QGraphicsEllipseItem *m_item;
     QGraphicsEllipseItem *m_back;
+
+    //! cached rgb channels (absolute numbers)
     QList <quint32> m_rgb;
+
+    //! cached cmy channels (absolute numbers)
     QList <quint32> m_cmy;
+
+    //! cached color channels (absolute numbers)
     QList <quint32> m_colorWheels;
+
+    //! map DMX values to colors
+    /*! map channel -> array of 256 QColors
+     */
     QHash<quint32, QList<QColor> > m_colorValues;
+
+    /*! cached shutter channels (absolute values)
+     */
+    QList <quint32> m_shutterChannels;
+
+    //! map DMX values to ON/OFF
+    /*! map channel -> array of 256 bool values
+     */
+    QHash<quint32, QList<bool> > m_shutterValues;
+
     quint32 m_masterDimmer;
     quint32 m_panChannel;
     int m_panMaxDegrees;
@@ -97,6 +117,7 @@ private:
     void computeTiltPosition(FixtureHead *h, uchar value);
     void computePanPosition(FixtureHead *h, uchar value);
     QColor computeColor(FixtureHead *head, const QByteArray & us);
+    uchar computeAlpha(FixtureHead *head, const QByteArray & us);
 
 signals:
     void itemDropped(MonitorFixtureItem *);

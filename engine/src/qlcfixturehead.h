@@ -115,7 +115,17 @@ public:
      */
     QVector <quint32> cmyChannels() const;
 
+    /**
+     * Get a list of color wheel channels. Channels are ordered by their number
+     * @return A list of zero or more channels
+     */
     QVector <quint32> colorWheels() const;
+    
+    /**
+     * Get a list of shutter channels. Channels are ordered by their number
+     * @return A list of zero or more channels
+     */
+    QVector <quint32> shutterChannels() const;
 
     /** Find some interesting channels from $mode and store their indices. */
     void cacheChannels(const QLCFixtureMode* mode);
@@ -147,6 +157,9 @@ protected:
 
     /** The color wheel channels */
     QVector <quint32> m_colorWheels;
+
+    /** The shutter channels */
+    QVector <quint32> m_shutterChannels;
 
     /************************************************************************
      * Load & Save
