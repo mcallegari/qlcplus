@@ -37,7 +37,7 @@ void TreeModel::setColumnNames(QStringList names)
 
 void TreeModel::addItem(QString label, QStringList data, QString path)
 {
-    qDebug() << "Adding item" << label << path;
+    //qDebug() << "Adding item" << label << path;
 
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
@@ -123,7 +123,7 @@ QHash<int, QByteArray> TreeModel::roleNames() const
     for (int i = roleStartIdx, t = 0; i < roleStartIdx + m_roles.count(); i++, t++)
         roles[i] = m_roles.at(t).toLatin1();
 
-    qDebug() << "Returned" << roles.count() << "roles";
+    //qDebug() << "Returned" << roles.count() << "roles";
 
     return roles;
 }

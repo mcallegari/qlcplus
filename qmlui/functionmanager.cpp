@@ -41,7 +41,6 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
         m_functionTree->addItem(QString("Entry %1").arg(i), vars);
     }
 */
-    //m_view->rootContext()->setContextProperty("functionList", &m_functionTree);
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotDocLoaded()));
@@ -62,7 +61,7 @@ void FunctionManager::slotDocLoaded()
         params.append(QString::number(func->type()));
         m_functionTree->addItem(func->name(), params, func->path(true));
     }
-    m_functionTree->printTree();
+    //m_functionTree->printTree(); // enable for debug purposes
     emit functionsListChanged();
 }
 

@@ -35,7 +35,7 @@ void TreeModelItem::setData(QStringList data)
 
 QVariant TreeModelItem::data(int index)
 {
-    qDebug() << "Getting data at" << index << label();
+    //qDebug() << "Getting data at" << index << label();
     if (index < 0 || index >= m_data.count())
         return QVariant();
 
