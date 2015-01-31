@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QFocusEvent>
 #include <QPushButton>
 #include <QToolButton>
 #include <QCheckBox>
-#include <QLayout>
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
@@ -41,6 +42,8 @@
 #define TIMER_HOLD   250
 #define TIMER_REPEAT 10
 #define TAP_STOP_TIMEOUT 30000
+
+#define DEFAULT_VISIBILITY_MASK 0x00FF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -85,44 +88,53 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
     , m_tapTick(false)
+    , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
-    QGridLayout* grid = new QGridLayout(this);
-    grid->setSpacing(0);
-    grid->setMargin(2);
+    new QVBoxLayout(this);
+    layout()->setSpacing(0);
+    layout()->setMargin(2);
+
+    QHBoxLayout* topHBox = new QHBoxLayout();
+    QVBoxLayout* pmVBox = new QVBoxLayout();
+    layout()->addItem(topHBox);
 
     m_plus = new QToolButton(this);
     m_plus->setIconSize(QSize(32, 32));
     m_plus->setIcon(QIcon(":/edit_add.png"));
-    grid->addWidget(m_plus, 0, 0, Qt::AlignVCenter | Qt::AlignLeft);
+    pmVBox->addWidget(m_plus, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_plus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
     connect(m_plus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
 
     m_minus = new QToolButton(this);
     m_minus->setIconSize(QSize(32, 32));
     m_minus->setIcon(QIcon(":/edit_remove.png"));
-    grid->addWidget(m_minus, 1, 0, Qt::AlignVCenter | Qt::AlignLeft);
+    pmVBox->addWidget(m_minus, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_minus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
+    topHBox->addItem(pmVBox);
 
     m_dial = new QDial(this);
     m_dial->setWrapping(true);
     m_dial->setNotchesVisible(true);
     m_dial->setTracking(true);
-    grid->addWidget(m_dial, 0, 1, 2, 2, Qt::AlignHCenter);
+    topHBox->addWidget(m_dial);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialChanged(int)));
 
     m_tap = new QPushButton(tr("Tap"), this);
     m_tap->setStyleSheet(tapDefaultSS);
     m_tap->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    grid->addWidget(m_tap, 0, 3, 2, 1);
+    topHBox->addWidget(m_tap);
     connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
+
+    QHBoxLayout* timeHBox = new QHBoxLayout();
+    layout()->addItem(timeHBox);
 
     m_hrs = new FocusSpinBox(this);
     m_hrs->setRange(0, HRS_MAX);
     m_hrs->setSuffix("h");
     m_hrs->setButtonSymbols(QSpinBox::NoButtons);
     m_hrs->setToolTip(tr("Hours"));
-    grid->addWidget(m_hrs, 2, 0);
+    timeHBox->addWidget(m_hrs);
     connect(m_hrs, SIGNAL(valueChanged(int)), this, SLOT(slotHoursChanged()));
     connect(m_hrs, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -131,7 +143,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_min->setSuffix("m");
     m_min->setButtonSymbols(QSpinBox::NoButtons);
     m_min->setToolTip(tr("Minutes"));
-    grid->addWidget(m_min, 2, 1);
+    timeHBox->addWidget(m_min);
     connect(m_min, SIGNAL(valueChanged(int)), this, SLOT(slotMinutesChanged()));
     connect(m_min, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -140,7 +152,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_sec->setSuffix("s");
     m_sec->setButtonSymbols(QSpinBox::NoButtons);
     m_sec->setToolTip(tr("Seconds"));
-    grid->addWidget(m_sec, 2, 2);
+    timeHBox->addWidget(m_sec);
     connect(m_sec, SIGNAL(valueChanged(int)), this, SLOT(slotSecondsChanged()));
     connect(m_sec, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
@@ -149,13 +161,13 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_ms->setPrefix(".");
     m_ms->setButtonSymbols(QSpinBox::NoButtons);
     m_ms->setToolTip(tr("Milliseconds"));
-    grid->addWidget(m_ms, 2, 3);
+    timeHBox->addWidget(m_ms);
     connect(m_ms, SIGNAL(valueChanged(int)), this, SLOT(slotMSChanged()));
     connect(m_ms, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
     m_infiniteCheck = new QCheckBox(this);
     m_infiniteCheck->setText(tr("Infinite"));
-    grid->addWidget(m_infiniteCheck, 3, 0, 1, 4);
+    layout()->addWidget(m_infiniteCheck);
     connect(m_infiniteCheck, SIGNAL(toggled(bool)), this, SLOT(slotInfiniteChecked(bool)));
 
     m_focus = m_ms;
@@ -197,11 +209,6 @@ void SpeedDial::tap()
     m_tap->click();
 }
 
-void SpeedDial::setTapVisibility(bool visible)
-{
-    m_tap->setVisible(visible);
-}
-
 void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
 {
     if (stopTime && m_tapTime != NULL)
@@ -216,11 +223,6 @@ void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
         m_tapTickTimer = NULL;
         m_tap->setStyleSheet(tapDefaultSS);
     }
-}
-
-void SpeedDial::setInfiniteVisibility(bool visible)
-{
-    m_infiniteCheck->setVisible(visible);
 }
 
 /*****************************************************************************
@@ -281,7 +283,12 @@ int SpeedDial::spinValues() const
         value += m_hrs->value() * MS_PER_HOUR;
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
-        value += m_ms->value() * MS_DIV;
+        QString msText = m_ms->text();
+        int msInt = m_ms->value();
+        if (msInt < 10 && msText.contains("0") == false)
+            value += (msInt * MS_DIV * 10);
+        else
+            value += (msInt * MS_DIV);
     }
     else
     {
@@ -508,4 +515,51 @@ void SpeedDial::slotTapTimeout()
     {
         stopTimers(true, false);
     }
+}
+
+ushort SpeedDial::defaultVisibilityMask()
+{
+    return DEFAULT_VISIBILITY_MASK;
+}
+
+ushort SpeedDial::visibilityMask()
+{
+    return m_visibilityMask;
+}
+
+void SpeedDial::setVisibilityMask(ushort mask)
+{
+    if (mask & PlusMinus)
+    {
+        m_plus->show();
+        m_minus->show();
+    }
+    else
+    {
+        m_plus->hide();
+        m_minus->hide();
+    }
+
+    if (mask & Dial) m_dial->show();
+    else m_dial->hide();
+
+    if (mask & Tap) m_tap->show();
+    else m_tap->hide();
+
+    if (mask & Hours) m_hrs->show();
+    else m_hrs->hide();
+
+    if (mask & Minutes) m_min->show();
+    else m_min->hide();
+
+    if (mask & Seconds) m_sec->show();
+    else m_sec->hide();
+
+    if (mask & Milliseconds) m_ms->show();
+    else m_ms->hide();
+
+    if (mask & Infinite) m_infiniteCheck->show();
+    else m_infiniteCheck->hide();
+
+    m_visibilityMask = mask;
 }

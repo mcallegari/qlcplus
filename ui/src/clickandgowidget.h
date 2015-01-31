@@ -45,6 +45,7 @@ public:
         Yellow,
         Amber,
         White,
+        UV,
         RGB,
         CMY,
         Preset

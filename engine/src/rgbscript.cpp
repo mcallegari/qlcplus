@@ -37,12 +37,9 @@
 #endif
 
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
-
-QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
-                                               QDir::Name | QDir::IgnoreCase,
-                                               QDir::Files);
 
 QScriptEngine* RGBScript::s_engine = NULL;
 QMutex* RGBScript::s_engineMutex = NULL;
@@ -90,6 +87,9 @@ RGBAlgorithm* RGBScript::clone() const
 
 bool RGBScript::load(const QDir& dir, const QString& fileName)
 {
+    // Create the script engine when it's first needed
+    initEngine();
+
     m_contents.clear();
     m_script = QScriptValue();
     m_rgbMap = QScriptValue();
@@ -107,10 +107,6 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     QTextStream stream(&file);
     m_contents = stream.readAll();
     file.close();
-
-    if (s_engineMutex == NULL)
-        s_engineMutex = new QMutex(QMutex::Recursive);
-    Q_ASSERT(s_engineMutex != NULL);
 
     QMutexLocker engineLocker(s_engineMutex);
     QScriptSyntaxCheckResult result = QScriptEngine::checkSyntax(m_contents);
@@ -132,14 +128,6 @@ QString RGBScript::fileName() const
 
 bool RGBScript::evaluate()
 {
-    // Create the script engine when it's first needed
-    if (s_engine == NULL)
-        s_engine = new QScriptEngine(QCoreApplication::instance());
-    Q_ASSERT(s_engine != NULL);
-    if (s_engineMutex == NULL)
-        s_engineMutex = new QMutex(QMutex::Recursive);
-    Q_ASSERT(s_engineMutex != NULL);
-
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
     m_apiVersion = 0;
@@ -173,6 +161,8 @@ bool RGBScript::evaluate()
         m_apiVersion = m_script.property("apiVersion").toInteger();
         if (m_apiVersion > 0)
         {
+            if (m_apiVersion == 2)
+                return loadProperties();
             return true;
         }
         else
@@ -181,6 +171,17 @@ bool RGBScript::evaluate()
             return false;
         }
     }
+}
+
+void RGBScript::initEngine()
+{
+    if (s_engineMutex == NULL)
+    {
+        s_engineMutex = new QMutex(QMutex::Recursive);
+        s_engine = new QScriptEngine(QCoreApplication::instance());
+    }
+    Q_ASSERT(s_engineMutex != NULL);
+    Q_ASSERT(s_engine != NULL);
 }
 
 /****************************************************************************
@@ -261,6 +262,17 @@ RGBAlgorithm::Type RGBScript::type() const
     return RGBAlgorithm::Script;
 }
 
+int RGBScript::acceptColors() const
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QScriptValue accColors = m_script.property("acceptColors");
+    if (accColors.isValid())
+        return accColors.toInt32();
+    // if no property is provided, let's assume the script
+    // will accept both start and end colors
+    return 2;
+}
+
 bool RGBScript::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
 {
     Q_ASSERT(doc != NULL);
@@ -282,73 +294,168 @@ bool RGBScript::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
     }
 }
 
-/****************************************************************************
- * System & User Scripts
- ****************************************************************************/
+/************************************************************************
+ * Capabilities
+ ************************************************************************/
 
-RGBScript RGBScript::script(const Doc * doc, const QString& name)
+QList<RGBScriptProperty> RGBScript::properties()
 {
-    QListIterator <RGBScript> it(scripts(doc));
-    while (it.hasNext() == true)
+    return m_properties;
+}
+
+QHash<QString, QString> RGBScript::propertiesAsStrings()
+{
+    QHash<QString, QString> properties;
+    foreach(RGBScriptProperty cap, m_properties)
     {
-        RGBScript script(it.next());
-        if (script.name() == name)
-            return script;
+        QScriptValue readMethod = m_script.property(cap.m_readMethod);
+        if (readMethod.isFunction())
+        {
+            QScriptValueList args;
+            QScriptValue value = readMethod.call(QScriptValue(), args);
+            if (value.isValid())
+                properties.insert(cap.m_name, value.toString());
+        }
+    }
+    return properties;
+}
+
+bool RGBScript::setProperty(QString propertyName, QString value)
+{
+    foreach(RGBScriptProperty cap, m_properties)
+    {
+        if (cap.m_name == propertyName)
+        {
+            QScriptValue writeMethod = m_script.property(cap.m_writeMethod);
+            if (writeMethod.isFunction() == false)
+            {
+                qWarning() << name() << "doesn't have a write function for" << propertyName;
+                return false;
+            }
+            QScriptValueList args;
+            args << value;
+            writeMethod.call(QScriptValue(), args);
+            return true;
+        }
+    }
+    return false;
+}
+
+QString RGBScript::property(QString propertyName)
+{
+    foreach(RGBScriptProperty cap, m_properties)
+    {
+        if (cap.m_name == propertyName)
+        {
+            QScriptValue readMethod = m_script.property(cap.m_readMethod);
+            if (readMethod.isFunction() == false)
+            {
+                qWarning() << name() << "doesn't have a read function for" << propertyName;
+                return QString();
+            }
+            QScriptValueList args;
+            QScriptValue value = readMethod.call(QScriptValue(), args);
+            if (value.isValid())
+                return value.toString();
+            else
+                return QString();
+        }
+    }
+    return QString();
+}
+
+bool RGBScript::loadProperties()
+{
+    QScriptValue svCaps = m_script.property("properties");
+    if (svCaps.isArray() == false)
+    {
+        qWarning() << m_fileName << "properties is not an array!";
+        return false;
+    }
+    QVariant varCaps = svCaps.toVariant();
+    if (varCaps.isValid() == false)
+    {
+        qWarning() << m_fileName << "has invalid properties!";
+        return false;
     }
 
-    return RGBScript(doc);
-}
+    m_properties.clear();
 
-QStringList RGBScript::scriptNames(const Doc * doc)
-{
-    QStringList names;
-
-    QListIterator <RGBScript> it(scripts(doc));
-    while (it.hasNext() == true)
-        names << it.next().name();
-
-    return names;
-}
-
-QList <RGBScript> RGBScript::scripts(const Doc * doc)
-{
-    QList <RGBScript> list;
-    list << scripts(doc, userScriptDirectory());
-    list << scripts(doc, systemScriptDirectory());
-    list << scripts(doc, customScriptDirectory());
-    return list;
-}
-
-QList <RGBScript> RGBScript::scripts(const Doc * doc, const QDir& dir)
-{
-    QList <RGBScript> list;
-    foreach (QString file, dir.entryList())
+    QStringList slCaps = varCaps.toStringList();
+    foreach (QString cap, slCaps)
     {
-        RGBScript script(doc);
-        if (script.load(dir, file) == true && list.contains(script) == false)
-            list << script;
+        RGBScriptProperty newCap;
+
+        QStringList propsList = cap.split("|");
+        foreach(QString prop, propsList)
+        {
+            QStringList keyValue = prop.split(":");
+            if (keyValue.length() < 2)
+            {
+                qWarning() << prop << ": malformed property. Please fix it.";
+                continue;
+            }
+            QString key = keyValue.at(0).simplified();
+            QString value = keyValue.at(1);
+            if (key == "name")
+            {
+                newCap.m_name = value;
+            }
+            else if (key == "type")
+            {
+                if (value == "list") newCap.m_type = RGBScriptProperty::List;
+                else if (value == "integer") newCap.m_type = RGBScriptProperty::Integer;
+                else if (value == "range") newCap.m_type = RGBScriptProperty::Range;
+                else if (value == "string") newCap.m_type = RGBScriptProperty::String;
+            }
+            else if (key == "display")
+            {
+                newCap.m_displayName = value.simplified();
+            }
+            else if (key == "values")
+            {
+                QStringList values = value.split(",");
+                switch(newCap.m_type)
+                {
+                    case RGBScriptProperty::List:
+                        newCap.m_listValues = values;
+                    break;
+                    case RGBScriptProperty::Range:
+                    {
+                        if (values.length() < 2)
+                        {
+                            qWarning() << value << ": malformed property. A range should be defined as 'min,max'. Please fix it.";
+                        }
+                        else
+                        {
+                            newCap.m_rangeMinValue = values.at(0).toInt();
+                            newCap.m_rangeMaxValue = values.at(1).toInt();
+                        }
+                    }
+                    break;
+                    default:
+                        qWarning() << value << ": values cannot be applied before the 'type' property or on type:integer and type:string";
+                    break;
+                }
+            }
+            else if (key == "write")
+            {
+                newCap.m_writeMethod = value.simplified();
+            }
+            else if (key == "read")
+            {
+                newCap.m_readMethod = value.simplified();
+            }
+            else
+            {
+                qWarning() << value << ": unknown property!";
+            }
+        }
+
+        if (newCap.m_name.isEmpty() == false &&
+            newCap.m_type != RGBScriptProperty::None)
+                m_properties.append(newCap);
     }
 
-    return list;
-}
-
-QDir RGBScript::systemScriptDirectory()
-{
-    return QLCFile::systemDirectory(QString(RGBSCRIPTDIR), QString(".js"));
-}
-
-QDir RGBScript::userScriptDirectory()
-{
-    return QLCFile::userDirectory(QString(USERRGBSCRIPTDIR), QString(RGBSCRIPTDIR),
-                                  QStringList() << QString("*%1").arg(".js"));
-}
-
-void RGBScript::setCustomScriptDirectory(const QString& path)
-{
-    s_customScriptDirectory.setPath(path);
-}
-
-QDir RGBScript::customScriptDirectory()
-{
-    return s_customScriptDirectory;
+    return true;
 }

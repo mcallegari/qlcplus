@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vclabel.cpp
 
   Copyright (c) Heikki Junnila, Stefan Krumm
@@ -79,25 +79,6 @@ void VCLabel::editProperties()
         setCaption(text);
 }
 
-QString VCLabel::getCSS()
-{
-    QString str = "<style>\n"
-            ".vclabel-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-            ".vclabel {\n"
-            "display: table-cell;\n"
-            "border: 1px solid #A0A0A0;\n"
-            "border-radius: 3px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    return str;
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -145,9 +126,6 @@ bool VCLabel::loadXML(const QDomElement* root)
 bool VCLabel::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(vc_root != NULL);

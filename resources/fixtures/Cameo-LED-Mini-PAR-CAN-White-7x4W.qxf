@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Joachim Wiedorn</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED Mini PAR CAN White 7x4W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Cold White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Cold White</Capability>
+ </Channel>
+ <Channel Name="Warm White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Warm White</Capability>
+ </Channel>
+ <Channel Name="Master">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Stroboscope</Capability>
+ </Channel>
+ <Channel Name="Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Color Temp 1</Capability>
+  <Capability Min="16" Max="30">Color Temp 2</Capability>
+  <Capability Min="31" Max="45">Color Temp 3</Capability>
+  <Capability Min="46" Max="60">Color Temp 4</Capability>
+  <Capability Min="61" Max="75">Color Temp 5</Capability>
+  <Capability Min="76" Max="90">Color Temp 6</Capability>
+  <Capability Min="91" Max="105">Color Temp 7</Capability>
+  <Capability Min="106" Max="120">Color Temp 8</Capability>
+  <Capability Min="121" Max="135">Color Temp 9</Capability>
+  <Capability Min="136" Max="150">Color Temp 10</Capability>
+  <Capability Min="151" Max="165">Color Temp 11</Capability>
+  <Capability Min="166" Max="180">Color Temp 12</Capability>
+  <Capability Min="181" Max="195">Color Temp 13</Capability>
+  <Capability Min="196" Max="210">Color Temp 14</Capability>
+  <Capability Min="211" Max="225">Color Temp 15</Capability>
+  <Capability Min="226" Max="240">Color Temp 16</Capability>
+  <Capability Min="241" Max="255">Color Temp 17</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Dimmer Curve 1</Capability>
+  <Capability Min="16" Max="45">Dimmer Curve 2</Capability>
+  <Capability Min="46" Max="75">Dimmer Curve 3</Capability>
+  <Capability Min="76" Max="105">Dimmer Curve 4</Capability>
+  <Capability Min="106" Max="135">Dimmer Curve 5</Capability>
+  <Capability Min="136" Max="165">Dimmer Curve 6</Capability>
+  <Capability Min="166" Max="195">Dimmer Curve 7</Capability>
+  <Capability Min="196" Max="225">Dimmer Curve 8</Capability>
+  <Capability Min="226" Max="255">Dimmer Curve 9</Capability>
+ </Channel>
+ <Mode Name="2-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Cold White</Channel>
+  <Channel Number="1">Warm White</Channel>
+ </Mode>
+ <Mode Name="5-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Cold White</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Master</Channel>
+  <Channel Number="3">Stroboscope</Channel>
+  <Channel Number="4">Temperature</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Cold White</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Master</Channel>
+  <Channel Number="3">Stroboscope</Channel>
+  <Channel Number="4">Temperature</Channel>
+  <Channel Number="5">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

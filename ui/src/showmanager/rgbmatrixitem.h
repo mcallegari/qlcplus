@@ -52,7 +52,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setDuration(quint32 msec);
+    void setDuration(quint32 msec, bool stretch);
 
     /** @reimp */
     QString functionName();
@@ -66,9 +66,6 @@ protected:
 
 protected slots:
     void slotRGBMatrixChanged(quint32);
-
-    void slotAlignToCursorClicked();
-    void slotLockItemClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */

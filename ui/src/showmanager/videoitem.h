@@ -51,7 +51,7 @@ public:
     void setTimeScale(int val);
 
     /** @reimp */
-    void setDuration(quint32 msec);
+    void setDuration(quint32 msec, bool stretch);
 
     /** @reimp */
     QString functionName();
@@ -65,6 +65,7 @@ protected:
 
 protected slots:
     void slotVideoChanged(quint32);
+    void slotVideoDurationChanged(qint64);
     void slotScreenChanged();
     void slotFullscreenToggled(bool toggle);
 

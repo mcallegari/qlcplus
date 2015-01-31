@@ -45,6 +45,7 @@ private:
 private slots:
     void slotNameEdited(const QString& text);
     void slotSourceFileClicked();
+    void slotSourceUrlClicked();
     void slotScreenIndexChanged(int idx);
     void slotWindowedCheckClicked();
     void slotFullscreenCheckClicked();

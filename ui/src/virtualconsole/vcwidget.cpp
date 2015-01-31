@@ -61,6 +61,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_allowChildren(false)
     , m_allowResize(true)
     , m_intensity(1.0)
+    , m_liveEdit(VirtualConsole::instance()->liveEdit())
 {
     Q_ASSERT(parent != NULL);
     Q_ASSERT(doc != NULL);
@@ -149,6 +150,8 @@ QString VCWidget::typeToString(int type)
         case SpeedDialWidget: return QString(tr("Speed dial"));
         case CueListWidget: return QString(tr("Cue list"));
         case LabelWidget: return QString(tr("Label"));
+        case AudioTriggersWidget: return QString(tr("Audio Triggers"));
+        case AnimationWidget: return QString(tr("Animation"));
         case UnknownWidget:
         default:
              return QString(tr("Unknown"));
@@ -168,6 +171,8 @@ QIcon VCWidget::typeToIcon(int type)
         case SpeedDialWidget: return QIcon(":/speed.png");
         case CueListWidget: return QIcon(":/cuelist.png");
         case LabelWidget: return QIcon(":/label.png");
+        case AudioTriggersWidget: return QIcon(":/audioinput.png");
+        case AnimationWidget: return QIcon(":/rgbmatrix.png");
         case UnknownWidget:
         default:
              return QIcon(":/virtualconsole.png");
@@ -182,7 +187,7 @@ QIcon VCWidget::typeToIcon(int type)
 void VCWidget::setDisableState(bool disable)
 {
     m_disableState = disable;
-    if (m_doc->mode() == Doc::Operate)
+    if (mode() == Doc::Operate)
     {
         setEnabled(!disable);
         enableWidgetUI(!disable);
@@ -241,6 +246,9 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     setGeometry(widget->geometry());
     setCaption(widget->caption());
 
+    m_allowChildren = widget->m_allowChildren;
+    m_allowResize = widget->m_allowResize;
+
     QHashIterator <quint8, QLCInputSource*> it(widget->m_inputs);
     while (it.hasNext() == true)
     {
@@ -249,6 +257,8 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         QLCInputSource *src = new QLCInputSource(it.value()->universe(), it.value()->channel());
         setInputSource(src, id);
     }
+
+    m_page = widget->m_page;
 
     return true;
 }
@@ -714,28 +724,6 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
     emit keyReleased(keySequence);
 }
 
-/*********************************************************************
- * Web access
- *********************************************************************/
-
-QString VCWidget::getCSS()
-{
-    QString str = "<style>\n"
-            ".vcwidget {\n"
-            "position: absolute;\n"
-            "border: 1px solid #777777;\n"
-            "border-radius: 3px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "}\n"
-            "</style>";
-    return str;
-}
-
-QString VCWidget::getJS()
-{
-    return QString();
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -802,7 +790,7 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCWidgetBackgroundImage)
         {
             if (tag.text() != KXMLQLCVCWidgetBackgroundImageNone)
-                setBackgroundImage(tag.text());
+                setBackgroundImage(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCVCWidgetFont)
         {
@@ -850,8 +838,8 @@ bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) 
     }
     else
     {
-        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toInt();
-        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toInt();
+        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
+        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
     }
 
     return true;
@@ -920,7 +908,7 @@ bool VCWidget::saveXMLAppearance(QDomDocument* doc, QDomElement* frame_root)
     tag = doc->createElement(KXMLQLCVCWidgetBackgroundImage);
     root.appendChild(tag);
     if (backgroundImage().isEmpty() == false)
-        str = m_backgroundImage;
+        str = m_doc->normalizeComponentPath(m_backgroundImage);
     else
         str = KXMLQLCVCWidgetBackgroundImageNone;
     text = doc->createTextNode(str);
@@ -1023,10 +1011,29 @@ bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
  * QLC+ Mode change
  *****************************************************************************/
 
+void VCWidget::setLiveEdit(bool liveEdit)
+{
+    if (m_doc->mode() == Doc::Design)
+        return;
+
+    m_liveEdit = liveEdit;
+
+    if (m_disableState)
+        setEnabled(m_liveEdit);
+    else
+        enableWidgetUI(!m_liveEdit);
+
+    unsetCursor();
+    update();
+}
+
+void VCWidget::cancelLiveEdit()
+{
+    m_liveEdit = false;
+}
+
 void VCWidget::slotModeChanged(Doc::Mode mode)
 {
-    Q_UNUSED(mode);
-
     // make sure to exit from a 'deep' disable state
     if (mode == Doc::Design)
         setEnabled(true);
@@ -1041,6 +1048,8 @@ void VCWidget::slotModeChanged(Doc::Mode mode)
 Doc::Mode VCWidget::mode() const
 {
     Q_ASSERT(m_doc != NULL);
+    if (m_liveEdit)
+        return Doc::Design;
     return m_doc->mode();
 }
 
@@ -1108,6 +1117,8 @@ void VCWidget::move(const QPoint& point)
 
     // Move
     QWidget::move(pt);
+
+    m_doc->setModified();
 }
 
 QPoint VCWidget::lastClickPoint() const
@@ -1141,7 +1152,7 @@ void VCWidget::paintEvent(QPaintEvent* e)
     else
         option.state = QStyle::State_None;
 
-    if (m_doc->mode() == Doc::Design)
+    if (mode() == Doc::Design)
         option.state |= QStyle::State_Enabled;
 
     /* Draw a frame border if such is specified for this widget */

@@ -179,12 +179,7 @@ void SelectInputChannel::updateChannelItem(QTreeWidgetItem* item,
                       .arg(profile->channelNumber(channel)));
 
         /* Display nice icons to indicate channel type */
-        if (channel->type() == QLCInputChannel::Slider)
-            item->setIcon(KColumnName, QIcon(":/slider.png"));
-        else if (channel->type() == QLCInputChannel::Knob)
-            item->setIcon(KColumnName, QIcon(":/knob.png"));
-        else if (channel->type() == QLCInputChannel::Button)
-            item->setIcon(KColumnName, QIcon(":/button.png"));
+        item->setIcon(KColumnName, channel->icon());
     }
 }
 

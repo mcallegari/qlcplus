@@ -5,7 +5,7 @@
 ;--------------------------------
 ;Defines
 !define QLCPLUS_HOME "c:\Qt\qlcplus"
-!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlcplus.ico"
+!define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.8.0.exe"
+OutFile "QLC+_4.8.4.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -107,6 +107,7 @@ Section
 	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
+	File /r Web
 
 	WriteRegStr HKCR ".qxw" "" "QLightControllerPlus.Document"
 	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
@@ -161,6 +162,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
+	RMDir /r $INSTDIR\Web
 
 	RMDir $INSTDIR
 

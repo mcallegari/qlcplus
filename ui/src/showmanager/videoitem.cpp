@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
 #include <QMenu>
@@ -37,8 +38,14 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Video));
 
+    if (func->duration() == 0)
+        func->setDuration(m_video->totalDuration());
+
     calculateWidth();
-    connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
+    connect(m_video, SIGNAL(changed(quint32)),
+            this, SLOT(slotVideoChanged(quint32)));
+    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
+            this, SLOT(slotVideoDurationChanged(qint64)));
 
     m_fullscreenAction = new QAction(tr("Fullscreen"), this);
     m_fullscreenAction->setCheckable(true);
@@ -92,9 +99,10 @@ void VideoItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void VideoItem::setDuration(quint32 msec)
+void VideoItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(msec)
+    Q_UNUSED(stretch)
     // nothing to do
 }
 
@@ -111,6 +119,14 @@ Video *VideoItem::getVideo()
 }
 
 void VideoItem::slotVideoChanged(quint32)
+{
+    prepareGeometryChange();
+    calculateWidth();
+    if (m_function)
+        m_function->setDuration(m_video->totalDuration());
+}
+
+void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
     calculateWidth();
@@ -138,7 +154,11 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    int screenCount = m_video->getScreenCount();
+    int screenCount = 0;
+    QDesktopWidget *desktop = qApp->desktop();
+    if (desktop != NULL)
+        screenCount = desktop->screenCount();
+
     if (screenCount > 0)
     {
         for (int i = 0; i < screenCount; i++)
@@ -154,18 +174,8 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
     }
     menu.addAction(m_fullscreenAction);
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }

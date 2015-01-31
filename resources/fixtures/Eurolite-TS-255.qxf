@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Jano Svitok</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TS-255</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31" Color="#ffffff">White</Capability>
+  <Capability Min="32" Max="63" Color="#ff0000">Red</Capability>
+  <Capability Min="64" Max="95" Color="#ffff00">Yellow</Capability>
+  <Capability Min="96" Max="127" Color="#aa00ff">Violet</Capability>
+  <Capability Min="128" Max="159" Color="#00ff00">Green</Capability>
+  <Capability Min="160" Max="191" Color="#ffaa00">Orange</Capability>
+  <Capability Min="192" Max="223" Color="#0055ff">Blue</Capability>
+  <Capability Min="224" Max="255" Color="#ff55ff">Pink</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Open</Capability>
+  <Capability Min="32" Max="63">Gobo 1</Capability>
+  <Capability Min="64" Max="95">Gobo 2</Capability>
+  <Capability Min="96" Max="127">Gobo 3</Capability>
+  <Capability Min="128" Max="159">Gobo 4</Capability>
+  <Capability Min="160" Max="191">Gobo 5</Capability>
+  <Capability Min="192" Max="223">Gobo 6</Capability>
+  <Capability Min="224" Max="255">Gobo 7</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14">Closed</Capability>
+  <Capability Min="15" Max="15">Open</Capability>
+  <Capability Min="16" Max="250">Strobe slow to fast</Capability>
+  <Capability Min="251" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Gobo indexing</Capability>
+  <Capability Min="5" Max="120">CW rotation fast to slow</Capability>
+  <Capability Min="121" Max="139">Rotation STOP</Capability>
+  <Capability Min="140" Max="255">CCW rotation slow to fast</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Physical>
+   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500"/>
+   <Dimensions Width="285" Height="555" Weight="8" Depth="270"/>
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="90"/>
+   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter, strobe</Channel>
+  <Channel Number="5">Gobo rotation</Channel>
+ </Mode>
+</FixtureDefinition>

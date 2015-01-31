@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Capability Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Capability Editor</H1>
+<P>
+With the Capability Editor you can define a value range for a certain
+functionality provided by a fixture channel. For example, if values 0-15
+produce a white color capability, you might put:
+<UL>
+ <LI>0 to the <B>Min</B> field</LI>
+ <LI>15 to the <B>Max</B> field, and</LI>
+ <LI>"White" to the <B>Description</B> field</LI>
+</UL>
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Min</B>
+  </TD>
+  <TD>
+   The minimum value of the capability
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Max</B>
+  </TD>
+  <TD>
+   The maximum value of the capability
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Description</B>
+  </TD>
+  <TD>
+   The name or description of the capability. Don't be too elaborate, just a
+   few words will do.
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>Click & Go capability</H3>
+
+<P>The Click & Go functionality for a channel starts from the Capability Editor.<br>
+When a channels group is set to Gobo, Color or Effect, it is possible to assign the color 
+or a picture that will be displayed by Click & Go on <A HREF="file:sceneeditor.html">Scene Editor</A>, 
+<A HREF="file:simpledesk.html">Simple Desk</A> and <A HREF="file:vcslider.html">Virtual Console Slider</A>.<br>
+This allows very quick visual feedback, and will avoid you having to remember the meaning of each range of values.<br>
+When a channel can support Click & Go, some additional controls will appear on the right side of
+the Capability Editor, displaying 3 butons and a preview box. Here's the meaning of each one:</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>Picture <B>...</B></TD>
+  <TD>By clicking on this button you can select a picture for this range of values,
+  to be displayed by Click & Go for visual association and quick access</TD>
+ </TR>
+ <TR>
+  <TD>Color <IMG SRC="qrc:/color.png"/></TD>
+  <TD>By clicking on this button you can select the first color for this range of values.
+  When the first color is set, the 'Second color' button will be enabled. See below.</TD>
+ </TR>
+ <TR>
+  <TD>Second color <IMG SRC="qrc:/color.png"/></TD>
+  <TD>When clicking on this button you can select a second color for those cases 
+  where a fixture supports it. For example, this is quite useful for moving heads 
+  whose color wheels support intermediate positions.</TD>
+ </TR>
+</TABLE>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Joachim Wiedorn</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED Mini PAR CAN RGB 7x3W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="Master">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Stroboscope</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="84">Color Sound Control</Capability>
+  <Capability Min="85" Max="169">Color Jumping Speed</Capability>
+  <Capability Min="170" Max="255">Color Fading Speed</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Color Macro</Channel>
+  <Channel Number="5">Stroboscope</Channel>
+ </Mode>
+</FixtureDefinition>

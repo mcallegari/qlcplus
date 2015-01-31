@@ -168,8 +168,8 @@ void printUsage()
     cout << "Options:" << endl;
     cout << "  -c or --closebutton <x,y,w,h>\tPlace a close button in virtual console (only when -k is specified)" << endl;
     cout << "  -d or --debug <level>\t\tSet debug output level (0-3, see QtMsgType)" << endl;
-    cout << "  -g or --log\t\tLog debug messages to a file" << endl;
     cout << "  -f or --fullscreen <method>\tStart the application in fullscreen mode (method is either 'normal' or 'resize')" << endl;
+    cout << "  -g or --log\t\t\tLog debug messages to a file" << endl;
     cout << "  -h or --help\t\t\tPrint this help" << endl;
     cout << "  -k or --kiosk\t\t\tEnable kiosk mode (only virtual console in forced operate mode)" << endl;
     cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;

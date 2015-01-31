@@ -37,7 +37,7 @@
 #undef private
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void PaletteGenerator_Test::initTestCase()
 {

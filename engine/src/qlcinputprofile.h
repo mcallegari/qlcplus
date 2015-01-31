@@ -74,10 +74,30 @@ public:
         this as a unique ID since this varies between platforms. */
     QString path() const;
 
+    enum Type
+    {
+        Midi,
+        Osc,
+        Hid,
+        Dmx,
+        Enttec,
+    };
+
+    void setType(Type type);
+
+    Type type() const;
+
+    static QString typeToString(Type type);
+
+    static Type stringToType(const QString & str);
+
+    static QList<Type> types();
+
 protected:
     QString m_manufacturer;
     QString m_model;
     QString m_path;
+    Type m_type;
 
     /********************************************************************
      * Channels

@@ -67,6 +67,20 @@ class SpeedDial : public QGroupBox
     Q_DISABLE_COPY(SpeedDial)
 
 public:
+
+    enum Visibility
+    {
+        None         = 0,
+        PlusMinus    = 1 << 0,
+        Dial         = 1 << 1,
+        Tap          = 1 << 2,
+        Hours        = 1 << 3,
+        Minutes      = 1 << 4,
+        Seconds      = 1 << 5,
+        Milliseconds = 1 << 6,
+        Infinite     = 1 << 7
+    };
+
     SpeedDial(QWidget* parent);
     ~SpeedDial();
 
@@ -83,12 +97,6 @@ public:
 
     /** Produce a tap programmatically */
     void tap();
-
-    /** Set the visibility of the Infinite option */
-    void setInfiniteVisibility(bool visible);
-
-    /** Set the visibility of the Tap button */
-    void setTapVisibility(bool visible);
 
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
@@ -139,6 +147,23 @@ private:
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
     bool m_tapTick;
+
+    /*************************************************************************
+     * Elements visibility
+     *************************************************************************/
+public:
+    /** Return the widget's elements default visibility bitmask */
+    static ushort defaultVisibilityMask();
+
+    /** Return the widget's elements visibility bitmask */
+    ushort visibilityMask();
+
+    /** Set the visibility of the widget's elements
+      * according to the provided bitmask */
+    void setVisibilityMask(ushort mask);
+
+private:
+    ushort m_visibilityMask;
 };
 
 /** @} */

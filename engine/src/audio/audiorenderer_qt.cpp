@@ -99,8 +99,9 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
 
     if (!audioDevice.isFormatSupported(m_format))
     {
-        qWarning() << "Default format not supported - trying to use nearest";
         m_format = audioDevice.nearestFormat(m_format);
+        qWarning() << "Default format not supported - trying to use nearest" << m_format.sampleRate();
+
     }
 
     m_audioOutput = new QAudioOutput(audioDevice, m_format, this);
@@ -111,11 +112,18 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         return false;
     }
 
-    m_audioOutput->setBufferSize(8192 * 4);
+    m_audioOutput->setBufferSize(8192 * 8);
     m_output = m_audioOutput->start();
 
     if( m_audioOutput->error() != QAudio::NoError )
+    {
+        qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
         return false;
+    }
+
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_output->write(QByteArray(2048, 0));
+#endif
 
     return true;
 }
@@ -169,10 +177,13 @@ qint64 AudioRendererQt::writeAudio(unsigned char *data, qint64 maxSize)
     if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
         return 0;
 
-    qDebug() << "writeAudio called !! - " << maxSize;
-    m_output->write((const char *)data, maxSize);
+    //qDebug() << "writeAudio called !! - " << maxSize;
+    qint64 written = m_output->write((const char *)data, maxSize);
 
-    return maxSize;
+    if (written != maxSize)
+        qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;
+
+    return written;
 }
 
 void AudioRendererQt::drain()

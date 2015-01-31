@@ -103,10 +103,19 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
         }
     }
 
+    QList<QLCInputProfile::Type> types = QLCInputProfile::types();
+    for (int i = 0; i < types.size(); ++i)
+    {
+        const QLCInputProfile::Type type = types.at(i);
+        m_typeCombo->addItem(QLCInputProfile::typeToString(type), type);
+        if (m_profile->type() == type)
+            m_typeCombo->setCurrentIndex(i);
+    }
+
     /* Profile manufacturer & model */
     m_manufacturerEdit->setText(m_profile->manufacturer());
     m_modelEdit->setText(m_profile->model());
-
+  
     m_behaviourBox->hide();
     /* Fill up the tree with profile's channels */
     fillTree();
@@ -155,20 +164,7 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
     item->setText(KColumnNumber, QString("%1").arg(num + 1));
     item->setText(KColumnName, ch->name());
     item->setText(KColumnType, QLCInputChannel::typeToString(ch->type()));
-
-    /* Display nice icons to indicate channel type */
-    if (ch->type() == QLCInputChannel::Slider)
-        item->setIcon(KColumnType, QIcon(":/slider.png"));
-    else if (ch->type() == QLCInputChannel::Knob)
-        item->setIcon(KColumnType, QIcon(":/knob.png"));
-    else if (ch->type() == QLCInputChannel::Button)
-        item->setIcon(KColumnType, QIcon(":/button.png"));
-    else if (ch->type() == QLCInputChannel::NextPage)
-        item->setIcon(KColumnType, QIcon(":/forward.png"));
-    else if (ch->type() == QLCInputChannel::PrevPage)
-        item->setIcon(KColumnType, QIcon(":/back.png"));
-    else if (ch->type() == QLCInputChannel::PageSet)
-        item->setIcon(KColumnType, QIcon(":/star.png"));
+    item->setIcon(KColumnType, ch->icon());
 }
 
 /****************************************************************************
@@ -192,6 +188,7 @@ void InputProfileEditor::accept()
 
     m_profile->setManufacturer(m_manufacturerEdit->text());
     m_profile->setModel(m_modelEdit->text());
+    m_profile->setType(currentProfileType());
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||
@@ -213,7 +210,7 @@ void InputProfileEditor::accept()
 void InputProfileEditor::slotAddClicked()
 {
     QLCInputChannel* channel = new QLCInputChannel();
-    InputChannelEditor ice(this, m_profile, channel);
+    InputChannelEditor ice(this, m_profile, channel, currentProfileType());
 add:
     if (ice.exec() == QDialog::Accepted)
     {
@@ -303,7 +300,7 @@ void InputProfileEditor::slotEditClicked()
         Q_ASSERT(channel != NULL);
 
         /* Edit the channel and update its item if necessary */
-        InputChannelEditor ice(this, m_profile, channel);
+        InputChannelEditor ice(this, m_profile, channel, currentProfileType());
 edit:
         if (ice.exec() == QDialog::Accepted)
         {
@@ -334,7 +331,7 @@ edit:
     else if (m_tree->selectedItems().count() > 1)
     {
         /* Multiple channels selected. Apply changes to all of them */
-        InputChannelEditor ice(this, NULL, NULL);
+        InputChannelEditor ice(this, NULL, NULL, QLCInputProfile::Dmx);
         if (ice.exec() == QDialog::Accepted)
         {
             QListIterator <QTreeWidgetItem*>
@@ -566,4 +563,9 @@ void InputProfileEditor::slotTimerTimeout()
 const QLCInputProfile* InputProfileEditor::profile() const
 {
     return m_profile;
+}
+
+QLCInputProfile::Type InputProfileEditor::currentProfileType() const
+{
+    return static_cast<QLCInputProfile::Type>(m_typeCombo->itemData(m_typeCombo->currentIndex()).toInt());
 }

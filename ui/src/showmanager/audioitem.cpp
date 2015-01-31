@@ -43,8 +43,12 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Audio));
 
+    if (func->duration() == 0)
+        func->setDuration(aud->totalDuration());
+
     calculateWidth();
-    connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
+    connect(m_audio, SIGNAL(changed(quint32)),
+            this, SLOT(slotAudioChanged(quint32)));
 
     /* Preview actions */
     m_previewLeftAction = new QAction(tr("Preview Left Channel"), this);
@@ -115,9 +119,10 @@ void AudioItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void AudioItem::setDuration(quint32 msec)
+void AudioItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(msec)
+    Q_UNUSED(stretch)
     // nothing to do
 }
 
@@ -180,16 +185,6 @@ void AudioItem::slotAudioPreviewStereo(bool active)
     m_previewLeftAction->setChecked(false);
     m_previewRightAction->setChecked(false);
     createWaveform(active, active);
-}
-
-void AudioItem::slotAlignToCursorClicked()
-{
-    emit alignToCursor(this);
-}
-
-void AudioItem::slotLockItemClicked()
-{
-    setLocked(!isLocked());
 }
 
 void AudioItem::createWaveform(bool left, bool right)
@@ -365,18 +360,9 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
         menu.addSeparator();
     }
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }

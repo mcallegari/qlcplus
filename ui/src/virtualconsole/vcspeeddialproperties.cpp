@@ -20,12 +20,13 @@
 #include <QDebug>
 
 #include "vcspeeddialproperties.h"
+#include "vcspeeddialfunction.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "vcspeeddial.h"
-#include "vcspeeddialfunction.h"
 #include "inputpatch.h"
+#include "speeddial.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -54,7 +55,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     foreach (const VCSpeedDialFunction &speeddialfunction, m_dial->functions())
         createFunctionItem(speeddialfunction);
 
-    /* Forbid editting the function name */
+    /* Forbid editing the function name */
     m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
     /* Combobox for editing the multipliers */
     const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
@@ -75,6 +76,16 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
 
     updateInputSources();
+
+    ushort dialMask = m_dial->visibilityMask();
+    if (dialMask & SpeedDial::PlusMinus) m_pmCheck->setChecked(true);
+    if (dialMask & SpeedDial::Dial) m_dialCheck->setChecked(true);
+    if (dialMask & SpeedDial::Tap) m_tapCheck->setChecked(true);
+    if (dialMask & SpeedDial::Hours) m_hoursCheck->setChecked(true);
+    if (dialMask & SpeedDial::Minutes) m_minCheck->setChecked(true);
+    if (dialMask & SpeedDial::Seconds) m_secCheck->setChecked(true);
+    if (dialMask & SpeedDial::Milliseconds) m_msCheck->setChecked(true);
+    if (dialMask & SpeedDial::Infinite) m_infiniteCheck->setChecked(true);
 
     connect(m_autoDetectAbsoluteInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectAbsoluteInputSourceToggled(bool)));
@@ -103,6 +114,18 @@ void VCSpeedDialProperties::accept()
     m_dial->setInputSource(m_tapInputSource, VCSpeedDial::tapInputSourceId);
 
     m_dial->setKeySequence(m_tapKeySequence);
+
+    ushort dialMask = 0;
+    if (m_pmCheck->isChecked()) dialMask |= SpeedDial::PlusMinus;
+    if (m_dialCheck->isChecked()) dialMask |= SpeedDial::Dial;
+    if (m_tapCheck->isChecked()) dialMask |= SpeedDial::Tap;
+    if (m_hoursCheck->isChecked()) dialMask |= SpeedDial::Hours;
+    if (m_minCheck->isChecked()) dialMask |= SpeedDial::Minutes;
+    if (m_secCheck->isChecked()) dialMask |= SpeedDial::Seconds;
+    if (m_msCheck->isChecked()) dialMask |= SpeedDial::Milliseconds;
+    if (m_infiniteCheck->isChecked()) dialMask |= SpeedDial::Infinite;
+
+    m_dial->setVisibilityMask(dialMask);
 
     QDialog::accept();
 }

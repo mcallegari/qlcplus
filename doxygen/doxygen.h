@@ -20,6 +20,13 @@
 #ifndef DOXYGEN_H
 #define DOXYGEN_H
 
+/** \mainpage
+    This documentation is aimed at developers wanting to find their way around QLC+ sources.
+    <br />
+
+    Project home: http://qlcplus.sourceforge.net/<br />
+    Github page: https://github.com/mcallegari/qlcplus/
+ */
 
 /** \defgroup engine Engine 
  *  @{

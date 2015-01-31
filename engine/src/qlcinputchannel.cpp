@@ -19,6 +19,7 @@
 
 #include <QString>
 #include <QtXml>
+#include <QIcon>
 
 #include "qlcinputchannel.h"
 #include "qlcinputprofile.h"
@@ -119,6 +120,37 @@ QStringList QLCInputChannel::types()
     list << KXMLQLCInputChannelPageDown;
     list << KXMLQLCInputChannelPageSet;
     return list;
+}
+
+QIcon QLCInputChannel::typeToIcon(Type type)
+{
+    switch (type)
+    {
+    case Button:
+        return QIcon(":/button.png");
+    case Knob:
+        return QIcon(":/knob.png");
+    case Slider:
+        return QIcon(":/slider.png");
+    case PrevPage:
+        return QIcon(":/forward.png");
+    case NextPage:
+        return QIcon(":/back.png");
+    case PageSet:
+       return QIcon(":/star.png");
+    default:
+       return QIcon();
+    }
+}
+
+QIcon QLCInputChannel::stringToIcon(const QString& str)
+{
+    return typeToIcon(stringToType(str));
+}
+
+QIcon QLCInputChannel::icon() const
+{
+    return typeToIcon(type());
 }
 
 /****************************************************************************

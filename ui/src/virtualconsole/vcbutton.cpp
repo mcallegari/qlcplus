@@ -38,6 +38,10 @@
 #include <QSize>
 #include <QPen>
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+ #include <QStyleFactory>
+#endif
+
 #include "qlcinputsource.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
@@ -158,6 +162,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
     enableStartupIntensity(button->isStartupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
     setAction(button->action());
+    m_on = button->m_on;
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -353,11 +358,11 @@ void VCButton::setFunction(quint32 fid)
     {
         /* Get rid of old function connections */
         disconnect(old, SIGNAL(running(quint32)),
-                   this, SLOT(slotFunctionRunning(quint32)));
+                this, SLOT(slotFunctionRunning(quint32)));
         disconnect(old, SIGNAL(stopped(quint32)),
-                   this, SLOT(slotFunctionStopped(quint32)));
+                this, SLOT(slotFunctionStopped(quint32)));
         disconnect(old, SIGNAL(flashing(quint32,bool)),
-                   this, SLOT(slotFunctionFlashing(quint32,bool)));
+                this, SLOT(slotFunctionFlashing(quint32,bool)));
     }
 
     Function* function = m_doc->function(fid);
@@ -372,7 +377,6 @@ void VCButton::setFunction(quint32 fid)
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
         m_function = fid;
-
         setToolTip(function->name());
     }
     else
@@ -388,16 +392,19 @@ quint32 VCButton::function() const
     return m_function;
 }
 
-void VCButton::stopFunction()
+void VCButton::notifyFunctionStarting(quint32 fid)
 {
     if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_function)
         return;
 
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
     {
         Function *f = m_doc->function(m_function);
-        if (f != NULL && f->isRunning())
-            f->stopAndWait();
+        if (f != NULL && !f->stopped())
+            f->stop();
     }
 }
 
@@ -426,6 +433,32 @@ void VCButton::setOn(bool on)
     updateFeedback();
 
     update();
+}
+
+void VCButton::updateOnState()
+{
+    bool on;
+    if (m_action == Blackout)
+    {
+        on = m_doc->inputOutputMap()->blackout();
+    }
+    else if (m_action == StopAll)
+    {
+        on = false;
+    }
+    else if (m_action == Flash)
+    {
+        on = false;
+    }
+    else // (m_action == Toggle)
+    {
+        on = false;
+        Function* function = m_doc->function(m_function);
+        if (function != NULL)
+            on = function->isRunning();
+    }
+    if (m_on != on)
+        setOn(on);
 }
 
 /*****************************************************************************
@@ -503,16 +536,19 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 
 void VCButton::setAction(Action action)
 {
+    // Blackout signal connection
     if (m_action == Blackout && action != Blackout)
         disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
-                   this, SLOT(slotBlackoutChanged(bool)));
+                this, SLOT(slotBlackoutChanged(bool)));
     else if (m_action != Blackout && action == Blackout)
         connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
                 this, SLOT(slotBlackoutChanged(bool)));
 
+    // Action update
     m_action = action;
     updateIcon();
 
+    // Update tooltip
     if (m_action == Blackout)
         setToolTip(tr("Toggle Blackout"));
     else if (m_action == StopAll)
@@ -634,7 +670,7 @@ void VCButton::pressFunction()
                     f->adjustAttribute(intensity(), Function::Intensity);
 
                 f->start(m_doc->masterTimer());
-                emit functionStarting();
+                emit functionStarting(m_function);
             }
         }
     }
@@ -673,13 +709,13 @@ void VCButton::releaseFunction()
 
 void VCButton::slotFunctionRunning(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
         setOn(true);
 }
 
 void VCButton::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_function && m_action != Flash)
+    if (fid == m_function && m_action == Toggle)
     {
         setOn(false);
         blink(250);
@@ -688,6 +724,10 @@ void VCButton::slotFunctionStopped(quint32 fid)
 
 void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 {
+    // Do not change the state of the button for Blackout or Stop All Functions buttons
+    if (m_action != Toggle && m_action != Flash)
+        return;
+
     if (fid != m_function)
         return;
 
@@ -753,51 +793,14 @@ void VCButton::adjustIntensity(qreal val)
 {
     Function* func = m_doc->function(m_function);
     if (func != NULL)
-        func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+    {
+        if (isStartupIntensityEnabled())
+            func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+        else
+            func->adjustAttribute(val, Function::Intensity);
+    }
 
     VCWidget::adjustIntensity(val);
-}
-
-/*********************************************************************
- * Web access
- *********************************************************************/
-
-QString VCButton::getCSS()
-{
-    QString str = "<style>\n"
-            ".vcbutton-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-
-            ".vcbutton {\n"
-            "display: table-cell;\n"
-            "border: 3px solid #A0A0A0;\n"
-            "border-radius: 4px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-decoration: none;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    return str;
-}
-
-QString VCButton::getJS()
-{
-    QString str = "function buttonClick(id) {\n"
-                " var obj = document.getElementById(id);\n"
-                " if (obj.value == \"0\" || obj.value == undefined) {\n"
-                "  obj.value = \"255\";\n"
-                "  obj.style.border = \"3px solid #00E600\";\n"
-                " }\n"
-                " else {\n"
-                "  obj.value = \"0\";\n"
-                "  obj.style.border = \"3px solid #A0A0A0\";\n"
-                " }\n"
-                " websocket.send(id + \"|\" + obj.value);\n"
-                "}\n";
-    return str;
 }
 
 /*****************************************************************************

@@ -62,7 +62,7 @@ void FunctionsTreeWidget::clearTree()
     clear();
 }
 
-void FunctionsTreeWidget::functionChanged(quint32 fid)
+void FunctionsTreeWidget::functionNameChanged(quint32 fid)
 {
     blockSignals(true);
     Function* function = m_doc->function(fid);

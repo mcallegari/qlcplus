@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Function Wizard</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Function Wizard</H1>
+<P>
+The Function Wizard's purpose is to help users create some common functions for a
+quick start.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Fixture List</B>
+  </TD>
+  <TD>
+   List of fixtures that will be included in the functions created with the
+   wizard. You can see each fixture's capabilities for Color-, Gobo- and Shutter-
+   type scenes in the <B>Supported capabilities</B> column.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png">
+  </TD>
+  <TD>
+   Include <A HREF="file:concept.html#Fixtures">Fixtures</A> to the functions
+   that will be created with the wizard.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png">
+  </TD>
+  <TD>
+   Remove the selected fixtures from the function to be created.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Scenes</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Colors: Create scenes for changing the color simultaneously on all
+    currently included fixtures. For this to work, the fixtures must have at least
+    one color channel that controls a fixed-color wheel.</LI>
+    <LI>Gobos: Create scenes for changing the gobo simultaneously on all currently
+    included fixtures. For this to work, the fixtures must have at least one gobo
+    channel.</LI>
+    <LI>Shutter: Create scenes for changing the shutter position simultaneously
+    on all currently included fixtures. For this to work, the fixtures must have
+    at least one shutter channel.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <!-- TR>
+  <TD>
+   <B>Chasers</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Intensity: Create chasers that use the fixtures' intensity/dimmer channels.
+    The following chasers are created:
+     <UL>
+      <LI>Full - Zero: Fade all intensity channels on & off simultaneously.</LI>
+      <LI>Even - Odd: Fade all even intensity channels on, while odd channels fade to off and vice versa.</LI>
+      <LI>Sequence forwards: Fade each intensity channel on in a consecutive sequence.</LI>
+      <LI>Sequence backwards: The same as above, but in reverse.</LI>
+      <LI>Random Multi: Fade multiple channels on and off in a random sequence.</LI>
+      <LI>Random Single: Fade one channel on at a time in a random sequence.</LI>
+     </UL>
+    </LI>
+   </UL>
+  </TD>
+ </TR -->
+</TABLE>
+
+</BODY>
+</HTML>

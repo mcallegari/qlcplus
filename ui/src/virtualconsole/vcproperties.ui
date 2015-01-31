@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>428</height>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Layout">
       <attribute name="title">
@@ -140,8 +140,8 @@
           <string>Widgets default properties</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="5" column="3">
-           <widget class="QSpinBox" name="m_xypadHspin">
+          <item row="7" column="1">
+           <widget class="QSpinBox" name="m_frameWspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -153,69 +153,6 @@
             </property>
             <property name="maximum">
              <number>1000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="m_buttonWspin">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="suffix">
-             <string notr="true">px</string>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-            <property name="value">
-             <number>5</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1" colspan="3">
-           <widget class="QLineEdit" name="m_speedValueEdit">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Speed dial value</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string notr="true">x</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QSpinBox" name="m_xypadWspin">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="suffix">
-             <string notr="true">px</string>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string notr="true">x</string>
             </property>
            </widget>
           </item>
@@ -226,27 +163,22 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="m_sliderWspin">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="suffix">
-             <string notr="true">px</string>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-            <property name="value">
-             <number>5</number>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Speed dial value</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="3">
-           <widget class="QSpinBox" name="m_speedHspin">
+          <item row="7" column="2">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="3">
+           <widget class="QSpinBox" name="m_frameHspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -258,14 +190,31 @@
             </property>
             <property name="maximum">
              <number>1000</number>
-            </property>
-            <property name="value">
-             <number>5</number>
             </property>
            </widget>
           </item>
           <item row="8" column="2">
            <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="label_13">
             <property name="text">
              <string notr="true">x</string>
             </property>
@@ -278,50 +227,39 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="1">
-           <widget class="QSpinBox" name="m_soloWspin">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="suffix">
-             <string notr="true">px</string>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
+          <item row="9" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>Audio triggers size</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="2">
-           <widget class="QLabel" name="label_13">
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_7">
             <property name="text">
              <string notr="true">x</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="m_speedWspin">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="suffix">
-             <string notr="true">px</string>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-            <property name="value">
-             <number>5</number>
+          <item row="8" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Solo frame size</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="3">
-           <widget class="QSpinBox" name="m_frameHspin">
+          <item row="1" column="3">
+           <widget class="QRadioButton" name="m_buttonStatusBorderRadio">
+            <property name="text">
+             <string>Border</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QSpinBox" name="m_soloWspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -355,8 +293,22 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QSpinBox" name="m_buttonHspin">
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="m_speedWspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -374,23 +326,10 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_14">
             <property name="text">
-             <string notr="true">x</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="2">
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string notr="true">x</string>
+             <string>Frame size</string>
             </property>
            </widget>
           </item>
@@ -417,22 +356,24 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>Frame size</string>
+          <item row="9" column="1">
+           <widget class="QSpinBox" name="m_audioWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Speed dial size</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QSpinBox" name="m_frameWspin">
+          <item row="3" column="3">
+           <widget class="QSpinBox" name="m_speedHspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -444,6 +385,95 @@
             </property>
             <property name="maximum">
              <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="m_sliderWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="QSpinBox" name="m_xypadHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="m_xypadWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="3">
+           <widget class="QSpinBox" name="m_audioHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="m_buttonWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
             </property>
            </widget>
           </item>
@@ -463,6 +493,63 @@
             </property>
            </widget>
           </item>
+          <item row="4" column="1" colspan="3">
+           <widget class="QLineEdit" name="m_speedValueEdit">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QRadioButton" name="m_buttonStatusLEDRadio">
+            <property name="text">
+             <string>LED</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Button size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Cue List size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QSpinBox" name="m_buttonHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Speed dial size</string>
+            </property>
+           </widget>
+          </item>
           <item row="6" column="1">
            <widget class="QSpinBox" name="m_cuelistWspin">
             <property name="alignment">
@@ -479,27 +566,6 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>Solo frame size</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Cue List size</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Button size</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_19">
             <property name="text">
@@ -507,35 +573,15 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QRadioButton" name="m_buttonStatusLEDRadio">
+          <item row="10" column="0">
+           <widget class="QLabel" name="label_22">
             <property name="text">
-             <string>LED</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
+             <string>Animation size</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="3">
-           <widget class="QRadioButton" name="m_buttonStatusBorderRadio">
-            <property name="text">
-             <string>Border</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="label_20">
-            <property name="text">
-             <string>Audio triggers size</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QSpinBox" name="m_audioWspin">
+          <item row="10" column="1">
+           <widget class="QSpinBox" name="m_matrixWspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
@@ -550,15 +596,15 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="2">
-           <widget class="QLabel" name="label_21">
+          <item row="10" column="2">
+           <widget class="QLabel" name="label_23">
             <property name="text">
              <string notr="true">x</string>
             </property>
            </widget>
           </item>
-          <item row="9" column="3">
-           <widget class="QSpinBox" name="m_audioHspin">
+          <item row="10" column="3">
+           <widget class="QSpinBox" name="m_matrixHspin">
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>

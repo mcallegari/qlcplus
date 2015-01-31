@@ -60,9 +60,6 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     font.setPixelSize(28);
     setFont(font);
 
-    connect(doc, SIGNAL(modeChanged(Doc::Mode)),
-            this, SLOT(slotModeChanged(Doc::Mode)));
-
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()));
     timer->start(1000);

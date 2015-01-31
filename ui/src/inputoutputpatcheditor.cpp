@@ -76,6 +76,7 @@
 
 /* Profile column structure */
 #define KProfileColumnName 0
+#define KProfileColumnType 1
 
 InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap *ioMap, Doc *doc)
     : QWidget(parent)
@@ -272,6 +273,39 @@ void InputOutputPatchEditor::fillMappingTree()
                         }
                         outputId++;
                     }
+                }
+                else // input is mapped to different universe, let's check if outputs are available
+                {
+                    // check if this plugin has also an output
+                    if (outputs.contains(inputs.at(l)))
+                    {
+                        quint32 outUni = m_ioMap->outputMapping(pluginName, outputId);
+                        if (outUni == InputOutputMap::invalidUniverse() ||
+                           (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
+                        {
+                            //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
+                            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
+                            pitem->setText(KMapColumnPluginName, pluginName);
+                            pitem->setText(KMapColumnDeviceName, inputs.at(l));
+                            pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
+                            if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
+                                pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
+                            else
+                                pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                            // add feedback
+                            if (hasFeedback)
+                            {
+                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
+                                    pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
+                                else
+                                    pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                            }
+                            pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
+                            pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                        }
+                        outputId++;
+                    }
+
                 }
                 inputId++;
             }
@@ -574,6 +608,7 @@ void InputOutputPatchEditor::fillProfileTree()
         item = new QTreeWidgetItem(m_profileTree);
         updateProfileItem(it.next(), item);
     }
+    m_profileTree->resizeColumnToContents(KProfileColumnName);
 }
 
 void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetItem* item)
@@ -581,6 +616,11 @@ void InputOutputPatchEditor::updateProfileItem(const QString& name, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(KProfileColumnName, name);
+    QLCInputProfile * prof = m_ioMap->profile(name);
+    if (prof)
+    {
+        item->setText(KProfileColumnType, QLCInputProfile::typeToString(prof->type()));
+    }
 
     item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
     if (m_currentProfileName == name)

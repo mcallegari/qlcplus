@@ -184,7 +184,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
@@ -200,6 +200,7 @@ protected:
 public:
     void setOn(bool on);
     bool isOn() const;
+    void updateOnState();
 
 protected:
     bool m_on;
@@ -339,16 +340,6 @@ public:
 public:
     /** @reimp */
     void adjustIntensity(qreal val);
-
-    /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
 
     /*********************************************************************
      * Load & Save

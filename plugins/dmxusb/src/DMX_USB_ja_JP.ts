@@ -25,12 +25,12 @@
     </message>
     <message>
         <location filename="dmxusb.cpp" line="157"/>
-        <location filename="dmxusb.cpp" line="258"/>
+        <location filename="dmxusb.cpp" line="256"/>
         <source>Device is operating correctly.</source>
         <translation type="unfinished">デバイスは正常に動作しています</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="245"/>
+        <location filename="dmxusb.cpp" line="243"/>
         <source>No input support available.</source>
         <translation type="unfinished">入力対応機器: 未接続</translation>
     </message>
@@ -119,14 +119,14 @@
     <name>QObject</name>
     <message>
         <location filename="nanodmx.cpp" line="201"/>
-        <location filename="stageprofi.cpp" line="137"/>
+        <location filename="stageprofi.cpp" line="125"/>
         <location filename="vinceusbdmx512.cpp" line="48"/>
         <source>Protocol</source>
         <translation type="unfinished">Protocol</translation>
     </message>
     <message>
         <location filename="nanodmx.cpp" line="203"/>
-        <location filename="stageprofi.cpp" line="139"/>
+        <location filename="stageprofi.cpp" line="127"/>
         <location filename="vinceusbdmx512.cpp" line="50"/>
         <source>Output</source>
         <translation type="unfinished">出力</translation>
@@ -134,13 +134,13 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="113"/>
         <location filename="nanodmx.cpp" line="205"/>
-        <location filename="stageprofi.cpp" line="141"/>
+        <location filename="stageprofi.cpp" line="129"/>
         <source>Manufacturer</source>
         <translation type="unfinished">メーカー名</translation>
     </message>
     <message>
         <location filename="nanodmx.cpp" line="208"/>
-        <location filename="stageprofi.cpp" line="144"/>
+        <location filename="stageprofi.cpp" line="132"/>
         <location filename="vinceusbdmx512.cpp" line="52"/>
         <source>Serial number</source>
         <translation type="unfinished">シリアルナンバー</translation>

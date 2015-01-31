@@ -43,7 +43,7 @@
 #undef protected
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Doc_Test::initTestCase()
 {
@@ -79,22 +79,22 @@ void Doc_Test::cleanup()
 
 void Doc_Test::normalizeComponentPath()
 {
-     m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+     m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
      QCOMPARE(m_doc->normalizeComponentPath(QString()), QString());
      QCOMPARE(m_doc->normalizeComponentPath("qlcplus.png"), QFileInfo("qlcplus.png").absoluteFilePath());
-     QCOMPARE(m_doc->normalizeComponentPath("../../../gfx/qlcplus.png"), QString("qlcplus.png"));
-     QCOMPARE(m_doc->normalizeComponentPath("../../../gfx/sub/qlcplus.png"), QString("sub/qlcplus.png"));
+     QCOMPARE(m_doc->normalizeComponentPath("../../../resources/icons/png/qlcplus.png"), QString("qlcplus.png"));
+     QCOMPARE(m_doc->normalizeComponentPath("../../../resources/icons/png/sub/qlcplus.png"), QString("sub/qlcplus.png"));
      QCOMPARE(m_doc->normalizeComponentPath("/home/user/test.png"), QString("/home/user/test.png"));
 }
 
 void Doc_Test::denormalizeComponentPath()
 {
-     m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+     m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
      QCOMPARE(m_doc->denormalizeComponentPath(QString()), QString());
-     QCOMPARE(m_doc->denormalizeComponentPath("qlcplus.png"), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
-     QCOMPARE(m_doc->denormalizeComponentPath("sub/qlcplus.png"), QFileInfo("../../../gfx/sub/qlcplus.png").absoluteFilePath());
+     QCOMPARE(m_doc->denormalizeComponentPath("qlcplus.png"), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
+     QCOMPARE(m_doc->denormalizeComponentPath("sub/qlcplus.png"), QFileInfo("../../../resources/icons/png/sub/qlcplus.png").absoluteFilePath());
      QCOMPARE(m_doc->denormalizeComponentPath("/home/user/test.png"), QString("/home/user/test.png"));
 }
 

@@ -22,6 +22,7 @@
 
 #include <QScriptValue>
 #include "rgbalgorithm.h"
+#include "rgbscriptproperty.h"
 
 class QScriptEngine;
 class QSize;
@@ -69,6 +70,10 @@ private:
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
+private:
+    /** Init engine, engine mutex, and scripts map */
+    static void initEngine();
+
     /************************************************************************
      * RGBAlgorithm API
      ************************************************************************/
@@ -92,6 +97,9 @@ public:
     RGBAlgorithm::Type type() const;
 
     /** @reimp */
+    int acceptColors() const;
+
+    /** @reimp */
     bool loadXML(const QDomElement& root);
 
     /** @reimp */
@@ -104,35 +112,27 @@ private:
     QScriptValue m_rgbMapStepCount; //! rgbMapStepCount() function
 
     /************************************************************************
-     * System & User Scripts
+     * Properties
      ************************************************************************/
 public:
-    /** Get a script by its public name */
-    static RGBScript script(const Doc * doc, const QString& name);
+    /** Return a list of the loaded script properties */
+    QList<RGBScriptProperty> properties();
 
-    /** Get available (user, system and custom) script names */
-    static QStringList scriptNames(const Doc * doc);
+    /** Return properties as strings */
+    QHash<QString, QString> propertiesAsStrings();
 
-    /** Get available (user, system and custom) scripts */
-    static QList <RGBScript> scripts(const Doc * doc);
+    /** Set a property to the given value */
+    bool setProperty(QString propertyName, QString value);
 
-    /** Get available scripts from the given directory path */
-    static QList <RGBScript> scripts(const Doc * doc, const QDir& path);
-
-    /** The system RGBScript directory */
-    static QDir systemScriptDirectory();
-
-    /** The user RGBScript directory */
-    static QDir userScriptDirectory();
-
-    /** Set the custom RGBScript directory */
-    static void setCustomScriptDirectory(const QString& path);
-
-    /** Get the custom RGBScript directory */
-    static QDir customScriptDirectory();
+    /** Read the value of the property with the given name */
+    QString property(QString propertyName);
 
 private:
-    static QDir s_customScriptDirectory;
+    /** Load the script properties if any is available */
+    bool loadProperties();
+
+private:
+    QList<RGBScriptProperty> m_properties; //! the script properties list
 };
 
 /** @} */

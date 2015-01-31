@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.5.1</Version>
+  <Author>Lars Kildholt</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>PAR 64 CX-3 RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Intensity Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity Blue</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Intensity White</Capability>
+ </Channel>
+ <Channel Name="Fixed Color Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">31 Preprogrammed color macro</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">No Effect</Capability>
+  <Capability Min="16" Max="255">Strobe Speed</Capability>
+ </Channel>
+ <Channel Name="Operating mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Constant Color</Capability>
+  <Capability Min="32" Max="63">Fade-out effect (Speed ch 6)</Capability>
+  <Capability Min="64" Max="95">Fade-in effect (Speed ch 6)</Capability>
+  <Capability Min="96" Max="127">Fade-in-out effect (Speed ch 6)</Capability>
+  <Capability Min="128" Max="159">Auto-mix effect (speed ch 6)</Capability>
+  <Capability Min="160" Max="191">Chase 4 colors (Speed Ch6)</Capability>
+  <Capability Min="192" Max="223">Chase 12 colors (speed ch 6)</Capability>
+  <Capability Min="224" Max="255">Sound-Control</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Operating Mode 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Constant color</Capability>
+  <Capability Min="64" Max="127">7 Automatic colors change</Capability>
+  <Capability Min="128" Max="191">12 Automatic colors change</Capability>
+  <Capability Min="192" Max="255">4 Automatic colors change</Capability>
+ </Channel>
+ <Mode Name="8ch">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="270" Height="270" Weight="3.4" Depth="330"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="152" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Fixed Color Pattern</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Operating mode</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="4ch">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="270" Height="270" Weight="3.4" Depth="330"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="152" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6ch">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="270" Height="270" Weight="3.4" Depth="330"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="152" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Operating Mode 2</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+</FixtureDefinition>

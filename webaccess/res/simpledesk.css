@@ -1,0 +1,75 @@
+html { height: 100%; background-color: #111; }
+
+body {
+ margin: 0px;
+ background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);
+ background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);
+}
+
+.styled-select select {
+ background: #aaa;
+ width: 250px;
+ height: 30px;
+ margin-left: 15px;
+ font-size: 16px;
+ line-height: 1;
+ border: 1px solid #bbb;
+ border-radius: 4px;
+}
+
+.sdButton {
+ display: inline-block;
+ vertical-align: top;
+ background: linear-gradient(to bottom, #F6F6F6 0%, #AAAAAA 100%);
+ background: -ms-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);
+ background: -moz-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);
+ background: -o-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #AAAAAA));
+ background: -webkit-linear-gradient(top, #F6F6F6 0%, #AAAAAA 100%);
+ border-radius: 3px;
+ border: 1px solid #808080;
+ padding: 1px;
+ height: 28px;
+ width: 60px;
+ text-align: center;
+}
+
+.sdButton:active { background: #868585; }
+	    
+.sdSlider {
+ position: relative;
+ display: inline-block;
+ border: 1px solid #777777;
+ border-radius: 3px;
+}
+
+.sdslLabel {
+ height:20px;
+ text-align:center;
+ font:normal 16px sans-serif;
+}
+
+input[type="range"].vVertical {
+ -webkit-appearance: none;
+ height: 4px;
+ border: 1px solid #8E8A86;
+ background-color: #888888;
+ -webkit-transform:rotate(270deg);
+ -webkit-transform-origin: 0% 50%;
+ -moz-transform:rotate(270deg);
+ -o-transform:rotate(270deg);
+ -ms-transform:rotate(270deg);
+ -ms-transform-origin:0% 50%;
+ transform:rotate(270deg);
+ transform-origin:0% 50%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 34px;
+}
+

@@ -94,6 +94,11 @@ RGBAlgorithm::Type RGBPlain::type() const
     return RGBAlgorithm::Plain;
 }
 
+int RGBPlain::acceptColors() const
+{
+    return 1; // only start color is accepted
+}
+
 bool RGBPlain::loadXML(const QDomElement& root)
 {
     if (root.tagName() != KXMLQLCRGBAlgorithm)

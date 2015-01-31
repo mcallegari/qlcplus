@@ -1,6 +1,6 @@
 ﻿<RCC>
     <qresource>
-	<file alias="qlcplus.png">../gfx/qlcplus.png</file>
-	<file alias="qlcplus-fixtureeditor.png">../gfx/qlcplus-fixtureeditor.png</file>
+	<file alias="qlcplus.png">../resources/icons/png/qlcplus.png</file>
+	<file alias="qlcplus-fixtureeditor.png">../resources/icons/png/qlcplus-fixtureeditor.png</file>
     </qresource>
 </RCC>

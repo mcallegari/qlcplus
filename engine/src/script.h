@@ -49,6 +49,7 @@ public:
     static const QString waitKeyCmd;
 
     static const QString setFixtureCmd;
+    static const QString systemCmd;
 
     static const QString labelCmd;
     static const QString jumpCmd;
@@ -77,8 +78,16 @@ public:
     /** Set the raw script data */
     bool setData(const QString& str);
 
+    /** Append a line of script to the raw data */
+    bool appendData(const QString& str);
+
     /** Get the raw script data */
     QString data() const;
+
+    /** Get the script data lines as a list of  strings */
+    QStringList dataLines() const;
+
+    QList<int> syntaxErrorsLines();
 
 private:
     QString m_data;
@@ -127,9 +136,17 @@ private:
     bool waiting();
 
     /**
+     * Parse a string in the form "random(min,max)" and returns
+     * a randomized value between min and max
+     *
+     * @return the randomized value requested
+     */
+    quint32 getValueFromString(QString str, bool *ok);
+
+    /**
      * Handle "startfunction" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @param timer The MasterTimer that should run the function
      * @return An empty string if successful. Otherwise an error string.
      */
@@ -138,7 +155,7 @@ private:
     /**
      * Handle "stopfunction" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleStopFunction(const QList<QStringList>& tokens);
@@ -146,7 +163,7 @@ private:
     /**
      * Handle "wait" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleWait(const QList<QStringList>& tokens);
@@ -154,7 +171,7 @@ private:
     /**
      * Handle "waitkey" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleWaitKey(const QList<QStringList>& tokens);
@@ -162,17 +179,24 @@ private:
     /**
      * Handle "setfixture" command.
      *
-     * @param command The first keyword:value pair
-     * @param tokens All keyword:value pairs (including the first one)
+     * @param tokens A list of keyword:value pairs
      * @param universes The universe array to write DMX data
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleSetFixture(const QList<QStringList>& tokens, QList<Universe*> universes);
 
     /**
+     * Handle "systemcommand" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleSystemCommand(const QList<QStringList>& tokens);
+
+    /**
      * Handle "label" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleLabel(const QList<QStringList>& tokens);
@@ -180,7 +204,7 @@ private:
     /**
      * Handle "jump" command.
      *
-     * @param command The first keyword:value pair
+     * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleJump(const QList<QStringList>& tokens);
@@ -204,6 +228,7 @@ private:
     QList <QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script
+    QList <int> m_syntaxErrorLines;
 
     GenericFader* m_fader;
 };

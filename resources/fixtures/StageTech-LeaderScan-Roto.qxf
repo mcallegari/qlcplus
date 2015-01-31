@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.2</Version>
+  <Author>Noel Utter</Author>
+ </Creator>
+ <Manufacturer>StageTech</Manufacturer>
+ <Model>LeaderScan Roto</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20">Closed</Capability>
+  <Capability Min="21" Max="40">Opened</Capability>
+  <Capability Min="41" Max="255">Strobe</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="31">Open</Capability>
+  <Capability Res="Others/gobo00027.png" Min="32" Max="63">Triangle</Capability>
+  <Capability Res="Others/gobo00028.png" Min="64" Max="95">Holes</Capability>
+  <Capability Res="Others/gobo00013.png" Min="96" Max="127">Phone</Capability>
+  <Capability Res="Robe/gobo00027.png" Min="128" Max="159">Clouds</Capability>
+  <Capability Res="Others/gobo00046.png" Min="160" Max="191">Turbine</Capability>
+  <Capability Res="Others/gobo00011.png" Min="192" Max="223">Sun</Capability>
+  <Capability Res="ClayPaky/gobo00012.png" Min="224" Max="255">Bar</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="11" Color="#ffffff">White</Capability>
+  <Capability Color2="#c53cff" Min="12" Max="22" Color="#ffffff">White / Mauve</Capability>
+  <Capability Min="23" Max="33" Color="#c53cff">Mauve</Capability>
+  <Capability Color2="#1937ff" Min="34" Max="44" Color="#c53cff">Mauve / Dark Cyan</Capability>
+  <Capability Min="45" Max="55" Color="#1937ff">Dark Cyan</Capability>
+  <Capability Color2="#10ac6b" Min="56" Max="66" Color="#1937ff">Dark Cyan / Green</Capability>
+  <Capability Min="67" Max="77" Color="#10ac6b">Green</Capability>
+  <Capability Color2="#ffce0a" Min="78" Max="88" Color="#10ac6b">Green / Amber</Capability>
+  <Capability Min="89" Max="99" Color="#ffce0a">Amber</Capability>
+  <Capability Color2="#0000a0" Min="100" Max="110" Color="#ffce0a">Amber / UV Blue</Capability>
+  <Capability Min="111" Max="121" Color="#0000a0">UV Blue</Capability>
+  <Capability Color2="#aa0000" Min="122" Max="133" Color="#0000a0">UV Blue / Red</Capability>
+  <Capability Min="134" Max="144" Color="#aa0000">Red</Capability>
+  <Capability Color2="#ffff00" Min="145" Max="155" Color="#aa0000">Red / Yellow</Capability>
+  <Capability Min="156" Max="166" Color="#ffff00">Yellow</Capability>
+  <Capability Color2="#40acff" Min="167" Max="177" Color="#ffff00">Yellow / Cyan</Capability>
+  <Capability Min="178" Max="188" Color="#40acff">Cyan</Capability>
+  <Capability Color2="#e251c8" Min="189" Max="199" Color="#40acff">Cyan / Pink</Capability>
+  <Capability Min="200" Max="210" Color="#e251c8">Pink</Capability>
+  <Capability Color2="#aaff00" Min="211" Max="221" Color="#e251c8">Pink / Light green</Capability>
+  <Capability Min="222" Max="232" Color="#aaff00">Light green</Capability>
+  <Capability Color2="#ff8c00" Min="233" Max="243" Color="#aaff00">Light green / Orange</Capability>
+  <Capability Min="244" Max="250" Color="#ff8c00">Orange</Capability>
+  <Capability Min="251" Max="253">Rainbow 1</Capability>
+  <Capability Min="254" Max="255">Rainbow 2</Capability>
+ </Channel>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Movement Speed</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Rotation speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="122">Clockwise</Capability>
+  <Capability Min="123" Max="132">Stationary</Capability>
+  <Capability Min="133" Max="255">Counter clockwise</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="6900"/>
+   <Dimensions Width="250" Height="550" Weight="12" Depth="150"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Movement Speed</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Rotation speed</Channel>
+ </Mode>
+</FixtureDefinition>

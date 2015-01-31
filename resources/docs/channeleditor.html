@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Channel Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Channel Editor</H1>
+<P>
+The Channel Editor is used to edit individual channels and the DMX value ranges of
+each capability (a green color, a certain gobo, prism rotation, etc..) that a
+fixture channel provides. Refer to your fixture's manual to get a detailed
+list of the fixture's channels and DMX values.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Name</B>
+  </TD>
+  <TD>
+   The name of the channel
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Group</B>
+  </TD>
+  <TD>
+   <P>The channel's logical group (its role in the fixture). </P>
+   <LI>Assign a channel to the <B>Intensity</B> group if the channel should obey the <A HREF="file:concept.html#HTP">HTP</A> rule.
+       Also, the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
+       channels by default. Note also when you create RGBAW/CMY channels, that they should be
+       assigned to the <I>Intensity</I> group, and <B>NOT the Color group</B>. The Color Tool
+       in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
+       <B>Intensity</B> channels for RGBAW/CMY, whose <B>Color</B> properties have been set
+       accordingly (see the <B>Color</B> setting below).</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Color</B> group if the channel controls a fixed color
+       wheel or pre-defined color macros. <I>Don't</I> assign individual RGBAW/CMY color channels
+       to the </B>Color</B> group but instead use the <B>Intensity</B> group as described above
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Gobo</B> group if the channel controls gobo wheel position
+       or indexing. The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Speed</B> group if the channel controls something related
+       to speed (gobo rotation, rainbow speed, tracking speed).
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Prism</B> group if the channel controls a prism.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Prism</B> group if the channel controls a prism.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Shutter</B> group if the channel controls a shutter or
+       strobe. The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule. </LI>
+   <BR>
+   <LI>Assign a channel to the <B>Beam</B> group if the channel controls a beam shaper.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Effect</B> group if the channel controls something that
+       doesn't quite fit into any of the other groups.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Maintenance</B> group if the channel contains fixture
+       resetting or cooling fan controls or something similar.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+   <BR>
+   <LI>Assign a channel to the <B>Nothing</B> group if the channel should not appear in
+       the <A HREF="file:sceneeditor.html">Scene Editor</A> or
+       <A HREF="file:fixturemanager.html">Fixture Console</A>.</LI>
+   <BR>
+   <LI>Assign pan channel(s) to the <B>Pan</B> group and respectively, tilt channel(s) to
+       the <B>Tilt</B> group. See the <B>Control Byte</B> property below.
+       The channel obeys the <A HREF="file:concept.html#LTP">LTP</A> rule.</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Color</B>
+  </TD>
+  <TD>
+   Only available when the channel has been assigned to the <B>Intensity</B> group. It indicates
+   whether the channel controls a specific color out of the primary colors
+   <B>Red, Green, Blue, Cyan, Magenta, Yellow, Amber, White or UV</B>. If the channel controls the
+   fixture's master intensity, the <B>Generic</B> color setting should be used.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Control Byte</B>
+  </TD>
+  <TD>
+   Applicable to channel pairs that make 16 bit values, usually <B>Pan</B> or <B>Tilt</B> group, but some newer fixtures
+   support 16 bit dimmer or even RGB, gobo or focus channels.<BR />
+   For 8 bit values (e.g. when the fixture supports only 8bit movement, only one channel for each movement),
+   assign the <B>Coarse MSB</B> control byte to the channel. If, however, the fixture supports 16bit movement (two channels for each movement), 
+   or other 16 bit channel, you should assign the <B>Coarse MSB</B> byte to the channels that provide coarse value
+   and the <B>Fine LSB</B> byte to the channels that provide fine value adjustment. If you are not sure, use <B>Coarse MSB</B>.</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Capability list</B>
+  </TD>
+  <TD>
+   Shows you a list of DMX value ranges for the currently edited channel. If a
+   channel provides only one capability (for example pan or dimmer) the only
+   thing needed in the list is one capability with a range of 0 to 255.
+   For more elaborate capabilities, such as colors or gobos, you should create
+   capability ranges for each of the colors (for example 0-15 white, 16-32 blue...)
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png"/>
+  </TD>
+  <TD>
+   Add a new capability to the channel, using the
+   <A HREF="file:capabilityeditor.html">Capability Editor</A>.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png"/>
+  </TD>
+  <TD>
+   Remove the selected capabilities from the channel.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit.png"/>
+  </TD>
+  <TD>
+   Edit the selected capability, using the
+   <A HREF="file:capabilityeditor.html">Capability Editor</A>.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/wizard.png"/>
+  </TD>
+  <TD>
+   Create new capabilities quickly with the <A HREF="file:capabilitywizard.html">
+   Capability Wizard</A>.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

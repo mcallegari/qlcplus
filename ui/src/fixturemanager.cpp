@@ -465,7 +465,7 @@ void FixtureManager::updateChannelsGroupView()
 
             const QLCChannel* ch = fxi->channel(scv.channel);
             if (ch != NULL)
-                grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
+                grpItem->setIcon(KColumnName, ch->getIcon());
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
@@ -807,7 +807,7 @@ void FixtureManager::initActions()
             this, SLOT(slotAdd()));
 
     m_addRGBAction = new QAction(QIcon(":/rgbpanel.png"),
-                              tr("Add fixture..."), this);
+                              tr("Add RGB panel..."), this);
     connect(m_addRGBAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBPanel()));
 
@@ -1289,6 +1289,7 @@ void FixtureManager::editFixtureProperties()
             /* Generic dimmer */
             fxi->setFixtureDefinition(NULL, NULL);
             fxi->setChannels(af.channels());
+            m_doc->changeFixtureMode(fxi->id(), NULL);
         }
 
         m_fixtures_tree->updateFixtureItem(item, fxi);

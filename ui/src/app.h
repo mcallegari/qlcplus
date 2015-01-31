@@ -43,6 +43,10 @@ class QAction;
 class QLabel;
 class App;
 
+#if QT_VERSION >= 0x050000
+class VideoProvider;
+#endif
+
 /** @addtogroup ui UI
  * @{
  */
@@ -142,6 +146,7 @@ public slots:
     void slotRunningFunctionsChanged();
     void slotDumpDmxIntoFunction();
     void slotFunctionLiveEdit();
+    void slotLiveEditVirtualConsole();
 
     void slotHelpIndex();
     void slotHelpAbout();
@@ -162,6 +167,7 @@ private:
     QAction* m_controlPanicAction;
     QAction* m_dumpDmxAction;
     QAction* m_liveEditAction;
+    QAction* m_liveEditVirtualConsoleAction;
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
@@ -176,6 +182,9 @@ private:
      *********************************************************************/
 private:
     DmxDumpFactoryProperties *m_dumpProperties;
+#if QT_VERSION >= 0x050000
+    VideoProvider *m_videoProvider;
+#endif
 
     /*********************************************************************
      * Load & Save

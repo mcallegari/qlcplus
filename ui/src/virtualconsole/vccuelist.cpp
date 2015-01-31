@@ -35,7 +35,6 @@
 #include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
-#include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "inputpatch.h"
@@ -45,6 +44,7 @@
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
+#include "chaserrunner.h"
 #include "doc.h"
 
 #define COL_NUM      0
@@ -84,12 +84,11 @@ const QString cfLabelNoStyle =
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
-    , m_runner(NULL)
+    //, m_chaser(NULL)
     , m_timer(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
     , m_primaryLeft(true)
-    , m_stop(false)
 {
     /* Set the class name "VCCueList" as the object name as well */
     setObjectName(VCCueList::staticMetaObject.className());
@@ -105,8 +104,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
-    m_slider1->setStyle(AppUtil::saneStyle());
-    m_slider1->setFixedWidth(40);
+    m_slider1->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider1->setFixedWidth(32);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
     grid->addWidget(m_slider1, 2, 0, 1, 1);
@@ -121,8 +120,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
-    m_slider2->setStyle(AppUtil::saneStyle());
-    m_slider2->setFixedWidth(40);
+    m_slider2->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider2->setFixedWidth(32);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
     m_slider2->setInvertedAppearance(true);
@@ -182,7 +181,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_updateTimer->setSingleShot(true);
 
     /* Create control buttons */
-    QHBoxLayout *hbox = new QHBoxLayout(this);
+    QHBoxLayout *hbox = new QHBoxLayout();
     hbox->setSpacing(2);
 
     m_crossfadeButton = new QToolButton(this);
@@ -236,12 +235,15 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     else
         resize(QSize(300, 220));
 
-    slotModeChanged(mode());
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 
     connect(m_doc, SIGNAL(functionRemoved(quint32)),
             this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(functionChanged(quint32)),
             this, SLOT(slotFunctionChanged(quint32)));
+    connect(m_doc, SIGNAL(functionNameChanged(quint32)),
+            this, SLOT(slotFunctionNameChanged(quint32)));
 
     m_nextLatestValue = 0;
     m_previousLatestValue = 0;
@@ -250,7 +252,6 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
 VCCueList::~VCCueList()
 {
-    m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
 void VCCueList::enableWidgetUI(bool enable)
@@ -314,21 +315,43 @@ void VCCueList::setChaser(quint32 id)
     Function *old = m_doc->function(m_chaserID);
     if (old != NULL)
     {
+        /* Get rid of old function connections */
+        disconnect(old, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
         disconnect(old, SIGNAL(stopped(quint32)),
-            this, SLOT(slotChaserStopped(quint32)));
+                this, SLOT(slotFunctionStopped(quint32)));
+        disconnect(old, SIGNAL(currentStepChanged(int)),
+                this, SLOT(slotCurrentStepChanged(int)));
     }
 
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
+    if (chaser != NULL)
+    {
+        /* Connect to the new function */
+        connect(chaser, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
+        connect(chaser, SIGNAL(stopped(quint32)),
+                this, SLOT(slotFunctionStopped(quint32)));
+        connect(chaser, SIGNAL(currentStepChanged(int)),
+                this, SLOT(slotCurrentStepChanged(int)));
 
-    if (chaser == NULL)
-        m_chaserID = Function::invalidId();
+        m_chaserID = id;
+    }
     else
     {
-        m_chaserID = id;
-        connect(chaser, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotFunctionStopped(quint32)));
+        m_chaserID = Function::invalidId();
     }
+
     updateStepList();
+
+    /* Current status */
+    if (chaser != NULL && !chaser->stopped())
+    {
+        slotFunctionRunning(m_chaserID);
+        slotCurrentStepChanged(chaser->currentStepIndex());
+    }
+    else
+        slotFunctionStopped(m_chaserID);
 }
 
 quint32 VCCueList::chaserID() const
@@ -437,21 +460,30 @@ int VCCueList::getCurrentIndex()
     return index;
 }
 
-void VCCueList::stopFunction()
+void VCCueList::notifyFunctionStarting(quint32 fid)
 {
-    slotStop();
+    if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_chaserID)
+        return;
+
+    stopChaser();
 }
 
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaserID)
-    {
         setChaser(Function::invalidId());
-        updateStepList();
-    }
 }
 
 void VCCueList::slotFunctionChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+        m_updateTimer->start(UPDATE_TIMEOUT);
+}
+
+void VCCueList::slotFunctionNameChanged(quint32 fid)
 {
     if (fid == m_chaserID)
         m_updateTimer->start(UPDATE_TIMEOUT);
@@ -479,19 +511,20 @@ void VCCueList::slotUpdateStepList()
 
 void VCCueList::slotPlayback()
 {
-    if (mode() != Doc::Operate)
+    if (mode() == Doc::Design)
         return;
 
-    if (m_runner != NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+
+    if (ch->isRunning())
     {
-        slotStop();
+        stopChaser();
     }
     else
     {
-        m_mutex.lock();
-        int index = getCurrentIndex();
-        createRunner(index);
-        m_mutex.unlock();
+        startChaser(getCurrentIndex());
     }
 }
 
@@ -500,13 +533,19 @@ void VCCueList::slotNextCue()
     if (mode() != Doc::Operate)
         return;
 
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+
     /* Create the runner only when the first/last cue is engaged. */
-    m_mutex.lock();
-    if (m_runner == NULL)
-        createRunner();
+    if (ch->isRunning())
+    {
+        ch->next();
+    }
     else
-        m_runner->next();
-    m_mutex.unlock();
+    {
+        startChaser();
+    }
 }
 
 void VCCueList::slotPreviousCue()
@@ -514,36 +553,19 @@ void VCCueList::slotPreviousCue()
     if (mode() != Doc::Operate)
         return;
 
-    /* Create the runner only when the first/last cue is engaged. */
-    m_mutex.lock();
-    if (m_runner == NULL)
-        createRunner(m_tree->topLevelItemCount() - 1); // Start from end
-    else
-        m_runner->previous();
-    m_mutex.unlock();
-}
-
-void VCCueList::slotStop()
-{
-    if (mode() != Doc::Operate)
+    Chaser* ch = chaser();
+    if (ch == NULL)
         return;
 
-    m_mutex.lock();
-    if (m_runner != NULL)
-        m_stop = true;
-    m_playbackButton->setIcon(QIcon(":/player_play.png"));
-    m_sl1BottomLabel->setText("");
-    m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
-    m_sl2BottomLabel->setText("");
-    m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
-    // reset any previously set background
-    QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
-    if (item != NULL)
-        item->setBackground(COL_NUM, m_defCol);
-    m_mutex.unlock();
-
-    /* Start from the beginning */
-    //m_tree->setCurrentItem(NULL);
+    /* Create the runner only when the first/last cue is engaged. */
+    if (ch->isRunning())
+    {
+        ch->previous();
+    }
+    else
+    {
+        startChaser(m_tree->topLevelItemCount() - 1);
+    }
 }
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
@@ -563,15 +585,7 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
-    m_primaryIndex = m_tree->indexOfTopLevelItem(item);
-    if (m_runner == NULL)
-        createRunner(m_primaryIndex);
-    else
-        m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
-
-    setSlidersInfo(m_primaryIndex);
-    m_mutex.unlock();
+    playCueAtIndex(m_tree->indexOfTopLevelItem(item));
 }
 
 void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
@@ -589,34 +603,51 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
 
     step.note = itemText;
     ch->replaceStep(step, idx);
-    updateStepList();
+}
+
+void VCCueList::slotFunctionRunning(quint32 fid)
+{
+    if (fid == m_chaserID)
+    {
+        m_playbackButton->setIcon(QIcon(":/player_stop.png"));
+        m_timer->start(PROGRESS_INTERVAL);
+    }
 }
 
 void VCCueList::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_chaserID && m_runner != NULL)
+    if (fid == m_chaserID)
     {
+        m_playbackButton->setIcon(QIcon(":/player_play.png"));
+        m_sl1BottomLabel->setText("");
+        m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
+        m_sl2BottomLabel->setText("");
+        m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
+        // reset any previously set background
+        QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+        if (item != NULL)
+            item->setBackground(COL_NUM, m_defCol);
+
+        emit stepChanged(-1);
+
         qDebug() << Q_FUNC_INFO << "Cue stopped";
-        Chaser* ch = chaser();
-        if (ch != NULL)
-            ch->useInternalRunner(true);
-        slotStop();
     }
 }
 
 void VCCueList::slotProgressTimeout()
 {
-    if (m_runner == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL || ch->stopped())
         return;
 
-    ChaserRunnerStep *step = m_runner->currentRunningStep();
-    if (step != NULL)
+    ChaserRunnerStep step(ch->currentRunningStep());
+    if (step.m_function != NULL)
     {
         int status = m_progress->property("status").toInt();
         int newstatus;
-        if (step->m_fadeIn == Function::defaultSpeed())
+        if (step.m_fadeIn == Function::defaultSpeed())
             newstatus = 1;
-        else if (step->m_elapsed > (quint32)step->m_fadeIn)
+        else if (step.m_elapsed > (quint32)step.m_fadeIn)
             newstatus = 1;
         else
             newstatus = 0;
@@ -629,12 +660,12 @@ void VCCueList::slotProgressTimeout()
                 m_progress->setStyleSheet(progressHoldStyle);
             m_progress->setProperty("status", newstatus);
         }
-        if (step->m_duration == Function::infiniteSpeed())
+        if (step.m_duration == Function::infiniteSpeed())
         {
-            if (newstatus == 0 && step->m_fadeIn != Function::defaultSpeed())
+            if (newstatus == 0 && step.m_fadeIn != Function::defaultSpeed())
             {
-                double progress = ((double)step->m_elapsed / (double)step->m_fadeIn) * (double)m_progress->width();
-                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step->m_fadeIn - step->m_elapsed)));
+                double progress = ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
+                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
             }
             else
@@ -646,8 +677,8 @@ void VCCueList::slotProgressTimeout()
         }
         else
         {
-            double progress = ((double)step->m_elapsed / (double)step->m_duration) * (double)m_progress->width();
-            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step->m_duration - step->m_elapsed)));
+            double progress = ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
+            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
             m_progress->setValue(progress);
         }
     }
@@ -655,29 +686,23 @@ void VCCueList::slotProgressTimeout()
         m_progress->setValue(0);
 }
 
-void VCCueList::createRunner(int startIndex)
+void VCCueList::startChaser(int startIndex)
 {
-    Q_ASSERT(m_runner == NULL);
-
     Chaser* ch = chaser();
-    if (ch != NULL)
-    {
-        ch->useInternalRunner(false);
-        ch->start(m_doc->masterTimer());
-        emit functionStarting();
-        m_runner = new ChaserRunner(m_doc, ch);
-        Q_ASSERT(m_runner != NULL);
-        //m_runner->moveToThread(QCoreApplication::instance()->thread());
-        //m_runner->setParent(ch);
-        m_runner->setCurrentStep(startIndex, (qreal)m_slider1->value() / 100);
-        m_primaryIndex = startIndex;
+    if (ch == NULL)
+        return;
+    ch->setStepIndex(startIndex);
+    ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
+    ch->start(m_doc->masterTimer());
+    emit functionStarting(m_chaserID);
+}
 
-        connect(m_runner, SIGNAL(currentStepChanged(int)),
-                this, SLOT(slotCurrentStepChanged(int)));
-        m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-        setSlidersInfo(startIndex);
-        m_timer->start(PROGRESS_INTERVAL);
-    }
+void VCCueList::stopChaser()
+{
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+    ch->stop();
 }
 
 /*****************************************************************************
@@ -685,10 +710,11 @@ void VCCueList::createRunner(int startIndex)
  *****************************************************************************/
 void VCCueList::setSlidersInfo(int index)
 {
-    if (chaser() == NULL || m_runner == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL || ch->stopped())
         return;
 
-    int tmpIndex = m_runner->computeNextStep(index);
+    int tmpIndex = ch->computeNextStep(index);
 
     m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? index + 1 : tmpIndex + 1));
     m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? cfLabelBlueStyle : cfLabelOrangeStyle);
@@ -725,22 +751,23 @@ void VCCueList::slotSlider1ValueChanged(int value)
     if (m_linkCheck->isChecked())
         m_slider2->setValue(100 - value);
 
-    if (m_runner == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL || ch->stopped())
         return;
 
-    m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+    ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
 
-    if(m_runner->runningStepsNumber() == 2)
+    if(ch->runningStepsNumber() == 2)
     {
         if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
         {
-            m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+            ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
             m_primaryLeft = false;
             switchFunction = true;
         }
         else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
         {
-            m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+            ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
             m_primaryLeft = true;
             switchFunction = true;
         }
@@ -767,22 +794,23 @@ void VCCueList::slotSlider2ValueChanged(int value)
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
 
-    if (m_runner == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL || ch->stopped())
         return;
 
-    m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+    ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
 
-    if (m_runner->runningStepsNumber() == 2)
+    if (ch->runningStepsNumber() == 2)
     {
         if (m_primaryLeft == false && value == 0 && m_slider1->value() == 100)
         {
-            m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+            ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
             m_primaryLeft = true;
             switchFunction = true;
         }
         else if (m_primaryLeft == true && value == 100 && m_slider1->value() == 0)
         {
-            m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+            ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
             m_primaryLeft = false;
             switchFunction = true;
         }
@@ -800,39 +828,6 @@ void VCCueList::slotSlider2ValueChanged(int value)
         setSlidersInfo(m_primaryIndex);
     }
     updateFeedback();
-}
-/*****************************************************************************
- * DMX Source
- *****************************************************************************/
-
-void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
-{
-    m_mutex.lock();
-    if (m_runner != NULL)
-    {
-        if (m_stop == false)
-        {
-            m_runner->write(timer, universes);
-        }
-        else
-        {
-            m_timer->stop();
-            //m_progress->setValue(0);
-            //m_progress->setFormat("");
-            m_runner->postRun(timer, universes);
-            delete m_runner;
-            m_runner = NULL;
-            m_stop = false;
-            Chaser* ch = chaser();
-            if (ch != NULL)
-            {
-                ch->stop();
-                ch->useInternalRunner(true);
-            }
-            emit stepChanged(-1);
-        }
-    }
-    m_mutex.unlock();
 }
 
 /*****************************************************************************
@@ -896,7 +891,7 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (m_doc->mode() == Doc::Design || isEnabled() == false)
+    if (mode() == Doc::Design || isEnabled() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -992,8 +987,6 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     bool enable = false;
     if (mode == Doc::Operate)
     {
-        Q_ASSERT(m_runner == NULL);
-        m_doc->masterTimer()->registerDMXSource(this, "CueList");
         m_progress->setStyleSheet(progressFadeStyle);
         m_progress->setRange(0, m_progress->width());
         enable = true;
@@ -1002,12 +995,6 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        m_doc->masterTimer()->unregisterDMXSource(this);
-        m_mutex.lock();
-        if (m_runner != NULL)
-            delete m_runner;
-        m_runner = NULL;
-        m_mutex.unlock();
         m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
         m_sl1BottomLabel->setText("");
         m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
@@ -1034,132 +1021,27 @@ void VCCueList::editProperties()
         m_doc->setModified();
 }
 
-QString VCCueList::getCSS()
-{
-    QString str = "<style>\n"
-            ".vccuelist {\n"
-            "position: absolute;\n"
-            "border: 1px solid #777777;\n"
-            "border-radius: 3px;\n"
-            "}\n"
-
-            ".vccuelistButton {\n"
-            " display: inline-block;\n"
-            " vertical-align: top;\n"
-            " background: linear-gradient(to bottom, #F6F6F6 0%, #DFDDDC 100%);\n"
-            " background: -ms-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
-            " background: -moz-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
-            " background: -o-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
-            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #DFDDDC));\n"
-            " background: -webkit-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);\n"
-            " border-radius: 3px;\n"
-            " border: 1px solid #808080;\n"
-            " margin: 2px 2px 0 0;\n"
-            " padding: 1px;\n"
-            " height: 27px;\n"
-            " width: 30%;\n"
-            " text-align: center;\n"
-            "}\n"
-
-            ".vccuelistButton:active { background: #868585; }\n"
-
-            "table.hovertable {\n"
-            " font-family: verdana,arial,sans-serif;\n"
-            " font-size:11px;\n"
-            " color:#333333;\n"
-            " border-width: 1px;\n"
-            " border-color: #999999;\n"
-            " border-collapse: collapse;\n"
-            "}\n"
-
-            "table.hovertable th {\n"
-            " background-color:#DCD9D6;\n"
-            " border-width: 1px;\n"
-            " padding: 3px;\n"
-            " border-style: solid;\n"
-            " border-color: #a9c6c9;\n"
-            " text-align: left;\n"
-            "}\n"
-
-            "table.hovertable tr {\n"
-            " background-color:#ffffff;\n"
-            "}\n"
-
-            "table.hovertable td {\n"
-            " border-width: 1px;\n"
-            " padding: 3px;\n"
-            " border-style: solid;\n"
-            " border-color: #a9c6c9;\n"
-            "}\n"
-
-            "</style>\n";
-
-    return str;
-}
-
-QString VCCueList::getJS()
-{
-    QString str =
-      "var cueListsIndices = new Array();\n\n"
-
-      "function setCueIndex(id, idx) {\n"
-      " var oldIdx = cueListsIndices[id];\n"
-      " if (oldIdx != undefined && oldIdx != -1) {\n"
-      "   var oldCueObj = document.getElementById(id + \"_\" + oldIdx);\n"
-      "   oldCueObj.style.backgroundColor='#FFFFFF';\n"
-      " }\n"
-      " cueListsIndices[id] = idx;\n"
-      " var currCueObj = document.getElementById(id + \"_\" + idx);\n"
-      " if (idx != \"-1\")\n"
-      "   currCueObj.style.backgroundColor='#5E7FDF';\n"
-      "}\n"
-
-      "function sendCueCmd(id, cmd) {\n"
-      " if (cmd == \"PLAY\") {\n"
-      "   var obj = document.getElementById(\"play\" + id);\n"
-      "   if (cueListsIndices[id] == -1) {\n"
-      "     obj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
-      "     setCueIndex(id, 0);\n"
-      "   }\n"
-      "   else {\n"
-      "     obj.innerHTML = \"<img src='player_play.png'' width=27></img>\";\n"
-      "     setCueIndex(id, -1);\n"
-      "   }\n"
-      " }\n"
-      " websocket.send(id + \"|\" + cmd);\n"
-      "}\n"
-
-      "function checkMouseOut(id, idx) {\n"
-      " var obj = document.getElementById(id + \"_\" + idx);\n"
-      " if(idx == cueListsIndices[id])\n"
-      "   obj.style.backgroundColor='#5E7FDF';\n"
-      " else\n"
-      "   obj.style.backgroundColor='#FFFFFF';\n"
-      " }\n"
-
-      "function enableCue(id, idx) {\n"
-      " var btnObj = document.getElementById(\"play\" + id);\n"
-      " btnObj.innerHTML = \"<img src='player_stop.png'' width=27></img>\";\n"
-      " setCueIndex(id, idx);\n"
-      " websocket.send(id + \"|STEP|\" + idx);\n"
-      "}\n";
-    return str;
-}
-
 void VCCueList::playCueAtIndex(int idx)
 {
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
     m_primaryIndex = idx;
-    if (m_runner == NULL)
-        createRunner(m_primaryIndex);
+
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+
+    if (!ch->stopped())
+    {
+        ch->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
+    }
     else
-        m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
+    {
+        startChaser(m_primaryIndex);
+    }
 
     setSlidersInfo(m_primaryIndex);
-    m_mutex.unlock();
 }
 
 /*****************************************************************************

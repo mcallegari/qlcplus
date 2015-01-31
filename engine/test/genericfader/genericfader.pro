@@ -14,4 +14,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += genericfader_test.cpp
-HEADERS += genericfader_test.h
+HEADERS += genericfader_test.h ../common/resource_paths.h
+

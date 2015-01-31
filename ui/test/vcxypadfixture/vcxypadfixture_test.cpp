@@ -31,7 +31,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void VCXYPadFixture_Test::initTestCase()
 {

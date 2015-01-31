@@ -63,6 +63,14 @@ protected:
      */
     void updateTooltip();
 
+    /**
+     * @brief getDefaultActions get the list of the default actions
+     *        that can be performed on an item
+     * @return a QList of QAction pointers
+     */
+
+    QList<QAction *> getDefaultActions();
+
 public:
 
     /**
@@ -101,7 +109,7 @@ public:
      *
      * @param msec the item duration in milliseconds
      */
-    virtual void setDuration(quint32 msec);
+    virtual void setDuration(quint32 msec, bool stretch);
 
     /**
      * @brief getDuration virtual method that returns the item total duration

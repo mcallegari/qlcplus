@@ -70,6 +70,7 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     , m_gridWSpin(NULL)
     , m_gridHSpin(NULL)
     , m_unitsCombo(NULL)
+    , m_labelsAction(NULL)
 {
     Q_ASSERT(doc != NULL);
 
@@ -457,10 +458,10 @@ void Monitor::initGraphicsToolbar()
     m_toolBar->addAction(QIcon(":/image.png"), tr("Set a background picture"),
                        this, SLOT(slotSetBackground()));
 
-    action = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
-    action->setCheckable(true);
-    action->setChecked(m_props->labelsVisible());
-    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
+    m_labelsAction = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
+    m_labelsAction->setCheckable(true);
+    m_labelsAction->setChecked(m_props->labelsVisible());
+    connect(m_labelsAction, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
 }
 
 void Monitor::slotChooseFont()
@@ -726,6 +727,8 @@ void Monitor::slotAddFixture()
             m_doc->setModified();
         }
     }
+    if (m_labelsAction->isChecked())
+        slotShowLabels(true);
 }
 
 void Monitor::slotRemoveFixture()

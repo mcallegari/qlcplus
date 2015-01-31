@@ -22,6 +22,7 @@
 #include <qmath.h>
 #include <QDebug>
 #include <QMenu>
+#include <qmath.h>
 
 #include "efxitem.h"
 #include "trackitem.h"
@@ -46,7 +47,7 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
 void EFXItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 efx_duration = m_efx->totalDuration();
+    qint64 efx_duration = m_function->duration();
 
     if (efx_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)efx_duration) / 1000;
@@ -63,9 +64,20 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    //float timeScale = 50/(float)m_timeScale;
+    float xpos = 0;
+    float timeScale = 50/(float)m_timeScale;
+    quint32 efxDuration = m_efx->totalDuration();
 
     ShowItem::paint(painter, option, widget);
+
+    int loopCount = qFloor(m_function->duration() / efxDuration);
+    for (int i = 0; i < loopCount; i++)
+    {
+        xpos += ((timeScale * (float)efxDuration) / 1000);
+        // draw loop vertical delimiter
+        painter->setPen(QPen(Qt::white, 1));
+        painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
+    }
 
     ShowItem::postPaint(painter);
 }
@@ -76,9 +88,18 @@ void EFXItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void EFXItem::setDuration(quint32 msec)
+void EFXItem::setDuration(quint32 msec, bool stretch)
 {
-    m_efx->setDuration(msec);
+    if (stretch == true)
+        m_efx->setDuration(msec);
+    else
+    {
+        if (m_function)
+            m_function->setDuration(msec);
+        prepareGeometryChange();
+        calculateWidth();
+        updateTooltip();
+    }
 }
 
 QString EFXItem::functionName()
@@ -96,21 +117,10 @@ EFX *EFXItem::getEFX()
 void EFXItem::slotEFXChanged(quint32)
 {
     prepareGeometryChange();
-    calculateWidth();
     if (m_function)
         m_function->setDuration(m_efx->totalDuration());
+    calculateWidth();
     updateTooltip();
-}
-
-
-void EFXItem::slotAlignToCursorClicked()
-{
-    emit alignToCursor(this);
-}
-
-void EFXItem::slotLockItemClicked()
-{
-    setLocked(!isLocked());
 }
 
 void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
@@ -120,18 +130,8 @@ void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
 
     menu.exec(QCursor::pos());
 }

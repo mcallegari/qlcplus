@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Tavon Markov</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Intimidator Spot LED 150</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Pan / Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan / Tilt Speed</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Color="#ffffff">White</Capability>
+  <Capability Min="6" Max="11" Color="#ffff00">Yellow</Capability>
+  <Capability Min="12" Max="17" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="18" Max="23" Color="#00ff00">Green</Capability>
+  <Capability Min="24" Max="29" Color="#ff0000">Red</Capability>
+  <Capability Min="30" Max="35" Color="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="41" Color="#ff5500">Orange</Capability>
+  <Capability Min="42" Max="47" Color="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="53" Color="#55ff7f">Light Green</Capability>
+  <Capability Min="54" Max="63" Color="#ffaa00">Amber</Capability>
+  <Capability Min="64" Max="69" Color="#ffffff" Color2="#ffff00">White + Yellow</Capability>
+  <Capability Min="70" Max="75" Color="#ffff00" Color2="#ff00ff">Yellow + Magenta</Capability>
+  <Capability Min="76" Max="81" Color="#ff00ff" Color2="#00ff00">Magenta + Green</Capability>
+  <Capability Min="82" Max="87" Color="#00ff00" Color2="#ff0000">Green + Red</Capability>
+  <Capability Min="88" Max="93" Color="#ff0000" Color2="#00ffff">Red + Cyan</Capability>
+  <Capability Min="94" Max="99" Color="#00ffff" Color2="#ff5500">Cyan + Orange</Capability>
+  <Capability Min="100" Max="105" Color="#ff5500" Color2="#0000ff">Orange + Blue</Capability>
+  <Capability Min="106" Max="111" Color="#0000ff" Color2="#55ff7f">Blue + Light Green</Capability>
+  <Capability Min="112" Max="117" Color="#55ff7f" Color2="#ffaa00">Light Green + Amber</Capability>
+  <Capability Min="118" Max="127" Color="#ffaa00" Color2="#ffffff">Amber + White</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Color Cycle (Slow -> Fast)</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse Color Cycle (Slow -> Fast)</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">Blackout</Capability>
+  <Capability Min="4" Max="7">Open</Capability>
+  <Capability Min="8" Max="215">Stobe (0-20Hz)</Capability>
+  <Capability Min="216" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="6" Max="11" Res="Chauvet/gobo00045.png">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Res="Chauvet/gobo00046.png">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Res="Chauvet/gobo00047.png">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Res="Chauvet/gobo00048.png">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Res="Chauvet/gobo00049.png">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Res="Chauvet/gobo00050.png">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Res="Chauvet/gobo00051.png">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Res="Chauvet/gobo00052.png">Gobo 8</Capability>
+  <Capability Min="54" Max="63" Res="Chauvet/gobo00053.png">Gobo 9</Capability>
+  <Capability Min="64" Max="71" Res="Chauvet/gobo00053.png">Gobo 9 Shake (Slow -> Fast)</Capability>
+  <Capability Min="72" Max="79" Res="Chauvet/gobo00052.png">Gobo 8 Shake (Slow -> Fast)</Capability>
+  <Capability Min="80" Max="85" Res="Chauvet/gobo00051.png">Gobo 7 Shake (Slow -> Fast)</Capability>
+  <Capability Min="86" Max="91" Res="Chauvet/gobo00050.png">Gobo 6 Shake (Slow -> Fast)</Capability>
+  <Capability Min="92" Max="97" Res="Chauvet/gobo00049.png">Gobo 5 Shake (Slow -> Fast)</Capability>
+  <Capability Min="98" Max="103" Res="Chauvet/gobo00048.png">Gobo 4 Shake (Slow -> Fast)</Capability>
+  <Capability Min="104" Max="109" Res="Chauvet/gobo00047.png">Gobo 3 Shake (Slow -> Fast)</Capability>
+  <Capability Min="110" Max="115" Res="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -> Fast)</Capability>
+  <Capability Min="116" Max="121" Res="Chauvet/gobo00045.png">Gobo 1 Shake (Slow -> Fast)</Capability>
+  <Capability Min="122" Max="127" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="128" Max="191">Gobo Cycle (Slow -> Fast)</Capability>
+  <Capability Min="192" Max="255">Reverse Gobo Cycle (Slow -> Fast)</Capability>
+ </Channel>
+ <Channel Name="Control Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="8" Max="27">Blackout while moving Pan/Tilt</Capability>
+  <Capability Min="28" Max="47">Blackout while moving Gobo Gheel</Capability>
+  <Capability Min="48" Max="67">Disable blackout while Pan/Tilt / moving Gobo Wheel</Capability>
+  <Capability Min="68" Max="87">Blackout while moving Color Wheel</Capability>
+  <Capability Min="88" Max="107">Disable blackout while Pan/Tilt / moving Color Wheel</Capability>
+  <Capability Min="108" Max="127">Disable blackout while moving Gobo/Color Wheel</Capability>
+  <Capability Min="128" Max="147">Diable blackout while moving all options</Capability>
+  <Capability Min="148" Max="167">Reset Pan</Capability>
+  <Capability Min="168" Max="187">Reset Tilt</Capability>
+  <Capability Min="188" Max="207">Reset Color Wheel</Capability>
+  <Capability Min="208" Max="227">Reset Gobo Wheel</Capability>
+  <Capability Min="228" Max="247">Reset All Channels</Capability>
+  <Capability Min="248" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="Movement Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="8" Max="23">Auto Movement 1</Capability>
+  <Capability Min="24" Max="39">Auto Movement 2</Capability>
+  <Capability Min="40" Max="55">Auto Movement 3</Capability>
+  <Capability Min="56" Max="71">Auto Movement 4</Capability>
+  <Capability Min="72" Max="87">Auto Movement 5</Capability>
+  <Capability Min="88" Max="103">Auto Movement 6</Capability>
+  <Capability Min="104" Max="119">Auto Movement 7</Capability>
+  <Capability Min="120" Max="135">Auto Movement 8</Capability>
+  <Capability Min="136" Max="151">Sound-Activated Movement 1</Capability>
+  <Capability Min="152" Max="167">Sound-Activated Movement 2</Capability>
+  <Capability Min="168" Max="183">Sound-Activated Movement 3</Capability>
+  <Capability Min="184" Max="199">Sound-Activated Movement 4</Capability>
+  <Capability Min="200" Max="215">Sound-Activated Movement 5</Capability>
+  <Capability Min="216" Max="231">Sound-Activated Movement 6</Capability>
+  <Capability Min="232" Max="247">Sound-Activated Movement 7</Capability>
+  <Capability Min="248" Max="255">Sound-Activated Movement 8</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Height="291" Width="211" Depth="205" Weight="4.2"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
+   <Technical PowerConsumption="88" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Control Functions</Channel>
+  <Channel Number="10">Movement Macros</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Height="291" Width="211" Depth="205" Weight="4.2"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
+   <Technical PowerConsumption="88" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Wheel</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Gobo</Channel>
+ </Mode>
+</FixtureDefinition>

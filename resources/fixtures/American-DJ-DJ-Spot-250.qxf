@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>007ghg7</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>DJ Spot 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 to 265°)</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#ffffff" Min="0" Max="24">White</Capability>
+  <Capability Color="#ff0000" Min="25" Max="49">Red</Capability>
+  <Capability Color="#ffff00" Min="50" Max="74">Yellow</Capability>
+  <Capability Color="#0000ff" Min="75" Max="99">Blue</Capability>
+  <Capability Color="#00ff00" Min="100" Max="124">Green</Capability>
+  <Capability Color="#ff00ff" Min="125" Max="149">Purple</Capability>
+  <Capability Color="#ff8000" Min="150" Max="174">Orange</Capability>
+  <Capability Color="#ffc0ff" Min="175" Max="199">Pink</Capability>
+  <Capability Res="Others/rainbow.png" Min="200" Max="255">Rainbow Effect</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="16">none</Capability>
+  <Capability Res="Others/gobo00022.png" Min="17" Max="33">Spot</Capability>
+  <Capability Res="Others/gobo00024.png" Min="34" Max="50">Gobo 1</Capability>
+  <Capability Res="Others/gobo00025.png" Min="51" Max="67">Gobo 2</Capability>
+  <Capability Res="Others/gobo00026.png" Min="68" Max="84">Gobo 3</Capability>
+  <Capability Res="Others/gobo00027.png" Min="85" Max="101">Gobo 4</Capability>
+  <Capability Res="Others/gobo00028.png" Min="102" Max="118">Gobo 5</Capability>
+  <Capability Res="Others/gobo00029.png" Min="119" Max="135">Gobo 6</Capability>
+  <Capability Res="Others/gobo00030.png" Min="136" Max="152">Gobo 7</Capability>
+  <Capability Res="Others/gobo00031.png" Min="153" Max="169">Gobo 8</Capability>
+  <Capability Res="Others/gobo00032.png" Min="170" Max="186">Gobo 9</Capability>
+  <Capability Res="Others/gobo00033.png" Min="187" Max="199">Gobo 10</Capability>
+  <Capability Res="Others/rainbow.png" Min="200" Max="255">Rainbow Effect</Capability>
+ </Channel>
+ <Channel Name="Special Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No Rotation</Capability>
+  <Capability Min="16" Max="91">Gobo Strobe - Fast -> slow</Capability>
+  <Capability Min="92" Max="135">Color Strobe - Fast -> slow</Capability>
+  <Capability Min="136" Max="195">Gobo and Color Strobe - Fast -> slow</Capability>
+  <Capability Min="196" Max="255">Gobo Shake - Fast -> slow</Capability>
+ </Channel>
+ <Channel Name="Pan and tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan and tilt speed</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Physical>
+   <Bulb Type="LL-EHJ 24v/250w" ColourTemperature="6500" Lumens="2500"/>
+   <Dimensions Width="356" Height="495" Depth="343" Weight="18"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="540"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Special Functions</Channel>
+  <Channel Number="5">Pan and tilt speed</Channel>
+ </Mode>
+</FixtureDefinition>

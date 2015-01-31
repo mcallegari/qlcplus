@@ -38,6 +38,9 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
     else
         setColor(ShowFunction::defaultColor(Function::Chaser));
 
+    if (func->duration() == 0)
+        func->setDuration(seq->totalDuration());
+
     calculateWidth();
 
     connect(m_chaser, SIGNAL(changed(quint32)),
@@ -128,8 +131,9 @@ void SequenceItem::setTimeScale(int val)
     calculateWidth();
 }
 
-void SequenceItem::setDuration(quint32 msec)
+void SequenceItem::setDuration(quint32 msec, bool stretch)
 {
+    Q_UNUSED(stretch)
     m_chaser->setTotalDuration(msec);
 }
 
@@ -167,17 +171,8 @@ void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    menu.addAction(m_alignToCursor);
-    if (isLocked())
-    {
-        m_lockAction->setText(tr("Unlock item"));
-        m_lockAction->setIcon(QIcon(":/unlock.png"));
-    }
-    else
-    {
-        m_lockAction->setText(tr("Lock item"));
-        m_lockAction->setIcon(QIcon(":/lock.png"));
-    }
-    menu.addAction(m_lockAction);
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
+
     menu.exec(QCursor::pos());
 }

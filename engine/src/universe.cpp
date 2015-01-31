@@ -29,6 +29,7 @@
 #include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
+#include "qlcfile.h"
 
 #define UNIVERSE_SIZE 512
 #define RELATIVE_ZERO 127
@@ -123,7 +124,7 @@ void Universe::setPassthrough(bool enable)
     if (enable == m_passthrough)
         return;
 
-    qDebug() << "Set universe passthrough to" << enable;
+    qDebug() << "Set universe" << id() << "passthrough to" << enable;
 
     if (m_inputPatch != NULL)
     {
@@ -198,6 +199,7 @@ void Universe::reset()
     m_postGMValues->fill(0);
     zeroRelativeValues();
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
+    m_passthrough = false;
 }
 
 void Universe::reset(int address, int range)
@@ -369,7 +371,7 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
-            return false;
+            return true;
         }
     }
     if (m_fbPatch != NULL)
@@ -563,7 +565,8 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
 
     if (root.hasAttribute(KXMLQLCUniversePassthrough))
     {
-        if (root.attribute(KXMLQLCUniversePassthrough) == "true")
+        if (root.attribute(KXMLQLCUniversePassthrough) == KXMLQLCTrue ||
+            root.attribute(KXMLQLCUniversePassthrough) == "1")
             setPassthrough(true);
         else
             setPassthrough(false);
@@ -627,7 +630,10 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     QDomElement root = doc->createElement(KXMLQLCUniverse);
     root.setAttribute(KXMLQLCUniverseName, name());
     root.setAttribute(KXMLQLCUniverseID, id());
-    root.setAttribute(KXMLQLCUniversePassthrough, passthrough());
+    if (passthrough() == true)
+        root.setAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
+    else
+        root.setAttribute(KXMLQLCUniversePassthrough, KXMLQLCFalse);
 
     if (inputPatch() != NULL)
     {

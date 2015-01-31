@@ -136,7 +136,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sliderInteraction = false;
     m_inputValueChanged = false;
 
-    slotModeChanged(Doc::Design);
+    slotModeChanged(m_doc->mode());
+    setLiveEdit(m_liveEdit);
 }
 
 VCXYPad::~VCXYPad()
@@ -148,6 +149,7 @@ void VCXYPad::enableWidgetUI(bool enable)
 {
     m_vSlider->setEnabled(enable);
     m_hSlider->setEnabled(enable);
+    m_area->setMode(enable ? Doc::Operate : Doc::Design);
 }
 
 /*****************************************************************************
@@ -481,8 +483,6 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
         enableWidgetUI(false);
     }
-
-    m_area->setMode(mode);
 
     /* Reset the changed flag in m_area so that the pad won't immediately set a value
        when mode is changed */

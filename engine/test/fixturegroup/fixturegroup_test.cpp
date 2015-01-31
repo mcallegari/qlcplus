@@ -28,7 +28,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void FixtureGroup_Test::initTestCase()
 {

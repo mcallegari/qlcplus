@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Virtual Console Slider</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/slider.png" ALIGN="absmiddle"> Virtual Console Slider</H1>
+
+<P>
+Sliders are used for two distinct purposes: <A HREF="file:concept.html#Fixtures">Fixture</A>
+channel level setting and <A HREF="file:concept.html#Functions">Function</A> playback and intensity
+adjustment. Any slider can operate on either of these modes and each mode has its own
+configuration options.
+</P>
+
+<H3>Configuration</H3>
+
+<P>
+Sliders can be configured with the properties
+<IMG SRC="qrc:/edit.png" ALIGN="bottom"> button found in the toolbar or
+by double clicking the slider itself.
+</P>
+
+<H3>Configuration - General Tab</H3>
+
+<P>
+The General tab holds all of the slider's properties that are shared between
+the slider's two modes.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Slider name</B>
+  </TD>
+  <TD>
+   Change the slider's name.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Widget appearance</B></TD>
+  <TD>
+    A slider can be displayed as a vertical fader <IMG SRC="qrc:/slider.png" ALIGN="absmiddle"> 
+    or as a knob <IMG SRC="qrc:/knob.png" ALIGN="absmiddle">.
+    The appearance can be changed on the fly.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Value display style</B></TD>
+  <TD>
+   <UL>
+    <LI>Actual: Display actual DMX (0-255) values</LI>
+    <LI>Percentage: Display percentage values (0-100%)</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Slider movement</B></TD>
+  <TD>
+   <UL>
+    <LI>Normal: Values increase towards the top and decrease towards the bottom of the slider.</LI>
+    <LI>Inverted: Flip the slider upside down so that values increase towards the bottom and decrease towards the top.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>External input</B></TD>
+  <TD>
+   You can attach an external input channel from an input device (like a slider
+   board) to sliders so that you don't always have to use the mouse or touch screen
+   to move sliders.
+   <UL>
+    <LI>Input universe: The input universe from which you wish to get input data for
+    the slider.</LI>
+    <LI>Input channel: The individual input channel within the selected input
+    universe that you wish to use for controlling the slider.</LI>
+    <LI>Auto Detect: When toggled, you can just move/press a button/slider/knob
+    on your external input hardware and it will be automatically assigned to the
+    slider. The latest combination is shown on the text boxes when QLC+ receives
+    input data. If you don't see anything in the boxes, your input connection
+    might have a problem that you need to fix first.</LI>
+    <LI>Choose...: Shows the <A HREF="file:selectinputchannel.html">Select Input Channel</A>
+    dialog that you can use to select an input channel manually.</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>Configuration - Level Tab</H3>
+
+<P>
+If the slider is not currently in Level mode, all you see is a button telling you
+to click it to switch the slider to Level mode. After you click it, the
+Level mode properties will be shown.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Value Range</B></TD>
+  <TD>
+   <UL>
+    <LI>Low limit: Set the lowest DMX value that can be set by the slider.</LI>
+    <LI>High limit: Set the highest DMX value that can be set by the slider.t</LI>
+    <LI>From capability: You can limit the slider's level value range to a certain
+    capability range within a fixture's channel. When you have any channel value
+    range selected from the fixture list (for example <I>"Dimmer Control 006 - 128"</I>)
+    and you click this button, the <B>low and high limit</B> of this slider are
+    taken automatically from that capability and are set to 6 and 128, respectively.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Fixture list</B></TD>
+  <TD>
+   You can select individual channels from this list that contains all channels
+   from all of your fixtures. Those channels that you have placed the tick mark
+   beside will be controlled by this slider.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>All</B></TD>
+  <TD>
+   Clicking this button will select ALL channels from ALL fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>None</B></TD>
+  <TD>
+   Clicking this button will clear ALL channel selections from ALL fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Invert</B></TD>
+  <TD>
+   Invert the current selection. If you have channels 1, 3 and 5 selected from
+   all fixtures, clicking this button will de-select channels 1, 3 and 5 and
+   instead select channels 2, 4 and 6 from those fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>By group...</B></TD>
+  <TD>
+   If you wish to control a specific channel group from ALL fixtures, you can
+   click this button and select the channel group to control. Accepting the
+   dialog will select ALL channels that belong to the selected channel group from
+   ALL fixtures. This is particularly useful if you wish to have common control
+   over, for example, all of your scanners' <I>intensity</I> channels.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Monitor the selected channels and update the slider level</B></TD>
+  <TD><B>(EXPERIMENTAL)</B> By enabled this option, the slider will watch the DMX channels 
+      changes and if they assume all the same level, the slider will update accordingly 
+      for an immediate visual feedback
+  </TD>
+ </TR> 
+ <TR>
+  <TD><B>Click & Go</B></TD>
+  <TD>
+   Click & Go is a QLC+ technology which allows you to quickly access fixtures functionalities in
+   a completely visual way. When Click & Go is enabled, a button will appear at the bottom
+   of the slider and with just 2 clicks you will reach the desired result.<br>
+   The supported modes are:
+   <ul>
+    <li>None: Click & Go disabled. No button will be displayed.</li>
+    <li>Color: Single color selection. A gradient of the color controlled by the slider will be displayed, allowing you to jump
+    to the desired color visually.</li>
+    <li>RGB: RGB color selection. A RGB Color picker will be displayed, allowing you to pick any color from black to white.
+    16 preset colors are displayed on the left side for convenience. When selecting a color, the slider value will be 
+    placed half way (128). Moving it downward will fade towards black, while moving it upward will fade towards white.</li>
+    <li>Gobo/Effect: Gobo/Macro selection. A grid view of the fixture defined macros will be displayed and you will be able to choose
+    a macro from its color, its gobo or its name. When the mouse is over a macro cell, a blue bar will appear, allowing you to
+    choose an intermediate value within the same macro. This is useful for functionalities like Gobo rotation speed.</li>
+   </ul>
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>Configuration - Playback Tab</H3>
+
+<P>
+If the slider is not currently in Playback mode, all you see is a button telling you
+to click it to switch to Playback mode. After you click it, the
+Playback mode properties will be shown.
+</P>
+
+<P>
+When the slider is in playback mode, the slider acts like a combined button and slider.
+You can start a function AND simultaneously control the function's intensity with the slider.
+When the slider is at zero, the function is stopped but any value above zero will start
+the function (unless it has already been started) and simultaneously adjust the function's intensity
+(if applicable).
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Function</B></TD>
+  <TD>
+   Displays the function that is currently attached to the slider.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/attach.png"/>
+  </TD>
+  <TD>
+   Attach a function to the slider.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/detach.png"/>
+  </TD>
+  <TD>
+   Detach the currently attached function.
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>Configuration - Submaster Tab</H3>
+
+<P>
+If the slider is not currently in Submaster mode, all you see is a button telling you
+to click it to switch to Submaster mode. After you click it, the slider will be
+set to work as a submaster.
+</P>
+
+<P>
+When a slider is set to Submaster mode, it will control the intensity of every other 
+widget in the same frame (please keep in mind that the main Virtual Console area
+is a frame too !)<br>
+The intensity of a widget depends on the type of widget itself and which functionality
+it controls. A submaster will control the intensity of any QLC+ "light emitting"
+functionality, either a function or single channel levels.<br>
+For example a submaster can control the intensity of a function attached to a 
+<A HREF="file:vcbutton.html">button</A> or the channel levels associated to a 
+slider in level mode.<br>
+Every widget is controlled by a submaster even if the widget's functionality
+is not active yet. For example if a submaster is set to 50%, a button pressed
+afterward will start its associated function with 50% of intensity.
+</P>
+
+</BODY>
+</HTML>

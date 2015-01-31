@@ -2,7 +2,7 @@
 MEDIASERVICEPLUGIN_DIR  = $$(QTDIR)/plugins/mediaservice
 mediaservice.path = $$INSTALLROOT/PlugIns/mediaservice
 
-FLAVORS = qavfmediaplayer
+FLAVORS = qavfmediaplayer qtmedia_audioengine qqt7engine
 for(i, FLAVORS):{
     FILE = lib$${i}.dylib
     mediaservice.files += $$MEDIASERVICEPLUGIN_DIR/$$FILE
@@ -12,7 +12,8 @@ for(i, FLAVORS):{
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTMULTIMEDIAWIDGETS_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
-    qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/mediaservice/$$FILE $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    qtnametool.commands += && $$LIBQTOPENGL_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    # qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/mediaservice/$$FILE $$INSTALLROOT/PlugIns/mediaservice/$$FILE
 
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"

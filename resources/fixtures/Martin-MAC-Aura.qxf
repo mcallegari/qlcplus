@@ -1,0 +1,402 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC Aura</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Beam electronic shutter effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="24">Shutter open</Capability>
+  <Capability Min="25" Max="64">Strobe 1 (fast → slow)</Capability>
+  <Capability Min="65" Max="69">Shutter open</Capability>
+  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast → slow)</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
+  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast → slow)</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
+  <Capability Min="110" Max="124">Strobe 4: random strobe (fast → slow)</Capability>
+  <Capability Min="125" Max="129">Shutter open</Capability>
+  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast → slow)</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
+  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast → slow)</Capability>
+  <Capability Min="165" Max="169">Shutter open</Capability>
+  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast → slow)</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
+  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast → slow)</Capability>
+  <Capability Min="205" Max="209">Shutter open</Capability>
+  <Capability Min="210" Max="224">Strobe 9: sine wave (fast → slow)</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Beam dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Beam dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Wide → narrow</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan 0° - 540°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine adjustment (LSB)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt 0° - 232° </Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine adjustment (LSB)</Capability>
+ </Channel>
+ <Channel Name="Fixture control settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="15" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">PTSP = NORM</Capability>
+  <Capability Min="45" Max="49">PTSP = FAST</Capability>
+  <Capability Min="50" Max="54">PTSP = SLOW</Capability>
+  <Capability Min="55" Max="59">No function</Capability>
+  <Capability Min="60" Max="64">Fan mode FULL</Capability>
+  <Capability Min="65" Max="69">No function</Capability>
+  <Capability Min="70" Max="74">Fan mode Regulated</Capability>
+  <Capability Min="75" Max="89">No function</Capability>
+  <Capability Min="90" Max="94">Calibrated color output mode COLOR CALIB = ON</Capability>
+  <Capability Min="95" Max="99">No function</Capability>
+  <Capability Min="100" Max="104">Raw color output mode COLOR CALIB = OFF</Capability>
+  <Capability Min="105" Max="109">No function</Capability>
+  <Capability Min="110" Max="114">Fast dimming, speed of changes unrestricted</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
+  <Capability Min="120" Max="124">Smooth dimming, speed of changes restricted slightly</Capability>
+  <Capability Min="125" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Illuminate display</Capability>
+ </Channel>
+ <Channel Name="Beam color wheel effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
+  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
+  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
+  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
+  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
+  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
+  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
+  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
+  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
+  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
+  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
+  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
+  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
+  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
+  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
+  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
+  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
+  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
+  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
+  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
+  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
+  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
+  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
+  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
+  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
+  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
+  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
+  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
+  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
+  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
+  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
+  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
+  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
+  <Capability Min="175" Max="179">Open</Capability>
+  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207">Stop Rot</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
+  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Beam Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Beam Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Beam Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Beam White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Beam CTC">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Disabled</Capability>
+  <Capability Min="20" Max="255">10 000K → 2 500K</Capability>
+ </Channel>
+ <Channel Name="FX1 select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Idle</Capability>
+  <Capability Min="10" Max="12">Dimmer sync</Capability>
+  <Capability Min="13" Max="15">Strobe sync</Capability>
+  <Capability Min="16" Max="18">Dimmer + strobe sync</Capability>
+  <Capability Min="19" Max="21">Aura color sync</Capability>
+  <Capability Min="22" Max="24">Aura all sync</Capability>
+  <Capability Min="25" Max="39">Reserved</Capability>
+  <Capability Min="40" Max="42">Aura strobe delay</Capability>
+  <Capability Min="43" Max="45">Strobe alternate single</Capability>
+  <Capability Min="46" Max="48">Strobe alternate dual</Capability>
+  <Capability Min="49" Max="51">Strobe alternate triple</Capability>
+  <Capability Min="52" Max="54">3-step strobe</Capability>
+  <Capability Min="55" Max="60">Reserved</Capability>
+  <Capability Min="61" Max="63">Intensity random alternate</Capability>
+  <Capability Min="64" Max="66">Aura ramp, Beam flash</Capability>
+  <Capability Min="67" Max="69">Beam ramp, Aura flash</Capability>
+  <Capability Min="70" Max="72">Intensity Aura, Beam ramp</Capability>
+  <Capability Min="73" Max="75">Intensity Beam, Aura ramp</Capability>
+  <Capability Min="76" Max="99">Reserved</Capability>
+  <Capability Min="100" Max="102">Aura color offset</Capability>
+  <Capability Min="103" Max="108">Reserved</Capability>
+  <Capability Min="109" Max="111">Hue shimmer</Capability>
+  <Capability Min="112" Max="114">Saturation shimmer</Capability>
+  <Capability Min="115" Max="126">Reserved</Capability>
+  <Capability Min="127" Max="129">Color strobe</Capability>
+  <Capability Min="130" Max="132">Color offset strobe</Capability>
+  <Capability Min="133" Max="135">Aura color strobe</Capability>
+  <Capability Min="136" Max="138">Aura color offset strobe</Capability>
+  <Capability Min="139" Max="141">Color spikes</Capability>
+  <Capability Min="142" Max="159">Reserved</Capability>
+  <Capability Min="160" Max="162">Color zoom ramp in</Capability>
+  <Capability Min="163" Max="165">Color zoom ramp out</Capability>
+  <Capability Min="166" Max="168">Color zoom fade in</Capability>
+  <Capability Min="169" Max="171">Color zoom fade out</Capability>
+  <Capability Min="172" Max="174">Reserved</Capability>
+  <Capability Min="175" Max="177">Zoom ramp up</Capability>
+  <Capability Min="178" Max="180">Zoom ramp down</Capability>
+  <Capability Min="181" Max="219">Reserved</Capability>
+  <Capability Min="220" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="FX1 adjust, sync speed adjust">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Min > Max</Capability>
+ </Channel>
+ <Channel Name="FX2 select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Idle</Capability>
+  <Capability Min="10" Max="12">Dimmer sync</Capability>
+  <Capability Min="13" Max="15">Strobe sync</Capability>
+  <Capability Min="16" Max="18">Dimmer + strobe sync</Capability>
+  <Capability Min="19" Max="21">Aura color sync</Capability>
+  <Capability Min="22" Max="24">Aura all sync</Capability>
+  <Capability Min="25" Max="39">Reserved</Capability>
+  <Capability Min="40" Max="42">Aura strobe delay</Capability>
+  <Capability Min="43" Max="45">Strobe alternate single</Capability>
+  <Capability Min="46" Max="48">Strobe alternate dual</Capability>
+  <Capability Min="49" Max="51">Strobe alternate triple</Capability>
+  <Capability Min="52" Max="54">3-step strobe</Capability>
+  <Capability Min="55" Max="60">Reserved</Capability>
+  <Capability Min="61" Max="63">Intensity random alternate</Capability>
+  <Capability Min="64" Max="66">Aura ramp, Beam flash</Capability>
+  <Capability Min="67" Max="69">Beam ramp, Aura flash</Capability>
+  <Capability Min="70" Max="72">Intensity Aura, Beam ramp</Capability>
+  <Capability Min="73" Max="75">Intensity Beam, Aura ramp</Capability>
+  <Capability Min="76" Max="99">Reserved</Capability>
+  <Capability Min="100" Max="102">Aura color offset</Capability>
+  <Capability Min="103" Max="108">Reserved</Capability>
+  <Capability Min="109" Max="111">Hue shimmer</Capability>
+  <Capability Min="112" Max="114">Saturation shimmer</Capability>
+  <Capability Min="115" Max="126">Reserved</Capability>
+  <Capability Min="127" Max="129">Color strobe</Capability>
+  <Capability Min="130" Max="132">Color offset strobe</Capability>
+  <Capability Min="133" Max="135">Aura color strobe</Capability>
+  <Capability Min="136" Max="138">Aura color offset strobe</Capability>
+  <Capability Min="139" Max="141">Color spikes</Capability>
+  <Capability Min="142" Max="159">Reserved</Capability>
+  <Capability Min="160" Max="162">Color zoom ramp in</Capability>
+  <Capability Min="163" Max="165">Color zoom ramp out</Capability>
+  <Capability Min="166" Max="168">Color zoom fade in</Capability>
+  <Capability Min="169" Max="171">Color zoom fade out</Capability>
+  <Capability Min="172" Max="174">Reserved</Capability>
+  <Capability Min="175" Max="177">Zoom ramp up</Capability>
+  <Capability Min="178" Max="180">Zoom ramp down</Capability>
+  <Capability Min="181" Max="219">Reserved</Capability>
+  <Capability Min="220" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="FX2 adjust, sync speed adjust">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Min > Max</Capability>
+ </Channel>
+ <Channel Name="Sync (FX synchronization)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No sync</Capability>
+  <Capability Min="50" Max="50">Sync</Capability>
+  <Capability Min="51" Max="169">Sync shift</Capability>
+  <Capability Min="170" Max="209">Sync random</Capability>
+  <Capability Min="210" Max="255">No sync, random</Capability>
+ </Channel>
+ <Channel Name="Aura shutter and strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">closed</Capability>
+  <Capability Min="20" Max="24">open</Capability>
+  <Capability Min="25" Max="64">Strobe 1  (fast → slow)</Capability>
+  <Capability Min="65" Max="69">open</Capability>
+  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast → slow)</Capability>
+  <Capability Min="85" Max="89">open</Capability>
+  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast → slow)</Capability>
+  <Capability Min="105" Max="109">open</Capability>
+  <Capability Min="110" Max="124">Strobe 4: random strobe (fast → slow)</Capability>
+  <Capability Min="125" Max="129">open</Capability>
+  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast → slow)</Capability>
+  <Capability Min="145" Max="149">open</Capability>
+  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast → slow)</Capability>
+  <Capability Min="165" Max="169">open</Capability>
+  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast → slow)</Capability>
+  <Capability Min="185" Max="189">open</Capability>
+  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast → slow)</Capability>
+  <Capability Min="205" Max="209">open</Capability>
+  <Capability Min="210" Max="224">Strobe 9: sine wave (fast → slow)</Capability>
+  <Capability Min="225" Max="229">open</Capability>
+  <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
+  <Capability Min="245" Max="255">open</Capability>
+ </Channel>
+ <Channel Name="Aura dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Aura dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Aura color wheel effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
+  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
+  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
+  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
+  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
+  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
+  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
+  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
+  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
+  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
+  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
+  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
+  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
+  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
+  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
+  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
+  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
+  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
+  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
+  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
+  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
+  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
+  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
+  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
+  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
+  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
+  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
+  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
+  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
+  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
+  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
+  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
+  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
+  <Capability Min="175" Max="179">Open</Capability>
+  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207">Stop Rot</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
+  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Aura Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Aura Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Aura Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Mode Name="Extended Mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
+   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
+   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
+   <Focus Type="Head" PanMax="540" TiltMax="232"/>
+   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Beam electronic shutter effect</Channel>
+  <Channel Number="1">Beam dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture control settings</Channel>
+  <Channel Number="8">Beam color wheel effect</Channel>
+  <Channel Number="9">Beam Red</Channel>
+  <Channel Number="10">Beam Green</Channel>
+  <Channel Number="11">Beam Blue</Channel>
+  <Channel Number="12">Beam White</Channel>
+  <Channel Number="13">Beam CTC</Channel>
+  <Channel Number="14">FX1 select</Channel>
+  <Channel Number="15">FX1 adjust, sync speed adjust</Channel>
+  <Channel Number="16">FX2 select</Channel>
+  <Channel Number="17">FX2 adjust, sync speed adjust</Channel>
+  <Channel Number="18">Sync (FX synchronization)</Channel>
+  <Channel Number="19">Aura shutter and strobe effect</Channel>
+  <Channel Number="20">Aura dimmer</Channel>
+  <Channel Number="21">Aura color wheel effect</Channel>
+  <Channel Number="22">Aura Red</Channel>
+  <Channel Number="23">Aura Green</Channel>
+  <Channel Number="24">Aura Blue</Channel>
+ </Mode>
+ <Mode Name="Standard Mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
+   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
+   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
+   <Focus Type="Head" PanMax="540" TiltMax="232"/>
+   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Beam electronic shutter effect</Channel>
+  <Channel Number="1">Beam dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture control settings</Channel>
+  <Channel Number="8">Beam color wheel effect</Channel>
+  <Channel Number="9">Beam Red</Channel>
+  <Channel Number="10">Beam Green</Channel>
+  <Channel Number="11">Beam Blue</Channel>
+  <Channel Number="12">Beam White</Channel>
+  <Channel Number="13">Beam CTC</Channel>
+ </Mode>
+</FixtureDefinition>

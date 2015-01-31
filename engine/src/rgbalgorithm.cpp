@@ -27,7 +27,9 @@
 #include "rgbimage.h"
 #include "rgbplain.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "rgbtext.h"
+#include "doc.h"
 
 RGBAlgorithm::RGBAlgorithm(const Doc * doc)
     : m_doc(doc)
@@ -57,7 +59,7 @@ QStringList RGBAlgorithm::algorithms(const Doc * doc)
     list << text.name();
     list << image.name();
     list << audio.name();
-    list << RGBScript::scriptNames(doc);
+    list << doc->rgbScriptsCache()->names();
     return list;
 }
 
@@ -76,7 +78,7 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
     else if (name == plain.name())
         return plain.clone();
     else
-        return RGBScript::script(doc, name).clone();
+        return doc->rgbScriptsCache()->script(name).clone();
 }
 
 /****************************************************************************
@@ -114,7 +116,7 @@ RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript scr = RGBScript::script(doc, root.text());
+        RGBScript const& scr = doc->rgbScriptsCache()->script(root.text());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
     }

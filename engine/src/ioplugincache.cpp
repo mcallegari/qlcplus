@@ -122,17 +122,6 @@ void IOPluginCache::slotConfigurationChanged()
 
 QDir IOPluginCache::systemPluginDirectory()
 {
-    QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(PLUGINDIR));
-#else
-    dir.setPath(PLUGINDIR);
-#endif
-
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtPlugin));
-
-    return dir;
+    return QLCFile::systemDirectory(PLUGINDIR, KExtPlugin);
 }
 

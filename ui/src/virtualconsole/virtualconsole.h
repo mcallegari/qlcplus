@@ -62,10 +62,11 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
+    Doc *getDoc();
+
+protected:
     /** Create a new channels group ID */
     quint32 newWidgetId();
-
-    Doc *getDoc();
 
 protected:
     static VirtualConsole* s_instance;
@@ -168,6 +169,7 @@ protected:
     QAction* m_addLabelAction;
     QAction* m_addAudioTriggersAction;
     QAction* m_addClockAction;
+    QAction* m_addAnimationAction;
 
     QAction* m_toolsSettingsAction;
 
@@ -214,9 +216,16 @@ private:
     /**
      * If a newly created widget belongs to a multipage frame,
      * then assign the current frame page to the widget and
-     * inform the frame of the new addition
+     * inform the frame of the new addition.
+     * This shall be called every time a widget is added in a frame.
      */
-    void checkWidgetPage(VCWidget *widget, VCWidget *parent);
+    void connectWidgetToParent(VCWidget *widget, VCWidget *parent);
+
+    /**
+     * If a widget is moved away from a frame (because of
+     * a deletion or a cut/paste), this shall be called.
+     */
+    void disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent);
 
 public slots:
     void slotAddButton();
@@ -232,6 +241,7 @@ public slots:
     void slotAddLabel();
     void slotAddAudioTriggers();
     void slotAddClock();
+    void slotAddAnimation();
 
     /*********************************************************************
      * Tools menu callbacks
@@ -288,12 +298,6 @@ public slots:
     void slotStackingLower();
 
     /*********************************************************************
-     * Audio triggers callbacks
-     *********************************************************************/
-public slots:
-    void slotEnableAudioTriggers(quint32 id);
-
-    /*********************************************************************
      * Dock Area
      *********************************************************************/
 public:
@@ -318,6 +322,7 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    void addWidgetInMap(VCWidget* widget);
     void setupWidget(VCWidget *widget, VCWidget *parent);
 
     VCWidget *widget(quint32 id);
@@ -372,6 +377,18 @@ public:
      *         false in case Doc has to start it
      */
     bool checkStartupFunction(quint32 fid);
+
+private:
+    bool m_liveEdit;
+public:
+    /** Toggle Virtual Console live editting */
+    void toggleLiveEdit();
+    bool liveEdit() const;
+
+private:
+    /** Enable or disable the Virtual Console edit tools */
+    void enableEdit();
+    void disableEdit();
 
 public slots:
     /** Slot that catches main application mode changes */

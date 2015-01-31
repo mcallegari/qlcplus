@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0 RC2</Version>
+  <Author>Jan-Hendrik Nolte</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Flat PAR CAN TRI 3W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Stroboscope rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="5" Max="15" Color="#ff0000">Red</Capability>
+  <Capability Min="16" Max="26" Color="#00ff00">Green</Capability>
+  <Capability Min="27" Max="37" Color="#0000ff">Blue</Capability>
+  <Capability Min="38" Max="48" Color="#ffff00">Yellow</Capability>
+  <Capability Min="49" Max="59" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="60" Max="70" Color="#00ffff">Cyan</Capability>
+  <Capability Min="71" Max="80" Color="#ffffff">White</Capability>
+  <Capability Min="81" Max="150" Res="Others/rainbow.png">Colour change (rate)</Capability>
+  <Capability Min="151" Max="220" Res="Others/rainbow.png">Colour blending (rate)</Capability>
+  <Capability Min="221" Max="255">Music control (microphone sensitivity)</Capability>
+ </Channel>
+ <Channel Name="Colour macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="36" Color="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Color="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Color="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Color="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Color="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Color="#ffffff">White</Capability>
+ </Channel>
+ <Mode Name="2-Channel Mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Colour macro</Channel>
+ </Mode>
+ <Mode Name="3-Channel Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Stroboscope rate</Channel>
+  <Channel Number="2">Mode</Channel>
+ </Mode>
+ <Mode Name="3-Channel Mode 2">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="6-Channel Mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Stroboscope rate</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Mode</Channel>
+ </Mode>
+</FixtureDefinition>

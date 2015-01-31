@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Joachim Wiedorn</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED Mini PAR CAN RGBW 7x8W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="Master">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Stroboscope</Capability>
+ </Channel>
+ <Channel Name="Color Mode">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Color="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Color="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Color="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="67" Color="#ffffff">White</Capability>
+  <Capability Min="68" Max="84" Color="#ff7f00">Orange</Capability>
+  <Capability Min="85" Max="101" Color="#00ffbd">Cyan</Capability>
+  <Capability Min="102" Max="118" Color="#a8518a">Lavender</Capability>
+  <Capability Min="119" Max="135" Color="#ff00ff">Pink</Capability>
+  <Capability Min="136" Max="152" Color="#55ff55">Bright Green</Capability>
+  <Capability Min="153" Max="169" Color="#ff0055">Magenta</Capability>
+  <Capability Min="170" Max="186" Color="#fe55fe">Pale Pink</Capability>
+  <Capability Min="187" Max="203" Color="#ffcc00">Amber</Capability>
+  <Capability Min="204" Max="220" Color="#ff55aa">Bright Magenta</Capability>
+  <Capability Min="221" Max="237" Color="#aaffff">Pale Cyan</Capability>
+  <Capability Min="238" Max="255" Color="#fdfdbd">Warm White</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="5" Max="10" Color="#ff0000">Red</Capability>
+  <Capability Min="11" Max="15" Color="#00ff00">Green</Capability>
+  <Capability Min="16" Max="20" Color="#0000ff">Blue</Capability>
+  <Capability Min="21" Max="25" Color="#ffffff">White</Capability>
+  <Capability Min="26" Max="30" Color="#ffff00">Yellow</Capability>
+  <Capability Min="31" Max="35" Color="#00ffbd">Cyan</Capability>
+  <Capability Min="36" Max="40" Color="#ff0055">Magenta</Capability>
+  <Capability Min="41" Max="45" Color="#ff00ff">Pink</Capability>
+  <Capability Min="46" Max="50" Color="#55ff55">Bright Green</Capability>
+  <Capability Min="51" Max="55" Color="#a8518a">Lavender</Capability>
+  <Capability Min="56" Max="60" Color="#fe55fe">Pale Pink</Capability>
+  <Capability Min="61" Max="65" Color="#ffcc00">Amber</Capability>
+  <Capability Min="66" Max="70" Color="#ff55aa">Bright Magenta</Capability>
+  <Capability Min="71" Max="75" Color="#aaffff">Pale Cyan</Capability>
+  <Capability Min="76" Max="80" Color="#fdfdbd">Warm White</Capability>
+  <Capability Min="81" Max="150">Color Jumping Speed</Capability>
+  <Capability Min="151" Max="220">Color Fading Speed</Capability>
+  <Capability Min="221" Max="255">Sound Control</Capability>
+ </Channel>
+ <Mode Name="2-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Color Mode</Channel>
+ </Mode>
+ <Mode Name="3-Channel Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Stroboscope</Channel>
+  <Channel Number="2">Color Macro</Channel>
+ </Mode>
+ <Mode Name="3-Channel Mode 2">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="168" Height="183" Weight="2" Depth="186"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Stroboscope</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color Macro</Channel>
+ </Mode>
+</FixtureDefinition>

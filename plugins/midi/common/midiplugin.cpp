@@ -402,7 +402,7 @@ void MidiPlugin::loadMidiTemplates(const QDir& dir)
     while (it.hasNext() == true)
     {
         QString path = dir.absoluteFilePath(it.next());
-        qDebug() << "file: " << path;
+        qDebug() << "Loading MIDI template:" << path;
 
         MidiTemplate* templ;
 
@@ -413,7 +413,7 @@ void MidiPlugin::loadMidiTemplates(const QDir& dir)
             addMidiTemplate(templ);
         } else
         {
-            qWarning() << Q_FUNC_INFO << "Unable to load a midi template from" << path;
+            qWarning() << Q_FUNC_INFO << "Unable to load a MIDI template from" << path;
         }
     }
 }

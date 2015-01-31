@@ -48,7 +48,7 @@ class VCAudioTriggers : public VCWidget, public DMXSource
     Q_DISABLE_COPY(VCAudioTriggers)
 
 public:
-    /** Default size for newly-created frames */
+    /** Default size for newly-created widget */
     static const QSize defaultSize;
 
     /*********************************************************************
@@ -58,8 +58,10 @@ public:
     VCAudioTriggers(QWidget* parent, Doc* doc);
     virtual ~VCAudioTriggers();
 
-protected slots:
-    void slotDocModeChanged(Doc::Mode mode);
+    void enableWidgetUI(bool enable);
+
+    /** @reimp */
+    virtual void notifyFunctionStarting(quint32 fid);
 
     /*********************************************************************
      * GUI
@@ -67,14 +69,11 @@ protected slots:
 public:
     void enableCapture(bool enable);
 
-signals:
-    void enableRequest(quint32 id);
-
 public slots:
     void slotEnableButtonToggled(bool toggle);
 
 protected slots:
-    void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
+    void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
 #endif
@@ -150,16 +149,6 @@ public:
 
     /** @reimp */
     void editProperties();
-
-    /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
 
     /*************************************************************************
      * Configuration

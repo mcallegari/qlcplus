@@ -123,7 +123,8 @@ public:
         SpeedDialWidget,
         CueListWidget,
         LabelWidget,
-        AudioTriggersWidget
+        AudioTriggersWidget,
+        AnimationWidget
     };
 
 public:
@@ -336,14 +337,14 @@ public:
      *  can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void stopFunction() { }
+    virtual void notifyFunctionStarting(quint32 fid) { Q_UNUSED(fid); }
 
 signals:
     /** Signal emitted when a VCWidget controlling a Function has been
       * requested to start the Function.
       * At the moment this is used by a restriceted number of widgets (see above)
       */
-    void functionStarting();
+    void functionStarting(quint32 fid);
 
     /*********************************************************************
      * Properties
@@ -467,16 +468,6 @@ signals:
     void keyReleased(const QKeySequence& keySequence);
 
     /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** Return a string with the CSS style of a widget */
-    virtual QString getCSS();
-
-    /** Return the Javascript code related to the widget */
-    virtual QString getJS();
-
-    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
@@ -529,15 +520,26 @@ protected:
     bool loadXMLWindowState(const QDomElement* tag, int* x, int* y,
                             int* w, int* h, bool* visible);
 
+
     /*********************************************************************
      * QLC+ Mode change
      *********************************************************************/
+protected:
+    bool m_liveEdit;
+public:
+    /**
+     * Virtual method that sets the liveEdit flag.
+     * If widget is not disabled, this calls enableWidgetUI.
+     */
+    virtual void setLiveEdit(bool liveEdit);
+    void cancelLiveEdit();
 protected slots:
     /** Listens to Doc mode changes */
     virtual void slotModeChanged(Doc::Mode mode);
 
 protected:
     /** Shortcut for inheritors to check current mode */
+    /** Does not reflect application mode, but virtualconsole mode */
     Doc::Mode mode() const;
 
     /*********************************************************************

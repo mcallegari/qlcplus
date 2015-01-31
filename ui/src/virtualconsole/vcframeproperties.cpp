@@ -40,7 +40,9 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_allowChildrenCheck->setChecked(frame->allowChildren());
     m_allowResizeCheck->setChecked(frame->allowResize());
     m_showHeaderCheck->setChecked(frame->isHeaderVisible());
+    m_showEnableButtonCheck->setChecked(frame->isEnableButtonVisible());
     m_enablePaging->setChecked(frame->multipageMode());
+    m_pagesLoopCheck->setChecked(frame->pagesLoop());
     if (frame->multipageMode() == true)
         m_showHeaderCheck->setEnabled(false);
     m_totalPagesSpin->setValue(frame->totalPagesNumber());
@@ -151,6 +153,11 @@ bool VCFrameProperties::cloneWidgets() const
     return m_cloneFirstPageCheck->isChecked();
 }
 
+bool VCFrameProperties::pagesLoop() const
+{
+    return m_pagesLoopCheck->isChecked();
+}
+
 void VCFrameProperties::slotMultipageChecked(bool enable)
 {
     if (enable == true)
@@ -188,8 +195,10 @@ void VCFrameProperties::accept()
         }
     }
     m_frame->setHeaderVisible(m_showHeaderCheck->isChecked());
+    m_frame->setEnableButtonVisible(m_showEnableButtonCheck->isChecked());
     m_frame->setMultipageMode(m_enablePaging->isChecked());
     m_frame->setTotalPagesNumber(m_totalPagesSpin->value());
+    m_frame->setPagesLoop(m_pagesLoopCheck->isChecked());
 
     /* Key sequences */
     m_frame->setEnableKeySequence(m_enableKeySequence);

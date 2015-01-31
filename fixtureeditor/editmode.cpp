@@ -255,7 +255,7 @@ void EditMode::refreshChannelList()
         str.sprintf("%.3d", (i + 1));
         item->setText(COL_NUM, str);
         item->setText(COL_NAME, ch->name());
-        item->setIcon(COL_NAME, ch->getIconFromGroup(ch->group()));
+        item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
     }
     m_channelList->resizeColumnToContents(COL_NUM);

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - RGB Matrix Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>RGB Matrix Editor</H1>
+<P>
+The RGB matrix editor, as its name suggests, is used to edit
+<IMG SRC="qrc:/rgbmatrix.png" align="absmiddle"> <A HREF="file:concept.html#RGBMatrix">RGB matrix</A> functions. 
+The function works on predefined
+<IMG SRC="qrc:/group.png" align="absmiddle"> <A HREF="file:concept.html#FixtureGroup">Fixture Groups</A> 
+created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A HREF="file:fixturemanager.html">Fixture Manager</A>.
+</P>
+
+<H2>Controls</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>RGB matrix name</B>
+  </TD>
+  <TD>
+   Change the name of the RGB matrix.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <img src="qrc:/speed.png" />
+  </TD>
+  <TD>
+    Adjust the RGB Matrix speed settings:
+    <P>
+      <LI><B>Fade In:</B> The time it takes for the fixtures in the RGB Matrix fixture group to fade their intensity channels up</LI>
+      <LI><B>Fade Out:</B> The time it takes for the fixtures in the RGB Matrix fixture group to fade their intensity channels back to zero</LI>
+      <LI><B>Duration:</B> The duration of each step of the selected pattern</LI>
+    </P>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <img src="qrc:/sequence.png" />
+  </TD>
+  <TD>
+   Convert the current RGB Matrix into a <A HREF="file:concept.html#Sequence">Sequence</A>. This is useful to speed
+   up the creation of a <A HREF="file:concept.html#Show">Show</A>. Please note that if the selected pattern
+   generates random data, this functionality will generate a different Sequence every time.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <img src="qrc:/square.png" />
+  </TD>
+  <TD>
+   Switch the preview mode between circles and squares
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <img src="qrc:/player_play.png" />
+  </TD>
+  <TD>
+   Make the RGB Matrix run as if it were started from a <A HREF="file:virtualconsole.html">Virtual Console</A>
+   button. Note that the preview stops while the function is running.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fixture group</B>
+  </TD>
+  <TD>
+   The <A HREF="file:concept.html#FixtureGroup">Fixture Group</A> that is controlled by this RGB matrix.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Preview area</B>
+  </TD>
+  <TD>
+   Shows a preview of the currently selected pattern imposed on the fixtures defined in the
+   currently selected fixture group. Note that the preview doesn't show the difference between
+   RGB-capable and monochrome/fixed color fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Pattern</B>
+  </TD>
+  <TD>
+   Select the pattern and color that are used on the selected fixture group for drawing graphics.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Plain Color</B>
+  </TD>
+  <TD>
+   When the <B>Plain Color</B> pattern is selected, all the pixels of the RGB Matrix will be lit to
+   the color selected
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Animated Text</B>
+  </TD>
+  <TD>
+   Available only when <B>Text</B> is the selected pattern.
+   <UL>
+    <LI>The text edit field is used to edit the text content that is scrolled/flashed on the matrix.</LI>
+    <LI>The font button <IMG SRC="qrc:/fonts.png"/> is used to select the font (tip: bitmap fonts work best)</LI>
+    <LI>The drop-down box is used to select the animation style (Horizontal, Vertical or Letters)</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Audio Spectrum</B>
+  </TD>
+  <TD>
+   When the <B>Audio Spectrum</B> pattern is selected, QLC+ will start capturing data from the chosen
+   audio input device and will represent the audio spectrum as vertical bars in the RGB Matrix with the
+   selected start and end color.<br>
+   For an optimal usage of this pattern, the hold time of the Matrix must be set to a reasonably low value (e.g. .20)
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Image</B>
+  </TD>
+  <TD>
+   Available only when <B>Image</B> is the selected pattern.
+   <UL>
+    <LI>The text edit field is used to edit the image filename</LI>
+    <LI>The image button <IMG SRC="qrc:/image.png"/> is used to select the image</LI>
+    <LI>The drop-down box is used to select the animation style (Static, Horizontal, Vertical or Animation)</LI>
+   </UL>
+   <P>Supported formats: PNG, XPM, JPG, GIF (for animated gifs only first frame is used).</P>
+   <P>Styles:</P>
+   <UL>
+    <LI><B>Static</B> - the image is statically displayed on the matrix. If the image is smaller than the matrix, 
+     it is repeated in both directions. (Tip: for stripes, use 1-point-high images)</LI>
+    <LI><B>Horizontal</B> - the image is scrolled horizontaly. Again, image is repeated in both directions.</LI>
+    <LI><B>Vertical</B> - same as <B>Horizontal</B>, but in vertical direction.</LI>
+    <LI><B>Animation</B> - play animation. Stack the frames (of width equal to matrix's) side by side in one image.
+     For example, when matrix is 8x8 and you want to have 4 frames, make image 32x8. The image is still repeated
+     vertically.</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Offset</B>
+  </TD>
+  <TD>
+   Available only when <B>Text</B> or <B>Image</B> is the selected pattern.
+   <UL>
+    <LI>X: Used to shift the pattern along the horizontal x-axis (negative values go to the left, positive values go to the right)</LI>
+    <LI>Y: Used to shift the pattern along the vertical y-axis (negative values go up, positive values go down)</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Run Order</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Loop: Run through the steps over and over again.</LI>
+    <LI>Single Shot: Run through the steps once and then stop.</LI>
+    <LI>Ping Pong: Run through the steps over and over again, reversing direction at both ends.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Direction</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Forward: Run through the steps from start to end; 1, 2, 3...</LI>
+    <LI>Backward: Run through the steps from end to start; ...3, 2, 1</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML> 

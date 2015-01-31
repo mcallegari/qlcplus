@@ -178,6 +178,19 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         m_audioWspin->setValue(200);
         m_audioHspin->setValue(200);
     }
+    // ***************** RGB MATRIX ************************
+    var = settings.value(SETTINGS_RGBMATRIX_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_matrixWspin->setValue(size.width());
+        m_matrixHspin->setValue(size.height());
+    }
+    else
+    {
+        m_matrixWspin->setValue(160);
+        m_matrixHspin->setValue(120);
+    }
 
     /* Grand Master page */
     switch (properties.grandMasterChannelMode())
@@ -276,6 +289,11 @@ QSize VCPropertiesEditor::soloFrameSize()
 QSize VCPropertiesEditor::audioTriggersSize()
 {
     return QSize(m_audioWspin->value(), m_audioHspin->value());
+}
+
+QSize VCPropertiesEditor::rgbMatrixSize()
+{
+    return QSize(m_matrixWspin->value(), m_matrixHspin->value());
 }
 
 /*****************************************************************************

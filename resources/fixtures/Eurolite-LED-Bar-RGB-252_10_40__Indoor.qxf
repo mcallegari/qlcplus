@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.3.0-r</Version>
+  <Author>Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Bar RGB 252/10 40° Indoor</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="15">Dimmer 1 (RGB mix, seperated segments)</Capability>
+  <Capability Min="16" Max="31">Dimmer 2 (RGB mix, all segments)</Capability>
+  <Capability Min="32" Max="47">Red</Capability>
+  <Capability Min="48" Max="63">Green</Capability>
+  <Capability Min="64" Max="79">Blue</Capability>
+  <Capability Min="80" Max="95">Purple</Capability>
+  <Capability Min="96" Max="111">Yellow</Capability>
+  <Capability Min="112" Max="127">Cyan</Capability>
+  <Capability Min="128" Max="143">White</Capability>
+  <Capability Min="144" Max="159">Color change</Capability>
+  <Capability Min="160" Max="175">Color flow</Capability>
+  <Capability Min="176" Max="191">Color dream</Capability>
+  <Capability Min="192" Max="207">Multi flow</Capability>
+  <Capability Min="208" Max="223">Dream flow</Capability>
+  <Capability Min="224" Max="239">Two colow flow</Capability>
+  <Capability Min="240" Max="255">Sound activity</Capability>
+ </Channel>
+ <Channel Name="All dimm / Speed / Sensitivity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">All dimm / Speed / Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Flash">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Flash (0=const, 255=fast)</Capability>
+ </Channel>
+ <Channel Name="Red1 / All Red / Select Color">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red1 / All Red</Capability>
+ </Channel>
+ <Channel Name="Green1 / All Green / Select Color 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 1 / All Green</Capability>
+ </Channel>
+ <Channel Name="Blue 1 / All Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 1 / All Blue</Capability>
+ </Channel>
+ <Channel Name="Red 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 2</Capability>
+ </Channel>
+ <Channel Name="Green 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 2</Capability>
+ </Channel>
+ <Channel Name="Blue 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 2</Capability>
+ </Channel>
+ <Channel Name="Red 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 3</Capability>
+ </Channel>
+ <Channel Name="Green 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 3</Capability>
+ </Channel>
+ <Channel Name="Blue 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 3</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
+   <Dimensions Width="1070" Height="90" Weight="2.5" Depth="65"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">All dimm / Speed / Sensitivity</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red1 / All Red / Select Color</Channel>
+  <Channel Number="4">Green1 / All Green / Select Color 2</Channel>
+  <Channel Number="5">Blue 1 / All Blue</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+ </Mode>
+</FixtureDefinition>

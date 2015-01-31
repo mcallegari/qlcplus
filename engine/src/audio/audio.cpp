@@ -23,8 +23,6 @@
 #include <QDebug>
 #include <QFile>
 
-#include <QMessageBox>
-
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE
   #include "audiodecoder_sndfile.h"
@@ -198,6 +196,8 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         setName(tr("File not found"));
+        m_audioDuration = 0;
+        emit changed(id());
         return true;
     }
 
@@ -211,6 +211,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -224,6 +225,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -267,12 +269,6 @@ void Audio::slotEndOfStream()
         m_decoder->seek(0);
     }
     Function::postRun(NULL, QList<Universe *>());
-}
-
-void Audio::slotTotalTimeChanged(qint64)
-{
-    qDebug() << "Audio duration: " << m_audioDuration;
-    emit totalTimeChanged(m_audioDuration);
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -389,6 +385,9 @@ void Audio::preRun(MasterTimer* timer)
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
+    else
+        return; // avoid this function to even start
+
     Function::preRun(timer);
 }
 
@@ -401,7 +400,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (fadeOutSpeed() != 0)
     {
-        if (totalDuration() - elapsed() <= fadeOutSpeed())
+        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
     }
 }

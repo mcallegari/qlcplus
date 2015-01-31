@@ -40,14 +40,18 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
     Q_ASSERT(item != NULL);
 
     setWindowFlags(WINDOW_FLAGS);
+    setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle(m_item->functionName());
 
     QBoxLayout* lay = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
     /* Create dials */
     m_startDial = new SpeedDial(this);
     m_startDial->setTitle(tr("Start Time"));
-    m_startDial->setInfiniteVisibility(false);
-    m_startDial->setTapVisibility(false);
+    ushort dialMask = m_startDial->visibilityMask();
+    dialMask = (dialMask & ~SpeedDial::Infinite);
+    dialMask = (dialMask & ~SpeedDial::Tap);
+    m_startDial->setVisibilityMask(dialMask);
     m_startDial->setValue(m_item->getStartTime());
     layout()->addWidget(m_startDial);
     connect(m_startDial, SIGNAL(valueChanged(int)),
@@ -55,12 +59,23 @@ TimingsTool::TimingsTool(ShowItem *item, QWidget *parent)
 
     m_durationDial = new SpeedDial(this);
     m_durationDial->setTitle(tr("Duration"));
-    m_durationDial->setInfiniteVisibility(false);
-    m_durationDial->setTapVisibility(false);
+    m_durationDial->setVisibilityMask(dialMask);
     m_durationDial->setValue(m_item->getDuration());
     layout()->addWidget(m_durationDial);
     connect(m_durationDial, SIGNAL(valueChanged(int)),
             this, SLOT(slotDurationChanged(int)));
+
+    m_durationOptions = new QGroupBox(tr("Duration options"));
+
+    m_stretchOriginalRadio = new QRadioButton(tr("Stretch the original function duration"));
+    m_expandLoopRadio = new QRadioButton(tr("Loop function until duration is reached"));
+    m_expandLoopRadio->setChecked(true);
+
+    m_durationOptions->setLayout(new QVBoxLayout());
+    m_durationOptions->layout()->addWidget(m_stretchOriginalRadio);
+    m_durationOptions->layout()->addWidget(m_expandLoopRadio);
+    m_durationOptions->hide();
+    layout()->addWidget(m_durationOptions);
 
     lay->addStretch();
 
@@ -78,6 +93,22 @@ TimingsTool::~TimingsTool()
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
+void TimingsTool::showDurationControls(bool show)
+{
+    if (show == true)
+        m_durationDial->show();
+    else
+        m_durationDial->hide();
+}
+
+void TimingsTool::showDurationOptions(bool show)
+{
+    if (show == true)
+        m_durationOptions->show();
+    else
+        m_durationOptions->hide();
+}
+
 void TimingsTool::slotStartTimeChanged(int msec)
 {
     emit startTimeChanged(m_item, msec);
@@ -85,5 +116,8 @@ void TimingsTool::slotStartTimeChanged(int msec)
 
 void TimingsTool::slotDurationChanged(int msec)
 {
-    emit durationChanged(m_item, msec);
+    if (m_stretchOriginalRadio->isChecked())
+        emit durationChanged(m_item, msec, true);
+    else
+        emit durationChanged(m_item, msec, false);
 }

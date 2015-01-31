@@ -182,12 +182,6 @@ public:
 
     /** @reimpl */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
-
-protected slots:
-    void slotTotalTimeChanged(qint64);
-
-signals:
-    void totalTimeChanged(qint64);
 };
 
 /** @} */

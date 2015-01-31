@@ -235,6 +235,7 @@ void ChaserRunner::stopStep(int stepIndex)
             step->m_function->stop();
             step->m_function = NULL;
             m_runnerSteps.removeOne(step);
+            delete step;
         }
     }
 }
@@ -262,7 +263,7 @@ int ChaserRunner::runningStepsNumber() const
     return m_runnerSteps.count();
 }
 
-ChaserRunnerStep *ChaserRunner::currentRunningStep()
+ChaserRunnerStep* ChaserRunner::currentRunningStep() const
 {
     if (m_runnerSteps.count() > 0)
         return m_runnerSteps.at(0);
@@ -409,6 +410,7 @@ void ChaserRunner::clearRunningList()
             step->m_function->stop();
             step->m_function = NULL;
         }
+        delete step;
     }
     m_runnerSteps.clear();
 }
@@ -468,7 +470,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 int ChaserRunner::getNextStepIndex()
 {
     int currentStepIndex = m_lastRunStepIdx;
-    
+
     if (m_chaser->runOrder() == Function::Random)
     {
         currentStepIndex = m_order.indexOf(currentStepIndex);
@@ -608,6 +610,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
             }
 
             m_runnerSteps.removeOne(step);
+            delete step;
         }
         else
         {

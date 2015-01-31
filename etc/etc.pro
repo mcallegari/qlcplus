@@ -10,7 +10,7 @@ unix:!macx {
     INSTALLS      += desktop
 
     icons.path   = $$INSTALLROOT/share/pixmaps/
-    icons.files += ../gfx/qlcplus.png ../gfx/qlcplus-fixtureeditor.png
+    icons.files += ../resources/icons/png/qlcplus.png ../resources/icons/png/qlcplus-fixtureeditor.png
     INSTALLS    += icons
 
     mime.path   = $$INSTALLROOT/share/mime/packages
@@ -27,7 +27,7 @@ unix:!macx {
 # Mac OSX
 macx {
     icons.path   = $$INSTALLROOT/$$DATADIR
-    icons.files += ../gfx/qlcplus.icns
+    icons.files += ../resources/icons/qlcplus.icns
 
     plist.path   = $$INSTALLROOT
     plist.files += Info.plist

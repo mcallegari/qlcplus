@@ -367,7 +367,7 @@ public:
     uchar playbackValue() const;
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
@@ -431,7 +431,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value);
+    void setSliderValue(uchar value, bool noScale = false);
 
     int sliderValue() const;
 
@@ -450,8 +450,7 @@ private slots:
 
 protected:
     QHBoxLayout* m_hbox;
-    ClickAndGoSlider* m_slider;
-    KnobWidget* m_knob;
+    QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -528,16 +527,6 @@ protected slots:
 public:
     /** @reimp */
     void adjustIntensity(qreal val);
-
-    /*********************************************************************
-     * Web access
-     *********************************************************************/
-public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
 
 signals:
     void valueChanged(QString val);

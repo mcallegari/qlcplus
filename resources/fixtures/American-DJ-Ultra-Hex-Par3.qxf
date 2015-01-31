@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>boxr</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Ultra Hex Par3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="255">Strobing slow - fast</Capability>
+ </Channel>
+ <Channel Name="Program selection mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Dimming mode</Capability>
+  <Capability Min="52" Max="102">Color macro mode</Capability>
+  <Capability Min="103" Max="153">Color change mode</Capability>
+  <Capability Min="154" Max="204">Color fade mode</Capability>
+  <Capability Min="205" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Color macros/programs/sound activity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Color macros/programs/sound activivty</Capability>
+ </Channel>
+ <Channel Name="Program speed/sound sensitive">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow - fast/least sensitive - most sensitive</Capability>
+ </Channel>
+ <Channel Name="Dimmer mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default dimmer setting</Capability>
+ </Channel>
+ <Mode Name="6 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="213" Height="120" Weight="2.02" Depth="224"/>
+   <Lens DegreesMax="0" Name="LED" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="26" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="213" Height="120" Weight="2.02" Depth="224"/>
+   <Lens DegreesMax="0" Name="LED" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="26" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="8 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="213" Height="120" Weight="2.02" Depth="224"/>
+   <Lens DegreesMax="0" Name="LED" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="26" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+ </Mode>
+ <Mode Name="11 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="213" Height="120" Weight="2.02" Depth="224"/>
+   <Lens DegreesMax="0" Name="LED" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="26" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Program selection mode</Channel>
+  <Channel Number="9">Color macros/programs/sound activity</Channel>
+  <Channel Number="10">Program speed/sound sensitive</Channel>
+ </Mode>
+ <Mode Name="12 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="213" Height="120" Weight="2.02" Depth="224"/>
+   <Lens DegreesMax="0" Name="LED" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="26" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Program selection mode</Channel>
+  <Channel Number="9">Color macros/programs/sound activity</Channel>
+  <Channel Number="10">Program speed/sound sensitive</Channel>
+  <Channel Number="11">Dimmer mode</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -302,7 +302,7 @@ void SimpleDesk::initBottomSide()
     hbox->addWidget(m_previousCueButton);
 
     m_stopCueStackButton = new QToolButton(this);
-    m_stopCueStackButton->setIcon(QIcon(":/stop.png"));
+    m_stopCueStackButton->setIcon(QIcon(":/player_stop.png"));
     m_stopCueStackButton->setIconSize(QSize(32, 32));
     m_stopCueStackButton->setToolTip(tr("Stop cue stack"));
     hbox->addWidget(m_stopCueStackButton);
@@ -973,7 +973,7 @@ void SimpleDesk::initCueStack()
     connect(m_nextCueButton, SIGNAL(clicked()), this, SLOT(slotNextCueClicked()));
     connect(m_stopCueStackButton, SIGNAL(clicked()), this, SLOT(slotStopCueStackClicked()));
     connect(m_cloneCueStackButton, SIGNAL(clicked()), this, SLOT(slotCloneCueStackClicked()));
-    connect(m_editCueStackButton, SIGNAL(clicked()), this, SLOT(slotEditCueStackClicked()));
+    connect(m_editCueStackButton, SIGNAL(toggled(bool)), this, SLOT(slotEditCueStackClicked(bool)));
     connect(m_recordCueButton, SIGNAL(clicked()), this, SLOT(slotRecordCueClicked()));
 
     connect(m_cueStackView->selectionModel(),
@@ -1011,6 +1011,27 @@ void SimpleDesk::replaceCurrentCue()
         cue.setName(name);
         cueStack->replaceCue(index.row(), cue);
     }
+}
+
+void SimpleDesk::createSpeedDials()
+{
+    if (m_speedDials != NULL)
+        return;
+
+    m_speedDials = new SpeedDialWidget(this);
+    m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
+    connect(m_speedDials, SIGNAL(fadeInChanged(int)),
+            this, SLOT(slotFadeInDialChanged(int)));
+    connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
+            this, SLOT(slotFadeOutDialChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)),
+            this, SLOT(slotHoldDialChanged(int)));
+    connect(m_speedDials, SIGNAL(destroyed(QObject*)),
+            this, SLOT(slotDialDestroyed(QObject*)));
+    connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
+            this, SLOT(slotCueNameEdited(const QString&)));
+    m_speedDials->raise();
+    m_speedDials->show();
 }
 
 void SimpleDesk::updateSpeedDials()
@@ -1233,35 +1254,28 @@ void SimpleDesk::slotCloneCueStackClicked()
     slotSelectPlayback(pb);
 }
 
-void SimpleDesk::slotEditCueStackClicked()
+void SimpleDesk::slotDialDestroyed(QObject *)
+{
+    if (m_speedDials != NULL)
+        m_speedDials->deleteLater();
+    m_speedDials = NULL;
+    m_editCueStackButton->setChecked(false);
+}
+
+void SimpleDesk::slotEditCueStackClicked(bool state)
 {
     qDebug() << Q_FUNC_INFO;
 
     slotCueStackSelectionChanged();
-    if (m_editCueStackButton->isChecked() == true)
-    {
-        if (m_speedDials == NULL)
-        {
-            m_speedDials = new SpeedDialWidget(this);
-            m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-            connect(m_speedDials, SIGNAL(fadeInChanged(int)),
-                    this, SLOT(slotFadeInDialChanged(int)));
-            connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
-                    this, SLOT(slotFadeOutDialChanged(int)));
-            connect(m_speedDials, SIGNAL(holdChanged(int)),
-                    this, SLOT(slotHoldDialChanged(int)));
-            connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
-                    this, SLOT(slotCueNameEdited(const QString&)));
-        }
 
-        m_speedDials->raise();
-        m_speedDials->show();
+    if (state == true)
+    {
+        createSpeedDials();
         updateSpeedDials();
     }
     else
     {
         resetUniverseSliders();
-
         if (m_speedDials != NULL)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
@@ -1376,7 +1390,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     if (m_docChanged == true)
     {
         if (m_editCueStackButton->isChecked() == true)
-            slotEditCueStackClicked();
+            slotEditCueStackClicked(true);
         initUniversesCombo();
         slotUpdateUniverseSliders();
         initChannelGroupsView();

@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus Documentation - Scene Tutorial</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Scene tutorial</H1>
+
+<P>
+This tutorial covers just the basic procedure of creating a fixture, a scene and a
+button and how to make them work. The point is to give the user a quick yet
+complete here-hold-my-hand-experience on how the Q Light Controller Plus is planned
+to work as a software for DMX lighting automation.
+</P>
+
+<P>Before you start reading this tutorial, please familiarise yourself with the 
+<A HREF="mainwindow.html">Main window</A> and its parts.</P>
+
+<P>Now we can really start!</P>
+
+<H2>Fixture Manager</H2>
+
+<P>
+<B>Open the fixture manager panel now by clicking its
+<IMG SRC="qrc:/fixture.png" align="absmiddle"> icon.</B>
+</P>
+
+<P>
+The fixture manager is the heart of QLC+ fixture-oriented architecture. As its
+name implies, you can manage (add, remove and edit) your lighting fixtures
+from the fixture manager. On the left hand side of the manager there is a list that
+contains all of the fixtures in the current workspace (at the moment it will be empty).
+On the right hand side you can see some information related to the currently
+selected fixture. On the top of the fixture manager there is again another toolbar,
+containing the following buttons (from left to right):
+</P>
+
+<HR>
+<P>
+<IMG SRC="qrc:/edit_add.png" align="absmiddle"> Add new fixtures<BR>
+<IMG SRC="qrc:/edit_remove.png" align="absmiddle"> Remove selected fixtures<BR>
+<IMG SRC="qrc:/configure.png" align="absmiddle"> Configure the selected fixture<BR>
+<IMG SRC="qrc:/group.png" align="absmiddle"> Group a fixture selection<BR>
+<IMG SRC="qrc:/ungroup.png" align="absmiddle"> Ungroup a fixture from a group<BR>
+<IMG SRC="qrc:/fileimport.png" align="absmiddle"> Import a previously saved list of fixtures<BR>
+<IMG SRC="qrc:/fileexport.png" align="absmiddle"> Export a list of fixtures<BR>
+</P>
+<HR>
+
+<H2>Adding a fixture</H2>
+
+<P>
+<B>Add a fixture to the workspace by clicking the
+<IMG SRC="qrc:/edit_add.png" align="absmiddle"> add button.</B>
+</P>
+
+<P>
+On the left side of the dialog you can see a list of available fixture
+manufacturers. Each manufacturer's name is actually a folder containing a number
+of different fixture models produced by that manufacturer. You can find, for example, a
+"DJScan250" under the "Futurelight" folder. As you click a fixture from the
+list, you can see the <u>Channels</u> field on the right hand side change to
+display the number of DMX channels required by the selected fixture. There's
+also a list of the fixture's channels just under the <u>Channels</u> box.
+</P>
+
+<P>
+<B>Go ahead and select Futurelight DJScan250 but don't click OK just yet.</B>
+</P>
+
+<P>
+You can edit the new fixture's name in the <u>Name</u> field or you can stick
+to the default that the application suggests. If the fixture has different
+operational modes (different sets of channels), you can select one from the
+<u>Mode</u> box. The DJScan250 doesn't have more than one, so there's just
+"Mode 1" there. The fixture's DMX address can be set in the <u>Address</u>
+field and should be the same as the actual physical fixture's DMX address.
+The <u>Universe</u> field is used to assign the fixture to a physical DMX
+output universe. Usually each universe has its own cable coming from the PC.
+</P>
+
+<P>
+If you wish to add multiple fixtures of the same type, you can increase the
+value in the <u>Amount</u> box. If you wish to leave some gaps between each
+fixture's address space, you can change the value in the <u>Address gap</u>
+box. <B>Let's leave these be for now.</B>
+</P>
+
+<P>
+If you don't understand the DMX addressing principles, please consult your
+lighting equipment manuals for more information. In short, a DMX address is
+the first DMX channel of a particular fixture. In the case of a DJScan250 (which uses
+6 channels), assigning for example 1 as its DMX address, reserves channels
+1, 2, 3, 4, 5, and 6 for the fixture. The next fixture must then be assigned
+to DMX address 7 to prevent channel overlapping. <B>Let's use address 1 now.</B>
+</P>
+
+<H2>Back to the fixture manager</H2>
+
+<P>
+<B>Click OK to close the dialog and add one Futurelight DJScan250 to the
+workspace.</B>
+</P>
+
+<P>
+On the left side of the fixture manager you can now see the fixture that we
+just added. On the right side, you can see the information about the fixture. You can
+edit the fixture's name, address and universe by clicking the Configure button.
+You can also change the fixture definition through the configuration dialog, but
+since we're quite happy with the fixture's information, we are not going go there.
+</P>
+
+<p>
+<IMG SRC="file:images/tutorial1_1.png">
+</P>
+
+<HR>
+
+<H2>My first function</H2>
+
+<P>
+<B>Open the function manager by clicking its
+<IMG SRC="qrc:/function.png" align="absmiddle"> button on the main toolbar</B>
+</P>
+
+<P>
+If the fixture manager was the heart, function manager must be the brain of QLC+.
+With it, you can add, remove and edit various functions that perform the actual
+light automation for you. Let's look at the view first. There is, once again, a toolbar
+containing the following icons (from left to right):
+</P>
+
+<HR>
+<P>
+<IMG SRC="qrc:/scene.png" align="absmiddle"> Add a scene<BR>
+<IMG SRC="qrc:/chaser.png" align="absmiddle"> Add a chaser<BR>
+<IMG SRC="qrc:/sequence.png" align="absmiddle"> Add a sequence<BR>
+<IMG SRC="qrc:/efx.png" align="absmiddle"> Add an EFX<BR>
+<IMG SRC="qrc:/collection.png" align="absmiddle"> Add a collection<BR>
+<IMG SRC="qrc:/rgbmatrix.png" align="absmiddle"> Add a RGB matrix<BR>
+<IMG SRC="qrc:/script.png" align="absmiddle"> Add a script<BR>
+</P>
+<HR>
+<P>
+<IMG SRC="qrc:/wizard.png" align="absmiddle"> Open the Functions wizard<BR>
+<IMG SRC="qrc:/editcopy.png" align="absmiddle"> Copy the selected functions<BR>
+<IMG SRC="qrc:/editdelete.png" align="absmiddle"> Destroy the selected functions<BR>
+</P>
+<HR>
+
+<P>
+Below the toolbar, there is a list of functions within the current workspace.
+Since we haven't yet created any, it's still empty.
+</P>
+
+<H2>Scene editor</H2>
+
+<P>
+<B>Add a new scene to the workspace by clicking the
+<IMG SRC="qrc:/scene.png" align="absmiddle"> scene button</B>
+</P>
+
+<P>
+With the scene editor, you can create scene functions that basically contain
+values for a number of channels that relate to certain fixtures. On the left hand
+side of the editor there is a list of fixtures used in the scene, which is
+empty (but not for much longer). There are also some buttons to add/remove fixtures 
+and enable/disable all the selected fixtures channels.<br>
+On the right hand side of the editor there is a list of channel groups used in the 
+scene. Channel groups will not be used in this tutorial.
+</P>
+
+<P>
+<B>Add a fixture to the scene by clicking the
+<IMG SRC="qrc:/edit_add.png" align="absmiddle"> add button. Select our one
+and only fixture, the DJScan250 from the list that pops up and click the OK
+button.</B>
+</P>
+
+<P>
+Now the scene has one fixture to control. Notice also that now there is new
+tab just beside the <u>General</u> tab with our fixture name. <B>Click the tab
+that says <u>DJScan250</u>.</B>
+</P>
+
+<P>
+Now you can see a panel with 6 sliders &amp; buttons, each of them representing
+a channel within the fixture, but all of the channels are disabled. Above each
+of the buttons (the ones with icons) there is yet another box which, when
+checked, enables the corresponding channel in the scene. If a box is not
+checked, that channel will not be touched by the scene at all. This is very
+useful when you wish to create for example a function that just sets the
+color of a scanner, without touching the gobo, intensity, pan, tilt and other
+features that you might wish to stay the way they are.
+</P>
+
+<P>
+<B>Set channels 3, 4 and 6 enabled by clicking on their check boxes.</B>
+</P>
+
+<P>
+You'll see that channels 3 and 4 changed their appearance and are no longer
+grayed out. You can also move their sliders and click their buttons. When you
+click on a button, you get a list of available capabilities that the fixture
+can do when a certain value is set to the channel. In the case of a DJScan250,
+channel 3 controls the color wheel, channel 4 controls gobo selection and
+channel 6 controls the fixture's shutter.
+</P>
+
+<P>
+If you click the button on channel 3, you get a list of available colors that
+the fixture supports. Since many of these capabilities are specified by the
+manufacturer as a value range rather than a single value, many of these
+capabilities contain yet another sub-menu. Let's try setting a color.
+</P>
+
+<P>
+<B>Click the color <IMG SRC="qrc:/colorwheel.png" align="absmiddle"> button on
+channel 3, then move your cursor to "Orange" and select "80" from the sub-menu
+by clicking on that value.</B>
+</P>
+
+<P>
+Notice that the slider on channel 3 also moved up and the value above it now
+shows 80. If you have already patched an output plugin to the first universe,
+you may already see some action going on with your DMX equipment, since the
+scene editor also sends real DMX data to your fixtures as you edit the values.
+If you haven't done any mappings, don't feel bad, we'll get to it.
+</P>
+
+<P>
+<B>Next, click the <IMG SRC="qrc:/gobo.png" align="absmiddle"> gobo button
+and choose "Gobo 7", value 126 and then click the
+<IMG SRC="qrc:/intensity.png" align="absmiddle"> intensity button and choose
+"Shutter open", value 255.</B>
+</P>
+
+<P>
+Now we have a scene function that sets the value of DJScan250's channel 3 to
+80, channel 4 to 126 and channel 6 to 255. Now all we need is a nice
+descriptive name for the scene. Click the <u>General</u> tab to go to the
+general page where we started with the scene editor.
+</P>
+
+<P>
+You can set a nice name to the scene by writing it to the <u>Scene name</u>
+edit box. <B>Type: "<I>DJScan250 Orange Gobo 7</I>" there.</B>
+</P>
+
+<P>
+Now we're going to set a Fade In time to the Scene, so that when we play it
+it will fade to the values we set in a given amount of time.<br>
+Click on the <IMG SRC="qrc:/speed.png" align="absmiddle"> icon from the Scene
+Editor toolbar. A tool will be displayed, allowing you to choose the Fade In and
+Fade Out times of the Scene. Let's change Fade In to 5 seconds. Either use the
+speed dial widget or manually write '5' on the second last text field where 0s
+is written.<br>
+Close the Fade tool by clicking again on <IMG SRC="qrc:/speed.png" align="absmiddle">.
+</P>
+
+<H2>Back in the function manager</h2>
+
+<P>
+You can now see that the function manager displays a function called "DJScan250
+Orange Gobo 7".<br>
+If you click the right mouse button over a function item, you get the same menu
+functionalities that are available in the upper part of the function manager.
+You can add new functions or edit existing ones. <B>But let's not edit this function
+anymore.</B>
+</P>
+
+<H2>Another function</H2>
+
+<P>
+<B>
+Create another function just like the one you just made, but set the values
+for channels 3, 4 and 6 to 0 and name the function "DJScan250 Zero".
+</B>
+</P>
+
+<p><IMG SRC="file:images/tutorial1_2.png">
+</p>
+
+<HR>
+
+<H2>Virtual Console</H2>
+
+<P>
+Speaking of vital organs, we have already covered the heart and brain of QLC+,
+and we're only missing the body with its limbs to make the whole pack work.
+Well, so much for ridiculous analogies, let's move on and make our
+<i>"DJScan250"</i> fixture and its <i>"DJScan Orange Gobo 7"</i> function do
+some actual work for us.
+</P>
+
+<P>
+You can close the function manager and the fixture manager now, if you want to
+make some room but it's not necessary.
+</P>
+
+<P>
+<B>Click the <IMG SRC="qrc:/virtualconsole.png" align="absmiddle"> virtual
+console button on the main window to show the virtual console tab.</B>
+</P>
+
+<H2>Creating a button</H2>
+
+<P>
+At first, the virtual console is just an empty window without much to look at.
+There's a toolbar at the top of the panel, with icons to <u>Add</u> new
+widgets, <u>Edit</u> for editing widget properties and <u>Tools</u> for various
+tools to control the virtual console behaviour. You can also click the right
+mouse button on any virtual console widget to access a menu that contains
+most (but not all) of the options that are accessible through the menu bar.
+</P>
+
+<P>
+<B>Click the <IMG SRC="qrc:/button.png" align="absmiddle"> icon to add a new <u>Button</u> widget.</B>
+</P>
+
+<P>
+An empty button appears to the virtual console.
+</P>
+
+<H2>Attaching a function to the button</H2>
+
+<P>
+<B>Double click on the button or on the 
+<IMG SRC="qrc:/edit.png" align="absmiddle"> icon 
+to bring up the button's configuration dialog.</B>
+</P>
+
+<P>
+From this dialog you can edit the button's properties:
+</P>
+
+<P>
+* Set the <u>Button label</u> that is displayed on the button<BR>
+* Attach a <u>Function</u> to the button<BR>
+* Bind a <u>Key combination</u> to act as button presses
+* Bind the button to an <u>External Input</u> source<BR>
+* Set the <u>Button press</u> behaviour
+</P>
+
+<P>
+<B>Click the <IMG SRC="qrc:/attach.png" align="absmiddle"> attach button to
+open a function selection dialog. Double-click on the <I>"DJScan250 Orange
+Gobo 7"</I> function to attach it to this button.</B>
+</P>
+
+<P>
+We don't necessarily need a name for the button, but if you feel like giving
+it one, please do.
+</P>
+
+<P>
+<B>Click OK to accept these changes and close the dialog.</B>
+</P>
+
+<H2>A little fine-tuning</H2>
+
+<P>
+If you gave the button some name, you'll notice that it doesn't quite fit
+and gets trimmed to a rather short version of the original (unless you gave
+it a two-letter name). You can resize the button to any size you like by
+grabbing it from the box on the button's lower-right-hand corner and dragging
+the button a little bigger. But hey, let's change the button's color now.
+</P>
+
+<P>
+<B>Click on the button again, and then click on the <IMG SRC="qrc:/color.png" align="absmiddle"> 
+icon. Select an orange-tinted color from this dialog and click OK.</B>
+</P>
+
+<P>
+Now the button should have an orange background color. Move the button a bit
+to the side so that the next button won't appear on top of it. Well, there's no
+harm in that, it's just an inconvenience - you want to be able to see both
+buttons, do you not?
+</P>
+
+<H2>Another button</H2>
+
+<P>
+<B>Create another button just like the first one, but attach the function
+<I>"DJScan250 Zero"</I> to the second button and set the button background
+color to black and foreground (text) color to white.</B>
+</P>
+
+<HR>
+
+<H2>Seeing the results</H2>
+
+<P>
+Since we haven't covered DMX output patching at all, you probably have a
+dummy output plugin assigned to all output universes and you can't get any
+real DMX output from your computer. This is OK for now. If you're interested in
+output mapping details, refer to the <A HREF="file:howto-output-mapping.html">Output
+mapping howto</A>.
+</P>
+
+<P>
+<B>Click the <IMG SRC="qrc:/monitor.png" align="absmiddle"> monitor button on
+the main application toolbar to bring up the DMX monitor window.</B>
+</P>
+
+<P>
+You should see a bunch of numbers, and the name of our fixture "DJScan250"
+inside a bar over numbers 001 - 006. These numbers represent DMX channels and
+the values below them represent those channels' values. Since we're operating
+on with a dummy output plugin, the monitor is all that we see for now.
+</P>
+
+<B>
+Click the <IMG SRC="qrc:/operate.png" align="absmiddle"> mode switch button
+on the right-hand corner of the main toolbar to switch to operate mode.
+</B>
+
+<P>
+Hold your breath...
+</P>
+
+<P>
+<B>Pay close attention to the monitor while you click the buttons on the virtual
+console (you know, the one we just created). Do you see some running numbers
+that gradually go towards 80 on channel 3, 126 on channel 4 and 255 on channel
+6? Nice.</B>
+</P>
+
+<P>
+Note that if you click both buttons simultaneously, the result is usually far
+from what is wanted. You need to stop the previous function by clicking its
+button once more (so that the button flashes and stays up) to stop the function
+and then start the other function.
+</P>
+<IMG SRC="file:images/tutorial1_3.png"></P>
+
+</BODY>
+</HTML>

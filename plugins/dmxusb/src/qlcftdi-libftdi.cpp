@@ -115,6 +115,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 #ifdef LIBFTDI1
     libusb_device *dev;
     libusb_device **devs;
+    struct libusb_device_descriptor dev_descriptor;
     int i = 0;
 
     if (libusb_get_device_list(ftdi.usb_ctx, &devs) < 0)
@@ -125,9 +126,11 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
     while ((dev = devs[i++]) != NULL)
     {
+        libusb_get_device_descriptor(dev, &dev_descriptor);
 #else
     struct usb_bus *bus;
     struct usb_device *dev;
+    struct usb_device_descriptor dev_descriptor;
 
     usb_init();
 
@@ -146,17 +149,18 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
     {
       for (dev = bus->devices; dev; dev = dev->next)
       {
+        dev_descriptor = dev->descriptor;
 #endif
         Q_ASSERT(dev != NULL);
 
         // Skip non wanted devices
-        if (dev->descriptor.idVendor != QLCFTDI::FTDIVID &&
-            dev->descriptor.idVendor != QLCFTDI::ATMELVID)
+        if (dev_descriptor.idVendor != QLCFTDI::FTDIVID &&
+            dev_descriptor.idVendor != QLCFTDI::ATMELVID)
                 continue;
 
-        if (dev->descriptor.idProduct != QLCFTDI::FTDIPID &&
-            dev->descriptor.idProduct != QLCFTDI::DMX4ALLPID &&
-            dev->descriptor.idProduct != QLCFTDI::NANODMXPID)
+        if (dev_descriptor.idProduct != QLCFTDI::FTDIPID &&
+            dev_descriptor.idProduct != QLCFTDI::DMX4ALLPID &&
+            dev_descriptor.idProduct != QLCFTDI::NANODMXPID)
                 continue;
 
         char ser[256];
@@ -171,8 +175,8 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
         QMap <QString,QVariant> types(typeMap());
 
-        qDebug() << Q_FUNC_INFO << "DMX USB VID:" << QString::number(dev->descriptor.idVendor, 16) <<
-                    "PID:" << QString::number(dev->descriptor.idProduct, 16);
+        qDebug() << Q_FUNC_INFO << "DMX USB VID:" << QString::number(dev_descriptor.idVendor, 16) <<
+                    "PID:" << QString::number(dev_descriptor.idProduct, 16);
         qDebug() << Q_FUNC_INFO << "DMX USB serial: " << serial << "name:" << name << "vendor:" << vendor;
 
         if (types.contains(serial) == true)
@@ -264,14 +268,14 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         {
             widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
         }
-        else if (dev->descriptor.idVendor == QLCFTDI::FTDIVID &&
-                 dev->descriptor.idProduct == QLCFTDI::DMX4ALLPID)
+        else if (dev_descriptor.idVendor == QLCFTDI::FTDIVID &&
+                 dev_descriptor.idProduct == QLCFTDI::DMX4ALLPID)
         {
             widgetList << new Stageprofi(serial, name, vendor, output_id++);
         }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-        else if (dev->descriptor.idVendor == QLCFTDI::ATMELVID &&
-                 dev->descriptor.idProduct == QLCFTDI::NANODMXPID)
+        else if (dev_descriptor.idVendor == QLCFTDI::ATMELVID &&
+                 dev_descriptor.idProduct == QLCFTDI::NANODMXPID)
         {
             widgetList << new NanoDMX(serial, name, vendor, (void *)dev, output_id++);
         }

@@ -17,4 +17,4 @@ LIBS         += -lqlcplusui -lqlcplusengine
 
 # Test sources
 SOURCES += addfixture_test.cpp
-HEADERS += addfixture_test.h
+HEADERS += addfixture_test.h ../common/resource_paths.h

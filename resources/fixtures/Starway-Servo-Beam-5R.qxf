@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>DJ Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Starway</Manufacturer>
+ <Model>Servo Beam 5R</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#ffffff" Min="0" Max="4">White</Capability>
+  <Capability Color="#ffffff" Color2="#c41c1a" Min="5" Max="8">White + Red</Capability>
+  <Capability Color="#c41c1a" Min="9" Max="12">Red</Capability>
+  <Capability Color="#c41c1a" Color2="#ed8229" Min="13" Max="17">Red + Orange</Capability>
+  <Capability Color="#ed8229" Min="18" Max="21">Orange</Capability>
+  <Capability Color="#ed8229" Color2="#7abd82" Min="22" Max="25">Orange + Cyan</Capability>
+  <Capability Color="#7abd82" Min="26" Max="29">Cyan</Capability>
+  <Capability Color="#7abd82" Color2="#05822b" Min="30" Max="34">Cyan + Green</Capability>
+  <Capability Color="#05822b" Min="35" Max="38">Green</Capability>
+  <Capability Color="#05822b" Color2="#9ec233" Min="39" Max="42">Green + Light Green</Capability>
+  <Capability Color="#9ec233" Min="43" Max="46">Light Green</Capability>
+  <Capability Color="#9ec233" Color2="#8f73ad" Min="47" Max="51">Light Green + Lavender</Capability>
+  <Capability Color="#8f73ad" Min="52" Max="55">Lavender</Capability>
+  <Capability Color="#8f73ad" Color2="#ed8080" Min="56" Max="59">Lavender + Pink</Capability>
+  <Capability Color="#ed8080" Min="60" Max="63">Pink</Capability>
+  <Capability Color="#ed8080" Color2="#ffed00" Min="64" Max="68">Pink + Yellow</Capability>
+  <Capability Color="#ffed00" Min="69" Max="72">Yellow</Capability>
+  <Capability Color="#ffed00" Color2="#e30082" Min="73" Max="76">Yellow + Magenta</Capability>
+  <Capability Color="#e30082" Min="77" Max="81">Magenta</Capability>
+  <Capability Color="#e30082" Color2="#00a6eb" Min="82" Max="85">Magenta + Cyan</Capability>
+  <Capability Color="#00a6eb" Min="86" Max="89">Cyan</Capability>
+  <Capability Color="#00a6eb" Color2="#f5c745" Min="90" Max="93">Cyan + CTO 260</Capability>
+  <Capability Color="#f5c745" Min="94" Max="98">CTO 260</Capability>
+  <Capability Color="#f5c745" Color2="#f5d985" Min="99" Max="102">CTO 260 + CTO 190</Capability>
+  <Capability Color="#f5d985" Min="103" Max="106">CTO 190</Capability>
+  <Capability Color="#f5d985" Color2="#96c7b8" Min="107" Max="110">CTO 190 + CTB 8000</Capability>
+  <Capability Color="#96c7b8" Min="111" Max="115">CTB 8000</Capability>
+  <Capability Color="#96c7b8" Color2="#004f99" Min="116" Max="119">CTB 8000 + Blue</Capability>
+  <Capability Color="#004f99" Min="120" Max="123">Blue</Capability>
+  <Capability Color="#004f99" Color2="#ffffff" Min="124" Max="127">Blue + White</Capability>
+  <Capability Min="128" Max="191">Rotation (Fast 160 rpm To Slow 0.2 rpm)</Capability>
+  <Capability Min="192" Max="255">Rotation (Slow 0.2 rpm to Fast 160 rpm)</Capability>
+ </Channel>
+ <Channel Name="Stop / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">Closed</Capability>
+  <Capability Min="4" Max="103">Strobe (slow 1 flash/sec to fast 12 flashes/sec)</Capability>
+  <Capability Min="104" Max="107">Open</Capability>
+  <Capability Min="108" Max="207">Pulsation (Slow 30rpm to fast 360rpm)</Capability>
+  <Capability Min="208" Max="212">Open</Capability>
+  <Capability Min="213" Max="225">Random slow strobe</Capability>
+  <Capability Min="226" Max="238">Random medium strobe</Capability>
+  <Capability Min="239" Max="251">Random fast strobe</Capability>
+  <Capability Min="252" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity 0 to 100%</Capability>
+ </Channel>
+ <Channel Name="Static Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="3">White</Capability>
+  <Capability Res="ClayPaky/gobo00006.png" Min="4" Max="7">Gobo 1</Capability>
+  <Capability Res="ClayPaky/gobo00007.png" Min="8" Max="11">Gobo 2</Capability>
+  <Capability Res="ClayPaky/gobo00008.png" Min="12" Max="15">Gobo 3</Capability>
+  <Capability Res="ClayPaky/gobo00009.png" Min="16" Max="19">Gobo 4</Capability>
+  <Capability Res="ClayPaky/gobo00010.png" Min="20" Max="23">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00011.png" Min="24" Max="27">Gobo 6</Capability>
+  <Capability Res="ClayPaky/gobo00091.png" Min="28" Max="31">Gobo 7</Capability>
+  <Capability Res="ClayPaky/gobo00085.png" Min="32" Max="35">Gobo 8</Capability>
+  <Capability Res="ClayPaky/gobo00086.png" Min="36" Max="39">Gobo 9</Capability>
+  <Capability Res="ClayPaky/gobo00089.png" Min="40" Max="43">Gobo 10</Capability>
+  <Capability Res="ClayPaky/gobo00095.png" Min="44" Max="47">Gobo 11</Capability>
+  <Capability Res="ClayPaky/gobo00094.png" Min="48" Max="51">Gobo 12</Capability>
+  <Capability Res="ClayPaky/gobo00090.png" Min="52" Max="55">Gobo 13</Capability>
+  <Capability Res="ClayPaky/gobo00088.png" Min="56" Max="59">Gobo 14</Capability>
+  <Capability Res="ClayPaky/gobo00087.png" Min="60" Max="63">Gobo 15</Capability>
+  <Capability Res="ClayPaky/gobo00093.png" Min="64" Max="67">Gobo 16</Capability>
+  <Capability Res="ClayPaky/gobo00092.png" Min="68" Max="71">Gobo 17</Capability>
+  <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
+  <Capability Min="114" Max="117">Open</Capability>
+  <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
+  <Capability Res="ClayPaky/gobo00007.png" Min="160" Max="166">Gobo 1 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00008.png" Min="167" Max="172">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00009.png" Min="173" Max="179">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00010.png" Min="180" Max="185">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00011.png" Min="186" Max="191">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00091.png" Min="192" Max="198">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00085.png" Min="199" Max="204">Gobo 7 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00086.png" Min="205" Max="211">Gobo 8 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00089.png" Min="212" Max="217">Gobo 9 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00095.png" Min="218" Max="223">Gobo 10 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00094.png" Min="224" Max="230">Gobo 11 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00090.png" Min="231" Max="236">Gobo 12 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00088.png" Min="237" Max="243">Gobo 13 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00087.png" Min="244" Max="249">Gobo 14 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00093.png" Min="250" Max="255">Gobo 15 Shake (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Prism Insertion">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127">Prism excluded</Capability>
+  <Capability Min="128" Max="255">Prism inserted (0%-100%: 0.36 sec)</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="20">Position 0°</Capability>
+  <Capability Min="21" Max="41">Position 90°</Capability>
+  <Capability Min="42" Max="62">Position 180°</Capability>
+  <Capability Min="63" Max="83">Position 270°</Capability>
+  <Capability Min="84" Max="104">Position 360°</Capability>
+  <Capability Min="105" Max="126">Position 450°</Capability>
+  <Capability Min="127" Max="127">Position 540°</Capability>
+  <Capability Min="128" Max="190">Rotation (Fast 43rpm to slow 1.1rph)</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">Rotation (Slow 1.1rph to fast 43rpm)</Capability>
+ </Channel>
+ <Channel Name="Effects Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Movement (0%-100%: 0.33 sec)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Frost insertion (excluded to inserted)</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus (0%: Distant to 100%: Near)</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan coarse (0° to 540°)</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine (0.008°)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Coarse (0° to 250°)</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine (0.004°)</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Unused</Capability>
+  <Capability Min="12" Max="24">Pan-Tilt Function (Fast - Default)</Capability>
+  <Capability Min="25" Max="37">Pan-Tilt Function (Normal)</Capability>
+  <Capability Min="38" Max="50">Dimmer Curve Function (Conventional)</Capability>
+  <Capability Min="51" Max="62">Dimmer Curve Function (Linear - Default)</Capability>
+  <Capability Min="63" Max="255">Unused</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Reserved</Capability>
+  <Capability Min="128" Max="128">Reset</Capability>
+  <Capability Min="129" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="62">Reserved</Capability>
+  <Capability Min="63" Max="63">Lamp OFF</Capability>
+  <Capability Min="64" Max="177">Reserved</Capability>
+  <Capability Min="178" Max="178">Lamp ON</Capability>
+  <Capability Min="179" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Pan - Tilt Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan - Tilt Speed Max to Min</Capability>
+ </Channel>
+ <Channel Name="Colour Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Colour Speed Max to Min</Capability>
+ </Channel>
+ <Channel Name="Focus Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Focus Speed Max to Min</Capability>
+ </Channel>
+ <Channel Name="Gobo Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Gobo Speed Max to Min</Capability>
+ </Channel>
+ <Channel Name="Reserved">
+  <Group Byte="0">Maintenance</Group>
+ </Channel>
+ <Channel Name="Reserved 2">
+  <Group Byte="0">Maintenance</Group>
+ </Channel>
+ <Mode Name="Mode 1 - 16 Ch">
+  <Physical>
+   <Bulb Lumens="7950" ColourTemperature="8000" Type="JENBO NSK TITANIUM 5R"/>
+   <Dimensions Weight="18.5" Width="523" Height="337" Depth="511"/>
+   <Lens DegreesMin="0" DegreesMax="4" Name="Other"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="350"/>
+  </Physical>
+  <Channel Number="0">Colour Wheel</Channel>
+  <Channel Number="1">Stop / Strobe</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Static Gobo Change</Channel>
+  <Channel Number="4">Prism Insertion</Channel>
+  <Channel Number="5">Prism Rotation</Channel>
+  <Channel Number="6">Reserved</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan Fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt Fine</Channel>
+  <Channel Number="13">Reserved 2</Channel>
+  <Channel Number="14">Reset</Channel>
+  <Channel Number="15">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Mode 2 - 20 Ch">
+  <Physical>
+   <Bulb Lumens="7950" ColourTemperature="8000" Type="JENBO NSK TITANIUM 5R"/>
+   <Dimensions Weight="18.5" Width="523" Height="337" Depth="511"/>
+   <Lens DegreesMin="0" DegreesMax="4" Name="Other"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="350"/>
+  </Physical>
+  <Channel Number="0">Colour Wheel</Channel>
+  <Channel Number="1">Stop / Strobe</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Static Gobo Change</Channel>
+  <Channel Number="4">Prism Insertion</Channel>
+  <Channel Number="5">Prism Rotation</Channel>
+  <Channel Number="6">Reserved</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan Fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt Fine</Channel>
+  <Channel Number="13">Reserved 2</Channel>
+  <Channel Number="14">Reset</Channel>
+  <Channel Number="15">Lamp Control</Channel>
+  <Channel Number="16">Pan - Tilt Time</Channel>
+  <Channel Number="17">Colour Time</Channel>
+  <Channel Number="18">Focus Time</Channel>
+  <Channel Number="19">Gobo Time</Channel>
+ </Mode>
+</FixtureDefinition>

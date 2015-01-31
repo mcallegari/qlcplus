@@ -62,7 +62,7 @@ class Doc;
  * @see VCWidget
  * @see VirtualConsole
  */
-class VCCueList : public VCWidget, public DMXSource
+class VCCueList : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueList)
@@ -117,7 +117,7 @@ public:
     int getCurrentIndex();
 
     /** @reimp */
-    void stopFunction();
+    virtual void notifyFunctionStarting(quint32 fid);
 
 private:
     /** Update the list of steps */
@@ -140,14 +140,14 @@ private slots:
     /** Removes destroyed functions from the list */
     void slotFunctionRemoved(quint32 fid);
 
-    /** Updates name in the list if function got changed */
+    /** Updates the list if chaser got changed */
     void slotFunctionChanged(quint32 fid);
+
+    /** Updates name in the list if function got changed */
+    void slotFunctionNameChanged(quint32 fid);
 
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();
-
-    /** Stop the cue list and return to start */
-    void slotStop();
 
     /** Called when m_runner skips to another step */
     void slotCurrentStepChanged(int stepNumber);
@@ -160,6 +160,9 @@ private slots:
         Note that only 'Notes" column is considered */
     void slotItemChanged(QTreeWidgetItem*item, int column);
 
+    /** Slot called whenever a function is started */
+    void slotFunctionRunning(quint32 fid);
+
     /** Slot called whenever a function is stopped */
     void slotFunctionStopped(quint32 fid);
 
@@ -167,8 +170,10 @@ private slots:
     void slotProgressTimeout();
 
 private:
-    /** Create the runner that writes cue values to universes */
-    void createRunner(int startIndex = -1);
+    /** Start associated chaser */
+    void startChaser(int startIndex = -1);
+    /** Stop associated */
+    void stopChaser();
 
 private:
     quint32 m_chaserID;
@@ -180,8 +185,6 @@ private:
     QProgressBar* m_progress;
     bool m_listIsUpdating;
 
-    ChaserRunner* m_runner;
-    QMutex m_mutex; // Guards m_runner
     QTimer* m_timer;
 
     /*************************************************************************
@@ -208,18 +211,6 @@ private:
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
     bool m_primaryLeft;
-
-
-    /*************************************************************************
-     * DMX Source
-     *************************************************************************/
-public:
-    /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
-
-private:
-    /** Flag indicating, whether stop button has been pressed */
-    bool m_stop;
 
     /*************************************************************************
      * Key sequences
@@ -282,16 +273,11 @@ public:
      * Web access
      *********************************************************************/
 public:
-    /** @reimpl */
-    QString getCSS();
-
-    /** @reimpl */
-    QString getJS();
-
     /** Play a specific cue at the given index */
     void playCueAtIndex(int idx);
 
 signals:
+    /** Signal to webaccess */
     void stepChanged(int idx);
 
     /*************************************************************************

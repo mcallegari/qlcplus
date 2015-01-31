@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Noel Utter</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>PSC-930</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#ffffff" Min="0" Max="13">White</Capability>
+  <Capability Color="#ff0000" Min="14" Max="27">Red</Capability>
+  <Capability Color="#0000ff" Min="28" Max="41">Blue</Capability>
+  <Capability Color="#00ff00" Min="42" Max="55">Green</Capability>
+  <Capability Color="#ffff00" Min="56" Max="69">Yellow</Capability>
+  <Capability Color="#ff00ff" Min="70" Max="83">Magenta</Capability>
+  <Capability Color="#ff5500" Min="84" Max="97">Orange</Capability>
+  <Capability Color="#aa00ff" Min="98" Max="111">Purple</Capability>
+  <Capability Color="#ff557f" Min="112" Max="127">Pink</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="187">Rainbow CW</Capability>
+  <Capability Min="188" Max="193">Stop</Capability>
+  <Capability Res="Others/rainbow.png" Min="194" Max="255">Rainbow CCW</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="9">Open</Capability>
+  <Capability Res="ClayPaky/gobo00010.png" Min="10" Max="19">Dot</Capability>
+  <Capability Res="SGM/gobo00007.png" Min="20" Max="29">Dots</Capability>
+  <Capability Res="SGM-Color/gobo00389.png" Min="30" Max="39">Turbine</Capability>
+  <Capability Res="Robe/gobo00031.png" Min="40" Max="49">Lines</Capability>
+  <Capability Res="Robe/gobo00037.png" Min="50" Max="59">Triangle</Capability>
+  <Capability Res="Robe/gobo00028.png" Min="60" Max="69">Cross</Capability>
+  <Capability Res="ClayPaky/gobo00010.png" Min="70" Max="89">Dot Shake</Capability>
+  <Capability Res="SGM/gobo00007.png" Min="90" Max="109">Dots Shake</Capability>
+  <Capability Res="SGM-Color/gobo00389.png" Min="110" Max="129">Turbine Shake</Capability>
+  <Capability Res="Robe/gobo00031.png" Min="130" Max="149">Lines Shake</Capability>
+  <Capability Res="Robe/gobo00037.png" Min="150" Max="169">Triangle Shake</Capability>
+  <Capability Res="Robe/gobo00028.png" Min="170" Max="189">Cross Shake</Capability>
+  <Capability Min="190" Max="255">Gobo rainbow</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Index</Capability>
+  <Capability Min="128" Max="187">Clockwise</Capability>
+  <Capability Min="188" Max="193">Stationary</Capability>
+  <Capability Min="194" Max="255">Counter Clockwise</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">Closed</Capability>
+  <Capability Min="32" Max="63">Dimmer</Capability>
+  <Capability Min="64" Max="95">Strobe</Capability>
+  <Capability Min="96" Max="127">Open</Capability>
+  <Capability Min="128" Max="159">Pulse</Capability>
+  <Capability Min="160" Max="191">Open</Capability>
+  <Capability Min="192" Max="223">Random Strobe</Capability>
+  <Capability Min="224" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 to 146°)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 to 45°)</Capability>
+ </Channel>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="14">Max</Capability>
+  <Capability Min="15" Max="225">Speed index</Capability>
+  <Capability Min="226" Max="235">Black Out / Movement</Capability>
+  <Capability Min="236" Max="245">Black Out / Gobo &amp; Color</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="19">UV Filter</Capability>
+  <Capability Min="20" Max="29">3200 °K Filter</Capability>
+  <Capability Min="30" Max="39">5600 °K Filter</Capability>
+  <Capability Min="40" Max="49">Frost Filter</Capability>
+  <Capability Min="50" Max="127">3 sides Prism</Capability>
+  <Capability Min="128" Max="135">Macro 1</Capability>
+  <Capability Min="136" Max="143">Macro 2</Capability>
+  <Capability Min="144" Max="151">Macro 3</Capability>
+  <Capability Min="152" Max="159">Macro 4</Capability>
+  <Capability Min="160" Max="167">Macro 5</Capability>
+  <Capability Min="168" Max="175">Macro 6</Capability>
+  <Capability Min="176" Max="183">Macro 7</Capability>
+  <Capability Min="184" Max="191">Macro 8</Capability>
+  <Capability Min="192" Max="199">Macro 9</Capability>
+  <Capability Min="200" Max="207">Macro 10</Capability>
+  <Capability Min="208" Max="215">Macro 11</Capability>
+  <Capability Min="216" Max="223">Macro 12</Capability>
+  <Capability Min="224" Max="231">Macro 13</Capability>
+  <Capability Min="232" Max="239">Macro 14</Capability>
+  <Capability Min="240" Max="247">Macro 15</Capability>
+  <Capability Min="248" Max="255">Macro 16</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">Stationary</Capability>
+  <Capability Min="8" Max="127">Clockwise</Capability>
+  <Capability Min="128" Max="135">Stationary</Capability>
+  <Capability Min="136" Max="255">Counter Clockwise</Capability>
+ </Channel>
+ <Channel Name="Prog">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">Std Color</Capability>
+  <Capability Min="20" Max="39">Near Color</Capability>
+  <Capability Min="40" Max="59">Lamp Power ON</Capability>
+  <Capability Min="60" Max="79">Lamp Power OFF</Capability>
+  <Capability Min="80" Max="99">Reset</Capability>
+  <Capability Min="100" Max="119">Prog 1</Capability>
+  <Capability Min="120" Max="139">Prog 2</Capability>
+  <Capability Min="140" Max="159">Prog 3</Capability>
+  <Capability Min="160" Max="179">Prog 4</Capability>
+  <Capability Min="180" Max="199">Prog 5</Capability>
+  <Capability Min="200" Max="219">Prog 6</Capability>
+  <Capability Min="220" Max="239">Prog 7</Capability>
+  <Capability Min="240" Max="255">Prog 8</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Mode Name="Movement 8 bits">
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Depth="212" Weight="23" Height="677" Width="242"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Mirror" TiltMax="45" PanMax="156"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="400"/>
+  </Physical>
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Gobo rotation</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Movement Speed</Channel>
+  <Channel Number="7">Effects</Channel>
+  <Channel Number="8">Prism Rotation Speed</Channel>
+  <Channel Number="9">Prog</Channel>
+ </Mode>
+ <Mode Name="Movement 16 bits">
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Depth="212" Weight="23" Height="242" Width="677"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Mirror" TiltMax="45" PanMax="156"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="400"/>
+  </Physical>
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Gobo rotation</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Movement Speed</Channel>
+  <Channel Number="7">Effects</Channel>
+  <Channel Number="8">Prism Rotation Speed</Channel>
+  <Channel Number="9">Prog</Channel>
+  <Channel Number="10">Pan Fine</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+ </Mode>
+</FixtureDefinition>

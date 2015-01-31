@@ -51,6 +51,7 @@
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcmatrix.h"
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
@@ -94,6 +95,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addLabelAction(NULL)
     , m_addAudioTriggersAction(NULL)
     , m_addClockAction(NULL)
+    , m_addAnimationAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -131,6 +133,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_contents(NULL)
 
     , m_tapModifierDown(false)
+    , m_liveEdit(false)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -177,10 +180,15 @@ Doc *VirtualConsole::getDoc()
 
 quint32 VirtualConsole::newWidgetId()
 {
-    quint32 currId = m_latestWidgetId;
-    m_latestWidgetId++;
-    qDebug() << Q_FUNC_INFO << "Creating new ID: " << currId;
-    return currId;
+    /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
+       however, seems a bit unlikely. */
+    while (m_widgetsMap.contains(m_latestWidgetId) ||
+           m_latestWidgetId == VCWidget::invalidId())
+    {
+        m_latestWidgetId++;
+    }
+
+    return m_latestWidgetId;
 }
 
 /*****************************************************************************
@@ -330,6 +338,9 @@ void VirtualConsole::initActions()
     m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
     connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
 
+    m_addAnimationAction = new QAction(QIcon(":/animation.png"), tr("New Animation"), this);
+    connect(m_addAnimationAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAnimation()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -346,6 +357,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addLabelAction);
     m_addActionGroup->addAction(m_addAudioTriggersAction);
     m_addActionGroup->addAction(m_addClockAction);
+    m_addActionGroup->addAction(m_addAnimationAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -473,6 +485,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
     m_addMenu->addAction(m_addCueListAction);
+    m_addMenu->addAction(m_addAnimationAction);
     m_addMenu->addAction(m_addAudioTriggersAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addFrameAction);
@@ -547,6 +560,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addSpeedDialAction);
     m_toolbar->addAction(m_addXYPadAction);
     m_toolbar->addAction(m_addCueListAction);
+    m_toolbar->addAction(m_addAnimationAction);
     m_toolbar->addAction(m_addFrameAction);
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
@@ -688,32 +702,41 @@ VCWidget* VirtualConsole::closestParent() const
     return NULL;
 }
 
-void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
+void VirtualConsole::connectWidgetToParent(VCWidget *widget, VCWidget *parent)
 {
-    if (parent->type() == VCWidget::FrameWidget)
+    if (parent->type() == VCWidget::FrameWidget
+            || parent->type() == VCWidget::SoloFrameWidget)
     {
         VCFrame *frame = (VCFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
-    }
-    else if (parent->type() == VCWidget::SoloFrameWidget)
-    {
-        VCSoloFrame *frame = (VCSoloFrame *)parent;
-        if (frame->multipageMode() == true)
-        {
-            widget->setPage(frame->currentPage());
-            frame->addWidgetToPageMap(widget);
-        }
-        else
-            widget->setPage(0);
+        widget->setPage(frame->currentPage());
+        frame->addWidgetToPageMap(widget);
     }
     else
         widget->setPage(0);
+
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = (VCSlider *)widget;
+        connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                parent, SLOT(slotSubmasterValueChanged(qreal)));
+    }
+}
+
+void VirtualConsole::disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent)
+{
+    if (parent->type() == VCWidget::FrameWidget
+            || parent->type() == VCWidget::SoloFrameWidget)
+    {
+        VCFrame *frame = (VCFrame *)parent;
+        frame->removeWidgetFromPageMap(widget);
+    }
+
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = (VCSlider *)widget;
+        disconnect(slider, SIGNAL(submasterValueChanged(qreal)),
+                parent, SLOT(slotSubmasterValueChanged(qreal)));
+    }
 }
 
 void VirtualConsole::slotAddButton()
@@ -747,9 +770,9 @@ void VirtualConsole::slotAddButtonMatrix()
     else
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
-    checkWidgetPage(frame, parent);
+    connectWidgetToParent(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
     frame->resize(QSize((h * sz) + 20, (v * sz) + 20));
@@ -761,7 +784,8 @@ void VirtualConsole::slotAddButtonMatrix()
         {
             VCButton* button = new VCButton(frame, m_doc);
             Q_ASSERT(button != NULL);
-            button->setID(newWidgetId());
+            addWidgetInMap(button);
+            connectWidgetToParent(button, frame);
             button->move(QPoint(10 + (x * sz), 10 + (y * sz)));
             button->resize(QSize(sz, sz));
             button->show();
@@ -798,8 +822,6 @@ void VirtualConsole::slotAddSlider()
     VCSlider* slider = new VCSlider(parent, m_doc);
     setupWidget(slider, parent);
     m_doc->setModified();
-    connect(slider, SIGNAL(submasterValueChanged(qreal)),
-            parent, SLOT(slotSubmasterValueChanged(qreal)));
 }
 
 void VirtualConsole::slotAddSliderMatrix()
@@ -818,9 +840,9 @@ void VirtualConsole::slotAddSliderMatrix()
 
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
+    addWidgetInMap(frame);
     frame->setHeaderVisible(false);
-    checkWidgetPage(frame, parent);
+    connectWidgetToParent(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely
     frame->resize(QSize((count * width) + 20, height + 20));
@@ -830,12 +852,11 @@ void VirtualConsole::slotAddSliderMatrix()
     {
         VCSlider* slider = new VCSlider(frame, m_doc);
         Q_ASSERT(slider != NULL);
-        slider->setID(newWidgetId());
+        addWidgetInMap(slider);
+        connectWidgetToParent(slider, frame);
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
-        connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                frame, SLOT(slotSubmasterValueChanged(qreal)));
     }
 
     // Show the frame after adding buttons to prevent flickering
@@ -858,8 +879,6 @@ void VirtualConsole::slotAddKnob()
     knob->resize(QSize(60, 90));
     knob->setWidgetStyle(VCSlider::WKnob);
     knob->setCaption(tr("Knob %1").arg(knob->id()));
-    connect(knob, SIGNAL(submasterValueChanged(qreal)),
-            parent, SLOT(slotSubmasterValueChanged(qreal)));
     m_doc->setModified();
 }
 
@@ -937,8 +956,6 @@ void VirtualConsole::slotAddAudioTriggers()
 
     VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
     setupWidget(triggers, parent);
-    connect(triggers, SIGNAL(enableRequest(quint32)),
-            this, SLOT(slotEnableAudioTriggers(quint32)));
     m_doc->setModified();
 }
 
@@ -950,6 +967,17 @@ void VirtualConsole::slotAddClock()
 
     VCClock* clock = new VCClock(parent, m_doc);
     setupWidget(clock, parent);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddAnimation()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCMatrix* matrix = new VCMatrix(parent, m_doc);
+    setupWidget(matrix, parent);
     m_doc->setModified();
 }
 
@@ -980,6 +1008,7 @@ void VirtualConsole::slotToolsSettings()
         settings.setValue(SETTINGS_FRAME_SIZE, vcpe.frameSize());
         settings.setValue(SETTINGS_SOLOFRAME_SIZE, vcpe.soloFrameSize());
         settings.setValue(SETTINGS_AUDIOTRIGGERS_SIZE, vcpe.audioTriggersSize());
+        settings.setValue(SETTINGS_RGBMATRIX_SIZE, vcpe.rgbMatrixSize());
 
         m_doc->setModified();
     }
@@ -1070,13 +1099,17 @@ void VirtualConsole::slotEditPaste()
             if (widget == parent)
                 continue;
 
+            VCWidget* prevParent = qobject_cast<VCWidget*> (widget->parentWidget());
+            if (prevParent != NULL)
+                disconnectWidgetFromParent(widget, prevParent);
+
             /* Get widget's relative pos to the bounding rect */
             QPoint p(widget->x() - bounds.x() + cp.x(),
                      widget->y() - bounds.y() + cp.y());
 
             /* Reparent and move to the correct place */
             widget->setParent(parent);
-            checkWidgetPage(widget, parent);
+            connectWidgetToParent(widget, parent);
             widget->move(p);
             widget->show();
         }
@@ -1102,7 +1135,8 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
-            checkWidgetPage(copy, parent);
+            addWidgetInMap(copy);
+            connectWidgetToParent(copy, parent);
             copy->move(p);
             copy->show();
         }
@@ -1126,24 +1160,13 @@ void VirtualConsole::slotEditDelete()
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
             m_widgetsMap.remove(widget->id());
+            foreach (VCWidget* child, getChildren(widget))
+                m_widgetsMap.remove(child->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
 
             if (parent != NULL)
-            {
-                if (parent->type() == VCWidget::FrameWidget)
-                {
-                    VCFrame *frame = (VCFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
-                }
-                else if (parent->type() == VCWidget::SoloFrameWidget)
-                {
-                    VCSoloFrame *frame = (VCSoloFrame *)parent;
-                    if (frame->multipageMode() == true)
-                        frame->removeWidgetFromPageMap(widget);
-                }
-            }
+                disconnectWidgetFromParent(widget, parent);
 
             /* Remove the widget from clipboard as well so that
                deleted widgets won't be pasted anymore anywhere */
@@ -1153,6 +1176,7 @@ void VirtualConsole::slotEditDelete()
 
         updateActions();
     }
+    m_doc->setModified();
 }
 
 void VirtualConsole::slotEditProperties()
@@ -1360,6 +1384,8 @@ void VirtualConsole::slotStackingRaise()
     VCWidget* widget;
     foreach(widget, m_selectedWidgets)
         widget->raise();
+
+    m_doc->setModified();
 }
 
 void VirtualConsole::slotStackingLower()
@@ -1372,25 +1398,8 @@ void VirtualConsole::slotStackingLower()
     VCWidget* widget;
     foreach(widget, m_selectedWidgets)
         widget->lower();
-}
 
-void VirtualConsole::slotEnableAudioTriggers(quint32 id)
-{
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-    VCAudioTriggers *enableWidget = NULL;
-    foreach (VCWidget *widget, widgetsList)
-    {
-        if (widget->type() == VCWidget::AudioTriggersWidget)
-        {
-            VCAudioTriggers *triggers = (VCAudioTriggers *)widget;
-            if (widget->id() == id)
-                enableWidget = triggers;
-            else
-                triggers->enableCapture(false);
-        }
-    }
-    if (enableWidget != NULL)
-        enableWidget->enableCapture(true);
+    m_doc->setModified();
 }
 
 /*****************************************************************************
@@ -1511,14 +1520,44 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
 }
 
+void VirtualConsole::addWidgetInMap(VCWidget* widget)
+{
+    // Valid ID ?
+    if (widget->id() != VCWidget::invalidId())
+    {
+
+        // Maybe we don't know this widget yet
+        if (!m_widgetsMap.contains(widget->id()))
+        {
+            m_widgetsMap.insert(widget->id(), widget);
+            return;
+        }
+
+        // Maybe we already know this widget
+        if (m_widgetsMap[widget->id()] == widget)
+        {
+            qDebug() << Q_FUNC_INFO << "widget" << widget->id() << "already in map";
+            return;
+        }
+
+        // This widget id conflicts with another one we have to change it.
+        qDebug() << Q_FUNC_INFO << "widget id" << widget->id() << "conflicts, creating a new ID";
+    }
+
+    quint32 wid = newWidgetId();
+    Q_ASSERT(!m_widgetsMap.contains(wid));
+    qDebug() << Q_FUNC_INFO << "id=" << wid;
+    widget->setID(wid);
+    m_widgetsMap.insert(wid, widget);
+}
+
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
 {
     Q_ASSERT(widget != NULL);
     Q_ASSERT(parent != NULL);
 
-    widget->setID(newWidgetId());
-    m_widgetsMap[widget->id()] = widget;
-    checkWidgetPage(widget, parent);
+    addWidgetInMap(widget);
+    connectWidgetToParent(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -1530,20 +1569,7 @@ VCWidget *VirtualConsole::widget(quint32 id)
     if (id == VCWidget::invalidId())
         return NULL;
 
-    return m_widgetsMap[id];
-/*
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
-    foreach (QObject *object, widgetsList)
-    {
-        VCWidget *widget = (VCWidget *)object;
-        quint32 wid = widget->id();
-        if (wid == id)
-            return widget;
-    }
-
-    return NULL;
-*/
+    return m_widgetsMap.value(id, NULL);
 }
 
 void VirtualConsole::initContents()
@@ -1605,112 +1631,175 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
  * Main application mode
  *****************************************************************************/
 
+void VirtualConsole::toggleLiveEdit()
+{
+    // No live edit in Design Mode
+    Q_ASSERT(m_doc->mode() == Doc::Operate);
+
+    if (m_liveEdit)
+    { // live edit was on, disable live edit
+        m_liveEdit = false;
+        disableEdit();
+    }
+    else
+    { // live edit was off, enable live edit
+        m_liveEdit = true;
+        enableEdit();
+    }
+
+    // inform the widgets of the live edit status
+    QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
+    while (widgetIt != m_widgetsMap.end())
+    {
+        VCWidget* widget = widgetIt.value();
+        widget->setLiveEdit(m_liveEdit);
+        ++widgetIt;
+    }
+    m_contents->setLiveEdit(m_liveEdit);
+}
+
+bool VirtualConsole::liveEdit() const
+{
+    return m_liveEdit;
+}
+
+void VirtualConsole::enableEdit()
+{
+    // Allow editing and adding in design mode
+    m_toolsSettingsAction->setEnabled(true);
+    m_editActionGroup->setEnabled(true);
+    m_addActionGroup->setEnabled(true);
+    m_bgActionGroup->setEnabled(true);
+    m_fgActionGroup->setEnabled(true);
+    m_fontActionGroup->setEnabled(true);
+    m_frameActionGroup->setEnabled(true);
+    m_stackingActionGroup->setEnabled(true);
+
+    // Set action shortcuts for design mode
+    m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
+    m_addButtonMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+M"));
+    m_addSliderAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
+    m_addSliderMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+I"));
+    m_addKnobAction->setShortcut(QKeySequence("CTRL+SHIFT+K"));
+    m_addSpeedDialAction->setShortcut(QKeySequence("CTRL+SHIFT+D"));
+    m_addXYPadAction->setShortcut(QKeySequence("CTRL+SHIFT+X"));
+    m_addCueListAction->setShortcut(QKeySequence("CTRL+SHIFT+C"));
+    m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
+    m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
+    m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
+    m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
+    m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
+    m_addAnimationAction->setShortcut(QKeySequence("CTRL+SHIFT+R"));
+
+    m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
+    m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
+    m_editPasteAction->setShortcut(QKeySequence("CTRL+V"));
+    m_editDeleteAction->setShortcut(QKeySequence("Delete"));
+    m_editPropertiesAction->setShortcut(QKeySequence("CTRL+E"));
+
+    m_bgColorAction->setShortcut(QKeySequence("SHIFT+B"));
+    m_bgImageAction->setShortcut(QKeySequence("SHIFT+I"));
+    m_bgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+B"));
+    m_fgColorAction->setShortcut(QKeySequence("SHIFT+F"));
+    m_fgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+F"));
+    m_fontAction->setShortcut(QKeySequence("SHIFT+O"));
+    m_resetFontAction->setShortcut(QKeySequence("SHIFT+ALT+O"));
+    m_frameSunkenAction->setShortcut(QKeySequence("SHIFT+S"));
+    m_frameRaisedAction->setShortcut(QKeySequence("SHIFT+R"));
+    m_frameNoneAction->setShortcut(QKeySequence("SHIFT+ALT+S"));
+
+    m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
+    m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
+
+    // Show toolbar
+    m_toolbar->show();
+}
+
+void VirtualConsole::disableEdit()
+{
+    // Don't allow editing or adding in operate mode
+    m_toolsSettingsAction->setEnabled(false);
+    m_editActionGroup->setEnabled(false);
+    m_addActionGroup->setEnabled(false);
+    m_bgActionGroup->setEnabled(false);
+    m_fgActionGroup->setEnabled(false);
+    m_fontActionGroup->setEnabled(false);
+    m_frameActionGroup->setEnabled(false);
+    m_stackingActionGroup->setEnabled(false);
+
+    // Disable action shortcuts in operate mode
+    m_addButtonAction->setShortcut(QKeySequence());
+    m_addButtonMatrixAction->setShortcut(QKeySequence());
+    m_addSliderAction->setShortcut(QKeySequence());
+    m_addSliderMatrixAction->setShortcut(QKeySequence());
+    m_addKnobAction->setShortcut(QKeySequence());
+    m_addSpeedDialAction->setShortcut(QKeySequence());
+    m_addXYPadAction->setShortcut(QKeySequence());
+    m_addCueListAction->setShortcut(QKeySequence());
+    m_addFrameAction->setShortcut(QKeySequence());
+    m_addSoloFrameAction->setShortcut(QKeySequence());
+    m_addLabelAction->setShortcut(QKeySequence());
+    m_addAudioTriggersAction->setShortcut(QKeySequence());
+    m_addClockAction->setShortcut(QKeySequence());
+    m_addAnimationAction->setShortcut(QKeySequence());
+
+    m_editCutAction->setShortcut(QKeySequence());
+    m_editCopyAction->setShortcut(QKeySequence());
+    m_editPasteAction->setShortcut(QKeySequence());
+    m_editDeleteAction->setShortcut(QKeySequence());
+    m_editPropertiesAction->setShortcut(QKeySequence());
+
+    m_bgColorAction->setShortcut(QKeySequence());
+    m_bgImageAction->setShortcut(QKeySequence());
+    m_bgDefaultAction->setShortcut(QKeySequence());
+    m_fgColorAction->setShortcut(QKeySequence());
+    m_fgDefaultAction->setShortcut(QKeySequence());
+    m_fontAction->setShortcut(QKeySequence());
+    m_resetFontAction->setShortcut(QKeySequence());
+    m_frameSunkenAction->setShortcut(QKeySequence());
+    m_frameRaisedAction->setShortcut(QKeySequence());
+    m_frameNoneAction->setShortcut(QKeySequence());
+
+    m_stackingRaiseAction->setShortcut(QKeySequence());
+    m_stackingLowerAction->setShortcut(QKeySequence());
+
+    // Hide toolbar; there's nothing usable there in operate mode
+    m_toolbar->hide();
+
+    // Make sure the virtual console contents has the focus.
+    // Without this, key combinations don't work unless
+    // the user clicks on some VC area
+    m_contents->setFocus();
+}
+
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
-    {
-        // Don't allow editing or adding in operate mode
-        m_toolsSettingsAction->setEnabled(false);
-        m_editActionGroup->setEnabled(false);
-        m_addActionGroup->setEnabled(false);
-        m_bgActionGroup->setEnabled(false);
-        m_fgActionGroup->setEnabled(false);
-        m_fontActionGroup->setEnabled(false);
-        m_frameActionGroup->setEnabled(false);
-        m_stackingActionGroup->setEnabled(false);
-
-        // Disable action shortcuts in operate mode
-        m_addButtonAction->setShortcut(QKeySequence());
-        m_addButtonMatrixAction->setShortcut(QKeySequence());
-        m_addSliderAction->setShortcut(QKeySequence());
-        m_addSliderMatrixAction->setShortcut(QKeySequence());
-        m_addKnobAction->setShortcut(QKeySequence());
-        m_addSpeedDialAction->setShortcut(QKeySequence());
-        m_addXYPadAction->setShortcut(QKeySequence());
-        m_addCueListAction->setShortcut(QKeySequence());
-        m_addFrameAction->setShortcut(QKeySequence());
-        m_addSoloFrameAction->setShortcut(QKeySequence());
-        m_addLabelAction->setShortcut(QKeySequence());
-        m_addAudioTriggersAction->setShortcut(QKeySequence());
-        m_addClockAction->setShortcut(QKeySequence());
-
-        m_editCutAction->setShortcut(QKeySequence());
-        m_editCopyAction->setShortcut(QKeySequence());
-        m_editPasteAction->setShortcut(QKeySequence());
-        m_editDeleteAction->setShortcut(QKeySequence());
-        m_editPropertiesAction->setShortcut(QKeySequence());
-
-        m_bgColorAction->setShortcut(QKeySequence());
-        m_bgImageAction->setShortcut(QKeySequence());
-        m_bgDefaultAction->setShortcut(QKeySequence());
-        m_fgColorAction->setShortcut(QKeySequence());
-        m_fgDefaultAction->setShortcut(QKeySequence());
-        m_fontAction->setShortcut(QKeySequence());
-        m_resetFontAction->setShortcut(QKeySequence());
-        m_frameSunkenAction->setShortcut(QKeySequence());
-        m_frameRaisedAction->setShortcut(QKeySequence());
-        m_frameNoneAction->setShortcut(QKeySequence());
-
-        m_stackingRaiseAction->setShortcut(QKeySequence());
-        m_stackingLowerAction->setShortcut(QKeySequence());
-
-        // Hide toolbar; there's nothing usable there in operate mode
-        m_toolbar->hide();
-
-        // Make sure the virtual console contents has the focus.
-        // Without this, key combinations don't work unless
-        // the user clicks on some VC area
-        m_contents->setFocus();
+    { // Switch from Design mode to Operate mode
+        // Hide edit tools
+        disableEdit();
     }
     else
-    {
-        // Allow editing and adding in design mode
-        m_toolsSettingsAction->setEnabled(true);
-        m_editActionGroup->setEnabled(true);
-        m_addActionGroup->setEnabled(true);
-        m_bgActionGroup->setEnabled(true);
-        m_fgActionGroup->setEnabled(true);
-        m_fontActionGroup->setEnabled(true);
-        m_frameActionGroup->setEnabled(true);
-        m_stackingActionGroup->setEnabled(true);
-
-        // Set action shortcuts for design mode
-        m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
-        m_addButtonMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+M"));
-        m_addSliderAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
-        m_addSliderMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+I"));
-        m_addKnobAction->setShortcut(QKeySequence("CTRL+SHIFT+K"));
-        m_addSpeedDialAction->setShortcut(QKeySequence("CTRL+SHIFT+D"));
-        m_addXYPadAction->setShortcut(QKeySequence("CTRL+SHIFT+X"));
-        m_addCueListAction->setShortcut(QKeySequence("CTRL+SHIFT+C"));
-        m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
-        m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
-        m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
-        m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
-        m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
-
-        m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
-        m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
-        m_editPasteAction->setShortcut(QKeySequence("CTRL+V"));
-        m_editDeleteAction->setShortcut(QKeySequence("Delete"));
-        m_editPropertiesAction->setShortcut(QKeySequence("CTRL+E"));
-
-        m_bgColorAction->setShortcut(QKeySequence("SHIFT+B"));
-        m_bgImageAction->setShortcut(QKeySequence("SHIFT+I"));
-        m_bgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+B"));
-        m_fgColorAction->setShortcut(QKeySequence("SHIFT+F"));
-        m_fgDefaultAction->setShortcut(QKeySequence("SHIFT+ALT+F"));
-        m_fontAction->setShortcut(QKeySequence("SHIFT+O"));
-        m_resetFontAction->setShortcut(QKeySequence("SHIFT+ALT+O"));
-        m_frameSunkenAction->setShortcut(QKeySequence("SHIFT+S"));
-        m_frameRaisedAction->setShortcut(QKeySequence("SHIFT+R"));
-        m_frameNoneAction->setShortcut(QKeySequence("SHIFT+ALT+S"));
-
-        m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
-        m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
-
-        // Show toolbar
-        m_toolbar->show();
+    { // Switch from Operate mode to Design mode
+        if (m_liveEdit)
+        {
+            // Edit tools already shown,
+            // inform the widgets that we are out of live edit mode
+            m_liveEdit = false;
+            QHash<quint32, VCWidget*>::iterator widgetIt = m_widgetsMap.begin();
+            while (widgetIt != m_widgetsMap.end())
+            {
+                VCWidget* widget = widgetIt.value();
+                widget->cancelLiveEdit();
+                ++widgetIt;
+            }
+            m_contents->cancelLiveEdit();
+        }
+        else
+        {
+            // Show edit tools
+            enableEdit();
+        }
     }
 }
 
@@ -1804,19 +1893,27 @@ void VirtualConsole::postLoad()
 
     /* Go through widgets, check IDs and register */
     /* widgets to the map */
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
-
+    /* This code is the same as the one in addWidgetInMap() */
+    /* We have to repeat it to limit conflicts if */
+    /* one widget was not saved with a valid ID, */
+    /* as addWidgetInMap ensures the widget WILL be added */
+    QList<VCWidget *> widgetsList = getChildren(m_contents);
+    QList<VCWidget *> invalidWidgetsList;
     foreach (VCWidget *widget, widgetsList)
     {
         quint32 wid = widget->id();
-        if(wid == VCWidget::invalidId())
-            widget->setID(newWidgetId());
+        if (wid != VCWidget::invalidId())
+        {
+            if (!m_widgetsMap.contains(wid))
+                m_widgetsMap.insert(wid, widget);
+            else if (m_widgetsMap[wid] != widget)
+                invalidWidgetsList.append(widget);
+        }
         else
-            if (wid >= m_latestWidgetId)
-                m_latestWidgetId = wid + 1;
-        m_widgetsMap[widget->id()] = widget;
+            invalidWidgetsList.append(widget);
     }
-    //qDebug() << "Next ID to assign:" << m_latestWidgetId;
+    foreach (VCWidget *widget, invalidWidgetsList)
+        addWidgetInMap(widget);
 
     m_contents->setFocus();
 
@@ -1826,7 +1923,7 @@ void VirtualConsole::postLoad()
 
 bool VirtualConsole::checkStartupFunction(quint32 fid)
 {
-    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+    QList<VCWidget *> widgetsList = getChildren(m_contents);
 
     foreach (VCWidget *widget, widgetsList)
     {

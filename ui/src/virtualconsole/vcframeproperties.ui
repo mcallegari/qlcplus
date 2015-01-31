@@ -83,6 +83,19 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="m_showEnableButtonCheck">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Show enable button</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -566,6 +579,13 @@
             </property>
             <property name="maximum">
              <number>16</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" colspan="2">
+           <widget class="QCheckBox" name="m_pagesLoopCheck">
+            <property name="text">
+             <string>Pages circular scrolling</string>
             </property>
            </widget>
           </item>

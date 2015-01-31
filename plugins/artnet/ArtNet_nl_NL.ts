@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="90"/>
-        <location filename="artnetplugin.cpp" line="197"/>
+        <location filename="artnetplugin.cpp" line="200"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
@@ -21,13 +21,13 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="110"/>
-        <location filename="artnetplugin.cpp" line="270"/>
+        <location filename="artnetplugin.cpp" line="273"/>
         <source>Status: Not open</source>
         <translation>Status: Ongeopend</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
-        <location filename="artnetplugin.cpp" line="273"/>
+        <location filename="artnetplugin.cpp" line="276"/>
         <source>Status: Open</source>
         <translation>Status: Open</translation>
     </message>
@@ -42,12 +42,12 @@
         <translation>Pakketten verzonden: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="266"/>
+        <location filename="artnetplugin.cpp" line="269"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="275"/>
+        <location filename="artnetplugin.cpp" line="278"/>
         <source>Packets received: </source>
         <translation>Pakketten ontvangen: </translation>
     </message>

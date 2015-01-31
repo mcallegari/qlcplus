@@ -30,6 +30,7 @@
 #include "fixturegroup.h"
 #include "chaserstep.h"
 #include "rgbmatrix.h"
+#include "rgbscriptscache.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -420,7 +421,7 @@ void PaletteGenerator::createRGBMatrices(QHash<quint32, quint32> rgbMap)
         m_fixtureGroup->assignFixture(it.key());
         m_fixtureGroup->setName(m_model + tr(" - RGB Group"));
     }
-    QStringList algoList = RGBScript::scriptNames(m_doc);
+    QStringList algoList = m_doc->rgbScriptsCache()->names();
     foreach(QString algo, algoList)
     {
         RGBMatrix *matrix = new RGBMatrix(m_doc);

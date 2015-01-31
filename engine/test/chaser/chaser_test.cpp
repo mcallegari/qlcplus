@@ -41,7 +41,7 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#define INTERNAL_FIXTUREDIR "../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Chaser_Test::initTestCase()
 {

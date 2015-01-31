@@ -569,7 +569,7 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
 
     if (item->x() < TRACK_WIDTH + 2)
     {
-        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
+        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving an item too early...
     }
     else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
     {
@@ -603,6 +603,4 @@ void MultiTrackView::slotAlignToCursor(ShowItem *item)
     item->setStartTime(getTimeFromPosition(item->x()));
     m_scene->update();
 }
-
-
 

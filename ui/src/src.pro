@@ -7,7 +7,7 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia multimediawidgets
 
 INCLUDEPATH     += monitor showmanager virtualconsole
 
@@ -70,6 +70,7 @@ HEADERS += aboutbox.h \
            fixturetreewidget.h \
            functionmanager.h \
            fixtureremap.h \
+           flowlayout.h \
            functionliveeditdialog.h \
            functionselection.h \
            functionstreewidget.h \
@@ -133,6 +134,10 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcframe.h \
            virtualconsole/vcframeproperties.h \
            virtualconsole/vclabel.h \
+           virtualconsole/vcmatrix.h \
+           virtualconsole/vcmatrixcontrol.h \
+           virtualconsole/vcmatrixpresetselection.h \
+           virtualconsole/vcmatrixproperties.h \
            virtualconsole/vcproperties.h \
            virtualconsole/vcpropertieseditor.h \
            virtualconsole/vcslider.h \
@@ -191,6 +196,8 @@ FORMS += virtualconsole/addvcbuttonmatrix.ui \
          virtualconsole/vcclockproperties.ui \
          virtualconsole/vccuelistproperties.ui \
          virtualconsole/vcframeproperties.ui \
+         virtualconsole/vcmatrixpresetselection.ui \
+         virtualconsole/vcmatrixproperties.ui \
          virtualconsole/vcproperties.ui \
          virtualconsole/vcsliderproperties.ui \
          virtualconsole/vcspeeddialproperties.ui \
@@ -231,6 +238,7 @@ SOURCES += aboutbox.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
            fixturetreewidget.cpp \
+           flowlayout.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
@@ -295,6 +303,10 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcframe.cpp \
            virtualconsole/vcframeproperties.cpp \
            virtualconsole/vclabel.cpp \
+           virtualconsole/vcmatrix.cpp \
+           virtualconsole/vcmatrixcontrol.cpp \
+           virtualconsole/vcmatrixpresetselection.cpp \
+           virtualconsole/vcmatrixproperties.cpp \
            virtualconsole/vcproperties.cpp \
            virtualconsole/vcpropertieseditor.cpp \
            virtualconsole/vcslider.cpp \
@@ -314,9 +326,9 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/virtualconsole.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-HEADERS += videoeditor.h showmanager/videoitem.h
+HEADERS += videoeditor.h showmanager/videoitem.h videoprovider.h
 FORMS += videoeditor.ui
-SOURCES += videoeditor.cpp showmanager/videoitem.cpp
+SOURCES += videoeditor.cpp showmanager/videoitem.cpp videoprovider.cpp
 }
 
 TRANSLATIONS += qlcplus_fi_FI.ts

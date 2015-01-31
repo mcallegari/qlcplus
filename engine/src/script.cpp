@@ -20,6 +20,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomText>
+#include <QProcess>
 #include <QDebug>
 #include <QUrl>
 
@@ -31,7 +32,7 @@
 #include "script.h"
 #include "doc.h"
 
-#define KXMLQLCScriptContents "Contents"
+#define KXMLQLCScriptCommand "Command"
 
 const QString Script::startFunctionCmd = QString("startfunction");
 const QString Script::stopFunctionCmd = QString("stopfunction");
@@ -40,6 +41,7 @@ const QString Script::waitCmd = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
 
 const QString Script::setFixtureCmd = QString("setfixture");
+const QString Script::systemCmd = QString("systemcommand");
 
 const QString Script::labelCmd = QString("label");
 const QString Script::jumpCmd = QString("jump");
@@ -100,14 +102,25 @@ bool Script::copyFrom(const Function* function)
 bool Script::setData(const QString& str)
 {
     m_data = str;
+    m_syntaxErrorLines.clear();
 
     // Construct individual code lines from the data
     m_lines.clear();
     if (m_data.isEmpty() == false)
     {
+        int i = 1;
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
         foreach (QString line, lines)
-            m_lines << tokenizeLine(line + QString("\n"));
+        {
+            bool ok = false;
+            if (line.isEmpty() == false)
+            {
+                m_lines << tokenizeLine(line + QString("\n"), &ok);
+                if (ok == false)
+                    m_syntaxErrorLines.append(i);
+            }
+            i++;
+        }
     }
 
     // Map all labels to their individual line numbers for fast jumps
@@ -125,9 +138,27 @@ bool Script::setData(const QString& str)
     return true;
 }
 
+bool Script::appendData(const QString &str)
+{
+    m_data.append(str + QString("\n"));
+    m_lines << tokenizeLine(str + QString("\n"));
+
+    return true;
+}
+
 QString Script::data() const
 {
     return m_data;
+}
+
+QStringList Script::dataLines() const
+{
+    return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+}
+
+QList<int> Script::syntaxErrorsLines()
+{
+    return m_syntaxErrorLines;
 }
 
 /****************************************************************************
@@ -167,9 +198,10 @@ bool Script::loadXML(const QDomElement& root)
         {
             loadXMLRunOrder(tag);
         }
-        else if (tag.tagName() == KXMLQLCScriptContents)
+        else if (tag.tagName() == KXMLQLCScriptCommand)
         {
-            setData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            appendData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            //appendData(tag.text().toUtf8());
         }
         else
         {
@@ -208,10 +240,14 @@ bool Script::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     saveXMLRunOrder(doc, &root);
 
     /* Contents */
-    tag = doc->createElement(KXMLQLCScriptContents);
-    root.appendChild(tag);
-    text = doc->createTextNode(QUrl::toPercentEncoding(data()));
-    tag.appendChild(text);
+    foreach(QString cmd, dataLines())
+    {
+        tag = doc->createElement(KXMLQLCScriptCommand);
+        root.appendChild(tag);
+        text = doc->createTextNode(QUrl::toPercentEncoding(cmd));
+        //text = doc->createTextNode(cmd.toUtf8());
+        tag.appendChild(text);
+    }
 
     return true;
 }
@@ -288,6 +324,37 @@ bool Script::waiting()
     }
 }
 
+quint32 Script::getValueFromString(QString str, bool *ok)
+{
+    if (str.startsWith("random") == false)
+    {
+        if (str.contains("."))
+            return Function::stringToSpeed(str);
+        else
+            return str.toUInt(ok);
+    }
+
+    QString strippedStr = str.remove("random(");
+    strippedStr.remove(")");
+    if (strippedStr.contains(",") == false)
+        return -1;
+
+    QStringList valList = strippedStr.split(",");
+    int min = 0;
+    if (valList.at(0).contains("."))
+        min = Function::stringToSpeed(valList.at(0));
+    else
+        min = valList.at(0).toInt();
+    int max = 0;
+    if (valList.at(1).contains("."))
+        max = Function::stringToSpeed(valList.at(1));
+    else
+        max = valList.at(1).toInt();
+
+    *ok = true;
+    return qrand() % ((max + 1) - min) + min;
+}
+
 bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)
 {
     if (index < 0 || index >= m_lines.size())
@@ -335,6 +402,10 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     else if (tokens[0][0] == Script::setFixtureCmd)
     {
         error = handleSetFixture(tokens, universes);
+    }
+    else if (tokens[0][0] == Script::systemCmd)
+    {
+        error = handleSystemCommand(tokens);
     }
     else if (tokens[0][0] == Script::labelCmd)
     {
@@ -432,14 +503,12 @@ QString Script::handleWait(const QList<QStringList>& tokens)
     if (tokens.size() > 2)
         return QString("Too many arguments");
 
-    double time = 0;
     bool ok = false;
+    uint time = getValueFromString(tokens[0][1], &ok);
 
-    time = tokens[0][1].toDouble(&ok);
-    if (ok == false)
-        return QString("Invalid wait time: %1").arg(tokens[0][1]);
+    qDebug() << "Wait time:" << time;
 
-    m_waitCount = time * MasterTimer::frequency();
+    m_waitCount = time / MasterTimer::tick();
 
     return QString();
 }
@@ -470,7 +539,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     uchar value = 0;
     double time = 0;
 
-    id = tokens[0][1].toUInt(&ok);
+    id = getValueFromString(tokens[0][1], &ok);
     if (ok == false)
         return QString("Invalid fixture (ID: %1)").arg(tokens[0][1]);
 
@@ -482,11 +551,11 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
         {
             ok = false;
             if (list[0] == "val" || list[0] == "value")
-                value = uchar(list[1].toUInt(&ok));
+                value = uchar(getValueFromString(list[1], &ok));
             else if (list[0] == "ch" || list[0] == "channel")
-                ch = list[1].toUInt(&ok);
+                ch = getValueFromString(list[1], &ok);
             else if (list[0] == "time")
-                time = list[1].toDouble(&ok);
+                time = getValueFromString(list[1], &ok);
             else
                 return QString("Unrecognized keyword: %1").arg(list[0]);
 
@@ -545,6 +614,21 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
     }
 }
 
+QString Script::handleSystemCommand(const QList<QStringList> &tokens)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    QString programName = tokens[0][1];
+    QStringList programArgs;
+    for (int i = 1; i < tokens.size(); i++)
+        programArgs << tokens[i][1];
+
+    QProcess *newProcess = new QProcess();
+    newProcess->start(programName, programArgs);
+
+    return QString();
+}
+
 QString Script::handleLabel(const QList<QStringList>& tokens)
 {
     // A label just exists. Not much to do here.
@@ -584,6 +668,9 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     QString keyword;
     QString value;
 
+    if (ok != NULL)
+        *ok = true; // in case, this is set to false afterwards
+
     if (str.simplified().startsWith("//") == true || str.simplified().isEmpty() == true)
     {
         tokens << QStringList(); // Return an empty string list for commented lines
@@ -615,8 +702,10 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 left = right + 1;
             }
 
-            // Try to see if there is something inside quotes
-            int quoteleft = line.indexOf("\"", left);
+            // Try to see if there is a value between quotes
+            int quoteleft = -1;
+            if (line.mid(left, 1) == "\"")
+                quoteleft = left + 1;
             if (quoteleft != -1)
             {
                 int quoteright = line.indexOf("\"", quoteleft + 1);
@@ -624,7 +713,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 {
                     // Don't include the "" in the string
                     value = line.mid(quoteleft, quoteright - quoteleft);
-                    left = quoteright + 1;
+                    left = quoteright + 2;
                 }
                 else
                 {
@@ -654,11 +743,9 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             }
 
             tokens << (QStringList() << keyword.trimmed() << value.trimmed());
+            qDebug() << "Tokens:" << tokens;
         }
     }
-
-    if (ok != NULL)
-        *ok = true;
 
     return tokens;
 }
