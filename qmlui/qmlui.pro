@@ -24,14 +24,18 @@ HEADERS += \
     fixturebrowser.h \
     fixturemanager.h \
     functionmanager.h \
-    inputoutputmanager.h 
+    inputoutputmanager.h \ 
+    treemodel.h \
+    treemodelitem.h
 
 SOURCES += main.cpp \
     app.cpp \
     fixturebrowser.cpp \
     fixturemanager.cpp \
     functionmanager.cpp \
-    inputoutputmanager.cpp
+    inputoutputmanager.cpp \
+    treemodel.cpp \
+    treemodelitem.cpp
 
 RESOURCES += qml.qrc
 

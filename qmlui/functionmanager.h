@@ -21,7 +21,10 @@
 #define FUNCTIONMANAGER_H
 
 #include <QStringList>
+#include <QQuickView>
 #include <QObject>
+
+#include "treemodel.h"
 
 class Doc;
 
@@ -29,18 +32,23 @@ class FunctionManager : public QObject
 {
     Q_OBJECT
 
-public:
-    FunctionManager(Doc *doc, QObject *parent = 0);
+    Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
 
+public:
+    FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+
+    QVariant functionsList();
 
 signals:
+    void functionsListChanged();
 
-
-public slots:
+protected slots:
+    void slotDocLoaded();
 
 private:
+    QQuickView *m_view;
     Doc *m_doc;
-
+    TreeModel *m_functionTree;
 };
 
 #endif // FUNCTIONMANAGER_H

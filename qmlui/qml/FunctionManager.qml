@@ -26,10 +26,16 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
-    Rectangle {
+    ColumnLayout {
+
+      anchors.fill: parent
+      spacing: 3
+
+      Rectangle {
         id: topBar
         width: parent.width
         height: 44
+        z: 5
         gradient: Gradient {
             id: ffMenuGradient
             GradientStop { position: 0 ; color: "#222" }
@@ -153,5 +159,34 @@ Rectangle {
                 Layout.fillWidth: true
             }
         }
+      }
+
+      ListView {
+          id: functionsListView
+          width: fmContainer.width
+          height: fmContainer.height - topBar.height
+          z: 4
+          model: functionManager.functionsList
+          delegate:
+              Component {
+                  Loader {
+                      width: parent.width
+                      source: hasChildren ? "FolderDelegate.qml" : "FunctionDelegate.qml"
+                      onLoaded: {
+                          item.textLabel = label
+                          if (hasChildren)
+                          {
+                              item.folderChildren = childrenModel
+                              item.childrenHeight = (childrenModel.rowCount() * 35)
+                          }
+                          else
+                          {
+                              item.functionID = funcID
+                              item.functionType = funcType
+                          }
+                      }
+                  }
+              }
+      }
     }
 }

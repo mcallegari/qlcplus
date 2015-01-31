@@ -17,13 +17,53 @@
   limitations under the License.
 */
 
+#include <QQmlContext>
+#include <QDebug>
+
 #include "functionmanager.h"
+#include "treemodel.h"
 #include "doc.h"
 
-FunctionManager::FunctionManager(Doc *doc, QObject *parent)
+FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
+    , m_view(view)
     , m_doc(doc)
 {
+    m_functionTree = new TreeModel(this);
+    QStringList treeColumns;
+    treeColumns << "funcID" << "funcType";
+    m_functionTree->setColumnNames(treeColumns);
+/*
+    for (int i = 0; i < 10; i++)
+    {
+        QStringList vars;
+        vars << QString::number(i) << 0;
+        m_functionTree->addItem(QString("Entry %1").arg(i), vars);
+    }
+*/
+    //m_view->rootContext()->setContextProperty("functionList", &m_functionTree);
 
+    connect(m_doc, SIGNAL(loaded()),
+            this, SLOT(slotDocLoaded()));
 }
+
+QVariant FunctionManager::functionsList()
+{
+    return QVariant::fromValue(m_functionTree);
+}
+
+void FunctionManager::slotDocLoaded()
+{
+    m_functionTree->clear();
+    foreach(Function *func, m_doc->functions())
+    {
+        QStringList params;
+        params.append(QString::number(func->id()));
+        params.append(QString::number(func->type()));
+        m_functionTree->addItem(func->name(), params, func->path(true));
+    }
+    m_functionTree->printTree();
+    emit functionsListChanged();
+}
+
 

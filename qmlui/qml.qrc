@@ -15,6 +15,7 @@
         <file alias="filesave.svg">../resources/icons/svg/filesave.svg</file>
         <file alias="filesaveas.svg">../resources/icons/svg/filesaveas.svg</file>
         <file alias="fixture.svg">../resources/icons/svg/fixture.svg</file>
+        <file alias="folder.svg">../resources/icons/svg/folder.svg</file>
         <file alias="functions.svg">../resources/icons/svg/functions.svg</file>
         <file alias="group.svg">../resources/icons/svg/group.svg</file>
         <file alias="help.svg">../resources/icons/svg/help.svg</file>
@@ -28,10 +29,8 @@
         <file alias="uniview.svg">../resources/icons/svg/uniview.svg</file>
         <file alias="video.svg">../resources/icons/svg/video.svg</file>
         <file alias="virtualconsole.svg">../resources/icons/svg/virtualconsole.svg</file>
-
         <file alias="qlcplus.png">../resources/icons/png/qlcplus.png</file>
         <file alias="arrowdown.png">../resources/icons/png/arrowdown.png</file>
-	
         <file alias="MainView.qml">qml/MainView.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
@@ -42,6 +41,7 @@
         <file alias="FixtureProperties.qml">qml/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/FixtureDragItem.qml</file>
         <file alias="IconButton.qml">qml/IconButton.qml</file>
+        <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
         <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
         <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
         <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
@@ -50,9 +50,9 @@
         <file alias="FixtureDMXItem.qml">qml/FixtureDMXItem.qml</file>
         <file alias="2DView.qml">qml/2DView.qml</file>
         <file alias="Fixture2DItem.qml">qml/Fixture2DItem.qml</file>
-
         <file alias="FunctionManager.qml">qml/FunctionManager.qml</file>
-
+        <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
+        <file alias="FolderDelegate.qml">qml/FolderDelegate.qml</file>
         <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
         <file alias="FixtureUtils.js">js/FixtureUtils.js</file>
     </qresource>

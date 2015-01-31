@@ -55,7 +55,6 @@ Rectangle {
 
         Loader {
             id: editorLoader
-            //objectName: "editorLoader"
             anchors.fill: parent
         }
     }
