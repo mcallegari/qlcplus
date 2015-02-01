@@ -42,6 +42,7 @@ public:
     Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
+    Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
     int fixturesCount();
     QQmlListProperty<Fixture> fixtures();

@@ -33,15 +33,17 @@ Rectangle {
     Column {
         id: fxColumn
         Rectangle {
-            color: "#ccc"
+            color: "#555"
             width: parent.width
             height: 20
             radius: 3
 
             Text {
+                x: 2
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 2
                 text: fixtureObj.name
+                color: "white"
             }
         }
         Row {
@@ -52,9 +54,17 @@ Rectangle {
                     Rectangle {
                         color: "transparent"
                         border.width: 1
-                        border.color: "#bbb"
+                        border.color: "#222"
                         width: 30
                         height: 50
+
+                        Image {
+                            x: 1
+                            y: 1
+                            width: 28
+                            height: 28
+                            source: fixtureManager.channelIcon(fixtureObj.id, index)
+                        }
                     }
             }
         }
