@@ -37,7 +37,7 @@ SOURCES += main.cpp \
     treemodel.cpp \
     treemodelitem.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc
 
 OTHER_FILES += 
 

@@ -1,36 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="2dview.svg">../resources/icons/svg/2dview.svg</file>
-        <file alias="3dview.svg">../resources/icons/svg/3dview.svg</file>
-        <file alias="arrow-right.svg">../resources/icons/svg/arrow-right.svg</file>
-        <file alias="audio.svg">../resources/icons/svg/audio.svg</file>
-        <file alias="chaser.svg">../resources/icons/svg/chaser.svg</file>
-        <file alias="configuration.svg">../resources/icons/svg/configuration.svg</file>
-        <file alias="collection.svg">../resources/icons/svg/collection.svg</file>
-        <file alias="dmxview.svg">../resources/icons/svg/dmxview.svg</file>
-        <file alias="editor.svg">../resources/icons/svg/editor.svg</file>
-        <file alias="efx.svg">../resources/icons/svg/efx.svg</file>
-        <file alias="filenew.svg">../resources/icons/svg/filenew.svg</file>
-        <file alias="fileopen.svg">../resources/icons/svg/fileopen.svg</file>
-        <file alias="filesave.svg">../resources/icons/svg/filesave.svg</file>
-        <file alias="filesaveas.svg">../resources/icons/svg/filesaveas.svg</file>
-        <file alias="fixture.svg">../resources/icons/svg/fixture.svg</file>
-        <file alias="folder.svg">../resources/icons/svg/folder.svg</file>
-        <file alias="functions.svg">../resources/icons/svg/functions.svg</file>
-        <file alias="group.svg">../resources/icons/svg/group.svg</file>
-        <file alias="help.svg">../resources/icons/svg/help.svg</file>
-        <file alias="inputoutput.svg">../resources/icons/svg/inputoutput.svg</file>
-        <file alias="rgbmatrix.svg">../resources/icons/svg/rgbmatrix.svg</file>
-        <file alias="search.svg">../resources/icons/svg/search.svg</file>
-        <file alias="scene.svg">../resources/icons/svg/scene.svg</file>
-        <file alias="script.svg">../resources/icons/svg/script.svg</file>
-        <file alias="simpledesk.svg">../resources/icons/svg/simpledesk.svg</file>
-        <file alias="showmanager.svg">../resources/icons/svg/showmanager.svg</file>
-        <file alias="uniview.svg">../resources/icons/svg/uniview.svg</file>
-        <file alias="video.svg">../resources/icons/svg/video.svg</file>
-        <file alias="virtualconsole.svg">../resources/icons/svg/virtualconsole.svg</file>
         <file alias="qlcplus.png">../resources/icons/png/qlcplus.png</file>
         <file alias="arrowdown.png">../resources/icons/png/arrowdown.png</file>
+
         <file alias="MainView.qml">qml/MainView.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
