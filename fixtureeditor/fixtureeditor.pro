@@ -67,6 +67,7 @@ TRANSLATIONS += fixtureeditor_cz_CZ.ts
 TRANSLATIONS += fixtureeditor_pt_BR.ts
 TRANSLATIONS += fixtureeditor_ca_ES.ts
 TRANSLATIONS += fixtureeditor_ja_JP.ts
+TRANSLATIONS += fixtureeditor_zh_CN.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

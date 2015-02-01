@@ -28,6 +28,7 @@ TRANSLATIONS += SPI_cz_CZ.ts
 TRANSLATIONS += SPI_pt_BR.ts
 TRANSLATIONS += SPI_ca_ES.ts
 TRANSLATIONS += SPI_ja_JP.ts
+TRANSLATIONS += SPI_zh_CN.ts
 
 HEADERS += spiplugin.h spiconfiguration.h \
     spioutthread.h
