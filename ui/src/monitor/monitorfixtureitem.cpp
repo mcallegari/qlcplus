@@ -349,6 +349,9 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
         }
     }
 
+    if (alpha == 0)
+        return alpha; // once the shutter is closed, no light will come through, regardless if other wheels are open 
+
     foreach (quint32 c, head->m_shutterChannels)
     {
         const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
@@ -357,6 +360,7 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
         {
             alpha = 0;
             head->m_strobePhase = -1;
+            return alpha;
         }
         else if (state == FixtureHead::Strobe)
         {
@@ -367,6 +371,8 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
             ++head->m_strobePhase;
             if (head->m_strobePhase > STROBE_PERIOD)
                 head->m_strobePhase = 0;
+            if (alpha == 0)
+                return alpha;
         }
         else
         {
