@@ -33,6 +33,7 @@
 #include "doc.h"
 
 #define MOVEMENT_THICKNESS    3
+#define STROBE_PERIOD 30
 
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
@@ -155,7 +156,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
             foreach (quint32 shutter, head.shutterChannels())
             {
-               QList<bool> values;
+               QList<FixtureHead::ShutterState> values;
                QLCChannel *ch = mode->channel(shutter);
                if (ch == NULL)
                    continue;
@@ -169,15 +170,21 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                        if (cap->name().contains("close", Qt::CaseInsensitive) 
                            || cap->name().contains("blackout", Qt::CaseInsensitive))
                        {
-                           values << false;
+                           values << FixtureHead::Closed;
+                           containsShutter = true;
+                       }
+                       else if (cap->name().contains("strob", Qt::CaseInsensitive) 
+                           || cap->name().contains("pulse", Qt::CaseInsensitive))
+                       {
+                           values << FixtureHead::Strobe;
                            containsShutter = true;
                        }
                        else
-                           values << true;
+                           values << FixtureHead::Open;
                    }
                    else
                    {
-                       values << true;
+                       values << FixtureHead::Open;
                    }
                }
 
@@ -327,7 +334,6 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua
 
     return QColor(255,255,255);
 }
-
 uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
 {
     uchar alpha = 255;
@@ -346,8 +352,26 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
     foreach (quint32 c, head->m_shutterChannels)
     {
         const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
-        if (head->m_shutterValues[c].at(val) == false)
+        FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
+        if (state == FixtureHead::Closed) 
+        {
             alpha = 0;
+            head->m_strobePhase = -1;
+        }
+        else if (state == FixtureHead::Strobe)
+        {
+            if (head->m_strobePhase == -1)
+                head->m_strobePhase = 0;
+            if (head->m_strobePhase < STROBE_PERIOD/2)
+                alpha = 0;
+            ++head->m_strobePhase;
+            if (head->m_strobePhase > STROBE_PERIOD)
+                head->m_strobePhase = 0;
+        }
+        else
+        {
+            head->m_strobePhase = -1;
+        }
     }
 
     return alpha;
