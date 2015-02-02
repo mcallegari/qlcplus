@@ -10,6 +10,7 @@ qlcplus (4.8.4) stable; urgency=low
   * RGB Scripts: added new Plasma script and added 'radial' orientation to Gradient (thanks to Tim Cullingworth)
   * Virtual Console: VCFrame pages: allow circular scrolling (David Garyga)
   * Virtual Console: Fix issues with cut-paste from one frame to another (David Garyga)
+  * Virtual Console: Solo Frame: Fix regression: frame inside a solo frame not working (David Garyga)
   * Monitor: show color of color filters and shutter state (so far only RGB/CMY channels where shown, Jano Svitok)
   * Input Profile editor: fix off-by-one for MIDI note numbers (72 is C5, Jano Svitok, spotted by Markus Baertschi)
   * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
