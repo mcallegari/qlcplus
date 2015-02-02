@@ -16,6 +16,9 @@ qlcplus (4.8.4) stable; urgency=low
   * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
   * New fixture: Robe Pointe (thanks to Moehritz)
   * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
+  * New fixtures: Stairville DJ Lase GR-160 RGY MKII, Stairville Hz-200 DMX (thanks to Hadley Denton)
+  * New fixture: lightMaxx Complete PAR56 9x12W RGBAWUV (thanks to Marco Palmisano)
+  * New fixtures: Briteq BTX-180L, Martin Mac Viper Wash DX, Martin Mac Viper Performance (thanks to Thierry Rodolfo)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Feb 2015 20:21:22 +0200
 

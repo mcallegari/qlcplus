@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3</Version>
+  <Author>Hadley Denton</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DJ Lase GR-140 RGY MKII</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode selection">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="50">Laser off</Capability>
+  <Capability Min="51" Max="100">Auto show</Capability>
+  <Capability Min="101" Max="150">Sound-controlled automatic show</Capability>
+  <Capability Min="151" Max="200">DMX 1 mode</Capability>
+  <Capability Min="201" Max="255">DMX 2 mode</Capability>
+ </Channel>
+ <Channel Name="Patten rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation (slow to fast)</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Vibration">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Vibration effect of patterns (small to large vibrations)</Capability>
+ </Channel>
+ <Channel Name="Red Laser">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Laser off</Capability>
+  <Capability Min="5" Max="10">Laser on</Capability>
+  <Capability Min="11" Max="254">Strobing (strobe effect), slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="Green Laser">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Laser off</Capability>
+  <Capability Min="5" Max="10">Laser on</Capability>
+  <Capability Min="11" Max="254">Strobing (strobe effect), slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="Colour selection">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Laser off</Capability>
+  <Capability Min="5" Max="20">Constantly red</Capability>
+  <Capability Min="21" Max="35">Red off, constantly green</Capability>
+  <Capability Min="36" Max="50">Red and green constantly</Capability>
+  <Capability Min="51" Max="80">Strobe effect for red, green off</Capability>
+  <Capability Min="81" Max="110">Red off, strobe effect for green</Capability>
+  <Capability Min="111" Max="140">Strobe effect for red and green</Capability>
+  <Capability Min="141" Max="170">Constantly red, strobe effect for green</Capability>
+  <Capability Min="171" Max="200">Strobe effect for red, constantly green</Capability>
+  <Capability Min="201" Max="255">Alternating strobe effect for red and green</Capability>
+ </Channel>
+ <Channel Name="Strobing (strobe effect)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="254">Strobing (strobe effect), slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Mode Name="DMX 1 mode">
+  <Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+  </Physical>
+  <Channel Number="0">Mode selection</Channel>
+  <Channel Number="1">Patten rotation</Channel>
+  <Channel Number="2">Vibration</Channel>
+  <Channel Number="3">Red Laser</Channel>
+  <Channel Number="4">Green Laser</Channel>
+ </Mode>
+ <Mode Name="DMX 2 mode">
+  <Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+  </Physical>
+  <Channel Number="0">Mode selection</Channel>
+  <Channel Number="1">Patten rotation</Channel>
+  <Channel Number="2">Vibration</Channel>
+  <Channel Number="3">Colour selection</Channel>
+  <Channel Number="4">Strobing (strobe effect)</Channel>
+ </Mode>
+</FixtureDefinition>
