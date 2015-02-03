@@ -60,7 +60,11 @@
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
+  <fixture path="Blizzard-Lighting-Hotbox-EXA.qxf" mf="Blizzard Lighting" md="Hotbox EXA"/>
+  <fixture path="Blizzard-Lighting-Hotbox-RGBAW.qxf" mf="Blizzard Lighting" md="Hotbox 5 RGBAW"/>
+  <fixture path="Blizzard-Lighting-Hotbox-RGBW.qxf" mf="Blizzard Lighting" md="Hotbox RGBW"/>
   <fixture path="Blizzard-Lighting-Puck-Fab5.qxf" mf="Blizzard Lighting" md="Puck Fab5"/>
+  <fixture path="Blizzard-Lighting-Puck-RGBAW.qxf" mf="Blizzard Lighting" md="Puck RGBAW"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>

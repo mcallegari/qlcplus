@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3</Version>
+  <Author>James Elliott</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Puck RGBAW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="15">Off</Capability>
+  <Capability Min="16" Max="255">On, Dim -> Bright</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Strobe off (open)</Capability>
+  <Capability Min="16" Max="255">Strobe speed Slow -> Fast</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Color="#ff0000">Red</Capability>
+  <Capability Min="5" Max="8" Color="#00ff00">Green</Capability>
+  <Capability Min="9" Max="12" Color="#0000ff">Blue</Capability>
+  <Capability Min="13" Max="16" Color="#ff8000">Amber</Capability>
+  <Capability Min="17" Max="20" Color="#ffffff">White</Capability>
+  <Capability Color2="#00ff00" Min="21" Max="24" Color="#ff0000">Red+Green</Capability>
+  <Capability Color2="#0000ff" Min="25" Max="28" Color="#ff0000">Red+Blue</Capability>
+  <Capability Color2="#ff8000" Min="29" Max="31" Color="#ff0000">Red+Amber</Capability>
+  <Capability Color2="#ffffff" Min="32" Max="35" Color="#ff0000">Red+White</Capability>
+  <Capability Color2="#0000ff" Min="36" Max="39" Color="#00ff00">Green+Blue</Capability>
+  <Capability Color2="#ff8000" Min="40" Max="43" Color="#00ff00">Green+Amber</Capability>
+  <Capability Color2="#ffffff" Min="44" Max="47" Color="#00ff00">Green+White</Capability>
+  <Capability Color2="#ff8000" Min="48" Max="51" Color="#0000ff">Blue+Amber</Capability>
+  <Capability Color2="#ffffff" Min="52" Max="55" Color="#0000ff">Blue+White</Capability>
+  <Capability Color2="#ffffff" Min="56" Max="59" Color="#ff8000">Amber+White</Capability>
+  <Capability Color2="#ffa858" Min="60" Max="62" Color="#c0c0ff">Blue+Amber+White</Capability>
+  <Capability Color2="#ffa858" Min="63" Max="66" Color="#c0ffc0">Green+Amber+White</Capability>
+  <Capability Color2="#c0c0ff" Min="67" Max="70" Color="#c0ffc0">Green+Blue+White</Capability>
+  <Capability Color2="#0000c0" Min="71" Max="74" Color="#00c000">Green+Blue+Amber</Capability>
+  <Capability Color2="#ffa858" Min="75" Max="78" Color="#ffc0c0">Red+Amber+White</Capability>
+  <Capability Color2="#c0c0ff" Min="79" Max="82" Color="#ffc0c0">Red+Blue+White</Capability>
+  <Capability Color2="#0000c0" Min="83" Max="86" Color="#c00000">Red+Blue+Amber</Capability>
+  <Capability Color2="#c0ffc0" Min="87" Max="90" Color="#ffc0c0">Red+Green+White</Capability>
+  <Capability Color2="#008000" Min="91" Max="93" Color="#c00000">Red+Green+Amber</Capability>
+  <Capability Color2="#800000" Min="94" Max="97" Color="#004000">Red+Green+Blue</Capability>
+  <Capability Min="98" Max="101" Color="#ffdca8">Red+Green+Blue+Amber</Capability>
+  <Capability Min="102" Max="105" Color="#ffffff">Red+Green+Blue+White</Capability>
+  <Capability Min="106" Max="109" Color="#ffff00">Red+Green+Amber+White</Capability>
+  <Capability Min="110" Max="113" Color="#800080">Red+Blue+Amber+White</Capability>
+  <Capability Min="114" Max="117" Color="#ffffc0">Green+Blue+Amber+White</Capability>
+  <Capability Min="118" Max="120" Color="#ffffff">Red+Green+Blue+Amber+White</Capability>
+  <Capability Min="121" Max="255">Chase Slow -> Fast</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Color Snap">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1">Off</Capability>
+  <Capability Min="254" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Snap Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Snap Slow -> Fast</Capability>
+ </Channel>
+ <Channel Name="Color Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1">Off</Capability>
+  <Capability Min="254" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Fade Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fade Slow -> Fast</Capability>
+ </Channel>
+ <Channel Name="Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="210" Depth="63" Weight="1.8" Height="211"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="210" Depth="63" Weight="1.8" Height="211"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="210" Depth="99" Weight="0" Height="216"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="55"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Color Snap</Channel>
+  <Channel Number="8">Snap Speed</Channel>
+  <Channel Number="9">Color Fade</Channel>
+  <Channel Number="10">Fade Speed</Channel>
+  <Channel Number="11">Sound Active</Channel>
+ </Mode>
+</FixtureDefinition>
