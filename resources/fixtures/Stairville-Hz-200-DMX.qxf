@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.2</Version>
+  <Author>Hadley Denton</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Hz-200 DMX</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Haze">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Amount of haze 0-100 %</Capability>
+ </Channel>
+ <Channel Name="Fan Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fan speed 0-100 %</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
+   <Dimensions Height="380" Width="280" Depth="330" Weight="7.5"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="615" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Haze</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+ </Mode>
+</FixtureDefinition>

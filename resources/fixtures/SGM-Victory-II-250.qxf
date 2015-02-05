@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
-  <Author>Heikki Junnila</Author>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3</Version>
+  <Author>Heikki Junnila &amp; Marco Palmisano</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
  <Model>Victory II 250</Model>
@@ -101,7 +101,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="49">Off</Capability>
   <Capability Min="50" Max="79">No rotation</Capability>
-  <Capability Min="80" Max="255">Rotation, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="255">Rotation, slow -> fast</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
@@ -117,12 +117,12 @@
   <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt fine</Capability>
  </Channel>
- <Mode Name="Mode 1">
+ <Mode Name="Mode 2">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -137,5 +137,24 @@
   <Channel Number="9">Reset</Channel>
   <Channel Number="10">Pan fine</Channel>
   <Channel Number="11">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Gobo rotation</Channel>
+  <Channel Number="7">Palette</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Reset</Channel>
  </Mode>
 </FixtureDefinition>

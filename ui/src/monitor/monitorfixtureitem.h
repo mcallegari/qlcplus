@@ -29,7 +29,7 @@ class Doc;
  * @{
  */
 
-typedef struct
+struct FixtureHead
 {
     QGraphicsEllipseItem *m_item;
     QGraphicsEllipseItem *m_back;
@@ -52,10 +52,18 @@ typedef struct
      */
     QList <quint32> m_shutterChannels;
 
+    enum ShutterState
+    {
+        Closed,
+        Strobe,
+        Open
+    };
+
     //! map DMX values to ON/OFF
     /*! map channel -> array of 256 bool values
      */
-    QHash<quint32, QList<bool> > m_shutterValues;
+    QHash<quint32, QList<ShutterState> > m_shutterValues;
+    int m_strobePhase;
 
     quint32 m_masterDimmer;
     quint32 m_panChannel;
@@ -66,7 +74,7 @@ typedef struct
     int m_tiltMaxDegrees;
     qreal m_tiltDegrees;
     QColor m_tiltColor;
-} FixtureHead;
+};
 
 class MonitorFixtureItem : public QObject, public QGraphicsItem
 {

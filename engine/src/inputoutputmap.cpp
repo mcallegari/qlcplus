@@ -364,7 +364,11 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
     QLCInputProfile *currProfile = NULL;
     if (currInPatch != NULL)
+    {
         currProfile = currInPatch->profile();
+        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
     InputPatch *ip = NULL;
 
     if (m_universeArray.at(universe)->setInputPatch(
