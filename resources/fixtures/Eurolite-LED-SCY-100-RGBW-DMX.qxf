@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Kithaeron</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SCY-100 RGBW DMX</Model>
+ <Type>Effect</Type>
+ <Channel Name="Lens 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Lens 7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Color="#ff0000" Min="11" Max="24">Red on</Capability>
+  <Capability Color="#00ff00" Min="25" Max="38">Green on</Capability>
+  <Capability Color="#0000ff" Min="39" Max="52">Blue on</Capability>
+  <Capability Color="#ffffff" Min="53" Max="66">Group 1 white on</Capability>
+  <Capability Color="#ffffff" Min="67" Max="80">Group 2 white on</Capability>
+  <Capability Color="#ffffff" Min="81" Max="94">Group 3 white on</Capability>
+  <Capability Color="#ffffff" Min="95" Max="108">White on</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="109" Max="122">Red and green on</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="123" Max="136">Red and blue on</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="137" Max="150">Green and blue on</Capability>
+  <Capability Color="#ff0000" Color2="#ffffff" Min="151" Max="164">Red and white on</Capability>
+  <Capability Color="#00ff00" Color2="#ffffff" Min="165" Max="178">Green and white on</Capability>
+  <Capability Color="#0000ff" Color2="#ffffff" Min="179" Max="192">Blue and white on</Capability>
+  <Capability Color="#ffffff" Min="193" Max="206">Red, green and blue on</Capability>
+  <Capability Min="207" Max="220">Red, green and white on</Capability>
+  <Capability Min="221" Max="234">Green, blue and white on</Capability>
+  <Capability Min="235" Max="255">Red, green, blue and white on</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Min="11" Max="255">Flash, with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Internal Programs, Auto Mode, Sound Controlled Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Min="11" Max="30">Program 1</Capability>
+  <Capability Min="31" Max="50">Program 2</Capability>
+  <Capability Min="51" Max="70">Program 3</Capability>
+  <Capability Min="71" Max="90">Program 4</Capability>
+  <Capability Min="91" Max="110">Program 5</Capability>
+  <Capability Min="111" Max="130">Program 6</Capability>
+  <Capability Min="131" Max="150">Program 7</Capability>
+  <Capability Min="151" Max="170">Program 8</Capability>
+  <Capability Min="171" Max="190">Program 9</Capability>
+  <Capability Min="191" Max="210">Program 10</Capability>
+  <Capability Min="211" Max="230">Program 11</Capability>
+  <Capability Min="231" Max="250">Auto Mode: Internal Programs</Capability>
+  <Capability Min="251" Max="255">Sound Controlled Mode</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="460" Height="155" Depth="355"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
+  <Channel Number="0">Lens 1</Channel>
+  <Channel Number="1">Lens 2</Channel>
+  <Channel Number="2">Lens 3</Channel>
+  <Channel Number="3">Lens 4</Channel>
+  <Channel Number="4">Lens 5</Channel>
+  <Channel Number="5">Lens 6</Channel>
+  <Channel Number="6">Lens 7</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Internal Programs, Auto Mode, Sound Controlled Mode</Channel>
+ </Mode>
+</FixtureDefinition>

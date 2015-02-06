@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Tom Moeller</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Omega I DMX-155</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color/Gobo Combo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">closed</Capability>
+  <Capability Color="#ffffff" Min="10" Max="19">open</Capability>
+  <Capability Min="20" Max="29">combo 01</Capability>
+  <Capability Min="30" Max="39">Combo 02</Capability>
+  <Capability Min="40" Max="49">Combo 03</Capability>
+  <Capability Min="50" Max="59">Combo 04</Capability>
+  <Capability Min="60" Max="69">Combo 05</Capability>
+  <Capability Min="70" Max="79">Combo 06</Capability>
+  <Capability Min="80" Max="89">Combo 07</Capability>
+  <Capability Min="90" Max="99">Combo 08</Capability>
+  <Capability Min="100" Max="109">Combo 09</Capability>
+  <Capability Min="110" Max="119">Combo 10</Capability>
+  <Capability Min="120" Max="129">Combo 11</Capability>
+  <Capability Min="130" Max="139">Combo 12</Capability>
+  <Capability Min="140" Max="149">Combo 13</Capability>
+  <Capability Min="150" Max="159">Combo 14</Capability>
+  <Capability Min="160" Max="249">Combo wheel scroll</Capability>
+  <Capability Min="250" Max="255">Sound activated mode</Capability>
+ </Channel>
+ <Channel Name="Strobe/Gobo Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="45">Strobe speed 1</Capability>
+  <Capability Min="46" Max="115">Strobe speed 2</Capability>
+  <Capability Min="116" Max="150">Strobe speed 3</Capability>
+  <Capability Min="151" Max="185">Strobe speed 4</Capability>
+  <Capability Min="186" Max="220">Strobe speed 5</Capability>
+  <Capability Min="221" Max="255">Strobe speed 6</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (Left to Right)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (Down to Up)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="0"/>
+   <Dimensions Height="279" Width="356" Depth="279" Weight="4.72"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="90" PanMax="180" Type="Barrel"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="250"/>
+  </Physical>
+  <Channel Number="0">Color/Gobo Combo</Channel>
+  <Channel Number="1">Strobe/Gobo Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+</FixtureDefinition>
