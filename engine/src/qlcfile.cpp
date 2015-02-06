@@ -186,7 +186,7 @@ bool QLCFile::isRaspberry()
         cpuInfoFile.open(QFile::ReadOnly);
         QString content = QLatin1String(cpuInfoFile.readAll());
         cpuInfoFile.close();
-        if (content.contains("BCM2708"))
+        if (content.contains("BCM2708") || content.contains("BCM2709"))
             return true;
     }
     return false;
