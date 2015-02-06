@@ -42,6 +42,7 @@
 #include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
+#include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
 
@@ -259,13 +260,15 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   else if (QString(conn->uri).endsWith(".css"))
   {
       QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/css") == true)
+      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                   .arg(QDir::separator()).arg(clUri), "text/css") == true)
           return MG_TRUE;
   }
   else if (QString(conn->uri).endsWith(".js"))
   {
       QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                   .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
           return MG_TRUE;
   }
   else if (QString(conn->uri) != "/")
