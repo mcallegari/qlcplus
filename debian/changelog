@@ -16,6 +16,7 @@ qlcplus (4.8.4) stable; urgency=low
   * Input: fix input received several times in a row after changing input profile (David Garyga)
   * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
   * Webaccess: fixed CSS/JS loading on OSX (4.8.2 regression)
+  * Webaccess: deny the favicon, so the interface doesn't get unresponsive after a while
   * New fixture: Robe Pointe (thanks to Moehritz)
   * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
   * New fixtures: Stairville DJ Lase GR-160 RGY MKII, Stairville Hz-200 DMX (thanks to Hadley Denton)

@@ -184,8 +184,9 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   //const struct mg_request_info *ri = mg_get_request_info(conn);
   qDebug() << Q_FUNC_INFO << conn->request_method << conn->uri;
 
-  if (QString(conn->uri) == "/qlcplusWS")
+  if (QString(conn->uri) == "/qlcplusWS" || QString(conn->uri) == "/favicon.ico")
       return MG_FALSE;
+
 
   if (QString(conn->uri) == "/loadProject")
   {
