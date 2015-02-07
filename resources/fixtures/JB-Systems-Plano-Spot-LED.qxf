@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Robin Davis</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Plano Spot LED</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Sound/Strobe Mode 1">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="190">Intensity 0-100%</Capability>
+  <Capability Min="191" Max="200">Sound (random colour changer)</Capability>
+  <Capability Min="201" Max="247">Strobe (slow-fast)</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer Mode 2">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Strobe Mode 3">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="160">Dimmer</Capability>
+  <Capability Min="161" Max="255">Strobe (slow-fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Strobe/Colour Changer Mode 4">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Intensity 0-100%</Capability>
+  <Capability Min="128" Max="199">Strobe (slow-fast)</Capability>
+  <Capability Min="200" Max="255" Res="Gobos\Gobos\Gobos\Others/rainbow.png">Colour Change Show (slow-fast)</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="67" Height="212" Weight="1.6" Width="212"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Sound/Strobe Mode 1</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="67" Height="212" Weight="1.6" Width="212"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer Mode 2</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="67" Height="212" Weight="1.6" Width="212"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Strobe Mode 3</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="67" Height="212" Weight="1.6" Width="212"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Strobe/Colour Changer Mode 4</Channel>
+ </Mode>
+</FixtureDefinition>

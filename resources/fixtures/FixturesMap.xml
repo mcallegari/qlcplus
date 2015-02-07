@@ -120,6 +120,7 @@
   <fixture path="Chauvet-Q-Beam-260-LED.qxf" mf="Chauvet" md="Q-Beam 260-LED"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
   <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
+  <fixture path="Chauvet-Q-Wash-560Z-LED.qxf" mf="Chauvet" md="Q-Wash 560Z-LED"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
@@ -262,6 +263,8 @@
   <fixture path="JB-Lighting-Varyscan-4-Compact-Plus.qxf" mf="JB-Lighting" md="Varyscan 4 Compact Plus"/>
   <fixture path="JB-Lighting-Varyscan-4-EV.qxf" mf="JB-Lighting" md="Varyscan 4 EV"/>
   <fixture path="JB-Lighting-Varyscan-P2.qxf" mf="JB-Lighting" md="Varyscan P2"/>
+  <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
+  <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="KAM-LED-PartyBar.qxf" mf="KAM" md="LED PartyBar"/>
