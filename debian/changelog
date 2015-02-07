@@ -14,6 +14,8 @@ qlcplus (4.8.4) stable; urgency=low
   * Input Profile editor: fix off-by-one for MIDI note numbers (72 is C5, Jano Svitok, spotted by Markus Baertschi)
   * Input: fix input received several times in a row after changing input profile (David Garyga)
   * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
+  * Plugins/ArtNet: fixed input from non-contiguous universes
+  * Plugins/ArtNet: enabled local address to communicate with other softwares running on the same computer
   * Webaccess: fixed CSS/JS loading on OSX (4.8.2 regression)
   * Webaccess: deny the favicon, so the interface doesn't get unresponsive after a while
   * New fixture: Robe Pointe (thanks to Moehritz)
@@ -31,7 +33,7 @@ qlcplus (4.8.4) stable; urgency=low
   * New fixture: Chauvet Omega I DMX-155 (thanks to Tom Moeller)
   * New fixture: Eurolite LED SCY-100 RGBW DMX (thanks to Kithaeron)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Feb 2015 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 7 Feb 2015 20:21:22 +0200
 
 qlcplus (4.8.3) stable; urgency=low
 
