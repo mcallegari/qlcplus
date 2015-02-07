@@ -64,7 +64,6 @@ docs.files = \
              tutorial-bcf-lc2412.html \
              tutorial-multipage.html \
              tutorial-soundcontrol.html \
-             tutorial-mixxx.html \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \

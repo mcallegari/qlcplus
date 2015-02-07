@@ -6,7 +6,6 @@ qlcplus (4.8.4) stable; urgency=low
   * MIDI templates: added APC mini sysex template (thanks to Joep Admiraal)
   * Experimental Loopback plugin (see docs, Jano Svitok)
   * Monitor: save both DMX view and 2D view settings (only current mode settings were saved, Jano Svitok)
-  * Docs: New Mixxx tutorial (Markus Baertschi)
   * RGB Scripts: added new Plasma script and added 'radial' orientation to Gradient (thanks to Tim Cullingworth)
   * Virtual Console: VCFrame pages: allow circular scrolling (David Garyga)
   * Virtual Console: Fix issues with cut-paste from one frame to another (David Garyga)

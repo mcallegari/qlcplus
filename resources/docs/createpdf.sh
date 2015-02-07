@@ -77,7 +77,6 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   tutorial-multipage.html \
   tutorial-soundcontrol.html \
   tutorial-bcf-lc2412.html \
-  tutorial-mixxx.html \
   commandlineparameters.html \
   kioskmode.html \
   webinterface.html \
