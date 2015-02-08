@@ -47,8 +47,8 @@
   <Capability Min="70" Max="74" Color="#00ff00">Green</Capability>
   <Capability Min="75" Max="79" Color="#00ffbf">Aquamarine</Capability>
   <Capability Min="80" Max="84" Color="#00ffff">Cyan</Capability>
-  <Capability Res="C:/QLC+/Gobos/Others/rainbow.png" Min="85" Max="169">7-color jump from slow to fast</Capability>
-  <Capability Res="C:/QLC+/Gobos/Others/rainbow.png" Min="170" Max="255">Color fade from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="85" Max="169">7-color jump from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="170" Max="255">Color fade from slow to fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>

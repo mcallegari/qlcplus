@@ -81,7 +81,11 @@ QString NanoDMX::getDeviceName()
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
+#ifdef LIBFTDI1
+        if (dir.startsWith(QString::number(libusb_get_port_number(m_device))) &&
+#else
         if (dir.startsWith(QString::number(m_device->bus->location)) &&
+#endif
             dir.contains(".") &&
             dir.contains(":") == false)
         {

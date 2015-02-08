@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Dag Stenstad</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Thunderscan FX</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Mirror 1 Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">CCW Rotation (Slow to Fast)</Capability>
+  <Capability Min="128" Max="255">CW Rotation (Fast to Slow)</Capability>
+ </Channel>
+ <Channel Name="Mirror 2 Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">CCW Rotation (Slow to Fast)</Capability>
+  <Capability Min="128" Max="255">CW Rotation (Fast to Slow)</Capability>
+ </Channel>
+ <Channel Name="Mirror 1 Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="1" Max="10">No Pattern</Capability>
+  <Capability Color="#ff0004" Min="11" Max="15">Red</Capability>
+  <Capability Color="#00ff1d" Min="16" Max="20">Green</Capability>
+  <Capability Color="#0c6dff" Min="21" Max="25">Blue</Capability>
+  <Capability Color="#ff0000" Min="26" Max="30" Color2="#00ff00">Red+Green</Capability>
+  <Capability Color="#26ff05" Min="31" Max="35" Color2="#1170ff">Green+Blue</Capability>
+  <Capability Color="#ff0000" Min="36" Max="40" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="41" Max="45">Red+Green+Blue</Capability>
+  <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
+  <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
+  <Capability Min="56" Max="60">0</Capability>
+  <Capability Min="61" Max="65">1</Capability>
+  <Capability Min="66" Max="70">2</Capability>
+  <Capability Min="71" Max="75">3</Capability>
+  <Capability Min="76" Max="80">4</Capability>
+  <Capability Min="81" Max="85">5</Capability>
+  <Capability Min="86" Max="90">6</Capability>
+  <Capability Min="91" Max="95">7</Capability>
+  <Capability Min="96" Max="100">8</Capability>
+  <Capability Min="101" Max="105">9</Capability>
+  <Capability Min="106" Max="110">Circle</Capability>
+  <Capability Min="111" Max="115">Circle Thick</Capability>
+  <Capability Min="116" Max="120">Checkmark</Capability>
+  <Capability Min="121" Max="125">X</Capability>
+  <Capability Min="126" Max="130">Anim: Color Lines</Capability>
+  <Capability Min="131" Max="135">Anim: Fill Left to Right</Capability>
+  <Capability Min="136" Max="140">Anim: Line Right to Left</Capability>
+  <Capability Min="141" Max="145">Anim: Moving Cross</Capability>
+  <Capability Min="146" Max="150">Anim: Moving Cross Ping Pong</Capability>
+  <Capability Min="151" Max="155">Anim: Circle Expanding</Capability>
+  <Capability Min="156" Max="160">Anim: Circle Expansion Ping Pong</Capability>
+  <Capability Min="161" Max="165">Anim: Fill Slant</Capability>
+  <Capability Min="166" Max="170">Anim: 1 Pixel Moving</Capability>
+  <Capability Min="171" Max="175">Anim: 2 Pixel Moving Ping Pong</Capability>
+  <Capability Min="176" Max="180">Anim: Squares</Capability>
+  <Capability Min="181" Max="185">Anim: Spinning Shuriken</Capability>
+  <Capability Min="186" Max="190">Anim: 1 Pixel Spiral Inwards</Capability>
+  <Capability Min="191" Max="195">Anim: Snake Spiral Inwards</Capability>
+  <Capability Min="196" Max="200">Anim: 4 Pixel Spiral Outwards</Capability>
+  <Capability Min="201" Max="205">Anim: Clock</Capability>
+  <Capability Min="206" Max="215">Anim: Fill and Empty L to R</Capability>
+  <Capability Min="216" Max="225">Anim: Spiral Single+Fill Combo</Capability>
+  <Capability Min="226" Max="235">Anim: 4 Pixel Circle</Capability>
+  <Capability Min="236" Max="245">Anim: Lines Horisontal and Vertical</Capability>
+  <Capability Min="246" Max="255">Anim: 0 to 9</Capability>
+ </Channel>
+ <Channel Name="Mirror 2 Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="1" Max="10">No Pattern</Capability>
+  <Capability Color="#ff0004" Min="11" Max="15">Red</Capability>
+  <Capability Color="#00ff1d" Min="16" Max="20">Green</Capability>
+  <Capability Color="#0c6dff" Min="21" Max="25">Blue</Capability>
+  <Capability Color="#ff3b00" Min="26" Max="30" Color2="#19ff00">Red+Green</Capability>
+  <Capability Color="#26ff05" Min="31" Max="35" Color2="#1170ff">Green+Blue</Capability>
+  <Capability Color="#ff0000" Min="36" Max="40" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="41" Max="45">Red+Green+Blue</Capability>
+  <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
+  <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
+  <Capability Min="56" Max="60">0</Capability>
+  <Capability Min="61" Max="65">1</Capability>
+  <Capability Min="66" Max="70">2</Capability>
+  <Capability Min="71" Max="75">3</Capability>
+  <Capability Min="76" Max="80">4</Capability>
+  <Capability Min="81" Max="85">5</Capability>
+  <Capability Min="86" Max="90">6</Capability>
+  <Capability Min="91" Max="95">7</Capability>
+  <Capability Min="96" Max="100">8</Capability>
+  <Capability Min="101" Max="105">9</Capability>
+  <Capability Min="106" Max="110">Circle</Capability>
+  <Capability Min="111" Max="115">Circle Thick</Capability>
+  <Capability Min="116" Max="120">Checkmark</Capability>
+  <Capability Min="121" Max="125">X</Capability>
+  <Capability Min="126" Max="130">Anim: Color Lines</Capability>
+  <Capability Min="131" Max="135">Anim: Fill Left to Right</Capability>
+  <Capability Min="136" Max="140">Anim: Line Right to Left</Capability>
+  <Capability Min="141" Max="145">Anim: Moving Cross</Capability>
+  <Capability Min="146" Max="150">Anim: Moving Cross Ping Pong</Capability>
+  <Capability Min="151" Max="155">Anim: Circle Expanding</Capability>
+  <Capability Min="156" Max="160">Anim: Circle Expansion Ping Pong</Capability>
+  <Capability Min="161" Max="165">Anim: Fill Slant</Capability>
+  <Capability Min="166" Max="170">Anim: 1 Pixel Moving</Capability>
+  <Capability Min="171" Max="175">Anim: 2 Pixel Moving Ping Pong</Capability>
+  <Capability Min="176" Max="180">Anim: Squares</Capability>
+  <Capability Min="181" Max="185">Anim: Spinning Shuriken</Capability>
+  <Capability Min="186" Max="190">Anim: 1 Pixel Spiral Inwards</Capability>
+  <Capability Min="191" Max="195">Anim: Snake Spiral Inwards</Capability>
+  <Capability Min="196" Max="200">Anim: 4 Pixel Spiral Outwards</Capability>
+  <Capability Min="201" Max="205">Anim: Clock</Capability>
+  <Capability Min="206" Max="215">Anim: Fill and Empty L to R</Capability>
+  <Capability Min="216" Max="225">Anim: Spiral Single+Fill Combo</Capability>
+  <Capability Min="226" Max="235">Anim: 4 Pixel Circle</Capability>
+  <Capability Min="236" Max="245">Anim: Lines Horisontal and Vertical</Capability>
+  <Capability Min="246" Max="255">Anim: 0 to 9</Capability>
+ </Channel>
+ <Channel Name="Mirror Pattern Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer for White LEDs 0-100%">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Dimmer for white LEDs 0-100%</Capability>
+ </Channel>
+ <Channel Name="Shutter for White LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Shutter for White LEDs</Capability>
+ </Channel>
+ <Channel Name="Dimmer for UV LEDs 0-100%">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">Dimmer for UV LEDs 0-100%</Capability>
+ </Channel>
+ <Channel Name="Shutter for UV LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Shutter for UV LEDs</Capability>
+ </Channel>
+ <Channel Name="Effect Combination Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="45">Mirror 1 CW, Mirror 2 CCW, Pattern Auto</Capability>
+  <Capability Min="46" Max="80">Mirror 2 CCW, Mirror 2 CW, Pattern Auto</Capability>
+  <Capability Min="81" Max="115">Strobe and Pattern</Capability>
+  <Capability Min="116" Max="150">Thunderstorm</Capability>
+  <Capability Min="151" Max="185">White and UV Fade</Capability>
+  <Capability Min="186" Max="220">Mirror 1 and Mirror 2 Change</Capability>
+  <Capability Min="221" Max="255">3 effect change with pattern, white + UV</Capability>
+ </Channel>
+ <Mode Name="DMX 10-channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="460" Width="360" Depth="190" Weight="4.8"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mirror 1 Rotation</Channel>
+  <Channel Number="1">Mirror 2 Rotation</Channel>
+  <Channel Number="2">Mirror 1 Pattern</Channel>
+  <Channel Number="3">Mirror 2 Pattern</Channel>
+  <Channel Number="4">Mirror Pattern Speed</Channel>
+  <Channel Number="5">Dimmer for White LEDs 0-100%</Channel>
+  <Channel Number="6">Shutter for White LEDs</Channel>
+  <Channel Number="7">Dimmer for UV LEDs 0-100%</Channel>
+  <Channel Number="8">Shutter for UV LEDs</Channel>
+  <Channel Number="9">Effect Combination Programs</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -46,6 +46,7 @@ public:
     QString frameName() const;
     bool multipageEnabled() const;
     bool cloneWidgets() const;
+    bool pagesLoop() const;
 
 protected slots:
     void slotMultipageChecked(bool enable);

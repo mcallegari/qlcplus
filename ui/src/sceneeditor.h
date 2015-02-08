@@ -54,6 +54,9 @@ class SceneEditor : public QWidget, public Ui_SceneEditor
      * Initialization
      *********************************************************************/
 public:
+    /*!
+       \param applyValues - true for scenes, false for sequences
+     */
     SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValues);
     ~SceneEditor();
 

@@ -23,14 +23,15 @@ class FixtureDef
   end
 
   class Capability
-    attr_accessor :min, :max, :name, :color, :colour2
+    attr_accessor :min, :max, :name, :res, :color, :color2
     def initialize(node)
       return if node.empty?
       @min = node.attributes['Min'].to_i 
       @max = node.attributes['Max'].to_i
+      @res = node.attributes['Res']
       @color = node.attributes['Color'] 
       @color2 = node.attributes['Color2'] 
-      @name = node.content 
+      @name = node.content
     end
   end
 
@@ -40,6 +41,33 @@ class FixtureDef
       return if node.empty?
       @name = node.content 
       @byte = node.attributes['Byte'].to_i
+    end
+
+    def icon
+      case @name
+      when "Pan"
+        "pan.png"
+      when "Tilt"
+        "tilt.png"
+      when "Colour"
+        "colorwheel.png"
+      when "Effect"
+        "star.png"
+      when "Gobo"
+        "gobo.png"
+      when "Shutter"
+        "shutter.png"
+      when "Speed"
+        "speed.png"
+      when "Prism"
+        "prism.png"
+      when "Maintenance"
+        "configure.png"
+      when "Intensity"
+         "intensity.png"
+      when "Beam"
+        "beam.png"
+      end
     end
   end
 
@@ -53,6 +81,29 @@ class FixtureDef
       @color = n.content unless n.nil?
       n = node.find('xmlns:Capability', NS)
       @capabilities = n.nil? ? [] : n.map {|c| Capability.new(c) }
+    end
+
+    def rgb_color
+      case color
+      when "Red"
+        "#FF0000"
+      when "Green"
+        "#00FF00"
+      when "Blue"
+        "#0000FF"
+      when "Cyan"
+        "#00FFFF"
+      when "Magenta"
+        "#FF00FF"
+      when "Yellow"
+        "#FFFF00"
+      when "Amber"
+        "#FF7E00"
+      when "White"
+        "#FFFFFF"
+      when "UV"
+        "#9400D3"
+      end
     end
   end
 
@@ -311,7 +362,7 @@ EOF
         <table border=1>
           <tr>
             <th>&nbsp;</th>
-            <th>group</th>
+            <th colspan="2">group</th>
             <th>byte</th>
             <th>color</th>
 EOF
@@ -324,9 +375,20 @@ EOF
         fix.channels.each do |ch|
           f << "          <tr>\n"
           f << "            <td>#{ch.name}</td>\n"
+          icon = ch.group.icon
+          if icon.nil?
+            f << "            <td></td>\n"
+          else
+            f << "            <td><img src=\"gfx/#{icon}\" /></td>\n"
+          end
           f << "            <td>#{ch.group.name}</td>\n"
-          f << "            <td>#{ch.group.byte > 0 ? ch.group.byte : nil}</td>\n"
-          f << "            <td>#{ch.color}</td>\n"
+          f << "            <td>#{ch.group.byte}</td>\n"
+          rgb_color = ch.rgb_color
+          if rgb_color.nil?
+            f << "            <td>#{ch.color}</td>\n"
+          else
+            f << "            <td style=\"background-color: #{rgb_color}\">#{ch.color}</td>\n"
+          end
 
           fix.modes.each do |m|
             mch = m.channels.find {|mc| mc.name == ch.name}
@@ -334,13 +396,34 @@ EOF
               f << "            <td></td>\n"
               f << "            <td></td>\n"
             else
-              heads = m.heads.map {|h| h.index if h.channels.include? mch.number }.compact
+              heads = m.heads.map {|h| h.index if h.channels.include? mch.number }.compact.join(',')
               f << "            <td>#{mch.number}</td>\n"
-              f << "            <td>#{ heads.join(',') }</td>\n"
+              f << "            <td>#{ heads.empty? ? '&nbsp;' : heads }</td>\n"
             end
           end
 
           f << "          </tr>\n"
+if false
+          ch.capabilities.each do |cap|
+            f << "          <tr>\n"
+            f << "            <td colspan=\"#{5 + fix.modes.size * 2}\"></td>\n"
+            f << "            <td>#{cap.min}</td>\n"
+            f << "            <td>#{cap.max}</td>\n"
+            f << "            <td>#{cap.name}</td>\n"
+            f << "            <td>#{cap.res}</td>\n"
+            if cap.color.nil?
+              f << "            <td>&nbsp;</td>\n"
+            else
+              f << "            <td style=\"background-color: #{cap.color}\">#{cap.color}</td>\n"
+            end
+            if cap.color2.nil?
+              f << "            <td>&nbsp;</td>\n"
+            else
+              f << "            <td style=\"background-color: #{cap.color2}\">#{cap.color2}</td>\n"
+            end
+            f << "          </tr>\n"
+          end
+end
         end
 
         f << <<-EOF

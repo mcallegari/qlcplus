@@ -579,7 +579,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                 m_matrix->setStepColor(m_matrix->startColor());
             }
             else
-                m_matrix->updateStepColor(m_previewDirection);
+                m_matrix->updateStepColor(m_previewStep);
         }
         else
         {
@@ -593,7 +593,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                     m_matrix->setStepColor(m_matrix->startColor());
             }
             else
-                m_matrix->updateStepColor(m_previewDirection);
+                m_matrix->updateStepColor(m_previewStep);
         }
         map = m_matrix->previewMap(m_previewStep);
         m_previewIterator = 0;
@@ -1095,7 +1095,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                 currentStep = totalSteps - 2;
                 increment = -1;
             }
-            m_matrix->updateStepColor(m_matrix->direction());
+            m_matrix->updateStepColor(currentStep);
         }
 
         m_doc->addFunction(chaser);

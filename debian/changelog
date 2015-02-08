@@ -1,14 +1,42 @@
 qlcplus (4.8.4) stable; urgency=low
 
   * RGB Matrix Editor: fixed conversion to a Sequence
+  * Scene Editor: fix preview in non-tabbed mode (David Garyga)
   * Fixture Editor: added UV primary color (Jano Svitok)
   * MIDI templates: added APC mini sysex template (thanks to Joep Admiraal)
   * Experimental Loopback plugin (see docs, Jano Svitok)
   * Monitor: save both DMX view and 2D view settings (only current mode settings were saved, Jano Svitok)
+  * RGB Scripts: added new Plasma script and added 'radial' orientation to Gradient (thanks to Tim Cullingworth)
+  * Virtual Console: Frame: allow pages circular scrolling (David Garyga)
+  * Virtual Console: Frame: Increased the maximum number of pages to 100 
+  * Virtual Console: Fix issues with cut-paste from one frame to another (David Garyga)
+  * Virtual Console: Solo Frame: Fix regression: frame inside a solo frame not working (David Garyga)
+  * Monitor: show color of color filters and shutter state (so far only RGB/CMY channels where shown, Jano Svitok)
+  * Input Profile editor: fix off-by-one for MIDI note numbers (72 is C5, Jano Svitok, spotted by Markus Baertschi)
+  * Input: fix input received several times in a row after changing input profile (David Garyga)
+  * Fix opening files outside of QLC+ install dir in Windows (Jano Svitok)
+  * Plugins/ArtNet: fixed input from non-contiguous universes
+  * Plugins/ArtNet: enabled local address to communicate with other softwares running on the same computer
+  * Webaccess: fixed CSS/JS loading on OSX (4.8.2 regression)
+  * Webaccess: deny the favicon, so the interface doesn't get unresponsive after a while
   * New fixture: Robe Pointe (thanks to Moehritz)
   * New fixture: Ledj Performer 18 RGBWA (thanks to Michael Clements)
+  * New fixtures: Stairville DJ Lase GR-160 RGY MKII, Stairville Hz-200 DMX (thanks to Hadley Denton)
+  * New fixture: lightMaxx Complete PAR56 9x12W RGBAWUV (thanks to Marco Palmisano)
+  * New fixtures: Briteq BTX-180L, Martin Mac Viper Wash DX, Martin Mac Viper Performance (thanks to Thierry Rodolfo)
+  * New fixtures: Blizzard Hotbox EXA, Blizzard Hotbox RGBAW, Blizzard Hotbox RGBW, Blizzard Puck RGBAW (thanks to Dough Esselburn)
+  * New fixture: Varytec LED Laser 4 (thanks to Heiko Fanieng)
+  * New fixture: Chauvet Hive (thanks to Vic)
+  * New fixture: Studio Due Shark 150C (thanks to Dean Clough)
+  * New fixture: American DJ Dotz Par (thanks to Zeph)
+  * New fixture: Img Stage Line PARL-4Set (thanks to Mitsch)
+  * New fixture: Varytec Thunderscan FX, Pro-Lights GoboMix (thanks to Dag Stenstad)
+  * New fixture: Chauvet Omega I DMX-155 (thanks to Tom Moeller)
+  * New fixture: Eurolite LED SCY-100 RGBW DMX (thanks to Kithaeron)
+  * New fixture: Chauvet Q-Wash 560Z LED (thanks to Connor Faulder)
+  * New fixtures: JB Systems Plano Spot 7TC, JB Systems Plano Spot LED (thanks to Robin Davis)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Jan 2014 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 8 Feb 2015 20:21:22 +0200
 
 qlcplus (4.8.3) stable; urgency=low
 

@@ -42,6 +42,7 @@
 #include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
+#include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
 
@@ -183,8 +184,9 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   //const struct mg_request_info *ri = mg_get_request_info(conn);
   qDebug() << Q_FUNC_INFO << conn->request_method << conn->uri;
 
-  if (QString(conn->uri) == "/qlcplusWS")
+  if (QString(conn->uri) == "/qlcplusWS" || QString(conn->uri) == "/favicon.ico")
       return MG_FALSE;
+
 
   if (QString(conn->uri) == "/loadProject")
   {
@@ -259,13 +261,15 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   else if (QString(conn->uri).endsWith(".css"))
   {
       QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/css") == true)
+      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                   .arg(QDir::separator()).arg(clUri), "text/css") == true)
           return MG_TRUE;
   }
   else if (QString(conn->uri).endsWith(".js"))
   {
       QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(WEBFILESDIR).arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                   .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
           return MG_TRUE;
   }
   else if (QString(conn->uri) != "/")

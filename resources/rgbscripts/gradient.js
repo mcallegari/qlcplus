@@ -32,9 +32,9 @@ var testAlgo;
     algo.presetIndex = 0;
     algo.properties.push("name:presetIndex|type:list|display:Preset|values:Rainbow,Sunset,Abstract,Ocean|write:setPreset|read:getPreset");
     algo.presetSize = 5;
-    algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
+    algo.properties.push("name:presetSize|type:range|display:Size|values:1,40|write:setSize|read:getSize");
     algo.orientation = 0;
-    algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation");
+    algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical,Radial|write:setOrientation|read:getOrientation");
     
     var util = new Object;
     util.initialized = false;
@@ -79,8 +79,10 @@ var testAlgo;
     {
       if (_orientation == "Vertical")
 	algo.orientation = 1;
-      else
+      else if (_orientation == "Horizontal")
 	algo.orientation = 0;
+      else
+        algo.orientation = 2;
       util.initialize();
     }
 
@@ -88,8 +90,10 @@ var testAlgo;
     {
       if (algo.orientation == 1)
 	return "Vertical";
-      else
+      else if (algo.orientation == 0)
 	return "Horizontal";
+      else
+	return "Radial";
     }
 
     util.initialize = function()
@@ -133,10 +137,7 @@ var testAlgo;
     {
         if (util.initialized == false)
 	{
-	  if (algo.orientation == 0)
-	    util.initialize(width);
-	  else
-	    util.initialize(height);
+	  util.initialize(width);
 	}
 
 	var gradStep = 0;
@@ -152,8 +153,14 @@ var testAlgo;
 	    {
 	      if (algo.orientation == 0)
 		gradStep = step + x;
+	      else if (algo.orientation == 2)
+	      {
+		var xdis = x - ((width-1)/2);
+		var ydis = y - ((height-1)/2);
+		gradStep = step + Math.round( Math.sqrt((xdis * xdis) + (ydis * ydis)));
+	      }
 	      if (gradStep >= util.gradientData.length)
-		gradStep -= util.gradientData.length;
+		gradStep = (gradStep % util.gradientData.length);
 
 	      map[y][x] = util.gradientData[gradStep];
 	    }
@@ -174,5 +181,5 @@ var testAlgo;
     testAlgo = algo;
 
     return algo;
-    }
+  }
 )()

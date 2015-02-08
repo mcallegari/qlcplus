@@ -59,7 +59,7 @@
   <Capability Min="179" Max="255">Random rotation</Capability>
  </Channel>
  <Channel Name="Shutter">
-  <Group Byte="1">Shutter</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="130">Shutter open</Capability>
   <Capability Min="131" Max="253">Strobe</Capability>
   <Capability Min="254" Max="255">Shutter open</Capability>

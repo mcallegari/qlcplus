@@ -60,9 +60,10 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_step(0)
     , m_roundTime(new QTime)
     , m_stepColor(QColor())
-    , m_crDelta(0)
-    , m_cgDelta(0)
-    , m_cbDelta(0)
+    , m_crDelta(0.0)
+    , m_cgDelta(0.0)
+    , m_cbDelta(0.0)
+    , m_stepCount(0)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
@@ -258,6 +259,7 @@ void RGBMatrix::calculateColorDelta()
     m_crDelta = 0;
     m_cgDelta = 0;
     m_cbDelta = 0;
+    m_stepCount = 0;
 
     if (m_endColor.isValid())
     {
@@ -268,11 +270,12 @@ void RGBMatrix::calculateColorDelta()
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (grp != NULL && m_algorithm != NULL)
         {
-            if (m_algorithm->rgbMapStepCount(grp->size()) > 1)
+            m_stepCount = m_algorithm->rgbMapStepCount(grp->size()) - 1;
+            if (m_stepCount > 0)
             {
-                m_crDelta = (m_endColor.red() - m_startColor.red()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
-                m_cgDelta = (m_endColor.green() - m_startColor.green()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
-                m_cbDelta = (m_endColor.blue() - m_startColor.blue()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+                m_crDelta = m_endColor.red() - m_startColor.red();
+                m_cgDelta = m_endColor.green() - m_startColor.green();
+                m_cbDelta = m_endColor.blue() - m_startColor.blue();
             }
         }
     }
@@ -288,18 +291,14 @@ QColor RGBMatrix::stepColor()
     return m_stepColor;
 }
 
-void RGBMatrix::updateStepColor(Function::Direction direction)
+void RGBMatrix::updateStepColor(int step)
 {
-    if (direction == Forward)
-    {
-        m_stepColor = QColor(m_stepColor.red() + m_crDelta,
-                             m_stepColor.green() + m_cgDelta,
-                             m_stepColor.blue() + m_cbDelta);
-    }
-    else
-        m_stepColor = QColor(m_stepColor.red() - m_crDelta,
-                             m_stepColor.green() - m_cgDelta,
-                             m_stepColor.blue() - m_cbDelta);
+    if (m_stepCount <= 0)
+        return;
+
+    m_stepColor.setRed(m_startColor.red() + (m_crDelta * step / m_stepCount));
+    m_stepColor.setGreen(m_startColor.green() + (m_cgDelta * step / m_stepCount));
+    m_stepColor.setBlue(m_startColor.blue() + (m_cbDelta * step / m_stepCount));
 }
 
 /************************************************************************
@@ -585,14 +584,14 @@ void RGBMatrix::roundCheck(const QSize& size)
             if (m_endColor.isValid())
                 m_stepColor = m_endColor;
 
-            updateStepColor(m_direction);
+            updateStepColor(m_step);
         }
         else if (m_direction == Backward && (m_step - 1) < 0)
         {
             m_direction = Forward;
             m_step = 1;
             m_stepColor = m_startColor;
-            updateStepColor(m_direction);
+            updateStepColor(m_step);
         }
         else
         {
@@ -600,7 +599,7 @@ void RGBMatrix::roundCheck(const QSize& size)
                 m_step++;
             else
                 m_step--;
-            updateStepColor(m_direction);
+            updateStepColor(m_step);
         }
     }
     else if (runOrder() == SingleShot)
@@ -612,7 +611,7 @@ void RGBMatrix::roundCheck(const QSize& size)
             else
             {
                 m_step++;
-                updateStepColor(m_direction);
+                updateStepColor(m_step);
             }
         }
         else
@@ -622,7 +621,7 @@ void RGBMatrix::roundCheck(const QSize& size)
             else
             {
                 m_step--;
-                updateStepColor(m_direction);
+                updateStepColor(m_step);
             }
         }
     }
@@ -638,7 +637,7 @@ void RGBMatrix::roundCheck(const QSize& size)
             else
             {
                 m_step++;
-                updateStepColor(m_direction);
+                updateStepColor(m_step);
             }
         }
         else
@@ -652,7 +651,7 @@ void RGBMatrix::roundCheck(const QSize& size)
             else
             {
                 m_step--;
-                updateStepColor(m_direction);
+                updateStepColor(m_step);
             }
         }
     }

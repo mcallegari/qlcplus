@@ -26,6 +26,7 @@
 #include "qlccapability.h"
 #include "qlcmacros.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 
 /************************************************************************
  * Initialization
@@ -189,18 +190,8 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
     if (m_resourceName.isEmpty() == false)
     {
         QString modFilename = m_resourceName;
-        QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-        dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                    .arg(GOBODIR));
-        dir = dir.cleanPath(dir.path());
-#elif defined(WIN32) || defined(Q_OS_WIN)
-        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
-                    .arg(QDir::separator())
-                    .arg(GOBODIR));
-#else
-        dir.setPath(GOBODIR);
-#endif
+        QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+
         if (modFilename.contains(dir.path()))
         {
             modFilename.remove(dir.path());
@@ -272,14 +263,8 @@ bool QLCCapability::loadXML(const QDomElement& root)
         QString path = root.attribute(KXMLQLCCapabilityResource);
         if (QFileInfo(path).isRelative())
         {
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-            QDir dir;
-            dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                        .arg(GOBODIR));
+            QDir dir = QLCFile::systemDirectory(GOBODIR);
             path = dir.path() + QDir::separator() + path;
-#else
-            path = QString(GOBODIR) + QDir::separator() + path;
-#endif
         }
         setResourceName(path);
     }

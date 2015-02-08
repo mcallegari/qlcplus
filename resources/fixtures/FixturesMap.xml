@@ -12,6 +12,7 @@
   <fixture path="American-DJ-DJ-Spot-250.qxf" mf="American DJ" md="DJ Spot 250"/>
   <fixture path="American-DJ-DJ-Spot-300.qxf" mf="American DJ" md="DJ Spot 300"/>
   <fixture path="American-DJ-Dotz-Bar-1.4.qxf" mf="American DJ" md="Dotz Bar 1.4"/>
+  <fixture path="American-DJ-Dotz-Par.qxf" mf="American DJ" md="Dotz Par"/>
   <fixture path="American-DJ-Dotz-TPar.qxf" mf="American DJ" md="Dotz TPar"/>
   <fixture path="American-DJ-Double-Phase.qxf" mf="American DJ" md="Double Phase"/>
   <fixture path="American-DJ-Event-Bar-LED.qxf" mf="American DJ" md="Event Bar LED"/>
@@ -60,7 +61,11 @@
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
+  <fixture path="Blizzard-Lighting-Hotbox-EXA.qxf" mf="Blizzard Lighting" md="Hotbox EXA"/>
+  <fixture path="Blizzard-Lighting-Hotbox-RGBAW.qxf" mf="Blizzard Lighting" md="Hotbox 5 RGBAW"/>
+  <fixture path="Blizzard-Lighting-Hotbox-RGBW.qxf" mf="Blizzard Lighting" md="Hotbox RGBW"/>
   <fixture path="Blizzard-Lighting-Puck-Fab5.qxf" mf="Blizzard Lighting" md="Puck Fab5"/>
+  <fixture path="Blizzard-Lighting-Puck-RGBAW.qxf" mf="Blizzard Lighting" md="Puck RGBAW"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
@@ -68,6 +73,7 @@
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
   <fixture path="Briteq-BT-W07L12.qxf" mf="Briteq" md="BT-W07L12"/>
   <fixture path="Briteq-BT-W12L10.qxf" mf="Briteq" md="BT-W12L10"/>
+  <fixture path="Briteq-BTX-180LS.qxf" mf="Briteq" md="BTX-180LS"/>
   <fixture path="Cameo-CLBARL10RGBA.qxf" mf="Cameo" md="LED Colour Bar RGBA (CLBAR10RGBA)"/>
   <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="Flat PAR CAN TRI 3W"/>
   <fixture path="Cameo-LED-Mini-PAR-CAN-RGB-7x3W.qxf" mf="Cameo" md="LED Mini PAR CAN RGB 7x3W"/>
@@ -94,6 +100,7 @@
   <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
   <fixture path="Chauvet-Gobo-Zoom-LED-2.0.qxf" mf="Chauvet" md="Gobo Zoom LED 2.0"/>
   <fixture path="Chauvet-Gyser-RGB.qxf" mf="Chauvet" md="Gyser RGB"/>
+  <fixture path="Chauvet-Hive.qxf" mf="Chauvet" md="Hive"/>
   <fixture path="Chauvet-Hurricane-1800-Flex.qxf" mf="Chauvet" md="Hurricane 1800 Flex"/>
   <fixture path="Chauvet-Hurricane-Haze-2.qxf" mf="Chauvet" md="Hurricane Haze 2"/>
   <fixture path="Chauvet-Intimidator-Beam-LED-350.qxf" mf="Chauvet" md="Intimidator Beam LED 350"/>
@@ -109,9 +116,11 @@
   <fixture path="Chauvet-LED-Techno-Strobe-RGB.qxf" mf="Chauvet" md="LED Techno Strobe RGB"/>
   <fixture path="Chauvet-LEDrain64.qxf" mf="Chauvet" md="LEDrain64"/>
   <fixture path="Chauvet-LEDSplash-Jr.qxf" mf="Chauvet" md="LEDSplash Jr"/>
+  <fixture path="Chauvet-Omega-I-DMX-155.qxf" mf="Chauvet" md="Omega I DMX-155"/>
   <fixture path="Chauvet-Q-Beam-260-LED.qxf" mf="Chauvet" md="Q-Beam 260-LED"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
   <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
+  <fixture path="Chauvet-Q-Wash-560Z-LED.qxf" mf="Chauvet" md="Q-Wash 560Z-LED"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
@@ -159,6 +168,7 @@
   <fixture path="Eurolite-LED-PAR64-White.qxf" mf="Eurolite" md="LED PAR64 White"/>
   <fixture path="Eurolite-LED-PMB-4-COB-RGB-30W-Bar.qxf" mf="Eurolite" md="LED PMB-4 COB RGB 30W Bar"/>
   <fixture path="Eurolite-LED-PMB-8-COB-RGB-30W.qxf" mf="Eurolite" md="LED PMB-8 COB RGB 30W"/>
+  <fixture path="Eurolite-LED-SCY-100-RGBW-DMX.qxf" mf="Eurolite" md="LED SCY-100 RGBW DMX"/>
   <fixture path="Eurolite-LED-SLS-180-RGB.qxf" mf="Eurolite" md="LED SLS-180 RGB"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
@@ -244,6 +254,7 @@
   <fixture path="High-End-Systems-Xspot-Xtreme.qxf" mf="High End Systems" md="Xspot Xtreme"/>
   <fixture path="HQ-Power-Power-Space-250.qxf" mf="HQ Power" md="Power Space 250"/>
   <fixture path="i-Pix-BB4.qxf" mf="i-Pix" md="BB4"/>
+  <fixture path="Img-Stage-Line-PARL-4Set.qxf" mf="IMG Stage Line" md="PARL-4SET"/>
   <fixture path="Img-Stage-Line-Parl-73-RGB.qxf" mf="Img Stage Line" md="Parl 73-RGB"/>
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
@@ -252,6 +263,8 @@
   <fixture path="JB-Lighting-Varyscan-4-Compact-Plus.qxf" mf="JB-Lighting" md="Varyscan 4 Compact Plus"/>
   <fixture path="JB-Lighting-Varyscan-4-EV.qxf" mf="JB-Lighting" md="Varyscan 4 EV"/>
   <fixture path="JB-Lighting-Varyscan-P2.qxf" mf="JB-Lighting" md="Varyscan P2"/>
+  <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
+  <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="KAM-LED-PartyBar.qxf" mf="KAM" md="LED PartyBar"/>
@@ -266,6 +279,7 @@
   <fixture path="Ledj-Performer-18-RGBWA.qxf" mf="Ledj" md="Performer 18 RGBWA"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
+  <fixture path="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV.qxf" mf="lightmaXX" md="Complete PAR 56 9x12W RGBAW-UV"/>
   <fixture path="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf" mf="lightmaXX" md="LED MEGA PAR 64 RGBW 18x8 W"/>
   <fixture path="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W.qxf" mf="lightmaXX" md="Platinum Line Mini PAR QUAD 7x8W"/>
   <fixture path="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W.qxf" mf="lightmaXX" md="Platinum Line Mini TRI-PAR 7x3 Watt"/>
@@ -288,6 +302,8 @@
   <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
   <fixture path="Martin-MAC-700-Profile.qxf" mf="Martin" md="MAC 700 Profile"/>
   <fixture path="Martin-MAC-Aura.qxf" mf="Martin" md="MAC Aura"/>
+  <fixture path="Martin-MAC-Viper-Performance.qxf" mf="Martin" md="MAC Viper Performance"/>
+  <fixture path="Martin-MAC-Viper-Wash DX.qxf" mf="Martin" md="MAC Viper Wash DX"/>
   <fixture path="Martin-MAC250-Entour.qxf" mf="Martin" md="MAC250 Entour"/>
   <fixture path="Martin-MAC250-Krypton.qxf" mf="Martin" md="MAC250 Krypton"/>
   <fixture path="Martin-MAC250plus.qxf" mf="Martin" md="MAC250+"/>
@@ -326,6 +342,7 @@
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
   <fixture path="Pro-Lights-CromoSpot-150.qxf" mf="Pro-Lights" md="CromoSpot150"/>
   <fixture path="Pro-Lights-Explo-3000D.qxf" mf="Pro-Lights" md="Explo 3000D"/>
+  <fixture path="Pro-Lights-GoboMix.qxf" mf="Pro-Lights" md="GoboMix"/>
   <fixture path="Pro-Lights-LedPar-64363-RGB.qxf" mf="Pro-Lights" md="LedPar 64363 RGB"/>
   <fixture path="Pro-Lights-LumiPar-18-Tri.qxf" mf="Pro-Lights" md="LumiPar 18 Tri"/>
   <fixture path="Pro-Lights-LumiPar-7QPro.qxf" mf="Pro-Lights" md="LumiPar 7QPro"/>
@@ -401,7 +418,9 @@
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
+  <fixture path="Stairville-DJ-Lase-GR-140-RGY-MKII.qxf" mf="Stairville" md="DJ Lase GR-140 RGY MKII"/>
   <fixture path="Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf" mf="Stairville" md="HL-x9 Quad Color Flood 9x8W"/>
+  <fixture path="Stairville-Hz-200-DMX.qxf" mf="Stairville" md="Hz-200 DMX"/>
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
   <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
   <fixture path="Stairville-LED-PAR56-10MM-UV.qxf" mf="Stairville" md="LED PAR56 10MM UV"/>
@@ -436,13 +455,16 @@
   <fixture path="Starway-TourKolor.qxf" mf="Starway" md="TourKolor"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
+  <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
   <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
+  <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
   <fixture path="Varytec-LED-Magic-Mushroom.qxf" mf="Varytec" md="LED Magic Mushroom"/>
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
+  <fixture path="Varytec-Thunderscan-FX.qxf" mf="Varytec" md="Thunderscan FX"/>
   <fixture path="Velleman-Beam-Driver-250.qxf" mf="Velleman" md="Beam Driver 250"/>
   <fixture path="Venue-LEDPAR64.qxf" mf="Venue" md="LED PAR64"/>
   <fixture path="Venue-Scanner-4.qxf" mf="Venue" md="Scanner 4"/>

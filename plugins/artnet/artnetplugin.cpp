@@ -34,11 +34,14 @@ void ArtNetPlugin::init()
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
-            if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
+            if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 ArtNetIO tmpIO;
                 tmpIO.IPAddress = entry.ip().toString();
-                tmpIO.MACAddress = interface.hardwareAddress();
+                if (addr == QHostAddress::LocalHost)
+                    tmpIO.MACAddress = "11:22:33:44:55:66";
+                else
+                    tmpIO.MACAddress = interface.hardwareAddress();
                 tmpIO.controller = NULL;
                 m_IOmapping.append(tmpIO);
 

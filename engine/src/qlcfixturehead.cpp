@@ -45,6 +45,8 @@ QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
     , m_masterIntensityChannel(head.m_masterIntensityChannel)
     , m_rgbChannels(head.m_rgbChannels)
     , m_cmyChannels(head.m_cmyChannels)
+    , m_colorWheels(head.m_colorWheels)
+    , m_shutterChannels(head.m_shutterChannels)
 {
 }
 
@@ -111,6 +113,16 @@ QVector <quint32> QLCFixtureHead::cmyChannels() const
     return m_cmyChannels;
 }
 
+QVector <quint32> QLCFixtureHead::colorWheels() const
+{
+    return m_colorWheels;
+}
+
+QVector <quint32> QLCFixtureHead::shutterChannels() const
+{
+    return m_shutterChannels;
+}
+
 void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
 {
     Q_ASSERT(mode != NULL);
@@ -126,6 +138,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     m_panLsbChannel = QLCChannel::invalid();
     m_tiltLsbChannel = QLCChannel::invalid();
     m_masterIntensityChannel = QLCChannel::invalid();
+    m_colorWheels.clear();
 
     QSetIterator <quint32> it(m_channels);
     while (it.hasNext() == true)
@@ -167,47 +180,47 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
                 m_tiltLsbChannel = i;
             }
         }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::NoColour &&
+        else if (ch->group() == QLCChannel::Intensity)
+        {
+            if (ch->colour() == QLCChannel::NoColour &&
                  m_masterIntensityChannel > i)
-        {
-            m_masterIntensityChannel = i;
+            {
+                m_masterIntensityChannel = i;
+            }
+            else if (ch->colour() == QLCChannel::Red && r > i)
+            {
+                r = i;
+            }
+            else if (ch->colour() == QLCChannel::Green && g > i)
+            {
+                g = i;
+            }
+            else if (ch->colour() == QLCChannel::Blue && b > i)
+            {
+                b = i;
+            }
+            else if (ch->colour() == QLCChannel::Cyan && c > i)
+            {
+                c = i;
+            }
+            else if (ch->colour() == QLCChannel::Magenta && m > i)
+            {
+                m = i;
+            }
+            else if (ch->colour() == QLCChannel::Yellow && y > i)
+            {
+                y = i;
+            }
         }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Red &&
-                 r > i)
+        else if (ch->group() == QLCChannel::Colour)
         {
-            r = i;
+            if (ch->controlByte() == QLCChannel::MSB)
+                m_colorWheels << i;
         }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Green &&
-                 g > i)
+        else if (ch->group() == QLCChannel::Shutter)
         {
-            g = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Blue &&
-                 b > i)
-        {
-            b = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Cyan &&
-                 c > i)
-        {
-            c = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Magenta &&
-                 m > i)
-        {
-            m = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Yellow &&
-                 y > i)
-        {
-            y = i;
+            if (ch->controlByte() == QLCChannel::MSB)
+                m_shutterChannels << i;
         }
     }
 
@@ -215,6 +228,9 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         m_rgbChannels << r << g << b;
     if (c != QLCChannel::invalid() && m != QLCChannel::invalid() && y != QLCChannel::invalid())
         m_cmyChannels << c << m << y;
+
+    qSort(m_colorWheels);
+    qSort(m_shutterChannels);
 
     // Allow only one caching round per head
     m_channelsCached = true;
