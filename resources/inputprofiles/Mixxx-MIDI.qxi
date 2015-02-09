@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://qlcplus.sourceforge.net/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Luis García-Tornel</Author>
+ </Creator>
+ <Manufacturer>Mixxx</Manufacturer>
+ <Model>MIDI</Model>
+ <Type>MIDI</Type>
+ <Channel Number="192">
+  <Name>MONO current absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>MONO average minimum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>MONO average middle</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>MONO average maximum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>MONO current relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>MONO Meter 1 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>MONO Meter 2 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>MONO Meter 3 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>MONO Meter 4 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>MONO Meter 1 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>MONO Meter 2 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>MONO Meter 3 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>MONO Meter 4 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>LEFT current absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>LEFT average minimum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>LEFT average middle</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>LEFT average maximum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>LEFT current relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>LEFT Meter 1 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>LEFT Meter 2 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>LEFT Meter 3 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>LEFT Meter 4 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="217">
+  <Name>LEFT Meter 1 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="218">
+  <Name>LEFT Meter 2 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>LEFT Meter 3 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>LEFT Meter 4 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>RIGHT current absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>RIGHT average minimum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>RIGHT average middle</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>RIGHT average maximum</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="228">
+  <Name>RIGHT current relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="229">
+  <Name>RIGHT Meter 1 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="230">
+  <Name>RIGHT Meter 2 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="231">
+  <Name>RIGHT Meter 3 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="232">
+  <Name>RIGHT Meter 4 absolute</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="233">
+  <Name>RIGHT Meter 1 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="234">
+  <Name>RIGHT Meter 2 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="235">
+  <Name>RIGHT Meter 3 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="236">
+  <Name>RIGHT Meter 4 relative</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>
