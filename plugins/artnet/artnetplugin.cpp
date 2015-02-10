@@ -86,7 +86,7 @@ QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
     int j = 0;
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -98,7 +98,7 @@ QStringList ArtNetPlugin::outputs()
 
 QString ArtNetPlugin::outputInfo(quint32 output)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
 
     if (output >= (quint32)m_IOmapping.length())
@@ -130,7 +130,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 bool ArtNetPlugin::openOutput(quint32 output)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
 
     if (output >= (quint32)m_IOmapping.length())
@@ -196,7 +196,7 @@ QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
     int j = 0;
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -208,7 +208,7 @@ QStringList ArtNetPlugin::inputs()
 
 bool ArtNetPlugin::openInput(quint32 input)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
 
     if (input >= (quint32)m_IOmapping.length())
@@ -262,7 +262,7 @@ void ArtNetPlugin::closeInput(quint32 input)
 
 QString ArtNetPlugin::inputInfo(quint32 input)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() == 1)
         init();
     if (input >= (quint32)m_IOmapping.length())
         return QString();

@@ -34,7 +34,10 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     {
         if (iface.ip() == m_ipAddr)
         {
-            m_broadcastAddr = iface.broadcast();
+            if (m_ipAddr == QHostAddress::LocalHost)
+                m_broadcastAddr = QHostAddress::LocalHost;
+            else
+                m_broadcastAddr = iface.broadcast();
             break;
         }
         i++;
