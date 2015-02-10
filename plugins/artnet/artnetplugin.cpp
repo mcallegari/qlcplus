@@ -29,6 +29,8 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
+    m_IOmapping.clear();
+
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
