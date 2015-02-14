@@ -36,7 +36,7 @@ Rectangle {
             color: "#555"
             width: parent.width
             height: 20
-            radius: 3
+            //radius: 3
 
             Text {
                 x: 2
@@ -63,7 +63,7 @@ Rectangle {
                             y: 1
                             width: 28
                             height: 28
-                            source: fixtureManager.channelIcon(fixtureObj.id, index)
+                            source: if (fixtureObj) fixtureManager.channelIcon(fixtureObj.id, index)
                         }
                     }
             }

@@ -32,13 +32,13 @@ Flickable {
     property int uniStartAddr: viewUniverseCombo.currentIndex * 512
     property int cellWidth: width / destGrid.columns
 
-    Text {
+    RobotoText {
         id: uniText
         height: 45
-        color: "#ccc"
-        text: viewUniverseCombo.currentText
-        font.pixelSize: 30
-        font.bold: true
+        labelColor: "#ccc"
+        label: viewUniverseCombo.currentText
+        fontSize: 30
+        fontBold: true
     }
 
     Grid {

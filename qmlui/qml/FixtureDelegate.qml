@@ -50,15 +50,12 @@ Item {
         width: height
     }
 
-    Text {
+    RobotoText {
         id: textitem
-        color: "white"
-        //font.pixelSize: 32
-        text: modelData
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 5
-        font.bold: true
+        label: modelData
+        height: parent.height
+        fontSize: 12
+        //fontBold: true
     }
 
     Rectangle {
@@ -92,7 +89,8 @@ Item {
 
         //onPressed: if(drag.active) FxDragJS.startDrag(mouse);
         onPressed: {
-                fxDraggableItem.clicked();
+                if (fxDraggableItem.visibleArrow == false)
+                    fxDraggableItem.clicked();
                 FxDragJS.initProperties();
         }
         onPositionChanged: if(drag.active == true) FxDragJS.handleDrag(mouse);

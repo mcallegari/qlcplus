@@ -61,10 +61,10 @@ function loadComponent() {
 }
 
 function createItem() {
-    if (itemComponent.status == Component.Ready && draggedItem == null) {
+    if (itemComponent.status === Component.Ready && draggedItem == null) {
         draggedItem = itemComponent.createObject(mainView, {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10});
         // make sure created item is above the ground layer
-    } else if (itemComponent.status == Component.Error) {
+    } else if (itemComponent.status === Component.Error) {
         draggedItem = null;
         console.log("error creating component");
         console.log(itemComponent.errorString());
@@ -90,7 +90,7 @@ function endDrag(mouse)
 
     fixtureManager.addFixture(manufacturer, model, mode, name,
                               universeIndex, address, channels, quantity, gap,
-                              draggedItem.x, draggedItem.y);
+                              draggedItem.x - leftSidePanel.width, draggedItem.y - previewLoader.y);
 
     draggedItem.destroy();
     draggedItem = null;

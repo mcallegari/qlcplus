@@ -18,9 +18,6 @@
 */
 
 #include <QDebug>
-#include <QQuickItem>
-#include <QQmlContext>
-#include <QQmlComponent>
 
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
@@ -28,9 +25,8 @@
 #include "fixture.h"
 #include "doc.h"
 
-FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
+FixtureManager::FixtureManager(Doc *doc, QObject *parent)
     : QObject(parent)
-    , m_view(view)
     , m_doc(doc)
 {
     Q_ASSERT(m_doc != NULL);
@@ -76,7 +72,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
-        createQMLFixture(fxi->id(), xPos, yPos);
+        emit newFixtureCreated(fxi->id(), xPos, yPos);
     }
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
@@ -125,29 +121,5 @@ QQmlListProperty<Fixture> FixtureManager::fixtures()
     m_fixtureList = m_doc->fixtures();
     return QQmlListProperty<Fixture>(this, m_fixtureList);
 }
-
-void FixtureManager::createQMLFixture(quint32 fxID, qreal x, qreal y)
-{
-    QObject *viewObj = m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions");
-    if (viewObj == NULL)
-        return;
-
-    QString currentView = viewObj->property("currentView").toString();
-    qDebug() << "Current view:" << currentView;
-
-    if (currentView == "2D")
-    {
-        QQuickItem *twoDView = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
-        QQmlComponent fixtureComponent(m_view->engine(),
-                        QUrl("qrc:/Fixture2DItem.qml"));
-        QQuickItem *newView = qobject_cast<QQuickItem*>(fixtureComponent.create());
-        newView->setParentItem(twoDView);
-        newView->setProperty("fixtureID", fxID);
-        newView->setProperty("xPos", x);
-        newView->setProperty("yPos", y);
-    }
-}
-
-
 
 

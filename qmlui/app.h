@@ -25,13 +25,13 @@
 #include <QObject>
 #include "doc.h"
 
+class MainView2D;
 class QDomElement;
 class QDomDocument;
 class FixtureBrowser;
 class FixtureManager;
 class FunctionManager;
 class InputOutputManager;
-
 
 #define KXMLQLCWorkspace "Workspace"
 
@@ -52,6 +52,7 @@ public:
 private:
     QQmlEngine m_engine;
     QQuickView *m_view;
+    MainView2D *m_2DView;
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
     FunctionManager *m_functionManager;
@@ -69,6 +70,7 @@ public:
 
 private slots:
     void slotDocModified(bool state);
+    void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
 
 private:
     void initDoc();

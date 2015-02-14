@@ -17,10 +17,12 @@
   limitations under the License.
 */
 
+#include <QQuickItem>
 #include <QQmlContext>
 #include <QDomDocument>
 
 #include "app.h"
+#include "mainview2d.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
@@ -71,11 +73,17 @@ void App::startup()
     m_fixtureBrowser = new FixtureBrowser(m_view, m_doc);
     m_view->rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
 
-    m_fixtureManager = new FixtureManager(m_view, m_doc);
+    m_fixtureManager = new FixtureManager(m_doc);
     m_view->rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
     m_functionManager = new FunctionManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
+
+    m_2DView = new MainView2D(m_view, m_doc);
+    m_view->rootContext()->setContextProperty("View2D", m_2DView);
+
+    connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
+            this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));
@@ -106,6 +114,23 @@ Doc *App::doc()
 void App::slotDocModified(bool state)
 {
     Q_UNUSED(state)
+}
+
+void App::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
+{
+    Q_UNUSED(z)
+
+    QObject *viewObj = m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions");
+    if (viewObj == NULL)
+        return;
+
+    QString currentView = viewObj->property("currentView").toString();
+    qDebug() << "Current view:" << currentView;
+
+    if (currentView == "2D")
+    {
+        m_2DView->createFixtureItem(fxID, x, y, false);
+    }
 }
 
 void App::initDoc()

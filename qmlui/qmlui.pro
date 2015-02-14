@@ -26,7 +26,8 @@ HEADERS += \
     functionmanager.h \
     inputoutputmanager.h \ 
     treemodel.h \
-    treemodelitem.h
+    treemodelitem.h \
+    mainview2d.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -35,9 +36,10 @@ SOURCES += main.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
     treemodel.cpp \
-    treemodelitem.cpp
+    treemodelitem.cpp \
+    mainview2d.cpp
 
-RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc
+RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 
 OTHER_FILES += 
 

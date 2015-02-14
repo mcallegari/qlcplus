@@ -29,6 +29,10 @@ Rectangle {
     height: 600
     anchors.fill: parent
 
+    FontLoader {
+        source: "qrc:RobotoCondensed-Regular.ttf"
+    }
+
     FileDialog {
         id: fileDialog
         visible: false

@@ -44,7 +44,7 @@ Rectangle {
                 case 8: "qrc:/collection.svg"; break;
                 case 16: "qrc:/script.svg"; break;
                 case 32: "qrc:/rgbmatrix.svg"; break;
-                case 64: "qrc:/show.svg"; break;
+                case 64: "qrc:/showmanager.svg"; break;
             }
         }
 

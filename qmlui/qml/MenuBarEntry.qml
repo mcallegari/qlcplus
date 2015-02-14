@@ -94,6 +94,14 @@ Rectangle {
             height: parent.height
             color: "transparent"
 
+            RobotoText {
+                id: textBox
+                label: entryText
+                height: parent.height
+                fontSize: 12
+                fontBold: true
+            }
+/*
             Text {
                 id: textBox
                 y: 0
@@ -105,7 +113,7 @@ Rectangle {
                 font.bold: true
                 verticalAlignment: Text.AlignVCenter
             }
-
+*/
             Rectangle {
                 id: selRect
                 radius: 2

@@ -19,67 +19,171 @@
 
 import QtQuick 2.3
 
-Flickable {
-    id: twoDView
+Rectangle {
     anchors.fill: parent
-    z: 1
-    boundsBehavior: Flickable.StopAtBounds
+    color: "black"
 
-    property int gridWidth: 8
-    property int gridHeight: 6
-
-    contentWidth: twoDContents.width * twoDContents.zoomFactor
-    contentHeight: twoDContents.height * twoDContents.zoomFactor
-
-    Rectangle {
-        id: twoDContents
+    Flickable {
+        id: twoDView
         objectName: "twoDView"
-        //transformOrigin: Item.TopLeft
-        x: 0; y: 0; z: 0
-        width: parent.width
-        height: parent.height
-        color: "black"
-        scale: zoomFactor
+        anchors.fill: parent
+        z: 1
+        boundsBehavior: Flickable.StopAtBounds
+        contentWidth: parent.width
+        contentHeight: parent.height
 
-        property real zoomFactor: 1.0
+        property int gridWidth: 5
+        property int gridHeight: 5
+        property real gridScale: 1.0
+        property int gridUnits: 1000
 
-        Grid {
-            id: twoDGrid
-            anchors.horizontalCenter: parent.horizontalCenter
-            columns: twoDView.gridWidth
+        property real baseCellSize
 
-            Repeater {
-                model: twoDView.gridWidth * twoDView.gridHeight
-                delegate:
-                    Rectangle {
-                        width: {
-                            if (twoDView.width / twoDView.gridWidth < twoDView.height / twoDView.gridHeight)
-                                twoDView.width / twoDView.gridWidth
-                            else
-                                twoDView.height / twoDView.gridHeight
-                        }
-                        height: width
-                        color: "transparent"
-                        border.width: 1
-                        border.color: "#111"
-                    }
-            }
+        Component.onCompleted: calculateCellSize()
+        onGridScaleChanged: {
+            calculateCellSize()
+            twoDContents.requestPaint()
         }
 
-        MouseArea {
-            anchors.fill: parent
-            onWheel: {
-                if (wheel.modifiers & Qt.ControlModifier) {
+        function calculateCellSize() {
+            var xDiv = width / gridWidth;
+            var yDiv = height / gridHeight;
+            twoDContents.x = 0;
+            twoDContents.y = 0;
+            if (yDiv < xDiv)
+            {
+                twoDView.baseCellSize = yDiv * gridScale;
+                if (gridScale == 1.0)
+                    twoDContents.x = (width - (yDiv * gridWidth)) / 2;
+            }
+            else if (xDiv < yDiv)
+            {
+                baseCellSize = xDiv * gridScale;
+                if (gridScale == 1.0)
+                    twoDContents.y = (height - (xDiv * gridHeight)) / 2;
+            }
+            contentWidth = baseCellSize * gridWidth;
+            contentHeight = baseCellSize * gridHeight;
+
+            console.log("Cell size calculated: " + baseCellSize)
+        }
+
+        Canvas {
+            id: twoDContents
+            objectName: "twoDContents"
+            width: twoDView.contentWidth
+            height: twoDView.contentHeight
+            x: 0
+            y: 0
+
+            antialiasing: true
+
+            property real cellSize: twoDView.baseCellSize
+            property int gridUnits: twoDView.gridUnits
+
+            onPaint: {
+                var ctx = twoDContents.getContext('2d');
+                //ctx.save();
+                ctx.globalAlpha = 1.0;
+                ctx.strokeStyle = "#1A1A1A";
+                ctx.fillStyle = "black";
+                ctx.lineWidth = 1;
+
+                ctx.beginPath();
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillRect(0, 0, width, height)
+                ctx.rect(0, 0, width, height)
+
+                for (var vl = 1; vl < twoDView.gridWidth; vl++)
+                {
+                    var xPos = cellSize * vl;
+                    ctx.moveTo(xPos, 0);
+                    ctx.lineTo(xPos, height);
+                }
+                for (var hl = 1; hl < twoDView.gridHeight; hl++)
+                {
+                    var yPos = cellSize * hl;
+                    ctx.moveTo(0, yPos);
+                    ctx.lineTo(width, yPos);
+                }
+                ctx.closePath();
+                ctx.stroke();
+                //ctx.restore();
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onWheel: {
+                    console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
-                        twoDContents.zoomFactor += 0.1;
-                    else if (twoDContents.zoomFactor - 0.1 >= 0.1)
-                        twoDContents.zoomFactor -= 0.1;
+                        twoDView.gridScale += 0.5;
+                    else {
+                        if (twoDView.gridScale > 1.0)
+                            twoDView.gridScale -= 0.5;
+                    }
                 }
             }
-        }
-        DropArea {
-            anchors.fill: parent
+            DropArea {
+                anchors.fill: parent
 
+            }
         }
+
+    /*
+        contentWidth: twoDContents.width * twoDContents.zoomFactor
+        contentHeight: twoDContents.height * twoDContents.zoomFactor
+
+        Rectangle {
+            id: twoDContents
+            objectName: "twoDView"
+            //transformOrigin: Item.TopLeft
+            x: 0; y: 0; z: 0
+            width: parent.width
+            height: parent.height
+            color: "black"
+            scale: zoomFactor
+
+            property real zoomFactor: 1.0
+
+            Grid {
+                id: twoDGrid
+                anchors.horizontalCenter: parent.horizontalCenter
+                columns: twoDView.gridWidth
+
+                Repeater {
+                    model: twoDView.gridWidth * twoDView.gridHeight
+                    delegate:
+                        Rectangle {
+                            width: {
+                                if (twoDView.width / twoDView.gridWidth < twoDView.height / twoDView.gridHeight)
+                                    twoDView.width / twoDView.gridWidth
+                                else
+                                    twoDView.height / twoDView.gridHeight
+                            }
+                            height: width
+                            color: "transparent"
+                            border.width: 1
+                            border.color: "#111"
+                        }
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onWheel: {
+                    if (wheel.modifiers & Qt.ControlModifier) {
+                        if (wheel.angleDelta.y > 0)
+                            twoDContents.zoomFactor += 0.1;
+                        else if (twoDContents.zoomFactor - 0.1 >= 0.1)
+                            twoDContents.zoomFactor -= 0.1;
+                    }
+                }
+            }
+            DropArea {
+                anchors.fill: parent
+
+            }
+        }
+    */
     }
 }

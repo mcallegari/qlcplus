@@ -1,0 +1,64 @@
+/*
+  Q Light Controller Plus
+  mainview2d.h
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+#ifndef MAINVIEW2D_H
+#define MAINVIEW2D_H
+
+#include <QObject>
+#include <QQuickView>
+
+class Doc;
+
+class MainView2D : public QObject
+{
+    Q_OBJECT
+public:
+    explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~MainView2D();
+
+    void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
+
+signals:
+
+public slots:
+
+private:
+    QQuickView *m_view;
+    Doc *m_doc;
+
+    /** Size of the grid. How many horizontal and vertical cells */
+    QSize m_gridSize;
+
+    /** Scale of the grid */
+    qreal m_gridScale;
+
+    /** Size of a grid cell in pixels */
+    qreal m_cellPixels;
+
+    /** X offset of the grid to keep it centered */
+    qreal m_xOffset;
+
+    /** Y offset of the grid to keep it centered */
+    qreal m_yOffset;
+
+    /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
+    float m_unitValue;
+};
+
+#endif // MAINVIEW2D_H

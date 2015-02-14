@@ -55,13 +55,13 @@ Rectangle {
             color: "#0d235b"
             radius: 3
 
-            Text {
+            RobotoText {
                 id: fxPropsTitle
-                anchors.fill: parent
-                color: "#ffffff"
-                text: qsTr("Fixture properties")
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 18
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                label: qsTr("Fixture properties")
+                //horizontalAlignment: Text.AlignHCenter
+                fontSize: 16
             }
         }
 
@@ -70,12 +70,12 @@ Rectangle {
             width: parent.width - 14
             spacing: 4
 
-            Text {
+            RobotoText {
                 id: fxNameLabel
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Name")
-                font.pixelSize: 15
+                label: qsTr("Name")
+                fontSize: 14
             }
 
             CustomTextEdit {
@@ -95,12 +95,12 @@ Rectangle {
             width: parent.width - 14
             spacing: 4
 
-            Text {
+            RobotoText {
                 id: fxUniverse
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Universe")
-                font.pixelSize: 15
+                label: qsTr("Universe")
+                fontSize: 14
             }
             CustomComboBox {
                 id: fxUniverseCombo
@@ -115,12 +115,12 @@ Rectangle {
             width: parent.width - 14
             spacing: 4
 
-            Text {
+            RobotoText {
                 id: fxAddress
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Address")
-                font.pixelSize: 15
+                label: qsTr("Address")
+                fontSize: 14
             }
             SpinBox {
                 id: fxAddressSpin
@@ -131,12 +131,12 @@ Rectangle {
                 decimals: 0
                 Layout.fillWidth: true
             }
-            Text {
+            RobotoText {
                 id: fxQuantity
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Quantity")
-                font.pixelSize: 15
+                label: qsTr("Quantity")
+                fontSize: 14
             }
             SpinBox {
                 id: fxQuantitySpin
@@ -154,12 +154,12 @@ Rectangle {
             width: parent.width - 14
             spacing: 4
 
-            Text {
+            RobotoText {
                 id: fxModeCh
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Channels")
-                font.pixelSize: 15
+                label: qsTr("Channels")
+                fontSize: 14
             }
             SpinBox {
                 id: fxModeChSpin
@@ -170,12 +170,12 @@ Rectangle {
                 decimals: 0
                 value: fixtureBrowser.modeChannels
             }
-            Text {
+            RobotoText {
                 id: fxGap
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Gap")
-                font.pixelSize: 15
+                label: qsTr("Gap")
+                fontSize: 14
             }
 
             SpinBox {
@@ -193,12 +193,12 @@ Rectangle {
             width: parent.width - 14
             spacing: 4
 
-            Text {
+            RobotoText {
                 id: fxMode
+                height: 30
                 anchors.verticalCenter: parent.verticalCenter
-                color: "#ffffff"
-                text: qsTr("Mode")
-                font.pixelSize: 15
+                label: qsTr("Mode")
+                fontSize: 14
             }
 
             CustomComboBox {

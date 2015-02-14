@@ -4,6 +4,7 @@
         <file alias="arrowdown.png">../resources/icons/png/arrowdown.png</file>
 
         <file alias="MainView.qml">qml/MainView.qml</file>
+        <file alias="RobotoText.qml">qml/RobotoText.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
         <file alias="FixturesAndFunctions.qml">qml/FixturesAndFunctions.qml</file>
