@@ -83,6 +83,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/lib/qt4/plugins/qlcplus/libudmx.so
 /usr/lib/qt4/plugins/qlcplus/libe131.so
 /usr/lib/qt4/plugins/qlcplus/libspi.so
+/usr/lib/qt4/plugins/qlcplus/libloopback.so
 /etc/udev/rules.d/z65-dmxusb.rules
 /etc/udev/rules.d/z65-anyma-udmx.rules
 /etc/udev/rules.d/z65-peperoni.rules
