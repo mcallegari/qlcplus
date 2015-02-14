@@ -477,6 +477,9 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(SimpleDesk::instance()));
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
+    // Hide the tab bar to save some pixels
+    m_tab->tabBar()->hide();
+
     // No need for the toolbar
     delete m_toolbar;
     m_toolbar = NULL;
