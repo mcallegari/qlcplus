@@ -30,6 +30,7 @@ TRANSLATIONS += E131_cz_CZ.ts
 TRANSLATIONS += E131_pt_BR.ts
 TRANSLATIONS += E131_ca_ES.ts
 TRANSLATIONS += E131_ja_JP.ts
+TRANSLATIONS += E131_zh_CN.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += e131packetizer.h \
