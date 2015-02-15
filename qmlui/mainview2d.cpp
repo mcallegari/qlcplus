@@ -126,7 +126,7 @@ QPointF MainView2D::getAvailablePosition(qreal width, qreal height)
 
 void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords)
 {
-    if (m_view2D == NULL || m_contents2D == NULL)
+    //if (m_view2D == NULL || m_contents2D == NULL)
         initialize2DProperties();
 
     qDebug() << "Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
@@ -162,14 +162,12 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         if (mmCoords == false)
             x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
         newFixtureItem->setProperty("mmXPos", x);
-        qDebug() << "Setting X position:" << x;
     }
     if (y > m_yOffset)
     {
         if (mmCoords == false)
             y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
         newFixtureItem->setProperty("mmYPos", y);
-        qDebug() << "Setting Y position:" << y;
     }
 
     // and finally add the new item to the items map

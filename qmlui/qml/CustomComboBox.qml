@@ -46,15 +46,14 @@ ComboBox {
                 }
             }
          }
-        label: Text {
-            verticalAlignment: Qt.AlignVCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            text: control.currentText
+        label: RobotoText {
+            //verticalAlignment: Qt.AlignVCenter
+            //anchors.left: parent.left
+            //anchors.leftMargin: 5
+            label: control.currentText
             anchors.fill: parent
-            font.pixelSize: 12
-            font.bold: true
-            color: "white"
+            fontSize: 12
+            fontBold: true
         }
         dropDownButtonWidth: 30
     }

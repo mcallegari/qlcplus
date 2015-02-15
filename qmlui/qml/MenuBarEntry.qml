@@ -101,19 +101,6 @@ Rectangle {
                 fontSize: 12
                 fontBold: true
             }
-/*
-            Text {
-                id: textBox
-                y: 0
-                text: entryText
-                height: parent.height
-                width: Text.paintedWidth
-                color: "white"
-                font.pixelSize: 12
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-            }
-*/
             Rectangle {
                 id: selRect
                 radius: 2

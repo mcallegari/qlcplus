@@ -38,12 +38,11 @@ Rectangle {
             height: 20
             //radius: 3
 
-            Text {
+            RobotoText {
                 x: 2
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 2
-                text: fixtureObj.name
-                color: "white"
+                label: fixtureObj.name
             }
         }
         Row {

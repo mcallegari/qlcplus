@@ -40,14 +40,13 @@ Rectangle {
         source: "qrc:/folder.svg"
     }
 
-    Text {
+    RobotoText {
         id: nodeLabel
         x: 45
         width: parent.width
         height: 35
-        text: textLabel
-        verticalAlignment: Text.AlignVCenter
-        color: "white"
+        label: textLabel
+        fontSize: 11
     }
 
     MouseArea {

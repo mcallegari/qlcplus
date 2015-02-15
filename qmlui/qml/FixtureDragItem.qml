@@ -33,11 +33,13 @@ Rectangle {
     opacity: 0.7
     color: "white"
 
-    Text {
+    RobotoText {
         anchors.fill: parent
         anchors.margins: 1
-        text: manufacturer + " - " + model
-        wrapMode: Text.Wrap
+        label: manufacturer + " - " + model
+        labelColor: "black"
+        fontSize: 10
+        wrapText: true
     }
 
     Drag.active: fxMouseArea.drag.active

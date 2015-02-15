@@ -77,7 +77,7 @@ Rectangle {
         delegate: FixtureDelegate {
             onClicked: {
                 fixtureBrowser.manufacturer = modelData
-                mfText.text = modelData
+                mfText.label = modelData
                 //console.log("Pressed:" + modelData)
                 manufacturerList.visible = false
                 fixtureList.model = fixtureBrowser.models
@@ -120,14 +120,14 @@ Rectangle {
                 width: 18
             }
 
-            Text {
+            RobotoText {
                 id: mfText
                 anchors.left: leftArrow.right
                 anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 18
-                font.bold: true
-                color: "#888"
+                fontSize: 18
+                fontBold: true
+                labelColor: "#888"
 
             }
             MouseArea {

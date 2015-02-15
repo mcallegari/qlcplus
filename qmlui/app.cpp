@@ -37,6 +37,7 @@
 App::App()
     : QObject()
     , m_view(NULL)
+    , m_2DView(NULL)
     , m_fixtureBrowser(NULL)
     , m_fixtureManager(NULL)
     , m_ioManager(NULL)
