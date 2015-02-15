@@ -51,7 +51,18 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
 
 MainView2D::~MainView2D()
 {
+    reset();
+}
 
+void MainView2D::reset()
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+        delete it.value();
+    }
+    m_itemsMap.clear();
 }
 
 void MainView2D::initialize2DProperties()
@@ -172,15 +183,17 @@ void MainView2D::slotDocLoaded()
     MonitorProperties *mProps = m_doc->monitorProperties();
     QList<quint32> mPropsIDs;
     if (mProps)
-        mPropsIDs = mProps->fixtureItemsID();
-
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
     {
-        it.next();
-        delete it.value();
+        mPropsIDs = mProps->fixtureItemsID();
+        m_view2D->setProperty("gridWidth", mProps->gridSize().width());
+        m_view2D->setProperty("gridHeight", mProps->gridSize().height());
+        if (mProps->gridUnits() == MonitorProperties::Meters)
+            m_view2D->setProperty("gridUnits", 1000);
+        else
+            m_view2D->setProperty("gridUnits", 304.8);
     }
-    m_itemsMap.clear();
+
+    reset();
 
     foreach(Fixture *fixture, m_doc->fixtures())
     {

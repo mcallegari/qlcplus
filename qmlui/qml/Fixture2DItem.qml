@@ -82,7 +82,7 @@ Rectangle {
             delegate:
                 Rectangle {
                     objectName: "head" + index
-                    width: fixtureItem.headSide
+                    width: fixtureItem.headSide - 1
                     height: width
                     color: "black"
                     radius: fixtureItem.headSide / 2

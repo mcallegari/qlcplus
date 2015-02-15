@@ -32,6 +32,8 @@ public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView2D();
 
+    void reset();
+
     void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
 
 protected:

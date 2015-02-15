@@ -80,9 +80,6 @@ void App::startup()
     m_functionManager = new FunctionManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
 
-    m_2DView = new MainView2D(m_view, m_doc);
-    m_view->rootContext()->setContextProperty("View2D", m_2DView);
-
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
 
@@ -100,7 +97,19 @@ void App::selectPreviewContext(QString context)
 {
     m_currentPreviewContext = context;
     if (context == "2D")
+    {
+        m_2DView = new MainView2D(m_view, m_doc);
+        m_view->rootContext()->setContextProperty("View2D", m_2DView);
         m_2DView->slotDocLoaded();
+    }
+    else
+    {
+        if (m_2DView != NULL)
+        {
+            delete m_2DView;
+            m_2DView = NULL;
+        }
+    }
 }
 
 void App::clearDocument()
