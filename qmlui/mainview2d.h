@@ -34,16 +34,33 @@ public:
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
 
+protected:
+    /** First time 2D view variables initializations */
+    void initialize2DProperties();
+
+    /** Returns the first available space (in mm) for a rectangle
+     * of the given width and height. */
+    QPointF getAvailablePosition(qreal width, qreal height);
+
 signals:
 
 public slots:
+    void slotDocLoaded();
 
 private:
+    /** Reference to the root QML view */
     QQuickView *m_view;
+
+    /** References to the 2D view and 2D contents for items creation */
+    QQuickItem *m_view2D, *m_contents2D;
+
     Doc *m_doc;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;
+
+    /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
+    float m_gridUnits;
 
     /** Scale of the grid */
     qreal m_gridScale;
@@ -57,8 +74,10 @@ private:
     /** Y offset of the grid to keep it centered */
     qreal m_yOffset;
 
-    /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
-    float m_unitValue;
+    /** Map of the fixture 2D items by ID */
+    QMap<quint32, QQuickItem*> m_itemsMap;
+
+    QQmlComponent *fixtureComponent;
 };
 
 #endif // MAINVIEW2D_H

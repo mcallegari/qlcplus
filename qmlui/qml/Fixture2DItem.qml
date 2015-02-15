@@ -23,8 +23,8 @@ Rectangle {
     id: fixtureItem
     property int fixtureID: fixtureManager.invalidFixture()
 
-    property real gridCellSize: parent.cellSize
-    property int gridUnits: parent.gridUnits
+    property real gridCellSize: parent ? parent.cellSize : 100
+    property int gridUnits: parent ? parent.gridUnits : 1000
 
     property real mmXPos: 0
     property real mmYPos: 0

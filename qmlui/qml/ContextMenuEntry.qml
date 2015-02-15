@@ -68,16 +68,13 @@ Rectangle {
             height: parent.height
             color: "transparent"
 
-            Text {
+            RobotoText {
                 id: textBox
                 y: 0
-                text: entryText
+                label: entryText
                 height: parent.height
-                width: Text.paintedWidth
-                color: "white"
-                font.pixelSize: 12
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
+                fontSize: 12
+                fontBold: true
             }
         }
     }

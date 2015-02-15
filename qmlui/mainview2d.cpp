@@ -36,7 +36,17 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     m_cellPixels = 100;
     m_xOffset = 0;
     m_yOffset = 0;
-    m_unitValue = 1000;
+    m_gridUnits = 1000;
+
+    m_view2D = NULL;
+    m_contents2D = NULL;
+
+    fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture2DItem.qml"));
+    if (fixtureComponent->isError())
+        qDebug() << fixtureComponent->errors();
+
+    connect(m_doc, SIGNAL(loaded()),
+            this, SLOT(slotDocLoaded()));
 }
 
 MainView2D::~MainView2D()
@@ -44,44 +54,80 @@ MainView2D::~MainView2D()
 
 }
 
+void MainView2D::initialize2DProperties()
+{
+    m_view2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
+    m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
+
+    if (m_view2D == NULL || m_contents2D == NULL)
+        return;
+
+    m_gridScale = m_view2D->property("gridScale").toReal();
+    m_cellPixels = m_view2D->property("baseCellSize").toReal();
+
+    m_xOffset = m_contents2D->property("x").toReal();
+    m_yOffset = m_contents2D->property("y").toReal();
+}
+
+QPointF MainView2D::getAvailablePosition(qreal width, qreal height)
+{
+    qreal xPos = 0, yPos = 0;
+    qreal maxYOffset = 0;
+
+    if (m_view2D == NULL || m_contents2D == NULL)
+        initialize2DProperties();
+
+    QRectF gridArea(0, 0, m_gridSize.width() * m_gridUnits, m_gridSize.height() * m_gridUnits);
+
+    QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
+    while (it.hasNext())
+    {
+        it.next();
+        QQuickItem *fxItem = it.value();
+        qreal itemXPos = fxItem->property("mmXPos").toReal();
+        qreal itemYPos = fxItem->property("mmYPos").toReal();
+        qreal itemWidth = fxItem->property("mmWidth").toReal();
+        qreal itemHeight = fxItem->property("mmHeight").toReal();
+
+        // store the next Y row in case we need to lower down
+        if (itemYPos + itemHeight > maxYOffset )
+            maxYOffset = itemYPos + itemHeight;
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+        QRectF newItemRect(xPos, yPos, width, height);
+
+        if (itemRect.intersects(newItemRect) == true)
+        {
+            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+            if (xPos + width > gridArea.width())
+            {
+                xPos = 0;
+                yPos = maxYOffset + 50;
+                maxYOffset = 0;
+            }
+        }
+        else
+            break;
+    }
+
+    return QPointF(xPos, yPos);
+}
+
 void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords)
 {
-    QQuickItem *twoDView = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
-    if (twoDView == NULL)
-        return;
-    QQuickItem *twoDContents = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
-    if (twoDContents == NULL)
-        return;
+    if (m_view2D == NULL || m_contents2D == NULL)
+        initialize2DProperties();
 
-    m_gridScale = twoDView->property("gridScale").toReal();
-    m_cellPixels = twoDView->property("baseCellSize").toReal();
-
-    m_xOffset = twoDContents->property("x").toReal();
-    m_yOffset = twoDContents->property("y").toReal();
+    qDebug() << "Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
     Fixture *fixture = m_doc->fixture(fxID);
     QLCFixtureMode *fxMode = fixture->fixtureMode();
 
-    QQmlComponent fixtureComponent(m_view->engine(), QUrl("qrc:/Fixture2DItem.qml"));
-    if (fixtureComponent.isError())
-        qDebug() << fixtureComponent.errors();
-    QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent.create());
+    QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
 
-    newFixtureItem->setParentItem(twoDContents);
+    newFixtureItem->setParentItem(m_contents2D);
     newFixtureItem->setProperty("fixtureID", fxID);
 
-    if (x > m_xOffset)
-    {
-        if (mmCoords == false)
-            x = ((x - m_xOffset) * m_unitValue) / m_cellPixels;
-        newFixtureItem->setProperty("mmXPos", x);
-    }
-    if (y > m_yOffset)
-    {
-        if (mmCoords == false)
-            y = ((y - m_yOffset) * m_unitValue) / m_cellPixels;
-        newFixtureItem->setProperty("mmYPos", y);
-    }
     if (fxMode != NULL)
     {
         if (fxMode->physical().width() != 0)
@@ -90,6 +136,61 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
             newFixtureItem->setProperty("mmHeight", fxMode->physical().height());
         qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
+    }
+
+    if (x == -1 && y == -1)
+    {
+        QPointF availablePos = getAvailablePosition(newFixtureItem->property("mmWidth").toReal(),
+                                                    newFixtureItem->property("mmHeight").toReal());
+        x = availablePos.x();
+        y = availablePos.y();
+    }
+
+    if (x > m_xOffset)
+    {
+        if (mmCoords == false)
+            x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
+        newFixtureItem->setProperty("mmXPos", x);
+        qDebug() << "Setting X position:" << x;
+    }
+    if (y > m_yOffset)
+    {
+        if (mmCoords == false)
+            y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
+        newFixtureItem->setProperty("mmYPos", y);
+        qDebug() << "Setting Y position:" << y;
+    }
+
+    // and finally add the new item to the items map
+    m_itemsMap[fxID] = newFixtureItem;
+}
+
+void MainView2D::slotDocLoaded()
+{
+    initialize2DProperties();
+
+    MonitorProperties *mProps = m_doc->monitorProperties();
+    QList<quint32> mPropsIDs;
+    if (mProps)
+        mPropsIDs = mProps->fixtureItemsID();
+
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+        delete it.value();
+    }
+    m_itemsMap.clear();
+
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (mPropsIDs.contains(fixture->id()))
+        {
+            QPointF fxPos = mProps->fixturePosition(fixture->id());
+            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
+        }
+        else
+            createFixtureItem(fixture->id(), -1, -1, false);
     }
 }
 

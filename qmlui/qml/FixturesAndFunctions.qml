@@ -35,6 +35,8 @@ Rectangle {
         property string currentView: "UniverseGrid"
         property bool docLoaded: qlcplus.docLoaded
 
+        onCurrentViewChanged: qlcplus.selectPreviewContext(currentView)
+
         onDocLoadedChanged: {
             console.log("Doc loaded !! ----")
             viewUniverseCombo.model = ioManager.universes

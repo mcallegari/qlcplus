@@ -49,6 +49,8 @@ public:
 
     void show();
 
+    Q_INVOKABLE void selectPreviewContext(QString context);
+
 private:
     QQmlEngine m_engine;
     QQuickView *m_view;
@@ -128,6 +130,7 @@ public:
 
 private:
     QString m_fileName;
+    QString m_currentPreviewContext;
 };
 
 #endif // APP_H

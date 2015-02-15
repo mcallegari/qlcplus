@@ -43,6 +43,7 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
 {
+    m_currentPreviewContext = "UniverseGrid";
 }
 
 App::~App()
@@ -93,6 +94,13 @@ void App::show()
 {
     m_view->showMaximized();
     //m_view->showFullScreen();
+}
+
+void App::selectPreviewContext(QString context)
+{
+    m_currentPreviewContext = context;
+    if (context == "2D")
+        m_2DView->slotDocLoaded();
 }
 
 void App::clearDocument()

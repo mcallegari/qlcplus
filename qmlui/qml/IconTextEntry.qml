@@ -40,12 +40,12 @@ Rectangle {
             sourceSize.height: height
         }
 
-        Text {
+        RobotoText {
             Layout.fillWidth: true
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
-            text: tLabel
-            color: "white"
+            label: tLabel
+            fontSize: 11
         }
     }
 }
