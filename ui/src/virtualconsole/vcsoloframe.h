@@ -58,12 +58,16 @@ public:
     /*************************************************************************
     * Solo behaviour
     *************************************************************************/
+public:
+    /** Method to connect/disconnect the children widgets
+     *  to implement the solo behaviour.
+     *  Basically this is called on Doc mode changes */
+    void updateChildrenConnection(bool doConnect);
+
 protected:
     /** Method that returns true if $widget's nearest parent
      *  is this Solo Frame. Otherwise false is returned */
     bool thisIsNearestSoloFrameParent(QWidget* widget);
-
-    void updateChildrenConnection(bool doConnect);
 
     /** @reimp */
     virtual void setLiveEdit(bool liveEdit);

@@ -961,6 +961,8 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete soloframe;
             else
             {
+                if (m_doc->mode() == Doc::Operate)
+                    soloframe->updateChildrenConnection(true);
                 addWidgetToPageMap(soloframe);
                 soloframe->show();
             }
