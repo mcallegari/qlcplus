@@ -241,8 +241,6 @@ void EnttecWing::addDevice(Wing* device)
     connect(device, SIGNAL(valueChanged(quint32,uchar)),
             this, SLOT(slotValueChanged(quint32,uchar)));
 
-    connect(device, SIGNAL(pageChanged(quint32,quint32)),
-            this, SLOT(slotPageChanged(quint32,quint32)));
     m_devices.append(device);
 
     /* To maintain some persistency with the indices of multiple devices
@@ -296,12 +294,6 @@ void EnttecWing::slotValueChanged(quint32 channel, uchar value)
 {
     Wing* wing = qobject_cast<Wing*> (QObject::sender());
     emit valueChanged(UINT_MAX, m_devices.indexOf(wing), channel, value);
-}
-
-void EnttecWing::slotPageChanged(quint32 pagesize, quint32 page)
-{
-    Wing* wing = qobject_cast<Wing*> (QObject::sender());
-    emit pageChanged(m_devices.indexOf(wing), pagesize, page);
 }
 
 /*****************************************************************************
