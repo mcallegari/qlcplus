@@ -478,7 +478,10 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
     // Hide the tab bar to save some pixels
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    // tabBar() in QT4 is protected.
     m_tab->tabBar()->hide();
+#endif
 
     // No need for the toolbar
     delete m_toolbar;
