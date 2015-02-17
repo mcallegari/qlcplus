@@ -430,6 +430,13 @@ void SpeedDial::slotSecondsChanged()
 
 void SpeedDial::slotMSChanged()
 {
+    m_ms->blockSignals(true);
+    if (m_ms->value() < 10)
+        m_ms->setPrefix(".0");
+    else
+        m_ms->setPrefix(".");
+    m_ms->blockSignals(false);
+
     if (m_preventSignals == false)
     {
         m_value = spinValues();

@@ -28,6 +28,7 @@ usr/lib/qt4/plugins/qlcplus/libosc.so
 usr/lib/qt4/plugins/qlcplus/libartnet.so
 usr/lib/qt4/plugins/qlcplus/libe131.so
 usr/lib/qt4/plugins/qlcplus/libspi.so
+usr/lib/qt4/plugins/qlcplus/libloopback.so
 
 # UDev rules
 etc/udev/rules.d/z65-dmxusb.rules
