@@ -26,6 +26,7 @@
 
 #include "playbackwing.h"
 
+
 /****************************************************************************
  * Playback wing specifics
  ****************************************************************************/
@@ -90,14 +91,14 @@ WING_PLAYBACK_BYTE_SLIDER + 9: Slider 10 (0-255)
 #define WING_PLAYBACK_CHANNEL_COUNT 8 * WING_PLAYBACK_BUTTON_SIZE \
 					+ WING_PLAYBACK_SLIDER_SIZE
 
-/** number of extra buttons (go,back) */
-#define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 2
+/** number of extra buttons (go,back, pageup, pagedown) */
+#define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 4
+#define WING_PLAYBACK_BUTTON_GO 50
+#define WING_PLAYBACK_BUTTON_BACK 51
+#define WING_PLAYBACK_BUTTON_PAGEDOWN 52
+#define WING_PLAYBACK_BUTTON_PAGEUP 53
 
-/** total number of pages */
-#define WING_PLAYBACK_PAGE_COUNT WING_PAGE_MAX + 1
 
-/** number of channels of all pages */
-#define WING_PLAYBACK_CONTROLS_COUNT (WING_PLAYBACK_CHANNEL_COUNT) * (WING_PLAYBACK_PAGE_COUNT)
 #define WING_PLAYBACK_INPUT_VERSION 1
 #define WING_PLAYBACK_INPUT_BYTE_VERSION 4
 #define WING_PLAYBACK_INPUT_BYTE_PAGE 37
@@ -110,7 +111,7 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
                            const QByteArray& data)
     : Wing(parent, address, data)
 {
-    m_values = QByteArray((WING_PLAYBACK_CONTROLS_COUNT) + (WING_PLAYBACK_EXTRA_BUTTONS_COUNT), 0);
+    m_values = QByteArray((WING_PLAYBACK_CHANNEL_COUNT) + (WING_PLAYBACK_EXTRA_BUTTONS_COUNT), 0);
 
     /* Playback wing keys seem to be in a somewhat weird order */
     m_channelMap[0] = 7 + WING_PLAYBACK_SLIDER_SIZE;
@@ -232,11 +233,7 @@ void PlaybackWing::parseData(const QByteArray& data)
     for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
     {
         char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-        /* get page offset for channel*/
-        quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
-
-        /* Slider channels start from zero */
-        setCacheValue(slider+offset, value);
+        setCacheValue(slider, value);
     }
 }
 
@@ -246,49 +243,48 @@ void PlaybackWing::applyExtraButtons(const QByteArray& data)
     if (data.size() < WING_PLAYBACK_PACKET_SIZE )
         return;
 
+    // WING_PLAYBACK_BIT_PAGEUP
     if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEUP))
     {
         nextPage();
         sendPageData();
-
-        /* Read the state of each slider. Each value takes all 8 bits. */
-        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
-        {
-            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-
-            /* get page offset for channel*/
-            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
-
-            /* Slider channels start from zero */
-//            setCacheValue(slider+offset, value);
-            emit valueChanged(slider+offset, value);
-
-        }
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEUP, UCHAR_MAX);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEDOWN))
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEUP, 0);
+    }
+
+    // WING_PLAYBACK_BIT_PAGEDOWN
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEDOWN))
     {
         previousPage();
         sendPageData();
-        /* Read the state of each slider. Each value takes all 8 bits. */
-        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
-        {
-            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-
-            /* get page offset for channel*/
-            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
-
-            /* Slider channels start from zero */
-//            setCacheValue(slider+offset, value);
-            emit valueChanged(slider+offset, value);
-        }
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEDOWN, UCHAR_MAX);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_BACK))
+    else
     {
-        /** @todo */
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEDOWN, 0);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_GO))
+
+    // WING_PLAYBACK_BIT_PAGEGO
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_GO))
     {
-        /** @todo */
+        setCacheValue(WING_PLAYBACK_BUTTON_GO, UCHAR_MAX);
+    }
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_GO, 0);
+    }
+
+    // WING_PLAYBACK_BIT_PAGEBACK
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_BACK))
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_BACK, UCHAR_MAX);
+    }
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_BACK, 0);
     }
 }
 
@@ -301,9 +297,4 @@ void PlaybackWing::sendPageData()
 
     QUdpSocket sock(this);
     sock.writeDatagram(sendData, address(), Wing::UDPPort);
-}
-
-quint32 PlaybackWing::pageSize() const
-{
-    return WING_PLAYBACK_CHANNEL_COUNT;
 }
