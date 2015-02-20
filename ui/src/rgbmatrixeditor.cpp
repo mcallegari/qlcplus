@@ -233,6 +233,8 @@ void RGBMatrixEditor::updateSpeedDials()
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_matrix->name());
     m_speedDials->show();
+    m_speedDials->setStopActionEnabled(false);
+    m_speedDials->setStopActionVisible(false);
     m_speedDials->setFadeInSpeed(m_matrix->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_matrix->fadeOutSpeed());
     if ((int)m_matrix->duration() < 0)

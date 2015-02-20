@@ -25,6 +25,7 @@
 class SpeedDial;
 class QGroupBox;
 class QLineEdit;
+class QComboBox;
 
 /** @addtogroup ui
  * @{
@@ -64,6 +65,11 @@ public:
     void setDuration(int ms);
     int duration() const;
 
+    void setStopActionEnabled(bool set);
+    void setStopActionVisible(bool set);
+    void setStopAction(const QString& action);
+    const QString stopAction();
+
 signals:
     void fadeInChanged(int ms);
     void fadeInTapped();
@@ -74,10 +80,15 @@ signals:
     void holdChanged(int ms);
     void holdTapped();
 
+    void stopActionChanged(const QString& action);
+
 private:
     SpeedDial* m_fadeIn;
     SpeedDial* m_fadeOut;
     SpeedDial* m_hold;
+
+    QGroupBox* m_stopActionGroupBox;
+    QComboBox* m_stopAction;
 
     /************************************************************************
      * Optional text

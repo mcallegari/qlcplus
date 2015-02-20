@@ -1020,6 +1020,8 @@ void SimpleDesk::createSpeedDials()
 
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
+    m_speedDials->setStopActionEnabled(false);
+    m_speedDials->setStopActionVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)),
             this, SLOT(slotFadeInDialChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)),

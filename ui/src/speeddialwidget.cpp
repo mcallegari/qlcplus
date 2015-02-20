@@ -20,6 +20,7 @@
 #include <QSettings>
 #include <QGroupBox>
 #include <QLineEdit>
+#include <QComboBox>
 #include <QLayout>
 #include <QDebug>
 
@@ -27,6 +28,10 @@
 #include "mastertimer.h"
 #include "speeddial.h"
 #include "apputil.h"
+
+const QString KResetToZeroString       (       "ResetToZero" );
+const QString KResetToStartString      (      "ResetToStart" );
+const QString KKeepCurrentValuesString ( "KeepCurrentValues" );
 
 #define WINDOW_FLAGS Qt::WindowFlags( \
     (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | \
@@ -40,6 +45,8 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent)
     , m_fadeIn(NULL)
     , m_fadeOut(NULL)
     , m_hold(NULL)
+    , m_stopActionGroupBox(NULL)
+    , m_stopAction(NULL)
     , m_optionalTextGroup(NULL)
     , m_optionalTextEdit(NULL)
 {
@@ -74,6 +81,20 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent)
     layout()->addWidget(m_hold);
     connect(m_hold, SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(int)));
     connect(m_hold, SIGNAL(tapped()), this, SIGNAL(holdTapped()));
+
+    /* Stop action */
+    QVBoxLayout* stopActionVBox = new QVBoxLayout();
+    m_stopAction = new QComboBox(this);
+    m_stopAction->addItem(KResetToZeroString);
+    //TODO: m_stopAction->addItem(KResetToStartString);
+    m_stopAction->addItem(KKeepCurrentValuesString);
+    stopActionVBox->addWidget(m_stopAction);
+
+    m_stopActionGroupBox = new QGroupBox(tr("Stop action"), this);
+    m_stopActionGroupBox->setLayout(stopActionVBox);
+    layout()->addWidget(m_stopActionGroupBox);
+
+    connect(m_stopAction, SIGNAL(currentIndexChanged(const QString&)), this, SIGNAL(stopActionChanged(const QString&)));
 
     /* Optional text */
     m_optionalTextGroup = new QGroupBox(this);
@@ -177,6 +198,30 @@ void SpeedDialWidget::setDuration(int ms)
 int SpeedDialWidget::duration() const
 {
     return m_hold->value();
+}
+
+/************************************************************************
+ * Stop action
+ ************************************************************************/
+
+void SpeedDialWidget::setStopActionEnabled(bool enable)
+{
+    m_stopActionGroupBox->setEnabled(enable);
+}
+
+void SpeedDialWidget::setStopActionVisible(bool set)
+{
+    m_stopActionGroupBox->setVisible(set);
+}
+
+void SpeedDialWidget::setStopAction(const QString& action)
+{
+    m_stopAction->setCurrentText(action);
+}
+
+const QString SpeedDialWidget::stopAction()
+{
+    return m_stopAction->currentText();
 }
 
 /************************************************************************

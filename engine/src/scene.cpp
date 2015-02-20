@@ -37,6 +37,10 @@
 
 #include "sceneuistate.h"
 
+const QString KResetToZeroString       (       "ResetToZero" );
+const QString KResetToStartString      (      "ResetToStart" );
+const QString KKeepCurrentValuesString ( "KeepCurrentValues" );
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -322,6 +326,9 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Speed */
     saveXMLSpeed(doc, &root);
 
+    /* Stop action */
+    saveXMLStopAction(doc, &root);
+
     /* Channel groups */
     if (m_channelGroups.count() > 0)
     {
@@ -411,6 +418,10 @@ bool Scene::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(tag);
+        }
+        else if (tag.tagName() == KXMLQLCSceneStopAction)
+        {
+            loadXMLStopAction(tag);
         }
         else if (tag.tagName() == KXMLQLCSceneChannelGroups)
         {
@@ -629,7 +640,20 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
                 fc.setFadeTime(fadeOutSpeed());
             else
                 fc.setFadeTime(overrideFadeOutSpeed());
-            fc.setTarget(0);
+
+            switch (m_stopAction)
+            {
+            default:
+            case ResetToZero:
+                fc.setTarget(0);
+                break;
+            case ResetToStart:
+                fc.setTarget(fc.start());
+                break;
+            case KeepCurrentValues:
+                fc.setTarget(fc.current(getAttributeValue(Intensity)));
+                break;
+            }
         }
         timer->fader()->add(fc);
     }
@@ -675,4 +699,72 @@ void Scene::adjustAttribute(qreal fraction, int attributeIndex)
     if (m_fader != NULL && attributeIndex == Intensity)
         m_fader->adjustIntensity(fraction);
     Function::adjustAttribute(fraction, attributeIndex);
+}
+
+/****************************************************************************
+ * Stop action
+ ****************************************************************************/
+
+void Scene::setStopAction(const Scene::StopAction& action)
+{
+    if (action == ResetToStart || action == ResetToZero || action == KeepCurrentValues)
+        m_stopAction = action;
+    else
+        m_stopAction = ResetToZero;
+    emit changed(this->id());
+}
+
+Scene::StopAction Scene::stopAction() const
+{
+    return m_stopAction;
+}
+
+QString Scene::stopActionToString(const StopAction& action)
+{
+    switch (action)
+    {
+    default:
+    case ResetToZero:
+        return KResetToZeroString;
+    case ResetToStart:
+        return KResetToStartString;
+    case KeepCurrentValues:
+        return KKeepCurrentValuesString;
+    }
+}
+
+Scene::StopAction Scene::stringToStopAction(const QString& str)
+{
+    if (str == KKeepCurrentValuesString)
+        return KeepCurrentValues;
+    else if (str == KResetToStartString)
+        return ResetToStart;
+    else
+        return ResetToZero;
+}
+
+bool Scene::saveXMLStopAction(QDomDocument* doc, QDomElement* root) const
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(root != NULL);
+
+    QDomElement tag = doc->createElement(KXMLQLCSceneStopAction);
+    root->appendChild(tag);
+    QDomText text = doc->createTextNode(stopActionToString(stopAction()));
+    tag.appendChild(text);
+
+    return true;
+}
+
+bool Scene::loadXMLStopAction(const QDomElement& root)
+{
+    if (root.tagName() != KXMLQLCSceneStopAction)
+    {
+        qWarning() << Q_FUNC_INFO << "StopAction node not found";
+        return false;
+    }
+
+    setStopAction(stringToStopAction(root.text()));
+
+    return true;
 }
