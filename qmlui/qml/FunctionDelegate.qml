@@ -29,8 +29,16 @@ Rectangle {
     property string textLabel
     property int functionID
     property int functionType
+    property bool isSelected: false
 
     signal clicked
+
+    Rectangle {
+        anchors.fill: parent
+        radius: 3
+        color: "#0978FF"
+        visible: isSelected
+    }
 
     IconTextEntry {
         width: parent.width
@@ -45,6 +53,8 @@ Rectangle {
                 case 16: "qrc:/script.svg"; break;
                 case 32: "qrc:/rgbmatrix.svg"; break;
                 case 64: "qrc:/showmanager.svg"; break;
+                case 128: "qrc:/audio.svg"; break;
+                case 256: "qrc:/video.svg"; break;
             }
         }
 
@@ -52,7 +62,12 @@ Rectangle {
     }
     MouseArea {
         anchors.fill: parent
-        onClicked: funcDelegate.clicked()
+        onClicked: {
+            isSelected = true
+            functionManager.selectFunction(functionID, funcDelegate,
+                                           (mouse.modifiers & Qt.ControlModifier))
+            funcDelegate.clicked()
+        }
     }
 }
 

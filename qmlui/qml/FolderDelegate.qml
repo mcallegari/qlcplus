@@ -29,10 +29,19 @@ Rectangle {
     property string textLabel
     property var folderChildren
     property bool isExpanded: false
+    property bool isSelected: false
     property int childrenHeight: 0
     property int variableHeight: 0
 
     signal toggled(bool expanded, int newHeight)
+
+    Rectangle {
+        width: parent.width
+        height: 35
+        radius: 3
+        color: "#0978FF"
+        visible: isSelected
+    }
 
     Image {
         width: 40
@@ -55,6 +64,8 @@ Rectangle {
         onClicked: {
             isExpanded = !isExpanded
             nodeContainer.toggled(isExpanded, childrenHeight)
+            isSelected = true
+            functionManager.selectFunction(-1, nodeContainer, false)
         }
     }
 

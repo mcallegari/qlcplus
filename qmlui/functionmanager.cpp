@@ -22,6 +22,7 @@
 
 #include "functionmanager.h"
 #include "treemodel.h"
+#include "function.h"
 #include "doc.h"
 
 FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
@@ -29,6 +30,11 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
 {
+
+    m_sceneCount = m_chaserCount = m_efxCount = 0;
+    m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
+    m_showCount = m_audioCount = m_videoCount = 0;
+
     m_functionTree = new TreeModel(this);
     QStringList treeColumns;
     treeColumns << "funcID" << "funcType";
@@ -51,8 +57,28 @@ QVariant FunctionManager::functionsList()
     return QVariant::fromValue(m_functionTree);
 }
 
+void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSelection)
+{
+    if (multiSelection == false)
+    {
+        foreach(selectedFunction f, m_selectedFunctions)
+        {
+            f.m_item->setProperty("isSelected", false);
+        }
+        m_selectedFunctions.clear();
+    }
+    selectedFunction sf;
+    sf.m_fID = id;
+    sf.m_item = item;
+    m_selectedFunctions.append(sf);
+}
+
 void FunctionManager::slotDocLoaded()
 {
+    m_sceneCount = m_chaserCount = m_efxCount = 0;
+    m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
+    m_showCount = m_audioCount = m_videoCount = 0;
+
     m_functionTree->clear();
     foreach(Function *func, m_doc->functions())
     {
@@ -60,8 +86,33 @@ void FunctionManager::slotDocLoaded()
         params.append(QString::number(func->id()));
         params.append(QString::number(func->type()));
         m_functionTree->addItem(func->name(), params, func->path(true));
+        switch (func->type())
+        {
+            case Function::Scene: m_sceneCount++; break;
+            case Function::Chaser: m_chaserCount++; break;
+            case Function::EFX: m_efxCount++; break;
+            case Function::Collection: m_collectionCount++; break;
+            case Function::RGBMatrix: m_rgbMatrixCount++; break;
+            case Function::Script: m_scriptCount++; break;
+            case Function::Show: m_showCount++; break;
+            case Function::Audio: m_audioCount++; break;
+            case Function::Video: m_videoCount++; break;
+            default:
+            break;
+        }
     }
     //m_functionTree->printTree(); // enable for debug purposes
+
+    emit sceneCountChanged();
+    emit chaserCountChanged();
+    emit efxCountChanged();
+    emit collectionCountChanged();
+    emit rgbMatrixCountChanged();
+    emit scriptCountChanged();
+    emit showCountChanged();
+    emit audioCountChanged();
+    emit videoCountChanged();
+
     emit functionsListChanged();
 }
 

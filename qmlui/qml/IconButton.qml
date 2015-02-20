@@ -26,6 +26,7 @@ Rectangle {
     id: baseIconButton
     width: 38
     height: 38
+    visible: counter ? true : false
 
     property color bgColor: "#5F5F5F"
     property color hoverColor: "#B6B6B6"
@@ -34,6 +35,7 @@ Rectangle {
 
     property bool checkable: false
     property bool checked: false
+    property int counter: 1
 
     property ExclusiveGroup exclusiveGroup: null
 

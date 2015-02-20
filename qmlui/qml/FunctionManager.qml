@@ -33,7 +33,7 @@ Rectangle {
 
       Rectangle {
         id: topBar
-        width: parent.width
+        width: fmContainer.width
         height: 44
         z: 5
         gradient: Gradient {
@@ -59,6 +59,7 @@ Rectangle {
                 checkable: true
                 checked: true
                 tooltip: qsTr("Scenes")
+                counter: functionManager.sceneCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -72,6 +73,7 @@ Rectangle {
                 imgSource: "qrc:/chaser.svg"
                 checkable: true
                 tooltip: qsTr("Chasers")
+                counter: functionManager.chaserCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -85,6 +87,7 @@ Rectangle {
                 imgSource: "qrc:/efx.svg"
                 checkable: true
                 tooltip: qsTr("EFX")
+                counter: functionManager.efxCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -98,6 +101,7 @@ Rectangle {
                 imgSource: "qrc:/collection.svg"
                 checkable: true
                 tooltip: qsTr("Collections")
+                counter: functionManager.collectionCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -111,6 +115,21 @@ Rectangle {
                 imgSource: "qrc:/rgbmatrix.svg"
                 checkable: true
                 tooltip: qsTr("RGB Matrices")
+                counter: functionManager.rgbMatrixCount
+                exclusiveGroup: menuBarGroup3
+                onCheckedChanged: {
+
+                }
+            }
+            IconButton {
+                id: showFunc
+                z: 2
+                width: height
+                height: topBar.height - 2
+                imgSource: "qrc:/showmanager.svg"
+                checkable: true
+                tooltip: qsTr("Shows")
+                counter: functionManager.showCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -124,6 +143,7 @@ Rectangle {
                 imgSource: "qrc:/script.svg"
                 checkable: true
                 tooltip: qsTr("Scripts")
+                counter: functionManager.scriptCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -137,6 +157,7 @@ Rectangle {
                 imgSource: "qrc:/audio.svg"
                 checkable: true
                 tooltip: qsTr("Audio")
+                counter: functionManager.audioCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 
@@ -150,6 +171,7 @@ Rectangle {
                 imgSource: "qrc:/video.svg"
                 checkable: true
                 tooltip: qsTr("Videos")
+                counter: functionManager.videoCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
 

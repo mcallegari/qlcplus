@@ -22,11 +22,18 @@
 
 #include <QStringList>
 #include <QQuickView>
+#include <QQuickItem>
 #include <QObject>
 
 #include "treemodel.h"
 
 class Doc;
+
+typedef struct
+{
+    quint32 m_fID;
+    QQuickItem *m_item;
+} selectedFunction;
 
 class FunctionManager : public QObject
 {
@@ -34,13 +41,44 @@ class FunctionManager : public QObject
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
 
+    Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
+    Q_PROPERTY(int chaserCount READ chaserCount NOTIFY chaserCountChanged)
+    Q_PROPERTY(int efxCount READ efxCount NOTIFY efxCountChanged)
+    Q_PROPERTY(int collectionCount READ collectionCount NOTIFY collectionCountChanged)
+    Q_PROPERTY(int rgbMatrixCount READ rgbMatrixCount NOTIFY rgbMatrixCountChanged)
+    Q_PROPERTY(int scriptCount READ scriptCount NOTIFY scriptCountChanged)
+    Q_PROPERTY(int showCount READ showCount NOTIFY showCountChanged)
+    Q_PROPERTY(int audioCount READ audioCount NOTIFY audioCountChanged)
+    Q_PROPERTY(int videoCount READ videoCount NOTIFY videoCountChanged)
+
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     QVariant functionsList();
 
+    Q_INVOKABLE void selectFunction(quint32 id, QQuickItem *item, bool multiSelection);
+
+    int sceneCount() const { return m_sceneCount; }
+    int chaserCount() const { return m_chaserCount; }
+    int efxCount() const { return m_efxCount; }
+    int collectionCount() const { return m_collectionCount; }
+    int rgbMatrixCount() const { return m_rgbMatrixCount; }
+    int scriptCount() const { return m_scriptCount; }
+    int showCount() const { return m_showCount; }
+    int audioCount() const { return m_audioCount; }
+    int videoCount() const { return m_videoCount; }
+
 signals:
     void functionsListChanged();
+    void sceneCountChanged();
+    void chaserCountChanged();
+    void efxCountChanged();
+    void collectionCountChanged();
+    void rgbMatrixCountChanged();
+    void scriptCountChanged();
+    void showCountChanged();
+    void audioCountChanged();
+    void videoCountChanged();
 
 protected slots:
     void slotDocLoaded();
@@ -49,6 +87,11 @@ private:
     QQuickView *m_view;
     Doc *m_doc;
     TreeModel *m_functionTree;
+    QList <selectedFunction> m_selectedFunctions;
+
+    int m_sceneCount, m_chaserCount, m_efxCount;
+    int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
+    int m_showCount, m_audioCount, m_videoCount;
 };
 
 #endif // FUNCTIONMANAGER_H
