@@ -6,6 +6,7 @@
 
 TreeModel::TreeModel(QObject *parent)
     : QAbstractListModel(parent)
+    , m_sorting(false)
 {
 
 }
@@ -35,6 +36,11 @@ void TreeModel::setColumnNames(QStringList names)
     m_roles = names;
 }
 
+void TreeModel::enableSorting(bool enable)
+{
+    m_sorting = enable;
+}
+
 void TreeModel::addItem(QString label, QStringList data, QString path)
 {
     //qDebug() << "Adding item" << label << path;
@@ -42,12 +48,14 @@ void TreeModel::addItem(QString label, QStringList data, QString path)
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
 
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
     if (path.isEmpty())
     {
         TreeModelItem *item = new TreeModelItem(label);
         item->setData(data);
-        m_items.append(item);
+        int addIndex = getItemIndex(label);
+        beginInsertRows(QModelIndex(), addIndex, addIndex);
+        m_items.insert(addIndex, item);
+        endInsertRows();
     }
     else
     {
@@ -61,19 +69,21 @@ void TreeModel::addItem(QString label, QStringList data, QString path)
         {
             item = new TreeModelItem(pathList.at(0));
             item->setChildrenColumns(m_roles);
-            m_items.append(item);
+            int addIndex = getFolderIndex(label);
+            beginInsertRows(QModelIndex(), addIndex, addIndex);
+            m_items.insert(addIndex, item);
+            endInsertRows();
             m_itemsPathMap[pathList.at(0)] = item;
         }
 
         if (pathList.count() == 1)
-            item->addChild(label, data);
+            item->addChild(label, data, m_sorting);
         else
         {
             QString newPath = path.mid(path.indexOf("/") + 1);
-            item->addChild(label, data, newPath);
+            item->addChild(label, data, m_sorting, newPath);
         }
     }
-    endInsertRows();
 }
 
 int TreeModel::rowCount(const QModelIndex &parent) const
@@ -109,6 +119,44 @@ void TreeModel::printTree(int tab)
         if (item->hasChildren())
             item->children()->printTree(tab + 2);
     }
+}
+
+int TreeModel::getItemIndex(QString label)
+{
+    int index = rowCount();
+    if (m_sorting == true)
+    {
+        index = 0;
+        for (int i = 0; i < m_items.count(); i++)
+        {
+            if (m_items.at(i)->hasChildren() == false)
+            {
+                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
+                    return index;
+            }
+            index++;
+        }
+    }
+    return index;
+}
+
+int TreeModel::getFolderIndex(QString label)
+{
+    int index = rowCount();
+    if (m_sorting == true)
+    {
+        index = 0;
+        for (int i = 0; i < m_items.count(); i++)
+        {
+            if (m_items.at(i)->hasChildren() == true)
+            {
+                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
+                    return index;
+                index++;
+            }
+        }
+    }
+    return index;
 }
 
 QHash<int, QByteArray> TreeModel::roleNames() const

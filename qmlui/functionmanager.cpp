@@ -39,6 +39,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     QStringList treeColumns;
     treeColumns << "funcID" << "funcType";
     m_functionTree->setColumnNames(treeColumns);
+    m_functionTree->enableSorting(true);
 /*
     for (int i = 0; i < 10; i++)
     {

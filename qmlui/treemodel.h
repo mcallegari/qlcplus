@@ -26,6 +26,8 @@ public:
 
     void setColumnNames(QStringList names);
 
+    void enableSorting(bool enable);
+
     void addItem(QString label, QStringList data, QString path = QString());
 
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
@@ -35,8 +37,13 @@ public:
     void printTree(int tab = 0);
 
 protected:
+    int getItemIndex(QString label);
+    int getFolderIndex(QString label);
+
+protected:
     QStringList m_roles;
     QHash<int, QByteArray> roleNames() const;
+    bool m_sorting;
     QList<TreeModelItem *> m_items;
     QMap<QString, TreeModelItem *> m_itemsPathMap;
 };

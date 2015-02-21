@@ -51,12 +51,13 @@ void TreeModelItem::setChildrenColumns(QStringList columns)
     m_children->setColumnNames(columns);
 }
 
-void TreeModelItem::addChild(QString label, QStringList data, QString path)
+void TreeModelItem::addChild(QString label, QStringList data, bool sorting, QString path)
 {
     if (m_children == NULL)
     {
         m_children = new TreeModel();
     }
+    m_children->enableSorting(sorting);
     m_children->addItem(label, data, path);
 }
 

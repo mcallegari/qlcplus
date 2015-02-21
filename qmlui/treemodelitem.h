@@ -20,7 +20,7 @@ public:
 
     void setChildrenColumns(QStringList columns);
 
-    void addChild(QString label, QStringList data, QString path = QString());
+    void addChild(QString label, QStringList data, bool sorting = false, QString path = QString());
 
     bool hasChildren();
 
