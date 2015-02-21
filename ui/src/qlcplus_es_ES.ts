@@ -5866,7 +5866,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="588"/>
         <source>Pages circular scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplazamiento circular de Páginas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
