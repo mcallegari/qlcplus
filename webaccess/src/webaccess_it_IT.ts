@@ -199,7 +199,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="235"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Arresta</translation>
     </message>
 </context>
 <context>
