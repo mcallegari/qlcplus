@@ -234,32 +234,32 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="104"/>
+        <location filename="../ui/src/docbrowser.cpp" line="105"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Buscador de Documentos</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="120"/>
+        <location filename="../ui/src/docbrowser.cpp" line="121"/>
         <source>Backward</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="121"/>
+        <location filename="../ui/src/docbrowser.cpp" line="122"/>
         <source>Forward</source>
         <translation>Adelante</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="122"/>
+        <location filename="../ui/src/docbrowser.cpp" line="123"/>
         <source>Index</source>
         <translation>Índice</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="123"/>
+        <location filename="../ui/src/docbrowser.cpp" line="124"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="151"/>
+        <location filename="../ui/src/docbrowser.cpp" line="152"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -283,7 +283,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="44"/>
+        <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -311,7 +311,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="46"/>
+        <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
         <translation>Color</translation>
     </message>
@@ -321,17 +321,17 @@
         <translation>Color Secundario</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="48"/>
+        <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
         <translation>Efecto</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="138"/>
+        <location filename="editcapability.cpp" line="132"/>
         <source>Open Gobo File</source>
         <translation>Abrir archivo de Gobo</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="141"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Gobo pictures</source>
         <translation>Imágenes de gobo</translation>
     </message>
@@ -429,20 +429,20 @@
         <translation>Asistente de Capacidades</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="251"/>
-        <location filename="editchannel.cpp" line="317"/>
-        <location filename="editchannel.cpp" line="361"/>
+        <location filename="editchannel.cpp" line="254"/>
+        <location filename="editchannel.cpp" line="320"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Overlapping values</source>
         <translation>Superposición de Valores</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="252"/>
-        <location filename="editchannel.cpp" line="318"/>
+        <location filename="editchannel.cpp" line="255"/>
+        <location filename="editchannel.cpp" line="321"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Los valores de la capacidad están superpuestos con otra capacidad!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="362"/>
+        <location filename="editchannel.cpp" line="365"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Algunas capacidades no pueden ser creadas debido a  una superposición de valores.</translation>
     </message>

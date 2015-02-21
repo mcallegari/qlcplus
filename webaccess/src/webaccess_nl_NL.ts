@@ -4,78 +4,78 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="201"/>
+        <location filename="webaccess.cpp" line="203"/>
         <source>Loading project...</source>
         <translation>Project laden...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="242"/>
+        <location filename="webaccess.cpp" line="244"/>
         <source>Fixture stored and loaded</source>
         <translation>Fixture opgeslagen en geladen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="394"/>
+        <location filename="webaccess.cpp" line="398"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="413"/>
+        <location filename="webaccess.cpp" line="417"/>
         <source>Autostart configuration changed</source>
         <translation>Autostart configuratie gewijzigd</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="665"/>
+        <location filename="webaccess.cpp" line="681"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="702"/>
-        <location filename="webaccess.cpp" line="743"/>
+        <location filename="webaccess.cpp" line="721"/>
+        <location filename="webaccess.cpp" line="762"/>
         <source>Page</source>
         <translation>Pagina</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="875"/>
+        <location filename="webaccess.cpp" line="900"/>
         <source>Enable</source>
         <translation>Inschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="902"/>
+        <location filename="webaccess.cpp" line="930"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="903"/>
+        <location filename="webaccess.cpp" line="931"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="904"/>
+        <location filename="webaccess.cpp" line="932"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="905"/>
+        <location filename="webaccess.cpp" line="933"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="906"/>
+        <location filename="webaccess.cpp" line="934"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1133"/>
+        <location filename="webaccess.cpp" line="1161"/>
         <source>Load project</source>
         <translation>Project laden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1135"/>
+        <location filename="webaccess.cpp" line="1163"/>
         <source>Simple Desk</source>
         <translation>Eenvoudig paneel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1137"/>
+        <location filename="webaccess.cpp" line="1165"/>
         <source>Configuration</source>
         <translation>Configuratie</translation>
     </message>
@@ -195,6 +195,11 @@
         <location filename="webaccessnetwork.cpp" line="234"/>
         <source>Reboot</source>
         <translation>Herstarten</translation>
+    </message>
+    <message>
+        <location filename="webaccessnetwork.cpp" line="235"/>
+        <source>Shutdown</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

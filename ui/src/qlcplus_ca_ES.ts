@@ -609,301 +609,301 @@
         <translation> - Nou Espai de treball</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="489"/>
+        <location filename="app.cpp" line="495"/>
         <source>Exit</source>
         <translation>Sortir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="508"/>
+        <location filename="app.cpp" line="514"/>
         <source>Switch to Design Mode</source>
         <translation>Canviar a Mode Disseny</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="515"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Encara hi ha funcions en execució. 
 Voleu aturar-les i tornar a Mode Disseny?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="544"/>
+        <location filename="app.cpp" line="550"/>
         <source>Design</source>
         <translation>Disseny</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="545"/>
+        <location filename="app.cpp" line="551"/>
         <source>Switch to design mode</source>
         <translation>Canviar a Mode Disseny</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="556"/>
+        <location filename="app.cpp" line="562"/>
         <source>Operate</source>
         <translation>Operació</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="557"/>
-        <location filename="app.cpp" line="585"/>
+        <location filename="app.cpp" line="563"/>
+        <location filename="app.cpp" line="591"/>
         <source>Switch to operate mode</source>
         <translation>Canviar a Mode Operació</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="568"/>
+        <location filename="app.cpp" line="574"/>
         <source>&amp;New</source>
         <translation>&amp;Nou</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="569"/>
+        <location filename="app.cpp" line="575"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="572"/>
+        <location filename="app.cpp" line="578"/>
         <source>&amp;Open</source>
         <translation>&amp;Obrir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="573"/>
+        <location filename="app.cpp" line="579"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="576"/>
+        <location filename="app.cpp" line="582"/>
         <source>&amp;Save</source>
         <translation>&amp;Desar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="577"/>
+        <location filename="app.cpp" line="583"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="580"/>
+        <location filename="app.cpp" line="586"/>
         <source>Save &amp;As...</source>
         <translation>Desar &amp;com...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="584"/>
+        <location filename="app.cpp" line="590"/>
         <source>&amp;Operate</source>
         <translation>&amp;Operació</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="592"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>CTRL+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="589"/>
+        <location filename="app.cpp" line="595"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="590"/>
+        <location filename="app.cpp" line="596"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>CTRL+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="593"/>
+        <location filename="app.cpp" line="599"/>
         <source>Address Tool</source>
         <translation>Eina de direccionament</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="596"/>
+        <location filename="app.cpp" line="602"/>
         <source>Toggle &amp;Blackout</source>
         <translation>Activar/Desactivar &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="601"/>
+        <location filename="app.cpp" line="607"/>
         <source>Live edit a function</source>
         <translation>Editar funció en viu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="605"/>
+        <location filename="app.cpp" line="611"/>
         <source>Toggle Virtual Console Live edit</source>
         <translation>Activa/Desactiva l&apos;edició en viu de la Consola Virtual</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
+        <location filename="app.cpp" line="616"/>
         <source>Dump DMX values to a function</source>
         <translation>Bolcar valors DMX a una funció</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="611"/>
+        <location filename="app.cpp" line="617"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="614"/>
+        <location filename="app.cpp" line="620"/>
         <source>Stop ALL functions!</source>
         <translation>¡Aturar TOTES les funcions!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="619"/>
+        <location filename="app.cpp" line="625"/>
         <source>Fade 1 second and stop</source>
         <translatorcomment>Esvaiment podria ser una bona alternativa a Fade Out</translatorcomment>
         <translation>Fade out de 1 segon i aturar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="624"/>
+        <location filename="app.cpp" line="630"/>
         <source>Fade 5 seconds and stop</source>
         <translation>Fade out de 5 segons i aturar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="629"/>
+        <location filename="app.cpp" line="635"/>
         <source>Fade 10 second and stop</source>
         <translation>Fade out de 10 segons i aturar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="634"/>
+        <location filename="app.cpp" line="640"/>
         <source>Fade 30 second and stop</source>
         <translation>Fade out de 30 segons i aturar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="641"/>
+        <location filename="app.cpp" line="647"/>
         <source>Toggle Full Screen</source>
         <translation>Canviar a Pantalla Completa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="643"/>
+        <location filename="app.cpp" line="649"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>CTRL+F11</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="647"/>
+        <location filename="app.cpp" line="653"/>
         <source>&amp;Index</source>
         <translation>&amp;Index</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="648"/>
+        <location filename="app.cpp" line="654"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="651"/>
+        <location filename="app.cpp" line="657"/>
         <source>&amp;About QLC+</source>
         <translation>Sobre &amp;QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="657"/>
+        <location filename="app.cpp" line="663"/>
         <source>Workspace</source>
         <translation>Espai de Treball</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="713"/>
+        <location filename="app.cpp" line="719"/>
         <source>Unable to read from file</source>
         <translation>Impossible llegir des de l&apos;arxiu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="716"/>
+        <location filename="app.cpp" line="722"/>
         <source>Unable to write to file</source>
         <translation>Impossible escriure a l&apos;arxiu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="719"/>
+        <location filename="app.cpp" line="725"/>
         <source>A fatal error occurred</source>
         <translation>S&apos;ha produït un error fatal</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="722"/>
+        <location filename="app.cpp" line="728"/>
         <source>Unable to access resource</source>
         <translation>Impossible accedir al recurs</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
+        <location filename="app.cpp" line="731"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Impossible obrir l&apos;ariux per llegir o escriure</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="728"/>
+        <location filename="app.cpp" line="734"/>
         <source>Operation was aborted</source>
         <translation>L&apos;operació s&apos;ha avortat</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="731"/>
+        <location filename="app.cpp" line="737"/>
         <source>Operation timed out</source>
         <translatorcomment>Temps d&apos;espera esgotat</translatorcomment>
         <translation>Operació temps d&apos;espera esgotat</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="735"/>
+        <location filename="app.cpp" line="741"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Ha ocorregut un error desconegut.Genial.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="745"/>
         <source>File error</source>
         <translation>Error d&apos;arxiu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="833"/>
-        <location filename="app.cpp" line="849"/>
-        <location filename="app.cpp" line="1124"/>
+        <location filename="app.cpp" line="839"/>
+        <location filename="app.cpp" line="855"/>
+        <location filename="app.cpp" line="1130"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Voleu desar l&apos;espai de treball actual?
 Els canvis es perdran si no els guarda.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="835"/>
+        <location filename="app.cpp" line="841"/>
         <source>New Workspace</source>
         <translation>Nou Espai de Treball</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="851"/>
-        <location filename="app.cpp" line="859"/>
-        <location filename="app.cpp" line="1126"/>
+        <location filename="app.cpp" line="857"/>
+        <location filename="app.cpp" line="865"/>
+        <location filename="app.cpp" line="1132"/>
         <source>Open Workspace</source>
         <translation>Obrir Espai de Treball</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="867"/>
-        <location filename="app.cpp" line="944"/>
+        <location filename="app.cpp" line="873"/>
+        <location filename="app.cpp" line="950"/>
         <source>Workspaces (*%1)</source>
         <translation>Espais de Treball (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="869"/>
-        <location filename="app.cpp" line="946"/>
+        <location filename="app.cpp" line="875"/>
+        <location filename="app.cpp" line="952"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="871"/>
-        <location filename="app.cpp" line="948"/>
+        <location filename="app.cpp" line="877"/>
+        <location filename="app.cpp" line="954"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="938"/>
+        <location filename="app.cpp" line="944"/>
         <source>Save Workspace As</source>
         <translation>Desat l&apos;espai de treball com</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1117"/>
+        <location filename="app.cpp" line="1123"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1118"/>
+        <location filename="app.cpp" line="1124"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>¡Arxiu no trobat!
 L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1267"/>
+        <location filename="app.cpp" line="1273"/>
         <source>Warning</source>
         <translation>Advertència</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1268"/>
+        <location filename="app.cpp" line="1274"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>S&apos;han produït alguns errors en carregar el projecte:</translation>
     </message>
@@ -1808,32 +1808,32 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="docbrowser.cpp" line="104"/>
+        <location filename="docbrowser.cpp" line="105"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Explorador de Documents</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="120"/>
+        <location filename="docbrowser.cpp" line="121"/>
         <source>Backward</source>
         <translation>Enrere</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="121"/>
+        <location filename="docbrowser.cpp" line="122"/>
         <source>Forward</source>
         <translation>Endavant</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="122"/>
+        <location filename="docbrowser.cpp" line="123"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="123"/>
+        <location filename="docbrowser.cpp" line="124"/>
         <source>About Qt</source>
         <translation>Sobre Qt</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="151"/>
+        <location filename="docbrowser.cpp" line="152"/>
         <source>Close</source>
         <translation>Tancar</translation>
     </message>
@@ -2343,47 +2343,47 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Canviar les propietats del fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1299"/>
+        <location filename="fixturemanager.cpp" line="1300"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1300"/>
+        <location filename="fixturemanager.cpp" line="1301"/>
         <source>Please enter a valid address</source>
         <translation>Si us plau, introdueixi una adreça vàlida</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1376"/>
+        <location filename="fixturemanager.cpp" line="1377"/>
         <source>Ungroup fixtures?</source>
         <translation>Desagrupar fixtures?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1377"/>
+        <location filename="fixturemanager.cpp" line="1378"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Vol desagrupar els fixtures seleccionats?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1492"/>
+        <location filename="fixturemanager.cpp" line="1493"/>
         <source>Import Fixtures List</source>
         <translation>Importar llista de Fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1497"/>
+        <location filename="fixturemanager.cpp" line="1498"/>
         <source>Export Fixtures List As</source>
         <translation>Exportar Llist de Fixtures com</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1503"/>
+        <location filename="fixturemanager.cpp" line="1504"/>
         <source>Fixtures List (*%1)</source>
         <translation>Llista de Fixtures (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1505"/>
+        <location filename="fixturemanager.cpp" line="1506"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1507"/>
+        <location filename="fixturemanager.cpp" line="1508"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
@@ -2591,194 +2591,194 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="238"/>
+        <location filename="functionmanager.cpp" line="239"/>
         <source>New &amp;scene</source>
         <translation>Nova e&amp;scena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="244"/>
+        <location filename="functionmanager.cpp" line="245"/>
         <source>New c&amp;haser</source>
         <translation>Nou c&amp;haser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="250"/>
+        <location filename="functionmanager.cpp" line="251"/>
         <source>New se&amp;quence</source>
         <translation>Nova se&amp;qüència</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="257"/>
+        <location filename="functionmanager.cpp" line="258"/>
         <source>New c&amp;ollection</source>
         <translation>Nova c&amp;ol·lecció</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="263"/>
+        <location filename="functionmanager.cpp" line="264"/>
         <source>New E&amp;FX</source>
         <translation>Nou E&amp;FX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="269"/>
+        <location filename="functionmanager.cpp" line="270"/>
         <source>New &amp;RGB Matrix</source>
         <translation>nova Matriu &amp;RGB</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="275"/>
+        <location filename="functionmanager.cpp" line="276"/>
         <source>New scrip&amp;t</source>
         <translation>Nou script&amp;t</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="281"/>
+        <location filename="functionmanager.cpp" line="282"/>
         <source>New au&amp;dio</source>
         <translation>Nou au&amp;dio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="288"/>
+        <location filename="functionmanager.cpp" line="289"/>
         <source>New vid&amp;eo</source>
         <translation>Nou &amp;vídeo</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="294"/>
+        <location filename="functionmanager.cpp" line="295"/>
         <source>New fo&amp;lder</source>
         <translation>Nova Car&amp;peta</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="300"/>
+        <location filename="functionmanager.cpp" line="301"/>
         <source>Select Startup Function</source>
         <translation>Seleccioni Funció d&apos;arranc</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="305"/>
+        <location filename="functionmanager.cpp" line="306"/>
         <source>Function &amp;Wizard</source>
         <translation>&amp;Assistent de Funcions</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="312"/>
+        <location filename="functionmanager.cpp" line="313"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clonar</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="318"/>
+        <location filename="functionmanager.cpp" line="319"/>
         <source>&amp;Delete</source>
         <translation>&amp;Esborrar</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="324"/>
+        <location filename="functionmanager.cpp" line="325"/>
         <source>Select &amp;all</source>
         <translation>Seleccionar &amp;tot</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="366"/>
+        <location filename="functionmanager.cpp" line="367"/>
         <source>New Scene</source>
         <translation>Nova Escena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="379"/>
+        <location filename="functionmanager.cpp" line="380"/>
         <source>New Chaser</source>
         <translation>Nou Chaser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="402"/>
+        <location filename="functionmanager.cpp" line="403"/>
         <source>New Sequence</source>
         <translation>Nova Seqüència</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="415"/>
+        <location filename="functionmanager.cpp" line="416"/>
         <source>New Collection</source>
         <translation>Nova Col·lecció</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="428"/>
+        <location filename="functionmanager.cpp" line="429"/>
         <source>New EFX</source>
         <translation>Nou EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="441"/>
+        <location filename="functionmanager.cpp" line="442"/>
         <source>New RGB Matrix</source>
         <translation>Nova Matriu RGB</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="454"/>
+        <location filename="functionmanager.cpp" line="455"/>
         <source>New Script</source>
         <translation>Nou Script</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="466"/>
+        <location filename="functionmanager.cpp" line="467"/>
         <source>Open Audio File</source>
         <translation>Obrir arxiu d&apos;Audio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="474"/>
+        <location filename="functionmanager.cpp" line="475"/>
         <source>Audio Files (%1)</source>
         <translation>Arxius d&apos;Audio (%1)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="476"/>
-        <location filename="functionmanager.cpp" line="529"/>
+        <location filename="functionmanager.cpp" line="477"/>
+        <location filename="functionmanager.cpp" line="530"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="478"/>
-        <location filename="functionmanager.cpp" line="531"/>
+        <location filename="functionmanager.cpp" line="479"/>
+        <location filename="functionmanager.cpp" line="532"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="500"/>
+        <location filename="functionmanager.cpp" line="501"/>
         <source>Unsupported audio file</source>
         <translation>Arxiu d&apos;audio no suportat</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="500"/>
+        <location filename="functionmanager.cpp" line="501"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Aquest arxiu d&apos;audio no es pot ser reproduir amb QLC+. Ho sento.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="519"/>
+        <location filename="functionmanager.cpp" line="520"/>
         <source>Open Video File</source>
         <translation>Obrir Arxiu de Vídeo</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="527"/>
+        <location filename="functionmanager.cpp" line="528"/>
         <source>Video Files (%1)</source>
         <translation>Arxius de Vídeo (%1)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="553"/>
+        <location filename="functionmanager.cpp" line="554"/>
         <source>Unsupported video file</source>
         <translation>Arxiu de vídeo no suportat</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="553"/>
+        <location filename="functionmanager.cpp" line="554"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>Aquest vídeo no es pot reproduir amb QLC+. Ho sento.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="614"/>
+        <location filename="functionmanager.cpp" line="615"/>
         <source>Do you want to DELETE folder:</source>
         <translation>Vol ESBORRAR la carpeta:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="616"/>
+        <location filename="functionmanager.cpp" line="617"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Vol ESBORRAR funcions:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="628"/>
+        <location filename="functionmanager.cpp" line="629"/>
         <source>(This will also DELETE: </source>
         <translation>(Això ESBORRARÀ també:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="640"/>
+        <location filename="functionmanager.cpp" line="641"/>
         <source>Delete Functions</source>
         <translation>Esborrar funcions</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="746"/>
+        <location filename="functionmanager.cpp" line="747"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="875"/>
+        <location filename="functionmanager.cpp" line="876"/>
         <source> (Copy)</source>
         <translation> (Copiar)</translation>
     </message>
@@ -3330,20 +3330,20 @@ p, li { white-space: pre-wrap; }
         <translation>Àudio</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="400"/>
-        <location filename="inputoutputpatcheditor.cpp" line="419"/>
-        <location filename="inputoutputpatcheditor.cpp" line="528"/>
+        <location filename="inputoutputpatcheditor.cpp" line="433"/>
+        <location filename="inputoutputpatcheditor.cpp" line="452"/>
+        <location filename="inputoutputpatcheditor.cpp" line="561"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="401"/>
-        <location filename="inputoutputpatcheditor.cpp" line="420"/>
+        <location filename="inputoutputpatcheditor.cpp" line="434"/>
+        <location filename="inputoutputpatcheditor.cpp" line="453"/>
         <source>Output line already assigned</source>
         <translation>Línia de Sortida ja assignada</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="529"/>
+        <location filename="inputoutputpatcheditor.cpp" line="562"/>
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
@@ -3352,68 +3352,68 @@ Això pot ser degut a una configuració errònea del sistema o a un modus d&apos
 Si us plau, consulteu la documentació dels plugins per solucionar això.</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="670"/>
-        <location filename="inputoutputpatcheditor.cpp" line="804"/>
+        <location filename="inputoutputpatcheditor.cpp" line="703"/>
+        <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>Existing Input Profile</source>
         <translation>perfil d&apos;Entrada existent</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="671"/>
-        <location filename="inputoutputpatcheditor.cpp" line="805"/>
+        <location filename="inputoutputpatcheditor.cpp" line="704"/>
+        <location filename="inputoutputpatcheditor.cpp" line="838"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>El perfil d&apos;Entrada en %1 ja existeix. El voleu sobreescriure?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="680"/>
-        <location filename="inputoutputpatcheditor.cpp" line="814"/>
+        <location filename="inputoutputpatcheditor.cpp" line="713"/>
+        <location filename="inputoutputpatcheditor.cpp" line="847"/>
         <source>Save Input Profile</source>
         <translation>Desar el perfil d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="681"/>
-        <location filename="inputoutputpatcheditor.cpp" line="815"/>
+        <location filename="inputoutputpatcheditor.cpp" line="714"/>
+        <location filename="inputoutputpatcheditor.cpp" line="848"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Perfil d&apos;Entrada (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="694"/>
-        <location filename="inputoutputpatcheditor.cpp" line="831"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
+        <location filename="inputoutputpatcheditor.cpp" line="864"/>
         <source>Saving failed</source>
         <translation>Error al Desar</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="695"/>
+        <location filename="inputoutputpatcheditor.cpp" line="728"/>
         <source>Unable to save the profile to %1</source>
         <translation>Impossible desar el perfil a %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="732"/>
+        <location filename="inputoutputpatcheditor.cpp" line="765"/>
         <source>Delete profile</source>
         <translatorcomment>Eliminar o Esborrar. Revisar altres entrades semblants.</translatorcomment>
         <translation>Eliminar perfil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="733"/>
+        <location filename="inputoutputpatcheditor.cpp" line="766"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Voleu eliminar permanentment aquest perfil &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="761"/>
+        <location filename="inputoutputpatcheditor.cpp" line="794"/>
         <source>File deletion failed</source>
         <translation>Error al eliminar l&apos;arxiu</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="762"/>
+        <location filename="inputoutputpatcheditor.cpp" line="795"/>
         <source>Unable to delete file %1</source>
         <translation>Impossible esborrar l&apos;arxiu %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="832"/>
+        <location filename="inputoutputpatcheditor.cpp" line="865"/>
         <source>Unable to save %1 to %2</source>
         <translation>Impossible desar %1 a %2</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="864"/>
+        <location filename="inputoutputpatcheditor.cpp" line="897"/>
         <source>Default device</source>
         <translation>Dispositu per defecte</translation>
     </message>
@@ -4333,106 +4333,106 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Activar tots els canals de totos els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="156"/>
+        <location filename="sceneeditor.cpp" line="152"/>
         <source>Enable all channels in current fixture</source>
         <translation>Activar tots els canals de aquest fixture </translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="158"/>
+        <location filename="sceneeditor.cpp" line="154"/>
         <source>Disable all channels in current fixture</source>
         <translation>Desactivar tots els canals d&apos;aquest fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="156"/>
         <source>Copy current values to clipboard</source>
         <translation>Copiar els valors actuals al porta-retalls</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="158"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Enganxar els valors del porta-retalls al fixture actual</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="160"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copiar els valors actuals a tots els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="162"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Eina de color per fixtures amb capacitats CMY/RGB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="164"/>
         <source>Position tool for moving heads/scanners</source>
         <translation>Eina de posicionament per a capçals mòbils o scanners</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="166"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Canviar de la vista de pestanyes a la vista de canals</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="168"/>
         <source>Toggle blind mode</source>
         <translatorcomment>Blind  es Cec deix Blind de moment</translatorcomment>
         <translation>Activar/Desactivar Mode Blind</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="170"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="172"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Clonar aquesta escena i afegir-la com un nou pas al chaser seleccionat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="174"/>
         <source>Go to next fixture tab</source>
         <translation>Anar a la pestanya següent</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="182"/>
+        <location filename="sceneeditor.cpp" line="178"/>
         <source>Go to previous fixture tab</source>
         <translation>Anar a la pestanya anterior</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="204"/>
+        <location filename="sceneeditor.cpp" line="200"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="216"/>
+        <location filename="sceneeditor.cpp" line="212"/>
         <source>Scene name:</source>
         <translation>Nom de la Escena:</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="877"/>
-        <location filename="sceneeditor.cpp" line="878"/>
+        <location filename="sceneeditor.cpp" line="872"/>
+        <location filename="sceneeditor.cpp" line="873"/>
         <source>All fixtures</source>
         <translation>Tots els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1173"/>
-        <location filename="sceneeditor.cpp" line="1174"/>
+        <location filename="sceneeditor.cpp" line="1169"/>
+        <location filename="sceneeditor.cpp" line="1170"/>
         <source>Generic</source>
         <translation>Genèric</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1242"/>
+        <location filename="sceneeditor.cpp" line="1238"/>
         <source>Remove fixtures</source>
         <translation>Eliminar fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1243"/>
+        <location filename="sceneeditor.cpp" line="1239"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vol eleiminar el(s) fixture(s) seleccionats?</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1394"/>
-        <location filename="sceneeditor.cpp" line="1395"/>
+        <location filename="sceneeditor.cpp" line="1390"/>
+        <location filename="sceneeditor.cpp" line="1391"/>
         <source>Channels Groups</source>
         <translation>Grups de Canals</translation>
     </message>
@@ -4486,118 +4486,118 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Comproveu la sintaxi d&apos;aquest script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="86"/>
+        <location filename="scripteditor.cpp" line="89"/>
         <source>Start Function</source>
         <translatorcomment>Arrancar, Engegar funció o Funció d&apos;Inici/Funció final.??????</translatorcomment>
         <translation>Activar Funció</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="90"/>
+        <location filename="scripteditor.cpp" line="93"/>
         <source>Stop Function</source>
         <translation>Aturar Funció</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="94"/>
+        <location filename="scripteditor.cpp" line="97"/>
         <source>Wait</source>
         <translation>Espera</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="98"/>
+        <location filename="scripteditor.cpp" line="101"/>
         <source>Wait Key</source>
         <translation>Tecla d&apos;Espera</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="102"/>
+        <location filename="scripteditor.cpp" line="105"/>
         <source>Set HTP</source>
         <translation>Establir HTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="106"/>
+        <location filename="scripteditor.cpp" line="109"/>
         <source>Set LTP</source>
         <translation>Establir LTP</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="110"/>
+        <location filename="scripteditor.cpp" line="113"/>
         <source>Set Fixture</source>
         <translation>Establir Fixture</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="114"/>
+        <location filename="scripteditor.cpp" line="117"/>
         <source>System Command</source>
         <translation>Ordre del sistema</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="118"/>
+        <location filename="scripteditor.cpp" line="121"/>
         <source>Comment</source>
         <translation>Comentari</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="122"/>
+        <location filename="scripteditor.cpp" line="125"/>
         <source>Random Number</source>
         <translation>Nombre aleatori</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="126"/>
+        <location filename="scripteditor.cpp" line="129"/>
         <source>File Path</source>
         <translation>Ruta de l&apos;arxiu</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="152"/>
+        <location filename="scripteditor.cpp" line="155"/>
         <source>Open Executable File</source>
         <translation>Obrir arxiu executable</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="157"/>
+        <location filename="scripteditor.cpp" line="160"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="159"/>
+        <location filename="scripteditor.cpp" line="162"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="252"/>
+        <location filename="scripteditor.cpp" line="265"/>
         <source>Enter the desired time</source>
         <translation>Entri el temps desitjat</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="336"/>
+        <location filename="scripteditor.cpp" line="349"/>
         <source>Invalid executable</source>
         <translation>Executable no vàlid</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="336"/>
+        <location filename="scripteditor.cpp" line="349"/>
         <source>Please select an executable file !</source>
         <translation>Si us plau trieu un arxiu executable !</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="342"/>
+        <location filename="scripteditor.cpp" line="355"/>
         <source>Enter the program arguments (leave empty if not required)</source>
         <translation>Introduïu els arguments del programa (deixar en blanc si no es requereix)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="378"/>
+        <location filename="scripteditor.cpp" line="391"/>
         <source>Enter the range for the randomization</source>
         <translation>Introduïu el rang per a l&apos;assignació a l&apos;atzar</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="385"/>
+        <location filename="scripteditor.cpp" line="398"/>
         <source>Minimum value</source>
         <translation>Valor mínim</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="386"/>
+        <location filename="scripteditor.cpp" line="399"/>
         <source>Maximum value</source>
         <translation>Valor màxim</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="426"/>
+        <location filename="scripteditor.cpp" line="439"/>
         <source>No syntax errors found in the script</source>
         <translation>No s&apos;han trobat errors al script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="433"/>
+        <location filename="scripteditor.cpp" line="446"/>
         <source>Syntax error at line %1:
 %2
 
@@ -4608,12 +4608,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 </translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="436"/>
+        <location filename="scripteditor.cpp" line="449"/>
         <source>Script check results</source>
         <translation>Resultats de la validació del script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="362"/>
+        <location filename="scripteditor.cpp" line="375"/>
         <source>Add Comment</source>
         <translation>Afegir Comentari</translation>
     </message>
@@ -5763,12 +5763,12 @@ Durada: %3
     <name>VCFrame</name>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="350"/>
-        <location filename="virtualconsole/vcframe.cpp" line="448"/>
+        <location filename="virtualconsole/vcframe.cpp" line="464"/>
         <source>Page: %1</source>
         <translation>Pàgina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1196"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1232"/>
         <source>Add</source>
         <translation>Afegir</translation>
     </message>
@@ -5854,6 +5854,11 @@ Durada: %3
         <location filename="virtualconsole/vcframeproperties.ui" line="289"/>
         <source>External Input - Next page</source>
         <translation>Entrada externa - Pàgina següent</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcframeproperties.ui" line="588"/>
+        <source>Pages circular scrolling</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
@@ -6906,17 +6911,17 @@ Durada: %3
         <translation>Canviar a Mode Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="684"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="685"/>
         <source>Select channels by group</source>
         <translation>Seleccionar canals per grup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="685"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="686"/>
         <source>Select a channel group</source>
         <translation>Seleccionar un Grup de Canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="741"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="742"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -7691,37 +7696,37 @@ Durada: %3
         <translation>O&amp;rdre de apilament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="859"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="881"/>
         <source>Knob %1</source>
         <translation>Perilla %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1126"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1150"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vol eliminar el widget seleccionat?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1127"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1151"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
         <source>Rename widgets</source>
         <translation>Reanomenar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
         <source>Caption:</source>
         <translation>Títol:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1257"/>
         <source>Select background image</source>
         <translation>Seleccioni la imatge de fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1242"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
         <source>Images</source>
         <translation>Imatges</translation>
     </message>
