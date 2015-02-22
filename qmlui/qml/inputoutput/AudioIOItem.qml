@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureUtils.js
+  AudioIOItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -17,26 +17,30 @@
   limitations under the License.
 */
 
-var lastFixtureID = fixtureManager.invalidFixture()
-var lastColor = "#2C58B0"
+import QtQuick 2.0
 
-function getColorForAddress(address) {
-    var fxID = fixtureManager.fixtureForAddress(universeGridView.uniStartAddr + address);
-    if (fxID === fixtureManager.invalidFixture())
-    {
-        return "#7f7f7f"
-    }
-    else
-    {
-    if (fxID !== lastFixtureID)
-	{
-	    if (lastColor == "#2D84B0")
-            lastColor = "#2C58B0";
-	    else
-            lastColor = "#2D84B0";
-	}
-    }
+Rectangle {
+    width: parent.width
+    height: 140
+    color: "transparent"
+    border.width: 2
+    border.color: "#666"
 
-    lastFixtureID = fxID;
-    return lastColor;
-} 
+    Rectangle {
+        anchors.centerIn: parent
+        width: 200
+        height: 120
+        radius: 5
+        color: "#1C2255"
+        border.width: 2
+        border.color: "#444"
+
+        RobotoText {
+            height: parent.height
+            width: parent.width
+            label: qsTr("Global Audio")
+            wrapText: true
+        }
+    }
+}
+

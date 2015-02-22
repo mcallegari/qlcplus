@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureUtils.js
+  DetachWindow.js
 
   Copyright (c) Massimo Callegari
 
@@ -17,26 +17,18 @@
   limitations under the License.
 */
 
-var lastFixtureID = fixtureManager.invalidFixture()
-var lastColor = "#2C58B0"
-
-function getColorForAddress(address) {
-    var fxID = fixtureManager.fixtureForAddress(universeGridView.uniStartAddr + address);
-    if (fxID === fixtureManager.invalidFixture())
+function createWindow(source) {
+    console.log("create window called");
+    var itemComponent = Qt.createComponent("WindowLoader.qml");
+    if (itemComponent.status === Component.Ready)
     {
-        return "#7f7f7f"
+        var windowItem = itemComponent.createObject(mainView, {"viewSource": source});
+        windowItem.show();
     }
-    else
+    else if (itemComponent.status === Component.Error)
     {
-    if (fxID !== lastFixtureID)
-	{
-	    if (lastColor == "#2D84B0")
-            lastColor = "#2C58B0";
-	    else
-            lastColor = "#2D84B0";
-	}
+        console.log("error creating component");
+        console.log(itemComponent.errorString());
     }
+}
 
-    lastFixtureID = fxID;
-    return lastColor;
-} 

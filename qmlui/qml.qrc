@@ -7,26 +7,34 @@
         <file alias="RobotoText.qml">qml/RobotoText.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
-        <file alias="FixturesAndFunctions.qml">qml/FixturesAndFunctions.qml</file>
-        <file alias="RightPanel.qml">qml/RightPanel.qml</file>
-        <file alias="LeftPanel.qml">qml/LeftPanel.qml</file>
-        <file alias="FixtureBrowser.qml">qml/FixtureBrowser.qml</file>
-        <file alias="FixtureProperties.qml">qml/FixtureProperties.qml</file>
-        <file alias="FixtureDragItem.qml">qml/FixtureDragItem.qml</file>
         <file alias="IconButton.qml">qml/IconButton.qml</file>
         <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
         <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
         <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
-        <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
-        <file alias="UniverseGridView.qml">qml/UniverseGridView.qml</file>
-        <file alias="DMXView.qml">qml/DMXView.qml</file>
-        <file alias="FixtureDMXItem.qml">qml/FixtureDMXItem.qml</file>
-        <file alias="2DView.qml">qml/2DView.qml</file>
-        <file alias="Fixture2DItem.qml">qml/Fixture2DItem.qml</file>
-        <file alias="FunctionManager.qml">qml/FunctionManager.qml</file>
         <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
         <file alias="FolderDelegate.qml">qml/FolderDelegate.qml</file>
+        <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
+
+        <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
+        <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
+        <file alias="LeftPanel.qml">qml/fixturesfunctions/LeftPanel.qml</file>
+        <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
+        <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
+        <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
+        <file alias="FixtureDelegate.qml">qml/fixturesfunctions/FixtureDelegate.qml</file>
+        <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
+        <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
+        <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
+        <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
+        <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
+        <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
+
+        <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
+        <file alias="UniverseIOItem.qml">qml/inputoutput/UniverseIOItem.qml</file>
+        <file alias="AudioIOItem.qml">qml/inputoutput/AudioIOItem.qml</file>
+
         <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
         <file alias="FixtureUtils.js">js/FixtureUtils.js</file>
+        <file alias="DetachWindow.js">js/DetachWindow.js</file>
     </qresource>
 </RCC>

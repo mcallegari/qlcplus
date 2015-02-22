@@ -22,6 +22,8 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 
+import "DetachWindow.js" as WinLoader
+
 Rectangle {
     id: mainView
     visible: true
@@ -84,6 +86,9 @@ Rectangle {
                     if (checked == true)
                         viewLoader.source = "qrc:///FixturesAndFunctions.qml"
                 }
+                onRightClicked: {
+                    WinLoader.createWindow("qrc:///FixturesAndFunctions.qml")
+                }
             }
             MenuBarEntry {
                 id: vcEntry
@@ -94,6 +99,9 @@ Rectangle {
                 onCheckedChanged: {
                     if (checked == true)
                         viewLoader.source = "qrc:///VirtualConsole.qml"
+                }
+                onRightClicked: {
+                    WinLoader.createWindow("qrc:///VirtualConsole.qml")
                 }
             }
             MenuBarEntry {
@@ -106,6 +114,9 @@ Rectangle {
                     if (checked == true)
                         viewLoader.source = "qrc:///SimpleDesk.qml"
                 }
+                onRightClicked: {
+                    WinLoader.createWindow("qrc:///SimpleDesk.qml")
+                }
             }
             MenuBarEntry {
                 id: smEntry
@@ -117,6 +128,9 @@ Rectangle {
                     if (checked == true)
                         viewLoader.source = "qrc:///ShowManager.qml"
                 }
+                onRightClicked: {
+                    WinLoader.createWindow("qrc:///ShowManager.qml")
+                }
             }
             MenuBarEntry {
                 id: ioEntry
@@ -127,6 +141,9 @@ Rectangle {
                 onCheckedChanged: {
                     if (checked == true)
                         viewLoader.source = "qrc:///InputOutputManager.qml"
+                }
+                onRightClicked: {
+                    WinLoader.createWindow("qrc:///InputOutputManager.qml")
                 }
             }
             Rectangle {

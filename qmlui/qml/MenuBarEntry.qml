@@ -51,6 +51,7 @@ Rectangle {
     }
 
     signal clicked
+    signal rightClicked
     signal toggled
 
     gradient: bgGradient
@@ -116,17 +117,23 @@ Rectangle {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onEntered: { if (checked == false) menuEntry.gradient = selGradient }
         onExited: { if (checked == false) menuEntry.gradient = bgGradient }
-        onReleased: {
-            if (checkable == true)
+        onClicked: {
+            if (mouse.button == Qt.LeftButton)
             {
-                if (checked == false)
-                    checked = true
-                menuEntry.toggled(checked);
+                if (checkable == true)
+                {
+                    if (checked == false)
+                        checked = true
+                    menuEntry.toggled(checked);
+                }
+                else
+                    menuEntry.clicked();
             }
             else
-                menuEntry.clicked();
+                menuEntry.rightClicked();
         }
     }
 }

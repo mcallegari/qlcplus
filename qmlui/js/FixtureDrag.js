@@ -50,8 +50,10 @@ function startDrag(mouse)
 //Creation is split into two functions due to an asynchronous wait while
 //possible external files are loaded.
 
-function loadComponent() {
-    if (itemComponent != null) { // component has been previously loaded
+function loadComponent()
+{
+    if (itemComponent != null) // component has been previously loaded
+    {
         createItem();
         return;
     }
@@ -60,11 +62,14 @@ function loadComponent() {
     createItem();
 }
 
-function createItem() {
-    if (itemComponent.status === Component.Ready && draggedItem == null) {
+function createItem()
+{
+    if (itemComponent.status === Component.Ready && draggedItem == null)
+    {
         draggedItem = itemComponent.createObject(mainView, {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10});
-        // make sure created item is above the ground layer
-    } else if (itemComponent.status === Component.Error) {
+    }
+    else if (itemComponent.status === Component.Error)
+    {
         draggedItem = null;
         console.log("error creating component");
         console.log(itemComponent.errorString());

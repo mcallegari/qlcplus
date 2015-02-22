@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureUtils.js
+  WindowLoader.qml
 
   Copyright (c) Massimo Callegari
 
@@ -17,26 +17,20 @@
   limitations under the License.
 */
 
-var lastFixtureID = fixtureManager.invalidFixture()
-var lastColor = "#2C58B0"
 
-function getColorForAddress(address) {
-    var fxID = fixtureManager.fixtureForAddress(universeGridView.uniStartAddr + address);
-    if (fxID === fixtureManager.invalidFixture())
-    {
-        return "#7f7f7f"
-    }
-    else
-    {
-    if (fxID !== lastFixtureID)
-	{
-	    if (lastColor == "#2D84B0")
-            lastColor = "#2C58B0";
-	    else
-            lastColor = "#2D84B0";
-	}
-    }
+import QtQuick 2.0
+import QtQuick.Window 2.0
 
-    lastFixtureID = fxID;
-    return lastColor;
-} 
+Window {
+    width: 800
+    height: 600
+    color: "#303030"
+
+    property string viewSource
+
+    Loader {
+        anchors.fill: parent
+        source: viewSource
+    }
+}
+
