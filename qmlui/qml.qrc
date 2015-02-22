@@ -30,8 +30,12 @@
         <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
+        <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>
+        <file alias="IORightPanel.qml">qml/inputoutput/IORightPanel.qml</file>
         <file alias="UniverseIOItem.qml">qml/inputoutput/UniverseIOItem.qml</file>
         <file alias="AudioIOItem.qml">qml/inputoutput/AudioIOItem.qml</file>
+        <file alias="AudioCardsList.qml">qml/inputoutput/AudioCardsList.qml</file>
+        <file alias="PluginsList.qml">qml/inputoutput/PluginsList.qml</file>
 
         <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
         <file alias="FixtureUtils.js">js/FixtureUtils.js</file>

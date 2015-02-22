@@ -24,6 +24,7 @@ HEADERS += \
     fixturebrowser.h \
     fixturemanager.h \
     functionmanager.h \
+    inputoutputobject.h \
     inputoutputmanager.h \ 
     treemodel.h \
     treemodelitem.h \

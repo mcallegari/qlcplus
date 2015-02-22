@@ -25,21 +25,54 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
 
+    IOLeftPanel {
+        id: leftPanel
+        x: 0
+        //z: 5
+        height: parent.height
+    }
+
+    IORightPanel {
+        id: rightPanel
+        x: parent.width - width
+        z: 5
+        height: parent.height
+    }
+
     Flickable {
-        anchors.fill: parent
+        width: parent.width - leftPanel.width - rightPanel.width
+        height: parent.height
+        x: leftPanel.width
+        z: 6
+
         contentHeight: ioList.height
 
         Column {
             id: ioList
-            width: ioMgrContainer.width
+            width: parent.width
             AudioIOItem {
-
+                onSelected: {
+                    leftPanel.showPluginsButton = false
+                    leftPanel.showAudioButton = true
+                    rightPanel.showPluginsButton = false
+                    rightPanel.showAudioButton = true
+                }
             }
             Repeater {
                 model: ioManager.universes
                 delegate:
                     UniverseIOItem {
                         universeName: model.modelData
+                        universeIndex: model.index
+
+                        onSelected: {
+                            leftPanel.universeIndex = index
+                            leftPanel.showPluginsButton = true
+                            leftPanel.showAudioButton = false
+                            rightPanel.universeIndex = index
+                            rightPanel.showPluginsButton = true
+                            rightPanel.showAudioButton = false
+                        }
                     }
             }
         }

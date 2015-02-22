@@ -20,16 +20,20 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: audioItem
     width: parent.width
-    height: 140
-    color: "transparent"
+    height: 120
+    color: isSelected ? "#666" : "#303030"
     border.width: 2
-    border.color: "#666"
+    border.color: isSelected ? "yellow" : "#666"
+
+    property bool isSelected: false
+    signal selected
 
     Rectangle {
         anchors.centerIn: parent
         width: 200
-        height: 120
+        height: 100
         radius: 5
         color: "#1C2255"
         border.width: 2
@@ -40,6 +44,17 @@ Rectangle {
             width: parent.width
             label: qsTr("Global Audio")
             wrapText: true
+        }
+    }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            if (isSelected == false)
+            {
+                isSelected = true
+                ioManager.setSelectedItem(audioItem, 0)
+                audioItem.selected(0);
+            }
         }
     }
 }

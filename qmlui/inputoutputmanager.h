@@ -21,9 +21,12 @@
 #define INPUTOUTPUTMANAGER_H
 
 #include <QStringList>
+#include <QQuickItem>
+#include <QVariant>
 #include <QObject>
 
 class Doc;
+class InputOutputMap;
 
 class InputOutputManager : public QObject
 {
@@ -35,6 +38,18 @@ public:
     InputOutputManager(Doc *doc, QObject *parent = 0);
 
     QStringList universes();
+    Q_INVOKABLE QVariant audioInputSources();
+    Q_INVOKABLE QVariant audioOutputSources();
+
+    Q_INVOKABLE QVariant universeInputSources(int universe);
+    Q_INVOKABLE QVariant universeOutputSources(int universe);
+    Q_INVOKABLE QVariant universeInputProfiles(int universe);
+
+    Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
+
+private:
+    void clearInputList();
+    void clearOutputList();
 
 signals:
     void universesChanged();
@@ -43,7 +58,13 @@ public slots:
 
 private:
     Doc *m_doc;
+    InputOutputMap* m_ioMap;
+    QList<QObject*> m_inputSources;
+    QList<QObject*> m_inputProfiles;
+    QList<QObject*> m_outputSources;
 
+    QQuickItem *m_selectedItem;
+    int m_selectedUniverseIndex;
 };
 
 #endif // INPUTOUTPUTMANAGER_H
