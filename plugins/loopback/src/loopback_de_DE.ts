@@ -7,7 +7,7 @@
         <location filename="loopback.cpp" line="92"/>
         <location filename="loopback.cpp" line="127"/>
         <source>Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückschleife</translation>
     </message>
     <message>
         <location filename="loopback.cpp" line="143"/>
@@ -17,24 +17,24 @@
     <message>
         <location filename="loopback.cpp" line="156"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgang</translation>
     </message>
     <message>
         <location filename="loopback.cpp" line="159"/>
         <location filename="loopback.cpp" line="181"/>
         <source>Status: Used</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: In Benutzung</translation>
     </message>
     <message>
         <location filename="loopback.cpp" line="162"/>
         <location filename="loopback.cpp" line="184"/>
         <source>Status: Not used</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: Nicht benutzt</translation>
     </message>
     <message>
         <location filename="loopback.cpp" line="178"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang</translation>
     </message>
 </context>
 </TS>
