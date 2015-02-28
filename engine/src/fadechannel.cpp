@@ -35,6 +35,7 @@ FadeChannel::FadeChannel()
     , m_target(0)
     , m_current(0)
     , m_ready(false)
+    , m_flashing(false)
     , m_fadeTime(0)
     , m_elapsed(0)
 {
@@ -49,6 +50,7 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
     , m_target(ch.m_target)
     , m_current(ch.m_current)
     , m_ready(ch.m_ready)
+    , m_flashing(ch.m_flashing)
     , m_fadeTime(ch.m_fadeTime)
     , m_elapsed(ch.m_elapsed)
 {
@@ -61,6 +63,7 @@ FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
     , m_target(0)
     , m_current(0)
     , m_ready(false)
+    , m_flashing(false)
     , m_fadeTime(0)
     , m_elapsed(0)
 {
@@ -213,6 +216,16 @@ void FadeChannel::setReady(bool rdy)
 bool FadeChannel::isReady() const
 {
     return m_ready;
+}
+
+void FadeChannel::setFlashing(bool flashing)
+{
+    m_flashing = flashing;
+}
+
+bool FadeChannel::isFlashing() const
+{
+    return m_flashing;
 }
 
 bool FadeChannel::canFade(const Doc* doc) const

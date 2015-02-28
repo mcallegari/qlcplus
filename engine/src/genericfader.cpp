@@ -99,12 +99,16 @@ void GenericFader::write(QList<Universe*> ua)
             if (fc.current() == 0 && fc.target() == 0)
                 remove(fc);
         }
+/*
         else
         {
             // Remove all LTP channels after their time is up
             if (fc.elapsed() >= fc.fadeTime())
                 remove(fc);
         }
+*/
+        if (fc.isFlashing())
+            remove(fc);
     }
 }
 

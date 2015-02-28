@@ -508,6 +508,7 @@ void Scene::unFlash(MasterTimer* timer)
 
 void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
+    Q_UNUSED(ua)
     Q_ASSERT(timer != NULL);
 
     if (flashing() == true)
@@ -519,9 +520,11 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
             FadeChannel fc;
             fc.setFixture(doc(), sv.fxi);
             fc.setChannel(sv.channel);
-            quint32 uni = fc.universe();
-            if (uni != Universe::invalid())
-                ua[uni]->write(fc.address(), sv.value);
+            fc.setTarget(sv.value);
+            fc.setFlashing(true);
+            // Force add this channel, since it will be removed
+            // by MasterTimer once applied
+            timer->fader()->forceAdd(fc);
         }
     }
     else
@@ -590,6 +593,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.unlock();
     }
 
+    qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
     m_fader->write(ua);
 
@@ -609,6 +613,9 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
     {
         it.next();
         FadeChannel fc = it.value();
+        // fade out only intensity channels
+        if (fc.group(doc()) != QLCChannel::Intensity)
+            continue;
 
         bool canFade = true;
         Fixture *fixture = doc()->fixture(fc.fixture());
