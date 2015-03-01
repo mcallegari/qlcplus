@@ -341,9 +341,15 @@ void PlaybackWing::feedBack(quint32 channel, uchar value)
     if (!m_feedbackValues.contains(pageNum))
         m_feedbackValues.insert(pageNum, QByteArray(WING_PLAYBACK_SLIDER_SIZE, 0));
 
-    // store slider values for later use
     if (pageChan < WING_PLAYBACK_SLIDER_SIZE)
+    {
+        // store widget values for later use
         m_feedbackValues[pageNum][pageChan] = value;
+
+        // check sync
+        if (value != cacheValue(pageChan))
+            m_needSync = true;
+    }
 
     //set page
     if (pageChan == WING_PLAYBACK_BUTTON_PAGEDOWN || pageChan == WING_PLAYBACK_BUTTON_PAGEUP)
