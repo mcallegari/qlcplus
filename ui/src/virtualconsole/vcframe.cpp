@@ -483,6 +483,13 @@ void VCFrame::slotSetPage(int pageNum)
         }
         m_doc->setModified();
         emit pageChanged(m_currentPage);
+
+        // __offtools__ (enttec playbackwing)
+        // needed to receive page changes from the widget,
+        // only sends nextPage channel, with page number as value,
+        // also when prevPage is clicked.
+        // Strange, but enough to handle pages on the wing
+        sendFeedback(m_currentPage);
     }
 }
 

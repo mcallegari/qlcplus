@@ -643,12 +643,13 @@ void VCWidget::sendFeedback(int value, quint8 id)
             QLCInputProfile* profile = pat->profile();
             if (profile != NULL)
             {
-                QLCInputChannel* ich = profile->channel(src->channel());
+                // __offtools__ send correct channel names
+                //QLCInputChannel* ich = profile->channel(src->channel());
+                QLCInputChannel* ich = profile->channel( (src->channel() & 0xFF) );
                 if (ich != NULL)
                     chName = ich->name();
             }
         }
-
         m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
     }
 }
