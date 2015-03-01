@@ -1080,10 +1080,12 @@ void SceneEditor::createSpeedDials()
     m_speedDials->setWindowTitle(m_scene->name());
     m_speedDials->setFadeInSpeed(m_scene->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_scene->fadeOutSpeed());
+    m_speedDials->setStopAction(Scene::stopActionToString(m_scene->stopAction()));
     m_speedDials->setDurationEnabled(false);
     m_speedDials->setDurationVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
+    connect(m_speedDials, SIGNAL(stopActionChanged(const QString&)), this, SLOT(slotStopActionChanged(const QString&)));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     m_speedDials->show();
 }
@@ -1283,6 +1285,11 @@ void SceneEditor::slotFadeInChanged(int ms)
 void SceneEditor::slotFadeOutChanged(int ms)
 {
     m_scene->setFadeOutSpeed(ms);
+}
+
+void SceneEditor::slotStopActionChanged(const QString& action)
+{
+    m_scene->setStopAction(Scene::stringToStopAction(action));
 }
 
 void SceneEditor::slotEnableAllChannelGroups()

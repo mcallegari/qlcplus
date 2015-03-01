@@ -275,6 +275,8 @@ void AudioEditor::createSpeedDials()
     m_speedDials->setFadeOutSpeed(m_audio->fadeOutSpeed());
     m_speedDials->setDurationEnabled(false);
     m_speedDials->setDurationVisible(false);
+    m_speedDials->setStopActionEnabled(false);
+    m_speedDials->setStopActionVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));

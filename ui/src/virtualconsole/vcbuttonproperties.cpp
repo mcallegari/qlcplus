@@ -249,6 +249,8 @@ void VCButtonProperties::slotSpeedDialToggle(bool state)
         m_speedDials->setFadeOutSpeed(m_button->stopAllFadeTime());
         m_speedDials->setDurationEnabled(false);
         m_speedDials->setDurationVisible(false);
+        m_speedDials->setStopActionEnabled(false);
+        m_speedDials->setStopActionVisible(false);
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
         m_speedDials->show();

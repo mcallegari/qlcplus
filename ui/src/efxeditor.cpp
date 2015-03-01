@@ -548,6 +548,8 @@ void EFXEditor::createSpeedDials()
     {
         m_speedDials = new SpeedDialWidget(this);
         m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
+        m_speedDials->setStopActionEnabled(false);
+        m_speedDials->setStopActionVisible(false);
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));

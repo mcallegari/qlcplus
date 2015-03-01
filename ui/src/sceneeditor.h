@@ -149,6 +149,7 @@ private slots:
 
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
+    void slotStopActionChanged(const QString &action);
     void slotDialDestroyed(QObject* dial);
 
 private:

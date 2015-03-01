@@ -39,6 +39,7 @@ class QDomElement;
 
 #define KXMLQLCFixtureValues "FixtureVal"
 #define KXMLQLCSceneChannelGroups "ChannelGroups"
+#define KXMLQLCSceneStopAction "StopAction"
 
 /**
  * Scene encapsulates the values of selected channels from one or more fixture
@@ -236,6 +237,49 @@ private:
 public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
+
+    /*********************************************************************
+     * Stop action
+     *********************************************************************/
+public:
+    enum StopAction { ResetToZero, ResetToStart, KeepCurrentValues };
+
+    /**
+     * Set this function's stopAction
+     *
+     * @param action This function's stopAction
+     */
+    void setStopAction(const Scene::StopAction& action);
+
+    /**
+     * Get this function's stopAction
+     */
+    Scene::StopAction stopAction() const;
+
+    /**
+     * Convert a stopAction to a string
+     *
+     * @param action stopAction to convert
+     */
+    static QString stopActionToString(const Scene::StopAction& action);
+
+    /**
+     * Convert a string to stopActoin
+     *
+     * @param str The string to convert
+     */
+    static Scene::StopAction stringToStopAction(const QString& str);
+
+protected:
+    /** Save function's stopAction in $doc, under $root */
+    bool saveXMLStopAction(QDomDocument* doc, QDomElement* root) const;
+
+    /** Load function's stopActoin from $root */
+    bool loadXMLStopAction(const QDomElement& root);
+
+private:
+    /** indicates whether the faders should reset to 0, reset to start value or stay at the current values when the scene is stopped */
+    StopAction m_stopAction;
 };
 
 /** @} */
