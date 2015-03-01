@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1991,7 +1991,7 @@ The selected file has been moved or deleted.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -5858,7 +5858,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="588"/>
         <source>Pages circular scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina&apos;s circulaire scrolling</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="113"/>

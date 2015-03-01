@@ -109,6 +109,13 @@ public:
     /** Check if this channel is ready. Default is false. */
     bool isReady() const;
 
+    /** Set a channel in flashing mode. This will be removed by
+     *  MasterTimer once applied */
+    void setFlashing(bool flashing);
+
+    /** Returns if this channel is flashing */
+    bool isFlashing() const;
+
     /** Returns if a channel can be faded or not */
     bool canFade(const Doc *doc) const;
 
@@ -154,6 +161,7 @@ private:
     int m_target;
     int m_current;
     bool m_ready;
+    bool m_flashing;
 
     uint m_fadeTime;
     uint m_elapsed;
