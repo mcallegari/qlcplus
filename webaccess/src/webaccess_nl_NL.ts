@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>WebAccess</name>
     <message>
@@ -199,7 +199,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="235"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Afsluiten</translation>
     </message>
 </context>
 <context>
