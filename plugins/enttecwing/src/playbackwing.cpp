@@ -161,7 +161,7 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
     m_channelMap[38] = 33 + WING_PLAYBACK_SLIDER_SIZE;
     m_channelMap[39] = 32 + WING_PLAYBACK_SLIDER_SIZE;
 
-    m_needSync = false;
+    m_needSync = true;
 
     /* Take initial values from the first received datagram packet.
        The plugin hasn't yet connected to valueChanged() signal, so this
@@ -240,7 +240,7 @@ void PlaybackWing::parseData(const QByteArray& data)
             if (!m_feedbackDiffs.contains(page()))
                 m_feedbackDiffs.insert(page(), QVector<int>(WING_PLAYBACK_SLIDER_SIZE, 0));
 
-            m_feedbackDiffs[page()][slider] = quint8(m_feedbackValues[page()][slider]) - quint8(data[WING_PLAYBACK_BYTE_SLIDER + slider]);
+            m_feedbackDiffs[page()][slider] = quint8(m_feedbackValues[page()][slider]) - quint8(cacheValue(slider));
         }
 
         int diff = 0;
@@ -253,6 +253,8 @@ void PlaybackWing::parseData(const QByteArray& data)
         {
             //check sync status
             int curdiff = quint8(m_feedbackValues[page()][slider]) - quint8(data[WING_PLAYBACK_BYTE_SLIDER + slider]);
+
+            // send input after crossing widget values ( sign of diff is changing)
             if (curdiff == 0 || (curdiff > 0 && diff < 0)  || (curdiff < 0 && diff > 0))
             {
                 setCacheValue(slider, value);
