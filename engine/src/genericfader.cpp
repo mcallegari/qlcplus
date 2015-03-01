@@ -90,7 +90,10 @@ void GenericFader::write(QList<Universe*> ua)
             value = fc.current(intensity());
 
         if (universe != Universe::invalid())
+        {
+            //qDebug() << "[GenericFader] >>> uni:" << universe << ", address:" << addr << ", value:" << value;
             ua[universe]->write(addr, value);
+        }
 
         if (grp == QLCChannel::Intensity)
         {
