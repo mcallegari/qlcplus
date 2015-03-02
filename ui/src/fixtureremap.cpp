@@ -607,8 +607,11 @@ QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        qDebug() << Q_FUNC_INFO << "append: " << child->caption();
-        list.append(child);
+        if (list.contains(child) == false)
+        {
+            qDebug() << Q_FUNC_INFO << "append: " << child->caption();
+            list.append(child);
+        }
         list.append(getVCChildren(child));
     }
     return list;
@@ -630,10 +633,8 @@ void FixtureRemap::accept()
         quint32 tgtFxiID = info.target->text(KColumnID).toUInt();
         quint32 tgtChIdx = info.target->text(KColumnChIdx).toUInt();
 
-        SceneValue srcVal(srcFxiID, srcChIdx);
-        SceneValue tgtVal(tgtFxiID, tgtChIdx);
-        sourceList.append(srcVal);
-        targetList.append(tgtVal);
+        sourceList.append(SceneValue(srcFxiID, srcChIdx));
+        targetList.append(SceneValue(tgtFxiID, tgtChIdx));
     }
 
     /* **********************************************************************
@@ -765,16 +766,17 @@ void FixtureRemap::accept()
             VCSlider *slider = (VCSlider *)object;
             if (slider->sliderMode() == VCSlider::Level)
             {
-                QList <VCSlider::LevelChannel> slChannels = slider->levelChannels();
+                qDebug() << "Remapping slider:" << slider->caption();
                 QList <SceneValue> newChannels;
 
-                foreach (VCSlider::LevelChannel chan, slChannels)
+                foreach (VCSlider::LevelChannel chan, slider->levelChannels())
                 {
                     for( int v = 0; v < sourceList.count(); v++)
                     {
                         SceneValue val = sourceList.at(v);
                         if (val.fxi == chan.fixture && val.channel == chan.channel)
                         {
+                            qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi << targetList.at(v).channel;
                             newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
                         }
                     }
