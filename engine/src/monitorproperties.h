@@ -95,6 +95,9 @@ public:
     QHash<quint32, QString> customBackgroundList() const { return m_customBackgroundImages; }
     QString customBackground(quint32 id);
 
+    FixtureItemProperties fixtureProperties(quint32 fid) const { return m_fixtureItems[fid]; }
+    void setFixtureProperties(quint32 fid, FixtureItemProperties props) { m_fixtureItems[fid] = props; }
+
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
 
     void reset();

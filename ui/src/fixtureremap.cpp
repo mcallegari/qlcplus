@@ -835,7 +835,39 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 7 - save the remapped project into a new file
+     * 7 - remap 2D monitor properties, if defined
+     * ********************************************************************** */
+    MonitorProperties *props = m_doc->monitorProperties();
+    if (props != NULL)
+    {
+        QList <quint32> fxIDList = props->fixtureItemsID();
+        QHash <quint32, FixtureItemProperties> remappedFixtureItems;
+
+        foreach (quint32 fxID, fxIDList)
+        {
+            for( int v = 0; v < sourceList.count(); v++)
+            {
+                if (sourceList.at(v).fxi == fxID)
+                {
+                    FixtureItemProperties rmpProp = props->fixtureProperties(fxID);
+                    remappedFixtureItems[targetList.at(v).fxi] = rmpProp;
+                    break;
+                }
+            }
+
+            props->removeFixture(fxID);
+        }
+
+        QHashIterator <quint32, FixtureItemProperties> it(remappedFixtureItems);
+        while (it.hasNext())
+        {
+            it.next();
+            props->setFixtureProperties(it.key(), it.value());
+        }
+    }
+
+    /* **********************************************************************
+     * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
     mainApp->setFileName(m_targetProjectLabel->text());
