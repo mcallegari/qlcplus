@@ -254,17 +254,18 @@ void InputOutputMap::dumpUniverses()
         for (int i = 0; i < m_universeArray.count(); i++)
         {
             Universe *universe = m_universeArray.at(i);
-            if (universe->hasChanged() &&
-               (universe->monitor() == true || universe->outputPatch() != NULL))
+            const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
+
+            // notify the universe listeners that some channels have changed
+            if (universe->hasChanged())
             {
-                const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-
-                universe->dumpOutput(postGM);
-
                 locker.unlock();
                 emit universesWritten(i, postGM);
                 locker.relock();
             }
+
+            // this is where QLC+ sends data to the output plugins
+            universe->dumpOutput(postGM);
         }
     }
 }
