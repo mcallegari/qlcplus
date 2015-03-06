@@ -109,11 +109,3 @@ Function *QLCClipboard::getFunction()
 {
     return m_copyFunction;
 }
-
-
-
-
-
-
-
-

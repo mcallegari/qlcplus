@@ -726,6 +726,11 @@ void ChaserEditor::slotPasteClicked()
     {
         QTreeWidgetItem* item = new QTreeWidgetItem;
         ChaserStep step(it.next());
+        if (step.resolveFunction(m_doc) == NULL) // Function has been removed
+        {
+            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function ?)";
+            continue;
+        }
         updateItem(item, step);
         m_tree->insertTopLevelItem(insertionPoint, item);
         m_chaser->addStep(step, insertionPoint);
