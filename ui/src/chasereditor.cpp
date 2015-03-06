@@ -395,9 +395,7 @@ void ChaserEditor::slotAddClicked()
 
 void ChaserEditor::slotRemoveClicked()
 {
-    slotCutClicked();
-    //m_clipboard.clear();
-    updateClipboardButtons();
+    return slotCutClicked();
 }
 
 void ChaserEditor::slotRaiseClicked()
@@ -657,8 +655,8 @@ void ChaserEditor::slotCutClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
-        copyList << stepAtItem(item);
         int index = m_tree->indexOfTopLevelItem(item);
+        copyList << stepAtIndex(index);
         m_chaser->removeStep(index);
         delete item;
     }
@@ -672,7 +670,6 @@ void ChaserEditor::slotCutClicked()
 
 void ChaserEditor::slotCopyClicked()
 {
-    //m_clipboard.clear();
     QList <ChaserStep> copyList;
     foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         copyList << stepAtItem(item);
@@ -1378,5 +1375,3 @@ void ChaserEditor::printSteps()
             qDebug() << "-----> values found: " << st.values.count();
     }
 }
-
-
