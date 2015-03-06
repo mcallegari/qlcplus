@@ -3,6 +3,8 @@ qlcplus (4.8.5) stable; urgency=low
   * Engine: it is now possible to flash LTP channels as well
   * RGB Scripts: added new "Balls" script (thanks to Tim Cullingworth)
   * Function Manager: fix crash // disable Add Sequence button when function selection is empty (David Garyga)
+  * Chaser Editor: fix cutting of several steps at the same time (David Garyga)
+  * Chaser Editor: fix crash when trying to paste a removed function (David Garyga)
   * Show Manager: fixed rendering and playback of sequences with common duration steps
   * UI: in kiosk mode, don't show the panels tab bar
   * Fixture Remap: fixed remapping of widgets into nested frames
