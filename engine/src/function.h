@@ -98,6 +98,7 @@ public:
         , Video    = 1 << 8
 #endif
     };
+    Q_ENUMS(Type)
 
     /**
      * Common attributes
@@ -111,6 +112,9 @@ public:
      * Initialization
      *********************************************************************/
 public:
+    /** Create a new fixture instance with the given QObject parent. */
+    Function(QObject* parent = 0);
+
     /**
      * Create a new function
      *
@@ -146,7 +150,7 @@ public:
      * @param addToDoc enable/disable addition of the function copy to Doc
      * @return The newly-created function or NULL in case of an error
      */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true) = 0;
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /**
      * Copy this function's contents from the given function. Finally emits
@@ -443,7 +447,7 @@ public:
      * @param doc The XML document to save to
      * @param wksp_root A QLC workspace XML root node to save under
      */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root) = 0;
+    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
     /**
      * Read this function's contents from an XML document
@@ -451,7 +455,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(const QDomElement& root) = 0;
+    virtual bool loadXML(const QDomElement& root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -527,7 +531,7 @@ public:
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
      */
-    virtual void write(MasterTimer* timer, QList<Universe*> universes) = 0;
+    virtual void write(MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Called by MasterTimer when the function is stopped. No more write()

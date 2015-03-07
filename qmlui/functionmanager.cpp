@@ -30,7 +30,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
 {
-
+    m_filter = 0;
     m_sceneCount = m_chaserCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
@@ -50,12 +50,21 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 */
 
     connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotDocLoaded()));
+            this, SLOT(slotUpdateFunctionsTree()));
 }
 
 QVariant FunctionManager::functionsList()
 {
     return QVariant::fromValue(m_functionTree);
+}
+
+void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
+{
+    if (enable)
+        m_filter |= filter;
+    else
+        m_filter &= ~filter;
+    slotUpdateFunctionsTree();
 }
 
 void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSelection)
@@ -74,7 +83,7 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
     m_selectedFunctions.append(sf);
 }
 
-void FunctionManager::slotDocLoaded()
+void FunctionManager::slotUpdateFunctionsTree()
 {
     m_sceneCount = m_chaserCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
@@ -83,10 +92,13 @@ void FunctionManager::slotDocLoaded()
     m_functionTree->clear();
     foreach(Function *func, m_doc->functions())
     {
-        QStringList params;
-        params.append(QString::number(func->id()));
-        params.append(QString::number(func->type()));
-        m_functionTree->addItem(func->name(), params, func->path(true));
+        if (m_filter == 0 || m_filter & func->type())
+        {
+            QStringList params;
+            params.append(QString::number(func->id()));
+            params.append(QString::number(func->type()));
+            m_functionTree->addItem(func->name(), params, func->path(true));
+        }
         switch (func->type())
         {
             case Function::Scene: m_sceneCount++; break;

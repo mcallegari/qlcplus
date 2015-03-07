@@ -55,6 +55,7 @@ App::~App()
 void App::startup()
 {
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
+    qmlRegisterType<Function>("com.qlcplus.enums", 1, 0, "FunctionType");
 
     m_view = new QQuickView();
 

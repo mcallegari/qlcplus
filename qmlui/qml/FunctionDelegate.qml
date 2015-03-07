@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import com.qlcplus.enums 1.0
 
 Rectangle {
     id: funcDelegate
@@ -46,15 +47,15 @@ Rectangle {
         iSrc: {
             switch (functionType)
             {
-                case 1: "qrc:/scene.svg"; break;
-                case 2: "qrc:/chaser.svg"; break;
-                case 4: "qrc:/efx.svg"; break;
-                case 8: "qrc:/collection.svg"; break;
-                case 16: "qrc:/script.svg"; break;
-                case 32: "qrc:/rgbmatrix.svg"; break;
-                case 64: "qrc:/showmanager.svg"; break;
-                case 128: "qrc:/audio.svg"; break;
-                case 256: "qrc:/video.svg"; break;
+                case FunctionType.Scene: "qrc:/scene.svg"; break;
+                case FunctionType.Chaser: "qrc:/chaser.svg"; break;
+                case FunctionType.EFX: "qrc:/efx.svg"; break;
+                case FunctionType.Collection: "qrc:/collection.svg"; break;
+                case FunctionType.Script: "qrc:/script.svg"; break;
+                case FunctionType.RGBMatrix: "qrc:/rgbmatrix.svg"; break;
+                case FunctionType.Show: "qrc:/showmanager.svg"; break;
+                case FunctionType.Audio: "qrc:/audio.svg"; break;
+                case FunctionType.Video: "qrc:/video.svg"; break;
             }
         }
 

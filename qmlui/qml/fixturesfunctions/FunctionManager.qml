@@ -21,6 +21,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import com.qlcplus.enums 1.0
+
 Rectangle {
     id: fmContainer
     anchors.fill: parent
@@ -48,7 +50,6 @@ Rectangle {
             y: 1
 
             spacing: 4
-            ExclusiveGroup { id: menuBarGroup3 }
 
             IconButton {
                 id: sceneFunc
@@ -57,12 +58,13 @@ Rectangle {
                 height: topBar.height - 2
                 imgSource: "qrc:/scene.svg"
                 checkable: true
-                checked: true
                 tooltip: qsTr("Scenes")
                 counter: functionManager.sceneCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Scene, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Scene, false);
                 }
             }
             IconButton {
@@ -74,9 +76,11 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Chasers")
                 counter: functionManager.chaserCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Chaser, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Chaser, false);
                 }
             }
             IconButton {
@@ -88,9 +92,11 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("EFX")
                 counter: functionManager.efxCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.EFX, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.EFX, false);
                 }
             }
             IconButton {
@@ -102,9 +108,11 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Collections")
                 counter: functionManager.collectionCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Collection, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Collection, false);
                 }
             }
             IconButton {
@@ -116,9 +124,11 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("RGB Matrices")
                 counter: functionManager.rgbMatrixCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.RGBMatrix, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.RGBMatrix, false);
                 }
             }
             IconButton {
@@ -130,9 +140,11 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Shows")
                 counter: functionManager.showCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Show, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Show, false);
                 }
             }
             IconButton {
@@ -146,7 +158,10 @@ Rectangle {
                 counter: functionManager.scriptCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Script, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Script, false);
                 }
             }
             IconButton {
@@ -160,7 +175,10 @@ Rectangle {
                 counter: functionManager.audioCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Audio, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Audio, false);
                 }
             }
             IconButton {
@@ -174,7 +192,10 @@ Rectangle {
                 counter: functionManager.videoCount
                 exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
-
+                    if (checked == true)
+                        functionManager.setFunctionFilter(FunctionType.Video, true);
+                    else
+                        functionManager.setFunctionFilter(FunctionType.Video, false);
                 }
             }
             Rectangle {

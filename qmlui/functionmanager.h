@@ -56,6 +56,7 @@ public:
 
     QVariant functionsList();
 
+    Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
     Q_INVOKABLE void selectFunction(quint32 id, QQuickItem *item, bool multiSelection);
 
     int sceneCount() const { return m_sceneCount; }
@@ -81,7 +82,7 @@ signals:
     void videoCountChanged();
 
 protected slots:
-    void slotDocLoaded();
+    void slotUpdateFunctionsTree();
 
 private:
     QQuickView *m_view;
@@ -89,6 +90,7 @@ private:
     TreeModel *m_functionTree;
     QList <selectedFunction> m_selectedFunctions;
 
+    quint32 m_filter;
     int m_sceneCount, m_chaserCount, m_efxCount;
     int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
     int m_showCount, m_audioCount, m_videoCount;
