@@ -6,6 +6,8 @@ script:
 matrix:
   fast_finish: true
   include:
+    - compiler: clang
+      env: TASK='compile'
     - compiler: gcc
       env: TASK='compile'
 
