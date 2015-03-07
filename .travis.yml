@@ -1,0 +1,27 @@
+language: cpp
+
+script:
+ - "bash -ex .travis-ci.sh"
+
+matrix:
+  fast_finish: true
+  include:
+    - compiler: gcc
+      env: TASK='compile'
+    - compiler: gcc
+      env: TASK='coverage'
+
+cache: apt
+
+before_install:
+ - sudo add-apt-repository ppa:h-rayflood/gcc-upper -y
+ - sudo add-apt-repository ppa:h-rayflood/llvm-upper -y
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq libqt4-dev libasound2-dev libusb-dev libftdi-dev shared-mime-info libstdc++-dev libudev-dev libmad0-dev libsndfile1-dev liblo-dev libfftw3-dev
+#g++-4.9 won't work on Ubuntu 12.04 that Travis currently uses
+ - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+ - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+#Remove the old g++/gcc to ensure we're using the latest ones
+ - if [ "$CXX" = "g++-4.8" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; fi
+#Report the compiler version
+ - $CXX --version
