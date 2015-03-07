@@ -8,6 +8,7 @@ matrix:
   include:
     - compiler: clang
       env: TASK='compile'
+      env: QMAKESPEC=unsupported/linux-clang
     - compiler: gcc
       env: TASK='compile'
 
