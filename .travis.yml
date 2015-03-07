@@ -8,8 +8,6 @@ matrix:
   include:
     - compiler: gcc
       env: TASK='compile'
-    - compiler: gcc
-      env: TASK='coverage'
 
 cache: apt
 
