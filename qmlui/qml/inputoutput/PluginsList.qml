@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  AudioCardsList.qml
+  PluginsList.qml
 
   Copyright (c) Massimo Callegari
 
@@ -40,6 +40,7 @@ Rectangle {
         //model: ioManager.audioInputSources()
         delegate:
             Rectangle {
+                x: 3
                 id: uniDelegate
                 width: pluginsContainer.width
                 height: 60
@@ -49,11 +50,19 @@ Rectangle {
                         radius: 3
                         height: uniDelegate.height - 4
                         width: height
+                        gradient: Gradient {
+                            id: bgGradient
+                            GradientStop { position: 0.75 ; color: "#FFF" }
+                            GradientStop { position: 1 ; color: "#7F7F7F" }
+                        }
+                        border.width: 2
+                        border.color: "#777"
                         x: 5
                         y: 2
 
                         Image {
                             anchors.fill: parent
+                            anchors.margins: 3
                             source: {
                                 switch(modelData.plugin)
                                 {

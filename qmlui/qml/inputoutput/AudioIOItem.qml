@@ -35,7 +35,12 @@ Rectangle {
         width: 200
         height: 100
         radius: 5
-        color: "#1C2255"
+        //color: "#1C2255"
+        gradient: Gradient {
+            id: bgGradient
+            GradientStop { position: 0 ; color: "#1A551B" }
+            GradientStop { position: 1 ; color: "#3C832B" }
+        }
         border.width: 2
         border.color: "#444"
 

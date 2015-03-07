@@ -38,6 +38,7 @@ InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
 
 QStringList InputOutputManager::universes()
 {
+    m_selectedItem = NULL;
     return m_ioMap->universeNames();
 }
 
