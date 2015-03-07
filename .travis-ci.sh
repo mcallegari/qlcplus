@@ -4,4 +4,4 @@
 # It runs the appropriate commands depending on the task requested.
 
 # Otherwise compile and check as normal
-qmake && make
+qmake && make && ./unittest.sh
