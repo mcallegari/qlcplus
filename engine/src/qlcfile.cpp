@@ -166,11 +166,14 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
+    QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
-        return QString(getenv("USER"));
+        name.append(getenv("USER"));
     else
-        return QString(passwd->pw_gecos);
+        name.append(passwd->pw_gecos);
+    name.remove(",,,");
+    return name;
 #endif
 }
 
@@ -183,7 +186,7 @@ bool QLCFile::isRaspberry()
         cpuInfoFile.open(QFile::ReadOnly);
         QString content = QLatin1String(cpuInfoFile.readAll());
         cpuInfoFile.close();
-        if (content.contains("BCM2708"))
+        if (content.contains("BCM2708") || content.contains("BCM2709"))
             return true;
     }
     return false;
@@ -196,14 +199,19 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 {
     QDir dir;
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(path));
+         dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                    .arg(path));
+#elif defined(WIN32) || defined(Q_OS_WIN)
+        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
+                    .arg(QDir::separator())
+                    .arg(path));
 #else
     dir.setPath(path);
 #endif
 
     dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(extension));
+    if (!extension.isEmpty())
+        dir.setNameFilters(QStringList() << QString("*%1").arg(extension));
 
     return dir;
 }

@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Connor Faulder</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Q-Wash 560Z-LED</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Power/Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="10">High Power</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red:100% Green:Up Blue:0%</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red:Down Green:100% Blue:0%</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Red:0% Green:100% Blue:Up</Capability>
+  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Red:0% Green:Down Blue:100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red:Up Green:0% Blue:100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red:100% Green:0% Blue:Down</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red:100% Green:Up Blue:Up</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red:Down Green:Down Blue:100%</Capability>
+  <Capability Min="171" Max="200" Color="#ffffff">Red:100% Green:100% Blue:100%</Capability>
+  <Capability Min="201" Max="205">White 1: 3200 K</Capability>
+  <Capability Min="206" Max="210">White 2: 3400 K</Capability>
+  <Capability Min="211" Max="215">White 3: 4200 K</Capability>
+  <Capability Min="216" Max="220">White 4: 4900 K</Capability>
+  <Capability Min="221" Max="225">White 5: 5600 K</Capability>
+  <Capability Min="226" Max="230">White 6: 5900 K</Capability>
+  <Capability Min="231" Max="235">White 7: 6500 K</Capability>
+  <Capability Min="236" Max="240">White 8: 7200 K</Capability>
+  <Capability Min="241" Max="245">White 9: 8000 K</Capability>
+  <Capability Min="246" Max="250">White 10: 8500 K</Capability>
+  <Capability Min="251" Max="255">White 11: 10,000 K</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="255">1 - 20 Hz</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Zoom (6° to 32°)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="20" Max="39">Pan/Tilt Black Activation</Capability>
+  <Capability Min="40" Max="59">Pan/Tilt Black Deactivation</Capability>
+  <Capability Min="60" Max="79">Automatic Fan Speed</Capability>
+  <Capability Min="80" Max="99">Slow Fan Speed</Capability>
+  <Capability Min="100" Max="119">Normal Fan Speed</Capability>
+  <Capability Min="120" Max="139">High Fan Speed</Capability>
+  <Capability Min="140" Max="149">Auto Program 1 </Capability>
+  <Capability Min="150" Max="159">Auto Program 2</Capability>
+  <Capability Min="160" Max="169">Test</Capability>
+  <Capability Min="170" Max="179">Custom Program</Capability>
+  <Capability Min="180" Max="199">No Function</Capability>
+  <Capability Min="200" Max="219">Reset</Capability>
+  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="236" Max="239">DIM0</Capability>
+  <Capability Min="240" Max="243">DIM1</Capability>
+  <Capability Min="244" Max="247">DIM2</Capability>
+  <Capability Min="248" Max="251">DIM3</Capability>
+  <Capability Min="252" Max="255">DIM4</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="1">Maintenance</Group>
+  <Capability Min="0" Max="255">Pan/Tilt speed (Fast to Slow)</Capability>
+ </Channel>
+ <Mode Name="Basic (12 channel)">
+  <Physical>
+   <Bulb Lumens="13100" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="9.62" Width="339" Height="361" Depth="232"/>
+   <Lens Name="Other" DegreesMin="6" DegreesMax="32"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="300"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Power/Colour Macro</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Strobe</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Control</Channel>
+ </Mode>
+ <Mode Name="Advanced (15 channel)">
+  <Physical>
+   <Bulb Lumens="13100" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="9.62" Width="339" Height="361" Depth="232"/>
+   <Lens Name="Other" DegreesMin="6" DegreesMax="32"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="300"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Amber</Channel>
+  <Channel Number="10">Power/Colour Macro</Channel>
+  <Channel Number="11">Dimmer</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Control</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3</Version>
+  <Author>Heikki Junnila &amp; Marco Palmisano</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>Victory II 250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">White</Capability>
+  <Capability Min="10" Max="19">White + Yellow</Capability>
+  <Capability Min="20" Max="29">Yellow</Capability>
+  <Capability Min="30" Max="39">Yellow + Magenta</Capability>
+  <Capability Min="40" Max="49">Magenta</Capability>
+  <Capability Min="50" Max="59">Magenta + Cyan</Capability>
+  <Capability Min="60" Max="69">Cyan</Capability>
+  <Capability Min="70" Max="79">Cyan + Orange</Capability>
+  <Capability Min="80" Max="89">Orange</Capability>
+  <Capability Min="90" Max="99">Orange + Green</Capability>
+  <Capability Min="100" Max="109">Green</Capability>
+  <Capability Min="110" Max="119">Green + Blue</Capability>
+  <Capability Min="120" Max="129">Blue</Capability>
+  <Capability Min="130" Max="139">Blue + Red</Capability>
+  <Capability Min="140" Max="149">Red</Capability>
+  <Capability Min="150" Max="159">Red + White</Capability>
+  <Capability Min="160" Max="244">Rainbow speed</Capability>
+  <Capability Min="245" Max="255">Music hard change</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="19">Open</Capability>
+  <Capability Min="20" Max="39">Gobo 1</Capability>
+  <Capability Min="40" Max="59">Gobo 2</Capability>
+  <Capability Min="60" Max="79">Gobo 3</Capability>
+  <Capability Min="80" Max="99">Gobo 4</Capability>
+  <Capability Min="100" Max="119">Gobo 5</Capability>
+  <Capability Min="120" Max="139">Gobo 6</Capability>
+  <Capability Min="140" Max="159">Gobo 7</Capability>
+  <Capability Min="160" Max="177">Rotagobo - speed 1</Capability>
+  <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
+  <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>
+  <Capability Min="213" Max="229">Rotagobo - speed 4</Capability>
+  <Capability Min="230" Max="255">Music hard change</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Closed</Capability>
+  <Capability Min="10" Max="19">Strobe 1.00 Hz</Capability>
+  <Capability Min="20" Max="29">Strobe 1.39 Hz</Capability>
+  <Capability Min="30" Max="39">Strobe 1.65 Hz</Capability>
+  <Capability Min="40" Max="49">Strobe 1.94 Hz</Capability>
+  <Capability Min="50" Max="59">Strobe 2.34 Hz</Capability>
+  <Capability Min="60" Max="69">Strobe 2.78 Hz</Capability>
+  <Capability Min="70" Max="79">Strobe 3.29 Hz</Capability>
+  <Capability Min="80" Max="89">Strobe 3.91 Hz</Capability>
+  <Capability Min="90" Max="99">Strobe 4.56 Hz</Capability>
+  <Capability Min="100" Max="109">Strobe 5.45 Hz</Capability>
+  <Capability Min="110" Max="119">Strobe 5.98 Hz</Capability>
+  <Capability Min="120" Max="129">Strobe 6.98 Hz</Capability>
+  <Capability Min="130" Max="139">Strobe 7.85 Hz</Capability>
+  <Capability Min="140" Max="149">Strobe 9.00 Hz</Capability>
+  <Capability Min="150" Max="159">Shutter sync: audio low freq</Capability>
+  <Capability Min="160" Max="172">Flash sync: audio low freq</Capability>
+  <Capability Min="173" Max="185">Flash sync: audio high freq</Capability>
+  <Capability Min="186" Max="198">Open, auto shade gobos</Capability>
+  <Capability Min="199" Max="211">Open, auto shade colours</Capability>
+  <Capability Min="212" Max="224">Open, auto shade gobos and colours</Capability>
+  <Capability Min="225" Max="237">Open, slow gobo change</Capability>
+  <Capability Min="238" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="112">Rotate CW</Capability>
+  <Capability Min="113" Max="142">No rotation</Capability>
+  <Capability Min="143" Max="255">Rotate CCW</Capability>
+ </Channel>
+ <Channel Name="Palette">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="63">Off</Capability>
+  <Capability Min="64" Max="127">Colour conversion filter</Capability>
+  <Capability Min="128" Max="191">Frost filter</Capability>
+  <Capability Min="192" Max="255">Colour conversion and frost filter</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="49">Off</Capability>
+  <Capability Min="50" Max="79">No rotation</Capability>
+  <Capability Min="80" Max="255">Rotation, slow -> fast</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Off</Capability>
+  <Capability Min="50" Max="234">Lamp hysteresis</Capability>
+  <Capability Min="235" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Mode Name="Mode 2">
+  <Physical>
+   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Gobo rotation</Channel>
+  <Channel Number="7">Palette</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Reset</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Gobo rotation</Channel>
+  <Channel Number="7">Palette</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Reset</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -15,4 +15,5 @@ QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
 SOURCES += rgbalgorithm_test.cpp
-HEADERS += rgbalgorithm_test.h
+HEADERS += rgbalgorithm_test.h ../common/resource_paths.h
+

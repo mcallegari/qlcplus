@@ -50,10 +50,15 @@
 #include "app.h"
 #include "doc.h"
 
+#include "rgbscriptscache.h"
 #include "qlcfixturedefcache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+ #include "videoprovider.h"
+#endif
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
@@ -73,6 +78,7 @@
 App::App()
     : QMainWindow()
     , m_tab(NULL)
+    , m_overscan(false)
     , m_progressDialog(NULL)
     , m_doc(NULL)
 
@@ -89,6 +95,7 @@ App::App()
     , m_controlPanicAction(NULL)
     , m_dumpDmxAction(NULL)
     , m_liveEditAction(NULL)
+    , m_liveEditVirtualConsoleAction(NULL)
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
@@ -98,6 +105,9 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    , m_videoProvider(NULL)
+#endif
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -138,6 +148,11 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    if (m_videoProvider != NULL)
+        delete m_videoProvider;
+#endif
+
     if (m_doc != NULL)
         delete m_doc;
 
@@ -160,6 +175,11 @@ void App::startup()
 
     // Activate FixtureManager
     setActiveWindow(FixtureManager::staticMetaObject.className());
+}
+
+void App::enableOverscan()
+{
+    m_overscan = true;
 }
 
 void App::init()
@@ -188,9 +208,14 @@ void App::init()
             if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
-                // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.95;
-                int h = (float)geometry.height() * 0.95;
+                int w = geometry.width();
+                int h = geometry.height();
+                if (m_overscan == true)
+                {
+                    // if we're on a Raspberry Pi, introduce a 5% margin
+                    w = (float)geometry.width() * 0.95;
+                    h = (float)geometry.height() * 0.95;
+                }
                 setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
                             w, h);
             }
@@ -262,6 +287,10 @@ void App::init()
         QString styleSheet = QLatin1String(ssFile.readAll());
         this->setStyleSheet(styleSheet);
     }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_videoProvider = new VideoProvider(m_doc, this);
+#endif
 }
 
 void App::setActiveWindow(const QString& name)
@@ -364,9 +393,10 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
-    m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
+    m_doc->clearContents();
     SimpleDesk::instance()->clearContents();
+    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
@@ -392,6 +422,10 @@ void App::initDoc()
     /* Load channel modifiers templates */
     m_doc->modifiersCache()->load(QLCModifiersCache::systemTemplateDirectory(), true);
     m_doc->modifiersCache()->load(QLCModifiersCache::userTemplateDirectory());
+
+    /* Load RGB scripts */
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::systemScriptsDirectory());
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
@@ -443,6 +477,12 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(SimpleDesk::instance()));
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
+    // Hide the tab bar to save some pixels
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    // tabBar() in QT4 is protected.
+    m_tab->tabBar()->hide();
+#endif
+
     // No need for the toolbar
     delete m_toolbar;
     m_toolbar = NULL;
@@ -484,6 +524,7 @@ void App::slotModeDesign()
             m_doc->masterTimer()->stopAllFunctions();
     }
 
+    m_liveEditVirtualConsoleAction->setChecked(false);
     m_doc->setMode(Doc::Design);
 }
 
@@ -503,6 +544,7 @@ void App::slotModeChanged(Doc::Mode mode)
         m_fileNewAction->setEnabled(false);
         m_fileOpenAction->setEnabled(false);
         m_liveEditAction->setEnabled(true);
+        m_liveEditVirtualConsoleAction->setEnabled(true);
 
         m_modeToggleAction->setIcon(QIcon(":/design.png"));
         m_modeToggleAction->setText(tr("Design"));
@@ -514,6 +556,7 @@ void App::slotModeChanged(Doc::Mode mode)
         m_fileNewAction->setEnabled(true);
         m_fileOpenAction->setEnabled(true);
         m_liveEditAction->setEnabled(false);
+        m_liveEditVirtualConsoleAction->setEnabled(false);
 
         m_modeToggleAction->setIcon(QIcon(":/operate.png"));
         m_modeToggleAction->setText(tr("Operate"));
@@ -564,6 +607,11 @@ void App::initActions()
     m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
+
+    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
+    connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
+    m_liveEditVirtualConsoleAction->setCheckable(true);
+    m_liveEditVirtualConsoleAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
     m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
@@ -636,6 +684,7 @@ void App::initToolBar()
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_dumpDmxAction);
     m_toolbar->addAction(m_liveEditAction);
+    m_toolbar->addAction(m_liveEditVirtualConsoleAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlPanicAction);
     m_toolbar->addSeparator();
@@ -1004,6 +1053,11 @@ void App::slotFunctionLiveEdit()
             fle.exec();
         }
     }
+}
+
+void App::slotLiveEditVirtualConsole()
+{
+    VirtualConsole::instance()->toggleLiveEdit();
 }
 
 void App::slotControlFullScreen()

@@ -20,8 +20,9 @@
 #include <QDebug>
 #include "vinceusbdmx512.h"
 
-VinceUSBDMX512::VinceUSBDMX512(const QString &serial, const QString &name, const QString &vendor, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, id)
+VinceUSBDMX512::VinceUSBDMX512(const QString &serial, const QString &name, const QString &vendor,
+                               quint32 outputLine, quint32 id)
+    : DMXUSBWidget(serial, name, vendor, outputLine, id)
 {
     // TODO: Check if DMX IN is available
 }

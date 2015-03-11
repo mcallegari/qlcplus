@@ -60,13 +60,6 @@
 
 #define KTabGeneral         0
 
-#define CYAN "cyan"
-#define MAGENTA "magenta"
-#define YELLOW "yellow"
-#define RED "red"
-#define GREEN "green"
-#define BLUE "blue"
-
 #define SETTINGS_CHASER "sceneeditor/chaser"
 
 SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValues)
@@ -107,11 +100,7 @@ SceneEditor::~SceneEditor()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (m_source != NULL)
-    {
-        delete m_source;
-        m_source = NULL;
-    }
+    delete m_source;
 
     QSettings settings;
     quint32 id = m_chaserCombo->itemData(m_chaserCombo->currentIndex()).toUInt();
@@ -370,7 +359,7 @@ void SceneEditor::slotTabChanged(int tab)
     QLCClipboard *clipboard = m_doc->clipboard();
 
     sceneUiState()->setCurrentTab(tab);
-    
+
     if (tab == KTabGeneral)
     {
         m_enableCurrentAction->setEnabled(false);
@@ -558,7 +547,7 @@ void SceneEditor::slotPositionTool()
     if (fc != NULL)
     {
         QList<SceneValue> origValues = fc->values();
-        
+
         Fixture* fxi = m_doc->fixture(fc->fixture());
         QPointF pos;
         QRectF range;
@@ -634,12 +623,12 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
         Fixture* fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        QSet <quint32> cyan    = fxi->channels(CYAN,    Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> yellow  = fxi->channels(YELLOW,  Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> red     = fxi->channels(RED,     Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> green   = fxi->channels(GREEN,   Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> blue    = fxi->channels(BLUE,    Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> cyan    = fxi->channels(QLCChannel::Intensity, QLCChannel::Cyan);
+        QSet <quint32> magenta = fxi->channels(QLCChannel::Intensity, QLCChannel::Magenta);
+        QSet <quint32> yellow  = fxi->channels(QLCChannel::Intensity, QLCChannel::Yellow);
+        QSet <quint32> red     = fxi->channels(QLCChannel::Intensity, QLCChannel::Red);
+        QSet <quint32> green   = fxi->channels(QLCChannel::Intensity, QLCChannel::Green);
+        QSet <quint32> blue    = fxi->channels(QLCChannel::Intensity, QLCChannel::Blue);
 
         if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
         {
@@ -817,7 +806,6 @@ void SceneEditor::slotSpeedDialToggle(bool state)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
-
 }
 
 void SceneEditor::slotBlindToggled(bool state)
@@ -905,6 +893,11 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                 console->setChecked(false);
                 m_consoleList.append(console);
 
+                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+                connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                        this, SLOT(slotChecked(quint32,quint32,bool)));
+
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
                 {
@@ -915,10 +908,6 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                         console->setSceneValue(scv);
                 }
 
-                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
-                connect(console, SIGNAL(checked(quint32,quint32,bool)),
-                        this, SLOT(slotChecked(quint32,quint32,bool)));
                 fixturesLayout->addWidget(console);
                 c++;
             }
@@ -994,12 +983,12 @@ bool SceneEditor::isColorToolAvailable()
         fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-        red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-        green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+        cyan = fxi->channel(QLCChannel::Intensity, QLCChannel::Cyan);
+        magenta = fxi->channel(QLCChannel::Intensity, QLCChannel::Magenta);
+        yellow = fxi->channel(QLCChannel::Intensity, QLCChannel::Yellow);
+        red = fxi->channel(QLCChannel::Intensity, QLCChannel::Red);
+        green = fxi->channel(QLCChannel::Intensity, QLCChannel::Green);
+        blue = fxi->channel(QLCChannel::Intensity, QLCChannel::Blue);
     }
 
     GroupsConsole* gc = groupConsoleTab(m_currentTab);

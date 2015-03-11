@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VCPropertiesEditor</class>
+ <widget class="QDialog" name="VCPropertiesEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>380</width>
+    <height>449</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Virtual Console Settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="m_tab">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="Layout">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="m_sizeGroup">
+         <property name="title">
+          <string>Virtual Console Size</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Width</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="m_sizeXSpin">
+            <property name="toolTip">
+             <string>Widget grid layout X resolution</string>
+            </property>
+            <property name="suffix">
+             <string/>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Height</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="m_sizeYSpin">
+            <property name="toolTip">
+             <string>Widget grid layout X resolution</string>
+            </property>
+            <property name="suffix">
+             <string/>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>111</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="m_tapGroup">
+         <property name="title">
+          <string>Tap Modifier</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Key</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="m_tapModifierCombo">
+            <property name="toolTip">
+             <string>The keyboard key that turns button clicks to taps</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Widgets</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Widgets default properties</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="7" column="1">
+           <widget class="QSpinBox" name="m_frameWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>XY Pad size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Speed dial value</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="3">
+           <widget class="QSpinBox" name="m_frameHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Slider size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>Audio triggers size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Solo frame size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QRadioButton" name="m_buttonStatusBorderRadio">
+            <property name="text">
+             <string>Border</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QSpinBox" name="m_soloWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QSpinBox" name="m_sliderHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="m_speedWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Frame size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QSpinBox" name="m_cuelistHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QSpinBox" name="m_audioWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QSpinBox" name="m_speedHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="m_sliderWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="QSpinBox" name="m_xypadHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="m_xypadWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="3">
+           <widget class="QSpinBox" name="m_audioHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="m_buttonWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="3">
+           <widget class="QSpinBox" name="m_soloHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" colspan="3">
+           <widget class="QLineEdit" name="m_speedValueEdit">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QRadioButton" name="m_buttonStatusLEDRadio">
+            <property name="text">
+             <string>LED</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Button size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Cue List size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QSpinBox" name="m_buttonHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Speed dial size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QSpinBox" name="m_cuelistWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string notr="true">px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Button status style</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Animation size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="QSpinBox" name="m_matrixWspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string notr="true">x</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="3">
+           <widget class="QSpinBox" name="m_matrixHspin">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="suffix">
+             <string>px</string>
+            </property>
+            <property name="minimum">
+             <number>5</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="GrandMaster">
+      <attribute name="title">
+       <string>Grand Master</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="m_gmChannelsGroup">
+         <property name="title">
+          <string>Channels</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="m_gmIntensityRadio">
+            <property name="toolTip">
+             <string>Apply Grand Master only to Intensity channels.</string>
+            </property>
+            <property name="text">
+             <string>Intensity</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_gmAllChannelsRadio">
+            <property name="toolTip">
+             <string>Apply Grand Master to all channels.</string>
+            </property>
+            <property name="text">
+             <string>All channels</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QGroupBox" name="m_gmValuesGroup">
+         <property name="title">
+          <string>Values</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="m_gmReduceRadio">
+            <property name="toolTip">
+             <string>Make Grand Master reduce levels by a percentage.</string>
+            </property>
+            <property name="text">
+             <string>Reduce</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_gmLimitRadio">
+            <property name="toolTip">
+             <string>Make Grand Master limit the maximum channel values.</string>
+            </property>
+            <property name="text">
+             <string>Limit</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>External Input</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QLabel" name="m_gmInputUniverseLabel">
+            <property name="text">
+             <string>Input Universe</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" colspan="2">
+           <widget class="QLineEdit" name="m_gmInputUniverseEdit">
+            <property name="toolTip">
+             <string>Input universe for Grand Master slider.</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="m_gmInputChannelLabel">
+            <property name="text">
+             <string>Input Channel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" colspan="2">
+           <widget class="QLineEdit" name="m_gmInputChannelEdit">
+            <property name="toolTip">
+             <string>Input channel for Grand Master slider.</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>165</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="m_autoDetectGrandMasterInputButton">
+            <property name="toolTip">
+             <string>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</string>
+            </property>
+            <property name="text">
+             <string>Auto Detect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QPushButton" name="m_chooseGrandMasterInputButton">
+            <property name="toolTip">
+             <string>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</string>
+            </property>
+            <property name="text">
+             <string>Choose...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Slider movement</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="m_gmSliderModeNormalRadio">
+            <property name="text">
+             <string>Normal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_gmSliderModeInvertedRadio">
+            <property name="text">
+             <string>Inverted</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>m_sizeXSpin</tabstop>
+  <tabstop>m_sizeYSpin</tabstop>
+  <tabstop>m_tapModifierCombo</tabstop>
+  <tabstop>m_buttonWspin</tabstop>
+  <tabstop>m_buttonHspin</tabstop>
+  <tabstop>m_sliderWspin</tabstop>
+  <tabstop>m_sliderHspin</tabstop>
+  <tabstop>m_speedWspin</tabstop>
+  <tabstop>m_speedHspin</tabstop>
+  <tabstop>m_speedValueEdit</tabstop>
+  <tabstop>m_xypadWspin</tabstop>
+  <tabstop>m_xypadHspin</tabstop>
+  <tabstop>m_cuelistWspin</tabstop>
+  <tabstop>m_cuelistHspin</tabstop>
+  <tabstop>m_frameWspin</tabstop>
+  <tabstop>m_frameHspin</tabstop>
+  <tabstop>m_soloWspin</tabstop>
+  <tabstop>m_soloHspin</tabstop>
+  <tabstop>m_gmIntensityRadio</tabstop>
+  <tabstop>m_gmReduceRadio</tabstop>
+  <tabstop>m_gmAllChannelsRadio</tabstop>
+  <tabstop>m_gmLimitRadio</tabstop>
+  <tabstop>m_gmSliderModeNormalRadio</tabstop>
+  <tabstop>m_gmSliderModeInvertedRadio</tabstop>
+  <tabstop>m_gmInputUniverseEdit</tabstop>
+  <tabstop>m_gmInputChannelEdit</tabstop>
+  <tabstop>m_autoDetectGrandMasterInputButton</tabstop>
+  <tabstop>m_chooseGrandMasterInputButton</tabstop>
+  <tabstop>m_buttonBox</tabstop>
+  <tabstop>m_tab</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>266</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>334</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_autoDetectGrandMasterInputButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotAutoDetectGrandMasterInputToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_chooseGrandMasterInputButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotChooseGrandMasterInputClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_gmIntensityRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotGrandMasterIntensityToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>121</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_gmReduceRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotGrandMasterReduceToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>350</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_sizeXSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotSizeXChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_sizeYSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotSizeYChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_gmSliderModeNormalRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>149</x>
+     <y>838</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotGridXChanged(int)</slot>
+  <slot>slotGridYChanged(int)</slot>
+  <slot>slotAutoDetectGrandMasterInputToggled(bool)</slot>
+  <slot>slotChooseGrandMasterInputClicked()</slot>
+  <slot>slotGrandMasterIntensityToggled(bool)</slot>
+  <slot>slotGrandMasterReduceToggled(bool)</slot>
+  <slot>slotAutoDetectBlackoutInputToggled(bool)</slot>
+  <slot>slotChooseBlackoutInputClicked()</slot>
+  <slot>slotSizeXChanged(int)</slot>
+  <slot>slotSizeYChanged(int)</slot>
+  <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
+ </slots>
+</ui>

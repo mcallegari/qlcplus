@@ -38,27 +38,27 @@ GenericFader::~GenericFader()
 
 void GenericFader::add(const FadeChannel& ch)
 {
-    if (m_channels.contains(ch) == true)
+    QHash<FadeChannel,FadeChannel>::iterator channelIterator = m_channels.find(ch);
+    if (channelIterator != m_channels.end())
     {
         // perform a HTP check
-        if (m_channels[ch].current() <= ch.current())
-            m_channels[ch] = ch;
+        if (channelIterator.value().current() <= ch.current())
+            channelIterator.value() = ch;
     }
     else
     {
-        m_channels[ch] = ch;
+        m_channels.insert(ch, ch);
     }
 }
 
 void GenericFader::forceAdd(const FadeChannel &ch)
 {
-    m_channels[ch] = ch;
+    m_channels.insert(ch, ch);
 }
 
 void GenericFader::remove(const FadeChannel& ch)
 {
-    if (m_channels.contains(ch) == true)
-        m_channels.remove(ch);
+    m_channels.remove(ch);
 }
 
 void GenericFader::removeAll()
@@ -90,7 +90,10 @@ void GenericFader::write(QList<Universe*> ua)
             value = fc.current(intensity());
 
         if (universe != Universe::invalid())
+        {
+            //qDebug() << "[GenericFader] >>> uni:" << universe << ", address:" << addr << ", value:" << value;
             ua[universe]->write(addr, value);
+        }
 
         if (grp == QLCChannel::Intensity)
         {
@@ -99,12 +102,16 @@ void GenericFader::write(QList<Universe*> ua)
             if (fc.current() == 0 && fc.target() == 0)
                 remove(fc);
         }
+/*
         else
         {
             // Remove all LTP channels after their time is up
             if (fc.elapsed() >= fc.fadeTime())
                 remove(fc);
         }
+*/
+        if (fc.isFlashing())
+            remove(fc);
     }
 }
 

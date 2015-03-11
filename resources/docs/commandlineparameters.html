@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Command-Line Parameters</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Command-Line Parameters</H1>
+
+<P>
+QLC+ supports a number of command line parameters to automate/extend some functionalities
+on startup.<BR>
+Using command line parameters can be tricky depending on the operating system you're using:
+<UL>
+ <LI>
+  <B>Linux</B>: just open a terminal and type "qlcplus" followed by the parameters you need
+ </LI>
+ <LI>
+  <B>Windows</B>: create a shortcut of qlcplus.exe (usually located in C:\QLC+) on your desktop.
+  Right click on the shortcut and select "Properties". In the "Target" field you will see something
+  like "C:\QLC+\qlcplus.exe". There you can add command line parameters. When done click OK.<BR>
+  <BR>
+  Example: Setting Czech locale:<BR>
+  <IMG SRC="file:images/locale.png"> 
+ </LI>
+ <LI><B>OSX</B>: This is the most difficult case since QLC+ on OSX is bundled into a 
+  DMG package. You need to open a terminal and "cd" into the QLC+ DMG like this:<BR>
+  cd QLC+.app\Contents\MacOS<br>
+  When done, type "qlcplus" followed by the parameters you need
+ </LI>
+</UL>
+<BR>
+</P>
+
+<TABLE BORDER="0">
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-c or --closebutton</H2>
+   <P>
+    <B>Description:</B> Define a position for a close button in the virtual console. The button
+    can be used to close QLC+. Only has an effect in kiosk mode (see -k) and is most useful
+    when in fullscreen mode without a window manager.
+   </P>
+
+   <P>
+    <B>Parameters:</B> x,y,w,h
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Create a button at (x400, y500) whose size is (w70, h50):<BR>
+    qlcplus -c 400,500,70,50<BR>
+    qlcplus --closebutton 400,500,70,50<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-d or --debug</H2>
+   <P>
+    <B>Description:</B> Enable debug mode and optionally set the output level. Note that since 4.8.0 messages for level DEBUG (0) 
+    are not included in released binaries.
+   </P>
+
+   <P>
+    <B>Parameters:</B> Level (see <A HREF="http://developer.qt.nokia.com/doc/qt-4.8/qtglobal.html#QtMsgType-enum">QtMsgType</A>)
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Enable debug mode and set debug level to 0:<BR>
+    qlcplus -d<BR>
+    qlcplus --debug<BR>
+    <BR>
+    Enable debug mode and set debug level to 3:<BR>
+    qlcplus -d 3<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-f or --fullscreen</H2>
+   <P>
+    <B>Description:</B> Start the application in fullscreen mode
+   </P>
+
+   <P>
+    <B>Parameters:</B> Method (either 'normal' or 'resize')
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Tell the window manager to give the whole screen space to QLC+:<BR>
+    qlcplus -f<BR>
+    qlcplus --fullscreen<BR>
+    qlcplus -f normal<BR>
+    qlcplus --fullscreen normal<BR>
+    <BR>
+    Resize QLC+ to take up the whole screen space (useful in custom X11 sessions without a window manager):<BR>
+    qlcplus -f resize<BR>
+    qlcplus --fullscreen resize<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-g or --log</H2>
+   <P>
+    <B>Description:</B> Log debug messages to a file ($HOME/QLC+.log)
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Enable debug messages and store them to log file:<BR>
+    qlcplus -d 0 -g<BR>
+    qlcplus --debug 0 --log<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-h or --help</H2>
+   <P>
+    <B>Description:</B> Display command-line help (only in Linux & OS X)
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Display the command-line help:<BR>
+    qlcplus -h<BR>
+    qlcplus --help<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-k or --kiosk</H2>
+   <P>
+    <B>Description:</B> Enable kiosk-mode (only <A HREF="file:virtualconsole.html">virtual console</A> is visible and the application is locked in <A HREF="file:concept.html#Modes">operate mode</A>)
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Start the application in kiosk mode:<BR>
+    qlcplus -k<BR>
+    qlcplus --kiosk<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-l or --locale</H2>
+   <P>
+    <B>Description:</B> Use the given locale for translation
+   </P>
+
+   <P>
+    <B>Parameters:</B> Locale name (currently supported: ca_ES, cz_CZ, de_DE, en_GB, es_ES, fi_FI, fr_FR, it_IT, ja_JP, nl_NL, pt_BR)
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Use finnish language:<BR>
+    qlcplus -l fi_FI<BR>
+    qlcplus --locale fi_FI<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-o or --open</H2>
+   <P>
+    <B>Description:</B> Open the given workspace file
+   </P>
+
+   <P>
+    <B>Parameters:</B> File name
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Open mydesk.qxw:<BR>
+    qlcplus -o mydesk.qxw<BR>
+    qlcplus --open mydesk.qxw<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-p or --operate</H2>
+   <P>
+    <B>Description:</B> Start the application in <A HREF="file:concept.html#Modes">Operate</A> mode.
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Start QLC+ in operate mode:<BR>
+    qlcplus -p<BR>
+    qlcplus --operate<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-v or --version</H2>
+   <P>
+    <B>Description:</B> Display the current application version number
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    qlcplus -v<BR>
+    qlcplus --version<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-w or --web</H2>
+   <P>
+    <B>Description:</B> Enable remote web access on port 9999
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    qlcplus -w<BR>
+    qlcplus --web<BR>
+   </P>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

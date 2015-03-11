@@ -106,14 +106,26 @@ public:
      * the list is empty. The first item is always red, then green, then blue.
      * @return A list of three channels or an empty list
      */
-    QList <quint32> rgbChannels() const;
+    QVector <quint32> rgbChannels() const;
 
     /**
      * Get a list of CMY channels. If the fixture doesn't support CMY mixing,
      * the list is empty. The first item is always cyan, then magenta, then yellow.
      * @return A list of three channels or an empty list
      */
-    QList <quint32> cmyChannels() const;
+    QVector <quint32> cmyChannels() const;
+
+    /**
+     * Get a list of color wheel channels. Channels are ordered by their number
+     * @return A list of zero or more channels
+     */
+    QVector <quint32> colorWheels() const;
+    
+    /**
+     * Get a list of shutter channels. Channels are ordered by their number
+     * @return A list of zero or more channels
+     */
+    QVector <quint32> shutterChannels() const;
 
     /** Find some interesting channels from $mode and store their indices. */
     void cacheChannels(const QLCFixtureMode* mode);
@@ -138,10 +150,16 @@ protected:
     quint32 m_masterIntensityChannel;
 
     /** The RGB mix intensity channels */
-    QList <quint32> m_rgbChannels;
+    QVector <quint32> m_rgbChannels;
 
     /** The CMY mix intensity channels */
-    QList <quint32> m_cmyChannels;
+    QVector <quint32> m_cmyChannels;
+
+    /** The color wheel channels */
+    QVector <quint32> m_colorWheels;
+
+    /** The shutter channels */
+    QVector <quint32> m_shutterChannels;
 
     /************************************************************************
      * Load & Save

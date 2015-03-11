@@ -34,47 +34,11 @@
 
 #define TIMER_INTERVAL 50
 
-static bool compareFunctions(const Function *f1, const Function *f2)
+static bool compareShowFunctions(const ShowFunction *sf1, const ShowFunction *sf2)
 {
-    if (f1 == NULL || f2 == NULL)
-        return false;
-
-    quint32 st1 = 0;
-    quint32 st2 = 0;
-    if (f1->type() == Function::Audio)
-    {
-        st1 = (qobject_cast<const Audio*> (f1))->getStartTime();
-    }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (f1->type() == Function::Video)
-    {
-        st1 = (qobject_cast<const Video*> (f1))->getStartTime();
-    }
-#endif
-    else
-    {
-        st1 = (qobject_cast<const Chaser*> (f1))->getStartTime();
-    }
-
-    if (f2->type() == Function::Audio)
-    {
-        st2 = (qobject_cast<const Audio*> (f2))->getStartTime();
-    }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (f2->type() == Function::Video)
-    {
-        st2 = (qobject_cast<const Video*> (f2))->getStartTime();
-    }
-#endif
-    else
-    {
-        st2 = (qobject_cast<const Chaser*> (f2))->getStartTime();
-    }
-
-    if (st1 < st2)
+    if (sf1->startTime() < sf2->startTime())
         return true;
-    else
-        return false;
+    return false;
 }
 
 ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
@@ -101,61 +65,34 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
         if (track->isMute())
             continue;
 
-        // get all the sequences of the track and append them to the runner queue
-        foreach (quint32 funcID, track->functionsID())
+        // get all the functions of the track and append them to the runner queue
+        foreach(ShowFunction *sfunc, track->showFunctions())
         {
-            if (m_doc->function(funcID)->type() == Function::Chaser)
-            {
-                Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(funcID));
-                if (chaser == NULL)
-                    continue;
-                quint32 seq_duration = chaser->getDuration();
-                if (chaser->getStartTime() + seq_duration <= startTime)
-                    continue;
-                m_functions.append(m_doc->function(funcID));
-                connect(chaser, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
+            if (sfunc->startTime() + sfunc->duration() <= startTime)
+                continue;
+            Function *f = m_doc->function(sfunc->functionID());
+            if (f == NULL)
+                continue;
 
-                // offline calculation of the show
-                m_durations.append(seq_duration);
-                if (chaser->getStartTime() + seq_duration > m_totalRunTime)
-                    m_totalRunTime = chaser->getStartTime() + seq_duration;
-            }
-            else if (m_doc->function(funcID)->type() == Function::Audio)
-            {
-                Audio *audio = qobject_cast<Audio*> (m_doc->function(funcID));
-                if (audio == NULL)
-                    continue;
-                if (audio->getStartTime() + audio->getDuration() <= startTime)
-                    continue;
-                m_functions.append(m_doc->function(funcID));
-                connect(audio, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
-                m_durations.append(audio->getDuration());
-                if (audio->getStartTime() + audio->getDuration() > m_totalRunTime)
-                    m_totalRunTime = audio->getStartTime() + audio->getDuration();
-            }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            else if (m_doc->function(funcID)->type() == Function::Video)
-            {
-                Video *video = qobject_cast<Video*> (m_doc->function(funcID));
-                if (video == NULL)
-                    continue;
-                if (video->getStartTime() + video->getDuration() <= startTime)
-                    continue;
-                m_functions.append(m_doc->function(funcID));
-                connect(video, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
-                m_durations.append(video->getDuration());
-                if (video->getStartTime() + video->getDuration() > m_totalRunTime)
-                    m_totalRunTime = video->getStartTime() + video->getDuration();
-            }
-#endif
+            m_functions.append(sfunc);
+            connect(f, SIGNAL(stopped(quint32)),
+                    this, SLOT(slotFunctionStopped(quint32)));
+
+            if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
+                m_totalRunTime = sfunc->startTime() + sfunc->duration();
         }
 
         // Initialize the intensity map
         m_intensityMap[track->id()] = 1.0;
     }
 
-    qSort(m_functions.begin(), m_functions.end(), compareFunctions);
+    qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
+#if 0
+    qDebug() << "Ordered list of ShowFunctions:";
+    foreach (ShowFunction *sfunc, m_functions)
+        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();
+#endif
     m_runningQueue.clear();
 
     qDebug() << "ShowRunner created";
@@ -182,7 +119,7 @@ void ShowRunner::stop()
     qDebug() << "ShowRunner stopped";
 }
 
-void ShowRunner::slotSequenceStopped(quint32 id)
+void ShowRunner::slotFunctionStopped(quint32 id)
 {
     m_runningQueueMutex.lock();
     for (int i = 0; i < m_runningQueue.count(); i++)
@@ -196,26 +133,11 @@ void ShowRunner::write()
     //qDebug() << Q_FUNC_INFO << "elapsed:" << m_elapsedTime << ", total:" << m_totalRunTime;
     if (m_currentFunctionIndex < m_functions.count())
     {
-        quint32 funcStartTime = 0;
+        ShowFunction *sf = m_functions.at(m_currentFunctionIndex);
+        quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
-        Function *f = m_functions.at(m_currentFunctionIndex);
-        if (f->type() == Function::Chaser)
-        {
-            Chaser *chaser = qobject_cast<Chaser*>(f);
-            funcStartTime = chaser->getStartTime();
-        }
-        else if (f->type() == Function::Audio)
-        {
-            Audio *audio = qobject_cast<Audio*>(f);
-            funcStartTime = audio->getStartTime();
-        }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        else if (f->type() == Function::Video)
-        {
-            Video *video = qobject_cast<Video*>(f);
-            funcStartTime = video->getStartTime();
-        }
-#endif
+        Function *f = m_doc->function(sf->functionID());
+
         // this should happen only when a Show is not started from 0
         if (m_elapsedTime > funcStartTime)
         {
@@ -226,7 +148,7 @@ void ShowRunner::write()
         {
             foreach (Track *track, m_show->tracks())
             {
-                if (track->functionsID().contains(f->id()))
+                if (track->showFunctions().contains(sf))
                 {
                     f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
                     break;
@@ -236,8 +158,29 @@ void ShowRunner::write()
             f->start(m_doc->masterTimer(), true, functionTimeOffset);
             m_runningQueue.append(f);
             m_currentFunctionIndex++;
+
+            // Add the Function to a map that keeps track of the functions
+            // that need to be stopped otherwise they would play endlessly.
+            // In this case we assume that it is impossible that 2 Functions
+            // with the same ID are running at the same time !
+            if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+                m_stopTimeMap[f->id()] = sf->startTime() + sf->duration();
         }
     }
+
+    // check if we need to stop some "endless" Functions
+    m_runningQueueMutex.lock();
+    foreach(Function *f, m_runningQueue)
+    {
+        if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+        {
+            //qDebug() << "elapsed:" << m_elapsedTime << "stopTime:" << m_stopTimeMap[f->id()];
+            if (m_elapsedTime == m_stopTimeMap[f->id()])
+                f->stop();
+        }
+    }
+    m_runningQueueMutex.unlock();
+
     // end of the show
     if (m_elapsedTime >= m_totalRunTime)
     {
@@ -263,30 +206,12 @@ void ShowRunner::adjustIntensity(qreal fraction, Track *track)
     qDebug() << Q_FUNC_INFO << "Track ID: " << track->id() << ", val:" << fraction;
     m_intensityMap[track->id()] = fraction;
 
-    QList <quint32> funcIDList = track->functionsID();
-
-    foreach (Function *f, m_runningQueue)
+    foreach (ShowFunction *sf, track->showFunctions())
     {
-        if (funcIDList.contains(f->id()))
-        {
-            if (f->type() == Function::Chaser)
-            {
-                Chaser *chaser = qobject_cast<Chaser*>(f);
-                chaser->adjustAttribute(fraction, Function::Intensity);
-            }
-            else if (f->type() == Function::Audio)
-            {
-                Audio *audio = qobject_cast<Audio*>(f);
-                audio->adjustAttribute(fraction, Function::Intensity);
-            }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            else if (f->type() == Function::Video)
-            {
-                Video *video = qobject_cast<Video*>(f);
-                video->adjustAttribute(fraction, Function::Intensity);
-            }
-#endif
-        }
+        Function *f = m_doc->function(sf->functionID());
+
+        if (f != NULL && m_runningQueue.contains(f))
+            f->adjustAttribute(fraction, Function::Intensity);
     }
 }
 

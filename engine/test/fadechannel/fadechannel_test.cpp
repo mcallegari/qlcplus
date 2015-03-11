@@ -30,7 +30,7 @@
 #include "fadechannel.h"
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void FadeChannel_Test::address()
 {

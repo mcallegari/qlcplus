@@ -100,8 +100,8 @@ private:
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
     /** Keeps the current dmx values to send only the ones that changed */
-    /** It holds values for all the handled universes (512 * n) */
-    QByteArray m_dmxValues;
+    /** It holds values for all the handled universes */
+    QMap<int, QByteArray *> m_dmxValuesMap;
 
     /** Count the number of input universes using this controller */
     int m_inputRefCount;

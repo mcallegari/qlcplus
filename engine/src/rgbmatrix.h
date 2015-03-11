@@ -25,7 +25,9 @@
 #include <QList>
 #include <QSize>
 #include <QPair>
+#include <QHash>
 #include <QMap>
+#include <QMutex>
 
 #include "rgbscript.h"
 #include "function.h"
@@ -53,6 +55,16 @@ public:
     ~RGBMatrix();
 
     /*********************************************************************
+     * Contents
+     *********************************************************************/
+public:
+    /** Set the matrix total duration in milliseconds */
+    void setTotalDuration(quint32 msec);
+
+    /** Get the matrix total duration in milliseconds */
+    quint32 totalDuration();
+
+    /*********************************************************************
      * Copying
      *********************************************************************/
 public:
@@ -70,7 +82,7 @@ public:
     quint32 fixtureGroup() const;
 
 private:
-    quint32 m_fixtureGroup;
+    quint32 m_fixtureGroupID;
 
     /************************************************************************
      * Algorithm
@@ -82,14 +94,21 @@ public:
     /** Get the current RGB Algorithm. */
     RGBAlgorithm* algorithm() const;
 
-    /** Get a list of RGBMap steps for preview purposes, using the current algorithm. */
-    QList <RGBMap> previewMaps();
+    /** Get the algorithm protection mutex */
+    QMutex& algorithmMutex();
+
+    /** Get the number of steps of the current algorithm */
+    int stepsCount();
+
+    /** Get the preview of the current algorithm at the given step */
+    RGBMap previewMap(int step);
 
 private:
     RGBAlgorithm* m_algorithm;
+    QMutex m_algorithmMutex;
 
     /************************************************************************
-     * Colour
+     * Color
      ************************************************************************/
 public:
     void setStartColor(const QColor& c);
@@ -101,11 +120,25 @@ public:
     void calculateColorDelta();
     void setStepColor(QColor color);
     QColor stepColor();
-    void updateStepColor(Function::Direction direction);
+    void updateStepColor(int step);
 
 private:
     QColor m_startColor;
     QColor m_endColor;
+
+    /************************************************************************
+     * Properties
+     ************************************************************************/
+public:
+    /** Set the value of the property with the given name */
+    void setProperty(QString propName, QString value);
+
+    /** Retrieve the value of the property with the given name */
+    QString property(QString propName);
+
+private:
+    /** A map of the custom properties for this matrix */
+    QHash<QString, QString>m_properties;
 
     /************************************************************************
      * Load & Save
@@ -141,7 +174,7 @@ private:
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp);
 
     /** Grab starting values for a fade channel from $fader if available */
-    void insertStartValues(FadeChannel& fc) const;
+    void insertStartValues(FadeChannel& fc, uint fadeTime) const;
 
 private:
     Function::Direction m_direction;
@@ -150,6 +183,7 @@ private:
     QTime* m_roundTime;
     QColor m_stepColor;
     int m_crDelta, m_cgDelta, m_cbDelta;
+    int m_stepCount;
 
     /*********************************************************************
      * Attributes

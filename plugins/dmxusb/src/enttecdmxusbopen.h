@@ -47,7 +47,7 @@ public:
      * @param parent The owner of this object
      */
     EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                     quint32 id = 0, QObject* parent = 0);
+                     quint32 outputLine, quint32 id = 0, QObject* parent = 0);
 
     /** Destructor */
     virtual ~EnttecDMXUSBOpen();

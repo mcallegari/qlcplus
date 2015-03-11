@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.7.5 GIT
+APPVERSION = 4.8.5 GIT
 
 #############################################################################
 # Compiler & linker configuration
@@ -125,7 +125,7 @@ macx:USERFIXTUREDIR       = $$USERDATADIR/Fixtures
 # Plugins
 win32:PLUGINDIR      = Plugins
 unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
-macx:PLUGINDIR       = Plugins
+macx:PLUGINDIR       = PlugIns
 
 # Translations
 win32:TRANSLATIONDIR      =
@@ -141,3 +141,8 @@ macx:RGBSCRIPTDIR       = $$DATADIR/RGBScripts
 win32:USERRGBSCRIPTDIR      = $$USERDATADIR/RGBScripts
 unix:!macx:USERRGBSCRIPTDIR = $$USERDATADIR/rgbscripts
 macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
+
+# RGB Scripts
+win32:WEBFILESDIR      = Web
+unix:!macx:WEBFILESDIR = $$DATADIR/web
+macx:WEBFILESDIR       = $$DATADIR/Web

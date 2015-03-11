@@ -38,7 +38,7 @@
 #undef private
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Scene_Test::initTestCase()
 {
@@ -440,19 +440,13 @@ void Scene_Test::flashUnflash()
 {
     Doc* doc = new Doc(this);
     QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
+    MasterTimer timer(doc);
 
     Fixture* fxi = new Fixture(doc);
     fxi->setAddress(0);
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
-    for (quint32 i = 0 ; i < fxi->channels(); i++)
-    {
-        const QLCChannel* channel(fxi->channel(i));
-        ua.at(0)->setChannelCapability(fxi->address() + i, channel->group());
-    }
 
     Scene* s1 = new Scene(doc);
     s1->setName("First");
@@ -461,46 +455,45 @@ void Scene_Test::flashUnflash()
     s1->setValue(fxi->id(), 2, 67);
     doc->addFunction(s1);
 
-    QVERIFY(mts->m_dmxSourceList.size() == 0);
+    QVERIFY(timer.m_dmxSourceList.size() == 0);
 
-    s1->flash(mts);
-    QVERIFY(mts->m_dmxSourceList.size() == 1);
+    s1->flash(&timer);
+    QVERIFY(timer.m_dmxSourceList.size() == 1);
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->flashing() == true);
 
-    ua[0]->zeroIntensityChannels();
-
-    s1->writeDMX(mts, ua);
+    timer.timerTick();
+    ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[0] == char(123));
     QVERIFY(ua[0]->preGMValues()[1] == char(45));
     QVERIFY(ua[0]->preGMValues()[2] == char(67));
+    doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->flash(mts);
-    QVERIFY(mts->m_dmxSourceList.size() == 1);
+    s1->flash(&timer);
+    QVERIFY(timer.m_dmxSourceList.size() == 1);
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->flashing() == true);
 
-    ua[0]->zeroIntensityChannels();
-
-    s1->writeDMX(mts, ua);
+    timer.timerTick();
+    ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[0] == char(123));
     QVERIFY(ua[0]->preGMValues()[1] == char(45));
     QVERIFY(ua[0]->preGMValues()[2] == char(67));
+    doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->unFlash(mts);
-    QVERIFY(mts->m_dmxSourceList.size() == 1);
+    s1->unFlash(&timer);
+    QVERIFY(timer.m_dmxSourceList.size() == 1);
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->flashing() == false);
 
-    ua[0]->zeroIntensityChannels();
+    timer.timerTick();
+    QVERIFY(timer.m_dmxSourceList.size() == 0);
 
-    s1->writeDMX(mts, ua);
-    QVERIFY(mts->m_dmxSourceList.size() == 0);
+    ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[0] == char(0));
     QVERIFY(ua[0]->preGMValues()[1] == char(0));
     QVERIFY(ua[0]->preGMValues()[2] == char(0));
-
-    delete doc;
+    doc->inputOutputMap()->releaseUniverses(false);
 }
 
 void Scene_Test::writeHTPZeroTicks()
@@ -610,7 +603,7 @@ void Scene_Test::writeHTPTwoTicks()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42);
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -624,14 +617,14 @@ void Scene_Test::writeHTPTwoTicks()
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 125); // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42);  // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);  // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 0);  // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42); // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100); // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
@@ -706,7 +699,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(250) * qreal(0.2)) + 0.5));
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42);
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
@@ -720,14 +713,14 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(125) * qreal(0.2)) + 0.5)); // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42);  // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);  // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 0);  // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 42); // LTP doesn't
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100); // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 }
 
@@ -777,7 +770,7 @@ void Scene_Test::writeLTPReady()
     QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->stopped() == false);
     QVERIFY(s1->isRunning() == true);
 
     // LTP values stay on
@@ -788,8 +781,8 @@ void Scene_Test::writeLTPReady()
     QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    QVERIFY(s1->stopped() == true);
-    QVERIFY(s1->isRunning() == false);
+    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isRunning() == true);
 }
 
 QTEST_APPLESS_MAIN(Scene_Test)

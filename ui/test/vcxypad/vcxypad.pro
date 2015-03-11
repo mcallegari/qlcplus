@@ -9,7 +9,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../../plugins/interfaces
 INCLUDEPATH += ../../../engine/src
-INCLUDEPATH += ../../src
+INCLUDEPATH += ../../src ../../src/virtualconsole
 DEPENDPATH  += ../../src
 
 QMAKE_LIBDIR += ../../../engine/src
@@ -18,4 +18,4 @@ LIBS         += -lqlcplusengine -lqlcplusui
 
 # Test sources
 SOURCES += vcxypad_test.cpp
-HEADERS += vcxypad_test.h
+HEADERS += vcxypad_test.h ../common/resource_paths.h

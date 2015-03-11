@@ -25,12 +25,12 @@
     </message>
     <message>
         <location filename="dmxusb.cpp" line="157"/>
-        <location filename="dmxusb.cpp" line="258"/>
+        <location filename="dmxusb.cpp" line="256"/>
         <source>Device is operating correctly.</source>
         <translation>Interfaccia connessa ed attiva.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="245"/>
+        <location filename="dmxusb.cpp" line="243"/>
         <source>No input support available.</source>
         <translation>Nessun ingresso disponibile.</translation>
     </message>
@@ -48,12 +48,12 @@
         <translation>Chiudi</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Serial</source>
         <translation>Numero di serie</translation>
     </message>
@@ -99,18 +99,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
+        <location filename="enttecdmxusbpro.cpp" line="91"/>
         <location filename="enttecdmxusbpro.cpp" line="96"/>
-        <location filename="enttecdmxusbpro.cpp" line="101"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="105"/>
+        <location filename="enttecdmxusbpro.cpp" line="100"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="108"/>
+        <location filename="enttecdmxusbpro.cpp" line="103"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
@@ -118,50 +118,50 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="nanodmx.cpp" line="201"/>
-        <location filename="stageprofi.cpp" line="137"/>
-        <location filename="vinceusbdmx512.cpp" line="47"/>
+        <location filename="nanodmx.cpp" line="205"/>
+        <location filename="stageprofi.cpp" line="125"/>
+        <location filename="vinceusbdmx512.cpp" line="48"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="208"/>
-        <location filename="stageprofi.cpp" line="144"/>
-        <location filename="vinceusbdmx512.cpp" line="51"/>
+        <location filename="nanodmx.cpp" line="212"/>
+        <location filename="stageprofi.cpp" line="132"/>
+        <location filename="vinceusbdmx512.cpp" line="52"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="203"/>
-        <location filename="stageprofi.cpp" line="139"/>
-        <location filename="vinceusbdmx512.cpp" line="49"/>
+        <location filename="nanodmx.cpp" line="207"/>
+        <location filename="stageprofi.cpp" line="127"/>
+        <location filename="vinceusbdmx512.cpp" line="50"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="113"/>
-        <location filename="nanodmx.cpp" line="205"/>
-        <location filename="stageprofi.cpp" line="141"/>
+        <location filename="nanodmx.cpp" line="209"/>
+        <location filename="stageprofi.cpp" line="129"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="215"/>
+        <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>MIDI Input</source>
         <translation>Ingresso MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="217"/>
+        <location filename="enttecdmxusbpro.cpp" line="212"/>
         <source>DMX Input</source>
         <translation>Ingresso DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="222"/>
+        <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>MIDI Output</source>
         <translation>Uscita MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="224"/>
+        <location filename="enttecdmxusbpro.cpp" line="219"/>
         <source>DMX Output</source>
         <translation>Uscita DMX</translation>
     </message>

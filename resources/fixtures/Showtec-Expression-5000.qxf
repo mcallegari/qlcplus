@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.3 GIT</Version>
+  <Author>Joep Admiraal</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Expression 5000</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan/Tilt Speed</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Intensity</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Intensity</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Bue Intensity</Capability>
+ </Channel>
+ <Channel Name="Macro colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="171" Max="200">RGB 100%</Capability>
+  <Capability Min="201" Max="205">White: 3200K</Capability>
+  <Capability Min="206" Max="210">White: 3400K</Capability>
+  <Capability Min="211" Max="215">White: 4200K</Capability>
+  <Capability Min="216" Max="220">White: 4900K</Capability>
+  <Capability Min="221" Max="225">White: 5600K</Capability>
+  <Capability Min="226" Max="230">White: 5900K</Capability>
+  <Capability Min="231" Max="235">White: 6500K</Capability>
+  <Capability Min="236" Max="240">White: 7200K</Capability>
+  <Capability Min="241" Max="245">White: 8000K</Capability>
+  <Capability Min="246" Max="250">White: 8500K</Capability>
+  <Capability Min="251" Max="255">White: 10000K</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Shutter / strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="255">Strobe effect, from slot to fast (0-10 fashes/sec)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="20" Max="39">Blackout during Pan/Tilt movement</Capability>
+  <Capability Min="40" Max="59">Disabled blackout during Pan/Tilt movement</Capability>
+  <Capability Min="60" Max="79">Fan Auto</Capability>
+  <Capability Min="80" Max="99">Fan Slow</Capability>
+  <Capability Min="100" Max="119">Fan Normal</Capability>
+  <Capability Min="120" Max="139">Fan Fast</Capability>
+  <Capability Min="140" Max="149">Auto 1 activated after 5 seconds</Capability>
+  <Capability Min="150" Max="159">Auto 2 activated after 5 seconds</Capability>
+  <Capability Min="160" Max="169">Test activated after 5 seconds</Capability>
+  <Capability Min="170" Max="179">Custom activated after 5 seconds</Capability>
+  <Capability Min="180" Max="189">Sound 1</Capability>
+  <Capability Min="190" Max="199">Sound 2</Capability>
+  <Capability Min="200" Max="219">Reset activated after 5 seconds</Capability>
+  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="236" Max="239">DIM 0 activated after 5 seconds</Capability>
+  <Capability Min="240" Max="243">DIM 1 activated after 5 seconds</Capability>
+  <Capability Min="244" Max="247">DIM 2 activated after 5 seconds</Capability>
+  <Capability Min="248" Max="251">DIM 3 activated after 5 seconds</Capability>
+  <Capability Min="252" Max="255">DIM 4 activated after 5 seconds</Capability>
+ </Channel>
+ <Mode Name="Advanced (12CH)">
+  <Physical>
+   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
+   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
+   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/tilt speed</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Macro colors</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Shutter / strobe</Channel>
+  <Channel Number="11">Control</Channel>
+ </Mode>
+ <Mode Name="Basic (9CH)">
+  <Physical>
+   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
+   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
+   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Macro colors</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Shutter / strobe</Channel>
+  <Channel Number="8">Control</Channel>
+ </Mode>
+</FixtureDefinition>

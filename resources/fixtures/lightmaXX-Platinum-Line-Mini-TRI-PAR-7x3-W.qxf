@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.1</Version>
+  <Author>shoot_000</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Platinum Line Mini TRI-PAR 7x3 Watt</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Color="#000000">Off</Capability>
+  <Capability Min="5" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="14" Color="#00d5ff">Light blue</Capability>
+  <Capability Min="15" Max="19" Color="#0000ff">Blue</Capability>
+  <Capability Min="20" Max="24" Color="#a200ff">Purple</Capability>
+  <Capability Min="25" Max="29" Color="#ff5ae1">Light pink</Capability>
+  <Capability Min="30" Max="34" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="35" Max="39" Color="#ff009d">Pink</Capability>
+  <Capability Min="40" Max="44" Color="#ff0073">Dark pink</Capability>
+  <Capability Min="45" Max="49" Color="#ff0000">Red</Capability>
+  <Capability Min="50" Max="54" Color="#ff5d00">Orange</Capability>
+  <Capability Min="55" Max="59" Color="#ffcc00">Light orange</Capability>
+  <Capability Min="60" Max="64" Color="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Color="#7bff00">Light green</Capability>
+  <Capability Min="70" Max="74" Color="#00ff00">Green</Capability>
+  <Capability Min="75" Max="79" Color="#00ffbf">Aquamarine</Capability>
+  <Capability Min="80" Max="84" Color="#00ffff">Cyan</Capability>
+  <Capability Res="Others/rainbow.png" Min="85" Max="169">7-color jump from slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="170" Max="255">Color fade from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Strobe from slow to fast</Capability>
+ </Channel>
+ <Mode Name="6 channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="170" Height="170" Weight="2" Depth="160"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Macro</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

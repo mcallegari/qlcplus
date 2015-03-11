@@ -1,0 +1,58 @@
+
+.qlcTable {
+    margin:0px;
+    padding:0px;
+    /*width:100%;*/
+    border:1px solid #000000;
+
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+}
+
+.qlcTable table{
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+
+.qlcTable td{
+    vertical-align:middle;
+    background-color:#dddddd;
+    border:1px solid #000000;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:7px;
+    /*font-size:10px;*/
+    font-family:Arial;
+    color:#000000;
+}
+
+
+.qlcTable tr:first-child td{
+    border-width:0px 1px 1px 0px;
+}
+.qlcTable tr:first-child td:first-child{
+    border-width:0px 1px 1px 0px;
+    border-radius: 7px 0 0 0;
+}
+.qlcTable tr:first-child td:last-child{
+    border-width:0px 0px 1px 0px;
+    border-radius: 0 7px 0 0;
+}
+.qlcTable tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+.qlcTable tr:last-child td:first-child{
+    border-width:0px 1px 0px 0px;
+    border-radius: 0 0 0 7px;
+}
+.qlcTable tr td:last-child{
+    border-width:0px 0px 1px 0px;
+}
+.qlcTable tr:last-child td:last-child{
+    border-width:0px 0px 0px 0px;
+    border-radius: 0 0 7px 0;
+}

@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4 GIT</Version>
+  <Author>Dean Clough</Author>
+ </Creator>
+ <Manufacturer>Studio Due</Manufacturer>
+ <Model>Shark 150C</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Motors Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="31">Fast - Speed 1</Capability>
+  <Capability Min="32" Max="63">Speed 2</Capability>
+  <Capability Min="64" Max="95">Speed 3</Capability>
+  <Capability Min="96" Max="127">Speed 4</Capability>
+  <Capability Min="128" Max="159">Speed 5</Capability>
+  <Capability Min="160" Max="191">Speed 6</Capability>
+  <Capability Min="192" Max="223">Speed 7</Capability>
+  <Capability Min="224" Max="255">Slow - Speed 8</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="1" Max="30" Color="#66ccff">C1 - Sky Blue</Capability>
+  <Capability Min="31" Max="58" Color="#ff00ff">C2 - Magenta</Capability>
+  <Capability Min="59" Max="88" Color="#ff0000">C3 - Red</Capability>
+  <Capability Min="89" Max="118" Color="#ff8000">C4 - Orange</Capability>
+  <Capability Min="119" Max="145" Color="#ffff00">C5 - Yellow</Capability>
+  <Capability Min="146" Max="175" Color="#00ff00">C6 - Green</Capability>
+  <Capability Res="Others/rainbow.png" Min="176" Max="255">Rainbow</Capability>
+ </Channel>
+ <Channel Name="Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="31">Gobo-0</Capability>
+  <Capability Res="Chauvet/gobo00004.png" Min="32" Max="95">Gobo-1</Capability>
+  <Capability Res="SGM/gobo00034.png" Min="96" Max="159">Gobo-2</Capability>
+  <Capability Res="ClayPaky/gobo00067.png" Min="160" Max="223">Gobo-3</Capability>
+  <Capability Res="Others/gobo00064.png" Min="224" Max="255">Gobo-4</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">Open</Capability>
+  <Capability Min="11" Max="255">Flash (1Hz to 10Hz)</Capability>
+ </Channel>
+ <Channel Name="Pan Coarse">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Coarse">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">Closed</Capability>
+  <Capability Min="4" Max="223">Mechanical Dimmer</Capability>
+  <Capability Min="224" Max="254">Electronic Lamp</Capability>
+  <Capability Min="255" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus</Capability>
+ </Channel>
+ <Channel Name="Rotation Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="3">Static</Capability>
+  <Capability Min="4" Max="123">Slow To Fast CW</Capability>
+  <Capability Min="124" Max="135">Static</Capability>
+  <Capability Min="136" Max="255">Slow To Fast CCW</Capability>
+ </Channel>
+ <Channel Name="Remote Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Normal</Capability>
+  <Capability Min="128" Max="191">Reset Fixture</Capability>
+  <Capability Min="192" Max="239">Normal</Capability>
+  <Capability Min="240" Max="250">Lamp Off</Capability>
+  <Capability Min="251" Max="255">Normal</Capability>
+ </Channel>
+ <Mode Name="8bit">
+  <Physical>
+   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
+  </Physical>
+  <Channel Number="0">Motors Speed</Channel>
+  <Channel Number="1">Colours</Channel>
+  <Channel Number="2">Gobos</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Pan Coarse</Channel>
+  <Channel Number="5">Tilt Coarse</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">Rotation Gobos</Channel>
+ </Mode>
+ <Mode Name="16bit">
+  <Physical>
+   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
+  </Physical>
+  <Channel Number="0">Motors Speed</Channel>
+  <Channel Number="1">Colours</Channel>
+  <Channel Number="2">Gobos</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Pan Coarse</Channel>
+  <Channel Number="5">Pan Fine</Channel>
+  <Channel Number="6">Tilt Coarse</Channel>
+  <Channel Number="7">Tilt Fine</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Focus</Channel>
+  <Channel Number="10">Rotation Gobos</Channel>
+ </Mode>
+ <Mode Name="8bit+remote">
+  <Physical>
+   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
+  </Physical>
+  <Channel Number="0">Motors Speed</Channel>
+  <Channel Number="1">Colours</Channel>
+  <Channel Number="2">Gobos</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Pan Coarse</Channel>
+  <Channel Number="5">Tilt Coarse</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">Rotation Gobos</Channel>
+  <Channel Number="9">Remote Reset</Channel>
+ </Mode>
+ <Mode Name="16bit+remote">
+  <Physical>
+   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
+  </Physical>
+  <Channel Number="0">Motors Speed</Channel>
+  <Channel Number="1">Colours</Channel>
+  <Channel Number="2">Gobos</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Pan Coarse</Channel>
+  <Channel Number="5">Pan Fine</Channel>
+  <Channel Number="6">Tilt Coarse</Channel>
+  <Channel Number="7">Tilt Fine</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Focus</Channel>
+  <Channel Number="10">Rotation Gobos</Channel>
+  <Channel Number="11">Remote Reset</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -167,6 +167,11 @@ FunctionUiState * EFX::createUiState()
     return new EfxUiState(this);
 }
 
+quint32 EFX::totalDuration()
+{
+    return duration();
+}
+
 /*****************************************************************************
  * Algorithm
  *****************************************************************************/

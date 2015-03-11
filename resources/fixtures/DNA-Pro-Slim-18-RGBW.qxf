@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.2</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>DNA</Manufacturer>
+ <Model>PRO SLIM 18 RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0 > Max</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Color="#ff0012">Red intensity</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Color="#02ff00">Green intensity</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255" Color="#0005ff">Blue intensity</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1">Strobe off</Capability>
+  <Capability Min="2" Max="196">Strobe speed</Capability>
+  <Capability Min="197" Max="255">Random strobe</Capability>
+ </Channel>
+ <Channel Name="Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1" Color="#000000">No Function</Capability>
+  <Capability Min="2" Max="19" Color="#ffee9e">RGB Colour Fade</Capability>
+  <Capability Min="20" Max="39">Colour changing</Capability>
+  <Capability Min="40" Max="59">Random colour changing</Capability>
+  <Capability Min="60" Max="79" Color="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="99" Color="#7f00ff">Purple</Capability>
+  <Capability Min="100" Max="119" Color="#7fff7f">Light green</Capability>
+  <Capability Min="120" Max="139" Color="#ff7f00">Orange</Capability>
+  <Capability Min="140" Max="159" Color2="#000000" Color="#ff0000">Red on/off (10 sec)</Capability>
+  <Capability Min="160" Max="179" Color2="#000000" Color="#00ff00">Green on/off (10 sec)</Capability>
+  <Capability Min="180" Max="199" Color2="#000000" Color="#0000ff">Blue on/off (10 sec)</Capability>
+  <Capability Min="200" Max="219" Color2="#000000" Color="#ffff00">Yellow on/off (10 sec)</Capability>
+  <Capability Min="220" Max="229" Color2="#000000" Color="#00ffff">Cyan on/off (10 sec)</Capability>
+  <Capability Min="230" Max="249" Color2="#000000" Color="#ffffff">White on/off (10 sec)</Capability>
+  <Capability Min="250" Max="255" Color="#ffffff">Full on</Capability>
+ </Channel>
+ <Mode Name="7 Channels">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Width="242" Depth="113" Weight="6.6" Height="242"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Led"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Macros</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="4 Channels">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Width="242" Depth="113" Weight="6.6" Height="242"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Led"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="5 Channels">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Width="242" Depth="113" Weight="6.6" Height="242"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Led"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+</FixtureDefinition>

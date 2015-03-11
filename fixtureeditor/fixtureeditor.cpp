@@ -127,9 +127,16 @@ void QLCFixtureEditor::init()
     // When the def already has an author, disable the field to prevent modification.
     m_authorEdit->setText(m_fixtureDef->author());
     if (m_authorEdit->text().length() > 0)
-        m_authorEdit->setEnabled(false);
+    {
+        // Temporarily allow editing author name since most definitions contain wrong name:
+        // m_authorEdit->setEnabled(false); 
+    }
     else
+    {
         m_authorEdit->setText(QLCFile::currentUserName());
+    }
+    connect(m_authorEdit, SIGNAL(textEdited(const QString&)),
+            this, SLOT(slotAuthorTextEdited(const QString&)));
 
     /* Channel page */
     connect(m_addChannelButton, SIGNAL(clicked()),
@@ -370,6 +377,12 @@ void QLCFixtureEditor::slotModelTextEdited(const QString &text)
     setModified();
 }
 
+void QLCFixtureEditor::slotAuthorTextEdited(const QString &text)
+{
+    m_fixtureDef->setAuthor(text);
+    setModified();
+}
+
 void QLCFixtureEditor::slotTypeActivated(const QString &text)
 {
     m_fixtureDef->setType(text);
@@ -452,7 +465,7 @@ void QLCFixtureEditor::slotRemoveChannel()
     Q_ASSERT(channel != NULL);
 
     if (QMessageBox::question(this, "Remove Channel",
-                              tr("Are you sure you wish to remove channel: %1")
+                              tr("Are you sure you wish to remove channel: %1 ?")
                               .arg(channel->name()),
                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
     {
@@ -586,7 +599,7 @@ void QLCFixtureEditor::updateChannelItem(const QLCChannel* channel, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(CH_COL_NAME, channel->name());
-    item->setIcon(CH_COL_NAME, channel->getIconFromGroup(channel->group()));
+    item->setIcon(CH_COL_NAME, channel->getIcon());
     item->setText(CH_COL_GRP, QLCChannel::groupToString(channel->group()));
     item->setData(CH_COL_NAME, PROP_PTR, (qulonglong) channel);
 
@@ -768,7 +781,7 @@ void QLCFixtureEditor::slotRemoveMode()
     QLCFixtureMode* mode = currentMode();
 
     if (QMessageBox::question(this, tr("Remove Mode"),
-                              tr("Are you sure you wish to remove mode: %1").arg(mode->name()),
+                              tr("Are you sure you wish to remove mode: %1 ?").arg(mode->name()),
                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
     {
         m_fixtureDef->removeMode(mode);
@@ -939,7 +952,7 @@ void QLCFixtureEditor::updateModeItem(const QLCFixtureMode* mode,
 
         QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
         chitem->setText(MODE_COL_NAME, ch->name());
-        chitem->setIcon(MODE_COL_NAME, ch->getIconFromGroup(ch->group()));
+        chitem->setIcon(MODE_COL_NAME, ch->getIcon());
         chitem->setText(MODE_COL_CHS, QString("%1").arg(i + 1));
         chitem->setFlags(0); /* No selection etc. */
     }

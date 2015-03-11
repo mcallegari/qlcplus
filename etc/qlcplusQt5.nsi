@@ -5,7 +5,7 @@
 ;--------------------------------
 ;Defines
 !define QLCPLUS_HOME "c:\Qt\qlcplus"
-!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlcplus.ico"
+!define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.7.5.exe"
+OutFile "QLC+_4.8.5.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -87,6 +87,7 @@ Section
 	File libfftw3-3.dll
 	File libstdc++-6.dll
 	File libwinpthread-1.dll
+	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
 	File qlcplusengine.dll
@@ -106,6 +107,7 @@ Section
 	File icuuc52.dll
 	File /r platforms
 	File /r mediaservice
+	File /r audio
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -116,6 +118,7 @@ Section
 	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
+	File /r Web
 
 	WriteRegStr HKCR ".qxw" "" "QLightControllerPlus.Document"
 	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
@@ -155,6 +158,7 @@ Section "Uninstall"
 	Delete $INSTDIR\libfftw3-3.dll
 	Delete $INSTDIR\libstdc++-6.dll
 	Delete $INSTDIR\libwinpthread-1.dll
+	Delete $INSTDIR\pthreadGC2.dll
 	Delete $INSTDIR\Qt5Core.dll
 	Delete $INSTDIR\Qt5Gui.dll
 	Delete $INSTDIR\Qt5OpenGL.dll
@@ -169,6 +173,7 @@ Section "Uninstall"
 	Delete $INSTDIR\icuuc52.dll
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\mediaservice
+	RMDir /r $INSTDIR\audio
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
@@ -179,6 +184,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
+	RMDir /r $INSTDIR\Web
 
 	RMDir $INSTDIR
 

@@ -1,0 +1,236 @@
+body { margin: 0px; }
+
+form {
+ position: absolute;
+ top: -100px;
+ visibility: hidden;
+}
+
+.vcbutton-wrapper {
+ position: absolute;
+}
+
+.vcbutton {
+ display: table-cell;
+ border: 3px solid #A0A0A0;
+ border-radius: 4px;
+ font-family: arial, verdana, sans-serif;
+ text-decoration: none;
+ text-align:center;
+ vertical-align: middle;
+}
+
+.vccuelist {
+ position: absolute;
+ border: 1px solid #777777;
+ border-radius: 3px;
+}
+
+.vccuelistButton {
+ display: inline-block;
+ vertical-align: top;
+ background: linear-gradient(to bottom, #F6F6F6 0%, #DFDDDC 100%);
+ background: -ms-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ background: -moz-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ background: -o-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #DFDDDC));
+ background: -webkit-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ border-radius: 3px;
+ border: 1px solid #808080;
+ margin: 2px 2px 0 0;
+ padding: 1px;
+ height: 27px;
+ width: 30%;
+ text-align: center;
+}
+
+.vccuelistButton:active { background: #868585; }
+
+table.hovertable {
+ font-family: verdana,arial,sans-serif;
+ font-size:11px;
+ color:#333333;
+ border-width: 1px;
+ border-color: #999999;
+ border-collapse: collapse;
+}
+
+table.hovertable th {
+ background-color:#DCD9D6;
+ border-width: 1px;
+ padding: 3px;
+ border-style: solid;
+ border-color: #a9c6c9;
+ text-align: left;
+}
+
+table.hovertable tr {
+ background-color:#ffffff;
+}
+
+table.hovertable td {
+ border-width: 1px;
+ padding: 3px;
+ border-style: solid;
+ border-color: #a9c6c9;
+}
+
+.vcframe {
+ position: absolute;
+ border-radius: 4px;
+}
+
+.vcframeHeader {
+ background: linear-gradient(to bottom, #666666 0%, #000000 100%);
+ background: -ms-linear-gradient(top, #666666 0%, #000000 100%);
+ background: -moz-linear-gradient(top, #666666 0%, #000000 100%);
+ background: -o-linear-gradient(top, #666666 0%, #000000 100%);
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
+ background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
+ border-radius: 3px;
+ margin: 2px;
+ padding: 0 0 0 3px;
+ height: 32px;
+ font:normal 20px/1.2em sans-serif;
+}
+
+.vcframeButton {
+ display: inline-block;
+ vertical-align: top;
+ background: #E0DFDF;
+ border-radius: 3px;
+ border: 1px solid #000;
+ margin: 2px 2px 0 0;
+ padding: 1px;
+ height: 28px;
+ width: 28px;
+}
+
+.vcframeButton:active { background: #868585; }
+
+.vcframePageLabel {
+ display: inline-block;
+ vertical-align: top;
+ background: #000000;
+ border-radius: 3px;
+ margin: 2px 2px 0 0;
+ height: 32px;
+ width: 100px;
+ text-align: center;
+ color: #ff0000;
+ font:normal 20px/1.2em sans-serif;
+}
+
+.vcframePage {
+ visibility: hidden;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+}
+
+.vcsoloframe {
+ position: absolute;
+ border-radius: 4px;
+}
+
+.vcsoloframeHeader {
+ background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);
+ background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ background: -moz-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ background: -o-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
+ background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ border-radius: 3px;
+ margin: 2px;
+ padding: 0 0 0 3px;
+ height: 32px;
+ font:normal 20px/1.2em sans-serif;
+}
+
+.vclabel-wrapper { position: absolute; }
+
+.vclabel {
+ display: table-cell;
+ border: 1px solid #A0A0A0;
+ border-radius: 3px;
+ font-family: arial, verdana, sans-serif;
+ text-align:center;
+ vertical-align: middle;
+}
+
+.vcslider {
+ position: absolute;
+ border: 1px solid #777777;
+ border-radius: 3px;
+}
+
+.vcslLabel {
+ height:20px;
+ text-align:center;
+ font:normal 16px sans-serif;
+}
+
+input[type="range"].vVertical {
+ -webkit-appearance: none;
+ height: 4px;
+ border: 1px solid #8E8A86;
+ background-color: #888888;
+ -webkit-transform:rotate(270deg);
+ -webkit-transform-origin: 0% 50%;
+ -moz-transform:rotate(270deg);
+ -o-transform:rotate(270deg);
+ -ms-transform:rotate(270deg);
+ -ms-transform-origin:0% 50%;
+ transform:rotate(270deg);
+ transform-origin:0% 50%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 36px;
+}
+
+.vcaudiotriggers {
+ position: absolute;
+ border: 1px solid #777777;
+ border-radius: 4px;
+}
+
+.vcaudioHeader {
+ background: linear-gradient(to bottom, #345D27 0%, #0E1A0A 100%);
+ background: -ms-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ background: -moz-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ background: -o-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #345D27), color-stop(1, #0E1A0A));
+ background: -webkit-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ border-radius: 3px;
+ height: 32px;
+ margin: 2px;
+ padding: 0 0 0 3px;
+ font:normal 20px/1.2em sans-serif;
+}
+
+.vcatbutton-wrapper { position: absolute; }
+
+.vcatbutton {
+ display: table-cell;
+ border: 3px solid #A0A0A0;
+ border-radius: 4px;
+ font-family: arial, verdana, sans-serif;
+ text-decoration: none;
+ text-align:center;
+ vertical-align: middle;
+}
+
+.vcwidget {
+ position: absolute;
+ border: 1px solid #777777;
+ border-radius: 3px;
+ font-family: arial, verdana, sans-serif;
+}

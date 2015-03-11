@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Capability Wizard</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Capability Wizard</H1>
+<P>
+Capability Wizard is a handy tool for creating multiple capability value
+ranges of same size. Usually this applies to fixed colors, gobo indices
+and various macro channels.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Start</B>
+  </TD>
+  <TD>
+   The starting value for new capabilities. Sometimes there might be other
+   capabilities at the start of the channel's value range that you can skip
+   by adjusting this value.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Width</B>
+  </TD>
+  <TD>
+   The size of each value range.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Amount</B>
+  </TD>
+  <TD>
+   Number of capabilities to create.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Name</B>
+  </TD>
+  <TD>
+   The common name for each capability. You can use the hash mark # to denote
+   a place for an index number (i.e. "Gobo #" creates Gobo 1, Gobo 2, Gobo 3...)
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Sample</B>
+  </TD>
+  <TD>
+   Every time you change a parameter in the wizard, this list is updated to
+   show you a sample of what kinds of capabilities will be created once you
+   click OK.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

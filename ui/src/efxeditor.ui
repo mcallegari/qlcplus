@@ -7,26 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>646</height>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>EFX Editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
-   <item row="4" column="0" colspan="2">
-    <widget class="QPushButton" name="m_testButton">
-     <property name="toolTip">
-      <string>See what the EFX does when it is run</string>
-     </property>
-     <property name="text">
-      <string>&amp;Test Run</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QTabWidget" name="m_tab">
      <property name="toolTip">
@@ -40,46 +27,12 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="2" column="2">
-        <widget class="QToolButton" name="m_removeFixtureButton">
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QToolButton" name="m_lowerFixtureButton">
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/down.png</normaloff>:/down.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2" rowspan="2">
-        <spacer name="verticalSpacer">
+       <item row="3" column="2">
+        <widget class="Line" name="line">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="m_addFixtureButton">
@@ -109,7 +62,21 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0" colspan="2">
+       <item row="2" column="2">
+        <widget class="QToolButton" name="m_removeFixtureButton">
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="2">
         <widget class="QGroupBox" name="m_orderGroup">
          <property name="title">
           <string>Fixture order</string>
@@ -151,14 +118,21 @@
          </layout>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="5" column="2">
+        <widget class="QToolButton" name="m_lowerFixtureButton">
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/down.png</normaloff>:/down.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" rowspan="6" colspan="2">
+       <item row="1" column="0" rowspan="7" colspan="2">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -211,6 +185,19 @@
          </column>
         </widget>
        </item>
+       <item row="6" column="2" rowspan="3">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="Movement">
@@ -246,6 +233,12 @@
           <string>Pattern</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QComboBox" name="m_algorithmCombo">
             <property name="toolTip">
@@ -262,6 +255,15 @@
           <string>Parameters</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>4</number>
+          </property>
           <item row="12" column="1">
            <widget class="QSpinBox" name="m_yPhaseSpin">
             <property name="enabled">
@@ -639,8 +641,28 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>24</width>
-         <height>24</height>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_testButton">
+       <property name="toolTip">
+        <string>See what the EFX does when it is run</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/player_play.png</normaloff>:/player_play.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
         </size>
        </property>
        <property name="checkable">

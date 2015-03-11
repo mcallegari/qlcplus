@@ -64,6 +64,8 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void resetProperties(QLayoutItem *item);
+    void displayProperties(RGBScript *script);
 
     bool createPreviewItems();
 
@@ -107,13 +109,16 @@ private slots:
     void slotFixtureGroupChanged(quint32 id);
 
     void slotSaveToSequenceClicked();
+    void slotShapeToggle(bool);
+
+    void slotPropertyComboChanged(QString value);
+    void slotPropertySpinChanged(int value);
 
 private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
 
     QList <RGBScript> m_scripts;
-    QList <RGBMap> m_previewMaps;
     Function::Direction m_previewDirection;
 
     SpeedDialWidget *m_speedDials;

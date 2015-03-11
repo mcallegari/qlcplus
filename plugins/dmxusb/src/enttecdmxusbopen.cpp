@@ -38,9 +38,9 @@
  ****************************************************************************/
 
 EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                                   quint32 id, QObject* parent)
+                                   quint32 outputLine, quint32 id, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(serial, name, vendor, id)
+    , DMXUSBWidget(serial, name, vendor, outputLine, id)
     , m_running(false)
     , m_universe(QByteArray(513, 0))
     , m_frequency(30)

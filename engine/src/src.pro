@@ -9,8 +9,9 @@ TARGET   = qlcplusengine
 CONFIG  += qt
 QT      += core xml script gui
 greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets multimedia multimediawidgets
+  QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
+  win32:QT += widgets
 }
 
 CONFIG += link_pkgconfig
@@ -103,12 +104,15 @@ HEADERS += bus.h \
            rgbimage.h \
            rgbplain.h \
            rgbscript.h \
+           rgbscriptproperty.h \
+           rgbscriptscache.h \
            rgbtext.h \
            scene.h \
            sceneuistate.h \
            scenevalue.h \
            script.h \
            show.h \
+           showfunction.h \
            showrunner.h \
            track.h \
            universe.h
@@ -198,12 +202,14 @@ SOURCES += bus.cpp \
            rgbimage.cpp \
            rgbplain.cpp \
            rgbscript.cpp \
+           rgbscriptscache.cpp \
            rgbtext.cpp \
            scene.cpp \
            sceneuistate.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \
+           showfunction.cpp \
            showrunner.cpp \
            track.cpp \
            universe.cpp
@@ -281,6 +287,7 @@ macx {
     conf.commands += echo \"$$LITERAL_HASH define RGBSCRIPTDIR \\\"$$RGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$GOBODIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 unix:!macx {
@@ -304,6 +311,7 @@ unix:!macx {
     conf.commands += echo \"$$LITERAL_HASH define RGBSCRIPTDIR \\\"$$INSTALLROOT/$$RGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$INSTALLROOT/$$GOBODIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$INSTALLROOT/$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 win32 {
@@ -327,5 +335,6 @@ win32 {
     conf.commands += @echo $$LITERAL_HASH define RGBSCRIPTDIR \"$$RGBSCRIPTDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERRGBSCRIPTDIR \"$$USERRGBSCRIPTDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define GOBODIR \"$$GOBODIR\" >> $$CONFIGFILE &&
+    conf.commands += @echo $$LITERAL_HASH define WEBFILESDIR \"$$WEBFILESDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH endif >> $$CONFIGFILE
 }

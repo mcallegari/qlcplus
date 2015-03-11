@@ -39,6 +39,7 @@
 #include "efx.h"
 #include "doc.h"
 #include "bus.h"
+#include "rgbscriptscache.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -57,6 +58,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_modifiersCache(new QLCModifiersCache)
+    , m_rgbScriptsCache(new RGBScriptsCache(this))
     , m_ioPluginCache(new IOPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
@@ -212,6 +214,11 @@ QLCModifiersCache* Doc::modifiersCache() const
     return m_modifiersCache;
 }
 
+RGBScriptsCache* Doc::rgbScriptsCache() const
+{
+    return m_rgbScriptsCache;
+}
+
 IOPluginCache* Doc::ioPluginCache() const
 {
     return m_ioPluginCache;
@@ -351,7 +358,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     else
     {
         fixture->setID(id);
-        m_fixtures[id] = fixture;
+        m_fixtures.insert(id, fixture);
 
         /* Patch fixture change signals thru Doc */
         connect(fixture, SIGNAL(changed(quint32)),
@@ -493,7 +500,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         else
             newFixture->setChannels(fixture->channels());
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
-        m_fixtures[id] = newFixture;
+        m_fixtures.insert(id, newFixture);
 
         /* Patch fixture change signals thru Doc */
         connect(newFixture, SIGNAL(changed(quint32)),
@@ -524,8 +531,12 @@ bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
             if (it.value() == id)
                 it.remove();
         }
-        // add it with new carachteristics
-        int channels = mode->channels().count();
+        // add it with new characteristics
+        int channels;
+        if (mode != NULL)
+            channels = mode->channels().count();
+        else // generic dimmer
+            channels = fixture->channels();
         for (int i = address; i < address + channels; i++)
         {
             m_addresses[i] = id;
@@ -599,23 +610,24 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
 
 QList <Fixture*> Doc::fixtures() const
 {
-    return m_fixtures.values();
+    QMap <quint32, Fixture*> fixturesMap;
+    QHashIterator <quint32, Fixture*> hashIt(m_fixtures);
+    while (hashIt.hasNext())
+    {
+        hashIt.next();
+        fixturesMap.insert(hashIt.key(), hashIt.value());
+    }
+    return fixturesMap.values();
 }
 
 Fixture* Doc::fixture(quint32 id) const
 {
-    if (m_fixtures.contains(id) == true)
-        return m_fixtures[id];
-    else
-        return NULL;
+    return m_fixtures.value(id, NULL);
 }
 
 quint32 Doc::fixtureForAddress(quint32 universeAddress) const
 {
-    if (m_addresses.contains(universeAddress) == true)
-        return m_addresses[universeAddress];
-    else
-        return Fixture::invalidId();
+    return m_addresses.value(universeAddress, Fixture::invalidId());
 }
 
 int Doc::totalPowerConsumption(int& fuzzy) const
@@ -879,6 +891,10 @@ bool Doc::addFunction(Function* func, quint32 id)
         connect(func, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged(quint32)));
 
+        // Listen to function name changes
+        connect(func, SIGNAL(nameChanged(quint32)),
+                this, SLOT(slotFunctionNameChanged(quint32)));
+
         // Make the function listen to fixture removals
         connect(this, SIGNAL(fixtureRemoved(quint32)),
                 func, SLOT(slotFixtureRemoved(quint32)));
@@ -979,6 +995,12 @@ void Doc::slotFunctionChanged(quint32 fid)
     emit functionChanged(fid);
 }
 
+void Doc::slotFunctionNameChanged(quint32 fid)
+{
+    setModified();
+    emit functionNameChanged(fid);
+}
+
 /*********************************************************************
  * Monitor Properties
  *********************************************************************/
@@ -1044,9 +1066,7 @@ bool Doc::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCMonitorProperties)
         {
-            if (m_monitorProps == NULL)
-                m_monitorProps = new MonitorProperties();
-            m_monitorProps->loadXML(tag);
+            monitorProperties()->loadXML(tag, this);
         }
         else
         {
@@ -1117,7 +1137,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     if (m_monitorProps != NULL)
-        m_monitorProps->saveXML(doc, &root);
+        m_monitorProps->saveXML(doc, &root, this);
 
     return true;
 }

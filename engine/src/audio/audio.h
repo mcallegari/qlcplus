@@ -90,7 +90,7 @@ public:
      *
      * @return Duration in milliseconds of the source audio file
      */
-    qint64 getDuration();
+    qint64 totalDuration();
 
     /**
      * Set the color to be used by a AudioItem
@@ -182,12 +182,6 @@ public:
 
     /** @reimpl */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
-
-protected slots:
-    void slotTotalTimeChanged(qint64);
-
-signals:
-    void totalTimeChanged(qint64);
 };
 
 /** @} */

@@ -17,6 +17,7 @@ void loadTranslation(const QString& locale, QApplication& app)
 #else
     QString path(TRANSLATIONDIR);
 #endif
+
     QTranslator* translator = new QTranslator(&app);
     if (translator->load(file, path) == true)
     {

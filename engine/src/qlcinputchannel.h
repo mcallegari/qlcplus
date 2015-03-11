@@ -90,6 +90,14 @@ public:
     /** Get a list of available channel types */
     static QStringList types();
 
+    /** Get icon for a type */
+    static QIcon typeToIcon(Type type);
+
+    /** Get icon for a type */
+    static QIcon stringToIcon(const QString& str);
+
+    QIcon icon() const;
+
 protected:
     Type m_type;
 

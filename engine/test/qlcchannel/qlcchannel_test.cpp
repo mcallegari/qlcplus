@@ -87,7 +87,7 @@ void QLCChannel_Test::colourList()
 {
     QStringList list(QLCChannel::colourList());
 
-    QVERIFY(list.size() == 9);
+    QVERIFY(list.size() == 10);
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Red)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Green)));
@@ -95,7 +95,9 @@ void QLCChannel_Test::colourList()
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Cyan)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Magenta)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Yellow)));
+    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Amber)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::White)));
+    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::UV)));
 }
 
 void QLCChannel_Test::colour()
@@ -107,15 +109,39 @@ void QLCChannel_Test::colour()
     QCOMPARE(int(QLCChannel::Cyan), 0x00FFFF);
     QCOMPARE(int(QLCChannel::Magenta), 0xFF00FF);
     QCOMPARE(int(QLCChannel::Yellow), 0xFFFF00);
+    QCOMPARE(int(QLCChannel::Amber), 0xFF7E00);
+    QCOMPARE(int(QLCChannel::White), 0xFFFFFF);
+    QCOMPARE(int(QLCChannel::UV), 0x9400D3);
 
     QLCChannel* channel = new QLCChannel();
     QCOMPARE(channel->colour(), QLCChannel::NoColour);
 
+    channel->setColour(QLCChannel::Red);
+    QCOMPARE(channel->colour(), QLCChannel::Red);
+    
     channel->setColour(QLCChannel::Green);
     QCOMPARE(channel->colour(), QLCChannel::Green);
 
+    channel->setColour(QLCChannel::Blue);
+    QCOMPARE(channel->colour(), QLCChannel::Blue);
+
+    channel->setColour(QLCChannel::Cyan);
+    QCOMPARE(channel->colour(), QLCChannel::Cyan);
+
     channel->setColour(QLCChannel::Magenta);
     QCOMPARE(channel->colour(), QLCChannel::Magenta);
+
+    channel->setColour(QLCChannel::Yellow);
+    QCOMPARE(channel->colour(), QLCChannel::Yellow);
+
+    channel->setColour(QLCChannel::Amber);
+    QCOMPARE(channel->colour(), QLCChannel::Amber);
+
+    channel->setColour(QLCChannel::White);
+    QCOMPARE(channel->colour(), QLCChannel::White);
+
+    channel->setColour(QLCChannel::UV);
+    QCOMPARE(channel->colour(), QLCChannel::UV);
 
     channel->setColour(QLCChannel::NoColour);
     QCOMPARE(channel->colour(), QLCChannel::NoColour);

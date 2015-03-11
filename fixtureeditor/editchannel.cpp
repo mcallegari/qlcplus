@@ -93,7 +93,8 @@ void EditChannel::init()
     for (int i = 0; i < m_groupCombo->count(); i++)
     {
         QLCChannel ch;
-        m_groupCombo->setItemIcon(i, ch.getIconFromGroup(QLCChannel::stringToGroup(m_groupCombo->itemText(i))));
+        ch.setGroup(QLCChannel::stringToGroup(m_groupCombo->itemText(i)));
+        m_groupCombo->setItemIcon(i, ch.getIcon());
     }
 
     connect(m_groupCombo, SIGNAL(activated(const QString&)),
@@ -121,7 +122,9 @@ void EditChannel::init()
     {
         QLCChannel ch;
         ch.setName(m_colourCombo->itemText(i));
-        m_colourCombo->setItemIcon(i, ch.getIconFromGroup(QLCChannel::Intensity));
+        ch.setGroup(QLCChannel::Intensity);
+        ch.setColour(QLCChannel::stringToColour(m_colourCombo->itemText(i)));
+        m_colourCombo->setItemIcon(i, ch.getIcon());
     }
     connect(m_colourCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotColourActivated(const QString&)));

@@ -22,7 +22,7 @@
         <location filename="configureosc.ui" line="108"/>
         <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
-        <translation>Input port:</translation>
+        <translation>Input poort:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
@@ -48,40 +48,40 @@
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="97"/>
+        <location filename="oscplugin.cpp" line="102"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Deze plugin verzorgt DMX output voor apparaten die het OSC transmissie protocol ondersteunen.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="183"/>
-        <location filename="oscplugin.cpp" line="283"/>
+        <location filename="oscplugin.cpp" line="188"/>
+        <location filename="oscplugin.cpp" line="288"/>
         <source>OSC Network</source>
         <translation>OSC Netwerk</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="194"/>
+        <location filename="oscplugin.cpp" line="199"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="197"/>
-        <location filename="oscplugin.cpp" line="297"/>
+        <location filename="oscplugin.cpp" line="202"/>
+        <location filename="oscplugin.cpp" line="302"/>
         <source>Status: Not ready</source>
         <translation>Status: Niet gereed</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="200"/>
+        <location filename="oscplugin.cpp" line="205"/>
         <source>Address: </source>
-        <translation>Adres:</translation>
+        <translation>Adres: </translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="203"/>
-        <location filename="oscplugin.cpp" line="300"/>
+        <location filename="oscplugin.cpp" line="208"/>
+        <location filename="oscplugin.cpp" line="305"/>
         <source>Status: Ready</source>
         <translation>Status: Gereed</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="294"/>
+        <location filename="oscplugin.cpp" line="299"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>

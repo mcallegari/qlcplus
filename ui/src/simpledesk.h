@@ -100,6 +100,7 @@ public:
     int getCurrentPage();
     uchar getAbsoluteChannelValue(uint address);
     void setAbsoluteChannelValue(uint address, uchar value);
+    void resetUniverse();
 
 private:
     void initUniversesCombo();
@@ -190,6 +191,7 @@ private:
     void updateCueStackButtons();
     void replaceCurrentCue();
     void updateSpeedDials();
+    void createSpeedDials();
 
     CueStack* currentCueStack() const;
     int currentCueIndex() const;
@@ -203,13 +205,14 @@ private slots:
     void slotNextCueClicked();
     void slotStopCueStackClicked();
     void slotCloneCueStackClicked();
-    void slotEditCueStackClicked();
+    void slotEditCueStackClicked(bool state);
     void slotRecordCueClicked();
     void slotDeleteCueClicked();
 
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
     void slotHoldDialChanged(int ms);
+    void slotDialDestroyed(QObject *);
     void slotCueNameEdited(const QString& name);
 
 protected:

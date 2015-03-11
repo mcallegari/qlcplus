@@ -25,11 +25,12 @@
 #include "rgbalgorithm_test.h"
 #include "rgbalgorithm.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #undef private
 
 #include "doc.h"
 
-#define INTERNAL_SCRIPTDIR "../../../rgbscripts"
+#include "../common/resource_paths.h"
 
 void RGBAlgorithm_Test::initTestCase()
 {
@@ -39,7 +40,7 @@ void RGBAlgorithm_Test::initTestCase()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
+    QVERIFY(m_doc->rgbScriptsCache()->load(dir));
 }
 
 void RGBAlgorithm_Test::cleanupTestCase()
@@ -51,10 +52,9 @@ void RGBAlgorithm_Test::algorithms()
 {
     QStringList list = RGBAlgorithm::algorithms(m_doc);
     QVERIFY(list.contains("Text"));
-    QVERIFY(list.contains("Full Columns"));
-    QVERIFY(list.contains("Full Rows"));
-    QVERIFY(list.contains("Opposite Columns"));
-    QVERIFY(list.contains("Opposite Rows"));
+    QVERIFY(list.contains("Image"));
+    QVERIFY(list.contains("Stripes"));
+    QVERIFY(list.contains("Opposite"));
     QVERIFY(list.contains("Random Single"));
 }
 
@@ -76,10 +76,16 @@ void RGBAlgorithm_Test::algorithm()
     QCOMPARE(algo->name(), QString("Text"));
     delete algo;
 
-    algo = RGBAlgorithm::algorithm(m_doc, "Full Rows");
+    algo = RGBAlgorithm::algorithm(m_doc, "Stripes");
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
-    QCOMPARE(algo->name(), QString("Full Rows"));
+    QCOMPARE(algo->name(), QString("Stripes"));
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
+    printf("%s\n", algo->name().toStdString().c_str());
     delete algo;
 }
 
@@ -90,13 +96,13 @@ void RGBAlgorithm_Test::loader()
     // Script algo
     QDomElement scr = doc.createElement("Algorithm");
     scr.setAttribute("Type", "Script");
-    QDomText scrText = doc.createTextNode("Full Rows");
+    QDomText scrText = doc.createTextNode("Stripes");
     scr.appendChild(scrText);
     doc.appendChild(scr);
     RGBAlgorithm* algo = RGBAlgorithm::loader(m_doc, scr);
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
-    QCOMPARE(algo->name(), QString("Full Rows"));
+    QCOMPARE(algo->name(), QString("Stripes"));
     delete algo;
 
     // Text algo

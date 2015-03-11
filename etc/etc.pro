@@ -10,7 +10,7 @@ unix:!macx {
     INSTALLS      += desktop
 
     icons.path   = $$INSTALLROOT/share/pixmaps/
-    icons.files += ../gfx/qlcplus.png ../gfx/qlcplus-fixtureeditor.png
+    icons.files += ../resources/icons/png/qlcplus.png ../resources/icons/png/qlcplus-fixtureeditor.png
     INSTALLS    += icons
 
     mime.path   = $$INSTALLROOT/share/mime/packages
@@ -27,7 +27,7 @@ unix:!macx {
 # Mac OSX
 macx {
     icons.path   = $$INSTALLROOT/$$DATADIR
-    icons.files += ../gfx/qlcplus.icns
+    icons.files += ../resources/icons/qlcplus.icns
 
     plist.path   = $$INSTALLROOT
     plist.files += Info.plist
@@ -82,12 +82,17 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
     release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
     INSTALLS += qtplatform
+	
+	qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
+    debug:qtaudio.files = $$(QTDIR)/plugins/audio/qtaudio_windowsd.dll
+    release:qtaudio.files = $$(QTDIR)/plugins/audio/qtaudio_windows.dll
+    INSTALLS += qtaudio
     
     qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
     debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
                           $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
     release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
-                            $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+                            $$(QTDIR)/plugins/mediaservice/qtmedia_audioengine.dll
     INSTALLS += qtmedia
 }
 

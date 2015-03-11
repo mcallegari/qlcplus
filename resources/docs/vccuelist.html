@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Virtual Console Cue List</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle"> Virtual Console Cue List</H1>
+
+<P>
+A Cue List provides a list of <A HREF="file:concept.html#Functions">Functions</A> that
+you can step through with a single keyboard key. The Cue List is designed for
+theatrical performances where the lighting operator needs only to follow the script
+and toggle the next cue as the performance goes on.
+</P>
+
+<P>
+The first column on the Cue List displays the step (cue) number that runs from 1 to
+infinity and beyond <A HREF="http://en.wikipedia.org/wiki/Buzz_Lightyear">.</A>
+The second column shows the individual <A HREF="file:concept.html#Functions">Function</A>
+name that has been assigned to that particular cue.
+</P>
+
+<P>
+<b>Please note</b> that only <A HREF="file:concept.html#Chaser">Chasers</A> 
+can be assigned to a Cue List, for the simple reason that the Chaser 
+is the only function with a duration. Since any other Function can be added
+as a step to a Chaser with the <A HREF="file:chasereditor.html">Chaser Editor</A>,
+it is simple to create the desired Cues by mixing <A HREF="file:concept.html#Scene">Scenes</A>, 
+<A HREF="file:concept.html#Collection">Collections</A>, and so on...
+</P>
+
+<H3>Configuration</H3>
+
+<P>
+Cue Lists can be configured with the object properties button
+<IMG SRC="qrc:/edit.png" ALIGN="bottom"> found in the toolbar or
+by double clicking on the Cue List widget.<br>
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Cue list name</B>
+  </TD>
+  <TD>
+   Set the friendly name of the Cue List. The name appears as the Cue List's
+   second column title.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Cue list</B>
+  </TD>
+  <TD>
+   This panel allows the user to select the <A HREF="file:concept.html#Chaser">Chaser</A> 
+   to associate with the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/attach.png">
+  </TD>
+  <TD>
+   Associate a <A HREF="file:concept.html#Chaser">Chaser</A> with the Cue List using
+   the <A HREF="file:selectfunction.html">Select Function</A> dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/detach.png">
+  </TD>
+  <TD>
+   Remove the selected Chaser from the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Playback</B>
+  </TD>
+  <TD>
+   You can select the key that you want to use to start/stop the selected step (cue) in the Cue List
+   with this option. The key combination is shown in the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ <TR>
+  <TD>
+   <B>Next cue</B>
+  </TD>
+  <TD>
+   You can select the key that you want to use to skip to the next step (cue) in the Cue List
+   with this option. The key combination is shown on the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Previous cue</B>
+  </TD>
+  <TD>
+   You can select the key that you want to use to skip to the previous step (cue) in the Cue List
+   with this option. The key combination is shown on the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Crossfade</B>
+  </TD>
+  <TD>
+   You can select external input for the two crossfaders.
+  </TD>
+ </TR>
+</TABLE>
+
+<br>
+<H3>Operate mode</H3>
+
+<P>
+When switching QLC+ to <A HREF="file:concept.html#Modes">Operate Mode</A>, the Cue List will
+become active, allowing the selection of the desired steps included in the associated Chaser.<br>
+Pressing the ENTER key will start the selected step.<br><br>
+The following items are displayed at the bottom of the Cue List widget:<br><br>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Cue progress bar</B>
+  </TD>
+  <TD>
+   A progress bar showing the current running step status.<br>
+   When a fade in speed is set and is not set to "default" the bar will 
+   be colored in <span style="background-color:#63C10B">green</span>.<br>
+   During the hold time the bar will be colored in <span style="background-color:#0F9BEC">blue</span>.
+   The text displayed on the bar is the time remaining for the cue to end.<br>
+   If the step duration is set to inifinite (&infin;), the bar will just display the fade in progress
+   in <span style="background-color:#63C10B">green</span>.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/slider.png"></TD>
+  <TD>When clicked, this button will open/close a side panel showing two sliders for controlling crossfade.
+  (See next chapter)
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/player_play.png"><IMG src="qrc:/player_stop.png"></TD>
+  <TD>Start/stop the replay of the Cue List from the currently selected step</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/back.png"></TD>
+  <TD>Go back to the previous step in the Cue List, which will then be replayed. 
+  When the top is reached, the previous step will be the last step of the Cue List</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/forward.png"></TD>
+  <TD>Go to the next step in the Cue List, which will then be replayed. 
+  When reaching the bottom, the next step will be the first of the Cue List</TD>
+ </TR>
+</TABLE>
+
+</P>
+
+<br>
+<H3>Crossfade</H3>
+
+<P>
+  There are two faders that can be used to manually control crossfade between two consecutive steps.<br><br>
+  Each slider is connected to a Cue List step and to help to understand their purpose we'll call them 
+  "current step" and "next step" sliders.<br>
+  The label at the bottom of each slider will show
+  the number of the step that the slider is controlling and a color to show the status of that step.<br><br>
+  The checkbox at the top will link the sliders together to facilitate crossfading between steps.<br>
+  When the Cue list is running the sliders control the intensity of the 
+  associated steps, overriding their Fade In and Fade Out speeds and so allowing manual control
+  of the transition.<br><br>
+  The slider for the <span style="background-color:#4E8DDE">current step</span> has a blue label. This will be at 100% when the replay of the Cue List is started.<br>
+  The slider for the next step</span> has an <span style="background-color:orange">orange label</span> and will be at 0% when the replay of the Cue List is started.<br>
+  The intensities of both steps can be adjusted by moving the corresponding slider.<br><br>
+  However, after both sliders have been moved to the opposite ends of their travel, the following changes take place:<br>
+  The orange <span style="background-color:orange">next step</span> label changes to <span style="background-color:#4E8DDE">blue</span> (slider at 100%). This indicates that the old next step has become the new current step.<br>
+  The blue <span style="background-color:#4E8DDE">current step</span> label changes to <span style="background-color:orange">orange</span> and the number of the step is increased by 2 (slider at 0%). So this slider now controls the step which comes after the
+  old next step.
+</P>
+
+<br>
+<H3>Hint</H3>
+
+<P>
+When a step is added to a Chaser using the <A HREF="file:chasereditor.html">Chaser Editor</A>, the default 
+duration is set to 0.<br>
+To avoid the steps in the Cue List looping frantically without any result, set the duration
+of your steps, either by double clicking on the duration field or by using the 
+Speed Dial widget<IMG src="qrc:/speed.png"><br>
+Note that if you need scenes that you're going to crossfade manually with the 
+Cue List widget, you probably will want to set the duration of the steps to "infinite" (&infin;) using the Speed Dial widget. This can be
+enabled in the Chaser Editor by clicking on the <IMG src="qrc:/speed.png"> button.
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Simple Desk</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/slidermatrix.png" ALIGN="absmiddle"> Simple Desk</H1>
+
+<P>
+The simple desk emulates a typical lighting console that is able to control a full
+512-channel DMX universe with a multiple cue stacks operated with playback sliders.<BR>
+Simple desk is divided into two main areas: <B>channels</B> (top area) and <B>cues</B> (bottom area).<BR>
+The channels area reflects exactly the current status of each DMX channel of each universe. 
+If channels are controlled with no project loaded, users have a completely manual control of them.<BR>
+When a project is loaded, instead, moving a Simple desk channel will override any other QLC+ 
+function trying to control that channel. A visual indication will turn the channel background
+to red, informing the user that Simple desk now has the total control of it.<BR>
+This is very useful in some live circumstances where a running function needs some manual adjustment.<BR>
+To "disengage" Simple desk from overriding channels, just click on the reset button.
+Resetting channels will either bring them back to zero or to the value previously set by a function.<BR><BR>
+Cues operates separately from other QLC+ components. For example, cues within the cue stack are 
+not visible in the <A HREF="file:functionmanager.html">Function Manager</A>
+and <A HREF="file:concept.html#Scene">Scenes</A> are not visible in the cue stack.
+</P>
+
+<H1>Controls - Universe</H1>
+
+<P>
+The universe box contains the sliders that are used to control individual DMX channels
+in the first DMX universe. Since 512 sliders cannot fit nicely on the screen at the same
+time, they have been divided into pages. By default, each page contains 32 sliders but
+that can be <A HREF="#Tuning">tuned</A>.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/tabview.png"/></TD>
+  <TD>Switch the view mode from all channels to fixture channels. Please note that if 
+  no fixtures has been defined, the second mode will produce an empty result</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/back.png"/></TD>
+  <TD>Skip to the previous DMX page.</TD>
+ </TR>
+ <TR>
+  <TD><B>Universe page box</B></TD>
+  <TD>Displays the current DMX page. You can skip to a page by writing the page number
+      directly into this box or use the mouse wheel to skip between pages quickly.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/forward.png"/></TD>
+  <TD>Skip to the next DMX page.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileclose.png"/></TD>
+  <TD>Reset all DMX sliders back to zero or to the value previously set by a function.</TD>
+ </TR>
+ <TR>
+  <TD><B>GM</B></TD>
+  <TD>The <A HREF="file:concept.html#GrandMaster">Grand Master</A></TD>
+ </TR>
+</TABLE>
+
+<H1>Controls - Playback</H1>
+
+<P>
+The playback box contains a bunch of playback sliders each of which may contain a cue stack.
+The playbacks can be used to "play back" the contents of their cue stacks and they can also
+be used to adjust their overall intensity of the cue.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/check.png"/></TD>
+  <TD>Select the currently-active playback, whose cue stack is shown on the right side of the screen.</TD>
+ </TR>
+ <TR>
+  <TD><B>Playback slider</B></TD>
+  <TD>Adjust the intensity of playback's cue stack. When the slider is drawn all the way to zero,
+      the cue stack is stopped. Any value above zero will start replaying the playbacks'
+      cue stack.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/flash.png"/></TD>
+  <TD>Flash the playback's first cue.</TD>
+ </TR>
+</TABLE>
+
+<H1>Controls - Cue Stack</H1>
+
+<P>
+The cue stack box shows the contents of the currently selected playback.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/back.png"/></TD>
+  <TD>Skip to the previous cue (or start playback on the last cue in the cue stack with full intensity).</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_stop.png"/></TD>
+  <TD>Stop the currently active cue stack.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/forward.png"/></TD>
+  <TD>Skip to the next cue (or start playback on the first cue in the cue stack with full intensity).</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit.png"/></TD>
+  <TD><P>Switch to/from cue edit mode. When this button is pressed, you can edit the contents
+      of individual cues; the currently active cue's contents are shown on the DMX sliders.</P>
+      <P>The Fade In speed, Fade Out speed and Duration as well as the name of individual cues
+      can be adjusted with the speed dials that are displayed in a separate tool window. You
+      can also select multiple cues to adjust their speeds all at the same time, but then the DMX sliders
+      are disabled to prevent you from accidentally overwriting all cue contents with the same
+      values.</P></TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/record.png"/></TD>
+  <TD>Record a new cue, taking its contents from the current DMX slider values.</TD>
+ </TR>
+ <TR>
+  <TD><B>Cue Stack</B></TD>
+  <TD><P>This box displays the contents of the currently selected playback's cue stack, along with the
+      index number (1, 2, 3...), Fade In speed, Fade Out speed, Duration and an optional
+      name for each cue.</P>
+      <P>You can change the cue order by dragging the cues on top of each other, either one at
+      a time or multiple cues at the same time.</P></TD>
+ </TR>
+</TABLE>
+
+<A NAME="Tuning" HREF="#Tuning"></A><H1>Tuning</H1>
+Please refer to the <A HREF="file:parameterstuning.html#SimpleDesk">Manual parameters tuning</A> Simple Desk section
+
+</BODY>
+</HTML>

@@ -151,7 +151,7 @@ void Function::setName(const QString& name)
 {
     m_name = QString(name);
 
-    emit changed(m_id);
+    emit nameChanged(m_id);
 }
 
 QString Function::name() const
@@ -558,7 +558,14 @@ uint Function::stringToSpeed(QString speed)
 
     QStringList msecs = speed.split(".");
     if (msecs.count() > 0)
-        value += (msecs.at(msecs.count() - 1).toUInt() * 10);
+    {
+        QString msecStr = msecs.at(msecs.count() - 1);
+        uint msecInt = msecStr.toUInt();
+        if (msecInt < 10 && msecStr.contains("0") == false)
+            value += (msecInt * 100);
+        else
+            value += (msecInt * 10);
+    }
 
     return value;
 }
@@ -747,7 +754,7 @@ void Function::preRun(MasterTimer* timer)
 {
     Q_UNUSED(timer);
 
-    qDebug() << "Function preRun. ID: " << m_id;
+    qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
     m_stop = false;
     m_running = true;
 
@@ -759,7 +766,7 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 
-    qDebug() << "Function postRun. ID: " << m_id;
+    qDebug() << "Function postRun. Name:" << m_name << "ID: " << m_id;
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
@@ -808,7 +815,7 @@ void Function::incrementElapsed()
 void Function::start(MasterTimer* timer, bool child, quint32 startTime,
                      uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << "Function start(). ID: " << m_id << ", startTime:" << startTime;
+    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << ", startTime:" << startTime;
     Q_ASSERT(timer != NULL);
     m_startedAsChild = child;
     m_elapsed = startTime;
@@ -825,7 +832,7 @@ bool Function::startedAsChild() const
 
 void Function::stop()
 {
-    qDebug() << "Function stop(). ID: " << m_id;
+    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id;
     m_stop = true;
 }
 

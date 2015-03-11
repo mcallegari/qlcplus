@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.1 GIT</Version>
+  <Author>boxr</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED Flood Panel 7x3W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="8" Color="#ff0000">Red: 255</Capability>
+  <Capability Min="9" Max="17" Color="#ff3200">Red: 255, Green: 50</Capability>
+  <Capability Min="18" Max="26" Color="#ff9600">Red: 255, Green: 150</Capability>
+  <Capability Min="27" Max="35" Color="#ffff00">Red: 255, Green: 255</Capability>
+  <Capability Min="36" Max="44" Color="#c8ff00">Red: 200, Green: 255</Capability>
+  <Capability Min="45" Max="53" Color="#64ff00">Red: 100, Green: 255</Capability>
+  <Capability Min="54" Max="62" Color="#28ff00">Red: 40, Green: 255</Capability>
+  <Capability Min="63" Max="71" Color="#00ff00">Green: 255</Capability>
+  <Capability Min="72" Max="80" Color="#00ff32">Green: 255, Blue:50</Capability>
+  <Capability Min="81" Max="89" Color="#00ff96">Green: 255, Blue: 150</Capability>
+  <Capability Min="90" Max="98" Color="#00ffff">Green: 255, Blue: 255</Capability>
+  <Capability Min="99" Max="107" Color="#0096ff">Green: 150, Blue: 255</Capability>
+  <Capability Min="108" Max="116" Color="#0032ff">Green: 50, Blue: 255</Capability>
+  <Capability Min="117" Max="125" Color="#0000ff">Blue: 255</Capability>
+  <Capability Min="126" Max="134" Color="#3200ff">Red: 50, Blue: 255</Capability>
+  <Capability Min="135" Max="143" Color="#9600ff">Red: 150, Blue: 255</Capability>
+  <Capability Min="144" Max="152" Color="#ff00ff">Red: 255, Blue: 255</Capability>
+  <Capability Min="153" Max="161" Color="#dc00ff">Red: 220, Blue: 255</Capability>
+  <Capability Min="162" Max="170" Color="#963264">Red: 150, Green: 50, Blue: 100</Capability>
+  <Capability Min="171" Max="179" Color="#32b4dc">Red: 50, Green: 180, Blue: 220</Capability>
+  <Capability Min="180" Max="188" Color="#32dc64">Red: 50, Green: 220, Blue: 100</Capability>
+  <Capability Min="189" Max="197" Color="#96dcff">Red: 150, Green: 220</Capability>
+  <Capability Min="198" Max="206" Color="#9600dc">Red: 150, Blue: 220</Capability>
+  <Capability Min="207" Max="215" Color="#00b4dc">Green: 180, Blue: 220</Capability>
+  <Capability Min="216" Max="224" Color="#00dc32">Green: 220, Blue: 50</Capability>
+  <Capability Min="225" Max="233" Color="#dcb4dc">Red: 220, Green 180, Blue: 220</Capability>
+  <Capability Min="234" Max="242" Color="#dcc864">Red: 220, Green: 200, Blue: 100</Capability>
+  <Capability Min="243" Max="251" Color="#ffc896">Red: 255, Green: 200, Blue: 150</Capability>
+  <Capability Min="252" Max="255" Color="#ffffff">Red: 255, Green: 255, Blue: 255</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Intensity of green (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Intensity of blue (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Static RGB mix as defined with channels 2, 3 and 4</Capability>
+  <Capability Min="1" Max="24">Static colour, as defined with channel 2</Capability>
+  <Capability Min="25" Max="49">Sets Pr02 (7-colour gradual change)</Capability>
+  <Capability Min="50" Max="74">Sets Pr03 (3-colour gradual change)</Capability>
+  <Capability Min="75" Max="99">Sets Pr04 (7-colour jumping change)</Capability>
+  <Capability Min="100" Max="124">Sets Pr05 (3-colour jumping change)</Capability>
+  <Capability Min="125" Max="149">Sets Pr06 (fantasy change 1)</Capability>
+  <Capability Min="150" Max="174">Sets Pr07 (fantasy change 2)</Capability>
+  <Capability Min="175" Max="199" Color="#ff0000">Sets Pr08 (red gradual change)</Capability>
+  <Capability Min="200" Max="224" Color="#00ff00">Sets Pr09 (green gradual change)</Capability>
+  <Capability Min="225" Max="249" Color="#0000ff">Sets Pr10 (blue gradual change)</Capability>
+  <Capability Min="250" Max="255">Sets the sound active mode</Capability>
+ </Channel>
+ <Channel Name="ID control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">All IDs (ID1...ID66)</Capability>
+  <Capability Min="10" Max="19">ID1</Capability>
+  <Capability Min="20" Max="29">ID2</Capability>
+  <Capability Min="30" Max="39">ID3</Capability>
+  <Capability Min="40" Max="49">ID4</Capability>
+  <Capability Min="50" Max="59">ID5</Capability>
+  <Capability Min="60" Max="69">ID6</Capability>
+  <Capability Min="70" Max="79">ID7</Capability>
+  <Capability Min="80" Max="89">ID8</Capability>
+  <Capability Min="90" Max="99">ID9</Capability>
+  <Capability Min="100" Max="109">ID10</Capability>
+  <Capability Min="110" Max="119">ID11</Capability>
+  <Capability Min="120" Max="129">ID12</Capability>
+  <Capability Min="130" Max="139">ID13</Capability>
+  <Capability Min="140" Max="149">ID14</Capability>
+  <Capability Min="150" Max="159">ID15</Capability>
+  <Capability Min="160" Max="169">ID16</Capability>
+  <Capability Min="170" Max="179">ID17</Capability>
+  <Capability Min="180" Max="189">ID18</Capability>
+  <Capability Min="190" Max="199">ID19</Capability>
+  <Capability Min="200" Max="209">ID20</Capability>
+  <Capability Min="210" Max="255">ID21...ID66</Capability>
+ </Channel>
+ <Channel Name="Fader response">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="250">Instant fader response for channel 1, 2, 3, 4</Capability>
+  <Capability Min="251" Max="255">Delayed fader response for channel 1, 2, 3, 4</Capability>
+ </Channel>
+ <Mode Name="3-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="8-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Mode</Channel>
+  <Channel Number="6">ID control</Channel>
+  <Channel Number="7">Fader response</Channel>
+ </Mode>
+</FixtureDefinition>

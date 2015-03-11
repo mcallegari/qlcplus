@@ -100,9 +100,9 @@ bool Show::copyFrom(const Function* function)
         addTrack(newTrack);
 
         // create a copy of each sequence/audio in a track
-        foreach(quint32 fid, track->functionsID())
+        foreach(ShowFunction *sfunc, track->showFunctions())
         {
-            Function* function = doc()->function(fid);
+            Function* function = doc()->function(sfunc->functionID());
             if (function == NULL)
                 continue;
 
@@ -111,7 +111,7 @@ bool Show::copyFrom(const Function* function)
             if (copy != NULL)
             {
                 copy->setName(tr("Copy of %1").arg(function->name()));
-                newTrack->addFunctionID(copy->id());
+                newTrack->createShowFunction(copy->id());
             }
         }
     }

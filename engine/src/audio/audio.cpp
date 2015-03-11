@@ -23,8 +23,6 @@
 #include <QDebug>
 #include <QFile>
 
-#include <QMessageBox>
-
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE
   #include "audiodecoder_sndfile.h"
@@ -152,7 +150,7 @@ quint32 Audio::getStartTime() const
     return m_startTime;
 }
 
-qint64 Audio::getDuration()
+qint64 Audio::totalDuration()
 {
     return m_audioDuration;
 }
@@ -198,6 +196,8 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         setName(tr("File not found"));
+        m_audioDuration = 0;
+        emit changed(id());
         return true;
     }
 
@@ -211,6 +211,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -224,6 +225,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         m_audioDuration = m_decoder->totalTime();
+        emit changed(id());
         return true;
     }
 #endif
@@ -269,12 +271,6 @@ void Audio::slotEndOfStream()
     Function::postRun(NULL, QList<Universe *>());
 }
 
-void Audio::slotTotalTimeChanged(qint64)
-{
-    qDebug() << "Audio duration: " << m_audioDuration;
-    emit totalTimeChanged(m_audioDuration);
-}
-
 void Audio::slotFunctionRemoved(quint32 fid)
 {
     Q_UNUSED(fid)
@@ -305,10 +301,6 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     if (m_audioDevice.isEmpty() == false)
         source.setAttribute(KXMLQLCAudioDevice, m_audioDevice);
-    source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
-    source.setAttribute(KXMLQLCAudioColor, m_color.name());
-    if (isLocked())
-        source.setAttribute(KXMLQLCAudioLocked, m_locked);
 
     text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
 
@@ -393,6 +385,9 @@ void Audio::preRun(MasterTimer* timer)
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
+    else
+        return; // avoid this function to even start
+
     Function::preRun(timer);
 }
 
@@ -405,7 +400,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (fadeOutSpeed() != 0)
     {
-        if (getDuration() - elapsed() <= fadeOutSpeed())
+        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
     }
 }

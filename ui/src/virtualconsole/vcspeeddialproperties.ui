@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VCSpeedDialProperties</class>
+ <widget class="QDialog" name="VCSpeedDialProperties">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>522</width>
+    <height>455</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Speed Dial Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../qlcui.qrc">
+    <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Speed Dial Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="m_nameEdit">
+     <property name="toolTip">
+      <string>Title of the dial</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="Functions">
+      <attribute name="title">
+       <string>Functions</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" rowspan="3" colspan="2">
+        <widget class="QTreeWidget" name="m_tree">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="animated">
+          <bool>true</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <property name="expandsOnDoubleClick">
+          <bool>false</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Function</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade In *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade In Time to the function.</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Fade Out *</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Fade Out Time to the function.</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Duration * (+tap)</string>
+          </property>
+          <property name="toolTip">
+           <string>Multiplier applied before time is sent as Duration to the function.</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QToolButton" name="m_addButton">
+         <property name="toolTip">
+          <string>Add functions to be controlled</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="m_removeButton">
+         <property name="toolTip">
+          <string>Remove selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>18</width>
+           <height>198</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Input">
+      <attribute name="title">
+       <string>Input</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Absolute Value</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <widget class="QLabel" name="m_absoluteInputUniverseLabel">
+            <property name="text">
+             <string>Input Universe</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_absoluteInputUniverseEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="m_absoluteInputChannelLabel">
+            <property name="text">
+             <string>Input Channel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_absoluteInputChannelEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QPushButton" name="m_autoDetectAbsoluteInputButton">
+            <property name="text">
+             <string>Auto Detect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QPushButton" name="m_chooseAbsoluteInputButton">
+            <property name="text">
+             <string>Choose...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="m_absoluteRangeLabel">
+            <property name="text">
+             <string>Range</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="m_absoluteMinSpin">
+            <property name="suffix">
+             <string>s</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QSpinBox" name="m_absoluteMaxSpin">
+            <property name="suffix">
+             <string>s</string>
+            </property>
+            <property name="maximum">
+             <number>300</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Tap</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>External Input</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="m_tapInputUniverseLabel">
+               <property name="text">
+                <string>Input Universe</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_tapInputUniverseEdit"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="m_tapInputChannelLabel">
+               <property name="text">
+                <string>Input Channel</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_tapInputChannelEdit"/>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="m_autoDetectTapInputButton">
+               <property name="text">
+                <string>Auto Detect</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="m_chooseTapInputButton">
+               <property name="text">
+                <string>Choose...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>Key combination</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0" colspan="2">
+              <widget class="QLineEdit" name="m_keyEdit">
+               <property name="toolTip">
+                <string>Keyboard combination to control the dial tap</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QToolButton" name="m_attachKey">
+               <property name="toolTip">
+                <string>Set a key combination for this dial</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../qlcui.qrc">
+                 <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QToolButton" name="m_detachKey">
+               <property name="toolTip">
+                <string>Remove the dial's keyboard shortcut key</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../qlcui.qrc">
+                 <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Appearance</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QCheckBox" name="m_pmCheck">
+           <property name="text">
+            <string>Show plus and minus buttons</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_dialCheck">
+           <property name="text">
+            <string>Show the central dial</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_tapCheck">
+           <property name="text">
+            <string>Show the tap button</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_hoursCheck">
+           <property name="text">
+            <string>Show the hours field</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_minCheck">
+           <property name="text">
+            <string>Show the minutes field</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_secCheck">
+           <property name="text">
+            <string>Show the seconds field</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_msCheck">
+           <property name="text">
+            <string>Show the milliseconds field</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="m_infiniteCheck">
+           <property name="text">
+            <string>Show the infinite option</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../qlcui.qrc"/>
+  <include location="../qlcui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>266</x>
+     <y>429</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>334</x>
+     <y>429</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotAddClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotRemoveClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_chooseAbsoluteInputButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotChooseAbsoluteInputSourceClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_chooseTapInputButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotChooseTapInputSourceClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>354</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_autoDetectAbsoluteInputButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_autoDetectTapInputButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotAutoDetectTapInputSourceClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotAddClicked()</slot>
+  <slot>slotRemoveClicked()</slot>
+  <slot>slotChooseAbsoluteInputSourceClicked()</slot>
+  <slot>slotChooseTapInputSourceClicked()</slot>
+  <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+  <slot>slotAutoDetectTapInputSourceClicked()</slot>
+ </slots>
+</ui>

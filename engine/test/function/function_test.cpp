@@ -58,35 +58,36 @@ void Function_Test::properties()
     doc.addFunction(stub);
 
     QSignalSpy spy(stub, SIGNAL(changed(quint32)));
+    QSignalSpy nameSpy(stub, SIGNAL(nameChanged(quint32)));
 
     stub->setName("Test");
-    QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy[0][0].toUInt(), stub->id());
+    QCOMPARE(nameSpy.size(), 1);
+    QCOMPARE(nameSpy[0][0].toUInt(), stub->id());
     QCOMPARE(stub->name(), QString("Test"));
 
     stub->setRunOrder(Function::PingPong);
-    QCOMPARE(spy.size(), 2);
-    QCOMPARE(spy[1][0].toUInt(), stub->id());
+    QCOMPARE(spy.size(), 1);
+    QCOMPARE(spy[0][0].toUInt(), stub->id());
     QCOMPARE(stub->runOrder(), Function::PingPong);
 
     stub->setDirection(Function::Backward);
-    QCOMPARE(spy.size(), 3);
-    QCOMPARE(spy[2][0].toUInt(), stub->id());
+    QCOMPARE(spy.size(), 2);
+    QCOMPARE(spy[1][0].toUInt(), stub->id());
     QCOMPARE(stub->direction(), Function::Backward);
 
     stub->setFadeInSpeed(14);
-    QCOMPARE(spy.size(), 4);
-    QCOMPARE(spy[3][0].toUInt(), stub->id());
+    QCOMPARE(spy.size(), 3);
+    QCOMPARE(spy[2][0].toUInt(), stub->id());
     QCOMPARE(stub->fadeInSpeed(), uint(14));
 
     stub->setFadeOutSpeed(42);
-    QCOMPARE(spy.size(), 5);
-    QCOMPARE(spy[4][0].toUInt(), stub->id());
+    QCOMPARE(spy.size(), 4);
+    QCOMPARE(spy[3][0].toUInt(), stub->id());
     QCOMPARE(stub->fadeOutSpeed(), uint(42));
 
     stub->setDuration(69);
-    QCOMPARE(spy.size(), 6);
-    QCOMPARE(spy[5][0].toUInt(), stub->id());
+    QCOMPARE(spy.size(), 5);
+    QCOMPARE(spy[4][0].toUInt(), stub->id());
     QCOMPARE(stub->duration(), uint(69));
 }
 

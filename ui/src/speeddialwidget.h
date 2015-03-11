@@ -39,7 +39,7 @@ class SpeedDialWidget : public QWidget
     Q_OBJECT
 
 public:
-    SpeedDialWidget(QWidget* parent, Qt::WindowFlags = SPEED_DIAL_FLAGS);
+    SpeedDialWidget(QWidget* parent);
     ~SpeedDialWidget();
 
     /************************************************************************

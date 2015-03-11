@@ -131,7 +131,7 @@ void ChannelsSelection::updateFixturesTree()
             QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
-            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            item->setIcon(KColumnName, channel->getIcon());
             if (channel->group() == QLCChannel::Intensity &&
                 channel->colour() != QLCChannel::NoColour)
                 item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));

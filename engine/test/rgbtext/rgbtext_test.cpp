@@ -42,7 +42,7 @@ void RGBText_Test::cleanupTestCase()
 void RGBText_Test::initial()
 {
     RGBText text(m_doc);
-    QCOMPARE(text.text(), QString(" Q LIGHT CONTROLLER "));
+    QCOMPARE(text.text(), QString(" Q LIGHT CONTROLLER + "));
     QCOMPARE(text.animationStyle(), RGBText::Horizontal);
     QCOMPARE(text.xOffset(), 0);
     QCOMPARE(text.yOffset(), 0);

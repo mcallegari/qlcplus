@@ -312,7 +312,7 @@ void SimpleDesk::initBottomSide()
     hbox->addWidget(m_previousCueButton);
 
     m_stopCueStackButton = new QToolButton(this);
-    m_stopCueStackButton->setIcon(QIcon(":/stop.png"));
+    m_stopCueStackButton->setIcon(QIcon(":/player_stop.png"));
     m_stopCueStackButton->setIconSize(QSize(32, 32));
     m_stopCueStackButton->setToolTip(tr("Stop cue stack"));
     hbox->addWidget(m_stopCueStackButton);
@@ -387,6 +387,15 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
     m_engine->setValue(address, value);
+}
+
+void SimpleDesk::resetUniverse()
+{
+    // force a engine reset
+    m_engine->resetUniverse(m_currentUniverse);
+    // simulate a user click on the reset button
+    // to avoid messing up with multithread calls
+    m_universeResetButton->click();
 }
 
 /****************************************************************************
@@ -749,16 +758,26 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
             if (i >= (quint32)ua.length())
                 break;
 
-            if (m_engine->hasChannel(i + (idx << 9)) == true)
+            quint32 absAddr = i + (idx << 9);
+            ConsoleChannel *cc = m_universeSliders[i - start];
+            if (cc == NULL)
                 continue;
 
-            ConsoleChannel *cc = m_universeSliders[i - start];
-            if (cc != NULL)
+            if (m_engine->hasChannel(absAddr) == true)
             {
-                cc->blockSignals(true);
-                cc->setValue(ua.at(i), false);
-                cc->blockSignals(false);
+                if (cc->value() != m_engine->value(absAddr))
+                {
+                    cc->blockSignals(true);
+                    cc->setValue(m_engine->value(absAddr), false);
+                    cc->setStyleSheet(ssOverride);
+                    cc->blockSignals(false);
+                }
+                continue;
             }
+
+            cc->blockSignals(true);
+            cc->setValue(ua.at(i), false);
+            cc->blockSignals(false);
         }
     }
     else
@@ -969,7 +988,7 @@ void SimpleDesk::initCueStack()
     connect(m_nextCueButton, SIGNAL(clicked()), this, SLOT(slotNextCueClicked()));
     connect(m_stopCueStackButton, SIGNAL(clicked()), this, SLOT(slotStopCueStackClicked()));
     connect(m_cloneCueStackButton, SIGNAL(clicked()), this, SLOT(slotCloneCueStackClicked()));
-    connect(m_editCueStackButton, SIGNAL(clicked()), this, SLOT(slotEditCueStackClicked()));
+    connect(m_editCueStackButton, SIGNAL(toggled(bool)), this, SLOT(slotEditCueStackClicked(bool)));
     connect(m_recordCueButton, SIGNAL(clicked()), this, SLOT(slotRecordCueClicked()));
 
     connect(m_cueStackView->selectionModel(),
@@ -1007,6 +1026,27 @@ void SimpleDesk::replaceCurrentCue()
         cue.setName(name);
         cueStack->replaceCue(index.row(), cue);
     }
+}
+
+void SimpleDesk::createSpeedDials()
+{
+    if (m_speedDials != NULL)
+        return;
+
+    m_speedDials = new SpeedDialWidget(this);
+    m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
+    connect(m_speedDials, SIGNAL(fadeInChanged(int)),
+            this, SLOT(slotFadeInDialChanged(int)));
+    connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
+            this, SLOT(slotFadeOutDialChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)),
+            this, SLOT(slotHoldDialChanged(int)));
+    connect(m_speedDials, SIGNAL(destroyed(QObject*)),
+            this, SLOT(slotDialDestroyed(QObject*)));
+    connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
+            this, SLOT(slotCueNameEdited(const QString&)));
+    m_speedDials->raise();
+    m_speedDials->show();
 }
 
 void SimpleDesk::updateSpeedDials()
@@ -1229,35 +1269,28 @@ void SimpleDesk::slotCloneCueStackClicked()
     slotSelectPlayback(pb);
 }
 
-void SimpleDesk::slotEditCueStackClicked()
+void SimpleDesk::slotDialDestroyed(QObject *)
+{
+    if (m_speedDials != NULL)
+        m_speedDials->deleteLater();
+    m_speedDials = NULL;
+    m_editCueStackButton->setChecked(false);
+}
+
+void SimpleDesk::slotEditCueStackClicked(bool state)
 {
     qDebug() << Q_FUNC_INFO;
 
     slotCueStackSelectionChanged();
-    if (m_editCueStackButton->isChecked() == true)
-    {
-        if (m_speedDials == NULL)
-        {
-            m_speedDials = new SpeedDialWidget(this);
-            m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-            connect(m_speedDials, SIGNAL(fadeInChanged(int)),
-                    this, SLOT(slotFadeInDialChanged(int)));
-            connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
-                    this, SLOT(slotFadeOutDialChanged(int)));
-            connect(m_speedDials, SIGNAL(holdChanged(int)),
-                    this, SLOT(slotHoldDialChanged(int)));
-            connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
-                    this, SLOT(slotCueNameEdited(const QString&)));
-        }
 
-        m_speedDials->raise();
-        m_speedDials->show();
+    if (state == true)
+    {
+        createSpeedDials();
         updateSpeedDials();
     }
     else
     {
         resetUniverseSliders();
-
         if (m_speedDials != NULL)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
@@ -1372,7 +1405,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     if (m_docChanged == true)
     {
         if (m_editCueStackButton->isChecked() == true)
-            slotEditCueStackClicked();
+            slotEditCueStackClicked(true);
         initUniversesCombo();
         slotUpdateUniverseSliders();
         initChannelGroupsView();

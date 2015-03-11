@@ -48,7 +48,8 @@ class VinceUSBDMX512 : public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    VinceUSBDMX512(const QString& serial, const QString& name, const QString& vendor, quint32 id = 0);
+    VinceUSBDMX512(const QString& serial, const QString& name, const QString& vendor,
+                   quint32 outputLine, quint32 id = 0);
     virtual ~VinceUSBDMX512();
 
     /** @reimp */

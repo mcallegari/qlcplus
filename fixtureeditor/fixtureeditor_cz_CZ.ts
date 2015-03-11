@@ -187,8 +187,8 @@
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
-        <source>Gap</source>
-        <translation>Mezera</translation>
+        <source>Width</source>
+        <translation type="unfinished">Šířka</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
@@ -234,29 +234,34 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="103"/>
+        <location filename="../ui/src/docbrowser.cpp" line="105"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Prohlížeč dokumentů</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="114"/>
+        <location filename="../ui/src/docbrowser.cpp" line="121"/>
         <source>Backward</source>
         <translation>Dozadu</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="115"/>
+        <location filename="../ui/src/docbrowser.cpp" line="122"/>
         <source>Forward</source>
         <translation>Dopředu</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="116"/>
+        <location filename="../ui/src/docbrowser.cpp" line="123"/>
         <source>Index</source>
         <translation>Obsah</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="117"/>
+        <location filename="../ui/src/docbrowser.cpp" line="124"/>
         <source>About Qt</source>
         <translation>O aplikaci Qt</translation>
+    </message>
+    <message>
+        <location filename="../ui/src/docbrowser.cpp" line="152"/>
+        <source>Close</source>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>
@@ -288,7 +293,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="44"/>
+        <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -306,7 +311,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="46"/>
+        <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
         <translation>Barva</translation>
     </message>
@@ -316,17 +321,17 @@
         <translation>Druhá barva</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="48"/>
+        <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
         <translation>Efekt</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="138"/>
+        <location filename="editcapability.cpp" line="132"/>
         <source>Open Gobo File</source>
         <translation>Otevřít soubor Gobo</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="141"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Gobo pictures</source>
         <translation>Gobo obrázky</translation>
     </message>
@@ -424,20 +429,20 @@
         <translation>Průvodce funkcemi</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="251"/>
-        <location filename="editchannel.cpp" line="317"/>
-        <location filename="editchannel.cpp" line="361"/>
+        <location filename="editchannel.cpp" line="254"/>
+        <location filename="editchannel.cpp" line="320"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Overlapping values</source>
         <translation>Hodnoty se překrývají</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="252"/>
-        <location filename="editchannel.cpp" line="318"/>
+        <location filename="editchannel.cpp" line="255"/>
+        <location filename="editchannel.cpp" line="321"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Hodnoty funkce se překrývají s hodnotami jiných funkcí!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="362"/>
+        <location filename="editchannel.cpp" line="365"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Některá funkce nemůže být vytvořena z důvodu překryvu některých hodnot.</translation>
     </message>
@@ -935,12 +940,12 @@
 <context>
     <name>QLCFixtureEditor</name>
     <message>
-        <location filename="fixtureeditor.cpp" line="193"/>
+        <location filename="fixtureeditor.cpp" line="200"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="194"/>
+        <location filename="fixtureeditor.cpp" line="201"/>
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
@@ -949,167 +954,167 @@ before closing?</source>
 před uzavřením?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="223"/>
-        <location filename="fixtureeditor.cpp" line="233"/>
+        <location filename="fixtureeditor.cpp" line="230"/>
+        <location filename="fixtureeditor.cpp" line="240"/>
         <source>Missing important information</source>
         <translation>Chybí důležité informace</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="224"/>
+        <location filename="fixtureeditor.cpp" line="231"/>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
         <translation>Chybí jméno výrobce.
 Nelze uložit zařízení.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="234"/>
+        <location filename="fixtureeditor.cpp" line="241"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
         <translation>Chybí jméno modelu zařízení.
 Nelze uložit zařízení.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="263"/>
-        <location filename="fixtureeditor.cpp" line="321"/>
+        <location filename="fixtureeditor.cpp" line="270"/>
+        <location filename="fixtureeditor.cpp" line="328"/>
         <source>Fixture saving failed</source>
         <translation>Ukládání zařízení selhalo</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="264"/>
-        <location filename="fixtureeditor.cpp" line="322"/>
+        <location filename="fixtureeditor.cpp" line="271"/>
+        <location filename="fixtureeditor.cpp" line="329"/>
         <source>Unable to save fixture definition:
 %1</source>
         <translation>Nelze uložit definici zařízení:
 %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="279"/>
+        <location filename="fixtureeditor.cpp" line="286"/>
         <source>Save fixture definition</source>
         <translation>Uložit definici zařízení</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="340"/>
+        <location filename="fixtureeditor.cpp" line="347"/>
         <source>New Fixture</source>
         <translation>Nové zařízení</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="411"/>
-        <location filename="fixtureeditor.cpp" line="496"/>
+        <location filename="fixtureeditor.cpp" line="424"/>
+        <location filename="fixtureeditor.cpp" line="509"/>
         <source>Channel already exists</source>
         <translation>Kanál již existuje</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="412"/>
-        <location filename="fixtureeditor.cpp" line="497"/>
+        <location filename="fixtureeditor.cpp" line="425"/>
+        <location filename="fixtureeditor.cpp" line="510"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
         <translation>Kanál se jménem &quot;%1&quot; již existuje!</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="419"/>
-        <location filename="fixtureeditor.cpp" line="503"/>
+        <location filename="fixtureeditor.cpp" line="432"/>
+        <location filename="fixtureeditor.cpp" line="516"/>
         <source>Channel has no name</source>
         <translation>Kanál nemá jméno</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="420"/>
-        <location filename="fixtureeditor.cpp" line="504"/>
+        <location filename="fixtureeditor.cpp" line="433"/>
+        <location filename="fixtureeditor.cpp" line="517"/>
         <source>You must give the channel a descriptive name!</source>
         <translation>Musíte pojmenovat tento kanál!</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="455"/>
-        <source>Are you sure you wish to remove channel: %1</source>
-        <translation>Opravdu chcete odebrat kanál: %1</translation>
+        <location filename="fixtureeditor.cpp" line="468"/>
+        <source>Are you sure you wish to remove channel: %1 ?</source>
+        <translation>Opravdu chcete odebrat kanál: %1 ?</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="616"/>
-        <location filename="fixtureeditor.cpp" line="651"/>
-        <location filename="fixtureeditor.cpp" line="867"/>
+        <location filename="fixtureeditor.cpp" line="784"/>
+        <source>Are you sure you wish to remove mode: %1 ?</source>
+        <translation>Opravdu chcete odebrat režim: %1 ?</translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.cpp" line="629"/>
+        <location filename="fixtureeditor.cpp" line="664"/>
+        <location filename="fixtureeditor.cpp" line="880"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="617"/>
-        <location filename="fixtureeditor.cpp" line="653"/>
+        <location filename="fixtureeditor.cpp" line="630"/>
+        <location filename="fixtureeditor.cpp" line="666"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="618"/>
-        <location filename="fixtureeditor.cpp" line="655"/>
+        <location filename="fixtureeditor.cpp" line="631"/>
+        <location filename="fixtureeditor.cpp" line="668"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="619"/>
-        <location filename="fixtureeditor.cpp" line="657"/>
-        <location filename="fixtureeditor.cpp" line="873"/>
+        <location filename="fixtureeditor.cpp" line="632"/>
+        <location filename="fixtureeditor.cpp" line="670"/>
+        <location filename="fixtureeditor.cpp" line="886"/>
         <source>Remove</source>
         <translation>Odebrat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="630"/>
+        <location filename="fixtureeditor.cpp" line="643"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="726"/>
-        <location filename="fixtureeditor.cpp" line="735"/>
+        <location filename="fixtureeditor.cpp" line="739"/>
+        <location filename="fixtureeditor.cpp" line="748"/>
         <source>Unable to add mode</source>
         <translation>Režim nelze přidat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="727"/>
+        <location filename="fixtureeditor.cpp" line="740"/>
         <source>Another mode by that name already exists</source>
         <translation>Režim stejného jména již existuje</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="736"/>
+        <location filename="fixtureeditor.cpp" line="749"/>
         <source>You must give a name to the mode</source>
         <translation>Musíte zadat nejaké jméno pro tento režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="770"/>
+        <location filename="fixtureeditor.cpp" line="783"/>
         <source>Remove Mode</source>
         <translation>Odebrat režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="771"/>
-        <source>Are you sure you wish to remove mode: %1</source>
-        <translation>Opravdu chcete odebrat režim: %1</translation>
-    </message>
-    <message>
-        <location filename="fixtureeditor.cpp" line="813"/>
+        <location filename="fixtureeditor.cpp" line="826"/>
         <source>Rename new mode</source>
         <translation>Přejmenovat nový režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="814"/>
+        <location filename="fixtureeditor.cpp" line="827"/>
         <source>Give a unique name for the mode</source>
         <translation>Zadejte jedinečné jméno pro tento režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="816"/>
+        <location filename="fixtureeditor.cpp" line="829"/>
         <source>Copy of %1</source>
         <translation>Kopie z %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="826"/>
+        <location filename="fixtureeditor.cpp" line="839"/>
         <source>Invalid name</source>
         <translation>Neplatné jméno</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="827"/>
+        <location filename="fixtureeditor.cpp" line="840"/>
         <source>Another mode by that name already exists.</source>
         <translation>Jiný režim tohoto jména již existuje.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="870"/>
+        <location filename="fixtureeditor.cpp" line="883"/>
         <source>Clone</source>
         <translation>Duplikovat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="878"/>
+        <location filename="fixtureeditor.cpp" line="891"/>
         <source>Modes</source>
         <translation>Režimy</translation>
     </message>

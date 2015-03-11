@@ -26,12 +26,12 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     </message>
     <message>
         <location filename="dmxusb.cpp" line="157"/>
-        <location filename="dmxusb.cpp" line="258"/>
+        <location filename="dmxusb.cpp" line="256"/>
         <source>Device is operating correctly.</source>
         <translation>L&apos;interface fonctionne correctement.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="245"/>
+        <location filename="dmxusb.cpp" line="243"/>
         <source>No input support available.</source>
         <translation>Support de l&apos;entrée indisponible.</translation>
     </message>
@@ -49,12 +49,12 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="dmxusbconfig.cpp" line="53"/>
+        <location filename="dmxusbconfig.cpp" line="52"/>
         <source>Serial</source>
         <translation>N° de série</translation>
     </message>
@@ -69,7 +69,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="enttecdmxusbopen.cpp" line="116"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="119"/>
@@ -100,71 +100,71 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
+        <location filename="enttecdmxusbpro.cpp" line="91"/>
         <location filename="enttecdmxusbpro.cpp" line="96"/>
-        <location filename="enttecdmxusbpro.cpp" line="101"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protocole</translation>
+        <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="105"/>
+        <location filename="enttecdmxusbpro.cpp" line="100"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricant</translation>
+        <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="108"/>
+        <location filename="enttecdmxusbpro.cpp" line="103"/>
         <source>Serial number</source>
-        <translation type="unfinished">N° de série</translation>
+        <translation>N° de série</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="nanodmx.cpp" line="201"/>
-        <location filename="stageprofi.cpp" line="137"/>
-        <location filename="vinceusbdmx512.cpp" line="47"/>
+        <location filename="nanodmx.cpp" line="205"/>
+        <location filename="stageprofi.cpp" line="125"/>
+        <location filename="vinceusbdmx512.cpp" line="48"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="208"/>
-        <location filename="stageprofi.cpp" line="144"/>
-        <location filename="vinceusbdmx512.cpp" line="51"/>
+        <location filename="nanodmx.cpp" line="212"/>
+        <location filename="stageprofi.cpp" line="132"/>
+        <location filename="vinceusbdmx512.cpp" line="52"/>
         <source>Serial number</source>
         <translation>N° de série</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="203"/>
-        <location filename="stageprofi.cpp" line="139"/>
-        <location filename="vinceusbdmx512.cpp" line="49"/>
+        <location filename="nanodmx.cpp" line="207"/>
+        <location filename="stageprofi.cpp" line="127"/>
+        <location filename="vinceusbdmx512.cpp" line="50"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="113"/>
-        <location filename="nanodmx.cpp" line="205"/>
-        <location filename="stageprofi.cpp" line="141"/>
+        <location filename="nanodmx.cpp" line="209"/>
+        <location filename="stageprofi.cpp" line="129"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="215"/>
+        <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>MIDI Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée MIDI</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbpro.cpp" line="212"/>
+        <source>DMX Input</source>
+        <translation>Entrée DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="217"/>
-        <source>DMX Input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="enttecdmxusbpro.cpp" line="222"/>
         <source>MIDI Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="224"/>
+        <location filename="enttecdmxusbpro.cpp" line="219"/>
         <source>DMX Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie DMX</translation>
     </message>
 </context>
 </TS>

@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Virtual Console</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle"> Virtual Console</H1>
+<P>
+The purpose of the Virtual Console is to act as a blank canvas on which the user
+can create a lighting desk layout of his choice. Users can place various GUI
+(Graphical User Interface) elements, called widgets, onto the console surface:
+</P>
+<UL>
+ <LI>Buttons for starting and stopping functions</LI>
+ <LI>Sliders for adjusting channel values or function intensity</LI>
+ <LI>Speed dials for adjusting function speeds</LI>
+ <LI>XY Pads for manually moving intelligent light beams</LI>
+ <LI>Cue lists for theatrical performance purposes</LI>
+ <LI>Frames for grouping various widgets together</LI>
+ <LI>Solo Frames for keeping only one button/function active at a time</LI>
+ <LI>Labels to act as static information banners for other widgets</LI>
+</UL>
+
+<P>
+The topmost part of the Virtual Console is dedicated to a tool bar that provides
+quick access to the most common actions: adding new widgets, copying them
+to/from the clipboard, configuring the widgets and, in case of emergencies,
+a panic button for stopping all currently running functions.
+</P>
+
+<P>
+Each Virtual Console widget's style can be configured (to some extent). Widgets
+can be moved anywhere and resized to any size on the Virtual Console canvas.
+See the article on <A HREF="file:vcstylingplacement.html">Virtual Console Widget
+Styling &amp; Placement</A>.
+</P>
+
+<H3>Tool Bar Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/button.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcbutton.html">Button</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/buttonmatrix.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcbuttonmatrix.html">Button Matrix</A> to the currently
+   selected frame, using the <A HREF="file:addvcbuttonmatrix.html">Add Button Matrix</A>
+   dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/slider.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcslider.html">Slider</A> to the currently selected
+   frame.
+  </TD>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/slidermatrix.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcslidermatrix.html">Slider Matrix</A> to the currently
+   selected frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/rgbmatrix.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcmatrix.html">Animation</A> to the currently selected frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/knob.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcslider.html">Knob</A> to the currently selected frame. This is a convenient
+   shortcut for adding a slider widget using the knob style.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/speed.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcspeeddial.html">Speed Dial</A> to the currently selected frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/xypad.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcxypad.html">XY Pad</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/cuelist.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vccuelist.html">Cue List</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/frame.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcframe.html">Frame</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/soloframe.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vcsoloframe.html">Solo Frame</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/label.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:vclabel.html">Label</A> to the currently selected
+   frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/audioinput.png">
+  </TD>
+  <TD>
+   Add a new <A HREF="file:audiotriggers.html">Audio triggers</A> widget to the 
+   currently selected frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/clock.png">
+  </TD>
+  <TD>
+   Add a new Clock widget to the currently selected frame. 
+   This widget can be used for 3 purposes: System clock, Stopwatch and Countdown.<br>
+   In the last two cases and when QLC+ is in operate mode, clicking with the mouse 
+   left button will pause the counter, while clicking with the mouse right button 
+   will reset the counter to the initial value.<br>
+   When in system clock mode, it is possible to schedule when to start a QLC+ function
+   during the time of day.
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcut.png">
+  </TD>
+  <TD>
+   Cut the currently selected widget(s) to the clipboard. Note that the widget(s) will only disappear when pasted into the new location.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcopy.png">
+  </TD>
+  <TD>
+   Copy the currently selected widget(s) to the clipboard.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editpaste.png">
+  </TD>
+  <TD>
+   Paste the widget(s) in clipboard to the currently selected frame.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editdelete.png">
+  </TD>
+  <TD>
+   Destroy the currently selected widget(s) completely. If a frame has been
+   selected, this destroys everything inside it, including other frames.
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit.png">
+  </TD>
+  <TD>
+   Configure the currently selected widget using its own configuration dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editclear.png">
+  </TD>
+  <TD>
+   Rename the currently selected widget(s).
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/up.png">
+  </TD>
+  <TD>
+   Bring the selected widget to front.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/down.png">
+  </TD>
+  <TD>
+   Send the selected widget to back.
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/color.png">
+  </TD>
+  <TD>
+   Change the background color of the selected widget.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/image.png">
+  </TD>
+  <TD>
+   Set a background picture for the selected widget.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/fontcolor.png">
+  </TD>
+  <TD>
+   Change the font color of the selected widget.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/fonts.png">
+  </TD>
+  <TD>
+   Set the font properties of the selected widget.
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/configure.png">
+  </TD>
+  <TD>
+   Configure the Virtual Console properties such as the size workspace, the widgets' default properties and the Grand Master slider properties.
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/panic.png">
+  </TD>
+  <TD>
+   Stop all currently running functions.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

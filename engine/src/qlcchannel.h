@@ -123,7 +123,7 @@ public:
     Group group() const;
 
     /** Get the channel's representation icon */
-    QIcon getIconFromGroup(Group grp) const;
+    QIcon getIcon() const;
 
     /** Get the channel's icon resource name */
     QString getIconNameFromGroup(QLCChannel::Group grp) const;
@@ -180,7 +180,8 @@ public:
         Magenta     = 0xFF00FF,
         Yellow      = 0xFFFF00,
         Amber       = 0xFF7E00,
-        White       = 0xFFFFFF
+        White       = 0xFFFFFF,
+        UV          = 0x9400D3
     };
 
     /** Get a list of possible channel groups */

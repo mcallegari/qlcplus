@@ -112,9 +112,9 @@ bool AudioCaptureQt::readAudio(int maxSize)
     if (m_audioInput->bytesReady() < maxSize * 2)
         return false;
 
-    qint64 l = m_input->read((char *)m_audioBuffer, maxSize * 2);
+    /*qint64 l = */ m_input->read((char *)m_audioBuffer, maxSize * 2);
 
-    qDebug() << "[QT readAudio] " << l << "bytes read";
+    //qDebug() << "[QT readAudio] " << l << "bytes read";
 
     return true;
 }

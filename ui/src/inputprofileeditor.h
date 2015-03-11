@@ -22,10 +22,10 @@
 
 #include <QDialog>
 
+#include "qlcinputprofile.h"
 #include "ui_inputprofileeditor.h"
 
 class QLCInputChannel;
-class QLCInputProfile;
 class InputOutputMap;
 class QTimer;
 
@@ -84,6 +84,9 @@ protected:
      ************************************************************************/
 public:
     const QLCInputProfile* profile() const;
+
+private:
+    QLCInputProfile::Type currentProfileType() const;
 
 protected:
     QLCInputProfile* m_profile;

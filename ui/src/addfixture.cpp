@@ -310,7 +310,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         child = new QTreeWidgetItem(parent);
         child->setText(KColumnName, model);
 
-        if (manuf == selectManufacturer &&
+        if (selectManufacturer == KXMLFixtureGeneric &&
                 model == selectModel)
         {
             parent->setExpanded(true);
@@ -479,6 +479,19 @@ void AddFixture::slotModeActivated(const QString& modeName)
         new QListWidgetItem(
             QString("%1: %2").arg(i + 1).arg(channel->name()),
             m_channelList);
+    }
+
+    int absAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (m_universeValue << 9);
+    if (checkAddressAvailability(absAddress, m_channelsSpin->value()) == false)
+    {
+        // turn the new address to red
+        m_addrErrorLabel->show();
+        m_invalidAddressFlag = true;
+    }
+    else
+    {
+        m_addrErrorLabel->hide();
+        m_invalidAddressFlag = false;
     }
 }
 

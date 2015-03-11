@@ -28,6 +28,7 @@
 #include "editcapability.h"
 #include "qlccapability.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 #include "util.h"
 
 #define KSettingsGeometry "editcapability/geometry"
@@ -127,14 +128,7 @@ void EditCapability::slotDescriptionEdited(const QString& text)
 void EditCapability::slotPictureButtonPressed()
 {
     QFileDialog dialog(this);
-    QDir dir;
-#if defined (__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                .arg(GOBODIR));
-#else
-    dir.setPath(GOBODIR);
-#endif
-
+    QDir dir = QLCFile::systemDirectory(GOBODIR);
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
