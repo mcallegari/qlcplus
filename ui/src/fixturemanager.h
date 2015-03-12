@@ -199,6 +199,7 @@ private slots:
     void slotMoveGroupDown();
     void slotImport();
     void slotExport();
+    void slotSoftpatch();
 
     /** Callback for right mouse button clicks over a fixture item */
     void slotContextMenuRequested(const QPoint& pos);
@@ -219,6 +220,9 @@ private:
 
     QAction* m_importAction;
     QAction* m_exportAction;
+
+    QAction* m_softpatchAction;
+
     QMenu* m_groupMenu;
 };
 
