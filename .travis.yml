@@ -9,8 +9,9 @@ matrix:
     # Clang won't work on Linux until -Wno-unused-local-typedefs is flagged by compiler not OS
     #- compiler: clang
     #  env: TASK='compile'
-    - compiler: gcclibqt5-dev 
+    - compiler: gcc
       env: TASK='compile' QT='qt4'
+    - compiler: gcc
       env: TASK='compile' QT='qt5'
 
 cache: apt
