@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQuickItem>
 #include <QDebug>
 
 #include "fixturemanager.h"
@@ -25,8 +26,9 @@
 #include "fixture.h"
 #include "doc.h"
 
-FixtureManager::FixtureManager(Doc *doc, QObject *parent)
+FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
+    , m_view(view)
     , m_doc(doc)
 {
     Q_ASSERT(m_doc != NULL);
@@ -108,6 +110,72 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
         chIcon.replace(".png", ".svg");
 
     return "qrc" + chIcon;
+}
+
+void FixtureManager::setFixtureSelection(bool selected, quint32 fxID)
+{
+    int capDelta = 1;
+    bool hasDimmer = false, hasColor = false, hasPosition = false;
+
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return;
+
+    if (selected == false)
+        capDelta = -1;
+
+    for (quint32 ch = 0; ch < fixture->channels(); ch++)
+    {
+        const QLCChannel* channel(fixture->channel(ch));
+        if(channel == NULL)
+            continue;
+
+        switch (channel->group())
+        {
+            case QLCChannel::Intensity:
+            {
+                QLCChannel::PrimaryColour col = channel->colour();
+                switch (col)
+                {
+                    case QLCChannel::NoColour:
+                        hasDimmer = true;
+                    break;
+                    case QLCChannel::Red:
+                    case QLCChannel::Green:
+                    case QLCChannel::Blue:
+                    case QLCChannel::Cyan:
+                    case QLCChannel::Magenta:
+                    case QLCChannel::Yellow:
+                    case QLCChannel::White:
+                        hasColor = true;
+                    break;
+                    default: break;
+                }
+            }
+            break;
+            case QLCChannel::Pan:
+            case QLCChannel::Tilt:
+                hasPosition = true;
+            break;
+            default:
+            break;
+        }
+        if (hasDimmer)
+        {
+            QQuickItem *dimmerCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
+            dimmerCapItem->setProperty("counter", dimmerCapItem->property("counter").toInt() + capDelta);
+        }
+        if (hasColor)
+        {
+            QQuickItem *colorCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
+            colorCapItem->setProperty("counter", colorCapItem->property("counter").toInt() + capDelta);
+        }
+        if (hasPosition)
+        {
+            QQuickItem *positionCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
+            positionCapItem->setProperty("counter", positionCapItem->property("counter").toInt() + capDelta);
+        }
+    }
 }
 
 int FixtureManager::fixturesCount()

@@ -42,7 +42,7 @@ SOURCES += main.cpp \
 
 RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 
-OTHER_FILES += 
+OTHER_FILES += qml/RobotoText.qml
 
 # Installation
 target.path = $$INSTALLROOT/$$BINDIR

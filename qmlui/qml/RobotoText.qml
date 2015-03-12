@@ -20,7 +20,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: textBox.width + 10
+    width: wrapText ? 100 : textBox.width + 10
     height: 40
 
     color: "transparent"

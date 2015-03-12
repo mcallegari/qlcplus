@@ -3,6 +3,9 @@
         <file alias="qlcplus.png">../resources/icons/png/qlcplus.png</file>
         <file alias="arrowdown.png">../resources/icons/png/arrowdown.png</file>
 
+        <file alias="dimmer-back.svg">svg/dimmer-back.svg</file>
+        <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
+
         <file alias="MainView.qml">qml/MainView.qml</file>
         <file alias="RobotoText.qml">qml/RobotoText.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
@@ -18,6 +21,7 @@
         <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
         <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
         <file alias="LeftPanel.qml">qml/fixturesfunctions/LeftPanel.qml</file>
+        <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
         <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>

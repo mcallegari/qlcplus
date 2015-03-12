@@ -76,7 +76,7 @@ void App::startup()
     m_fixtureBrowser = new FixtureBrowser(m_view, m_doc);
     m_view->rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
 
-    m_fixtureManager = new FixtureManager(m_doc);
+    m_fixtureManager = new FixtureManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
     m_functionManager = new FunctionManager(m_view, m_doc);

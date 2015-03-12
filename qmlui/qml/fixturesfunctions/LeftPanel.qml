@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 Rectangle {
     id: leftSidePanel
@@ -25,6 +26,7 @@ Rectangle {
     property int collapseWidth: 50
     property int expandedWidth: 450
     property string editorSource: ""
+    property int iconSize: collapseWidth - 4
     x: 0
     y: 0
     anchors.left: parent.left;
@@ -69,6 +71,9 @@ Rectangle {
         color: "#00000000"
         z: 2
 
+        ExclusiveGroup { id: fxManagerGroup }
+        ExclusiveGroup { id: capabilitiesGroup }
+
         Column {
             anchors.fill: parent
             anchors.leftMargin: 1
@@ -77,27 +82,82 @@ Rectangle {
             IconButton {
                 id: fxEditor
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/fixture.svg"
                 checkable: true
                 tooltip: qsTr("Add Fixtures")
+                exclusiveGroup: fxManagerGroup
                 onToggled: {
-                    editorSource = "qrc:///FixtureBrowser.qml"
-                    animatePanel();
+                    if (checked == true)
+                        editorSource = "qrc:///FixtureBrowser.qml"
+                    if (checked != isOpen)
+                        animatePanel();
                 }
             }
 
             IconButton {
                 id: grpEditor
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/group.svg"
                 checkable: true
                 tooltip: qsTr("Fixture Groups")
+                exclusiveGroup: fxManagerGroup
+                onToggled: {
+                    if (checked != isOpen)
+                        animatePanel();
+                }
+            }
+
+            IconButton {
+                objectName: "capIntensity"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/intensity.svg"
+                checkable: true
+                tooltip: qsTr("Intensity")
+                counter: 0
+                exclusiveGroup: capabilitiesGroup
                 onCheckedChanged: {
-                    animatePanel();
+                    intTool.visible = !intTool.visible
+                }
+                IntensityTool {
+                    id: intTool
+                    x: iconSize + 2
+                    visible: false
+                }
+            }
+
+            IconButton {
+                objectName: "capColor"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/color.svg"
+                checkable: true
+                tooltip: qsTr("Color")
+                counter: 0
+                exclusiveGroup: capabilitiesGroup
+                onCheckedChanged: {
+
+                }
+            }
+
+            IconButton {
+                objectName: "capPosition"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/position.svg"
+                checkable: true
+                tooltip: qsTr("Position")
+                counter: 0
+                exclusiveGroup: capabilitiesGroup
+                onCheckedChanged: {
+
                 }
             }
         }

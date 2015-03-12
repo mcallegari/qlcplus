@@ -94,6 +94,9 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: isSelected = !isSelected
+        onClicked: {
+            isSelected = !isSelected
+            fixtureManager.setFixtureSelection(isSelected, fixtureID)
+        }
     }
 }
