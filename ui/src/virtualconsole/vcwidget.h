@@ -449,7 +449,7 @@ protected:
     /*********************************************************************
      * Key sequence handler
      *********************************************************************/
-protected:
+public:
     /** Strip restricted keys from the given QKeySequence */
     static QKeySequence stripKeySequence(const QKeySequence& seq);
 

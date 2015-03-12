@@ -21,6 +21,7 @@
 #include <QtXml>
 
 #include "vcmatrixcontrol.h"
+#include "vcwidget.h"
 
 VCMatrixControl::VCMatrixControl(quint8 id)
     : m_id(id)
@@ -193,6 +194,10 @@ bool VCMatrixControl::loadXML(const QDomElement &root)
                 quint32 ch = tag.attribute(KXMLQLCVCMatrixControlInputChannel).toUInt();
                 m_inputSource = new QLCInputSource(uni, ch);
             }
+        }
+        else if (tag.tagName() == KXMLQLCVCMatrixControlKey)
+        {
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(tag.text()));
         }
         else
         {
