@@ -89,6 +89,9 @@ public:
     /** Start running the given function */
     virtual void startFunction(Function* function);
 
+    /** Stop running the given function */
+    void stopFunction(Function* function);
+
     /** Stop all functions. Doesn't affect registered DMX sources. */
     void stopAllFunctions();
 
@@ -113,8 +116,10 @@ private:
     /** List of currently running functions */
     QList <Function*> m_functionList;
     QList <Function*> m_startQueue;
+    QList <Function*> m_stopQueue;
+    int m_runningFunctions;
 
-    /** Mutex that guards access to m_functionList & m_startQueue */
+    /** Mutex that guards access to m_startQueue & m_stopQueue */
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
@@ -169,6 +174,7 @@ private:
     GenericFader* fader() const;
 public:
     void faderAdd(const FadeChannel& ch);
+    void faderForceAdd(const FadeChannel& ch);
     QHash<FadeChannel,FadeChannel> faderChannels() const;
 
 private:

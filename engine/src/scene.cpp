@@ -524,7 +524,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
             fc.setFlashing(true);
             // Force add this channel, since it will be removed
             // by MasterTimer once applied
-            timer->fader()->forceAdd(fc);
+            timer->faderForceAdd(fc);
         }
     }
     else

@@ -56,6 +56,7 @@ quint64 ticksCount = 0;
 
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
+    , m_runningFunctions(0)
     , m_stopAllFunctions(false)
     , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
@@ -78,7 +79,6 @@ MasterTimer::~MasterTimer()
         stop();
 
     delete d_ptr;
-    d_ptr = NULL;
 }
 
 void MasterTimer::start()
@@ -138,8 +138,18 @@ void MasterTimer::startFunction(Function* function)
         return;
 
     QMutexLocker locker(&m_functionListMutex);
-    if (m_startQueue.contains(function) == false)
+    if (!m_startQueue.contains(function))
         m_startQueue.append(function);
+}
+
+void MasterTimer::stopFunction(Function* function)
+{
+    if (function == NULL)
+        return;
+
+    QMutexLocker locker(&m_functionListMutex);
+    if (!m_stopQueue.contains(function))
+        m_stopQueue.append(function);
 }
 
 void MasterTimer::stopAllFunctions()
@@ -216,7 +226,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
 int MasterTimer::runningFunctions() const
 {
-    return m_functionList.size();
+    return m_runningFunctions;
 }
 
 void MasterTimer::timerTickFunctions(QList<Universe *> universes)
@@ -226,6 +236,13 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
     QList <int> removeList;
     bool functionListHasChanged = false;
 
+    QList<Function*> stopQueue;
+    {
+        QMutexLocker functionListMutexLocker(&m_functionListMutex);
+        stopQueue = m_stopQueue;
+        m_stopQueue.clear();
+    }
+
     for (int i = 0; i < m_functionList.size(); i++)
     {
         Function* function = m_functionList.at(i);
@@ -233,7 +250,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
         if (function != NULL)
         {
             /* Run the function unless it's supposed to be stopped */
-            if (function->stopped() == false && m_stopAllFunctions == false)
+            if (function->stopped() == false && m_stopAllFunctions == false && !stopQueue.contains(function))
             {
                 function->write(this, universes);
             }
@@ -241,9 +258,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             {
                 /* Function should be stopped instead */
                 function->postRun(this, universes);
-                //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
                 removeList << i; // Don't remove the item from the list just yet.
-                functionListHasChanged = true;
             }
         }
     }
@@ -255,29 +270,49 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
     // on this round. The indices in removeList are automatically sorted because the
     // list is iterated with an int above from 0 to size, so iterating the removeList
     // backwards here will always remove the correct indices.
+
     QListIterator <int> it(removeList);
     it.toBack();
     while (it.hasPrevious() == true)
+    {
         m_functionList.removeAt(it.previous());
+        functionListHasChanged = true;
+    }
 
-    m_functionListMutex.lock();
-    QList<Function*> startQueue(m_startQueue);
-    m_startQueue.clear();
-    m_functionListMutex.unlock();
+    QList<Function*> startQueue;
+    {
+        QMutexLocker functionListMutexLocker(&m_functionListMutex);
+        startQueue = m_startQueue;
+        m_startQueue.clear();
+    }
 
     foreach (Function* f, startQueue)
     {
-        if (m_functionList.contains(f) == false)
+        if (!m_functionList.contains(f))
         {
             m_functionList.append(f);
+            functionListHasChanged = true;
             f->preRun(this);
             f->write(this, universes);
-            functionListHasChanged = true;
             emit functionStarted(f->id());
+        }
+        else if (f->stopped() == false)
+        {
+            // Final state of the function is not "stopped", we will have to restart it
+            QMutexLocker functionListMutexLocker(&m_functionListMutex);
+            if (m_stopQueue.contains(f))
+            {
+                functionListMutexLocker.unlock();
+                startFunction(f);
+            }
         }
     }
 
-    emit functionListChanged();
+    if (functionListHasChanged)
+    {
+        m_runningFunctions = m_functionList.size();
+        emit functionListChanged();
+    }
 }
 
 /****************************************************************************
@@ -348,6 +383,13 @@ void MasterTimer::faderAdd(const FadeChannel& ch)
     QMutexLocker faderLocker(&m_faderMutex);
 
     fader()->add(ch);
+}
+
+void MasterTimer::faderForceAdd(const FadeChannel& ch)
+{
+    QMutexLocker faderLocker(&m_faderMutex);
+
+    fader()->forceAdd(ch);
 }
 
 QHash<FadeChannel,FadeChannel> MasterTimer::faderChannels() const
