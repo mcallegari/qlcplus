@@ -24,7 +24,7 @@ before_install:
  - sudo apt-get install -qq gdb libasound2-dev libusb-dev libftdi-dev shared-mime-info libudev-dev libmad0-dev libsndfile1-dev liblo-dev libfftw3-dev
  # Install the relevant bits of Qt
  - if [ "$QT" = "qt4" ]; then sudo apt-get install -qq libqt4-dev; export QMAKE=qmake; fi
- - if [ "$QT" = "qt5" ]; then sudo apt-get install -qq qt5-meta-minimal; dpkg -L qt5-meta-minimal; export QMAKE=/opt/qt54/bin/qmake; fi
+ - if [ "$QT" = "qt5" ]; then sudo apt-get install -qq qt54-meta-minimal; dpkg -L qt54-meta-minimal; export QMAKE=/opt/qt54/bin/qmake; fi
  - $QMAKE -v || $QMAKE -V
  # Start xvfb so tests don't fail
  - "export DISPLAY=:99.0"
