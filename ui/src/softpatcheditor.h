@@ -26,6 +26,12 @@
 #include "scenevalue.h"
 
 class Doc;
+class FixtureManager;
+
+#define PROP_ID       Qt::UserRole
+#define PROP_UNIVERSE Qt::UserRole + 1
+#define PROP_ADDRESS  Qt::UserRole + 2
+#define PROP_PATCH    Qt::UserRole + 3
 
 class SoftpatchEditor: public QDialog, public Ui_SoftpatchEditor
 {
@@ -33,11 +39,12 @@ class SoftpatchEditor: public QDialog, public Ui_SoftpatchEditor
     Q_DISABLE_COPY(SoftpatchEditor)
 
 public:
-    SoftpatchEditor(Doc* doc, QWidget *parent = 0);
+    SoftpatchEditor(Doc* doc, FixtureManager *mgr, QWidget *parent=0);
     ~SoftpatchEditor();
 
 private:
     Doc* m_doc;
+    FixtureManager* m_fixture_manager;
 
 protected:
     void updateFixturesTree();
@@ -45,6 +52,10 @@ protected:
 protected slots:
     /** Slot called when Test Button is pressed / released */
     void slotTestButtonPressed();
+
+    /** Slot called when channel address is changed */
+    /** Used for checks */
+    void slotChannelPatched(int);
 
     /** Callback for OK button clicks */
     void accept();

@@ -40,7 +40,7 @@
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>PushButton</string>
+        <string>Test Channel</string>
        </property>
       </widget>
      </item>

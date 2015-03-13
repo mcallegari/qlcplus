@@ -1313,6 +1313,7 @@ void FixtureManager::editFixtureProperties()
           msg.exec();
       }
     }
+    updateView();
 }
 
 void FixtureManager::editChannelGroupProperties()
@@ -1495,7 +1496,7 @@ void FixtureManager::slotMoveGroupDown()
 
 void FixtureManager::slotSoftpatch()
 {
-    SoftpatchEditor spe(m_doc);
+    SoftpatchEditor spe(m_doc, this);
     if (spe.exec() == QDialog::Rejected)
         return; // User pressed cancel
 
