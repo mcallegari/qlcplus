@@ -28,6 +28,7 @@
 #include "enttecdmxusbopen.h"
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
 #include "nanodmx.h"
+#include "euroliteusbdmxpro.h"
 #endif
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
@@ -155,12 +156,14 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
         // Skip non wanted devices
         if (dev_descriptor.idVendor != QLCFTDI::FTDIVID &&
-            dev_descriptor.idVendor != QLCFTDI::ATMELVID)
+            dev_descriptor.idVendor != QLCFTDI::ATMELVID &&
+            dev_descriptor.idVendor != QLCFTDI::MICROCHIPVID)
                 continue;
 
         if (dev_descriptor.idProduct != QLCFTDI::FTDIPID &&
             dev_descriptor.idProduct != QLCFTDI::DMX4ALLPID &&
-            dev_descriptor.idProduct != QLCFTDI::NANODMXPID)
+            dev_descriptor.idProduct != QLCFTDI::NANODMXPID &&
+            dev_descriptor.idProduct != QLCFTDI::EUROLITEPID)
                 continue;
 
         char ser[256];
@@ -209,6 +212,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             }
             case DMXUSBWidget::VinceTX:
                 widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
+                break;
+            case DMXUSBWidget::DMX4ALL:
+                widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
                 break;
             default:
             case DMXUSBWidget::ProRXTX:
@@ -278,6 +284,13 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                  dev_descriptor.idProduct == QLCFTDI::NANODMXPID)
         {
             widgetList << new NanoDMX(serial, name, vendor, (void *)dev, output_id++);
+        }
+#endif
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+        else if (dev_descriptor.idVendor == QLCFTDI::MICROCHIPVID &&
+                 dev_descriptor.idProduct == QLCFTDI::EUROLITEPID)
+        {
+            widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
         }
 #endif
         else

@@ -56,9 +56,11 @@ class QLCFTDI
 public:
     static const int FTDIVID = 0x0403;    //! FTDI Vendor ID
     static const int ATMELVID = 0x03EB;   //! Atmel Vendor ID
+    static const int MICROCHIPVID = 0x04D8;   //! Microchip Vendor ID
     static const int FTDIPID = 0x6001;    //! FTDI Product ID
     static const int DMX4ALLPID = 0xC850; //! DMX4ALL FTDI Product ID
     static const int NANODMXPID = 0x2018; //! DMX4ALL Nano DMX Product ID
+    static const int EUROLITEPID = 0xFA63; //! Eurolite USB DMX Product ID
 
 #if defined(FTD2XX)
     static QString readLabel(quint32 id, uchar label, int *ESTA_code);
