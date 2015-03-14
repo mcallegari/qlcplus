@@ -29,10 +29,10 @@ Rectangle {
         anchors.fill: parent
         color: "transparent"
 
-        property string currentViewQML: "qrc:///UniverseGridView.qml"
+        property string currentViewQML: "qrc:/2DView.qml"
         // string holding the current view. Used by the C++ for dynamic objects
         // creation
-        property string currentView: "UniverseGrid"
+        property string currentView: "2D"
         property bool docLoaded: qlcplus.docLoaded
 
         onCurrentViewChanged: qlcplus.selectPreviewContext(currentView)
@@ -95,14 +95,13 @@ Rectangle {
                         imgSource: "uniview.svg"
                         entryText: qsTr("Universe View")
                         checkable: true
-                        checked: true
                         checkedColor: "yellow"
                         bgGradient: ffMenuGradient
                         exclusiveGroup: menuBarGroup2
                         onCheckedChanged: {
                             if (checked == true)
                             {
-                                currentViewQML = "qrc:///UniverseGridView.qml"
+                                currentViewQML = "qrc:/UniverseGridView.qml"
                                 currentView = "UniverseGrid"
                             }
                         }
@@ -119,7 +118,7 @@ Rectangle {
                         onCheckedChanged: {
                             if (checked == true)
                             {
-                                currentViewQML = "qrc:///DMXView.qml"
+                                currentViewQML = "qrc:/DMXView.qml"
                                 currentView = "DMX"
                             }
                         }
@@ -129,13 +128,14 @@ Rectangle {
                         imgSource: "2dview.svg"
                         entryText: qsTr("2D View")
                         checkable: true
+                        checked: true
                         checkedColor: "yellow"
                         bgGradient: ffMenuGradient
                         exclusiveGroup: menuBarGroup2
                         onCheckedChanged: {
                             if (checked == true)
                             {
-                                currentViewQML = "qrc:///2DView.qml"
+                                currentViewQML = "qrc:/2DView.qml"
                                 currentView = "2D"
                             }
                         }
@@ -151,7 +151,7 @@ Rectangle {
                         onCheckedChanged: {
                             if (checked == true)
                             {
-                                currentViewQML = "qrc:///3DView.qml"
+                                currentViewQML = "qrc:/3DView.qml"
                                 currentView = "3D"
                             }
                         }

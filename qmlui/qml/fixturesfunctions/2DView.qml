@@ -24,6 +24,7 @@ Rectangle {
     color: "black"
 
     onWidthChanged: twoDView.calculateCellSize()
+    onHeightChanged: twoDView.calculateCellSize()
 
     Flickable {
         id: twoDView
@@ -49,6 +50,8 @@ Rectangle {
         onGridUnitsChanged: calculateCellSize();
 
         function calculateCellSize() {
+            if (width <= 0 || height <= 0)
+                return;
             var xDiv = width / gridWidth;
             var yDiv = height / gridHeight;
             twoDContents.x = 0;
@@ -69,7 +72,8 @@ Rectangle {
             contentHeight = baseCellSize * gridHeight;
 
             console.log("Cell size calculated: " + baseCellSize)
-            twoDContents.requestPaint();
+            if (baseCellSize > 0)
+                twoDContents.requestPaint();
         }
 
         Canvas {

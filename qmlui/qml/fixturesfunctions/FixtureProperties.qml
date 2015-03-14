@@ -122,7 +122,7 @@ Rectangle {
                 label: qsTr("Address")
                 fontSize: 14
             }
-            SpinBox {
+            CustomSpinBox {
                 id: fxAddressSpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 height: 30
@@ -138,7 +138,7 @@ Rectangle {
                 label: qsTr("Quantity")
                 fontSize: 14
             }
-            SpinBox {
+            CustomSpinBox {
                 id: fxQuantitySpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 height: 30
@@ -161,7 +161,7 @@ Rectangle {
                 label: qsTr("Channels")
                 fontSize: 14
             }
-            SpinBox {
+            CustomSpinBox {
                 id: fxModeChSpin
                 height: 30
                 Layout.fillWidth: true
@@ -178,7 +178,7 @@ Rectangle {
                 fontSize: 14
             }
 
-            SpinBox {
+            CustomSpinBox {
                 id: fxGapSpin
                 height: 30
                 Layout.fillWidth: true

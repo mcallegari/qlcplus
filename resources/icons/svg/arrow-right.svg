@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg3698"
@@ -37,11 +36,11 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
-     inkscape:window-height="700"
+     inkscape:window-height="698"
      id="namedview19"
      showgrid="false"
      inkscape:zoom="14.75"
-     inkscape:cx="-4.6101695"
+     inkscape:cx="-6.1025319"
      inkscape:cy="8"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
@@ -101,44 +100,10 @@
          style="stop-color:#274feb;stop-opacity:1;"
          offset="1" />
     </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3663"
-       id="linearGradient3000"
-       gradientUnits="userSpaceOnUse"
-       x1="30"
-       y1="221"
-       x2="30"
-       y2="234"
-       gradientTransform="matrix(-1,0,0,1,38,-219)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3655"
-       id="linearGradient3772"
-       gradientUnits="userSpaceOnUse"
-       x1="31.341"
-       y1="235.03"
-       x2="31.341"
-       y2="224.67999" />
   </defs>
-  <g
-     style="stroke:url(#linearGradient3772)"
-     id="g4873"
-     transform="matrix(-1,0,0,1,38,-219)">
-    <path
-       inkscape:connector-curvature="0"
-       d="m 32,221 -5.5,5.5 5.5,5.5"
-       style="fill:none;stroke:url(#linearGradient3772);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;enable-background:new"
-       id="path2932-4" />
-  </g>
   <path
-     inkscape:connector-curvature="0"
-     d="M 6,2 11.5,7.5 6,13"
-     style="fill:none;stroke:url(#linearGradient3000);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     id="path2932" />
-  <path
-     inkscape:connector-curvature="0"
-     d="M 6,1.5 11.5,7 6,12.5"
-     style="opacity:0.4;fill:none;stroke:#ffffff;stroke-linecap:round;enable-background:new"
-     id="path2932-0" />
+     id="path2932-4"
+     style="fill:none;fill-opacity:0;stroke:#969696;stroke-width:3.29999995000000013;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;enable-background:new"
+     d="m 5.25,2.5 5.5,5.5 -5.5,5.5"
+     inkscape:connector-curvature="0" />
 </svg>

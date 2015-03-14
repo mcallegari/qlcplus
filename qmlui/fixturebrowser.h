@@ -32,11 +32,11 @@ class FixtureBrowser : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged)
-    Q_PROPERTY(QStringList manufacturers READ manufacturers)
+    Q_PROPERTY(QStringList manufacturers READ manufacturers CONSTANT)
     Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
-    Q_PROPERTY(QStringList models READ models)
+    Q_PROPERTY(QStringList models READ models CONSTANT)
     Q_PROPERTY(QString mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(QStringList modes READ modes)
+    Q_PROPERTY(QStringList modes READ modes CONSTANT)
     Q_PROPERTY(int modeChannels READ modeChannels NOTIFY modeChannelsChanged)
 
 public:

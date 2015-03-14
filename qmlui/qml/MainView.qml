@@ -56,8 +56,8 @@ Rectangle {
         z: 50
         gradient: Gradient {
             id: bgGradient
-            GradientStop { position: 0 ; color: "#171717" }
-            GradientStop { position: 1 ; color: "#000" }
+            GradientStop { position: 0 ; color: "#1a1a1a" }
+            GradientStop { position: 1 ; color: "#111" }
         }
 
         RowLayout {

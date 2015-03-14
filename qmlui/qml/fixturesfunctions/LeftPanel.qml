@@ -142,7 +142,12 @@ Rectangle {
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
                 onCheckedChanged: {
-
+                    colTool.visible = !colTool.visible
+                }
+                ColorTool {
+                    id: colTool
+                    x: iconSize + 2
+                    visible: false
                 }
             }
 

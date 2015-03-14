@@ -44,7 +44,7 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
 {
-    m_currentPreviewContext = "UniverseGrid";
+    m_currentPreviewContext = "2D";
 }
 
 App::~App()
@@ -87,6 +87,7 @@ void App::startup()
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));
+    selectPreviewContext(m_currentPreviewContext);
 }
 
 void App::show()
@@ -97,6 +98,7 @@ void App::show()
 
 void App::selectPreviewContext(QString context)
 {
+    qDebug() << "[App] Selecting preview context:" << context;
     m_currentPreviewContext = context;
     if (context == "2D")
     {
@@ -144,7 +146,7 @@ void App::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
         return;
 
     QString currentView = viewObj->property("currentView").toString();
-    qDebug() << "Current view:" << currentView;
+    qDebug() << "[App] Current view:" << currentView;
 
     if (currentView == "2D")
     {

@@ -69,16 +69,14 @@ Rectangle {
         onValueChanged: currentValue = slider.value
     }
 
-    SpinBox {
+    CustomSpinBox {
         id: spinBox
         x: 10
         y: 300
-        width: 70
+        width: 75
         height: 40
         minimumValue: 0
         maximumValue: slider.maximumValue
-        font.family: "RobotoCondensed"
-        font.pointSize: 14
         value: slider.value
 
         onValueChanged: slider.value = value

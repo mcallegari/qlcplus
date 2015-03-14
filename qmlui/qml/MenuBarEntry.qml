@@ -22,7 +22,7 @@ import QtQuick.Controls 1.2
 
 Rectangle {
     id: menuEntry
-    width: parent.height + textBox.width + 5
+    width: btnIcon.width + textBox.width + 10
     height: parent.height
 
     property color checkedColor: "#12B4FF"
@@ -60,8 +60,8 @@ Rectangle {
 
     Gradient {
         id: defBgGradient
-        GradientStop { position: 0 ; color: "#171717" }
-        GradientStop { position: 1 ; color: "#000" }
+        GradientStop { position: 0 ; color: "transparent" }
+        //GradientStop { position: 1 ; color: "#111" }
     }
     Gradient {
         id: defSelectionGradient
@@ -82,7 +82,7 @@ Rectangle {
 
         BorderImage {
             id: btnIcon
-            height: parent.height - 4
+            height: imgSource == "" ? 0 : parent.height - 4
             width: height
             x: 2
             y: 2

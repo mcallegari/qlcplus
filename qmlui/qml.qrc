@@ -14,6 +14,7 @@
         <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
         <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
         <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
+        <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
         <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
         <file alias="FolderDelegate.qml">qml/FolderDelegate.qml</file>
         <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
@@ -22,6 +23,8 @@
         <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
         <file alias="LeftPanel.qml">qml/fixturesfunctions/LeftPanel.qml</file>
         <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
+        <file alias="ColorTool.qml">qml/fixturesfunctions/ColorTool.qml</file>
+        <file alias="ColorToolBasic.qml">qml/fixturesfunctions/ColorToolBasic.qml</file>
         <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
