@@ -38,7 +38,7 @@ Rectangle {
         radius: 10
         border.width: 2
 
-        BorderImage {
+        Image {
             id: borderImage1
             y: 3
             width: 24
@@ -46,6 +46,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: 6
             source: "qrc:/search.svg"
+            sourceSize: Qt.size(24, 24)
         }
 
         TextEdit {

@@ -64,11 +64,12 @@ Rectangle {
         }
     }
 
-    BorderImage {
+    Image {
         id: btnIcon
         anchors.fill: parent
         anchors.margins: 4
         source: imgSource
+        sourceSize: Qt.size(width, height)
     }
 
     MouseArea {

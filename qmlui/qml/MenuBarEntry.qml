@@ -80,13 +80,14 @@ Rectangle {
         anchors.fill: parent
         anchors.leftMargin: 3
 
-        BorderImage {
+        Image {
             id: btnIcon
             height: imgSource == "" ? 0 : parent.height - 4
             width: height
             x: 2
             y: 2
             source: imgSource
+            sourceSize: Qt.size(width, height)
         }
 
         Rectangle {

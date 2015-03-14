@@ -51,6 +51,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 4
         clip: false
+        font.family: "RobotoCondensed"
         font.pixelSize: 17
         text: inputText
         echoMode: TextInput.Normal
