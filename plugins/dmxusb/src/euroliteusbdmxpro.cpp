@@ -2,7 +2,7 @@
   Q Light Controller Plus
   euroliteusbdmxpro.cpp
 
-  Copyright (C) Massimo Callegari
+  Copyright (C) Karri Kaksonen based on nanodmx.cpp by Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -42,32 +42,7 @@ EuroliteUSBDMXPro::~EuroliteUSBDMXPro()
 
 DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
 {
-    return DMXUSBWidget::DMX4ALL;
-}
-
-bool EuroliteUSBDMXPro::checkReply()
-{
-    QByteArray reply = m_file.readAll();
-    qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    for (int i = 0; i < reply.count(); i++)
-    {
-        if (reply[i] == 'G')
-        {
-            qDebug() << Q_FUNC_INFO << name() << "Good connection.";
-            return true;
-        }
-    }
-
-    qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
-    return false;
-}
-
-bool EuroliteUSBDMXPro::sendChannelValue(int channel, uchar value)
-{
-    QByteArray chanMsg;
-    QString msg;
-    chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
-    return ftdi()->write(chanMsg);
+    return DMXUSBWidget::Eurolite;
 }
 
 QString EuroliteUSBDMXPro::getDeviceName()

@@ -2,7 +2,7 @@
   Q Light Controller Plus
   euroliteusbdmxpro.h
 
-  Copyright (C) Massimo Callegari
+  Copyright (C) Karri Kaksonen based on nanodmx.h by Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,12 +25,7 @@
 #include "dmxusbwidget.h"
 
 #define EUROLITE_USB_DMX_PRO_DMX_ZERO      char(0x00)
-#define EUROLITE_USB_DMX_PRO_RECV_DMX_PKT  char(0x05)
 #define EUROLITE_USB_DMX_PRO_SEND_DMX_RQ   char(0x06)
-#define EUROLITE_USB_DMX_PRO_READ_SERIAL   char(0x0A)
-#define EUROLITE_USB_DMX_PRO_ENABLE_API2   char(0x0D)
-#define EUROLITE_USB_DMX_PRO_SEND_DMX_RQ2  char(0xA9)
-#define EUROLITE_USB_DMX_PRO_PORT_ASS_REQ  char(0xCB)
 #define EUROLITE_USB_DMX_PRO_START_OF_MSG  char(0x7E)
 #define EUROLITE_USB_DMX_PRO_END_OF_MSG    char(0xE7)
 
@@ -69,8 +64,6 @@ public:
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
-    bool checkReply();
-    bool sendChannelValue(int channel, uchar value);
     QString getDeviceName();
 
 private:
