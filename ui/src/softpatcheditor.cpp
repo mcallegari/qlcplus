@@ -19,6 +19,7 @@
 
 #include <QTreeWidgetItem>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QSpinBox>
 
 #include "softpatcheditor.h"
@@ -83,18 +84,23 @@ void SoftpatchEditor::updateFixturesTree()
             topItem->setText(KColumnUniverse, QString::number(uni + 1));
             topItem->setExpanded(true);
         }
+
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
+
         // Column Name
         fItem->setText(KColumnName, fxi->name());
         fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
         fItem->setData(KColumnName, PROP_ID, fxi->id());
+
         // Column Universe
         fItem->setText(KColumnUniverse, QString::number(fxi->universe() + 1));
+
         // Column Address
         QString s;
         s.sprintf("%.3d - %.3d", fxi->address() + 1, fxi->address() + fxi->channels());
         fItem->setText(KColumnAddress, s);
         fItem->setData(KColumnAddress, PROP_ADDRESS, fxi->address());
+
         // Column Softpatch
         QSpinBox *spin = new QSpinBox();
         spin->setRange(1, 255);
@@ -109,6 +115,19 @@ void SoftpatchEditor::updateFixturesTree()
     m_tree->resizeColumnToContents(KColumnPatch);
 }
 
+bool SoftpatchEditor::hasOverlappingChannels()
+{
+    int count;
+
+    const QList<int> keys = m_overlappingChannels.keys();
+    for (int i = 0; i < keys.size(); i++)
+    {
+        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
+        count += values.size();
+    }
+    return count;
+}
+
 void SoftpatchEditor::slotTestButtonPressed()
 {
     // switches on (pressed) and off (released) channels
@@ -116,12 +135,99 @@ void SoftpatchEditor::slotTestButtonPressed()
 
 void SoftpatchEditor::slotChannelPatched(int address)
 {
-    Q_UNUSED(address);
-    //spin->setStyleSheet("QWidget {color:red}");
+    QSpinBox* senderSpin = qobject_cast<QSpinBox*>(QObject::sender());
+    QVariant var = senderSpin->property("treeItem");
+    QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
+    quint32 senderFxID = item->data(KColumnName, PROP_ID).toUInt();
+    Fixture* senderFxi = m_doc->fixture(senderFxID);
+    quint32 numChannels = senderFxi->channels();
+
+    //FIXME: limit to first universe now
+    if (senderFxi->universe() > 0)
+        return;
+
+    // search overlapping map for current item and reset it to white
+    const QList<int> keys = m_overlappingChannels.keys();
+    for (int i = 0; i < keys.size(); i++)
+    {
+        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
+        foreach (QTreeWidgetItem* fItem, values)
+        {
+            if (fItem == item)
+            {
+                // unmark current item and remove it from map
+                QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
+                spin->setStyleSheet("QWidget {background-color:white}");
+                m_overlappingChannels.remove(keys[i], fItem);
+            }
+        }
+    }
+
+    // loop through map keys (channels) for single entries and remove them
+    for (int i = 0; i < keys.size(); i++)
+    {
+        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
+        // leftover single map entries (umark them)
+        if (values.size() == 1)
+        {
+            QTreeWidgetItem *fItem = values.at(0);
+            QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
+            spin->setStyleSheet("QWidget {background-color:white}");
+            m_overlappingChannels.remove(keys[i], fItem);
+        }
+    }
+
+    // test fixture tree on overlapping channels
+    for (int t = 0; t < m_tree->topLevelItemCount(); t++)
+    {
+        QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
+        for (int f = 0; f < uniItem->childCount(); f++)
+        {
+            QTreeWidgetItem *fItem = uniItem->child(f);
+            quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
+            Fixture *testFixture = m_doc->fixture(fxID);
+            if (senderFxID != fxID)
+            {
+                quint32 testNumChannels = testFixture->channels();
+                QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
+
+                // check on overlapping channel
+                quint32 testAddress = spin->value();
+
+                // check first and last channel of current fixture
+                if ((quint32(address) >= testAddress && quint32(address) < testAddress + testNumChannels)
+                || (quint32(address + numChannels -1) >= testAddress && quint32(address + numChannels -1) < testAddress + testNumChannels))
+                {
+                    // insert overlapping channels into map
+                    if (!m_overlappingChannels.contains(address, fItem))
+                        m_overlappingChannels.insertMulti(address, fItem);
+                    if (!m_overlappingChannels.contains(address, item))
+                        m_overlappingChannels.insertMulti(address, item);
+                }
+            }
+        }
+
+        // all overlapping channels marked red now
+        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(address);
+        for (int i = 0; i < values.size(); ++i)
+        {
+            QTreeWidgetItem *fItem = values.at(i);
+            QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
+            spin->setStyleSheet("QWidget {background-color:red}");
+        }
+    }
 }
 
 void SoftpatchEditor::accept()
 {
+    if(hasOverlappingChannels())
+    {
+        QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                        tr("Please solve overlapping channels first"), QMessageBox::Ok);
+        msg.exec();
+        return;
+    }
+
     QList<Universe*> unis = m_doc->inputOutputMap()->claimUniverses();
 
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
@@ -133,7 +239,9 @@ void SoftpatchEditor::accept()
             quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
             QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
             Fixture *fixture = m_doc->fixture(fxID);
-            if (fixture != NULL)
+
+            //FIXME: limit to first universe for now
+            if (fixture != NULL && fixture->universe() == 0)
             {
                 //quint32 universe = fixture->universe();
                 //unis[universe]->reset(fixture->address(), fixture->channels());
@@ -141,10 +249,10 @@ void SoftpatchEditor::accept()
                 //fixture->setUniverse(universe);
                 fixture->setAddress(spin->value()-1);
                 emit m_doc->fixtureChanged(fixture->id());
-                m_fixture_manager->updateView();
             }
         }
     }
+    m_fixture_manager->updateView();
     m_doc->inputOutputMap()->releaseUniverses(true);
     QDialog::accept();
 }

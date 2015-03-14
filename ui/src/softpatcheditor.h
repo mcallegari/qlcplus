@@ -45,9 +45,13 @@ public:
 private:
     Doc* m_doc;
     FixtureManager* m_fixture_manager;
+    QMultiMap<int, QTreeWidgetItem*> m_overlappingChannels;
 
 protected:
     void updateFixturesTree();
+
+    /** returns if overlapping channels in current softpatch */
+    bool hasOverlappingChannels();
 
 protected slots:
     /** Slot called when Test Button is pressed / released */
