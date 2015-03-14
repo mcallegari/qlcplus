@@ -33,16 +33,17 @@ Rectangle {
     Column {
         id: fxColumn
         Rectangle {
-            color: "#555"
+            color: "#111"
             width: parent.width
             height: 20
             //radius: 3
+            clip: true
 
             RobotoText {
-                x: 2
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 2
                 label: fixtureObj.name
+                fontSize: 15
             }
         }
         Row {
