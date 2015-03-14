@@ -213,7 +213,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             case DMXUSBWidget::VinceTX:
                 widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
                 break;
-            case DMXUSBWidget::DMX4ALL:
+            case DMXUSBWidget::Eurolite:
                 widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
                 break;
             default:
