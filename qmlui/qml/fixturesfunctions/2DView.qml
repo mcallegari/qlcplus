@@ -98,7 +98,9 @@ Rectangle {
             property bool justStarted
 
             anchors.fill: parent
-            z: 2 // make sure we're above the Canvas element
+            z: 1 // make sure we're above the Canvas element
+            propagateComposedEvents: true
+
             onPressed: {
                 if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
                 {
