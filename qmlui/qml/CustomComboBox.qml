@@ -24,6 +24,7 @@ import QtQuick.Controls.Styles 1.2
 ComboBox {
     implicitHeight: 24
     implicitWidth: 150
+    currentIndex: 0
     style: ComboBoxStyle {
         background: Rectangle {
             anchors.fill: parent
@@ -42,7 +43,7 @@ ComboBox {
 
                 Image {
                     anchors.centerIn: parent
-                    source: "arrowdown.png"
+                    source: "qrc:/arrowdown.png"
                 }
             }
          }

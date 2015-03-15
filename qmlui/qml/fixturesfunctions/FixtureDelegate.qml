@@ -27,7 +27,7 @@ Item {
     height: 32
 
     //property alias text: textitem.text
-    property bool visibleArrow: true
+    property bool isManufacturer: false
     property string iconSource: ""
     property string manufacturer: ""
     property int channels: 1
@@ -68,7 +68,7 @@ Item {
 
     Image {
         id: rightArrow
-        visible: visibleArrow
+        visible: isManufacturer
         anchors.right: parent.right
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
@@ -89,11 +89,17 @@ Item {
 
         //onPressed: if(drag.active) FxDragJS.startDrag(mouse);
         onPressed: {
-                if (fxDraggableItem.visibleArrow == false)
+                if (fxDraggableItem.isManufacturer == false)
+                {
                     fxDraggableItem.clicked();
-                FxDragJS.initProperties();
+                    FxDragJS.initProperties();
+                }
         }
-        onPositionChanged: if(drag.active == true) FxDragJS.handleDrag(mouse);
-        onReleased: if(drag.active == true) FxDragJS.endDrag(mouse);
+        onPositionChanged:
+            if(fxDraggableItem.isManufacturer == false && drag.active == true)
+                FxDragJS.handleDrag(mouse);
+        onReleased:
+            if(fxDraggableItem.isManufacturer == false && drag.active == true)
+                        FxDragJS.endDrag(mouse);
     }
 }

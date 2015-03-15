@@ -21,9 +21,9 @@ import QtQuick 2.3
 
 Rectangle {
     property int channels: 1;
-    property string manufacturer: fixtureBrowser.manufacturer
-    property string model: fixtureBrowser.model
-    property string mode: fixtureBrowser.mode
+    property string manufacturer
+    property string model
+    property string mode
 
     width: 80
     height: 80

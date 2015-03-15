@@ -21,9 +21,12 @@ import QtQuick 2.0
 import QtQuick.Controls 1.1
 
 Rectangle {
-    id: rectangle2
+    id: fxBrowserBox
     anchors.fill: parent
     color: "transparent"
+
+    property string selectedManufacturer
+    property string selectedModel
 
     Rectangle {
         id: searchBox
@@ -39,7 +42,7 @@ Rectangle {
         border.width: 2
 
         Image {
-            id: borderImage1
+            id: searchIcon
             y: 3
             width: 24
             height: 24
@@ -51,8 +54,10 @@ Rectangle {
 
         TextEdit {
             id: textEdit1
+            x: searchIcon.width + 10
             y: 3
             height: 24
+            width: searchBox.width - searchIcon.width - 10
             color: "#ffffff"
             text: qsTr("")
             font.pixelSize: 18
@@ -74,14 +79,15 @@ Rectangle {
         anchors.leftMargin: 8
         focus: true
 
-        model: fixtureBrowser.manufacturers
+        model: fixtureBrowser.manufacturers()
         delegate: FixtureDelegate {
+            isManufacturer: true
             onClicked: {
-                fixtureBrowser.manufacturer = modelData
+                selectedManufacturer = modelData
                 mfText.label = modelData
                 //console.log("Pressed:" + modelData)
                 manufacturerList.visible = false
-                fixtureList.model = fixtureBrowser.models
+                fixtureList.model = fixtureBrowser.models(modelData)
                 fixtureList.currentIndex = -1
                 fixtureArea.visible = true
             }
@@ -160,15 +166,13 @@ Rectangle {
 
             delegate: FixtureDelegate {
                 id: dlg
-                visibleArrow: false
-                manufacturer: fixtureBrowser.manufacturer
+                manufacturer: selectedManufacturer
                 onClicked: {
                     fixtureList.currentIndex = index
                     fixtureBrowser.model = modelData
-                    fxPropsRect.fxManufacturer = fixtureBrowser.manufacturer
+                    fxPropsRect.fxManufacturer = selectedManufacturer
                     fxPropsRect.fxModel = modelData
                     fxPropsRect.fxName = modelData
-                    fxPropsRect.fxModes = fixtureBrowser.modes
                     fxPropsRect.visible = true
                 }
             }

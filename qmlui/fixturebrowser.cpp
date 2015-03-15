@@ -29,22 +29,10 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
     , m_view(view)
-    , m_manufacturer(QString())
-    , m_model(QString())
     , m_definition(NULL)
-    , m_mode(NULL)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_view != NULL);
-
-/*
-    QObject *loaderObj = view->rootObject()->findChild<QObject *>("editorLoader");
-
-    if (loaderObj != NULL)
-        connect(loaderObj, SIGNAL(loaded()), this, SLOT(slotUiEditorLoaded()));
-    else
-        qDebug () << "Cannot find the editor loader object !";
-*/
 }
 
 QStringList FixtureBrowser::manufacturers()
@@ -54,63 +42,36 @@ QStringList FixtureBrowser::manufacturers()
     return mfList;
 }
 
-void FixtureBrowser::setModel(QString model)
+QStringList FixtureBrowser::models(QString manufacturer)
 {
-    m_model = model;
-    m_definition = m_doc->fixtureDefCache()->fixtureDef(m_manufacturer, m_model);
-    if (m_definition != NULL)
-    {
-        QList<QLCFixtureMode *> modesList = m_definition->modes();
-        if (modesList.count() > 0)
-        {
-            m_mode = modesList.first();
-            emit modeChannelsChanged();
-        }
-    }
-}
-
-QStringList FixtureBrowser::models()
-{
-    qDebug() << "Fixtures list for" << m_manufacturer;
-    QStringList fxList = m_doc->fixtureDefCache()->models(m_manufacturer);
+    qDebug() << "Fixtures list for" << manufacturer;
+    QStringList fxList = m_doc->fixtureDefCache()->models(manufacturer);
     fxList.sort();
     return fxList;
 }
 
-QString FixtureBrowser::mode() const
+QStringList FixtureBrowser::modes(QString manufacturer, QString model)
 {
-    if (m_mode != NULL)
-        return m_mode->name();
-    return QString();
-}
+    QStringList modesList;
 
-void FixtureBrowser::setMode(QString name)
-{
-    if (m_definition != NULL)
-    {
-        m_mode = m_definition->mode(name);
-        emit modeChannelsChanged();
-    }
-}
-
-QStringList FixtureBrowser::modes()
-{
-    QStringList modes;
+    m_definition = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
 
     if (m_definition != NULL)
     {
-        QList<QLCFixtureMode *> modesList = m_definition->modes();
-        foreach(QLCFixtureMode *mode, modesList)
-            modes.append(mode->name());
+        QList<QLCFixtureMode *> fxModesList = m_definition->modes();
+        foreach(QLCFixtureMode *mode, fxModesList)
+            modesList.append(mode->name());
     }
-    return modes;
+    return modesList;
 }
 
-int FixtureBrowser::modeChannels()
+int FixtureBrowser::modeChannels(QString modeName)
 {
-    if (m_mode != NULL)
+    if (m_definition != NULL)
     {
-        return m_mode->channels().count();
+        QLCFixtureMode *mode = m_definition->mode(modeName);
+        if (mode != NULL)
+            return mode->channels().count();
     }
     return 0;
 }

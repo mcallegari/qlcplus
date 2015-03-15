@@ -66,7 +66,9 @@ function createItem()
 {
     if (itemComponent.status === Component.Ready && draggedItem == null)
     {
-        draggedItem = itemComponent.createObject(mainView, {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10});
+        draggedItem = itemComponent.createObject(mainView,
+                  {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
+                   "manufacturer": manufacturer, "model": model });
     }
     else if (itemComponent.status === Component.Error)
     {

@@ -26,21 +26,8 @@ Rectangle {
     radius: 3
     color: "#333333"
 
-    property string inputText: ""
+    property alias inputText: textEdit2.text
 
-    /*
-    gradient: Gradient {
-        GradientStop {
-            position: 0
-            color: "#333"
-        }
-
-        GradientStop {
-            position: 0.993
-            color: "#000000"
-        }
-    }
-    */
     border.color: "#222"
 
     TextInput {
@@ -53,11 +40,7 @@ Rectangle {
         clip: false
         font.family: "RobotoCondensed"
         font.pixelSize: 17
-        text: inputText
         echoMode: TextInput.Normal
         anchors.verticalCenter: parent.verticalCenter
-        onTextChanged: {
-            inputText = text
-        }
     }
 }

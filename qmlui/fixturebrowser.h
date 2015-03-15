@@ -31,47 +31,24 @@ class FixtureBrowser : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged)
-    Q_PROPERTY(QStringList manufacturers READ manufacturers CONSTANT)
-    Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
-    Q_PROPERTY(QStringList models READ models CONSTANT)
-    Q_PROPERTY(QString mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(QStringList modes READ modes CONSTANT)
-    Q_PROPERTY(int modeChannels READ modeChannels NOTIFY modeChannelsChanged)
-
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    QString manufacturer() const { return m_manufacturer; }
-    void setManufacturer(QString manufacturer) { m_manufacturer = manufacturer; }
-    QStringList manufacturers();
-
-    QString model() const { return m_model; }
-    void setModel(QString model);
-    QStringList models();
-
-    QString mode() const;
-    void setMode(QString name);
-    QStringList modes();
-
-    int modeChannels();
+    Q_INVOKABLE QStringList manufacturers();
+    Q_INVOKABLE QStringList models(QString manufacturer);
+    Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
+    Q_INVOKABLE int modeChannels(QString modeName);
 
 signals:
-    void manufacturerChanged();
-    void modelChanged();
     void modeChanged();
     void modeChannelsChanged();
 
 protected slots:
-    //void slotUiEditorLoaded();
 
 private:
     Doc *m_doc;
     QQuickView *m_view;
-    QString m_manufacturer;
-    QString m_model;
     QLCFixtureDef *m_definition;
-    QLCFixtureMode *m_mode;
 };
 
 #endif // FIXTUREBROWSER_H

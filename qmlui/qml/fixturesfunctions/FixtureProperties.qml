@@ -29,17 +29,17 @@ Rectangle {
     radius: 4
     border.color: "#444"
 
-    property string fxManufacturer: ""
-    property string fxModel: ""
+    property string fxManufacturer
+    property string fxModel
     property string fxMode: fxModesCombo.currentText
-    property string fxName: ""
+    property string fxName
     property int fxUniverseIndex: fxUniverseCombo.currentIndex
     property int fxAddress: fxAddressSpin.value
     property int fxChannels: fxModeChSpin.value
     property int fxQuantity: fxQuantitySpin.value
     property int fxGap: fxGapSpin.value
 
-    property variant fxModes: null
+    onFxModeChanged: console.log("Mode changed: " + fxMode)
 
     Column {
         id: columnContainer
@@ -96,7 +96,7 @@ Rectangle {
             spacing: 4
 
             RobotoText {
-                id: fxUniverse
+                id: fxUniverseLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Universe")
@@ -116,7 +116,7 @@ Rectangle {
             spacing: 4
 
             RobotoText {
-                id: fxAddress
+                id: fxAddressLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Address")
@@ -132,7 +132,7 @@ Rectangle {
                 Layout.fillWidth: true
             }
             RobotoText {
-                id: fxQuantity
+                id: fxQuantityLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Quantity")
@@ -155,7 +155,7 @@ Rectangle {
             spacing: 4
 
             RobotoText {
-                id: fxModeCh
+                id: fxModeChLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Channels")
@@ -168,10 +168,10 @@ Rectangle {
                 minimumValue: 1
                 maximumValue: 512
                 decimals: 0
-                value: fixtureBrowser.modeChannels
+                value: fixtureBrowser.modeChannels(fxMode)
             }
             RobotoText {
-                id: fxGap
+                id: fxGapLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Gap")
@@ -194,7 +194,7 @@ Rectangle {
             spacing: 4
 
             RobotoText {
-                id: fxMode
+                id: fxModeLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Mode")
@@ -204,10 +204,10 @@ Rectangle {
             CustomComboBox {
                 id: fxModesCombo
                 height: 30
-                model: fxModes
+                model: fixtureBrowser.modes(fxManufacturer, fxModel)
                 Layout.fillWidth: true
                 onCurrentIndexChanged: {
-                    fixtureBrowser.mode = currentText
+                    fxProps.fxMode = currentText
                 }
             }
         }
