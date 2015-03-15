@@ -126,7 +126,7 @@ Rectangle {
                 }
                 IntensityTool {
                     id: intTool
-                    x: iconSize + 2
+                    x: iconSize + 4
                     visible: false
                 }
             }
@@ -146,7 +146,7 @@ Rectangle {
                 }
                 ColorTool {
                     id: colTool
-                    x: iconSize + 2
+                    x: iconSize + 4
                     visible: false
                 }
             }
