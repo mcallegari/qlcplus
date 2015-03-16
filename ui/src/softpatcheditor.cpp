@@ -180,6 +180,8 @@ void SoftpatchEditor::slotChannelPatched(int address)
         }
     }
 
+    //FIXME: working fast on spin boxes, temporarly marked (overlapping) channels are not unmarked
+
     // test fixture tree on overlapping channels
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
