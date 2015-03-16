@@ -149,6 +149,8 @@ void SoftpatchEditor::slotChannelPatched(int address)
     quint32 numChannels = senderFxi->channels();
     quint32 uniAddress = address + (senderFxi->universe() << 9);
 
+    senderSpin->blockSignals(true);
+
     // search overlapping map for current item and reset it to white
     const QList<int> keys = m_overlappingChannels.keys();
     for (int i = 0; i < keys.size(); i++)
@@ -180,8 +182,6 @@ void SoftpatchEditor::slotChannelPatched(int address)
         }
     }
 
-    //FIXME: working fast on spin boxes, temporarly marked (overlapping) channels are not unmarked
-
     // test fixture tree on overlapping channels
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
@@ -201,7 +201,7 @@ void SoftpatchEditor::slotChannelPatched(int address)
                 quint32 testAddress = spin->value() + (testUniverse << 9);
 
                 // check first and last channel of current fixture
-                if ((quint32(uniAddress) >= testAddress && quint32(uniAddress) < testAddress + testNumChannels)
+                if ((quint32(uniAddress) >= testAddress && quint32(uniAddress) < testAddress + testNumChannels - 1)
                 || (quint32(uniAddress + numChannels -1) >= testAddress && quint32(uniAddress + numChannels -1) < testAddress + testNumChannels))
                 {
                     // insert overlapping channels into map
@@ -221,6 +221,7 @@ void SoftpatchEditor::slotChannelPatched(int address)
         QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
         spin->setStyleSheet("QWidget {background-color:red}");
     }
+    senderSpin->blockSignals(false);
 }
 
 void SoftpatchEditor::accept()
