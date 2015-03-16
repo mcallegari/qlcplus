@@ -663,8 +663,6 @@ int Doc::totalPowerConsumption(int& fuzzy) const
 
 void Doc::slotFixtureChanged(quint32 id)
 {    
-    QTextStream out(stdout);
-
     /* Keep track of fixture addresses */
 
     if (m_fixtures.contains(id) == true)
