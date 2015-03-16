@@ -1281,7 +1281,12 @@ void FixtureManager::editFixtureProperties()
             fxi->setUniverse(af.universe());
         if (fxi->address() != af.address())
         {
-            m_doc->moveFixture(id, af.address());
+            /** BUG: this caused entries on the wrong universe (when universe is changed),
+             *  simpledesk was crashing because of this
+             *  as m_addresses is also handled by slotFixtureChanged() emitted by Fixtures itself
+             *  we dont need moveFixture
+             */
+            //m_doc->moveFixture(id, af.address());
             fxi->setAddress(af.address());
         }
 

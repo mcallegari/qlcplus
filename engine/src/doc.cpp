@@ -662,14 +662,30 @@ int Doc::totalPowerConsumption(int& fuzzy) const
 }
 
 void Doc::slotFixtureChanged(quint32 id)
-{
-    /* Keep track of fixture addresses */
-    Fixture* fxi = fixture(id);
-    for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
-    {
-        m_addresses[i] = id;
-    }
+{    
+    QTextStream out(stdout);
 
+    /* Keep track of fixture addresses */
+
+    if (m_fixtures.contains(id) == true)
+    {
+        Fixture* fxi = fixture(id);
+
+        /* cleanup first - search for old entry of this fixture*/
+        QMutableHashIterator <quint32,quint32> it(m_addresses);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            if (it.value() == id)
+                it.remove();
+        }
+
+        /* write new entries */
+        for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
+        {
+            m_addresses[i] = id;
+        }
+    }
     setModified();
     emit fixtureChanged(id);
 }
