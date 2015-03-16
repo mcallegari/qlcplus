@@ -38,7 +38,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="m_testButton">
        <property name="text">
         <string>Test Channel</string>
        </property>
@@ -60,7 +60,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="m_testButton">
+    <widget class="QDialogButtonBox" name="dialog_button">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -77,7 +77,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>m_testButton</sender>
+   <sender>dialog_button</sender>
    <signal>accepted()</signal>
    <receiver>SoftpatchEditor</receiver>
    <slot>accept()</slot>
@@ -93,7 +93,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_testButton</sender>
+   <sender>dialog_button</sender>
    <signal>rejected()</signal>
    <receiver>SoftpatchEditor</receiver>
    <slot>reject()</slot>

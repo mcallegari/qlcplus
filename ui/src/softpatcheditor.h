@@ -21,9 +21,10 @@
 #define SOFTPATCHEDITOR_H
 
 #include <QDialog>
+#include <QMutex>
 
 #include "ui_softpatcheditor.h"
-#include "scenevalue.h"
+#include "dmxsource.h"
 
 class Doc;
 class FixtureManager;
@@ -33,7 +34,7 @@ class FixtureManager;
 #define PROP_ADDRESS  Qt::UserRole + 2
 #define PROP_PATCH    Qt::UserRole + 3
 
-class SoftpatchEditor: public QDialog, public Ui_SoftpatchEditor
+class SoftpatchEditor: public QDialog, public Ui_SoftpatchEditor, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(SoftpatchEditor)
@@ -42,10 +43,20 @@ public:
     SoftpatchEditor(Doc* doc, FixtureManager *mgr, QWidget *parent=0);
     ~SoftpatchEditor();
 
+    /** @reimp */
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+
 private:
     Doc* m_doc;
     FixtureManager* m_fixture_manager;
     QMultiMap<int, QTreeWidgetItem*> m_overlappingChannels;
+    QMutex m_mutex;
+
+    bool runTest;
+    bool resetTest;
+    quint32 testUniverse;
+    int testChannel;
+    uchar testValue;
 
 protected:
     void updateFixturesTree();

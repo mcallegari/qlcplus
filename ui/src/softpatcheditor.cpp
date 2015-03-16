@@ -22,8 +22,6 @@
 #include <QMessageBox>
 #include <QSpinBox>
 
-#include <QTextStream>
-
 #include "softpatcheditor.h"
 #include "fixturemanager.h"
 #include "universe.h"
@@ -38,8 +36,15 @@ SoftpatchEditor::SoftpatchEditor(Doc *doc, FixtureManager *mgr, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
     , m_fixture_manager(mgr)
+    , runTest(false)
+    , resetTest(false)
+    , testUniverse(0)
+    , testChannel(0)
+    , testValue(0)
 {
     Q_ASSERT(doc != NULL);
+
+    m_doc->masterTimer()->registerDMXSource(this, "SoftpatchTest");
 
     setupUi(this);
 
@@ -59,6 +64,9 @@ SoftpatchEditor::SoftpatchEditor(Doc *doc, FixtureManager *mgr, QWidget *parent)
 SoftpatchEditor::~SoftpatchEditor()
 {
     m_overlappingChannels.clear();
+    m_mutex.lock();
+    m_doc->masterTimer()->unregisterDMXSource(this);
+    m_mutex.unlock();
 }
 
 void SoftpatchEditor::updateFixturesTree()
@@ -135,13 +143,36 @@ bool SoftpatchEditor::hasOverlappingChannels()
 
 void SoftpatchEditor::slotTestButtonPressed()
 {
-    // on/off button - on (pressed) and off (released) channels
+
+    if (m_testButton->isDown())
+    {
+        m_mutex.lock();
+        QTreeWidgetItem* item = m_tree->currentItem();
+        quint32 FxID = item->data(KColumnName, PROP_ID).toUInt();
+        Fixture* fxi = m_doc->fixture(FxID);
+        QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(item, KColumnPatch);
+
+        testChannel = spin->value() - 1;
+        testUniverse = fxi->universe();
+        testValue = uchar(255);
+        runTest = true;
+        resetTest = false;
+        m_mutex.unlock();
+    }
+    else
+    {
+        m_mutex.lock();
+        testValue = uchar(0);
+        resetTest = true;
+        m_mutex.unlock();
+    }
 }
 
 void SoftpatchEditor::slotChannelPatched(int address)
 {
-    QTextStream out(stdout);
     QSpinBox* senderSpin = qobject_cast<QSpinBox*>(QObject::sender());
+    senderSpin->blockSignals(true);
+
     QVariant var = senderSpin->property("treeItem");
     QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
     quint32 senderFxID = item->data(KColumnName, PROP_ID).toUInt();
@@ -149,7 +180,6 @@ void SoftpatchEditor::slotChannelPatched(int address)
     quint32 numChannels = senderFxi->channels();
     quint32 uniAddress = address + (senderFxi->universe() << 9);
 
-    senderSpin->blockSignals(true);
 
     // search overlapping map for current item and reset it to white
     const QList<int> keys = m_overlappingChannels.keys();
@@ -245,11 +275,8 @@ void SoftpatchEditor::accept()
             quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
             QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
             Fixture *fixture = m_doc->fixture(fxID);
-
-            // FIXME: slotFixtureChanged seems to produce errors, by cutting one channels
-            //quint32 universe = fixture->universe();
-            //unis[universe]->reset(fixture->address(), fixture->channels());
-            //fixture->setUniverse(universe);
+            quint32 universe = fixture->universe();
+            fixture->setUniverse(universe);
             fixture->setAddress(spin->value()-1);
         }
     }
@@ -257,4 +284,18 @@ void SoftpatchEditor::accept()
     m_doc->inputOutputMap()->releaseUniverses();
     m_overlappingChannels.clear();
     QDialog::accept();
+}
+
+void SoftpatchEditor::writeDMX(MasterTimer* timer, QList<Universe *> ua)
+{
+    Q_UNUSED(timer);
+
+    m_mutex.lock();
+    if (runTest)
+    {
+        ua[testUniverse]->write(testChannel, testValue);
+        if (resetTest)
+            runTest = false;
+    }
+    m_mutex.unlock();
 }
