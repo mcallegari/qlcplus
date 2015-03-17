@@ -238,16 +238,14 @@ void VCMatrix::slotSliderMoved(int value)
 
     if (value == 0)
     {
-        if (function->stopped() == false)
-            function->stop();
+        function->stop(-1);
     }
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
         function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
 
-        if (function->stopped() == true)
-            function->start(m_doc->masterTimer());
+        function->start(m_doc->masterTimer(), -1);
     }
 }
 

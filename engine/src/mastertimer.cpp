@@ -271,18 +271,22 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 
     foreach (Function* f, m_startQueue)
     {
+        m_functionListMutex.unlock();
         //qDebug() << "[MasterTimer] Processing ID: " << f->id();
-        if (m_functionList.contains(f) == false)
+        if (m_functionList.contains(f))
+        {
+            f->postRun(this, universes);
+        }
+        else
         {
             m_functionList.append(f);
-            m_functionListMutex.unlock();
-            //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
-            f->preRun(this);
-            f->write(this, universes);
-            emit functionListChanged();
-            emit functionStarted(f->id());
-            m_functionListMutex.lock();
         }
+        //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
+        f->preRun(this);
+        f->write(this, universes);
+        emit functionListChanged();
+        emit functionStarted(f->id());
+        m_functionListMutex.lock();
         m_startQueue.removeOne(f);
     }
 

@@ -312,7 +312,7 @@ void FunctionSelection::refillTree()
     /* Fill the tree */
     foreach (Function* function, m_doc->functions())
     {
-        if (m_runningOnlyFlag == true && function->isRunning() == false)
+        if (m_runningOnlyFlag == true && !function->isRunning())
             continue;
 
         if (m_filter & function->type())

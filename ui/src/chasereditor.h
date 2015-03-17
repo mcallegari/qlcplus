@@ -146,8 +146,6 @@ private slots:
     void slotStepChanged(int stepNumber);
 
 private:
-    bool interruptRunning();
-    void continueRunning(bool running);
     int getCurrentIndex();
 
     /************************************************************************
@@ -168,9 +166,6 @@ private:
 
     /** Update the step numbers (col 0) for each list item */
     void updateStepNumbers();
-
-    /** Update the contents of m_chaser */
-    //void updateChaserContents();
 
     /** Set cut,copy,paste buttons enabled/disabled */
     void updateClipboardButtons();
