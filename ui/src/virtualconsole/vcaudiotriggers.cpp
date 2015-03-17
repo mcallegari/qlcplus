@@ -107,10 +107,10 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
     // create the  AudioBar items to hold the spectrum data.
     // To be loaded from the project
-    m_volumeBar = new AudioBar(AudioBar::None, 0);
+    m_volumeBar = new AudioBar(AudioBar::None, 0, id());
     for (int i = 0; i < m_inputCapture->defaultBarsNumber(); i++)
     {
-        AudioBar *asb = new AudioBar(AudioBar::None, 0);
+        AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
         m_spectrumBars.append(asb);
     }
 
@@ -459,7 +459,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
         int barsToAdd = num - m_spectrumBars.count();
         for (int i = 0 ; i < barsToAdd; i++)
         {
-            AudioBar *asb = new AudioBar(AudioBar::None, 0);
+            AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
             m_spectrumBars.append(asb);
         }
     }

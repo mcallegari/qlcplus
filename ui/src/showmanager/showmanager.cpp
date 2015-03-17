@@ -1208,7 +1208,7 @@ void ShowManager::slotStopPlayback()
 {
     if (m_show != NULL && m_show->isRunning())
     {
-        m_show->stop();
+        m_show->stop(Function::Source(Function::Source::God, 0));
         return;
     }
     m_showview->rewindCursor();
@@ -1219,7 +1219,7 @@ void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    m_show->start(m_doc->masterTimer(), false, m_showview->getTimeFromCursor());
+    m_show->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0), m_showview->getTimeFromCursor());
 }
 
 void ShowManager::slotShowStopped()

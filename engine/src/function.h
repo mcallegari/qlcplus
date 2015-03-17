@@ -115,6 +115,45 @@ public:
         Intensity = 0,
     };
 
+
+    /**
+     * Running source
+     */
+    struct Source
+    {
+        enum SourceType
+        {
+            Function = 0,
+            AutoVCWidget,
+            ManualVCWidget,
+            God = 0xffffffff,
+            Mask = 0xffffffff,
+        };
+
+        quint64 m_source;
+
+        explicit Source(SourceType type, quint32 id)
+        {
+            m_source = quint64((quint64(type) & 0xffffffff) << 32)
+                | quint64(id & 0xffffffff);
+        };
+
+        bool operator ==(Source const& right) const
+        {
+            return m_source == right.m_source;
+        };
+
+        quint32 type() const
+        {
+            return (m_source >> 32) & 0xffffffff;
+        };
+
+        quint32 id() const
+        {
+            return m_source & 0xffffffff;
+        };
+    };
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -629,19 +668,10 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      */
-    void start(MasterTimer* timer, bool child = false, quint32 startTime = 0,
+    void start(MasterTimer* timer, Source source, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed());
-
-	/**
-     * Check, whether the function was started by another function i.e.
-     * as the other function's child.
-     *
-	 * @return true If the function was started by another function.
-     *              Otherwise false.
-	 */
-    bool startedAsChild() const;
 
     /**
      * Mark the function to be stopped ASAP. MasterTimer will stop running
@@ -649,7 +679,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop();
+    void stop(Source source);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -676,10 +706,14 @@ public:
      */
     bool isRunning() const;
 
+    bool startedAsChild() const;
+
 private:
     /** Stop flag, private to keep functions from modifying it. */
     bool m_stop;
     bool m_running;
+    QList<Source> m_sources;
+    QMutex m_sourcesMutex;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;
@@ -754,7 +788,6 @@ signals:
     void attributeChanged(int index, qreal fraction);
 
 private:
-    bool m_startedAsChild;
     QList <Attribute> m_attributes;
 
     /*************************************************************************

@@ -412,8 +412,8 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
     if (m_function != Function::invalidId() && action() == VCButton::Toggle)
     {
         Function *f = m_doc->function(m_function);
-        if (f != NULL && !f->stopped())
-            f->stop();
+        if (f != NULL)
+            f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
     }
 }
 
@@ -463,8 +463,7 @@ void VCButton::updateOnState()
     {
         on = false;
         Function* function = m_doc->function(m_function);
-        if (function != NULL)
-            on = function->isRunning();
+        on = (function != NULL) && function->isRunning();
     }
     if (m_on != on)
         setOn(on);
@@ -671,10 +670,9 @@ void VCButton::pressFunction()
             // if the button is in a SoloFrame and the function is running but was
             // started by a different function (a chaser or collection), turn other
             // functions off and start this one.
-            //
             if (isOn() == true && !(isChildOfSoloFrame() && f->startedAsChild()))
             {
-                f->stop();
+                f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
             }
             else
             {
@@ -683,7 +681,7 @@ void VCButton::pressFunction()
                 else
                     f->adjustAttribute(intensity(), Function::Intensity);
 
-                f->start(m_doc->masterTimer());
+                f->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
                 emit functionStarting(m_function);
             }
         }

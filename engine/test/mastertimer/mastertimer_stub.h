@@ -37,7 +37,7 @@ public:
     MasterTimerStub(Doc* doc, QList<Universe *> universes);
     ~MasterTimerStub();
 
-    void startFunction(Function* function);
+    virtual void startFunction(Function* function);
     void stopFunction(Function* function);
     QList <Function*> m_functionList;
 

@@ -52,7 +52,6 @@ Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
 
 Scene::~Scene()
 {
-    m_values.clear();
 }
 
 void Scene::setChildrenFlag(bool flag)
@@ -590,7 +589,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     if (m_values.size() == 0)
     {
-        stop();
+        stop(Source(Source::Function, id()));
         return;
     }
 
@@ -632,7 +631,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     // Fader has nothing to do. Stop.
     if (m_fader->channels().size() == 0)
-        stop();
+        stop(Source(Source::Function, id()));
 
     incrementElapsed();
 }

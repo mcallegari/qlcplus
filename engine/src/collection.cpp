@@ -285,7 +285,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
                     this, SLOT(slotChildStopped(quint32)));
 
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, true, 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            function->start(timer, Source(Source::Function, id()), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
     }
 
@@ -297,7 +297,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
           return;
     }
 
-    stop();
+    stop(Source(Source::Function, id()));
 }
 
 void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
@@ -314,7 +314,7 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
         {
             Function* function = doc->function(it.next());
             Q_ASSERT(function != NULL);
-            function->stop();
+            function->stop(Source(Source::Function, id()));
         }
 
         m_runningChildren.clear();
