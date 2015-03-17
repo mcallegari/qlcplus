@@ -27,6 +27,7 @@
 
 class MasterTimerPrivate;
 class GenericFader;
+class FadeChannel;
 class DMXSource;
 class Function;
 class Universe;
@@ -88,6 +89,9 @@ public:
     /** Start running the given function */
     virtual void startFunction(Function* function);
 
+    /** Stop running the given function */
+    void stopFunction(Function* function);
+
     /** Stop all functions. Doesn't affect registered DMX sources. */
     void stopAllFunctions();
 
@@ -112,8 +116,10 @@ private:
     /** List of currently running functions */
     QList <Function*> m_functionList;
     QList <Function*> m_startQueue;
+    QList <Function*> m_stopQueue;
+    int m_runningFunctions;
 
-    /** Mutex that guards access to m_functionList & m_startQueue */
+    /** Mutex that guards access to m_startQueue & m_stopQueue */
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
@@ -159,19 +165,24 @@ private:
     /*************************************************************************
      * Generic Fader
      *************************************************************************/
-public:
+private:
     /**
      * Get a pointer to the MasterTimer's GenericFader. The pointer must not be
      * deleted. The fader can be used e.g. by Scene functions to gracefully fade
      * down such intensity (HTP) channels that are no longer in use.
      */
     GenericFader* fader() const;
+public:
+    void faderAdd(const FadeChannel& ch);
+    void faderForceAdd(const FadeChannel& ch);
+    QHash<FadeChannel,FadeChannel> faderChannels() const;
 
 private:
     /** Execute one timer tick for the GenericFader */
     void timerTickFader(QList<Universe *> universes);
 
 private:
+    QMutex m_faderMutex;
     GenericFader* m_fader;
 
 private:

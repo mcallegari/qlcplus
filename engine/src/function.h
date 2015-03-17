@@ -647,6 +647,7 @@ private:
     /** Stop flag, private to keep functions from modifying it. */
     bool m_stop;
     bool m_running;
+    MasterTimer* m_runningMasterTimer;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;
