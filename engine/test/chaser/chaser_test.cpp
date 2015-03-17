@@ -895,7 +895,7 @@ void Chaser_Test::write()
 
     QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
-    c->start(&timer);
+    c->start(&timer, Function::Source(Function::Source::God, 0));
 
     timer.timerTick();
     for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
@@ -967,6 +967,7 @@ void Chaser_Test::quickChaser()
     m_doc->addFixture(fxi);
 
     Chaser* c = new Chaser(m_doc);
+    // A really quick chaser
     c->setDuration(0);
     m_doc->addFunction(c);
 
@@ -984,24 +985,28 @@ void Chaser_Test::quickChaser()
 
     QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
-    c->start(&timer);
+    c->start(&timer, Function::Source(Function::Source::God, 0));
 
     timer.timerTick();
-    for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
+    for (uint i = 0; i < 12; ++i)
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
         QVERIFY(c->stopped() == false);
+        // always one function running while the other is not
         QVERIFY(s1->isRunning() == true || s2->isRunning() == true);
         QVERIFY(s1->stopped() == true || s2->stopped() == true);
     }
 
-    c->stop();
+    c->stop(Function::Source(Function::Source::God, 0));
 
     timer.timerTick();
 
+    QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
+    QVERIFY(s1->isRunning() == false);
     QVERIFY(s1->stopped() == true);
+    QVERIFY(s2->isRunning() == false);
     QVERIFY(s2->stopped() == true);
 }
 

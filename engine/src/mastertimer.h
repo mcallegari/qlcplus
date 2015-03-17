@@ -87,7 +87,8 @@ private:
      * Functions
      *********************************************************************/
 public:
-    /** Start running the given function */
+    /** Start the given function */
+    /** This should be called by the function itself */
     virtual void startFunction(Function* function);
 
     /** Stop all functions. Doesn't affect registered DMX sources. */

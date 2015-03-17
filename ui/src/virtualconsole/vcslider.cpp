@@ -1011,7 +1011,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
             // Make sure we ignore the fade out time
             function->adjustAttribute(0, Function::Intensity);
             if (function->stopped() == false)
-                function->stop();
+                function->stop(Function::Source(Function::Source::ManualVCWidget, id()));
         }
         else
         {
@@ -1020,9 +1020,8 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
                 // Since this function is started by a fader, its fade in time
                 // is decided by the fader movement.
                 function->start(
-                        timer, false, 0,
-                        0, Function::defaultSpeed(), Function::defaultSpeed()
-                        );
+                        timer, Function::Source(Function::Source::ManualVCWidget, id()),
+                        0, 0, Function::defaultSpeed(), Function::defaultSpeed());
             }
             emit functionStarting(m_playbackFunction, pIntensity);
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);

@@ -351,7 +351,7 @@ void VCCueList::setChaser(quint32 id)
     updateStepList();
 
     /* Current status */
-    if (chaser != NULL && !chaser->stopped())
+    if (chaser != NULL && chaser->isRunning())
     {
         slotFunctionRunning(m_chaserID);
         slotCurrentStepChanged(chaser->currentStepIndex());
@@ -789,7 +789,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 void VCCueList::slotProgressTimeout()
 {
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     ChaserRunnerStep step(ch->currentRunningStep());
@@ -846,7 +846,7 @@ void VCCueList::startChaser(int startIndex)
     ch->setStepIndex(startIndex);
     ch->setStartIntensity(getPrimaryIntensity());
     ch->adjustAttribute(intensity(), Function::Intensity);
-    ch->start(m_doc->masterTimer());
+    ch->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
     emit functionStarting(m_chaserID);
 }
 
@@ -855,7 +855,7 @@ void VCCueList::stopChaser()
     Chaser* ch = chaser();
     if (ch == NULL)
         return;
-    ch->stop();
+    ch->stop(Function::Source(Function::Source::ManualVCWidget, id()));
 }
 
 void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
@@ -923,7 +923,7 @@ QString VCCueList::slidersModeToString(VCCueList::SlidersMode mode)
 void VCCueList::setSlidersInfo(int index)
 {
     Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    if (ch == NULL || !ch->isRunning())
         return;
 
     int tmpIndex = ch->computeNextStep(index);
@@ -1281,7 +1281,7 @@ void VCCueList::playCueAtIndex(int idx)
     if (ch == NULL)
         return;
 
-    if (!ch->stopped())
+    if (ch->isRunning())
     {
         ch->setCurrentStep(m_primaryIndex, getPrimaryIntensity());
     }

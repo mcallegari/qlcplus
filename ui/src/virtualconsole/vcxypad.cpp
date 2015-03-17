@@ -626,15 +626,15 @@ void VCXYPad::slotPresetClicked(bool checked)
     // stop any previously started EFX
     if (m_efx != NULL && m_efx->isRunning())
     {
-        m_efx->stopAndWait();
+        m_efx->stop(Function::Source(Function::Source::ManualVCWidget, id()));
         delete m_efx;
         m_efx = NULL;
     }
 
     // stop any previously started Scene
-    if (m_scene != NULL && m_scene->isRunning())
+    if (m_scene != NULL)
     {
-        m_scene->stop();
+        m_scene->stop(Function::Source(Function::Source::ManualVCWidget, id()));
         m_scene = NULL;
     }
 
@@ -716,7 +716,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_area->enableEFXPreview(true);
         m_area->setEFXPolygons(polygon, fixturePoints);
         m_area->setEFXInterval(m_efx->duration() / polygon.size());
-        m_efx->start(m_doc->masterTimer());
+        m_efx->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
 
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
@@ -758,7 +758,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_area->setRangeWindow(QRectF());
         m_area->setPosition(QPointF(128, 128));
         m_area->repaint();
-        m_scene->start(m_doc->masterTimer());
+        m_scene->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
 
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);

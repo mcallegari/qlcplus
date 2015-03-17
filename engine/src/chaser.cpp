@@ -712,7 +712,7 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
         Q_ASSERT(m_runner != NULL);
 
         if (m_runner->write(timer, universes) == false)
-            stop();
+            stop(Source(Source::Function, id()));
     }
 
     incrementElapsed();

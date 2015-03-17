@@ -269,7 +269,7 @@ void Audio::slotEndOfStream()
         m_decoder->seek(0);
     }
     if (!stopped())
-        stop();
+        stop(Source(Source::Function, id()));
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)

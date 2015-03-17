@@ -827,13 +827,10 @@ void SceneEditor::slotBlindToggled(bool state)
 {
     if (m_doc->mode() == Doc::Operate)
     {
-        if (m_source != NULL)
-        {
-            delete m_source;
-            m_source = NULL;
-        }
+        delete m_source;
+        m_source = NULL;
 
-        if (m_scene != NULL && m_scene->isRunning() == false)
+        if (m_scene != NULL && !m_scene->isRunning())
         {
             m_source = new GenericDMXSource(m_doc);
             foreach(SceneValue scv, m_scene->values())
