@@ -266,6 +266,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
             connect(function, SIGNAL(stopped(quint32)),
                     this, SLOT(slotChildStopped(quint32)));
 
+            function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
             function->start(timer, true, 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
     }
