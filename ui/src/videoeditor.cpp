@@ -105,8 +105,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
 
 VideoEditor::~VideoEditor()
 {
-    if (m_video->isRunning())
-       m_video->stop();
+    m_video->stopAndWait();
 /*
     disconnect(m_video, SIGNAL(totalTimeChanged(qint64)),
                this, SLOT(slotDurationChanged(qint64)));
@@ -157,8 +156,7 @@ void VideoEditor::slotSourceFileClicked()
     if (fn.isEmpty() == true)
         return;
 
-    if (m_video->isRunning())
-        m_video->stopAndWait();
+    m_video->stopAndWait();
 
     m_video->setSourceUrl(fn);
     m_filenameLabel->setText(m_video->sourceUrl());
@@ -208,12 +206,12 @@ void VideoEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
     {
-        m_video->start(m_doc->masterTimer());
+        m_video->start(m_doc->masterTimer(), -1);
         connect(m_video, SIGNAL(stopped(quint32)),
                 this, SLOT(slotPreviewStopped(quint32)));
     }
     else
-        m_video->stop();
+        m_video->stop(-1);
 }
 
 void VideoEditor::slotPreviewStopped(quint32 id)

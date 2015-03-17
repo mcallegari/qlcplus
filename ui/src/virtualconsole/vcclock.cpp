@@ -199,7 +199,7 @@ void VCClock::slotUpdateTime()
                         Function *func = m_doc->function(fid);
                         if (func != NULL)
                         {
-                            func->start(m_doc->masterTimer());
+                            func->start(m_doc->masterTimer(), -1);
                             qDebug() << "VC Clock starting function:" << func->name();
                         }
                         m_scheduleIndex++;

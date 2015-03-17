@@ -197,7 +197,7 @@ void VCAudioTriggers::enableCapture(bool enable)
         emit functionStarting(Function::invalidId());
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
-        if (m_inputCapture->isRunning() == false)
+        if (!m_inputCapture->isRunning())
             m_inputCapture->start();
         m_button->blockSignals(true);
         m_button->setChecked(true);
@@ -337,7 +337,7 @@ void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, u
 
     if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
-        if (m_inputCapture->isRunning() == false && value > 0)
+        if (!m_inputCapture->isRunning() && value > 0)
             slotEnableButtonToggled(true);
         else
             slotEnableButtonToggled(false);

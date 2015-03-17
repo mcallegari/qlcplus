@@ -232,7 +232,7 @@ void ChaserRunner::stopStep(int stepIndex)
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
-            step->m_function->stop();
+            step->m_function->stop(m_chaser->id());
             step->m_function = NULL;
             m_runnerSteps.removeOne(step);
             delete step;
@@ -405,11 +405,7 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (step->m_function != NULL && step->m_function->isRunning())
-        {
-            step->m_function->stop();
-            step->m_function = NULL;
-        }
+        step->m_function->stop(m_chaser->id());
         delete step;
     }
     m_runnerSteps.clear();
@@ -429,7 +425,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 
     ChaserStep step(m_chaser->steps().at(index));
     Function *func = m_doc->function(step.fid);
-    if (func != NULL && func->stopped() == true)
+    if (func != NULL)
     {
         ChaserRunnerStep *newStep = new ChaserRunnerStep();
         newStep->m_index = index;
@@ -461,7 +457,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, true, 0, newStep->m_fadeIn, newStep->m_fadeOut);
+        newStep->m_function->start(timer, m_chaser->id(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -603,14 +599,9 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         if (step->m_duration != Function::infiniteSpeed() &&
              step->m_elapsed >= step->m_duration)
         {
-            if (step->m_function != NULL && step->m_function->isRunning())
-            {
-                step->m_function->stop();
-                step->m_function = NULL;
-            }
-
-            m_runnerSteps.removeOne(step);
+            step->m_function->stop(m_chaser->id());
             delete step;
+            m_runnerSteps.removeOne(step);
         }
         else
         {

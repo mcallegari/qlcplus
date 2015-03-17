@@ -150,10 +150,10 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
 {
     if (m_function == NULL)
         return;
-    if (m_value >= m_maxThreshold && m_function->isRunning() == false)
-        m_function->start(doc->masterTimer());
-    else if (m_value < m_minThreshold && m_function->isRunning() == true)
-        m_function->stop();
+    if (m_value >= m_maxThreshold)
+        m_function->start(doc->masterTimer(), -1);
+    else if (m_value < m_minThreshold)
+        m_function->stop(-1);
 }
 
 void AudioBar::checkWidgetFunctionality()

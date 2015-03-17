@@ -151,8 +151,7 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             if (m_videoWidget != NULL)
                 m_videoWidget->hide();
 
-            if (m_video->isRunning())
-                m_video->stop();
+            m_video->stop(-1);
             break;
         }
         case QMediaPlayer::InvalidMedia:
@@ -239,8 +238,7 @@ void VideoWidget::slotStopVideo()
     if (m_videoWidget != NULL)
         m_videoWidget->hide();
 
-    if (m_video->isRunning())
-        m_video->stop();
+    m_video->stop(-1);
 }
 
 void VideoWidget::slotBrightnessAdjust(int value)
