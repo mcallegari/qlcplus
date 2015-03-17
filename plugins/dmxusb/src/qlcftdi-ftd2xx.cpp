@@ -200,9 +200,6 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                                                     types[serial].toInt();
                 switch (type)
                 {
-                case DMXUSBWidget::Eurolite:
-                    widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
-                    break;
                 case DMXUSBWidget::OpenTX:
                     widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++, i);
                     break;

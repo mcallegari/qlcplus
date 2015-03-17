@@ -213,10 +213,12 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             case DMXUSBWidget::VinceTX:
                 widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++);
                 break;
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
             case DMXUSBWidget::Eurolite:
                 widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
                 break;
             default:
+#endif
             case DMXUSBWidget::ProRXTX:
                 widgetList << new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++);
                 break;
