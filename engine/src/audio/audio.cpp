@@ -325,6 +325,8 @@ bool Audio::loadXML(const QDomElement& root)
         return false;
     }
 
+    QString fname = name();
+
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
     {
@@ -347,6 +349,8 @@ bool Audio::loadXML(const QDomElement& root)
         }
         node = node.nextSibling();
     }
+
+    setName(fname);
 
     return true;
 }

@@ -142,12 +142,15 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             if (m_videoPlayer != NULL)
                 m_videoPlayer->stop();
 
-            if (m_videoWidget != NULL)
+            if (m_video->runOrder() == Video::Loop)
             {
-                m_videoWidget->hide();
-                //m_videoWidget->deleteLater();
-                //m_videoWidget = NULL;
+                m_videoPlayer->play();
+                break;
             }
+
+            if (m_videoWidget != NULL)
+                m_videoWidget->hide();
+
             if (m_video->isRunning())
                 m_video->stop();
             break;
@@ -230,7 +233,14 @@ void VideoWidget::slotPlaybackVideo()
 
 void VideoWidget::slotStopVideo()
 {
-    slotStatusChanged(QMediaPlayer::EndOfMedia);
+    if (m_videoPlayer != NULL)
+        m_videoPlayer->stop();
+
+    if (m_videoWidget != NULL)
+        m_videoWidget->hide();
+
+    if (m_video->isRunning())
+        m_video->stop();
 }
 
 void VideoWidget::slotBrightnessAdjust(int value)
