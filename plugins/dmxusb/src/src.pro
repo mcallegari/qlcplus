@@ -74,19 +74,17 @@ HEADERS += dmxusb.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbopen.h \
-           euroliteusbdmxpro.h \
            stageprofi.h \
            vinceusbdmx512.h \
            qlcftdi.h
 
-unix: HEADERS += nanodmx.h
+unix: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
 SOURCES += dmxusb.cpp \
            dmxusbwidget.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbopen.cpp \
-           euroliteusbdmxpro.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
@@ -94,7 +92,7 @@ INCLUDEPATH += ../../midi/common
 HEADERS += ../../midi/common/midiprotocol.h
 SOURCES += ../../midi/common/midiprotocol.cpp
 
-unix: SOURCES += nanodmx.cpp
+unix: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 
 serialport {
     SOURCES += qlcftdi-qtserial.cpp
