@@ -217,8 +217,8 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             case DMXUSBWidget::Eurolite:
                 widgetList << new EuroliteUSBDMXPro(serial, name, vendor, (void *)dev, output_id++);
                 break;
-            default:
 #endif
+            default:
             case DMXUSBWidget::ProRXTX:
                 widgetList << new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++);
                 break;
@@ -287,8 +287,6 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         {
             widgetList << new NanoDMX(serial, name, vendor, (void *)dev, output_id++);
         }
-#endif
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
         else if (dev_descriptor.idVendor == QLCFTDI::MICROCHIPVID &&
                  dev_descriptor.idProduct == QLCFTDI::EUROLITEPID)
         {

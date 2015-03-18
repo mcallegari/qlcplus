@@ -158,7 +158,7 @@ QString EuroliteUSBDMXPro::additionalInfo() const
 
     info += QString("<P>");
     info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("DMX4ALL DMX-USB")
+                                         .arg("Eurolite DMX-USB Pro")
                                          .arg(QObject::tr("Output"));
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
@@ -187,7 +187,7 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     request.prepend(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
     request.prepend(((data.size() + 1) >> 8) & 0xff); // Data length MSB
     request.prepend((data.size() + 1) & 0xff); // Data length LSB
-    request.prepend(EUROLITE_USB_DMX_PRO_SEND_DMX_RQ); // Command - first port
+    request.prepend(EUROLITE_USB_DMX_PRO_SEND_DMX_RQ); // Send request
     request.prepend(EUROLITE_USB_DMX_PRO_START_OF_MSG); // Start byte
     request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 

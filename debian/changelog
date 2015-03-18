@@ -11,6 +11,7 @@ qlcplus (4.8.5) stable; urgency=low
   * Virtual Console Animation: fix properties of a non-running matrix not set (David Garyga)
   * Show Manager: fixed rendering and playback of sequences with common duration steps
   * UI: in kiosk mode, don't show the panels tab bar
+  * Plugins/DMXUSB: Added support for Eurolite USB DMX512 Pro adapter - Linux only (thanks to Karri Kaksonen)
   * Fixture Remap: fixed remapping of widgets into nested frames
   * New fixtures: Martin Roboscan Pro 918 (thanks to Thierry Rodolfo)
   * New fixture: Eurolite LED Flood Light 252 RGB 19° (thanks to Karri Kaksonen)
