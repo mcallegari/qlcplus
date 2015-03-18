@@ -1372,19 +1372,19 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="965"/>
+        <location filename="chasereditor.cpp" line="967"/>
         <source>Fade In</source>
         <translation>Fade in</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="967"/>
+        <location filename="chasereditor.cpp" line="969"/>
         <source>Hold</source>
         <translation>Manté</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="966"/>
+        <location filename="chasereditor.cpp" line="968"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
@@ -1614,32 +1614,32 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Enganxa</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
+        <location filename="chasereditor.cpp" line="702"/>
         <source>Paste error</source>
         <translation>Error d&apos;enganxat</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
+        <location filename="chasereditor.cpp" line="702"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Intentant enganxar una escena incompatible. Operació cancelada.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="968"/>
+        <location filename="chasereditor.cpp" line="970"/>
         <source>Common Fade In</source>
         <translation>Temps de Fade In comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="969"/>
+        <location filename="chasereditor.cpp" line="971"/>
         <source>Common Fade Out</source>
         <translation>Temps de Fade Out comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="970"/>
+        <location filename="chasereditor.cpp" line="972"/>
         <source>Common Hold</source>
         <translation>Temps d&apos;espera comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="986"/>
+        <location filename="chasereditor.cpp" line="988"/>
         <source>Multiple Steps</source>
         <translation>Passos múltiples</translation>
     </message>
@@ -2503,12 +2503,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Per fer la reassignació de fixtures, si us plau seleccioni fixtures a ambdues llistes.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="643"/>
         <source>This might take a while...</source>
         <translation>Això pot trigar una estona...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="643"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -2778,7 +2778,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="876"/>
+        <location filename="functionmanager.cpp" line="873"/>
         <source> (Copy)</source>
         <translation> (Copiar)</translation>
     </message>
@@ -7392,13 +7392,13 @@ Durada: %3
         <translation>Nom del vídeo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="248"/>
+        <location filename="videoeditor.ui" line="200"/>
         <source>File name</source>
         <oldsource>File name:</oldsource>
         <translation>Nom del arxiu</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="86"/>
+        <location filename="videoeditor.ui" line="100"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation>Durada</translation>
@@ -7410,7 +7410,7 @@ Durada: %3
         <translation>Resolució</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="100"/>
+        <location filename="videoeditor.ui" line="86"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
         <translation>Códec d&apos;Àudio</translation>
@@ -7427,7 +7427,7 @@ Durada: %3
         <translation>Establir una URL arbitrària per aquest vídeo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="255"/>
+        <location filename="videoeditor.ui" line="229"/>
         <source>Name of the function being edited</source>
         <translation>Nom de la funció que s&apos;està editant</translation>
     </message>
@@ -7443,47 +7443,62 @@ Durada: %3
         <translation>Pantalla de Sortida</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="222"/>
+        <location filename="videoeditor.ui" line="236"/>
         <source>Video output</source>
         <translation>Sortida de Vídeo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="228"/>
+        <location filename="videoeditor.ui" line="242"/>
         <source>Windowed</source>
         <translation>En finestre</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="238"/>
+        <location filename="videoeditor.ui" line="252"/>
         <source>Fullscreen</source>
         <translation>En Pântalla Completa</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="120"/>
+        <location filename="videoeditor.ui" line="262"/>
+        <source>Playback mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="268"/>
+        <source>Single shot</source>
+        <translation type="unfinished">Una sola vegada</translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="278"/>
+        <source>Loop</source>
+        <translation type="unfinished">Loop</translation>
+    </message>
+    <message>
+        <location filename="videoeditor.cpp" line="130"/>
         <source>Open Video File</source>
         <translation>Obrir Arxiu de vídeo</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="128"/>
+        <location filename="videoeditor.cpp" line="138"/>
         <source>Video Files (%1)</source>
         <translation>Arxius de Vídeo (%1)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="130"/>
+        <location filename="videoeditor.cpp" line="140"/>
         <source>All Files (*.*)</source>
         <translation>Tots els arxius (*.*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="132"/>
+        <location filename="videoeditor.cpp" line="142"/>
         <source>All Files (*)</source>
         <translation>Tots els arxius (*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="161"/>
+        <location filename="videoeditor.cpp" line="171"/>
         <source>Video source URL</source>
         <translation>URL font de vídeo</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="162"/>
+        <location filename="videoeditor.cpp" line="172"/>
         <source>Enter a URL:</source>
         <translation>Entri una URL:</translation>
     </message>
