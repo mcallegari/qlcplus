@@ -74,6 +74,7 @@ HEADERS += dmxusb.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbopen.h \
+           euroliteusbdmxpro.h \
            stageprofi.h \
            vinceusbdmx512.h \
            qlcftdi.h
@@ -85,6 +86,7 @@ SOURCES += dmxusb.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbopen.cpp \
+           euroliteusbdmxpro.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
