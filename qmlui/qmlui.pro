@@ -21,6 +21,7 @@ win32:QMAKE_LFLAGS += -shared
 
 HEADERS += \
     app.h \
+    contextmanager.h \
     fixturebrowser.h \
     fixturemanager.h \
     functionmanager.h \
@@ -28,16 +29,19 @@ HEADERS += \
     inputoutputmanager.h \ 
     treemodel.h \
     treemodelitem.h \
+    previewcontext.h \
     mainview2d.h
 
 SOURCES += main.cpp \
     app.cpp \
+    contextmanager.cpp \
     fixturebrowser.cpp \
     fixturemanager.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
+    previewcontext.cpp \
     mainview2d.cpp
 
 RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc

@@ -26,6 +26,7 @@
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
+#include "contextmanager.h"
 #include "inputoutputmanager.h"
 
 #include "rgbscriptscache.h"
@@ -37,14 +38,14 @@
 App::App()
     : QObject()
     , m_view(NULL)
-    , m_2DView(NULL)
     , m_fixtureBrowser(NULL)
     , m_fixtureManager(NULL)
+    , m_contextManager(NULL)
     , m_ioManager(NULL)
     , m_doc(NULL)
     , m_docLoaded(false)
 {
-    m_currentPreviewContext = "2D";
+
 }
 
 App::~App()
@@ -82,38 +83,21 @@ void App::startup()
     m_functionManager = new FunctionManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
 
+    m_contextManager = new ContextManager(m_view, m_doc);
+    m_view->rootContext()->setContextProperty("contextManager", m_contextManager);
+
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
-            this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
+            m_contextManager, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));
-    selectPreviewContext(m_currentPreviewContext);
+    m_contextManager->activateContext("2D");
 }
 
 void App::show()
 {
     m_view->showMaximized();
     //m_view->showFullScreen();
-}
-
-void App::selectPreviewContext(QString context)
-{
-    qDebug() << "[App] Selecting preview context:" << context;
-    m_currentPreviewContext = context;
-    if (context == "2D")
-    {
-        m_2DView = new MainView2D(m_view, m_doc);
-        m_view->rootContext()->setContextProperty("View2D", m_2DView);
-        m_2DView->slotDocLoaded();
-    }
-    else
-    {
-        if (m_2DView != NULL)
-        {
-            delete m_2DView;
-            m_2DView = NULL;
-        }
-    }
 }
 
 void App::clearDocument()
@@ -135,23 +119,6 @@ Doc *App::doc()
 void App::slotDocModified(bool state)
 {
     Q_UNUSED(state)
-}
-
-void App::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
-{
-    Q_UNUSED(z)
-
-    QObject *viewObj = m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions");
-    if (viewObj == NULL)
-        return;
-
-    QString currentView = viewObj->property("currentView").toString();
-    qDebug() << "[App] Current view:" << currentView;
-
-    if (currentView == "2D")
-    {
-        m_2DView->createFixtureItem(fxID, x, y, false);
-    }
 }
 
 void App::initDoc()

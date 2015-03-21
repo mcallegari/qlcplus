@@ -23,14 +23,19 @@
 #include <QObject>
 #include <QQuickView>
 
+#include "previewcontext.h"
+
 class Doc;
 
-class MainView2D : public QObject
+class MainView2D : public PreviewContext
 {
     Q_OBJECT
 public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView2D();
+
+    /** @reimp */
+    void enableContext(bool enable);
 
     void reset();
 
@@ -46,17 +51,12 @@ protected:
 
 signals:
 
-public slots:
-    void slotDocLoaded();
+protected slots:
+    void slotRefreshView();
 
 private:
-    /** Reference to the root QML view */
-    QQuickView *m_view;
-
     /** References to the 2D view and 2D contents for items creation */
     QQuickItem *m_view2D, *m_contents2D;
-
-    Doc *m_doc;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;

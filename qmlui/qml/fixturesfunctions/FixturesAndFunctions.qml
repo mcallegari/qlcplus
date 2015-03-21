@@ -35,7 +35,7 @@ Rectangle {
         property string currentView: "2D"
         property bool docLoaded: qlcplus.docLoaded
 
-        onCurrentViewChanged: qlcplus.selectPreviewContext(currentView)
+        onCurrentViewChanged: contextManager.activateContext(currentView)
 
         onDocLoadedChanged: {
             console.log("Doc loaded !! ----")

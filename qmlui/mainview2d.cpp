@@ -27,9 +27,7 @@
 #include "doc.h"
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
-    : QObject(parent)
-    , m_view(view)
-    , m_doc(doc)
+    : PreviewContext(view, doc, parent)
 {
     m_gridSize = QSize(5, 5);
     m_gridScale = 1.0;
@@ -46,12 +44,19 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
         qDebug() << fixtureComponent->errors();
 
     connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotDocLoaded()));
+            this, SLOT(slotRefreshView()));
 }
 
 MainView2D::~MainView2D()
 {
     reset();
+}
+
+void MainView2D::enableContext(bool enable)
+{
+    PreviewContext::enableContext(enable);
+    if (enable == true)
+        slotRefreshView();
 }
 
 void MainView2D::reset()
@@ -126,12 +131,16 @@ QPointF MainView2D::getAvailablePosition(qreal width, qreal height)
 
 void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords)
 {
+    if (isEnabled() == false)
+        return;
+
     //if (m_view2D == NULL || m_contents2D == NULL)
         initialize2DProperties();
 
     qDebug() << "Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
     Fixture *fixture = m_doc->fixture(fxID);
+    MonitorProperties *mProps = m_doc->monitorProperties();
     QLCFixtureMode *fxMode = fixture->fixtureMode();
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
@@ -170,11 +179,14 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         newFixtureItem->setProperty("mmYPos", y);
     }
 
+    // add the new fixture to the Doc monitor properties
+    mProps->setFixturePosition(fxID, QPointF(x, y));
+
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
 }
 
-void MainView2D::slotDocLoaded()
+void MainView2D::slotRefreshView()
 {
     initialize2DProperties();
 
