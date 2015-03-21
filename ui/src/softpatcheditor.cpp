@@ -131,12 +131,13 @@ void SoftpatchEditor::updateFixturesTree()
 
 bool SoftpatchEditor::hasDupliateChannels()
 {
-    int count;
+    int count = 0;
     foreach(uint key, m_duplicateChannels.uniqueKeys())
     {
         QList<QTreeWidgetItem*> values = m_duplicateChannels.values(key);
         count += values.size();
     }
+    QTextStream out(stdout);
     return count;
 }
 
@@ -293,7 +294,15 @@ void SoftpatchEditor::accept()
     }
     m_fixture_manager->updateView();
     m_doc->inputOutputMap()->releaseUniverses();
+
     m_duplicateChannels.clear();
+//    QMap<quint32, QTreeWidgetItem*>::iterator iter = m_duplicateChannels.begin();
+//    while (iter != m_duplicateChannels.end())
+//    {
+//        iter = m_duplicateChannels.erase(iter);
+//        ++iter;
+//    }
+
     QDialog::accept();
 }
 
