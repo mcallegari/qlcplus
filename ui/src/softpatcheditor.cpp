@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QSpinBox>
+#include <QTextStream>
 
 #include "softpatcheditor.h"
 #include "fixturemanager.h"
@@ -63,7 +64,7 @@ SoftpatchEditor::SoftpatchEditor(Doc *doc, FixtureManager *mgr, QWidget *parent)
 
 SoftpatchEditor::~SoftpatchEditor()
 {
-    m_overlappingChannels.clear();
+    m_duplicateChannels.clear();
     m_mutex.lock();
     m_doc->masterTimer()->unregisterDMXSource(this);
     m_mutex.unlock();
@@ -120,7 +121,7 @@ void SoftpatchEditor::updateFixturesTree()
         spin->setProperty("treeItem", qVariantFromValue((void *)fItem));
         spin->setValue(fxi->address()+1);
         m_tree->setItemWidget(fItem, KColumnPatch ,spin);
-        connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotChannelPatched(int)));
+        connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotChannelPatched()));
     }
     m_tree->resizeColumnToContents(KColumnName);
     m_tree->resizeColumnToContents(KColumnUniverse);
@@ -128,14 +129,12 @@ void SoftpatchEditor::updateFixturesTree()
     m_tree->resizeColumnToContents(KColumnPatch);
 }
 
-bool SoftpatchEditor::hasOverlappingChannels()
+bool SoftpatchEditor::hasDupliateChannels()
 {
     int count;
-
-    const QList<int> keys = m_overlappingChannels.keys();
-    for (int i = 0; i < keys.size(); i++)
+    foreach(uint key, m_duplicateChannels.uniqueKeys())
     {
-        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
+        QList<QTreeWidgetItem*> values = m_duplicateChannels.values(key);
         count += values.size();
     }
     return count;
@@ -168,7 +167,69 @@ void SoftpatchEditor::slotTestButtonPressed()
     }
 }
 
-void SoftpatchEditor::slotChannelPatched(int address)
+void SoftpatchEditor::initChannelSearch(QTreeWidgetItem* item)
+{
+    // reset prev entry
+    foreach (const uint &key, m_duplicateChannels.uniqueKeys())
+    {
+        foreach (QTreeWidgetItem* pItem, m_duplicateChannels.values(key))
+        {
+            if (pItem == item)
+            {
+                QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(pItem, KColumnPatch);
+                spin->setStyleSheet("QWidget {background-color:white}");
+                m_duplicateChannels.remove(key, pItem);
+            }
+        }
+    }
+
+    // remove single leftover entries
+    foreach (const uint &key, m_duplicateChannels.uniqueKeys())
+    {
+        if (m_duplicateChannels.values(key).size() == 1)
+        {
+            QTreeWidgetItem* mItem = m_duplicateChannels.values(key).at(0);
+            QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(mItem, KColumnPatch);
+            spin->setStyleSheet("QWidget {background-color:white}");
+
+            m_duplicateChannels.remove(key);
+        }
+    }
+}
+
+void SoftpatchEditor::markFixtures()
+{
+    foreach (const uint &key, m_duplicateChannels.uniqueKeys())
+    {
+        foreach (QTreeWidgetItem* mItem, m_duplicateChannels.values(key))
+        {
+            QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(mItem, KColumnPatch);
+            spin->setStyleSheet("QWidget {background-color:red}");
+        }
+    }
+}
+
+QSet<quint32> SoftpatchEditor::getChannelSet(QTreeWidgetItem* item)
+{
+    quint32 fxID = item->data(KColumnName, PROP_ID).toUInt();
+    Fixture *fxi = m_doc->fixture(fxID);
+    QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(item, KColumnPatch);
+    QSet<quint32> set = QSet<quint32>();
+    for (uint i = 0; i < fxi->channels(); i++)
+    {
+        // universe starts with 0 ( channel = spin.value -1 )
+        set.insert((spin->value() - 1) + i + (fxi->universe() << 9));
+    }
+    return set;
+}
+
+QSet<quint32> SoftpatchEditor::duplicateChannelsSet(QTreeWidgetItem* changed, QTreeWidgetItem* other)
+{
+    QSet<quint32> set = getChannelSet(changed);
+    return set.intersect(getChannelSet(other));
+}
+
+void SoftpatchEditor::slotChannelPatched()
 {
     QSpinBox* senderSpin = qobject_cast<QSpinBox*>(QObject::sender());
     senderSpin->blockSignals(true);
@@ -176,41 +237,8 @@ void SoftpatchEditor::slotChannelPatched(int address)
     QVariant var = senderSpin->property("treeItem");
     QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
     quint32 senderFxID = item->data(KColumnName, PROP_ID).toUInt();
-    Fixture* senderFxi = m_doc->fixture(senderFxID);
-    quint32 numChannels = senderFxi->channels();
-    quint32 uniAddress = address + (senderFxi->universe() << 9);
 
-
-    // search overlapping map for current item and reset it to white
-    const QList<int> keys = m_overlappingChannels.keys();
-    for (int i = 0; i < keys.size(); i++)
-    {
-        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
-        foreach (QTreeWidgetItem* fItem, values)
-        {
-            if (fItem == item)
-            {
-                // unmark current item and remove it from map
-                QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
-                spin->setStyleSheet("QWidget {background-color:white}");
-                m_overlappingChannels.remove(keys[i], fItem);
-            }
-        }
-    }
-
-    // loop through map keys (channels) for single entries and remove them
-    for (int i = 0; i < keys.size(); i++)
-    {
-        QList<QTreeWidgetItem*> values = m_overlappingChannels.values(keys[i]);
-        // leftover single map entries (umark them)
-        if (values.size() == 1)
-        {
-            QTreeWidgetItem *fItem = values.at(0);
-            QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
-            spin->setStyleSheet("QWidget {background-color:white}");
-            m_overlappingChannels.remove(keys[i], fItem);
-        }
-    }
+    initChannelSearch(item);
 
     // test fixture tree on overlapping channels
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
@@ -220,43 +248,26 @@ void SoftpatchEditor::slotChannelPatched(int address)
         {
             QTreeWidgetItem *fItem = uniItem->child(f);
             quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
-            Fixture *testFixture = m_doc->fixture(fxID);
-            quint32 testUniverse = testFixture->universe();
             if (senderFxID != fxID)
             {
-                quint32 testNumChannels = testFixture->channels();
-                QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
-
-                // check on overlapping channel / based on universe adresses
-                quint32 testAddress = spin->value() + (testUniverse << 9);
-
-                // check first and last channel of current fixture
-                if ((quint32(uniAddress) >= testAddress && quint32(uniAddress) < testAddress + testNumChannels - 1)
-                || (quint32(uniAddress + numChannels -1) >= testAddress && quint32(uniAddress + numChannels -1) < testAddress + testNumChannels))
+                foreach (quint32 dSet, duplicateChannelsSet(item, fItem))
                 {
                     // insert overlapping channels into map
-                    if (!m_overlappingChannels.contains(uniAddress, fItem))
-                        m_overlappingChannels.insertMulti(uniAddress, fItem);
-                    if (!m_overlappingChannels.contains(uniAddress, item))
-                        m_overlappingChannels.insertMulti(uniAddress, item);
+                    if (!m_duplicateChannels.contains(dSet, fItem))
+                        m_duplicateChannels.insertMulti(dSet, fItem);
+                    if (!m_duplicateChannels.contains(dSet, item))
+                        m_duplicateChannels.insertMulti(dSet, item);
                 }
             }
         }
     }
-    // all overlapping channels marked red now
-    QList<QTreeWidgetItem*> values = m_overlappingChannels.values(uniAddress);
-    for (int i = 0; i < values.size(); ++i)
-    {
-        QTreeWidgetItem *fItem = values.at(i);
-        QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
-        spin->setStyleSheet("QWidget {background-color:red}");
-    }
+    markFixtures();
     senderSpin->blockSignals(false);
 }
 
 void SoftpatchEditor::accept()
 {
-    if(hasOverlappingChannels())
+    if(hasDupliateChannels())
     {
         QMessageBox msg(QMessageBox::Critical, tr("Error"),
                         tr("Please solve overlapping channels first"), QMessageBox::Ok);
@@ -282,7 +293,7 @@ void SoftpatchEditor::accept()
     }
     m_fixture_manager->updateView();
     m_doc->inputOutputMap()->releaseUniverses();
-    m_overlappingChannels.clear();
+    m_duplicateChannels.clear();
     QDialog::accept();
 }
 
