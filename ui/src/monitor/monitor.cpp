@@ -587,7 +587,10 @@ void Monitor::slotFixtureChanged(quint32 fxi_id)
         {
             MonitorFixture* mof = it.next();
             if (mof->fixture() == fxi_id)
+            {
                 mof->setFixture(fxi_id);
+                mof->updateLabelStyles();
+            }
         }
 
         m_monitorLayout->sort();
