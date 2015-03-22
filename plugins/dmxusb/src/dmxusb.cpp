@@ -26,6 +26,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "euroliteusbdmxpro.h"
 #include "dmxusb.h"
 
 /****************************************************************************

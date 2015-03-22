@@ -2,7 +2,7 @@
 MEDIASERVICEPLUGIN_DIR  = $$(QTDIR)/plugins/mediaservice
 mediaservice.path = $$INSTALLROOT/PlugIns/mediaservice
 
-FLAVORS = qavfmediaplayer qtmedia_audioengine qqt7engine
+FLAVORS = qavfmediaplayer qtmedia_audioengine
 for(i, FLAVORS):{
     FILE = lib$${i}.dylib
     mediaservice.files += $$MEDIASERVICEPLUGIN_DIR/$$FILE

@@ -721,6 +721,7 @@ void VCMatrix::slotCustomControlClicked()
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
+                    matrix->setProperty(it.key(), it.value());
                 }
             }
             matrix->setAlgorithm(algo);
