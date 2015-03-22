@@ -83,11 +83,11 @@ void App::startup()
     m_functionManager = new FunctionManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
 
-    m_contextManager = new ContextManager(m_view, m_doc);
+    m_contextManager = new ContextManager(m_view, m_doc, m_fixtureManager);
     m_view->rootContext()->setContextProperty("contextManager", m_contextManager);
 
-    connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
-            m_contextManager, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
+    // Start up in non-modified state
+    m_doc->resetModified();
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));

@@ -23,23 +23,54 @@
 
 #include "contextmanager.h"
 #include "genericdmxsource.h"
+#include "fixturemanager.h"
 #include "mainview2d.h"
 
-ContextManager::ContextManager(QQuickView *view, Doc *doc, QObject *parent)
+ContextManager::ContextManager(QQuickView *view, Doc *doc,
+                               FixtureManager *fxMgr, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_fixtureManager(fxMgr)
 {
     m_source = new GenericDMXSource(m_doc);
+    m_source->setOutputEnabled(true);
 
     m_2DView = new MainView2D(m_view, m_doc);
     m_view->rootContext()->setContextProperty("View2D", m_2DView);
+
+    connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
+            this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
+    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
+            this, SLOT(slotChannelTypeValueChanged(int,quint8)));
 }
 
 void ContextManager::activateContext(QString context)
 {
     if (context == "2D")
         m_2DView->enableContext(true);
+}
+
+void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
+{
+    QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
+    if(channels.keys().isEmpty())
+        return;
+    QHashIterator<int, SceneValue>it(channels);
+    while(it.hasNext())
+    {
+        it.next();
+        quint32 chType = it.key();
+        SceneValue sv = it.value();
+        if (enable)
+        {
+            m_channelsMap.insert(chType, sv);
+        }
+        else
+        {
+            m_channelsMap.remove(chType, sv);
+        }
+    }
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
@@ -54,5 +85,13 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
     qDebug() << "[ContextManager] Current view:" << currentView;
 
     m_2DView->createFixtureItem(fxID, x, y, false);
+}
+
+void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)
+{
+    //qDebug() << "type:" << type << "value:" << value;
+    QList<SceneValue> svList = m_channelsMap.values(type);
+    foreach(SceneValue sv, svList)
+        m_source->set(sv.fxi, sv.channel, (uchar)value);
 }
 

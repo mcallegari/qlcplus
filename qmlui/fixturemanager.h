@@ -22,8 +22,11 @@
 
 #include <QQmlListProperty>
 #include <QQuickView>
+#include <QMultiHash>
 #include <QObject>
 #include <QList>
+
+#include "scenevalue.h"
 
 class Doc;
 class Fixture;
@@ -44,7 +47,16 @@ public:
                                 qreal xPos, qreal yPos);
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
-    Q_INVOKABLE void setFixtureSelection(bool selected, quint32 fxID);
+    Q_INVOKABLE void setIntensityValue(quint8 value);
+    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue, quint8 white);
+
+    /**
+     * @brief setFixtureCapabilities
+     * @param fxID the Fixture unique ID
+     * @param enable used to increment/decrement the UI tools counters
+     * @return A multihash containg the fixture capabilities by channel type
+     */
+    QMultiHash<int, SceneValue> setFixtureCapabilities(quint32 fxID, bool enable);
 
     int fixturesCount();
     QQmlListProperty<Fixture> fixtures();
@@ -53,16 +65,14 @@ signals:
     void docLoaded();
     void fixturesCountChanged();
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
-
-protected slots:
-
+    void channelTypeValueChanged(int type, quint8 value);
 
 private:
-
-
-private:
+    /** Reference to the QML view root */
     QQuickView *m_view;
+    /** Reference to the project workspace */
     Doc *m_doc;
+    /** List of the current Fixtures in Doc */
     QList<Fixture *> m_fixtureList;
 };
 

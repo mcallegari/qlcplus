@@ -112,16 +112,31 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
     return "qrc" + chIcon;
 }
 
-void FixtureManager::setFixtureSelection(bool selected, quint32 fxID)
+void FixtureManager::setIntensityValue(quint8 value)
+{
+    emit channelTypeValueChanged(QLCChannel::Intensity, value);
+}
+
+void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue, quint8 white)
+{
+    emit channelTypeValueChanged(QLCChannel::Red, red);
+    emit channelTypeValueChanged(QLCChannel::Green, green);
+    emit channelTypeValueChanged(QLCChannel::Blue, blue);
+    emit channelTypeValueChanged(QLCChannel::White, white);
+}
+
+QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID, bool enable)
 {
     int capDelta = 1;
     bool hasDimmer = false, hasColor = false, hasPosition = false;
 
+    QMultiHash<int, SceneValue> channelsMap;
+
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
-        return;
+        return channelsMap;
 
-    if (selected == false)
+    if (enable == false)
         capDelta = -1;
 
     for (quint32 ch = 0; ch < fixture->channels(); ch++)
@@ -129,6 +144,8 @@ void FixtureManager::setFixtureSelection(bool selected, quint32 fxID)
         const QLCChannel* channel(fixture->channel(ch));
         if(channel == NULL)
             continue;
+
+        int chType = channel->group();
 
         switch (channel->group())
         {
@@ -151,6 +168,7 @@ void FixtureManager::setFixtureSelection(bool selected, quint32 fxID)
                     break;
                     default: break;
                 }
+                chType = col;
             }
             break;
             case QLCChannel::Pan:
@@ -175,7 +193,10 @@ void FixtureManager::setFixtureSelection(bool selected, quint32 fxID)
             QQuickItem *positionCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
             positionCapItem->setProperty("counter", positionCapItem->property("counter").toInt() + capDelta);
         }
+
+        channelsMap.insert(chType, SceneValue(fxID, ch));
     }
+    return channelsMap;
 }
 
 int FixtureManager::fixturesCount()

@@ -23,33 +23,41 @@
 #include <QObject>
 #include <QQuickView>
 
+#include "scenevalue.h"
+
 class Doc;
 class MainView2D;
+class FixtureManager;
 class GenericDMXSource;
 
 class ContextManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit ContextManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    explicit ContextManager(QQuickView *view, Doc *doc,
+                            FixtureManager *fxMgr, QObject *parent = 0);
 
     Q_INVOKABLE void activateContext(QString context);
 
+    Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
+
 signals:
 
-public slots:
+protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
+    void slotChannelTypeValueChanged(int type, quint8 value);
 
 private:
-    /** Reference to the root QML view */
+    /** Reference to the QML view root */
     QQuickView *m_view;
-
     /** Reference to the project workspace */
     Doc *m_doc;
-
+    /** Reference to the Fixture Manager */
+    FixtureManager *m_fixtureManager;
+    /** A multihash containg the fixture capabilities by channel type */
+    QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a DMX source used to handle scenes design */
     GenericDMXSource* m_source;
-
     /** Reference to the 2D Preview context */
     MainView2D *m_2DView;
 };

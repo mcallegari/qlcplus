@@ -96,7 +96,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             isSelected = !isSelected
-            fixtureManager.setFixtureSelection(isSelected, fixtureID)
+            contextManager.setFixtureSelection(fixtureID, isSelected)
         }
     }
 }

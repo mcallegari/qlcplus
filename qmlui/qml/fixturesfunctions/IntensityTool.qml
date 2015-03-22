@@ -12,6 +12,8 @@ Rectangle {
     property bool dmxValues: true
     property int currentValue: 0
 
+    onCurrentValueChanged: fixtureManager.setIntensityValue(currentValue)
+
     RobotoText {
         id: titleBox
         y: 7
