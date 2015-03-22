@@ -21,7 +21,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QSpinBox>
-#include <QTextStream>
+#include <QDebug>
 
 #include "softpatcheditor.h"
 #include "fixturemanager.h"
@@ -137,7 +137,6 @@ bool SoftpatchEditor::hasDupliateChannels()
         QList<QTreeWidgetItem*> values = m_duplicateChannels.values(key);
         count += values.size();
     }
-    QTextStream out(stdout);
     return count;
 }
 
@@ -276,7 +275,7 @@ void SoftpatchEditor::accept()
         return;
     }
 
-    QList<Universe*> unis = m_doc->inputOutputMap()->claimUniverses();
+    m_doc->inputOutputMap()->claimUniverses();
 
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
@@ -287,21 +286,14 @@ void SoftpatchEditor::accept()
             quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
             QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
             Fixture *fixture = m_doc->fixture(fxID);
-            quint32 universe = fixture->universe();
-            fixture->setUniverse(universe);
-            fixture->setAddress(spin->value()-1);
+            if (fixture->address() != quint32(spin->value()-1))
+                fixture->setAddress(spin->value()-1);
         }
     }
     m_fixture_manager->updateView();
     m_doc->inputOutputMap()->releaseUniverses();
 
     m_duplicateChannels.clear();
-//    QMap<quint32, QTreeWidgetItem*>::iterator iter = m_duplicateChannels.begin();
-//    while (iter != m_duplicateChannels.end())
-//    {
-//        iter = m_duplicateChannels.erase(iter);
-//        ++iter;
-//    }
 
     QDialog::accept();
 }

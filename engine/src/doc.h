@@ -252,7 +252,7 @@ public:
      * @param id The ID of the fixture instance to move
      * @param newAddress the new DMX address where the fixture must take place
      */
-    bool moveFixture(quint32 id, quint32 newAddress);
+//    bool moveFixture(quint32 id, quint32 newAddress);
 
     /**
      * Replace the whole fixtures list with a new one.
@@ -310,6 +310,15 @@ public:
      * @return Total power consumption
      */
     int totalPowerConsumption(int& fuzzy) const;
+
+private:
+    /**
+     * clears and rebuild m_addresses Map
+     * after changing channels with softpatch, channels can be lost
+     * this fixes it in a bruteforce way
+     *
+     */
+    void rebuildAddressMap();
 
 protected:
     /**
