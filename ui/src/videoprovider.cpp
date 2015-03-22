@@ -142,13 +142,17 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             if (m_videoPlayer != NULL)
                 m_videoPlayer->stop();
 
-            if (m_videoWidget != NULL)
+            if (m_video->runOrder() == Video::Loop)
             {
-                m_videoWidget->hide();
-                //m_videoWidget->deleteLater();
-                //m_videoWidget = NULL;
+                m_videoPlayer->play();
+                break;
             }
-            m_video->stop();
+
+            if (m_videoWidget != NULL)
+                m_videoWidget->hide();
+
+            if (m_video->isRunning())
+                m_video->stop();
             break;
         }
         case QMediaPlayer::InvalidMedia:
@@ -173,16 +177,25 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 
 void VideoWidget::slotPlaybackVideo()
 {
+/*
     if (m_videoWidget != NULL)
     {
         //m_videoWidget->deleteLater();
         delete m_videoWidget;
         m_videoWidget = NULL;
     }
+*/
+    if (m_videoWidget == NULL)
+    {
+        m_videoWidget = new QVideoWidget;
+        m_videoPlayer->setVideoOutput(m_videoWidget);
+    }
+    else
+    {
+        m_videoWidget->show();
+    }
 
-    m_videoWidget = new QVideoWidget;
     //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
-    m_videoPlayer->setVideoOutput(m_videoWidget);
 
     if (m_video->getStartTime() != UINT_MAX)
         m_videoPlayer->setPosition(m_video->getStartTime());
@@ -220,7 +233,14 @@ void VideoWidget::slotPlaybackVideo()
 
 void VideoWidget::slotStopVideo()
 {
-    slotStatusChanged(QMediaPlayer::EndOfMedia);
+    if (m_videoPlayer != NULL)
+        m_videoPlayer->stop();
+
+    if (m_videoWidget != NULL)
+        m_videoWidget->hide();
+
+    if (m_video->isRunning())
+        m_video->stop();
 }
 
 void VideoWidget::slotBrightnessAdjust(int value)

@@ -81,6 +81,8 @@ RGBMatrix::~RGBMatrix()
 
 void RGBMatrix::setTotalDuration(quint32 msec)
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_fixtureGroupID == FixtureGroup::invalidId() ||
         m_algorithm == NULL)
             return;
@@ -95,6 +97,8 @@ void RGBMatrix::setTotalDuration(quint32 msec)
 
 quint32 RGBMatrix::totalDuration()
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_fixtureGroupID == FixtureGroup::invalidId() ||
         m_algorithm == NULL)
             return 0;
@@ -194,6 +198,8 @@ QMutex& RGBMatrix::algorithmMutex()
 
 int RGBMatrix::stepsCount()
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_algorithm == NULL)
         return 0;
 
@@ -307,11 +313,13 @@ void RGBMatrix::updateStepColor(int step)
 
 void RGBMatrix::setProperty(QString propName, QString value)
 {
+    QMutexLocker algoLocker(&m_algorithmMutex);
     m_properties[propName] = value;
 }
 
 QString RGBMatrix::property(QString propName)
 {
+    QMutexLocker algoLocker(&m_algorithmMutex);
     return m_properties[propName];
 }
 

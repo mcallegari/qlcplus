@@ -50,6 +50,7 @@ Video::Video(Doc* doc)
   , m_fullscreen(false)
 {
     setName(tr("New Video"));
+    setRunOrder(Video::SingleShot);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -286,6 +287,9 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Speed */
     saveXMLSpeed(doc, &root);
 
+    /* Playback mode */
+    saveXMLRunOrder(doc, &root);
+
     QDomElement source = doc->createElement(KXMLQLCVideoSource);
     if (m_screen > 0)
         source.setAttribute(KXMLQLCVideoScreen, m_screen);
@@ -318,6 +322,8 @@ bool Video::loadXML(const QDomElement& root)
         return false;
     }
 
+    QString fname = name();
+
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
     {
@@ -348,8 +354,15 @@ bool Video::loadXML(const QDomElement& root)
         {
             loadXMLSpeed(tag);
         }
+        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        {
+            loadXMLRunOrder(tag);
+        }
+
         node = node.nextSibling();
     }
+
+    setName(fname);
 
     return true;
 }

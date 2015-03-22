@@ -2,12 +2,23 @@ qlcplus (4.8.5) stable; urgency=low
 
   * Engine: it is now possible to flash LTP channels as well
   * RGB Scripts: added new "Balls" script (thanks to Tim Cullingworth)
+  * Collections: Pass down the intensity attribute to a collection's functions (David Garyga)
   * Function Manager: fix crash // disable Add Sequence button when function selection is empty (David Garyga)
   * Chaser Editor: fix cutting of several steps at the same time (David Garyga)
   * Chaser Editor: fix crash when trying to paste a removed function (David Garyga)
+  * Virtual Console Animation: fix some crashes when changing a running Matrix (David Garyga)
+  * Virtual Console Animation: fix custom control key sequence not loading (David Garyga)
+  * Virtual Console Animation: fix properties of a non-running matrix not set (David Garyga)
   * Show Manager: fixed rendering and playback of sequences with common duration steps
+  * Show Manager: fix sequeces present 2 times in Add Function selection dialog (David Garyga)
   * UI: in kiosk mode, don't show the panels tab bar
+  * Engine: correctly stop videos on Linux
+  * Engine: added video Single Shot and Loop playback modes
+  * Engine: preserve audio and video function names given by the user
+  * Plugins/DMXUSB: Added support for Eurolite USB DMX512 Pro adapter - Linux only (thanks to Karri Kaksonen)
   * Fixture Remap: fixed remapping of widgets into nested frames
+  * New fixtures: Martin Roboscan Pro 918 (thanks to Thierry Rodolfo)
+  * New fixture: Eurolite LED Flood Light 252 RGB 19° (thanks to Karri Kaksonen)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Mar 2015 20:21:22 +0200
 
