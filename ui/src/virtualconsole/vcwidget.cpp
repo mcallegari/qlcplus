@@ -643,9 +643,7 @@ void VCWidget::sendFeedback(int value, quint8 id)
             QLCInputProfile* profile = pat->profile();
             if (profile != NULL)
             {
-                // __offtools__ send correct channel names
-                //QLCInputChannel* ich = profile->channel(src->channel());
-                QLCInputChannel* ich = profile->channel( (src->channel() & 0xFF) );
+                QLCInputChannel* ich = profile->channel(src->channel());
                 if (ich != NULL)
                     chName = ich->name();
             }

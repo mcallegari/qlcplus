@@ -326,7 +326,7 @@ void PlaybackWing::sendPageData()
     QByteArray sendData(42, char(0));
     sendData.replace(0, sizeof(WING_HEADER_INPUT), WING_HEADER_INPUT);
     sendData[WING_PLAYBACK_INPUT_BYTE_VERSION] = WING_PLAYBACK_INPUT_VERSION;
-    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = toBCD(page() + 1);
+    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = page() + 1;
 
     QUdpSocket sock(this);
     sock.writeDatagram(sendData, address(), Wing::UDPPort);
