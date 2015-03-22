@@ -145,18 +145,21 @@ void SoftpatchEditor::slotTestButtonPressed()
 
     if (m_testButton->isDown())
     {
-        m_mutex.lock();
         QTreeWidgetItem* item = m_tree->currentItem();
         quint32 FxID = item->data(KColumnName, PROP_ID).toUInt();
         Fixture* fxi = m_doc->fixture(FxID);
         QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(item, KColumnPatch);
 
-        testChannel = spin->value() - 1;
-        testUniverse = fxi->universe();
-        testValue = uchar(255);
-        runTest = true;
-        resetTest = false;
-        m_mutex.unlock();
+        if(fxi->isDimmer())
+        {
+            m_mutex.lock();
+            testChannel = spin->value() - 1;
+            testUniverse = fxi->universe();
+            testValue = uchar(255);
+            runTest = true;
+            resetTest = false;
+            m_mutex.unlock();
+        }
     }
     else
     {

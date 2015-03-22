@@ -40,22 +40,19 @@
      <item>
       <widget class="QPushButton" name="m_testButton">
        <property name="text">
-        <string>Test Channel</string>
+        <string>Test Dimmer</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLabel" name="label">
+       <property name="locale">
+        <locale language="German" country="Germany"/>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Test works only for Dimmer Fixtures.&lt;br/&gt;Use with caution, if you changed the Address.&lt;br/&gt;Make sure not to activate your smoke maschine&lt;br/&gt;or your flame jet by accident.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>
