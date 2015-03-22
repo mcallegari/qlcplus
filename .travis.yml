@@ -10,9 +10,9 @@ matrix:
     #- compiler: clang
     #  env: TASK='compile'
     - compiler: gcc
-      env: TASK='compile' QT='qt4' BUILDSYSTEM='travis'
+      env: TASK='compile' QT='qt4'
     - compiler: gcc
-      env: TASK='compile' QT='qt5' BUILDSYSTEM='travis'
+      env: TASK='compile' QT='qt5'
 
 cache: apt
 
