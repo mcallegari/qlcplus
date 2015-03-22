@@ -14,8 +14,8 @@ INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
-BSYS = $$(BUILDSYSTEM)
-contains(BSYS, "travis") {
+IS_TRAVIS = $$(TRAVIS)
+contains(IS_TRAVIS, "true") {
     DEFINES += TRAVIS_BUILD
 }
 
