@@ -53,7 +53,7 @@ QString EnttecWing::name()
 
 int EnttecWing::capabilities() const
 {
-    return QLCIOPlugin::Input;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
 }
 
 bool EnttecWing::reBindSocket()
@@ -72,6 +72,19 @@ bool EnttecWing::reBindSocket()
         m_errorString.clear();
     }
     return true;
+}
+
+/*****************************************************************************
+ * Outputs
+ *****************************************************************************/
+
+QStringList EnttecWing::outputs()
+{
+    QStringList list;
+    QListIterator <Wing*> it(m_devices);
+    while (it.hasNext() == true)
+        list << it.next()->name();
+    return list;
 }
 
 /*****************************************************************************

@@ -444,6 +444,7 @@ void VCFrame::slotPreviousPage()
         slotSetPage(m_totalPagesNumber - 1);
     else
         slotSetPage(m_currentPage - 1);
+    sendFeedback(m_currentPage, previousPageInputSourceId);
 }
 
 void VCFrame::slotNextPage()
@@ -452,6 +453,8 @@ void VCFrame::slotNextPage()
         slotSetPage(0);
     else
         slotSetPage(m_currentPage + 1);
+
+    sendFeedback(m_currentPage, nextPageInputSourceId);
 }
 
 void VCFrame::slotSetPage(int pageNum)

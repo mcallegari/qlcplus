@@ -161,6 +161,8 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
     m_channelMap[38] = 33 + WING_PLAYBACK_SLIDER_SIZE;
     m_channelMap[39] = 32 + WING_PLAYBACK_SLIDER_SIZE;
 
+    m_needSync = true;
+
     /* Take initial values from the first received datagram packet.
        The plugin hasn't yet connected to valueChanged() signal, so this
        won't cause any input events. */
@@ -232,9 +234,40 @@ void PlaybackWing::parseData(const QByteArray& data)
     /* Read the state of each slider. Each value takes all 8 bits. */
     for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
     {
+        if (m_needSync)
+        {
+            // store value diffs to sync qlcplus widgets and wing slider
+            if (!m_feedbackDiffs.contains(page()))
+                m_feedbackDiffs.insert(page(), QVector<int>(WING_PLAYBACK_SLIDER_SIZE, 0));
+
+            m_feedbackDiffs[page()][slider] = quint8(m_feedbackValues[page()][slider]) - quint8(cacheValue(slider));
+        }
+
+        int diff = 0;
+        if (m_feedbackDiffs.contains(page()))
+            diff = m_feedbackDiffs[page()][slider];
+
         char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-        setCacheValue(slider, value);
+
+        if (m_feedbackValues.contains(page()) && diff != 0)
+        {
+            //check sync status
+            int curdiff = quint8(m_feedbackValues[page()][slider]) - quint8(data[WING_PLAYBACK_BYTE_SLIDER + slider]);
+
+            // send input after crossing widget values ( sign of diff is changing)
+            if (curdiff == 0 || (curdiff > 0 && diff < 0)  || (curdiff < 0 && diff > 0))
+            {
+                setCacheValue(slider, value);
+                if (m_feedbackDiffs.contains(page()))
+                    m_feedbackDiffs[page()][slider] = 0;
+            }
+        }
+        else
+        {
+            setCacheValue(slider, value);
+        }
     }
+    m_needSync = false;
 }
 
 void PlaybackWing::applyExtraButtons(const QByteArray& data)
@@ -293,8 +326,36 @@ void PlaybackWing::sendPageData()
     QByteArray sendData(42, char(0));
     sendData.replace(0, sizeof(WING_HEADER_INPUT), WING_HEADER_INPUT);
     sendData[WING_PLAYBACK_INPUT_BYTE_VERSION] = WING_PLAYBACK_INPUT_VERSION;
-    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = toBCD(page());
+    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = page() + 1;
 
     QUdpSocket sock(this);
     sock.writeDatagram(sendData, address(), Wing::UDPPort);
+}
+
+void PlaybackWing::feedBack(quint32 channel, uchar value)
+{
+    quint16 pageChan = channel & 0xFF;
+    quint16 pageNum = channel >> 16;
+
+    // create new byte array for page, to store values, if it not exists
+    if (!m_feedbackValues.contains(pageNum))
+        m_feedbackValues.insert(pageNum, QByteArray(WING_PLAYBACK_SLIDER_SIZE, 0));
+
+    if (pageChan < WING_PLAYBACK_SLIDER_SIZE)
+    {
+        // store widget values for later use
+        m_feedbackValues[pageNum][pageChan] = value;
+
+        // check sync
+        if (value != cacheValue(pageChan))
+            m_needSync = true;
+    }
+
+    //set page
+    if (pageChan == WING_PLAYBACK_BUTTON_PAGEDOWN || pageChan == WING_PLAYBACK_BUTTON_PAGEUP)
+    {
+        m_needSync = true;
+        m_page = value;
+        sendPageData();
+    }
 }

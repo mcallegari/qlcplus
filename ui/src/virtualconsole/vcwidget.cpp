@@ -648,7 +648,6 @@ void VCWidget::sendFeedback(int value, quint8 id)
                     chName = ich->name();
             }
         }
-
         m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
     }
 }

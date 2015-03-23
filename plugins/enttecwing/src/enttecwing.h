@@ -72,13 +72,13 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output) { Q_UNUSED(output); return false; }
+    bool openOutput(quint32 output) { Q_UNUSED(output); return true; }
 
     /** @reimp */
     void closeOutput(quint32 output) { Q_UNUSED(output); }
 
     /** @reimp */
-    QStringList outputs() { return QStringList(); }
+    QStringList outputs();
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
