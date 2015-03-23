@@ -229,13 +229,13 @@ void VCSpeedDialProperties::updateInputSources()
 
 void VCSpeedDialProperties::slotAbsoluteInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_absoluteInputSource.reset(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
+    m_absoluteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
     updateInputSources();
 }
 
 void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_tapInputSource.reset(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
+    m_tapInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
     updateInputSources();
 }
 
@@ -258,7 +258,7 @@ void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_absoluteInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_absoluteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSources();
     }
 }
@@ -282,7 +282,7 @@ void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_tapInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_tapInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSources();
     }
 }

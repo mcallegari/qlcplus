@@ -297,7 +297,7 @@ void VCXYPadProperties::slotPanChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_panInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updatePanInputSource();
     }
 }
@@ -312,12 +312,12 @@ void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
         m_panInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_panInputSource->channel())
     {
-        m_tiltInputSource.reset(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updateTiltInputSource();
         return;
     }
 
-    m_panInputSource.reset(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+    m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updatePanInputSource();
 }
 
@@ -344,7 +344,7 @@ void VCXYPadProperties::slotTiltChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_tiltInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateTiltInputSource();
     }
 }
@@ -358,12 +358,12 @@ void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
         m_tiltInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_tiltInputSource->channel())
     {
-        m_panInputSource.reset(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updatePanInputSource();
         return;
     }
 
-    m_tiltInputSource.reset(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+    m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updateTiltInputSource();
 }
 

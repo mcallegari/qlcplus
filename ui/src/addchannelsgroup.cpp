@@ -273,7 +273,7 @@ void AddChannelsGroup::slotAutoDetectInputToggled(bool checked)
 
 void AddChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource.reset(new QLCInputSource(universe, channel));
+    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
     updateInputSource();
 }
 
@@ -282,7 +282,7 @@ void AddChannelsGroup::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSource();
     }
 }

@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QDir>
+#include <QSharedPointer>
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"

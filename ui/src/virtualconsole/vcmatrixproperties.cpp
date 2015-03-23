@@ -170,7 +170,7 @@ void VCMatrixProperties::slotAutoDetectSliderInputToggled(bool checked)
 
 void VCMatrixProperties::slotSliderInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_sliderInputSource.reset(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
+    m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
     updateSliderInputSource();
 }
 
@@ -179,7 +179,7 @@ void VCMatrixProperties::slotChooseSliderInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_sliderInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateSliderInputSource();
     }
 }
@@ -498,7 +498,7 @@ void VCMatrixProperties::slotControlInputValueChanged(quint32 universe, quint32 
 
     if (control != NULL)
     {
-        control->m_inputSource.reset(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
+        control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
         updateControlInputSource(control->m_inputSource);
     }
 }
@@ -512,7 +512,7 @@ void VCMatrixProperties::slotChooseControlInputClicked()
 
         if (control != NULL)
         {
-            control->m_inputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+            control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
             updateControlInputSource(control->m_inputSource);
         }
     }

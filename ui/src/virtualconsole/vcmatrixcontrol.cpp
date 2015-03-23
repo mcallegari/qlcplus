@@ -39,7 +39,7 @@ VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
     , m_keySequence(vcmc.m_keySequence)
 {
     if (vcmc.m_inputSource != NULL)
-        m_inputSource.reset(new QLCInputSource(vcmc.m_inputSource->universe(),
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
                                                vcmc.m_inputSource->channel()));
 }
 
@@ -188,7 +188,7 @@ bool VCMatrixControl::loadXML(const QDomElement &root)
             {
                 quint32 uni = tag.attribute(KXMLQLCVCMatrixControlInputUniverse).toUInt();
                 quint32 ch = tag.attribute(KXMLQLCVCMatrixControlInputChannel).toUInt();
-                m_inputSource.reset(new QLCInputSource(uni, ch));
+                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
             }
         }
         else if (tag.tagName() == KXMLQLCVCMatrixControlKey)

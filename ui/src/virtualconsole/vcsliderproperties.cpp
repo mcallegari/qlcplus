@@ -268,7 +268,7 @@ void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCSliderProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource.reset(new QLCInputSource(universe, (m_slider->page() << 16) | channel));
+    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_slider->page() << 16) | channel));
     updateInputSource();
 }
 
@@ -277,7 +277,7 @@ void VCSliderProperties::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSource();
     }
 }
