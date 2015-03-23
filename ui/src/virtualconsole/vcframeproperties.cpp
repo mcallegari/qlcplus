@@ -238,9 +238,7 @@ void VCFrameProperties::slotEnableChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_enableInputSource != NULL)
-           delete m_enableInputSource;
-        m_enableInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_enableInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
         updateEnableInputSource();
     }
 }
@@ -261,9 +259,7 @@ void VCFrameProperties::slotEnableAutoDetectInputToggled(bool checked)
 
 void VCFrameProperties::slotEnableInputValueChanged(quint32 uni, quint32 ch)
 {
-    if (m_enableInputSource != NULL)
-       delete m_enableInputSource;
-    m_enableInputSource = new QLCInputSource(uni, ch);
+    m_enableInputSource.reset(new QLCInputSource(uni, ch));
     updateEnableInputSource();
 }
 
@@ -310,9 +306,7 @@ void VCFrameProperties::slotNextChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_nextInputSource != NULL)
-           delete m_nextInputSource;
-        m_nextInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_nextInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
         updateNextInputSource();
     }
 }
@@ -333,9 +327,7 @@ void VCFrameProperties::slotNextAutoDetectInputToggled(bool checked)
 
 void VCFrameProperties::slotNextInputValueChanged(quint32 uni, quint32 ch)
 {
-    if (m_nextInputSource != NULL)
-       delete m_nextInputSource;
-    m_nextInputSource = new QLCInputSource(uni, ch);
+    m_nextInputSource.reset(new QLCInputSource(uni, ch));
     updateNextInputSource();
 }
 
@@ -382,9 +374,7 @@ void VCFrameProperties::slotPreviousChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_previousInputSource != NULL)
-           delete m_previousInputSource;
-        m_previousInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_previousInputSource.reset(new QLCInputSource(sic.universe(), sic.channel()));
         updatePreviousInputSource();
     }
 }
@@ -405,9 +395,7 @@ void VCFrameProperties::slotPreviousAutoDetectInputToggled(bool checked)
 
 void VCFrameProperties::slotPreviousInputValueChanged(quint32 uni, quint32 ch)
 {
-    if (m_previousInputSource != NULL)
-       delete m_previousInputSource;
-    m_previousInputSource = new QLCInputSource(uni, ch);
+    m_previousInputSource.reset(new QLCInputSource(uni, ch));
     updatePreviousInputSource();
 }
 

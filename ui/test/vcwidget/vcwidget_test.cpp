@@ -295,11 +295,11 @@ void VCWidget_Test::frame()
 
 void VCWidget_Test::inputSource()
 {
-    QLCInputSource *src;
+    QSharedPointer<QLCInputSource> src;
     QWidget w;
 
     StubWidget stub(&w, m_doc);
-    stub.setInputSource(new QLCInputSource(1, 2));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)));
     src = stub.inputSource();
     QVERIFY(src->isValid() == true);
     QCOMPARE(src->universe(), quint32(1));
@@ -317,13 +317,13 @@ void VCWidget_Test::inputSource()
     src = stub.inputSource(42);
     QVERIFY(src == NULL);
 
-    stub.setInputSource(new QLCInputSource(3, 4), 0);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 4)), 0);
     src = stub.inputSource();
     QVERIFY(src->isValid() == true);
     QCOMPARE(src->universe(), quint32(3));
     QCOMPARE(src->channel(), quint32(4));
 
-    stub.setInputSource(new QLCInputSource());
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource()));
     src = stub.inputSource();
     QVERIFY(src == NULL);
 
@@ -345,9 +345,9 @@ void VCWidget_Test::copy()
     stub.setFrameStyle(KVCFrameStyleRaised);
     stub.move(QPoint(10, 20));
     stub.resize(QSize(20, 30));
-    stub.setInputSource(new QLCInputSource(0, 12));
-    stub.setInputSource(new QLCInputSource(1, 2), 15);
-    stub.setInputSource(new QLCInputSource(3, 4), 1);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 12)));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)), 15);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 4)), 1);
 
     StubWidget copy(&w, m_doc);
     copy.copyFrom(&stub);
@@ -507,7 +507,7 @@ void VCWidget_Test::saveInput()
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == false);
     QCOMPARE(root.childNodes().count(), 0);
 
-    stub.setInputSource(new QLCInputSource(34, 56));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(34, 56)));
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 1);
     QCOMPARE(root.firstChild().toElement().tagName(), QString("Input"));
@@ -516,7 +516,7 @@ void VCWidget_Test::saveInput()
 
     root.clear();
 
-    stub.setInputSource(new QLCInputSource(34, 56), 1);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(34, 56)), 1);
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 0);
 }

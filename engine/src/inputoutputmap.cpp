@@ -806,6 +806,12 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src,
     return true;
 }
 
+bool InputOutputMap::inputSourceNames(QSharedPointer<QLCInputSource> const& src,
+                                QString& uniName, QString& chName) const
+{
+    return inputSourceNames(src.data(), uniName, chName);
+}
+
 QDir InputOutputMap::systemProfileDirectory()
 {
     return QLCFile::systemDirectory(QString(INPUTPROFILEDIR), QString(KExtInputProfile));

@@ -502,6 +502,8 @@ public:
      */
     bool inputSourceNames(const QLCInputSource *src,
                           QString& uniName, QString& chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src,
+                          QString& uniName, QString& chName) const;
 
     /**
      * Get the default system input profile directory that contains installed
