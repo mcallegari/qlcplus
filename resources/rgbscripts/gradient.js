@@ -79,10 +79,10 @@ var testAlgo;
     {
       if (_orientation == "Vertical")
 	algo.orientation = 1;
-      else if (_orientation == "Horizontal")
-	algo.orientation = 0;
+      else if (_orientation == "Radial")
+	algo.orientation = 2;
       else
-        algo.orientation = 2;
+        algo.orientation = 0;
       util.initialize();
     }
 
@@ -90,10 +90,10 @@ var testAlgo;
     {
       if (algo.orientation == 1)
 	return "Vertical";
-      else if (algo.orientation == 0)
-	return "Horizontal";
-      else
+      else if (algo.orientation == 2)
 	return "Radial";
+      else
+	return "Horizontal";
     }
 
     util.initialize = function()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl_NL">
+<TS version="2.0" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1373,19 +1373,19 @@ The selected file has been moved or deleted.</source>
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="965"/>
+        <location filename="chasereditor.cpp" line="967"/>
         <source>Fade In</source>
         <translation>Fade IN</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="967"/>
+        <location filename="chasereditor.cpp" line="969"/>
         <source>Hold</source>
         <translation>Hold</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="966"/>
+        <location filename="chasereditor.cpp" line="968"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
@@ -1615,32 +1615,32 @@ The selected file has been moved or deleted.</source>
         <translation>Plakken</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
+        <location filename="chasereditor.cpp" line="702"/>
         <source>Paste error</source>
         <translation>Fout bij plakken</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
+        <location filename="chasereditor.cpp" line="702"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Poging om een niet-compatibele scene te plakken. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="968"/>
+        <location filename="chasereditor.cpp" line="970"/>
         <source>Common Fade In</source>
         <translation>Gemeenschappelijke Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="969"/>
+        <location filename="chasereditor.cpp" line="971"/>
         <source>Common Fade Out</source>
         <translation>Gemeenschappelijke Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="970"/>
+        <location filename="chasereditor.cpp" line="972"/>
         <source>Common Hold</source>
         <translation>Gemeenschappelijke Hold</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="986"/>
+        <location filename="chasereditor.cpp" line="988"/>
         <source>Multiple Steps</source>
         <translation>Meerdere stappen</translation>
     </message>
@@ -1991,7 +1991,7 @@ The selected file has been moved or deleted.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -2501,12 +2501,12 @@ The selected file has been moved or deleted.</source>
         <translation>Om een fixture herindeling uit te voeren dient uit beide lijsten fixtures geselecteerd te worden.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="643"/>
         <source>This might take a while...</source>
         <translation>Even geduld a.u.b...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="643"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -2777,7 +2777,7 @@ The selected file has been moved or deleted.</source>
         <translation>Functie</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="876"/>
+        <location filename="functionmanager.cpp" line="873"/>
         <source> (Copy)</source>
         <translation> (kopie)</translation>
     </message>
@@ -7395,13 +7395,13 @@ Duur: %3
         <translation>Videonaam</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="248"/>
+        <location filename="videoeditor.ui" line="200"/>
         <source>File name</source>
         <oldsource>File name:</oldsource>
         <translation>Bestandsnaam</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="86"/>
+        <location filename="videoeditor.ui" line="100"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation>Duur</translation>
@@ -7413,7 +7413,7 @@ Duur: %3
         <translation>Resolutie</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="100"/>
+        <location filename="videoeditor.ui" line="86"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
         <translation>Audio codec</translation>
@@ -7430,7 +7430,7 @@ Duur: %3
         <translation>Stel een arbitraire URL in voor deze Video</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="255"/>
+        <location filename="videoeditor.ui" line="229"/>
         <source>Name of the function being edited</source>
         <translation>Naam van de functie die gewijzigd wordt</translation>
     </message>
@@ -7446,47 +7446,62 @@ Duur: %3
         <translation>Output scherm</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="222"/>
+        <location filename="videoeditor.ui" line="236"/>
         <source>Video output</source>
         <translation>Video output</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="228"/>
+        <location filename="videoeditor.ui" line="242"/>
         <source>Windowed</source>
         <translation>Venster</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="238"/>
+        <location filename="videoeditor.ui" line="252"/>
         <source>Fullscreen</source>
         <translation>Volledig scherm</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="120"/>
+        <location filename="videoeditor.ui" line="262"/>
+        <source>Playback mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="268"/>
+        <source>Single shot</source>
+        <translation type="unfinished">Eenmalig</translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="278"/>
+        <source>Loop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.cpp" line="130"/>
         <source>Open Video File</source>
         <translation>Open videobestand</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="128"/>
+        <location filename="videoeditor.cpp" line="138"/>
         <source>Video Files (%1)</source>
         <translation>Videobestanden (%1)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="130"/>
+        <location filename="videoeditor.cpp" line="140"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="132"/>
+        <location filename="videoeditor.cpp" line="142"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="161"/>
+        <location filename="videoeditor.cpp" line="171"/>
         <source>Video source URL</source>
         <translation>Video bron URL</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="162"/>
+        <location filename="videoeditor.cpp" line="172"/>
         <source>Enter a URL:</source>
         <translation>Voer een URL in:</translation>
     </message>

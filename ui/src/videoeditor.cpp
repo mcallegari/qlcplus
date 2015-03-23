@@ -89,6 +89,16 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     connect(m_fullCheck, SIGNAL(clicked()),
             this, SLOT(slotFullscreenCheckClicked()));
 
+    if(m_video->runOrder() == Video::Loop)
+        m_loopCheck->setChecked(true);
+    else
+        m_singleCheck->setChecked(true);
+
+    connect(m_loopCheck, SIGNAL(clicked()),
+            this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()),
+            this, SLOT(slotSingleShotCheckClicked()));
+
     // Set focus to the editor
     m_nameEdit->setFocus();
 }
@@ -182,6 +192,16 @@ void VideoEditor::slotWindowedCheckClicked()
 void VideoEditor::slotFullscreenCheckClicked()
 {
     m_video->setFullscreen(true);
+}
+
+void VideoEditor::slotSingleShotCheckClicked()
+{
+    m_video->setRunOrder(Video::SingleShot);
+}
+
+void VideoEditor::slotLoopCheckClicked()
+{
+    m_video->setRunOrder(Video::Loop);
 }
 
 void VideoEditor::slotPreviewToggled(bool state)

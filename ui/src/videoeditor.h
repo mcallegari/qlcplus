@@ -49,6 +49,8 @@ private slots:
     void slotScreenIndexChanged(int idx);
     void slotWindowedCheckClicked();
     void slotFullscreenCheckClicked();
+    void slotSingleShotCheckClicked();
+    void slotLoopCheckClicked();
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
     void slotDurationChanged(qint64 duration);

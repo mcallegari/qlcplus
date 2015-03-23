@@ -81,16 +81,17 @@ void FunctionsTreeWidget::functionNameChanged(quint32 fid)
 
 QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
 {
-    blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
-    {
-        blockSignals(false);
         return NULL;
-    }
 
+    QTreeWidgetItem* item = functionItem(function);
+    if (item != NULL)
+        return item;
+
+    blockSignals(true);
     QTreeWidgetItem* parent = parentItem(function);
-    QTreeWidgetItem* item = new QTreeWidgetItem(parent);
+    item = new QTreeWidgetItem(parent);
     updateFunctionItem(item, function);
     if (parent != NULL)
         function->setPath(parent->text(COL_PATH));
