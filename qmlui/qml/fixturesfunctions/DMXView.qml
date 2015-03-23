@@ -27,20 +27,11 @@ Flickable {
 
     contentHeight: flowLayout.height
 
-    property variant fxList: fixtureManager.fixtures
-
     Flow {
         id: flowLayout
+        objectName: "DMXFlowView"
         spacing: 5
         width: parent.width
-
-        Repeater {
-            model: fixtureManager.fixturesCount
-            delegate:
-                FixtureDMXItem {
-                    fixtureObj: fxList[index]
-                }
-        }
     }
 
 }

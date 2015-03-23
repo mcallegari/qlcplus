@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview2d.h
+  mainviewdmx.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW2D_H
-#define MAINVIEW2D_H
+#ifndef MAINVIEWDMX_H
+#define MAINVIEWDMX_H
 
 #include <QObject>
 #include <QQuickView>
@@ -27,27 +27,21 @@
 
 class Doc;
 
-class MainView2D : public PreviewContext
+class MainViewDMX : public PreviewContext
 {
     Q_OBJECT
 public:
-    explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
-    ~MainView2D();
+    explicit MainViewDMX(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~MainViewDMX();
 
     /** @reimp */
     void enableContext(bool enable);
 
     void reset();
 
-    void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
+    void createFixtureItem(quint32 fxID);
 
 protected:
-    /** First time 2D view variables initializations */
-    void initialize2DProperties();
-
-    /** Returns the first available space (in mm) for a rectangle
-     * of the given width and height. */
-    QPointF getAvailablePosition(qreal width, qreal height);
 
 signals:
 
@@ -57,25 +51,7 @@ protected slots:
 
 private:
     /** References to the 2D view and 2D contents for items creation */
-    QQuickItem *m_view2D, *m_contents2D;
-
-    /** Size of the grid. How many horizontal and vertical cells */
-    QSize m_gridSize;
-
-    /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
-    float m_gridUnits;
-
-    /** Scale of the grid */
-    qreal m_gridScale;
-
-    /** Size of a grid cell in pixels */
-    qreal m_cellPixels;
-
-    /** X offset of the grid to keep it centered */
-    qreal m_xOffset;
-
-    /** Y offset of the grid to keep it centered */
-    qreal m_yOffset;
+    QQuickItem *m_viewDMX;
 
     /** Map of the fixture 2D items by ID */
     QMap<quint32, QQuickItem*> m_itemsMap;
@@ -84,4 +60,4 @@ private:
     QQmlComponent *fixtureComponent;
 };
 
-#endif // MAINVIEW2D_H
+#endif // MAINVIEWDMX_H

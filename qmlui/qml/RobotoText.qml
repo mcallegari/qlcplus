@@ -20,7 +20,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: wrapText ? 100 : textBox.width + 10
+    width: wrapText ? 100 : textBox.width
     height: 40
 
     color: "transparent"
@@ -33,7 +33,7 @@ Rectangle {
 
     Text {
         id: textBox
-        x: 5
+        //x: 5
         width: wrapText ? parent.width : Text.paintedWidth
         anchors.verticalCenter: parent.verticalCenter
         text: label

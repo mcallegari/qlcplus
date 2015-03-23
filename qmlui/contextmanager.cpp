@@ -24,6 +24,7 @@
 #include "contextmanager.h"
 #include "genericdmxsource.h"
 #include "fixturemanager.h"
+#include "mainviewdmx.h"
 #include "mainview2d.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
@@ -39,6 +40,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_2DView = new MainView2D(m_view, m_doc);
     m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
+    m_DMXView = new MainViewDMX(m_view, m_doc);
+
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
@@ -47,8 +50,16 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
 void ContextManager::activateContext(QString context)
 {
-    if (context == "2D")
+    if (context == "DMX")
+    {
+        m_DMXView->enableContext(true);
+        m_2DView->enableContext(false);
+    }
+    else if (context == "2D")
+    {
+        m_DMXView->enableContext(false);
         m_2DView->enableContext(true);
+    }
 }
 
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
@@ -84,7 +95,10 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
     QString currentView = viewObj->property("currentView").toString();
     qDebug() << "[ContextManager] Current view:" << currentView;
 
-    m_2DView->createFixtureItem(fxID, x, y, false);
+    if (m_DMXView->isEnabled())
+        m_DMXView->createFixtureItem(fxID);
+    if (m_2DView->isEnabled())
+        m_2DView->createFixtureItem(fxID, x, y, false);
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)

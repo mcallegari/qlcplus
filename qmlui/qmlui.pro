@@ -30,7 +30,8 @@ HEADERS += \
     treemodel.h \
     treemodelitem.h \
     previewcontext.h \
-    mainview2d.h
+    mainview2d.h \
+    mainviewdmx.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -42,7 +43,8 @@ SOURCES += main.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
     previewcontext.cpp \
-    mainview2d.cpp
+    mainview2d.cpp \
+    mainviewdmx.cpp
 
 RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

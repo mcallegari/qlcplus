@@ -22,6 +22,15 @@ import com.qlcplus.classes 1.0
 
 Rectangle {
     property Fixture fixtureObj;
+    property variant values;
+
+    onValuesChanged: {
+        for (var i = 0; i < values.length; i++)
+        {
+            //console.log("Value " + i + " = " + values[i]);
+            channelsRpt.itemAt(i).dmxValue = values[i]
+        }
+    }
 
     width: channelsRow.width
     height: fxColumn.height
@@ -42,14 +51,15 @@ Rectangle {
             RobotoText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 2
-                label: fixtureObj.name
+                label: fixtureObj ? fixtureObj.name : ""
                 fontSize: 15
             }
         }
         Row {
             id: channelsRow
             Repeater {
-                model: fixtureObj.channels
+                id: channelsRpt
+                model: fixtureObj ? fixtureObj.channels : null
                 delegate:
                     Rectangle {
                         color: "transparent"
@@ -58,12 +68,24 @@ Rectangle {
                         width: 30
                         height: 50
 
+                        property string dmxValue: "0"
+
                         Image {
                             x: 1
                             y: 1
                             width: 28
                             height: 28
-                            source: if (fixtureObj) fixtureManager.channelIcon(fixtureObj.id, index)
+                            sourceSize: Qt.size(width, height)
+                            source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                        }
+                        RobotoText {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            y: 30
+                            //width: 30
+                            height: 20
+                            fontSize: 11
+                            labelColor: "black"
+                            label: dmxValue
                         }
                     }
             }

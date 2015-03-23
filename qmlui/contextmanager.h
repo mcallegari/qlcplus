@@ -27,6 +27,7 @@
 
 class Doc;
 class MainView2D;
+class MainViewDMX;
 class FixtureManager;
 class GenericDMXSource;
 
@@ -58,6 +59,8 @@ private:
     QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a DMX source used to handle scenes design */
     GenericDMXSource* m_source;
+    /** Reference to the DMX Preview context */
+    MainViewDMX *m_DMXView;
     /** Reference to the 2D Preview context */
     MainView2D *m_2DView;
 };

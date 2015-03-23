@@ -45,6 +45,9 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotRefreshView()));
+
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 MainView2D::~MainView2D()
@@ -137,7 +140,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     //if (m_view2D == NULL || m_contents2D == NULL)
         initialize2DProperties();
 
-    qDebug() << "Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
+    qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
     Fixture *fixture = m_doc->fixture(fxID);
     MonitorProperties *mProps = m_doc->monitorProperties();
@@ -215,5 +218,14 @@ void MainView2D::slotRefreshView()
         else
             createFixtureItem(fixture->id(), -1, -1, false);
     }
+}
+
+void MainView2D::slotUniversesWritten(int idx, const QByteArray &ua)
+{
+    Q_UNUSED(idx)
+    Q_UNUSED(ua)
+    if (m_enabled == false)
+        return;
+
 }
 
