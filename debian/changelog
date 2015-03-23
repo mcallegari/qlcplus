@@ -16,6 +16,7 @@ qlcplus (4.8.5) stable; urgency=low
   * Engine: added video Single Shot and Loop playback modes
   * Engine: preserve audio and video function names given by the user
   * Plugins/DMXUSB: Added support for Eurolite USB DMX512 Pro adapter - Linux only (thanks to Karri Kaksonen)
+  * Plugins/EnttecWing: using feedbacks to sync widget values and Playback Wing sliders (thanks to offtools)
   * Fixture Remap: fixed remapping of widgets into nested frames
   * New fixtures: Martin Roboscan Pro 918 (thanks to Thierry Rodolfo)
   * New fixture: Eurolite LED Flood Light 252 RGB 19° (thanks to Karri Kaksonen)
