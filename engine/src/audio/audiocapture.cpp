@@ -131,9 +131,10 @@ double AudioCapture::fillBandsData(int number)
     // representing all the frequencies from 0 to m_sampleRate Hz.
     // I will just consider 0 to 5000Hz and will calculate average magnitude
     // for the number of desired bands.
+    double maxMagnitude = 0;
+#ifdef HAS_FFTW3
     unsigned int i = 0;
     int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
-    double maxMagnitude = 0;
 
     for (int b = 0; b < number; b++)
     {
@@ -150,6 +151,9 @@ double AudioCapture::fillBandsData(int number)
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
     }
+#else
+    Q_UNUSED(number)
+#endif
     return maxMagnitude;
 }
 
