@@ -84,8 +84,8 @@ private:
     void updateTiltInputSource();
 
 private:
-    QLCInputSource *m_panInputSource;
-    QLCInputSource *m_tiltInputSource;
+    QSharedPointer<QLCInputSource> m_panInputSource;
+    QSharedPointer<QLCInputSource> m_tiltInputSource;
 
     /********************************************************************
      * OK/Cancel

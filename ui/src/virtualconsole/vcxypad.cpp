@@ -547,14 +547,14 @@ bool VCXYPad::loadXML(const QDomElement* root)
             quint32 uni = 0, ch = 0;
             xpos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(new QLCInputSource(uni, ch), panInputSourceId);
+                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), panInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadTilt)
         {
             quint32 uni = 0, ch = 0;
             ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(new QLCInputSource(uni, ch), tiltInputSourceId);
+                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tiltInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
         {

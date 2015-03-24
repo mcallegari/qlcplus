@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QDir>
+#include <QSharedPointer>
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
@@ -501,6 +502,8 @@ public:
      * @return true if uniName & chName contain something, otherwise false
      */
     bool inputSourceNames(const QLCInputSource *src,
+                          QString& uniName, QString& chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src,
                           QString& uniName, QString& chName) const;
 
     /**
