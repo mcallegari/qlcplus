@@ -62,16 +62,20 @@ Rectangle {
         id: rectMask
         color: "transparent"
         x: 30
-        width: 100
-        y: 30 + (255 - (dmxValues ? slider.value : (slider.value * 2.55)))
-        height: 285 - y
+        width: dmxValues ? slider.value : (slider.value * 2.55)
+        y: 285
+        height: 100
+        transformOrigin: Item.TopLeft
+        rotation: -90
         clip: true
 
         Image {
             id: intForegroundImg
-            y: parent.height - 256
+            y: -256
             width: 100
             height: 256
+            transformOrigin: Item.BottomLeft
+            rotation: 90
             source: "qrc:/dimmer-fill.svg"
             sourceSize: Qt.size(100, 256)
         }
