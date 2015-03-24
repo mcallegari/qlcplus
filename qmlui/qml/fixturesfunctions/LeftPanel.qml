@@ -162,7 +162,12 @@ Rectangle {
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
                 onCheckedChanged: {
-
+                    posTool.visible = !posTool.visible
+                }
+                PositionTool {
+                    id: posTool
+                    x: iconSize + 4
+                    visible: false
                 }
             }
         }
