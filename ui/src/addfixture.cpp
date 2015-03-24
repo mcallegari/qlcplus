@@ -164,7 +164,7 @@ AddFixture::~AddFixture()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
-   
+
     QList<QVariant> expanded;
     QTreeWidgetItem * root = m_tree->invisibleRootItem();
 
