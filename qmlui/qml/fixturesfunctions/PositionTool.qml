@@ -139,15 +139,20 @@ Rectangle {
                 initialYPos = mouse.y
             }
             onPositionChanged: {
-                if (mouse.x < initialXPos)
-                    panSpinBox.value++
+                if (Math.abs(mouse.x - initialXPos) > Math.abs(mouse.y - initialYPos))
+                {
+                    if (mouse.x < initialXPos)
+                        panSpinBox.value++
+                    else
+                        panSpinBox.value--
+                }
                 else
-                    panSpinBox.value--
-
-                if (mouse.y < initialYPos)
-                    tiltSpinBox.value++
-                else
-                    tiltSpinBox.value--
+                {
+                    if (mouse.y < initialYPos)
+                        tiltSpinBox.value++
+                    else
+                        tiltSpinBox.value--
+                }
             }
 
         }
