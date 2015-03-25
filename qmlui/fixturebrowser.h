@@ -38,6 +38,7 @@ public:
     Q_INVOKABLE QStringList models(QString manufacturer);
     Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
     Q_INVOKABLE int modeChannels(QString modeName);
+    Q_INVOKABLE int availableChannel(int uniIdx, int channels, int requested);
 
 signals:
     void modeChanged();

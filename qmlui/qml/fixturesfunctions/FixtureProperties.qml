@@ -39,7 +39,18 @@ Rectangle {
     property int fxQuantity: fxQuantitySpin.value
     property int fxGap: fxGapSpin.value
 
-    onFxModeChanged: console.log("Mode changed: " + fxMode)
+    property int fxCount: fixtureManager.fixturesCount
+
+    onFxModeChanged: {
+        console.log("Mode changed: " + fxMode)
+        updateAvailableAddress()
+    }
+    onFxCountChanged: updateAvailableAddress()
+
+    function updateAvailableAddress() {
+        fxAddressSpin.value =
+                fixtureBrowser.availableChannel(fxUniverseIndex, fxChannels, fxAddressSpin.value - 1) + 1
+    }
 
     Column {
         id: columnContainer

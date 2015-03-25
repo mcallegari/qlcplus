@@ -76,3 +76,48 @@ int FixtureBrowser::modeChannels(QString modeName)
     return 0;
 }
 
+int FixtureBrowser::availableChannel(int uniIdx, int channels, int requested)
+{
+    qDebug() << "[FixtureBrowser] uniIdx:" << uniIdx << ", channels:" << channels << ", requested:" << requested;
+    bool isAvailable = true;
+    quint32 absAddress = (requested & 0x01FF) | (uniIdx << 9);
+    for (int i = 0; i < channels; i++)
+    {
+        if(m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
+        {
+            isAvailable = false;
+            break;
+        }
+    }
+    if (isAvailable == true)
+    {
+        qDebug() << "Requested channel is available:" << requested;
+        return requested;
+    }
+    else
+    {
+        qDebug() << "Requested channel not available";
+        int validAddr = 0;
+        int freeCounter = 0;
+        absAddress = uniIdx << 9;
+        for (int i = 0; i < 512; i++)
+        {
+            if(m_doc->fixtureForAddress(absAddress + i) != Fixture::invalidId())
+            {
+                freeCounter = 0;
+                validAddr = i + 1;
+            }
+            else
+                freeCounter++;
+
+            if (freeCounter == channels)
+            {
+                qDebug() << "--> Returning " << validAddr;
+                return validAddr;
+            }
+        }
+    }
+    qDebug() << "Returning 0 !!!";
+    return 0;
+}
+
