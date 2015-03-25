@@ -30,7 +30,7 @@ Rectangle {
     property color selectedColor
 
     onSelectedColorChanged: {
-        fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0)
+        fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0, 0, 0)
     }
 
     property var baseColors: [ 0xFF0000, 0xFF9900, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0x9900FF, 0xFF00FF ]

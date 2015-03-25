@@ -46,6 +46,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
+    connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
+            this, SLOT(slotColorChanged(QColor,QColor)));
 }
 
 void ContextManager::activateContext(QString context)
@@ -107,5 +109,23 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
         m_source->set(sv.fxi, sv.channel, (uchar)value);
+}
+
+void ContextManager::slotColorChanged(QColor col, QColor wauv)
+{
+    slotChannelTypeValueChanged((int)QLCChannel::Red, (quint8)col.red());
+    slotChannelTypeValueChanged((int)QLCChannel::Green, (quint8)col.green());
+    slotChannelTypeValueChanged((int)QLCChannel::Blue, (quint8)col.blue());
+
+    slotChannelTypeValueChanged((int)QLCChannel::White, (quint8)wauv.red());
+    slotChannelTypeValueChanged((int)QLCChannel::Amber, (quint8)wauv.green());
+    slotChannelTypeValueChanged((int)QLCChannel::UV, (quint8)wauv.blue());
+
+    QColor cmykColor = col.toCmyk();
+    slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
+    slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
+    slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
+
+
 }
 

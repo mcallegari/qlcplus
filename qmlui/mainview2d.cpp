@@ -222,10 +222,41 @@ void MainView2D::slotRefreshView()
 
 void MainView2D::slotUniversesWritten(int idx, const QByteArray &ua)
 {
-    Q_UNUSED(idx)
-    Q_UNUSED(ua)
     if (m_enabled == false)
         return;
 
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+        Fixture *fixture = m_doc->fixture(it.key());
+        if (fixture == NULL)
+            continue;
+
+        if (fixture->universe() != (quint32)idx)
+            continue;
+
+        int fxStartAddr = fixture->address();
+        QQuickItem *fxItem = it.value();
+
+        for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+        {
+            QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
+            if (rgbCh.size() > 0)
+            {
+                quint8 r = 0, g = 0, b = 0;
+                if (fxStartAddr + rgbCh.at(0) < (quint32)ua.size())
+                    r = ua.at(fxStartAddr + rgbCh.at(0));
+                if (fxStartAddr + rgbCh.at(1) < (quint32)ua.size())
+                    g = ua.at(fxStartAddr + rgbCh.at(1));
+                if (fxStartAddr + rgbCh.at(2) < (quint32)ua.size())
+                    b = ua.at(fxStartAddr + rgbCh.at(2));
+
+                QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                        Q_ARG(QVariant, headIdx),
+                        Q_ARG(QVariant, QColor(r, g, b)));
+            }
+        }
+    }
 }
 

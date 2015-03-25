@@ -117,12 +117,10 @@ void FixtureManager::setIntensityValue(quint8 value)
     emit channelTypeValueChanged(QLCChannel::Intensity, value);
 }
 
-void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue, quint8 white)
+void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
+                                   quint8 white, quint8 amber, quint8 uv)
 {
-    emit channelTypeValueChanged(QLCChannel::Red, red);
-    emit channelTypeValueChanged(QLCChannel::Green, green);
-    emit channelTypeValueChanged(QLCChannel::Blue, blue);
-    emit channelTypeValueChanged(QLCChannel::White, white);
+    emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
 }
 
 QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID, bool enable)

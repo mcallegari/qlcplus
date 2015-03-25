@@ -47,6 +47,7 @@ signals:
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotChannelTypeValueChanged(int type, quint8 value);
+    void slotColorChanged(QColor col, QColor wauv);
 
 private:
     /** Reference to the QML view root */

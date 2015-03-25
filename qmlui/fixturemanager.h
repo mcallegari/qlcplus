@@ -48,7 +48,8 @@ public:
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
     Q_INVOKABLE void setIntensityValue(quint8 value);
-    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue, quint8 white);
+    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
+                                   quint8 white, quint8 amber, quint8 uv);
 
     /**
      * @brief setFixtureCapabilities
@@ -66,6 +67,7 @@ signals:
     void fixturesCountChanged();
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
     void channelTypeValueChanged(int type, quint8 value);
+    void colorChanged(QColor rgb, QColor wauv);
 
 private:
     /** Reference to the QML view root */

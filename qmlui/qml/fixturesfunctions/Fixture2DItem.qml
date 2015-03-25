@@ -64,6 +64,10 @@ Rectangle {
         headRows = rows;
     }
 
+    function setHeadColor(headIndex, color) {
+        headsRepeater.itemAt(headIndex).hCol = color
+    }
+
     x: (gridCellSize * mmXPos) / gridUnits
     y: (gridCellSize * mmYPos) / gridUnits
     width: (gridCellSize * mmWidth) / gridUnits
@@ -78,13 +82,15 @@ Rectangle {
         height: headSide * headRows
         anchors.centerIn: parent
         Repeater {
+            id: headsRepeater
             model: fixtureItem.headsNumber
             delegate:
                 Rectangle {
+                    property color hCol: "black"
                     objectName: "head" + index
                     width: fixtureItem.headSide - 1
                     height: width
-                    color: "black"
+                    color: hCol
                     radius: fixtureItem.headSide / 2
                     border.width: 1
                     border.color: "#AAA"
