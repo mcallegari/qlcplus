@@ -10,6 +10,7 @@ qlcplus (4.8.5) stable; urgency=low
   * Virtual Console Animation: fix some crashes when changing a running Matrix (David Garyga)
   * Virtual Console Animation: fix custom control key sequence not loading (David Garyga)
   * Virtual Console Animation: fix properties of a non-running matrix not set (David Garyga)
+  * Virtual Console LiveEdit: fix live editing an XYPad properties making the pad not responsive (David Garyga)
   * Show Manager: fixed rendering and playback of sequences with common duration steps
   * Show Manager: fix sequeces present 2 times in Add Function selection dialog (David Garyga)
   * UI: in kiosk mode, don't show the panels tab bar
