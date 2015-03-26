@@ -60,6 +60,7 @@ SoftpatchEditor::SoftpatchEditor(Doc *doc, FixtureManager *mgr, QWidget *parent)
 
     connect(m_testButton, SIGNAL(pressed()), this, SLOT(slotTestButtonPressed()));
     connect(m_testButton, SIGNAL(released()), this, SLOT(slotTestButtonPressed()));
+    connect(m_oneToOneButton, SIGNAL(pressed()), this, SLOT(slotOneToOnePressed()));
 }
 
 SoftpatchEditor::~SoftpatchEditor()
@@ -116,12 +117,23 @@ void SoftpatchEditor::updateFixturesTree()
         fItem->setData(KColumnAddress, PROP_ADDRESS, fxi->address());
 
         // Column Softpatch
+        QList<Universe*> unis = m_doc->inputOutputMap()->claimUniverses();
         QSpinBox *spin = new QSpinBox();
-        spin->setRange(1, 255);
+        spin->setRange(0, 512);
         spin->setProperty("treeItem", qVariantFromValue((void *)fItem));
-        spin->setValue(fxi->address()+1);
+        spin->setStyleSheet("QWidget {background-color:white}");
+        const QList<uint> channels = unis[fxi->universe()]->getPatchedChannels(fxi->address());
+        if(channels.size())
+        {
+            spin->setValue(channels[0] + 1);
+        }
+        else
+        {
+            spin->setValue(0);
+        }
         m_tree->setItemWidget(fItem, KColumnPatch ,spin);
         connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotChannelPatched()));
+        m_doc->inputOutputMap()->releaseUniverses();
     }
     m_tree->resizeColumnToContents(KColumnName);
     m_tree->resizeColumnToContents(KColumnUniverse);
@@ -168,6 +180,17 @@ void SoftpatchEditor::slotTestButtonPressed()
         resetTest = true;
         m_mutex.unlock();
     }
+}
+
+void SoftpatchEditor::slotOneToOnePressed()
+{
+    QList<Universe*> unis = m_doc->inputOutputMap()->claimUniverses();
+    foreach (Universe* universe, unis) {
+        universe->patchOneToOne();
+    }
+    m_doc->inputOutputMap()->releaseUniverses();
+    m_duplicateChannels.clear();
+    updateFixturesTree();
 }
 
 void SoftpatchEditor::initChannelSearch(QTreeWidgetItem* item)
@@ -220,8 +243,10 @@ QSet<quint32> SoftpatchEditor::getChannelSet(QTreeWidgetItem* item)
     QSet<quint32> set = QSet<quint32>();
     for (uint i = 0; i < fxi->channels(); i++)
     {
-        // universe starts with 0 ( channel = spin.value -1 )
-        set.insert((spin->value() - 1) + i + (fxi->universe() << 9));
+        // value == 0 means unpatched
+        if (spin->value() > 0)
+            // universe starts with 0 ( channel = spin.value -1 )
+            set.insert((spin->value() - 1) + i + (fxi->universe() << 9));
     }
     return set;
 }
@@ -278,7 +303,7 @@ void SoftpatchEditor::accept()
         return;
     }
 
-    m_doc->inputOutputMap()->claimUniverses();
+    QList<Universe*> unis = m_doc->inputOutputMap()->claimUniverses();
 
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
@@ -289,11 +314,39 @@ void SoftpatchEditor::accept()
             quint32 fxID = fItem->data(KColumnName, PROP_ID).toUInt();
             QSpinBox *spin = (QSpinBox *)m_tree->itemWidget(fItem, KColumnPatch);
             Fixture *fixture = m_doc->fixture(fxID);
-            if (fixture->address() != quint32(spin->value()-1))
-                fixture->setAddress(spin->value()-1);
+            Universe *universe = unis[fixture->universe()];
+
+            if (spin->value() > 0)
+            {
+                for (uint i = 0; i < fixture->channels(); i++)
+                {
+                    // gui provides only one channel per dimmer for now, remove old patch
+                    uint dimmer = fixture->address() + i;
+                    QList<uint> channels = universe->getPatchedChannels(dimmer);
+                    foreach (uint channel, channels)
+                        universe->unPatchChannel(channel);
+
+                    // new patch
+                    uint channel = spin->value()-1 + i;
+                    unis[fixture->universe()]->patchDimmer(dimmer, channel);
+                }
+            }
+            // spin value == 0 is unpatch
+            else
+            {
+                // unpatch each patched channel for each channel in fixture (if Fixture (1,2) is patched to (10,12) and (11,13), unpatch 10,11,12,13)
+                for (uint i = 0; i < fixture->channels(); i++)
+                {
+                    // 1. get current patch of the dimmer
+                    uint dimmer = fixture->address() + i;
+                    QList<uint> channels = universe->getPatchedChannels(dimmer);
+                    // 2. unpatch each channel found in patch for this dimmer
+                    foreach (uint channel, channels)
+                        universe->unPatchChannel(channel);
+                }
+            }
         }
     }
-    m_fixture_manager->updateView();
     m_doc->inputOutputMap()->releaseUniverses();
 
     m_duplicateChannels.clear();

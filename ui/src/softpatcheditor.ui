@@ -38,6 +38,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QPushButton" name="m_oneToOneButton">
+       <property name="text">
+        <string>1:1 Patch</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="m_testButton">
        <property name="text">
         <string>Test Dimmer</string>

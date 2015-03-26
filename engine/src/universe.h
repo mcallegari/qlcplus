@@ -56,6 +56,10 @@ class InputPatch;
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePatch "Patch"
+#define KXMLQLCUniversePatchDimmer "Dimmer"
+#define KXMLQLCUniversePatchChannel "Channel"
+
 /** Universe class contains input/output data for one DMX universe
  */
 class Universe: public QObject
@@ -341,6 +345,99 @@ protected:
     QByteArray* m_postGMValues;
 
     QVector<short> m_relativeValues;
+
+    /****************************************************************************
+     * Softpatch
+     ****************************************************************************/
+public:
+    /** create one to one patch */
+    void patchOneToOne();
+
+    /** empty patch list - full reset*/
+    void patchClear();
+
+    /**
+     * patch Dimmer to Channel
+     *
+     * Dimmer is a single channel used by a QLC+ Fixture
+     * Channel is the dmx Address, to which the Dimmer channel is patched
+     *
+     * Multiple channels can be assigned to one dimmer, but
+     * channels itself, can be assigned once inside the hole patch.
+     *
+     * If we have a Fixture called SimpleDimmer with an startAddress of 10,
+     * containing 1 channels, we can patch one SimpleDimmer (10)
+     * to one or more channels (e.g. 21 and 22).
+     * A Dimmer previously patched to one of that channels, will loose this channel
+     * in his patch.
+     *
+     * SimpleDimmer can be also unpatched, which means it has no channels patched
+     * and produces no output.
+     *
+     * The term Dimmer is used, because we only patch single Channels (aka Dimmers).
+     * The patch is the done one universe level, which is lowlevel and does not know
+     * about existence of things like Fixtures.
+     * On higher level (softpatch editor) a dimmer is analog to an fixture channel.
+     * If we patch a generic RGB Fixture, we patch three dimmers there.
+     *
+     * @param dimmer single address used by a fixture
+     * @param channel channel to which the output goes
+     *
+     */
+    void patchDimmer(uint dimmer, uint channel);
+
+    /**
+     * removes a channels from the patch of the dimmer
+     * output is blocked on that channel
+     *
+     * @param patched channel
+     *
+     */
+    void unPatchChannel(uint channel);
+
+    /**
+     * write channel value to m_patchedValues
+     */
+    void applyPatch(uint channel,  uchar value);
+
+    /**
+     * get patched channels
+     * @param dimmer channel (of a fixture)
+     *
+     * @return list of channels patched to the channel
+     */
+    const QList<uint> getPatchedChannels(uint dimmer) const;
+
+    /**
+     * get dimmer from a patched channel
+     * @param channel patched channel
+     *
+     * @return true if successful, otherwise false
+     */
+    uint getPatchedDimmer(uint channel) const;
+
+    /**
+     * returns array with the patched values
+     */
+    const QByteArray* patchedValues() const;
+
+private:
+
+    /** Array of values  applied by Patch Table*/
+    QByteArray* m_patchedValues;
+
+    /**
+     * Vector containing sets with index numbers of the patch table
+     * [Dimmer Number [ List (output to:) [  Channel, Channel, ... ] ]
+     */
+    QVector< QList<uint> > m_patchTable;
+
+    /**
+     * key: dimmer
+     * Set holds back reference of patched channels,
+     * provides check against multiple entries
+     */
+    QHash<uint, uint> m_patchHash;
 
     /************************************************************************
      * Writing

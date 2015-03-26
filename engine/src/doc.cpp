@@ -661,24 +661,24 @@ int Doc::totalPowerConsumption(int& fuzzy) const
     return totalPowerConsumption;
 }
 
-void Doc::rebuildAddressMap()
-{
-    if (mode() == Design)
-    {
-        qDebug() << "Doc::rebuildAddressMap";
-        m_addresses.clear();
+//void Doc::rebuildAddressMap()
+//{
+//    if (mode() == Design)
+//    {
+//        qDebug() << "Doc::rebuildAddressMap";
+//        m_addresses.clear();
 
-        QListIterator <quint32> fxit(m_fixtures.keys());
-        while (fxit.hasNext() == true)
-        {
-            Fixture* fxi = fixture(fxit.next());
-            for (quint32 i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
-            {
-                m_addresses[i] = fxi->id();
-            }
-        }
-    }
-}
+//        QListIterator <quint32> fxit(m_fixtures.keys());
+//        while (fxit.hasNext() == true)
+//        {
+//            Fixture* fxi = fixture(fxit.next());
+//            for (quint32 i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
+//            {
+//                m_addresses[i] = fxi->id();
+//            }
+//        }
+//    }
+//}
 
 void Doc::slotFixtureChanged(quint32 id)
 {    
@@ -703,7 +703,7 @@ void Doc::slotFixtureChanged(quint32 id)
             if (!m_addresses.contains(id))
                 m_addresses[i] = id;
             else
-                rebuildAddressMap();
+                qWarning() << Q_FUNC_INFO << "m_addresses already contains id: " << id;
         }
 
         setModified();

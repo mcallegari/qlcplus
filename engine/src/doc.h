@@ -311,14 +311,14 @@ public:
      */
     int totalPowerConsumption(int& fuzzy) const;
 
-private:
-    /**
-     * clears and rebuild m_addresses Map
-     * after changing channels with softpatch, channels can be lost
-     * this fixes it in a bruteforce way
-     *
-     */
-    void rebuildAddressMap();
+//private:
+//    /**
+//     * clears and rebuild m_addresses Map
+//     * after changing channels with softpatch, channels can be lost
+//     * this fixes it in a bruteforce way
+//     *
+//     */
+//    void rebuildAddressMap();
 
 protected:
     /**

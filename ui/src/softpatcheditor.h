@@ -87,6 +87,9 @@ protected slots:
     /** Slot called when Test Button is pressed / released */
     void slotTestButtonPressed();
 
+    /** Slot called when 1:1 Patch is pressed */
+    void slotOneToOnePressed();
+
     /**
      * Slot called when channel address is changed
      * check for channel duplicates

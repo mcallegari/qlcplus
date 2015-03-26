@@ -264,8 +264,10 @@ void InputOutputMap::dumpUniverses()
                 locker.relock();
             }
 
+            const QByteArray patched = universe->patchedValues()->mid(0, universe->usedChannels());
+
             // this is where QLC+ sends data to the output plugins
-            universe->dumpOutput(postGM);
+            universe->dumpOutput(patched);
         }
     }
 }
