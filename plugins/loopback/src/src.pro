@@ -24,5 +24,9 @@ TRANSLATIONS += loopback_pt_BR.ts
 TRANSLATIONS += loopback_ca_ES.ts
 TRANSLATIONS += loopback_ja_JP.ts
 
+# This must be after "TARGET = " and before target installation so that
+# install_name_tool can be run before target installation
+macx:include(../../../macx/nametool.pri)
+
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target

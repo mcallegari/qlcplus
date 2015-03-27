@@ -44,6 +44,12 @@
 uint MasterTimer::s_frequency = 50;
 uint MasterTimer::s_tick = 20;
 
+//#define DEBUG_MASTERTIMER
+
+#ifdef DEBUG_MASTERTIMER
+quint64 ticksCount = 0;
+#endif
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -92,6 +98,10 @@ void MasterTimer::timerTick()
 {
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
+
+#ifdef DEBUG_MASTERTIMER
+    qDebug() << "[MasterTimer] *********** tick:" << ticksCount++ << "**********";
+#endif
 
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
@@ -326,6 +336,10 @@ void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
         /* No need to access the list on this round anymore. */
         m_dmxSourceListMutex.unlock();
 
+#ifdef DEBUG_MASTERTIMER
+        qDebug() << "[MasterTimer] ticking DMX source" << i;
+#endif
+
         /* Get DMX data from the source */
         source->writeDMX(this, universes);
 
@@ -350,6 +364,10 @@ void MasterTimer::timerTickFader(QList<Universe *> universes)
 {
     QMutexLocker functionLocker(&m_functionListMutex);
     QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+
+#ifdef DEBUG_MASTERTIMER
+        qDebug() << "[MasterTimer] ticking fader (channels:" << fader()->channels().count() << ")";
+#endif
 
     fader()->write(universes);
 }

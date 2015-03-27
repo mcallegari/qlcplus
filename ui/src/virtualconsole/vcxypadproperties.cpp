@@ -297,34 +297,28 @@ void VCXYPadProperties::slotPanChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_panInputSource != NULL)
-            delete m_panInputSource;
-        m_panInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updatePanInputSource();
     }
 }
 
 void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
 {
-    QLCInputSource *tmpSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    QScopedPointer<QLCInputSource> tmpSource(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+
     // if both Pan and Tilt come from the same external control, here's
     // where I will discover it
     if (m_panInputSource != NULL &&
         m_panInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_panInputSource->channel())
     {
-        if (m_tiltInputSource != NULL)
-            delete m_tiltInputSource;
-        m_tiltInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updateTiltInputSource();
         return;
     }
 
-    if (m_panInputSource != NULL)
-        delete m_panInputSource;
-    m_panInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updatePanInputSource();
-    delete tmpSource;
 }
 
 void VCXYPadProperties::slotTiltAutoDetectToggled(bool toggled)
@@ -350,34 +344,27 @@ void VCXYPadProperties::slotTiltChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_tiltInputSource != NULL)
-            delete m_tiltInputSource;
-        m_tiltInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateTiltInputSource();
     }
 }
 
 void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
 {
-    QLCInputSource *tmpSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    QScopedPointer<QLCInputSource> tmpSource(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     // if both Pan and Tilt come from the same external control, here's
     // where I will discover it
     if (m_tiltInputSource != NULL &&
         m_tiltInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_tiltInputSource->channel())
     {
-        if (m_panInputSource != NULL)
-            delete m_panInputSource;
-        m_panInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updatePanInputSource();
         return;
     }
 
-    if (m_tiltInputSource != NULL)
-        delete m_tiltInputSource;
-    m_tiltInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updateTiltInputSource();
-    delete tmpSource;
 }
 
 void VCXYPadProperties::updatePanInputSource()

@@ -119,21 +119,21 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
 <context>
     <name>QObject</name>
     <message>
-        <location filename="nanodmx.cpp" line="201"/>
+        <location filename="nanodmx.cpp" line="205"/>
         <location filename="stageprofi.cpp" line="125"/>
         <location filename="vinceusbdmx512.cpp" line="48"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="208"/>
+        <location filename="nanodmx.cpp" line="212"/>
         <location filename="stageprofi.cpp" line="132"/>
         <location filename="vinceusbdmx512.cpp" line="52"/>
         <source>Serial number</source>
         <translation>N° de série</translation>
     </message>
     <message>
-        <location filename="nanodmx.cpp" line="203"/>
+        <location filename="nanodmx.cpp" line="207"/>
         <location filename="stageprofi.cpp" line="127"/>
         <location filename="vinceusbdmx512.cpp" line="50"/>
         <source>Output</source>
@@ -141,7 +141,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="113"/>
-        <location filename="nanodmx.cpp" line="205"/>
+        <location filename="nanodmx.cpp" line="209"/>
         <location filename="stageprofi.cpp" line="129"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>

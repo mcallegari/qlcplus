@@ -10,3 +10,6 @@ SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduc
 # DMX4ALL Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="c850", MODE="0666"
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2018", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# EUROLITE Product
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="fa63", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"

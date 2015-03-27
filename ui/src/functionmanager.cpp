@@ -821,14 +821,11 @@ void FunctionManager::slotTreeSelectionChanged()
     if (selection.size() == 1)
     {
         Function* function = m_doc->function(m_tree->itemFunctionId(selection.first()));
-        if (function != NULL)
-            editFunction(function);
-        else
-            deleteCurrentEditor();
+        editFunction(function);
     }
     else
     {
-        deleteCurrentEditor();
+        editFunction(NULL);
     }
 }
 

@@ -154,8 +154,6 @@ VCMatrix::~VCMatrix()
 {
     foreach(VCMatrixControl* control, m_controls)
     {
-        if (control->m_inputSource != NULL)
-            setInputSource(NULL, control->m_id);
         delete control;
     }
 }
@@ -656,7 +654,10 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     m_controls[controlWidget] = new VCMatrixControl(control);
     m_controlsLayout->addWidget(controlWidget);
 
-    setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id);
+    if (m_controls[controlWidget]->m_inputSource != NULL)
+    {
+        setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id);
+    }
 
     slotFunctionChanged(); // Start update timer
 }
@@ -666,9 +667,14 @@ void VCMatrix::resetCustomControls()
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
             it != m_controls.end(); ++it)
     {
-        m_controlsLayout->removeWidget(it.key());
-        delete it.key();
-        delete it.value();
+        QWidget* widget = it.key();
+        m_controlsLayout->removeWidget(widget);
+        delete widget;
+
+        VCMatrixControl* control = it.value();
+        if (!control->m_inputSource.isNull())
+            setInputSource(QSharedPointer<QLCInputSource>(), control->m_id);
+        delete control;
     }
     m_controls.clear();
 }
@@ -721,6 +727,7 @@ void VCMatrix::slotCustomControlClicked()
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
+                    matrix->setProperty(it.key(), it.value());
                 }
             }
             matrix->setAlgorithm(algo);

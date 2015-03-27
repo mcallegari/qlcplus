@@ -4,50 +4,50 @@
 <context>
     <name>ArtNetPlugin</name>
     <message>
-        <location filename="artnetplugin.cpp" line="73"/>
+        <location filename="artnetplugin.cpp" line="78"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <translation>Deze plugin zorgt voor DMX output voor apparaten die het ArtNet communicatieprotocol ondersteunen.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="90"/>
-        <location filename="artnetplugin.cpp" line="200"/>
+        <location filename="artnetplugin.cpp" line="95"/>
+        <location filename="artnetplugin.cpp" line="205"/>
         <source>%1: %2</source>
         <translation>%1: %2</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="106"/>
+        <location filename="artnetplugin.cpp" line="111"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="110"/>
-        <location filename="artnetplugin.cpp" line="273"/>
+        <location filename="artnetplugin.cpp" line="115"/>
+        <location filename="artnetplugin.cpp" line="278"/>
         <source>Status: Not open</source>
         <translation>Status: Ongeopend</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="113"/>
-        <location filename="artnetplugin.cpp" line="276"/>
+        <location filename="artnetplugin.cpp" line="118"/>
+        <location filename="artnetplugin.cpp" line="281"/>
         <source>Status: Open</source>
         <translation>Status: Open</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="115"/>
+        <location filename="artnetplugin.cpp" line="120"/>
         <source>Nodes discovered: </source>
         <translation>Gevonden nodes:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="118"/>
+        <location filename="artnetplugin.cpp" line="123"/>
         <source>Packets sent: </source>
         <translation>Pakketten verzonden: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="269"/>
+        <location filename="artnetplugin.cpp" line="274"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="278"/>
+        <location filename="artnetplugin.cpp" line="283"/>
         <source>Packets received: </source>
         <translation>Pakketten ontvangen: </translation>
     </message>

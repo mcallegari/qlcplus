@@ -98,8 +98,6 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
 
 VCWidget::~VCWidget()
 {
-    qDeleteAll(m_inputs);
-    m_inputs.clear();
 }
 
 /*****************************************************************************
@@ -249,12 +247,12 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     m_allowChildren = widget->m_allowChildren;
     m_allowResize = widget->m_allowResize;
 
-    QHashIterator <quint8, QLCInputSource*> it(widget->m_inputs);
+    QHashIterator <quint8, QSharedPointer<QLCInputSource> > it(widget->m_inputs);
     while (it.hasNext() == true)
     {
         it.next();
         quint8 id = it.key();
-        QLCInputSource *src = new QLCInputSource(it.value()->universe(), it.value()->channel());
+        QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
         setInputSource(src, id);
     }
 
@@ -532,11 +530,8 @@ qreal VCWidget::intensity()
 bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
                                 uchar value, QObject *sender, quint32 id)
 {
-    if (m_inputs.contains(id) == false)
-        return false;
-
-    QLCInputSource *src = m_inputs[id];
-    if (src == NULL)
+    QSharedPointer<QLCInputSource> const& src = m_inputs.value(id);
+    if (src.isNull())
         return false;
 
     if (src->isValid() && src->universe() == universe && src->channel() == channel)
@@ -556,10 +551,10 @@ bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
     return false;
 }
 
-void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
+void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quint8 id)
 {
     // Connect when the first valid input source is set
-    if (m_inputs.isEmpty() == true && source != NULL && source->isValid() == true)
+    if (m_inputs.isEmpty() == true && !source.isNull() && source->isValid() == true)
     {
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
@@ -567,10 +562,18 @@ void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
                 this, SLOT(slotInputProfileChanged(quint32,QString)));
     }
 
-    // Assign or clear
-    if (source != NULL && source->isValid() == true)
+    // Clear previous source
+    if (m_inputs.contains(id))
     {
-        m_inputs[id] = source;
+        disconnect(m_inputs.value(id).data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        m_inputs.remove(id);
+    }
+
+    // Assign
+    if (!source.isNull() && source->isValid() == true)
+    {
+        m_inputs.insert(id, source);
         // now check if the source is defined in the associated universe
         // profile and if it is in relative mode
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
@@ -585,15 +588,13 @@ void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
                     {
                         source->setWorkingMode(QLCInputSource::Relative);
                         source->setSensitivity(ich->movementSensitivity());
-                        connect(source, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
                     }
                 }
             }
         }
     }
-    else
-        m_inputs.remove(id);
 
     // Disconnect when there are no more input sources present
     if (m_inputs.isEmpty() == true)
@@ -605,19 +606,16 @@ void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
     }
 }
 
-QLCInputSource *VCWidget::inputSource(quint8 id) const
+QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 {
-    if (m_inputs.contains(id) == false)
-        return NULL;
-    else
-        return m_inputs[id];
+    return m_inputs.value(id);
 }
 
 void VCWidget::remapInputSources(int pgNum)
 {
     foreach(quint8 s, m_inputs.keys())
     {
-        QLCInputSource *src = m_inputs[s];
+        QSharedPointer<QLCInputSource> src(m_inputs.value(s));
         src->setPage(pgNum);
         setInputSource(src, s);
     }
@@ -626,8 +624,8 @@ void VCWidget::remapInputSources(int pgNum)
 void VCWidget::sendFeedback(int value, quint8 id)
 {
     /* Send input feedback */
-    QLCInputSource *src = inputSource(id);
-    if (src != NULL && src->isValid() == true)
+    QSharedPointer<QLCInputSource> src = inputSource(id);
+    if (!src.isNull() && src->isValid() == true)
     {
         // if in relative mode, send a "feedback" to this
         // input source so it can continue to emit values
@@ -648,7 +646,6 @@ void VCWidget::sendFeedback(int value, quint8 id)
                     chName = ich->name();
             }
         }
-
         m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
     }
 }
@@ -666,9 +663,9 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach(QLCInputSource *source, m_inputs.values())
+    foreach(QSharedPointer<QLCInputSource> const& source, m_inputs.values())
     {
-        if (source != NULL && source->universe() == universe)
+        if (!source.isNull() && source->universe() == universe)
         {
             // if the profile has been unset, reset all the valid
             // input sources to work in absolute mode
@@ -820,7 +817,7 @@ bool VCWidget::loadXMLInput(const QDomElement* root)
     quint32 ch = 0;
     if (loadXMLInput(*root, &uni, &ch) == true)
     {
-        setInputSource(new QLCInputSource(uni, ch));
+        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
         return true;
     }
     else
@@ -950,6 +947,12 @@ bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
     }
 
     return true;
+}
+
+bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
+                      QSharedPointer<QLCInputSource> const& src) const
+{
+    return saveXMLInput(doc, root, src.data());
 }
 
 bool VCWidget::saveXMLWindowState(QDomDocument* doc, QDomElement* root)

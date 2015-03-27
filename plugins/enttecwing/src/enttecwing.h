@@ -72,13 +72,13 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output) { Q_UNUSED(output); return false; }
+    bool openOutput(quint32 output) { Q_UNUSED(output); return true; }
 
     /** @reimp */
     void closeOutput(quint32 output) { Q_UNUSED(output); }
 
     /** @reimp */
-    QStringList outputs() { return QStringList(); }
+    QStringList outputs();
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
@@ -105,17 +105,6 @@ public:
 
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
-
-signals:
-    /**
-     * Tells that the page of a plugin device has changed and QLC+ needs to
-     * take some action.
-     *
-     * @param input The input line whose page has changed
-     * @param pagesize The number of channels per page
-     * @param page The current page index
-     */
-    void pageChanged(quint32 input, quint32 pagesize, quint32 page);
 
     /*************************************************************************
      * Configuration
@@ -164,7 +153,6 @@ protected:
 protected slots:
     void slotReadSocket();
     void slotValueChanged(quint32 channel, uchar value);
-    void slotPageChanged(quint32 pagesize, quint32 page);
 
 protected:
     QList <Wing*> m_devices;

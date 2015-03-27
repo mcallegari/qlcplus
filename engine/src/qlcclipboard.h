@@ -41,12 +41,6 @@ public:
     QLCClipboard(Doc *doc);
 
 public:
-    enum ActionType
-    {
-        CopyChaserStep,
-        NoType
-    };
-
     void resetContents();
 
 private:

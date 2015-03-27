@@ -124,7 +124,7 @@ public:
     /** A map holding the requested script properties */
     QHash<QString, QString> m_properties;
 
-    QLCInputSource *m_inputSource;
+    QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;
 };
 

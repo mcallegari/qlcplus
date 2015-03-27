@@ -232,6 +232,7 @@ QString WebAccessNetwork::getHTML()
 
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
     bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
+    bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|HALT');\"><span>" + tr("Shutdown") + "</span></a>\n";
     bodyHTML += "</div>\n";
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";

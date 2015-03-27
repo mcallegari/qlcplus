@@ -88,13 +88,17 @@ imgs.files += images/channelmodifier.png \
               images/fixremap.png \
               images/locale.png \
               images/mainwindow.png \
-              images/tutorial1_1.png \
-              images/tutorial1_2.png \
-              images/tutorial1_3.png \
               images/multipage1.png \
               images/multipage2.png \
               images/multipage3.png \
               images/multipage4.png \
-              images/pan-tilt.png
+              images/pan-tilt.png \
+			  images/track-mute.png \
+			  images/track-solo.png \
+			  images/tutorial1_1.png \
+              images/tutorial1_2.png \
+              images/tutorial1_3.png \
+			  images/xypad.png \
+			  images/xypad2.png
 
 INSTALLS += docs imgs

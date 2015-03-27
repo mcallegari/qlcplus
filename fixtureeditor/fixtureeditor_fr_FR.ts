@@ -234,32 +234,32 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="104"/>
+        <location filename="../ui/src/docbrowser.cpp" line="105"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - Explorateur de documents</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="120"/>
+        <location filename="../ui/src/docbrowser.cpp" line="121"/>
         <source>Backward</source>
         <translation>Avant</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="121"/>
+        <location filename="../ui/src/docbrowser.cpp" line="122"/>
         <source>Forward</source>
         <translation>Arrière</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="122"/>
+        <location filename="../ui/src/docbrowser.cpp" line="123"/>
         <source>Index</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="123"/>
+        <location filename="../ui/src/docbrowser.cpp" line="124"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="151"/>
+        <location filename="../ui/src/docbrowser.cpp" line="152"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
@@ -283,7 +283,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="44"/>
+        <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -311,7 +311,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="46"/>
+        <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
         <translation>Couleur</translation>
     </message>
@@ -321,17 +321,17 @@
         <translation>Couleur secondaire</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="48"/>
+        <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
         <translation>Effet</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="138"/>
+        <location filename="editcapability.cpp" line="132"/>
         <source>Open Gobo File</source>
         <translation>Ovrir un fichier de gobo</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="141"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Gobo pictures</source>
         <translation>Image de gobo</translation>
     </message>
@@ -429,20 +429,20 @@
         <translation>Assistant de fonction</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="251"/>
-        <location filename="editchannel.cpp" line="317"/>
-        <location filename="editchannel.cpp" line="361"/>
+        <location filename="editchannel.cpp" line="254"/>
+        <location filename="editchannel.cpp" line="320"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Overlapping values</source>
         <translation>Chevauchement de valeurs</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="252"/>
-        <location filename="editchannel.cpp" line="318"/>
+        <location filename="editchannel.cpp" line="255"/>
+        <location filename="editchannel.cpp" line="321"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Les valeurs de la fonction se chevauchent avec une autre fonction !</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="362"/>
+        <location filename="editchannel.cpp" line="365"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Certaines fonctions n&apos;ont pas pu être créées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>

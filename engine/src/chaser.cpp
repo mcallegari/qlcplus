@@ -259,9 +259,12 @@ quint32 Chaser::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach (ChaserStep step, m_steps)
+    if (durationMode() == Chaser::Common)
+        totalDuration = duration() * m_steps.count();
+    else
     {
-        totalDuration += step.duration;
+        foreach (ChaserStep step, m_steps)
+            totalDuration += step.duration;
     }
 
     return totalDuration;

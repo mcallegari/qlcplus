@@ -28,6 +28,7 @@
   <fixture path="American-DJ-Inno-Pocket-Roll.qxf" mf="American DJ" md="Inno Pocket Roll"/>
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
+  <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
   <fixture path="American-DJ-Mega-Bar-50RGB.qxf" mf="American DJ" md="Mega Bar 50RGB"/>
   <fixture path="American-DJ-Mega-Bar-LED.qxf" mf="American DJ" md="Mega Bar LED"/>
   <fixture path="American-DJ-Mega-Flash-DMX.qxf" mf="American DJ" md="Mega Flash DMX"/>
@@ -130,6 +131,7 @@
   <fixture path="Chauvet-SlimPar-Tri-7-IRC.qxf" mf="Chauvet" md="SlimPar Tri 7 IRC"/>
   <fixture path="Chauvet-Vue-3.1.qxf" mf="Chauvet" md="Vue 3.1"/>
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
+  <fixture path="Chauvet-Wash-FX.qxf" mf="Chauvet" md="Wash FX"/>
   <fixture path="Chauvet-Wedge-Tri.qxf" mf="Chauvet" md="Wedge Tri"/>
   <fixture path="Chavet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K10.qxf" mf="Clay Paky" md="A.LEDA Wash K10"/>
@@ -161,6 +163,7 @@
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
   <fixture path="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar.qxf" mf="Eurolite" md="LED CBB-3 COB RBG 3x15W Bar"/>
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
+  <fixture path="Eurolite-LED-Flood-Light-252-RGB-19.qxf" mf="Eurolite" md="LED Flood Light 252 RGB 19°"/>
   <fixture path="Eurolite-LED-PAR-56-RGB-DMX.qxf" mf="Eurolite" md="LED PAR 56 RGB DMX"/>
   <fixture path="Eurolite-LED-PAR56.qxf" mf="Eurolite" md="LED PAR56"/>
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
@@ -322,6 +325,7 @@
   <fixture path="Martin-Roboscan-218.qxf" mf="Martin" md="Roboscan 218"/>
   <fixture path="Martin-Roboscan-518.qxf" mf="Martin" md="Roboscan 518"/>
   <fixture path="Martin-Roboscan-812.qxf" mf="Martin" md="Roboscan 812"/>
+  <fixture path="Martin-Roboscan-Pro-918.qxf" mf="Martin" md="Roboscan Pro 918"/>
   <fixture path="Martin-RUSH-Par-1-RGBW.qxf" mf="Martin" md="RUSH Par 1 RGBW"/>
   <fixture path="Martin-SCX-500.qxf" mf="Martin" md="SCX-500"/>
   <fixture path="Martin-SCX-600.qxf" mf="Martin" md="SCX-600"/>

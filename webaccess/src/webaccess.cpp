@@ -423,6 +423,11 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             QProcess *rebootProcess = new QProcess();
             rebootProcess->start("reboot", QStringList());
         }
+        else if (cmdList.at(1) == "HALT")
+        {
+            QProcess *haltProcess = new QProcess();
+            haltProcess->start("halt", QStringList());
+        }
     }
 #endif
     else if (cmdList[0] == "QLC+API")

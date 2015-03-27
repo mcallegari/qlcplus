@@ -150,6 +150,21 @@ void VCXYPad::enableWidgetUI(bool enable)
     m_vSlider->setEnabled(enable);
     m_hSlider->setEnabled(enable);
     m_area->setMode(enable ? Doc::Operate : Doc::Design);
+
+    QMutableListIterator <VCXYPadFixture> it(m_fixtures);
+    while (it.hasNext() == true)
+    {
+        VCXYPadFixture fxi = it.next();
+        if (enable)
+            fxi.arm();
+        else
+            fxi.disarm();
+        it.setValue(fxi);
+    }
+
+    /* Reset the changed flag in m_area so that the pad won't immediately set a value
+       when mode is changed */
+    m_area->position();
 }
 
 /*****************************************************************************
@@ -462,17 +477,6 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
 
 void VCXYPad::slotModeChanged(Doc::Mode mode)
 {
-    QMutableListIterator <VCXYPadFixture> it(m_fixtures);
-    while (it.hasNext() == true)
-    {
-        VCXYPadFixture fxi = it.next();
-        if (mode == Doc::Operate)
-            fxi.arm();
-        else
-            fxi.disarm();
-        it.setValue(fxi);
-    }
-
     if (mode == Doc::Operate && isDisabled() == false)
     {
         m_doc->masterTimer()->registerDMXSource(this, "XYPad");
@@ -483,10 +487,6 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
         enableWidgetUI(false);
     }
-
-    /* Reset the changed flag in m_area so that the pad won't immediately set a value
-       when mode is changed */
-    m_area->position();
 
     VCWidget::slotModeChanged(mode);
 }
@@ -547,14 +547,14 @@ bool VCXYPad::loadXML(const QDomElement* root)
             quint32 uni = 0, ch = 0;
             xpos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(new QLCInputSource(uni, ch), panInputSourceId);
+                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), panInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadTilt)
         {
             quint32 uni = 0, ch = 0;
             ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(new QLCInputSource(uni, ch), tiltInputSourceId);
+                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tiltInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
         {

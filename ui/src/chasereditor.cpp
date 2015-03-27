@@ -395,9 +395,7 @@ void ChaserEditor::slotAddClicked()
 
 void ChaserEditor::slotRemoveClicked()
 {
-    slotCutClicked();
-    //m_clipboard.clear();
-    updateClipboardButtons();
+    return slotCutClicked();
 }
 
 void ChaserEditor::slotRaiseClicked()
@@ -657,8 +655,8 @@ void ChaserEditor::slotCutClicked()
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
-        copyList << stepAtItem(item);
         int index = m_tree->indexOfTopLevelItem(item);
+        copyList << stepAtIndex(index);
         m_chaser->removeStep(index);
         delete item;
     }
@@ -672,7 +670,6 @@ void ChaserEditor::slotCutClicked()
 
 void ChaserEditor::slotCopyClicked()
 {
-    //m_clipboard.clear();
     QList <ChaserStep> copyList;
     foreach (QTreeWidgetItem *item, m_tree->selectedItems())
         copyList << stepAtItem(item);
@@ -729,6 +726,11 @@ void ChaserEditor::slotPasteClicked()
     {
         QTreeWidgetItem* item = new QTreeWidgetItem;
         ChaserStep step(it.next());
+        if (step.resolveFunction(m_doc) == NULL) // Function has been removed
+        {
+            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function ?)";
+            continue;
+        }
         updateItem(item, step);
         m_tree->insertTopLevelItem(insertionPoint, item);
         m_chaser->addStep(step, insertionPoint);
@@ -1378,5 +1380,3 @@ void ChaserEditor::printSteps()
             qDebug() << "-----> values found: " << st.values.count();
     }
 }
-
-

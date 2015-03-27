@@ -4,78 +4,78 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="201"/>
+        <location filename="webaccess.cpp" line="203"/>
         <source>Loading project...</source>
         <translation>Lade Projekt...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="242"/>
+        <location filename="webaccess.cpp" line="244"/>
         <source>Fixture stored and loaded</source>
         <translation>Gerät gespeichert und geladen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="394"/>
+        <location filename="webaccess.cpp" line="398"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Die Netzwerkkonfiguration hat sich geändert. Neustarten um die Änderungen anzuwenden.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="413"/>
+        <location filename="webaccess.cpp" line="417"/>
         <source>Autostart configuration changed</source>
         <translation>Autostart-Konfiguration geändert</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="672"/>
+        <location filename="webaccess.cpp" line="681"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Assistent wird (zur Zeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="712"/>
-        <location filename="webaccess.cpp" line="753"/>
+        <location filename="webaccess.cpp" line="721"/>
+        <location filename="webaccess.cpp" line="762"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="891"/>
+        <location filename="webaccess.cpp" line="900"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="921"/>
+        <location filename="webaccess.cpp" line="930"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="922"/>
+        <location filename="webaccess.cpp" line="931"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="923"/>
+        <location filename="webaccess.cpp" line="932"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="924"/>
+        <location filename="webaccess.cpp" line="933"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="925"/>
+        <location filename="webaccess.cpp" line="934"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1152"/>
+        <location filename="webaccess.cpp" line="1161"/>
         <source>Load project</source>
         <translation>Lade Projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1154"/>
+        <location filename="webaccess.cpp" line="1163"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1156"/>
+        <location filename="webaccess.cpp" line="1165"/>
         <source>Configuration</source>
         <translation>Einstellungen</translation>
     </message>
@@ -195,6 +195,11 @@
         <location filename="webaccessnetwork.cpp" line="234"/>
         <source>Reboot</source>
         <translation>Neustart</translation>
+    </message>
+    <message>
+        <location filename="webaccessnetwork.cpp" line="235"/>
+        <source>Shutdown</source>
+        <translation>Beenden</translation>
     </message>
 </context>
 <context>

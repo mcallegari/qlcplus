@@ -444,6 +444,7 @@ void VCFrame::slotPreviousPage()
         slotSetPage(m_totalPagesNumber - 1);
     else
         slotSetPage(m_currentPage - 1);
+    sendFeedback(m_currentPage, previousPageInputSourceId);
 }
 
 void VCFrame::slotNextPage()
@@ -452,6 +453,8 @@ void VCFrame::slotNextPage()
         slotSetPage(0);
     else
         slotSetPage(m_currentPage + 1);
+
+    sendFeedback(m_currentPage, nextPageInputSourceId);
 }
 
 void VCFrame::slotSetPage(int pageNum)
@@ -819,7 +822,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), enableInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), enableInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -843,7 +846,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), nextPageInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), nextPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -867,7 +870,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), previousPageInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), previousPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -961,6 +964,8 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete soloframe;
             else
             {
+                if (m_doc->mode() == Doc::Operate)
+                    soloframe->updateChildrenConnection(true);
                 addWidgetToPageMap(soloframe);
                 soloframe->show();
             }

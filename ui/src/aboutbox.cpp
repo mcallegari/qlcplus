@@ -64,6 +64,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_contributors->addItem("Santiago Benejam Torres");
     m_contributors->addItem("Jérôme Lebleu");
     m_contributors->addItem("Koichiro Saito");
+    m_contributors->addItem("Karri Kaksonen");
     m_contributors->addItem("Klaus Weidenbach");
     m_contributors->addItem("Stefan Krumm");
     m_contributors->addItem(QString::fromUtf8("Christian Sühs"));
