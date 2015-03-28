@@ -64,8 +64,11 @@ Rectangle {
         headRows = rows;
     }
 
+    function setHeadIntensity(headIndex, intensity) {
+        headsRepeater.itemAt(headIndex).headLevel = intensity
+    }
     function setHeadColor(headIndex, color) {
-        headsRepeater.itemAt(headIndex).hCol = color
+        headsRepeater.itemAt(headIndex).headColor = color
     }
 
     x: (gridCellSize * mmXPos) / gridUnits
@@ -86,14 +89,59 @@ Rectangle {
             model: fixtureItem.headsNumber
             delegate:
                 Rectangle {
-                    property color hCol: "black"
-                    objectName: "head" + index
+                    id: headDelegate
+                    property color headColor: "black"
+                    property real headLevel: 0.0
+                    property real whiteLevel: 0.0
+                    property real amberLevel: 0.0
+                    property real uvLevel: 0.0
+                    property string goboSource: ""
+
                     width: fixtureItem.headSide - 1
                     height: width
-                    color: hCol
+                    color: "black"
                     radius: fixtureItem.headSide / 2
                     border.width: 1
                     border.color: "#AAA"
+
+                    Rectangle {
+                        id: headMainLayer
+                        x: 1
+                        y: 1
+                        width: parent.width - 2
+                        height: parent.height - 2
+                        radius: parent.radius - 2
+                        color: headDelegate.headColor
+                        opacity: headDelegate.headLevel
+
+                        Rectangle {
+                            id: headWhiteLayer
+                            anchors.fill: parent
+                            radius: parent.radius
+                            color: "white"
+                            opacity: headDelegate.whiteLevel
+                        }
+                        Rectangle {
+                            id: headAmberLayer
+                            anchors.fill: parent
+                            radius: parent.radius
+                            color: "#FF7E00"
+                            opacity: headDelegate.amberLevel
+                        }
+                        Rectangle {
+                            id: headUVLayer
+                            anchors.fill: parent
+                            radius: parent.radius
+                            color: "#9400D3"
+                            opacity: headDelegate.uvLevel
+                        }
+                    }
+                    Image {
+                        id: headGoboLayer
+                        anchors.fill: parent
+                        sourceSize: Qt.size(parent.width, parent.height)
+                        source: headDelegate.goboSource
+                    }
                 }
         }
     }

@@ -42,6 +42,8 @@ public:
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
 
+    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
+
 signals:
 
 protected slots:

@@ -86,6 +86,16 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     }
 }
 
+void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
+{
+    QList<quint32> fxIDList;
+    if (m_2DView->isEnabled())
+        fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
+
+    foreach(quint32 fxID, fxIDList)
+        setFixtureSelection(fxID, true);
+}
+
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)

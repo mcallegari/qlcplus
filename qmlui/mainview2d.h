@@ -41,6 +41,8 @@ public:
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
 
+    QList<quint32> selectFixturesRect(QRectF rect);
+
 protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();

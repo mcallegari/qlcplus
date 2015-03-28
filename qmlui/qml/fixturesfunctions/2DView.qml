@@ -95,20 +95,20 @@ Rectangle {
             id: selectionMouseArea
             property int initialXPos
             property int initialYPos
-            property bool justStarted
 
             anchors.fill: parent
             z: 1 // make sure we're above the Canvas element
             propagateComposedEvents: true
 
             onPressed: {
+                console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
+
                 if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
                 {
                     console.log("Flickable shift-clicked !")
                     // initialize local variables to determine the selection orientation
                     initialXPos = mouse.x
                     initialYPos = mouse.y
-                    justStarted = true
 
                     twoDView.interactive = false
                     selectionRect.x = mouse.x
@@ -121,7 +121,7 @@ Rectangle {
             onPositionChanged: {
                 if (selectionRect.visible == true)
                 {
-                    if (justStarted == true && (mouse.x != initialXPos || mouse.y != initialYPos))
+                    if (mouse.x != initialXPos || mouse.y != initialYPos)
                     {
                         //console.log("startX: " + initialXPos + ", startY: " + initialYPos)
                         //console.log("mouseX: " + mouse.x + ", mouseY: " + mouse.y)
@@ -139,8 +139,6 @@ Rectangle {
                             else
                                 selectionRect.rotation = -180
                         }
-
-                        justStarted = false
                         //console.log("Selection rotation: " + selectionRect.rotation)
                     }
 
@@ -158,7 +156,22 @@ Rectangle {
             }
 
             onReleased: {
-                selectionRect.visible = false;
+                if (selectionRect.visible == true)
+                {
+                    var rx = selectionRect.x - twoDContents.x
+                    var ry = selectionRect.y - twoDContents.y
+                    var rw = selectionRect.width
+                    var rh = selectionRect.height
+                    switch (selectionRect.rotation)
+                    {
+                        case 0: contextManager.setRectangleSelection(rx, ry, rw, rh); break;
+                        case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh); break;
+                        case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
+                        case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
+                    }
+                }
+
+                selectionRect.visible = false
                 twoDView.interactive = true
             }
         }

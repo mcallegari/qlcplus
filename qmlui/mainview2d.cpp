@@ -161,8 +161,16 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
 
     if (mmCoords == false)
     {
-        x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
-        y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
+        if (x == 0 && y == 0)
+        {
+            x = (m_xOffset * m_gridUnits) / m_cellPixels;
+            y = (m_yOffset * m_gridUnits) / m_cellPixels;
+        }
+        else
+        {
+            x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
+            y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
+        }
     }
     fxRect.setX(x);
     fxRect.setY(y);
@@ -201,6 +209,35 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
+}
+
+QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
+{
+    QList<quint32>fxList;
+    QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
+    while (it.hasNext())
+    {
+        it.next();
+        QQuickItem *fxItem = it.value();
+        qreal itemXPos = fxItem->property("x").toReal();
+        qreal itemYPos = fxItem->property("y").toReal();
+        qreal itemWidth = fxItem->property("width").toReal();
+        qreal itemHeight = fxItem->property("height").toReal();
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        qDebug() << "Rect:" << rect << "itemRect:" << itemRect;
+
+        if (rect.contains(itemRect))
+        {
+            if (fxItem->property("isSelected").toBool() == false)
+            {
+                fxItem->setProperty("isSelected", true);
+                fxList.append(it.key());
+            }
+        }
+    }
+    return fxList;
 }
 
 void MainView2D::slotRefreshView()
@@ -255,6 +292,16 @@ void MainView2D::slotUniversesWritten(int idx, const QByteArray &ua)
 
         for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
         {
+            quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
+            qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+            if (fxStartAddr + mdIndex < (quint32)ua.size())
+            {
+                uchar intValue = (uchar)ua.at(fxStartAddr + mdIndex);
+                QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
+                        Q_ARG(QVariant, headIdx),
+                        Q_ARG(QVariant, (qreal)intValue / 255.0));
+            }
+
             QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
             if (rgbCh.size() > 0)
             {
