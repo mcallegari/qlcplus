@@ -47,7 +47,7 @@ protected:
 
     /** Returns the first available space (in mm) for a rectangle
      * of the given width and height. */
-    QPointF getAvailablePosition(qreal width, qreal height);
+    QPointF getAvailablePosition(QRectF &fxRect);
 
 signals:
 

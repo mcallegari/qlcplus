@@ -97,8 +97,8 @@ function endDrag(mouse)
 
     fixtureManager.addFixture(manufacturer, model, mode, name,
                               universeIndex, address, channels, quantity, gap,
-                              draggedItem.x - leftSidePanel.width, draggedItem.y - previewLoader.y);
-
+                              draggedItem.x - leftSidePanel.width,
+                              draggedItem.y - previewLoader.y - viewToolbar.height);
     draggedItem.destroy();
     draggedItem = null;
 }

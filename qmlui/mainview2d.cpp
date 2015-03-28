@@ -88,15 +88,18 @@ void MainView2D::initialize2DProperties()
     m_yOffset = m_contents2D->property("y").toReal();
 }
 
-QPointF MainView2D::getAvailablePosition(qreal width, qreal height)
+QPointF MainView2D::getAvailablePosition(QRectF& fxRect)
 {
-    qreal xPos = 0, yPos = 0;
+    qreal xPos = fxRect.x(), yPos = fxRect.y();
     qreal maxYOffset = 0;
 
     if (m_view2D == NULL || m_contents2D == NULL)
         initialize2DProperties();
 
     QRectF gridArea(0, 0, m_gridSize.width() * m_gridUnits, m_gridSize.height() * m_gridUnits);
+
+    qreal origWidth = fxRect.width();
+    qreal origHeight = fxRect.height();
 
     QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
     while (it.hasNext())
@@ -113,17 +116,21 @@ QPointF MainView2D::getAvailablePosition(qreal width, qreal height)
             maxYOffset = itemYPos + itemHeight;
 
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
-        QRectF newItemRect(xPos, yPos, width, height);
 
-        if (itemRect.intersects(newItemRect) == true)
+        if (fxRect.intersects(itemRect) == true)
         {
             xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
-            if (xPos + width > gridArea.width())
+            if (xPos + fxRect.width() > gridArea.width())
             {
                 xPos = 0;
                 yPos = maxYOffset + 50;
                 maxYOffset = 0;
             }
+            fxRect.setX(xPos);
+            fxRect.setY(yPos);
+            // restore width and height as setX and setY mess them
+            fxRect.setWidth(origWidth);
+            fxRect.setHeight(origHeight);
         }
         else
             break;
@@ -145,42 +152,49 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     Fixture *fixture = m_doc->fixture(fxID);
     MonitorProperties *mProps = m_doc->monitorProperties();
     QLCFixtureMode *fxMode = fixture->fixtureMode();
+    QRectF fxRect;
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
 
     newFixtureItem->setParentItem(m_contents2D);
     newFixtureItem->setProperty("fixtureID", fxID);
 
+    if (mmCoords == false)
+    {
+        x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
+        y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
+    }
+    fxRect.setX(x);
+    fxRect.setY(y);
+
     if (fxMode != NULL)
     {
         if (fxMode->physical().width() != 0)
+        {
             newFixtureItem->setProperty("mmWidth", fxMode->physical().width());
+            fxRect.setWidth(fxMode->physical().width());
+        }
         if (fxMode->physical().height() != 0)
+        {
             newFixtureItem->setProperty("mmHeight", fxMode->physical().height());
+            fxRect.setHeight(fxMode->physical().height());
+        }
         qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
     }
-
-    if (x == -1 && y == -1)
+    else
     {
-        QPointF availablePos = getAvailablePosition(newFixtureItem->property("mmWidth").toReal(),
-                                                    newFixtureItem->property("mmHeight").toReal());
-        x = availablePos.x();
-        y = availablePos.y();
+        // default to 300x300mm
+        fxRect.setWidth(300);
+        fxRect.setHeight(300);
     }
 
-    if (x > m_xOffset)
-    {
-        if (mmCoords == false)
-            x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
-        newFixtureItem->setProperty("mmXPos", x);
-    }
-    if (y > m_yOffset)
-    {
-        if (mmCoords == false)
-            y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
-        newFixtureItem->setProperty("mmYPos", y);
-    }
+    QPointF availablePos = getAvailablePosition(fxRect);
+    x = availablePos.x();
+    y = availablePos.y();
+
+    newFixtureItem->setProperty("mmXPos", x);
+    newFixtureItem->setProperty("mmYPos", y);
 
     // add the new fixture to the Doc monitor properties
     mProps->setFixturePosition(fxID, QPointF(x, y));
@@ -216,7 +230,7 @@ void MainView2D::slotRefreshView()
             createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
         }
         else
-            createFixtureItem(fixture->id(), -1, -1, false);
+            createFixtureItem(fixture->id(), 0, 0, false);
     }
 }
 
