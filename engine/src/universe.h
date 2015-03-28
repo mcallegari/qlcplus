@@ -339,6 +339,8 @@ protected:
     QByteArray* m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */
     QByteArray* m_postGMValues;
+    /** Array of the last preGM values written before the zeroIntensityChannels call  */
+    QByteArray* m_lastPreGMValues;
 
     QVector<short> m_relativeValues;
 
