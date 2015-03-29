@@ -654,6 +654,10 @@ bool Universe::writeRelative(int channel, uchar value)
     return true;
 }
 
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
 bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap)
 {
     if (root.tagName() != KXMLQLCUniverse)
@@ -715,6 +719,12 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
         }
         else if (tag.tagName() == KXMLQLCUniversePatch)
         {
+            /*
+             * TODO: load only non one to one dimmers (see save)
+             * patchOneToOne(); instead patchClear();
+             * just patch whats in the file (nothing if it was one to one)
+             */
+
             /* clear Patch */
             patchClear();
 
@@ -747,10 +757,6 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
 
     return true;
 }
-
-/*********************************************************************
- * Load & Save
- *********************************************************************/
 
 bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
 {
@@ -793,6 +799,10 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         QDomElement dimmer = doc->createElement(KXMLQLCUniversePatchDimmer);
         dimmer.setAttribute(KXMLQLCUniversePatchChannel, i);
         QList<uint> dim = getPatchedChannels(i);
+        /*
+         * TODO: save only non one to one dimmers
+         * condition: dim.size() == 1 && dim[0] == i
+         */
         QListIterator <uint> it(dim);
         QString dimValues;
         while (it.hasNext())
