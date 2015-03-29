@@ -24,17 +24,19 @@ Rectangle {
     height: 40
 
     color: "transparent"
+    clip: true
 
     property string label
     property color labelColor: "white"
     property int fontSize: 16
     property bool fontBold: false
     property bool wrapText: false
+    property int textAlign: Text.AlignLeft
 
     Text {
         id: textBox
-        //x: 5
         width: wrapText ? parent.width : Text.paintedWidth
+        height: wrapText ? parent.height : Text.paintedHeight
         anchors.verticalCenter: parent.verticalCenter
         text: label
         font.family: "RobotoCondensed"
@@ -42,6 +44,7 @@ Rectangle {
         font.bold: fontBold
         color: labelColor
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap
+        horizontalAlignment: textAlign
     }
 }
 

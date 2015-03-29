@@ -203,6 +203,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
 
     newFixtureItem->setProperty("mmXPos", x);
     newFixtureItem->setProperty("mmYPos", y);
+    newFixtureItem->setProperty("fixtureName", fixture->name());
 
     // add the new fixture to the Doc monitor properties
     mProps->setFixturePosition(fxID, QPointF(x, y));

@@ -71,7 +71,7 @@ Rectangle {
             contentWidth = baseCellSize * gridWidth;
             contentHeight = baseCellSize * gridHeight;
 
-            console.log("Cell size calculated: " + baseCellSize)
+            //console.log("Cell size calculated: " + baseCellSize)
             if (baseCellSize > 0)
                 twoDContents.requestPaint();
         }
@@ -91,91 +91,6 @@ Rectangle {
             transformOrigin: Item.TopLeft
         }
 
-        MouseArea {
-            id: selectionMouseArea
-            property int initialXPos
-            property int initialYPos
-
-            anchors.fill: parent
-            z: 1 // make sure we're above the Canvas element
-            propagateComposedEvents: true
-
-            onPressed: {
-                console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
-
-                if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
-                {
-                    console.log("Flickable shift-clicked !")
-                    // initialize local variables to determine the selection orientation
-                    initialXPos = mouse.x
-                    initialYPos = mouse.y
-
-                    twoDView.interactive = false
-                    selectionRect.x = mouse.x
-                    selectionRect.y = mouse.y
-                    selectionRect.width = 0
-                    selectionRect.height = 0
-                    selectionRect.visible = true
-                }
-            }
-            onPositionChanged: {
-                if (selectionRect.visible == true)
-                {
-                    if (mouse.x != initialXPos || mouse.y != initialYPos)
-                    {
-                        //console.log("startX: " + initialXPos + ", startY: " + initialYPos)
-                        //console.log("mouseX: " + mouse.x + ", mouseY: " + mouse.y)
-                        if (mouse.x >= initialXPos)
-                        {
-                            if (mouse.y >= initialYPos)
-                               selectionRect.rotation = 0
-                            else
-                               selectionRect.rotation = -90
-                        }
-                        else
-                        {
-                            if (mouse.y >= initialYPos)
-                                selectionRect.rotation = 90
-                            else
-                                selectionRect.rotation = -180
-                        }
-                        //console.log("Selection rotation: " + selectionRect.rotation)
-                    }
-
-                    if (selectionRect.rotation == 0 || selectionRect.rotation == -180)
-                    {
-                        selectionRect.width = Math.abs(mouse.x - selectionRect.x)
-                        selectionRect.height = Math.abs(mouse.y - selectionRect.y)
-                    }
-                    else
-                    {
-                        selectionRect.width = Math.abs(mouse.y - selectionRect.y)
-                        selectionRect.height = Math.abs(mouse.x - selectionRect.x)
-                    }
-                }
-            }
-
-            onReleased: {
-                if (selectionRect.visible == true)
-                {
-                    var rx = selectionRect.x - twoDContents.x
-                    var ry = selectionRect.y - twoDContents.y
-                    var rw = selectionRect.width
-                    var rh = selectionRect.height
-                    switch (selectionRect.rotation)
-                    {
-                        case 0: contextManager.setRectangleSelection(rx, ry, rw, rh); break;
-                        case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh); break;
-                        case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
-                        case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
-                    }
-                }
-
-                selectionRect.visible = false
-                twoDView.interactive = true
-            }
-        }
-
         Canvas {
             id: twoDContents
             objectName: "twoDContents"
@@ -189,6 +104,11 @@ Rectangle {
 
             property real cellSize: twoDView.baseCellSize
             property int gridUnits: twoDView.gridUnits
+
+            function setFlickableStatus(status) {
+                console.log("Flickable interaction set to: " + status)
+                twoDView.interactive = status
+            }
 
             onPaint: {
                 var ctx = twoDContents.getContext('2d');
@@ -221,7 +141,91 @@ Rectangle {
             }
 
             MouseArea {
-                anchors.fill: parent
+                // set the size to cover the whole twoDView
+                x: -twoDContents.x
+                y: -twoDContents.y
+                width: twoDView.width
+                height: twoDView.height
+
+                property int initialXPos
+                property int initialYPos
+
+                onPressed: {
+                    console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
+
+                    if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
+                    {
+                        //console.log("Flickable shift-clicked !")
+                        // initialize local variables to determine the selection orientation
+                        initialXPos = mouse.x
+                        initialYPos = mouse.y
+
+                        twoDView.interactive = false
+                        selectionRect.x = mouse.x
+                        selectionRect.y = mouse.y
+                        selectionRect.width = 0
+                        selectionRect.height = 0
+                        selectionRect.visible = true
+                    }
+                }
+
+                onPositionChanged: {
+                    if (selectionRect.visible == true)
+                    {
+                        if (mouse.x !== initialXPos || mouse.y !== initialYPos)
+                        {
+                            //console.log("startX: " + initialXPos + ", startY: " + initialYPos)
+                            //console.log("mouseX: " + mouse.x + ", mouseY: " + mouse.y)
+                            if (mouse.x >= initialXPos)
+                            {
+                                if (mouse.y >= initialYPos)
+                                   selectionRect.rotation = 0
+                                else
+                                   selectionRect.rotation = -90
+                            }
+                            else
+                            {
+                                if (mouse.y >= initialYPos)
+                                    selectionRect.rotation = 90
+                                else
+                                    selectionRect.rotation = -180
+                            }
+                            //console.log("Selection rotation: " + selectionRect.rotation)
+                        }
+
+                        if (selectionRect.rotation == 0 || selectionRect.rotation == -180)
+                        {
+                            selectionRect.width = Math.abs(mouse.x - selectionRect.x)
+                            selectionRect.height = Math.abs(mouse.y - selectionRect.y)
+                        }
+                        else
+                        {
+                            selectionRect.width = Math.abs(mouse.y - selectionRect.y)
+                            selectionRect.height = Math.abs(mouse.x - selectionRect.x)
+                        }
+                    }
+                }
+
+                onReleased: {
+                    if (selectionRect.visible === true)
+                    {
+                        var rx = selectionRect.x - twoDContents.x
+                        var ry = selectionRect.y - twoDContents.y
+                        var rw = selectionRect.width
+                        var rh = selectionRect.height
+                        switch (selectionRect.rotation)
+                        {
+                            case 0: contextManager.setRectangleSelection(rx, ry, rw, rh); break;
+                            case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh); break;
+                            case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
+                            case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
+                        }
+                    }
+
+                    selectionRect.visible = false
+                    twoDView.interactive = true
+                }
+
                 onWheel: {
                     console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)

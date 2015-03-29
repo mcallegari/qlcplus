@@ -78,6 +78,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 8
         focus: true
+        boundsBehavior: Flickable.StopAtBounds
 
         model: fixtureBrowser.manufacturers()
         delegate: FixtureDelegate {
@@ -163,6 +164,7 @@ Rectangle {
             highlight: Rectangle { color: "#0978FF"; radius: 5 }
             highlightMoveVelocity: 800
             focus: true
+            boundsBehavior: Flickable.StopAtBounds
 
             delegate: FixtureDelegate {
                 id: dlg

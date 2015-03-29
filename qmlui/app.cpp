@@ -96,6 +96,7 @@ void App::startup()
 
 void App::show()
 {
+    m_view->setGeometry(0, 0, 800, 600);
     m_view->showMaximized();
     //m_view->showFullScreen();
 }

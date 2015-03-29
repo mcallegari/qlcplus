@@ -22,6 +22,7 @@ import QtQuick 2.2
 Rectangle {
     id: fixtureItem
     property int fixtureID: fixtureManager.invalidFixture()
+    property string fixtureName: ""
 
     property real gridCellSize: parent ? parent.cellSize : 100
     property int gridUnits: parent ? parent.gridUnits : 1000
@@ -37,6 +38,7 @@ Rectangle {
     property int headRows: 1
 
     property bool isSelected: false
+    property bool showLabel: false
 
     onWidthChanged: calculateHeadSize();
     onHeightChanged: calculateHeadSize();
@@ -73,6 +75,7 @@ Rectangle {
 
     x: (gridCellSize * mmXPos) / gridUnits
     y: (gridCellSize * mmYPos) / gridUnits
+    z: 2
     width: (gridCellSize * mmWidth) / gridUnits
     height: (gridCellSize * mmHeight) / gridUnits
 
@@ -80,7 +83,12 @@ Rectangle {
     border.width: 1
     border.color: isSelected ? "yellow" : "#AAA"
 
+    Drag.active: fxMouseArea.drag.active
+    Drag.onDragStarted: console.log("drag started");
+    Drag.onDragFinished: console.log("drag finished");
+
     Flow {
+        id: headsBox
         width: headSide * headColumns
         height: headSide * headRows
         anchors.centerIn: parent
@@ -146,8 +154,42 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: fixtureLabel
+        y: parent.height + 2
+        x: -10
+        width: parent.width + 20
+        height: 28
+        color: "#444"
+        visible: showLabel
+
+        RobotoText {
+            width: parent.width
+            height: parent.height
+            label: fixtureName
+            //labelColor: "black"
+            fontSize: 8
+            wrapText: true
+            textAlign: Text.AlignHCenter
+        }
+    }
+
     MouseArea {
+        id: fxMouseArea
         anchors.fill: parent
+        hoverEnabled: true
+        preventStealing: false
+
+        onEntered: fixtureLabel.visible = true
+        onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
+
+        onPressed: {
+            if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ControlModifier)
+                drag.target = fixtureItem
+            else
+                drag.target = null
+        }
+
         onClicked: {
             isSelected = !isSelected
             contextManager.setFixtureSelection(fixtureID, isSelected)
