@@ -36,6 +36,7 @@
   <fixture path="American-DJ-Mega-Tri-Bar.qxf" mf="American DJ" md="Mega Tri Bar"/>
   <fixture path="American-DJ-Mega-Tri-Par.qxf" mf="American DJ" md="Mega Tri Par"/>
   <fixture path="American-DJ-Micro-Wash-RGBW.qxf" mf="American DJ" md="Micro Wash RGBW"/>
+  <fixture path="American-DJ-Monster-Fun.qxf" mf="American DJ" md="Monster Fun"/>
   <fixture path="American-DJ-Nucleus-LED.qxf" mf="American DJ" md="Nucleus LED"/>
   <fixture path="American-DJ-P64-LED-Plus.qxf" mf="American DJ" md="P64 LED Plus"/>
   <fixture path="American-DJ-Par-38-Pro.qxf" mf="American DJ" md="Par 38 Pro"/>
@@ -294,6 +295,7 @@
   <fixture path="Look-Solutions-Unique-2.1.qxf" mf="Look Solutions" md="Unique 2.1"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
+  <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
   <fixture path="Martin-Atomic-3000.qxf" mf="Martin" md="Atomic 3000"/>
   <fixture path="Martin-Destroyer.qxf" mf="Martin" md="Destroyer"/>
   <fixture path="Martin-EFX-500.qxf" mf="Martin" md="EFX-500"/>
@@ -305,6 +307,7 @@
   <fixture path="Martin-MAC-101.qxf" mf="Martin" md="MAC 101"/>
   <fixture path="Martin-MAC-2000-Profile-II.qxf" mf="Martin" md="MAC 2000 Profile II"/>
   <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
+  <fixture path="Martin-Mac-350-Entour.qxf" mf="Martin" md="MAC 350 Entour"/>
   <fixture path="Martin-MAC-700-Profile.qxf" mf="Martin" md="MAC 700 Profile"/>
   <fixture path="Martin-MAC-Aura.qxf" mf="Martin" md="MAC Aura"/>
   <fixture path="Martin-MAC-Viper-Performance.qxf" mf="Martin" md="MAC Viper Performance"/>
