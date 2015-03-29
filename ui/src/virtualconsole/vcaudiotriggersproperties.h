@@ -73,7 +73,7 @@ private:
     VCAudioTriggers *m_triggers;
     int m_maxFrequency;
     QKeySequence m_keySequence;
-    QLCInputSource *m_inputSource;
+    QSharedPointer<QLCInputSource> m_inputSource;
 };
 
 /** @} */

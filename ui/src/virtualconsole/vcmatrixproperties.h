@@ -67,7 +67,7 @@ protected:
     void updateSliderInputSource();
 
 protected:
-    QLCInputSource *m_sliderInputSource;
+    QSharedPointer<QLCInputSource> m_sliderInputSource;
 
     /*********************************************************************
      * Custom controls
@@ -78,7 +78,7 @@ private:
     VCMatrixControl *getSelectedControl();
     void addControl(VCMatrixControl *control);
     void removeControl(quint8 id);
-    void updateControlInputSource(QLCInputSource *source);
+    void updateControlInputSource(QSharedPointer<QLCInputSource> const& source);
 
 protected slots:
     void slotTreeSelectionChanged();

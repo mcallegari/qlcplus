@@ -358,7 +358,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), absoluteInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), absoluteInputSourceId);
                 }
                 else
                 {
@@ -380,7 +380,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), tapInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tapInputSourceId);
                 }
                 else
                 {

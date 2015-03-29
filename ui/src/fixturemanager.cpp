@@ -984,7 +984,7 @@ void FixtureManager::addFixture()
         /* If we're adding more than one fixture,
            append a number to the end of the name */
         if (af.amount() > 1)
-            modname = QString("%1 #%2").arg(name).arg(i + 1);
+            modname = QString("%1 #%2").arg(name).arg(i + 1, AppUtil::digits(af.amount()), 10, QChar('0'));
         else
             modname = name;
 

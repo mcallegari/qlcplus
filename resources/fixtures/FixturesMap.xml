@@ -28,6 +28,7 @@
   <fixture path="American-DJ-Inno-Pocket-Roll.qxf" mf="American DJ" md="Inno Pocket Roll"/>
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
+  <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
   <fixture path="American-DJ-Mega-Bar-50RGB.qxf" mf="American DJ" md="Mega Bar 50RGB"/>
   <fixture path="American-DJ-Mega-Bar-LED.qxf" mf="American DJ" md="Mega Bar LED"/>
   <fixture path="American-DJ-Mega-Flash-DMX.qxf" mf="American DJ" md="Mega Flash DMX"/>
@@ -130,6 +131,7 @@
   <fixture path="Chauvet-SlimPar-Tri-7-IRC.qxf" mf="Chauvet" md="SlimPar Tri 7 IRC"/>
   <fixture path="Chauvet-Vue-3.1.qxf" mf="Chauvet" md="Vue 3.1"/>
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
+  <fixture path="Chauvet-Wash-FX.qxf" mf="Chauvet" md="Wash FX"/>
   <fixture path="Chauvet-Wedge-Tri.qxf" mf="Chauvet" md="Wedge Tri"/>
   <fixture path="Chavet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K10.qxf" mf="Clay Paky" md="A.LEDA Wash K10"/>
@@ -140,6 +142,7 @@
   <fixture path="Clay-Paky-Atlas.qxf" mf="Clay Paky" md="Atlas"/>
   <fixture path="Clay-Paky-Mini-Scan-HPE.qxf" mf="Clay Paky" md="Mini Scan HPE"/>
   <fixture path="Clay-Paky-Sharpy.qxf" mf="Clay Paky" md="Sharpy"/>
+  <fixture path="Clay-Paky-Stage-Color-300-AE.qxf" mf="Clay Paky" md="Stage Color 300 AE"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
@@ -437,6 +440,7 @@
   <fixture path="Stairville-MH-X20.qxf" mf="Stairville" md="MH-X20"/>
   <fixture path="Stairville-MH-X25.qxf" mf="Stairville" md="MH-X25"/>
   <fixture path="Stairville-MH-X50.qxf" mf="Stairville" md="MH-X50+"/>
+  <fixture path="Stairville-Octagon-Theater.qxf" mf="Stairville" md="Octagon Theater"/>
   <fixture path="Stairville-PAR64-CX-3-RGBW.qxf" mf="Stairville" md="PAR 64 CX-3 RGBW"/>
   <fixture path="Stairville-PS1500DMX.qxf" mf="Stairville" md="PS 1500 DMX"/>
   <fixture path="Stairville-Quad-Par-Profile-RGBW-5x8W.qxf" mf="Stairville" md="Quad Par Profile RGBW 5x8W"/>
