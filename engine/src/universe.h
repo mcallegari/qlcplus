@@ -21,6 +21,15 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
+
+/**
+ * TODO:
+ *  Just save patched / unpatched channels (dont save 1to1 channels)
+ *  Test for unpatched Dimmers can not work (maybe tmp patch in softpatch editor, when testing)
+ *
+ */
+
+
 #include <QByteArray>
 #include <QSet>
 
@@ -394,6 +403,16 @@ public:
      *
      */
     void unPatchChannel(uint channel);
+
+
+    /**
+     * used for testing Dimmers before doing the patch
+     *
+     * @param patched channels
+     * @param on switches dimmer (on/off)
+     *
+     */
+    void testDimmer(QList<uint> channels, bool on);
 
     /**
      * write channel value to m_patchedValues

@@ -30,7 +30,10 @@
 
 /**
  * TODO:
- *  FIX: use real universeAddreses
+ *  QLineEdit: limit to Digits and Komma
+ *  small Text howto patch (multiple channels ...)
+ *  dont use channel 0, empty should mean unpatch
+ *  think about reseting universe at a certain point (testDimmer?)
  *
  */
 
@@ -63,8 +66,8 @@ private:
     bool runTest;
     bool resetTest;
     quint32 testUniverse;
-    int testChannel;
-    uchar testValue;
+    QList<uint> testChannels;
+    bool testSwitch;
 
 protected:
     void updateFixturesTree();
@@ -98,6 +101,11 @@ protected slots:
 
     /** Callback for OK button clicks */
     void accept();
+
+private:
+    /** conversion from QLineEdit String to channels and back */
+    QList<uint> textToChannels(QString text);
+    QString channelsToText(QList<uint> channels);
 };
 
 #endif // SOFTPATCHEDITOR_H

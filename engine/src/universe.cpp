@@ -508,6 +508,7 @@ void Universe::patchClear()
 
 void Universe::patchDimmer(uint dimmer, uint channel)
 {
+    qDebug() << Q_FUNC_INFO <<  " dimmer: " << dimmer << " channel: " << channel ;
     if (dimmer < UNIVERSE_SIZE && channel < UNIVERSE_SIZE)
     {
         qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel << " m_patchHash.contains(channel) = " << m_patchHash.contains(channel);
@@ -541,6 +542,23 @@ void Universe::unPatchChannel(uint channel)
             }
             else
                 qDebug() << Q_FUNC_INFO << " requested channel not found in dimmer";
+        }
+    }
+}
+
+void Universe::testDimmer(QList<uint> channels, bool on)
+{
+    //qDebug() << Q_FUNC_INFO << " channels: " << channels << " switch: " << on;
+    foreach (uint channel, channels) {
+        // check already patched dimmers
+        if (m_patchHash.contains(channel))
+        {
+            uint tc = getPatchedDimmer(channel);
+            write(tc, on ? uchar(255) : uchar(0));
+        }
+        // testing on unpatched dimmers ?
+        else
+        {
         }
     }
 }
