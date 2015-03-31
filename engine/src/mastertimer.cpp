@@ -241,7 +241,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             {
                 // Clear function's parentList
                 if (m_stopAllFunctions)
-                    function->stop(function->id());
+                    function->stop(Function::Source(Function::Source::God, 0));
                 /* Function should be stopped instead */
                 function->postRun(this, universes);
                 removeList << i; // Don't remove the item from the list just yet.

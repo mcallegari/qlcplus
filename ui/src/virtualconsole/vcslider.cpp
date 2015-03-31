@@ -978,11 +978,11 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     {
         if (value == 0)
         {
-            function->stop(-1);
+            function->stop(Function::Source(Function::Source::ManualVCWidget, id()));
         }
         else
         {
-            function->start(timer, -1);
+            function->start(timer, Function::Source(Function::Source::ManualVCWidget, id()));
             emit functionStarting(m_playbackFunction);
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
         }
