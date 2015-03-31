@@ -90,6 +90,8 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     else
         m_tab->setCurrentIndex(sceneUiState()->currentTab());
 
+    m_tab->setElideMode(Qt::ElideNone);
+
     m_initFinished = true;
 
     // Set focus to the editor
