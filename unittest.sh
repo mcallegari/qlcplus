@@ -8,7 +8,7 @@ CURRUSER=`whoami`
 TESTPREFIX=""
 
 if [ "$CURRUSER" == "buildbot" ]; then
-  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ `which xvfb-run` == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
       exit
