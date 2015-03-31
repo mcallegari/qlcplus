@@ -4,6 +4,21 @@
 # Engine tests
 #############################################################################
 
+CURRUSER=`whoami`
+TESTPREFIX=""
+
+if [ "$CURRUSER" == "buildbot" ]; then
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if [ `which xvfb-run` == "" ]
+      echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
+      exit
+    fi
+    TESTPREFIX="xvfb-run"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "We're on OSX. Any prefix needed ?"
+  fi
+fi
+
 TESTDIR=engine/test
 TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
 for test in ${TESTS}
@@ -19,7 +34,7 @@ do
     # Execute the test
     pushd .
     cd ${TESTDIR}/${test}
-    ./test.sh
+    $TESTPREFIX ./test.sh
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
@@ -48,7 +63,7 @@ do
     pushd .
     cd ${TESTDIR}/${test}
     DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:../../../engine/src:../../src \
-        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../engine/src:../../src ./${test}_test
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../engine/src:../../src $TESTPREFIX ./${test}_test
     RESULT=${?}
     popd
     if [ ${RESULT} != 0 ]; then
@@ -63,7 +78,7 @@ done
 
 pushd .
 cd plugins/enttecwing/test
-./test.sh
+$TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
 	echo "${RESULT} Enttec wing unit tests failed. Please fix before commit."
@@ -77,7 +92,7 @@ popd
 
 pushd .
 cd plugins/velleman/test
-./test.sh
+$TESTPREFIX ./test.sh
 RESULT=$?
 if [ $RESULT != 0 ]; then
     echo "Velleman unit test failed ($RESULT). Please fix before commit."
