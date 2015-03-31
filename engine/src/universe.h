@@ -25,6 +25,7 @@
 /**
  * TODO:
  *  Just save patched / unpatched channels (dont save 1to1 channels)
+ *  Proper reset of not explicit patched channels in simple desk (channels without fixtures)
  */
 
 

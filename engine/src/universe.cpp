@@ -69,6 +69,8 @@ Universe::~Universe()
 {
     delete m_preGMValues;
     delete m_postGMValues;
+    delete m_patchedValues;
+    patchClear();
     if (m_inputPatch != NULL)
         delete m_inputPatch;
     if (m_outputPatch != NULL)
@@ -204,6 +206,7 @@ void Universe::reset()
 {
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
+    m_patchedValues->fill(0);
     zeroRelativeValues();
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
     m_passthrough = false;
@@ -216,6 +219,11 @@ void Universe::reset(int address, int range)
         (*m_preGMValues)[i] = 0;
         (*m_postGMValues)[i] = 0;
         m_relativeValues[i] = 0;
+        qDebug() << Q_FUNC_INFO << " address: " << i << " patched channels: " << getPatchedChannels(i);
+        foreach (uint channel, getPatchedChannels(i))
+        {
+            (*m_patchedValues)[channel] = 0;
+        }
     }
 }
 
