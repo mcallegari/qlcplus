@@ -52,6 +52,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_patchedValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_patchTable(UNIVERSE_SIZE)
+    , m_testDimmer(false)
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
@@ -549,19 +550,11 @@ void Universe::unPatchChannel(uint channel)
 
 void Universe::testDimmer(QList<uint> channels, bool on)
 {
-    //qDebug() << Q_FUNC_INFO << " channels: " << channels << " switch: " << on;
+    m_testDimmer = true;
     foreach (uint channel, channels) {
-        // check already patched dimmers
-        if (m_patchHash.contains(channel))
-        {
-            uint tc = getPatchedDimmer(channel);
-            write(tc, on ? uchar(255) : uchar(0));
-        }
-        // testing on unpatched dimmers ?
-        else
-        {
-        }
+        write(channel, on ? uchar(255) : uchar(0));
     }
+    m_testDimmer = false;
 }
 
 void Universe::patchOneToOne()
@@ -585,10 +578,18 @@ uint Universe::getPatchedDimmer(uint channel) const
 
 void Universe::applyPatch(uint dimmer,  uchar value)
 {
-    foreach (uint channel, m_patchTable[dimmer]) {
-        if (channel >= m_usedChannels)
-            m_usedChannels = channel + 1;
-        (*m_patchedValues)[channel] = value;
+    if (!m_testDimmer)
+    {
+        foreach (uint channel, m_patchTable[dimmer]) {
+            if (channel >= m_usedChannels)
+                m_usedChannels = channel + 1;
+            (*m_patchedValues)[channel] = value;
+        }
+    }
+    else
+    {
+        // testDimmer bypasses the patch table
+        (*m_patchedValues)[dimmer] = value;
     }
 }
 

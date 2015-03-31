@@ -25,8 +25,6 @@
 /**
  * TODO:
  *  Just save patched / unpatched channels (dont save 1to1 channels)
- *  Test for unpatched Dimmers can not work (maybe tmp patch in softpatch editor, when testing)
- *
  */
 
 
@@ -457,6 +455,11 @@ private:
      * provides check against multiple entries
      */
     QHash<uint, uint> m_patchHash;
+
+    /**
+     * indicates dimmer test running
+     */
+    bool m_testDimmer;
 
     /************************************************************************
      * Writing
