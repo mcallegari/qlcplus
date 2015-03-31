@@ -165,22 +165,22 @@ QString QLCPhysical::lensName() const
     return m_lensName;
 }
 
-void QLCPhysical::setLensDegreesMin(qreal degrees)
+void QLCPhysical::setLensDegreesMin(double degrees)
 {
     m_lensDegreesMin = degrees;
 }
 
-qreal QLCPhysical::lensDegreesMin() const
+double QLCPhysical::lensDegreesMin() const
 {
     return m_lensDegreesMin;
 }
 
-void QLCPhysical::setLensDegreesMax(qreal degrees)
+void QLCPhysical::setLensDegreesMax(double degrees)
 {
     m_lensDegreesMax = degrees;
 }
 
-qreal QLCPhysical::lensDegreesMax() const
+double QLCPhysical::lensDegreesMax() const
 {
     return m_lensDegreesMax;
 }

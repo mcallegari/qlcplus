@@ -26,19 +26,23 @@
   <Capability Min="0" Max="255">Tilt fine</Capability>
  </Channel>
  <Channel Name="White coarse">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White mix</Capability>
  </Channel>
  <Channel Name="White fine">
-  <Group Byte="1">Colour</Group>
+  <Group Byte="1">Intensity</Group>
+  <Colour>White</Colour>
   <Capability Min="0" Max="255">White fine mix</Capability>
  </Channel>
  <Channel Name="Amber coarse">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
   <Capability Min="0" Max="255">Amber mix</Capability>
  </Channel>
  <Channel Name="Amber fine">
-  <Group Byte="1">Colour</Group>
+  <Group Byte="1">Intensity</Group>
+  <Colour>Amber</Colour>
   <Capability Min="0" Max="255">Amber fine mix</Capability>
  </Channel>
  <Channel Name="Shutter">

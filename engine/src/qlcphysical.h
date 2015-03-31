@@ -101,11 +101,11 @@ public:
     void setLensName(const QString& name);
     QString lensName() const;
 
-    void setLensDegreesMin(qreal degrees);
-    qreal lensDegreesMin() const;
+    void setLensDegreesMin(double degrees);
+    double lensDegreesMin() const;
 
-    void setLensDegreesMax(qreal degrees);
-    qreal lensDegreesMax() const;
+    void setLensDegreesMax(double degrees);
+    double lensDegreesMax() const;
 
     void setFocusType(const QString& type);
     QString focusType() const;
@@ -133,8 +133,8 @@ protected:
     int m_depth;
 
     QString m_lensName;
-    qreal m_lensDegreesMin;
-    qreal m_lensDegreesMax;
+    double m_lensDegreesMin;
+    double m_lensDegreesMax;
 
     QString m_focusType;
     int m_focusPanMax;
