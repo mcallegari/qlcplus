@@ -206,12 +206,12 @@ void VideoEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
     {
-        m_video->start(m_doc->masterTimer(), -1);
+        m_video->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
         connect(m_video, SIGNAL(stopped(quint32)),
                 this, SLOT(slotPreviewStopped(quint32)));
     }
     else
-        m_video->stop(-1);
+        m_video->stop(Function::Source(Function::Source::God, 0));
 }
 
 void VideoEditor::slotPreviewStopped(quint32 id)

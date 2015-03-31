@@ -555,7 +555,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     if (m_values.size() == 0)
     {
-        stop(id());
+        stop(Source(Source::Function, id()));
         return;
     }
 
@@ -599,7 +599,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     // Fader has nothing to do. Stop.
     if (m_fader->channels().size() == 0)
-        stop(id());
+        stop(Source(Source::Function, id()));
 
     incrementElapsed();
 }

@@ -107,6 +107,45 @@ public:
         Intensity = 0,
     };
 
+
+    /**
+     * Running source
+     */
+    struct Source
+    {
+        enum Type
+        {
+            Function = 0,
+            AutoVCWidget,
+            ManualVCWidget,
+            God = 0xffffffff,
+            Mask = 0xffffffff,
+        };
+
+        quint64 m_source;
+
+        explicit Source(Type type, quint32 id)
+        {
+            m_source = quint64((quint64(type) & 0xffffffff) << 32)
+                | quint64(id & 0xffffffff);
+        };
+
+        bool operator ==(Source const& right) const
+        {
+            return m_source == right.m_source;
+        };
+
+        quint32 type() const
+        {
+            return (m_source >> 32) & 0xffffffff;
+        };
+
+        quint32 id() const
+        {
+            return m_source & 0xffffffff;
+        };
+    };
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -596,7 +635,7 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      */
-    void start(MasterTimer* timer, quint32 parent, quint32 startTime = 0,
+    void start(MasterTimer* timer, Source source, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed());
@@ -607,7 +646,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop(quint32 parent);
+    void stop(Source source);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -640,8 +679,8 @@ private:
     /** Stop flag, private to keep functions from modifying it. */
     bool m_stop;
     bool m_running;
-    QList<quint32> m_parents;
-    QMutex m_parentsMutex;
+    QList<Source> m_sources;
+    QMutex m_sourcesMutex;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;

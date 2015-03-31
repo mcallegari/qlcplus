@@ -404,7 +404,7 @@ void VCButton::notifyFunctionStarting(quint32 fid)
     {
         Function *f = m_doc->function(m_function);
         if (f != NULL)
-            f->stop(-1);
+            f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
     }
 }
 
@@ -658,7 +658,7 @@ void VCButton::pressFunction()
             // functions off and start this one.
             if (isOn() == true && !(isChildOfSoloFrame() && f->startedAsChild()))
             {
-                f->stop(-1);
+                f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
             }
             else
             {
@@ -667,7 +667,7 @@ void VCButton::pressFunction()
                 else
                     f->adjustAttribute(intensity(), Function::Intensity);
 
-                f->start(m_doc->masterTimer(), -1);
+                f->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
                 emit functionStarting(m_function);
             }
         }

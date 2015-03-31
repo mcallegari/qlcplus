@@ -812,19 +812,19 @@ void Function::incrementElapsed()
  * Start & Stop
  *****************************************************************************/
 
-void Function::start(MasterTimer* timer, quint32 parent, quint32 startTime,
+void Function::start(MasterTimer* timer, Source source, quint32 startTime,
                      uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "parent:" << parent << ", startTime:" << startTime;
+    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
 
     Q_ASSERT(timer != NULL);
 
     {
-        QMutexLocker parentsLocker(&m_parentsMutex);
-        if (m_parents.contains(parent))
+        QMutexLocker sourcesLocker(&m_sourcesMutex);
+        if (m_sources.contains(source))
             return;
-        m_parents.append(parent);
-        if (m_parents.size() > 1)
+        m_sources.append(source);
+        if (m_sources.size() > 1)
             return;
     }
 
@@ -835,18 +835,21 @@ void Function::start(MasterTimer* timer, quint32 parent, quint32 startTime,
     timer->startFunction(this);
 }
 
-void Function::stop(quint32 parent)
+void Function::stop(Source source)
 {
-    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "parent:" << parent;
+    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
-    QMutexLocker parentsLocker(&m_parentsMutex);
+    QMutexLocker sourcesLocker(&m_sourcesMutex);
 
-    if (parent == id() || parent == quint32(-1))
-        m_parents.clear();
+    if ((source.id() == id() && source.type() == Source::Function)
+            || (source.type() == Source::God)
+            || (source.type() == Source::ManualVCWidget)
+       )
+        m_sources.clear();
     else
-        m_parents.removeAll(parent);
+        m_sources.removeAll(source);
 
-    if (m_parents.size() == 0)
+    if (m_sources.size() == 0)
         m_stop = true;
 }
 
@@ -857,8 +860,13 @@ bool Function::stopped() const
 
 bool Function::startedAsChild() const
 {
-    QMutexLocker parentsLocker(const_cast<QMutex*>(&m_parentsMutex));
-    return m_parents.size() > 2 || (!m_parents.contains(id()) && !m_parents.contains(-1));
+    QMutexLocker sourcesLocker(const_cast<QMutex*>(&m_sourcesMutex));
+    foreach (Source source, m_sources)
+    {
+        if (source.type() == Source::Function && source.id() != id())
+            return true;
+    }
+    return false;
 }
 
 bool Function::stopAndWait()
@@ -866,7 +874,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    stop(id());
+    stop(Source(Source::God, 0));
 
     QTime watchdog;
     watchdog.start();

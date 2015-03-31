@@ -693,7 +693,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
-    ch->start(m_doc->masterTimer(), -1);
+    ch->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
     emit functionStarting(m_chaserID);
 }
 
@@ -702,7 +702,7 @@ void VCCueList::stopChaser()
     Chaser* ch = chaser();
     if (ch == NULL)
         return;
-    ch->stop(-1);
+    ch->stop(Function::Source(Function::Source::ManualVCWidget, id()));
 }
 
 /*****************************************************************************

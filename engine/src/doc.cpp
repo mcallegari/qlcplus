@@ -982,7 +982,7 @@ bool Doc::checkStartupFunction()
         Function *func = function(m_startupFunctionId);
         if (func != NULL)
         {
-            func->start(masterTimer(), -1);
+            func->start(masterTimer(), Function::Source(Function::Source::God, 0));
             return true;
         }
     }
