@@ -277,7 +277,6 @@ QSet<quint32> SoftpatchEditor::getChannelSet(QTreeWidgetItem* item)
                 set.insert((ch - 1) + i + (fxi->universe() << 9));
         }
     }
-    qDebug() << Q_FUNC_INFO << " Set: " << set;
     return set;
 }
 

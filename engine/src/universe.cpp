@@ -518,10 +518,10 @@ void Universe::patchClear()
 
 void Universe::patchDimmer(uint dimmer, uint channel)
 {
-    qDebug() << Q_FUNC_INFO <<  " dimmer: " << dimmer << " channel: " << channel ;
+    //qDebug() << Q_FUNC_INFO <<  " dimmer: " << dimmer << " channel: " << channel ;
     if (dimmer < UNIVERSE_SIZE && channel < UNIVERSE_SIZE)
     {
-        qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel << " m_patchHash.contains(channel) = " << m_patchHash.contains(channel);
+        //qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel << " m_patchHash.contains(channel) = " << m_patchHash.contains(channel);
         if (m_patchHash.contains(channel))
         {
             unPatchChannel(channel);
@@ -531,7 +531,7 @@ void Universe::patchDimmer(uint dimmer, uint channel)
         {
             m_patchHash.insert(channel, dimmer);
             m_patchTable[dimmer].append(channel);
-            qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel;
+            //qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel;
         }
     }
 }
