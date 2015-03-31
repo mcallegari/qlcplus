@@ -6,6 +6,7 @@
 
 CURRUSER=`whoami`
 TESTPREFIX=""
+SLEEPCMD=""
 
 if [ "$CURRUSER" == "buildbot" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -17,6 +18,12 @@ if [ "$CURRUSER" == "buildbot" ]; then
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed ?"
   fi
+fi
+
+# unfortunately the Raspberry Pi isn't fast enough to start/stop
+# xvfb in time between the tests. So give him a bit of breath !
+if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
+  SLEEPCMD="sleep 1"
 fi
 
 TESTDIR=engine/test
@@ -31,6 +38,7 @@ do
     # Isolate just the test name
     test=`echo ${test} | sed 's/engine\/test\///'`
 
+    $SLEEPCMD
     # Execute the test
     pushd .
     cd ${TESTDIR}/${test}
@@ -59,6 +67,7 @@ do
     # Isolate just the test name
     test=`echo ${test} | sed 's/ui\/test\///'`
 
+    $SLEEPCMD
     # Execute the test
     pushd .
     cd ${TESTDIR}/${test}
@@ -76,6 +85,7 @@ done
 # Enttec wing tests
 #############################################################################
 
+$SLEEPCMD
 pushd .
 cd plugins/enttecwing/test
 $TESTPREFIX ./test.sh
@@ -90,6 +100,7 @@ popd
 # Velleman test
 #############################################################################
 
+$SLEEPCMD
 pushd .
 cd plugins/velleman/test
 $TESTPREFIX ./test.sh
