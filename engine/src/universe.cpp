@@ -227,6 +227,7 @@ void Universe::zeroIntensityChannels()
         (*m_preGMValues)[channel] = 0;
         (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
+        (*m_patchedValues)[channel] = 0;
     }
 }
 
