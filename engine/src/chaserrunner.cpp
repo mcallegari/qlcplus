@@ -106,7 +106,7 @@ void ChaserRunner::slotChaserChanged()
     }
     foreach(ChaserRunnerStep* step, delList)
     {
-        step->m_function->stop(m_chaser->id());
+        step->m_function->stop(Function::Source(Function::Source::Function, m_chaser->id()));
         delete step;
         m_runnerSteps.removeAll(step);
     }
@@ -246,7 +246,7 @@ void ChaserRunner::stopStep(int stepIndex)
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
-            step->m_function->stop(m_chaser->id());
+            step->m_function->stop(Function::Source(Function::Source::Function, m_chaser->id()));
             step->m_function = NULL;
             m_runnerSteps.removeOne(step);
             delete step;
@@ -419,7 +419,7 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        step->m_function->stop(m_chaser->id());
+        step->m_function->stop(Function::Source(Function::Source::Function, m_chaser->id()));
         delete step;
     }
     m_runnerSteps.clear();
@@ -471,7 +471,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, m_chaser->id(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
+        newStep->m_function->start(timer, Function::Source(Function::Source::Function, m_chaser->id()), 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -618,7 +618,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
-            step->m_function->stop(m_chaser->id());
+            step->m_function->stop(Function::Source(Function::Source::Function, m_chaser->id()));
             delete step;
             m_runnerSteps.removeOne(step);
         }

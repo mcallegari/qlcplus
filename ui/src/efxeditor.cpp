@@ -301,7 +301,7 @@ void EFXEditor::initMovementPage()
 void EFXEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
-        m_efx->start(m_doc->masterTimer(), -1);
+        m_efx->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
     else
         m_efx->stopAndWait();
 }
@@ -354,7 +354,7 @@ void EFXEditor::continueRunning(bool running)
     if (running == true)
     {
         if (m_doc->mode() == Doc::Operate)
-            m_efx->start(m_doc->masterTimer(), -1);
+            m_efx->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
         else
             m_testButton->click();
     }
