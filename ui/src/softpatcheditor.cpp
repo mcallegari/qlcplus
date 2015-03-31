@@ -60,6 +60,7 @@ SoftpatchEditor::SoftpatchEditor(Doc *doc, FixtureManager *mgr, QWidget *parent)
     connect(m_testButton, SIGNAL(pressed()), this, SLOT(slotTestButtonPressed()));
     connect(m_testButton, SIGNAL(released()), this, SLOT(slotTestButtonPressed()));
     connect(m_oneToOneButton, SIGNAL(pressed()), this, SLOT(slotOneToOnePressed()));
+    connect(m_clearPatchButton, SIGNAL(pressed()), this, SLOT(slotClearPatch()));
 }
 
 SoftpatchEditor::~SoftpatchEditor()
@@ -201,6 +202,20 @@ void SoftpatchEditor::slotOneToOnePressed()
             break;
     }
 
+}
+
+void SoftpatchEditor::slotClearPatch()
+{
+    for (int t = 0; t < m_tree->topLevelItemCount(); t++)
+    {
+        QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
+        for (int f = 0; f < uniItem->childCount(); f++)
+        {
+            QTreeWidgetItem *fItem = uniItem->child(f);
+            QLineEdit *ledit = (QLineEdit *)m_tree->itemWidget(fItem, KColumnPatch);
+            ledit->clear();
+        }
+    }
 }
 
 void SoftpatchEditor::initChannelSearch(QTreeWidgetItem* item)

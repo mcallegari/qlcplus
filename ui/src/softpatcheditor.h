@@ -31,10 +31,8 @@
 /**
  * TODO:
  *  QLineEdit: limit to Digits and Komma
- *  small Text howto patch (multiple channels ...)
  *  dont use channel 0, empty should mean unpatch
  *  think about reseting universe at a certain point (testDimmer?)
- *
  */
 
 class Doc;
@@ -92,6 +90,9 @@ protected slots:
 
     /** Slot called when 1:1 Patch is pressed */
     void slotOneToOnePressed();
+
+    /** Slot called when clear patch is pressed */
+    void slotClearPatch();
 
     /**
      * Slot called when channel address is changed

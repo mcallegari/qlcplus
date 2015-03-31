@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>544</width>
-    <height>505</height>
+    <width>603</width>
+    <height>513</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,16 @@
     <normaloff>:/star.png</normaloff>:/star.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Softpatch Editor&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;you can patch a Fixture to one or more output channels. Multiple output Channels should be separated by comma. An output channel can be patched only once. If you patch Fixture with channel 1 to 1,2, the Fixture holding channel 2 should be unpatched (booth marked red in this case). You can unpatch a channel by leaving the output channel blank.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QTreeWidget" name="m_tree">
      <property name="alternatingRowColors">
@@ -36,7 +46,10 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
      <item>
       <widget class="QPushButton" name="m_oneToOneButton">
        <property name="text">
@@ -44,6 +57,17 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="m_clearPatchButton">
+       <property name="text">
+        <string>ClearPatch</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="m_testButton">
        <property name="text">
@@ -56,8 +80,14 @@
        <property name="locale">
         <locale language="German" country="Germany"/>
        </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Test works only for Dimmer Fixtures.&lt;br/&gt;Use with caution, if you changed the Address.&lt;br/&gt;Make sure not to activate your smoke maschine&lt;br/&gt;or your flame jet by accident.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:9pt; color:#ff0000;&quot;&gt;Test works only for Dimmer Fixtures. Use with caution, if you changed the Address. Make sure not to activate your smoke maschine or your flame jet by accident.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
