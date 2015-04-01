@@ -21,7 +21,7 @@ if [ "$CURRUSER" == "buildbot" ]; then
 fi
 
 # if we're running as build slave, set a sleep time to start/stop xvfb between tests
-if [[ "$LOGNAME" == "buildbot" ]]; then
+if [[ "$USER" == "buildbot" ]]; then
   SLEEPCMD="sleep 1"
 fi
 
