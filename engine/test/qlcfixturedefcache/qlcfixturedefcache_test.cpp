@@ -186,11 +186,13 @@ void QLCFixtureDefCache_Test::defDirectories()
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtFixture)));
     QVERIFY(dir.absolutePath().contains(FIXTUREDIR));
 
+#ifndef SKIP_TEST
     dir = QLCFixtureDefCache::userDefinitionDirectory();
     QVERIFY(dir.exists() == true);
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtFixture)));
     QVERIFY(dir.absolutePath().contains(USERFIXTUREDIR));
+#endif
 }
 
 QTEST_APPLESS_MAIN(QLCFixtureDefCache_Test)
