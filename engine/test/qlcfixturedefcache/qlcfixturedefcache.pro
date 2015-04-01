@@ -17,8 +17,10 @@ IS_TRAVIS = $$(TRAVIS)
 contains(IS_TRAVIS, "true") {
     DEFINES += SKIP_TEST
 }
-IS_BUILDBOT = $$(USER)
-contains(IS_BUILDBOT, "build") {
+
+CURRUSR = $$(USER)
+IS_BUILDBOT = $$find(CURRUSR, "build")
+count(IS_BUILDBOT, 1) {
     DEFINES += SKIP_TEST
 }
 
