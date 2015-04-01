@@ -17,7 +17,7 @@ IS_TRAVIS = $$(TRAVIS)
 contains(IS_TRAVIS, "true") {
     DEFINES += SKIP_TEST
 }
-IS_BUILDBOT = $$(USER)
+IS_BUILDBOT = $$(LOGNAME)
 contains(IS_BUILDBOT, "buildbot") {
     DEFINES += SKIP_TEST
 }
