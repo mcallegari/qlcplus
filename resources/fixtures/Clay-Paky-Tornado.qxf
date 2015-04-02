@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Tornado</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Color Select</Capability>
+  <Capability Min="128" Max="255">Color Rotation slow -> fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer &amp; Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Dimmer Min -> Max</Capability>
+  <Capability Min="128" Max="139">Open</Capability>
+  <Capability Min="140" Max="241">Strobe 0.66Hz -> 5Hz</Capability>
+  <Capability Min="242" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan 1 - 4">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Tilt 1 - 4">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Pan 2 - 5">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Tilt 2 - 5">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Pan 3 - 6">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Tilt 3 - 6">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb ColourTemperature="6000" Lumens="49000" Type="HMI 575W"/>
+   <Dimensions Height="1000" Width="1000" Weight="35" Depth="500"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="110" PanMax="150" Type="Mirror"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Color Wheel</Channel>
+  <Channel Number="1">Dimmer &amp; Strobe</Channel>
+  <Channel Number="2">Pan 1 - 4</Channel>
+  <Channel Number="3">Tilt 1 - 4</Channel>
+  <Channel Number="4">Pan 2 - 5</Channel>
+  <Channel Number="5">Tilt 2 - 5</Channel>
+  <Channel Number="6">Pan 3 - 6</Channel>
+  <Channel Number="7">Tilt 3 - 6</Channel>
+ </Mode>
+</FixtureDefinition>
