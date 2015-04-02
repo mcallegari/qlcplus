@@ -961,4 +961,56 @@ void Chaser_Test::adjustIntensity()
     c->adjustAttribute(1.0, Function::Intensity);
 }
 
+void Chaser_Test::quickChaser()
+{
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    m_doc->addFixture(fxi);
+
+    Chaser* c = new Chaser(m_doc);
+    // A really quick chaser
+    c->setDuration(0);
+    m_doc->addFunction(c);
+
+    Scene* s1 = new Scene(m_doc);
+    s1->setValue(fxi->id(), 0, 255);
+    m_doc->addFunction(s1);
+    c->addStep(s1->id());
+
+    Scene* s2 = new Scene(m_doc);
+    s2->setValue(fxi->id(), 0, 127);
+    m_doc->addFunction(s2);
+    c->addStep(s2->id());
+
+    MasterTimer timer(m_doc);
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    c->start(&timer, Function::Source(Function::Source::God, 0));
+
+    timer.timerTick();
+    for (uint i = 0; i < 12; ++i)
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        // always one function running while the other is not
+        QVERIFY(s1->isRunning() == true || s2->isRunning() == true);
+        QVERIFY(s1->stopped() == true || s2->stopped() == true);
+    }
+
+    c->stop(Function::Source(Function::Source::God, 0));
+
+    timer.timerTick();
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    QVERIFY(s1->isRunning() == false);
+    QVERIFY(s1->stopped() == true);
+    QVERIFY(s2->isRunning() == false);
+    QVERIFY(s2->stopped() == true);
+}
+
 QTEST_MAIN(Chaser_Test)
