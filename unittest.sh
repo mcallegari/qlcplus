@@ -20,9 +20,8 @@ if [ "$CURRUSER" == "buildbot" ]; then
   fi
 fi
 
-# unfortunately the Raspberry Pi isn't fast enough to start/stop
-# xvfb in time between the tests. So give him a bit of breath !
-if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
+# if we're running as build slave, set a sleep time to start/stop xvfb between tests
+if [[ "$USER" == "buildbot" ]]; then
   SLEEPCMD="sleep 1"
 fi
 

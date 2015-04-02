@@ -168,16 +168,21 @@ void VCLabel_Test::saveXML()
 
 void VCLabel_Test::paintEvent()
 {
-    QPaintEvent ev(QRect(0, 0, 5, 5));
-
-    // Checking the result of a paint event would have to compare individual pixels, which
-    // I'm not gonna do. Just call all branches to try to find any crashes and that's it...
     QWidget w;
     VCLabel label(&w, m_doc);
-    label.paintEvent(&ev);
+
+    w.show();
+    label.show();
+
+    QTest::qWait(1);
+
+    label.setCaption("Foobar");
+    label.update();
+    QTest::qWait(1);
 
     m_doc->setMode(Doc::Operate);
-    label.paintEvent(&ev);
+    label.update();
+    QTest::qWait(1);
 }
 
 QTEST_MAIN(VCLabel_Test)
