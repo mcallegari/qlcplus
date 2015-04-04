@@ -292,6 +292,7 @@
   <fixture path="Lanta-Orion-Link-V2.qxf" mf="Lanta" md="Orion Link V2"/>
   <fixture path="Laserworld-CS-1000RGB.qxf" mf="Laserworld" md="CS-1000RGB"/>
   <fixture path="Laserworld-EL-200RGY.qxf" mf="Laserworld" md="EL-200RGY"/>
+  <fixture path="Laserworld-RS400G.qxf" mf="Laserworld" md="RS400G"/>
   <fixture path="Ledj-Alu-Quad-Par-64.qxf" mf="Ledj" md="Alu Quad Par 64"/>
   <fixture path="Ledj-Colour-Storm-Quad.qxf" mf="Ledj" md="Colour Storm Quad"/>
   <fixture path="Ledj-Performer-18-Quad.qxf" mf="Ledj" md="Performer 18 Quad"/>
