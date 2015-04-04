@@ -21,7 +21,7 @@ qlcplus (4.8.5) stable; urgency=low
   * Plugins/EnttecWing: using feedbacks to sync widget values and Playback Wing sliders (thanks to offtools)
   * Fixture Remap: fixed remapping of widgets into nested frames
   * New fixtures: Martin Roboscan Pro 918, American DJ Inno Spot Pro, Clay Paky Stage Color 300 AE (thanks to Thierry Rodolfo)
-  * New fixtures: Martin Mac 350 Entour, Martin Acrobat, Starway Minikolor (thanks to Thierry Rodolfo)
+  * New fixtures: Martin Mac 350 Entour, Martin Acrobat, Martin Rush MH1 Profile, Starway Minikolor (thanks to Thierry Rodolfo)
   * New fixtures: Clay Paky CP Color 400, Clay Paky Tornado, Starway EventKolor (thanks to Thierry Rodolfo)
   * New fixtures: ADB ACL4, Clay Paky SuperSharpy (thanks to Thierry Rodolfo)
   * New fixture: Eurolite LED Flood Light 252 RGB 19° (thanks to Karri Kaksonen)
