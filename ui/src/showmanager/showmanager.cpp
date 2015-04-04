@@ -1423,10 +1423,6 @@ void ShowManager::slotShowTimingsTool()
     {
         if (func->type() == Function::Audio)
             tt->showDurationControls(false);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        if (func->type() == Function::Video)
-            tt->showDurationControls(false);
-#endif
         if (func->type() == Function::RGBMatrix || func->type() == Function::EFX)
             tt->showDurationOptions(true);
     }
