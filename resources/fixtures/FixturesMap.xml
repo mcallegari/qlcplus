@@ -142,6 +142,9 @@
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
   <fixture path="Chauvet-Wash-FX.qxf" mf="Chauvet" md="Wash FX"/>
   <fixture path="Chauvet-Wedge-Tri.qxf" mf="Chauvet" md="Wedge Tri"/>
+  <fixture path="Clay-Paky-A.leda-B-EYE-K10-EASY.qxf" mf="Clay Paky" md="A.leda B-EYE K10 EASY"/>
+  <fixture path="Clay-Paky-A.leda-B-EYE-K10.qxf" mf="Clay Paky" md="A.leda B-EYE K10"/>
+  <fixture path="Clay-Paky-A.leda-B-EYE-K20.qxf" mf="Clay Paky" md="A.leda B-EYE K20"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K10.qxf" mf="Clay Paky" md="A.LEDA Wash K10"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K20.qxf" mf="Clay Paky" md="A.LEDA Wash K20"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K5.qxf" mf="Clay Paky" md="A.LEDA Wash K5"/>
@@ -480,6 +483,7 @@
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
+  <fixture path="Vari-Lite-VL-3500-Spot.qxf" mf="Varilite" md="VL3500 Spot"/>
   <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
