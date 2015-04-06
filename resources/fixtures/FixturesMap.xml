@@ -227,6 +227,7 @@
   <fixture path="Futurelight-EVO-7.qxf" mf="Futurelight" md="EVO-7"/>
   <fixture path="Futurelight-EYE-18.qxf" mf="Futurelight" md="EYE-18"/>
   <fixture path="Futurelight-EYE-36.qxf" mf="Futurelight" md="EYE-36"/>
+  <fixture path="Futurelight-Genesis-575.qxf" mf="Futurelight" md="Genesis 575"/>
   <fixture path="Futurelight-MCF-200.qxf" mf="Futurelight" md="MCF-200"/>
   <fixture path="Futurelight-MH-440.qxf" mf="Futurelight" md="MH-440"/>
   <fixture path="Futurelight-MH-660.qxf" mf="Futurelight" md="MH-660"/>
@@ -428,6 +429,7 @@
   <fixture path="Showtec-Infinity-iW-715.qxf" mf="Showtec" md="Infinity iW-715"/>
   <fixture path="Showtec-Infinity-iW-720.qxf" mf="Showtec" md="Infinity iW-720"/>
   <fixture path="Showtec-Led-Air-Cone-Pro.qxf" mf="Showtec" md="Led Air Cone Pro"/>
+  <fixture path="Showtec-LED-Light-Bar-8.qxf" mf="Showtec" md="LED Light Bar 8"/>
   <fixture path="Showtec-LED-Light-Bar-RGB-V3.qxf" mf="Showtec" md="LED Light Bar RGB V3"/>
   <fixture path="Showtec-LED-Par-56.qxf" mf="Showtec" md="LED Par 56"/>
   <fixture path="Showtec-Mini-Max-LED-RGB.qxf" mf="Showtec" md="Mini Max LED RGB"/>
