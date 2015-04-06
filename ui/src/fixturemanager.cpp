@@ -1281,6 +1281,7 @@ void FixtureManager::editFixtureProperties()
             fxi->setUniverse(af.universe());
         if (fxi->address() != af.address())
         {
+            m_doc->moveFixture(id, af.address());
             fxi->setAddress(af.address());
         }
 
@@ -1312,7 +1313,6 @@ void FixtureManager::editFixtureProperties()
           msg.exec();
       }
     }
-    updateView();
 }
 
 void FixtureManager::editChannelGroupProperties()

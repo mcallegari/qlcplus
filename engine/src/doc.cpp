@@ -437,34 +437,34 @@ bool Doc::deleteFixture(quint32 id)
     }
 }
 
-//bool Doc::moveFixture(quint32 id, quint32 newAddress)
-//{
-//    if (m_fixtures.contains(id) == true)
-//    {
-//        Fixture* fixture = m_fixtures[id];
-//        // remove it
-//        QMutableHashIterator <uint,uint> it(m_addresses);
-//        while (it.hasNext() == true)
-//        {
-//            it.next();
-//            if (it.value() == id)
-//                it.remove();
-//        }
-//        // add it to new address
-//        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
-//        {
-//            m_addresses[i] = id;
-//        }
-//        setModified();
+bool Doc::moveFixture(quint32 id, quint32 newAddress)
+{
+    if (m_fixtures.contains(id) == true)
+    {
+        Fixture* fixture = m_fixtures[id];
+        // remove it
+        QMutableHashIterator <uint,uint> it(m_addresses);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            if (it.value() == id)
+                it.remove();
+        }
+        // add it to new address
+        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
+        {
+            m_addresses[i] = id;
+        }
+        setModified();
 
-//        return true;
-//    }
-//    else
-//    {
-//        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-//        return false;
-//    }
-//}
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
+        return false;
+    }
+}
 
 bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 {
@@ -661,56 +661,17 @@ int Doc::totalPowerConsumption(int& fuzzy) const
     return totalPowerConsumption;
 }
 
-//void Doc::rebuildAddressMap()
-//{
-//    if (mode() == Design)
-//    {
-//        qDebug() << "Doc::rebuildAddressMap";
-//        m_addresses.clear();
-
-//        QListIterator <quint32> fxit(m_fixtures.keys());
-//        while (fxit.hasNext() == true)
-//        {
-//            Fixture* fxi = fixture(fxit.next());
-//            for (quint32 i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
-//            {
-//                m_addresses[i] = fxi->id();
-//            }
-//        }
-//    }
-//}
-
 void Doc::slotFixtureChanged(quint32 id)
-{    
+{
     /* Keep track of fixture addresses */
-    if (m_fixtures.contains(id) == true)
+    Fixture* fxi = fixture(id);
+    for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
     {
-        Fixture* fxi = fixture(id);
-
-        /* cleanup first - search for old entry of this fixture*/
-        QMutableHashIterator <quint32,quint32> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-
-                it.remove();
-        }
-
-        /* write new entries */
-        for (quint32 i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
-        {
-            if (!m_addresses.contains(id))
-                m_addresses[i] = id;
-            else
-                qWarning() << Q_FUNC_INFO << "m_addresses already contains id: " << id;
-        }
-
-        setModified();
-        emit fixtureChanged(id);
+        m_addresses[i] = id;
     }
-    else
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
+
+    setModified();
+    emit fixtureChanged(id);
 }
 
 /*****************************************************************************
