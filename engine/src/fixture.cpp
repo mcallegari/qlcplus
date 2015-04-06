@@ -504,8 +504,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         // Cache all head channels
         mode->cacheHeads();
 
-        if (m_genericChannel != NULL)
-            delete m_genericChannel;
+        delete m_genericChannel;
         m_genericChannel = NULL;
     }
     else

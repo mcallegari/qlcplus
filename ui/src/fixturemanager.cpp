@@ -1267,45 +1267,37 @@ void FixtureManager::editFixtureProperties()
     af.setWindowTitle(tr("Change fixture properties"));
     if (af.exec() == QDialog::Accepted)
     {
-      if (af.invalidAddress() == false)
-      {
-        if (fxi->name() != af.name())
-            fxi->setName(af.name());
-        if (fxi->universe() != af.universe())
-            fxi->setUniverse(af.universe());
-        if (fxi->address() != af.address())
+        if (af.invalidAddress() == false)
         {
-            m_doc->moveFixture(id, af.address());
-            fxi->setAddress(af.address());
-        }
+            fxi->blockSignals(true);
+            if (fxi->name() != af.name())
+                fxi->setName(af.name());
+            if (fxi->universe() != af.universe())
+                fxi->setUniverse(af.universe());
+            if (fxi->address() != af.address())
+                fxi->setAddress(af.address());
+            fxi->blockSignals(false);
 
-        if (af.fixtureDef() != NULL && af.mode() != NULL)
-        {
-            if (fxi->fixtureDef() != af.fixtureDef() ||
-                    fxi->fixtureMode() != af.mode())
+            if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                m_doc->changeFixtureMode(id, af.mode());
-                fxi->setFixtureDefinition(af.fixtureDef(),
-                                          af.mode());
+                fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
             }
+            else
+            {
+                /* Generic dimmer */
+                fxi->setFixtureDefinition(NULL, NULL);
+                fxi->setChannels(af.channels());
+            }
+
+            updateView();
+            slotSelectionChanged();
         }
         else
         {
-            /* Generic dimmer */
-            fxi->setFixtureDefinition(NULL, NULL);
-            fxi->setChannels(af.channels());
-            m_doc->changeFixtureMode(fxi->id(), NULL);
+            QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                    tr("Please enter a valid address"), QMessageBox::Ok);
+            msg.exec();
         }
-
-        m_fixtures_tree->updateFixtureItem(item, fxi);
-        slotSelectionChanged();
-      }
-      else
-      {
-          QMessageBox msg(QMessageBox::Critical, tr("Error"),
-                          tr("Please enter a valid address"), QMessageBox::Ok);
-          msg.exec();
-      }
     }
 }
 
