@@ -16,6 +16,7 @@
   <fixture path="American-DJ-Dotz-Par.qxf" mf="American DJ" md="Dotz Par"/>
   <fixture path="American-DJ-Dotz-TPar.qxf" mf="American DJ" md="Dotz TPar"/>
   <fixture path="American-DJ-Double-Phase.qxf" mf="American DJ" md="Double Phase"/>
+  <fixture path="American-DJ-ECO-UV-BAR-DMX.qxf" mf="American DJ" md="ECO UV BAR DMX"/>
   <fixture path="American-DJ-Event-Bar-LED.qxf" mf="American DJ" md="Event Bar LED"/>
   <fixture path="American-DJ-Fog-Storm.qxf" mf="American DJ" md="Fog Storm (with FS-DMXT Timer Remote)"/>
   <fixture path="American-DJ-FREQ-16-Strobe.qxf" mf="American DJ" md="FREQ 16 Strobe"/>
@@ -193,6 +194,7 @@
   <fixture path="Eurolite-LED-PMB-8-COB-RGB-30W.qxf" mf="Eurolite" md="LED PMB-8 COB RGB 30W"/>
   <fixture path="Eurolite-LED-SCY-100-RGBW-DMX.qxf" mf="Eurolite" md="LED SCY-100 RGBW DMX"/>
   <fixture path="Eurolite-LED-SLS-180-RGB.qxf" mf="Eurolite" md="LED SLS-180 RGB"/>
+  <fixture path="Eurolite-LED-Strobe-PRO-DMX.qxf" mf="Eurolite" md="LED Strobe PRO DMX"/>
   <fixture path="Eurolite-LED-TMH-9.qxf" mf="Eurolite" md="LED TMH-9"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
@@ -289,11 +291,13 @@
   <fixture path="JB-Lighting-Varyscan-4-EV.qxf" mf="JB-Lighting" md="Varyscan 4 EV"/>
   <fixture path="JB-Lighting-Varyscan-P2.qxf" mf="JB-Lighting" md="Varyscan P2"/>
   <fixture path="JB-Systems-COB-Plano.qxf" mf="JB Systems" md="COB-PLANO"/>
+  <fixture path="JB-Systems-Dynamo-250.qxf" mf="JB Systems" md="Dynamo 250"/>
   <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
   <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
+  <fixture path="Kam-KMH-Series.qxf" mf="Kam" md="KMH Series"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
-  <fixture path="KAM-LED-PartyBar.qxf" mf="KAM" md="LED PartyBar"/>
+  <fixture path="Kam-LED-PartyBar.qxf" mf="Kam" md="LED PartyBar"/>
   <fixture path="Kam-Powercan-TRI54W-Slim.qxf" mf="Kam" md="Powercan TRI54W Slim"/>
   <fixture path="Lanta-Fireball-P64s.qxf" mf="Lanta" md="Fireball P64s Slimline LED Parcan"/>
   <fixture path="Lanta-Orion-Link-V2.qxf" mf="Lanta" md="Orion Link V2"/>

@@ -31,6 +31,8 @@ qlcplus (4.8.5) stable; urgency=low
   * New fixtures: American DJ Monster Fun, American DJ Mega PAR profile, Chauvet SlimPAR64 RGBA (thanks to 007ghg7)
   * New fixture: Chauvet COLORdash Accent RGBW (thanks to Ray Mercer)
   * New fixtures: Cameo LED RGB PAR56-9x3W, Cameo LED RGB PAR64-18x3W, Cameo LED RGB PAR64-18x8W (thanks to vag)
+  * New fixture: American DJ ECO UV BAR DMX, Eurolite LED Strobe PRO DMX, JB Systems Dynamo 250 (thanks to Rob G.)
+  * New fixture: Kam KMH Series (thanks to Scott McKinney)
   * New fixtures: American DJ UVLed Bar 16 and 20, Dune Lighting Fireworks Pro-II, Chauvet Scorpion Storm FX RGB (thanks to Frédéric Combe)
   * New fixtures: JB-Systems COB-Plano, American DJ UV COB Cannon (thanks to Frédéric Combe)
 
