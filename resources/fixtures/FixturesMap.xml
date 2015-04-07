@@ -60,6 +60,9 @@
   <fixture path="American-DJ-Ultra-Bar-6.qxf" mf="American DJ" md="Ultra Bar 6"/>
   <fixture path="American-DJ-Ultra-Bar-9.qxf" mf="American DJ" md="Ultra Bar 9"/>
   <fixture path="American-DJ-Ultra-Hex-Par3.qxf" mf="American DJ" md="Ultra Hex Par3"/>
+  <fixture path="American-DJ-UV-COB-Cannon.qxf" mf="American DJ" md="UV COB Cannon"/>
+  <fixture path="American-DJ-UV-LED-Bar-20.qxf" mf="American DJ" md="UV LED Bar 20"/>
+  <fixture path="American-DJ-UVLed-Bar-16.qxf" mf="American DJ" md="UVLed Bar 16"/>
   <fixture path="American-DJ-Vizi-Beam-5R.qxf" mf="American DJ" md="Vizi Beam 5R"/>
   <fixture path="American-DJ-Vizi-LED-Spot.qxf" mf="American DJ" md="Vizi LED Spot"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
@@ -130,6 +133,7 @@
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
   <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
   <fixture path="Chauvet-Q-Wash-560Z-LED.qxf" mf="Chauvet" md="Q-Wash 560Z-LED"/>
+  <fixture path="Chauvet-Scorpion-Storm-FX-RGB.qxf" mf="Chauvet" md="Scorpion Storm FX RGB"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
@@ -165,6 +169,7 @@
   <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
   <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
   <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
+  <fixture path="Dune-Lighting-Fireworks-Pro-II.qxf" mf="Dune Lighting" md="Fireworks PRO II (LAS-160/FW)"/>
   <fixture path="Dune-Lighting-MOVLED60W.qxf" mf="Dune Lighting" md="MOV-LED/60W"/>
   <fixture path="Elation-Color-Spot-150.qxf" mf="Elation" md="Color Spot 150"/>
   <fixture path="Elation-EVC-MH.qxf" mf="Elation" md="EVC MH"/>
@@ -283,6 +288,7 @@
   <fixture path="JB-Lighting-Varyscan-4-Compact-Plus.qxf" mf="JB-Lighting" md="Varyscan 4 Compact Plus"/>
   <fixture path="JB-Lighting-Varyscan-4-EV.qxf" mf="JB-Lighting" md="Varyscan 4 EV"/>
   <fixture path="JB-Lighting-Varyscan-P2.qxf" mf="JB-Lighting" md="Varyscan P2"/>
+  <fixture path="JB-Systems-COB-Plano.qxf" mf="JB Systems" md="COB-PLANO"/>
   <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
   <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
@@ -486,8 +492,10 @@
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
-  <fixture path="Vari-Lite-VL-3500-Spot.qxf" mf="Varilite" md="VL3500 Spot"/>
   <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>
+  <fixture path="Vari-Lite-VL3000-Spot.qxf" mf="Vari-Lite" md="VL3000 Spot"/>
+  <fixture path="Vari-Lite-VL3000-Wash.qxf" mf="Varilite" md="VL3000 Wash"/>
+  <fixture path="Vari-Lite-VL3500-Spot.qxf" mf="Varilite" md="VL3500 Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
