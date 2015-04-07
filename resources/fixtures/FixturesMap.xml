@@ -137,6 +137,7 @@
   <fixture path="Chauvet-Scorpion-Storm-FX-RGB.qxf" mf="Chauvet" md="Scorpion Storm FX RGB"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
+  <fixture path="Chauvet-SlimPAR-38.qxf" mf="Chauvet" md="SlimPAR 38"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
   <fixture path="Chauvet-SlimPAR-64-RGBA.qxf" mf="Chauvet" md="SlimPAR 64 RGBA"/>
   <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
@@ -158,8 +159,13 @@
   <fixture path="Clay-Paky-Atlas.qxf" mf="Clay Paky" md="Atlas"/>
   <fixture path="Clay-Paky-CP-Color-400.qxf" mf="Clay Paky" md="CP Color 400"/>
   <fixture path="Clay-Paky-Mini-Scan-HPE.qxf" mf="Clay Paky" md="Mini Scan HPE"/>
+  <fixture path="Clay-Paky-Mythos.qxf" mf="Clay Paky" md="Mythos"/>
+  <fixture path="Clay-Paky-Pin-Scan.qxf" mf="Clay Paky" md="Pin Scan"/>
   <fixture path="Clay-Paky-Sharpy.qxf" mf="Clay Paky" md="Sharpy"/>
+  <fixture path="Clay-Paky-Show-Batten-100.qxf" mf="Clay Paky" md="Show Batten 100"/>
   <fixture path="Clay-Paky-Stage-Color-300-AE.qxf" mf="Clay Paky" md="Stage Color 300 AE"/>
+  <fixture path="Clay-Paky-Stormy-CC.qxf" mf="Clay Paky" md="Stormy CC"/>
+  <fixture path="Clay-Paky-Stormy.qxf" mf="Clay Paky" md="Stormy"/>
   <fixture path="Clay-Paky-SuperSharpy.qxf" mf="Clay Paky" md="SuperSharpy"/>
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
@@ -487,6 +493,7 @@
   <fixture path="Starway-AXIS-250-16Bits.qxf" mf="Starway" md="AXIS 250 16Bits"/>
   <fixture path="Starway-EventKolor.qxf" mf="Starway" md="EventKolor"/>
   <fixture path="Starway-FullKolor.qxf" mf="Starway" md="FullKolor"/>
+  <fixture path="Starway-MaxKolor-18.qxf" mf="Starway" md="MaxKolor 18"/>
   <fixture path="Starway-MiniKolor.qxf" mf="Starway" md="MiniKolor"/>
   <fixture path="Starway-NanoKolor.qxf" mf="Starway" md="NanoKolor"/>
   <fixture path="Starway-Servo-Beam-5R.qxf" mf="Starway" md="Servo Beam 5R"/>
