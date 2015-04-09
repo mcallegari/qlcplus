@@ -78,7 +78,6 @@ ChaserRunner::~ChaserRunner()
 {
     clearRunningList();
     delete m_roundTime;
-    m_roundTime = NULL;
 }
 
 /****************************************************************************
@@ -89,12 +88,27 @@ void ChaserRunner::slotChaserChanged()
 {
     // Handle (possible) speed change on the next write() pass
     m_updateOverrideSpeeds = true;
-    // Recalculate the speed of each running step
+    QList<ChaserRunnerStep*> delList;
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        step->m_fadeIn = stepFadeIn(step->m_index);
-        step->m_fadeOut = stepFadeOut(step->m_index);
-        step->m_duration = stepDuration(step->m_index);
+        if (!m_chaser->steps().contains(ChaserStep(step->m_function->id())))
+        {
+            // Disappearing function: remove step
+            delList.append(step);
+        }
+        else
+        {
+            // Recalculate the speed of each running step
+            step->m_fadeIn = stepFadeIn(step->m_index);
+            step->m_fadeOut = stepFadeOut(step->m_index);
+            step->m_duration = stepDuration(step->m_index);
+        }
+    }
+    foreach(ChaserRunnerStep* step, delList)
+    {
+        step->m_function->stop();
+        m_runnerSteps.removeAll(step);
+        delete step;
     }
 }
 
@@ -229,11 +243,10 @@ void ChaserRunner::stopStep(int stepIndex)
 {
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (stepIndex == step->m_index && step->m_function != NULL)
+        if (stepIndex == step->m_index)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
             step->m_function->stop();
-            step->m_function = NULL;
             m_runnerSteps.removeOne(step);
             delete step;
         }
@@ -412,11 +425,7 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (step->m_function != NULL && step->m_function->isRunning())
-        {
-            step->m_function->stop();
-            step->m_function = NULL;
-        }
+        step->m_function->stop();
         delete step;
     }
     m_runnerSteps.clear();
@@ -436,7 +445,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
 
     ChaserStep step(m_chaser->steps().at(index));
     Function *func = m_doc->function(step.fid);
-    if (func != NULL && func->stopped() == true)
+    if (func != NULL)
     {
         ChaserRunnerStep *newStep = new ChaserRunnerStep();
         newStep->m_index = index;
@@ -612,11 +621,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         if (step->m_duration != Function::infiniteSpeed() &&
              step->m_elapsed >= step->m_duration)
         {
-            if (step->m_function != NULL && step->m_function->isRunning())
-            {
-                step->m_function->stop();
-                step->m_function = NULL;
-            }
+            step->m_function->stop();
 
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;

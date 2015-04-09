@@ -239,6 +239,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             }
             else
             {
+                function->stop(); // set stop flag (in case of stopAllFunctions)
                 /* Function should be stopped instead */
                 function->postRun(this, universes);
                 //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
@@ -267,14 +268,18 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 
     foreach (Function* f, startQueue)
     {
-        if (m_functionList.contains(f) == false)
+        if (m_functionList.contains(f))
+        {
+            f->postRun(this, universes);
+        }
+        else
         {
             m_functionList.append(f);
-            f->preRun(this);
-            f->write(this, universes);
             functionListHasChanged = true;
-            emit functionStarted(f->id());
         }
+        f->preRun(this);
+        f->write(this, universes);
+        emit functionStarted(f->id());
     }
 
     if (functionListHasChanged)
