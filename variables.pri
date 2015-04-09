@@ -12,6 +12,7 @@ APPVERSION = 4.8.6 GIT
 
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
+!macx:QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
 CONFIG         += warn_on
 
 # Build everything in the order specified in .pro files
