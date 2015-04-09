@@ -488,10 +488,13 @@ void InputOutputMap_Test::profileDirectories()
     QVERIFY(dir.absolutePath().contains(INPUTPROFILEDIR));
 
     dir = InputOutputMap::userProfileDirectory();
+#ifndef SKIP_TEST
     QVERIFY(dir.exists() == true);
+#endif
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
     QVERIFY(dir.absolutePath().contains(USERINPUTPROFILEDIR));
+
 }
 
 void InputOutputMap_Test::claimReleaseDumpReset()

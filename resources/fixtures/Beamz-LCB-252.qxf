@@ -26,7 +26,6 @@
  </Channel>
  <Channel Name="Master">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Strobe">
@@ -160,42 +159,34 @@
  </Channel>
  <Channel Name="Master 1">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 2">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 3">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 4">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 5">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 6">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 7">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Master 8">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Dim Master</Capability>
  </Channel>
  <Channel Name="Strobe 1">
