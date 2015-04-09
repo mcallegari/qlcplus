@@ -755,7 +755,6 @@ void Function::preRun(MasterTimer* timer)
     Q_UNUSED(timer);
 
     qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
-    m_stop = false;
     m_running = true;
 
     emit running(m_id);
@@ -770,7 +769,6 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-    m_stop = true;
     //m_overrideFadeInSpeed = defaultSpeed();
     //m_overrideFadeOutSpeed = defaultSpeed();
     //m_overrideDuration = defaultSpeed();
@@ -804,8 +802,10 @@ void Function::resetElapsed()
 void Function::incrementElapsed()
 {
     // Don't wrap around. UINT_MAX is the maximum fade/hold time.
-    if (m_elapsed < UINT_MAX)
+    if (m_elapsed < UINT_MAX - MasterTimer::tick())
         m_elapsed += MasterTimer::tick();
+    else
+        m_elapsed = UINT_MAX;
 }
 
 /*****************************************************************************
@@ -822,7 +822,11 @@ void Function::start(MasterTimer* timer, bool child, quint32 startTime,
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    timer->startFunction(this);
+    if (m_stop)
+    {
+        m_stop = false;
+        timer->startFunction(this);
+    }
 }
 
 bool Function::startedAsChild() const
@@ -846,7 +850,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    m_stop = true;
+    stop();
 
     QTime watchdog;
     watchdog.start();

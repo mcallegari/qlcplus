@@ -20,6 +20,7 @@
 #ifndef MASTERTIMER_H
 #define MASTERTIMER_H
 
+#include <QHash>
 #include <QObject>
 #include <QMutex>
 #include <QList>
@@ -114,7 +115,7 @@ private:
     QList <Function*> m_functionList;
     QList <Function*> m_startQueue;
 
-    /** Mutex that guards access to m_functionList & m_startQueue */
+    /** Mutex that guards access to m_startQueue */
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
