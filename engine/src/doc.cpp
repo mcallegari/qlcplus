@@ -437,35 +437,6 @@ bool Doc::deleteFixture(quint32 id)
     }
 }
 
-bool Doc::moveFixture(quint32 id, quint32 newAddress)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it to new address
-        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
-}
-
 bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 {
     // Delete all fixture instances
@@ -515,41 +486,6 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         m_latestFixtureId = id;
     }
     return true;
-}
-
-bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        int address = fixture->address();
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it with new characteristics
-        int channels;
-        if (mode != NULL)
-            channels = mode->channels().count();
-        else // generic dimmer
-            channels = fixture->channels();
-        for (int i = address; i < address + channels; i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
 }
 
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
@@ -665,9 +601,28 @@ void Doc::slotFixtureChanged(quint32 id)
 {
     /* Keep track of fixture addresses */
     Fixture* fxi = fixture(id);
+
+    // remove it
+    QMutableHashIterator <uint,uint> it(m_addresses);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == id)
+        {
+            qDebug() << Q_FUNC_INFO << " remove: " << it.key() << " val: " << it.value();
+            it.remove();
+        }
+    }
+
     for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
     {
-        m_addresses[i] = id;
+        /*
+         * setting new universe and address calls this twice,
+         * with an tmp wrong address after the first call (old address() + new universe()).
+         * we only add if the channel is free, to prevent messing up things
+         */
+        if (m_addresses.contains(i) != true)
+            m_addresses[i] = id;
     }
 
     setModified();

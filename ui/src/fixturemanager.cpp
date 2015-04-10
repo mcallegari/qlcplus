@@ -1274,19 +1274,14 @@ void FixtureManager::editFixtureProperties()
         if (fxi->universe() != af.universe())
             fxi->setUniverse(af.universe());
         if (fxi->address() != af.address())
-        {
-            m_doc->moveFixture(id, af.address());
             fxi->setAddress(af.address());
-        }
 
         if (af.fixtureDef() != NULL && af.mode() != NULL)
         {
             if (fxi->fixtureDef() != af.fixtureDef() ||
                     fxi->fixtureMode() != af.mode())
             {
-                m_doc->changeFixtureMode(id, af.mode());
-                fxi->setFixtureDefinition(af.fixtureDef(),
-                                          af.mode());
+                fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
             }
         }
         else
@@ -1294,10 +1289,10 @@ void FixtureManager::editFixtureProperties()
             /* Generic dimmer */
             fxi->setFixtureDefinition(NULL, NULL);
             fxi->setChannels(af.channels());
-            m_doc->changeFixtureMode(fxi->id(), NULL);
         }
 
         m_fixtures_tree->updateFixtureItem(item, fxi);
+        updateView();
         slotSelectionChanged();
       }
       else
