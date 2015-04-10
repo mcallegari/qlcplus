@@ -225,6 +225,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         if (item == NULL)
         {
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -235,6 +236,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             if (selected == 1)
                 m_propertiesAction->setEnabled(true);
@@ -252,6 +254,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture group selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -261,6 +264,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // All fixtures selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -274,6 +278,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
     else
     {
         m_addAction->setEnabled(false);
+        m_addRGBAction->setEnabled(false);
         m_removeAction->setEnabled(false);
         m_propertiesAction->setEnabled(false);
         m_fadeConfigAction->setEnabled(false);
@@ -1647,6 +1652,7 @@ void FixtureManager::slotContextMenuRequested(const QPoint&)
 {
     QMenu menu(this);
     menu.addAction(m_addAction);
+    menu.addAction(m_addRGBAction);
     menu.addAction(m_propertiesAction);
     menu.addAction(m_removeAction);
     menu.addSeparator();
