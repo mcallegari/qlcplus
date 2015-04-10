@@ -526,7 +526,7 @@ void CueStack::postRun(MasterTimer* timer)
             fc.setElapsed(0);
             fc.setReady(false);
             fc.setFadeTime(fadeOutSpeed());
-            timer->fader()->add(fc);
+            timer->faderAdd(fc);
         }
     }
 

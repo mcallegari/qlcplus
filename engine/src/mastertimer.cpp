@@ -160,8 +160,7 @@ void MasterTimer::stopAllFunctions()
     // the scope of this piece of code !!
     {
         /* Remove all generic fader's channels */
-        QMutexLocker functionLocker(&m_functionListMutex);
-        QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+        QMutexLocker faderLocker(&m_faderMutex);
         fader()->removeAll();
     }
 
@@ -210,6 +209,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
     // Instruct mastertimer to do a fade out of all
     // the intensity channels that can fade
+    QMutexLocker faderLocker(&m_faderMutex);
     foreach(FadeChannel fade, fcList)
         fader()->add(fade);
 }
@@ -224,15 +224,11 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
     QList <int> removeList;
+    bool functionListHasChanged = false;
 
-    /* Lock before accessing the running functions list. */
-    m_functionListMutex.lock();
     for (int i = 0; i < m_functionList.size(); i++)
     {
         Function* function = m_functionList.at(i);
-
-        /* No need to access function list on this round anymore */
-        m_functionListMutex.unlock();
 
         if (function != NULL)
         {
@@ -243,18 +239,14 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             }
             else
             {
+                function->stop(); // set stop flag (in case of stopAllFunctions)
                 /* Function should be stopped instead */
-                m_functionListMutex.lock();
                 function->postRun(this, universes);
                 //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
                 removeList << i; // Don't remove the item from the list just yet.
-                m_functionListMutex.unlock();
-                emit functionListChanged();
+                functionListHasChanged = true;
             }
         }
-
-        /* Lock function list for the next round. */
-        m_functionListMutex.lock();
     }
 
     // Remove functions that need to be removed AFTER all functions have been run
@@ -269,25 +261,29 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
     while (it.hasPrevious() == true)
         m_functionList.removeAt(it.previous());
 
-    foreach (Function* f, m_startQueue)
+    m_functionListMutex.lock();
+    QList<Function*> startQueue(m_startQueue);
+    m_startQueue.clear();
+    m_functionListMutex.unlock();
+
+    foreach (Function* f, startQueue)
     {
-        //qDebug() << "[MasterTimer] Processing ID: " << f->id();
-        if (m_functionList.contains(f) == false)
+        if (m_functionList.contains(f))
+        {
+            f->postRun(this, universes);
+        }
+        else
         {
             m_functionList.append(f);
-            m_functionListMutex.unlock();
-            //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
-            f->preRun(this);
-            f->write(this, universes);
-            emit functionListChanged();
-            emit functionStarted(f->id());
-            m_functionListMutex.lock();
+            functionListHasChanged = true;
         }
-        m_startQueue.removeOne(f);
+        f->preRun(this);
+        f->write(this, universes);
+        emit functionStarted(f->id());
     }
 
-    /* No more functions. Get out and wait for next timer event. */
-    m_functionListMutex.unlock();
+    if (functionListHasChanged)
+        emit functionListChanged();
 }
 
 /****************************************************************************
@@ -328,13 +324,12 @@ void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
     m_dmxSourceListMutex.lock();
-    for (int i = 0; i < m_dmxSourceList.size(); i++)
-    {
-        DMXSource* source = m_dmxSourceList.at(i);
-        Q_ASSERT(source != NULL);
+    QList<DMXSource*> dmxSourceList(m_dmxSourceList);
+    m_dmxSourceListMutex.unlock();
 
-        /* No need to access the list on this round anymore. */
-        m_dmxSourceListMutex.unlock();
+    foreach (DMXSource* source, dmxSourceList)
+    {
+        Q_ASSERT(source != NULL);
 
 #ifdef DEBUG_MASTERTIMER
         qDebug() << "[MasterTimer] ticking DMX source" << i;
@@ -342,13 +337,7 @@ void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 
         /* Get DMX data from the source */
         source->writeDMX(this, universes);
-
-        /* Lock for the next round. */
-        m_dmxSourceListMutex.lock();
     }
-
-    /* No more sources. Get out and wait for next timer event. */
-    m_dmxSourceListMutex.unlock();
 }
 
 /****************************************************************************
@@ -360,10 +349,30 @@ GenericFader* MasterTimer::fader() const
     return m_fader;
 }
 
+void MasterTimer::faderAdd(const FadeChannel& ch)
+{
+    QMutexLocker faderLocker(&m_faderMutex);
+
+    fader()->add(ch);
+}
+
+void MasterTimer::faderForceAdd(const FadeChannel& ch)
+{
+    QMutexLocker faderLocker(&m_faderMutex);
+
+    fader()->forceAdd(ch);
+}
+
+QHash<FadeChannel,FadeChannel> MasterTimer::faderChannels() const
+{
+    QMutexLocker faderLocker(const_cast<QMutex*>(&m_faderMutex));
+
+    return fader()->channels();
+}
+
 void MasterTimer::timerTickFader(QList<Universe *> universes)
 {
-    QMutexLocker functionLocker(&m_functionListMutex);
-    QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+    QMutexLocker faderLocker(&m_faderMutex);
 
 #ifdef DEBUG_MASTERTIMER
         qDebug() << "[MasterTimer] ticking fader (channels:" << fader()->channels().count() << ")";
