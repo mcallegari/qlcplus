@@ -368,3 +368,14 @@ android {
     conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$INSTALLROOT/$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
+
+# in case of a shadow build, copy CONFIGFILE back
+# to the original QLC+ source tree
+!equals($$PWD, $$OUT_PWD) {
+    shadow.target = $$PWD/$$CONFIGFILE
+    shadow.commands = $(COPY) $$OUT_PWD/$$CONFIGFILE $$PWD
+    QMAKE_EXTRA_TARGETS += shadow
+    PRE_TARGETDEPS += $$PWD/$$CONFIGFILE
+    QMAKE_CLEAN += $$PWD/$$CONFIGFILE
+    QMAKE_DISTCLEAN += $$PWD/$$CONFIGFILE
+}

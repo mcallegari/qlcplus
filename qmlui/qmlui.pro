@@ -53,3 +53,5 @@ OTHER_FILES += qml/RobotoText.qml
 # Installation
 target.path = $$INSTALLROOT/$$BINDIR
 INSTALLS   += target
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../android-files
