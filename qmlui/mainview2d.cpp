@@ -45,14 +45,11 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotRefreshView()));
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 MainView2D::~MainView2D()
 {
-    reset();
+    resetItems();
 }
 
 void MainView2D::enableContext(bool enable)
@@ -62,7 +59,7 @@ void MainView2D::enableContext(bool enable)
         slotRefreshView();
 }
 
-void MainView2D::reset()
+void MainView2D::resetItems()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while(it.hasNext())
@@ -210,6 +207,8 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
+
+    updateFixture(fixture);
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
@@ -243,7 +242,13 @@ QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
 
 void MainView2D::slotRefreshView()
 {
+    if (isEnabled() == false)
+        return;
+
     initialize2DProperties();
+
+    if (m_view2D == NULL || m_contents2D == NULL)
+        return;
 
     MonitorProperties *mProps = m_doc->monitorProperties();
     QList<quint32> mPropsIDs;
@@ -258,7 +263,7 @@ void MainView2D::slotRefreshView()
             m_view2D->setProperty("gridUnits", 304.8);
     }
 
-    reset();
+    resetItems();
 
     foreach(Fixture *fixture, m_doc->fixtures())
     {
@@ -272,52 +277,39 @@ void MainView2D::slotRefreshView()
     }
 }
 
-void MainView2D::slotUniversesWritten(int idx, const QByteArray &ua)
+void MainView2D::updateFixture(Fixture *fixture)
 {
-    if (m_enabled == false)
+    if (m_enabled == false || fixture == NULL)
         return;
 
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    if (m_itemsMap.contains(fixture->id()) == false)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap[fixture->id()];
+
+    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        it.next();
-        Fixture *fixture = m_doc->fixture(it.key());
-        if (fixture == NULL)
-            continue;
-
-        if (fixture->universe() != (quint32)idx)
-            continue;
-
-        int fxStartAddr = fixture->address();
-        QQuickItem *fxItem = it.value();
-
-        for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+        quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
+        qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        if (mdIndex != QLCChannel::invalid())
         {
-            quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
-            qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
-            if (fxStartAddr + mdIndex < (quint32)ua.size())
-            {
-                uchar intValue = (uchar)ua.at(fxStartAddr + mdIndex);
-                QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
-                        Q_ARG(QVariant, headIdx),
-                        Q_ARG(QVariant, (qreal)intValue / 255.0));
-            }
+            uchar intValue = fixture->channelValueAt(mdIndex);
+            QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
+                    Q_ARG(QVariant, headIdx),
+                    Q_ARG(QVariant, (qreal)intValue / 255.0));
+        }
 
-            QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
-            if (rgbCh.size() > 0)
-            {
-                quint8 r = 0, g = 0, b = 0;
-                if (fxStartAddr + rgbCh.at(0) < (quint32)ua.size())
-                    r = ua.at(fxStartAddr + rgbCh.at(0));
-                if (fxStartAddr + rgbCh.at(1) < (quint32)ua.size())
-                    g = ua.at(fxStartAddr + rgbCh.at(1));
-                if (fxStartAddr + rgbCh.at(2) < (quint32)ua.size())
-                    b = ua.at(fxStartAddr + rgbCh.at(2));
+        QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
+        if (rgbCh.size() > 0)
+        {
+            quint8 r = 0, g = 0, b = 0;
+            r = fixture->channelValueAt(rgbCh.at(0));
+            g = fixture->channelValueAt(rgbCh.at(1));
+            b = fixture->channelValueAt(rgbCh.at(2));
 
-                QMetaObject::invokeMethod(fxItem, "setHeadColor",
-                        Q_ARG(QVariant, headIdx),
-                        Q_ARG(QVariant, QColor(r, g, b)));
-            }
+            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                    Q_ARG(QVariant, headIdx),
+                    Q_ARG(QVariant, QColor(r, g, b)));
         }
     }
 }

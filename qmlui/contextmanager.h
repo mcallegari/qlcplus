@@ -50,6 +50,7 @@ protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotChannelTypeValueChanged(int type, quint8 value);
     void slotColorChanged(QColor col, QColor wauv);
+    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     /** Reference to the QML view root */
@@ -58,7 +59,7 @@ private:
     Doc *m_doc;
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
-    /** A multihash containg the fixture capabilities by channel type */
+    /** A multihash containing the selected fixtures' capabilities by channel type */
     QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a DMX source used to handle scenes design */
     GenericDMXSource* m_source;

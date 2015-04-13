@@ -39,9 +39,6 @@ MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotRefreshView()));
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 MainViewDMX::~MainViewDMX()
@@ -83,6 +80,27 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
+
+    updateFixture(fixture);
+}
+
+void MainViewDMX::updateFixture(Fixture *fixture)
+{
+    if (m_enabled == false || fixture == NULL)
+        return;
+
+    if (m_itemsMap.contains(fixture->id()) == false)
+        return;
+
+    QByteArray fxValues = fixture->channelValues();
+    QVariantList dmxValues;
+
+    for (int i = 0; i < (int)fixture->channels(); i++)
+        dmxValues.append(QString::number((uchar)fxValues.at(i)));
+
+    QQuickItem *fxItem = m_itemsMap[fixture->id()];
+    fxItem->setProperty("values", QVariant::fromValue(dmxValues));
+
 }
 
 void MainViewDMX::slotRefreshView()
@@ -95,32 +113,4 @@ void MainViewDMX::slotRefreshView()
         createFixtureItem(fixture->id());
 }
 
-void MainViewDMX::slotUniversesWritten(int idx, const QByteArray &ua)
-{
-    if (m_enabled == false)
-        return;
-
-    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
-    {
-        it.next();
-        Fixture *fixture = m_doc->fixture(it.key());
-        if (fixture == NULL)
-            continue;
-
-        if (fixture->universe() != (quint32)idx)
-            continue;
-
-        QVariantList dmxValues;
-        int startAddr = fixture->address();
-        for (int i = startAddr; i < startAddr + (int)fixture->channels(); i++)
-        {
-            if (i < ua.size())
-                dmxValues.append(QString::number((uchar)ua.at(i)));
-        }
-
-        QQuickItem *fxItem = it.value();
-        fxItem->setProperty("values", QVariant::fromValue(dmxValues));
-    }
-}
 

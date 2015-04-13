@@ -26,6 +26,7 @@
 #include "fixturemanager.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
+#include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
                                FixtureManager *fxMgr, QObject *parent)
@@ -48,6 +49,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
     connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
             this, SLOT(slotColorChanged(QColor,QColor)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 void ContextManager::activateContext(QString context)
@@ -137,5 +140,26 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
 
 
+}
+
+void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
+{
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (fixture->universe() != (quint32)idx)
+            continue;
+
+        int fxStartAddr = fixture->address();
+        if (fxStartAddr >= ua.size())
+            continue;
+
+        if (fixture->setChannelValues(ua.mid(fxStartAddr, fixture->channels())) == true)
+        {
+            if (m_DMXView->isEnabled())
+                m_DMXView->updateFixture(fixture);
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixture(fixture);
+        }
+    }
 }
 

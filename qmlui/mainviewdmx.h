@@ -26,6 +26,7 @@
 #include "previewcontext.h"
 
 class Doc;
+class Fixture;
 
 class MainViewDMX : public PreviewContext
 {
@@ -41,13 +42,14 @@ public:
 
     void createFixtureItem(quint32 fxID);
 
+    void updateFixture(Fixture *fixture);
+
 protected:
 
 signals:
 
 protected slots:
     void slotRefreshView();
-    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     /** References to the 2D view and 2D contents for items creation */

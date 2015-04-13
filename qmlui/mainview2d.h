@@ -26,6 +26,7 @@
 #include "previewcontext.h"
 
 class Doc;
+class Fixture;
 
 class MainView2D : public PreviewContext
 {
@@ -37,11 +38,13 @@ public:
     /** @reimp */
     void enableContext(bool enable);
 
-    void reset();
+    void resetItems();
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
 
     QList<quint32> selectFixturesRect(QRectF rect);
+
+    void updateFixture(Fixture *fixture);
 
 protected:
     /** First time 2D view variables initializations */
@@ -55,7 +58,6 @@ signals:
 
 protected slots:
     void slotRefreshView();
-    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     /** References to the 2D view and 2D contents for items creation */
@@ -79,7 +81,7 @@ private:
     /** Y offset of the grid to keep it centered */
     qreal m_yOffset;
 
-    /** Map of the fixture 2D items by ID */
+    /** Map of the 2D Quick items by Fixture IDs */
     QMap<quint32, QQuickItem*> m_itemsMap;
 
     /** Pre-cached QML component for quick item creation */
