@@ -156,7 +156,6 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Scripts")
                 counter: functionManager.scriptCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
                     if (checked == true)
                         functionManager.setFunctionFilter(FunctionType.Script, true);
@@ -173,7 +172,6 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Audio")
                 counter: functionManager.audioCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
                     if (checked == true)
                         functionManager.setFunctionFilter(FunctionType.Audio, true);
@@ -190,7 +188,6 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Videos")
                 counter: functionManager.videoCount
-                exclusiveGroup: menuBarGroup3
                 onCheckedChanged: {
                     if (checked == true)
                         functionManager.setFunctionFilter(FunctionType.Video, true);

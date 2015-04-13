@@ -91,7 +91,7 @@ void App::startup()
 
     // and here we go !
     m_view->setSource(QUrl("qrc:/MainView.qml"));
-    m_contextManager->activateContext("2D");
+    //m_contextManager->activateContext("2D");
 }
 
 void App::show()

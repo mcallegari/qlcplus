@@ -27,6 +27,8 @@ Flickable {
 
     contentHeight: flowLayout.height
 
+    Component.onCompleted: contextManager.activateContext("DMX")
+
     Flow {
         id: flowLayout
         objectName: "DMXFlowView"
