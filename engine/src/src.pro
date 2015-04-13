@@ -371,7 +371,8 @@ android {
 
 # in case of a shadow build, copy CONFIGFILE back
 # to the original QLC+ source tree
-!equals($$PWD, $$OUT_PWD) {
+!equals(PWD, $$OUT_PWD) {
+    message("Shadow build on")
     shadow.target = $$PWD/$$CONFIGFILE
     shadow.commands = $(COPY) $$OUT_PWD/$$CONFIGFILE $$PWD
     QMAKE_EXTRA_TARGETS += shadow
