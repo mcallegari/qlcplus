@@ -345,6 +345,26 @@ protected:
     QHash<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
+     * Channel values
+     *********************************************************************/
+public:
+    /** Store DMX values for this fixture. If values have changed,
+     * it returns true, otherwise false */
+    bool setChannelValues(QByteArray values);
+
+    /** Return the current DMX values of this fixture */
+    QByteArray channelValues();
+
+    /** Retrieve the DMX value of the given channel index */
+    uchar channelValueAt(int idx);
+
+signals:
+    void valuesChanged();
+
+protected:
+    QByteArray m_values;
+
+    /*********************************************************************
      * Fixture definition
      *********************************************************************/
 public:
