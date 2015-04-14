@@ -47,6 +47,7 @@
 #include "fixturetreewidget.h"
 #include "channelsselection.h"
 #include "addchannelsgroup.h"
+#include "softpatcheditor.h"
 #include "fixturemanager.h"
 #include "fixtureremap.h"
 #include "mastertimer.h"
@@ -100,6 +101,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_moveDownAction(NULL)
     , m_importAction(NULL)
     , m_exportAction(NULL)
+    , m_softpatchAction(NULL)
     , m_groupMenu(NULL)
 {
     Q_ASSERT(s_instance == NULL);
@@ -408,12 +410,14 @@ void FixtureManager::updateView()
         m_exportAction->setEnabled(true);
         m_remapAction->setEnabled(true);
         m_fadeConfigAction->setEnabled(true);
+        m_softpatchAction->setEnabled(true);
     }
     else
     {
         m_exportAction->setEnabled(false);
         m_fadeConfigAction->setEnabled(false);
         m_remapAction->setEnabled(false);
+        m_softpatchAction->setEnabled(false);
     }
     m_importAction->setEnabled(true);
     m_moveUpAction->setEnabled(false);
@@ -482,6 +486,7 @@ void FixtureManager::updateChannelsGroupView()
     m_exportAction->setEnabled(false);
     m_importAction->setEnabled(false);
     m_remapAction->setEnabled(false);
+    m_softpatchAction->setEnabled(false);
 
     m_channel_groups_tree->resizeColumnToContents(KColumnName);
     m_channel_groups_tree->resizeColumnToContents(KColumnChannels);
@@ -869,6 +874,11 @@ void FixtureManager::initActions()
                                tr("Remap fixtures..."), this);
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
+
+    m_softpatchAction = new QAction(QIcon(":/input_output.png"),
+                               tr("Patch Fixture Channels ..."), this);
+    connect(m_softpatchAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotSoftpatch()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -918,6 +928,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
     toolbar->addAction(m_remapAction);
+    toolbar->addAction(m_softpatchAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1477,6 +1488,15 @@ void FixtureManager::slotMoveGroupDown()
         m_doc->moveChannelGroup(grpID, 1);
         updateChannelsGroupView();
     }
+}
+
+void FixtureManager::slotSoftpatch()
+{
+    SoftpatchEditor spe(m_doc, this);
+    if (spe.exec() == QDialog::Rejected)
+        return; // User pressed cancel
+
+    updateView();
 }
 
 QString FixtureManager::createDialog(bool import)

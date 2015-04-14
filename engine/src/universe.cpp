@@ -50,9 +50,14 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_hasChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_patchedValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_patchTable(UNIVERSE_SIZE)
+    , m_testDimmer(false)
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
+
+    patchOneToOne();
 
     m_name = QString("Universe %1").arg(id + 1);
 
@@ -64,12 +69,16 @@ Universe::~Universe()
 {
     delete m_preGMValues;
     delete m_postGMValues;
+    delete m_patchedValues;
+    patchClear();
     if (m_inputPatch != NULL)
         delete m_inputPatch;
     if (m_outputPatch != NULL)
         delete m_outputPatch;
     if (m_fbPatch != NULL)
         delete m_fbPatch;
+
+    patchClear();
 
     m_inputPatch = NULL;
     m_outputPatch = NULL;
@@ -197,6 +206,7 @@ void Universe::reset()
 {
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
+    m_patchedValues->fill(0);
     zeroRelativeValues();
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
     m_passthrough = false;
@@ -209,6 +219,11 @@ void Universe::reset(int address, int range)
         (*m_preGMValues)[i] = 0;
         (*m_postGMValues)[i] = 0;
         m_relativeValues[i] = 0;
+        qDebug() << Q_FUNC_INFO << " address: " << i << " patched channels: " << getPatchedChannels(i);
+        foreach (uint channel, getPatchedChannels(i))
+        {
+            (*m_patchedValues)[channel] = 0;
+        }
     }
 }
 
@@ -221,6 +236,7 @@ void Universe::zeroIntensityChannels()
         (*m_preGMValues)[channel] = 0;
         (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
+        (*m_patchedValues)[channel] = 0;
     }
 }
 
@@ -486,6 +502,111 @@ ChannelModifier *Universe::channelModifier(ushort channel)
     return m_modifiers.at(channel);
 }
 
+
+/****************************************************************************
+ * Softpatch
+ ****************************************************************************/
+
+void Universe::patchClear()
+{
+    for (uint i = 0; i < UNIVERSE_SIZE; i++)
+    {
+        m_patchTable[i].clear();
+    }
+    m_patchHash.clear();
+}
+
+void Universe::patchDimmer(uint dimmer, uint channel)
+{
+    //qDebug() << Q_FUNC_INFO <<  " dimmer: " << dimmer << " channel: " << channel ;
+    if (dimmer < UNIVERSE_SIZE && channel < UNIVERSE_SIZE)
+    {
+        //qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel << " m_patchHash.contains(channel) = " << m_patchHash.contains(channel);
+        if (m_patchHash.contains(channel))
+        {
+            unPatchChannel(channel);
+        }
+
+        if (m_patchTable[dimmer].isEmpty() || !m_patchTable[dimmer].contains(channel))
+        {
+            m_patchHash.insert(channel, dimmer);
+            m_patchTable[dimmer].append(channel);
+            //qDebug() << Q_FUNC_INFO << " dimmer: " << dimmer << " channel: " << channel;
+        }
+    }
+}
+
+void Universe::unPatchChannel(uint channel)
+{
+    if (channel < UNIVERSE_SIZE)
+    {
+        if (m_patchHash.contains(channel))
+        {
+            uint dimmer = m_patchHash[channel];
+            if (m_patchTable[dimmer].contains(channel))
+            {
+                int idx = m_patchTable[dimmer].indexOf(channel);
+                m_patchTable[dimmer].removeAt(idx);
+                m_patchHash.remove(channel);
+                qDebug() << Q_FUNC_INFO << " unpatch: " << channel << " from dimmer: " << dimmer;
+            }
+            else
+                qDebug() << Q_FUNC_INFO << " requested channel not found in dimmer";
+        }
+    }
+}
+
+void Universe::testDimmer(QList<uint> channels, bool on)
+{
+    m_testDimmer = true;
+    foreach (uint channel, channels) {
+        write(channel, on ? uchar(255) : uchar(0));
+    }
+    m_testDimmer = false;
+}
+
+void Universe::patchOneToOne()
+{
+    resetChanged();
+    patchClear();
+    for (uint i = 0; i < UNIVERSE_SIZE; i++)
+        patchDimmer(i, i);
+}
+
+const QList<uint> Universe::getPatchedChannels(uint dimmer) const
+{
+    return m_patchTable[dimmer];
+}
+
+uint Universe::getPatchedDimmer(uint channel) const
+{
+    Q_ASSERT(m_patchHash.contains(channel) == true);
+    return m_patchHash[channel];
+}
+
+void Universe::applyPatch(uint dimmer,  uchar value)
+{
+    if (!m_testDimmer)
+    {
+        foreach (uint channel, m_patchTable[dimmer]) {
+            if (channel >= m_usedChannels)
+                m_usedChannels = channel + 1;
+            (*m_patchedValues)[channel] = value;
+        }
+    }
+    else
+    {
+        // testDimmer bypasses the patch table
+        (*m_patchedValues)[dimmer] = value;
+    }
+}
+
+const QByteArray* Universe::patchedValues() const
+{
+    return m_patchedValues;
+}
+
+
 /****************************************************************************
  * Writing
  ****************************************************************************/
@@ -528,6 +649,8 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     value = applyGM(channel, value);
     (*m_postGMValues)[channel] = char(value);
 
+    applyPatch(channel, value);
+
     return true;
 }
 
@@ -552,10 +675,16 @@ bool Universe::writeRelative(int channel, uchar value)
     value = applyGM(channel, value);
     (*m_postGMValues)[channel] = char(value);
 
+    applyPatch(channel, value);
+
     m_hasChanged = true;
 
     return true;
 }
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
 
 bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap)
 {
@@ -616,16 +745,46 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
                 output = tag.attribute(KXMLQLCUniverseFeedbackLine).toUInt();
             ioMap->setOutputPatch(index, plugin, output, true);
         }
+        else if (tag.tagName() == KXMLQLCUniversePatch)
+        {
+            /*
+             * TODO: load only non one to one dimmers (see save)
+             * patchOneToOne(); instead patchClear();
+             * just patch whats in the file (nothing if it was one to one)
+             */
 
+            /* clear Patch */
+            patchClear();
+
+            /* Load Dimmers */
+            QDomNode dimmerNode = node.firstChildElement();
+            while (dimmerNode.isNull() == false)
+            {
+                QDomElement dimmerEl = dimmerNode.toElement();
+
+                if (dimmerEl.tagName() == KXMLQLCUniversePatchDimmer && dimmerEl.hasAttribute(KXMLQLCUniversePatchChannel))
+                {
+                    uint dimmer = dimmerEl.attribute(KXMLQLCUniversePatchChannel).toUInt();
+                    QString strvals = dimmerEl.text();
+                    if (strvals.isEmpty() == false)
+                    {
+                        QStringList varray = strvals.split(",");
+                        for (int i = 0; i < varray.count(); i++)
+                        {
+                            uint channel = QString(varray.at(i)).toUInt();
+                            //unPatchDimmer(id);
+                            patchDimmer(dimmer, channel);
+                        }
+                    }
+                }
+                dimmerNode = dimmerNode.nextSibling();
+            }
+        }
         node = node.nextSibling();
     }
 
     return true;
 }
-
-/*********************************************************************
- * Load & Save
- *********************************************************************/
 
 bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
 {
@@ -662,6 +821,29 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         fbp.setAttribute(KXMLQLCUniverseFeedbackLine, feedbackPatch()->output());
         root.appendChild(fbp);
     }
+
+    QDomElement patch = doc->createElement(KXMLQLCUniversePatch);
+    for (int i = 0; i < UNIVERSE_SIZE; i++ ) {
+        QDomElement dimmer = doc->createElement(KXMLQLCUniversePatchDimmer);
+        dimmer.setAttribute(KXMLQLCUniversePatchChannel, i);
+        QList<uint> dim = getPatchedChannels(i);
+        /*
+         * TODO: save only non one to one dimmers
+         * condition: dim.size() == 1 && dim[0] == i
+         */
+        QListIterator <uint> it(dim);
+        QString dimValues;
+        while (it.hasNext())
+        {
+            dimValues.append(QString("%1").arg(it.next()));
+            if(it.hasNext())
+                dimValues.append(",");
+        }
+        QDomText text = doc->createTextNode(dimValues);
+        dimmer.appendChild(text);
+        patch.appendChild(dimmer);
+    }
+    root.appendChild(patch);
 
     // append universe element
     wksp_root->appendChild(root);

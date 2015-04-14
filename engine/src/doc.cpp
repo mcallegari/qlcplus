@@ -365,7 +365,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
                 this, SLOT(slotFixtureChanged(quint32)));
 
         /* Keep track of fixture addresses */
-        for (uint i = fixture->universeAddress();
+        for (quint32 i = fixture->universeAddress();
              i < fixture->universeAddress() + fixture->channels(); i++)
         {
             m_addresses[i] = id;
