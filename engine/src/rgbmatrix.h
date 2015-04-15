@@ -64,6 +64,15 @@ public:
     /** Get the matrix total duration in milliseconds */
     quint32 totalDuration();
 
+    /** Set the matrix to control or not the dimmer channel */
+    void setDimmerControl(bool dimmerControl);
+
+    /** Get the matrix ability to control the dimmer channel */
+    bool dimmerControl() const;
+
+private:
+    bool m_dimmerControl;
+
     /*********************************************************************
      * Copying
      *********************************************************************/

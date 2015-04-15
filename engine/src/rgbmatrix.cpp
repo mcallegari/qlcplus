@@ -40,6 +40,7 @@
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
 #define KXMLQLCRGBMatrixEndColor "EndColor"
 #define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
+#define KXMLQLCRGBMatrixDimmerControl "DimmerControl"
 
 #define KXMLQLCRGBMatrixProperty "Property"
 #define KXMLQLCRGBMatrixPropertyName "Name"
@@ -51,6 +52,7 @@
 
 RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
+    , m_dimmerControl(true)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_algorithm(NULL)
     , m_algorithmMutex(QMutex::Recursive)
@@ -74,9 +76,8 @@ RGBMatrix::RGBMatrix(Doc* doc)
 
 RGBMatrix::~RGBMatrix()
 {
-    setAlgorithm(NULL);
+    delete m_algorithm;
     delete m_roundTime;
-    m_roundTime = NULL;
 }
 
 void RGBMatrix::setTotalDuration(quint32 msec)
@@ -113,6 +114,16 @@ quint32 RGBMatrix::totalDuration()
     return 0;
 }
 
+void RGBMatrix::setDimmerControl(bool dimmerControl)
+{
+    m_dimmerControl = dimmerControl;
+}
+
+bool RGBMatrix::dimmerControl() const
+{
+    return m_dimmerControl;
+}
+
 /****************************************************************************
  * Copying
  ****************************************************************************/
@@ -142,6 +153,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     if (mtx == NULL)
         return false;
 
+    setDimmerControl(mtx->dimmerControl());
     setFixtureGroup(mtx->fixtureGroup());
     if (mtx->algorithm() != NULL)
         setAlgorithm(mtx->algorithm()->clone());
@@ -381,6 +393,10 @@ bool RGBMatrix::loadXML(const QDomElement& root)
             QString value = tag.attribute(KXMLQLCRGBMatrixPropertyValue);
             setProperty(name, value);
         }
+        else if (tag.tagName() == KXMLQLCRGBMatrixDimmerControl)
+        {
+            setDimmerControl(tag.text().toInt());
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown RGB matrix tag:" << tag.tagName();
@@ -421,6 +437,12 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Algorithm */
     if (m_algorithm != NULL)
         m_algorithm->saveXML(doc, &root);
+
+    /* Dimmer Control */
+    tag = doc->createElement(KXMLQLCRGBMatrixDimmerControl);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(dimmerControl()));
+    tag.appendChild(text);
 
     /* Start Color */
     tag = doc->createElement(KXMLQLCRGBMatrixStartColor);
@@ -481,8 +503,6 @@ void RGBMatrix::preRun(MasterTimer* timer)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (grp != NULL && m_algorithm != NULL)
         {
-            m_direction = direction();
-
             Q_ASSERT(m_fader == NULL);
             m_fader = new GenericFader(doc());
             m_fader->adjustIntensity(getAttributeValue(Intensity));
@@ -570,8 +590,7 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 
-    if (m_fader != NULL)
-        delete m_fader; // Might be NULL if there's no fixture group
+    delete m_fader;
     m_fader = NULL;
 
     Function::postRun(timer, universes);
@@ -745,7 +764,8 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 m_fader->add(fc);
             }
 
-            if (head.masterIntensityChannel() != QLCChannel::invalid())
+            if (m_dimmerControl &&
+                head.masterIntensityChannel() != QLCChannel::invalid())
             {
                 //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
