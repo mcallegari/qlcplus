@@ -409,7 +409,7 @@ void Universe::dumpOutput(const QByteArray &data)
     }
     m_outputPatch->dump(m_id, data);
     // reset the changed flag until the next round
-    m_hasChanged = false;
+    //m_hasChanged = false;
 }
 
 void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
