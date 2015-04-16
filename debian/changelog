@@ -1,3 +1,10 @@
+qlcplus (4.8.6) stable; urgency=low
+
+  * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
+  * Engine: reverted patch causing DMX monitor misbehaviour
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 31 May 2015 20:21:22 +0200
+
 qlcplus (4.8.5) stable; urgency=low
 
   * Engine: it is now possible to flash LTP channels as well
