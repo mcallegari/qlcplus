@@ -401,11 +401,18 @@ protected:
      * Generic RGB panel
      *********************************************************************/
 public:
+    enum Components {
+        RGB = 0,
+        BGR,
+        RGBW
+    };
+
+public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

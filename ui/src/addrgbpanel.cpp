@@ -143,6 +143,15 @@ AddRGBPanel::Type AddRGBPanel::type()
     return Unknown;
 }
 
+Fixture::Components AddRGBPanel::components()
+{
+    if (m_compCombo->currentIndex() == 1)
+        return Fixture::BGR;
+    else if (m_compCombo->currentIndex() == 2)
+        return Fixture::RGBW;
+    return Fixture::RGB;
+}
+
 void AddRGBPanel::slotSizeChanged(int)
 {
     checkAddressAvailability();

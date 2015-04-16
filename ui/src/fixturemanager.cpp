@@ -1043,6 +1043,7 @@ void FixtureManager::slotAddRGBPanel()
         int columns = rgb.columns();
         quint32 phyWidth = rgb.physicalWidth();
         quint32 phyHeight = rgb.physicalHeight() / rows;
+        Fixture::Components components = rgb.components();
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
         Q_ASSERT(grp != NULL);
@@ -1082,9 +1083,9 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns);
+                rowDef = fxi->genericRGBPanelDef(columns, components);
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span

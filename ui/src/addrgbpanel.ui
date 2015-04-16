@@ -271,6 +271,35 @@
           </property>
          </widget>
         </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Components</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="m_compCombo">
+          <property name="currentText">
+           <string notr="true">RGB</string>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">RGB</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">BGR</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">RGBW</string>
+           </property>
+          </item>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>

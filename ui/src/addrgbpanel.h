@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include "ui_addrgbpanel.h"
+#include "fixture.h"
 
 class QLCFixtureDef;
 class QLCFixtureMode;
@@ -59,6 +60,7 @@ public:
     quint32 physicalHeight();
     Orientation orientation();
     Type type();
+    Fixture::Components components();
 
 private:
     /** Check if an address is available for contiguous channels.
