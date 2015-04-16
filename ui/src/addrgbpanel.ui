@@ -279,26 +279,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QComboBox" name="m_compCombo">
-          <property name="currentText">
-           <string notr="true">RGB</string>
-          </property>
-          <item>
-           <property name="text">
-            <string notr="true">RGB</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">BGR</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">RGBW</string>
-           </property>
-          </item>
-         </widget>
+         <widget class="QComboBox" name="m_compCombo"/>
         </item>
        </layout>
       </item>

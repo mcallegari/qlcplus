@@ -642,6 +642,24 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
             def->addChannel(blue);
             def->addChannel(white);
         }
+        else if (components == RGBWW)
+        {
+            QLCChannel* white = new QLCChannel();
+            white->setName(QString("Warm White %1").arg(i + 1));
+            white->setGroup(QLCChannel::Intensity);
+            white->setColour(QLCChannel::White);
+
+            QLCChannel* white2 = new QLCChannel();
+            white2->setName(QString("Cold White %1").arg(i + 1));
+            white2->setGroup(QLCChannel::Intensity);
+            white2->setColour(QLCChannel::White);
+
+            def->addChannel(red);
+            def->addChannel(green);
+            def->addChannel(blue);
+            def->addChannel(white);
+            def->addChannel(white2);
+        }
         else
         {
             def->addChannel(red);
@@ -667,6 +685,11 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
         mode->setName("RGBW");
         compNum = 4;
     }
+    else if (components == RGBWW)
+    {
+        mode->setName("RGBWW");
+        compNum = 5;
+    }
     else
         mode->setName("RGB");
 
@@ -683,6 +706,11 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
             head.addChannel(i+2);
             if (components == RGBW)
                 head.addChannel(i+3);
+            else if (components == RGBWW)
+            {
+                head.addChannel(i+3);
+                head.addChannel(i+4);
+            }
             mode->insertHead(-1, head);
         }
     }
@@ -913,7 +941,11 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
             components = RGBW;
             compNum = 4;
         }
-
+        else if (modeName == "RGBWW")
+        {
+            components = RGBWW;
+            compNum = 5;
+        }
         fixtureDef = genericRGBPanelDef(channels / compNum, components);
         fixtureMode = genericRGBPanelMode(fixtureDef, components, width, height);
     }

@@ -35,6 +35,11 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
     /* Fill universe combo with available universes */
     m_uniCombo->addItems(m_doc->inputOutputMap()->universeNames());
 
+    m_compCombo->addItem("RGB");
+    m_compCombo->addItem("BGR");
+    m_compCombo->addItem("RGBW");
+    m_compCombo->addItem("RGBWW");
+
     checkAddressAvailability();
 
     connect(m_uniCombo, SIGNAL(currentIndexChanged(int)),
@@ -149,6 +154,8 @@ Fixture::Components AddRGBPanel::components()
         return Fixture::BGR;
     else if (m_compCombo->currentIndex() == 2)
         return Fixture::RGBW;
+    else if (m_compCombo->currentIndex() == 3)
+        return Fixture::RGBWW;
     return Fixture::RGB;
 }
 

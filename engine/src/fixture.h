@@ -404,7 +404,8 @@ public:
     enum Components {
         RGB = 0,
         BGR,
-        RGBW
+        RGBW,
+        RGBWW
     };
 
 public:
