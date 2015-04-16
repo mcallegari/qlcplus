@@ -187,6 +187,7 @@ void RGBMatrix_Test::loadSave()
     mtx->setDuration(1200);
     mtx->setFadeInSpeed(10);
     mtx->setFadeOutSpeed(20);
+    mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
     QDomDocument doc;
@@ -197,7 +198,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(root.firstChild().toElement().attribute("ID"), QString::number(mtx->id()));
     QCOMPARE(root.firstChild().toElement().attribute("Name"), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0;
 
     QDomNode node = root.firstChild().firstChild();
     while (node.isNull() == false)
@@ -240,6 +241,11 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(tag.text(), QString("42"));
             grp++;
         }
+        else if (tag.tagName() == "DimmerControl")
+        {
+            QCOMPARE(tag.text(), QString("0"));
+            dimmer++;
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -255,6 +261,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(monocolor, 1);
     QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
+    QCOMPARE(dimmer, 1);
 
     // Put some extra garbage in
     QDomNode parent = node.parentNode();
