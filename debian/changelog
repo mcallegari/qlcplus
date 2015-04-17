@@ -1,5 +1,6 @@
 qlcplus (4.8.6) stable; urgency=low
 
+  * Function Manager: Fix sequences sometimes loaded in the chaser folder (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
 

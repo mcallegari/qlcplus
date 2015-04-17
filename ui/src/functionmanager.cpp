@@ -158,6 +158,8 @@ void FunctionManager::slotDocClearing()
 
 void FunctionManager::slotDocLoaded()
 {
+    // Refresh in case of sequences loaded after their parent scene
+    m_tree->updateTree();
     // Once the doc is completely loaded, update all the steps of Chasers acting like sequences
     foreach (Function *f, m_doc->functionsByType(Function::Chaser))
     {
