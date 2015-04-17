@@ -108,7 +108,10 @@ signals:
     /** Emitted when clearContents() has finished. */
     void cleared();
 
-    /** Emitted the document has been completely loaded */
+    /** Emitted when the document is being loaded, before actually doing anything. */
+    void loading();
+
+    /** Emitted when the document has been completely loaded. */
     void loaded();
 
     /*********************************************************************

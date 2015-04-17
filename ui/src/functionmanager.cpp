@@ -120,6 +120,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     m_tree->updateTree();
 
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
+    connect(m_doc, SIGNAL(loading()), this, SLOT(slotDocLoading()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_doc, SIGNAL(functionNameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
@@ -156,8 +157,14 @@ void FunctionManager::slotDocClearing()
     m_tree->clearTree();
 }
 
+void FunctionManager::slotDocLoading()
+{
+    disconnect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
+}
+
 void FunctionManager::slotDocLoaded()
 {
+    connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
     // Refresh in case of sequences loaded after their parent scene
     m_tree->updateTree();
     // Once the doc is completely loaded, update all the steps of Chasers acting like sequences

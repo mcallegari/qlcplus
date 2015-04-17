@@ -982,6 +982,8 @@ bool Doc::loadXML(const QDomElement& root)
         return false;
     }
 
+    emit loading();
+
     if (root.hasAttribute(KXMLQLCStartupFunction))
     {
         quint32 sID = root.attribute(KXMLQLCStartupFunction).toUInt();
