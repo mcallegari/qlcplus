@@ -175,15 +175,15 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     if (fxMode != NULL)
     {
         if (fxMode->physical().width() != 0)
-        {
-            newFixtureItem->setProperty("mmWidth", fxMode->physical().width());
             fxRect.setWidth(fxMode->physical().width());
-        }
+        else
+            fxRect.setWidth(300);
+
         if (fxMode->physical().height() != 0)
-        {
-            newFixtureItem->setProperty("mmHeight", fxMode->physical().height());
             fxRect.setHeight(fxMode->physical().height());
-        }
+        else
+            fxRect.setHeight(300);
+
         qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
     }
@@ -193,6 +193,9 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         fxRect.setWidth(300);
         fxRect.setHeight(300);
     }
+
+    newFixtureItem->setProperty("mmWidth", fxRect.width());
+    newFixtureItem->setProperty("mmHeight", fxRect.height());
 
     QPointF availablePos = getAvailablePosition(fxRect);
     x = availablePos.x();
