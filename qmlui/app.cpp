@@ -83,7 +83,7 @@ void App::startup()
     m_functionManager = new FunctionManager(m_view, m_doc);
     m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
 
-    m_contextManager = new ContextManager(m_view, m_doc, m_fixtureManager);
+    m_contextManager = new ContextManager(m_view, m_doc, m_fixtureManager, m_functionManager);
     m_view->rootContext()->setContextProperty("contextManager", m_contextManager);
 
     // Start up in non-modified state

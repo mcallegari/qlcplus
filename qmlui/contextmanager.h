@@ -29,6 +29,7 @@ class Doc;
 class MainView2D;
 class MainViewDMX;
 class FixtureManager;
+class FunctionManager;
 class GenericDMXSource;
 
 class ContextManager : public QObject
@@ -36,13 +37,18 @@ class ContextManager : public QObject
     Q_OBJECT
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
-                            FixtureManager *fxMgr, QObject *parent = 0);
+                            FixtureManager *fxMgr, FunctionManager *funcMgr,
+                            QObject *parent = 0);
 
     Q_INVOKABLE void activateContext(QString context);
+
+    Q_INVOKABLE void detachContext(QString context);
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
 
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
+
+    Q_INVOKABLE void dumpDmxChannels();
 
 signals:
 
@@ -59,7 +65,12 @@ private:
     Doc *m_doc;
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
+    /** Reference to the Function Manager */
+    FunctionManager *m_functionManager;
+    /** The list of the currently selected Fixture IDs */
+    QList<quint32> m_selectedFixtures;
     /** A multihash containing the selected fixtures' capabilities by channel type */
+    /** The hash is: int (channel type) , SceneValue (Fixture id and channel) */
     QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a DMX source used to handle scenes design */
     GenericDMXSource* m_source;

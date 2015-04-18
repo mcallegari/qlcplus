@@ -83,6 +83,27 @@ Rectangle {
                     animatePanel();
                 }
             }
+            IconButton {
+                id: sceneDump
+                objectName: "dumpButton"
+                z: 2
+                width: collapseWidth - 4
+                height: collapseWidth - 4
+                imgSource: "qrc:/dmxdump.svg"
+                tooltip: qsTr("Dump to a Scene")
+                visible: false
+                onClicked: {
+                    contextManager.dumpDmxChannels()
+                    editorSource = "qrc:///FunctionManager.qml"
+                    if (rightSidePanel.isOpen == false)
+                    {
+                        editorLoader.source = editorSource;
+                        animateOpen.start();
+                        rightSidePanel.isOpen = true;
+                    }
+                    funcEditor.checked = true
+                }
+            }
         }
     }
 

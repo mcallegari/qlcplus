@@ -24,16 +24,19 @@
 #include "contextmanager.h"
 #include "genericdmxsource.h"
 #include "fixturemanager.h"
+#include "functionmanager.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
-                               FixtureManager *fxMgr, QObject *parent)
+                               FixtureManager *fxMgr, FunctionManager *funcMgr,
+                               QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
+    , m_functionManager(funcMgr)
 {
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
@@ -67,11 +70,28 @@ void ContextManager::activateContext(QString context)
     }
 }
 
+void ContextManager::detachContext(QString context)
+{
+    qDebug() << "[ContextManager] detaching context:" << context;
+}
+
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
 {
+    if (m_selectedFixtures.contains(fxID))
+    {
+        if (enable == false)
+            m_selectedFixtures.removeAll(fxID);
+    }
+    else
+    {
+        if (enable)
+            m_selectedFixtures.append(fxID);
+    }
+
     QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
         return;
+
     QHashIterator<int, SceneValue>it(channels);
     while(it.hasNext())
     {
@@ -99,6 +119,21 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
         setFixtureSelection(fxID, true);
 }
 
+void ContextManager::dumpDmxChannels()
+{
+    QList<SceneValue> chList = m_source->channels();
+    QList<SceneValue> dumpList;
+
+    /** Now create a list with only the channels of the
+     *  currently selected fixtures */
+    foreach(SceneValue sv, chList)
+    {
+        if (m_selectedFixtures.contains(sv.fxi))
+            dumpList.append(sv);
+    }
+    m_functionManager->dumpOnNewScene(dumpList);
+}
+
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)
@@ -118,10 +153,25 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)
 {
+    quint32 valCount = m_source->channelsCount();
     //qDebug() << "type:" << type << "value:" << value;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
         m_source->set(sv.fxi, sv.channel, (uchar)value);
+
+    /** Monitor the changes from/to 0 */
+    if ((valCount == 0 && m_source->channelsCount() > 0) ||
+        (valCount > 0 && m_source->channelsCount() == 0))
+    {
+        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
+        if (dumpBtn != NULL)
+        {
+            if (valCount)
+                dumpBtn->setProperty("visible", false);
+            else
+                dumpBtn->setProperty("visible", true);
+        }
+    }
 }
 
 void ContextManager::slotColorChanged(QColor col, QColor wauv)

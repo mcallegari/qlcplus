@@ -25,6 +25,7 @@
 #include <QQuickItem>
 #include <QObject>
 
+#include "scenevalue.h"
 #include "treemodel.h"
 
 class Doc;
@@ -68,6 +69,8 @@ public:
     int showCount() const { return m_showCount; }
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
+
+    void dumpOnNewScene(QList<SceneValue> list);
 
 signals:
     void functionsListChanged();

@@ -23,6 +23,7 @@
 #include "functionmanager.h"
 #include "treemodel.h"
 #include "function.h"
+#include "scene.h"
 #include "doc.h"
 
 FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
@@ -81,6 +82,26 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
     sf.m_fID = id;
     sf.m_item = item;
     m_selectedFunctions.append(sf);
+}
+
+void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
+{
+    if (list.isEmpty())
+        return;
+
+    Scene *newScene = new Scene(m_doc);
+    foreach(SceneValue sv, list)
+    {
+        newScene->setValue(sv);
+    }
+    newScene->setName(QString("%1 %2").arg(newScene->name()).arg(m_doc->nextFunctionID() + 1));
+
+    if (m_doc->addFunction(newScene) == true)
+    {
+        slotUpdateFunctionsTree();
+    }
+    else
+        delete newScene;
 }
 
 void FunctionManager::slotUpdateFunctionsTree()
