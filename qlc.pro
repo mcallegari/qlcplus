@@ -2,12 +2,12 @@ include(variables.pri)
 
 TEMPLATE = subdirs
 
-android: CONFIG += qml
+android: CONFIG += qmlui
 
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
 
-contains(CONFIG, qml) {
+contains(CONFIG, qmlui) {
   message("Building QLC+ 5 QML UI")
   SUBDIRS      += qmlui
 }
