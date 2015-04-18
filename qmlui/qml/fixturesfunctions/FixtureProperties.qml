@@ -221,6 +221,16 @@ Rectangle {
                     fxProps.fxMode = currentText
                 }
             }
+            IconButton {
+                id: fxModeInfo
+                width: 30
+                height: 30
+                imgSource: "qrc:/info.svg"
+                checkable: true
+                onToggled: {
+
+                }
+            }
         }
     }
 }

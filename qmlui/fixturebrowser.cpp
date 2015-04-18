@@ -42,6 +42,13 @@ QStringList FixtureBrowser::manufacturers()
     return mfList;
 }
 
+int FixtureBrowser::genericIndex()
+{
+    QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
+    mfList.sort();
+    return mfList.indexOf("Generic");
+}
+
 QStringList FixtureBrowser::models(QString manufacturer)
 {
     qDebug() << "Fixtures list for" << manufacturer;

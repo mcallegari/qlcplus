@@ -35,6 +35,7 @@ public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     Q_INVOKABLE QStringList manufacturers();
+    Q_INVOKABLE int genericIndex();
     Q_INVOKABLE QStringList models(QString manufacturer);
     Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
     Q_INVOKABLE int modeChannels(QString modeName);

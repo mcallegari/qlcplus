@@ -26,6 +26,7 @@ Rectangle {
     color: "transparent"
 
     property string selectedManufacturer
+    property int manufacturerIndex
     property string selectedModel
 
     Rectangle {
@@ -66,7 +67,6 @@ Rectangle {
 
     ListView {
         id: manufacturerList
-        //objectName: "fixtureList"
         x: 8
         z: 0
         anchors.top: searchBox.bottom
@@ -79,6 +79,8 @@ Rectangle {
         anchors.leftMargin: 8
         focus: true
         boundsBehavior: Flickable.StopAtBounds
+        highlight: Rectangle { y: 1; color: "#0978FF"; radius: 5 }
+        highlightMoveVelocity: 1000
 
         model: fixtureBrowser.manufacturers()
         delegate: FixtureDelegate {
@@ -91,7 +93,14 @@ Rectangle {
                 fixtureList.model = fixtureBrowser.models(modelData)
                 fixtureList.currentIndex = -1
                 fixtureArea.visible = true
+                manufacturerList.currentIndex = index
             }
+        }
+
+        Component.onCompleted: {
+            manufacturerIndex = fixtureBrowser.genericIndex()
+            manufacturerList.currentIndex = fixtureBrowser.genericIndex()
+            manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
         }
     }
 
