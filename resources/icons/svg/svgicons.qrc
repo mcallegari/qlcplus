@@ -16,6 +16,7 @@
         <file alias="color.svg">color.svg</file>
         <file alias="colorwheel.svg">colorwheel.svg</file>
         <file alias="cyan.svg">cyan.svg</file>
+        <file alias="dmxdump.svg">dmxdump.svg</file>
         <file alias="dmxusbplugin.svg">dmxusbplugin.svg</file>
         <file alias="dmxview.svg">dmxview.svg</file>
         <file alias="e131plugin.svg">e131plugin.svg</file>
@@ -33,6 +34,7 @@
         <file alias="group.svg">group.svg</file>
         <file alias="help.svg">help.svg</file>
         <file alias="inputoutput.svg">inputoutput.svg</file>
+        <file alias="info.svg">info.svg</file>
         <file alias="intensity.svg">intensity.svg</file>
         <file alias="loopbackplugin.svg">loopbackplugin.svg</file>
         <file alias="magenta.svg">magenta.svg</file>
