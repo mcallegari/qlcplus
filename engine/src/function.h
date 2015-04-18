@@ -94,7 +94,7 @@ public:
         RGBMatrix  = 1 << 5,
         Show       = 1 << 6,
         Audio      = 1 << 7
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
         , Video    = 1 << 8
 #endif
     };
