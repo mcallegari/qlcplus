@@ -57,6 +57,12 @@ public:
     /** Check, whether output is enabled */
     bool isOutputEnabled() const;
 
+    /** Returns how many channels this source is handling */
+    quint32 channelsCount() const;
+
+    /** Return the currently set values as a list of SceneValue */
+    QList<SceneValue> channels();
+
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
