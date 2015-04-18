@@ -18,19 +18,28 @@
 */
 
 
-import QtQuick 2.0
+import QtQuick 2.1
+import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
 
-Window {
+ApplicationWindow {
+    id: window
     width: 800
     height: 600
     color: "#303030"
 
     property string viewSource
+    property string loadedContext: ""
+
+    onClosing: contextManager.detachContext(loadedContext)
 
     Loader {
         anchors.fill: parent
         source: viewSource
+        onLoaded: {
+            window.loadedContext = item.contextName
+            console.log("Detached context: " + window.loadedContext)
+        }
     }
 }
 

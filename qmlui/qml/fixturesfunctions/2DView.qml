@@ -23,6 +23,8 @@ Rectangle {
     anchors.fill: parent
     color: "black"
 
+    property string contextName: "2D"
+
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 

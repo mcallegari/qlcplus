@@ -20,7 +20,8 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
-//import com.qlcplus.app 1.0
+
+import "DetachWindow.js" as WinLoader
 
 Rectangle {
         objectName: "fixturesAndFunctions"
@@ -105,6 +106,9 @@ Rectangle {
                                 currentView = "UniverseGrid"
                             }
                         }
+                        onRightClicked: {
+                            WinLoader.createWindow("qrc:///UniverseGridView.qml")
+                        }
                     }
                     MenuBarEntry {
                         id: dmxView
@@ -121,6 +125,9 @@ Rectangle {
                                 currentViewQML = "qrc:/DMXView.qml"
                                 currentView = "DMX"
                             }
+                        }
+                        onRightClicked: {
+                            WinLoader.createWindow("qrc:///DMXView.qml")
                         }
                     }
                     MenuBarEntry {
@@ -139,6 +146,9 @@ Rectangle {
                                 currentView = "2D"
                             }
                         }
+                        onRightClicked: {
+                            WinLoader.createWindow("qrc:///2DView.qml")
+                        }
                     }
                     MenuBarEntry {
                         id: threedView
@@ -154,6 +164,9 @@ Rectangle {
                                 currentViewQML = "qrc:/3DView.qml"
                                 currentView = "3D"
                             }
+                        }
+                        onRightClicked: {
+                            WinLoader.createWindow("qrc:///3DView.qml")
                         }
                     }
 
