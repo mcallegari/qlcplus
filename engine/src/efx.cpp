@@ -525,7 +525,7 @@ bool EFX::isRelative() const
 
 void EFX::setXOffset(int offset)
 {
-    m_xOffset = static_cast<double> (CLAMP(offset, 0, UCHAR_MAX));
+    m_xOffset = static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX));
     emit changed(this->id());
 }
 
@@ -536,7 +536,7 @@ int EFX::xOffset() const
 
 void EFX::setYOffset(int offset)
 {
-    m_yOffset = static_cast<double> (CLAMP(offset, 0, UCHAR_MAX));
+    m_yOffset = static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX));
     emit changed(this->id());
 }
 

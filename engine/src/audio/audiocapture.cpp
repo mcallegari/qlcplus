@@ -23,7 +23,9 @@
 
 #include "audiocapture.h"
 
+#ifdef HAS_FFTW3
 #include "fftw3.h"
+#endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
@@ -50,8 +52,10 @@ AudioCapture::~AudioCapture()
         delete[] m_audioBuffer;
     if (m_fftInputBuffer)
         delete[] m_fftInputBuffer;
+#ifdef HAS_FFTW3
     if (m_fftOutputBuffer)
         fftw_free(m_fftOutputBuffer);
+#endif
 }
 
 int AudioCapture::defaultBarsNumber()
@@ -102,8 +106,9 @@ bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 
 
     m_audioBuffer = new int16_t[m_captureSize];
     m_fftInputBuffer = new double[m_captureSize];
+#ifdef HAS_FFTW3
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
-
+#endif
     m_isInitialized = true;
 
     return true;
@@ -126,9 +131,10 @@ double AudioCapture::fillBandsData(int number)
     // representing all the frequencies from 0 to m_sampleRate Hz.
     // I will just consider 0 to 5000Hz and will calculate average magnitude
     // for the number of desired bands.
+    double maxMagnitude = 0;
+#ifdef HAS_FFTW3
     unsigned int i = 0;
     int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
-    double maxMagnitude = 0;
 
     for (int b = 0; b < number; b++)
     {
@@ -145,11 +151,15 @@ double AudioCapture::fillBandsData(int number)
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
     }
+#else
+    Q_UNUSED(number)
+#endif
     return maxMagnitude;
 }
 
 void AudioCapture::processData()
 {
+#ifdef HAS_FFTW3
     unsigned int i;
     quint64 pwrSum = 0;
 
@@ -207,6 +217,7 @@ void AudioCapture::processData()
                            m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
                            maxMagnitude, m_signalPower);
     }
+#endif
 }
 
 void AudioCapture::run()

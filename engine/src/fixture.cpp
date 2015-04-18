@@ -172,6 +172,8 @@ quint32 Fixture::universeAddress() const
 void Fixture::setChannels(quint32 channels)
 {
     m_channels = channels;
+    m_values.resize(channels);
+    m_values.fill(0);
     emit changed(m_id);
 }
 
@@ -476,6 +478,39 @@ void Fixture::createGenericChannel()
     }
 }
 
+/*********************************************************************
+ * Channel values
+ *********************************************************************/
+
+bool Fixture::setChannelValues(QByteArray values)
+{
+    bool changed = false;
+    for (int i = 0; i < qMin(values.length(), (int)channels()); i++)
+    {
+        if (m_values.at(i) != values.at(i))
+        {
+            m_values[i] = values.at(i);
+            changed = true;
+        }
+    }
+    if (changed == true)
+        emit valuesChanged();
+
+    return changed;
+}
+
+QByteArray Fixture::channelValues()
+{
+    return m_values;
+}
+
+uchar Fixture::channelValueAt(int idx)
+{
+    if (idx >= 0 && idx < m_values.length())
+        return (uchar)m_values.at(idx);
+    return 0;
+}
+
 /*****************************************************************************
  * Fixture definition
  *****************************************************************************/
@@ -500,6 +535,8 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
                 head.addChannel(i);
             mode->insertHead(-1, head);
         }
+        m_values.resize(mode->channels().size());
+        m_values.fill(0);
 
         // Cache all head channels
         mode->cacheHeads();

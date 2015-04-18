@@ -65,12 +65,18 @@ class Fixture : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)
 
+    Q_PROPERTY(quint32 id READ id WRITE setID NOTIFY changed)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY changed)
+    Q_PROPERTY(quint32 universe READ universe WRITE setUniverse NOTIFY changed)
+    Q_PROPERTY(quint32 address READ address WRITE setAddress NOTIFY changed)
+    Q_PROPERTY(quint32 channels READ channels WRITE setChannels NOTIFY changed)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent);
+    Fixture(QObject* parent = 0);
 
     /** Destructor */
     ~Fixture();
@@ -337,6 +343,26 @@ protected:
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
     QHash<quint32, ChannelModifier*> m_channelModifiers;
+
+    /*********************************************************************
+     * Channel values
+     *********************************************************************/
+public:
+    /** Store DMX values for this fixture. If values have changed,
+     * it returns true, otherwise false */
+    bool setChannelValues(QByteArray values);
+
+    /** Return the current DMX values of this fixture */
+    QByteArray channelValues();
+
+    /** Retrieve the DMX value of the given channel index */
+    uchar channelValueAt(int idx);
+
+signals:
+    void valuesChanged();
+
+protected:
+    QByteArray m_values;
 
     /*********************************************************************
      * Fixture definition

@@ -2,13 +2,23 @@ include(variables.pri)
 
 TEMPLATE = subdirs
 
+android: CONFIG += qml
+
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
-SUBDIRS      += ui
-SUBDIRS      += webaccess
-SUBDIRS      += main
+
+contains(CONFIG, qml) {
+  message("Building QLC+ 5 QML UI")
+  SUBDIRS      += qmlui
+}
+else {
+  message("Building QLC+ 4 QtWidget UI")
+  SUBDIRS      += ui
+  SUBDIRS      += webaccess
+  SUBDIRS      += main
+}
 SUBDIRS      += resources
-SUBDIRS      += fixtureeditor
+!android:SUBDIRS      += fixtureeditor
 SUBDIRS      += etc
 macx:SUBDIRS += launcher
 SUBDIRS      += plugins
