@@ -23,8 +23,8 @@ import QtQuick.Layouts 1.1
 
 Rectangle {
     id: colorToolBox
-    width: 330
-    height: 400
+    width: 400
+    height: 430
     color: "#444"
     border.color: "#222"
     border.width: 2
@@ -78,7 +78,7 @@ Rectangle {
                 onCheckedChanged: {
                     if (checked == true)
                     {
-                        colorToolQML = "qrc:/ColorToolRGB.qml"
+                        colorToolQML = "qrc:/ColorToolFull.qml"
                     }
                 }
             }

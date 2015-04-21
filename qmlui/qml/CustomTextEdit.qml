@@ -27,6 +27,7 @@ Rectangle {
     color: "#333333"
 
     property alias inputText: textEdit2.text
+    property int fontSize: 17
 
     border.color: "#222"
 
@@ -39,7 +40,7 @@ Rectangle {
         anchors.leftMargin: 4
         clip: false
         font.family: "RobotoCondensed"
-        font.pixelSize: 17
+        font.pixelSize: fontSize
         echoMode: TextInput.Normal
         anchors.verticalCenter: parent.verticalCenter
     }

@@ -25,6 +25,7 @@
         <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
         <file alias="ColorTool.qml">qml/fixturesfunctions/ColorTool.qml</file>
         <file alias="ColorToolBasic.qml">qml/fixturesfunctions/ColorToolBasic.qml</file>
+        <file alias="ColorToolFull.qml">qml/fixturesfunctions/ColorToolFull.qml</file>
         <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
         <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>

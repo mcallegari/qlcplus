@@ -54,7 +54,7 @@ Rectangle {
     }
 
     Rectangle {
-        x: 5
+        x: 40
         y: 5
         width: parent - 10
         height: 42
@@ -81,7 +81,7 @@ Rectangle {
     }
 
     Rectangle {
-        x: 5
+        x: 40
         y: 52
         width: parent - 10
         height: 42
@@ -109,7 +109,7 @@ Rectangle {
     }
 
     Rectangle {
-        x: 5
+        x: 40
         y: 100
         width: parent - 10
         height: 42 * 6
@@ -144,6 +144,20 @@ Rectangle {
             }
         }
 
+    }
+
+    Row {
+        x: 40
+        y: 350
+        spacing: 20
+        RobotoText {
+            label: qsTr("Selected color");
+        }
+        Rectangle {
+            width: 70
+            height: 40
+            color: selectedColor
+        }
     }
 
 
