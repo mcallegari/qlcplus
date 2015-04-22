@@ -584,6 +584,8 @@ protected:
     /** Increment the elapsed timer ticks by one */
     void incrementElapsed();
 
+    void roundElapsed(quint32 roundTime);
+
 private:
     quint32 m_elapsed;
 

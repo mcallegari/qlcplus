@@ -490,7 +490,10 @@ void RGBMatrix::tap()
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
         if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
+        {
             roundCheck(grp->size());
+            resetElapsed();
+        }
     }
 }
 
@@ -566,7 +569,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
             return;
 
         // Get new map every time when elapsed is reset to zero
-        if (elapsed() == 0)
+        if (elapsed() < MasterTimer::tick())
         {
             qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
             RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
@@ -684,7 +687,7 @@ void RGBMatrix::roundCheck(const QSize& size)
     }
 
     m_roundTime->restart();
-    resetElapsed();
+    roundElapsed(duration());
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)

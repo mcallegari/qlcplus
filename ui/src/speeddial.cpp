@@ -489,6 +489,7 @@ void SpeedDial::slotTapClicked()
         if (m_tapTickTimer == NULL)
         {
             m_tapTickTimer = new QTimer();
+            m_tapTickTimer->setTimerType(Qt::PreciseTimer);
             connect(m_tapTickTimer, SIGNAL(timeout()),
                     this, SLOT(slotTapTimeout()));
         }

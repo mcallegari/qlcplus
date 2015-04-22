@@ -859,6 +859,15 @@ void Function::incrementElapsed()
         m_elapsed += MasterTimer::tick();
 }
 
+void Function::roundElapsed(quint32 roundTime)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (roundTime == 0)
+        m_elapsed = 0;
+    else
+        m_elapsed %= roundTime;
+}
+
 /*****************************************************************************
  * Start & Stop
  *****************************************************************************/
