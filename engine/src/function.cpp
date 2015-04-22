@@ -83,7 +83,6 @@ Function::Function(QObject *parent)
     , m_elapsed(0)
     , m_stop(true)
     , m_running(false)
-    , m_startedAsChild(false)
 {
 
 }

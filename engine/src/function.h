@@ -114,7 +114,7 @@ public:
      */
     struct Source
     {
-        enum Type
+        enum SourceType
         {
             Function = 0,
             AutoVCWidget,
@@ -125,7 +125,7 @@ public:
 
         quint64 m_source;
 
-        explicit Source(Type type, quint32 id)
+        explicit Source(SourceType type, quint32 id)
         {
             m_source = quint64((quint64(type) & 0xffffffff) << 32)
                 | quint64(id & 0xffffffff);
