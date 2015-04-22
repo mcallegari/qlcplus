@@ -196,7 +196,7 @@ private:
 private:
     void clearRunningList();
 
-    void startNewStep(int index, MasterTimer *timer, bool manualFade);
+    void startNewStep(int index, MasterTimer *timer, bool manualFade, quint32 elapsed = 0);
 
     int getNextStepIndex();
 
