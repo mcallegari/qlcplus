@@ -320,6 +320,48 @@ void Function_Test::stringToDirection()
     QVERIFY(Function::stringToDirection("Xyzzy") == Function::Forward);
 }
 
+void Function_Test::speedToString()
+{
+    QCOMPARE(Function::speedToString(0), QString(".00"));
+    QCOMPARE(Function::speedToString(1000), QString("01s.00"));
+    QCOMPARE(Function::speedToString(1000 * 60), QString("01m.00"));
+    QCOMPARE(Function::speedToString(1000 * 60 * 60), QString("01h.00"));
+
+    QCOMPARE(Function::speedToString(990), QString(".99"));
+    QCOMPARE(Function::speedToString(990 + 59 * 1000), QString("59s.99"));
+    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60), QString("59m59s.99"));
+    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s.99"));
+
+    QCOMPARE(Function::speedToString(10), QString(".01"));
+    QCOMPARE(Function::speedToString(100), QString(".10"));
+}
+
+void Function_Test::stringToSpeed()
+{
+    QCOMPARE(Function::stringToSpeed(".0"), uint(0));
+    QCOMPARE(Function::stringToSpeed(".0."), uint(0));
+    QCOMPARE(Function::stringToSpeed("0"), uint(0));
+    QCOMPARE(Function::stringToSpeed("0.0"), uint(0));
+
+    QCOMPARE(Function::stringToSpeed(".01"), uint(10));
+    QCOMPARE(Function::stringToSpeed(".010"), uint(10));
+    QCOMPARE(Function::stringToSpeed(".011"), uint(10));
+
+    QCOMPARE(Function::stringToSpeed(".1"), uint(100));
+    QCOMPARE(Function::stringToSpeed(".10"), uint(100));
+    QCOMPARE(Function::stringToSpeed(".100"), uint(100));
+    QCOMPARE(Function::stringToSpeed(".101"), uint(100));
+
+    QCOMPARE(Function::stringToSpeed("1"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1s"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1.000"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1s.00"), uint(1000));
+
+    QCOMPARE(Function::stringToSpeed("1s.01"), uint(10 + 1000));
+    QCOMPARE(Function::stringToSpeed("1m1s.01"), uint(10 + 1000 + 1000 * 60));
+    QCOMPARE(Function::stringToSpeed("1h1m1s.01"), uint(10 + 1000 + 1000 * 60 + 1000 * 60 * 60));
+}
+
 void Function_Test::loaderWrongRoot()
 {
     Doc d(this);

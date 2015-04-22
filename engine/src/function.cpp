@@ -597,16 +597,8 @@ uint Function::stringToSpeed(QString speed)
         speed.remove(0, speed.indexOf("s") + 1);
     }
 
-    QStringList msecs = speed.split(".");
-    if (msecs.count() > 0)
-    {
-        QString msecStr = msecs.at(msecs.count() - 1);
-        uint msecInt = msecStr.toUInt();
-        if (msecInt < 10 && msecStr.contains("0") == false)
-            value += (msecInt * 100);
-        else
-            value += (msecInt * 10);
-    }
+    value += speed.toDouble() * 1000;
+    value -= value % 10;
 
     return value;
 }
