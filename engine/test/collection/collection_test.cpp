@@ -408,7 +408,7 @@ void Collection_Test::write()
     /* Collection starts all of its members immediately when it is started
        itself. */
     QVERIFY(c->stopped() == true);
-    c->start(mts);
+    c->start(mts, Function::Source(Function::Source::God, 0));
     QVERIFY(c->stopped() == false);
 
     c->write(mts, ua);
@@ -488,7 +488,7 @@ void Collection_Test::stopNotOwnChildren()
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
     QVERIFY(c->stopped() == true);
-    c->start(mts);
+    c->start(mts, Function::Source(Function::Source::God, 0));
     QVERIFY(c->stopped() == false);
 
     c->preRun(mts);
@@ -503,17 +503,17 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     // Manually stop and re-start s1
-    s1->stop();
+    s1->stop(Function::Source(Function::Source::Function, s1->id()));
     s1->write(mts, ua);
     s1->postRun(mts, ua);
-    s1->start(mts);
+    s1->start(mts, Function::Source(Function::Source::Function, s1->id()));
     QVERIFY(s1->stopped() == false);
 
     // Collection should no longer be controlling s1
     QVERIFY(c->m_runningChildren.contains(s1->id()) == false);
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
-    c->stop();
+    c->stop(Function::Source(Function::Source::God, 0));
     c->write(mts, ua);
     c->postRun(mts, ua);
 
