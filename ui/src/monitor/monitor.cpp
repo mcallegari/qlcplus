@@ -225,7 +225,7 @@ void Monitor::initGraphicsView()
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
     connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)),
-            this, SLOT(slotViewCliked()));
+            this, SLOT(slotViewClicked()));
 
     // add container for chaser editor
     QWidget* econtainer = new QWidget(this);
@@ -774,7 +774,7 @@ void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
     m_doc->setModified();
 }
 
-void Monitor::slotViewCliked()
+void Monitor::slotViewClicked()
 {
     hideFixtureItemEditor();
 }

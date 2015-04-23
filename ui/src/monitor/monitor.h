@@ -193,7 +193,7 @@ protected slots:
     void slotFixtureMoved(quint32 fid, QPointF pos);
 
     /** Slot called when the graphics view is clicked */
-    void slotViewCliked();
+    void slotViewClicked();
 
 protected:
     QSplitter* m_splitter;

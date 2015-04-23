@@ -232,6 +232,7 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
     m_scene->removeItem(item);
     m_fixtures.take(id);
+    m_doc->monitorProperties()->removeFixture(id);
     delete item;
 
     return true;
