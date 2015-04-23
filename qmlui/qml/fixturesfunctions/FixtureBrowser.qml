@@ -79,8 +79,14 @@ Rectangle {
         anchors.leftMargin: 8
         focus: true
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Rectangle { y: 1; color: "#0978FF"; radius: 5 }
-        highlightMoveVelocity: 1000
+        highlight: Component {
+            Rectangle {
+                width: parent.width; height: 31
+                color: "#0978FF"; radius: 5
+                y: manufacturerList.currentItem.y + 1
+            }
+        }
+        highlightFollowsCurrentItem: false
 
         model: fixtureBrowser.manufacturers()
         delegate: FixtureDelegate {
@@ -170,10 +176,16 @@ Rectangle {
             anchors.bottomMargin: 6
             anchors.right: parent.right
             anchors.left: parent.left
-            highlight: Rectangle { color: "#0978FF"; radius: 5 }
-            highlightMoveVelocity: 800
             focus: true
             boundsBehavior: Flickable.StopAtBounds
+            highlight: Component {
+                Rectangle {
+                    width: parent.width; height: 31
+                    color: "#0978FF"; radius: 5
+                    y: fixtureList.currentItem.y + 1
+                }
+            }
+            highlightFollowsCurrentItem: false
 
             delegate: FixtureDelegate {
                 id: dlg

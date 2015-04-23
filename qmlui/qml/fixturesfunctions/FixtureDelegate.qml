@@ -52,6 +52,7 @@ Item {
 
     RobotoText {
         id: textitem
+        x: 2
         label: modelData
         height: parent.height
         fontSize: 12
