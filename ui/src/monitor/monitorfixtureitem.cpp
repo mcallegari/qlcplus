@@ -162,14 +162,15 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    continue;
  
                bool containsShutter = false;
-               for(quint32 i = 0; i < 256; ++i)
+               for (quint32 i = 0; i < 256; ++i)
                {
                    QLCCapability *cap = ch->searchCapability(i);
                    if (cap != NULL)
                    {
+                       // not "off" occurences are ok, but anything better would require manual classification
                        if (cap->name().contains("close", Qt::CaseInsensitive) 
-                           || cap->name().contains("blackout", Qt::CaseInsensitive))
-                       {
+                           || cap->name().contains("blackout", Qt::CaseInsensitive)
+                           || cap->name().contains("off", Qt::CaseInsensitive))                       {
                            values << FixtureHead::Closed;
                            containsShutter = true;
                        }
@@ -190,6 +191,11 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
                if (containsShutter)
                {
+                   // handle case when the channel has only one capability 0-255 strobe:
+                   // make 0 Open to avoid blinking
+                   if (ch->capabilities().size() <= 1)
+                       values[0] = FixtureHead::Open;
+
                    fxiItem->m_shutterValues[shutter + fxi->address()] = values;
                    fxiItem->m_shutterChannels << (shutter + fxi->address());
                }
