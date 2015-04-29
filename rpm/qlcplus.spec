@@ -10,7 +10,7 @@ BuildRequires: qt-devel >= 4.6, libftdi-devel >= 0.17, libusb-devel >= 0.1.12, a
 Requires: qt >= 4.6
 Release: 1
 Source: qlcplus-%{version}.tar.gz
-URL: https://sourceforge.net/projects/qlcplus/
+URL: http://www.qlcplus.org/
 Buildroot: /tmp/qlcplusrpm
 Version: %{version}
 %description
