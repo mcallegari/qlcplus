@@ -61,6 +61,8 @@ protected slots:
     void slotIntensitySliderMoved(int value);
     void slotIntensityEdited(const QString& text);
 
+    void slotFadeOutTextEdited();
+
     void accept();
 
 protected:

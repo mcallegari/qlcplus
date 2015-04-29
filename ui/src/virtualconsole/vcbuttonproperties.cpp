@@ -115,6 +115,9 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
             this, SLOT(slotIntensitySliderMoved(int)));
     connect(m_intensityEdit, SIGNAL(textEdited(QString)),
             this, SLOT(slotIntensityEdited(QString)));
+
+    connect(m_fadeOutEdit, SIGNAL(editingFinished()),
+            this, SLOT(slotFadeOutTextEdited()));
 }
 
 VCButtonProperties::~VCButtonProperties()
@@ -276,6 +279,14 @@ void VCButtonProperties::slotIntensitySliderMoved(int value)
 void VCButtonProperties::slotIntensityEdited(const QString& text)
 {
     m_intensitySlider->setValue(text.toInt());
+}
+
+void VCButtonProperties::slotFadeOutTextEdited()
+{
+    m_fadeOutTime = Function::stringToSpeed(m_fadeOutEdit->text());
+    m_fadeOutEdit->setText(Function::speedToString(m_fadeOutTime));
+    if (m_speedDials != NULL)
+        m_speedDials->setFadeOutSpeed(m_fadeOutTime);
 }
 
 void VCButtonProperties::accept()
