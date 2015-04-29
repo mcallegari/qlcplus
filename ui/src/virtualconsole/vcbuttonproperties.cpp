@@ -245,7 +245,7 @@ void VCButtonProperties::slotSpeedDialToggle(bool state)
         m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
         m_speedDials->setWindowTitle(m_button->caption());
         m_speedDials->setFadeInVisible(false);
-        m_speedDials->setFadeOutSpeed(m_button->stopAllFadeTime());
+        m_speedDials->setFadeOutSpeed(m_fadeOutTime);
         m_speedDials->setDurationEnabled(false);
         m_speedDials->setDurationVisible(false);
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
