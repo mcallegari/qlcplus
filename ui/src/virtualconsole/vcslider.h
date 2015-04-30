@@ -309,6 +309,12 @@ protected:
      */
     uchar levelValue() const;
 
+public:
+    /**
+     * Send submasterValueChanged signal
+     */
+    void emitSubmasterValue();
+
 signals:
     void monitorDMXValueChanged(int value);
 
@@ -383,9 +389,6 @@ protected:
     /*********************************************************************
      * Submaster
      *********************************************************************/
-protected:
-    qreal m_submasterValue;
-
 signals:
     void submasterValueChanged(qreal value);
 
