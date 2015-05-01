@@ -382,12 +382,14 @@ void ChaserRunner::fillOrder(int size)
  * Intensity
  ****************************************************************************/
 
-void ChaserRunner::adjustIntensity(qreal fraction, int stepIndex)
+void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex)
 {
+    m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
+
+    int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
         stepIndex = m_lastRunStepIdx;
 
-    m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
@@ -396,6 +398,11 @@ void ChaserRunner::adjustIntensity(qreal fraction, int stepIndex)
             return;
         }
     }
+
+    // No need to start a new step if it is not wanted
+    if (requestedStepIndex == -1)
+        return;
+
     // not found ?? It means we need to start a new step and crossfade kicks in !
     startNewStep(stepIndex, m_doc->masterTimer(), true);
 }
