@@ -564,7 +564,7 @@ void Chaser::setStepIndex(int idx)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->setCurrentStep(idx);
+        m_runner->setCurrentStep(idx, getAttributeValue(Intensity));
     else
         m_startStepIndex = idx;
 }
@@ -600,7 +600,7 @@ void Chaser::setCurrentStep(int step, qreal intensity)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->setCurrentStep(step, intensity);
+        m_runner->setCurrentStep(step, intensity * getAttributeValue(Intensity));
 }
 
 int Chaser::currentStepIndex() const
@@ -658,7 +658,7 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->adjustIntensity(fraction, stepIndex);
+        m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
 }
 
 /*****************************************************************************

@@ -5,6 +5,7 @@ qlcplus (4.8.6) stable; urgency=low
   * VC Button: Allow to edit the fade out time of a stop-all-functions button with the text input (David Garyga)
   * VC Submaster: fix submaster level not taken into account right from project loading (David Garyga)
   * VC Submaster: fix chaser not taking submaster level into account (David Garyga)
+  * VC Submaster: Cue Lists are now affected by Submaster faders (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
