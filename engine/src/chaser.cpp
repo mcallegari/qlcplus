@@ -684,8 +684,8 @@ void Chaser::preRun(MasterTimer* timer)
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         createRunner(elapsed(), m_startStepIndex);
-        m_runner->setCurrentStep(m_startStepIndex,
-                m_hasStartIntensity ? m_startIntensity : getAttributeValue(Function::Intensity));
+        if (m_hasStartIntensity)
+            m_runner->setCurrentStep(m_startStepIndex, m_startIntensity);
         m_hasStartIntensity = false;
         m_startStepIndex = -1;
         connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
