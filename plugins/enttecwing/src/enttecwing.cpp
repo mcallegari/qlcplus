@@ -91,9 +91,10 @@ QStringList EnttecWing::outputs()
  * Inputs
  *****************************************************************************/
 
-bool EnttecWing::openInput(quint32 input)
+bool EnttecWing::openInput(quint32 input, quint32 universe)
 {
     Q_UNUSED(input);
+    Q_UNUSED(universe)
     return reBindSocket();
 }
 

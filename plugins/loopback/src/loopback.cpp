@@ -97,8 +97,10 @@ QStringList Loopback::outputs()
  * Inputs
  *****************************************************************************/
 
-bool Loopback::openInput(quint32 input)
+bool Loopback::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
+
     if (input >= QLCIOPLUGINS_UNIVERSES)
         return false;
 

@@ -197,7 +197,7 @@ QStringList E131Plugin::inputs()
     return list;
 }
 
-bool E131Plugin::openInput(quint32 input)
+bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
     if (m_IOmapping.count() == 0)
         init();
@@ -223,6 +223,7 @@ bool E131Plugin::openInput(quint32 input)
     connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
             this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
+    m_IOmapping[input].controller->enableUniverse(universe);
 
     return true;
 }

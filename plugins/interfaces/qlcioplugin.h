@@ -178,14 +178,14 @@ public:
      *************************************************************************/
 public:
     /**
-     * Open the specified input line so that the plugin can start sending input
+     * Open the specified input line so that the plugin can start receiving
      * data from that line.
      *
      * This is a pure virtual method that must be implemented by all plugins.
      *
      * @param input The input line to open
      */
-    virtual bool openInput(quint32 input) = 0;
+    virtual bool openInput(quint32 input, quint32 universe) = 0;
 
     /**
      * Close the specified input line so that the plugin can stop sending input

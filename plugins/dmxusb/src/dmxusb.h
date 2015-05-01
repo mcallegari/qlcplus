@@ -98,7 +98,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
     void closeInput(quint32 input);

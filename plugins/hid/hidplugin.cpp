@@ -58,8 +58,9 @@ int HIDPlugin::capabilities() const
  * Inputs
  *****************************************************************************/
 
-bool HIDPlugin::openInput(quint32 input)
+bool HIDPlugin::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {

@@ -238,8 +238,10 @@ void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
  * Inputs
  *************************************************************************/
 
-bool OSCPlugin::openInput(quint32 input)
+bool OSCPlugin::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
+
     if (input >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
@@ -406,7 +408,7 @@ void OSCPlugin::setPort(int num, QString port)
     if (port != m_nodes[num].m_port)
     {
         m_nodes[num].m_port = port;
-        openInput(num);
+        openInput(num, 0);
     }
 }
 

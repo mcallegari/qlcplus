@@ -119,7 +119,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false)
+    if (m_doc->isKiosk() == false && QLCFile::isRaspberry() == false)
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
