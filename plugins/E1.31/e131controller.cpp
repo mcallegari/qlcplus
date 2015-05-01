@@ -42,7 +42,13 @@ E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, qu
     if (type == Input)
     {
         m_dmxValues.fill(0, 512);
-        if (m_UdpSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        if (m_UdpSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT,
+                              QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+#else
+        if (m_UdpSocket->bind(QHostAddress::Any, E131_DEFAULT_PORT,
+                              QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+#endif
         {
             qDebug() << Q_FUNC_INFO << "Socket input bind failed !!";
             return;
