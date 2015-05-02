@@ -25,6 +25,9 @@ SpinBox {
     id: spinbox
     font.family: "RobotoCondensed"
     font.pointSize: 14
+    width: 70
+
+    property bool showControls: true
 
     style: SpinBoxStyle {
         // taken from SpinBoxStyle.qml original code
@@ -32,7 +35,7 @@ SpinBox {
         padding {
             top: 1
             left: 2
-            right: Math.max(40, Math.round(styleData.contentHeight))
+            right: controlWidth + 2
             bottom: 0
         }
         background: Rectangle {
@@ -42,10 +45,13 @@ SpinBox {
         }
         textColor: "white"
 
+        property int controlWidth: showControls ? Math.min(35, spinbox.width / 3) : 0
+
         incrementControl:
             Rectangle {
+                visible: showControls
                 implicitHeight: 10
-                implicitWidth: 35
+                implicitWidth: controlWidth
                 border.color: "#222"
                 radius: 3
                 color: styleData.upHovered && !styleData.upPressed
@@ -61,8 +67,9 @@ SpinBox {
 
         decrementControl:
             Rectangle {
+                visible: showControls
                 implicitHeight: 10
-                implicitWidth: 35
+                implicitWidth: controlWidth
                 border.color: "#222"
                 radius: 3
                 color: styleData.downHovered && !styleData.downPressed

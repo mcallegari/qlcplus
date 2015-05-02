@@ -54,6 +54,7 @@ signals:
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
+    void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value);
     void slotColorChanged(QColor col, QColor wauv);
     void slotUniversesWritten(int idx, const QByteArray& ua);

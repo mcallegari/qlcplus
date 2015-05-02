@@ -112,6 +112,11 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
     return "qrc" + chIcon;
 }
 
+void FixtureManager::setChannelValue(quint32 fixtureID, quint32 channelIndex, quint8 value)
+{
+    emit channelValueChanged(fixtureID, channelIndex, value);
+}
+
 void FixtureManager::setIntensityValue(quint8 value)
 {
     emit channelTypeValueChanged(QLCChannel::Intensity, value);

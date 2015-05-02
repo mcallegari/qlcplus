@@ -233,10 +233,10 @@ Rectangle {
                 onWheel: {
                     console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
-                        twoDView.gridScale += 0.5;
+                        twoDView.gridScale += 0.25;
                     else {
                         if (twoDView.gridScale > 1.0)
-                            twoDView.gridScale -= 0.5;
+                            twoDView.gridScale -= 0.25;
                     }
                 }
             }

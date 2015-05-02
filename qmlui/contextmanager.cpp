@@ -48,6 +48,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
+    connect(m_fixtureManager, SIGNAL(channelValueChanged(quint32,quint32,quint8)),
+            this, SLOT(slotChannelValueChanged(quint32,quint32,quint8)));
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
     connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
@@ -149,6 +151,12 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
         m_2DView->createFixtureItem(fxID, x, y, false);
+}
+
+void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
+{
+    SceneValue sv(fxID, channel);
+    m_source->set(sv.fxi, sv.channel, (uchar)value);
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)

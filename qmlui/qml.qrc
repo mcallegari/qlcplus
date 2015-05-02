@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="qlcplus.png">../resources/icons/png/qlcplus.png</file>
-        <file alias="arrowdown.png">../resources/icons/png/arrowdown.png</file>
 
         <file alias="dimmer-back.svg">svg/dimmer-back.svg</file>
         <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
@@ -18,6 +17,10 @@
         <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
         <file alias="FolderDelegate.qml">qml/FolderDelegate.qml</file>
         <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
+        <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
+        <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
+        <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
+        <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
 
         <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
         <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>

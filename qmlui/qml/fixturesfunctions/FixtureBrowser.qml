@@ -39,8 +39,9 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 8
         color: "#303030"
-        radius: 10
+        radius: 5
         border.width: 2
+        border.color: "#111"
 
         Image {
             id: searchIcon
@@ -81,7 +82,7 @@ Rectangle {
         boundsBehavior: Flickable.StopAtBounds
         highlight: Component {
             Rectangle {
-                width: parent.width; height: 31
+                width: parent.width - 30; height: 31
                 color: "#0978FF"; radius: 5
                 y: manufacturerList.currentItem.y + 1
             }
@@ -107,6 +108,9 @@ Rectangle {
             manufacturerIndex = fixtureBrowser.genericIndex()
             manufacturerList.currentIndex = fixtureBrowser.genericIndex()
             manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
+        }
+        ScrollBar {
+            flickable: manufacturerList
         }
     }
 
@@ -180,7 +184,7 @@ Rectangle {
             boundsBehavior: Flickable.StopAtBounds
             highlight: Component {
                 Rectangle {
-                    width: parent.width; height: 31
+                    width: parent.width - 30; height: 31
                     color: "#0978FF"; radius: 5
                     y: fixtureList.currentItem.y + 1
                 }
@@ -198,6 +202,9 @@ Rectangle {
                     fxPropsRect.fxName = modelData
                     fxPropsRect.visible = true
                 }
+            }
+            ScrollBar {
+                flickable: fixtureList
             }
         }
 

@@ -112,41 +112,24 @@ Rectangle {
         onValueChanged: slider.value = value
     }
 
-    Rectangle {
+    DMXPercentageButton {
         x: 90
         y: 300
-        width: 50
-        height: 40
-        border.width: 2
-        border.color: "white"
-        radius: 5
-        color: "#1E476E"
-
-        RobotoText {
-            height: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            label: dmxValues ? "DMX" : "%"
-            fontSize: 15
-            fontBold: true
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                dmxValues = !dmxValues
-                var newVal;
-                if (dmxValues == false)
-                {
-                    newVal = (slider.value / 255) * 100
-                    slider.maximumValue = 100
-                }
-                else
-                {
-                    newVal = (slider.value / 100) * 255
-                    slider.maximumValue = 255
-                }
-                slider.value = newVal
+        dmxMode: dmxValues
+        onClicked: {
+            dmxMode = !dmxMode
+            var newVal;
+            if (dmxMode == false)
+            {
+                newVal = (slider.value / 255) * 100
+                slider.maximumValue = 100
             }
+            else
+            {
+                newVal = (slider.value / 100) * 255
+                slider.maximumValue = 255
+            }
+            slider.value = newVal
         }
     }
 }

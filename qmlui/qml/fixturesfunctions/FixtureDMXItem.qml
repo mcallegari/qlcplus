@@ -21,14 +21,19 @@ import QtQuick 2.2
 import com.qlcplus.classes 1.0
 
 Rectangle {
-    property Fixture fixtureObj;
-    property variant values;
+    id: dmxItemRoot
+    property Fixture fixtureObj
+    property variant values
+    property bool isSelected: false
 
     onValuesChanged: {
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            channelsRpt.itemAt(i).dmxValue = values[i]
+            if (fxColumn.visible == true)
+                channelsRpt.itemAt(i).dmxValue = values[i]
+            else
+                consoleLoader.setValues(values)
         }
     }
 
@@ -36,21 +41,21 @@ Rectangle {
     height: fxColumn.height
     color: "#777"
     border.width: 1
-    border.color: "#aaa"
-    radius: 3
+    border.color: "#222"
 
     Column {
         id: fxColumn
+        anchors.margins: 1
+
         Rectangle {
             color: "#111"
             width: parent.width
             height: 20
-            //radius: 3
             clip: true
 
             RobotoText {
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 2
+                x: 2
                 label: fixtureObj ? fixtureObj.name : ""
                 fontSize: 15
             }
@@ -63,18 +68,14 @@ Rectangle {
                 delegate:
                     Rectangle {
                         color: "transparent"
-                        border.width: 1
-                        border.color: "#222"
                         width: 30
                         height: 50
 
                         property string dmxValue: "0"
 
                         Image {
-                            x: 1
-                            y: 1
-                            width: 28
-                            height: 28
+                            width: 30
+                            height: 30
                             sourceSize: Qt.size(width, height)
                             source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                         }
@@ -87,8 +88,82 @@ Rectangle {
                             labelColor: "black"
                             label: dmxValue
                         }
+                        // vertical divider between channels
+                        Rectangle {
+                            visible: (index == fixtureObj.channels - 1) ? false : true
+                            width: 1
+                            height: parent.height
+                            x: parent.width - 1
+                            color: "#222"
+                        }
                     }
             }
         }
+    }
+    Timer {
+        id: clickTimer
+        interval: 200
+        repeat: false
+        running: false
+        onTriggered: {
+            isSelected = !isSelected
+            contextManager.setFixtureSelection(fixtureObj.id, isSelected)
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            clickTimer.start()
+        }
+
+        onDoubleClicked: {
+            clickTimer.stop()
+            fxColumn.visible = false
+            consoleLoader.source = "qrc:/FixtureConsole.qml"
+        }
+    }
+    Loader {
+        id: consoleLoader
+        anchors.fill: parent
+
+        function setValues(values) {
+            item.values = values
+        }
+
+        onLoaded: {
+            item.fixtureObj = fixtureObj
+            item.isSelected = isSelected
+            item.values = values
+        }
+        Connections {
+             target: consoleLoader.item
+             onClicked: {
+                 clickTimer.start()
+             }
+             onDoubleClicked: {
+                 clickTimer.stop()
+                 consoleLoader.source = ""
+                 dmxItemRoot.width = channelsRow.width
+                 dmxItemRoot.height = fxColumn.height
+                 fxColumn.visible = true
+             }
+             onSizeChanged: {
+                 if (w != 0 && h != 0)
+                 {
+                     dmxItemRoot.width = w
+                     dmxItemRoot.height = h
+                     //console.log("2- Item width: " + w + ", height: " + h)
+                 }
+             }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        z: 5
+        color: "transparent"
+        border.width: 1
+        border.color: isSelected ? "yellow" : "transparent"
     }
 }

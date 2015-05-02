@@ -23,7 +23,7 @@ import "FixtureDrag.js" as FxDragJS
 
 Item {
     id: fxDraggableItem
-    width: parent.width
+    width: parent.width - 30
     height: 32
 
     //property alias text: textitem.text

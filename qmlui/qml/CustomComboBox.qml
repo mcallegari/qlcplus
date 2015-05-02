@@ -43,7 +43,8 @@ ComboBox {
 
                 Image {
                     anchors.centerIn: parent
-                    source: "qrc:/arrowdown.png"
+                    source: "qrc:/arrow-down.svg"
+                    sourceSize: Qt.size(20, 12)
                 }
             }
          }
