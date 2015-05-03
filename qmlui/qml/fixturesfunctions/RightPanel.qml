@@ -84,6 +84,24 @@ Rectangle {
                 }
             }
             IconButton {
+                id: addFunction
+                z: 2
+                width: collapseWidth - 4
+                height: collapseWidth - 4
+                imgSource: "qrc:/add.svg"
+                tooltip: qsTr("Add a new function")
+                checkable: true
+                onCheckedChanged: {
+                    addFunctionMenu.visible = !addFunctionMenu.visible
+                }
+
+                AddFunctionMenu {
+                    id: addFunctionMenu
+                    visible: false
+                    x: -width
+                }
+            }
+            IconButton {
                 id: sceneDump
                 objectName: "dumpButton"
                 z: 2
@@ -102,6 +120,19 @@ Rectangle {
                         rightSidePanel.isOpen = true;
                     }
                     funcEditor.checked = true
+                }
+            }
+            IconButton {
+                id: previewFunc
+                objectName: "previewButton"
+                z: 2
+                width: collapseWidth - 4
+                height: collapseWidth - 4
+                imgSource: "qrc:/play.svg"
+                tooltip: qsTr("Function Preview")
+                visible: false
+                onClicked: {
+
                 }
             }
         }

@@ -22,7 +22,7 @@ import QtQuick.Controls 1.2
 
 Rectangle {
     id: baseIconEntry
-    width: (parent.width > imgSize + textBox.width + 5) ? parent.width: imgSize + textBox.width + 5
+    width: (parent.width > imgSize + textBox.width + 15) ? parent.width: imgSize + textBox.width + 15
     height: imgSize + 4
 
     property int imgSize: 40
@@ -49,34 +49,24 @@ Rectangle {
         GradientStop { position: 1 ; color: "#171717" }
     }
 
-    Row {
-        spacing: 2
-        anchors.fill: parent
+    Image {
+        id: btnIcon
+        height: imgSize
+        width: height
+        x: 5
+        y: 2
+        source: imgSource
+        sourceSize: Qt.size(width, height)
+    }
 
-        BorderImage {
-            id: btnIcon
-            height: parent.height - 4
-            width: height
-            x: 5
-            y: 2
-            source: imgSource
-        }
-
-        Rectangle {
-            y: 0
-            width: textBox.width
-            height: parent.height
-            color: "transparent"
-
-            RobotoText {
-                id: textBox
-                y: 0
-                label: entryText
-                height: parent.height
-                fontSize: 12
-                fontBold: true
-            }
-        }
+    RobotoText {
+        id: textBox
+        x: btnIcon.width + 7
+        y: 0
+        label: entryText
+        height: baseIconEntry.height
+        fontSize: 12
+        fontBold: true
     }
 
     MouseArea {

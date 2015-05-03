@@ -40,6 +40,7 @@
         <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
         <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
         <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
+        <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
         <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>
