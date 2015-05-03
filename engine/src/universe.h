@@ -167,6 +167,11 @@ protected:
      */
     uchar applyGM(int channel, uchar value);
 
+    uchar applyRelative(int channel, uchar value);
+    uchar applyModifiers(int channel, uchar value);
+    uchar applyPassthrough(int channel, uchar value);
+    void updatePostGMValue(int channel);
+
 signals:
     void nameChanged();
 
@@ -347,6 +352,9 @@ public:
     void zeroRelativeValues();
 
 protected:
+    void applyPassthroughValues(int address, int range);
+
+protected:
     /**
      * Number of channels used in this universe to optimize the dump to plugins.
      * This is a dynamic counter that can only increase depending on the
@@ -385,6 +393,9 @@ protected:
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
     QScopedPointer<QByteArray> m_lastPostGMValues;
+
+    /** Array of values from input line, when passtrhough is enabled */
+    QScopedPointer<QByteArray> m_passthroughValues;
 
     QVector<short> m_relativeValues;
 
