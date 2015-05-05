@@ -882,7 +882,7 @@ void SimpleDesk::slotPlaybackStarted()
     CueStack* cueStack = m_engine->cueStack(pb);
     Q_ASSERT(cueStack != NULL);
 
-    if (cueStack->isRunning() == false)
+    if (!cueStack->isRunning())
         cueStack->nextCue();
 }
 
@@ -893,7 +893,7 @@ void SimpleDesk::slotPlaybackStopped()
     CueStack* cueStack = m_engine->cueStack(pb);
     Q_ASSERT(cueStack != NULL);
 
-    if (cueStack->isRunning() == true)
+    if (cueStack->isRunning())
         cueStack->stop();
 }
 

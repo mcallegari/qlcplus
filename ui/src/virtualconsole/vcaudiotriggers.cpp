@@ -103,10 +103,10 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
     // create the  AudioBar items to hold the spectrum data.
     // To be loaded from the project
-    m_volumeBar = new AudioBar(AudioBar::None, 0);
+    m_volumeBar = new AudioBar(AudioBar::None, 0, id());
     for (int i = 0; i < m_inputCapture->defaultBarsNumber(); i++)
     {
-        AudioBar *asb = new AudioBar(AudioBar::None, 0);
+        AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
         m_spectrumBars.append(asb);
     }
 
@@ -197,7 +197,7 @@ void VCAudioTriggers::enableCapture(bool enable)
         emit functionStarting(Function::invalidId());
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
-        if (m_inputCapture->isRunning() == false)
+        if (!m_inputCapture->isRunning())
             m_inputCapture->start();
         m_button->blockSignals(true);
         m_button->setChecked(true);
@@ -337,7 +337,7 @@ void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, u
 
     if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
     {
-        if (m_inputCapture->isRunning() == false && value > 0)
+        if (!m_inputCapture->isRunning() && value > 0)
             slotEnableButtonToggled(true);
         else
             slotEnableButtonToggled(false);
@@ -460,7 +460,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
         int barsToAdd = num - m_spectrumBars.count();
         for (int i = 0 ; i < barsToAdd; i++)
         {
-            AudioBar *asb = new AudioBar(AudioBar::None, 0);
+            AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
             m_spectrumBars.append(asb);
         }
     }
