@@ -33,6 +33,8 @@ Rectangle {
     property color pressedColor: "#054A9E"
 
     signal clicked
+    signal entered
+    signal exited
 
     color: "transparent"
     border.color: "#1D1D1D"
@@ -51,7 +53,7 @@ Rectangle {
 
     Image {
         id: btnIcon
-        height: imgSize
+        height: imgSource ? imgSize : 0
         width: height
         x: 5
         y: 2
@@ -73,8 +75,8 @@ Rectangle {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: { baseIconEntry.color = hoverColor }
-        onExited: { baseIconEntry.color = bgColor }
+        onEntered: { baseIconEntry.color = hoverColor; baseIconEntry.entered() }
+        onExited: { baseIconEntry.color = bgColor; baseIconEntry.exited() }
         onPressed: { baseIconEntry.color = pressedColor }
         onReleased: {
                 baseIconEntry.clicked();

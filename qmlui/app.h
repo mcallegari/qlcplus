@@ -41,6 +41,7 @@ class App : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(App)
     Q_PROPERTY(bool docLoaded READ docLoaded NOTIFY docLoadedChanged)
+    Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
 
 public:
     App();
@@ -111,6 +112,9 @@ public:
 
     Q_INVOKABLE bool loadWorkspace(const QString& fileName);
 
+    /** Return the list of the recently opened files */
+    QStringList recentFiles() const;
+
     /**
      * Load workspace contents from a XML file with the given name.
      *
@@ -127,7 +131,18 @@ public:
     bool loadXML(const QDomDocument& doc, bool goToConsole = false, bool fromMemory = false);
 
 private:
-    QString m_fileName;
-};
+    /**
+     * Update the list of the recently open files.
+     * If filename is specified, it will be removed from the list
+     * if present and added to the beginning of the list
+     */
+    void updateRecentFilesList(QString filename = QString());
 
+signals:
+    void recentFilesChanged();
+
+private:
+    QString m_fileName;
+    QStringList m_recentFiles;
+};
 #endif // APP_H

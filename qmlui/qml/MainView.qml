@@ -20,7 +20,6 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
-import QtQuick.Dialogs 1.2
 
 import "DetachWindow.js" as WinLoader
 
@@ -33,19 +32,6 @@ Rectangle {
 
     FontLoader {
         source: "qrc:RobotoCondensed-Regular.ttf"
-    }
-
-    FileDialog {
-        id: fileDialog
-        visible: false
-
-        onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-            qlcplus.loadWorkspace(fileDialog.fileUrl)
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
     }
 
     Rectangle {
@@ -153,6 +139,15 @@ Rectangle {
         }
     }
 
+    /** Menu to open/load/save a project */
+    ActionsMenu {
+        id: actionsMenu
+    }
+
+    /** Mouse area enabled when actionsMenu is visible
+     *  It fills the whole application window to grab
+     *  a click outside the menu and close it
+     */
     MouseArea {
         id: contextMenuArea
         z: 0
@@ -165,62 +160,6 @@ Rectangle {
                 contextMenuArea.enabled = false
                 contextMenuArea.z = 0;
                 actionsMenu.visible = false
-            }
-        }
-    }
-
-    Rectangle {
-        id: actionsMenu
-        visible: false
-        x: 1
-        y: 40
-        z: 99
-        radius: 2
-        border.width: 1
-        border.color: "#1D1D1D"
-        color: "#202020"
-        width: actionsMenuEntries.width
-        height: actionsMenuEntries.height
-
-        Column {
-            id: actionsMenuEntries
-            ContextMenuEntry {
-                id: fileNew
-                imgSource: "qrc:///filenew.svg"
-                entryText: qsTr("New project")
-                onClicked: {
-
-                }
-            }
-            ContextMenuEntry {
-                id: fileOpen
-                imgSource: "qrc:///fileopen.svg"
-                entryText: qsTr("Open project")
-                onClicked: {
-                    fileDialog.title = qsTr("Open a workspace")
-                    fileDialog.nameFilters = [ "Workspace files (*.qxw)", "All files (*)" ]
-                    fileDialog.visible = true
-                    contextMenuArea.enabled = false
-                    contextMenuArea.z = 0
-                    actionsMenu.visible = false
-                    fileDialog.open();
-                }
-            }
-            ContextMenuEntry {
-                id: fileSave
-                imgSource: "qrc:///filesave.svg"
-                entryText: qsTr("Save project")
-                onClicked: {
-
-                }
-            }
-            ContextMenuEntry {
-                id: fileSaveAs
-                imgSource: "qrc:///filesaveas.svg"
-                entryText: qsTr("Save project as...")
-                onClicked: {
-
-                }
             }
         }
     }

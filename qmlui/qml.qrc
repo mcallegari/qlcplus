@@ -6,6 +6,7 @@
         <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
 
         <file alias="MainView.qml">qml/MainView.qml</file>
+        <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
         <file alias="RobotoText.qml">qml/RobotoText.qml</file>
         <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
@@ -41,6 +42,7 @@
         <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
         <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
         <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
+        <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
         <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>

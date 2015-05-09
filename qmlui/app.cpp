@@ -20,6 +20,7 @@
 #include <QQuickItem>
 #include <QQmlContext>
 #include <QDomDocument>
+#include <QSettings>
 
 #include "app.h"
 #include "mainview2d.h"
@@ -35,6 +36,11 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define SETTINGS_WORKINGPATH "workspace/workingpath"
+#define SETTINGS_RECENTFILE "workspace/recent"
+
+#define MAX_RECENT_FILES    10
+
 App::App()
     : QObject()
     , m_view(NULL)
@@ -45,7 +51,7 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
 {
-
+    updateRecentFilesList();
 }
 
 App::~App()
@@ -56,7 +62,7 @@ App::~App()
 void App::startup()
 {
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
-    qmlRegisterType<Function>("com.qlcplus.enums", 1, 0, "FunctionType");
+    qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
 
     m_view = new QQuickView();
 
@@ -214,17 +220,49 @@ bool App::loadWorkspace(const QString &fileName)
     m_docLoaded = false;
     emit docLoadedChanged();
 
-    QString localFilename =  QUrl(fileName).toLocalFile();
+    QString localFilename =  fileName;
+    if (localFilename.startsWith("file:"))
+        localFilename = QUrl(fileName).toLocalFile();
 
     if (loadXML(localFilename) == QFile::NoError)
     {
         m_view->setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
         setFileName(localFilename);
         m_docLoaded = true;
+        updateRecentFilesList(localFilename);
         emit docLoadedChanged();
         return true;
     }
     return false;
+}
+
+void App::updateRecentFilesList(QString filename)
+{
+    QSettings settings;
+    if (filename.isEmpty() == false)
+    {
+        m_recentFiles.removeAll(filename); // in case the string is already present, remove it...
+        m_recentFiles.prepend(filename); // and add it to the top
+        for (int i = 0; i < m_recentFiles.count(); i++)
+        {
+            settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), m_recentFiles.at(i));
+            emit recentFilesChanged();
+        }
+    }
+    else
+    {
+        for (int i = 0; i < MAX_RECENT_FILES; i++)
+        {
+            QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
+            if (recent.isValid() == true)
+                m_recentFiles.append(recent.toString());
+        }
+    }
+}
+
+QStringList App::recentFiles() const
+{
+    return m_recentFiles;
 }
 
 QFileDevice::FileError App::loadXML(const QString &fileName)
