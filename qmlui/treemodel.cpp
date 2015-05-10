@@ -1,5 +1,24 @@
+/*
+  Q Light Controller Plus
+  treemodel.cpp
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 
 #include <QDebug>
+#include <QQmlEngine>
 
 #include "treemodel.h"
 #include "treemodelitem.h"
@@ -13,6 +32,7 @@ TreeModel::TreeModel(QObject *parent)
 
 TreeModel::~TreeModel()
 {
+    //qDebug() << "!!! WARNING TreeModel destroyed WARNING !!!";
     clear();
 }
 
@@ -51,6 +71,7 @@ void TreeModel::addItem(QString label, QStringList data, QString path)
     if (path.isEmpty())
     {
         TreeModelItem *item = new TreeModelItem(label);
+        QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
         int addIndex = getItemIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
@@ -68,6 +89,7 @@ void TreeModel::addItem(QString label, QStringList data, QString path)
         else
         {
             item = new TreeModelItem(pathList.at(0));
+            QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             item->setChildrenColumns(m_roles);
             int addIndex = getFolderIndex(label);
             beginInsertRows(QModelIndex(), addIndex, addIndex);

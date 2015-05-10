@@ -20,8 +20,6 @@
 import QtQuick 2.0
 import com.qlcplus.classes 1.0
 
-import "FunctionDrag.js" as FuncDragJS
-
 Rectangle {
     id: funcDelegate
     width: 100
@@ -30,19 +28,15 @@ Rectangle {
     color: "transparent"
 
     property int functionID: -1
-    property int functionType
     property Function func
     property string textLabel
     property bool isSelected: false
 
-    signal toggled
     signal clicked
-    signal doubleClicked(int fID, int fType)
 
     onFunctionIDChanged: {
         func = functionManager.getFunction(functionID)
         textLabel = func.name
-        functionType = func.type
         funcEntry.functionType = func.type
     }
 
@@ -67,35 +61,12 @@ Rectangle {
     }
 
     MouseArea {
-        id: funcMouseArea
         anchors.fill: parent
-
-        drag.target: FunctionDragItem {
-            funcID: functionID
-            funcLabel: textLabel
-            funcIcon: funcEntry.iSrc
-        }
-        drag.threshold: 30
-
-        onPressed: {
-            FuncDragJS.initProperties(functionID, textLabel, funcEntry.iSrc);
-        }
-
-        onPositionChanged:
-            if(drag.active == true)
-                FuncDragJS.handleDrag(mouse);
-        onReleased:
-            if(drag.active == true)
-                FuncDragJS.endDrag(mouse);
-
         onClicked: {
             isSelected = true
             functionManager.selectFunction(functionID, funcDelegate,
                                            (mouse.modifiers & Qt.ControlModifier))
             funcDelegate.clicked()
-        }
-        onDoubleClicked: {
-            funcDelegate.doubleClicked(functionID, functionType)
         }
     }
 }

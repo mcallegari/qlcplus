@@ -29,6 +29,7 @@
 #include "treemodel.h"
 
 class Doc;
+class Function;
 
 typedef struct
 {
@@ -59,6 +60,9 @@ public:
 
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
     Q_INVOKABLE void selectFunction(quint32 id, QQuickItem *item, bool multiSelection);
+    Q_INVOKABLE quint32 createFunction(int type);
+    Q_INVOKABLE Function *getFunction(quint32 id);
+    Q_INVOKABLE void clearTree();
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }

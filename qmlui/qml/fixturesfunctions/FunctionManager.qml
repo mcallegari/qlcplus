@@ -21,12 +21,16 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.enums 1.0
+import com.qlcplus.classes 1.0
 
 Rectangle {
     id: fmContainer
     anchors.fill: parent
     color: "transparent"
+
+    property int functionID: -1
+
+    Component.onDestruction: functionManager.clearTree()
 
     ColumnLayout {
 
@@ -62,9 +66,9 @@ Rectangle {
                 counter: functionManager.sceneCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Scene, true);
+                        functionManager.setFunctionFilter(Function.Scene, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Scene, false);
+                        functionManager.setFunctionFilter(Function.Scene, false);
                 }
             }
             IconButton {
@@ -78,9 +82,9 @@ Rectangle {
                 counter: functionManager.chaserCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Chaser, true);
+                        functionManager.setFunctionFilter(Function.Chaser, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Chaser, false);
+                        functionManager.setFunctionFilter(Function.Chaser, false);
                 }
             }
             IconButton {
@@ -94,9 +98,9 @@ Rectangle {
                 counter: functionManager.efxCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.EFX, true);
+                        functionManager.setFunctionFilter(Function.EFX, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.EFX, false);
+                        functionManager.setFunctionFilter(Function.EFX, false);
                 }
             }
             IconButton {
@@ -110,9 +114,9 @@ Rectangle {
                 counter: functionManager.collectionCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Collection, true);
+                        functionManager.setFunctionFilter(Function.Collection, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Collection, false);
+                        functionManager.setFunctionFilter(Function.Collection, false);
                 }
             }
             IconButton {
@@ -126,9 +130,9 @@ Rectangle {
                 counter: functionManager.rgbMatrixCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.RGBMatrix, true);
+                        functionManager.setFunctionFilter(Function.RGBMatrix, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.RGBMatrix, false);
+                        functionManager.setFunctionFilter(Function.RGBMatrix, false);
                 }
             }
             IconButton {
@@ -142,9 +146,9 @@ Rectangle {
                 counter: functionManager.showCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Show, true);
+                        functionManager.setFunctionFilter(Function.Show, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Show, false);
+                        functionManager.setFunctionFilter(Function.Show, false);
                 }
             }
             IconButton {
@@ -158,9 +162,9 @@ Rectangle {
                 counter: functionManager.scriptCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Script, true);
+                        functionManager.setFunctionFilter(Function.Script, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Script, false);
+                        functionManager.setFunctionFilter(Function.Script, false);
                 }
             }
             IconButton {
@@ -174,9 +178,9 @@ Rectangle {
                 counter: functionManager.audioCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Audio, true);
+                        functionManager.setFunctionFilter(Function.Audio, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Audio, false);
+                        functionManager.setFunctionFilter(Function.Audio, false);
                 }
             }
             IconButton {
@@ -190,9 +194,9 @@ Rectangle {
                 counter: functionManager.videoCount
                 onCheckedChanged: {
                     if (checked == true)
-                        functionManager.setFunctionFilter(FunctionType.Video, true);
+                        functionManager.setFunctionFilter(Function.Video, true);
                     else
-                        functionManager.setFunctionFilter(FunctionType.Video, false);
+                        functionManager.setFunctionFilter(Function.Video, false);
                 }
             }
             Rectangle {
@@ -206,6 +210,7 @@ Rectangle {
           width: fmContainer.width
           height: fmContainer.height - topBar.height
           z: 4
+          boundsBehavior: Flickable.StopAtBounds
           model: functionManager.functionsList
           delegate:
               Component {
@@ -222,8 +227,15 @@ Rectangle {
                           else
                           {
                               item.functionID = funcID
-                              item.functionType = funcType
+                              //item.functionType = funcType
                           }
+                      }
+                      Connections {
+                            target: item
+                            onDoubleClicked: {
+                                editorLoader.functionID = fID
+                                editorLoader.source = "qrc:/CollectionEditor.qml"
+                            }
                       }
                   }
               }

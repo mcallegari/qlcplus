@@ -41,8 +41,10 @@
         <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
         <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
         <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
+        <file alias="FunctionDragItem.qml">qml/fixturesfunctions/FunctionDragItem.qml</file>
         <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
         <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
+        <file alias="CollectionFunctionDelegate.qml">qml/fixturesfunctions/CollectionFunctionDelegate.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
         <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>
@@ -54,6 +56,7 @@
 
         <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
         <file alias="FixtureUtils.js">js/FixtureUtils.js</file>
+        <file alias="FunctionDrag.js">js/FunctionDrag.js</file>
         <file alias="DetachWindow.js">js/DetachWindow.js</file>
     </qresource>
 </RCC>

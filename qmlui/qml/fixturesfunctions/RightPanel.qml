@@ -56,6 +56,12 @@ Rectangle {
         Loader {
             id: editorLoader
             anchors.fill: parent
+
+            property int functionID
+
+            onLoaded: {
+                item.functionID = functionID
+            }
         }
     }
 
@@ -79,7 +85,7 @@ Rectangle {
                 tooltip: qsTr("Function Manager")
                 checkable: true
                 onToggled: {
-                    editorSource = "qrc:///FunctionManager.qml"
+                    editorSource = "qrc:/FunctionManager.qml"
                     animatePanel();
                 }
             }

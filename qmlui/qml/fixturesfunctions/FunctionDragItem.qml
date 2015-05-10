@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDragItem.qml
+  FunctionDragItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -20,27 +20,26 @@
 import QtQuick 2.0
 
 Rectangle {
-    property int channels: 1
-    property string manufacturer
-    property string model
-    property string mode
+    property int funcID: -1
+    property string funcLabel
+    property string funcIcon
 
-    width: 80
-    height: 80
+    width: 200
+    height: 40
     z: 10
     border.width: 1
     border.color: "black"
-    opacity: 0.7
-    color: "white"
+    opacity: 0.8
+    color: "#333"
 
-    RobotoText {
-        anchors.fill: parent
-        anchors.margins: 1
-        label: manufacturer + " - " + model
-        labelColor: "black"
-        fontSize: 10
-        wrapText: true
+    IconTextEntry {
+        id: funcEntry
+        width: parent.width
+        height: parent.height
+        tLabel: funcLabel
+        iSrc: funcIcon
     }
 
-    Drag.active: fxMouseArea.drag.active
+    Drag.active: funcMouseArea.drag.active
 }
+

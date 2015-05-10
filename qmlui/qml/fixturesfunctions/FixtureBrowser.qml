@@ -143,6 +143,7 @@ Rectangle {
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:///arrow-right.svg"
+                sourceSize: Qt.size(width, height)
                 height: 26
                 width: 18
             }

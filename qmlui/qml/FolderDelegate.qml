@@ -34,6 +34,7 @@ Rectangle {
     property int variableHeight: 0
 
     signal toggled(bool expanded, int newHeight)
+    signal doubleClicked(int fID, int fType)
 
     Rectangle {
         width: parent.width
@@ -100,12 +101,15 @@ Rectangle {
                         else
                         {
                             item.functionID = funcID
-                            item.functionType = funcType
                         }
                     }
                     Connections {
                          target: item
                          onToggled: childToggled(item.isExpanded, item.childrenHeight)
+                    }
+                    Connections {
+                        target: item
+                        onDoubleClicked: nodeContainer.doubleClicked(fID, fType)
                     }
                 }
         }

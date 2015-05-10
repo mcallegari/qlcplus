@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  AddFunction.qml
+  AddFunctionMenu.qml
 
   Copyright (c) Massimo Callegari
 
@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+
+import com.qlcplus.classes 1.0
 
 Rectangle {
     id: menuRoot
@@ -46,6 +48,16 @@ Rectangle {
             entryText: qsTr("New EFX")
             onClicked: {
 
+            }
+        }
+        ContextMenuEntry {
+            imgSource: "qrc:/collection.svg"
+            entryText: qsTr("New Collection")
+            onClicked: {
+                var newFuncID = functionManager.createFunction(Function.Collection)
+                editorLoader.functionID = newFuncID
+                editorLoader.source = "qrc:/CollectionEditor.qml"
+                menuRoot.visible = false
             }
         }
         ContextMenuEntry {

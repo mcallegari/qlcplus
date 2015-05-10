@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDrag.js
+  FunctionDrag.js
 
   Copyright (c) Massimo Callegari
 
@@ -15,28 +15,20 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-*/
+*/ 
 
 var itemComponent = null;
 var draggedItem = null;
 var startingMouse;
 var posnInWindow;
-var manufacturer, model, mode, name;
-var universeIndex, address, channels, quantity, gap;
 
-function initProperties()
+var fID, fLabel, fIcon
+
+function initProperties(id, label, icon)
 {
-    manufacturer = fxPropsRect.fxManufacturer
-    model = fxPropsRect.fxModel
-    mode = fxPropsRect.fxMode
-    name = fxPropsRect.fxName
-    universeIndex = fxPropsRect.fxUniverseIndex
-    address = fxPropsRect.fxAddress - 1
-    channels = fxPropsRect.fxChannels
-    quantity = fxPropsRect.fxQuantity
-    gap = fxPropsRect.fxGap
-    console.log("mf: " + manufacturer + ", mdl: " + model + ", mode: " + mode);
-    console.log("addr: " + address + ", ch: " + channels);
+    fID = id
+    fLabel = label
+    fIcon = icon
 }
 
 //Creation is split into two functions due to an asynchronous wait while
@@ -50,7 +42,7 @@ function loadComponent()
         return;
     }
 
-    itemComponent = Qt.createComponent("FixtureDragItem.qml");
+    itemComponent = Qt.createComponent("FunctionDragItem.qml");
     createItem();
 }
 
@@ -60,7 +52,7 @@ function createItem()
     {
         draggedItem = itemComponent.createObject(mainView,
                   {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
-                   "manufacturer": manufacturer, "model": model });
+                   "funcID": fID, "funcLabel": fLabel, "funcIcon": fIcon });
     }
     else if (itemComponent.status === Component.Error)
     {
@@ -74,7 +66,7 @@ function handleDrag(mouse)
 {
     if (draggedItem == null)
     {
-        posnInWindow = fxDraggableItem.mapToItem(mainView, 0, 0);
+        posnInWindow = funcDelegate.mapToItem(mainView, 0, 0);
         loadComponent();
     }
 
@@ -87,10 +79,7 @@ function endDrag(mouse)
     if (draggedItem == null)
         return;
 
-    fixtureManager.addFixture(manufacturer, model, mode, name,
-                              universeIndex, address, channels, quantity, gap,
-                              draggedItem.x - leftSidePanel.width,
-                              draggedItem.y - previewLoader.y - viewToolbar.height);
+    draggedItem.Drag.drop();
     draggedItem.destroy();
     draggedItem = null;
 }

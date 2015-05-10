@@ -78,6 +78,9 @@ class Function : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Function)
 
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(Type type READ type CONSTANT)
+
 public:
     /**
      * All known function types.
@@ -112,7 +115,7 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    /** Create a new fixture instance with the given QObject parent. */
+    /** Create a new function instance with the given QObject parent. */
     Function(QObject* parent = 0);
 
     /**
@@ -134,9 +137,6 @@ public:
 signals:
     /** Signal telling that the contents of this function have changed */
     void changed(quint32 fid);
-
-    /** Signal telling that the name of this function have changed */
-    void nameChanged(quint32 fid);
 
     /*********************************************************************
      * Copying
@@ -181,7 +181,7 @@ public:
     /**
      * Get the value for an invalid function ID (for comparison etc.)
      */
-    static quint32 invalidId();
+    Q_INVOKABLE static quint32 invalidId();
 
 private:
     quint32 m_id;
@@ -201,6 +201,10 @@ public:
      * Return the name of this function
      */
     QString name() const;
+
+signals:
+    /** Signal telling that the name of this function have changed */
+    void nameChanged(quint32 fid);
 
 private:
     QString m_name;
