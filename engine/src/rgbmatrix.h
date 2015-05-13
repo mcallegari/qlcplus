@@ -186,6 +186,7 @@ private:
     void insertStartValues(FadeChannel& fc, uint fadeTime) const;
 
 private:
+    /** Current running direction */
     Function::Direction m_direction;
     GenericFader* m_fader;
     int m_step;

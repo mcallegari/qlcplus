@@ -510,6 +510,9 @@ void RGBMatrix::preRun(MasterTimer* timer)
             m_fader = new GenericFader(doc());
             m_fader->adjustIntensity(getAttributeValue(Intensity));
 
+            // Copy direction from parent class direction
+            m_direction = direction();
+
             if (m_direction == Forward)
             {
                 m_step = 0;
