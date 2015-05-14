@@ -593,7 +593,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.unlock();
     }
 
-    qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
+    //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
     m_fader->write(ua);
 
