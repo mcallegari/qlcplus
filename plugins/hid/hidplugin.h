@@ -128,6 +128,7 @@ public:
 protected:
     HIDDevice* device(const QString& path);
     HIDDevice* device(quint32 index);
+    HIDDevice* deviceOutput(quint32 index);
 
     void addDevice(HIDDevice* device);
     void removeDevice(HIDDevice* device);

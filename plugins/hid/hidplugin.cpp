@@ -143,7 +143,7 @@ QString HIDPlugin::inputInfo(quint32 input)
  *********************************************************************/
 bool HIDPlugin::openOutput(quint32 output)
 {
-    HIDDevice* dev = device(output);
+    HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
         return dev->openOutput();
     else
@@ -153,7 +153,7 @@ bool HIDPlugin::openOutput(quint32 output)
 
 void HIDPlugin::closeOutput(quint32 output)
 {
-    HIDDevice* dev = device(output);
+    HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
         dev->closeOutput();
     else
@@ -183,7 +183,7 @@ QString HIDPlugin::outputInfo(quint32 output)
     {
         /* A specific output line selected. Display its information if
            available. */
-        HIDDevice* dev = device(output);
+        HIDDevice* dev = deviceOutput(output);
         if (dev != NULL)
             str += dev->infoText();
     }
@@ -200,7 +200,7 @@ void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
     if (output != QLCIOPlugin::invalidLine())
     {
-        HIDDevice* dev = device(output);
+        HIDDevice* dev = deviceOutput(output);
         if (dev != NULL)
             dev->outputDMX(data);
     }
@@ -251,7 +251,9 @@ void HIDPlugin::rescanDevices()
         else if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID
                 && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
                 (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2) ||
+                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_3
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_3))
         {
             /* Device is a FX5 / Digital Enlightenment USB DMX Interface, add it */
             dev = new HIDFX5Device(this, line++,
@@ -311,6 +313,24 @@ HIDDevice* HIDPlugin::device(quint32 index)
         return m_devices.at(index);
     else
         return NULL;
+}
+
+HIDDevice* HIDPlugin::deviceOutput(quint32 index)
+{
+	QListIterator <HIDDevice*> it(m_devices);
+	quint32 pos = 0;
+	while (it.hasNext() == true)
+	{
+		HIDDevice* dev = it.next();
+		if (dev->hasOutput()) {
+			if (pos == index) {
+				return dev;
+			} else {
+				pos++;
+			}
+		}
+	}
+	return NULL;
 }
 
 void HIDPlugin::addDevice(HIDDevice* device)
