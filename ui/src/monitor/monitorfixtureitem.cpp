@@ -67,18 +67,18 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         QLCFixtureHead head = fxi->head(i);
         foreach (quint32 rgbComp, head.rgbChannels())
         {
-            fxiItem->m_rgb.append(rgbComp + fxi->address());
-            //qDebug() << "Add RGB comp at address:" << rgbComp + fxi->address();
+            fxiItem->m_rgb.append(rgbComp);
+            //qDebug() << "Add RGB comp at address:" << rgbComp;
         }
         foreach (quint32 cmyComp, head.cmyChannels())
         {
-            fxiItem->m_cmy.append(cmyComp + fxi->address());
-            //qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
+            fxiItem->m_cmy.append(cmyComp);
+            //qDebug() << "Add CMY comp at address:" << cmyComp;
         }
 
         if (head.masterIntensityChannel() != QLCChannel::invalid())
         {
-            fxiItem->m_masterDimmer = fxi->address() + head.masterIntensityChannel();
+            fxiItem->m_masterDimmer = head.masterIntensityChannel();
             qDebug() << "Set master dimmer to:" << fxiItem->m_masterDimmer;
             fxiItem->m_back = new QGraphicsEllipseItem(this);
             fxiItem->m_back->setPen(QPen(Qt::white, 1));
@@ -93,7 +93,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         fxiItem->m_panChannel = QLCChannel::invalid();
         if (head.panMsbChannel() != QLCChannel::invalid())
         {
-            fxiItem->m_panChannel = head.panMsbChannel() + fxi->address();
+            fxiItem->m_panChannel = head.panMsbChannel();
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -109,7 +109,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         fxiItem->m_tiltChannel = QLCChannel::invalid();
         if (head.tiltMsbChannel() != QLCChannel::invalid())
         {
-            fxiItem->m_tiltChannel = head.tiltMsbChannel() + fxi->address();
+            fxiItem->m_tiltChannel = head.tiltMsbChannel();
             // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -149,8 +149,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
                if (containsColor)
                {
-                   fxiItem->m_colorValues[wheel + fxi->address()] = values;
-                   fxiItem->m_colorWheels << (wheel + fxi->address());
+                   fxiItem->m_colorValues[wheel] = values;
+                   fxiItem->m_colorWheels << wheel;
                }
             }
 
@@ -196,18 +196,27 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    if (ch->capabilities().size() <= 1)
                        values[0] = FixtureHead::Open;
 
-                   fxiItem->m_shutterValues[shutter + fxi->address()] = values;
-                   fxiItem->m_shutterChannels << (shutter + fxi->address());
+                   fxiItem->m_shutterValues[shutter] = values;
+                   fxiItem->m_shutterChannels << shutter;
                }
             }
         }
 
         m_heads.append(fxiItem);
     }
+    slotUpdateValues();
+    connect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotUpdateValues()));
 }
 
 MonitorFixtureItem::~MonitorFixtureItem()
 {
+    if (m_fid != Fixture::invalidId())
+    {
+        Fixture* fxi = m_doc->fixture(m_fid);
+        if (fxi != NULL)
+            disconnect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotUpdateValues()));
+    }
+
     foreach(FixtureHead *head, m_heads)
     {
         delete head;
@@ -299,11 +308,11 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
-QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua)
+QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & values)
 {
     foreach (quint32 c, head->m_colorWheels)
     {
-        const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
+        const uchar val = static_cast<uchar>(values.at(c));
         QColor col = head->m_colorValues[c].at(val);
         if (col.isValid())
             return col;
@@ -312,24 +321,18 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua
     if (head->m_rgb.count() > 0)
     {
         uchar r = 0, g = 0, b = 0;
-        if (head->m_rgb.at(0) < (quint32)ua.count())
-            r = ua.at(head->m_rgb.at(0));
-        if (head->m_rgb.at(1) < (quint32)ua.count())
-            g = ua.at(head->m_rgb.at(1));
-        if (head->m_rgb.at(2) < (quint32)ua.count())
-            b = ua.at(head->m_rgb.at(2));
+        r = values.at(head->m_rgb.at(0));
+        g = values.at(head->m_rgb.at(1));
+        b = values.at(head->m_rgb.at(2));
         return QColor(r, g, b);
     }
 
     if (head->m_cmy.count() > 0)
     {
         uchar c = 0, m = 0, y = 0;
-        if (head->m_cmy.at(0) < (quint32)ua.count())
-            c = ua.at(head->m_cmy.at(0));
-        if (head->m_cmy.at(1) < (quint32)ua.count())
-            m = ua.at(head->m_cmy.at(1));
-        if (head->m_cmy.at(2) < (quint32)ua.count())
-            y = ua.at(head->m_cmy.at(2));
+        c = values.at(head->m_cmy.at(0));
+        m = values.at(head->m_cmy.at(1));
+        y = values.at(head->m_cmy.at(2));
         return QColor::fromCmyk(c, m, y, 0);
     }
     
@@ -340,27 +343,18 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & ua
 
     return QColor(255,255,255);
 }
-uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
+uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & values)
 {
     uchar alpha = 255;
     if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
-    {
-        if (head->m_masterDimmer < (quint32)ua.size())
-        {
-            alpha = ua.at(head->m_masterDimmer);
-        }
-        else
-        {
-            alpha = 0; // incomplete universe is sent
-        }
-    }
+        alpha = values.at(head->m_masterDimmer);
 
     if (alpha == 0)
         return alpha; // once the shutter is closed, no light will come through, regardless if other wheels are open 
 
     foreach (quint32 c, head->m_shutterChannels)
     {
-        const uchar val = (int(c) < ua.size()) ? static_cast<uchar>(ua.at(c)) : 0;
+        const uchar val = static_cast<uchar>(values.at(c));
         FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
         if (state == FixtureHead::Closed) 
         {
@@ -389,42 +383,37 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & ua)
     return alpha;
 }
 
-void MonitorFixtureItem::updateValues(const QByteArray & ua)
+void MonitorFixtureItem::slotUpdateValues()
 {
+    /* Check that this MonitorFixture represents a fixture */
+    if (m_fid == Fixture::invalidId())
+        return;
+
+    /* Check that this MonitorFixture's fixture really exists */
+    Fixture* fxi = m_doc->fixture(m_fid);
+    if (fxi == NULL)
+        return;
+
+    QByteArray fxValues = fxi->channelValues();
+
     bool needUpdate = false;
 
     foreach(FixtureHead *head, m_heads)
     {
 
-        QColor col = computeColor(head, ua);
-        col.setAlpha(computeAlpha(head, ua));
+        QColor col = computeColor(head, fxValues);
+        col.setAlpha(computeAlpha(head, fxValues));
         head->m_item->setBrush(QBrush(col));
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            if (head->m_panChannel < (quint32)ua.size())
-            {
-                computePanPosition(head, ua.at(head->m_panChannel));
-            }
-            else
-            {
-                computePanPosition(head, 0);
-            }
-
+            computePanPosition(head, fxValues.at(head->m_panChannel));
             needUpdate = true;
         }
 
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            if (head->m_tiltChannel < (quint32)ua.size())
-            {
-                computeTiltPosition(head, ua.at(head->m_tiltChannel));
-            }
-            else
-            {
-                computeTiltPosition(head, 0);
-            }
-       
+            computeTiltPosition(head, fxValues.at(head->m_tiltChannel));
             needUpdate = true;
         }
     }

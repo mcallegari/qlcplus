@@ -489,8 +489,10 @@ bool Fixture::setChannelValues(QByteArray values)
     {
         if (m_values.at(i) != values.at(i))
         {
+            m_valuesMutex.lock();
             m_values[i] = values.at(i);
             changed = true;
+            m_valuesMutex.unlock();
         }
     }
     if (changed == true)
@@ -501,11 +503,13 @@ bool Fixture::setChannelValues(QByteArray values)
 
 QByteArray Fixture::channelValues()
 {
+    QMutexLocker locker(&m_valuesMutex);
     return m_values;
 }
 
 uchar Fixture::channelValueAt(int idx)
 {
+    QMutexLocker locker(&m_valuesMutex);
     if (idx >= 0 && idx < m_values.length())
         return (uchar)m_values.at(idx);
     return 0;

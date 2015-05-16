@@ -21,6 +21,7 @@
 #define FIXTURE_H
 
 #include <QObject>
+#include <QMutex>
 #include <QList>
 #include <QIcon>
 #include <QHash>
@@ -363,6 +364,7 @@ signals:
 
 protected:
     QByteArray m_values;
+    QMutex m_valuesMutex;
 
     /*********************************************************************
      * Fixture definition

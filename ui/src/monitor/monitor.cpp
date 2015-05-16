@@ -90,9 +90,6 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
             this, SLOT(slotFixtureRemoved(quint32)));
     connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
             this, SLOT(slotFunctionStarted(quint32)));
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 void Monitor::slotFunctionStarted(quint32 id)
@@ -107,9 +104,6 @@ void Monitor::slotFunctionStarted(quint32 id)
 
 Monitor::~Monitor()
 {
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-
     if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
@@ -500,9 +494,6 @@ void Monitor::slotSwitchMode()
     QAction* action = qobject_cast<QAction*> (QObject::sender());
     Q_ASSERT(action != NULL);
 
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-
     if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
@@ -534,9 +525,6 @@ void Monitor::slotSwitchMode()
     m_props->setDisplayMode(MonitorProperties::DisplayMode(action->data().toInt()));
 
     initView();
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 /****************************************************************************
@@ -647,21 +635,6 @@ void Monitor::slotUniverseSelected(int index)
         m_scrollArea = NULL;
 
         initDMXView();
-    }
-}
-
-void Monitor::slotUniversesWritten(int index, const QByteArray& ua)
-{
-    if (m_props->displayMode() == MonitorProperties::DMX)
-    {
-        QListIterator <MonitorFixture*> it(m_monitorFixtures);
-        while (it.hasNext() == true)
-            it.next()->updateValues(index, ua);
-    }
-    else if (m_props->displayMode() == MonitorProperties::Graphics)
-    {
-        if (m_graphicsView != NULL)
-            m_graphicsView->writeUniverse(index, ua);
     }
 }
 
