@@ -317,20 +317,20 @@ HIDDevice* HIDPlugin::device(quint32 index)
 
 HIDDevice* HIDPlugin::deviceOutput(quint32 index)
 {
-	QListIterator <HIDDevice*> it(m_devices);
-	quint32 pos = 0;
-	while (it.hasNext() == true)
-	{
-		HIDDevice* dev = it.next();
-		if (dev->hasOutput()) {
-			if (pos == index) {
-				return dev;
-			} else {
-				pos++;
-			}
-		}
-	}
-	return NULL;
+    QListIterator <HIDDevice*> it(m_devices);
+    quint32 pos = 0;
+    while (it.hasNext() == true)
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasOutput())
+        {
+            if (pos == index)
+                return dev;
+            else
+                pos++;
+        }
+    }
+    return NULL;
 }
 
 void HIDPlugin::addDevice(HIDDevice* device)
