@@ -155,7 +155,7 @@ void HIDFX5Device::run()
             if(size == 33)
             {
                 unsigned short startOff = buffer[0] * 32;
-                if (buffer[0] <= 16)
+                if (buffer[0] < 16)
                 {
                     for (int i = 0; i < 32; i++)
                     {
