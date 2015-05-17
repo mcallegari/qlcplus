@@ -1,9 +1,10 @@
 /*
   Q Light Controller Plus
-  hidfx5device.h
+  hiddmxdevice.h
 
   Copyright (c) Massimo Callegari
                 Florian Euchner
+                Stefan Krupop
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,7 +36,7 @@
 #define HID_DMX_INTERFACE_VENDOR_ID_3  0x16D0  // MCS
 #define HID_DMX_INTERFACE_PRODUCT_ID_3 0x0830  // DMXControl Projects e.V. Nodle U1
 
-#define FX5_READ_TIMEOUT 100
+#define HID_DMX_READ_TIMEOUT 100
 
 class HIDPlugin;
 

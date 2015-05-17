@@ -1,9 +1,10 @@
 /*
   Q Light Controller Plus
-  hidfx5device.cpp
+  hiddmxdevice.cpp
 
   Copyright (c) Massimo Callegari
                 Florian Euchner
+                Stefan Krupop
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -142,7 +143,7 @@ void HIDDMXDevice::run()
         unsigned char buffer[35];
         int size;
 
-        size = hid_read_timeout(m_handle, buffer, 33, FX5_READ_TIMEOUT);
+        size = hid_read_timeout(m_handle, buffer, 33, HID_DMX_READ_TIMEOUT);
 
         /**
         * Protocol: 33 bytes in buffer[33]
@@ -170,7 +171,7 @@ void HIDDMXDevice::run()
                 }
             }
 
-            size = hid_read_timeout(m_handle, buffer, 33, FX5_READ_TIMEOUT);
+            size = hid_read_timeout(m_handle, buffer, 33, HID_DMX_READ_TIMEOUT);
         }
     }
 }
@@ -204,13 +205,13 @@ void HIDDMXDevice::outputDMX(const QByteArray &universe, bool forceWrite)
 }
 
 /*****************************************************************************
- * FX5 - specific functions / driver
+ * HID DMX - specific functions / driver
  *****************************************************************************/
 
 void HIDDMXDevice::updateMode()
 {
     /**
-    *  Send chosen mode to the FX5 / DE device
+    *  Send chosen mode to the HID DMX device
     */
     unsigned char driver_mode = 0;
     if (m_mode & DMX_MODE_OUTPUT)
