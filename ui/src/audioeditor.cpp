@@ -201,14 +201,9 @@ void AudioEditor::slotFadeInEdited()
 {
     uint newValue;
     QString text = m_fadeInEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeInEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeInEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeInSpeed(newValue);
     m_doc->setModified();
@@ -218,14 +213,9 @@ void AudioEditor::slotFadeOutEdited()
 {
     uint newValue;
     QString text = m_fadeOutEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeOutEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeOutEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeOutSpeed(newValue);
     m_doc->setModified();

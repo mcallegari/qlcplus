@@ -7474,17 +7474,17 @@ Duración: %3
     <message>
         <location filename="videoeditor.ui" line="262"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de reproducción</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="268"/>
         <source>Single shot</source>
-        <translation type="unfinished">Una sola vez</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="278"/>
         <source>Loop</source>
-        <translation type="unfinished">Loop</translation>
+        <translation>Loop</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="130"/>

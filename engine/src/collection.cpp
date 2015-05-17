@@ -35,6 +35,11 @@
  * Initialization
  *****************************************************************************/
 
+Collection::Collection()
+{
+
+}
+
 Collection::Collection(Doc* doc) : Function(doc, Function::Collection)
 {
     setName(tr("New Collection"));
@@ -99,6 +104,7 @@ bool Collection::addFunction(quint32 fid)
         }
 
         emit changed(this->id());
+        emit functionsChanged();
         return true;
     }
     else
@@ -118,6 +124,7 @@ bool Collection::removeFunction(quint32 fid)
     if (num > 0)
     {
         emit changed(this->id());
+        emit functionsChanged();
         return true;
     }
     else
@@ -126,7 +133,7 @@ bool Collection::removeFunction(quint32 fid)
     }
 }
 
-QList <quint32> Collection::functions() const
+QVariantList Collection::functions() const
 {
     QMutexLocker locker(&m_functionListMutex);
     return m_functions;
@@ -160,8 +167,7 @@ bool Collection::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     saveXMLCommon(&root);
 
     /* Steps */
-    QListIterator <quint32> it(m_functions);
-    while (it.hasNext() == true)
+    foreach(QVariant fid, m_functions)
     {
         /* Step tag */
         tag = doc->createElement(KXMLQLCFunctionStep);
@@ -171,7 +177,7 @@ bool Collection::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         tag.setAttribute(KXMLQLCFunctionNumber, i++);
 
         /* Step Function ID */
-        str.setNum(it.next());
+        str.setNum(fid.toUInt());
         text = doc->createTextNode(str);
         tag.appendChild(text);
     }
@@ -201,7 +207,7 @@ bool Collection::loadXML(const QDomElement& root)
         QDomElement tag = node.toElement();
 
         if (tag.tagName() == KXMLQLCFunctionStep)
-            addFunction(tag.text().toInt());
+            addFunction(tag.text().toUInt());
         else
             qWarning() << Q_FUNC_INFO << "Unknown collection tag:" << tag.tagName();
 
@@ -218,11 +224,12 @@ void Collection::postLoad()
 
     /* Check that all member functions exist (nonexistent functions can
        be present only when a corrupted file has been loaded) */
-    QMutableListIterator<quint32> it(m_functions);
+    QMutableListIterator<QVariant> it(m_functions);
     while (it.hasNext() == true)
     {
         /* Remove any nonexistent member functions */
-        if (doc->function(it.next()) == NULL)
+        QVariant fidVar = it.next();
+        if (doc->function(fidVar.toUInt()) == NULL)
             it.remove();
     }
 }
@@ -250,10 +257,9 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
         Q_ASSERT(doc != NULL);
 
         QMutexLocker locker(&m_functionListMutex);
-        QListIterator <quint32> it(m_functions);
-        while (it.hasNext() == true)
+        foreach(QVariant fid, m_functions)
         {
-            Function* function = doc->function(it.next());
+            Function* function = doc->function(fid.toUInt());
             Q_ASSERT(function != NULL);
 
             // Append the IDs of all functions started by this collection

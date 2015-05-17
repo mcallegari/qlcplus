@@ -71,7 +71,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
     void closeInput(quint32 input);
@@ -128,6 +128,7 @@ public:
 protected:
     HIDDevice* device(const QString& path);
     HIDDevice* device(quint32 index);
+    HIDDevice* deviceOutput(quint32 index);
 
     void addDevice(HIDDevice* device);
     void removeDevice(HIDDevice* device);

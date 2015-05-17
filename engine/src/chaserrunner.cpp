@@ -382,12 +382,14 @@ void ChaserRunner::fillOrder(int size)
  * Intensity
  ****************************************************************************/
 
-void ChaserRunner::adjustIntensity(qreal fraction, int stepIndex)
+void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex)
 {
+    m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
+
+    int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
         stepIndex = m_lastRunStepIdx;
 
-    m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
@@ -396,6 +398,11 @@ void ChaserRunner::adjustIntensity(qreal fraction, int stepIndex)
             return;
         }
     }
+
+    // No need to start a new step if it is not wanted
+    if (requestedStepIndex == -1)
+        return;
+
     // not found ?? It means we need to start a new step and crossfade kicks in !
     startNewStep(stepIndex, m_doc->masterTimer(), true);
 }
@@ -419,7 +426,7 @@ void ChaserRunner::clearRunningList()
  * Running
  ****************************************************************************/
 
-void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
+void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, quint32 elapsed)
 {
     if (m_chaser == NULL || m_chaser->steps().count() == 0)
         return;
@@ -443,7 +450,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
         if (m_startOffset != 0)
             newStep->m_elapsed = m_startOffset + MasterTimer::tick();
         else
-            newStep->m_elapsed = MasterTimer::tick();
+            newStep->m_elapsed = MasterTimer::tick() + elapsed;
         m_startOffset = 0;
 
         newStep->m_function = func;
@@ -598,6 +605,8 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         emit currentStepChanged(m_lastRunStepIdx);
     }
 
+    quint32 prevStepRoundElapsed = 0;
+
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (step->m_duration != Function::infiniteSpeed() &&
@@ -608,6 +617,9 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
                 step->m_function->stop();
                 step->m_function = NULL;
             }
+
+            if (step->m_duration != 0)
+                prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
             m_runnerSteps.removeOne(step);
             delete step;
@@ -637,7 +649,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         m_lastRunStepIdx = getNextStepIndex();
         if (m_lastRunStepIdx != -1)
         {
-            startNewStep(m_lastRunStepIdx, timer, false);
+            startNewStep(m_lastRunStepIdx, timer, false, prevStepRoundElapsed);
             emit currentStepChanged(m_lastRunStepIdx);
         }
         else
@@ -657,4 +669,3 @@ void ChaserRunner::postRun(MasterTimer* timer, QList<Universe*> universes)
     qDebug() << Q_FUNC_INFO;
     clearRunningList();
 }
-

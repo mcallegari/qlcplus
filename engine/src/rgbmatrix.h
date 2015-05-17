@@ -64,6 +64,15 @@ public:
     /** Get the matrix total duration in milliseconds */
     quint32 totalDuration();
 
+    /** Set the matrix to control or not the dimmer channel */
+    void setDimmerControl(bool dimmerControl);
+
+    /** Get the matrix ability to control the dimmer channel */
+    bool dimmerControl() const;
+
+private:
+    bool m_dimmerControl;
+
     /*********************************************************************
      * Copying
      *********************************************************************/
@@ -177,6 +186,7 @@ private:
     void insertStartValues(FadeChannel& fc, uint fadeTime) const;
 
 private:
+    /** Current running direction */
     Function::Direction m_direction;
     GenericFader* m_fader;
     int m_step;

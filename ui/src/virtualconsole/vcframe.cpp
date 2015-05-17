@@ -126,6 +126,8 @@ void VCFrame::setLiveEdit(bool liveEdit)
     if (!m_disableState)
         enableWidgetUI(!m_liveEdit);
 
+    updateSubmasterValue();
+
     unsetCursor();
     update();
 }
@@ -495,6 +497,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
     {
         if (isDisabled())
             slotEnableButtonClicked(false);
+        updateSubmasterValue();
     }
 
     VCWidget::slotModeChanged(mode);
@@ -514,6 +517,21 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
         VCWidget* child = it.next();
         if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
+    }
+}
+
+void VCFrame::updateSubmasterValue()
+{
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child->type() == SliderWidget)
+        {
+            VCSlider* slider = reinterpret_cast<VCSlider*>(child);
+            if (slider->sliderMode() == VCSlider::Submaster)
+                slider->emitSubmasterValue();
+        }
     }
 }
 

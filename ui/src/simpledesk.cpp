@@ -417,13 +417,14 @@ void SimpleDesk::initUniverseSliders()
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
         ConsoleChannel* slider = NULL;
-        const Fixture* fxi = m_doc->fixture(m_doc->fixtureForAddress(start + i));
+        Fixture* fxi = m_doc->fixture(m_doc->fixtureForAddress(start + i));
         if (fxi == NULL)
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), i, false);
         else
         {
             uint ch = (start + i) - fxi->universeAddress();
             slider = new ConsoleChannel(this, m_doc, fxi->id(), ch, false);
+            slider->setValue(uchar(fxi->channelValueAt(ch)));
         }
         m_universeGroup->layout()->addWidget(slider);
         m_universeSliders << slider;
@@ -484,6 +485,7 @@ void SimpleDesk::initSliderView(bool fullMode)
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
             console->setFixture(fixture->id());
             quint32 absoluteAddr = fixture->universeAddress();
+            QByteArray fxValues = fixture->channelValues();
             for (quint32 i = 0; i < fixture->channels(); i++)
             {
                 if (m_engine->hasChannel(absoluteAddr + i))
@@ -491,6 +493,11 @@ void SimpleDesk::initSliderView(bool fullMode)
                     SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
                     console->setSceneValue(scv);
                     console->setChannelStylesheet(i, ssOverride);
+                }
+                else
+                {
+                    SceneValue scv(fixture->id(), i, (uchar)fxValues.at(i));
+                    console->setSceneValue(scv);
                 }
             }
             fixturesLayout->addWidget(console);
@@ -616,7 +623,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
             delete slider;
             m_universeSliders[i] = NULL;
         }
-        const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
+        Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
         if (fx == NULL)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
@@ -639,6 +646,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
                     slider->setStyleSheet(ssOdd);
                 else
                     slider->setStyleSheet(ssEven);
+                slider->setValue(uchar(fx->channelValueAt(ch)));
             }
         }
 
@@ -648,7 +656,8 @@ void SimpleDesk::slotUniversePageChanged(int page)
             slider->setProperty(PROP_ADDRESS, absoluteAddr + i);
             slider->setLabel(QString::number(start + i + 1));
             //qDebug() << "Set slider value[" << (absoluteAddr + i) << "] = " << m_engine->value(absoluteAddr + i);
-            slider->setValue(m_engine->value(absoluteAddr + i), false);
+            if (m_engine->hasChannel(absoluteAddr + i))
+                slider->setValue(m_engine->value(absoluteAddr + i), false);
             connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
         }
@@ -1392,10 +1401,10 @@ void SimpleDesk::showEvent(QShowEvent* ev)
         if (m_editCueStackButton->isChecked() == true)
             slotEditCueStackClicked(true);
         initUniversesCombo();
-        slotUpdateUniverseSliders();
         initChannelGroupsView();
         m_docChanged = false;
     }
+    slotUpdateUniverseSliders();
     QWidget::showEvent(ev);
 }
 

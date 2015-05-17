@@ -65,6 +65,29 @@ const QString KForwardString    (    "Forward" );
  * Initialization
  *****************************************************************************/
 
+Function::Function(QObject *parent)
+    : QObject(parent)
+    , m_id(Function::invalidId())
+    , m_type(Undefined)
+    , m_path(QString())
+    , m_runOrder(Loop)
+    , m_direction(Forward)
+    , m_fadeInSpeed(0)
+    , m_fadeOutSpeed(0)
+    , m_duration(0)
+    , m_overrideFadeInSpeed(defaultSpeed())
+    , m_overrideFadeOutSpeed(defaultSpeed())
+    , m_overrideDuration(defaultSpeed())
+    , m_uiState()
+    , m_flashing(false)
+    , m_elapsed(0)
+    , m_stop(true)
+    , m_running(false)
+    , m_startedAsChild(false)
+{
+
+}
+
 Function::Function(Doc* doc, Type t)
     : QObject(doc)
     , m_id(Function::invalidId())
@@ -102,6 +125,24 @@ Doc* Function::doc() const
 /*****************************************************************************
  * Copying
  *****************************************************************************/
+Function *Function::createCopy(Doc *doc, bool addToDoc)
+{
+    Q_ASSERT(doc != NULL);
+
+    Function* copy = new Function(doc);
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+
+    return copy;
+}
 
 bool Function::copyFrom(const Function* function)
 {
@@ -556,16 +597,8 @@ uint Function::stringToSpeed(QString speed)
         speed.remove(0, speed.indexOf("s") + 1);
     }
 
-    QStringList msecs = speed.split(".");
-    if (msecs.count() > 0)
-    {
-        QString msecStr = msecs.at(msecs.count() - 1);
-        uint msecInt = msecStr.toUInt();
-        if (msecInt < 10 && msecStr.contains("0") == false)
-            value += (msecInt * 100);
-        else
-            value += (msecInt * 10);
-    }
+    value += speed.toDouble() * 1000;
+    value -= value % 10;
 
     return value;
 }
@@ -643,6 +676,18 @@ void Function::slotFixtureRemoved(quint32 fid)
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
+bool Function::saveXML(QDomDocument *doc, QDomElement *wksp_root)
+{
+    Q_UNUSED(doc)
+    Q_UNUSED(wksp_root)
+    return false;
+}
+
+bool Function::loadXML(const QDomElement &root)
+{
+    Q_UNUSED(root)
+    return false;
+}
 
 bool Function::loader(const QDomElement& root, Doc* doc)
 {
@@ -761,6 +806,12 @@ void Function::preRun(MasterTimer* timer)
     emit running(m_id);
 }
 
+void Function::write(MasterTimer *timer, QList<Universe *> universes)
+{
+    Q_UNUSED(timer);
+    Q_UNUSED(universes);
+}
+
 void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
@@ -806,6 +857,15 @@ void Function::incrementElapsed()
     // Don't wrap around. UINT_MAX is the maximum fade/hold time.
     if (m_elapsed < UINT_MAX)
         m_elapsed += MasterTimer::tick();
+}
+
+void Function::roundElapsed(quint32 roundTime)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (roundTime == 0)
+        m_elapsed = 0;
+    else
+        m_elapsed %= roundTime;
 }
 
 /*****************************************************************************

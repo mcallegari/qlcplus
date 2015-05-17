@@ -138,9 +138,6 @@ protected slots:
     /** Slot called when a universe combo item is selected */
     void slotUniverseSelected(int index);
 
-    /** Slot for getting the latest values from InputOutputMap */
-    void slotUniversesWritten(int index, const QByteArray& ua);
-
 signals:
     void channelStyleChanged(MonitorProperties::ChannelStyle style);
     void valueStyleChanged(MonitorProperties::ValueStyle style);
@@ -193,7 +190,7 @@ protected slots:
     void slotFixtureMoved(quint32 fid, QPointF pos);
 
     /** Slot called when the graphics view is clicked */
-    void slotViewCliked();
+    void slotViewClicked();
 
 protected:
     QSplitter* m_splitter;

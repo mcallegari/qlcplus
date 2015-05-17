@@ -195,8 +195,9 @@ MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const
  * Inputs
  *****************************************************************************/
 
-bool MidiPlugin::openInput(quint32 input)
+bool MidiPlugin::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     qDebug() << "MIDI Plugin open Input: " << input;
 
     MidiInputDevice* dev = inputDevice(input);

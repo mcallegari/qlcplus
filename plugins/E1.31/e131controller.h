@@ -54,6 +54,11 @@ public:
     /** Get the type of this controller */
     Type type();
 
+    /** Add the given universe to the multicast address map and
+     *  perform a Join to the group if we're in input mode
+     */
+    void enableUniverse(quint32 universe);
+
     /** Get the number of packets sent by this controller */
     quint64 getPacketSentNumber();
 

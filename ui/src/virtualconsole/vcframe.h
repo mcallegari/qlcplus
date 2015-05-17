@@ -185,6 +185,9 @@ protected slots:
 protected slots:
     void slotSubmasterValueChanged(qreal value);
 
+public:
+    void updateSubmasterValue();
+
     /*********************************************************************
      * Intensity
      *********************************************************************/

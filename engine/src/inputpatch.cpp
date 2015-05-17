@@ -80,7 +80,7 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     {
         connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
                 this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
-        result = m_plugin->openInput(m_input);
+        result = m_plugin->openInput(m_input, m_inputUniverse);
 
         if (m_profile != NULL)
         {
@@ -114,7 +114,7 @@ bool InputPatch::reconnect()
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        return m_plugin->openInput(m_input);
+        return m_plugin->openInput(m_input, m_inputUniverse);
     }
     return false;
 }

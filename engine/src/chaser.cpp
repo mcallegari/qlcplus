@@ -564,7 +564,7 @@ void Chaser::setStepIndex(int idx)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->setCurrentStep(idx);
+        m_runner->setCurrentStep(idx, getAttributeValue(Intensity));
     else
         m_startStepIndex = idx;
 }
@@ -600,7 +600,7 @@ void Chaser::setCurrentStep(int step, qreal intensity)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->setCurrentStep(step, intensity);
+        m_runner->setCurrentStep(step, intensity * getAttributeValue(Intensity));
 }
 
 int Chaser::currentStepIndex() const
@@ -658,7 +658,7 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->adjustIntensity(fraction, stepIndex);
+        m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
 }
 
 /*****************************************************************************
@@ -684,8 +684,10 @@ void Chaser::preRun(MasterTimer* timer)
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         createRunner(elapsed(), m_startStepIndex);
+        qreal intensity = getAttributeValue(Intensity);
         if (m_hasStartIntensity)
-            m_runner->setCurrentStep(m_startStepIndex, m_startIntensity);
+            intensity *= m_startIntensity;
+        m_runner->adjustIntensity(intensity);
         m_hasStartIntensity = false;
         m_startStepIndex = -1;
         connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
@@ -728,10 +730,11 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Chaser::adjustAttribute(qreal fraction, int attributeIndex)
 {
+    if (attributeIndex == Intensity)
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         QMutexLocker stepListLocker(&m_stepListMutex);
-        if (m_runner != NULL && attributeIndex == Intensity)
+        if (m_runner != NULL)
             m_runner->adjustIntensity(fraction);
     }
     Function::adjustAttribute(fraction, attributeIndex);

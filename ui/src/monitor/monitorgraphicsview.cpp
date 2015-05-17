@@ -164,25 +164,6 @@ void MonitorGraphicsView::setBackgroundImage(QString filename)
     updateGrid();
 }
 
-void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
-{
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
-    while (it.hasNext() == true)
-    {
-        it.next();
-        quint32 fid = it.key();
-        Fixture *fxi = m_doc->fixture(fid);
-        // preliminary validity checks
-        if (fxi == NULL || fxi->universe() != (quint32)index)
-        {
-            continue;
-        }
-
-        MonitorFixtureItem *item = it.value();
-        item->updateValues(ua);
-    }
-}
-
 MonitorFixtureItem *MonitorGraphicsView::getSelectedItem()
 {
     QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
@@ -232,6 +213,7 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
     m_scene->removeItem(item);
     m_fixtures.take(id);
+    m_doc->monitorProperties()->removeFixture(id);
     delete item;
 
     return true;

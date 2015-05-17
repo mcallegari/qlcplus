@@ -95,8 +95,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_playbackValue = 0;
     m_playbackValueChanged = false;
 
-    m_submasterValue = UCHAR_MAX;
-
     m_widgetMode = WSlider;
 
     setType(VCWidget::SliderWidget);
@@ -513,9 +511,10 @@ void VCSlider::setSliderMode(SliderMode mode)
         uchar level = levelValue();
         if (m_slider)
         {
+            m_slider->setRange(0, UCHAR_MAX);
+            m_slider->setValue(level);
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
-            m_slider->setValue(level);
         }
     }
 }
@@ -594,6 +593,14 @@ void VCSlider::setLevelValue(uchar value)
 uchar VCSlider::levelValue() const
 {
     return m_levelValue;
+}
+
+void VCSlider::emitSubmasterValue()
+{
+    Q_ASSERT(sliderMode() == Submaster);
+
+    emit submasterValueChanged(SCALE(float(m_levelValue), float(0),
+                float(UCHAR_MAX), float(0), float(1)) * intensity());
 }
 
 void VCSlider::slotFixtureRemoved(quint32 fxi_id)
@@ -1172,12 +1179,8 @@ void VCSlider::slotSliderMoved(int value)
 
     case Submaster:
     {
-        float f = 0;
-        if (m_slider)
-            f = SCALE(float(value), float(m_slider->minimum()),
-                      float(m_slider->maximum()), float(0), float(1));
         setLevelValue(value);
-        emit submasterValueChanged((qreal)f * intensity());
+        emitSubmasterValue();
     }
     break;
 

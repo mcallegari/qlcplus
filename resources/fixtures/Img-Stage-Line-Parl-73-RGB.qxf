@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.4 GIT</Version>
+  <Version>4.8.5 GIT</Version>
   <Author>Lukakiro</Author>
  </Creator>
  <Manufacturer>Img Stage Line</Manufacturer>
@@ -57,10 +57,10 @@ and change of colours</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="155" Height="180" Weight="2" Depth="0"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="155" Height="180" Depth="0" Weight="2"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
    <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

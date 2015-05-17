@@ -56,7 +56,11 @@ QString EuroliteUSBDMXPro::getDeviceName()
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
+#ifdef LIBFTDI1
+        qDebug() << QString::number(libusb_get_port_number(m_device));
+#else
         qDebug() << QString::number(m_device->bus->location);
+#endif
 
 #ifdef LIBFTDI1
         if (dir.startsWith(QString::number(libusb_get_port_number(m_device))) &&

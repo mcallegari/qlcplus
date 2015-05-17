@@ -24,7 +24,7 @@
     This documentation is aimed at developers wanting to find their way around QLC+ sources.
     <br />
 
-    Project home: http://qlcplus.sourceforge.net/<br />
+    Project home: http://www.qlcplus.org/<br />
     Github page: https://github.com/mcallegari/qlcplus/
  */
 

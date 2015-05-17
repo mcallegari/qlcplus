@@ -90,9 +90,6 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
             this, SLOT(slotFixtureRemoved(quint32)));
     connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
             this, SLOT(slotFunctionStarted(quint32)));
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 void Monitor::slotFunctionStarted(quint32 id)
@@ -107,9 +104,6 @@ void Monitor::slotFunctionStarted(quint32 id)
 
 Monitor::~Monitor()
 {
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-
     if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
@@ -225,7 +219,7 @@ void Monitor::initGraphicsView()
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
     connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)),
-            this, SLOT(slotViewCliked()));
+            this, SLOT(slotViewClicked()));
 
     // add container for chaser editor
     QWidget* econtainer = new QWidget(this);
@@ -500,9 +494,6 @@ void Monitor::slotSwitchMode()
     QAction* action = qobject_cast<QAction*> (QObject::sender());
     Q_ASSERT(action != NULL);
 
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-
     if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
@@ -534,9 +525,6 @@ void Monitor::slotSwitchMode()
     m_props->setDisplayMode(MonitorProperties::DisplayMode(action->data().toInt()));
 
     initView();
-
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 /****************************************************************************
@@ -650,21 +638,6 @@ void Monitor::slotUniverseSelected(int index)
     }
 }
 
-void Monitor::slotUniversesWritten(int index, const QByteArray& ua)
-{
-    if (m_props->displayMode() == MonitorProperties::DMX)
-    {
-        QListIterator <MonitorFixture*> it(m_monitorFixtures);
-        while (it.hasNext() == true)
-            it.next()->updateValues(index, ua);
-    }
-    else if (m_props->displayMode() == MonitorProperties::Graphics)
-    {
-        if (m_graphicsView != NULL)
-            m_graphicsView->writeUniverse(index, ua);
-    }
-}
-
 /********************************************************************
  * Graphics View
  ********************************************************************/
@@ -774,7 +747,7 @@ void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
     m_doc->setModified();
 }
 
-void Monitor::slotViewCliked()
+void Monitor::slotViewClicked()
 {
     hideFixtureItemEditor();
 }

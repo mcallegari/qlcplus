@@ -50,6 +50,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_hasChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_lastPreGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
@@ -214,6 +215,7 @@ void Universe::reset(int address, int range)
 
 void Universe::zeroIntensityChannels()
 {
+    m_lastPreGMValues->replace(0, 512, (*m_preGMValues));
     QSetIterator <int> it(m_intensityChannels);
     while (it.hasNext() == true)
     {
@@ -222,6 +224,8 @@ void Universe::zeroIntensityChannels()
         (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
     }
+    // reset the changed flag until the next round
+    m_hasChanged = false;
 }
 
 QHash<int, uchar> Universe::intensityChannels()
@@ -408,8 +412,6 @@ void Universe::dumpOutput(const QByteArray &data)
         m_totalChannelsChanged = false;
     }
     m_outputPatch->dump(m_id, data);
-    // reset the changed flag until the next round
-    m_hasChanged = false;
 }
 
 void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
@@ -511,8 +513,11 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     if (m_preGMValues != NULL)
     {
-        if ((*m_preGMValues)[channel] != char(value))
+        if ((*m_lastPreGMValues)[channel] != char(value))
+        {
+            (*m_lastPreGMValues)[channel] = char(value);
             m_hasChanged = true;
+        }
 
         (*m_preGMValues)[channel] = char(value);
     }
@@ -522,7 +527,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
         int val = m_relativeValues[channel];
         if (m_preGMValues != NULL)
             val += (uchar)m_preGMValues->at(channel);
-        value = CLAMP(val, 0, UCHAR_MAX);
+        value = CLAMP(val, 0, (int)UCHAR_MAX);
     }
 
     value = applyGM(channel, value);
@@ -547,7 +552,7 @@ bool Universe::writeRelative(int channel, uchar value)
     int val = m_relativeValues[channel];
     if (m_preGMValues != NULL)
         val += (uchar)m_preGMValues->at(channel);
-    value = CLAMP(val, 0, UCHAR_MAX);
+    value = CLAMP(val, 0, (int)UCHAR_MAX);
 
     value = applyGM(channel, value);
     (*m_postGMValues)[channel] = char(value);

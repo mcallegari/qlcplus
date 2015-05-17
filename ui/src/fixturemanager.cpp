@@ -225,6 +225,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         if (item == NULL)
         {
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -235,6 +236,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             if (selected == 1)
                 m_propertiesAction->setEnabled(true);
@@ -252,6 +254,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture group selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -261,6 +264,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // All fixtures selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -274,6 +278,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
     else
     {
         m_addAction->setEnabled(false);
+        m_addRGBAction->setEnabled(false);
         m_removeAction->setEnabled(false);
         m_propertiesAction->setEnabled(false);
         m_fadeConfigAction->setEnabled(false);
@@ -1038,6 +1043,7 @@ void FixtureManager::slotAddRGBPanel()
         int columns = rgb.columns();
         quint32 phyWidth = rgb.physicalWidth();
         quint32 phyHeight = rgb.physicalHeight() / rows;
+        Fixture::Components components = rgb.components();
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
         Q_ASSERT(grp != NULL);
@@ -1077,9 +1083,9 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns);
+                rowDef = fxi->genericRGBPanelDef(columns, components);
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
@@ -1262,45 +1268,37 @@ void FixtureManager::editFixtureProperties()
     af.setWindowTitle(tr("Change fixture properties"));
     if (af.exec() == QDialog::Accepted)
     {
-      if (af.invalidAddress() == false)
-      {
-        if (fxi->name() != af.name())
-            fxi->setName(af.name());
-        if (fxi->universe() != af.universe())
-            fxi->setUniverse(af.universe());
-        if (fxi->address() != af.address())
+        if (af.invalidAddress() == false)
         {
-            m_doc->moveFixture(id, af.address());
-            fxi->setAddress(af.address());
-        }
+            fxi->blockSignals(true);
+            if (fxi->name() != af.name())
+                fxi->setName(af.name());
+            if (fxi->universe() != af.universe())
+                fxi->setUniverse(af.universe());
+            if (fxi->address() != af.address())
+                fxi->setAddress(af.address());
+            fxi->blockSignals(false);
 
-        if (af.fixtureDef() != NULL && af.mode() != NULL)
-        {
-            if (fxi->fixtureDef() != af.fixtureDef() ||
-                    fxi->fixtureMode() != af.mode())
+            if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                m_doc->changeFixtureMode(id, af.mode());
-                fxi->setFixtureDefinition(af.fixtureDef(),
-                                          af.mode());
+                fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
             }
+            else
+            {
+                /* Generic dimmer */
+                fxi->setFixtureDefinition(NULL, NULL);
+                fxi->setChannels(af.channels());
+            }
+
+            updateView();
+            slotSelectionChanged();
         }
         else
         {
-            /* Generic dimmer */
-            fxi->setFixtureDefinition(NULL, NULL);
-            fxi->setChannels(af.channels());
-            m_doc->changeFixtureMode(fxi->id(), NULL);
+            QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                    tr("Please enter a valid address"), QMessageBox::Ok);
+            msg.exec();
         }
-
-        m_fixtures_tree->updateFixtureItem(item, fxi);
-        slotSelectionChanged();
-      }
-      else
-      {
-          QMessageBox msg(QMessageBox::Critical, tr("Error"),
-                          tr("Please enter a valid address"), QMessageBox::Ok);
-          msg.exec();
-      }
     }
 }
 
@@ -1647,6 +1645,7 @@ void FixtureManager::slotContextMenuRequested(const QPoint&)
 {
     QMenu menu(this);
     menu.addAction(m_addAction);
+    menu.addAction(m_addRGBAction);
     menu.addAction(m_propertiesAction);
     menu.addAction(m_removeAction);
     menu.addSeparator();

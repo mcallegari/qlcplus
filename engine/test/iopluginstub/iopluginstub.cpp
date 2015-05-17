@@ -97,8 +97,10 @@ void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteAr
  * Inputs
  *****************************************************************************/
 
-bool IOPluginStub::openInput(quint32 input)
+bool IOPluginStub::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
+
     if (m_openInputs.contains(input) == false && input < 4)
         m_openInputs.append(input);
     return true;

@@ -153,6 +153,9 @@ void RGBMatrixEditor::init()
         break;
     }
 
+    /* Dimmer control */
+    m_dimmerControlCb->setChecked(m_matrix->dimmerControl());
+
     fillPatternCombo();
     fillFixtureGroupCombo();
     fillAnimationCombo();
@@ -211,6 +214,7 @@ void RGBMatrixEditor::init()
     connect(m_singleShot, SIGNAL(clicked()), this, SLOT(slotSingleShotClicked()));
     connect(m_forward, SIGNAL(clicked()), this, SLOT(slotForwardClicked()));
     connect(m_backward, SIGNAL(clicked()), this, SLOT(slotBackwardClicked()));
+    connect(m_dimmerControlCb, SIGNAL(clicked()), this, SLOT(slotDimmerControlClicked()));
 
     // Test slots
     connect(m_testButton, SIGNAL(clicked(bool)),
@@ -869,6 +873,11 @@ void RGBMatrixEditor::slotBackwardClicked()
     m_matrix->setDirection(Function::Backward);
     m_matrix->calculateColorDelta();
     slotRestartTest();
+}
+
+void RGBMatrixEditor::slotDimmerControlClicked()
+{
+    m_matrix->setDimmerControl(m_dimmerControlCb->isChecked());
 }
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)

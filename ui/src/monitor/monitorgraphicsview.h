@@ -95,9 +95,6 @@ public:
     /** Retrieve the path to the background image currently set */
     QString backgroundImage() { return m_backgroundImage; }
 
-    /** Update the fixture values to render the 2D preview */
-    void writeUniverse(int index, const QByteArray& ua);
-
 protected:
     /** Triggers the whole view repaint and metrics
      *  computation */

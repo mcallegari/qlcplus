@@ -1,9 +1,10 @@
 /*
   Q Light Controller Plus
-  hidfx5device.h
+  hiddmxdevice.h
 
   Copyright (c) Massimo Callegari
                 Florian Euchner
+                Stefan Krupop
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,20 +19,24 @@
   limitations under the License.
 */
 
-#ifndef HIDFX5DEVICE_H
-#define HIDFX5DEVICE_H
+#ifndef HIDDMXDEVICE_H
+#define HIDDMXDEVICE_H
 
 #include <QObject>
 
 #include "hiddevice.h"
 #include "hidapi.h"
 
-#define FX5_DMX_INTERFACE_VENDOR_ID 0x4B4
-#define FX5_DMX_INTERFACE_PRODUCT_ID 0xF1F
-#define FX5_DMX_INTERFACE_VENDOR_ID_2 0x16C0
-#define FX5_DMX_INTERFACE_PRODUCT_ID_2 0x88B
+// Vendor IDs provided by http://www.linux-usb.org/usb.ids
 
-#define FX5_READ_TIMEOUT 100
+#define HID_DMX_INTERFACE_VENDOR_ID    0x04B4  // Cypress Semiconductor Corp.
+#define HID_DMX_INTERFACE_PRODUCT_ID   0x0F1F  // Digital Enlightenment USB DMX
+#define HID_DMX_INTERFACE_VENDOR_ID_2  0x16C0  // Van Ooijen Technische Informatica
+#define HID_DMX_INTERFACE_PRODUCT_ID_2 0x088B  // FX5
+#define HID_DMX_INTERFACE_VENDOR_ID_3  0x16D0  // MCS
+#define HID_DMX_INTERFACE_PRODUCT_ID_3 0x0830  // DMXControl Projects e.V. Nodle U1
+
+#define HID_DMX_READ_TIMEOUT 100
 
 class HIDPlugin;
 
@@ -39,13 +44,13 @@ class HIDPlugin;
  * HIDEventDevice
  *****************************************************************************/
 
-class HIDFX5Device : public HIDDevice
+class HIDDMXDevice : public HIDDevice
 {
     Q_OBJECT
 
 public:
-    HIDFX5Device(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
-    virtual ~HIDFX5Device();
+    HIDDMXDevice(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
+    virtual ~HIDDMXDevice();
 
 protected:
     /** Initialize the device, find out its capabilities etc. */
@@ -109,11 +114,11 @@ public:
      *********************************************************************/
 private:
     /** Interface mode specification */
-    enum FX5mode
+    enum DMXmode
     {
-        FX5_MODE_NONE   = 1 << 0,
-        FX5_MODE_OUTPUT = 1 << 1,
-        FX5_MODE_INPUT  = 1 << 2
+        DMX_MODE_NONE   = 1 << 0,
+        DMX_MODE_OUTPUT = 1 << 1,
+        DMX_MODE_INPUT  = 1 << 2
     };
 
     /** mode selection function */

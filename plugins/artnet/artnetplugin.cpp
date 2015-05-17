@@ -208,8 +208,9 @@ QStringList ArtNetPlugin::inputs()
     return list;
 }
 
-bool ArtNetPlugin::openInput(quint32 input)
+bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (m_IOmapping.count() < 2)
         init();
 

@@ -134,8 +134,9 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
  * Inputs
  *************************************************************************/
 
-bool Peperoni::openInput(quint32 input)
+bool Peperoni::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {

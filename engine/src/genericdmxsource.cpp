@@ -63,6 +63,27 @@ bool GenericDMXSource::isOutputEnabled() const
     return m_outputEnabled;
 }
 
+quint32 GenericDMXSource::channelsCount() const
+{
+    return m_values.count();
+}
+
+QList<SceneValue> GenericDMXSource::channels()
+{
+    QList<SceneValue> chList;
+    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        SceneValue sv;
+        sv.fxi = it.key().first;
+        sv.channel = it.key().second;
+        sv.value = it.value();
+        chList.append(sv);
+    }
+    return chList;
+}
+
 void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(timer);

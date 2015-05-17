@@ -693,6 +693,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
+    ch->adjustAttribute(intensity(), Function::Intensity);
     ch->start(m_doc->masterTimer());
     emit functionStarting(m_chaserID);
 }
@@ -972,6 +973,17 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
 /*****************************************************************************
  * VCWidget-inherited methods
  *****************************************************************************/
+
+void VCCueList::adjustIntensity(qreal val)
+{
+    Chaser* ch = chaser();
+    if (ch != NULL)
+    {
+        ch->adjustAttribute(val, Function::Intensity);
+    }
+
+    VCWidget::adjustIntensity(val);
+}
 
 void VCCueList::setCaption(const QString& text)
 {

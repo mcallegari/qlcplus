@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 7.0.50), libqt4-dev (>= 4.6.0), libasound2-dev (>= 
                make, g++, libstdc++-dev, libudev-dev, libmad0-dev, libsndfile1-dev, liblo-dev,
                libfftw3-dev
 Standards-Version: 3.7.3
-Homepage: http://qlcplus.sourceforge.net/
+Homepage: http://www.qlcplus.org/
 
 Package: qlcplus
 Section: misc
