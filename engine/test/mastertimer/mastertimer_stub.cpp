@@ -42,6 +42,7 @@ void MasterTimerStub::startFunction(Function* function)
 
 void MasterTimerStub::stopFunction(Function* function)
 {
+    function->stop();
     m_functionList.removeAll(function);
     function->postRun(this, m_universes);
 }
