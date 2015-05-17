@@ -29,12 +29,12 @@
     <message>
         <location filename="hiddmxdevice.cpp" line="61"/>
         <source>HID DMX Interface Error</source>
-        <translation type="unfinished"></translation>
+        <translation>HID DMX error d&apos;interfície</translation>
     </message>
     <message>
         <location filename="hiddmxdevice.cpp" line="62"/>
         <source>Unable to open %1. Make sure the udev rule is installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>No es pot obrir %1. Assegurar-vos que la regla de udev està instal·lada.</translation>
     </message>
 </context>
 <context>
@@ -55,7 +55,7 @@
     <message>
         <location filename="hidplugin.cpp" line="116"/>
         <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest plugin proveeix support HID per joysticks, gamepads i alguns adaptadors USB DMX.</translation>
     </message>
 </context>
 </TS>
