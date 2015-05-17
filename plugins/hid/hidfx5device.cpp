@@ -155,14 +155,17 @@ void HIDFX5Device::run()
             if(size == 33)
             {
                 unsigned short startOff = buffer[0] * 32;
-                for (int i = 0; i < 32; i++)
+                if (buffer[0] < 16)
                 {
-                    unsigned short channel = startOff + i;
-                    unsigned char value = buffer[i + 1];
-                    if ((unsigned char)m_dmx_in_cmp.at(channel) != value)
+                    for (int i = 0; i < 32; i++)
                     {
-                        emit valueChanged(UINT_MAX, m_line, channel, value);
-                        m_dmx_in_cmp[channel] = value;
+                        unsigned short channel = startOff + i;
+                        unsigned char value = buffer[i + 1];
+                        if ((unsigned char)m_dmx_in_cmp.at(channel) != value)
+                        {
+                            emit valueChanged(UINT_MAX, m_line, channel, value);
+                            m_dmx_in_cmp[channel] = value;
+                        }
                     }
                 }
             }
