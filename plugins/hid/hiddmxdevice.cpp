@@ -31,35 +31,35 @@
 #include <QDebug>
 #include <QFile>
 
-#include "hidfx5device.h"
+#include "hiddmxdevice.h"
 #include "qlcmacros.h"
 #include "hidapi.h"
 #include "hidplugin.h"
 
-HIDFX5Device::HIDFX5Device(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
+HIDDMXDevice::HIDDMXDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Output;
-    m_mode = FX5_MODE_NONE;
+    m_mode = DMX_MODE_NONE;
     init();
 }
 
-HIDFX5Device::~HIDFX5Device()
+HIDDMXDevice::~HIDDMXDevice()
 {
     closeInput();
     closeOutput();
     hid_close(m_handle);
 }
 
-void HIDFX5Device::init()
+void HIDDMXDevice::init()
 {
     /* Device name */
     m_handle = hid_open_path(path().toUtf8().constData());
     
     if (!m_handle)
     {
-        QMessageBox::warning(NULL, (tr("FX5 USB DMX Interface Error")),
-            (tr("Unable to open the FX5 Interface. Make sure the udev rule is installed.")),
+        QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
+            (tr("Unable to open %1. Make sure the udev rule is installed.").arg(name())),
              QMessageBox::AcceptRole, QMessageBox::AcceptRole);
     }
 
@@ -73,40 +73,40 @@ void HIDFX5Device::init()
  * File operations
  *****************************************************************************/
 
-bool HIDFX5Device::openInput()
+bool HIDDMXDevice::openInput()
 {
-    m_mode |= FX5_MODE_INPUT;
+    m_mode |= DMX_MODE_INPUT;
     updateMode();
     
     return true;
 }
 
-void HIDFX5Device::closeInput()
+void HIDDMXDevice::closeInput()
 {
-    m_mode &= ~FX5_MODE_INPUT;
+    m_mode &= ~DMX_MODE_INPUT;
     updateMode();
 }
 
-bool HIDFX5Device::openOutput()
+bool HIDDMXDevice::openOutput()
 {
-    m_mode |= FX5_MODE_OUTPUT;
+    m_mode |= DMX_MODE_OUTPUT;
     updateMode();
 
     return true;
 }
 
-void HIDFX5Device::closeOutput()
+void HIDDMXDevice::closeOutput()
 {
-    m_mode &= ~FX5_MODE_OUTPUT;
+    m_mode &= ~DMX_MODE_OUTPUT;
     updateMode();
 }
 
-QString HIDFX5Device::path() const
+QString HIDDMXDevice::path() const
 {
     return m_file.fileName();
 }
 
-bool HIDFX5Device::readEvent()
+bool HIDDMXDevice::readEvent()
 {
     return true;
 }
@@ -115,7 +115,7 @@ bool HIDFX5Device::readEvent()
  * Device info
  *****************************************************************************/
 
-QString HIDFX5Device::infoText()
+QString HIDDMXDevice::infoText()
 {
     QString info;
 
@@ -128,14 +128,14 @@ QString HIDFX5Device::infoText()
  * Input data
  *****************************************************************************/
 
-void HIDFX5Device::feedBack(quint32 channel, uchar value)
+void HIDDMXDevice::feedBack(quint32 channel, uchar value)
 {
-    /* HID devices don't (yet) support feedback */
+    /* HID devices don't support feedback (yet) */
     Q_UNUSED(channel);
     Q_UNUSED(value);
 }
 
-void HIDFX5Device::run()
+void HIDDMXDevice::run()
 {
     while(m_running == true)
     {
@@ -179,7 +179,7 @@ void HIDFX5Device::run()
  * Output data
  *****************************************************************************/
 
-void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
+void HIDDMXDevice::outputDMX(const QByteArray &universe, bool forceWrite)
 {
     for (int i = 0; i < 16; i++)
     {
@@ -207,15 +207,15 @@ void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
  * FX5 - specific functions / driver
  *****************************************************************************/
 
-void HIDFX5Device::updateMode()
+void HIDDMXDevice::updateMode()
 {
     /**
     *  Send chosen mode to the FX5 / DE device
     */
     unsigned char driver_mode = 0;
-    if (m_mode & FX5_MODE_OUTPUT)
+    if (m_mode & DMX_MODE_OUTPUT)
         driver_mode += 2;
-    if (m_mode & FX5_MODE_INPUT)
+    if (m_mode & DMX_MODE_INPUT)
         driver_mode += 4;
 
     unsigned char buffer[34];
@@ -229,7 +229,7 @@ void HIDFX5Device::updateMode()
     /**
     *  Start / stop input polling thread based on whether the input is activated
     */
-    if (m_mode & FX5_MODE_INPUT)
+    if (m_mode & DMX_MODE_INPUT)
     {
         m_running = true;
         start();

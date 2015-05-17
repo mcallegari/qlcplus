@@ -10,6 +10,7 @@ qlcplus (4.8.6) stable; urgency=low
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
   * Plugins/E1.31: fixed input from a multicast address
+  * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 31 May 2015 20:21:22 +0200
 

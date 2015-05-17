@@ -24,7 +24,7 @@
 #include <QDir>
 
 #include "configurehid.h"
-#include "hidfx5device.h"
+#include "hiddmxdevice.h"
 #include "hidjsdevice.h"
 #include "hidapi.h"
 #include "hidplugin.h"
@@ -113,7 +113,7 @@ QString HIDPlugin::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.");
+    str += tr("This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.");
     str += QString("</P>");
 
     return str;
@@ -248,15 +248,15 @@ void HIDPlugin::rescanDevices()
             /** Device already exists, delete from remove list */
             destroyList.removeAll(dev);
         }
-        else if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
-                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2) ||
-                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_3
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_3))
+        else if((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_3
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3))
         {
-            /* Device is a FX5 / Digital Enlightenment USB DMX Interface, add it */
-            dev = new HIDFX5Device(this, line++,
+            /* Device is a USB DMX Interface, add it */
+            dev = new HIDDMXDevice(this, line++,
                                    QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
                                    QString::fromWCharArray(cur_dev->product_string),
                                    QString(cur_dev->path));
