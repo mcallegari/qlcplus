@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ConfigureHID</name>
     <message>
@@ -29,12 +29,12 @@
     <message>
         <location filename="hiddmxdevice.cpp" line="61"/>
         <source>HID DMX Interface Error</source>
-        <translation type="unfinished"></translation>
+        <translation>HID DMX interface fout</translation>
     </message>
     <message>
         <location filename="hiddmxdevice.cpp" line="62"/>
         <source>Unable to open %1. Make sure the udev rule is installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan %1 niet openen. Controleer of de udev regel geïnstalleerd is.</translation>
     </message>
 </context>
 <context>
@@ -55,7 +55,7 @@
     <message>
         <location filename="hidplugin.cpp" line="116"/>
         <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze plugin verzorgt support voor HID-gebaseerde joysticks, gamepads en een aantal USB DMX adapters.</translation>
     </message>
 </context>
 </TS>

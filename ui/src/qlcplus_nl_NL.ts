@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1238,7 +1238,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="14"/>
         <source>Channel Modifier Editor</source>
-        <translation>Kanaal Aanpassingen Editor</translation>
+        <translation>Kanaal aanpassingen bewerken</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="31"/>
@@ -1253,8 +1253,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="62"/>
         <source>Remove the selected handler</source>
-        <translatorcomment>Wat is een handler?</translatorcomment>
-        <translation></translation>
+        <translation>Verwijder het geselecteerde punt</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="79"/>
@@ -1264,8 +1263,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="96"/>
         <source>Add a new handler</source>
-        <translatorcomment>Wat is een handler?</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Voeg een nieuw punt toe</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="130"/>
@@ -1285,7 +1283,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="channelmodifiereditor.ui" line="162"/>
         <source>Unset Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Aanpassingen ongedaan maken</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="183"/>
@@ -1991,7 +1989,7 @@ The selected file has been moved or deleted.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -7463,17 +7461,17 @@ Duur: %3
     <message>
         <location filename="videoeditor.ui" line="262"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Afspeel modus</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="268"/>
         <source>Single shot</source>
-        <translation type="unfinished">Eenmalig</translation>
+        <translation>Eenmalig</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="278"/>
         <source>Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Herhalen</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="130"/>
