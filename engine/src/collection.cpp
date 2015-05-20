@@ -323,3 +323,21 @@ void Collection::slotChildStopped(quint32 fid)
     QMutexLocker locker(&m_functionListMutex);
     m_runningChildren.remove(fid);
 }
+
+void Collection::adjustAttribute(qreal fraction, int attributeIndex)
+{
+    if (isRunning() && attributeIndex == Intensity)
+    {
+        Doc* document = doc();
+        Q_ASSERT(document != NULL);
+
+        QMutexLocker locker(&m_functionListMutex);
+        foreach(QVariant fid, m_functions)
+        {
+            Function* function = document->function(fid.toUInt());
+            Q_ASSERT(function != NULL);
+            function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
+        }
+    }
+    Function::adjustAttribute(fraction, attributeIndex);
+}
