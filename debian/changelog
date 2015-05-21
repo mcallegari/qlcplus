@@ -10,6 +10,8 @@ qlcplus (4.8.6) stable; urgency=low
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
+  * Engine: Fix RGBMatrix randomly starting with wrong direction (David Garyga)
+  * Engine: Fix functions contained in chaser or audiotrigger not stopped properly (David Garyga)
   * Plugins/E1.31: fixed input from a multicast address
   * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
 
