@@ -64,15 +64,23 @@ public:
     /** Normal public destructor */
     ~Monitor();
 
+    /** Refresh fixtures & show current view */
+    void updateView();
+protected:
     /** Initialize the monitor view */
     void initView();
 
     /** Initialize the monitor view in DMX mode */
     void initDMXView();
+    void fillDMXView();
+    void showDMXView();
 
     /** Initialize the monitor view in 2D graphics mode */
     void initGraphicsView();
+    void fillGraphicsView();
+    void showGraphicsView();
 
+    void showCurrentView();
 protected:
     void saveSettings();
 
@@ -143,7 +151,7 @@ signals:
     void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
-    QToolBar* m_toolBar;
+    QToolBar* m_DMXToolBar;
     QScrollArea* m_scrollArea;
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
@@ -193,6 +201,7 @@ protected slots:
     void slotViewClicked();
 
 protected:
+    QToolBar* m_graphicsToolBar;
     QSplitter* m_splitter;
     MonitorGraphicsView* m_graphicsView;
     QWidget *m_fixtureItemEditor;

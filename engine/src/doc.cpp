@@ -40,6 +40,7 @@
 #include "doc.h"
 #include "bus.h"
 #include "rgbscriptscache.h"
+#include "monitorproperties.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)

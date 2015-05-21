@@ -25,6 +25,7 @@
 
 #include "fixture.h"
 
+class MonitorProperties;
 class MonitorFixtureItem;
 class Doc;
 
@@ -38,6 +39,7 @@ class MonitorGraphicsView : public QGraphicsView
 
 public:
     MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
+    ~MonitorGraphicsView();
 
     /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
@@ -79,6 +81,9 @@ public:
      *  fixture will be removed (if possible)
      */
     bool removeFixture(quint32 id = Fixture::invalidId());
+
+    /** Remove all fixtures from the current view */
+    void clearFixtures();
 
     /** Support function to convert a position in millimeters
      *  to a position in pixels */

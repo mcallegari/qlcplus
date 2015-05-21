@@ -399,6 +399,8 @@ void App::clearDocument()
 {
     VirtualConsole::instance()->resetContents();
     m_doc->clearContents();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
     ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
@@ -934,6 +936,8 @@ QFile::FileError App::slotFileOpen()
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 
     updateFileOpenMenu(fn);
 

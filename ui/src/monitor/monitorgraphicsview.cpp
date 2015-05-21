@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include "monitorproperties.h"
 #include "monitorgraphicsview.h"
 #include "monitorfixtureitem.h"
 #include "qlcfixturemode.h"
@@ -36,6 +37,11 @@ MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
     m_gridSize = QSize(5, 5);
 
     updateGrid();
+}
+
+MonitorGraphicsView::~MonitorGraphicsView()
+{
+    clearFixtures();
 }
 
 void MonitorGraphicsView::setGridSize(QSize size)
@@ -217,6 +223,13 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
     delete item;
 
     return true;
+}
+
+void MonitorGraphicsView::clearFixtures()
+{
+    foreach(MonitorFixtureItem *item, m_fixtures.values())
+        delete item;
+    m_fixtures.clear();
 }
 
 void MonitorGraphicsView::updateGrid()

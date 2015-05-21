@@ -27,7 +27,6 @@
 
 #include "qlcfixturedefcache.h"
 #include "qlcmodifierscache.h"
-#include "monitorproperties.h"
 #include "inputoutputmap.h"
 #include "ioplugincache.h"
 #include "channelsgroup.h"
@@ -41,6 +40,7 @@ class QDomDocument;
 class AudioCapture;
 class QString;
 class RGBScriptsCache;
+class MonitorProperties;
 
 /** @addtogroup engine Engine
  * @{
