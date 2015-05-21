@@ -139,7 +139,6 @@ void Monitor::initDMXView()
     m_monitorLayout = new MonitorLayout(m_monitorWidget);
     m_monitorLayout->setSpacing(1);
     m_monitorLayout->setMargin(1);
-    m_monitorWidget->setFont(m_props->font());
 
     m_scrollArea->setWidget(m_monitorWidget);
 
@@ -150,6 +149,8 @@ void Monitor::fillDMXView()
 {
     while (m_monitorFixtures.isEmpty() == false)
         delete m_monitorFixtures.takeFirst();
+
+    m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
     foreach(Fixture* fxi, m_doc->fixtures())
@@ -200,17 +201,6 @@ void Monitor::initGraphicsView()
     m_graphicsView->setBackgroundBrush(QBrush(QColor(11, 11, 11, 255), Qt::SolidPattern));
     m_splitter->widget(0)->layout()->addWidget(m_graphicsView);
 
-    if (m_props->gridUnits() == MonitorProperties::Meters)
-        m_graphicsView->setGridMetrics(1000.0);
-    else if (m_props->gridUnits() == MonitorProperties::Feet)
-        m_graphicsView->setGridMetrics(304.8);
-    m_graphicsView->setGridSize(m_props->gridSize());
-
-    if (m_props->commonBackgroundImage().isEmpty() == false)
-        m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
-
-    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
-
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
     connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)),
@@ -234,6 +224,14 @@ void Monitor::initGraphicsView()
 void Monitor::fillGraphicsView()
 {
     m_graphicsView->clearFixtures();
+
+    if (m_props->gridUnits() == MonitorProperties::Meters)
+        m_graphicsView->setGridMetrics(1000.0);
+    else // m_props->gridUnits() == MonitorProperties::Feet
+        m_graphicsView->setGridMetrics(304.8);
+    m_graphicsView->setGridSize(m_props->gridSize());
+    m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
+    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {

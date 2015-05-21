@@ -72,12 +72,20 @@ protected:
 
     /** Initialize the monitor view in DMX mode */
     void initDMXView();
+
+    /** Initialize settings & fill fixtures */
     void fillDMXView();
+
+    /** show */
     void showDMXView();
 
     /** Initialize the monitor view in 2D graphics mode */
     void initGraphicsView();
+
+    /** Initialize settings & fill fixtures */
     void fillGraphicsView();
+
+    /** show */
     void showGraphicsView();
 
     void showCurrentView();
