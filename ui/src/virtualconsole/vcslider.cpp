@@ -180,6 +180,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* Initialize to playback mode by default */
     setInvertedAppearance(false);
+    m_sliderMode = SliderMode(-1); // avoid use of uninitialized value
     setSliderMode(Playback);
 
     /* Update the slider according to current mode */

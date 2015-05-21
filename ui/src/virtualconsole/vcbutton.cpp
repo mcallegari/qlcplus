@@ -82,6 +82,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
     setOn(false);
+    m_action = Action(-1); // avoid use of uninitialized value
     setAction(Toggle);
     setFrameStyle(KVCFrameStyleNone);
 
