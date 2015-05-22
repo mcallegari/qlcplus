@@ -1,6 +1,7 @@
 qlcplus (4.8.6) stable; urgency=low
 
   * Function Manager: Fix sequences sometimes loaded in the chaser folder (David Garyga)
+  * Input Selection: Unpatched universes not considered as invalid anymore (David Garyga)
   * Speed Dial & RGB Matrix & Chaser: improve tap precision (David Garyga)
   * Monitor: Fix various issues when loading a project while the Monitor is open (David Garyga)
   * VC Button: Allow to edit the fade out time of a stop-all-functions button with the text input (David Garyga)

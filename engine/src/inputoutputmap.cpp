@@ -757,7 +757,16 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src,
     if (pat == NULL)
     {
         /* There is no patch for the given universe */
-        return false;
+        uniName = QString("%1 -UNPATCHED-").arg(src->universe() + 1);
+
+        ushort page = src->page();
+        ushort channel = (src->channel() & 0x0000FFFF) + 1;
+
+        if (page != 0)
+            chName = QString("%1: ? (Page %2)").arg(channel).arg(page + 1);
+        else
+            chName = QString("%1: ?").arg(channel);
+        return true;
     }
 
     QLCInputProfile* profile = pat->profile();
