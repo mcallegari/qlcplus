@@ -453,8 +453,14 @@ void InputOutputMap_Test::inputSourceNames()
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
     im.loadProfiles(dir);
 
+    // Allow unpatched universe
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
+    QCOMPARE(uni, QString("%1 -UNPATCHED-").arg(1));
+    QCOMPARE(ch, QString("%1: ?").arg(1));
+
+    // Don't allow unexisting universe
+    QVERIFY(im.inputSourceNames(new QLCInputSource(100, 0), uni, ch) == false);
 
     QVERIFY(im.setInputPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
     QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
