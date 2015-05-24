@@ -122,8 +122,6 @@ public:
     /** Get a list of the available Input/Output lines */
     QList<E131IO> getIOMapping();
 
-    void remapOutputs(QList<QString> IPs, QList<int> ports);
-
 private:
     /** List holding the detected system network interfaces */
     QList<QNetworkAddressEntry> m_netInterfaces;
