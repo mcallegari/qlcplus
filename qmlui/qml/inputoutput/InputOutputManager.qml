@@ -44,6 +44,7 @@ Rectangle {
         height: parent.height
         x: leftPanel.width
         z: 6
+        boundsBehavior: Flickable.StopAtBounds
 
         contentHeight: ioList.height
 
@@ -62,8 +63,7 @@ Rectangle {
                 model: ioManager.universes
                 delegate:
                     UniverseIOItem {
-                        universeName: model.modelData
-                        universeIndex: model.index
+                        universe: model.modelData
 
                         onSelected: {
                             leftPanel.universeIndex = index

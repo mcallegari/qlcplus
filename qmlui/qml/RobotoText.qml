@@ -45,6 +45,7 @@ Rectangle {
         color: labelColor
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap
         horizontalAlignment: textAlign
+        verticalAlignment: wrapText ? Text.AlignVCenter : Text.AlignTop
     }
 }
 

@@ -22,9 +22,10 @@
 #include <QQmlContext>
 #include <QQmlComponent>
 
+#include "doc.h"
 #include "mainview2d.h"
 #include "qlcfixturemode.h"
-#include "doc.h"
+#include "monitorproperties.h"
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)

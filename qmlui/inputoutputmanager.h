@@ -26,18 +26,21 @@
 #include <QObject>
 
 class Doc;
+class Universe;
 class InputOutputMap;
 
 class InputOutputManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList universes READ universes NOTIFY universesChanged)
+    Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
+    Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
 
 public:
     InputOutputManager(Doc *doc, QObject *parent = 0);
 
-    QStringList universes();
+    QQmlListProperty<Universe> universes();
+    QStringList universeNames() const;
     Q_INVOKABLE QVariant audioInputSources();
     Q_INVOKABLE QVariant audioOutputSources();
 
@@ -59,8 +62,13 @@ public slots:
 private:
     Doc *m_doc;
     InputOutputMap* m_ioMap;
+    /** List of the current Fixtures in Doc */
+    QList<Universe *> m_universeList;
+    /** List of the available input sources of a universe */
     QList<QObject*> m_inputSources;
+    /** List of the available input profiles of a universe */
     QList<QObject*> m_inputProfiles;
+    /** List of the available output sources of a universe */
     QList<QObject*> m_outputSources;
 
     QQuickItem *m_selectedItem;

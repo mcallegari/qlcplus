@@ -25,6 +25,7 @@
 #include "audiocapture_qt.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
+#include "universe.h"
 #include "doc.h"
 
 InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
@@ -34,11 +35,22 @@ InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
     Q_ASSERT(m_doc != NULL);
     m_ioMap = m_doc->inputOutputMap();
     m_selectedItem = NULL;
+
+    qmlRegisterType<Universe>("com.qlcplus.classes", 1, 0, "Universe");
+    qmlRegisterType<InputPatch>("com.qlcplus.classes", 1, 0, "InputPatch");
+    qmlRegisterType<OutputPatch>("com.qlcplus.classes", 1, 0, "OutputPatch");
 }
 
-QStringList InputOutputManager::universes()
+QQmlListProperty<Universe> InputOutputManager::universes()
 {
     m_selectedItem = NULL;
+    m_universeList.clear();
+    m_universeList = m_ioMap->universes();
+    return QQmlListProperty<Universe>(this, m_universeList);
+}
+
+QStringList InputOutputManager::universeNames() const
+{
     return m_ioMap->universeNames();
 }
 

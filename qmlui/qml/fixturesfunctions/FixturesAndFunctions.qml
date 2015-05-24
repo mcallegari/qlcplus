@@ -179,7 +179,7 @@ Rectangle {
                         width: 100
                         height: 20
                         anchors.margins: 4
-                        model: ioManager.universes
+                        model: ioManager.universeNames
 
                         onCurrentIndexChanged: {
                             var tmpview = currentViewQML;

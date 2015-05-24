@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 
+import "PluginUtils.js" as PluginUtils
+
 Rectangle {
     id: pluginsContainer
     anchors.fill: parent
@@ -37,7 +39,7 @@ Rectangle {
     ListView {
         id: uniListView
         anchors.fill: parent
-        //model: ioManager.audioInputSources()
+        boundsBehavior: Flickable.StopAtBounds
         delegate:
             Rectangle {
                 x: 3
@@ -46,6 +48,7 @@ Rectangle {
                 height: 60
                 color: "transparent"
                 Row {
+                    spacing: 3
                     Rectangle {
                         radius: 3
                         height: uniDelegate.height - 4
@@ -63,18 +66,8 @@ Rectangle {
                         Image {
                             anchors.fill: parent
                             anchors.margins: 3
-                            source: {
-                                switch(modelData.plugin)
-                                {
-                                    case "ArtNet": "qrc:/artnetplugin.svg"; break;
-                                    case "DMX USB": "qrc:/dmxusbplugin.svg"; break;
-                                    case "OLA": "qrc:/olaplugin.svg"; break;
-                                    case "MIDI": "qrc:/midiplugin.svg"; break;
-                                    case "OSC": "qrc:/oscplugin.svg"; break;
-                                    case "E1.31": "qrc:/e131plugin.svg"; break;
-                                    case "Loopback": "qrc:/loopbackplugin.svg"; break;
-                                }
-                            }
+                            source: PluginUtils.iconFromName(modelData.plugin)
+                            sourceSize: Qt.size(width, height)
                             fillMode: Image.Stretch
                         }
                     }

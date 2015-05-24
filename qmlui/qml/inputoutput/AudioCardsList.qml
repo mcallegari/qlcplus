@@ -37,6 +37,7 @@ Rectangle {
     ListView {
         id: acListView
         anchors.fill: parent
+        boundsBehavior: Flickable.StopAtBounds
         //model: ioManager.audioInputSources()
         delegate:
             Rectangle {
@@ -51,6 +52,7 @@ Rectangle {
                         x: 2
                         y: 2
                         source: "qrc:/audiocard.svg"
+                        sourceSize: Qt.size(width, height)
                         fillMode: Image.Stretch
                     }
 

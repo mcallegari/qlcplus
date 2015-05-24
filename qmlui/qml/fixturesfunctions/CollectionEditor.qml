@@ -22,8 +22,6 @@ import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
 
-import "FunctionDrag.js" as FuncDragJS
-
 Rectangle {
     id: ceContainer
     anchors.fill: parent
@@ -130,7 +128,7 @@ Rectangle {
                 height: 40
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected function")
-                onCheckedChanged: {
+                onClicked: {
 
                 }
             }

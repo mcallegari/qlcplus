@@ -23,13 +23,14 @@ Rectangle {
     id: audioItem
     width: parent.width
     height: 120
-    color: isSelected ? "#666" : "#303030"
+    color: isSelected ? "#2D444E" : "transparent"
     border.width: 2
-    border.color: isSelected ? "yellow" : "#666"
+    border.color: isSelected ? "yellow" : "transparent"
 
     property bool isSelected: false
     signal selected
 
+    // representation of the central Audio block
     Rectangle {
         anchors.centerIn: parent
         width: 200
@@ -49,8 +50,11 @@ Rectangle {
             width: parent.width
             label: qsTr("Global Audio")
             wrapText: true
+            textAlign: Text.AlignHCenter
         }
     }
+
+    // Global mouse area to select this Audio item
     MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -61,6 +65,14 @@ Rectangle {
                 audioItem.selected(0);
             }
         }
+    }
+
+    // divider
+    Rectangle {
+        width: parent.width
+        height: 2
+        y: parent.height - 2
+        color: isSelected ? "yellow" : "#666"
     }
 }
 
