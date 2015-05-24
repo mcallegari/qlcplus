@@ -60,7 +60,7 @@ void ConfigureArtNet::fillNodesTree()
         if (controller != NULL && controller != prevController)
         {
             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);
-            pitem->setText(KNodesColumnIP, controller->getNetworkIP() + " nodes");
+            pitem->setText(KNodesColumnIP, tr("%1 nodes").arg(controller->getNetworkIP()));
             QHash<QHostAddress, ArtNetNodeInfo> nodesList = controller->getNodesList();
             QHashIterator<QHostAddress, ArtNetNodeInfo> it(nodesList);
             while (it.hasNext())

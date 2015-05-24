@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.1" language="it_IT">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -22,13 +22,13 @@
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="115"/>
-        <location filename="artnetplugin.cpp" line="278"/>
+        <location filename="artnetplugin.cpp" line="279"/>
         <source>Status: Not open</source>
         <translation>Stato: Non aperto</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="118"/>
-        <location filename="artnetplugin.cpp" line="281"/>
+        <location filename="artnetplugin.cpp" line="282"/>
         <source>Status: Open</source>
         <translation>Stato: Aperto</translation>
     </message>
@@ -43,12 +43,12 @@
         <translation>Pacchetti inviati: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="274"/>
+        <location filename="artnetplugin.cpp" line="275"/>
         <source>Input</source>
         <translation>Ingresso</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="283"/>
+        <location filename="artnetplugin.cpp" line="284"/>
         <source>Packets received: </source>
         <translation>Pacchetti ricevuti: </translation>
     </message>
@@ -79,6 +79,11 @@
         <location filename="configureartnet.ui" line="44"/>
         <source>Long Name</source>
         <translation>Nome lungo</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="63"/>
+        <source>%1 nodes</source>
+        <translation type="unfinished">%1 nodi</translation>
     </message>
 </context>
 </TS>
