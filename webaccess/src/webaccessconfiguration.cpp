@@ -84,7 +84,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
-    for (quint32 i = 0; i < ioMap->universes(); i++)
+    for (quint32 i = 0; i < ioMap->universesCount(); i++)
     {
         InputPatch* ip = ioMap->inputPatch(i);
         OutputPatch* op = ioMap->outputPatch(i);

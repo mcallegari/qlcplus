@@ -63,9 +63,14 @@ class Universe: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
 
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(InputPatch* inputPatch READ inputPatch CONSTANT)
+    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch CONSTANT)
+
 public:
     /** Construct a new Universe */
-    Universe(quint32 id, GrandMaster *gm, QObject* parent = 0);
+    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject* parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -160,6 +165,9 @@ protected:
      * @return Value filtered through grand master (if applicable)
      */
     uchar applyGM(int channel, uchar value);
+
+signals:
+    void nameChanged();
 
 protected:
     /** The universe ID */

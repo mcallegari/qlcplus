@@ -155,7 +155,7 @@ void SelectInputChannel::fillTree()
     chItem->setText(KColumnChannel, QString("%1")
                     .arg(QLCChannel::invalid()));
 
-    for (uni = 0; uni < m_ioMap->universes(); uni++)
+    for (uni = 0; uni < m_ioMap->universesCount(); uni++)
     {
         /* Get the patch associated to the current universe */
         patch = m_ioMap->inputPatch(uni);

@@ -101,7 +101,7 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
         m_playbacksPerPage = var.toUInt();
 
     // default all the universes pages to 1
-    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
         m_universesPage.append(1);
 
     initEngine();

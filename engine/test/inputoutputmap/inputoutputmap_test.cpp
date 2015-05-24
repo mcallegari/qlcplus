@@ -60,7 +60,7 @@ void InputOutputMap_Test::cleanupTestCase()
 void InputOutputMap_Test::initial()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     QVERIFY(im.m_universeArray.count() == 4);
     QVERIFY(im.universeNames().count() == 4);
     QVERIFY(im.m_profiles.size() == 0);
@@ -170,7 +170,7 @@ void InputOutputMap_Test::universeNames()
 {
     InputOutputMap iom(m_doc, 4);
 
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QVERIFY(iom.universeNames().at(0).contains("Universe"));
     QVERIFY(iom.universeNames().at(1).contains("Universe"));
     QVERIFY(iom.universeNames().at(2).contains("Universe"));
@@ -181,14 +181,14 @@ void InputOutputMap_Test::universeNames()
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), 3);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
     QCOMPARE(iom.universeNames().at(3), QString("Universe 4"));
 
     iom.setOutputPatch(3, stub->name(), 2);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
@@ -198,20 +198,20 @@ void InputOutputMap_Test::universeNames()
 void InputOutputMap_Test::addUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     im.addUniverse();
-    QVERIFY(im.universes() == 5);
+    QVERIFY(im.universesCount() == 5);
 }
 
 void InputOutputMap_Test::removeUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     im.removeUniverse(1);
-    QVERIFY(im.universes() == 3);
+    QVERIFY(im.universesCount() == 3);
     QVERIFY(im.removeUniverse(7) == false);
     im.removeAllUniverses();
-    QVERIFY(im.universes() == 0);
+    QVERIFY(im.universesCount() == 0);
 }
 
 void InputOutputMap_Test::profiles()
@@ -307,7 +307,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 3) == 2);
 
     // Universe out of bounds
-    QVERIFY(im.setInputPatch(im.universes(), stub->name(), 0) == false);
+    QVERIFY(im.setInputPatch(im.universesCount(), stub->name(), 0) == false);
 }
 
 

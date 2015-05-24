@@ -40,11 +40,14 @@ class OutputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(OutputPatch)
 
+    Q_PROPERTY(QString outputName READ outputName CONSTANT)
+    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
+
     /********************************************************************
      * Initialization
      ********************************************************************/
 public:
-    OutputPatch(QObject* parent);
+    OutputPatch(QObject* parent = 0);
     virtual ~OutputPatch();
 
     /********************************************************************

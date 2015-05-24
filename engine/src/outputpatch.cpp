@@ -36,12 +36,11 @@
  * Initialization
  *****************************************************************************/
 
-OutputPatch::OutputPatch(QObject* parent) : QObject(parent)
+OutputPatch::OutputPatch(QObject* parent)
+    : QObject(parent)
+    , m_plugin(NULL)
+    , m_output(QLCIOPlugin::invalidLine())
 {
-    Q_ASSERT(parent != NULL);
-
-    m_plugin = NULL;
-    m_output = QLCIOPlugin::invalidLine();
 }
 
 OutputPatch::~OutputPatch()

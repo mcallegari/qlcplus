@@ -37,6 +37,19 @@
  * Initialization
  *****************************************************************************/
 
+InputPatch::InputPatch(QObject *parent)
+    : QObject(parent)
+    , m_inputUniverse(UINT_MAX)
+    , m_plugin(NULL)
+    , m_input(QLCIOPlugin::invalidLine())
+    , m_profile(NULL)
+    , m_nextPageCh(USHRT_MAX)
+    , m_prevPageCh(USHRT_MAX)
+    , m_pageSetCh(USHRT_MAX)
+{
+
+}
+
 InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
     : QObject(parent)
     , m_inputUniverse(inputUniverse)
@@ -47,7 +60,7 @@ InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
     , m_prevPageCh(USHRT_MAX)
     , m_pageSetCh(USHRT_MAX)
 {
-    Q_ASSERT(parent != NULL);
+
 }
 
 InputPatch::~InputPatch()

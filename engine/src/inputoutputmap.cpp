@@ -87,7 +87,7 @@ void InputOutputMap::setBlackout(bool blackout)
     if (blackout == true)
     {
         QByteArray zeros(512, 0);
-        for (quint32 i = 0; i < universes(); i++)
+        for (quint32 i = 0; i < universesCount(); i++)
         {
             Universe *universe = m_universeArray.at(i);
             if (universe->outputPatch() != NULL)
@@ -151,7 +151,7 @@ bool InputOutputMap::removeUniverse(int index)
 
 bool InputOutputMap::removeAllUniverses()
 {
-    quint32 uniCount = universes();
+    quint32 uniCount = universesCount();
     for (quint32 i = 0; i < uniCount; i++)
     {
         Universe *uni = m_universeArray.takeLast();
@@ -229,9 +229,14 @@ bool InputOutputMap::isUniversePatched(int index)
     return m_universeArray.at(index)->isPatched();
 }
 
-quint32 InputOutputMap::universes() const
+quint32 InputOutputMap::universesCount() const
 {
     return (quint32)m_universeArray.count();
+}
+
+QList<Universe *> InputOutputMap::universes() const
+{
+    return m_universeArray;
 }
 
 QList<Universe*> InputOutputMap::claimUniverses()
@@ -355,7 +360,7 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
                                    quint32 input, const QString &profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
-    if (universe >= universes())
+    if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return false;
@@ -396,7 +401,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
                                     quint32 output, bool isFeedback)
 {
     /* Check that the universe that we're doing mapping for is valid */
-    if (universe >= universes())
+    if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return false;
@@ -415,7 +420,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
 
 InputPatch *InputOutputMap::inputPatch(quint32 universe) const
 {
-    if (universe >= universes())
+    if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return NULL;
@@ -425,7 +430,7 @@ InputPatch *InputOutputMap::inputPatch(quint32 universe) const
 
 OutputPatch *InputOutputMap::outputPatch(quint32 universe) const
 {
-    if (universe >= universes())
+    if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return NULL;
@@ -435,7 +440,7 @@ OutputPatch *InputOutputMap::outputPatch(quint32 universe) const
 
 OutputPatch *InputOutputMap::feedbackPatch(quint32 universe) const
 {
-    if (universe >= universes())
+    if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return NULL;
@@ -446,7 +451,7 @@ OutputPatch *InputOutputMap::feedbackPatch(quint32 universe) const
 QStringList InputOutputMap::universeNames() const
 {
     QStringList list;
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         list << m_universeArray.at(i)->name();
         /*
@@ -461,7 +466,7 @@ QStringList InputOutputMap::universeNames() const
 
 quint32 InputOutputMap::inputMapping(const QString &pluginName, quint32 input) const
 {
-    for (quint32 uni = 0; uni < universes(); uni++)
+    for (quint32 uni = 0; uni < universesCount(); uni++)
     {
         const InputPatch* p = m_universeArray.at(uni)->inputPatch();
         if (p != NULL && p->pluginName() == pluginName && p->input() == input)
@@ -473,7 +478,7 @@ quint32 InputOutputMap::inputMapping(const QString &pluginName, quint32 input) c
 
 quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output) const
 {
-    for (quint32 uni = 0; uni < universes(); uni++)
+    for (quint32 uni = 0; uni < universesCount(); uni++)
     {
         const OutputPatch* p = m_universeArray.at(uni)->outputPatch();
         if (p != NULL && p->pluginName() == pluginName && p->output() == output)
@@ -613,7 +618,7 @@ QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 ou
 
 bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key)
 {
-    if (universe >= universes())
+    if (universe >= universesCount())
         return false;
 
     OutputPatch* patch = m_universeArray.at(universe)->feedbackPatch();
@@ -632,7 +637,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
     bool success = false;
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         OutputPatch* op = m_universeArray.at(i)->outputPatch();
 
@@ -750,7 +755,7 @@ bool InputOutputMap::inputSourceNames(const QLCInputSource *src,
     if (src == NULL || src->isValid() == false)
         return false;
 
-    if (src->universe() >= universes())
+    if (src->universe() >= universesCount())
         return false;
 
     InputPatch* pat = m_universeArray.at(src->universe())->inputPatch();
@@ -844,7 +849,7 @@ void InputOutputMap::loadDefaults()
     QString input;
     QString key;
 
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         QString profileName;
         bool passthrough;
@@ -876,7 +881,7 @@ void InputOutputMap::loadDefaults()
     QString fb_plugin;
     QString feedback;
 
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         /* Plugin name */
         key = QString("/outputmap/universe%1/plugin/").arg(i);
@@ -908,7 +913,7 @@ void InputOutputMap::saveDefaults()
     QSettings settings;
     QString key;
 
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         InputPatch* inPatch = inputPatch(i);
 
@@ -944,7 +949,7 @@ void InputOutputMap::saveDefaults()
 
     /* ************************ OUTPUT *********************************** */
 
-    for (quint32 i = 0; i < universes(); i++)
+    for (quint32 i = 0; i < universesCount(); i++)
     {
         OutputPatch* outPatch = outputPatch(i);
         OutputPatch* fbPatch = feedbackPatch(i);

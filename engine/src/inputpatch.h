@@ -53,10 +53,15 @@ class InputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(InputPatch)
 
+    Q_PROPERTY(QString inputName READ inputName CONSTANT)
+    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
+    Q_PROPERTY(QString profileName READ profileName CONSTANT)
+
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
+    InputPatch(QObject* parent = 0);
     InputPatch(quint32 inputUniverse, QObject* parent);
     virtual ~InputPatch();
 

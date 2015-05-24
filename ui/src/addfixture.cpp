@@ -369,7 +369,7 @@ void AddFixture::findAddress()
        channels, leaving z channels gap in-between. */
     quint32 address = findAddress((m_channelsValue + m_gapValue) * m_amountValue,
                                   m_doc->fixtures(),
-                                  m_doc->inputOutputMap()->universes());
+                                  m_doc->inputOutputMap()->universesCount());
 
     /* Set the address only if the channel space was really found */
     if (address != QLCChannel::invalid())

@@ -83,6 +83,7 @@ void Universe::setName(QString name)
         m_name = QString("Universe %1").arg(m_id + 1);
     else
         m_name = name;
+    emit nameChanged();
 }
 
 QString Universe::name() const
