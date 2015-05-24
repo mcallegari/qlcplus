@@ -23,13 +23,22 @@
 #include <QSettings>
 #include <QDebug>
 
+#define DMX_CHANNELS 512
+
+#define SETTINGS_OUTPUT_MODE "artnetplugin/output_mode"
+#define MODE_FULL "Full"
+#define MODE_MINIMAL "Minimal"
+
 ArtNetPlugin::~ArtNetPlugin()
 {
+    saveSettings();
 }
 
 void ArtNetPlugin::init()
 {
     m_IOmapping.clear();
+    m_outputMode = Full;
+    loadSettings();
 
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
@@ -81,9 +90,46 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
+void ArtNetPlugin::saveSettings() const
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_OUTPUT_MODE, OutputModeToString(m_outputMode));
+}
+
+void ArtNetPlugin::loadSettings()
+{
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_OUTPUT_MODE);
+    if (value.isValid())
+        m_outputMode = StringToOutputMode(value.toString());
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/
+QString ArtNetPlugin::OutputModeToString(OutputMode mode)
+{
+    switch (mode)
+    {
+    case Full:
+        return MODE_FULL;
+    case Minimal:
+        return MODE_MINIMAL;
+    default:
+        return "";
+    }
+}
+
+ArtNetPlugin::OutputMode ArtNetPlugin::StringToOutputMode(QString mode)
+{
+    if (mode == MODE_FULL)
+        return Full;
+    else if (mode == MODE_MINIMAL)
+        return Minimal;
+    else
+         return Full;
+}
+
 QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
@@ -188,7 +234,17 @@ void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteAr
 
     ArtNetController *controller = m_IOmapping[output].controller;
     if (controller != NULL)
-        controller->sendDmx(universe, data);
+        controller->sendDmx(universe, data, m_outputMode == Full ? DMX_CHANNELS : 0);
+}
+
+ArtNetPlugin::OutputMode ArtNetPlugin::outputMode() const
+{
+    return m_outputMode;
+}
+
+void ArtNetPlugin::setOutputMode(OutputMode mode)
+{
+    m_outputMode = mode;
 }
 
 /*************************************************************************
@@ -297,7 +353,10 @@ QString ArtNetPlugin::inputInfo(quint32 input)
 void ArtNetPlugin::configure()
 {
     ConfigureArtNet conf(this);
-    conf.exec();
+    if (conf.exec() == QDialog::Accepted)
+    { 
+        saveSettings();
+    }
 }
 
 bool ArtNetPlugin::canConfigure()

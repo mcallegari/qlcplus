@@ -44,7 +44,7 @@ public:
     ~ArtNetController();
 
     /** Send DMX data to a specific port/universe */
-    void sendDmx(const quint32 universe, const QByteArray& data);
+    void sendDmx(const quint32 universe, const QByteArray& data, const int minLenght);
 
     /** Return the controller IP address */
     QString getNetworkIP();

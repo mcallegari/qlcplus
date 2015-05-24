@@ -19,7 +19,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="nodesTab">
       <attribute name="title">
        <string>Nodes Tree</string>
       </attribute>
@@ -44,6 +44,45 @@
            <string>Long Name</string>
           </property>
          </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsTab">
+      <attribute name="title">
+       <string>Settings</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="m_outputModeGroup">
+         <property name="title">
+          <string>Output Mode</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QRadioButton" name="m_fullModeRadio">
+            <property name="toolTip">
+             <string>Output full 512 channels. Best stability, worst efficiency.</string>
+            </property>
+            <property name="text">
+             <string>Full</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_minimalModeRadio">
+            <property name="toolTip">
+             <string>Skip trailing zeroes. Worst stability, best efficiency.</string>
+            </property>
+            <property name="text">
+             <string>Minimal</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
