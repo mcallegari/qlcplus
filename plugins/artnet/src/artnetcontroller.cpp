@@ -45,7 +45,7 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
 
     qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
     qDebug() << "[ArtNetController] type: " << type;
-    m_packetizer = new ArtNetPacketizer();
+    m_packetizer.reset(new ArtNetPacketizer());
     m_packetSent = 0;
     m_packetReceived = 0;
     m_inputRefCount = 0;

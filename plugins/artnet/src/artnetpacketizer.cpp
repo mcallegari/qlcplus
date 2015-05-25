@@ -44,6 +44,10 @@ ArtNetPacketizer::ArtNetPacketizer()
     m_sequence[3] = 1;
 }
 
+ArtNetPacketizer::~ArtNetPacketizer()
+{
+}
+
 /*********************************************************************
  * Sender functions
  *********************************************************************/

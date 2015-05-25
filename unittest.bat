@@ -1,6 +1,13 @@
 @ECHO OFF
 SETLOCAL EnableDelayedExpansion
 
+REM ArtNet test
+pushd .
+cd plugins\artnet\src
+..\test\artnet_test.exe
+IF NOT %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+popd
+
 REM Enttec wing test
 pushd .
 cd plugins\ewinginput\src

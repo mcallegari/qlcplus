@@ -17,13 +17,14 @@
   limitations under the License.
 */
 
-#ifndef ARTNETNODE_H
-#define ARTNETNODE_H
-
-#include "artnetpacketizer.h"
+#ifndef ARTNETCONTROLLER_H
+#define ARTNETCONTROLLER_H
 
 #include <QtNetwork>
 #include <QObject>
+#include <QScopedPointer>
+
+#include "artnetpacketizer.h"
 
 #define ARTNET_DEFAULT_PORT     6454
 
@@ -94,7 +95,7 @@ private:
     QUdpSocket *m_UdpSocket;
 
     /** Helper class used to create or parse ArtNet packets */
-    ArtNetPacketizer *m_packetizer;
+    QScopedPointer<ArtNetPacketizer> m_packetizer;
 
     /** Map of the ArtNet nodes discovered with ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;

@@ -29,7 +29,7 @@ E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, qu
     m_line = line;
 
     qDebug() << "[E131Controller] type: " << type;
-    m_packetizer = new E131Packetizer();
+    m_packetizer.reset(new E131Packetizer());
     m_packetSent = 0;
     m_packetReceived = 0;
     m_type = type;

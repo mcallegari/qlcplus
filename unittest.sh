@@ -125,6 +125,21 @@ popd
 #popd
 
 #############################################################################
+# ArtNet tests
+#############################################################################
+
+$SLEEPCMD
+pushd .
+cd plugins/artnet/test
+$TESTPREFIX ./test.sh
+RESULT=$?
+if [ $RESULT != 0 ]; then
+	echo "${RESULT} ArtNet unit tests failed. Please fix before commit."
+	exit $RESULT
+fi
+popd
+
+#############################################################################
 # Final judgment
 #############################################################################
 

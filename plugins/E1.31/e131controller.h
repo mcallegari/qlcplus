@@ -17,13 +17,14 @@
   limitations under the License.
 */
 
-#ifndef E131NODE_H
-#define E131NODE_H
+#ifndef E131CONTROLLER_H
+#define E131CONTROLLER_H
 
 #include "e131packetizer.h"
 
 #include <QtNetwork>
 #include <QObject>
+#include <QScopedPointer>
 
 #define E131_DEFAULT_PORT     5568
 
@@ -96,7 +97,7 @@ private:
     QUdpSocket *m_UdpSocket;
 
     /** Helper class used to create or parse E131 packets */
-    E131Packetizer *m_packetizer;
+    QScopedPointer<E131Packetizer> m_packetizer;
 
     /** Keeps the current dmx values to send only the ones that changed */
     /** It holds values for a whole 4 universes address (512 * 4) */
