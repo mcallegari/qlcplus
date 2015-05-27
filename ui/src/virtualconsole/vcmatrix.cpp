@@ -71,7 +71,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
 
-    QVBoxLayout *vbox = new QVBoxLayout(this);
+    QVBoxLayout *vbox = new QVBoxLayout();
 
     m_startColorButton = new QToolButton(this);
     m_startColorButton->setFixedSize(48, 48);
@@ -110,7 +110,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     vbox->addWidget(m_label);
 
-    QHBoxLayout *btnHbox = new QHBoxLayout(this);
+    QHBoxLayout *btnHbox = new QHBoxLayout();
 
     btnHbox->addWidget(m_startColorButton);
     btnHbox->addWidget(m_endColorButton);

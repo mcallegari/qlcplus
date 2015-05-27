@@ -67,7 +67,7 @@ const quint8 VCCueList::cf1InputSourceId = 3;
 const quint8 VCCueList::cf2InputSourceId = 4;
 
 const QString progressDisabledStyle =
-        "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC;";
+        "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC; }";
 const QString progressFadeStyle =
         "QProgressBar { border: 2px solid grey; border-radius: 4px; background-color: #C3C3C3; text-align: center; }"
         "QProgressBar::chunk { background-color: #63C10B; width: 1px; }";
