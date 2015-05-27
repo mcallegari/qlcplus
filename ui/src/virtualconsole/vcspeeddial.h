@@ -116,7 +116,7 @@ public:
     /**
      * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QList <VCSpeedDialFunction> functions);
+    void setFunctions(const QList <VCSpeedDialFunction> & functions);
 
     /**
      * Get the list of functions that are controlled by the dial.
@@ -179,7 +179,7 @@ private:
      *************************************************************************/
 public:
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask();
+    ushort visibilityMask() const;
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */

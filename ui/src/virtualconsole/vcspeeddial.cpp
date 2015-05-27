@@ -105,7 +105,9 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
     if (dial == NULL)
         return false;
 
-    m_functions = dial->functions();
+    setFunctions(dial->functions());
+    setAbsoluteValueRange(dial->absoluteValueMin(), dial->absoluteValueMax());
+    setVisibilityMask(dial->visibilityMask());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -156,7 +158,7 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
  * Functions
  ****************************************************************************/
 
-void VCSpeedDial::setFunctions(const QList <VCSpeedDialFunction> functions)
+void VCSpeedDial::setFunctions(const QList <VCSpeedDialFunction> & functions)
 {
     m_functions = functions;
 }
@@ -281,7 +283,7 @@ uint VCSpeedDial::absoluteValueMax() const
     return m_absoluteValueMax;
 }
 
-ushort VCSpeedDial::visibilityMask()
+ushort VCSpeedDial::visibilityMask() const
 {
     return m_visibilityMask;
 }
