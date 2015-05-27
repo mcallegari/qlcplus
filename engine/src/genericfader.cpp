@@ -100,14 +100,14 @@ void GenericFader::write(QList<Universe*> ua)
             // Remove all HTP channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves CPU a bit.
             if (fc.current() == 0 && fc.target() == 0)
-                it.remove(fc);
+                it.remove();
         }
 /*
         else
         {
             // Remove all LTP channels after their time is up
             if (fc.elapsed() >= fc.fadeTime())
-                it.remove(fc);
+                it.remove();
         }
 */
         if (fc.isFlashing())
