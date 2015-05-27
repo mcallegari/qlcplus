@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ca_ES">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -82,7 +82,7 @@
     <message>
         <location filename="configureartnet.cpp" line="63"/>
         <source>%1 nodes</source>
-        <translation type="unfinished">%1 Nodes</translation>
+        <translation>%1 Nodes</translation>
     </message>
 </context>
 </TS>
