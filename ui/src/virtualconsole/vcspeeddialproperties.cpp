@@ -87,10 +87,6 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     if (dialMask & SpeedDial::Milliseconds) m_msCheck->setChecked(true);
     if (dialMask & SpeedDial::Infinite) m_infiniteCheck->setChecked(true);
 
-    connect(m_autoDetectAbsoluteInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectAbsoluteInputSourceToggled(bool)));
-    connect(m_autoDetectTapInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectTapInputSourceToggled(bool)));
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
 }

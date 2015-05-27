@@ -568,7 +568,7 @@
    <sender>m_autoDetectAbsoluteInputButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+   <slot>slotAutoDetectAbsoluteInputSourceToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>200</x>
@@ -584,7 +584,7 @@
    <sender>m_autoDetectTapInputButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectTapInputSourceClicked()</slot>
+   <slot>slotAutoDetectTapInputSourceToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>195</x>
@@ -602,7 +602,7 @@
   <slot>slotRemoveClicked()</slot>
   <slot>slotChooseAbsoluteInputSourceClicked()</slot>
   <slot>slotChooseTapInputSourceClicked()</slot>
-  <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+  <slot>slotAutoDetectAbsoluteInputSourceToggled(bool)</slot>
   <slot>slotAutoDetectTapInputSourceClicked()</slot>
  </slots>
 </ui>
