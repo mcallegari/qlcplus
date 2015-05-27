@@ -83,7 +83,7 @@
     <message>
         <location filename="configureartnet.cpp" line="63"/>
         <source>%1 nodes</source>
-        <translation type="unfinished">%1 Nodos</translation>
+        <translation>%1 nodos</translation>
     </message>
 </context>
 </TS>
