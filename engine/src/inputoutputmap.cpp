@@ -122,6 +122,9 @@ bool InputOutputMap::addUniverse(quint32 id)
     QMutexLocker locker(&m_universeMutex);
     if (id == InputOutputMap::invalidUniverse())
         id = ++m_latestUniverseId;
+    else if (m_latestUniverseId == InputOutputMap::invalidUniverse()
+            || id >= m_latestUniverseId)
+        m_latestUniverseId = id;
 
     m_universeArray.append(new Universe(id, m_grandMaster));
     locker.unlock();    
