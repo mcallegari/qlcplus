@@ -294,6 +294,31 @@ bool DMXUSB::canConfigure()
     return true;
 }
 
+void DMXUSB::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!QLCFTDI::isDeviceWanted(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "unwanted device, do nothing";
+        return;
+    }
+
+    rescanWidgets();
+    emit configurationChanged();
+}
+
+void DMXUSB::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!QLCFTDI::isDeviceWanted(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "unwanted device, do nothing";
+        return;
+    }
+
+    rescanWidgets();
+}
+
 /****************************************************************************
  * Plugin export
  ****************************************************************************/

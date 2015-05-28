@@ -38,12 +38,12 @@ HotPlugMonitor::HotPlugMonitor(QObject* parent)
     : QObject(parent)
     , d_ptr(new HPMPrivate(this))
 {
-    qDebug() << Q_FUNC_INFO;
+    qWarning() << Q_FUNC_INFO;
 }
 
 HotPlugMonitor::~HotPlugMonitor()
 {
-    qDebug() << Q_FUNC_INFO;
+    qWarning() << Q_FUNC_INFO;
 
     stop();
     delete d_ptr;
@@ -52,20 +52,30 @@ HotPlugMonitor::~HotPlugMonitor()
 
 void HotPlugMonitor::connectListener(QObject* listener)
 {
+    qWarning() << Q_FUNC_INFO;
+
     QByteArray added = QMetaObject::normalizedSignature("slotDeviceAdded(uint,uint)");
     QByteArray removed = QMetaObject::normalizedSignature("slotDeviceRemoved(uint,uint)");
 
     if (listener->metaObject()->indexOfMethod(added.constData()) != -1)
+    {
+        qWarning() << Q_FUNC_INFO << "connect added";
         connect(instance(), SIGNAL(deviceAdded(uint,uint)),
                 listener, SLOT(slotDeviceAdded(uint,uint)));
+    }
 
     if (listener->metaObject()->indexOfMethod(removed.constData()) != -1)
+    {
+        qWarning() << Q_FUNC_INFO << "connect removed";
         connect(instance(), SIGNAL(deviceRemoved(uint,uint)),
                 listener, SLOT(slotDeviceRemoved(uint,uint)));
+    }
 }
 
 HotPlugMonitor* HotPlugMonitor::instance()
 {
+    qWarning() << Q_FUNC_INFO;
+
     if (s_instance == NULL)
     {
         Q_ASSERT(QCoreApplication::instance() != NULL);
@@ -78,24 +88,24 @@ HotPlugMonitor* HotPlugMonitor::instance()
 
 void HotPlugMonitor::start()
 {
-    qDebug() << Q_FUNC_INFO;
+    qWarning() << Q_FUNC_INFO;
     d_ptr->start();
 }
 
 void HotPlugMonitor::stop()
 {
-    qDebug() << Q_FUNC_INFO;
+    qWarning() << Q_FUNC_INFO;
     d_ptr->stop();
 }
 
 void HotPlugMonitor::emitDeviceAdded(uint vid, uint pid)
 {
-    qDebug() << Q_FUNC_INFO << vid << pid;
+    qWarning() << Q_FUNC_INFO << vid << pid;
     emit deviceAdded(vid, pid);
 }
 
 void HotPlugMonitor::emitDeviceRemoved(uint vid, uint pid)
 {
-    qDebug() << Q_FUNC_INFO << vid << pid;
+    qWarning() << Q_FUNC_INFO << vid << pid;
     emit deviceRemoved(vid, pid);
 }
