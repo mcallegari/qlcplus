@@ -120,9 +120,9 @@ void SimpleDeskEngine::resetUniverse(int universe)
 {
     qDebug() << Q_FUNC_INFO;
 
+    QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
     QMutexLocker locker(&m_mutex);
     QHashIterator <uint,uchar> it(m_values);
-    QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
     Universe *resUni = NULL;
     if (universe < universes.count())
         resUni = universes.at(universe);
