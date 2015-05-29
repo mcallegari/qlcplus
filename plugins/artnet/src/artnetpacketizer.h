@@ -89,7 +89,7 @@ public:
     void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr);
 
     /** Prepare an ArtNetDmx packet */
-    void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);
+    void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values, const int minLength);
 
     /*********************************************************************
      * Receiver functions

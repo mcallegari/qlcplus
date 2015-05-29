@@ -146,10 +146,10 @@ QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
     return m_nodesList;
 }
 
-void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
+void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data, const int minLength)
 {
     QByteArray dmxPacket;
-    m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
+    m_packetizer->setupArtNetDmx(dmxPacket, universe, data, minLength);
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
                                              m_broadcastAddr, ARTNET_DEFAULT_PORT);
     if (sent < 0)

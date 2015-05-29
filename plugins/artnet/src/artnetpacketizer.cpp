@@ -120,7 +120,7 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
         data.append((char)0x00); // bindIp[4], BindIndex, Status2 and filler
 }
 
-void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, const QByteArray &values)
+void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, const QByteArray &values, const int minLength)
 {
     data.clear();
     data.append(m_commonHeader);
@@ -130,8 +130,24 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append('\0'); // Physical
     data.append((char)(universe & 0x00FF));
     data.append((char)(universe >> 8));
-    int padLength = values.isEmpty() ? 2 : (values.length() % 2); // length must be even in the range 2-512
+
+    int padLength = 0;
+    if (minLength > values.length())
+    {
+        padLength = minLength - values.length() + minLength % 2; // fill up to minLength and then up to even number
+    }
+    else
+    {
+        padLength = values.length() % 2; // fill up to even number
+    }
     int len = values.length() + padLength;
+    Q_ASSERT(len % 2 == 0);
+    Q_ASSERT(len >= minLength);
+    if (len < 2)
+    {
+        len = 2; // length must be even in the range 2-512
+        padLength = len - values.length();
+    }
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
     data.append(values);

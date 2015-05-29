@@ -68,10 +68,28 @@ public:
     void setParameter(QString name, QVariant &value)
     { Q_UNUSED(name); Q_UNUSED(value); }
 
+private:
+
+    void saveSettings() const;
+    void loadSettings();
+
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
+
+    /** Specifies how the data is output */
+    enum OutputMode
+    {
+        Full,       /**< Full 512 bytes are output; maximum compatibility, lowest efficiency */
+        Patched,    /**< All patched channels are output; fair compatibility and efficiency; NOT IMPLEMENED!!! */
+        Minimal     /**< Trailing zeroes are stripped; minimal compatibility, maximum efficiency */
+    };
+
+    static QString OutputModeToString(OutputMode mode);
+
+    static OutputMode StringToOutputMode(QString mode);
+
     /** @reimp */
     bool openOutput(quint32 output);
 
@@ -86,6 +104,10 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+
+    OutputMode outputMode() const;
+ 
+    void setOutputMode(OutputMode mode);
 
     /*************************************************************************
      * Inputs
@@ -128,6 +150,8 @@ private:
 
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO>m_IOmapping;
+
+    OutputMode m_outputMode;
 };
 
 #endif

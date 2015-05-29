@@ -41,6 +41,22 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    switch (m_plugin->outputMode())
+    {
+    case ArtNetPlugin::Full:
+        m_fullModeRadio->setChecked(true);
+        break;
+
+    case ArtNetPlugin::Minimal:
+        m_minimalModeRadio->setChecked(true);
+        break;
+
+    case ArtNetPlugin::Patched:
+    default:
+        // Not implemented
+        break;
+    }
+
     this->resize(400, 300);
 
     fillNodesTree();
@@ -92,6 +108,14 @@ ConfigureArtNet::~ConfigureArtNet()
 void ConfigureArtNet::accept()
 {
     QDialog::accept();
+    if (m_fullModeRadio->isChecked())
+    {
+        m_plugin->setOutputMode(ArtNetPlugin::Full);
+    }
+    else if (m_minimalModeRadio->isChecked())
+    {
+        m_plugin->setOutputMode(ArtNetPlugin::Minimal);
+    }
 }
 
 int ConfigureArtNet::exec()

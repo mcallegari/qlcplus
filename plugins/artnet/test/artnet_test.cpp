@@ -38,25 +38,116 @@ void ArtNet_Test::setupArtNetDmx()
     const QByteArray fiftyone(51, 10);
     const QByteArray full(512, 20);
 
-    // empty data
-    ap.setupArtNetDmx(data, 0, empty);
+    // empty data, minimal mode
+    ap.setupArtNetDmx(data, 0, empty, 0);
 
     QCOMPARE(data.size(), 20);
     QCOMPARE(data.data(), "Art-Net");
 
-    // full data
-    ap.setupArtNetDmx(data, 0, full);
+    // empty data, full mode
+    ap.setupArtNetDmx(data, 0, empty, 512);
 
     QCOMPARE(data.size(), 18 + 512);
     QCOMPARE(data.data(), "Art-Net");
 
-    // partial data
-    ap.setupArtNetDmx(data, 0, fifty);
+    // empty data, partial mode
+    ap.setupArtNetDmx(data, 0, empty, 51);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, empty, 52);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // full data, minimal mode
+    ap.setupArtNetDmx(data, 0, full, 0);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // full data, full mode
+    ap.setupArtNetDmx(data, 0, full, 512);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // full data, partial mode
+    ap.setupArtNetDmx(data, 0, full, 51);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, full, 52);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // partial data, minimal mode
+    ap.setupArtNetDmx(data, 0, fifty, 0);
 
     QCOMPARE(data.size(), 18 + 50);
     QCOMPARE(data.data(), "Art-Net");
 
-    ap.setupArtNetDmx(data, 0, fiftyone);
+    ap.setupArtNetDmx(data, 0, fiftyone, 0);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // fartial data, full mode
+    ap.setupArtNetDmx(data, 0, fifty, 512);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fiftyone, 512);
+
+    QCOMPARE(data.size(), 18 + 512);
+    QCOMPARE(data.data(), "Art-Net");
+
+    // partial data, partial mode
+    ap.setupArtNetDmx(data, 0, fifty, 50);
+
+    QCOMPARE(data.size(), 18 + 50);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fifty, 51);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fifty, 52);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fifty, 48);
+
+    QCOMPARE(data.size(), 18 + 50);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fifty, 49);
+
+    QCOMPARE(data.size(), 18 + 50);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fiftyone, 51);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fiftyone, 52);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fiftyone, 49);
+
+    QCOMPARE(data.size(), 18 + 52);
+    QCOMPARE(data.data(), "Art-Net");
+
+    ap.setupArtNetDmx(data, 0, fiftyone, 50);
 
     QCOMPARE(data.size(), 18 + 52);
     QCOMPARE(data.data(), "Art-Net");
