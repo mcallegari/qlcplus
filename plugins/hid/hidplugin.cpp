@@ -371,6 +371,10 @@ void HIDPlugin::removeDevice(HIDDevice* device)
     emit configurationChanged();
 }
 
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
 void HIDPlugin::slotDeviceAdded(uint vid, uint pid)
 {
     qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);

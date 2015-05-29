@@ -45,6 +45,9 @@ public:
     /** Find out, whether the given USB device is a Peperoni device */
     static bool isPeperoniDevice(const struct usb_device* device);
 
+    /** Find out, whether the given USB VID/PID pair corresponds to a Peperoni device */
+    static bool isPeperoniDevice(int vid, int pid);
+
     /** Returns the number of output universes this device supports */
     static int outputsNumber(const struct usb_device* device);
 
