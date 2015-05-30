@@ -132,20 +132,6 @@ void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray
 }
 
 /*****************************************************************************
- * Configuration
- *****************************************************************************/
-
-void DMX4Linux::configure()
-{
-    /* NOP */
-}
-
-bool DMX4Linux::canConfigure()
-{
-    return false;
-}
-
-/*****************************************************************************
  * Plugin export
  ****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

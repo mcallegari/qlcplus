@@ -218,19 +218,6 @@ void Loopback::sendFeedBack(quint32 input, quint32 channel, uchar value, const Q
 }
 
 /*****************************************************************************
- * Configuration
- *****************************************************************************/
-
-void Loopback::configure()
-{
-}
-
-bool Loopback::canConfigure()
-{
-    return false;
-}
-
-/*****************************************************************************
  * Plugin export
  ****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

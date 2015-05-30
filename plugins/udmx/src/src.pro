@@ -16,9 +16,11 @@ unix:CONFIG      += link_pkgconfig
 unix:PKGCONFIG   += libusb
 win32:QMAKE_LFLAGS += -shared
 
+HEADERS += ../../interfaces/qlcioplugin.h
 HEADERS += udmxdevice.h \
            udmx.h
 
+SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += udmxdevice.cpp \
            udmx.cpp
 
@@ -26,8 +28,6 @@ win32 {
     HEADERS += libusb_dyn.h
     SOURCES += libusb_dyn.c
 }
-
-HEADERS += ../../interfaces/qlcioplugin.h
 
 TRANSLATIONS += uDMX_fi_FI.ts
 TRANSLATIONS += uDMX_de_DE.ts

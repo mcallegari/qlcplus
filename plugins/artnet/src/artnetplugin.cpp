@@ -81,6 +81,13 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
+void ArtNetPlugin::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/

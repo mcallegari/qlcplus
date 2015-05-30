@@ -9,9 +9,11 @@ win32:DEFINES += QLC_EXPORT
 
 INCLUDEPATH += ../../interfaces
 
-HEADERS += loopback.h
-SOURCES += loopback.cpp
 HEADERS += ../../interfaces/qlcioplugin.h
+HEADERS += loopback.h
+
+SOURCES += ../../interfaces/qlcioplugin.cpp
+SOURCES += loopback.cpp
 
 TRANSLATIONS += loopback_fi_FI.ts
 TRANSLATIONS += loopback_de_DE.ts

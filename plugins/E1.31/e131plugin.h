@@ -65,8 +65,7 @@ public:
     QString pluginInfo();
 
     /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
+    void setParameter(quint32 universe, QString name, QVariant &value);
 
     /*********************************************************************
      * Outputs
@@ -102,10 +101,6 @@ public:
 
     /** @reimp */
     QString inputInfo(quint32 input);
-
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /*********************************************************************
      * Configuration

@@ -61,8 +61,7 @@ public:
     QString pluginInfo();
 
     /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
+    void setParameter(quint32 universe, QString name, QVariant &value);
 
 private:
     /** Is the plugin currently running as a stand alone daemon. */
@@ -100,26 +99,6 @@ private:
      * @param universe the OLA universe id
      */
     void setOutputUniverse(quint32 output, unsigned int universe);
-
-    /*************************************************************************
-     * Inputs
-     *************************************************************************/
-public:
-    /** @reimp */
-    bool openInput(quint32 input, quint32 universe) { Q_UNUSED(input); Q_UNUSED(universe); return false; }
-
-    /** @reimp */
-    void closeInput(quint32 input) { Q_UNUSED(input); }
-
-    /** @reimp */
-    QStringList inputs() { return QStringList(); }
-
-    /** @reimp */
-    QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
-
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /************************************************************************
      * Configuration

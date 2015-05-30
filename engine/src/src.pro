@@ -246,6 +246,7 @@ unix:SOURCES  += mastertimer-unix.cpp
 
 # Interfaces
 HEADERS += ../../plugins/interfaces/qlcioplugin.h
+SOURCES += ../../plugins/interfaces/qlcioplugin.cpp
 
 #############################################################################
 # Installation

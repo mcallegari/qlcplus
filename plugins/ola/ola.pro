@@ -34,6 +34,7 @@ HEADERS += olaio.h \
            qlclogdestination.h
 
 # Source
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += olaio.cpp \
            olaoutthread.cpp \
            configureolaio.cpp \

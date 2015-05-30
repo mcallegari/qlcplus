@@ -41,6 +41,7 @@ HEADERS += oscplugin.h \
 
 FORMS += configureosc.ui
 
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += oscplugin.cpp \
            configureosc.cpp
 

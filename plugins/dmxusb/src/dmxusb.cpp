@@ -136,6 +136,13 @@ QString DMXUSB::pluginInfo()
     return str;
 }
 
+void DMXUSB::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 QString DMXUSB::outputInfo(quint32 output)
 {
     QString str;

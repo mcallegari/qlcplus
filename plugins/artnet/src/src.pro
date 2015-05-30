@@ -39,6 +39,7 @@ HEADERS += artnetpacketizer.h \
 
 FORMS += configureartnet.ui
 
+SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += artnetpacketizer.cpp \
            artnetcontroller.cpp \
            artnetplugin.cpp \

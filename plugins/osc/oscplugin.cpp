@@ -105,6 +105,13 @@ QString OSCPlugin::pluginInfo()
     return str;
 }
 
+void OSCPlugin::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 
 /*********************************************************************
  * LibLO callbacks

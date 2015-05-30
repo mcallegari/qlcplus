@@ -76,6 +76,13 @@ QString E131Plugin::pluginInfo()
     return str;
 }
 
+void E131Plugin::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/

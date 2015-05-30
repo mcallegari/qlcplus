@@ -21,6 +21,7 @@ HEADERS += configurehid.h \
 
 FORMS += configurehid.ui
 
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += configurehid.cpp \
            hiddevice.cpp \
            hidplugin.cpp \

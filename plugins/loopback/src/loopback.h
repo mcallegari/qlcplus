@@ -52,10 +52,6 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /*************************************************************************
      * Outputs
      *************************************************************************/
@@ -100,16 +96,6 @@ public:
 
 private:
     bool m_inputCurrentlyOpen[QLCIOPLUGINS_UNIVERSES];
-
-    /*************************************************************************
-     * Configuration
-     *************************************************************************/
-public:
-    /** @reimp */
-    void configure();
-
-    /** @reimp */
-    bool canConfigure();
 };
 
 #endif

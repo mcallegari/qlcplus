@@ -137,6 +137,13 @@ QString MidiPlugin::pluginInfo()
     return str;
 }
 
+void MidiPlugin::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 QString MidiPlugin::outputInfo(quint32 output)
 {
     qDebug() << Q_FUNC_INFO;

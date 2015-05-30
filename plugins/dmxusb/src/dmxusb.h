@@ -53,8 +53,7 @@ public:
     QString pluginInfo();
 
     /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
+    void setParameter(quint32 universe, QString name, QVariant &value);
 
     /** Find out what kinds of widgets there are currently connected */
     bool rescanWidgets();

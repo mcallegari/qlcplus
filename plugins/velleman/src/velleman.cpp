@@ -156,19 +156,6 @@ void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 }
 
 /*****************************************************************************
- * Configuration
- *****************************************************************************/
-
-void Velleman::configure()
-{
-}
-
-bool Velleman::canConfigure()
-{
-    return false;
-}
-
-/*****************************************************************************
  * Plugin export
  ****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

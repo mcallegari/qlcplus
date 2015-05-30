@@ -455,14 +455,7 @@ QStringList InputOutputMap::universeNames() const
 {
     QStringList list;
     for (quint32 i = 0; i < universesCount(); i++)
-    {
         list << m_universeArray.at(i)->name();
-        /*
-        OutputPatch* p(patch(i));
-        Q_ASSERT(p != NULL);
-        list << QString("%1: %2 (%3)").arg(i + 1).arg(p->pluginName()).arg(p->outputName());
-        */
-    }
 
     return list;
 }

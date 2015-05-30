@@ -159,6 +159,13 @@ QString OlaIO::pluginInfo()
     return str;
 }
 
+void OlaIO::setParameter(quint32 universe, QString name, QVariant &value)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(name)
+    Q_UNUSED(value)
+}
+
 QString OlaIO::outputInfo(quint32 output)
 {
     QString str;

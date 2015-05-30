@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcioplugin.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -118,7 +119,7 @@ public:
      * @param name A string containing the parameter name
      * @param value A QVariant value representing the parameter data
      */
-    virtual void setParameter(QString name, QVariant &value) = 0;
+    virtual void setParameter(quint32 universe, QString name, QVariant &value);
 
     /*************************************************************************
      * Outputs
@@ -128,41 +129,42 @@ public:
      * Open the specified output line so that the plugin can start sending
      * DMX data through that line.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing output lines.
      *
      * @param output The output line to open
      */
-    virtual bool openOutput(quint32 output) = 0;
+    virtual bool openOutput(quint32 output);
 
     /**
      * Close the specified output line so that the plugin can stop
      * sending output data through that line.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing output lines.
      *
      * @param output The output line to close
      */
-    virtual void closeOutput(quint32 output) = 0;
+    virtual void closeOutput(quint32 output);
 
     /**
      * Get a list of output line names. The names must be always in the
      * same order i.e. the first name is the name of output line number 0,
      * the next one is output line number 1, etc..
      *
+     * This is a virtual method that must be implemented by a plugin exposing output lines.
+     *
      * @return A list of available output names
      */
-    virtual QStringList outputs() = 0;
+    virtual QStringList outputs();
 
     /**
      * Provide an informational text regarding the specified output line.
      * This text is shown to the user.
      *
-     * This is a pure virtual method that must be implemented
-     * in all plugins.
+     ** This is a virtual method that must be implemented by a plugin exposing output lines.
      *
      * @param output The output to get info from
      */
-    virtual QString outputInfo(quint32 output) = 0;
+    virtual QString outputInfo(quint32 output);
 
     /**
      * Write the contents of a DMX universe to the plugin. The size of the
@@ -171,7 +173,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data) = 0;
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
     /*************************************************************************
      * Inputs
@@ -181,21 +183,21 @@ public:
      * Open the specified input line so that the plugin can start receiving
      * data from that line.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing input lines.
      *
      * @param input The input line to open
      */
-    virtual bool openInput(quint32 input, quint32 universe) = 0;
+    virtual bool openInput(quint32 input, quint32 universe);
 
     /**
      * Close the specified input line so that the plugin can stop sending input
      * data from that line.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing input lines.
      *
      * @param input The input line to close
      */
-    virtual void closeInput(quint32 input) = 0;
+    virtual void closeInput(quint32 input);
 
     /**
      * Get a list of input line names. The names must be always in the
@@ -203,22 +205,22 @@ public:
      * the next one is input line number 1, etc.. These indices are used
      * with openInput() and closeInput().
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing input lines.
      *
      * @return A list of available input names
      */
-    virtual QStringList inputs() = 0;
+    virtual QStringList inputs();
 
     /**
      * Provide an informational text regarding the specified input line.
      * This text is shown to the user.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin exposing input lines.
      *
      * @param input If specified, information for the given input line is
      *              expected. Otherwise provides information for the plugin
      */
-    virtual QString inputInfo(quint32 input) = 0;
+    virtual QString inputInfo(quint32 input);
 
     /**
      * If the device support this feature, this is the method to send data back for
@@ -229,7 +231,7 @@ public:
      * @param value the actual value of the channel
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
-    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
+    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0);
 
 signals:
     /**
@@ -256,21 +258,23 @@ public:
     /**
      * Invoke a configuration dialog for the plugin.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin that
+     * allow a specific configuration.
      * However, if there's nothing to configure (canConfigure() returns false),
      * the implementation can be left completely empty.
      */
-    virtual void configure() = 0;
+    virtual void configure();
 
     /**
      * Check, whether calling configure() on a plugin has any effect. If this
      * method returns false, the plugin cannot be configured by the user.
      *
-     * This is a pure virtual method that must be implemented by all plugins.
+     * This is a virtual method that must be implemented by a plugin that
+     * allow a specific configuration.
      *
      * @return true if the plugin can be configured, otherwise false.
      */
-    virtual bool canConfigure() = 0;
+    virtual bool canConfigure();
 
 signals:
     /**
@@ -281,7 +285,7 @@ signals:
     void configurationChanged();
 };
 
-#define QLCIOPlugin_iid "net.sourceforge.qlcplus.QLCIOPlugin"
+#define QLCIOPlugin_iid "org.qlcplus.QLCIOPlugin"
 
 Q_DECLARE_INTERFACE(QLCIOPlugin, QLCIOPlugin_iid)
 

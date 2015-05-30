@@ -80,7 +80,7 @@ public:
     /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 
-    void setPluginProperty(QString prop, QVariant value);
+    void setPluginProperty(quint32 universe, QString prop, QVariant value);
 
 private:
     QLCIOPlugin* m_plugin;

@@ -19,6 +19,7 @@ HEADERS += ../common/mididevice.h \
            ../common/midienumerator.h \
            ../common/configuremidiplugin.h
 
+SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += ../common/mididevice.cpp \
            ../common/midiinputdevice.cpp \
            ../common/midioutputdevice.cpp \

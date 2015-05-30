@@ -120,10 +120,10 @@ bool OutputPatch::isPatched() const
     return output() != QLCIOPlugin::invalidLine();
 }
 
-void OutputPatch::setPluginProperty(QString prop, QVariant value)
+void OutputPatch::setPluginProperty(quint32 universe, QString prop, QVariant value)
 {
     if (m_plugin != NULL)
-        m_plugin->setParameter(prop.toLatin1().data(), value);
+        m_plugin->setParameter(universe, prop.toLatin1().data(), value);
 }
 
 /*****************************************************************************

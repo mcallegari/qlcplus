@@ -156,23 +156,19 @@ void SPIPlugin::setAbsoluteAddress(quint32 uniID, SPIUniverse *uni)
     qDebug() << "[SPI] total bytes to transmit:" << m_serializedData.size();
 }
 
-void SPIPlugin::setParameter(QString name, QVariant &value)
+void SPIPlugin::setParameter(quint32 universe, QString name, QVariant &value)
 {
-    QString prop(name);
-
-    // If property name is UniverseChannels-ID, map the channels count
-    if (prop.startsWith("UniverseChannels"))
+    // If property name is UniverseChannels, map the channels count
+    if (name == "UniverseChannels")
     {
-        QString uniStrId = prop.split("-").at(1);
-        quint32 uniID = uniStrId.toUInt();
         int chans = value.toInt();
         SPIUniverse *uniStruct = new SPIUniverse;
         uniStruct->m_channels = chans;
         uniStruct->m_autoDetection = false;
 
-        setAbsoluteAddress(uniID, uniStruct);
+        setAbsoluteAddress(universe, uniStruct);
 
-        m_uniChannelsMap[uniID] = uniStruct;
+        m_uniChannelsMap[universe] = uniStruct;
     }
 }
 

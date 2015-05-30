@@ -407,9 +407,8 @@ void Universe::dumpOutput(const QByteArray &data)
 
     if (m_totalChannelsChanged == true)
     {
-        QString chProperty = QString("UniverseChannels-%1").arg(m_id);
         QVariant chVal(m_totalChannels);
-        m_outputPatch->setPluginProperty(chProperty, chVal);
+        m_outputPatch->setPluginProperty(m_id, "UniverseChannels", chVal);
         m_totalChannelsChanged = false;
     }
     m_outputPatch->dump(m_id, data);
