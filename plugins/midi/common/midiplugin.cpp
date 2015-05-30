@@ -515,6 +515,24 @@ QList <MidiTemplate*> MidiPlugin::midiTemplates()
 }
 
 /*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void MidiPlugin::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    m_enumerator->rescan();
+}
+
+void MidiPlugin::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    m_enumerator->rescan();
+}
+
+/*****************************************************************************
  * Plugin export
  *****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

@@ -156,6 +156,13 @@ public:
 private:
     /** List that contains all available midi templates */
     QList <MidiTemplate*> m_midiTemplates;
+
+    /********************************************************************
+     * Hotplug
+     ********************************************************************/
+public slots:
+    void slotDeviceAdded(uint vid, uint pid);
+    void slotDeviceRemoved(uint vid, uint pid);
 };
 
 #endif
