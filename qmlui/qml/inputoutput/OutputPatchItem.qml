@@ -42,7 +42,8 @@ Rectangle {
             GradientStop { position: 1 ; color: "#333" }
         }
         border.width: 2
-        border.color: "#777"
+        border.color: "#111"
+
         Row {
             x: 8
             spacing: 3

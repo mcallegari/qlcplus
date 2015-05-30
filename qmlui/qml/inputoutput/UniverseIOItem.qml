@@ -71,7 +71,7 @@ Rectangle {
             GradientStop { position: 1 ; color: "#2B3483" }
         }
         border.width: 2
-        border.color: "#444"
+        border.color: "#111"
 
         RobotoText {
             height: parent.height

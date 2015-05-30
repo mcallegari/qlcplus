@@ -19,8 +19,6 @@
 
 import QtQuick 2.0
 
-import "PluginUtils.js" as PluginUtils
-
 Rectangle {
     id: pluginsContainer
     anchors.fill: parent
@@ -41,47 +39,18 @@ Rectangle {
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         delegate:
-            Rectangle {
+            PluginDragItem {
                 x: 3
-                id: uniDelegate
                 width: pluginsContainer.width
-                height: 60
-                color: "transparent"
-                Row {
-                    spacing: 3
-                    Rectangle {
-                        radius: 3
-                        height: uniDelegate.height - 4
-                        width: height
-                        gradient: Gradient {
-                            id: bgGradient
-                            GradientStop { position: 0.75 ; color: "#FFF" }
-                            GradientStop { position: 1 ; color: "#7F7F7F" }
-                        }
-                        border.width: 2
-                        border.color: "#777"
-                        x: 5
-                        y: 2
 
-                        Image {
-                            anchors.fill: parent
-                            anchors.margins: 3
-                            source: PluginUtils.iconFromName(modelData.plugin)
-                            sourceSize: Qt.size(width, height)
-                            fillMode: Image.Stretch
-                        }
-                    }
+                pluginName: modelData.plugin
+                lineName: modelData.name
+                pluginLine: modelData.line
 
-                    RobotoText {
-                        height: uniDelegate.height
-                        width: uniDelegate.width
-                        label: modelData.name
-                    }
-                }
                 Rectangle {
-                    width: uniDelegate.width
+                    width: parent.width
                     height: 1
-                    y: uniDelegate.height - 1
+                    y: parent.height - 1
                     color: "#555"
                 }
             }
