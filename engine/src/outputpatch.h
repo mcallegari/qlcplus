@@ -21,6 +21,7 @@
 #define OUTPUTPATCH_H
 
 #include <QObject>
+#include <QMap>
 
 class QLCIOPlugin;
 

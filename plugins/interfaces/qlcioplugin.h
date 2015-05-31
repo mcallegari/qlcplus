@@ -22,6 +22,7 @@
 #define QLCIOPLUGIN_H
 
 #include <QStringList>
+#include <QtPlugin>
 #include <QVariant>
 #include <QObject>
 #include <climits>

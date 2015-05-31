@@ -21,6 +21,7 @@
 #define INPUTPATCH_H
 
 #include <QObject>
+#include <QMap>
 
 #include "qlcinputprofile.h"
 
