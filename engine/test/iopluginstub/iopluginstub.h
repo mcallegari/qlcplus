@@ -53,17 +53,17 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    void setParameter(QString name, QVariant &value);
+
 
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -73,10 +73,6 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
-    
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
 public:
     /** List of outputs that have been opened */
@@ -93,7 +89,7 @@ public:
     bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();

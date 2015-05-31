@@ -28,6 +28,13 @@
 
 #define ARTNET_DEFAULT_PORT     6454
 
+typedef struct
+{
+    QHostAddress outputAddress;
+    ushort outputUniverse;
+    int type;
+} UniverseInfo;
+
 class ArtNetController : public QObject
 {
     Q_OBJECT
@@ -52,23 +59,36 @@ public:
     /** Returns the map of Nodes discovered by ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
-    /** Set the controller type */
-    void setType(Type type);
+    /** Add a universe to the map of this controller */
+    void addUniverse(quint32 universe, Type type);
 
-    /** Get the type of this controller */
+    /** Remove a universe from the map of this controller */
+    void removeUniverse(quint32 universe, Type type);
+
+    /** Set a specific output IP address for the given QLC+ universe */
+    void setOutputIPAddress(quint32 universe, QString address);
+
+    /** Set a specific ArtNet output universe for the given QLC+ universe */
+    void setOutputUniverse(quint32 universe, quint32 artnetUni);
+
+    /** Return the list of the universes handled by
+     *  this controller */
+    QList<quint32>universesList();
+
+    /** Return the specific information for the given universe */
+    UniverseInfo *getUniverseInfo(quint32 universe);
+
+    /** Return the global type of this controller */
     Type type();
+
+    /** Return the plugin line associated to this controller */
+    quint32 line();
 
     /** Get the number of packets sent by this controller */
     quint64 getPacketSentNumber();
 
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
-
-    /** Increase or decrease the reference count of the given type */
-    void changeReferenceCount(Type type, int amount);
-
-    /** Retrieve the reference count of the given type */
-    int referenceCount(Type type);
 
 private:
     /** The controller IP address as QHostAddress */
@@ -81,12 +101,11 @@ private:
     /** The controller interface MAC address. Used only for ArtPollReply */
     QString m_MACAddress;
 
+    /** Counter for transmitted packets */
     quint64 m_packetSent;
-    quint64 m_packetReceived;
 
-    /** Type of this controller */
-    /** A controller can be only output or only input */
-    Type m_type;
+    /** Counter for received packets */
+    quint64 m_packetReceived;
 
     /** QLC+ line to be used when emitting a signal */
     quint32 m_line;
@@ -104,11 +123,13 @@ private:
     /** It holds values for all the handled universes */
     QMap<int, QByteArray *> m_dmxValuesMap;
 
-    /** Count the number of input universes using this controller */
-    int m_inputRefCount;
+    /** Map of the QLC+ universes transmitted/received by this
+     *  controller, with the related, specific parameters */
+    QMap<quint32, UniverseInfo> m_universeMap;
 
-    /** Count the number of output universes using this controller */
-    int m_outputRefCount;
+    /** Mutex to handle the change of output IP address or in general
+     *  variables that could be used to transmit/receive data */
+    QMutex m_dataMutex;
 
 private slots:
     /** Async event raised when new packets have been received */

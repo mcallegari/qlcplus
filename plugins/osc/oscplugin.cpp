@@ -105,14 +105,6 @@ QString OSCPlugin::pluginInfo()
     return str;
 }
 
-void OSCPlugin::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
-}
-
-
 /*********************************************************************
  * LibLO callbacks
  *********************************************************************/
@@ -166,19 +158,23 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
 /*********************************************************************
  * Outputs
  *********************************************************************/
-bool OSCPlugin::openOutput(quint32 output)
+bool OSCPlugin::openOutput(quint32 output, quint32 universe)
 {
     if (output >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
-    qDebug() << Q_FUNC_INFO << "Output on " << m_nodes[output].m_outAddrStr;
+    addToMap(universe, output, Output);
+
+    qDebug() << "[OSC] Output on " << m_nodes[output].m_outAddrStr;
     return true;
 }
 
-void OSCPlugin::closeOutput(quint32 output)
+void OSCPlugin::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
+
+    removeFromMap(output, universe, Output);
 
     if (m_nodes[output].m_serv_thread != NULL)
     {
@@ -274,13 +270,16 @@ bool OSCPlugin::openInput(quint32 input, quint32 universe)
 
         lo_server_thread_start(m_nodes[input].m_serv_thread);
 	}
+    addToMap(universe, input, Input);
     return true;
 }
 
-void OSCPlugin::closeInput(quint32 input)
+void OSCPlugin::closeInput(quint32 input, quint32 universe)
 {
     if (input >= QLCIOPLUGINS_UNIVERSES)
         return;
+
+    removeFromMap(input, universe, Input);
 
     if (m_nodes[input].m_serv_thread != NULL)
     {
@@ -390,6 +389,11 @@ void OSCPlugin::configure()
 bool OSCPlugin::canConfigure()
 {
     return true;
+}
+
+void OSCPlugin::setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value)
+{
+    QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 QString OSCPlugin::getPort(int num)

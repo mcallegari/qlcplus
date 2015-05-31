@@ -97,7 +97,7 @@ void OlaIO::setServerEmbedded(bool embedServer)
         m_embedServer = embedServer;
         if (m_embedServer)
         {
-            qWarning() << "olaout: running as embedded";
+            qWarning() << "[OLA] Running with embedded server";
             m_thread = new OlaEmbeddedServer();
         }
         else
@@ -106,7 +106,7 @@ void OlaIO::setServerEmbedded(bool embedServer)
         }
 
         if (!m_thread->start())
-            qWarning() << "olaout: start thread failed";
+            qWarning() << "[OLA] Start thread failed";
 
         QSettings settings;
         settings.setValue(SETTINGS_EMBEDDED, m_embedServer);
@@ -117,20 +117,23 @@ void OlaIO::setServerEmbedded(bool embedServer)
  * Outputs
  ****************************************************************************/
 
-bool OlaIO::openOutput(quint32 output)
+bool OlaIO::openOutput(quint32 output, quint32 universe)
 {
     if (output >= UNIVERSE_COUNT)
     {
-        qWarning() << Q_FUNC_INFO << "output" << output << "is out of range";
+        qWarning() << "[OLA] output" << output << "is out of range";
         return false;
     }
+    addToMap(universe, output, Output);
     return true;
 }
 
-void OlaIO::closeOutput(quint32 output)
+void OlaIO::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= UNIVERSE_COUNT)
-        qWarning() << Q_FUNC_INFO << "output" << output << "is out of range";
+        qWarning() << "[OLA] output" << output << "is out of range";
+    else
+        removeFromMap(output, universe, Output);
 }
 
 QStringList OlaIO::outputs()
@@ -157,13 +160,6 @@ QString OlaIO::pluginInfo()
     str += QString("</P>");
 
     return str;
-}
-
-void OlaIO::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
 }
 
 QString OlaIO::outputInfo(quint32 output)
@@ -219,6 +215,12 @@ void OlaIO::configure()
 bool OlaIO::canConfigure()
 {
     return true;
+}
+
+void OlaIO::setParameter(quint32 universe, quint32 line, Capability type,
+                         QString name, QVariant value)
+{
+    QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 /****************************************************************************

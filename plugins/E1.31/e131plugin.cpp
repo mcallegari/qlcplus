@@ -76,13 +76,6 @@ QString E131Plugin::pluginInfo()
     return str;
 }
 
-void E131Plugin::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
-}
-
 /*********************************************************************
  * Outputs
  *********************************************************************/
@@ -124,7 +117,7 @@ QString E131Plugin::outputInfo(quint32 output)
     return str;
 }
 
-bool E131Plugin::openOutput(quint32 output)
+bool E131Plugin::openOutput(quint32 output, quint32 universe)
 {
     if (m_IOmapping.count() == 0)
         init();
@@ -132,7 +125,7 @@ bool E131Plugin::openOutput(quint32 output)
     if (output >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "Open output with address :" << m_IOmapping.at(output).IPAddress;
+    qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).IPAddress;
 
     // already open ? Just add the type flag
     if (m_IOmapping[output].controller != NULL)
@@ -148,14 +141,17 @@ bool E131Plugin::openOutput(quint32 output)
                                                     m_IOmapping.at(output).MACAddress,
                                                     E131Controller::Output, output, this);
     m_IOmapping[output].controller = controller;
+    addToMap(universe, output, Output);
 
     return true;
 }
 
-void E131Plugin::closeOutput(quint32 output)
+void E131Plugin::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= (quint32)m_IOmapping.length())
         return;
+
+    removeFromMap(output, universe, Output);
     E131Controller *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
@@ -212,7 +208,7 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
     if (input >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "Open input with address :" << m_IOmapping.at(input).IPAddress;
+    qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).IPAddress;
 
     // already open ? Just add the type flag
     if (m_IOmapping[input].controller != NULL)
@@ -231,14 +227,17 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
             this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
     m_IOmapping[input].controller->enableUniverse(universe);
+    addToMap(universe, input, Input);
 
     return true;
 }
 
-void E131Plugin::closeInput(quint32 input)
+void E131Plugin::closeInput(quint32 input, quint32 universe)
 {
     if (input >= (quint32)m_IOmapping.length())
         return;
+
+    removeFromMap(input, universe, Input);
     E131Controller *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
@@ -296,6 +295,12 @@ void E131Plugin::configure()
 bool E131Plugin::canConfigure()
 {
     return false;
+}
+
+void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
+                              QString name, QVariant value)
+{
+    QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 QList<QNetworkAddressEntry> E131Plugin::interfaces()

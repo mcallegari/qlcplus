@@ -81,13 +81,6 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
-void ArtNetPlugin::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
-}
-
 /*********************************************************************
  * Outputs
  *********************************************************************/
@@ -137,7 +130,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
     return str;
 }
 
-bool ArtNetPlugin::openOutput(quint32 output)
+bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
 {
     if (m_IOmapping.count() < 2)
         init();
@@ -145,14 +138,12 @@ bool ArtNetPlugin::openOutput(quint32 output)
     if (output >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "Open output with address :" << m_IOmapping.at(output).IPAddress;
+    qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).IPAddress;
 
     // already open ? Just add the type flag
     if (m_IOmapping[output].controller != NULL)
     {
-        m_IOmapping[output].controller->setType(
-                    (ArtNetController::Type)(m_IOmapping[output].controller->type() | ArtNetController::Output));
-        m_IOmapping[output].controller->changeReferenceCount(ArtNetController::Output, +1);
+        m_IOmapping[output].controller->addUniverse(universe, ArtNetController::Output);
         return true;
     }
 
@@ -161,26 +152,23 @@ bool ArtNetPlugin::openOutput(quint32 output)
                                                         m_netInterfaces, m_IOmapping.at(output).MACAddress,
                                                         ArtNetController::Output, output, this);
     m_IOmapping[output].controller = controller;
+    m_IOmapping[output].controller->addUniverse(universe, ArtNetController::Output);
+    addToMap(universe, output, Output);
+
     return true;
 }
 
-void ArtNetPlugin::closeOutput(quint32 output)
+void ArtNetPlugin::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= (quint32)m_IOmapping.length())
         return;
+
+    removeFromMap(output, universe, Output);
     ArtNetController *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
-        controller->changeReferenceCount(ArtNetController::Output, -1);
-        // if a ArtNetController is also open as input
-        // then just remove the output capability
-        if (controller->type() & ArtNetController::Input)
-        {
-            controller->setType(ArtNetController::Input);
-        }
-
-        if (controller->referenceCount(ArtNetController::Input) == 0 &&
-            controller->referenceCount(ArtNetController::Output) == 0)
+        controller->removeUniverse(universe, ArtNetController::Output);
+        if (controller->universesList().count() == 0)
         {
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -217,21 +205,18 @@ QStringList ArtNetPlugin::inputs()
 
 bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(universe)
     if (m_IOmapping.count() < 2)
         init();
 
     if (input >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "Open input with address :" << m_IOmapping.at(input).IPAddress;
+    qDebug() << "[ArtNet] Open input on address :" << m_IOmapping.at(input).IPAddress;
 
     // already open ? Just add the type flag
     if (m_IOmapping[input].controller != NULL)
     {
-        m_IOmapping[input].controller->setType(
-                    (ArtNetController::Type)(m_IOmapping[input].controller->type() | ArtNetController::Input));
-        m_IOmapping[input].controller->changeReferenceCount(ArtNetController::Input, +1);
+        m_IOmapping[input].controller->addUniverse(universe, ArtNetController::Input);
         return true;
     }
 
@@ -242,27 +227,23 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
     connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
             this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
+    m_IOmapping[input].controller->addUniverse(universe, ArtNetController::Input);
+    addToMap(universe, input, Input);
 
     return true;
 }
 
-void ArtNetPlugin::closeInput(quint32 input)
+void ArtNetPlugin::closeInput(quint32 input, quint32 universe)
 {
     if (input >= (quint32)m_IOmapping.length())
         return;
+
+    removeFromMap(input, universe, Input);
     ArtNetController *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
-        controller->changeReferenceCount(ArtNetController::Input, -1);
-        // if a ArtNetController is also open as output
-        // then just remove the input capability
-        if (controller->type() & ArtNetController::Output)
-        {
-            controller->setType(ArtNetController::Output);
-        }
-
-        if (controller->referenceCount(ArtNetController::Input) == 0 &&
-            controller->referenceCount(ArtNetController::Output) == 0)
+        controller->removeUniverse(universe, ArtNetController::Input);
+        if (controller->universesList().count() == 0)
         {
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;
@@ -310,6 +291,24 @@ void ArtNetPlugin::configure()
 bool ArtNetPlugin::canConfigure()
 {
     return true;
+}
+
+void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
+                                QString name, QVariant value)
+{
+    if (line >= (quint32)m_IOmapping.length())
+        return;
+
+    ArtNetController *controller = m_IOmapping.at(line).controller;
+    if (controller == NULL)
+        return;
+
+    if (name == "outputIP")
+        controller->setOutputIPAddress(universe, value.toString());
+    else if (name == "outputUni")
+        controller->setOutputUniverse(universe, value.toUInt());
+
+    QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 QList<QNetworkAddressEntry> ArtNetPlugin::interfaces()

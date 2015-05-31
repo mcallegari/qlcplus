@@ -53,16 +53,18 @@ int Peperoni::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool Peperoni::openOutput(quint32 output)
+bool Peperoni::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
             return m_devices[output]->open(output, PeperoniDevice::OutputMode);
     return false;
 }
 
-void Peperoni::closeOutput(quint32 output)
+void Peperoni::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
             m_devices[output]->close(output, PeperoniDevice::OutputMode);
@@ -147,8 +149,9 @@ bool Peperoni::openInput(quint32 input, quint32 universe)
     return false;
 }
 
-void Peperoni::closeInput(quint32 input)
+void Peperoni::closeInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {

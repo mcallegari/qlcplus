@@ -48,6 +48,7 @@ class OutputPatch : public QObject
      ********************************************************************/
 public:
     OutputPatch(QObject* parent = 0);
+    OutputPatch(quint32 universe, QObject* parent = 0);
     virtual ~OutputPatch();
 
     /********************************************************************
@@ -80,11 +81,19 @@ public:
     /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 
-    void setPluginProperty(quint32 universe, QString prop, QVariant value);
+    /** Set a parameter specific to the patched plugin */
+    void setPluginParameter(QString prop, QVariant value);
+
+    /** Retrieve the map of custom parameters set to the patched plugin */
+    QMap<QString, QVariant> getPluginParameters();
 
 private:
+    /** The reference of the plugin associated by this Output patch */
     QLCIOPlugin* m_plugin;
-    quint32 m_output;
+    /** The plugin line open by this Output patch */
+    quint32 m_pluginLine;
+    /** The universe that this Output patch is attached to */
+    quint32 m_universe;
 
     /********************************************************************
      * Value dump

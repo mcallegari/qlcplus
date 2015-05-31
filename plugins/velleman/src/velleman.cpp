@@ -51,7 +51,7 @@ extern "C"
 
 Velleman::~Velleman()
 {
-    closeOutput(0);
+    closeOutput(0, 0);
     delete [] m_values;
 }
 
@@ -75,8 +75,9 @@ int Velleman::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool Velleman::openOutput(quint32 output)
+bool Velleman::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
         return false;
 
@@ -88,8 +89,9 @@ bool Velleman::openOutput(quint32 output)
     return true;
 }
 
-void Velleman::closeOutput(quint32 output)
+void Velleman::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
         return;
 

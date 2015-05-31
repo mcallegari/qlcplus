@@ -60,12 +60,12 @@ int HIDPlugin::capabilities() const
 
 bool HIDPlugin::openInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(universe)
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
         connect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        addToMap(universe, input, Input);
         return dev->openInput();
     }
     else
@@ -73,11 +73,12 @@ bool HIDPlugin::openInput(quint32 input, quint32 universe)
     return false;
 }
 
-void HIDPlugin::closeInput(quint32 input)
+void HIDPlugin::closeInput(quint32 input, quint32 universe)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
+        removeFromMap(input, universe, Input);
         dev->closeInput();
         disconnect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
@@ -141,21 +142,27 @@ QString HIDPlugin::inputInfo(quint32 input)
 /*********************************************************************
  * Outputs
  *********************************************************************/
-bool HIDPlugin::openOutput(quint32 output)
+bool HIDPlugin::openOutput(quint32 output, quint32 universe)
 {
     HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
+    {
+        addToMap(universe, output, Output);
         return dev->openOutput();
+    }
     else
         qDebug() << name() << "has no output number:" << output;
     return false;
 }
 
-void HIDPlugin::closeOutput(quint32 output)
+void HIDPlugin::closeOutput(quint32 output, quint32 universe)
 {
     HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
+    {
+        removeFromMap(output, universe, Output);
         dev->closeOutput();
+    }
     else
         qDebug() << name() << "has no output number:" << output;
 }

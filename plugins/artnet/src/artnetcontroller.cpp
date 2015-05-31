@@ -19,6 +19,7 @@
 
 #include "artnetcontroller.h"
 
+#include <QMutexLocker>
 #include <QDebug>
 
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
@@ -48,8 +49,6 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     m_packetizer.reset(new ArtNetPacketizer());
     m_packetSent = 0;
     m_packetReceived = 0;
-    m_inputRefCount = 0;
-    m_outputRefCount = 0;
 
     m_UdpSocket = new QUdpSocket(this);
 
@@ -74,14 +73,7 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
         }
         else
             m_packetSent++;
-        m_outputRefCount = 1;
     }
-    else
-    {
-        m_inputRefCount = 1;
-    }
-
-    m_type = type;
 }
 
 ArtNetController::~ArtNetController()
@@ -100,14 +92,20 @@ ArtNetController::~ArtNetController()
     m_dmxValuesMap.clear();
 }
 
-void ArtNetController::setType(Type type)
-{
-    m_type = type;
-}
-
 ArtNetController::Type ArtNetController::type()
 {
-    return m_type;
+    int type = Unknown;
+    foreach(UniverseInfo info, m_universeMap.values())
+    {
+        type |= info.type;
+    }
+
+    return Type(type);
+}
+
+quint32 ArtNetController::line()
+{
+    return m_line;
 }
 
 quint64 ArtNetController::getPacketSentNumber()
@@ -120,22 +118,6 @@ quint64 ArtNetController::getPacketReceivedNumber()
     return m_packetReceived;
 }
 
-void ArtNetController::changeReferenceCount(ArtNetController::Type type, int amount)
-{
-    if (type == Input)
-        m_inputRefCount += amount;
-    else
-        m_outputRefCount += amount;
-}
-
-int ArtNetController::referenceCount(ArtNetController::Type type)
-{
-    if (type == Input)
-        return m_inputRefCount;
-    else
-        return m_outputRefCount;
-}
-
 QString ArtNetController::getNetworkIP()
 {
     return m_ipAddr.toString();
@@ -146,12 +128,82 @@ QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
     return m_nodesList;
 }
 
+void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type)
+{
+    qDebug() << "[ArtNet] addUniverse - universe" << universe << ", type" << type;
+    if (m_universeMap.contains(universe))
+    {
+        m_universeMap[universe].type |= (int)type;
+    }
+    else
+    {
+        UniverseInfo info;
+        info.outputAddress = m_broadcastAddr;
+        info.outputUniverse = universe;
+        info.type = type;
+        m_universeMap[universe] = info;
+    }
+}
+
+void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type type)
+{
+    if (m_universeMap.contains(universe))
+    {
+        if (m_universeMap[universe].type == type)
+            m_universeMap.take(universe);
+        else
+            m_universeMap[universe].type &= ~type;
+    }
+
+}
+
+void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    QHostAddress newAddress = QHostAddress(address);
+    m_universeMap[universe].outputAddress = newAddress;
+}
+
+void ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputUniverse = artnetUni;
+}
+
+QList<quint32> ArtNetController::universesList()
+{
+    return m_universeMap.keys();
+}
+
+UniverseInfo *ArtNetController::getUniverseInfo(quint32 universe)
+{
+    if (m_universeMap.contains(universe))
+        return &m_universeMap[universe];
+
+    return NULL;
+}
+
 void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
 {
+    QMutexLocker locker(&m_dataMutex);
     QByteArray dmxPacket;
-    m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
+    QHostAddress outAddress = m_broadcastAddr;
+    quint32 outUniverse = universe;
+
+    if (m_universeMap.contains(universe))
+    {
+        outAddress = m_universeMap[universe].outputAddress;
+        outUniverse = m_universeMap[universe].outputUniverse;
+    }
+    m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, data);
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
-                                             m_broadcastAddr, ARTNET_DEFAULT_PORT);
+                                             outAddress, ARTNET_DEFAULT_PORT);
     if (sent < 0)
     {
         qDebug() << "sendDmx failed";

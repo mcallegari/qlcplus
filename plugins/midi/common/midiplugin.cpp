@@ -73,20 +73,22 @@ int MidiPlugin::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool MidiPlugin::openOutput(quint32 output)
+bool MidiPlugin::openOutput(quint32 output, quint32 universe)
 {
-    qDebug() << "MIDI plugin open output: " << output;
+    qDebug() << "[MIDI] open output: " << output;
 
     MidiOutputDevice* dev = outputDevice(output);
 
     if (dev == NULL)
         return false;
 
+    addToMap(universe, output, Output);
+
     dev->open();
 
     if (dev->midiTemplateName() != "")
     {
-        qDebug() << "Opening device with Midi template: " << dev->midiTemplateName();
+        qDebug() << "[MIDI] Opening device with template: " << dev->midiTemplateName();
 
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
 
@@ -96,13 +98,16 @@ bool MidiPlugin::openOutput(quint32 output)
     return true;
 }
 
-void MidiPlugin::closeOutput(quint32 output)
+void MidiPlugin::closeOutput(quint32 output, quint32 universe)
 {
     qDebug() << Q_FUNC_INFO;
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
+    {
+        removeFromMap(output, universe, Output);
         dev->close();
+    }
 }
 
 QStringList MidiPlugin::outputs()
@@ -135,13 +140,6 @@ QString MidiPlugin::pluginInfo()
     str += QString("</P>");
 
     return str;
-}
-
-void MidiPlugin::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
 }
 
 QString MidiPlugin::outputInfo(quint32 output)
@@ -205,25 +203,27 @@ MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const
 bool MidiPlugin::openInput(quint32 input, quint32 universe)
 {
     Q_UNUSED(universe)
-    qDebug() << "MIDI Plugin open Input: " << input;
+    qDebug() << "[MIDI] Open Input: " << input;
 
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL && dev->isOpen() == false)
     {
         connect(dev, SIGNAL(valueChanged(QVariant,ushort,uchar)),
                 this, SLOT(slotValueChanged(QVariant,ushort,uchar)));
+        addToMap(universe, input, Input);
         return dev->open();
     }
     return false;
 }
 
-void MidiPlugin::closeInput(quint32 input)
+void MidiPlugin::closeInput(quint32 input, quint32 universe)
 {
     qDebug() << Q_FUNC_INFO;
 
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL && dev->isOpen() == true)
     {
+        removeFromMap(input, universe, Input);
         dev->close();
         disconnect(dev, SIGNAL(valueChanged(QVariant,ushort,uchar)),
                    this, SLOT(slotValueChanged(QVariant,ushort,uchar)));
@@ -343,12 +343,93 @@ void MidiPlugin::configure()
     qDebug() << Q_FUNC_INFO;
     ConfigureMidiPlugin cmp(this);
     cmp.exec();
+
+    // walk the universe map to update/add the
+    // plugin custom parameters
+    foreach(quint32 universe, m_universesMap.keys())
+    {
+        m_universesMap[universe].inputParameters.clear();
+
+        quint32 inLine = m_universesMap[universe].inputLine;
+
+        if (inLine != UINT_MAX)
+        {
+            MidiInputDevice *dev = inputDevice(inLine);
+            if (dev != NULL)
+            {
+                if (dev->midiChannel() != 0)
+                    QLCIOPlugin::setParameter(universe, inLine, Input,
+                                              "midichannel", dev->midiChannel());
+                else
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "midichannel");
+
+                if (dev->mode() != MidiDevice::ControlChange)
+                    QLCIOPlugin::setParameter(universe, inLine, Input,
+                                              "mode", MidiDevice::modeToString(dev->mode()));
+                else
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "mode");
+
+                if (dev->midiTemplateName().isEmpty() == false)
+                    QLCIOPlugin::setParameter(universe, inLine, Input,
+                                              "initmessage", dev->midiTemplateName());
+                else
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "initmessage");
+            }
+            else
+                qDebug() << "[MIDI] coudln't find device for line:" << inLine;
+        }
+
+        m_universesMap[universe].outputParameters.clear();
+
+        quint32 outLine = m_universesMap[universe].outputLine;
+
+        if (outLine != UINT_MAX)
+        {
+            MidiOutputDevice *dev = outputDevice(outLine);
+            if (dev != NULL)
+            {
+                if (dev->midiChannel() != 0)
+                    QLCIOPlugin::setParameter(universe, outLine, Output,
+                                              "midichannel", dev->midiChannel());
+                if (dev->mode() != MidiDevice::ControlChange)
+                    QLCIOPlugin::setParameter(universe, outLine, Output,
+                                              "mode", MidiDevice::modeToString(dev->mode()));
+                if (dev->midiTemplateName().isEmpty() == false)
+                    QLCIOPlugin::setParameter(universe, outLine, Output,
+                                              "initmessage", dev->midiTemplateName());
+            }
+            else
+                qDebug() << "[MIDI] coudln't find device for line:" << outLine;
+        }
+    }
 }
 
 bool MidiPlugin::canConfigure()
 {
     qDebug() << Q_FUNC_INFO;
     return true;
+}
+
+void MidiPlugin::setParameter(quint32 universe, quint32 line, Capability type,
+                              QString name, QVariant value)
+{
+    MidiDevice *dev = NULL;
+    if (type == Input)
+        dev = qobject_cast<MidiDevice*>(inputDevice(line));
+    else if (type == Output)
+        dev = qobject_cast<MidiDevice*>(outputDevice(line));
+
+    if (dev != NULL)
+    {
+        if (name == "midichannel")
+            dev->setMidiChannel(value.toInt());
+        else if (name == "mode")
+            dev->setMode(MidiDevice::stringToMode(value.toString()));
+        else if (name == "initmessage")
+            dev->setMidiTemplateName(value.toString());
+
+        QLCIOPlugin::setParameter(universe, line, type, name, value);
+    }
 }
 
 /*****************************************************************************
@@ -389,7 +470,7 @@ MidiTemplate* MidiPlugin::midiTemplate(QString name)
     {
         MidiTemplate* templ = it.next();
 
-        qDebug() << "add template param: " << name << " templ: " << templ->name();
+        qDebug() << "[MIDI] Add template param: " << name << " templ: " << templ->name();
 
         if (templ->name() == name)
             return templ;
@@ -400,7 +481,7 @@ MidiTemplate* MidiPlugin::midiTemplate(QString name)
 
 void MidiPlugin::loadMidiTemplates(const QDir& dir)
 {
-    qDebug() << "loadMidiTemplates from " << dir.absolutePath();
+    qDebug() << "[MIDI] loading Midi templates from " << dir.absolutePath();
     if (dir.exists() == false || dir.isReadable() == false)
         return;
 
@@ -410,7 +491,7 @@ void MidiPlugin::loadMidiTemplates(const QDir& dir)
     while (it.hasNext() == true)
     {
         QString path = dir.absoluteFilePath(it.next());
-        qDebug() << "Loading MIDI template:" << path;
+        qDebug() << "[MIDI] Loading MIDI template:" << path;
 
         MidiTemplate* templ;
 
@@ -421,7 +502,7 @@ void MidiPlugin::loadMidiTemplates(const QDir& dir)
             addMidiTemplate(templ);
         } else
         {
-            qWarning() << Q_FUNC_INFO << "Unable to load a MIDI template from" << path;
+            qWarning() << "[MIDI] Unable to load a MIDI template from" << path;
         }
     }
 }

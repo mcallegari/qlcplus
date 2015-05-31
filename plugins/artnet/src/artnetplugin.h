@@ -64,18 +64,15 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(quint32 universe, QString name, QVariant &value);
-
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -94,17 +91,13 @@ public:
     bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
 
     /** @reimp */
     QString inputInfo(quint32 input);
-
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /*********************************************************************
      * Configuration
@@ -115,6 +108,9 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /** @reimp */
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 
     QList<QNetworkAddressEntry> interfaces();
 

@@ -32,8 +32,8 @@ Loopback::~Loopback()
 {
     for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
     {
-        closeOutput(i);
-        closeInput(i);
+        closeOutput(i, i);
+        closeInput(i, i);
         delete [] m_values[i];
     }
 }
@@ -62,27 +62,24 @@ int Loopback::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool Loopback::openOutput(quint32 output)
+bool Loopback::openOutput(quint32 output, quint32 universe)
 {
     if (output >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
-    if (m_outputCurrentlyOpen[output] == false)
-    {
-        m_outputCurrentlyOpen[output] = true;
-    }
+    m_outputCurrentlyOpen[output] = true;
+    addToMap(universe, output, Output);
+
     return true;
 }
 
-void Loopback::closeOutput(quint32 output)
+void Loopback::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
-    if (m_outputCurrentlyOpen[output] == true)
-    {
-        m_outputCurrentlyOpen[output] = false;
-    }
+    removeFromMap(output, universe, Output);
+    m_outputCurrentlyOpen[output] = false;
 }
 
 QStringList Loopback::outputs()
@@ -104,22 +101,19 @@ bool Loopback::openInput(quint32 input, quint32 universe)
     if (input >= QLCIOPLUGINS_UNIVERSES)
         return false;
 
-    if (m_inputCurrentlyOpen[input] == false)
-    {
-        m_inputCurrentlyOpen[input] = true;
-    }
+    m_inputCurrentlyOpen[input] = true;
+    addToMap(universe, input, Input);
+
     return true;
 }
 
-void Loopback::closeInput(quint32 input)
+void Loopback::closeInput(quint32 input, quint32 universe)
 {
     if (input >= QLCIOPLUGINS_UNIVERSES)
         return;
 
-    if (m_inputCurrentlyOpen[input] == true)
-    {
-        m_inputCurrentlyOpen[input] = false;
-    }
+    removeFromMap(input, universe, Input);
+    m_inputCurrentlyOpen[input] = false;
 }
 
 QStringList Loopback::inputs()

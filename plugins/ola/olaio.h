@@ -60,9 +60,6 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(quint32 universe, QString name, QVariant &value);
-
 private:
     /** Is the plugin currently running as a stand alone daemon. */
     bool isServerEmbedded() const;
@@ -75,10 +72,10 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -109,6 +106,9 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /** @reimp */
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 
 private:
     QString m_configDir;

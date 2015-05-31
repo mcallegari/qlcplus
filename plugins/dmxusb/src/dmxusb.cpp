@@ -86,17 +86,23 @@ QList <DMXUSBWidget*> DMXUSB::widgets() const
  * Outputs
  ****************************************************************************/
 
-bool DMXUSB::openOutput(quint32 output)
+bool DMXUSB::openOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
+    {
+        addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);
+    }
     return false;
 }
 
-void DMXUSB::closeOutput(quint32 output)
+void DMXUSB::closeOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
+    {
+        removeFromMap(output, universe, Output);
         m_outputs.at(output)->close(output, false);
+    }
 }
 
 QStringList DMXUSB::outputs()
@@ -134,13 +140,6 @@ QString DMXUSB::pluginInfo()
     str += QString("</P>");
 
     return str;
-}
-
-void DMXUSB::setParameter(quint32 universe, QString name, QVariant &value)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(name)
-    Q_UNUSED(value)
 }
 
 QString DMXUSB::outputInfo(quint32 output)
@@ -203,16 +202,18 @@ bool DMXUSB::openInput(quint32 input, quint32 universe)
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
+        addToMap(universe, input, Input);
         return widget->open(input, true);
     }
     return false;
 }
 
-void DMXUSB::closeInput(quint32 input)
+void DMXUSB::closeInput(quint32 input, quint32 universe)
 {
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
+        removeFromMap(input, universe, Input);
         widget->close(input, true);
         if (widget->type() == DMXUSBWidget::ProRXTX ||
             widget->type() == DMXUSBWidget::ProMk2 ||

@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QDomElement>
+#include <QDomNode>
 #include <math.h>
 
 #include "channelmodifier.h"
@@ -302,7 +303,7 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
              << ", input:" << input << ", profile:" << ((profile == NULL)?"None":profile->name());
     if (m_inputPatch == NULL)
     {
-        if (plugin == NULL || input == QLCChannel::invalid())
+        if (plugin == NULL || input == QLCIOPlugin::invalidLine())
             return true;
 
         m_inputPatch = new InputPatch(m_id, this);
@@ -315,7 +316,7 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
     }
     else
     {
-        if (input == QLCChannel::invalid())
+        if (input == QLCIOPlugin::invalidLine())
         {
             if (passthrough() == false)
                 disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
@@ -341,14 +342,14 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
              << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
     if (m_outputPatch == NULL)
     {
-        if (plugin == NULL || output == QLCChannel::invalid())
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
             return false;
 
-        m_outputPatch = new OutputPatch(this);
+        m_outputPatch = new OutputPatch(m_id, this);
     }
     else
     {
-        if (output == QLCChannel::invalid())
+        if (output == QLCIOPlugin::invalidLine())
         {
             delete m_outputPatch;
             m_outputPatch = NULL;
@@ -366,13 +367,13 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
     qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_fbPatch == NULL)
     {
-        if (output == QLCChannel::invalid())
+        if (output == QLCIOPlugin::invalidLine())
             return false;
-        m_fbPatch = new OutputPatch(this);
+        m_fbPatch = new OutputPatch(m_id, this);
     }
     else
     {
-        if (output == QLCChannel::invalid())
+        if (output == QLCIOPlugin::invalidLine())
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
@@ -407,8 +408,7 @@ void Universe::dumpOutput(const QByteArray &data)
 
     if (m_totalChannelsChanged == true)
     {
-        QVariant chVal(m_totalChannels);
-        m_outputPatch->setPluginProperty(m_id, "UniverseChannels", chVal);
+        m_outputPatch->setPluginParameter("UniverseChannels", m_totalChannels);
         m_totalChannelsChanged = false;
     }
     m_outputPatch->dump(m_id, data);
@@ -590,7 +590,7 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
         if (tag.tagName() == KXMLQLCUniverseInputPatch)
         {
             QString plugin = KInputNone;
-            quint32 input = QLCChannel::invalid();
+            quint32 input = QLCIOPlugin::invalidLine();
             QString profile = KInputNone;
 
             if (tag.hasAttribute(KXMLQLCUniverseInputPlugin))
@@ -600,26 +600,98 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
             if (tag.hasAttribute(KXMLQLCUniverseInputProfileName))
                 profile = tag.attribute(KXMLQLCUniverseInputProfileName);
             ioMap->setInputPatch(index, plugin, input, profile);
+
+            // load the plugin custom parameters, if present
+            if (tag.hasChildNodes())
+            {
+                InputPatch *ip = inputPatch();
+                if (ip != NULL)
+                {
+                    QDomNode patchNode = tag.firstChild();
+                    while (patchNode.isNull() == false)
+                    {
+                        QDomElement pluginTag = patchNode.toElement();
+                        if (pluginTag.tagName() == KXMLQLCUniversePluginParameters)
+                        {
+                             QDomNamedNodeMap attrs = pluginTag.attributes();
+                             for (int i = 0; i < attrs.count(); i++)
+                             {
+                                 QDomAttr attr = attrs.item(i).toAttr();
+                                 ip->setPluginParameter(attr.name(), attr.value());
+                             }
+                        }
+                        patchNode = patchNode.nextSibling();
+                    }
+                }
+            }
         }
         else if (tag.tagName() == KXMLQLCUniverseOutputPatch)
         {
             QString plugin = KOutputNone;
-            quint32 output = QLCChannel::invalid();
+            quint32 output = QLCIOPlugin::invalidLine();
             if (tag.hasAttribute(KXMLQLCUniverseOutputPlugin))
                 plugin = tag.attribute(KXMLQLCUniverseOutputPlugin);
             if (tag.hasAttribute(KXMLQLCUniverseOutputLine))
                 output = tag.attribute(KXMLQLCUniverseOutputLine).toUInt();
             ioMap->setOutputPatch(index, plugin, output, false);
+
+            // load the plugin custom parameters, if present
+            if (tag.hasChildNodes())
+            {
+                OutputPatch *op = outputPatch();
+                if (op != NULL)
+                {
+                    QDomNode patchNode = tag.firstChild();
+                    while (patchNode.isNull() == false)
+                    {
+                        QDomElement pluginTag = patchNode.toElement();
+                        if (pluginTag.tagName() == KXMLQLCUniversePluginParameters)
+                        {
+                             QDomNamedNodeMap attrs = pluginTag.attributes();
+                             for (int i = 0; i < attrs.count(); i++)
+                             {
+                                 QDomAttr attr = attrs.item(i).toAttr();
+                                 op->setPluginParameter(attr.name(), attr.value());
+                             }
+                        }
+                        patchNode = patchNode.nextSibling();
+                    }
+                }
+            }
         }
         else if (tag.tagName() == KXMLQLCUniverseFeedbackPatch)
         {
             QString plugin = KOutputNone;
-            quint32 output = QLCChannel::invalid();
+            quint32 output = QLCIOPlugin::invalidLine();
             if (tag.hasAttribute(KXMLQLCUniverseFeedbackPlugin))
                 plugin = tag.attribute(KXMLQLCUniverseFeedbackPlugin);
             if (tag.hasAttribute(KXMLQLCUniverseFeedbackLine))
                 output = tag.attribute(KXMLQLCUniverseFeedbackLine).toUInt();
             ioMap->setOutputPatch(index, plugin, output, true);
+
+            // load the plugin custom parameters, if present
+            if (tag.hasChildNodes())
+            {
+                OutputPatch *fbp = feedbackPatch();
+                if (fbp != NULL)
+                {
+                    QDomNode patchNode = tag.firstChild();
+                    while (patchNode.isNull() == false)
+                    {
+                        QDomElement pluginTag = patchNode.toElement();
+                        if (pluginTag.tagName() == KXMLQLCUniversePluginParameters)
+                        {
+                             QDomNamedNodeMap attrs = pluginTag.attributes();
+                             for (int i = 0; i < attrs.count(); i++)
+                             {
+                                 QDomAttr attr = attrs.item(i).toAttr();
+                                 fbp->setPluginParameter(attr.name(), attr.value());
+                             }
+                        }
+                        patchNode = patchNode.nextSibling();
+                    }
+                }
+            }
         }
 
         node = node.nextSibling();
@@ -651,6 +723,7 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         ip.setAttribute(KXMLQLCUniverseInputPlugin, inputPatch()->pluginName());
         ip.setAttribute(KXMLQLCUniverseInputLine, inputPatch()->input());
         ip.setAttribute(KXMLQLCUniverseInputProfileName, inputPatch()->profileName());
+        savePluginParametersXML(doc, &ip, inputPatch()->getPluginParameters());
         root.appendChild(ip);
     }
     if (outputPatch() != NULL)
@@ -658,6 +731,7 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         QDomElement op = doc->createElement(KXMLQLCUniverseOutputPatch);
         op.setAttribute(KXMLQLCUniverseOutputPlugin, outputPatch()->pluginName());
         op.setAttribute(KXMLQLCUniverseOutputLine, outputPatch()->output());
+        savePluginParametersXML(doc, &op, outputPatch()->getPluginParameters());
         root.appendChild(op);
     }
     if (feedbackPatch() != NULL)
@@ -665,11 +739,35 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
         QDomElement fbp = doc->createElement(KXMLQLCUniverseFeedbackPatch);
         fbp.setAttribute(KXMLQLCUniverseFeedbackPlugin, feedbackPatch()->pluginName());
         fbp.setAttribute(KXMLQLCUniverseFeedbackLine, feedbackPatch()->output());
+        savePluginParametersXML(doc, &fbp, feedbackPatch()->getPluginParameters());
         root.appendChild(fbp);
     }
 
     // append universe element
     wksp_root->appendChild(root);
+
+    return true;
+}
+
+bool Universe::savePluginParametersXML(QDomDocument *doc, QDomElement *wksp_root,
+                                       QMap<QString, QVariant> parameters) const
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(wksp_root != NULL);
+
+    if (parameters.isEmpty())
+        return false;
+
+    QDomElement pp = doc->createElement(KXMLQLCUniversePluginParameters);
+    QMapIterator<QString, QVariant> it(parameters);
+    while(it.hasNext())
+    {
+        it.next();
+        QString pName = it.key();
+        QVariant pValue = it.value();
+        pp.setAttribute(pName, pValue.toString());
+    }
+    wksp_root->appendChild(pp);
 
     return true;
 }

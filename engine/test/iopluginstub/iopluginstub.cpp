@@ -49,15 +49,17 @@ int IOPluginStub::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool IOPluginStub::openOutput(quint32 output)
+bool IOPluginStub::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (m_openOutputs.contains(output) == false && output < 4)
         m_openOutputs.append(output);
     return true;
 }
 
-void IOPluginStub::closeOutput(quint32 output)
+void IOPluginStub::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     m_openOutputs.removeAll(output);
 }
 
@@ -73,11 +75,6 @@ QStringList IOPluginStub::outputs()
 QString IOPluginStub::pluginInfo()
 {
     return QString("This is a plugin stub for testing.");
-}
-
-void IOPluginStub::setParameter(QString name, QVariant &value)
-{
-    Q_UNUSED(name); Q_UNUSED(value);
 }
 
 QString IOPluginStub::outputInfo(quint32 output)
@@ -106,8 +103,9 @@ bool IOPluginStub::openInput(quint32 input, quint32 universe)
     return true;
 }
 
-void IOPluginStub::closeInput(quint32 input)
+void IOPluginStub::closeInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     m_openInputs.removeAll(input);
 }
 

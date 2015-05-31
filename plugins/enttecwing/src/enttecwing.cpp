@@ -98,9 +98,10 @@ bool EnttecWing::openInput(quint32 input, quint32 universe)
     return reBindSocket();
 }
 
-void EnttecWing::closeInput(quint32 input)
+void EnttecWing::closeInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(input);
+    Q_UNUSED(input)
+    Q_UNUSED(universe)
 }
 
 QStringList EnttecWing::inputs()

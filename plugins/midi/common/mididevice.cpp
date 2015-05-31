@@ -219,5 +219,5 @@ void MidiDevice::saveSettings() const
     key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     settings.setValue(key, midiTemplateName());
 
-    qDebug() << "Saving mididevice with template name: " << midiTemplateName();
+    qDebug() << "[MIDI] Saving mididevice with template name: " << midiTemplateName();
 }

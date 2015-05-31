@@ -53,8 +53,9 @@ int DMX4Linux::capabilities() const
  * Open/close
  *****************************************************************************/
 
-bool DMX4Linux::openOutput(quint32 output)
+bool DMX4Linux::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
         return false;
 
@@ -68,8 +69,9 @@ bool DMX4Linux::openOutput(quint32 output)
     return true;
 }
 
-void DMX4Linux::closeOutput(quint32 output)
+void DMX4Linux::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
         return;
 

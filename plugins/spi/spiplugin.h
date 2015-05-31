@@ -68,8 +68,6 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    void setParameter(quint32 universe, QString name, QVariant &value);
-
 private:
     void setAbsoluteAddress(quint32 uniID, SPIUniverse *uni);
 
@@ -78,10 +76,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -117,6 +115,9 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /** @reimp */
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 };
 
 #endif

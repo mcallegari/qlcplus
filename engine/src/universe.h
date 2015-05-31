@@ -56,6 +56,8 @@ class InputPatch;
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePluginParameters "PluginParameters"
+
 /** Universe class contains input/output data for one DMX universe
  */
 class Universe: public QObject
@@ -399,6 +401,17 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+
+    /**
+     * Save a plugin custom parameters (if available) into a tag nested
+     * to the related Input/Output patch
+     *
+     * @param doc The master XML document to save to.
+     * @param wksp_root The workspace root element
+     * @param parameters The map of custom parameters to save
+     */
+    bool savePluginParametersXML(QDomDocument* doc, QDomElement* wksp_root,
+                                 QMap<QString, QVariant>parameters) const;
 };
 
 /** @} */
