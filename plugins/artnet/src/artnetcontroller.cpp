@@ -154,7 +154,6 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
         else
             m_universeMap[universe].type &= ~type;
     }
-
 }
 
 void ArtNetController::setOutputIPAddress(quint32 universe, QString address)

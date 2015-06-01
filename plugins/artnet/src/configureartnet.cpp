@@ -18,7 +18,6 @@
 */
 
 #include <QTreeWidgetItem>
-#include <QLineEdit>
 #include <QComboBox>
 #include <QSpinBox>
 #include <QLabel>
@@ -128,7 +127,7 @@ void ConfigureArtNet::fillMappingTree()
                 item->setText(KMapColumnInterface, controller->getNetworkIP());
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
             }
-            else if (info->type & ArtNetController::Output)
+            if (info->type & ArtNetController::Output)
             {
                 QTreeWidgetItem *item = new QTreeWidgetItem(outputItem);
                 item->setData(KMapColumnInterface, Qt::UserRole, universe);
@@ -162,11 +161,11 @@ void ConfigureArtNet::fillMappingTree()
         }
     }
 
-    m_nodesTree->resizeColumnToContents(KMapColumnInterface);
-    m_nodesTree->resizeColumnToContents(KMapColumnUniverse);
-    m_nodesTree->resizeColumnToContents(KMapColumnIPAddress);
-    m_nodesTree->resizeColumnToContents(KMapColumnArtNetUni);
-    m_nodesTree->resizeColumnToContents(KMapColumnTransmitMode);
+    m_uniMapTree->resizeColumnToContents(KMapColumnInterface);
+    m_uniMapTree->resizeColumnToContents(KMapColumnUniverse);
+    m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
+    m_uniMapTree->resizeColumnToContents(KMapColumnArtNetUni);
+    m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
 }
 
 QWidget *ConfigureArtNet::createIPWidget(QString ip)
@@ -179,11 +178,12 @@ QWidget *ConfigureArtNet::createIPWidget(QString ip)
     QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
 
     QLabel *label = new QLabel(baseIP, this);
-    QLineEdit *edit = new QLineEdit(finalIP, this);
-    edit->setMaxLength(3);
+    QSpinBox *spin = new QSpinBox(this);
+    spin->setRange(0, 255);
+    spin->setValue(finalIP.toInt());
 
     widget->layout()->addWidget(label);
-    widget->layout()->addWidget(edit);
+    widget->layout()->addWidget(spin);
 
     return widget;
 }
@@ -217,11 +217,11 @@ void ConfigureArtNet::accept()
             QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
             if (ipWidget != NULL)
             {
-                QLineEdit *edit = qobject_cast<QLineEdit*>(ipWidget->layout()->itemAt(1)->widget());
-                if (edit != NULL)
+                QSpinBox *spin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
+                if (spin != NULL)
                 {
-                    if (edit->text() != "255")
-                        m_plugin->setParameter(universe, line, cap, "outputIP", edit->text());
+                    if (spin->value() != 255)
+                        m_plugin->setParameter(universe, line, cap, "outputIP", spin->value());
                     else
                         m_plugin->unSetParameter(universe, line, cap, "outputIP");
                 }

@@ -34,11 +34,10 @@ void E131Plugin::init()
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
-            if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
+            if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 E131IO tmpIO;
                 tmpIO.IPAddress = entry.ip().toString();
-                tmpIO.MACAddress = interface.hardwareAddress();
                 tmpIO.controller = NULL;
                 m_IOmapping.append(tmpIO);
 
@@ -83,6 +82,8 @@ QStringList E131Plugin::outputs()
 {
     QStringList list;
     int j = 0;
+    if (m_IOmapping.count() < 2)
+        init();
     foreach (E131IO line, m_IOmapping)
     {
         list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
@@ -93,6 +94,9 @@ QStringList E131Plugin::outputs()
 
 QString E131Plugin::outputInfo(quint32 output)
 {
+    if (m_IOmapping.count() < 2)
+        init();
+
     if (output >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -119,7 +123,7 @@ QString E131Plugin::outputInfo(quint32 output)
 
 bool E131Plugin::openOutput(quint32 output, quint32 universe)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() < 2)
         init();
 
     if (output >= (quint32)m_IOmapping.length())
@@ -127,20 +131,15 @@ bool E131Plugin::openOutput(quint32 output, quint32 universe)
 
     qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).IPAddress;
 
-    // already open ? Just add the type flag
-    if (m_IOmapping[output].controller != NULL)
+    // if the controller doesn't exist, create it
+    if (m_IOmapping[output].controller == NULL)
     {
-        m_IOmapping[output].controller->setType(
-                    (E131Controller::Type)(m_IOmapping[output].controller->type() | E131Controller::Output));
-        m_IOmapping[output].controller->changeReferenceCount(E131Controller::Output, +1);
-        return true;
+        E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
+                                                        E131Controller::Output, output, this);
+        m_IOmapping[output].controller = controller;
     }
 
-    // not open ? Create a new E131Controller
-    E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
-                                                    m_IOmapping.at(output).MACAddress,
-                                                    E131Controller::Output, output, this);
-    m_IOmapping[output].controller = controller;
+    m_IOmapping[output].controller->addUniverse(universe, E131Controller::Output);
     addToMap(universe, output, Output);
 
     return true;
@@ -155,15 +154,8 @@ void E131Plugin::closeOutput(quint32 output, quint32 universe)
     E131Controller *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
-        controller->changeReferenceCount(E131Controller::Output, -1);
-        // if a E131Controller is also open as input
-        // then just remove the output capability
-        if (controller->type() & E131Controller::Input)
-        {
-            controller->setType(E131Controller::Input);
-        }
-        if (controller->referenceCount(E131Controller::Input) == 0 &&
-            controller->referenceCount(E131Controller::Output) == 0)
+        controller->removeUniverse(universe, E131Controller::Output);
+        if (controller->universesList().count() == 0)
         {
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -189,7 +181,7 @@ QStringList E131Plugin::inputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() < 2)
         init();
 
     foreach (E131IO line, m_IOmapping)
@@ -202,7 +194,7 @@ QStringList E131Plugin::inputs()
 
 bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
-    if (m_IOmapping.count() == 0)
+    if (m_IOmapping.count() < 2)
         init();
 
     if (input >= (quint32)m_IOmapping.length())
@@ -210,23 +202,17 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
 
     qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).IPAddress;
 
-    // already open ? Just add the type flag
+    // if the controller doesn't exist, create it
     if (m_IOmapping[input].controller != NULL)
     {
-        m_IOmapping[input].controller->setType(
-                    (E131Controller::Type)(m_IOmapping[input].controller->type() | E131Controller::Input));
-        m_IOmapping[input].controller->changeReferenceCount(E131Controller::Input, +1);
-        return true;
+        E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
+                                                        E131Controller::Input, input, this);
+        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        m_IOmapping[input].controller = controller;
     }
 
-    // not open ? Create a new ArtNetController
-    E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
-                                                    m_IOmapping.at(input).MACAddress,
-                                                    E131Controller::Input, input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
-    m_IOmapping[input].controller = controller;
-    m_IOmapping[input].controller->enableUniverse(universe);
+    m_IOmapping[input].controller->addUniverse(universe, E131Controller::Input);
     addToMap(universe, input, Input);
 
     return true;
@@ -241,15 +227,8 @@ void E131Plugin::closeInput(quint32 input, quint32 universe)
     E131Controller *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
-        controller->changeReferenceCount(E131Controller::Input, -1);
-        // if a E131Controller is also open as output
-        // then just remove the input capability
-        if (controller->type() & E131Controller::Output)
-        {
-            controller->setType(E131Controller::Output);
-        }
-        if (controller->referenceCount(E131Controller::Input) == 0 &&
-            controller->referenceCount(E131Controller::Output) == 0)
+        controller->removeUniverse(universe, E131Controller::Input);
+        if (controller->universesList().count() == 0)
         {
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;
@@ -259,6 +238,9 @@ void E131Plugin::closeInput(quint32 input, quint32 universe)
 
 QString E131Plugin::inputInfo(quint32 input)
 {
+    if (m_IOmapping.count() < 2)
+        init();
+
     if (input >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -288,18 +270,30 @@ QString E131Plugin::inputInfo(quint32 input)
  *********************************************************************/
 void E131Plugin::configure()
 {
-    //ConfigureE131 conf(this);
-    //conf.exec();
+    ConfigureE131 conf(this);
+    conf.exec();
 }
 
 bool E131Plugin::canConfigure()
 {
-    return false;
+    return true;
 }
 
 void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
                               QString name, QVariant value)
 {
+    if (line >= (quint32)m_IOmapping.length())
+        return;
+
+    E131Controller *controller = m_IOmapping.at(line).controller;
+    if (controller == NULL)
+        return;
+
+    if (name == "mcastIP")
+        controller->setIPAddress(universe, value.toString());
+    else if (name == "outputUni")
+        controller->setOutputUniverse(universe, value.toUInt());
+
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 

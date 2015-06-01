@@ -33,7 +33,6 @@
 typedef struct
 {
     QString IPAddress;
-    QString MACAddress;
     E131Controller* controller;
 } E131IO;
 

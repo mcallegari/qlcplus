@@ -55,7 +55,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Transmit Mode</string>
+           <string>Transmission Mode</string>
           </property>
          </column>
         </widget>

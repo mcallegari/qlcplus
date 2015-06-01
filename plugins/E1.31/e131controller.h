@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  e131node.h
+  e131controller.h
 
   Copyright (c) Massimo Callegari
 
@@ -28,6 +28,13 @@
 
 #define E131_DEFAULT_PORT     5568
 
+typedef struct
+{
+    QHostAddress mcastAddress;
+    ushort outputUniverse;
+    int type;
+} UniverseInfo;
+
 class E131Controller : public QObject
 {
     Q_OBJECT
@@ -38,7 +45,7 @@ class E131Controller : public QObject
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
-    E131Controller(QString ipaddr, QString macAddress,
+    E131Controller(QString ipaddr,
                    Type type, quint32 line, QObject *parent = 0);
 
     ~E131Controller();
@@ -49,16 +56,30 @@ public:
     /** Return the controller IP address */
     QString getNetworkIP();
 
-    /** Set the controller type */
-    void setType(Type type);
+    /** Add a universe to the map of this controller */
+    void addUniverse(quint32 universe, Type type);
 
-    /** Get the type of this controller */
+    /** Remove a universe from the map of this controller */
+    void removeUniverse(quint32 universe, Type type);
+
+    /** Set a specific IP address for the given QLC+ universe */
+    void setIPAddress(quint32 universe, QString address);
+
+    /** Set a specific E1.31 output universe for the given QLC+ universe */
+    void setOutputUniverse(quint32 universe, quint32 e131Uni);
+
+    /** Return the list of the universes handled by
+     *  this controller */
+    QList<quint32>universesList();
+
+    /** Return the specific information for the given universe */
+    UniverseInfo *getUniverseInfo(quint32 universe);
+
+    /** Return the global type of this controller */
     Type type();
 
-    /** Add the given universe to the multicast address map and
-     *  perform a Join to the group if we're in input mode
-     */
-    void enableUniverse(quint32 universe);
+    /** Return the plugin line associated to this controller */
+    quint32 line();
 
     /** Get the number of packets sent by this controller */
     quint64 getPacketSentNumber();
@@ -66,29 +87,12 @@ public:
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
 
-    /** Increase or decrease the reference count of the given type */
-    void changeReferenceCount(Type type, int amount);
-
-    /** Retrieve the reference count of the given type */
-    int referenceCount(Type type);
-
 private:
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
 
-    /** The controller multicast addresses map as QHostAddress */
-    /** This is where all E131 packets are sent to */
-    QHash<quint32, QHostAddress> m_multicastAddr;
-
-    /** The controller interface MAC address. Used only for ArtPollReply */
-    QString m_MACAddress;
-
     quint64 m_packetSent;
     quint64 m_packetReceived;
-
-    /** Type of this controller */
-    /** A controller can be only output or only input */
-    Type m_type;
 
     /** QLC+ line to be used when emitting a signal */
     quint32 m_line;
@@ -103,11 +107,13 @@ private:
     /** It holds values for a whole 4 universes address (512 * 4) */
     QByteArray m_dmxValues;
 
-    /** Count the number of input universes using this controller */
-    int m_inputRefCount;
+    /** Map of the QLC+ universes transmitted/received by this
+     *  controller, with the related, specific parameters */
+    QMap<quint32, UniverseInfo> m_universeMap;
 
-    /** Count the number of output universes using this controller */
-    int m_outputRefCount;
+    /** Mutex to handle the change of output IP address or in general
+     *  variables that could be used to transmit/receive data */
+    QMutex m_dataMutex;
 
 private slots:
     /** Async event raised when new packets have been received */
