@@ -30,7 +30,7 @@
 #define KMapColumnInterface     0
 #define KMapColumnUniverse      1
 #define KMapColumnIPAddress     2
-#define KMapColumnArtNetUni     3
+#define KMapColumnE131Uni       3
 #define KMapColumnTransmitMode  4
 
 /*****************************************************************************
@@ -115,7 +115,7 @@ void ConfigureE131::fillMappingTree()
                 QSpinBox *spin = new QSpinBox(this);
                 spin->setRange(0, 65535);
                 spin->setValue(info->outputUniverse);
-                m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
+                m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, spin);
 
                 QComboBox *combo = new QComboBox(this);
                 combo->addItem(tr("Full"));
@@ -128,7 +128,7 @@ void ConfigureE131::fillMappingTree()
     m_uniMapTree->resizeColumnToContents(KMapColumnInterface);
     m_uniMapTree->resizeColumnToContents(KMapColumnUniverse);
     m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
-    m_uniMapTree->resizeColumnToContents(KMapColumnArtNetUni);
+    m_uniMapTree->resizeColumnToContents(KMapColumnE131Uni);
     m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
 }
 
@@ -187,7 +187,7 @@ void ConfigureE131::accept()
                 }
             }
 
-            QSpinBox *spin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnArtNetUni));
+            QSpinBox *spin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnE131Uni));
             if (spin != NULL)
             {
                 if ((quint32)spin->value() != universe)
