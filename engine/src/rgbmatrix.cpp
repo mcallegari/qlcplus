@@ -806,7 +806,13 @@ void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
     {
         FadeChannel old = oldChannelIterator.value();
         fc.setCurrent(old.current());
-        fc.setStart(old.current());
+        if (fc.target() == old.target())
+        {
+            fc.setStart(old.start());
+            fc.setElapsed(old.elapsed());
+        }
+        else
+            fc.setStart(old.current());
     }
     else
     {
