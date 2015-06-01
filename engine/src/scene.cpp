@@ -651,7 +651,8 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
                              const QList<Universe*> ua)
 {
-    QHash <FadeChannel,FadeChannel> channels(timer->faderChannels());
+    QMutexLocker channelsLocker(timer->faderMutex());
+    QHash <FadeChannel,FadeChannel> const& channels(timer->faderChannelsRef());
     QHash <FadeChannel,FadeChannel>::const_iterator existing_it = channels.find(fc);
     if (existing_it != channels.constEnd())
     {

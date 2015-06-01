@@ -370,6 +370,16 @@ QHash<FadeChannel,FadeChannel> MasterTimer::faderChannels() const
     return fader()->channels();
 }
 
+QHash<FadeChannel,FadeChannel> const& MasterTimer::faderChannelsRef() const
+{
+    return fader()->channels();
+}
+
+QMutex* MasterTimer::faderMutex() const
+{
+    return const_cast<QMutex*>(&m_faderMutex);
+}
+
 void MasterTimer::timerTickFader(QList<Universe *> universes)
 {
     QMutexLocker faderLocker(&m_faderMutex);

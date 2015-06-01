@@ -172,6 +172,8 @@ public:
     void faderAdd(const FadeChannel& ch);
     void faderForceAdd(const FadeChannel& ch);
     QHash<FadeChannel,FadeChannel> faderChannels() const;
+    QHash<FadeChannel,FadeChannel> const& faderChannelsRef() const;
+    QMutex* faderMutex() const;
 
 private:
     /** Execute one timer tick for the GenericFader */
