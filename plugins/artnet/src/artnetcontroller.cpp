@@ -163,7 +163,10 @@ void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    QHostAddress newAddress = QHostAddress(address);
+    QString iFaceIP = m_ipAddr.toString();
+    QString newIP = iFaceIP.mid(0, iFaceIP.lastIndexOf(".") + 1);
+    newIP.append(address);
+    QHostAddress newAddress = QHostAddress(newIP);
     m_universeMap[universe].outputAddress = newAddress;
 }
 

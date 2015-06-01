@@ -140,18 +140,15 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
 
     qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).IPAddress;
 
-    // already open ? Just add the type flag
-    if (m_IOmapping[output].controller != NULL)
+    // if the controller doesn't exist, create it
+    if (m_IOmapping[output].controller == NULL)
     {
-        m_IOmapping[output].controller->addUniverse(universe, ArtNetController::Output);
-        return true;
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
+                                                            m_netInterfaces, m_IOmapping.at(output).MACAddress,
+                                                            ArtNetController::Output, output, this);
+        m_IOmapping[output].controller = controller;
     }
 
-    // not open ? Create a new ArtNetController
-    ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
-                                                        m_netInterfaces, m_IOmapping.at(output).MACAddress,
-                                                        ArtNetController::Output, output, this);
-    m_IOmapping[output].controller = controller;
     m_IOmapping[output].controller->addUniverse(universe, ArtNetController::Output);
     addToMap(universe, output, Output);
 
@@ -213,20 +210,17 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 
     qDebug() << "[ArtNet] Open input on address :" << m_IOmapping.at(input).IPAddress;
 
-    // already open ? Just add the type flag
-    if (m_IOmapping[input].controller != NULL)
+    // if the controller doesn't exist, create it
+    if (m_IOmapping[input].controller == NULL)
     {
-        m_IOmapping[input].controller->addUniverse(universe, ArtNetController::Input);
-        return true;
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
+                                                            m_netInterfaces, m_IOmapping.at(input).MACAddress,
+                                                            ArtNetController::Input, input, this);
+        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        m_IOmapping[input].controller = controller;
     }
 
-    // not open ? Create a new ArtNetController
-    ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
-                                                        m_netInterfaces, m_IOmapping.at(input).MACAddress,
-                                                        ArtNetController::Input, input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
-    m_IOmapping[input].controller = controller;
     m_IOmapping[input].controller->addUniverse(universe, ArtNetController::Input);
     addToMap(universe, input, Input);
 

@@ -198,8 +198,6 @@ ConfigureArtNet::~ConfigureArtNet()
 
 void ConfigureArtNet::accept()
 {
-    QDialog::accept();
-
     for(int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *topItem = m_uniMapTree->topLevelItem(i);
@@ -219,20 +217,13 @@ void ConfigureArtNet::accept()
             QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
             if (ipWidget != NULL)
             {
-
                 QLineEdit *edit = qobject_cast<QLineEdit*>(ipWidget->layout()->itemAt(1)->widget());
                 if (edit != NULL)
                 {
                     if (edit->text() != "255")
-                    {
-                        QLabel *label = qobject_cast<QLabel*>(ipWidget->layout()->itemAt(0)->widget());
-                        QString newIP = QString("%1%2").arg(label->text()).arg(edit->text());
-                        m_plugin->setParameter(universe, line, cap, "outputIP", newIP);
-                    }
+                        m_plugin->setParameter(universe, line, cap, "outputIP", edit->text());
                     else
-                    {
                         m_plugin->unSetParameter(universe, line, cap, "outputIP");
-                    }
                 }
             }
 
@@ -246,6 +237,8 @@ void ConfigureArtNet::accept()
             }
         }
     }
+
+    QDialog::accept();
 }
 
 int ConfigureArtNet::exec()
