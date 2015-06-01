@@ -38,7 +38,6 @@ E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject 
     // reset initial DMX values if we're an input
     if (type == Input)
     {
-        m_dmxValues.fill(0, 512);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         if (m_UdpSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT,
                               QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
@@ -70,6 +69,14 @@ E131Controller::~E131Controller()
     disconnect(m_UdpSocket, SIGNAL(readyRead()),
             this, SLOT(processPendingPackets()));
     m_UdpSocket->close();
+    QMapIterator<int, QByteArray *> it(m_dmxValuesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        QByteArray *ba = it.value();
+        delete ba;
+    }
+    m_dmxValuesMap.clear();
 }
 
 QString E131Controller::getNetworkIP()
@@ -213,12 +220,16 @@ void E131Controller::processPendingPackets()
                     m_packetReceived++;
                     if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                     {
-                        quint32 uniAddr = universe << 9;
-                        for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
+                        QByteArray *dmxValues;
+                        if (m_dmxValuesMap.contains(universe) == false)
+                            m_dmxValuesMap[universe] = new QByteArray(512, 0);
+                        dmxValues = m_dmxValuesMap[universe];
+
+                        for (int i = 0; i < dmxData.length(); i++)
                         {
-                            if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))
+                            if (dmxValues->at(i) != dmxData.at(i))
                             {
-                                m_dmxValues[uniAddr + i] =  dmxData[i];
+                                dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
                                 emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                             }
                         }

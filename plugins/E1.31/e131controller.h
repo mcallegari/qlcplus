@@ -104,8 +104,8 @@ private:
     QScopedPointer<E131Packetizer> m_packetizer;
 
     /** Keeps the current dmx values to send only the ones that changed */
-    /** It holds values for a whole 4 universes address (512 * 4) */
-    QByteArray m_dmxValues;
+    /** It holds values for all the handled universes */
+    QMap<int, QByteArray *> m_dmxValuesMap;
 
     /** Map of the QLC+ universes transmitted/received by this
      *  controller, with the related, specific parameters */
