@@ -2,17 +2,23 @@ qlcplus (4.8.6) stable; urgency=low
 
   * Function Manager: Fix sequences sometimes loaded in the chaser folder (David Garyga)
   * Input Selection: Unpatched universes not considered as invalid anymore (David Garyga)
+  * Input/Output tab: Fix Add Universe button adding wrong universe ID after loading a workspace (David Garyga)
   * Speed Dial & RGB Matrix & Chaser: improve tap precision (David Garyga)
-  * Monitor: Fix various issues when loading a project while the Monitor is open (David Garyga)
+  * Monitor: Fix various issues & crashes when loading a project while the Monitor is open (David Garyga)
+  * Simple Desk: Fix deadlock when clicking the "Reset Universes" button (David Garyga)
   * VC Button: Allow to edit the fade out time of a stop-all-functions button with the text input (David Garyga)
   * VC Submaster: fix submaster level not taken into account right from project loading (David Garyga)
   * VC Submaster: fix chaser not taking submaster level into account (David Garyga)
   * VC Submaster: Cue Lists are now affected by Submaster faders (David Garyga)
+  * VC SpeedDial: Fix copy (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
   * Engine: Fix RGBMatrix randomly starting with wrong direction (David Garyga)
+  * Engine: Fix RGBMatrix never shutting off lights when fadeout > duration (David Garyga)
   * Engine: Fix functions contained in chaser or audiotrigger not stopped properly (David Garyga)
+  * Engine: Fix collection not updating its running children intensity (David Garyga)
+  * Engine: Fix random erratic channel behavior when flashing huge scenes (David Garyga)
   * Plugins/E1.31: fixed input from a multicast address
   * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
   * New fixture: Eurolite LED SLS-QCL (thanks to Kripton)
