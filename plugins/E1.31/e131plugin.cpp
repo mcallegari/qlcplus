@@ -203,7 +203,7 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
     qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).IPAddress;
 
     // if the controller doesn't exist, create it
-    if (m_IOmapping[input].controller != NULL)
+    if (m_IOmapping[input].controller == NULL)
     {
         E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
                                                         E131Controller::Input, input, this);

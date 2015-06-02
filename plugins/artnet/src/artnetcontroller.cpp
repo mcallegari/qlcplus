@@ -165,8 +165,7 @@ void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
     QString iFaceIP = m_ipAddr.toString();
     QString newIP = iFaceIP.mid(0, iFaceIP.lastIndexOf(".") + 1);
     newIP.append(address);
-    QHostAddress newAddress = QHostAddress(newIP);
-    m_universeMap[universe].outputAddress = newAddress;
+    m_universeMap[universe].outputAddress = QHostAddress(newIP);
 }
 
 void ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
