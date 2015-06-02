@@ -48,7 +48,6 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_ready(false)
     , m_started(false)
     , m_elapsed(0)
-    , m_startAngle(0)
     , m_currentAngle(0)
 
     , m_intensity(1.0)
@@ -70,7 +69,6 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     m_ready = ef->m_ready;
     m_started = ef->m_started;
     m_elapsed = ef->m_elapsed;
-    m_startAngle = ef->m_startAngle;
     m_currentAngle = ef->m_currentAngle;
 
     m_intensity = ef->m_intensity;
@@ -141,8 +139,21 @@ bool EFXFixture::isValid() const
 
 void EFXFixture::durationChanged()
 {
-    m_startAngle = m_currentAngle;
-    m_elapsed = 0;
+    // To avoid jumps when changing duration,
+    // the elapsed time is rescaled to the
+    // new duration.
+    m_elapsed = SCALE(qreal(m_currentAngle),
+            qreal(0), qreal(M_PI * 2),
+            qreal(0), qreal(m_parent->duration()));
+
+    // Serial or Asymmetric propagation mode:
+    // we must substract the offset from the current position
+    if (timeOffset())
+    {
+        if (m_elapsed < timeOffset())
+            m_elapsed += m_parent->duration();
+        m_elapsed -= timeOffset();
+    }
 }
 
 /*****************************************************************************
@@ -276,7 +287,6 @@ void EFXFixture::reset()
     m_runTimeDirection = m_direction;
     m_started = false;
     m_elapsed = 0;
-    m_startAngle = 0;
     m_currentAngle = 0;
 }
 
@@ -325,15 +335,9 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 
     // Scale from elapsed time in relation to overall duration to a point in a circle
     uint pos = (m_elapsed + timeOffset()) % m_parent->duration();
-    m_currentAngle = m_startAngle + SCALE(qreal(pos),
+    m_currentAngle = SCALE(qreal(pos),
                            qreal(0), qreal(m_parent->duration()),
                            qreal(0), qreal(M_PI * 2));
-
-    if (m_currentAngle > (M_PI * 2))
-    {
-        m_startAngle = 0;
-        m_currentAngle -= M_PI * 2;
-    }
 
     qreal pan = 0;
     qreal tilt = 0;
