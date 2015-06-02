@@ -397,6 +397,7 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
+    m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
     m_doc->clearContents();
     if (Monitor::instance() != NULL)
@@ -406,6 +407,7 @@ void App::clearDocument()
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->masterTimer()->start();
 }
 
 Doc *App::doc()

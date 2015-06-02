@@ -150,6 +150,8 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
 CueStack* SimpleDeskEngine::cueStack(uint stack)
 {
+    QMutexLocker locker(&m_mutex);
+
     if (m_cueStacks.contains(stack) == false)
     {
         m_cueStacks[stack] = createCueStack();
@@ -253,6 +255,8 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
     QDomElement root = doc->createElement(KXMLQLCSimpleDeskEngine);
     wksp_root->appendChild(root);
+
+    QMutexLocker locker(&m_mutex);
 
     QHashIterator <uint,CueStack*> it(m_cueStacks);
     while (it.hasNext() == true)

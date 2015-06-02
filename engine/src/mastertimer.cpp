@@ -57,6 +57,7 @@ quint64 ticksCount = 0;
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , m_stopAllFunctions(false)
+    , m_dmxSourceListMutex(QMutex::Recursive)
     , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
@@ -323,11 +324,9 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
 void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
-    m_dmxSourceListMutex.lock();
-    QList<DMXSource*> dmxSourceList(m_dmxSourceList);
-    m_dmxSourceListMutex.unlock();
+    QMutexLocker lock(&m_dmxSourceListMutex);
 
-    foreach (DMXSource* source, dmxSourceList)
+    foreach (DMXSource* source, m_dmxSourceList)
     {
         Q_ASSERT(source != NULL);
 
