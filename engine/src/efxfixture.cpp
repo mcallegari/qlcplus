@@ -364,7 +364,7 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
             stop(timer, universes);
         }
 
-        m_elapsed = 0;
+        m_elapsed %= m_parent->duration();
     }
 }
 
