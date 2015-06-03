@@ -611,6 +611,7 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     {
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
         m_timer->start(PROGRESS_INTERVAL);
+        updateFeedback();
     }
 }
 
@@ -631,6 +632,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
         emit stepChanged(-1);
 
         qDebug() << Q_FUNC_INFO << "Cue stopped";
+        updateFeedback();
     }
 }
 
@@ -884,6 +886,12 @@ void VCCueList::updateFeedback()
     sendFeedback(fbv, cf1InputSourceId);
     fbv = (int)SCALE(float(100 - m_slider2->value()), float(0), float(100), float(0), float(UCHAR_MAX));
     sendFeedback(fbv, cf2InputSourceId);
+
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+
+    sendFeedback(ch->isRunning() ? UCHAR_MAX : 0, playbackInputSourceId);
 }
 
 /*****************************************************************************
