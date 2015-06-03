@@ -209,6 +209,11 @@ void SpeedDial::tap()
     m_tap->click();
 }
 
+void SpeedDial::toggleInfinite()
+{
+    m_infiniteCheck->toggle();
+}
+
 void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
 {
     if (stopTime && m_tapTime != NULL)

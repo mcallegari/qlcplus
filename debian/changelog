@@ -11,6 +11,7 @@ qlcplus (4.8.6) stable; urgency=low
   * VC Submaster: fix chaser not taking submaster level into account (David Garyga)
   * VC Submaster: Cue Lists are now affected by Submaster faders (David Garyga)
   * VC SpeedDial: Fix copy (David Garyga)
+  * VC SpeedDial: Allow linking the infinite checkbox to an external input (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
   * Engine: reverted patch causing DMX monitor misbehaviour
