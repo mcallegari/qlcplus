@@ -108,7 +108,7 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 output, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
 
     void sendSysEx(quint32 output, const QByteArray &data);
 

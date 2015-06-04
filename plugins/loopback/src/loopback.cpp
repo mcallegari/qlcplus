@@ -197,18 +197,18 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
     {
         if (m_inputCurrentlyOpen[output] && m_values[output][i] != (qint32) data[i])
         {
-            emit valueChanged(UINT_MAX, output, i, data[i]);
+            emit valueChanged(universe, output, i, data[i]);
         }
         m_values[output][i] = (qint32) data[i];
     }
 }
 
-void Loopback::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &)
+void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &)
 {
     if (input >= QLCIOPLUGINS_UNIVERSES || m_inputCurrentlyOpen[input] == false)
         return;
 
-    emit valueChanged(UINT_MAX, input, channel, value);
+    emit valueChanged(universe, input, channel, value);
 }
 
 /*****************************************************************************

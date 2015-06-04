@@ -287,8 +287,10 @@ QString MidiPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, const QString &)
+void MidiPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &)
 {
+    Q_UNUSED(universe)
+
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
     {

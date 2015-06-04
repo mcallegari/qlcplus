@@ -202,6 +202,6 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
     if (input == m_pluginLine)
     {
         if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
-        emit inputValueChanged(m_universe, channel, value, key);
+            emit inputValueChanged(m_universe, channel, value, key);
     }
 }

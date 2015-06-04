@@ -84,8 +84,10 @@ QString QLCIOPlugin::inputInfo(quint32 input)
     return QString();
 }
 
-void QLCIOPlugin::sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString &key)
+void QLCIOPlugin::sendFeedBack(quint32 universe, quint32 inputLine,
+                               quint32 channel, uchar value, const QString &key)
 {
+    Q_UNUSED(universe)
     Q_UNUSED(inputLine)
     Q_UNUSED(channel)
     Q_UNUSED(value)

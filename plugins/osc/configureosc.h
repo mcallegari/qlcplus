@@ -42,6 +42,10 @@ public slots:
     int exec();
 
 private:
+    void fillMappingTree();
+    QWidget *createIPWidget(QString ip);
+
+private:
     OSCPlugin* m_plugin;
 
 };

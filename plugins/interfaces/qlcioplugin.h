@@ -245,12 +245,14 @@ public:
      * If the device support this feature, this is the method to send data back for
      * visual feedback
      *
+     * @param universe the universe where to send the feedback
      * @param inputLine the input line where to send the feedback
      * @param channel the channel number where to send the feedback
      * @param value the actual value of the channel
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
-    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0);
+    virtual void sendFeedBack(quint32 universe, quint32 inputLine,
+                              quint32 channel, uchar value, const QString& key = 0);
 
 signals:
     /**

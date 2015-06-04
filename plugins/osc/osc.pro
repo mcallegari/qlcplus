@@ -4,17 +4,13 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = osc
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets
-  macx:QT_CONFIG -= no-pkg-config
-}
+QT      += network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG      += plugin
-CONFIG      += link_pkgconfig
 INCLUDEPATH += ../interfaces
 DEPENDPATH  += ../interfaces
 
-PKGCONFIG += liblo
 win32:QMAKE_LFLAGS += -shared
 
 # This must be after "TARGET = " and before target installation so that
@@ -36,12 +32,15 @@ TRANSLATIONS += OSC_ca_ES.ts
 TRANSLATIONS += OSC_ja_JP.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
-HEADERS += oscplugin.h \
+HEADERS += oscpacketizer.h \
+           osccontroller.h \
+           oscplugin.h \
            configureosc.h
 
 FORMS += configureosc.ui
 
 SOURCES += ../interfaces/qlcioplugin.cpp
-SOURCES += oscplugin.cpp \
+SOURCES += oscpacketizer.cpp \
+           osccontroller.cpp \
+           oscplugin.cpp \
            configureosc.cpp
-

@@ -5,83 +5,133 @@
     <name>ConfigureOSC</name>
     <message>
         <location filename="configureosc.ui" line="14"/>
-        <source>Configure OSC Plugin</source>
-        <translation>Konfigurace OSC Pluginu</translation>
+        <source>OSC Plugin Configuration</source>
+        <oldsource>Configure OSC Plugin</oldsource>
+        <translation type="unfinished">Konfigurace OSC Pluginu</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="20"/>
-        <location filename="configureosc.ui" line="84"/>
-        <location filename="configureosc.ui" line="155"/>
-        <location filename="configureosc.ui" line="162"/>
+        <location filename="configureosc.ui" line="28"/>
+        <source>Universes Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="41"/>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="46"/>
+        <source>Universe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="51"/>
+        <source>Input Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="56"/>
+        <source>Output Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="61"/>
+        <source>Output Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Output address:</source>
-        <translation>Adresa výstupu:</translation>
+        <translation type="obsolete">Adresa výstupu:</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="37"/>
-        <location filename="configureosc.ui" line="60"/>
-        <location filename="configureosc.ui" line="108"/>
-        <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
-        <translation>Vstupní port:</translation>
+        <translation type="obsolete">Vstupní port:</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="70"/>
         <source>OSC Network 2</source>
-        <translation>OSC Síť 2</translation>
+        <translation type="obsolete">OSC Síť 2</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="101"/>
         <source>OSC Network 1</source>
-        <translation>OSC Síť 1</translation>
+        <translation type="obsolete">OSC Síť 1</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="186"/>
         <source>OSC Network 3</source>
-        <translation>OSC Síť 3</translation>
+        <translation type="obsolete">OSC Síť 3</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="193"/>
         <source>OSC Network 4</source>
-        <translation>OSC Síť 4</translation>
+        <translation type="obsolete">OSC Síť 4</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="75"/>
+        <source>Inputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="81"/>
+        <source>Outputs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="102"/>
+        <location filename="oscplugin.cpp" line="74"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Tento plugin přidává vstupy pro zařízení podporující přenosový OSC protokol.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="188"/>
-        <location filename="oscplugin.cpp" line="288"/>
-        <source>OSC Network</source>
-        <translation>OSC Síť</translation>
+        <location filename="oscplugin.cpp" line="93"/>
+        <location filename="oscplugin.cpp" line="193"/>
+        <source>%1: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="199"/>
+        <location filename="oscplugin.cpp" line="113"/>
+        <location filename="oscplugin.cpp" line="257"/>
+        <source>Status: Not open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="116"/>
+        <location filename="oscplugin.cpp" line="260"/>
+        <source>Status: Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="118"/>
+        <source>Packets sent: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="262"/>
+        <source>Packets received: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OSC Network</source>
+        <translation type="obsolete">OSC Síť</translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="109"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="202"/>
-        <location filename="oscplugin.cpp" line="302"/>
         <source>Status: Not ready</source>
-        <translation>Stav: Nepřipraveno</translation>
+        <translation type="obsolete">Stav: Nepřipraveno</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="205"/>
         <source>Address: </source>
-        <translation>Adresa:</translation>
+        <translation type="obsolete">Adresa:</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="208"/>
-        <location filename="oscplugin.cpp" line="305"/>
         <source>Status: Ready</source>
-        <translation>Stav: Připraveno</translation>
+        <translation type="obsolete">Stav: Připraveno</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="299"/>
+        <location filename="oscplugin.cpp" line="253"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
