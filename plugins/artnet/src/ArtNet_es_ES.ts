@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -10,45 +10,43 @@
         <translation>Este plugin provee Salida DMX para dispositivos que soportan el protocolo de comunicación ArtNet.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="95"/>
-        <location filename="artnetplugin.cpp" line="205"/>
         <source>%1: %2</source>
-        <translation>%1: %2</translation>
+        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="111"/>
+        <location filename="artnetplugin.cpp" line="113"/>
         <source>Output</source>
         <translation>Salida</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="115"/>
-        <location filename="artnetplugin.cpp" line="279"/>
+        <location filename="artnetplugin.cpp" line="117"/>
+        <location filename="artnetplugin.cpp" line="266"/>
         <source>Status: Not open</source>
         <translation>Estado: No abierto</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="118"/>
-        <location filename="artnetplugin.cpp" line="282"/>
+        <location filename="artnetplugin.cpp" line="120"/>
+        <location filename="artnetplugin.cpp" line="269"/>
         <source>Status: Open</source>
         <translation>Estado: Abierto</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="120"/>
+        <location filename="artnetplugin.cpp" line="122"/>
         <source>Nodes discovered: </source>
         <translation>Nodos descubiertos: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="123"/>
+        <location filename="artnetplugin.cpp" line="125"/>
         <source>Packets sent: </source>
         <translation>Paquetes enviados: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="275"/>
+        <location filename="artnetplugin.cpp" line="262"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="284"/>
+        <location filename="artnetplugin.cpp" line="271"/>
         <source>Packets received: </source>
         <translation>Paquetes recibidos: </translation>
     </message>
@@ -62,28 +60,83 @@
     </message>
     <message>
         <location filename="configureartnet.ui" line="24"/>
+        <source>Universes Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="30"/>
+        <source>Configuration of the patched universes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="38"/>
+        <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="43"/>
+        <source>Universe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="48"/>
+        <source>IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="53"/>
+        <source>ArtNet Universe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="58"/>
+        <source>Transmission Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="67"/>
         <source>Nodes Tree</source>
         <translation>Árbol de Nodos</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="34"/>
+        <location filename="configureartnet.ui" line="77"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="39"/>
+        <location filename="configureartnet.ui" line="82"/>
         <source>Short Name</source>
         <translation>Nombre Corto</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="44"/>
+        <location filename="configureartnet.ui" line="87"/>
         <source>Long Name</source>
         <translation>Nombre Largo</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="63"/>
+        <location filename="configureartnet.cpp" line="71"/>
         <source>%1 nodes</source>
         <translation>%1 nodos</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="111"/>
+        <source>Inputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="117"/>
+        <source>Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="157"/>
+        <source>Full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="158"/>
+        <source>Partial</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

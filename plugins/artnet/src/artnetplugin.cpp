@@ -94,7 +94,7 @@ QStringList ArtNetPlugin::outputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
         j++;
     }
     return list;
@@ -198,7 +198,7 @@ QStringList ArtNetPlugin::inputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
         j++;
     }
     return list;

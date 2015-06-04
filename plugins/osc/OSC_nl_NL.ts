@@ -82,12 +82,6 @@
         <translation>Deze plugin verzorgt DMX output voor apparaten die het OSC transmissie protocol ondersteunen.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="93"/>
-        <location filename="oscplugin.cpp" line="193"/>
-        <source>%1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="oscplugin.cpp" line="113"/>
         <location filename="oscplugin.cpp" line="257"/>
         <source>Status: Not open</source>

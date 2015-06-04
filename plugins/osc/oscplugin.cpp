@@ -90,7 +90,7 @@ QStringList OSCPlugin::outputs()
 
     foreach (OSCIO line, m_IOmapping)
     {
-        list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
         j++;
     }
     return list;
@@ -190,7 +190,7 @@ QStringList OSCPlugin::inputs()
 
     foreach (OSCIO line, m_IOmapping)
     {
-        list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
         j++;
     }
     return list;
