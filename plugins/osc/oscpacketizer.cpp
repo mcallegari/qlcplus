@@ -20,7 +20,6 @@
 #include "oscpacketizer.h"
 
 #include <QStringList>
-#include <QtMath>
 #include <QDebug>
 
 OSCPacketizer::OSCPacketizer()
