@@ -306,6 +306,8 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
         controller->setOutputIPAddress(universe, value.toString());
     else if (name == "outputUni")
         controller->setOutputUniverse(universe, value.toUInt());
+    else if (name == "transmitMode")
+        controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }

@@ -22,6 +22,9 @@
 #include <QMutexLocker>
 #include <QDebug>
 
+#define TRANSMIT_FULL    "Full"
+#define TRANSMIT_PARTIAL "Partial"
+
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
                                    QString macAddress, Type type, quint32 line, QObject *parent)
     : QObject(parent)
@@ -140,6 +143,7 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
         UniverseInfo info;
         info.outputAddress = m_broadcastAddr;
         info.outputUniverse = universe;
+        info.trasmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
     }
@@ -177,6 +181,37 @@ void ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
     m_universeMap[universe].outputUniverse = artnetUni;
 }
 
+void ArtNetController::setTransmissionMode(quint32 universe, ArtNetController::TransmissionMode mode)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].trasmissionMode = int(mode);
+}
+
+QString ArtNetController::transmissionModeToString(ArtNetController::TransmissionMode mode)
+{
+    switch (mode)
+    {
+        default:
+        case Full:
+            return QString(TRANSMIT_FULL);
+        break;
+        case Partial:
+            return QString(TRANSMIT_PARTIAL);
+        break;
+    }
+}
+
+ArtNetController::TransmissionMode ArtNetController::stringToTransmissionMode(const QString &mode)
+{
+    if (mode == QString(TRANSMIT_PARTIAL))
+        return Partial;
+    else
+        return Full;
+}
+
 QList<quint32> ArtNetController::universesList()
 {
     return m_universeMap.keys();
@@ -196,13 +231,25 @@ void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
     QByteArray dmxPacket;
     QHostAddress outAddress = m_broadcastAddr;
     quint32 outUniverse = universe;
+    TransmissionMode transmitMode = Full;
 
     if (m_universeMap.contains(universe))
     {
-        outAddress = m_universeMap[universe].outputAddress;
-        outUniverse = m_universeMap[universe].outputUniverse;
+        UniverseInfo info = m_universeMap[universe];
+        outAddress = info.outputAddress;
+        outUniverse = info.outputUniverse;
+        transmitMode = TransmissionMode(info.trasmissionMode);
     }
-    m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, data);
+
+    if (transmitMode == Full)
+    {
+        QByteArray wholeuniverse(512, 0);
+        wholeuniverse.replace(0, data.length(), data);
+        m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, wholeuniverse);
+    }
+    else
+        m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, data);
+
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
                                              outAddress, ARTNET_DEFAULT_PORT);
     if (sent < 0)

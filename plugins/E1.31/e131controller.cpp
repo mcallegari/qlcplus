@@ -22,6 +22,9 @@
 #include <QMutexLocker>
 #include <QDebug>
 
+#define TRANSMIT_FULL    "Full"
+#define TRANSMIT_PARTIAL "Partial"
+
 E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)
 {
@@ -99,6 +102,7 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
         else
             info.mcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
         info.outputUniverse = universe;
+        info.trasmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
     }
@@ -133,6 +137,37 @@ void E131Controller::setOutputUniverse(quint32 universe, quint32 e131Uni)
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputUniverse = e131Uni;
+}
+
+void E131Controller::setTransmissionMode(quint32 universe, E131Controller::TransmissionMode mode)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].trasmissionMode = int(mode);
+}
+
+QString E131Controller::transmissionModeToString(E131Controller::TransmissionMode mode)
+{
+    switch (mode)
+    {
+        default:
+        case Full:
+            return QString(TRANSMIT_FULL);
+        break;
+        case Partial:
+            return QString(TRANSMIT_PARTIAL);
+        break;
+    }
+}
+
+E131Controller::TransmissionMode E131Controller::stringToTransmissionMode(const QString &mode)
+{
+    if (mode == QString(TRANSMIT_PARTIAL))
+        return Partial;
+    else
+        return Full;
 }
 
 QList<quint32> E131Controller::universesList()
@@ -180,14 +215,25 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
     QByteArray dmxPacket;
     QHostAddress outAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
     quint32 outUniverse = universe;
+    TransmissionMode transmitMode = Full;
 
     if (m_universeMap.contains(universe))
     {
-        outAddress = m_universeMap[universe].mcastAddress;
-        outUniverse = m_universeMap[universe].outputUniverse;
+        UniverseInfo info = m_universeMap[universe];
+        outAddress = info.mcastAddress;
+        outUniverse = info.outputUniverse;
+        transmitMode = TransmissionMode(info.trasmissionMode);
     }
 
-    m_packetizer->setupE131Dmx(dmxPacket, outUniverse, data);
+    if (transmitMode == Full)
+    {
+        QByteArray wholeuniverse(512, 0);
+        wholeuniverse.replace(0, data.length(), data);
+        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, wholeuniverse);
+    }
+    else
+        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, data);
+
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
                                              outAddress, E131_DEFAULT_PORT);
     if (sent < 0)

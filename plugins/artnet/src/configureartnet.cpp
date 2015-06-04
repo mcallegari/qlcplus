@@ -156,6 +156,8 @@ void ConfigureArtNet::fillMappingTree()
                 QComboBox *combo = new QComboBox(this);
                 combo->addItem(tr("Full"));
                 combo->addItem(tr("Partial"));
+                if (info->trasmissionMode == ArtNetController::Partial)
+                    combo->setCurrentIndex(1);
                 m_uniMapTree->setItemWidget(item, KMapColumnTransmitMode, combo);
             }
         }
@@ -179,7 +181,7 @@ QWidget *ConfigureArtNet::createIPWidget(QString ip)
 
     QLabel *label = new QLabel(baseIP, this);
     QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(0, 255);
+    spin->setRange(1, 255);
     spin->setValue(finalIP.toInt());
 
     widget->layout()->addWidget(label);
@@ -234,6 +236,16 @@ void ConfigureArtNet::accept()
                     m_plugin->setParameter(universe, line, cap, "outputUni", spin->value());
                 else
                     m_plugin->unSetParameter(universe, line, cap, "outputUni");
+            }
+
+            QComboBox *combo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
+            if (combo != NULL)
+            {
+                if(combo->currentIndex() == 1)
+                    m_plugin->setParameter(universe, line, cap, "transmitMode",
+                                           ArtNetController::transmissionModeToString(ArtNetController::Partial));
+                else
+                    m_plugin->unSetParameter(universe, line, cap, "transmitMode");
             }
         }
     }

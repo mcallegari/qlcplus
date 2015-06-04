@@ -29,6 +29,9 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
+
+    m_IOmapping.clear();
+
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
@@ -293,6 +296,8 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
         controller->setIPAddress(universe, value.toString());
     else if (name == "outputUni")
         controller->setOutputUniverse(universe, value.toUInt());
+    else if (name == "transmitMode")
+        controller->setTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }

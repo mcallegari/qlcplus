@@ -32,6 +32,7 @@ typedef struct
 {
     QHostAddress outputAddress;
     ushort outputUniverse;
+    int trasmissionMode;
     int type;
 } UniverseInfo;
 
@@ -44,6 +45,8 @@ class ArtNetController : public QObject
      *********************************************************************/
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
+
+    enum TransmissionMode { Full, Partial };
 
     ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
                      QString macAddress, Type type, quint32 line, QObject *parent = 0);
@@ -70,6 +73,18 @@ public:
 
     /** Set a specific ArtNet output universe for the given QLC+ universe */
     void setOutputUniverse(quint32 universe, quint32 artnetUni);
+
+    /** Set the transmission mode of the ArtNet DMX packets over the network.
+     *  It can be 'Full', which transmits always 512 channels, or
+     *  'Partial', which transmits only the channels actually used in a
+     *  universe */
+    void setTransmissionMode(quint32 universe, TransmissionMode mode);
+
+    /** Converts a TransmissionMode value into a human readable string */
+    static QString transmissionModeToString(TransmissionMode mode);
+
+    /** Converts a human readable string into a TransmissionMode value */
+    static TransmissionMode stringToTransmissionMode(const QString& mode);
 
     /** Return the list of the universes handled by
      *  this controller */
