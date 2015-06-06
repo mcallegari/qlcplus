@@ -36,6 +36,13 @@ typedef struct
     OSCController* controller;
 } OSCIO;
 
+#define OSC_INPUTPORT "inputPort"
+#define OSC_FEEDBACKIP "feedbackIP"
+#define OSC_FEEDBACKPORT "feedbackPort"
+#define OSC_OUTPUTIP "outputIP"
+#define OSC_OUTPUTPORT "outputPort"
+
+
 class OSCPlugin : public QLCIOPlugin
 {
     Q_OBJECT

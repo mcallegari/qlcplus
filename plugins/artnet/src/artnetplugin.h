@@ -37,6 +37,10 @@ typedef struct
     ArtNetController* controller;
 } ArtNetIO;
 
+#define ARTNET_OUTPUTIP "outputIP"
+#define ARTNET_OUTPUTUNI "outputUni"
+#define ARTNET_TRANSMITMODE "transmitMode"
+
 class ArtNetPlugin : public QLCIOPlugin
 {
     Q_OBJECT

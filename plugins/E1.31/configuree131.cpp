@@ -183,9 +183,9 @@ void ConfigureE131::accept()
                 if (spin != NULL)
                 {
                     if (spin->value() != 255)
-                        m_plugin->setParameter(universe, line, cap, "mcastIP", spin->value());
+                        m_plugin->setParameter(universe, line, cap, E131_MCASTIP, spin->value());
                     else
-                        m_plugin->unSetParameter(universe, line, cap, "mcastIP");
+                        m_plugin->unSetParameter(universe, line, cap, E131_MCASTIP);
                 }
             }
 
@@ -193,19 +193,19 @@ void ConfigureE131::accept()
             if (spin != NULL)
             {
                 if ((quint32)spin->value() != universe)
-                    m_plugin->setParameter(universe, line, cap, "outputUni", spin->value());
+                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTUNI, spin->value());
                 else
-                    m_plugin->unSetParameter(universe, line, cap, "outputUni");
+                    m_plugin->unSetParameter(universe, line, cap, E131_OUTPUTUNI);
             }
 
             QComboBox *combo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
             if (combo != NULL)
             {
                 if(combo->currentIndex() == 1)
-                    m_plugin->setParameter(universe, line, cap, "transmitMode",
+                    m_plugin->setParameter(universe, line, cap, E131_TRANSMITMODE,
                                            E131Controller::transmissionModeToString(E131Controller::Partial));
                 else
-                    m_plugin->unSetParameter(universe, line, cap, "transmitMode");
+                    m_plugin->unSetParameter(universe, line, cap, E131_TRANSMITMODE);
             }
         }
     }

@@ -304,15 +304,15 @@ void OSCPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     if (controller == NULL)
         return;
 
-    if (name == "inputPort")
+    if (name == OSC_INPUTPORT)
         controller->setInputPort(universe, value.toUInt());
-    else if (name == "feedbackIP")
+    else if (name == OSC_FEEDBACKIP)
         controller->setFeedbackIPAddress(universe, value.toString());
-    else if (name == "feedbackPort")
+    else if (name == OSC_FEEDBACKPORT)
         controller->setFeedbackPort(universe, value.toUInt());
-    else if (name == "outputIP")
+    else if (name == OSC_OUTPUTIP)
         controller->setOutputIPAddress(universe, value.toString());
-    else if (name == "outputPort")
+    else if (name == OSC_OUTPUTPORT)
         controller->setOutputPort(universe, value.toUInt());
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);

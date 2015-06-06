@@ -361,21 +361,21 @@ void MidiPlugin::configure()
             {
                 if (dev->midiChannel() != 0)
                     QLCIOPlugin::setParameter(universe, inLine, Input,
-                                              "midichannel", dev->midiChannel());
+                                              MIDI_MIDICHANNEL, dev->midiChannel());
                 else
-                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "midichannel");
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, MIDI_MIDICHANNEL);
 
                 if (dev->mode() != MidiDevice::ControlChange)
                     QLCIOPlugin::setParameter(universe, inLine, Input,
-                                              "mode", MidiDevice::modeToString(dev->mode()));
+                                              MIDI_MODE, MidiDevice::modeToString(dev->mode()));
                 else
-                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "mode");
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, MIDI_MODE);
 
                 if (dev->midiTemplateName().isEmpty() == false)
                     QLCIOPlugin::setParameter(universe, inLine, Input,
-                                              "initmessage", dev->midiTemplateName());
+                                              MIDI_INITMESSAGE, dev->midiTemplateName());
                 else
-                    QLCIOPlugin::unSetParameter(universe, inLine, Input, "initmessage");
+                    QLCIOPlugin::unSetParameter(universe, inLine, Input, MIDI_INITMESSAGE);
             }
             else
                 qDebug() << "[MIDI] coudln't find device for line:" << inLine;
@@ -392,13 +392,13 @@ void MidiPlugin::configure()
             {
                 if (dev->midiChannel() != 0)
                     QLCIOPlugin::setParameter(universe, outLine, Output,
-                                              "midichannel", dev->midiChannel());
+                                              MIDI_MIDICHANNEL, dev->midiChannel());
                 if (dev->mode() != MidiDevice::ControlChange)
                     QLCIOPlugin::setParameter(universe, outLine, Output,
-                                              "mode", MidiDevice::modeToString(dev->mode()));
+                                              MIDI_MODE, MidiDevice::modeToString(dev->mode()));
                 if (dev->midiTemplateName().isEmpty() == false)
                     QLCIOPlugin::setParameter(universe, outLine, Output,
-                                              "initmessage", dev->midiTemplateName());
+                                              MIDI_INITMESSAGE, dev->midiTemplateName());
             }
             else
                 qDebug() << "[MIDI] coudln't find device for line:" << outLine;

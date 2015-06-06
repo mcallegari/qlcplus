@@ -223,9 +223,9 @@ void ConfigureArtNet::accept()
                 if (spin != NULL)
                 {
                     if (spin->value() != 255)
-                        m_plugin->setParameter(universe, line, cap, "outputIP", spin->value());
+                        m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, spin->value());
                     else
-                        m_plugin->unSetParameter(universe, line, cap, "outputIP");
+                        m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTIP);
                 }
             }
 
@@ -233,19 +233,19 @@ void ConfigureArtNet::accept()
             if (spin != NULL)
             {
                 if ((quint32)spin->value() != universe)
-                    m_plugin->setParameter(universe, line, cap, "outputUni", spin->value());
+                    m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTUNI, spin->value());
                 else
-                    m_plugin->unSetParameter(universe, line, cap, "outputUni");
+                    m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTUNI);
             }
 
             QComboBox *combo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
             if (combo != NULL)
             {
                 if(combo->currentIndex() == 1)
-                    m_plugin->setParameter(universe, line, cap, "transmitMode",
+                    m_plugin->setParameter(universe, line, cap, ARTNET_TRANSMITMODE,
                                            ArtNetController::transmissionModeToString(ArtNetController::Partial));
                 else
-                    m_plugin->unSetParameter(universe, line, cap, "transmitMode");
+                    m_plugin->unSetParameter(universe, line, cap, ARTNET_TRANSMITMODE);
             }
         }
     }

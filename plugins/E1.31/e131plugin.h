@@ -36,6 +36,10 @@ typedef struct
     E131Controller* controller;
 } E131IO;
 
+#define E131_MCASTIP "mcastIP"
+#define E131_OUTPUTUNI "outputUni"
+#define E131_TRANSMITMODE "transmitMode"
+	
 class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT

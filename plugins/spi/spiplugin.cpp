@@ -233,7 +233,7 @@ void SPIPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     Q_UNUSED(type)
 
     // If property name is UniverseChannels, map the channels count
-    if (name == "UniverseChannels")
+    if (name == PLUGIN_UNIVERSECHANNELS)
     {
         int chans = value.toInt();
         SPIUniverse *uniStruct = new SPIUniverse;

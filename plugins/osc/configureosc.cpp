@@ -208,9 +208,9 @@ void ConfigureOSC::accept()
             if (inSpin != NULL)
             {
                 if ((quint32)inSpin->value() != 7700 + universe)
-                    m_plugin->setParameter(universe, line, cap, "inputPort", inSpin->value());
+                    m_plugin->setParameter(universe, line, cap, OSC_INPUTPORT, inSpin->value());
                 else
-                    m_plugin->unSetParameter(universe, line, cap, "inputPort");
+                    m_plugin->unSetParameter(universe, line, cap, OSC_INPUTPORT);
             }
 
             QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnOutputAddress);
@@ -222,16 +222,16 @@ void ConfigureOSC::accept()
                     if (type == OSCController::Input)
                     {
                         if (spin->value() != 1)
-                            m_plugin->setParameter(universe, line, QLCIOPlugin::Output, "feedbackIP", spin->value());
+                            m_plugin->setParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP, spin->value());
                         else
-                            m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, "feedbackIP");
+                            m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP);
                     }
                     else
                     {
                         if (spin->value() != 1)
-                            m_plugin->setParameter(universe, line, cap, "outputIP", spin->value());
+                            m_plugin->setParameter(universe, line, cap, OSC_OUTPUTIP, spin->value());
                         else
-                            m_plugin->unSetParameter(universe, line, cap, "outputIP");
+                            m_plugin->unSetParameter(universe, line, cap, OSC_OUTPUTIP);
                     }
                 }
             }
@@ -242,16 +242,16 @@ void ConfigureOSC::accept()
                 if (type == OSCController::Input)
                 {
                     if ((quint32)outSpin->value() != 9000 + universe)
-                        m_plugin->setParameter(universe, line, QLCIOPlugin::Output, "feedbackPort", outSpin->value());
+                        m_plugin->setParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKPORT, outSpin->value());
                     else
-                        m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, "feedbackPort");
+                        m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKPORT);
                 }
                 else
                 {
                     if ((quint32)outSpin->value() != 9000 + universe)
-                        m_plugin->setParameter(universe, line, cap, "outputPort", outSpin->value());
+                        m_plugin->setParameter(universe, line, cap, OSC_OUTPUTPORT, outSpin->value());
                     else
-                        m_plugin->unSetParameter(universe, line, cap, "outputPort");
+                        m_plugin->unSetParameter(universe, line, cap, OSC_OUTPUTPORT);
                 }
             }
         }

@@ -28,6 +28,8 @@
 #include <climits>
 #include <QMap>
 
+#define PLUGIN_UNIVERSECHANNELS "UniverseChannels"
+
 /**
  * QLCIOPlugin is an interface for all input/output plugins.
  *

@@ -408,7 +408,7 @@ void Universe::dumpOutput(const QByteArray &data)
 
     if (m_totalChannelsChanged == true)
     {
-        m_outputPatch->setPluginParameter("UniverseChannels", m_totalChannels);
+        m_outputPatch->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
         m_totalChannelsChanged = false;
     }
     m_outputPatch->dump(m_id, data);

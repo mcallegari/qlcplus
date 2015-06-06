@@ -36,6 +36,10 @@ class MidiEnumerator;
 class MidiTemplate;
 class QString;
 
+#define MIDI_MIDICHANNEL "midichannel"
+#define MIDI_MODE "mode"
+#define MIDI_INITMESSAGE "initmessage"
+
 class MidiPlugin : public QLCIOPlugin
 {
     Q_OBJECT
