@@ -14,4 +14,4 @@ DEPENDPATH  += ../src
 
 # Test sources
 HEADERS += velleman_test.h ../../interfaces/qlcioplugin.h
-SOURCES += velleman_test.cpp  ../src/velleman_mock.cpp
+SOURCES += velleman_test.cpp  ../src/velleman_mock.cpp ../../interfaces/qlcioplugin.cpp
