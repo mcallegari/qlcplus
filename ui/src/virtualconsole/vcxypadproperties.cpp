@@ -23,6 +23,7 @@
 #include <QHeaderView>
 #include <QSettings>
 
+#include "qlcfixturemode.h"
 #include "qlcinputchannel.h"
 #include "qlcchannel.h"
 
@@ -175,24 +176,34 @@ void VCXYPadProperties::slotAddClicked()
     }
 
     /* Disable all fixtures that don't have pan OR tilt channels */
-    foreach(Fixture* fixture, m_doc->fixtures())
+    QListIterator <Fixture*> fxit(m_doc->fixtures());
+    while (fxit.hasNext() == true)
     {
+        Fixture* fixture(fxit.next());
         Q_ASSERT(fixture != NULL);
 
-        // If a channel with pan group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Pan) != QLCChannel::invalid())
+        // If a channel with pan or tilt group exists, don't disable this fixture
+        if (fixture->channel(QLCChannel::Pan) == QLCChannel::invalid() &&
+            fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
         {
-            continue;
+            // Disable all fixtures without pan or tilt channels
+            disabled << fixture->id();
         }
-
-        // If a channel with tilt group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Tilt) != QLCChannel::invalid())
+        else
         {
-            continue;
+            QVector <QLCFixtureHead> const& heads = fixture->fixtureMode()->heads();
+            for (int i = 0; i < heads.size(); ++i)
+            {
+                if (heads[i].panMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].panLsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltLsbChannel() == QLCChannel::invalid())
+                {
+                    // Disable heads without pan or tilt channels
+                    disabled << GroupHead(fixture->id(), i);
+                }
+            }
         }
-
-        // Disable all fixtures without pan or tilt channels
-        disabled << fixture->id();
     }
 
     /* Get a list of new fixtures to add to the pad */
