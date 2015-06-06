@@ -11,27 +11,27 @@
     <message>
         <location filename="configuree131.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració d&apos;Universos</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="37"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interficie</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Direcció IP</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
         <source>E1.31 Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers E1.31</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de transmissió</translation>
     </message>
     <message>
         <source>Network Mapping</source>
@@ -49,22 +49,22 @@
     <message>
         <location filename="configuree131.cpp" line="75"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrades</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="81"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortides</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="121"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Complet</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="122"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Parcial</translation>
     </message>
 </context>
 <context>
