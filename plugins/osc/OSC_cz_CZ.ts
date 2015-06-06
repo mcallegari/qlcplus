@@ -7,37 +7,37 @@
         <location filename="configureosc.ui" line="14"/>
         <source>OSC Plugin Configuration</source>
         <oldsource>Configure OSC Plugin</oldsource>
-        <translation type="unfinished">Konfigurace OSC Pluginu</translation>
+        <translation>Konfigurace OSC Pluginu</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="28"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace větví</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="41"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozhraní</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="46"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="51"/>
         <source>Input Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní port</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="56"/>
         <source>Output Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstupní adresa</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="61"/>
         <source>Output Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstupní port</translation>
     </message>
     <message>
         <source>Output address:</source>
@@ -66,12 +66,12 @@
     <message>
         <location filename="configureosc.cpp" line="75"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="81"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstupy</translation>
     </message>
 </context>
 <context>
@@ -85,23 +85,23 @@
         <location filename="oscplugin.cpp" line="113"/>
         <location filename="oscplugin.cpp" line="257"/>
         <source>Status: Not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav: Není otevřen</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="116"/>
         <location filename="oscplugin.cpp" line="260"/>
         <source>Status: Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Stav: Otevřen</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="118"/>
         <source>Packets sent: </source>
-        <translation type="unfinished"></translation>
+        <translation>Poslaných paketů:</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="262"/>
         <source>Packets received: </source>
-        <translation type="unfinished"></translation>
+        <translation>Přijatých paketů:</translation>
     </message>
     <message>
         <source>OSC Network</source>

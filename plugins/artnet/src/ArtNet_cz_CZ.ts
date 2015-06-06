@@ -60,37 +60,37 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace větví</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="30"/>
         <source>Configuration of the patched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace propojených větví</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="38"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozhraní</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="43"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="48"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP adresa</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="53"/>
         <source>ArtNet Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="58"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Spůsob přenosu</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="67"/>
@@ -120,22 +120,22 @@
     <message>
         <location filename="configureartnet.cpp" line="111"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupy</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="117"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstupy</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="157"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Plný</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="158"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Částečný</translation>
     </message>
 </context>
 </TS>
