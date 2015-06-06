@@ -60,37 +60,37 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració d&apos;Universos</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="30"/>
         <source>Configuration of the patched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració dels canals connectats</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="38"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interficie</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="43"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="48"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Direcció IP</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="53"/>
         <source>ArtNet Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="58"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de Transmissió</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="67"/>
@@ -120,22 +120,22 @@
     <message>
         <location filename="configureartnet.cpp" line="111"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrades</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="117"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortides</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="157"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Complet</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="158"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Parcial</translation>
     </message>
 </context>
 </TS>
