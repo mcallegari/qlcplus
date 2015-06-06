@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -61,37 +61,37 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de Universos</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="30"/>
         <source>Configuration of the patched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de universos patcheados</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="38"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="43"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="48"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Direccón IP</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="53"/>
         <source>ArtNet Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="58"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Transmisión</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="67"/>
@@ -121,22 +121,22 @@
     <message>
         <location filename="configureartnet.cpp" line="111"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entradas</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="117"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Salidas</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="157"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Completo</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="158"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Parcial</translation>
     </message>
 </context>
 </TS>

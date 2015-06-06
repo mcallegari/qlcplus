@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>ConfigureE131</name>
     <message>
@@ -11,27 +11,27 @@
     <message>
         <location filename="configuree131.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de Universos</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="37"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección IP</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
         <source>E1.31 Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo E1.31</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Transmisión</translation>
     </message>
     <message>
         <source>Network Mapping</source>
@@ -49,22 +49,22 @@
     <message>
         <location filename="configuree131.cpp" line="75"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entradas</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="81"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Salidas</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="121"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Completo</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="122"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Parcial</translation>
     </message>
 </context>
 <context>
