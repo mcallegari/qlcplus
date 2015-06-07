@@ -70,11 +70,7 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
-
-private:
-    bool m_outputCurrentlyOpen[QLCIOPLUGINS_UNIVERSES];
-    qint32* m_values[QLCIOPLUGINS_UNIVERSES];
-
+ 
     /*************************************************************************
      * Inputs
      *************************************************************************/
@@ -95,7 +91,16 @@ public:
     void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key);
 
 private:
-    bool m_inputCurrentlyOpen[QLCIOPLUGINS_UNIVERSES];
+    //! loopback line -> channel data
+    QMap<quint32, QByteArray> m_channelData;
+
+    typedef QMap<quint32, quint32> TLineUniverseMap;
+
+    //! output line -> universe
+    TLineUniverseMap m_outputMap;
+
+    //! input line -> universe
+    TLineUniverseMap m_inputMap;
 };
 
 #endif

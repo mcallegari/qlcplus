@@ -24,28 +24,31 @@
 #include "qlcmacros.h"
 #include "loopback.h"
 
+#define UNIVERSE_SIZE 512
+#define LOOPBACK_LINES 4
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Loopback::~Loopback()
 {
-    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+    QMapIterator<quint32, quint32> i(m_inputMap);
+    while (i.hasNext())
     {
-        closeOutput(i, i);
-        closeInput(i, i);
-        delete [] m_values[i];
+        closeInput(i.key(), i.value());
     }
+    m_inputMap.clear();
+    QMapIterator<quint32, quint32> o(m_outputMap);
+    while (o.hasNext())
+    {
+        closeOutput(o.key(), o.value());
+    }
+    m_outputMap.clear();
 }
 
 void Loopback::init()
 {
-    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
-    {
-        m_values[i] = new qint32[512];
-        m_outputCurrentlyOpen[i] = false;
-        m_inputCurrentlyOpen[i] = false;
-    }
 }
 
 QString Loopback::name()
@@ -64,10 +67,11 @@ int Loopback::capabilities() const
 
 bool Loopback::openOutput(quint32 output, quint32 universe)
 {
-    if (output >= QLCIOPLUGINS_UNIVERSES)
-        return false;
+    QByteArray & data = m_channelData[output];
+    if (data.size() < UNIVERSE_SIZE)
+        data.fill(0, UNIVERSE_SIZE - data.size());
 
-    m_outputCurrentlyOpen[output] = true;
+    m_outputMap[output] = universe;
     addToMap(universe, output, Output);
 
     return true;
@@ -75,17 +79,15 @@ bool Loopback::openOutput(quint32 output, quint32 universe)
 
 void Loopback::closeOutput(quint32 output, quint32 universe)
 {
-    if (output >= QLCIOPLUGINS_UNIVERSES)
-        return;
-
+    m_outputMap.remove(output);
+    m_channelData.remove(output);
     removeFromMap(output, universe, Output);
-    m_outputCurrentlyOpen[output] = false;
 }
 
 QStringList Loopback::outputs()
 {
     QStringList list;
-    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+    for (int i = 0; i < LOOPBACK_LINES; i++)
         list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
     return list;
 }
@@ -96,12 +98,7 @@ QStringList Loopback::outputs()
 
 bool Loopback::openInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(universe)
-
-    if (input >= QLCIOPLUGINS_UNIVERSES)
-        return false;
-
-    m_inputCurrentlyOpen[input] = true;
+    m_inputMap[input] = universe;
     addToMap(universe, input, Input);
 
     return true;
@@ -109,17 +106,14 @@ bool Loopback::openInput(quint32 input, quint32 universe)
 
 void Loopback::closeInput(quint32 input, quint32 universe)
 {
-    if (input >= QLCIOPLUGINS_UNIVERSES)
-        return;
-
+    m_inputMap.remove(input);
     removeFromMap(input, universe, Input);
-    m_inputCurrentlyOpen[input] = false;
 }
 
 QStringList Loopback::inputs()
 {
     QStringList list;
-    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
+    for (int i = 0; i < LOOPBACK_LINES; i++)
         list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
     return list;
 }
@@ -144,14 +138,14 @@ QString Loopback::pluginInfo()
 
 QString Loopback::outputInfo(quint32 output)
 {
-    if (output >= QLCIOPLUGINS_UNIVERSES)
+    if (output >= LOOPBACK_LINES)
         return QString();
 
     QString str;
 
     str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
     str += QString("<P>");
-    if (m_outputCurrentlyOpen[output] == true)
+    if (m_outputMap.contains(output))
         str += tr("Status: Used");
     else
     {
@@ -166,14 +160,14 @@ QString Loopback::outputInfo(quint32 output)
 
 QString Loopback::inputInfo(quint32 input)
 {
-    if (input >= QLCIOPLUGINS_UNIVERSES)
+    if (input >= LOOPBACK_LINES)
         return QString();
 
     QString str;
 
     str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
     str += QString("<P>");
-    if (m_inputCurrentlyOpen[input] == true)
+    if (m_inputMap.contains(input))
         str += tr("Status: Used");
     else
     {
@@ -188,24 +182,32 @@ QString Loopback::inputInfo(quint32 input)
 
 void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    Q_UNUSED(universe)
+    Q_UNUSED(universe);
 
-    if (output >= QLCIOPLUGINS_UNIVERSES || m_outputCurrentlyOpen[output] == false)
+    if (!m_outputMap.contains(output))
         return;
 
-    for (int i = 0; i < data.size(); i++)
+    QByteArray & chData = m_channelData[output];
+
+    if (m_inputMap.contains(output))
     {
-        if (m_inputCurrentlyOpen[output] && m_values[output][i] != (qint32) data[i])
+        quint32 inputUniverse = m_inputMap[output];
+
+        for (int i = 0; i < data.size(); i++)
         {
-            emit valueChanged(universe, output, i, data[i]);
+            if (chData[i] != data[i])
+            {
+                emit valueChanged(inputUniverse, output, i, data[i]);
+            }
         }
-        m_values[output][i] = (qint32) data[i];
     }
+
+    chData = data;
 }
 
 void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &)
 {
-    if (input >= QLCIOPLUGINS_UNIVERSES || m_inputCurrentlyOpen[input] == false)
+    if (!m_inputMap.contains(input))
         return;
 
     emit valueChanged(universe, input, channel, value);
