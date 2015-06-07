@@ -104,7 +104,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
-    m_slider1->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider1->setFixedWidth(32);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
@@ -120,7 +120,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
-    m_slider2->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider2->setFixedWidth(32);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);

@@ -32,6 +32,7 @@
 #include <QSpinBox>
 #include <QLayout>
 #include <QLabel>
+#include <QFrame>
 #include <QDebug>
 
 #include "grandmasterslider.h"
@@ -256,9 +257,10 @@ void SimpleDesk::initTopSide()
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
 
-    m_universeGroup = new QGroupBox(this);
+    m_universeGroup = new QFrame(this);
     //m_universeGroup->setTitle(tr("Universe"));
     QHBoxLayout* grpLay = new QHBoxLayout(m_universeGroup);
+    //m_universeGroup->setFlat(true);
     grpLay->setContentsMargins(1, 1, 1, 1);
     grpLay->setSpacing(1);
     lay->addWidget(m_universeGroup);
@@ -466,7 +468,7 @@ void SimpleDesk::initSliderView(bool fullMode)
         scrollArea = new QScrollArea();
         scrollArea->setWidgetResizable(true);
 
-        QGroupBox* grpBox = new QGroupBox(scrollArea);
+        QFrame* grpBox = new QFrame(scrollArea);
         grpBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
         QHBoxLayout* fixturesLayout = new QHBoxLayout(grpBox);
         grpBox->setLayout(fixturesLayout);
@@ -628,9 +630,9 @@ void SimpleDesk::slotUniversePageChanged(int page)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
             if (m_engine->hasChannel((m_currentUniverse << 9) + (start + i)))
-                slider->setStyleSheet(ssOverride);
+                slider->setChannelStyleSheet(ssOverride);
             else
-                slider->setStyleSheet(ssNone);
+                slider->setChannelStyleSheet(ssNone);
         }
         else
         {
@@ -638,14 +640,14 @@ void SimpleDesk::slotUniversePageChanged(int page)
             slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
             if (m_engine->hasChannel(absoluteAddr + i))
             {
-                slider->setStyleSheet(ssOverride);
+                slider->setChannelStyleSheet(ssOverride);
             }
             else
             {
                 if (fx->id() % 2 == 0)
-                    slider->setStyleSheet(ssOdd);
+                    slider->setChannelStyleSheet(ssOdd);
                 else
-                    slider->setStyleSheet(ssEven);
+                    slider->setChannelStyleSheet(ssEven);
                 slider->setValue(uchar(fx->channelValueAt(ch)));
             }
         }
@@ -709,7 +711,7 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
             if (chanAddr < (quint32)m_universeSliders.count())
             {
                 ConsoleChannel *chan = m_universeSliders.at(chanAddr);
-                chan->setStyleSheet(ssOverride);
+                chan->setChannelStyleSheet(ssOverride);
             }
         }
         m_engine->setValue(chanAbsAddr, value);
@@ -768,7 +770,7 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
                 {
                     cc->blockSignals(true);
                     cc->setValue(m_engine->value(absAddr), false);
-                    cc->setStyleSheet(ssOverride);
+                    cc->setChannelStyleSheet(ssOverride);
                     cc->blockSignals(false);
                 }
                 continue;

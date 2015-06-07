@@ -55,9 +55,16 @@ public:
     ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
 
     ~ConsoleChannel();
+    void setChannelStyleSheet(const QString& styleSheet);
 
 private:
     void init();
+
+protected:
+    void showEvent(QShowEvent* ev);
+
+private:
+    QString m_styleSheet;
 
     /*************************************************************************
      * Fixture & Channel

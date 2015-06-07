@@ -72,6 +72,17 @@ FixtureConsole::~FixtureConsole()
 {
 }
 
+void FixtureConsole::showEvent(QShowEvent *)
+{
+    QListIterator <ConsoleChannel*> it(m_channels);
+    while (it.hasNext() == true)
+    {
+        ConsoleChannel* cc = it.next();
+        Q_ASSERT(cc != NULL);
+        cc->setVisible(true);
+    }
+}
+
 /*****************************************************************************
  * Fixture
  *****************************************************************************/
@@ -97,7 +108,8 @@ void FixtureConsole::setFixture(quint32 id)
             continue;
 
         ConsoleChannel* cc = new ConsoleChannel(this, m_doc, id, i, m_showCheckBoxes);
-        cc->setStyleSheet(m_styleSheet);
+        cc->setVisible(false);
+        cc->setChannelStyleSheet(m_styleSheet);
 
         m_layout->addWidget(cc);
         m_channels.append(cc);
@@ -233,7 +245,7 @@ void FixtureConsole::setChannelStylesheet(quint32 ch, QString ss)
 {
     ConsoleChannel* cc = channel(ch);
     if (cc != NULL)
-        cc->setStyleSheet(ss);
+        cc->setChannelStyleSheet(ss);
 }
 
 void FixtureConsole::resetChannelsStylesheet()
@@ -243,7 +255,7 @@ void FixtureConsole::resetChannelsStylesheet()
     {
         ConsoleChannel* cc = it.next();
         Q_ASSERT(cc != NULL);
-        cc->setStyleSheet(m_styleSheet);
+        cc->setChannelStyleSheet(m_styleSheet);
     }
 }
 

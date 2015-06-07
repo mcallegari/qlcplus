@@ -401,7 +401,7 @@ void SceneEditor::slotEnableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -421,7 +421,7 @@ void SceneEditor::slotDisableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -453,7 +453,7 @@ void SceneEditor::slotCopy()
     {
         bool oneHasSelection = false;
         QList <SceneValue> selectedOnlyList;
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -489,7 +489,7 @@ void SceneEditor::slotPaste()
         }
         else
         {
-            foreach(FixtureConsole *fc, m_consoleList)
+            foreach(FixtureConsole *fc, m_consoleList.values())
             {
                 if (fc == NULL)
                     continue;
@@ -891,7 +891,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                     console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven);
                 console->setFixture(fixture->id());
                 console->setChecked(false);
-                m_consoleList.append(console);
+                m_consoleList[fixture->id()] = console;
 
                 connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                         this, SLOT(slotValueChanged(quint32,quint32,uchar)));
@@ -1259,7 +1259,7 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList)
+    foreach (FixtureConsole* fc, m_consoleList.values())
     {
         if (fc != NULL)
             fc->setChecked(true);
@@ -1268,7 +1268,7 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList)
+    foreach (FixtureConsole* fc, m_consoleList.values())
     {
         if (fc != NULL)
             fc->setChecked(false);
@@ -1439,11 +1439,8 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
 {
     Q_ASSERT(fixture != NULL);
 
-    foreach (FixtureConsole* fc, m_consoleList)
-    {
-        if (fc != NULL && fc->fixture() == fixture->id())
-            return fc;
-    }
+    if (m_consoleList.contains(fixture->id()))
+        return m_consoleList[fixture->id()];
 
     return NULL;
 }
@@ -1458,7 +1455,7 @@ void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
 
     FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
     console->setFixture(fixture->id());
-    m_consoleList.append(console);
+    m_consoleList[fixture->id()] = console;
     scrollArea->setWidget(console);
     int tIdx = m_tab->addTab(scrollArea, fixture->name());
     m_tab->setTabToolTip(tIdx, fixture->name());
@@ -1485,14 +1482,13 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
         FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
-            m_consoleList.removeOne(fc);
             /* First remove the tab because otherwise Qt might
                remove two tabs -- undocumented feature, which
                might be intended or it might not. */
             QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
             Q_ASSERT(area != NULL);
             m_tab->removeTab(i);
-            m_consoleList.removeOne(fc);
+            m_consoleList.take(fixture->id());
             delete area; // Deletes also FixtureConsole
             break;
         }
@@ -1517,14 +1513,8 @@ void SceneEditor::setTabChannelState(bool status, Fixture *fixture, quint32 chan
     if (channel == QLCChannel::invalid())
         return;
 
-    foreach (FixtureConsole* fc, m_consoleList)
-    {
-        if (fc != NULL && fc->fixture() == fixture->id())
-        {
-            fc->setChecked(status, channel);
-            return;
-        }
-    }
+    if (m_consoleList.contains(fixture->id()))
+        m_consoleList[fixture->id()]->setChecked(status, channel);
 }
 
 void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)

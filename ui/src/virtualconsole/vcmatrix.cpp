@@ -61,7 +61,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     //hBox->setSpacing(5);
 
     m_slider = new ClickAndGoSlider();
-    m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider->setFixedWidth(32);
     m_slider->setRange(0, 255);
     m_slider->setPageStep(1);
