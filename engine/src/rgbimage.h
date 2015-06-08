@@ -52,6 +52,9 @@ public:
     /** Get filename of the image */
     QString filename() const;
 
+    /** Set the image data from an array of RGB888 values */
+    void setImageData(int width, int height, const QByteArray& pixelData);
+
 private:
 
     void reloadImage();
