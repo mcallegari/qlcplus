@@ -438,6 +438,12 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     {
         //qDebug() << "--- Channel" << channel << "forced type" << forcedType;
         (*m_channelsMask)[channel] = char(forcedType);
+        if (forcedType == HTP && group == QLCChannel::Intensity)
+        {
+            //qDebug() << "--- Channel" << channel << "Intensity + HTP";
+            (*m_channelsMask)[channel] = char(HTP | Intensity);
+            m_intensityChannels << channel;
+        }
     }
     else
     {
