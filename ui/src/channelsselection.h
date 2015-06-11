@@ -77,6 +77,9 @@ protected:
     void updateFixturesTree();
     QList<QTreeWidgetItem *> getSameChannels(QTreeWidgetItem *item);
 
+private:
+    QList<QTreeWidgetItem *> getDimmerChannels(QTreeWidgetItem *item);
+
 protected slots:
 
     void slotItemChecked(QTreeWidgetItem *item, int col);
