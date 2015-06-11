@@ -598,7 +598,10 @@ uint Function::stringToSpeed(QString speed)
     }
 
     value += speed.toDouble() * 1000;
-    value -= value % 10;
+
+    // avoid toDouble precison issues (.03 transforms to .029)
+    if (value % 10 > 5)
+        value += 5;
 
     return speedNormalize(value);
 }
@@ -607,7 +610,7 @@ uint Function::speedNormalize(uint speed)
 {
     if ((int)speed < 0)
         return infiniteSpeed();
-    return speed - speed % 10;
+    return speed - (speed % 10);
 }
 
 uint Function::speedAdd(uint left, uint right)
