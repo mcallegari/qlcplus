@@ -48,7 +48,6 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_usedChannels(0)
     , m_totalChannels(0)
     , m_totalChannelsChanged(false)
-    , m_hasChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_lastPreGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
@@ -112,14 +111,18 @@ ushort Universe::totalChannels()
     return m_totalChannels;
 }
 
-void Universe::resetChanged()
-{
-    m_usedChannels = false;
-}
-
 bool Universe::hasChanged()
 {
-    return m_hasChanged;
+    bool changed = false;
+    for (int i = 0; i < m_usedChannels; i++)
+    {
+        if ((*m_lastPreGMValues)[i] != (*m_preGMValues)[i])
+        {
+            (*m_lastPreGMValues)[i] = (*m_preGMValues)[i];
+            changed = true;
+        }
+    }
+    return changed;
 }
 
 void Universe::setPassthrough(bool enable)
@@ -217,7 +220,6 @@ void Universe::reset(int address, int range)
 
 void Universe::zeroIntensityChannels()
 {
-    m_lastPreGMValues->replace(0, 512, (*m_preGMValues));
     QSetIterator <int> it(m_intensityChannels);
     while (it.hasNext() == true)
     {
@@ -226,8 +228,6 @@ void Universe::zeroIntensityChannels()
         (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
     }
-    // reset the changed flag until the next round
-    m_hasChanged = false;
 }
 
 QHash<int, uchar> Universe::intensityChannels()
@@ -512,15 +512,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     }
 
     if (m_preGMValues != NULL)
-    {
-        if ((*m_lastPreGMValues)[channel] != char(value))
-        {
-            (*m_lastPreGMValues)[channel] = char(value);
-            m_hasChanged = true;
-        }
-
         (*m_preGMValues)[channel] = char(value);
-    }
 
     if (m_relativeValues[channel] != 0)
     {
@@ -556,8 +548,6 @@ bool Universe::writeRelative(int channel, uchar value)
 
     value = applyGM(channel, value);
     (*m_postGMValues)[channel] = char(value);
-
-    m_hasChanged = true;
 
     return true;
 }

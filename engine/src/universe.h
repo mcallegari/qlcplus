@@ -122,12 +122,7 @@ public:
     ushort totalChannels();
 
     /**
-     * Reset the change flag. To be used every MasterTimer tick
-     */
-    void resetChanged();
-
-    /**
-     * Returns if the universe has changed since the last resetChanged() call
+     * Returns if the universe has changed since the last MasterTimer tick
      */
     bool hasChanged();
 
@@ -329,9 +324,20 @@ public:
     void zeroRelativeValues();
 
 protected:
-    /** Number of channels used in this universe to optimize dump to plugins */
+    /**
+     * Number of channels used in this universe to optimize the dump to plugins.
+     * This is a dynamic counter that can only increase depending on the
+     * channels used in this universe starting from when a workspace
+     * is loaded
+     */
     ushort m_usedChannels;
-    /** Total number of channels used in this fixture */
+    /**
+     * Total number of channels used in this Universe.
+     * This is set only when a Universe is instructed about Fixture
+     * channel capabilities. Basically just set once if loading an
+     * existing workspace, or several times when adding/removing
+     * Fixtures
+     */
     ushort m_totalChannels;
     /**
      *  Flag that holds if the total number of channels have changed.
@@ -339,8 +345,6 @@ protected:
      *  channels to expect
      */
     bool m_totalChannelsChanged;
-    /** Flag to indicate if the universe has changed */
-    bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
     QSet <int> m_intensityChannels;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
