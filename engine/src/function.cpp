@@ -600,7 +600,35 @@ uint Function::stringToSpeed(QString speed)
     value += speed.toDouble() * 1000;
     value -= value % 10;
 
-    return value;
+    return speedNormalize(value);
+}
+
+uint Function::speedNormalize(uint speed)
+{
+    if ((int)speed < 0)
+        return infiniteSpeed();
+    return speed - speed % 10;
+}
+
+uint Function::speedAdd(uint left, uint right)
+{
+    if (speedNormalize(left) == infiniteSpeed()
+        || speedNormalize(right) == infiniteSpeed())
+        return infiniteSpeed();
+
+    return speedNormalize(left + right);
+}
+
+uint Function::speedSubstract(uint left, uint right)
+{
+    if (right >= left)
+        return 0;
+    if (speedNormalize(right) == infiniteSpeed())
+        return 0;
+    if (speedNormalize(left) == infiniteSpeed())
+        return infiniteSpeed();
+
+    return speedNormalize(left - right);
 }
 
 void Function::tap()

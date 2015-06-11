@@ -405,6 +405,11 @@ public:
     /** returns value in msec of a string created by speedToString */
     static uint stringToSpeed(QString speed);
 
+    /** Safe speed operations */
+    static uint speedNormalize(uint speed);
+    static uint speedAdd(uint left, uint right);
+    static uint speedSubstract(uint left, uint right);
+
 protected:
     /** Load the contents of a speed node */
     bool loadXMLSpeed(const QDomElement& speedRoot);

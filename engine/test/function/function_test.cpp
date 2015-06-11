@@ -362,6 +362,30 @@ void Function_Test::stringToSpeed()
     QCOMPARE(Function::stringToSpeed("1h1m1s.01"), uint(10 + 1000 + 1000 * 60 + 1000 * 60 * 60));
 }
 
+void Function_Test::speedOperations()
+{
+    QCOMPARE(Function::speedNormalize(-1), Function::infiniteSpeed());
+    QCOMPARE(Function::speedNormalize(-10), Function::infiniteSpeed());
+    QCOMPARE(Function::speedNormalize(0), uint(0));
+    QCOMPARE(Function::speedNormalize(12), uint(10));
+
+    QCOMPARE(Function::speedAdd(10, 10), uint(20));
+    QCOMPARE(Function::speedAdd(10, 0), uint(10));
+    QCOMPARE(Function::speedAdd(0, 10), uint(10));
+    QCOMPARE(Function::speedAdd(15, 15), uint(30));
+    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
+    QCOMPARE(Function::speedAdd(10, Function::infiniteSpeed()), Function::infiniteSpeed());
+    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), Function::infiniteSpeed()), Function::infiniteSpeed());
+
+    QCOMPARE(Function::speedSubstract(10, 10), uint(0));
+    QCOMPARE(Function::speedSubstract(10, 0), uint(10));
+    QCOMPARE(Function::speedSubstract(0, 10), uint(0));
+    QCOMPARE(Function::speedSubstract(15, 2), uint(10));
+    QCOMPARE(Function::speedSubstract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
+    QCOMPARE(Function::speedSubstract(10, Function::infiniteSpeed()), uint(0));
+    QCOMPARE(Function::speedSubstract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
+}
+
 void Function_Test::loaderWrongRoot()
 {
     Doc d(this);
