@@ -208,7 +208,10 @@ void Universe::reset(int address, int range)
     for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
         (*m_preGMValues)[i] = 0;
-        (*m_postGMValues)[i] = 0;
+        if (m_modifiers.at(i) != NULL)
+            (*m_postGMValues)[i] = m_modifiers.at(i)->getValue(0);
+        else
+            (*m_postGMValues)[i] = 0;
         m_relativeValues[i] = 0;
     }
 }
@@ -220,7 +223,10 @@ void Universe::zeroIntensityChannels()
     {
         int channel(it.next());
         (*m_preGMValues)[channel] = 0;
-        (*m_postGMValues)[channel] = 0;
+        if (m_modifiers.at(channel) != NULL)
+            (*m_postGMValues)[channel] = m_modifiers.at(channel)->getValue(0);
+        else
+            (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
     }
 }
@@ -516,9 +522,6 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if (m_modifiers.at(channel) != NULL)
-        value = m_modifiers.at(channel)->getValue(value);
-
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {
         qDebug() << "Universe HTP check not passed";
@@ -537,6 +540,10 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     }
 
     value = applyGM(channel, value);
+
+    if (m_modifiers.at(channel) != NULL)
+        value = m_modifiers.at(channel)->getValue(value);
+
     (*m_postGMValues)[channel] = char(value);
 
     return true;
