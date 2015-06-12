@@ -429,6 +429,9 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     if (channel >= (ushort)m_channelsMask->count())
         return;
 
+    m_intensityChannels.remove(channel);
+    m_nonIntensityChannels.remove(channel);
+
     if (forcedType != Undefined)
     {
         //qDebug() << "--- Channel" << channel << "forced type" << forcedType;
