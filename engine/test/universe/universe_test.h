@@ -48,6 +48,8 @@ private slots:
     void writeEfficiency();
     void hasChangedEfficiency();
     void hasNotChangedEfficiency();
+    void zeroIntensityChannelsEfficiency();
+    void zeroIntensityChannelsEfficiency2();
 
 private:
 

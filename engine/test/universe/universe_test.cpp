@@ -403,12 +403,6 @@ void Universe_Test::writeEfficiency()
     for (i = 0; i < 512; i++)
         m_uni->setChannelCapability(i, QLCChannel::Intensity);
 
-    /* This applies 50%(127) Grand Master to ALL channels in all universes.
-       I'm not really sure what kinds of figures to expect here, since this
-       is just one part in the overall processor load. Typically I get ~0.15ms
-       on an Intel Core 2 E6550@2.33GHz, which looks plausible to me:
-       DMX frame interval is 1/44Hz =~ 23ms. Applying GM to ALL channels takes
-       less than 1ms so there's a full 22ms to spare after GM. */
     QBENCHMARK
     {
         for (i = 0; i < 512; i++)
@@ -449,6 +443,54 @@ void Universe_Test::hasNotChangedEfficiency()
         {
             m_uni->hasChanged();
         }
+    }
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency()
+{
+    m_gm->setValue(255);
+    int i;
+
+    for (i = 0; i < 512; i++)
+        m_uni->setChannelCapability(i, QLCChannel::Intensity);
+
+    for (i = 0; i < 512; i++)
+        m_uni->write(i, 200);
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+        QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency2()
+{
+    int i;
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            m_uni->setChannelCapability(i, QLCChannel::Intensity);
+        else
+            m_uni->setChannelCapability(i, QLCChannel::Shutter);
+
+        m_uni->write(i, 200);
+    }
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+        else
+            QCOMPARE(quint8(m_uni->postGMValues()->at(i)), quint8(200));
     }
 }
 
