@@ -46,6 +46,8 @@ private slots:
     void reset();
     void setGMValueEfficiency();
     void writeEfficiency();
+    void hasChangedEfficiency();
+    void hasNotChangedEfficiency();
 
 private:
 

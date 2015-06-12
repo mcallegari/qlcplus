@@ -113,15 +113,10 @@ ushort Universe::totalChannels()
 
 bool Universe::hasChanged()
 {
-    bool changed = false;
-    for (int i = 0; i < m_usedChannels; i++)
-    {
-        if ((*m_lastPreGMValues)[i] != (*m_preGMValues)[i])
-        {
-            (*m_lastPreGMValues)[i] = (*m_preGMValues)[i];
-            changed = true;
-        }
-    }
+    bool changed =
+        memcmp(m_lastPreGMValues->constData(), m_preGMValues->constData(), m_usedChannels) != 0;
+    if (changed)
+        memcpy(m_lastPreGMValues->data(), m_preGMValues->constData(), m_usedChannels);
     return changed;
 }
 
