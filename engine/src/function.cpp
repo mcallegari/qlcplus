@@ -597,11 +597,8 @@ uint Function::stringToSpeed(QString speed)
         speed.remove(0, speed.indexOf("s") + 1);
     }
 
-    value += speed.toDouble() * 1000;
-
-    // avoid toDouble precison issues (.03 transforms to .029)
-    if (value % 10 > 5)
-        value += 5;
+    // lround avoids toDouble precison issues (.03 transforms to .029)
+    value += lround(speed.toDouble() * 1000.0);
 
     return speedNormalize(value);
 }
