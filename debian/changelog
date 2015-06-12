@@ -14,12 +14,14 @@ qlcplus (4.9.0) stable; urgency=low
   * VC SpeedDial: Allow linking the infinite checkbox to an external input (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
-  * Engine: reverted patch causing DMX monitor misbehaviour
+  * Engine: Overall improvement to reduce the CPU usage to detect and monitor universe changes
+  * Engine: fixed DMX monitor misbehaviours
   * Engine: Fix RGBMatrix randomly starting with wrong direction (David Garyga)
   * Engine: Fix RGBMatrix never shutting off lights when fadeout > duration (David Garyga)
   * Engine: Fix functions contained in chaser or audiotrigger not stopped properly (David Garyga)
   * Engine: Fix collection not updating its running children intensity (David Garyga)
   * Engine: Fix random erratic channel behavior when flashing huge scenes (David Garyga)
+  * Engine: fixed wrong behaviour of intensity channels forced back to HTP (Jano Svitok)
   * Plugins: plugins configuration is now saved into the project XML to give more more portability (applies to MIDI, OSC, ArtNet and E1.31)
   * Plugins/OSC: rewritten from scratch to support infinite inputs/outputs, the loopback device and the new parameters system
   * Plugins/ArtNet: it is now possible to set the output IP, the ArtNet universe and the trasnmission mode (see documentation)
