@@ -278,6 +278,9 @@ protected:
     /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
      *  a DMX value right before HTP/LTP check and before being assigned to preGM */
     QVector<ChannelModifier*> m_modifiers;
+    /** Modified channels with the non-modified value at 0.
+     *  This is used for ranged initialization operations. */
+    QByteArray* m_modifiedZeroValues;
 
     /************************************************************************
      * Values
@@ -356,9 +359,16 @@ protected:
      */
     bool m_totalChannelsChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_intensityChannels;
+    QVector<int> m_intensityChannels;
+    /** A flag set to know when m_intensityChannelsRanges must be updated */
+    bool m_intensityChannelsChanged;
+    /**
+     * Intensity channels sorted as ranges, to further optimize ranged operations
+     * (ie set all to zero)
+     */
+    QVector<int> m_intensityChannelsRanges;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_nonIntensityChannels;
+    QVector<int> m_nonIntensityChannels;
     /** Array of values BEFORE the Grand Master changes */
     QByteArray* m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */
@@ -367,6 +377,9 @@ protected:
     QByteArray* m_lastPostGMValues;
 
     QVector<short> m_relativeValues;
+
+    /* impl speedup */
+    void updateIntensityChannelsRanges();
 
     /************************************************************************
      * Blend mode

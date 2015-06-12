@@ -31,6 +31,7 @@
 #include "qlcmacros.h"
 #include "universe.h"
 #include "qlcfile.h"
+#include "utils.h"
 
 #define RELATIVE_ZERO 127
 
@@ -49,9 +50,11 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
     , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_modifiedZeroValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_usedChannels(0)
     , m_totalChannels(0)
     , m_totalChannelsChanged(false)
+    , m_intensityChannelsChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_lastPostGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
@@ -164,12 +167,10 @@ bool Universe::monitor() const
 
 void Universe::slotGMValueChanged()
 {
-//  if (m_grandMaster->channelMode() == GrandMaster::Intensity)
     {
-        QSetIterator <int> it(m_intensityChannels);
-        while (it.hasNext() == true)
+        for (int i = 0; i < m_intensityChannels.size(); ++i)
         {
-            int channel(it.next());
+            int channel = m_intensityChannels.at(i);
             char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
@@ -177,10 +178,9 @@ void Universe::slotGMValueChanged()
 
     if (m_grandMaster->channelMode() == GrandMaster::AllChannels)
     {
-        QSetIterator <int> it(m_nonIntensityChannels);
-        while (it.hasNext() == true)
+        for (int i = 0; i < m_nonIntensityChannels.size(); ++i)
         {
-            int channel(it.next());
+            int channel = m_nonIntensityChannels.at(i);
             char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
@@ -215,25 +215,24 @@ void Universe::reset(int address, int range)
 
 void Universe::zeroIntensityChannels()
 {
-    QSetIterator <int> it(m_intensityChannels);
-    while (it.hasNext() == true)
+    updateIntensityChannelsRanges();
+    int const* channels = m_intensityChannelsRanges.constData();
+    for (int i = 0; i < m_intensityChannelsRanges.size(); ++i)
     {
-        int channel(it.next());
-        (*m_preGMValues)[channel] = 0;
-        if (m_modifiers.at(channel) != NULL)
-            (*m_postGMValues)[channel] = m_modifiers.at(channel)->getValue(0);
-        else
-            (*m_postGMValues)[channel] = 0;
+        short channel = channels[i] >> 16;
+        short size = channels[i] & 0xffff;
+
+        memset(m_preGMValues->data() + channel, 0, size * sizeof(*m_preGMValues->data()));
+        memcpy(m_postGMValues->data() + channel, m_modifiedZeroValues->data() + channel, size * sizeof(*m_postGMValues->data()));
     }
 }
 
 QHash<int, uchar> Universe::intensityChannels()
 {
     QHash <int, uchar> intensityList;
-    QSetIterator <int> it(m_intensityChannels);
-    while (it.hasNext() == true)
+    for (int i = 0; i < m_intensityChannels.size(); ++i)
     {
-        int channel(it.next());
+        int channel = m_intensityChannels.at(i);
         intensityList[channel] = m_preGMValues->at(channel);
     }
     return intensityList;
@@ -483,8 +482,9 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     if (channel >= (ushort)m_channelsMask->count())
         return;
 
-    m_intensityChannels.remove(channel);
-    m_nonIntensityChannels.remove(channel);
+    if (Utils::vectorRemove(m_intensityChannels, channel))
+        m_intensityChannelsChanged = true;
+    Utils::vectorRemove(m_nonIntensityChannels, channel);
 
     if (forcedType != Undefined)
     {
@@ -492,7 +492,8 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         if (forcedType == HTP)
         {
             //qDebug() << "--- Channel" << channel << "forced type HTP";
-            m_intensityChannels << channel;
+            Utils::vectorSortedAddUnique(m_intensityChannels, channel);
+            m_intensityChannelsChanged = true;
             if (group == QLCChannel::Intensity)
             {
                 //qDebug() << "--- Channel" << channel << "Intensity + HTP";
@@ -502,7 +503,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         else if (forcedType == LTP)
         {
             //qDebug() << "--- Channel" << channel << "forced type LTP";
-            m_nonIntensityChannels << channel;
+            Utils::vectorSortedAddUnique(m_nonIntensityChannels, channel);
         }
     }
     else
@@ -511,15 +512,17 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         {
             //qDebug() << "--- Channel" << channel << "Intensity + HTP";
             (*m_channelsMask)[channel] = char(HTP | Intensity);
-            m_intensityChannels << channel;
+            Utils::vectorSortedAddUnique(m_intensityChannels, channel);
+            m_intensityChannelsChanged = true;
         }
         else
         {
             //qDebug() << "--- Channel" << channel << "LTP";
             (*m_channelsMask)[channel] = char(LTP);
-            m_nonIntensityChannels << channel;
+            Utils::vectorSortedAddUnique(m_nonIntensityChannels, channel);
         }
     }
+
     // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
     if (channel >= m_totalChannels)
     {
@@ -544,6 +547,9 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
         return;
 
     m_modifiers[channel] = modifier;
+
+    (*m_modifiedZeroValues)[channel] =
+        (modifier == NULL ? uchar(0) : modifier->getValue(0));
 }
 
 ChannelModifier *Universe::channelModifier(ushort channel)
@@ -552,6 +558,34 @@ ChannelModifier *Universe::channelModifier(ushort channel)
         return NULL;
 
     return m_modifiers.at(channel);
+}
+
+void Universe::updateIntensityChannelsRanges()
+{
+    if (!m_intensityChannelsChanged)
+        return;
+    m_intensityChannelsChanged = false;
+
+    m_intensityChannelsRanges.clear();
+    short currentPos = -1;
+    short currentSize;
+    for (int i = 0; i < m_intensityChannels.size(); ++i)
+    {
+        int channel = m_intensityChannels.at(i);
+        if (currentPos + currentSize == channel)
+            ++currentSize;
+        else
+        {
+            if (currentPos != -1)
+                m_intensityChannelsRanges.append((currentPos << 16) | currentSize);
+            currentPos = channel;
+            currentSize = 1;
+        }
+    }
+    if (currentPos != -1)
+        m_intensityChannelsRanges.append((currentPos << 16) | currentSize);
+
+    qDebug() << Q_FUNC_INFO << ":" << m_intensityChannelsRanges.size() << "ranges";
 }
 
 /****************************************************************************
