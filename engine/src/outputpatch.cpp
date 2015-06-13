@@ -70,8 +70,16 @@ bool OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
     m_plugin = plugin;
     m_pluginLine = output;
 
+    if (m_plugin != NULL)
+    {
+        emit pluginNameChanged();
+        if (m_pluginLine != QLCIOPlugin::invalidLine())
+            emit outputNameChanged();
+    }
+
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
         return m_plugin->openOutput(m_pluginLine, m_universe);
+
     return false;
 }
 

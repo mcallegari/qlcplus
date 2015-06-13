@@ -36,6 +36,14 @@ Rectangle {
     property bool showAudioButton: false
     property bool showPluginsButton: false
 
+    onUniverseIndexChanged: {
+        if (rightSidePanel.isOpen == true)
+        {
+            editorLoader.source = ""
+            editorLoader.source = editorSource;
+        }
+    }
+
     function animatePanel() {
         if (rightSidePanel.isOpen == false)
         {
@@ -53,6 +61,7 @@ Rectangle {
     Rectangle {
         id: editorArea
         x: collapseWidth
+        z: 5
         width: rightSidePanel.width - collapseWidth;
         height: parent.height
         color: "transparent"

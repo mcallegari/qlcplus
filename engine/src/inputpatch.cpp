@@ -88,6 +88,15 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     m_pluginLine = input;
     m_profile = profile;
 
+    if (m_plugin != NULL)
+    {
+        emit pluginNameChanged();
+        if (m_pluginLine != QLCIOPlugin::invalidLine())
+            emit inputNameChanged();
+        if (m_profile != NULL)
+            emit profileNameChanged();
+    }
+
     /* Open the assigned plugin input */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {

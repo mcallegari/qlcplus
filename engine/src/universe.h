@@ -67,8 +67,8 @@ class Universe: public QObject
 
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
-    Q_PROPERTY(InputPatch* inputPatch READ inputPatch CONSTANT)
-    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch CONSTANT)
+    Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
+    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch NOTIFY outputPatchChanged)
 
 public:
     /** Construct a new Universe */
@@ -223,6 +223,12 @@ protected slots:
 signals:
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+    /** Notify the listeners that the input patch has changed */
+    void inputPatchChanged();
+
+    /** Notify the listeners that the output patch has changed */
+    void outputPatchChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */

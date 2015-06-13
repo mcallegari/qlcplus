@@ -41,8 +41,8 @@ class OutputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(OutputPatch)
 
-    Q_PROPERTY(QString outputName READ outputName CONSTANT)
-    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
+    Q_PROPERTY(QString outputName READ outputName NOTIFY outputNameChanged)
+    Q_PROPERTY(QString pluginName READ pluginName NOTIFY pluginNameChanged)
 
     /********************************************************************
      * Initialization
@@ -87,6 +87,10 @@ public:
 
     /** Retrieve the map of custom parameters set to the patched plugin */
     QMap<QString, QVariant> getPluginParameters();
+
+signals:
+    void outputNameChanged();
+    void pluginNameChanged();
 
 private:
     /** The reference of the plugin associated by this Output patch */

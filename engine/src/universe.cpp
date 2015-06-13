@@ -321,12 +321,17 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
                            this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
+            emit inputPatchChanged();
             return true;
         }
     }
 
     if (m_inputPatch != NULL)
-        return m_inputPatch->set(plugin, input, profile);
+    {
+        bool result = m_inputPatch->set(plugin, input, profile);
+        emit inputPatchChanged();
+        return result;
+    }
 
     return true;
 }
@@ -348,11 +353,16 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_outputPatch;
             m_outputPatch = NULL;
+            emit outputPatchChanged();
             return true;
         }
     }
     if (m_outputPatch != NULL)
-        return m_outputPatch->set(plugin, output);
+    {
+        bool result = m_outputPatch->set(plugin, output);
+        emit outputPatchChanged();
+        return result;
+    }
 
     return false;
 }

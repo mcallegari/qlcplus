@@ -33,28 +33,83 @@ Rectangle {
     property bool isSelected: false
     property int outputPatchesNumber: 0
     property int inputPatchesNumber: 0
+    property int wireBoxWidth: (uniItem.width - uniBox.width) / 8 // one quarter of a uniItem side
+    property InputPatch iPatch: universe ? universe.inputPatch : null
+    property OutputPatch oPatch: universe ? universe.outputPatch : null
 
-    onUniverseChanged: {
-        if (universe != null)
-        {
-            if (universe.inputPatch !== null)
-                inputPatchesNumber = 1
-            else
-                inputPatchesNumber = 0
+    onIPatchChanged: {
+        if (iPatch === null)
+            inputPatchesNumber = 0
+        else
+            inputPatchesNumber = 1
+        inDropRect.color = "transparent"
+    }
 
-            if (universe.outputPatch !== null)
-                outputPatchesNumber = 1
-            else
-                outputPatchesNumber = 0
-        }
+    onOPatchChanged: {
+        if (oPatch === null)
+            outputPatchesNumber = 0
+        else
+            outputPatchesNumber = 1
+        outDropRect.color = "transparent"
     }
 
     signal selected(int index)
 
-    // area containing the input Patches
+    // area containing the input patches
     Column {
         id: inputBox
-        width: uniBox.x
+        x: 14
+        anchors.verticalCenter: uniItem.verticalCenter
+
+        Repeater {
+            model: inputPatchesNumber
+            delegate: InputPatchItem {
+                width: inWireBox.width * 3
+
+                universeID: universe.id
+                patch: universe ? universe.inputPatch : null
+            }
+        }
+    }
+
+    // Input patches wires box
+    PatchWireBox {
+        id: inWireBox
+        x: uniBox.x - width + 6
+        width: wireBoxWidth
+        height: uniItem.height
+        z: 10
+
+        patchesNumber: inputPatchesNumber
+    }
+
+    // Input patch drop area
+    DropArea {
+        id: inputDropTarget
+        x: inputBox.x
+        y: 2
+        width: ((uniItem.width - uniBox.width) / 2) - 6
+        height: uniItem.height - 4
+
+        // this key must match the one in PluginList, to avoid dropping
+        // an input plugin on output and vice-versa
+        keys: [ universe ? "input-" + universe.id : "" ]
+
+        Rectangle {
+            id: inDropRect
+            anchors.fill: parent
+            color: "transparent"
+            states: [
+                State {
+                    when: inputDropTarget.containsDrag
+                    PropertyChanges {
+                        target: inDropRect
+                        color: "#3356FF56"
+                    }
+                }
+            ]
+        }
+
     }
 
     // representation of the central Universe block
@@ -76,56 +131,68 @@ Rectangle {
         RobotoText {
             height: parent.height
             width: parent.width
-            label: universe.name
+            label: universe ? universe.name : ""
             wrapText: true
             textAlign: Text.AlignHCenter
         }
     }
 
     // Output patches wires box
-    Canvas {
-        id: wireBox
+    PatchWireBox {
+        id: outWireBox
         x: uniBox.x + uniBox.width - 6
-        width: (uniItem.width - uniBox.width) / 8 // one quarter of a uniItem side
+        width: wireBoxWidth
         height: uniItem.height
         z: 10
 
-        onPaint: {
-            var ctx = wireBox.getContext('2d');
-            var vCenter = wireBox.height / 2;
-            var nodeSize = 8
-            ctx.strokeStyle = "yellow";
-            ctx.fillStyle = "yellow";
-            ctx.lineWidth = 2;
-            ctx.save();
-            ctx.clearRect(0, 0, wireBox.width, wireBox.height);
-            if (outputPatchesNumber > 0)
-            {
-                ctx.ellipse(ctx.lineWidth, vCenter, nodeSize, nodeSize);
-                ctx.lineTo(wireBox.width - nodeSize - ctx.lineWidth, vCenter + nodeSize / 2);
-                ctx.ellipse(wireBox.width - nodeSize - ctx.lineWidth, vCenter, nodeSize, nodeSize);
-                ctx.fill();
-                ctx.stroke();
-            }
-            ctx.restore();
-        }
+        patchesNumber: outputPatchesNumber
     }
 
-    // area containing the output Patches
+    // area containing the output patches
     Column {
         id: outputBox
-        x: wireBox.x + wireBox.width - 6
+        x: outWireBox.x + outWireBox.width - 8
         anchors.verticalCenter: uniItem.verticalCenter
 
         Repeater {
+            id: outRpt
             model: outputPatchesNumber
             delegate: OutputPatchItem {
-                width: wireBox.width * 3
+                width: outWireBox.width * 3
 
                 universeID: universe.id
-                patch: universe.outputPatch
+                patch: universe ? universe.outputPatch : null
             }
         }
+    }
+
+    // Output patch drop area
+    DropArea {
+        id: outputDropTarget
+        x: outWireBox.x + 6
+        y: 2
+        width: ((uniItem.width - uniBox.width) / 2) - 6
+        height: uniItem.height - 4
+
+        // this key must match the one in PluginList, to avoid dropping
+        // an input plugin on output and vice-versa
+        keys: [ universe ? "output-" + universe.id : "" ]
+
+        Rectangle {
+            id: outDropRect
+            anchors.fill: parent
+            color: "transparent"
+            states: [
+                State {
+                    when: outputDropTarget.containsDrag
+                    PropertyChanges {
+                        target: outDropRect
+                        color: "#3356FF56"
+                    }
+                }
+            ]
+        }
+
     }
 
     // Global mouse area to select this Universe item

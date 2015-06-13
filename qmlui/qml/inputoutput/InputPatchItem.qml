@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  OutputPatchItem.qml
+  InputPatchItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -28,7 +28,7 @@ Rectangle {
     color: "transparent"
 
     property int universeID
-    property OutputPatch patch
+    property InputPatch patch
 
     Rectangle {
         id: patchBox
@@ -59,10 +59,11 @@ Rectangle {
             RobotoText {
                 height: patchBox.height
                 width: patchBox.width - pluginIcon.width - 6
-                label: patch ? patch.outputName : ""
+                label: patch ? patch.inputName : ""
                 labelColor: "black"
                 wrapText: true
             }
         }
     }
 }
+

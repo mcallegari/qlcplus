@@ -55,7 +55,9 @@
         <file alias="PluginsList.qml">qml/inputoutput/PluginsList.qml</file>
         <file alias="PluginDragItem.qml">qml/inputoutput/PluginDragItem.qml</file>
         <file alias="OutputPatchItem.qml">qml/inputoutput/OutputPatchItem.qml</file>
-
+	<file alias="InputPatchItem.qml">qml/inputoutput/InputPatchItem.qml</file>
+	<file alias="PatchWireBox.qml">qml/inputoutput/PatchWireBox.qml</file>
+	
         <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
         <file alias="FixtureUtils.js">js/FixtureUtils.js</file>
         <file alias="FunctionDrag.js">js/FunctionDrag.js</file>

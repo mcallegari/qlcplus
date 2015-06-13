@@ -28,7 +28,7 @@ Rectangle {
     IOLeftPanel {
         id: leftPanel
         x: 0
-        //z: 5
+        z: 5
         height: parent.height
     }
 
@@ -43,7 +43,7 @@ Rectangle {
         width: parent.width - leftPanel.width - rightPanel.width
         height: parent.height
         x: leftPanel.width
-        z: 6
+        z: 4
         boundsBehavior: Flickable.StopAtBounds
 
         contentHeight: ioList.height

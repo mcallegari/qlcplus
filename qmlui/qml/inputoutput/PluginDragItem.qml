@@ -23,11 +23,12 @@ import "PluginUtils.js" as PluginUtils
 
 Rectangle {
     x: 3
-    id: pluginLine
+    id: pluginDragItem
     width: pluginsContainer.width
     height: 60
     color: "transparent"
 
+    property int pluginUniverse
     property string pluginName
     property string pluginLine
     property string lineName
@@ -36,7 +37,7 @@ Rectangle {
         spacing: 3
         Rectangle {
             radius: 3
-            height: pluginLine.height - 4
+            height: pluginDragItem.height - 4
             width: height
             gradient: Gradient {
             id: bgGradient
@@ -55,12 +56,12 @@ Rectangle {
                 sourceSize: Qt.size(width, height)
                 fillMode: Image.Stretch
             }
-	}
+        }
 
-	RobotoText {
-        height: pluginLine.height
-        width: pluginLine.width
-        label: lineName
-	}
+        RobotoText {
+            height: pluginDragItem.height
+            width: pluginDragItem.width
+            label: lineName
+        }
     }
 }

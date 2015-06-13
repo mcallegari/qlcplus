@@ -26,17 +26,23 @@ class InputOutputObject : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int universe READ universe CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(QString line READ line CONSTANT)
     Q_PROPERTY(QString plugin READ plugin CONSTANT)
 
 public:
-    InputOutputObject(QString name, QString line, QString plugin, QObject *parent=0)
+    InputOutputObject(int universe, QString name, QString line,
+                      QString plugin = QString(), QObject *parent=0)
         : QObject(parent)
+        , m_universe(universe)
         , m_name(name)
         , m_line(line)
         , m_plugin(plugin)
         { }
+
+    int universe() const { return m_universe; }
+    void setUniverse(int uni) { m_universe = uni; }
 
     QString name() const { return m_name; }
     void setName(const QString &name) { m_name = name; }
@@ -48,6 +54,7 @@ public:
     void setPlugin(const QString &plugin) { m_plugin = plugin; }
 
 private:
+    int m_universe;
     QString m_name;
     QString m_line;
     QString m_plugin;

@@ -25,13 +25,20 @@ Rectangle {
     color: "transparent"
 
     property int universeIndex: 0
+    property bool isInput: false
 
     function loadSources(input)
     {
         if (input === true)
+        {
             uniListView.model = ioManager.universeInputSources(universeIndex)
+            isInput = true
+        }
         else
+        {
             uniListView.model = ioManager.universeOutputSources(universeIndex)
+            isInput = false
+        }
     }
 
     ListView {
@@ -39,21 +46,80 @@ Rectangle {
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         delegate:
-            PluginDragItem {
-                x: 3
+            Item {
+                id: root
+                height: 60
                 width: pluginsContainer.width
 
-                pluginName: modelData.plugin
-                lineName: modelData.name
-                pluginLine: modelData.line
+                MouseArea {
+                    id: delegateRoot
+                    width: pluginsContainer.width
+                    height: 60
 
-                Rectangle {
-                    width: parent.width
-                    height: 1
-                    y: parent.height - 1
-                    color: "#555"
-                }
-            }
-    }
+                    drag.target: pluginItem
+                    drag.threshold: 30
+
+                    onPressed: pluginItem.color = "#444"
+                    onReleased: {
+                        pluginItem.x = 3
+                        pluginItem.y = 0
+
+                        if (pluginItem.Drag.target !== null)
+                        {
+                            if (pluginsContainer.isInput == false)
+                            {
+                                ioManager.addOutputPatch(
+                                        pluginItem.pluginUniverse, pluginItem.pluginName,
+                                        pluginItem.pluginLine)
+                                uniListView.model = ioManager.universeOutputSources(universeIndex)
+                            }
+                            else
+                            {
+                                ioManager.addInputPatch(pluginItem.pluginUniverse, pluginItem.pluginName,
+                                                        pluginItem.pluginLine)
+                                uniListView.model = ioManager.universeInputSources(universeIndex)
+                            }
+                        }
+                        else
+                        {
+                            // return the dragged item to its original position
+                            parent = root
+                            pluginItem.color = "transparent"
+                        }
+                    }
+
+                    PluginDragItem {
+                        id: pluginItem
+                        x: 3
+
+                        // this key must match the one in UniverseIOItem, to avoid dragging
+                        // an input plugin on output and vice-versa
+                        property string dragKey: isInput ? "input-" + universeIndex : "output-" + universeIndex
+
+                        pluginUniverse: modelData.universe
+                        pluginName: modelData.plugin
+                        lineName: modelData.name
+                        pluginLine: modelData.line
+
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: delegateRoot
+                        Drag.hotSpot.x: 36
+                        Drag.hotSpot.y: 36
+                        Drag.keys: [ dragKey ]
+
+                        Rectangle {
+                            width: parent.width
+                            height: 1
+                            y: parent.height - 1
+                            color: "#555"
+                        }
+                        states: State {
+                            when: root.drag.active
+                            ParentChange { target: tile; parent: root }
+                        }
+                    } // PluginDragItem
+                } // MouseArea
+            } // Item
+    } // ListView
 }
 

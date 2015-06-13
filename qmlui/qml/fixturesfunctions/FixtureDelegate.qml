@@ -73,7 +73,7 @@ Item {
         anchors.right: parent.right
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
-        source: "qrc:///arrow-right.svg"
+        source: "qrc:/arrow-right.svg"
         height: 26
         width: 20
     }

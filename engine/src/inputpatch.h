@@ -54,9 +54,9 @@ class InputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(InputPatch)
 
-    Q_PROPERTY(QString inputName READ inputName CONSTANT)
-    Q_PROPERTY(QString pluginName READ pluginName CONSTANT)
-    Q_PROPERTY(QString profileName READ profileName CONSTANT)
+    Q_PROPERTY(QString inputName READ inputName NOTIFY inputNameChanged)
+    Q_PROPERTY(QString pluginName READ pluginName NOTIFY pluginNameChanged)
+    Q_PROPERTY(QString profileName READ profileName NOTIFY profileNameChanged)
 
     /************************************************************************
      * Initialization
@@ -116,6 +116,10 @@ public:
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel,
                            uchar value, const QString& key = 0);
+
+    void inputNameChanged();
+    void pluginNameChanged();
+    void profileNameChanged();
 
 private slots:
     void slotValueChanged(quint32 universe, quint32 input,

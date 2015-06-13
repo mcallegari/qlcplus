@@ -52,8 +52,17 @@ Rectangle {
         }
     }
 
+    onUniverseIndexChanged: {
+        if (leftSidePanel.isOpen == true)
+        {
+            editorLoader.source = ""
+            editorLoader.source = editorSource;
+        }
+    }
+
     Rectangle {
         id: editorArea
+        z: 5
         width: leftSidePanel.width - collapseWidth;
         height: parent.height
         color: "transparent"

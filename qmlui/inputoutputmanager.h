@@ -48,6 +48,9 @@ public:
     Q_INVOKABLE QVariant universeOutputSources(int universe);
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
+    Q_INVOKABLE void addOutputPatch(int universe, QString plugin, QString line);
+    Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
+
     Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
 
 private:

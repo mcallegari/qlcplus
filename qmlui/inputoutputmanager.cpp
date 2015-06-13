@@ -82,12 +82,12 @@ QVariant InputOutputManager::audioInputSources()
 
     clearInputList();
 
-    m_inputSources.append(new InputOutputObject(tr("Default device"), "__qlcplusdefault__", ""));
+    m_inputSources.append(new InputOutputObject(0, tr("Default device"), "__qlcplusdefault__"));
 
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
-            m_inputSources.append(new InputOutputObject(info.deviceName, info.privateName, ""));
+            m_inputSources.append(new InputOutputObject(0, info.deviceName, info.privateName));
     }
 
     return QVariant::fromValue(m_inputSources);
@@ -99,12 +99,12 @@ QVariant InputOutputManager::audioOutputSources()
 
     clearOutputList();
 
-    m_outputSources.append(new InputOutputObject(tr("Default device"), "__qlcplusdefault__", ""));
+    m_outputSources.append(new InputOutputObject(0, tr("Default device"), "__qlcplusdefault__"));
 
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
-            m_outputSources.append(new InputOutputObject(info.deviceName, info.privateName, ""));
+            m_outputSources.append(new InputOutputObject(0, info.deviceName, info.privateName));
     }
 
     return QVariant::fromValue(m_outputSources);
@@ -129,7 +129,7 @@ QVariant InputOutputManager::universeInputSources(int universe)
         foreach(QString pLine, m_ioMap->pluginInputs(pluginName))
         {
             if (pluginName != currPlugin || i != currLine)
-                m_inputSources.append(new InputOutputObject(pLine, QString::number(i), pluginName));
+                m_inputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
             i++;
         }
     }
@@ -156,7 +156,7 @@ QVariant InputOutputManager::universeOutputSources(int universe)
         foreach(QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
             if (pluginName != currPlugin || i != currLine)
-                m_outputSources.append(new InputOutputObject(pLine, QString::number(i), pluginName));
+                m_outputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
             i++;
         }
     }
@@ -174,10 +174,20 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
     foreach(QString name, profileNames)
     {
         if (name != currentProfile)
-            m_inputProfiles.append(new InputOutputObject(name, name, ""));
+            m_inputProfiles.append(new InputOutputObject(0, name, name));
     }
 
     return QVariant::fromValue(m_inputProfiles);
+}
+
+void InputOutputManager::addOutputPatch(int universe, QString plugin, QString line)
+{
+    m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false);
+}
+
+void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
+{
+    m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
 }
 
 void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
