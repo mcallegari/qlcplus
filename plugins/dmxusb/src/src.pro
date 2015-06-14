@@ -38,6 +38,7 @@ serialport {
             # Windows target
             FTD2XXDIR    = C:/Qt/CDM21200
             LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
+            LIBS     += $$FTD2XXDIR/i386/libftd2xx.a
             INCLUDEPATH += $$FTD2XXDIR
             QMAKE_LFLAGS += -shared
         } else {
