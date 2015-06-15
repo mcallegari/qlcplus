@@ -22,7 +22,6 @@
 
 #include <windows.h>
 #include <mmsystem.h>
-#include <regstr.h>
 
 #include "hidjsdevice.h"
 
