@@ -22,6 +22,7 @@ qlcplus (4.9.0) stable; urgency=low
   * Engine: Fix collection not updating its running children intensity (David Garyga)
   * Engine: Fix random erratic channel behavior when flashing huge scenes (David Garyga)
   * Engine: fixed wrong behaviour of intensity channels forced back to HTP (Jano Svitok)
+  * Engine: Channel modifiers moved after the Grand Master to be the last part of the DMX values processing (Jano Svitok)
   * Plugins: plugins configuration is now saved into the project XML to give more more portability (applies to MIDI, OSC, ArtNet and E1.31)
   * Plugins/OSC: rewritten from scratch to support infinite inputs/outputs, the loopback device and the new parameters system
   * Plugins/ArtNet: it is now possible to set the output IP, the ArtNet universe and the trasnmission mode (see documentation)
@@ -29,6 +30,7 @@ qlcplus (4.9.0) stable; urgency=low
   * Plugins/E1.31: fixed input from a multicast address
   * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
   * Plugins/HID: added support for Joysticks/Joypads on OSX
+  é Plugins/DMXUSB: fixed all the Windows freezes encountered before (Stageprofi, Enttec Pro input, etc..)
   * New fixture: Eurolite LED SLS-QCL (thanks to Kripton)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200
