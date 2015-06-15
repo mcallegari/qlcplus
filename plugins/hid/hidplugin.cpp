@@ -255,7 +255,7 @@ void HIDPlugin::rescanDevices()
 
     while (cur_dev)
     {
-        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
+        //qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
 
         HIDDevice* dev = device(QString(cur_dev->path));
         if (dev != NULL)

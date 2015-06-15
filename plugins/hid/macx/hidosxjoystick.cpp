@@ -28,7 +28,6 @@ HIDOSXJoystick::HIDOSXJoystick(HIDPlugin *parent, quint32 line, struct hid_devic
 
 bool HIDOSXJoystick::isJoystick(unsigned short usage)
 {
-    qDebug() << "Usage page:" << usage;
     if (usage == kHIDUsage_GD_Joystick || usage == kHIDUsage_GD_GamePad ||
         usage == kHIDUsage_GD_MultiAxisController || usage == kHIDUsage_GD_Hatswitch)
         return true;
@@ -91,7 +90,7 @@ void HIDOSXJoystick::init()
     {
         CFIndex count = CFArrayGetCount( elementsArray );
 
-        qDebug() << "Device" << QString::fromWCharArray(m_dev_info->product_string) << "has elements:" << count;
+        //qDebug() << "Device" << QString::fromWCharArray(m_dev_info->product_string) << "has elements:" << count;
 
         for (int i = 0; i < count; i++)
         {
