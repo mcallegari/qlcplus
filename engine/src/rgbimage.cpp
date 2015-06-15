@@ -77,11 +77,28 @@ QString RGBImage::filename() const
     return m_filename;
 }
 
+void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
+{
+    qDebug() << "[RGBImage] setting image data:" << width << height << pixelData.length();
+    QImage newImg(width, height, QImage::Format_RGB888);
+    int i = 0;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
+            newImg.setPixel(x, y, pixel);
+            i+=3;
+        }
+    }
+    m_image = newImg;
+}
+
 void RGBImage::reloadImage()
 {
     if (m_filename.isEmpty())
     {
-        qDebug() << "Empty image!";
+        qDebug() << "[RGBImage] Empty image!";
         return;
     }
 

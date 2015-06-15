@@ -100,6 +100,7 @@ public:
 
 private slots:
     void slotDocModified(bool state);
+    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     void initDoc();

@@ -42,7 +42,8 @@ public slots:
     int exec();
 
 private:
-    void fillNodesTree();
+    void fillMappingTree();
+    QWidget *createIPWidget(QString ip);
 
 private:
     E131Plugin* m_plugin;

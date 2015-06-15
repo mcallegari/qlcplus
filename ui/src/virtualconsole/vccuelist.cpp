@@ -67,7 +67,7 @@ const quint8 VCCueList::cf1InputSourceId = 3;
 const quint8 VCCueList::cf2InputSourceId = 4;
 
 const QString progressDisabledStyle =
-        "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC;";
+        "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC; }";
 const QString progressFadeStyle =
         "QProgressBar { border: 2px solid grey; border-radius: 4px; background-color: #C3C3C3; text-align: center; }"
         "QProgressBar::chunk { background-color: #63C10B; width: 1px; }";
@@ -104,7 +104,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
-    m_slider1->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider1->setFixedWidth(32);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
@@ -120,7 +120,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
     grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
-    m_slider2->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider2->setFixedWidth(32);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
@@ -611,6 +611,7 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     {
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
         m_timer->start(PROGRESS_INTERVAL);
+        updateFeedback();
     }
 }
 
@@ -631,6 +632,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
         emit stepChanged(-1);
 
         qDebug() << Q_FUNC_INFO << "Cue stopped";
+        updateFeedback();
     }
 }
 
@@ -693,6 +695,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
+    ch->adjustAttribute(intensity(), Function::Intensity);
     ch->start(m_doc->masterTimer());
     emit functionStarting(m_chaserID);
 }
@@ -883,6 +886,12 @@ void VCCueList::updateFeedback()
     sendFeedback(fbv, cf1InputSourceId);
     fbv = (int)SCALE(float(100 - m_slider2->value()), float(0), float(100), float(0), float(UCHAR_MAX));
     sendFeedback(fbv, cf2InputSourceId);
+
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return;
+
+    sendFeedback(ch->isRunning() ? UCHAR_MAX : 0, playbackInputSourceId);
 }
 
 /*****************************************************************************
@@ -972,6 +981,17 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
 /*****************************************************************************
  * VCWidget-inherited methods
  *****************************************************************************/
+
+void VCCueList::adjustIntensity(qreal val)
+{
+    Chaser* ch = chaser();
+    if (ch != NULL)
+    {
+        ch->adjustAttribute(val, Function::Intensity);
+    }
+
+    VCWidget::adjustIntensity(val);
+}
 
 void VCCueList::setCaption(const QString& text)
 {
@@ -1093,7 +1113,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), nextInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), nextInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1117,7 +1137,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), previousInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), previousInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1141,7 +1161,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), playbackInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), playbackInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1165,7 +1185,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), cf1InputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), cf1InputSourceId);
                 }
             }
         }
@@ -1179,7 +1199,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), cf2InputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), cf2InputSourceId);
                 }
             }
         }
@@ -1286,15 +1306,15 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tag, inputSource(playbackInputSourceId));
 
     /* Crossfade cue list */
-    QLCInputSource *cf1Src = inputSource(cf1InputSourceId);
-    if (cf1Src != NULL && cf1Src->isValid())
+    QSharedPointer<QLCInputSource> cf1Src = inputSource(cf1InputSourceId);
+    if (!cf1Src.isNull() && cf1Src->isValid())
     {
         tag = doc->createElement(KXMLQLCVCCueListCrossfadeLeft);
         root.appendChild(tag);
         saveXMLInput(doc, &tag, inputSource(cf1InputSourceId));
     }
-    QLCInputSource *cf2Src = inputSource(cf2InputSourceId);
-    if (cf2Src != NULL && cf2Src->isValid())
+    QSharedPointer<QLCInputSource> cf2Src = inputSource(cf2InputSourceId);
+    if (!cf2Src.isNull() && cf2Src->isValid())
     {
         tag = doc->createElement(KXMLQLCVCCueListCrossfadeRight);
         root.appendChild(tag);

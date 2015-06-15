@@ -218,7 +218,7 @@ QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
     {
         MidiTemplate* templ = it.next();
         combo->addItem(templ->name(), templ->initMessage());
-        qDebug() << "msg: " << templ->initMessage();
+        //qDebug() << "msg: " << templ->initMessage();
     }
 
     for (int i = 0; i < combo->count(); ++i)
@@ -228,7 +228,7 @@ QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
     }
 
     //combo->setEditable(true);
-    qDebug() << "selected: " << midiTemplateName;
+    qDebug() << "[MIDI] Selected template: " << midiTemplateName;
 
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotInitMessageActivated(int)));
     connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));

@@ -261,6 +261,9 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
+    void adjustIntensity(qreal val);
+
+    /** @reimp */
     void setCaption(const QString& text);
 
     /** @reimp */

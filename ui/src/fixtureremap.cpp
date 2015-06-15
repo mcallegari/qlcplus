@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QDir>
 
+#include "monitorproperties.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "qlcfixturemode.h"

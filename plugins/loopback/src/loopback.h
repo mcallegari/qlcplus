@@ -52,19 +52,15 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /*************************************************************************
      * Outputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -74,20 +70,16 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
-
-private:
-    bool m_outputCurrentlyOpen[QLCIOPLUGINS_UNIVERSES];
-    qint32* m_values[QLCIOPLUGINS_UNIVERSES];
-
+ 
     /*************************************************************************
      * Inputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
@@ -96,20 +88,19 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key);
 
 private:
-    bool m_inputCurrentlyOpen[QLCIOPLUGINS_UNIVERSES];
+    //! loopback line -> channel data
+    QMap<quint32, QByteArray> m_channelData;
 
-    /*************************************************************************
-     * Configuration
-     *************************************************************************/
-public:
-    /** @reimp */
-    void configure();
+    typedef QMap<quint32, quint32> TLineUniverseMap;
 
-    /** @reimp */
-    bool canConfigure();
+    //! output line -> universe
+    TLineUniverseMap m_outputMap;
+
+    //! input line -> universe
+    TLineUniverseMap m_inputMap;
 };
 
 #endif

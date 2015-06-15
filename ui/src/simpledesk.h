@@ -121,7 +121,7 @@ private slots:
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
-    QGroupBox* m_universeGroup;
+    QFrame* m_universeGroup;
     QComboBox* m_universesCombo;
     QToolButton* m_viewModeButton;
     QToolButton* m_universePageUpButton;

@@ -55,6 +55,8 @@ private slots:
     void postRun();
     void adjustIntensity();
 
+    void quickChaser();
+
 private:
     Doc* m_doc;
 };

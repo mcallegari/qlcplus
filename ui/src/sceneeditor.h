@@ -204,7 +204,7 @@ private:
     /** Index of the first fixture's tab */
     int m_fixtureFirstTabIndex;
 
-    QList <FixtureConsole *> m_consoleList;
+    QMap <quint32, FixtureConsole *> m_consoleList;
 
     /** Flag to indicate if some fixture channels were
      *  manually selected and copied to clipboard */

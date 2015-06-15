@@ -422,4 +422,37 @@ void Universe_Test::writeEfficiency()
         QCOMPARE(int(m_uni->postGMValues()->at(i)), int(100));
 }
 
+void Universe_Test::hasChangedEfficiency()
+{
+    for (int i = 0; i < 512; i++)
+    {
+        m_uni->write(i, 200);
+        QCOMPARE(m_uni->hasChanged(), true);
+    }
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->write(i, 200);
+            m_uni->hasChanged();
+        }
+    }
+}
+
+void Universe_Test::hasNotChangedEfficiency()
+{
+    m_uni->write(512, 200);
+    m_uni->hasChanged();
+    QCOMPARE(m_uni->hasChanged(), false);
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->hasChanged();
+        }
+    }
+}
+
 QTEST_APPLESS_MAIN(Universe_Test)

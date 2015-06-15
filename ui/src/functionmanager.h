@@ -68,6 +68,7 @@ protected:
 protected slots:
     void slotModeChanged();
     void slotDocClearing();
+    void slotDocLoading();
     void slotDocLoaded();
     void slotFunctionNameChanged(quint32 id);
     void slotFunctionAdded(quint32 id);

@@ -23,6 +23,7 @@
 #include <QHeaderView>
 #include <QSettings>
 
+#include "qlcfixturemode.h"
 #include "qlcinputchannel.h"
 #include "qlcchannel.h"
 
@@ -175,24 +176,34 @@ void VCXYPadProperties::slotAddClicked()
     }
 
     /* Disable all fixtures that don't have pan OR tilt channels */
-    foreach(Fixture* fixture, m_doc->fixtures())
+    QListIterator <Fixture*> fxit(m_doc->fixtures());
+    while (fxit.hasNext() == true)
     {
+        Fixture* fixture(fxit.next());
         Q_ASSERT(fixture != NULL);
 
-        // If a channel with pan group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Pan) != QLCChannel::invalid())
+        // If a channel with pan or tilt group exists, don't disable this fixture
+        if (fixture->channel(QLCChannel::Pan) == QLCChannel::invalid() &&
+            fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
         {
-            continue;
+            // Disable all fixtures without pan or tilt channels
+            disabled << fixture->id();
         }
-
-        // If a channel with tilt group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Tilt) != QLCChannel::invalid())
+        else
         {
-            continue;
+            QVector <QLCFixtureHead> const& heads = fixture->fixtureMode()->heads();
+            for (int i = 0; i < heads.size(); ++i)
+            {
+                if (heads[i].panMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].panLsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltLsbChannel() == QLCChannel::invalid())
+                {
+                    // Disable heads without pan or tilt channels
+                    disabled << GroupHead(fixture->id(), i);
+                }
+            }
         }
-
-        // Disable all fixtures without pan or tilt channels
-        disabled << fixture->id();
     }
 
     /* Get a list of new fixtures to add to the pad */
@@ -297,34 +308,28 @@ void VCXYPadProperties::slotPanChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_panInputSource != NULL)
-            delete m_panInputSource;
-        m_panInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updatePanInputSource();
     }
 }
 
 void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
 {
-    QLCInputSource *tmpSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    QScopedPointer<QLCInputSource> tmpSource(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
+
     // if both Pan and Tilt come from the same external control, here's
     // where I will discover it
     if (m_panInputSource != NULL &&
         m_panInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_panInputSource->channel())
     {
-        if (m_tiltInputSource != NULL)
-            delete m_tiltInputSource;
-        m_tiltInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updateTiltInputSource();
         return;
     }
 
-    if (m_panInputSource != NULL)
-        delete m_panInputSource;
-    m_panInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updatePanInputSource();
-    delete tmpSource;
 }
 
 void VCXYPadProperties::slotTiltAutoDetectToggled(bool toggled)
@@ -350,34 +355,27 @@ void VCXYPadProperties::slotTiltChooseClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_tiltInputSource != NULL)
-            delete m_tiltInputSource;
-        m_tiltInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateTiltInputSource();
     }
 }
 
 void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
 {
-    QLCInputSource *tmpSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    QScopedPointer<QLCInputSource> tmpSource(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     // if both Pan and Tilt come from the same external control, here's
     // where I will discover it
     if (m_tiltInputSource != NULL &&
         m_tiltInputSource->channel() != UINT_MAX &&
         tmpSource->channel() != m_tiltInputSource->channel())
     {
-        if (m_panInputSource != NULL)
-            delete m_panInputSource;
-        m_panInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+        m_panInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
         updatePanInputSource();
         return;
     }
 
-    if (m_tiltInputSource != NULL)
-        delete m_tiltInputSource;
-    m_tiltInputSource = new QLCInputSource(uni, (m_xypad->page() << 16) | ch);
+    m_tiltInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, (m_xypad->page() << 16) | ch));
     updateTiltInputSource();
-    delete tmpSource;
 }
 
 void VCXYPadProperties::updatePanInputSource()

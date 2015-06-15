@@ -209,6 +209,11 @@ void SpeedDial::tap()
     m_tap->click();
 }
 
+void SpeedDial::toggleInfinite()
+{
+    m_infiniteCheck->toggle();
+}
+
 void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
 {
     if (stopTime && m_tapTime != NULL)
@@ -489,6 +494,9 @@ void SpeedDial::slotTapClicked()
         if (m_tapTickTimer == NULL)
         {
             m_tapTickTimer = new QTimer();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            m_tapTickTimer->setTimerType(Qt::PreciseTimer);
+#endif
             connect(m_tapTickTimer, SIGNAL(timeout()),
                     this, SLOT(slotTapTimeout()));
         }

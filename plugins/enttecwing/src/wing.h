@@ -37,7 +37,7 @@
 #define WING_HEADER_OUTPUT "WODD"
 #define WING_HEADER_INPUT  "WIDD"
 #define WING_PAGE_MIN      0
-#define WING_PAGE_MAX      99
+#define WING_PAGE_MAX      98
 
 /****************************************************************************
  * Status data common to all wings
@@ -172,7 +172,8 @@ public:
     void previousPage();
     uchar page() const;
 
-private:
+protected:
+    //TODO: add a method, which is reimpl for playbackwing and "empty" for the rest
     uchar m_page;
 
     /********************************************************************
@@ -234,6 +235,7 @@ signals:
 
 protected:
     QByteArray m_values;
+
 };
 
 #endif

@@ -440,6 +440,34 @@ EOF
 EOF
     end
   end
+
+  def shutter(filename = 'index.html')
+    File.open(filename, 'w') do |f|
+      @fixtures.sort_by {|f| f.path.downcase }.each do |fix|
+        shutter_channels = fix.channels.select {|ch| ch.group.name == "Shutter" && ch.group.byte == 0 }
+        next if shutter_channels.empty?
+
+        f << <<-EOF
+=== #{fix.manufacturer} #{fix.model}
+#{fix.type}
+
+EOF
+        shutter_channels.each do |ch|
+          f << "-- #{ch.name}\n"
+          ch.capabilities.each do |cap|
+            shutter = "open"
+            if cap.name =~ /close|blackout|off/i
+              shutter = "closed"
+            elsif cap.name =~ /strob|pulse/i
+              shutter = "strobe"
+            end
+          
+            f << "#{cap.min} - #{cap.max} #{shutter} #{cap.name}\n"
+          end
+        end
+      end
+    end
+  end
 end
 
 # LibXML::XML::Error.set_handler(&LibXML::XML::Error::VERBOSE_HANDLER)
@@ -455,4 +483,5 @@ puts "Total fixtures: #{fm.fixtures.size}"
 
 if ARGV.size > 0
   fm.make_overview(ARGV[0])
+  # fm.shutter(ARGV[0])
 end

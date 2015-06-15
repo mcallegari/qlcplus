@@ -393,7 +393,7 @@ public:
      * @param source The input source to set
      * @param id The id of the source (default: 0)
      */
-    void setInputSource(QLCInputSource *source, quint8 id = 0);
+    void setInputSource(QSharedPointer<QLCInputSource> const& source, quint8 id = 0);
 
     /**
      * Get an assigned external input source. Without parameters the
@@ -401,7 +401,7 @@ public:
      *
      * @param id The id of the source to get
      */
-    QLCInputSource *inputSource(quint8 id = 0) const;
+    QSharedPointer<QLCInputSource> inputSource(quint8 id = 0) const;
 
     /**
      * When cloning a widget on a multipage frame, this function
@@ -444,7 +444,7 @@ protected slots:
     virtual void slotInputProfileChanged(quint32 universe, const QString& profileName);
 
 protected:
-    QHash <quint8, QLCInputSource*> m_inputs;
+    QHash <quint8, QSharedPointer<QLCInputSource> > m_inputs;
 
     /*********************************************************************
      * Key sequence handler
@@ -494,6 +494,8 @@ protected:
     /** Save input source from $uni and $ch to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
                       const QLCInputSource *src) const;
+    bool saveXMLInput(QDomDocument* doc, QDomElement* root,
+                      QSharedPointer<QLCInputSource> const& src) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.

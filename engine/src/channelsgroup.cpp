@@ -39,7 +39,6 @@ ChannelsGroup::ChannelsGroup(Doc* doc)
     : QObject(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
-    , m_input(NULL)
 {
     setName(tr("New Group"));
     m_doc = doc;
@@ -60,9 +59,6 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
 ChannelsGroup::~ChannelsGroup()
 {
     m_channels.clear();
-    if (m_input != NULL && m_input->isValid() == true)
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
 /****************************************************************************
@@ -174,16 +170,21 @@ QString ChannelsGroup::status(Doc *doc) const
 /*********************************************************************
  * External input
  *********************************************************************/
-void ChannelsGroup::setInputSource(QLCInputSource *source)
+void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
 {
+    if (!m_input.isNull() && m_input->isValid())
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+
     m_input = source;
+
     // Connect when the first valid input source is set
-    if (source != NULL && source->isValid() == true)
+    if (!source.isNull() && source->isValid())
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
-QLCInputSource *ChannelsGroup::inputSource() const
+QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const
 {
     return m_input;
 }
@@ -251,7 +252,7 @@ bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     tag.setAttribute(KXMLQLCChannelsGroupID, this->id());
     tag.setAttribute(KXMLQLCChannelsGroupName, this->name());
     tag.setAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
-    if (m_input != NULL && m_input->isValid() == true)
+    if (!m_input.isNull() && m_input->isValid())
     {
         tag.setAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
         tag.setAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
@@ -307,7 +308,7 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
     {
         quint32 uni = root.attribute(KXMLQLCChannelsGroupInputUniverse).toInt();
         quint32 ch = root.attribute(KXMLQLCChannelsGroupInputChannel).toInt();
-        setInputSource(new QLCInputSource(uni, ch));
+        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
     }
 
     return true;

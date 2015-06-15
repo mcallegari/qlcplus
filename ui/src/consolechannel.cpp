@@ -68,6 +68,14 @@ ConsoleChannel::~ConsoleChannel()
 {
 }
 
+void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
+{
+    if(isVisible())
+        QGroupBox::setStyleSheet(styleSheet);
+    else
+        m_styleSheet = styleSheet;
+}
+
 void ConsoleChannel::init()
 {
     Fixture* fxi = m_doc->fixture(m_fixture);
@@ -120,7 +128,8 @@ void ConsoleChannel::init()
 
     m_slider->setMinimumWidth(25);
     m_slider->setMaximumWidth(40);
-    m_slider->setStyleSheet(
+    m_slider->setVisible(false);
+    m_slider->setSliderStyleSheet(
         "QSlider::groove:vertical { background: transparent; width: 32px; } "
 
         "QSlider::handle:vertical { "
@@ -169,6 +178,16 @@ void ConsoleChannel::init()
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotChecked(bool)));
+}
+
+void ConsoleChannel::showEvent(QShowEvent *)
+{
+    if (m_styleSheet.isEmpty() == false)
+    {
+        setChannelStyleSheet(m_styleSheet);
+        m_slider->setVisible(true);
+        m_styleSheet = "";
+    }
 }
 
 /*****************************************************************************
@@ -583,7 +602,7 @@ void ConsoleChannel::slotControlClicked()
     qDebug() << "CONTROL modifier + click";
     if (m_selected == false)
     {
-        m_originalStyle = this->styleSheet();
+        m_originalStyle = styleSheet();
         int topMargin = isCheckable()?16:1;
 
         QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
@@ -593,12 +612,12 @@ void ConsoleChannel::slotControlClicked()
         QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); "
                                  "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
                                  (isCheckable()?common:"")).arg(topMargin);
-        setStyleSheet(ssSelected);
+        setChannelStyleSheet(ssSelected);
         m_selected = true;
     }
     else
     {
-        this->setStyleSheet(m_originalStyle);
+        setChannelStyleSheet(m_originalStyle);
         m_selected = false;
     }
 }

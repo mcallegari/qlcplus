@@ -61,6 +61,8 @@ protected slots:
     void slotIntensitySliderMoved(int value);
     void slotIntensityEdited(const QString& text);
 
+    void slotFadeOutTextEdited();
+
     void accept();
 
 protected:
@@ -72,7 +74,7 @@ protected:
 
     QKeySequence m_keySequence;
     quint32 m_function;
-    QLCInputSource *m_inputSource;
+    QSharedPointer<QLCInputSource> m_inputSource;
 
     /************************************************************************
      * Speed dial

@@ -15,7 +15,6 @@
  </Channel>
  <Channel Name="Brightness">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">Brightness (0-100%)</Capability>
  </Channel>
  <Mode Name="2-Channel Mode">

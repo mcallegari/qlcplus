@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1997,7 +1997,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotación del Punto de Inicio del Patrón</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -7474,17 +7474,17 @@ Duración: %3
     <message>
         <location filename="videoeditor.ui" line="262"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de reproducción</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="268"/>
         <source>Single shot</source>
-        <translation type="unfinished">Una sola vez</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="278"/>
         <source>Loop</source>
-        <translation type="unfinished">Loop</translation>
+        <translation>Loop</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="130"/>

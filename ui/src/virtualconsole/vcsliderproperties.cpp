@@ -268,9 +268,7 @@ void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCSliderProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    if (m_inputSource != NULL)
-        delete m_inputSource;
-    m_inputSource = new QLCInputSource(universe, (m_slider->page() << 16) | channel);
+    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_slider->page() << 16) | channel));
     updateInputSource();
 }
 
@@ -279,9 +277,7 @@ void VCSliderProperties::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_inputSource != NULL)
-            delete m_inputSource;
-        m_inputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSource();
     }
 }
@@ -706,6 +702,7 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
     fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio | Function::RGBMatrix
+                 | Function::Collection
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                  | Function::Video
 #endif

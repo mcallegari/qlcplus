@@ -115,7 +115,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     m_volumeSlider = new ClickAndGoSlider();
     m_volumeSlider->setOrientation(Qt::Vertical);
     m_volumeSlider->setRange(0, 100);
-    m_volumeSlider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_volumeSlider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_volumeSlider->setValue(100);
     m_volumeSlider->setFixedWidth(32);
     m_volumeSlider->setEnabled(false);

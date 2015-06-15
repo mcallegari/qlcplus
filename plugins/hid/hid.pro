@@ -17,15 +17,16 @@ HEADERS += configurehid.h \
            hiddevice.h \
            hidplugin.h \
            hidjsdevice.h \
-           hidfx5device.h
+           hiddmxdevice.h
 
 FORMS += configurehid.ui
 
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += configurehid.cpp \
            hiddevice.cpp \
            hidplugin.cpp \
            hidjsdevice.cpp \
-           hidfx5device.cpp
+           hiddmxdevice.cpp
 
 unix:!macx:SOURCES += linux/hidapi.cpp
 win32:SOURCES += win32/hidapi.cpp

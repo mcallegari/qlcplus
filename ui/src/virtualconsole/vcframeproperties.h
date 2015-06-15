@@ -70,7 +70,7 @@ protected:
 
 protected:
     QKeySequence m_enableKeySequence;
-    QLCInputSource *m_enableInputSource;
+    QSharedPointer<QLCInputSource> m_enableInputSource;
 
     /************************************************************************
      * Next page
@@ -87,7 +87,7 @@ protected:
 
 protected:
     QKeySequence m_nextKeySequence;
-    QLCInputSource *m_nextInputSource;
+    QSharedPointer<QLCInputSource> m_nextInputSource;
 
     /************************************************************************
      * Previous page
@@ -104,7 +104,7 @@ protected:
 
 protected:
     QKeySequence m_previousKeySequence;
-    QLCInputSource *m_previousInputSource;
+    QSharedPointer<QLCInputSource> m_previousInputSource;
 
 public slots:
     void accept();

@@ -126,6 +126,8 @@ void VCFrame::setLiveEdit(bool liveEdit)
     if (!m_disableState)
         enableWidgetUI(!m_liveEdit);
 
+    updateSubmasterValue();
+
     unsetCursor();
     update();
 }
@@ -444,6 +446,7 @@ void VCFrame::slotPreviousPage()
         slotSetPage(m_totalPagesNumber - 1);
     else
         slotSetPage(m_currentPage - 1);
+    sendFeedback(m_currentPage, previousPageInputSourceId);
 }
 
 void VCFrame::slotNextPage()
@@ -452,6 +455,8 @@ void VCFrame::slotNextPage()
         slotSetPage(0);
     else
         slotSetPage(m_currentPage + 1);
+
+    sendFeedback(m_currentPage, nextPageInputSourceId);
 }
 
 void VCFrame::slotSetPage(int pageNum)
@@ -492,6 +497,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
     {
         if (isDisabled())
             slotEnableButtonClicked(false);
+        updateSubmasterValue();
     }
 
     VCWidget::slotModeChanged(mode);
@@ -511,6 +517,21 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
         VCWidget* child = it.next();
         if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
+    }
+}
+
+void VCFrame::updateSubmasterValue()
+{
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child->type() == SliderWidget)
+        {
+            VCSlider* slider = reinterpret_cast<VCSlider*>(child);
+            if (slider->sliderMode() == VCSlider::Submaster)
+                slider->emitSubmasterValue();
+        }
     }
 }
 
@@ -819,7 +840,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), enableInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), enableInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -843,7 +864,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), nextPageInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), nextPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -867,7 +888,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), previousPageInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), previousPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {

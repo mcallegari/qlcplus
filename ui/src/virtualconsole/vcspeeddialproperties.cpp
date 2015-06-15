@@ -75,6 +75,13 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tapKeySequence = QKeySequence(dial->keySequence());
     m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
 
+    /* Infinite input */
+    m_infiniteInputSource = m_dial->inputSource(VCSpeedDial::infiniteInputSourceId);
+
+    /* Infinite key sequence */
+    m_infiniteKeySequence = QKeySequence(dial->infiniteKeySequence());
+    m_infiniteKeyEdit->setText(m_infiniteKeySequence.toString(QKeySequence::NativeText));
+
     updateInputSources();
 
     ushort dialMask = m_dial->visibilityMask();
@@ -87,12 +94,10 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     if (dialMask & SpeedDial::Milliseconds) m_msCheck->setChecked(true);
     if (dialMask & SpeedDial::Infinite) m_infiniteCheck->setChecked(true);
 
-    connect(m_autoDetectAbsoluteInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectAbsoluteInputSourceToggled(bool)));
-    connect(m_autoDetectTapInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectTapInputSourceToggled(bool)));
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
+    connect(m_attachInfiniteKey, SIGNAL(clicked()), this, SLOT(slotAttachInfiniteKey()));
+    connect(m_detachInfiniteKey, SIGNAL(clicked()), this, SLOT(slotDetachInfiniteKey()));
 }
 
 VCSpeedDialProperties::~VCSpeedDialProperties()
@@ -114,6 +119,9 @@ void VCSpeedDialProperties::accept()
     m_dial->setInputSource(m_tapInputSource, VCSpeedDial::tapInputSourceId);
 
     m_dial->setKeySequence(m_tapKeySequence);
+
+    m_dial->setInputSource(m_infiniteInputSource, VCSpeedDial::infiniteInputSourceId);
+    m_dial->setInfiniteKeySequence(m_infiniteKeySequence);
 
     ushort dialMask = 0;
     if (m_pmCheck->isChecked()) dialMask |= SpeedDial::PlusMinus;
@@ -225,21 +233,32 @@ void VCSpeedDialProperties::updateInputSources()
     }
     m_tapInputUniverseEdit->setText(uniName);
     m_tapInputChannelEdit->setText(chName);
+
+    // Infinite
+    if (m_doc->inputOutputMap()->inputSourceNames(m_infiniteInputSource, uniName, chName) == false)
+    {
+        uniName = KInputNone;
+        chName = KInputNone;
+    }
+    m_infiniteInputUniverseEdit->setText(uniName);
+    m_infiniteInputChannelEdit->setText(chName);
 }
 
 void VCSpeedDialProperties::slotAbsoluteInputValueChanged(quint32 universe, quint32 channel)
 {
-    if (m_absoluteInputSource != NULL)
-        delete m_absoluteInputSource;
-    m_absoluteInputSource = new QLCInputSource(universe, (m_dial->page() << 16) | channel);
+    m_absoluteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
     updateInputSources();
 }
 
 void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 channel)
 {
-    if (m_tapInputSource != NULL)
-        delete m_tapInputSource;
-    m_tapInputSource = new QLCInputSource(universe, (m_dial->page() << 16) | channel);
+    m_tapInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
+    updateInputSources();
+}
+
+void VCSpeedDialProperties::slotInfiniteInputValueChanged(quint32 universe, quint32 channel)
+{
+    m_infiniteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
     updateInputSources();
 }
 
@@ -262,9 +281,7 @@ void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_absoluteInputSource != NULL)
-            delete m_absoluteInputSource;
-        m_absoluteInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_absoluteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSources();
     }
 }
@@ -288,9 +305,31 @@ void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_tapInputSource != NULL)
-            delete m_tapInputSource;
-        m_tapInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_tapInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
+        updateInputSources();
+    }
+}
+
+void VCSpeedDialProperties::slotAutoDetectInfiniteInputSourceToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInfiniteInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotInfiniteInputValueChanged(quint32,quint32)));
+    }
+}
+
+void VCSpeedDialProperties::slotChooseInfiniteInputSourceClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        m_infiniteInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSources();
     }
 }
@@ -309,4 +348,20 @@ void VCSpeedDialProperties::slotDetachKey()
 {
     m_tapKeySequence = QKeySequence();
     m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
+}
+
+void VCSpeedDialProperties::slotAttachInfiniteKey()
+{
+    AssignHotKey ahk(this, m_infiniteKeySequence);
+    if (ahk.exec() == QDialog::Accepted)
+    {
+        m_infiniteKeySequence = QKeySequence(ahk.keySequence());
+        m_infiniteKeyEdit->setText(m_infiniteKeySequence.toString(QKeySequence::NativeText));
+    }
+}
+
+void VCSpeedDialProperties::slotDetachInfiniteKey()
+{
+    m_infiniteKeySequence = QKeySequence();
+    m_infiniteKeyEdit->setText(m_infiniteKeySequence.toString(QKeySequence::NativeText));
 }

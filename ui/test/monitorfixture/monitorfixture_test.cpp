@@ -83,7 +83,7 @@ void MonitorFixture_Test::fixture()
         QCOMPARE(mof.m_channelLabels[i]->text(), QString());
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
-        QCOMPARE(mof.m_valueLabels[i]->text(), QString());
+        QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
     }
 }
 
@@ -206,14 +206,14 @@ void MonitorFixture_Test::updateValues()
     m_doc->addFixture(fxi);
     QVERIFY(fxi->id() != Fixture::invalidId());
 
+    QByteArray ba(6, 0);
+    for (int i = 0; i < 6; i++)
+        ba[i] = 127 + i;
+    fxi->setChannelValues(ba);
+
     MonitorFixture mof(&w, m_doc);
     mof.setFixture(fxi->id());
 
-    QByteArray ba(10, 0);
-    for (int i = 0; i < 10; i++)
-        ba[i] = 127 + i;
-
-    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
@@ -221,7 +221,6 @@ void MonitorFixture_Test::updateValues()
     }
 
     mof.slotValueStyleChanged(MonitorProperties::PercentageValues);
-    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;

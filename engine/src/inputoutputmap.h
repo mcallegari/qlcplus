@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QDir>
+#include <QSharedPointer>
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
@@ -58,7 +59,7 @@ public:
      * @param doc The QLC+ project reference
      * @param universes Number of universes
      */
-    InputOutputMap(Doc* doc, quint32 universes);
+    InputOutputMap(Doc* doc, quint32 universesCount);
 
     /**
      * Destroy a InputOutputMap object
@@ -204,9 +205,14 @@ public:
     bool isUniversePatched(int index);
 
     /**
-     * Retrieve the number of universe in the output map
+     * Retrieve the number of universes in the input/output map
      */
-    quint32 universes() const;
+    quint32 universesCount() const;
+
+    /**
+     * Retrieve the list of references of the Universe in the input/output map
+     */
+    QList<Universe *>universes() const;
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -236,7 +242,7 @@ public:
 signals:
     void universeAdded(quint32 id);
     void universeRemoved(quint32 id);
-    void universesWritten(int index, const QByteArray& universes);
+    void universesWritten(int index, const QByteArray& universesCount);
 
 private:
     /** Keep track of the lastest asigned universe ID */
@@ -501,6 +507,8 @@ public:
      * @return true if uniName & chName contain something, otherwise false
      */
     bool inputSourceNames(const QLCInputSource *src,
+                          QString& uniName, QString& chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src,
                           QString& uniName, QString& chName) const;
 
     /**

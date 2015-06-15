@@ -35,7 +35,10 @@
 ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     QWidget(parent)
 {
-    setAttribute(Qt::WA_StaticContents);
+    // This makes the application crash when a clickAndGoWidget
+    // is created in a QDialog.
+    //    setAttribute(Qt::WA_StaticContents);
+
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setMouseTracking(true);
 

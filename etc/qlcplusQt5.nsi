@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.8.5.exe"
+OutFile "QLC+_4.9.0-GIT.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -76,35 +76,9 @@ Section
 SectionEnd
 
 Section
-	File mingwm10.dll
-	File libgcc_s_dw2-1.dll
-	File libmad-0.dll
-	File libogg-0.dll
-	File libFLAC-8.dll
-	File libvorbis-0.dll
-	File libvorbisenc-2.dll
-	File libsndfile-1.dll
-	File libfftw3-3.dll
-	File libstdc++-6.dll
-	File libwinpthread-1.dll
-	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
-	File qlcplusengine.dll
-	File qlcplusui.dll
-	File qlcpluswebaccess.dll
-	File Qt5Core.dll
-	File Qt5Gui.dll
-	File Qt5OpenGL.dll
-	File Qt5Xml.dll
-	File Qt5Network.dll
-	File Qt5Script.dll
-	File Qt5Widgets.dll
-	File Qt5Multimedia.dll
-	File Qt5MultimediaWidgets.dll
-	File icudt52.dll
-	File icuin52.dll
-	File icuuc52.dll
+	File *.dll
 	File /r platforms
 	File /r mediaservice
 	File /r audio
@@ -144,33 +118,7 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus.exe
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
-	Delete $INSTDIR\qlcplusengine.dll
-	Delete $INSTDIR\qlcplusui.dll
-	Delete $INSTDIR\qlcpluswebaccess.dll
-	Delete $INSTDIR\mingwm10.dll
-	Delete $INSTDIR\libgcc_s_dw2-1.dll
-	Delete $INSTDIR\libmad-0.dll
-	Delete $INSTDIR\libogg-0.dll
-	Delete $INSTDIR\libFLAC-8.dll
-	Delete $INSTDIR\libvorbis-0.dll
-	Delete $INSTDIR\libvorbisenc-2.dll
-	Delete $INSTDIR\libsndfile-1.dll
-	Delete $INSTDIR\libfftw3-3.dll
-	Delete $INSTDIR\libstdc++-6.dll
-	Delete $INSTDIR\libwinpthread-1.dll
-	Delete $INSTDIR\pthreadGC2.dll
-	Delete $INSTDIR\Qt5Core.dll
-	Delete $INSTDIR\Qt5Gui.dll
-	Delete $INSTDIR\Qt5OpenGL.dll
-	Delete $INSTDIR\Qt5Xml.dll
-	Delete $INSTDIR\Qt5Network.dll
-	Delete $INSTDIR\Qt5Script.dll
-	Delete $INSTDIR\Qt5Widgets.dll
-	Delete $INSTDIR\Qt5Multimedia.dll
-	Delete $INSTDIR\Qt5MultimediaWidgets.dll
-	Delete $INSTDIR\icudt52.dll
-	Delete $INSTDIR\icuin52.dll
-	Delete $INSTDIR\icuuc52.dll
+	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\audio

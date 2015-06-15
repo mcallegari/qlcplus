@@ -50,7 +50,18 @@ void FunctionsTreeWidget::updateTree()
 
     clearTree();
 
+    // these need their parent scene to be loaded first
+    QList<Function*> sequences;
+
     foreach (Function* function, m_doc->functions())
+    {
+        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
+            sequences.append(function);
+        else
+            updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
+    }
+
+    foreach (Function* function, sequences)
         updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
 
     blockSignals(false);
@@ -157,7 +168,6 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         //qDebug() << "Found item for function:" << function->name() << ", path: " << function->path();
         return pItem;
     }
-
 
     return NULL;
 }

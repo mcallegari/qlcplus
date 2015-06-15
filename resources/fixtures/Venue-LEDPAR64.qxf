@@ -72,7 +72,7 @@
   <Capability Min="96" Max="127">Fade In/Out</Capability>
   <Capability Min="128" Max="159">Color Fade Cycle</Capability>
   <Capability Min="160" Max="191">RGB Cycle (Instant Switch)</Capability>
-  <Capability Min="192" Max="223">Color Cycle (Instant Swtich)</Capability>
+  <Capability Min="192" Max="223">Color Cycle (Instant Switch)</Capability>
   <Capability Min="224" Max="255">Sound Active Color Cycle (Instant)</Capability>
  </Channel>
  <Mode Name="Venue LED PAR64">

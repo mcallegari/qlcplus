@@ -20,6 +20,7 @@
 #ifndef QLCFIXTUREMODE_H
 #define QLCFIXTUREMODE_H
 
+#include <QVector>
 #include <QString>
 #include <QList>
 

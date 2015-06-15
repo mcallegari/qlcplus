@@ -21,6 +21,7 @@
 #define INPUTPATCH_H
 
 #include <QObject>
+#include <QMap>
 
 #include "qlcinputprofile.h"
 
@@ -53,16 +54,21 @@ class InputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(InputPatch)
 
+    Q_PROPERTY(QString inputName READ inputName NOTIFY inputNameChanged)
+    Q_PROPERTY(QString pluginName READ pluginName NOTIFY pluginNameChanged)
+    Q_PROPERTY(QString profileName READ profileName NOTIFY profileNameChanged)
+
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
+    InputPatch(QObject* parent = 0);
     InputPatch(quint32 inputUniverse, QObject* parent);
     virtual ~InputPatch();
 
 private:
-    /** The input universe that this patch is attached to */
-    const quint32 m_inputUniverse;
+    /** The universe that this Input patch is attached to */
+    const quint32 m_universe;
 
     /************************************************************************
      * Properties
@@ -101,17 +107,30 @@ public:
     /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 
+    /** Set a parameter specific to the patched plugin */
+    void setPluginParameter(QString prop, QVariant value);
+
+    /** Retrieve the map of custom parameters set to the patched plugin */
+    QMap<QString, QVariant> getPluginParameters();
+
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel,
                            uchar value, const QString& key = 0);
+
+    void inputNameChanged();
+    void pluginNameChanged();
+    void profileNameChanged();
 
 private slots:
     void slotValueChanged(quint32 universe, quint32 input,
                           quint32 channel, uchar value, const QString& key = 0);
 
 private:
+    /** The reference of the plugin associated by this Input patch */
     QLCIOPlugin* m_plugin;
-    quint32 m_input;
+    /** The plugin line open by this Input patch */
+    quint32 m_pluginLine;
+    /** The reference of an input profile if activated by the user (otherwise NULL) */
     QLCInputProfile* m_profile;
 
     /************************************************************************

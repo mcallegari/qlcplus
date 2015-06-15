@@ -21,6 +21,7 @@
 #define FIXTURE_H
 
 #include <QObject>
+#include <QMutex>
 #include <QList>
 #include <QIcon>
 #include <QHash>
@@ -65,12 +66,18 @@ class Fixture : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)
 
+    Q_PROPERTY(quint32 id READ id WRITE setID NOTIFY changed)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY changed)
+    Q_PROPERTY(quint32 universe READ universe WRITE setUniverse NOTIFY changed)
+    Q_PROPERTY(quint32 address READ address WRITE setAddress NOTIFY changed)
+    Q_PROPERTY(quint32 channels READ channels WRITE setChannels NOTIFY changed)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent);
+    Fixture(QObject* parent = 0);
 
     /** Destructor */
     ~Fixture();
@@ -339,6 +346,27 @@ protected:
     QHash<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
+     * Channel values
+     *********************************************************************/
+public:
+    /** Store DMX values for this fixture. If values have changed,
+     * it returns true, otherwise false */
+    bool setChannelValues(QByteArray values);
+
+    /** Return the current DMX values of this fixture */
+    QByteArray channelValues();
+
+    /** Retrieve the DMX value of the given channel index */
+    uchar channelValueAt(int idx);
+
+signals:
+    void valuesChanged();
+
+protected:
+    QByteArray m_values;
+    QMutex m_valuesMutex;
+
+    /*********************************************************************
      * Fixture definition
      *********************************************************************/
 public:
@@ -401,11 +429,19 @@ protected:
      * Generic RGB panel
      *********************************************************************/
 public:
+    enum Components {
+        RGB = 0,
+        BGR,
+        RGBW,
+        RGBWW
+    };
+
+public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

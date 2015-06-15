@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.8.5 GIT</Version>
   <Author>Mitsch</Author>
  </Creator>
- <Manufacturer>IMG Stage Line</Manufacturer>
- <Model>PARL-4SET</Model>
+ <Manufacturer>Img Stage Line</Manufacturer>
+ <Model>Parl 4-SET</Model>
  <Type>Color Changer</Type>
  <Channel Name="spotlight S 1: red">
   <Group Byte="0">Intensity</Group>
@@ -110,10 +110,10 @@
  </Channel>
  <Mode Name="16-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="1060" Depth="90" Weight="9.2" Height="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="110"/>
   </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
@@ -139,10 +139,10 @@
    <Channel>2</Channel>
   </Head>
   <Head>
+   <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
-   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
@@ -159,10 +159,10 @@
  </Mode>
  <Mode Name="13-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="1060" Depth="90" Weight="9.2" Height="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="110"/>
   </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
@@ -184,14 +184,14 @@
    <Channel>2</Channel>
   </Head>
   <Head>
+   <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>3</Channel>
-   <Channel>5</Channel>
   </Head>
   <Head>
+   <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
-   <Channel>8</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
@@ -201,10 +201,10 @@
  </Mode>
  <Mode Name="4-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="1060" Depth="90" Weight="9.2" Height="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="110"/>
   </Physical>
   <Channel Number="0">red</Channel>

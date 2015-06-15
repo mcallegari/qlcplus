@@ -22,19 +22,19 @@ win32 {
 }
 
 # Input
+HEADERS += ../../interfaces/qlcioplugin.h
 HEADERS += enttecwing.h \
            playbackwing.h \
            shortcutwing.h \
            programwing.h \
            wing.h
 
+SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += enttecwing.cpp \
            playbackwing.cpp \
            shortcutwing.cpp \
            programwing.cpp \
            wing.cpp
-
-HEADERS += ../../interfaces/qlcioplugin.h
 
 TRANSLATIONS += ENTTEC_Wing_fi_FI.ts
 TRANSLATIONS += ENTTEC_Wing_de_DE.ts
