@@ -26,8 +26,6 @@
 #include "hidjsdevice.h"
 #include "hidplugin.h"
 
-#define KPollTimeout 1000
-
 HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, struct hid_device_info *info)
     : HIDDevice(parent, line,
                 QString::fromWCharArray(info->manufacturer_string) + " " +

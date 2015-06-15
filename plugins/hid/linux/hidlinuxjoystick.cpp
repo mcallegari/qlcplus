@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QDebug>
+
 #include <linux/joystick.h>
 #include <linux/input.h>
 #include <errno.h>
@@ -25,6 +27,8 @@
 
 #include "hidlinuxjoystick.h"
 #include "hidplugin.h"
+
+#define KPollTimeout 1000
 
 HIDLinuxJoystick::HIDLinuxJoystick(HIDPlugin* parent, quint32 line, struct hid_device_info *info)
     : HIDJsDevice(parent, line, info)
