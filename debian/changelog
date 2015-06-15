@@ -28,6 +28,7 @@ qlcplus (4.9.0) stable; urgency=low
   * Plugins/E1.31: it is now possible to set the output IP, the E1.31 universe and the transmission mode (see documentation)
   * Plugins/E1.31: fixed input from a multicast address
   * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
+  * Plugins/HID: added support for Joysticks/Joypads on OSX
   * New fixture: Eurolite LED SLS-QCL (thanks to Kripton)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200

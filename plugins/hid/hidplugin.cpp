@@ -29,6 +29,14 @@
 #include "hidapi.h"
 #include "hidplugin.h"
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include "hidlinuxjoystick.h"
+#elif defined(WIN32) || defined (Q_OS_WIN)
+  #include "hidwindowsjoystick.h"
+#elif defined (__APPLE__) || defined(Q_OS_MACX)
+  #include "hidosxjoystick.h"
+#endif
+
 /*****************************************************************************
  * HID Initialization
  *****************************************************************************/
@@ -247,7 +255,7 @@ void HIDPlugin::rescanDevices()
 
     while (cur_dev)
     {
-        //qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
+        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
 
         HIDDevice* dev = device(QString(cur_dev->path));
         if (dev != NULL)
@@ -269,21 +277,22 @@ void HIDPlugin::rescanDevices()
                                    QString(cur_dev->path));
             addDevice(dev);
         }
-#if !defined (__APPLE__) && !defined(Q_OS_MACX)
-        else
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-            if (QString(cur_dev->path).contains("js"))
-#elif defined(WIN32) || defined (Q_OS_WIN)
-            if(HIDJsDevice::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
-#endif
+        else if (QString(cur_dev->path).contains("js"))
         {
-            dev = new HIDJsDevice(this, line++,
-                                  QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                  QString::fromWCharArray(cur_dev->product_string),
-                                  QString(cur_dev->path));
+            dev = new HIDLinuxJoystick(this, line++, cur_dev);
+#elif defined(WIN32) || defined (Q_OS_WIN)
+        else if(HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+        {
+            dev = new HIDWindowsJoystick(this, line++, cur_dev);
+#elif defined (__APPLE__) || defined(Q_OS_MACX)
+        else if(HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
+        {
+            dev = new HIDOSXJoystick(this, line++, cur_dev);
+#endif
             addDevice(dev);
         }
-#endif
+
         cur_dev = cur_dev->next;
     }
 
