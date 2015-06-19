@@ -18,7 +18,7 @@ qlcplus (4.9.0) stable; urgency=low
   * VC CueList: Activate Start/Stop button feedback (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
   * Chaser Editor: Fix erratic behavior when changing speed values (David Garyga)
-  * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
+  * Fixture Manager: RGB panels can now have RGB, BGR, BRG, GBR, GRB, or RGBW components
   * Engine: Overall improvement to reduce the CPU usage to detect and monitor universe changes
   * Engine: fixed DMX monitor misbehaviours
   * Engine: Fix RGBMatrix randomly starting with wrong direction (David Garyga)
