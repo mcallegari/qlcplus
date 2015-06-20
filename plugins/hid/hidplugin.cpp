@@ -32,7 +32,7 @@
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
   #include "hidlinuxjoystick.h"
 #elif defined(WIN32) || defined (Q_OS_WIN)
-  #include "hidwindowsjoystick.h"
+  #include "win32/hidwindowsjoystick.h"
 #elif defined (__APPLE__) || defined(Q_OS_MACX)
   #include "hidosxjoystick.h"
 #endif

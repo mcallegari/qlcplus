@@ -10,7 +10,6 @@ INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 
 unix:!macx:INCLUDEPATH += linux
-win32:INCLUDEPATH += win32
 macx:INCLUDEPATH += macx
 
 win32:LIBS += -lsetupapi -lwinmm

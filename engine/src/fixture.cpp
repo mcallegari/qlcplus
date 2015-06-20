@@ -671,6 +671,24 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
             def->addChannel(green);
             def->addChannel(red);
         }
+        else if (components == BRG)
+        {
+            def->addChannel(blue);
+            def->addChannel(red);
+            def->addChannel(green);
+        }
+        else if (components == GBR)
+        {
+            def->addChannel(green);
+            def->addChannel(blue);
+            def->addChannel(red);
+        }
+        else if (components == GRB)
+        {
+            def->addChannel(green);
+            def->addChannel(red);
+            def->addChannel(blue);
+        }
         else if (components == RGBW)
         {
             QLCChannel* white = new QLCChannel();
@@ -682,24 +700,6 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
             def->addChannel(green);
             def->addChannel(blue);
             def->addChannel(white);
-        }
-        else if (components == RGBWW)
-        {
-            QLCChannel* white = new QLCChannel();
-            white->setName(QString("Warm White %1").arg(i + 1));
-            white->setGroup(QLCChannel::Intensity);
-            white->setColour(QLCChannel::White);
-
-            QLCChannel* white2 = new QLCChannel();
-            white2->setName(QString("Cold White %1").arg(i + 1));
-            white2->setGroup(QLCChannel::Intensity);
-            white2->setColour(QLCChannel::White);
-
-            def->addChannel(red);
-            def->addChannel(green);
-            def->addChannel(blue);
-            def->addChannel(white);
-            def->addChannel(white2);
         }
         else
         {
@@ -718,18 +718,17 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
     QLCFixtureMode *mode = new QLCFixtureMode(def);
     int compNum = 3;
     if (components == BGR)
-    {
         mode->setName("BGR");
-    }
+    else if (components == BRG)
+        mode->setName("BRG");
+    else if (components == GBR)
+        mode->setName("GBR");
+    else if (components == GRB)
+        mode->setName("GRB");
     else if (components == RGBW)
     {
         mode->setName("RGBW");
         compNum = 4;
-    }
-    else if (components == RGBWW)
-    {
-        mode->setName("RGBWW");
-        compNum = 5;
     }
     else
         mode->setName("RGB");
@@ -747,11 +746,6 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
             head.addChannel(i+2);
             if (components == RGBW)
                 head.addChannel(i+3);
-            else if (components == RGBWW)
-            {
-                head.addChannel(i+3);
-                head.addChannel(i+4);
-            }
             mode->insertHead(-1, head);
         }
     }
@@ -973,20 +967,16 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     {
         Components components = RGB;
         int compNum = 3;
-        if (modeName == "BGR")
-        {
-            components = BGR;
-        }
+        if (modeName == "BGR") components = BGR;
+        else if (modeName == "BRG") components = BRG;
+        else if (modeName == "GBR") components = GBR;
+        else if (modeName == "GRB") components = GRB;
         else if (modeName == "RGBW")
         {
             components = RGBW;
             compNum = 4;
         }
-        else if (modeName == "RGBWW")
-        {
-            components = RGBWW;
-            compNum = 5;
-        }
+
         fixtureDef = genericRGBPanelDef(channels / compNum, components);
         fixtureMode = genericRGBPanelMode(fixtureDef, components, width, height);
     }

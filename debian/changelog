@@ -1,19 +1,24 @@
 qlcplus (4.9.0) stable; urgency=low
 
   * Function Manager: Fix sequences sometimes loaded in the chaser folder (David Garyga)
+  * RGBMatrix: Automatic "dimmer set to 100%" feature can be disabled (David Garyga)
   * Input Selection: Unpatched universes not considered as invalid anymore (David Garyga)
   * Input/Output tab: Fix Add Universe button adding wrong universe ID after loading a workspace (David Garyga)
   * Speed Dial & RGB Matrix & Chaser: improve tap precision (David Garyga)
   * Monitor: Fix various issues & crashes when loading a project while the Monitor is open (David Garyga)
   * Simple Desk: Fix deadlock when clicking the "Reset Universes" button (David Garyga)
+  * Fixture Selection: Disable heads non pan/tilt capable in EFX and XYPad editors (David Garyga)
+  * Function Live Edit: Fix crash when changing tab mode in Scene Editor (David Garyga)
   * VC Button: Allow to edit the fade out time of a stop-all-functions button with the text input (David Garyga)
   * VC Submaster: fix submaster level not taken into account right from project loading (David Garyga)
   * VC Submaster: fix chaser not taking submaster level into account (David Garyga)
   * VC Submaster: Cue Lists are now affected by Submaster faders (David Garyga)
   * VC SpeedDial: Fix copy (David Garyga)
   * VC SpeedDial: Allow linking the infinite checkbox to an external input (David Garyga)
+  * VC CueList: Activate Start/Stop button feedback (David Garyga)
   * Chaser Editor: Fix string-to-speed conversion (David Garyga)
-  * Fixture Manager: RGB panels can now have RGB, BGR or RGBW components
+  * Chaser Editor: Fix erratic behavior when changing speed values (David Garyga)
+  * Fixture Manager: RGB panels can now have RGB, BGR, BRG, GBR, GRB, or RGBW components
   * Engine: Overall improvement to reduce the CPU usage to detect and monitor universe changes
   * Engine: fixed DMX monitor misbehaviours
   * Engine: Fix RGBMatrix randomly starting with wrong direction (David Garyga)
@@ -21,7 +26,9 @@ qlcplus (4.9.0) stable; urgency=low
   * Engine: Fix functions contained in chaser or audiotrigger not stopped properly (David Garyga)
   * Engine: Fix collection not updating its running children intensity (David Garyga)
   * Engine: Fix random erratic channel behavior when flashing huge scenes (David Garyga)
+  * Engine: Fix EFX "jumps" when changing the speed of a running EFX (David Garyga)
   * Engine: fixed wrong behaviour of intensity channels forced back to HTP (Jano Svitok)
+  * Engine: Channel modifiers moved after the Grand Master to be the last part of the DMX values processing (Jano Svitok)
   * Plugins: plugins configuration is now saved into the project XML to give more more portability (applies to MIDI, OSC, ArtNet and E1.31)
   * Plugins/OSC: rewritten from scratch to support infinite inputs/outputs, the loopback device and the new parameters system
   * Plugins/ArtNet: it is now possible to set the output IP, the ArtNet universe and the trasnmission mode (see documentation)
@@ -29,6 +36,7 @@ qlcplus (4.9.0) stable; urgency=low
   * Plugins/E1.31: fixed input from a multicast address
   * Plugins/HID: added support for DMXControl Projects e.V. Nodle U1 (thanks to Stefan Krupop)
   * Plugins/HID: added support for Joysticks/Joypads on OSX
+  * Plugins/DMXUSB: fixed all the Windows freezes encountered before (Stageprofi, Enttec Pro input, etc..)
   * New fixture: Eurolite LED SLS-QCL (thanks to Kripton)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200
