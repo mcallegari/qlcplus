@@ -23,6 +23,7 @@
 #include "inputoutputobject.h"
 #include "audiorenderer_qt.h"
 #include "audiocapture_qt.h"
+#include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "universe.h"
@@ -124,11 +125,18 @@ QVariant InputOutputManager::universeInputSources(int universe)
 
     foreach(QString pluginName,  m_ioMap->inputPluginNames())
     {
-        //QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
         foreach(QString pLine, m_ioMap->pluginInputs(pluginName))
         {
-            if (pluginName != currPlugin || i != currLine)
+            if (pluginName == currPlugin && i == currLine)
+            {
+                i++;
+                continue;
+            }
+            quint32 uni = m_ioMap->inputMapping(pluginName, i);
+            if (uni == InputOutputMap::invalidUniverse() ||
+               (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                 m_inputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
             i++;
         }
@@ -151,11 +159,18 @@ QVariant InputOutputManager::universeOutputSources(int universe)
 
     foreach(QString pluginName,  m_ioMap->outputPluginNames())
     {
-        //QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
         foreach(QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
-            if (pluginName != currPlugin || i != currLine)
+            if (pluginName == currPlugin && i == currLine)
+            {
+                i++;
+                continue;
+            }
+            quint32 uni = m_ioMap->outputMapping(pluginName, i);
+            if (uni == InputOutputMap::invalidUniverse() ||
+               (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                 m_outputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
             i++;
         }
@@ -166,15 +181,29 @@ QVariant InputOutputManager::universeOutputSources(int universe)
 
 QVariant InputOutputManager::universeInputProfiles(int universe)
 {
+    int count = m_inputProfiles.count();
+    for (int i = 0; i < count; i++)
+    {
+        QObject *src = m_inputProfiles.takeLast();
+        delete src;
+    }
+    m_inputProfiles.clear();
+
     QStringList profileNames = m_doc->inputOutputMap()->profileNames();
+    profileNames.sort();
     QString currentProfile = KInputNone;
     if (m_ioMap->inputPatch(universe) != NULL)
         currentProfile = m_ioMap->inputPatch(universe)->profileName();
 
     foreach(QString name, profileNames)
     {
-        if (name != currentProfile)
-            m_inputProfiles.append(new InputOutputObject(0, name, name));
+        QLCInputProfile *ip = m_doc->inputOutputMap()->profile(name);
+        if (ip != NULL)
+        {
+            QString type = ip->typeToString(ip->type());
+            if (name != currentProfile)
+                m_inputProfiles.append(new InputOutputObject(universe, name, name, type));
+        }
     }
 
     return QVariant::fromValue(m_inputProfiles);
@@ -190,6 +219,11 @@ void InputOutputManager::addInputPatch(int universe, QString plugin, QString lin
     m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
 }
 
+void InputOutputManager::setInputProfile(int universe, QString profileName)
+{
+    m_doc->inputOutputMap()->setInputProfile(universe, profileName);
+}
+
 void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
 {
     if (m_selectedItem != NULL)
@@ -199,7 +233,7 @@ void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
     m_selectedItem = item;
     m_selectedUniverseIndex = index;
 
-    qDebug() << "Selected universe:" << index;
+    qDebug() << "[InputOutputManager] Selected universe:" << index;
 }
 
 

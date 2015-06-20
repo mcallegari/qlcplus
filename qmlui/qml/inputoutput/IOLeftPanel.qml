@@ -71,6 +71,7 @@ Rectangle {
             id: editorLoader
             anchors.fill: parent
             onLoaded: {
+                item.universeIndex = universeIndex
                 item.loadSources(true)
             }
         }
@@ -116,6 +117,28 @@ Rectangle {
                 onToggled: {
                     editorSource = "qrc:///PluginsList.qml"
                     animatePanel();
+                }
+            }
+
+            IconButton {
+                id: uniProfilesButton
+                z: 2
+                visible: showPluginsButton
+                width: collapseWidth - 4
+                height: collapseWidth - 4
+                imgSource: ""
+                checkable: true
+                tooltip: qsTr("Show the universe input profiles")
+                onToggled: {
+                    editorSource = "qrc:///ProfilesList.qml"
+                    animatePanel();
+                }
+
+                RobotoText {
+                    anchors.centerIn: parent
+                    label: "P"
+                    fontSize: 18
+                    fontBold: true
                 }
             }
         }

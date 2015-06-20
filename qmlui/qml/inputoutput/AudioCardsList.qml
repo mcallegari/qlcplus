@@ -47,6 +47,7 @@ Rectangle {
                 color: "transparent"
                 Row {
                     Image {
+                        id: pIcon
                         height: acDelegate.height - 4
                         width: height
                         x: 2
@@ -58,8 +59,9 @@ Rectangle {
 
                     RobotoText {
                         height: acDelegate.height
-                        width: acDelegate.width
+                        width: acDelegate.width - pIcon.width
                         label: modelData.name
+                        wrapText: true
                     }
                 }
                 Rectangle {

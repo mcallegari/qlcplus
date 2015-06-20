@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PluginsList.qml
+  ProfilesList.qml
 
   Copyright (c) Massimo Callegari
 
@@ -20,81 +20,63 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: pluginsContainer
+    id: profilesContainer
     anchors.fill: parent
     color: "transparent"
 
     property int universeIndex: 0
-    property bool isInput: false
+
+    onUniverseIndexChanged: {
+        profListView.model = ioManager.universeInputProfiles(universeIndex)
+    }
 
     function loadSources(input)
     {
-        if (input === true)
-        {
-            uniListView.model = ioManager.universeInputSources(universeIndex)
-            isInput = true
-        }
-        else
-        {
-            uniListView.model = ioManager.universeOutputSources(universeIndex)
-            isInput = false
-        }
+        profListView.model = ioManager.universeInputProfiles(universeIndex)
     }
 
     ListView {
-        id: uniListView
+        id: profListView
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         delegate:
             Item {
                 id: root
                 height: 60
-                width: pluginsContainer.width
+                width: profilesContainer.width
 
                 MouseArea {
                     id: delegateRoot
-                    width: pluginsContainer.width
+                    width: profilesContainer.width
                     height: 60
 
-                    drag.target: pluginItem
+                    drag.target: profileItem
                     drag.threshold: 30
 
-                    onPressed: pluginItem.color = "#444"
+                    onPressed: profileItem.color = "#444"
                     onReleased: {
-                        pluginItem.x = 3
-                        pluginItem.y = 0
+                        profileItem.x = 3
+                        profileItem.y = 0
 
-                        if (pluginItem.Drag.target !== null)
+                        if (profileItem.Drag.target !== null)
                         {
-                            if (pluginsContainer.isInput === false)
-                            {
-                                ioManager.addOutputPatch(
-                                        pluginItem.pluginUniverse, pluginItem.pluginName,
-                                        pluginItem.pluginLine)
-                                uniListView.model = ioManager.universeOutputSources(universeIndex)
-                            }
-                            else
-                            {
-                                ioManager.addInputPatch(pluginItem.pluginUniverse, pluginItem.pluginName,
-                                                        pluginItem.pluginLine)
-                                uniListView.model = ioManager.universeInputSources(universeIndex)
-                            }
+                            ioManager.setInputProfile(profileItem.pluginUniverse, profileItem.lineName)
+                            profListView.model = ioManager.universeInputProfiles(universeIndex)
                         }
                         else
                         {
                             // return the dragged item to its original position
                             parent = root
-                            pluginItem.color = "transparent"
+                            profileItem.color = "transparent"
                         }
                     }
 
                     PluginDragItem {
-                        id: pluginItem
+                        id: profileItem
                         x: 3
 
                         // this key must match the one in UniverseIOItem, to avoid dragging
-                        // an input plugin on output and vice-versa
-                        property string dragKey: isInput ? "input-" + universeIndex : "output-" + universeIndex
+                        // an input profile in the wrong place
 
                         pluginUniverse: modelData.universe
                         pluginName: modelData.plugin
@@ -105,7 +87,7 @@ Rectangle {
                         Drag.source: delegateRoot
                         Drag.hotSpot.x: width / 2
                         Drag.hotSpot.y: height / 2
-                        Drag.keys: [ dragKey ]
+                        Drag.keys: [ "profile-" + universeIndex ]
 
                         // line divider
                         Rectangle {
@@ -119,4 +101,3 @@ Rectangle {
             } // Item
     } // ListView
 }
-

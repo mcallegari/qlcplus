@@ -400,6 +400,22 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     return true;
 }
 
+bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileName)
+{
+    /* Check that the universe that we're doing mapping for is valid */
+    if (universe >= universesCount())
+    {
+        qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
+        return false;
+    }
+
+    InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
+    if (currInPatch == NULL)
+        return false;
+
+    return currInPatch->set(profile(profileName));
+}
+
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
                                     quint32 output, bool isFeedback)
 {

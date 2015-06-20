@@ -317,6 +317,16 @@ public:
                        quint32 input, const QString& profileName = QString());
 
     /**
+     * Set an input profile to the given universe. If the universe doesn't
+     * have an input patch, this method returns false
+     *
+     * @param universe The universe to patch
+     * @param profileName the name of the input profile to set
+     * @return true if successful, otherwise false
+     */
+    bool setInputProfile(quint32 universe, const QString& profileName);
+
+    /**
      * Patch the given universe to go through the given output plugin
      *
      * @param universe The universe to patch

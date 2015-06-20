@@ -24,7 +24,7 @@ import "PluginUtils.js" as PluginUtils
 
 Rectangle {
     width: parent.width
-    height: 80
+    height: profileBox.visible ? 110 : 80
     color: "transparent"
 
     property int universeID
@@ -32,8 +32,10 @@ Rectangle {
 
     Rectangle {
         id: patchBox
-        width: parent.width
-        height: parent.height
+        width: profileBox.visible ? parent.width - 10 : parent.width
+        height: 80
+        y: profileBox.visible ? 25 : 0
+        x: profileBox.visible ? 5 : 0
         z: 1
         radius: 3
         gradient: Gradient {
@@ -43,6 +45,33 @@ Rectangle {
         }
         border.width: 2
         border.color: "#111"
+
+        Rectangle {
+            id: valueChangeBox
+            x: parent.width - 30
+            y: 10
+            z: 1
+            width: 20
+            height: 20
+            radius: 10
+            border.width: 2
+            border.color: "#333"
+            color: "#666"
+
+            ColorAnimation on color {
+                id: cAnim
+                from: "#00FF00"
+                to: "#666"
+                duration: 500
+                running: false
+            }
+
+            Connections {
+                id: valChangedSignal
+                target: patch
+                onInputValueChanged: cAnim.restart()
+            }
+        }
 
         Row {
             x: 8
@@ -63,6 +92,27 @@ Rectangle {
                 labelColor: "black"
                 wrapText: true
             }
+        }
+    }
+    Rectangle {
+        id: profileBox
+        width: parent.width
+        height: patchBox.height + 30
+        visible: patch.profileName === "None" ? false : true
+
+        border.width: 2
+        border.color: "#222"
+        color: "#269ABA"
+        radius: 10
+
+        RobotoText {
+            x: 10
+            y: 3
+            height: 20
+            width: parent.width - 20
+            label: patch.profileName
+            labelColor: "black"
+            //wrapText: true
         }
     }
 }

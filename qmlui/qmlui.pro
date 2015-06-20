@@ -19,6 +19,9 @@ QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
 win32:QMAKE_LFLAGS += -shared
 
+# Plugins
+INCLUDEPATH     += ../plugins/interfaces
+
 HEADERS += \
     app.h \
     contextmanager.h \

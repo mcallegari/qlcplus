@@ -68,6 +68,29 @@ Rectangle {
 
                 universeID: universe.id
                 patch: universe ? universe.inputPatch : null
+
+                DropArea {
+                    id: profDropTarget
+                    z: 2
+                    width: inWireBox.width * 3
+                    height: 80
+                    keys: [ universe ? "profile-" + universe.id : "" ]
+
+                    Rectangle {
+                        id: profDropRect
+                        anchors.fill: parent
+                        color: "transparent"
+                        states: [
+                            State {
+                                when: profDropTarget.containsDrag
+                                PropertyChanges {
+                                    target: profDropRect
+                                    color: "#33FFEC55"
+                                }
+                            }
+                        ]
+                    }
+                }
             }
         }
     }
@@ -109,7 +132,6 @@ Rectangle {
                 }
             ]
         }
-
     }
 
     // representation of the central Universe block

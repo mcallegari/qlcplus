@@ -23,6 +23,7 @@ function iconFromName(name)
     {
         case "ArtNet": return "qrc:/artnetplugin.svg"; break;
         case "DMX USB": return "qrc:/dmxusbplugin.svg"; break;
+        case "HID": return "qrc:/hidplugin.svg"; break;
         case "OLA": return "qrc:/olaplugin.svg"; break;
         case "MIDI": return "qrc:/midiplugin.svg"; break;
         case "OSC": return "qrc:/oscplugin.svg"; break;

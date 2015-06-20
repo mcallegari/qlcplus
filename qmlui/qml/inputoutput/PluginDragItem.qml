@@ -24,7 +24,7 @@ import "PluginUtils.js" as PluginUtils
 Rectangle {
     x: 3
     id: pluginDragItem
-    width: pluginsContainer.width
+    width: parent.width
     height: 60
     color: "transparent"
 
@@ -50,6 +50,7 @@ Rectangle {
             y: 2
 
             Image {
+                id: pIcon
                 anchors.fill: parent
                 anchors.margins: 3
                 source: PluginUtils.iconFromName(pluginName)
@@ -60,8 +61,9 @@ Rectangle {
 
         RobotoText {
             height: pluginDragItem.height
-            width: pluginDragItem.width
+            width: pluginDragItem.width - pIcon.width
             label: lineName
+            wrapText: true
         }
     }
 }

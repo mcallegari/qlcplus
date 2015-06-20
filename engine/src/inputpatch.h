@@ -80,8 +80,17 @@ public:
      * @param plugin A plugin to assign
      * @param input An input line within that plugin to assign
      * @param profile An input profile for a patch (NULL for none)
+     * @return true if successful, otherwise false
      */
     bool set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile);
+
+    /**
+     * Assign an input profile to the InputPatch
+     *
+     * @param profile Th reference to an input profile (NULL to unset)
+     * @return true if successful, otherwise false
+     */
+    bool set(QLCInputProfile* profile);
 
     /** Close & open the current plugin-input combination (if any) */
     bool reconnect();
@@ -136,6 +145,9 @@ private:
     /************************************************************************
      * Pages
      ************************************************************************/
+private:
+    void setProfilePageControls();
+
 private:
     ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
 

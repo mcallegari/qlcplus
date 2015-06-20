@@ -70,7 +70,6 @@ Rectangle {
             id: editorLoader
             anchors.fill: parent
             onLoaded: {
-                console.log("Right side panel loaded")
                 item.universeIndex = universeIndex
                 item.loadSources(false)
             }

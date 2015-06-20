@@ -105,25 +105,24 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
         result = m_plugin->openInput(m_pluginLine, m_universe);
 
         if (m_profile != NULL)
-        {
-            QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
-            while (it.hasNext() == true)
-            {
-                it.next();
-                QLCInputChannel *ch = it.value();
-                if (ch != NULL)
-                {
-                    if (m_nextPageCh == USHRT_MAX && ch->type() == QLCInputChannel::NextPage)
-                        m_nextPageCh = m_profile->channelNumber(ch);
-                    else if (m_prevPageCh == USHRT_MAX && ch->type() == QLCInputChannel::PrevPage)
-                        m_prevPageCh = m_profile->channelNumber(ch);
-                    else if (m_pageSetCh == USHRT_MAX && ch->type() == QLCInputChannel::PageSet)
-                        m_pageSetCh = m_profile->channelNumber(ch);
-                }
-            }
-        }
+            setProfilePageControls();
     }
     return result;
+}
+
+bool InputPatch::set(QLCInputProfile *profile)
+{
+    if (m_plugin == NULL || m_pluginLine == QLCIOPlugin::invalidLine())
+        return false;
+
+    m_profile = profile;
+
+    if (m_profile != NULL)
+    {
+        setProfilePageControls();
+        emit profileNameChanged();
+    }
+    return true;
 }
 
 bool InputPatch::reconnect()
@@ -212,5 +211,27 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
     {
         if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
             emit inputValueChanged(m_universe, channel, value, key);
+    }
+}
+
+void InputPatch::setProfilePageControls()
+{
+    if (m_profile != NULL)
+    {
+        QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
+        while (it.hasNext() == true)
+        {
+            it.next();
+            QLCInputChannel *ch = it.value();
+            if (ch != NULL)
+            {
+                if (m_nextPageCh == USHRT_MAX && ch->type() == QLCInputChannel::NextPage)
+                    m_nextPageCh = m_profile->channelNumber(ch);
+                else if (m_prevPageCh == USHRT_MAX && ch->type() == QLCInputChannel::PrevPage)
+                    m_prevPageCh = m_profile->channelNumber(ch);
+                else if (m_pageSetCh == USHRT_MAX && ch->type() == QLCInputChannel::PageSet)
+                    m_pageSetCh = m_profile->channelNumber(ch);
+            }
+        }
     }
 }
