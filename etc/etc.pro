@@ -36,10 +36,9 @@ macx {
 
 # Windows
 win32 {
-	#QT_LIBS_PATH = $$(QTDIR)/bin
-	QT_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
-	QT_PLUGINS_PATH = $$(SystemDrive)/msys64/mingw32/share/qt5/plugins
-	SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
+    QT_LIBS_PATH = $$dirname(QMAKE_QMAKE)
+    QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
+    SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
 
     # Qt Libraries
     qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
@@ -103,7 +102,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     release:qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindows.dll
     INSTALLS += qtplatform
 	
-	qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
+    qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
     debug:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windowsd.dll
     release:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windows.dll
     INSTALLS += qtaudio
