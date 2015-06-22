@@ -38,6 +38,9 @@ qlcplus (4.9.0) stable; urgency=low
   * Plugins/HID: added support for Joysticks/Joypads on OSX
   * Plugins/DMXUSB: fixed all the Windows freezes encountered before (Stageprofi, Enttec Pro input, etc..)
   * New fixture: Eurolite LED SLS-QCL (thanks to Kripton)
+  * New fixtures: Briteq COB PAR56 RGB, Briteq Pro Beamer Zoom (thanks to Giacomo Gorini)
+  * New fixture: Stairville AF-150 (thanks to Bastien Vide)
+  * New fixture: Stairville LED PAR 64 Alu (thanks to Allan Rhynas)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200
 
