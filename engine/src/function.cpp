@@ -576,6 +576,9 @@ uint Function::stringToSpeed(QString speed)
 {
     uint value = 0;
 
+    if (speed == QChar(0x221E)) // Infinity symbol
+        return infiniteSpeed();
+
     QStringList hours = speed.split("h");
     if (hours.count() > 1)
     {
