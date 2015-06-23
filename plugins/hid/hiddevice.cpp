@@ -36,6 +36,11 @@ HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const
 HIDDevice::~HIDDevice()
 {
     qDebug() << Q_FUNC_INFO;
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
 }
 
 /*****************************************************************************
