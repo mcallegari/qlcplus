@@ -9,6 +9,7 @@ qlcplus (4.9.0) stable; urgency=low
   * Simple Desk: Fix deadlock when clicking the "Reset Universes" button (David Garyga)
   * Fixture Selection: Disable heads non pan/tilt capable in EFX and XYPad editors (David Garyga)
   * Function Live Edit: Fix crash when changing tab mode in Scene Editor (David Garyga)
+  * Function Live Edit: Fix deadlock when toggling blind mode in Scene Editor (David Garyga)
   * VC Button: Allow to edit the fade out time of a stop-all-functions button with the text input (David Garyga)
   * VC Submaster: fix submaster level not taken into account right from project loading (David Garyga)
   * VC Submaster: fix chaser not taking submaster level into account (David Garyga)

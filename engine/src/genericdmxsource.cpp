@@ -34,9 +34,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
 
 GenericDMXSource::~GenericDMXSource()
 {
-    m_mutex.lock();
     m_doc->masterTimer()->unregisterDMXSource(this);
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
