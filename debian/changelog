@@ -43,6 +43,13 @@ qlcplus (4.9.0) stable; urgency=low
   * New fixture: Stairville AF-150 (thanks to Bastien Vide)
   * New fixture: Stairville LED PAR 64 Alu (thanks to Allan Rhynas)
   * New fixture: Chauvet ColorBand Pix-M, Martin MAC 2000 Performance II (thank to Louis Gutenschwager)
+  * New fixtures: Involight LED MH60S, ADJ Mega PAR Profile Plus, Robe Robin 100 LEDBeam (thanks to Thierry Rodolfo)
+  * New fixtures: Elation Platinum Beam 5R, ADJ Starball LED DMX (thanks to Thierry Rodolfo)
+  * New fixtures: Chauvet Circus, Eliminator Electro 86, ADJ Nucleus PRO (thanks to Peter Chave)
+  * New fixtures: Chauvet Swarm 5 FX, Chauvet Techno Strobe 168 (thanks to Jack Logue)
+  * New fixture: Laserworld ES 600B (thanks to Dingezz)
+  * Fixture fix: Chauvet 4Bar (thanks to Jack Logue)
+  * Fixture fix: Clay Paky Mini Scan HPE, Starway Axis 250 (thanks to Thierry Rodolfo)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200
 

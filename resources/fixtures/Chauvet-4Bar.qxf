@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.1 GIT</Version>
-  <Author>Shikhir Arora</Author>
+  <Version>4.9.0 GIT</Version>
+  <Author>Shikhir Arora, fixed by Jack Logue</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>4Bar</Model>
@@ -114,17 +114,17 @@
  <Mode Name="15 Channels Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="285" Width="55" Depth="1129" Weight="11.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="48"/>
+   <Dimensions Width="55" Height="285" Weight="11.2" Depth="1129"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control/Operating Mode</Channel>
   <Channel Number="1">Master Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Red 1</Channel>
-  <Channel Number="4">Blue 1</Channel>
-  <Channel Number="5">Green 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
   <Channel Number="6">Red 2</Channel>
   <Channel Number="7">Green 2</Channel>
   <Channel Number="8">Blue 2</Channel>
@@ -135,9 +135,9 @@
   <Channel Number="13">Green 4</Channel>
   <Channel Number="14">Blue 4</Channel>
   <Head>
+   <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
-   <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
@@ -145,9 +145,9 @@
    <Channel>8</Channel>
   </Head>
   <Head>
+   <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
-   <Channel>9</Channel>
   </Head>
   <Head>
    <Channel>12</Channel>
@@ -158,10 +158,10 @@
  <Mode Name="3 Channels Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="285" Width="55" Depth="1129" Weight="11.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="48"/>
+   <Dimensions Width="55" Height="285" Weight="11.2" Depth="1129"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
