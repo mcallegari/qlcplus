@@ -30,6 +30,8 @@
   <fixture path="American-DJ-Inno-Color-Beam-Quad-7.qxf" mf="American DJ" md="Inno Color Beam Quad 7"/>
   <fixture path="American-DJ-Inno-Pocket-Roll.qxf" mf="American DJ" md="Inno Pocket Roll"/>
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
+  <fixture path="American-DJ-Inno-Pocket-Spot.qxf" mf="American DJ" md="Inno Pocket Spot"/>
+  <fixture path="American-DJ-Inno-Pocket-Wash.qxf" mf="American DJ" md="Inno Pocket Wash"/>
   <fixture path="American-DJ-Inno-Scan-LED.qxf" mf="American DJ" md="Inno Scan LED"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
   <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
@@ -221,6 +223,7 @@
   <fixture path="Eurolite-LED-SLS-180-RGB.qxf" mf="Eurolite" md="LED SLS-180 RGB"/>
   <fixture path="Eurolite-LED-SLS-X-QCL.qxf" mf="Eurolite" md="LED SLS-* QCL"/>
   <fixture path="Eurolite-LED-Strobe-PRO-DMX.qxf" mf="Eurolite" md="LED Strobe PRO DMX"/>
+  <fixture path="Eurolite-LED-TMH-6.qxf" mf="Eurolite" md="LED TMH-6"/>
   <fixture path="Eurolite-LED-TMH-9.qxf" mf="Eurolite" md="LED TMH-9"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
@@ -505,6 +508,7 @@
   <fixture path="Stairville-Matrixx-FL-110-DMX.qxf" mf="Stairville" md="Matrixx FL-110 DMX"/>
   <fixture path="Stairville-maTrixx-SC-100.qxf" mf="Stairville" md="maTrixx SC-100"/>
   <fixture path="Stairville-MH-100-Beam-36x3-LED.qxf" mf="Stairville" md="MH-100 Beam 36x3 LED"/>
+  <fixture path="Stairville-MH-110-Wash.qxf" mf="Stairville" md="MH-110 Wash"/>
   <fixture path="Stairville-MH-360.qxf" mf="Stairville" md="MH-360"/>
   <fixture path="Stairville-MH-X20.qxf" mf="Stairville" md="MH-X20"/>
   <fixture path="Stairville-MH-X25.qxf" mf="Stairville" md="MH-X25"/>

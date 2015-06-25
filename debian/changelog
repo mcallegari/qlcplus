@@ -45,8 +45,8 @@ qlcplus (4.9.0) stable; urgency=low
   * New fixtures: Chauvet ColorBand Pix-M, Martin MAC 2000 Performance II, Chauvet LED Shadow, Venue THINPAR 64 (thank to Louis Gutenschwager)
   * New fixtures: Involight LED MH60S, ADJ Mega PAR Profile Plus, Robe Robin 100 LEDBeam (thanks to Thierry Rodolfo)
   * New fixtures: Elation Platinum Beam 5R, ADJ Starball LED DMX, Martin MAC Quantum Profile (thanks to Thierry Rodolfo)
-  * New fixtures: Elation Sniper 2R, ADJ Inno Scan LED, Chauvet Derby X (thanks to Thierry Rodolfo)
-  * New fixtures: Chauvet Q-Spot 250, Chauvet Double Derby X, Starway UrbanKolor (thanks to Thierry Rodolfo)
+  * New fixtures: Elation Sniper 2R, ADJ Inno Scan LED, ADJ Inno Pocket Spot, ADJ Inno Pocket Wash, Chauvet Derby X (thanks to Thierry Rodolfo)
+  * New fixtures: Chauvet Q-Spot 250, Chauvet Double Derby X, Starway UrbanKolor, Eurolite LED TMH-6, Stairville MH-110 Wash (thanks to Thierry Rodolfo)
   * New fixtures: Chauvet Circus, Eliminator Electro 86, ADJ Nucleus PRO (thanks to Peter Chave)
   * New fixtures: Chauvet Swarm 5 FX, Chauvet Techno Strobe 168 (thanks to Jack Logue)
   * New fixture: Laserworld ES 600B (thanks to Dingezz)
@@ -58,6 +58,7 @@ qlcplus (4.9.0) stable; urgency=low
 
   * Fixture fix: Chauvet 4Bar (thanks to Jack Logue)
   * Fixture fix: Clay Paky Mini Scan HPE, Starway Axis 250 (thanks to Thierry Rodolfo)
+  * Fixture fix: High End Systems Xspot Xtreme (thank to Louis Gutenschwager)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2015 20:21:22 +0200
 
