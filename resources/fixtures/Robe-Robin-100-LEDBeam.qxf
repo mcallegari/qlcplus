@@ -49,162 +49,162 @@
   <Capability Min="200" Max="209">Total reset </Capability>
   <Capability Min="210" Max="255">Reserved</Capability>
  </Channel>
- <Channel Name="Red/Cyan (8 bit) - all zones">
+ <Channel Name="Red - all zones">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan fine(16 bit) - all zones">
+ <Channel Name="Red fine - all zones">
   <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta (8 bit) - all zones">
+ <Channel Name="Green - all zones">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta fine (16 bit) - all zones">
+ <Channel Name="Green fine - all zones">
   <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow (8 bit) - all zones">
+ <Channel Name="Blue - all zones">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow fine (16 bit) - all zones">
+ <Channel Name="Blue fine - all zones">
   <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (8 bit) - all zones">
+ <Channel Name="White - all zones">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White fine (16 bit) - all zones">
+ <Channel Name="White fine - all zones">
   <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan (8 bit) - zone 1">
+ <Channel Name="Red - zone 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan fine (16 bit) - zone 1">
+ <Channel Name="Red fine - zone 1">
   <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta (8 bit) - zone 1">
+ <Channel Name="Green - zone 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta fine (16 bit) - zone 1">
+ <Channel Name="Green fine - zone 1">
   <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow (8 bit) zone 1">
+ <Channel Name="Blue - zone 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow (16 bit) zone 1">
+ <Channel Name="Blue fine - zone 1">
   <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (8 bit) - zone 1">
+ <Channel Name="White - zone 1">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (16 bit) - zone 1">
+ <Channel Name="White fine - zone 1">
   <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan ( 8bit) - zone 2">
+ <Channel Name="Red - zone 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan fine (16 bit) - zone 2">
+ <Channel Name="Red fine - zone 2">
   <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta (8 bit) - zone 2">
+ <Channel Name="Green - zone 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta fine (16 bit) - zone 2">
+ <Channel Name="Green fine - zone 2">
   <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow (8 bit) - zone 2">
+ <Channel Name="Blue - zone 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow fine (16 bit) - zone 2">
+ <Channel Name="Blue fine - zone 2">
   <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (8 bit) - zone 2">
+ <Channel Name="White - zone 2">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (16 bit) - zone 2">
+ <Channel Name="White fine - zone 2">
   <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/Cyan (8 bit) - zone 3">
+ <Channel Name="Red - zone 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Red/ Cyan fine (16 bit) - zone 3">
+ <Channel Name="Red fine - zone 3">
   <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta (8 bit) - zone 3">
+ <Channel Name="Green - zone 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Green/Magenta fine (16 bit) - zone 3">
+ <Channel Name="Green fine - zone 3">
   <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow (8 bit) zone 3">
+ <Channel Name="Blue - zone 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="Blue/Yellow fine (16 bit) zone 3">
+ <Channel Name="Blue fine - zone 3">
   <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White (8 bit) zone 3">
+ <Channel Name="White - zone 3">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
  </Channel>
- <Channel Name="White fine (16 bit) zone 3">
+ <Channel Name="White fine - zone 3">
   <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">0% to 100%</Capability>
@@ -238,8 +238,8 @@
   <Capability Min="215" Max="215" Color="#bb4e8b">Magenta (Red=full, Green=0, Blue=full, White=0)</Capability>
   <Capability Min="216" Max="246" Color="#9182b5">Red -> down, Green=0, Blue=full, White=0</Capability>
   <Capability Min="247" Max="247" Color="#1793dc">Blue (Red=0, Green=0, Blue=full, White=0)</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png" Min="248" Max="248">Rainbow effect (with fade time)</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png" Min="249" Max="249">Rainbow effect</Capability>
+  <Capability Min="248" Max="248" Res="Others/rainbow.png">Rainbow effect (with fade time)</Capability>
+  <Capability Min="249" Max="249" Res="Others/rainbow.png">Rainbow effect</Capability>
   <Capability Min="250" Max="250">Zone effect 1</Capability>
   <Capability Min="251" Max="251">Zone effect 2</Capability>
   <Capability Min="252" Max="252">Zone effect 3</Capability>
@@ -278,12 +278,156 @@ random strobe)</Capability>
   <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255"> 0% to 100%</Capability>
  </Channel>
- <Mode Name="Mode 1">
+ <Channel Name="Cyan - all zones">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Cyan fine - all zones">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta - all zones">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta fine - all zones">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow - all zones">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow fine - all zones">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="No function - all zones">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="No function bis - all zones">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="Cyan - zone 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Cyan fine - zone 1">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta - zone 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta fine - zone 1">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow - zone 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow fine - zone 1">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="No function - zone 1">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="No function bis - zone 1">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="Cyan - zone 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Cyan fine - zone 2">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta - zone 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta fine - zone 2">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow - zone 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow fine - zone 2">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="No function - zone 2">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="No function bis - zone 2">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="Cyan - zone 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Cyan fine - zone 3">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta - zone 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Magenta fine - zone 3">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow - zone 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Yellow fine - zone 3">
+  <Group Byte="1">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">0% to 100%</Capability>
+ </Channel>
+ <Channel Name="No function - zone 3">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="No function bis - zone 3">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Mode Name="Mode 1 - RGBW">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -292,72 +436,72 @@ random strobe)</Capability>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
   <Channel Number="5">Special functions</Channel>
-  <Channel Number="6">Red/Cyan (8 bit) - zone 1</Channel>
-  <Channel Number="7">Red/Cyan fine (16 bit) - zone 1</Channel>
-  <Channel Number="8">Green/Magenta (8 bit) - zone 1</Channel>
-  <Channel Number="9">Green/Magenta fine (16 bit) - zone 1</Channel>
-  <Channel Number="10">Blue/Yellow (8 bit) zone 1</Channel>
-  <Channel Number="11">Blue/Yellow (16 bit) zone 1</Channel>
-  <Channel Number="12">White (8 bit) - zone 1</Channel>
-  <Channel Number="13">White (16 bit) - zone 1</Channel>
-  <Channel Number="14">Red/Cyan ( 8bit) - zone 2</Channel>
-  <Channel Number="15">Red/Cyan fine (16 bit) - zone 2</Channel>
-  <Channel Number="16">Green/Magenta (8 bit) - zone 2</Channel>
-  <Channel Number="17">Green/Magenta fine (16 bit) - zone 2</Channel>
-  <Channel Number="18">Blue/Yellow (8 bit) - zone 2</Channel>
-  <Channel Number="19">Blue/Yellow fine (16 bit) - zone 2</Channel>
-  <Channel Number="20">White (8 bit) - zone 2</Channel>
-  <Channel Number="21">White (16 bit) - zone 2</Channel>
-  <Channel Number="22">Red/Cyan (8 bit) - zone 3</Channel>
-  <Channel Number="23">Red/ Cyan fine (16 bit) - zone 3</Channel>
-  <Channel Number="24">Green/Magenta (8 bit) - zone 3</Channel>
-  <Channel Number="25">Green/Magenta fine (16 bit) - zone 3</Channel>
-  <Channel Number="26">Blue/Yellow (8 bit) zone 3</Channel>
-  <Channel Number="27">Blue/Yellow fine (16 bit) zone 3</Channel>
-  <Channel Number="28">White (8 bit) zone 3</Channel>
-  <Channel Number="29">White fine (16 bit) zone 3</Channel>
+  <Channel Number="6">Red - zone 1</Channel>
+  <Channel Number="7">Red fine - zone 1</Channel>
+  <Channel Number="8">Green - zone 1</Channel>
+  <Channel Number="9">Green fine - zone 1</Channel>
+  <Channel Number="10">Blue - zone 1</Channel>
+  <Channel Number="11">Blue fine - zone 1</Channel>
+  <Channel Number="12">White - zone 1</Channel>
+  <Channel Number="13">White fine - zone 1</Channel>
+  <Channel Number="14">Red - zone 2</Channel>
+  <Channel Number="15">Red fine - zone 2</Channel>
+  <Channel Number="16">Green - zone 2</Channel>
+  <Channel Number="17">Green fine - zone 2</Channel>
+  <Channel Number="18">Blue - zone 2</Channel>
+  <Channel Number="19">Blue fine - zone 2</Channel>
+  <Channel Number="20">White - zone 2</Channel>
+  <Channel Number="21">White fine - zone 2</Channel>
+  <Channel Number="22">Red - zone 3</Channel>
+  <Channel Number="23">Red fine - zone 3</Channel>
+  <Channel Number="24">Green - zone 3</Channel>
+  <Channel Number="25">Green fine - zone 3</Channel>
+  <Channel Number="26">Blue - zone 3</Channel>
+  <Channel Number="27">Blue fine - zone 3</Channel>
+  <Channel Number="28">White - zone 3</Channel>
+  <Channel Number="29">White fine - zone 3</Channel>
   <Channel Number="30">CTC</Channel>
   <Channel Number="31">Virtual Colour Wheel</Channel>
   <Channel Number="32">Shutter/Strobe 1</Channel>
   <Channel Number="33">Dimmer</Channel>
   <Channel Number="34">Dimmer Fine</Channel>
   <Head>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
+   <Channel>11</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-   <Channel>20</Channel>
-   <Channel>21</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
   </Head>
   <Head>
-   <Channel>22</Channel>
-   <Channel>23</Channel>
-   <Channel>24</Channel>
-   <Channel>25</Channel>
    <Channel>26</Channel>
    <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
   </Head>
  </Mode>
- <Mode Name="Mode 2">
+ <Mode Name="Mode 2 - RGBW">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -366,26 +510,26 @@ random strobe)</Capability>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
   <Channel Number="5">Special functions</Channel>
-  <Channel Number="6">Red/Cyan (8 bit) - all zones</Channel>
-  <Channel Number="7">Red/Cyan fine(16 bit) - all zones</Channel>
-  <Channel Number="8">Green/Magenta (8 bit) - all zones</Channel>
-  <Channel Number="9">Green/Magenta fine (16 bit) - all zones</Channel>
-  <Channel Number="10">Blue/Yellow (8 bit) - all zones</Channel>
-  <Channel Number="11">Blue/Yellow fine (16 bit) - all zones</Channel>
-  <Channel Number="12">White (8 bit) - all zones</Channel>
-  <Channel Number="13">White fine (16 bit) - all zones</Channel>
+  <Channel Number="6">Red - all zones</Channel>
+  <Channel Number="7">Red fine - all zones</Channel>
+  <Channel Number="8">Green - all zones</Channel>
+  <Channel Number="9">Green fine - all zones</Channel>
+  <Channel Number="10">Blue - all zones</Channel>
+  <Channel Number="11">Blue fine - all zones</Channel>
+  <Channel Number="12">White - all zones</Channel>
+  <Channel Number="13">White fine - all zones</Channel>
   <Channel Number="14">CTC</Channel>
   <Channel Number="15">Virtual Colour Wheel</Channel>
   <Channel Number="16">Shutter/Strobe 1</Channel>
   <Channel Number="17">Dimmer</Channel>
   <Channel Number="18">Dimmer Fine</Channel>
  </Mode>
- <Mode Name="Mode 3">
+ <Mode Name="Mode 3 - RGBW">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -394,10 +538,10 @@ random strobe)</Capability>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
   <Channel Number="5">Special functions</Channel>
-  <Channel Number="6">Red/Cyan (8 bit) - all zones</Channel>
-  <Channel Number="7">Green/Magenta (8 bit) - all zones</Channel>
-  <Channel Number="8">Blue/Yellow (8 bit) - all zones</Channel>
-  <Channel Number="9">White (8 bit) - all zones</Channel>
+  <Channel Number="6">Red - all zones</Channel>
+  <Channel Number="7">Green - all zones</Channel>
+  <Channel Number="8">Blue - all zones</Channel>
+  <Channel Number="9">White - all zones</Channel>
   <Channel Number="10">CTC</Channel>
   <Channel Number="11">Virtual Colour Wheel</Channel>
   <Channel Number="12">Shutter/Strobe 1</Channel>
@@ -405,10 +549,10 @@ random strobe)</Capability>
  </Mode>
  <Mode Name="Mode 4">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -421,12 +565,12 @@ random strobe)</Capability>
   <Channel Number="7">Shutter/Strobe 1</Channel>
   <Channel Number="8">Dimmer</Channel>
  </Mode>
- <Mode Name="Mode 5">
+ <Mode Name="Mode 5 - RGBW">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -435,72 +579,72 @@ random strobe)</Capability>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
   <Channel Number="5">Special functions</Channel>
-  <Channel Number="6">Red/Cyan (8 bit) - zone 1</Channel>
-  <Channel Number="7">Red/Cyan fine (16 bit) - zone 1</Channel>
-  <Channel Number="8">Green/Magenta (8 bit) - zone 1</Channel>
-  <Channel Number="9">Green/Magenta fine (16 bit) - zone 1</Channel>
-  <Channel Number="10">Blue/Yellow (8 bit) zone 1</Channel>
-  <Channel Number="11">Blue/Yellow (16 bit) zone 1</Channel>
-  <Channel Number="12">White (8 bit) - zone 1</Channel>
-  <Channel Number="13">White (16 bit) - zone 1</Channel>
-  <Channel Number="14">Red/Cyan ( 8bit) - zone 2</Channel>
-  <Channel Number="15">Red/Cyan fine (16 bit) - zone 2</Channel>
-  <Channel Number="16">Green/Magenta (8 bit) - zone 2</Channel>
-  <Channel Number="17">Green/Magenta fine (16 bit) - zone 2</Channel>
-  <Channel Number="18">Blue/Yellow (8 bit) - zone 2</Channel>
-  <Channel Number="19">Blue/Yellow fine (16 bit) - zone 2</Channel>
-  <Channel Number="20">White (8 bit) - zone 2</Channel>
-  <Channel Number="21">White (16 bit) - zone 2</Channel>
-  <Channel Number="22">Red/Cyan (8 bit) - zone 3</Channel>
-  <Channel Number="23">Red/ Cyan fine (16 bit) - zone 3</Channel>
-  <Channel Number="24">Green/Magenta (8 bit) - zone 3</Channel>
-  <Channel Number="25">Green/Magenta fine (16 bit) - zone 3</Channel>
-  <Channel Number="26">Blue/Yellow (8 bit) zone 3</Channel>
-  <Channel Number="27">Blue/Yellow fine (16 bit) zone 3</Channel>
-  <Channel Number="28">White (8 bit) zone 3</Channel>
-  <Channel Number="29">White fine (16 bit) zone 3</Channel>
+  <Channel Number="6">Red - zone 1</Channel>
+  <Channel Number="7">Red fine - zone 1</Channel>
+  <Channel Number="8">Green - zone 1</Channel>
+  <Channel Number="9">Green fine - zone 1</Channel>
+  <Channel Number="10">Blue - zone 1</Channel>
+  <Channel Number="11">Blue fine - zone 1</Channel>
+  <Channel Number="12">White - zone 1</Channel>
+  <Channel Number="13">White fine - zone 1</Channel>
+  <Channel Number="14">Red - zone 2</Channel>
+  <Channel Number="15">Red fine - zone 2</Channel>
+  <Channel Number="16">Green - zone 2</Channel>
+  <Channel Number="17">Green fine - zone 2</Channel>
+  <Channel Number="18">Blue - zone 2</Channel>
+  <Channel Number="19">Blue fine - zone 2</Channel>
+  <Channel Number="20">White - zone 2</Channel>
+  <Channel Number="21">White fine - zone 2</Channel>
+  <Channel Number="22">Red - zone 3</Channel>
+  <Channel Number="23">Red fine - zone 3</Channel>
+  <Channel Number="24">Green - zone 3</Channel>
+  <Channel Number="25">Green fine - zone 3</Channel>
+  <Channel Number="26">Blue - zone 3</Channel>
+  <Channel Number="27">Blue fine - zone 3</Channel>
+  <Channel Number="28">White - zone 3</Channel>
+  <Channel Number="29">White fine - zone 3</Channel>
   <Channel Number="30">CTC</Channel>
   <Channel Number="31">Virtual Colour Wheel</Channel>
   <Channel Number="32">Shutter/Strobe 1</Channel>
   <Channel Number="33">Dimmer</Channel>
   <Channel Number="34">Dimmer Fine</Channel>
   <Head>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
+   <Channel>11</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-   <Channel>20</Channel>
-   <Channel>21</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
   </Head>
   <Head>
-   <Channel>22</Channel>
-   <Channel>23</Channel>
-   <Channel>24</Channel>
-   <Channel>25</Channel>
    <Channel>26</Channel>
    <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
   </Head>
  </Mode>
- <Mode Name="Mode 6">
+ <Mode Name="Mode 6 - RGBW">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="233" Height="314" Weight="4.5" Depth="149"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -509,30 +653,30 @@ random strobe)</Capability>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
   <Channel Number="5">Special functions</Channel>
-  <Channel Number="6">Red/Cyan (8 bit) - zone 1</Channel>
-  <Channel Number="7">Red/Cyan fine (16 bit) - zone 1</Channel>
-  <Channel Number="8">Green/Magenta (8 bit) - zone 1</Channel>
-  <Channel Number="9">Green/Magenta fine (16 bit) - zone 1</Channel>
-  <Channel Number="10">Blue/Yellow (8 bit) zone 1</Channel>
-  <Channel Number="11">Blue/Yellow (16 bit) zone 1</Channel>
-  <Channel Number="12">White (8 bit) - zone 1</Channel>
-  <Channel Number="13">White (16 bit) - zone 1</Channel>
-  <Channel Number="14">Red/Cyan ( 8bit) - zone 2</Channel>
-  <Channel Number="15">Red/Cyan fine (16 bit) - zone 2</Channel>
-  <Channel Number="16">Green/Magenta (8 bit) - zone 2</Channel>
-  <Channel Number="17">Green/Magenta fine (16 bit) - zone 2</Channel>
-  <Channel Number="18">Blue/Yellow (8 bit) - zone 2</Channel>
-  <Channel Number="19">Blue/Yellow fine (16 bit) - zone 2</Channel>
-  <Channel Number="20">White (8 bit) - zone 2</Channel>
-  <Channel Number="21">White (16 bit) - zone 2</Channel>
-  <Channel Number="22">Red/Cyan (8 bit) - zone 3</Channel>
-  <Channel Number="23">Red/ Cyan fine (16 bit) - zone 3</Channel>
-  <Channel Number="24">Green/Magenta (8 bit) - zone 3</Channel>
-  <Channel Number="25">Green/Magenta fine (16 bit) - zone 3</Channel>
-  <Channel Number="26">Blue/Yellow (8 bit) zone 3</Channel>
-  <Channel Number="27">Blue/Yellow fine (16 bit) zone 3</Channel>
-  <Channel Number="28">White (8 bit) zone 3</Channel>
-  <Channel Number="29">White fine (16 bit) zone 3</Channel>
+  <Channel Number="6">Red - zone 1</Channel>
+  <Channel Number="7">Red fine - zone 1</Channel>
+  <Channel Number="8">Green - zone 1</Channel>
+  <Channel Number="9">Green fine - zone 1</Channel>
+  <Channel Number="10">Blue - zone 1</Channel>
+  <Channel Number="11">Blue fine - zone 1</Channel>
+  <Channel Number="12">White - zone 1</Channel>
+  <Channel Number="13">White fine - zone 1</Channel>
+  <Channel Number="14">Red - zone 2</Channel>
+  <Channel Number="15">Red fine - zone 2</Channel>
+  <Channel Number="16">Green - zone 2</Channel>
+  <Channel Number="17">Green fine - zone 2</Channel>
+  <Channel Number="18">Blue - zone 2</Channel>
+  <Channel Number="19">Blue fine - zone 2</Channel>
+  <Channel Number="20">White - zone 2</Channel>
+  <Channel Number="21">White fine - zone 2</Channel>
+  <Channel Number="22">Red - zone 3</Channel>
+  <Channel Number="23">Red fine - zone 3</Channel>
+  <Channel Number="24">Green - zone 3</Channel>
+  <Channel Number="25">Green fine - zone 3</Channel>
+  <Channel Number="26">Blue - zone 3</Channel>
+  <Channel Number="27">Blue fine - zone 3</Channel>
+  <Channel Number="28">White - zone 3</Channel>
+  <Channel Number="29">White fine - zone 3</Channel>
   <Channel Number="30">CTC</Channel>
   <Channel Number="31">Virtual Colour Wheel</Channel>
   <Channel Number="32">No function 1</Channel>
@@ -541,34 +685,309 @@ random strobe)</Capability>
   <Channel Number="35">Dimmer</Channel>
   <Channel Number="36">Dimmer Fine</Channel>
   <Head>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
+   <Channel>11</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-   <Channel>20</Channel>
-   <Channel>21</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
   </Head>
   <Head>
-   <Channel>22</Channel>
-   <Channel>23</Channel>
-   <Channel>24</Channel>
-   <Channel>25</Channel>
    <Channel>26</Channel>
    <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 1 - CMY">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Cyan - zone 1</Channel>
+  <Channel Number="7">Cyan fine - zone 1</Channel>
+  <Channel Number="8">Magenta - zone 1</Channel>
+  <Channel Number="9">Magenta fine - zone 1</Channel>
+  <Channel Number="10">Yellow - zone 1</Channel>
+  <Channel Number="11">Yellow fine - zone 1</Channel>
+  <Channel Number="12">No function - zone 1</Channel>
+  <Channel Number="13">No function bis - zone 1</Channel>
+  <Channel Number="14">Cyan - zone 2</Channel>
+  <Channel Number="15">Cyan fine - zone 2</Channel>
+  <Channel Number="16">Magenta - zone 2</Channel>
+  <Channel Number="17">Magenta fine - zone 2</Channel>
+  <Channel Number="18">Yellow - zone 2</Channel>
+  <Channel Number="19">Yellow fine - zone 2</Channel>
+  <Channel Number="20">No function - zone 2</Channel>
+  <Channel Number="21">No function bis - zone 2</Channel>
+  <Channel Number="22">Cyan - zone 3</Channel>
+  <Channel Number="23">Cyan fine - zone 3</Channel>
+  <Channel Number="24">Magenta - zone 3</Channel>
+  <Channel Number="25">Magenta fine - zone 3</Channel>
+  <Channel Number="26">Yellow - zone 3</Channel>
+  <Channel Number="27">Yellow fine - zone 3</Channel>
+  <Channel Number="28">No function - zone 3</Channel>
+  <Channel Number="29">No function bis - zone 3</Channel>
+  <Channel Number="30">CTC</Channel>
+  <Channel Number="31">Virtual Colour Wheel</Channel>
+  <Channel Number="32">Shutter/Strobe 1</Channel>
+  <Channel Number="33">Dimmer</Channel>
+  <Channel Number="34">Dimmer Fine</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 2 - CMY">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Cyan - all zones</Channel>
+  <Channel Number="7">Cyan fine - all zones</Channel>
+  <Channel Number="8">Magenta - all zones</Channel>
+  <Channel Number="9">Magenta fine - all zones</Channel>
+  <Channel Number="10">Yellow - all zones</Channel>
+  <Channel Number="11">Yellow fine - all zones</Channel>
+  <Channel Number="12">No function - all zones</Channel>
+  <Channel Number="13">No function bis - all zones</Channel>
+  <Channel Number="14">CTC</Channel>
+  <Channel Number="15">Virtual Colour Wheel</Channel>
+  <Channel Number="16">Shutter/Strobe 1</Channel>
+  <Channel Number="17">Dimmer</Channel>
+  <Channel Number="18">Dimmer Fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3 - CMY">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Cyan - all zones</Channel>
+  <Channel Number="7">Magenta - all zones</Channel>
+  <Channel Number="8">Yellow - all zones</Channel>
+  <Channel Number="9">No function - all zones</Channel>
+  <Channel Number="10">CTC</Channel>
+  <Channel Number="11">Virtual Colour Wheel</Channel>
+  <Channel Number="12">Shutter/Strobe 1</Channel>
+  <Channel Number="13">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 5 - CMY">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Cyan - zone 1</Channel>
+  <Channel Number="7">Cyan fine - zone 1</Channel>
+  <Channel Number="8">Magenta - zone 1</Channel>
+  <Channel Number="9">Magenta fine - zone 1</Channel>
+  <Channel Number="10">Yellow - zone 1</Channel>
+  <Channel Number="11">Yellow fine - zone 1</Channel>
+  <Channel Number="12">No function - zone 1</Channel>
+  <Channel Number="13">No function bis - zone 1</Channel>
+  <Channel Number="14">Cyan - zone 2</Channel>
+  <Channel Number="15">Cyan fine - zone 2</Channel>
+  <Channel Number="16">Magenta - zone 2</Channel>
+  <Channel Number="17">Magenta fine - zone 2</Channel>
+  <Channel Number="18">Yellow - zone 2</Channel>
+  <Channel Number="19">Yellow fine - zone 2</Channel>
+  <Channel Number="20">No function - zone 2</Channel>
+  <Channel Number="21">No function bis - zone 2</Channel>
+  <Channel Number="22">Cyan - zone 3</Channel>
+  <Channel Number="23">Cyan fine - zone 3</Channel>
+  <Channel Number="24">Magenta - zone 3</Channel>
+  <Channel Number="25">Magenta fine - zone 3</Channel>
+  <Channel Number="26">Yellow - zone 3</Channel>
+  <Channel Number="27">Yellow fine - zone 3</Channel>
+  <Channel Number="28">No function - zone 3</Channel>
+  <Channel Number="29">No function bis - zone 3</Channel>
+  <Channel Number="30">CTC</Channel>
+  <Channel Number="31">Virtual Colour Wheel</Channel>
+  <Channel Number="32">Shutter/Strobe 1</Channel>
+  <Channel Number="33">Dimmer</Channel>
+  <Channel Number="34">Dimmer Fine</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 6 - CMY">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed, Pan/Tilt time</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Cyan - zone 1</Channel>
+  <Channel Number="7">Cyan fine - zone 1</Channel>
+  <Channel Number="8">Magenta - zone 1</Channel>
+  <Channel Number="9">Magenta fine - zone 1</Channel>
+  <Channel Number="10">Yellow - zone 1</Channel>
+  <Channel Number="11">Yellow fine - zone 1</Channel>
+  <Channel Number="12">No function - zone 1</Channel>
+  <Channel Number="13">No function bis - zone 1</Channel>
+  <Channel Number="14">Cyan - zone 2</Channel>
+  <Channel Number="15">Cyan fine - zone 2</Channel>
+  <Channel Number="16">Magenta - zone 2</Channel>
+  <Channel Number="17">Magenta fine - zone 2</Channel>
+  <Channel Number="18">Yellow - zone 2</Channel>
+  <Channel Number="19">Yellow fine - zone 2</Channel>
+  <Channel Number="20">No function - zone 2</Channel>
+  <Channel Number="21">No function bis - zone 2</Channel>
+  <Channel Number="22">Cyan - zone 3</Channel>
+  <Channel Number="23">Cyan fine - zone 3</Channel>
+  <Channel Number="24">Magenta - zone 3</Channel>
+  <Channel Number="25">Magenta fine - zone 3</Channel>
+  <Channel Number="26">Yellow - zone 3</Channel>
+  <Channel Number="27">Yellow fine - zone 3</Channel>
+  <Channel Number="28">No function - zone 3</Channel>
+  <Channel Number="29">No function bis - zone 3</Channel>
+  <Channel Number="30">CTC</Channel>
+  <Channel Number="31">Virtual Colour Wheel</Channel>
+  <Channel Number="32">No function 1</Channel>
+  <Channel Number="33">No function 2</Channel>
+  <Channel Number="34">Shutter/Strobe 1</Channel>
+  <Channel Number="35">Dimmer</Channel>
+  <Channel Number="36">Dimmer Fine</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>
