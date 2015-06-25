@@ -46,12 +46,15 @@ qlcplus (4.9.0) stable; urgency=low
   * New fixtures: Involight LED MH60S, ADJ Mega PAR Profile Plus, Robe Robin 100 LEDBeam (thanks to Thierry Rodolfo)
   * New fixtures: Elation Platinum Beam 5R, ADJ Starball LED DMX, Martin MAC Quantum Profile (thanks to Thierry Rodolfo)
   * New fixtures: Elation Sniper 2R, ADJ Inno Scan LED, Chauvet Derby X (thanks to Thierry Rodolfo)
+  * New fixtures: Chauvet Q-Spot 250, Chauvet Double Derby X (thanks to Thierry Rodolfo)
   * New fixtures: Chauvet Circus, Eliminator Electro 86, ADJ Nucleus PRO (thanks to Peter Chave)
   * New fixtures: Chauvet Swarm 5 FX, Chauvet Techno Strobe 168 (thanks to Jack Logue)
   * New fixture: Laserworld ES 600B (thanks to Dingezz)
   * New fixture: American DJ H2O DMX PRO (thanks to Marty Badger)
   * New fixrure: SGM Idea Spot 250 (thanks to Adrian Kapka)
   * New fixture: Triton Blue Wally MH-20 (thanks to Jose Paris)
+  * New fixtures: LDDE SpectraConnecT5, Martin MAC600E (thanks to Edgar Aichinger)
+
   * Fixture fix: Chauvet 4Bar (thanks to Jack Logue)
   * Fixture fix: Clay Paky Mini Scan HPE, Starway Axis 250 (thanks to Thierry Rodolfo)
 
