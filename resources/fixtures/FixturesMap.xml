@@ -30,6 +30,7 @@
   <fixture path="American-DJ-Inno-Color-Beam-Quad-7.qxf" mf="American DJ" md="Inno Color Beam Quad 7"/>
   <fixture path="American-DJ-Inno-Pocket-Roll.qxf" mf="American DJ" md="Inno Pocket Roll"/>
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
+  <fixture path="American-DJ-Inno-Scan-LED.qxf" mf="American DJ" md="Inno Scan LED"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
   <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
   <fixture path="American-DJ-Mega-Bar-50RGB.qxf" mf="American DJ" md="Mega Bar 50RGB"/>
@@ -114,6 +115,7 @@
   <fixture path="Chauvet-COLORdash-Batten.qxf" mf="Chauvet" md="COLORdash Batten"/>
   <fixture path="Chauvet-COLORpalette.qxf" mf="Chauvet" md="COLORpalette"/>
   <fixture path="Chauvet-ColorStrip-Mini.qxf" mf="Chauvet" md="ColorStrip Mini"/>
+  <fixture path="Chauvet-Derby-X.qxf" mf="Chauvet" md="Derby X"/>
   <fixture path="Chauvet-DMF-10.qxf" mf="Chauvet" md="DMF-10"/>
   <fixture path="Chauvet-DMX-Mega-Strobe-III.qxf" mf="Chauvet" md="DMX Mega Strobe III"/>
   <fixture path="Chauvet-Eclipse-RGB.qxf" mf="Chauvet" md="Eclipse RGB"/>
@@ -193,6 +195,7 @@
   <fixture path="Elation-EVC-MH.qxf" mf="Elation" md="EVC MH"/>
   <fixture path="Elation-Platinum-Beam-5R.qxf" mf="Elation" md="Platinum Beam 5R"/>
   <fixture path="Elation-Platinum-Spot-5R.qxf" mf="Elation" md="Platinum Spot 5R"/>
+  <fixture path="Elation-Sniper-2R.qxf" mf="Elation" md="Sniper 2R"/>
   <fixture path="Elation-Vision-250.qxf" mf="Elation" md="Vision 250"/>
   <fixture path="Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf" mf="Electroconcept" md="PAR 56 LED Full RGB 18x3W"/>
   <fixture path="Eliminator-Electro-86.qxf" mf="Eliminator Lighting" md="Electro 86"/>
