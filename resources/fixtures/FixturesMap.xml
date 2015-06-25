@@ -84,6 +84,7 @@
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
   <fixture path="BoomToneDJ_Slim_PAR_7x3W_LED_RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
+  <fixture path="Briteq-BT-Theatre-100EC.qxf" mf="Briteq" md="BT Theatre 100EC"/>
   <fixture path="Briteq-BT-W07L12.qxf" mf="Briteq" md="BT-W07L12"/>
   <fixture path="Briteq-BT-W12L10.qxf" mf="Briteq" md="BT-W12L10"/>
   <fixture path="Briteq-BTX-180LS.qxf" mf="Briteq" md="BTX-180LS"/>
@@ -492,6 +493,7 @@
   <fixture path="Stairville-DJ-Lase-GR-140-RGY-MKII.qxf" mf="Stairville" md="DJ Lase GR-140 RGY MKII"/>
   <fixture path="Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf" mf="Stairville" md="HL-x9 Quad Color Flood 9x8W"/>
   <fixture path="Stairville-Hz-200-DMX.qxf" mf="Stairville" md="Hz-200 DMX"/>
+  <fixture path="Stairville-JunoScan-MKII.qxf" mf="Stairville" md="JunoScan MKII"/>
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
   <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
   <fixture path="Stairville-LED-PAR-64-Alu.qxf" mf="Stairville" md="LED PAR 64 Alu"/>
@@ -529,6 +531,7 @@
   <fixture path="Starway-Servocolor-600.qxf" mf="Starway" md="Servocolor 600"/>
   <fixture path="Starway-Servocolor-800.qxf" mf="Starway" md="ServoColor 800"/>
   <fixture path="Starway-TourKolor.qxf" mf="Starway" md="TourKolor"/>
+  <fixture path="Starway-UrbanKolor.qxf" mf="Starway" md="UrbanKolor"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
