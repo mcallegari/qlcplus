@@ -82,15 +82,15 @@ lessThan(QT_MAJOR_VERSION, 5) {
     qt5deps.files += $$SYS_LIBS_PATH/libicudt55.dll \
                     $$SYS_LIBS_PATH/libicuin55.dll \
                     $$SYS_LIBS_PATH/libicuuc55.dll \
-					$$SYS_LIBS_PATH/libpcre16-0.dll \
-					$$SYS_LIBS_PATH/libpng16-16.dll \
-					$$SYS_LIBS_PATH/zlib1.dll \
-					$$SYS_LIBS_PATH/libbz2-1.dll \
-					$$SYS_LIBS_PATH/libfreetype-6.dll \
-					$$SYS_LIBS_PATH/libharfbuzz-0.dll \
-					$$SYS_LIBS_PATH/libiconv-2.dll \
-					$$SYS_LIBS_PATH/libintl-8.dll \
-					$$SYS_LIBS_PATH/libglib-2.0-0.dll \
+                    $$SYS_LIBS_PATH/libpcre16-0.dll \
+                    $$SYS_LIBS_PATH/libpng16-16.dll \
+                    $$SYS_LIBS_PATH/zlib1.dll \
+                    $$SYS_LIBS_PATH/libbz2-1.dll \
+                    $$SYS_LIBS_PATH/libfreetype-6.dll \
+                    $$SYS_LIBS_PATH/libharfbuzz-0.dll \
+                    $$SYS_LIBS_PATH/libiconv-2.dll \
+                    $$SYS_LIBS_PATH/libintl-8.dll \
+                    $$SYS_LIBS_PATH/libglib-2.0-0.dll
 					
 	INSTALLS += qt5deps
 }
@@ -122,33 +122,37 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         msys.files += $$SYS_LIBS_PATH/libstdc++-6.dll
     }
 
+    exists($$SYS_LIBS_PATH/libgcc_s_dw2-1.dll) {
+        msys.files += $$SYS_LIBS_PATH/libgcc_s_dw2-1.dll
+    }
+
     exists($$SYS_LIBS_PATH/libwinpthread-1.dll) {
         msys.files += $$SYS_LIBS_PATH/libwinpthread-1.dll
     }
 
     INSTALLS += msys
 
-	# audio libraries
-	audio.path = $$INSTALLROOT/$$LIBSDIR
-	exists($$SYS_LIBS_PATH/libmad-0.dll) {
+    # audio libraries
+    audio.path = $$INSTALLROOT/$$LIBSDIR
+    exists($$SYS_LIBS_PATH/libmad-0.dll) {
         audio.files += $$SYS_LIBS_PATH/libmad-0.dll
     }
-	exists($$SYS_LIBS_PATH/libogg-0.dll) {
+    exists($$SYS_LIBS_PATH/libogg-0.dll) {
         audio.files += $$SYS_LIBS_PATH/libogg-0.dll
     }
-	exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
+    exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
         audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll
     }
-	exists($$SYS_LIBS_PATH/libvorbisenc-2.dll) {
+    exists($$SYS_LIBS_PATH/libvorbisenc-2.dll) {
         audio.files += $$SYS_LIBS_PATH/libvorbisenc-2.dll
     }
-	exists($$SYS_LIBS_PATH/libFLAC-8.dll) {
+    exists($$SYS_LIBS_PATH/libFLAC-8.dll) {
         audio.files += $$SYS_LIBS_PATH/libFLAC-8.dll
     }
-	exists($$SYS_LIBS_PATH/libsndfile-1.dll) {
+    exists($$SYS_LIBS_PATH/libsndfile-1.dll) {
         audio.files += $$SYS_LIBS_PATH/libsndfile-1.dll
     }
-	exists($$SYS_LIBS_PATH/libfftw3-3.dll) {
+    exists($$SYS_LIBS_PATH/libfftw3-3.dll) {
         audio.files += $$SYS_LIBS_PATH/libfftw3-3.dll
     }
 
