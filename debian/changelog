@@ -1,3 +1,9 @@
+qlcplus (4.9.1) stable; urgency=low
+
+  * Plugins/DMXUSB: Fixed for the (hopefully) last time Stageprofi data transmission
+  
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Jul 2015 20:21:22 +0200
+
 qlcplus (4.9.0) stable; urgency=low
 
   * Function Manager: Fix sequences sometimes loaded in the chaser folder (David Garyga)

@@ -39,6 +39,15 @@ DMXUSBWidget::Type Stageprofi::type() const
 
 bool Stageprofi::checkReply()
 {
+    bool ok = false;
+    uchar res;
+
+    res = ftdi()->readByte(&ok);
+    if (ok == false || res != 0x47)
+        return false;
+
+    return true;
+/*
     for (int i = 0; i < 16; i++)
     {
         QByteArray reply = ftdi()->read(1);
@@ -54,6 +63,7 @@ bool Stageprofi::checkReply()
     qWarning() << Q_FUNC_INFO << name() << "got no reply";
 
     return false;
+*/
 }
 
 bool Stageprofi::sendChannelValue(int channel, uchar value)
@@ -152,25 +162,35 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
     {
         if (data[i] != m_universe[i])
         {
-            QString chData;
-            chData.sprintf("C%03dL%03d", i, uchar(data[i]));
+            QByteArray fastTrans;
+            if (i < 256)
+            {
+                fastTrans.append((char)0xE2);
+                fastTrans.append((char)i);
+            }
+            else
+            {
+                fastTrans.append((char)0xE3);
+                fastTrans.append((char)(i - 256));
+            }
+            fastTrans.append(data[i]);
 
-            m_universe[i] = data[i];
-
-            if (ftdi()->write(chData.toLatin1()) == false)
+            if (ftdi()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+                ftdi()->purgeBuffers();
                 return false;
             }
             else
             {
-                //checkReply();
-                ftdi()->purgeBuffers();
-                return true;
+                m_universe[i] = data[i];
+                if (checkReply() == false)
+                    ftdi()->purgeBuffers();
             }
         }
     }
     return true;
 }
+
 
 
