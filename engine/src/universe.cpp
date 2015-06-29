@@ -50,7 +50,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_totalChannelsChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
-    , m_lastPreGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_lastPostGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
@@ -114,9 +114,9 @@ ushort Universe::totalChannels()
 bool Universe::hasChanged()
 {
     bool changed =
-        memcmp(m_lastPreGMValues->constData(), m_preGMValues->constData(), m_usedChannels) != 0;
+        memcmp(m_lastPostGMValues->constData(), m_postGMValues->constData(), m_usedChannels) != 0;
     if (changed)
-        memcpy(m_lastPreGMValues->data(), m_preGMValues->constData(), m_usedChannels);
+        memcpy(m_lastPostGMValues->data(), m_postGMValues->constData(), m_usedChannels);
     return changed;
 }
 
@@ -227,7 +227,6 @@ void Universe::zeroIntensityChannels()
             (*m_postGMValues)[channel] = m_modifiers.at(channel)->getValue(0);
         else
             (*m_postGMValues)[channel] = 0;
-        m_relativeValues[channel] = 0;
     }
 }
 
