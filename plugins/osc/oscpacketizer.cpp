@@ -172,6 +172,16 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
                 currPos += 4;
             }
             break;
+            case String:
+            {
+                int firstZeroPos = data.indexOf('\0', currPos);
+                QString str = QString(data.mid(currPos, firstZeroPos - currPos));
+                qDebug() << "[OSC] sVal:" << str;
+                // align current position to a multiple of 4
+                int zeroNumber = 4 - (str.length() % 4);
+                currPos = firstZeroPos + zeroNumber;
+            }
+            break;
             default: break;
         }
     }
