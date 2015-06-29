@@ -69,6 +69,11 @@ public:
 public:
     void enableCapture(bool enable);
 
+    /** Method to toggle the enable button at a UI level.
+     *  In this way we let Qt to handle the toggle signal and
+     *  start the audio capture in the correct thread */
+    void toggleEnableButton(bool toggle);
+
 public slots:
     void slotEnableButtonToggled(bool toggle);
 

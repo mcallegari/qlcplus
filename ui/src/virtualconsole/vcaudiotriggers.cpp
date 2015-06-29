@@ -222,6 +222,15 @@ void VCAudioTriggers::enableCapture(bool enable)
     }
 }
 
+void VCAudioTriggers::toggleEnableButton(bool toggle)
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (m_button)
+        m_button->setChecked(toggle);
+}
+
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 {
     if (mode() == Doc::Design)
