@@ -357,7 +357,7 @@ void OSCController::processPendingPackets()
         QHostAddress senderAddress;
         datagram.resize(socket->pendingDatagramSize());
         socket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
-        if (senderAddress != m_ipAddr)
+        //if (senderAddress != m_ipAddr)
         {
             QString path;
             QByteArray values;
