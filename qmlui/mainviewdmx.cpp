@@ -50,7 +50,10 @@ void MainViewDMX::enableContext(bool enable)
 {
     PreviewContext::enableContext(enable);
     if (enable == true)
+    {
+        m_viewDMX = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("DMXFlowView"));
         slotRefreshView();
+    }
 }
 
 void MainViewDMX::reset()

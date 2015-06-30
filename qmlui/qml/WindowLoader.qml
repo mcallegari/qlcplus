@@ -31,14 +31,19 @@ ApplicationWindow {
     property string viewSource
     property string loadedContext: ""
 
-    onClosing: contextManager.detachContext(loadedContext)
+    onClosing: {
+        // force the Loader to destroy the QML item
+        viewSource = ""
+        contextManager.reattachContext(loadedContext)
+    }
 
     Loader {
         anchors.fill: parent
         source: viewSource
         onLoaded: {
             window.loadedContext = item.contextName
-            console.log("Detached context: " + window.loadedContext)
+            //console.log("Detached context: " + window.loadedContext)
+            contextManager.detachContext(loadedContext)
         }
     }
 }

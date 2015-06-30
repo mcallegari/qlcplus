@@ -38,6 +38,16 @@ Rectangle {
 
         //onCurrentViewChanged: contextManager.activateContext(currentView)
 
+        function enableContext(ctx)
+        {
+            if (ctx === "UniverseGrid")
+                uniView.visible = true
+            if (ctx === "DMX")
+                dmxView.visible = true
+            else if (ctx === "2D")
+                twodView.visible = true
+        }
+
         onDocLoadedChanged: {
             console.log("Doc loaded !! ----")
             viewUniverseCombo.model = ioManager.universes
@@ -107,6 +117,7 @@ Rectangle {
                             }
                         }
                         onRightClicked: {
+                            uniView.visible = false
                             WinLoader.createWindow("qrc:///UniverseGridView.qml")
                         }
                     }
@@ -127,6 +138,7 @@ Rectangle {
                             }
                         }
                         onRightClicked: {
+                            dmxView.visible = false
                             WinLoader.createWindow("qrc:///DMXView.qml")
                         }
                     }
@@ -147,6 +159,7 @@ Rectangle {
                             }
                         }
                         onRightClicked: {
+                            twodView.visible = false
                             WinLoader.createWindow("qrc:///2DView.qml")
                         }
                     }

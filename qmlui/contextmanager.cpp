@@ -58,23 +58,30 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
-void ContextManager::activateContext(QString context)
+void ContextManager::enableContext(QString context, bool enable)
 {
     if (context == "DMX")
-    {
-        m_DMXView->enableContext(true);
-        m_2DView->enableContext(false);
-    }
+        m_DMXView->enableContext(enable);
     else if (context == "2D")
-    {
-        m_DMXView->enableContext(false);
-        m_2DView->enableContext(true);
-    }
+        m_2DView->enableContext(enable);
 }
 
 void ContextManager::detachContext(QString context)
 {
     qDebug() << "[ContextManager] detaching context:" << context;
+}
+
+void ContextManager::reattachContext(QString context)
+{
+    qDebug() << "[ContextManager] reattaching context:" << context;
+    if (context == "DMX" || context == "2D")
+    {
+        QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions"));
+        if (viewObj == NULL)
+            return;
+        QMetaObject::invokeMethod(viewObj, "enableContext",
+                Q_ARG(QVariant, context));
+    }
 }
 
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
@@ -139,14 +146,14 @@ void ContextManager::dumpDmxChannels()
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)
-
+/*
     QObject *viewObj = m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions");
     if (viewObj == NULL)
         return;
 
     QString currentView = viewObj->property("currentView").toString();
     qDebug() << "[ContextManager] Current view:" << currentView;
-
+*/
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())

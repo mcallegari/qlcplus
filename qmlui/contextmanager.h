@@ -40,9 +40,11 @@ public:
                             FixtureManager *fxMgr, FunctionManager *funcMgr,
                             QObject *parent = 0);
 
-    Q_INVOKABLE void activateContext(QString context);
+    Q_INVOKABLE void enableContext(QString context, bool enable);
 
     Q_INVOKABLE void detachContext(QString context);
+
+    Q_INVOKABLE void reattachContext(QString context);
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
 

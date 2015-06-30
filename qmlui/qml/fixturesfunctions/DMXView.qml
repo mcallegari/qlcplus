@@ -29,7 +29,8 @@ Flickable {
 
     property string contextName: "DMX"
 
-    Component.onCompleted: contextManager.activateContext("DMX")
+    Component.onCompleted: contextManager.enableContext("DMX", true)
+    Component.onDestruction: contextManager.enableContext("DMX", false)
 
     Flow {
         id: flowLayout

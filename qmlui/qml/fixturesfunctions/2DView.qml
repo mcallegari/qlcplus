@@ -28,7 +28,8 @@ Rectangle {
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 
-    Component.onCompleted: contextManager.activateContext("2D")
+    Component.onCompleted: contextManager.enableContext("2D", true)
+    Component.onDestruction: contextManager.enableContext("2D", false)
 
     Flickable {
         id: twoDView
