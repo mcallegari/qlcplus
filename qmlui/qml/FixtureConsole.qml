@@ -45,7 +45,10 @@ Rectangle {
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            channelsRpt.itemAt(i).dmxValue = values[i]
+            if (dmxValues)
+                channelsRpt.itemAt(i).dmxValue = values[i]
+            else
+                channelsRpt.itemAt(i).dmxValue = (values[i] / 255) * 100
         }
     }
 
