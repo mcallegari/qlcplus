@@ -883,6 +883,8 @@ void RGBMatrixEditor::slotDimmerControlClicked()
 void RGBMatrixEditor::slotFadeInChanged(int ms)
 {
     m_matrix->setFadeInSpeed(ms);
+    uint duration = Function::speedAdd(ms, m_speedDials->duration());
+    m_matrix->setDuration(duration);
 }
 
 void RGBMatrixEditor::slotFadeOutChanged(int ms)
@@ -892,11 +894,7 @@ void RGBMatrixEditor::slotFadeOutChanged(int ms)
 
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    uint duration = 0;
-    if (ms < 0)
-        duration = ms;
-    else
-        duration = m_matrix->fadeInSpeed() + ms;
+    uint duration = Function::speedAdd(m_matrix->fadeInSpeed(), ms);
     m_matrix->setDuration(duration);
 }
 

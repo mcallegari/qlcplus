@@ -1,5 +1,6 @@
 qlcplus (4.9.1) stable; urgency=low
 
+  * RGBMatrix Editor: Update duration when changing fade in time (David Garyga)
   * Monitor: fixed values update of EFX in relative mode
   * VC Audio Triggers: fixed triggers enable from the web interface
   * Plugins/DMXUSB: fixed for the (hopefully) last time Stageprofi data transmission
