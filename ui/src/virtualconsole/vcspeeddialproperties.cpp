@@ -64,8 +64,20 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tree->setItemDelegateForColumn(COL_DURATION, new ComboBoxDelegate(multiplierNames, this));
 
     /* Absolute input */
-    m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
-    m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / 1000);
+    connect(m_absolutePrecisionCb, SIGNAL(toggled(bool)),
+            this, SLOT(slotAbsolutePrecisionCbChecked(bool)));
+    if (m_dial->absoluteValueMin() % 1000 || m_dial->absoluteValueMax() % 1000)
+    {
+        m_absolutePrecisionCb->setChecked(true);
+        m_absoluteMinSpin->setValue(m_dial->absoluteValueMin());
+        m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax());
+    }
+    else
+    {
+        m_absolutePrecisionCb->setChecked(false);
+        m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
+        m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / 1000);
+    }
     m_absoluteInputSource = m_dial->inputSource(VCSpeedDial::absoluteInputSourceId);
 
     /* Tap input */
@@ -113,8 +125,12 @@ void VCSpeedDialProperties::accept()
     m_dial->setFunctions(functions());
 
     /* Input sources */
-    m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
-                                  m_absoluteMaxSpin->value() * 1000);
+    if (m_absolutePrecisionCb->isChecked())
+        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value(),
+                                      m_absoluteMaxSpin->value());
+    else
+        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
+                                      m_absoluteMaxSpin->value() * 1000);
     m_dial->setInputSource(m_absoluteInputSource, VCSpeedDial::absoluteInputSourceId);
     m_dial->setInputSource(m_tapInputSource, VCSpeedDial::tapInputSourceId);
 
@@ -254,6 +270,28 @@ void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 c
 {
     m_tapInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_dial->page() << 16) | channel));
     updateInputSources();
+}
+
+void VCSpeedDialProperties::slotAbsolutePrecisionCbChecked(bool checked)
+{
+    if (checked)
+    {
+        m_absoluteMinSpin->setSuffix("ms");
+        m_absoluteMinSpin->setMaximum(600 * 1000);
+        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() * 1000);
+        m_absoluteMaxSpin->setSuffix("ms");
+        m_absoluteMaxSpin->setMaximum(600 * 1000);
+        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() * 1000);
+    }
+    else
+    {
+        m_absoluteMinSpin->setSuffix("s");
+        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() / 1000);
+        m_absoluteMinSpin->setMaximum(600);
+        m_absoluteMaxSpin->setSuffix("s");
+        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() / 1000);
+        m_absoluteMaxSpin->setMaximum(600);
+    }
 }
 
 void VCSpeedDialProperties::slotInfiniteInputValueChanged(quint32 universe, quint32 channel)

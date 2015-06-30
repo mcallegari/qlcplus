@@ -77,6 +77,8 @@ private slots:
     void slotChooseTapInputSourceClicked();
     void slotTapInputValueChanged(quint32 universe, quint32 channel);
 
+    void slotAbsolutePrecisionCbChecked(bool checked);
+
     void slotAttachKey();
     void slotDetachKey();
 
