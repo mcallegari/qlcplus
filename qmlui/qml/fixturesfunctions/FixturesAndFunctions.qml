@@ -36,8 +36,6 @@ Rectangle {
         property string currentView: "2D"
         property bool docLoaded: qlcplus.docLoaded
 
-        //onCurrentViewChanged: contextManager.activateContext(currentView)
-
         function enableContext(ctx)
         {
             if (ctx === "UniverseGrid")

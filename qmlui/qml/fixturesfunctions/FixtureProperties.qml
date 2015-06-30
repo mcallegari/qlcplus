@@ -117,7 +117,7 @@ Rectangle {
                 id: fxUniverseCombo
                 height: 30
                 Layout.fillWidth: true
-                model: ioManager.universes
+                model: ioManager.universeNames
             }
         }
 

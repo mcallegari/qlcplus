@@ -115,6 +115,8 @@ QPointF MainView2D::getAvailablePosition(QRectF& fxRect)
 
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
+        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
         if (fxRect.intersects(itemRect) == true)
         {
             xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
@@ -130,8 +132,6 @@ QPointF MainView2D::getAvailablePosition(QRectF& fxRect)
             fxRect.setWidth(origWidth);
             fxRect.setHeight(origHeight);
         }
-        else
-            break;
     }
 
     return QPointF(xPos, yPos);
