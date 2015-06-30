@@ -302,12 +302,13 @@ void OSCController::sendFeedback(const quint32 universe, quint32 channel, uchar 
         outPort = m_universeMap[universe].feedbackPort;
     }
 
-    qDebug() << "[OSC] sendFeedBack - Key:" << key << "value:" << value;
     QString path = key;
     // on invalid key try to retrieve the OSC path from the hash table.
     // This works only if the OSC widget has been previously moved by the user
     if (key.isEmpty())
         path = m_hashMap.key(channel);
+
+    qDebug() << "[OSC] sendFeedBack - Key:" << key << "value:" << value;
 
     QByteArray values;
     QByteArray oscPacket;

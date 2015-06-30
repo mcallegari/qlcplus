@@ -64,14 +64,14 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
     data.append(path);
     // add trailing zeros to reach a multiple of 4
     int zeroNumber = 4 - (path.length() % 4);
-    if (zeroNumber != 0 && zeroNumber != 4)
+    if (zeroNumber > 0)
         data.append(QByteArray(zeroNumber, 0x00));
 
     data.append(",");
     data.append(types);
 
     zeroNumber = 4 - ((types.length() + 1) % 4);
-    if (zeroNumber != 0 && zeroNumber != 4)
+    if (zeroNumber > 0)
         data.append(QByteArray(zeroNumber, 0x00));
 
     for (int i = 0; i < types.length(); i++)
