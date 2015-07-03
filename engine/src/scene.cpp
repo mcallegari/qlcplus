@@ -606,8 +606,8 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    if (m_fader == NULL)
-        return;
+    Q_ASSERT(m_fader != NULL);
+
     QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
     while (it.hasNext() == true)
     {
@@ -641,7 +641,6 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
         timer->faderAdd(fc);
     }
 
-    Q_ASSERT(m_fader != NULL);
     delete m_fader;
     m_fader = NULL;
 
