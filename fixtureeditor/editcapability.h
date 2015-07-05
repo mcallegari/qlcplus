@@ -36,7 +36,7 @@ class EditCapability : public QDialog, public Ui_EditCapability
     Q_OBJECT
 
 public:
-    EditCapability(QWidget* parent, const QLCCapability* capability = NULL,
+    EditCapability(QWidget* parent, QLCCapability* capability = NULL,
                    QLCChannel::Group group = QLCChannel::NoGroup, uchar min = 0);
     ~EditCapability();
 

@@ -91,7 +91,7 @@ QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
 
         /* Copy new capabilities from the other channel */
         while (it.hasNext() == true)
-            m_capabilities.append(new QLCCapability(it.next()));
+            m_capabilities.append(it.next()->createCopy());
     }
 
     return *this;

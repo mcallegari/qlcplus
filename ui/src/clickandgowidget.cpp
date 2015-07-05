@@ -300,16 +300,16 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach(QLCCapability cap, chan->capabilities())
+    foreach(QLCCapability* cap, chan->capabilities())
     {
-        if (cap.resourceName().isEmpty() == false)
-            m_resources.append(PresetResource(cap.resourceName(), cap.name(),
-                                              cap.min(), cap.max()));
-        else if (cap.resourceColor1().isValid())
-            m_resources.append(PresetResource(cap.resourceColor1(), cap.resourceColor2(),
-                                              cap.name(), cap.min(), cap.max()));
+        if (cap->resourceName().isEmpty() == false)
+            m_resources.append(PresetResource(cap->resourceName(), cap->name(),
+                                              cap->min(), cap->max()));
+        else if (cap->resourceColor1().isValid())
+            m_resources.append(PresetResource(cap->resourceColor1(), cap->resourceColor2(),
+                                              cap->name(), cap->min(), cap->max()));
         else
-            m_resources.append(PresetResource(i, cap.name(), cap.min(), cap.max()));
+            m_resources.append(PresetResource(i, cap->name(), cap->min(), cap->max()));
         i++;
     }
 }

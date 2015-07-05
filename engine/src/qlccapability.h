@@ -20,6 +20,7 @@
 #ifndef QLCCAPABILITY_H
 #define QLCCAPABILITY_H
 
+#include <QObject>
 #include <climits>
 #include <QColor>
 #include <QList>
@@ -49,8 +50,17 @@ class QFile;
  * values can be represented by setting the same value to both, for example:
  * min == 15 and max == 15.
  */
-class QLCCapability
+class QLCCapability: public QObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QString name READ name CONSTANT)
+    Q_PROPERTY(int min READ min CONSTANT)
+    Q_PROPERTY(int max READ max CONSTANT)
+    Q_PROPERTY(QString resourceName READ resourceName CONSTANT)
+    Q_PROPERTY(QColor resourceColor1 READ resourceColor1 CONSTANT)
+    Q_PROPERTY(QColor resourceColor2 READ resourceColor2 CONSTANT)
+
     /********************************************************************
      * Initialization
      ********************************************************************/
@@ -58,10 +68,12 @@ public:
     /** Default constructor */
     QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
                   const QString& name = QString(), const QString& resource = QString(),
-                  const QColor &color1 = QColor(), const QColor &color2 = QColor());
+                  const QColor &color1 = QColor(), const QColor &color2 = QColor(),
+                  QObject *parent = 0);
 
     /** Copy constructor */
-    QLCCapability(const QLCCapability* cap);
+    //QLCCapability(const QLCCapability* cap);
+    QLCCapability *createCopy();
 
     /** Destructor */
     ~QLCCapability();
@@ -95,7 +107,7 @@ public:
     void setResourceColors(QColor col1, QColor col2);
 
     /** Check, whether the given capability overlaps with this */
-    bool overlaps(const QLCCapability& cap);
+    bool overlaps(const QLCCapability* cap);
 
 protected:
     uchar m_min;

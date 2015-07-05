@@ -33,11 +33,11 @@
 
 #define KSettingsGeometry "editcapability/geometry"
 
-EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap,
+EditCapability::EditCapability(QWidget* parent, QLCCapability* cap,
                                QLCChannel::Group group, uchar min)
     : QDialog(parent)
 {
-    m_capability = new QLCCapability(cap);
+    m_capability = cap->createCopy();
 
     setupUi(this);
 
