@@ -18,10 +18,12 @@
 */
 
 #include <QQuickItem>
+#include <QVariant>
 #include <QDebug>
 
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "qlcfixturedef.h"
 #include "fixture.h"
 #include "doc.h"
@@ -32,6 +34,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
 {
     Q_ASSERT(m_doc != NULL);
+
+    qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
 
     connect(m_doc, SIGNAL(loaded()),
             this, SIGNAL(docLoaded()));
@@ -128,10 +132,23 @@ void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
     emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
 }
 
+void FixtureManager::setPresetValue(int index, quint8 value)
+{
+    qDebug() << "[FixtureManager] setPresetValue - index:" << index << "value:" << value;
+    QList<const QLCChannel*>channels = m_presetsCache.keys();
+
+    if (index < 0 || index >= channels.count())
+        return;
+
+    const QLCChannel* ch = channels.at(index);
+    emit presetChanged(ch, value);
+}
+
 QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID, bool enable)
 {
     int capDelta = 1;
     bool hasDimmer = false, hasColor = false, hasPosition = false;
+    bool hasColorWheel = false, hasGobos = false;
 
     QMultiHash<int, SceneValue> channelsMap;
 
@@ -178,23 +195,69 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
             case QLCChannel::Tilt:
                 hasPosition = true;
             break;
+            case QLCChannel::Colour:
+            {
+                hasColorWheel = true;
+                if (enable)
+                {
+                    if (m_presetsCache.contains(channel) == false)
+                    {
+                        m_presetsCache[channel] = fxID;
+                        emit colorWheelChannelsChanged();
+                    }
+                }
+                else
+                {
+                    m_presetsCache.remove(channel);
+                    emit colorWheelChannelsChanged();
+                }
+            }
+            break;
+            case QLCChannel::Gobo:
+            {
+                hasGobos = true;
+                if (enable)
+                {
+                    if (m_presetsCache.contains(channel) == false)
+                    {
+                        m_presetsCache[channel] = fxID;
+                        emit goboChannelsChanged();
+                    }
+                }
+                else
+                {
+                    m_presetsCache.remove(channel);
+                    emit goboChannelsChanged();
+                }
+            }
+            break;
             default:
             break;
         }
         if (hasDimmer)
         {
-            QQuickItem *dimmerCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
-            dimmerCapItem->setProperty("counter", dimmerCapItem->property("counter").toInt() + capDelta);
+            QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
         }
         if (hasColor)
         {
-            QQuickItem *colorCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
-            colorCapItem->setProperty("counter", colorCapItem->property("counter").toInt() + capDelta);
+            QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
         }
         if (hasPosition)
         {
-            QQuickItem *positionCapItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
-            positionCapItem->setProperty("counter", positionCapItem->property("counter").toInt() + capDelta);
+            QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+        }
+        if (hasColorWheel)
+        {
+            QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColorWheel"));
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+        }
+        if (hasGobos)
+        {
+            QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
         }
 
         channelsMap.insert(chType, SceneValue(fxID, ch));
@@ -213,5 +276,69 @@ QQmlListProperty<Fixture> FixtureManager::fixtures()
     m_fixtureList = m_doc->fixtures();
     return QQmlListProperty<Fixture>(this, m_fixtureList);
 }
+
+QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
+{
+    QVariantList prList;
+    int i = 0;
+
+    foreach(const QLCChannel *ch, m_presetsCache.keys())
+    {
+        if (ch->group() != group)
+        {
+            i++;
+            continue;
+        }
+        quint32 fxID = m_presetsCache[ch];
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == NULL)
+            continue;
+
+        const QLCFixtureDef *def = fixture->fixtureDef();
+        if (def != NULL)
+        {
+            QVariantMap prMap;
+            prMap.insert("name", QString("%1 - %2")
+                                .arg(def->model())
+                                .arg(ch->name()));
+            prMap.insert("presetIndex", i);
+            prList.append(prMap);
+        }
+        i++;
+    }
+
+    return prList;
+}
+
+QVariantList FixtureManager::goboChannels()
+{
+    return presetsChannels(QLCChannel::Gobo);
+}
+
+QVariantList FixtureManager::colorWheelChannels()
+{
+    return presetsChannels(QLCChannel::Colour);
+}
+
+QVariantList FixtureManager::presetCapabilities(int index)
+{
+    QList<const QLCChannel*>channels = m_presetsCache.keys();
+
+    qDebug() << "[FixtureManager] Requesting presets at index:" << index << "count:" << channels.count();
+
+    if (index < 0 || index >= channels.count())
+        return QVariantList();
+
+    const QLCChannel* ch = channels.at(index);
+    qDebug() << "[FixtureManager] Channel requested:" << ch->name() << "count:" << ch->capabilities().count();
+
+    QVariantList var;
+    foreach(QLCCapability *cap, ch->capabilities())
+        var.append(QVariant::fromValue(cap));
+
+    return var;
+}
+
+
 
 

@@ -57,8 +57,9 @@ signals:
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
-    void slotChannelTypeValueChanged(int type, quint8 value);
+    void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
+    void slotPresetChanged(const QLCChannel *channel, quint8 value);
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
@@ -73,7 +74,7 @@ private:
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
     /** A multihash containing the selected fixtures' capabilities by channel type */
-    /** The hash is: int (channel type) , SceneValue (Fixture id and channel) */
+    /** The hash is: int (channel type) , SceneValue (Fixture ID and channel) */
     QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a DMX source used to handle scenes design */
     GenericDMXSource* m_source;

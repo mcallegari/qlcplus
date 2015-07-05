@@ -170,6 +170,50 @@ Rectangle {
                     visible: false
                 }
             }
+
+            IconButton {
+                objectName: "capColorWheel"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/colorwheel.svg"
+                checkable: true
+                tooltip: qsTr("Color Wheel")
+                counter: 0
+                exclusiveGroup: capabilitiesGroup
+
+                onCheckedChanged: {
+                    cWheelTool.visible = !cWheelTool.visible
+                }
+                PresetsTool {
+                    id: cWheelTool
+                    x: iconSize + 4
+                    visible: false
+                }
+
+            }
+
+            IconButton {
+                objectName: "capGobos"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/gobo.svg"
+                checkable: true
+                tooltip: qsTr("Gobos")
+                counter: 0
+                exclusiveGroup: capabilitiesGroup
+
+                onCheckedChanged: {
+                    gobosTool.visible = !gobosTool.visible
+                }
+                PresetsTool {
+                    id: gobosTool
+                    x: iconSize + 4
+                    visible: false
+                    goboPresets: true
+                }
+            }
         }
     }
 

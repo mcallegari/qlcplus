@@ -23,8 +23,9 @@
 
 #include "contextmanager.h"
 #include "genericdmxsource.h"
-#include "fixturemanager.h"
 #include "functionmanager.h"
+#include "fixturemanager.h"
+#include "qlcfixturemode.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "doc.h"
@@ -54,6 +55,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
     connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
             this, SLOT(slotColorChanged(QColor,QColor)));
+    connect(m_fixtureManager, SIGNAL(presetChanged(const QLCChannel*,quint8)),
+            this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
@@ -90,11 +93,15 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     {
         if (enable == false)
             m_selectedFixtures.removeAll(fxID);
+        else
+            return;
     }
     else
     {
         if (enable)
             m_selectedFixtures.append(fxID);
+        else
+            return;
     }
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
@@ -166,13 +173,16 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
     m_source->set(sv.fxi, sv.channel, (uchar)value);
 }
 
-void ContextManager::slotChannelTypeValueChanged(int type, quint8 value)
+void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
     quint32 valCount = m_source->channelsCount();
     //qDebug() << "type:" << type << "value:" << value;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
-        m_source->set(sv.fxi, sv.channel, (uchar)value);
+    {
+        if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
+            m_source->set(sv.fxi, sv.channel, (uchar)value);
+    }
 
     /** Monitor the changes from/to 0 */
     if ((valCount == 0 && m_source->channelsCount() > 0) ||
@@ -205,6 +215,23 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
 
 
+}
+
+void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
+{
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == NULL)
+            continue;
+
+        if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
+        {
+            quint32 chIdx = fixture->fixtureMode()->channelNumber((QLCChannel *)channel);
+            if (chIdx != QLCChannel::invalid())
+                slotChannelTypeValueChanged((int)channel->group(), value, chIdx);
+        }
+    }
 }
 
 void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)

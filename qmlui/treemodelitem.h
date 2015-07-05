@@ -20,6 +20,7 @@
 #ifndef TREEMODELITEM_H
 #define TREEMODELITEM_H
 
+#include <QObject>
 #include <QStringList>
 
 class TreeModel;

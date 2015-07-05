@@ -44,7 +44,8 @@ Rectangle {
     onHeightChanged: calculateHeadSize();
     onHeadsNumberChanged: calculateHeadSize();
 
-    function calculateHeadSize() {
+    function calculateHeadSize()
+    {
         var areaSqrt = Math.sqrt((width * height) / headsNumber)
         var columns = parseInt((width / areaSqrt) + 0.5);
         var rows = parseInt((height / areaSqrt) + 0.5);
@@ -66,11 +67,19 @@ Rectangle {
         headRows = rows;
     }
 
-    function setHeadIntensity(headIndex, intensity) {
+    function setHeadIntensity(headIndex, intensity)
+    {
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
-    function setHeadColor(headIndex, color) {
+
+    function setHeadColor(headIndex, color)
+    {
         headsRepeater.itemAt(headIndex).headColor = color
+    }
+
+    function setGoboPicture(headIndex, resource)
+    {
+        headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
 
     x: (gridCellSize * mmXPos) / gridUnits
@@ -87,16 +96,19 @@ Rectangle {
     Drag.onDragStarted: console.log("drag started");
     Drag.onDragFinished: console.log("drag finished");
 
-    Flow {
+    Flow
+    {
         id: headsBox
         width: headSide * headColumns
         height: headSide * headRows
         anchors.centerIn: parent
-        Repeater {
+        Repeater
+        {
             id: headsRepeater
             model: fixtureItem.headsNumber
             delegate:
-                Rectangle {
+                Rectangle
+                {
                     id: headDelegate
                     property color headColor: "black"
                     property real headLevel: 0.0
@@ -112,7 +124,8 @@ Rectangle {
                     border.width: 1
                     border.color: "#AAA"
 
-                    Rectangle {
+                    Rectangle
+                    {
                         id: headMainLayer
                         x: 1
                         y: 1
@@ -122,21 +135,24 @@ Rectangle {
                         color: headDelegate.headColor
                         opacity: headDelegate.headLevel
 
-                        Rectangle {
+                        Rectangle
+                        {
                             id: headWhiteLayer
                             anchors.fill: parent
                             radius: parent.radius
                             color: "white"
                             opacity: headDelegate.whiteLevel
                         }
-                        Rectangle {
+                        Rectangle
+                        {
                             id: headAmberLayer
                             anchors.fill: parent
                             radius: parent.radius
                             color: "#FF7E00"
                             opacity: headDelegate.amberLevel
                         }
-                        Rectangle {
+                        Rectangle
+                        {
                             id: headUVLayer
                             anchors.fill: parent
                             radius: parent.radius
@@ -144,7 +160,8 @@ Rectangle {
                             opacity: headDelegate.uvLevel
                         }
                     }
-                    Image {
+                    Image
+                    {
                         id: headGoboLayer
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
@@ -154,7 +171,8 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: fixtureLabel
         y: parent.height + 2
         x: -10
@@ -163,7 +181,8 @@ Rectangle {
         color: "#444"
         visible: showLabel
 
-        RobotoText {
+        RobotoText
+        {
             width: parent.width
             height: parent.height
             label: fixtureName
@@ -174,7 +193,8 @@ Rectangle {
         }
     }
 
-    MouseArea {
+    MouseArea
+    {
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
@@ -183,14 +203,21 @@ Rectangle {
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
-        onPressed: {
+        onPressed:
+        {
             if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ControlModifier)
                 drag.target = fixtureItem
             else
                 drag.target = null
         }
-
-        onClicked: {
+        /*
+        onPositionChanged: {
+            if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ControlModifier)
+                View2D.moveFixture(fixtureID, fixtureItem.x, fixtureItem.y)
+        }
+        */
+        onClicked:
+        {
             isSelected = !isSelected
             contextManager.setFixtureSelection(fixtureID, isSelected)
         }

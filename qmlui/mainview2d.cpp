@@ -24,6 +24,7 @@
 
 #include "doc.h"
 #include "mainview2d.h"
+#include "qlccapability.h"
 #include "qlcfixturemode.h"
 #include "monitorproperties.h"
 
@@ -290,6 +291,8 @@ void MainView2D::updateFixture(Fixture *fixture)
         return;
 
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
+    bool colorSet = false;
+    bool goboSet = false;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
@@ -314,6 +317,68 @@ void MainView2D::updateFixture(Fixture *fixture)
             QMetaObject::invokeMethod(fxItem, "setHeadColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(r, g, b)));
+            //colorSet = true;
+        }
+    }
+    // now scan all the channels in search for color wheels and gobos
+    for (quint32 i = 0; i < fixture->channels(); i++)
+    {
+        const QLCChannel *ch = fixture->channel(i);
+        if (ch == NULL)
+            continue;
+        uchar value = fixture->channelValueAt(i);
+
+        switch (ch->group())
+        {
+            case QLCChannel::Colour:
+            {
+                if(colorSet)
+                    break;
+                foreach(QLCCapability *cap, ch->capabilities())
+                {
+                    if (value >= cap->min() && value <= cap->max())
+                    {
+                        QColor wheelColor = cap->resourceColor1();
+                        if (wheelColor.isValid())
+                        {
+                            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                                    Q_ARG(QVariant, 0),
+                                    Q_ARG(QVariant, wheelColor));
+                            colorSet = true;
+                        }
+                    }
+                }
+            }
+            break;
+            case QLCChannel::Gobo:
+            {
+                if (goboSet)
+                    break;
+
+                foreach(QLCCapability *cap, ch->capabilities())
+                {
+                    if (value >= cap->min() && value <= cap->max())
+                    {
+                        QString resName = cap->resourceName();
+
+                        if(resName.isEmpty() == false && resName.contains("Others/gobo00022") == false)
+                        {
+                            QMetaObject::invokeMethod(fxItem, "setGoboPicture",
+                                    Q_ARG(QVariant, 0),
+                                    Q_ARG(QVariant, resName));
+                            // here we don't look for any other gobos, so if a
+                            // fixture has more than one gobo wheel, the second
+                            // one will be skipped if the first one has been set
+                            // to a non-open gobo
+                            goboSet = true;
+                        }
+                    }
+                }
+            }
+            break;
+            // ... more preset channels to be added here (Shutter ?)
+            default:
+            break;
         }
     }
 }

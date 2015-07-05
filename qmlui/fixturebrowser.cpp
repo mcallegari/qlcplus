@@ -51,7 +51,7 @@ int FixtureBrowser::genericIndex()
 
 QStringList FixtureBrowser::models(QString manufacturer)
 {
-    qDebug() << "Fixtures list for" << manufacturer;
+    qDebug() << "[FixtureBrowser] Fixtures list for" << manufacturer;
     QStringList fxList = m_doc->fixtureDefCache()->models(manufacturer);
     fxList.sort();
     return fxList;
@@ -98,12 +98,12 @@ int FixtureBrowser::availableChannel(int uniIdx, int channels, int requested)
     }
     if (isAvailable == true)
     {
-        qDebug() << "Requested channel is available:" << requested;
+        qDebug() << "[FixtureBrowser] Requested channel is available:" << requested;
         return requested;
     }
     else
     {
-        qDebug() << "Requested channel not available";
+        qDebug() << "[FixtureBrowser] Requested channel" << requested << "not available in universe" << uniIdx;
         int validAddr = 0;
         int freeCounter = 0;
         absAddress = uniIdx << 9;
@@ -119,12 +119,12 @@ int FixtureBrowser::availableChannel(int uniIdx, int channels, int requested)
 
             if (freeCounter == channels)
             {
-                qDebug() << "--> Returning " << validAddr;
+                qDebug() << "[FixtureBrowser] Returning available address:" << validAddr;
                 return validAddr;
             }
         }
     }
-    qDebug() << "Returning 0 !!!";
+    qDebug() << "[FixtureBrowser] Returning 0 !!!";
     return 0;
 }
 
