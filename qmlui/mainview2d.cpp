@@ -87,57 +87,6 @@ void MainView2D::initialize2DProperties()
     m_yOffset = m_contents2D->property("y").toReal();
 }
 
-QPointF MainView2D::getAvailablePosition(QRectF& fxRect)
-{
-    qreal xPos = fxRect.x(), yPos = fxRect.y();
-    qreal maxYOffset = 0;
-
-    if (m_view2D == NULL || m_contents2D == NULL)
-        initialize2DProperties();
-
-    QRectF gridArea(0, 0, m_gridSize.width() * m_gridUnits, m_gridSize.height() * m_gridUnits);
-
-    qreal origWidth = fxRect.width();
-    qreal origHeight = fxRect.height();
-
-    QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
-    while (it.hasNext())
-    {
-        it.next();
-        QQuickItem *fxItem = it.value();
-        qreal itemXPos = fxItem->property("mmXPos").toReal();
-        qreal itemYPos = fxItem->property("mmYPos").toReal();
-        qreal itemWidth = fxItem->property("mmWidth").toReal();
-        qreal itemHeight = fxItem->property("mmHeight").toReal();
-
-        // store the next Y row in case we need to lower down
-        if (itemYPos + itemHeight > maxYOffset )
-            maxYOffset = itemYPos + itemHeight;
-
-        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
-
-        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
-
-        if (fxRect.intersects(itemRect) == true)
-        {
-            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
-            if (xPos + fxRect.width() > gridArea.width())
-            {
-                xPos = 0;
-                yPos = maxYOffset + 50;
-                maxYOffset = 0;
-            }
-            fxRect.setX(xPos);
-            fxRect.setY(yPos);
-            // restore width and height as setX and setY mess them
-            fxRect.setWidth(origWidth);
-            fxRect.setHeight(origHeight);
-        }
-    }
-
-    return QPointF(xPos, yPos);
-}
-
 void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords)
 {
     if (isEnabled() == false)
@@ -199,7 +148,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     newFixtureItem->setProperty("mmWidth", fxRect.width());
     newFixtureItem->setProperty("mmHeight", fxRect.height());
 
-    QPointF availablePos = getAvailablePosition(fxRect);
+    QPointF availablePos = m_doc->getAvailable2DPosition(fxRect); //getAvailablePosition(fxRect);
     x = availablePos.x();
     y = availablePos.y();
 
@@ -298,13 +247,13 @@ void MainView2D::updateFixture(Fixture *fixture)
     {
         quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
         qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        uchar intValue = 255;
         if (mdIndex != QLCChannel::invalid())
-        {
-            uchar intValue = fixture->channelValueAt(mdIndex);
-            QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
-                    Q_ARG(QVariant, headIdx),
-                    Q_ARG(QVariant, (qreal)intValue / 255.0));
-        }
+            intValue = fixture->channelValueAt(mdIndex);
+
+        QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
+                Q_ARG(QVariant, headIdx),
+                Q_ARG(QVariant, (qreal)intValue / 255.0));
 
         QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
         if (rgbCh.size() == 3)

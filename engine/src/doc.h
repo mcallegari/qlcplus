@@ -535,7 +535,13 @@ protected:
      * Monitor Properties
      *********************************************************************/
 public:
+    /** Returns a reference to the monitor properties instance */
     MonitorProperties *monitorProperties();
+
+    /** Returns the first available space (in mm) for a rectangle
+     * of the given width and height.
+     * This method works with the monitor properties and the fixtures list */
+    QPointF getAvailable2DPosition(QRectF& fxRect);
 
     /*********************************************************************
      * Load & Save

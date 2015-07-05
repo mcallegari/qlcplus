@@ -969,6 +969,68 @@ MonitorProperties *Doc::monitorProperties()
     return m_monitorProps;
 }
 
+QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
+{
+    if (m_monitorProps == NULL)
+        return QPointF(0, 0);
+
+    qreal xPos = fxRect.x(), yPos = fxRect.y();
+    qreal maxYOffset = 0;
+
+    QSize gridSize = m_monitorProps->gridSize();
+    float gridUnits = 1000.0;
+    if (m_monitorProps->gridUnits() == MonitorProperties::Feet)
+        gridUnits = 304.8;
+
+    QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
+
+    qreal origWidth = fxRect.width();
+    qreal origHeight = fxRect.height();
+
+    foreach(Fixture* fixture, fixtures())
+    {
+        QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
+
+        qreal itemXPos = fxPos.x();
+        qreal itemYPos = fxPos.y();
+        qreal itemWidth, itemHeight;
+        if (fxMode != NULL)
+        {
+            itemWidth = fxMode->physical().width();
+            itemHeight = fxMode->physical().height();
+        }
+        if (itemWidth == 0) itemWidth = 300;
+        if (itemHeight == 0) itemHeight = 300;
+
+        // store the next Y row in case we need to lower down
+        if (itemYPos + itemHeight > maxYOffset )
+            maxYOffset = itemYPos + itemHeight;
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
+        if (fxRect.intersects(itemRect) == true)
+        {
+            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+            if (xPos + fxRect.width() > gridArea.width())
+            {
+                xPos = 0;
+                yPos = maxYOffset + 50;
+                maxYOffset = 0;
+            }
+            fxRect.setX(xPos);
+            fxRect.setY(yPos);
+            // restore width and height as setX and setY mess them
+            fxRect.setWidth(origWidth);
+            fxRect.setHeight(origHeight);
+        }
+    }
+
+    return QPointF(xPos, yPos);
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

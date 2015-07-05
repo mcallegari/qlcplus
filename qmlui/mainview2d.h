@@ -50,10 +50,6 @@ protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();
 
-    /** Returns the first available space (in mm) for a rectangle
-     * of the given width and height. */
-    QPointF getAvailablePosition(QRectF &fxRect);
-
 signals:
 
 protected slots:
