@@ -39,12 +39,42 @@ Rectangle {
     property int panDegrees: 0
     property int tiltDegrees: 0
 
+    Rectangle {
+        id: rotateButton
+        x: parent.width - 40
+        width: 40
+        height: 40
+        z: 2
+
+        radius: 3
+        color: "#333"
+        border.color: "#666"
+        border.width: 2
+
+        Image {
+            anchors.fill: parent
+            source: "qrc:/rotate-right.svg"
+            sourceSize: Qt.rect(width, height)
+        }
+        MouseArea {
+            anchors.fill: parent
+            onPressed: rotateButton.color = "#555"
+            onReleased: rotateButton.color = "#333"
+            onClicked: {
+                gCanvas.rotation += 90
+                if (gCanvas.rotation == 360)
+                    gCanvas.rotation = 0
+            }
+        }
+    }
+
     Canvas {
         id: gCanvas
         width: posToolRoot.width - 20
         height: width
         x: 10
         y: 10
+        rotation: 0
 
         antialiasing: true
 
@@ -100,14 +130,35 @@ Rectangle {
             ctx.stroke();
         }
 
+        function drawBasement(ctx, eWidth, eHeight)
+        {
+            ctx.fillStyle = "#222";
+            ctx.strokeStyle = "#333"
+            ctx.beginPath();
+            var halfWidth = eWidth / 2;
+            ctx.moveTo(halfWidth - 80, height);
+            ctx.lineTo(halfWidth - 75, height - 35);
+            ctx.lineTo(halfWidth + 75, height - 35);
+            ctx.lineTo(halfWidth + 80, height);
+            ctx.lineTo(halfWidth - 80, height);
+
+            ctx.fill();
+            ctx.closePath();     //close the end to the start point
+            ctx.stroke();
+        }
+
         onPaint: {
             var ctx = gCanvas.getContext('2d');
             //ctx.save();
             ctx.globalAlpha = 1.0;
             ctx.fillStyle = "#111";
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 1;
 
             ctx.fillRect(0, 0, width, height)
+            // draw head basement
+            drawBasement(ctx, width, height);
+
+            ctx.lineWidth = 5;
             // draw TILT curve
             ctx.strokeStyle = "#2E77FF";
             drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
