@@ -90,7 +90,7 @@
   <Capability Res="Chauvet/gobo00034.png" Min="46" Max="48">Gobo 15</Capability>
   <Capability Res="Chauvet/gobo00035.png" Min="49" Max="51">Gobo 16</Capability>
   <Capability Res="Chauvet/gobo00036.png" Min="52" Max="55">Gobo 17</Capability>
-  <Capability Res="Others/gobo00022.png" Min="56" Max="59">Open</Capability>
+  <Capability Res="Others/open.png" Min="56" Max="59">Open</Capability>
   <Capability Res="Chauvet/gobo00020.png" Min="60" Max="63">Gobo 1 shaking</Capability>
   <Capability Res="Chauvet/gobo00021.png" Min="64" Max="67">Gobo 2 shaking</Capability>
   <Capability Res="Chauvet/gobo00022.png" Min="68" Max="71">Gobo 3 shaking</Capability>

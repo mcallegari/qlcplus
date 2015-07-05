@@ -74,7 +74,7 @@
  </Channel>
  <Channel Name="Static Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="3">None</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="3">None</Capability>
   <Capability Res="ClayPaky/gobo00006.png" Min="4" Max="7">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="8" Max="11">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00008.png" Min="12" Max="15">Gobo 3</Capability>

@@ -120,7 +120,7 @@
  </Channel>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="16">White</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="16">White</Capability>
   <Capability Res="SGM/gobo00324.png" Min="17" Max="32">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00043.png" Min="33" Max="48">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00042.png" Min="49" Max="64">Gobo 3</Capability>
@@ -170,7 +170,7 @@
  </Channel>
  <Channel Name="Rotating Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="18">White</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="18">White</Capability>
   <Capability Res="SGM-Color/gobo00375.png" Min="19" Max="36">Gobo 1</Capability>
   <Capability Res="Others/gobo00039.png" Min="37" Max="54">Gobo 2</Capability>
   <Capability Res="SGM/gobo00286.png" Min="55" Max="73">Gobo 3</Capability>

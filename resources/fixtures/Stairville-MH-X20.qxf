@@ -57,7 +57,7 @@
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
   <Capability Min="8" Max="15" Res="SGM/gobo00025.png">Gobo 2</Capability>
   <Capability Min="16" Max="23" Res="SGM/gobo00301.png">Gobo 3</Capability>
   <Capability Min="24" Max="31" Res="SGM/gobo00035.png">Gobo 4</Capability>
@@ -72,7 +72,7 @@
   <Capability Min="96" Max="103" Res="SGM/gobo00035.png">Gobo 4 shake (speed)</Capability>
   <Capability Min="104" Max="111" Res="SGM/gobo00301.png">Gobo 3 shake (speed)</Capability>
   <Capability Min="112" Max="119" Res="SGM/gobo00025.png">Gobo 2 shake (speed)</Capability>
-  <Capability Min="120" Max="127" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="120" Max="127" Res="Others/open.png">Open</Capability>
   <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow effect in positive rotation direction (speed)</Capability>
   <Capability Min="192" Max="255" Res="Others/rainbow.png">Rainbow effect in negative rotation direction (speed)</Capability>
  </Channel>

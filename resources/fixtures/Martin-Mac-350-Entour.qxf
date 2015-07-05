@@ -79,14 +79,14 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="3">Open</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="3">Open</Capability>
   <Capability Res="Others/gobo00064.png" Min="4" Max="7">Jessica Rose</Capability>
   <Capability Res="SGM/gobo00370.png" Min="8" Max="11">Cathedral Spikes</Capability>
   <Capability Res="ClayPaky/gobo00040.png" Min="12" Max="15">Galaxy Breakup</Capability>
   <Capability Res="SGM/gobo00364.png" Min="16" Max="19">Fabrick</Capability>
   <Capability Res="Others/gobo00017.png" Min="20" Max="23">Dipple</Capability>
   <Capability Res="SGM-Color/gobo00447.png" Min="24" Max="27">Blue Ripple</Capability>
-  <Capability Res="Others/gobo00022.png" Min="28" Max="31">Open</Capability>
+  <Capability Res="Others/open.png" Min="28" Max="31">Open</Capability>
   <Capability Res="Others/gobo00064.png" Min="32" Max="35">Jessica Rose</Capability>
   <Capability Res="SGM/gobo00370.png" Min="36" Max="39">Cathedral Spikes</Capability>
   <Capability Res="ClayPaky/gobo00040.png" Min="40" Max="43">Galaxy Breakup</Capability>

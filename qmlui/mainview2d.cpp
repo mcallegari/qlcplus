@@ -361,7 +361,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                     {
                         QString resName = cap->resourceName();
 
-                        if(resName.isEmpty() == false && resName.contains("Others/gobo00022") == false)
+                        if(resName.isEmpty() == false && resName.contains("open.png") == false)
                         {
                             QMetaObject::invokeMethod(fxItem, "setGoboPicture",
                                     Q_ARG(QVariant, 0),

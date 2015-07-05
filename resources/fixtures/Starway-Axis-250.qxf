@@ -52,7 +52,7 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00022.png" Min="0" Max="13">Open</Capability>
+  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/open.png" Min="0" Max="13">Open</Capability>
   <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00036.png" Min="14" Max="27">Gobo 1</Capability>
   <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00023.png" Min="28" Max="41">Gobo 2</Capability>
   <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00012.png" Min="42" Max="55">Gobo 3</Capability>

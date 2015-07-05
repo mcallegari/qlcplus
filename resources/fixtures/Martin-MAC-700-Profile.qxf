@@ -114,7 +114,7 @@
  </Channel>
  <Channel Name="Gobo1">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="11">Open - Indexed</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="11">Open - Indexed</Capability>
   <Capability Res="Others/gobo00046.png" Min="12" Max="15">Gobo 1 (Spiral)  - Indexed</Capability>
   <Capability Res="Others/gobo00060.png" Min="16" Max="19">Gobo 2 (Radial Circles) - Indexed</Capability>
   <Capability Res="SGM-Color/gobo00502.png" Min="20" Max="23">Gobo 3 (Fused Dicro Red/Yellow) - Indexed</Capability>
@@ -155,7 +155,7 @@
  </Channel>
  <Channel Name="Gobo2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="0">Open</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="10">Open -> slot 1</Capability>
   <Capability Min="11" Max="11">Slot 1 (Crackle)</Capability>
   <Capability Min="12" Max="21">Slot 1 -> Slot 2</Capability>
@@ -175,7 +175,7 @@
   <Capability Min="89" Max="98">Slot 8 -> Slot 9</Capability>
   <Capability Min="99" Max="99">Slot 9 (Two Tone)</Capability>
   <Capability Min="100" Max="109">Slot 9 -> Open</Capability>
-  <Capability Res="Others/gobo00022.png" Min="110" Max="112">Open</Capability>
+  <Capability Res="Others/open.png" Min="110" Max="112">Open</Capability>
   <Capability Min="113" Max="121">Slot 9 (Tow Tone)</Capability>
   <Capability Res="GLP/gobo00006.png" Min="122" Max="130">Slot 8 ("Les Mis" Whirl Pool)</Capability>
   <Capability Min="131" Max="139">Slot 7 (Leaf Breakup)</Capability>
@@ -185,7 +185,7 @@
   <Capability Min="167" Max="175">Slot 3 (Tye Dye)</Capability>
   <Capability Res="SGM/gobo00012.png" Min="176" Max="184">Slot 2 (Triangles Small)</Capability>
   <Capability Min="185" Max="193">Slot 1 (Crackle)</Capability>
-  <Capability Res="Others/gobo00022.png" Min="194" Max="202">Open</Capability>
+  <Capability Res="Others/open.png" Min="194" Max="202">Open</Capability>
   <Capability Min="203" Max="221">CW, fast->slow</Capability>
   <Capability Min="222" Max="240">CCW, slow->fast</Capability>
   <Capability Min="241" Max="245">Random Fast</Capability>

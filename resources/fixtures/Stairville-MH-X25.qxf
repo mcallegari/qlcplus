@@ -64,7 +64,7 @@
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="7">Open</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
   <Capability Res="ClayPaky/gobo00067.png" Min="8" Max="15">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00050.png" Min="16" Max="23">Gobo 3</Capability>
   <Capability Res="Others/gobo00038.png" Min="24" Max="31">Gobo 4</Capability>

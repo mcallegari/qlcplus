@@ -54,7 +54,7 @@
  </Channel>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="7">White</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="7">White</Capability>
   <Capability Res="ClayPaky/gobo00006.png" Min="8" Max="15">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="16" Max="23">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00008.png" Min="24" Max="31">Gobo 3</Capability>

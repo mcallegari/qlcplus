@@ -28,7 +28,7 @@
  </Channel>
  <Channel Name="Color / Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="11">Open</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="11">Open</Capability>
   <Capability Res="Chauvet/gobo00033.png" Min="12" Max="23">Worms</Capability>
   <Capability Res="Chauvet/gobo00044.png" Min="24" Max="35">Web</Capability>
   <Capability Res="ClayPaky/gobo00072.png" Min="36" Max="47">Petals</Capability>
