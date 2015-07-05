@@ -307,7 +307,7 @@ void MainView2D::updateFixture(Fixture *fixture)
         }
 
         QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
-        if (rgbCh.size() > 0)
+        if (rgbCh.size() == 3)
         {
             quint8 r = 0, g = 0, b = 0;
             r = fixture->channelValueAt(rgbCh.at(0));
@@ -317,7 +317,21 @@ void MainView2D::updateFixture(Fixture *fixture)
             QMetaObject::invokeMethod(fxItem, "setHeadColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(r, g, b)));
-            //colorSet = true;
+            colorSet = true;
+        }
+        QVector <quint32> cmyCh = fixture->cmyChannels(headIdx);
+        if (cmyCh.size() == 3)
+        {
+            quint8 c = 0, m = 0, y = 0;
+            c = fixture->channelValueAt(cmyCh.at(0));
+            m = fixture->channelValueAt(cmyCh.at(1));
+            y = fixture->channelValueAt(cmyCh.at(2));
+            QColor col;
+            col.setCmyk(c, m, y, 0);
+            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                    Q_ARG(QVariant, headIdx),
+                    Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
+            colorSet = true;
         }
     }
     // now scan all the channels in search for color wheels and gobos
