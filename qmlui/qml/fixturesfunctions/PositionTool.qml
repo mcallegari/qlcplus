@@ -54,7 +54,7 @@ Rectangle {
         Image {
             anchors.fill: parent
             source: "qrc:/rotate-right.svg"
-            sourceSize: Qt.rect(width, height)
+            sourceSize: Qt.size(width, height)
         }
         MouseArea {
             anchors.fill: parent

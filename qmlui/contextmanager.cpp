@@ -87,6 +87,14 @@ void ContextManager::reattachContext(QString context)
     }
 }
 
+void ContextManager::updateContexts()
+{
+    m_channelsMap.clear();
+    m_selectedFixtures.clear();
+    m_DMXView->enableContext(m_DMXView->isEnabled());
+    m_2DView->enableContext(m_2DView->isEnabled());
+}
+
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
 {
     if (m_selectedFixtures.contains(fxID))

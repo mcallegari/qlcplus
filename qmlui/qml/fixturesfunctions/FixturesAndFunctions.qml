@@ -47,13 +47,9 @@ Rectangle {
         }
 
         onDocLoadedChanged: {
-            console.log("Doc loaded !! ----")
-            viewUniverseCombo.model = ioManager.universes
-            var tmpView = currentViewQML
-            // clear the previously loaded view
-            currentViewQML = ""
-            // restore the previous view with new data
-            currentViewQML = tmpView
+            // a new Doc has been loaded. Do here all the operations to
+            // reset/restore the view (active contexts are updated in C++)
+            viewUniverseCombo.model = ioManager.universeNames
         }
 
         LeftPanel {

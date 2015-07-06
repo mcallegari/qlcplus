@@ -107,21 +107,30 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     newFixtureItem->setParentItem(m_contents2D);
     newFixtureItem->setProperty("fixtureID", fxID);
 
-    if (mmCoords == false)
+    if (mProps->hasFixturePosition(fxID) == false)
     {
-        if (x == 0 && y == 0)
+        if (mmCoords == false)
         {
-            x = (m_xOffset * m_gridUnits) / m_cellPixels;
-            y = (m_yOffset * m_gridUnits) / m_cellPixels;
+            if (x == 0 && y == 0)
+            {
+                x = (m_xOffset * m_gridUnits) / m_cellPixels;
+                y = (m_yOffset * m_gridUnits) / m_cellPixels;
+            }
+            else
+            {
+                x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
+                y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
+            }
         }
-        else
-        {
-            x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
-            y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
-        }
+        fxRect.setX(x);
+        fxRect.setY(y);
     }
-    fxRect.setX(x);
-    fxRect.setY(y);
+    else
+    {
+        QPointF fxOrig = mProps->fixturePosition(fxID);
+        fxRect.setX(fxOrig.x());
+        fxRect.setY(fxOrig.y());
+    }
 
     if (fxMode != NULL)
     {
@@ -148,16 +157,24 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     newFixtureItem->setProperty("mmWidth", fxRect.width());
     newFixtureItem->setProperty("mmHeight", fxRect.height());
 
-    QPointF availablePos = m_doc->getAvailable2DPosition(fxRect); //getAvailablePosition(fxRect);
-    x = availablePos.x();
-    y = availablePos.y();
+    if (mProps->hasFixturePosition(fxID) == false)
+    {
+        QPointF availablePos = m_doc->getAvailable2DPosition(fxRect);
+        x = availablePos.x();
+        y = availablePos.y();
+        // add the new fixture to the Doc monitor properties
+        mProps->setFixturePosition(fxID, QPointF(x, y));
+    }
+    else
+    {
+        QPointF fxOrig = mProps->fixturePosition(fxID);
+        x = fxOrig.x();
+        y = fxOrig.y();
+    }
 
     newFixtureItem->setProperty("mmXPos", x);
     newFixtureItem->setProperty("mmYPos", y);
     newFixtureItem->setProperty("fixtureName", fixture->name());
-
-    // add the new fixture to the Doc monitor properties
-    mProps->setFixturePosition(fxID, QPointF(x, y));
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
@@ -247,13 +264,13 @@ void MainView2D::updateFixture(Fixture *fixture)
     {
         quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
         qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
-        uchar intValue = 255;
+        qreal intValue = 1.0;
         if (mdIndex != QLCChannel::invalid())
-            intValue = fixture->channelValueAt(mdIndex);
+            intValue = (qreal)fixture->channelValueAt(mdIndex) / 255;
 
         QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
                 Q_ARG(QVariant, headIdx),
-                Q_ARG(QVariant, (qreal)intValue / 255.0));
+                Q_ARG(QVariant, intValue));
 
         QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
         if (rgbCh.size() == 3)

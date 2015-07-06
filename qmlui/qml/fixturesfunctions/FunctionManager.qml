@@ -32,6 +32,21 @@ Rectangle {
 
     Component.onDestruction: functionManager.clearTree()
 
+    function loadFunctionEditor(funcID, funcType)
+    {
+        //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
+        editorLoader.functionID = funcID
+        switch(funcType)
+        {
+            case Function.Scene:
+                editorLoader.source = "qrc:/SceneEditor.qml";
+            break;
+            case Function.Collection:
+                editorLoader.source = "qrc:/CollectionEditor.qml";
+            break;
+        }
+    }
+
     ColumnLayout {
 
       anchors.fill: parent
@@ -213,8 +228,10 @@ Rectangle {
           boundsBehavior: Flickable.StopAtBounds
           model: functionManager.functionsList
           delegate:
-              Component {
-                  Loader {
+              Component
+              {
+                  Loader
+                  {
                       width: parent.width
                       source: hasChildren ? "FolderDelegate.qml" : "FunctionDelegate.qml"
                       onLoaded: {
@@ -230,11 +247,12 @@ Rectangle {
                               //item.functionType = funcType
                           }
                       }
-                      Connections {
+                      Connections
+                      {
                             target: item
-                            onDoubleClicked: {
-                                editorLoader.functionID = fID
-                                editorLoader.source = "qrc:/CollectionEditor.qml"
+                            onDoubleClicked:
+                            {
+                                loadFunctionEditor(fID, fType)
                             }
                       }
                   }

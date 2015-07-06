@@ -74,6 +74,8 @@ public:
 
     void removeFixture(quint32 fid);
 
+    bool hasFixturePosition(quint32 fid) { return m_fixtureItems.contains(fid); }
+
     void setFixturePosition(quint32 fid, QPointF pos);
     QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
 
