@@ -112,13 +112,14 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QHBoxLayout *hbox2 = new QHBoxLayout();
-    m_volumeSlider = new ClickAndGoSlider();
+    m_volumeSlider = new ClickAndGoSlider(this);
     m_volumeSlider->setOrientation(Qt::Vertical);
     m_volumeSlider->setRange(0, 100);
     m_volumeSlider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_volumeSlider->setValue(100);
     m_volumeSlider->setFixedWidth(32);
     m_volumeSlider->setEnabled(false);
+
     connect(m_volumeSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotVolumeChanged(int)));
 #endif

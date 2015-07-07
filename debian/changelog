@@ -3,6 +3,7 @@ qlcplus (4.9.1) stable; urgency=low
   * RGBMatrix Editor: Update duration when changing fade in time (David Garyga)
   * Monitor: fixed values update of EFX in relative mode
   * VC Audio Triggers: fixed triggers enable from the web interface
+  * VC Audio Triggers: restored audio level fader
   * VC Speed Dial: Allow ms precision for absolute range (David Garyga)
   * Simple Desk: restored the icon to delete a Cue (Jano Svitok)
   * UI: fixed channel group sliders not showing up
