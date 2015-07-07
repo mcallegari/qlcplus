@@ -10,6 +10,7 @@ qlcplus (4.9.1) stable; urgency=high
   * UI: fixed channel group sliders not showing up
   * Plugins/DMXUSB: fixed for the (hopefully) last time Stageprofi data transmission
   * Plugins/OSC: fixed data receive on loopback interface
+  * Plugins/OSC: fixed messages with a name length multiple of 4 not received
   * RGB Scripts: add Waves script (thanks to Nathan Durnan)
   * New fixtures: Showtec Compact Par 18 Tri MKII, Showtec Indigo 150 LED, Elation Rayzor Q7 (thanks to Thierry Rodolfo)
   * New fixtures: Eurolite Led Theatre 36x3W CW/WW, Martin Viper AirFX, Clay Paky Glow Up, Martin CX-10 Extreme (thanks to Thierry Rodolfo)
