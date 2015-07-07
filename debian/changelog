@@ -8,7 +8,15 @@ qlcplus (4.9.1) stable; urgency=low
   * Simple Desk: restored the icon to delete a Cue (Jano Svitok)
   * UI: fixed channel group sliders not showing up
   * Plugins/DMXUSB: fixed for the (hopefully) last time Stageprofi data transmission
-  * Plugins/OSC: fixed data receive on loopback interface 
+  * Plugins/OSC: fixed data receive on loopback interface
+  * New fixtures: Showtec Compact Par 18 Tri MKII, Showtec Indigo 150 LED, Elation Rayzor Q7 (thanks to Thierry Rodolfo)
+  * New fixtures: Eurolite Led Theatre 36x3W CW/WW, Martin Viper AirFX, Clay Paky Glow Up, Martin CX-10 Extreme (thanks to Thierry Rodolfo)
+  * New fixture: Sagitter Slimpar 7DL (thanks to Damiano Mologni)
+  * New fixture: Varytec LED Hellball 3 (thanks to Daniel)
+  * New fixtures: Botex-DPX-620-III, Stairville AF-40 DMX (thanks to Yateri)
+  * New fixture: Cameo Gobo Scanner 60 (thanks to Tobi Vossen)
+  * New fixtures: Stairville LED Flood Panel 150, Eurolite PST 15W QCL RGB (thanks to Ralf Herold)
+  * New fixture: Eurolite LED D-400 RGBAW 3W DMX (thanks to Alexander Grözinger)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Jul 2015 20:21:22 +0200
 
