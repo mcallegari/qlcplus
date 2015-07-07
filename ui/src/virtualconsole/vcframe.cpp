@@ -697,6 +697,45 @@ bool VCFrame::copyFrom(const VCWidget* widget)
  * Properties
  *****************************************************************************/
 
+void VCFrame::applyProperties(VCFrameProperties const& prop)
+{
+    if (multipageMode() == true && prop.cloneWidgets() == true && m_pagesMap.isEmpty() == false)
+    {
+        for (int pg = 1; pg < totalPagesNumber(); pg++)
+        {
+            QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+            while (it.hasNext() == true)
+            {
+                VCWidget* child = it.next();
+                if (child->page() == 0 && child->parentWidget() == this)
+                {
+                    VCWidget *newWidget = child->createCopy(this);
+                    VirtualConsole::instance()->addWidgetInMap(newWidget);
+                    newWidget->setPage(pg);
+                    newWidget->remapInputSources(pg);
+                    newWidget->show();
+                    /**
+                     *  Remap input sources to the new page, otherwise
+                     *  all the cloned widgets would respond to the
+                     *  same controls
+                     */
+                    foreach( VCWidget* widget, newWidget->findChildren<VCWidget*>())
+                    {
+                        widget->setPage(pg);
+                        widget->remapInputSources(pg);
+                    }
+
+                    addWidgetToPageMap(newWidget);
+                }
+            }
+        }
+        slotSetPage(0);
+    }
+    VirtualConsole* vc = VirtualConsole::instance();
+    if (vc != NULL)
+        vc->reselectWidgets();
+}
+
 void VCFrame::editProperties()
 {
     if (isBottomFrame() == true)
@@ -705,41 +744,7 @@ void VCFrame::editProperties()
     VCFrameProperties prop(NULL, this, m_doc);
     if (prop.exec() == QDialog::Accepted)
     {
-        if (multipageMode() == true && prop.cloneWidgets() == true && m_pagesMap.isEmpty() == false)
-        {
-            for (int pg = 1; pg < totalPagesNumber(); pg++)
-            {
-                QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
-                while (it.hasNext() == true)
-                {
-                    VCWidget* child = it.next();
-                    if (child->page() == 0 && child->parentWidget() == this)
-                    {
-                        VCWidget *newWidget = child->createCopy(this);
-                        VirtualConsole::instance()->addWidgetInMap(newWidget);
-                        newWidget->setPage(pg);
-                        newWidget->remapInputSources(pg);
-                        newWidget->show();
-                        /**
-                         *  Remap input sources to the new page, otherwise
-                         *  all the cloned widgets would respond to the
-                         *  same controls
-                         */
-                        foreach( VCWidget* widget, newWidget->findChildren<VCWidget*>())
-                        {
-                            widget->setPage(pg);
-                            widget->remapInputSources(pg);
-                        }
-
-                        addWidgetToPageMap(newWidget);
-                    }
-                }
-            }
-            slotSetPage(0);
-        }
-        VirtualConsole* vc = VirtualConsole::instance();
-        if (vc != NULL)
-            vc->reselectWidgets();
+        applyProperties(prop);
     }
 }
 
@@ -820,6 +825,13 @@ bool VCFrame::loadXML(const QDomElement* root)
                 setEnableButtonVisible(true);
             else
                 setEnableButtonVisible(false);
+        }
+        else if (tag.tagName() == KXMLQLCVCSoloFrameMixing && this->type() == SoloFrameWidget)
+        {
+            if (tag.text() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrameMultipage)
         {
@@ -1130,6 +1142,18 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
             text = doc->createTextNode(KXMLQLCFalse);
         tag.appendChild(text);
         root.appendChild(tag);
+
+        /* Solo frame mixing */
+        if (this->type() == SoloFrameWidget)
+        {
+            tag = doc->createElement(KXMLQLCVCSoloFrameMixing);
+            if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+                text = doc->createTextNode(KXMLQLCTrue);
+            else
+                text = doc->createTextNode(KXMLQLCFalse);
+            tag.appendChild(text);
+            root.appendChild(tag);
+        }
 
         /* Collapsed */
         tag = doc->createElement(KXMLQLCVCFrameIsCollapsed);

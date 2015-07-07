@@ -460,8 +460,10 @@ int VCCueList::getCurrentIndex()
     return index;
 }
 
-void VCCueList::notifyFunctionStarting(quint32 fid)
+void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
+    Q_UNUSED(intensity);
+
     if (mode() == Doc::Design)
         return;
 

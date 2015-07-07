@@ -373,7 +373,7 @@ public:
     uchar playbackValue() const;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);

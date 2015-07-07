@@ -143,6 +143,7 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcslider.h \
            virtualconsole/vcsliderproperties.h \
            virtualconsole/vcsoloframe.h \
+           virtualconsole/vcsoloframeproperties.h \
            virtualconsole/vcspeeddial.h \
            virtualconsole/vcspeeddialfunction.h \
            virtualconsole/vcspeeddialproperties.h \
@@ -312,6 +313,7 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcslider.cpp \
            virtualconsole/vcsliderproperties.cpp \
            virtualconsole/vcsoloframe.cpp \
+           virtualconsole/vcsoloframeproperties.cpp \
            virtualconsole/vcspeeddial.cpp \
            virtualconsole/vcspeeddialfunction.cpp \
            virtualconsole/vcspeeddialproperties.cpp \

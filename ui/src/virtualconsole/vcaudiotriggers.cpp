@@ -166,10 +166,11 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
 #endif
 }
 
-void VCAudioTriggers::notifyFunctionStarting(quint32 fid)
+void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
     // Stop on any other function started
     Q_UNUSED(fid);
+    Q_UNUSED(intensity);
     if (m_button->isChecked() == true)
         enableCapture(false);
 }

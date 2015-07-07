@@ -35,6 +35,7 @@ class Doc;
  */
 
 #define KXMLQLCVCSoloFrame "SoloFrame"
+#define KXMLQLCVCSoloFrameMixing "Mixing"
 
 class VCSoloFrame : public VCFrame
 {
@@ -53,7 +54,11 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    virtual VCWidget* createCopy(VCWidget* parent);
+
+protected:
+    /** Copy the contents for this widget from another widget */
+    virtual bool copyFrom(const VCWidget* widget);
 
     /*************************************************************************
     * Solo behaviour
@@ -78,13 +83,28 @@ protected slots:
     /** Slot called when a Function attached to a widget has
      *  been requested to start.
      */
-    void slotWidgetFunctionStarting(quint32 fid);
+    void slotWidgetFunctionStarting(quint32 fid, qreal intensity);
+
+    /*****************************************************************************
+     * Properties
+     *****************************************************************************/
+protected:
+    /** @reimp */
+    virtual void editProperties();
+
+    bool m_soloframeMixing;
+public:
+    bool soloframeMixing() const;
+    void setSoloframeMixing(bool soloframeMixing);
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 protected:
     virtual QString xmlTagName() const;
+// public:
+//     virtual bool loadXML(const QDomElement* root);
+//     virtual bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 
     /*************************************************************************
      * Event handlers

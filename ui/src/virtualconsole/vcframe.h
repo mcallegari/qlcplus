@@ -48,6 +48,8 @@
 #define KXMLQLCVCFramePrevious    "Previous"
 #define KXMLQLCVCFramePagesLoop   "PagesLoop"
 
+class VCFrameProperties;
+
 class VCFrame : public VCWidget
 {
     Q_OBJECT
@@ -250,10 +252,11 @@ protected:
      *********************************************************************/
 protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
+    void applyProperties(VCFrameProperties const& prop);
 
 public:
     /** @reimp */
-    void editProperties();
+    virtual void editProperties();
 
     /*********************************************************************
      * Load & Save

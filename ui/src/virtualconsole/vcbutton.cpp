@@ -393,8 +393,10 @@ quint32 VCButton::function() const
     return m_function;
 }
 
-void VCButton::notifyFunctionStarting(quint32 fid)
+void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
+    Q_UNUSED(intensity);
+
     if (mode() == Doc::Design)
         return;
 
