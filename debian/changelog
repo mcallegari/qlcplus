@@ -4,6 +4,8 @@ qlcplus (4.9.1) stable; urgency=low
   * Monitor: fixed values update of EFX in relative mode
   * VC Audio Triggers: fixed triggers enable from the web interface
   * VC Speed Dial: Allow ms precision for absolute range (David Garyga)
+  * Simple Desk: restored the icon to delete a Cue (Jano Svitok)
+  * UI: fixed channel group sliders not showing up
   * Plugins/DMXUSB: fixed for the (hopefully) last time Stageprofi data transmission
   * Plugins/OSC: fixed data receive on loopback interface 
 
