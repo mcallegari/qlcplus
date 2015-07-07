@@ -994,7 +994,7 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
 
         qreal itemXPos = fxPos.x();
         qreal itemYPos = fxPos.y();
-        qreal itemWidth, itemHeight;
+        qreal itemWidth = 0, itemHeight = 0;
         if (fxMode != NULL)
         {
             itemWidth = fxMode->physical().width();
