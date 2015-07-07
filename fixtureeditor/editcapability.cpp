@@ -37,7 +37,10 @@ EditCapability::EditCapability(QWidget* parent, QLCCapability* cap,
                                QLCChannel::Group group, uchar min)
     : QDialog(parent)
 {
-    m_capability = cap->createCopy();
+    if (cap != NULL)
+        m_capability = cap->createCopy();
+    else
+        m_capability = new QLCCapability();
 
     setupUi(this);
 
