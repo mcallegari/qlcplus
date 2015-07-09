@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "contextmanager.h"
+#include "monitorproperties.h"
 #include "genericdmxsource.h"
 #include "functionmanager.h"
 #include "fixturemanager.h"
@@ -43,7 +44,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_source->setOutputEnabled(true);
 
     m_2DView = new MainView2D(m_view, m_doc);
-    m_view->rootContext()->setContextProperty("View2D", m_2DView);
+    //m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
 
@@ -141,6 +142,12 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 
     foreach(quint32 fxID, fxIDList)
         setFixtureSelection(fxID, true);
+}
+
+void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+    mProps->setFixturePosition(fxID, QPointF(x, y));
 }
 
 void ContextManager::dumpDmxChannels()

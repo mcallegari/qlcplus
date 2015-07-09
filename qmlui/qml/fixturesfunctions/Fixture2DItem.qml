@@ -93,8 +93,6 @@ Rectangle {
     border.color: isSelected ? "yellow" : "#AAA"
 
     Drag.active: fxMouseArea.drag.active
-    Drag.onDragStarted: console.log("drag started");
-    Drag.onDragFinished: console.log("drag finished");
 
     Flow
     {
@@ -206,13 +204,19 @@ Rectangle {
         onPressAndHold:
         {
             drag.target = fixtureItem
+            console.log("drag started");
         }
-        /*
-        onPositionChanged: {
-            if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ControlModifier)
-                View2D.moveFixture(fixtureID, fixtureItem.x, fixtureItem.y)
+        onReleased:
+        {
+            if (drag.target !== null)
+            {
+                console.log("drag finished");
+                mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
+                mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
+                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
+                drag.target = null
+            }
         }
-        */
         onClicked:
         {
             isSelected = !isSelected

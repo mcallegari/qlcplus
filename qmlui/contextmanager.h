@@ -52,6 +52,8 @@ public:
 
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
 
+    Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y);
+
     Q_INVOKABLE void dumpDmxChannels();
 
     Q_INVOKABLE void createFixtureGroup();
