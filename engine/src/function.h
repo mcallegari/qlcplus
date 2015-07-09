@@ -79,6 +79,7 @@ class Function : public QObject
     Q_DISABLE_COPY(Function)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(Type type READ type CONSTANT)
 
 public:
