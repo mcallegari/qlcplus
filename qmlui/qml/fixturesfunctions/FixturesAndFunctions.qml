@@ -23,7 +23,8 @@ import QtQuick.Layouts 1.1
 
 import "DetachWindow.js" as WinLoader
 
-Rectangle {
+Rectangle
+{
         objectName: "fixturesAndFunctions"
         width: 600
         height: 400
@@ -31,8 +32,9 @@ Rectangle {
         color: "transparent"
 
         property string currentViewQML: "qrc:/2DView.qml"
-        // string holding the current view. Used by the C++ for dynamic objects
-        // creation
+
+        // string holding the current view. Used by the C++ code
+        // for dynamic items creation
         property string currentView: "2D"
         property bool docLoaded: qlcplus.docLoaded
 
@@ -46,45 +48,52 @@ Rectangle {
                 twodView.visible = true
         }
 
-        onDocLoadedChanged: {
+        onDocLoadedChanged:
+        {
             // a new Doc has been loaded. Do here all the operations to
             // reset/restore the view (active contexts are updated in C++)
             viewUniverseCombo.model = ioManager.universeNames
         }
 
-        LeftPanel {
+        LeftPanel
+        {
             id: leftPanel
             x: 0
             z: 5
             height: parent.height
         }
 
-        RightPanel {
+        RightPanel
+        {
             id: rightPanel
             x: parent.width - width
             z: 5
             height: parent.height
         }
 
-        Rectangle {
+        Rectangle
+        {
             id: centerView
             width: parent.width - leftPanel.width - rightPanel.width
             x: leftPanel.width
             height: parent.height
             color: "transparent"
 
-            Rectangle {
+            Rectangle
+            {
                 id: viewToolbar
                 width: parent.width
                 height: 32
                 z: 10
-                gradient: Gradient {
+                gradient: Gradient
+                {
                     id: ffMenuGradient
                     GradientStop { position: 0 ; color: "#222" }
                     GradientStop { position: 1 ; color: "#111" }
                 }
 
-                RowLayout {
+                RowLayout
+                {
                     id: rowLayout1
                     //anchors.horizontalCenter: parent.horizontalCenter
                     anchors.left: parent.left
@@ -95,7 +104,8 @@ Rectangle {
                     spacing: 5
                     ExclusiveGroup { id: menuBarGroup2 }
 
-                    MenuBarEntry {
+                    MenuBarEntry
+                    {
                         id: uniView
                         imgSource: "uniview.svg"
                         entryText: qsTr("Universe View")
@@ -115,7 +125,8 @@ Rectangle {
                             WinLoader.createWindow("qrc:///UniverseGridView.qml")
                         }
                     }
-                    MenuBarEntry {
+                    MenuBarEntry
+                    {
                         id: dmxView
                         imgSource: "dmxview.svg"
                         entryText: qsTr("DMX View")
@@ -136,7 +147,8 @@ Rectangle {
                             WinLoader.createWindow("qrc:///DMXView.qml")
                         }
                     }
-                    MenuBarEntry {
+                    MenuBarEntry
+                    {
                         id: twodView
                         imgSource: "2dview.svg"
                         entryText: qsTr("2D View")
@@ -157,7 +169,8 @@ Rectangle {
                             WinLoader.createWindow("qrc:///2DView.qml")
                         }
                     }
-                    MenuBarEntry {
+                    MenuBarEntry
+                    {
                         id: threedView
                         imgSource: "3dview.svg"
                         entryText: qsTr("3D View")
@@ -177,29 +190,26 @@ Rectangle {
                         }
                     }
 
-                    Rectangle {
-                        Layout.fillWidth: true
-                    }
+                    Rectangle { Layout.fillWidth: true }
 
-                    CustomComboBox {
+                    CustomComboBox
+                    {
                         id: viewUniverseCombo
                         width: 100
                         height: 20
                         anchors.margins: 4
                         model: ioManager.universeNames
 
-                        onCurrentIndexChanged: {
-                            var tmpview = currentViewQML;
-                            // clear the previously loaded view
-                            currentViewQML = ""
-                            // restore the previous view with new data
-                            currentViewQML = tmpview
+                        onCurrentIndexChanged:
+                        {
+                            // set the universe filter here
                         }
                     }
                 }
             }
 
-            Loader {
+            Loader
+            {
                 id: previewLoader
                 z: 0
                 //objectName: "editorLoader"

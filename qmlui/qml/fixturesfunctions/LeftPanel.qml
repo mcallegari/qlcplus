@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-Rectangle {
+Rectangle
+{
     id: leftSidePanel
     property bool isOpen: false
     property int collapseWidth: 50
@@ -36,7 +37,8 @@ Rectangle {
     color: "#232323"
     z: 0
 
-    function animatePanel() {
+    function animatePanel()
+    {
         if (leftSidePanel.isOpen == false)
         {
             editorLoader.source = editorSource;
@@ -50,20 +52,23 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: editorArea
         width: leftSidePanel.width - collapseWidth;
         height: parent.height
         color: "transparent"
 
-        Loader {
+        Loader
+        {
             id: editorLoader
             //objectName: "editorLoader"
             anchors.fill: parent
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: sideBar
         x: parent.width - collapseWidth
         width: collapseWidth
@@ -74,12 +79,14 @@ Rectangle {
         ExclusiveGroup { id: fxManagerGroup }
         ExclusiveGroup { id: capabilitiesGroup }
 
-        Column {
+        Column
+        {
             anchors.fill: parent
             anchors.leftMargin: 1
             spacing: 3
 
-            IconButton {
+            IconButton
+            {
                 id: fxEditor
                 z: 2
                 width: iconSize
@@ -88,15 +95,17 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Add Fixtures")
                 exclusiveGroup: fxManagerGroup
-                onToggled: {
+                onToggled:
+                {
                     if (checked == true)
-                        editorSource = "qrc:///FixtureBrowser.qml"
+                        editorSource = "qrc:/FixtureBrowser.qml"
                     if (checked != isOpen)
                         animatePanel();
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 id: grpEditor
                 z: 2
                 width: iconSize
@@ -105,13 +114,17 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Fixture Groups")
                 exclusiveGroup: fxManagerGroup
-                onToggled: {
+                onToggled:
+                {
+                    if (checked == true)
+                        editorSource = "qrc:/GroupEditor.qml"
                     if (checked != isOpen)
                         animatePanel();
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 objectName: "capIntensity"
                 z: 2
                 width: iconSize
@@ -121,17 +134,17 @@ Rectangle {
                 tooltip: qsTr("Intensity")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: {
-                    intTool.visible = !intTool.visible
-                }
-                IntensityTool {
+                onCheckedChanged: { intTool.visible = !intTool.visible }
+                IntensityTool
+                {
                     id: intTool
                     x: iconSize + 4
                     visible: false
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 objectName: "capColor"
                 z: 2
                 width: iconSize
@@ -141,17 +154,17 @@ Rectangle {
                 tooltip: qsTr("Color")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: {
-                    colTool.visible = !colTool.visible
-                }
-                ColorTool {
+                onCheckedChanged: { colTool.visible = !colTool.visible }
+                ColorTool
+                {
                     id: colTool
                     x: iconSize + 4
                     visible: false
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 objectName: "capPosition"
                 z: 2
                 width: iconSize
@@ -161,17 +174,17 @@ Rectangle {
                 tooltip: qsTr("Position")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: {
-                    posTool.visible = !posTool.visible
-                }
-                PositionTool {
+                onCheckedChanged: { posTool.visible = !posTool.visible }
+                PositionTool
+                {
                     id: posTool
                     x: iconSize + 4
                     visible: false
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 objectName: "capColorWheel"
                 z: 2
                 width: iconSize
@@ -182,18 +195,17 @@ Rectangle {
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
 
-                onCheckedChanged: {
-                    cWheelTool.visible = !cWheelTool.visible
-                }
-                PresetsTool {
+                onCheckedChanged: { cWheelTool.visible = !cWheelTool.visible }
+                PresetsTool
+                {
                     id: cWheelTool
                     x: iconSize + 4
                     visible: false
                 }
-
             }
 
-            IconButton {
+            IconButton
+            {
                 objectName: "capGobos"
                 z: 2
                 width: iconSize
@@ -204,10 +216,9 @@ Rectangle {
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
 
-                onCheckedChanged: {
-                    gobosTool.visible = !gobosTool.visible
-                }
-                PresetsTool {
+                onCheckedChanged: { gobosTool.visible = !gobosTool.visible }
+                PresetsTool
+                {
                     id: gobosTool
                     x: iconSize + 4
                     visible: false
@@ -217,7 +228,8 @@ Rectangle {
         }
     }
 
-    PropertyAnimation {
+    PropertyAnimation
+    {
         id: animateOpen;
         target: leftSidePanel;
         properties: "width";
@@ -225,20 +237,23 @@ Rectangle {
         duration: 200
     }
 
-    PropertyAnimation {
+    PropertyAnimation
+    {
         id: animateClose;
         target: leftSidePanel;
         properties: "width";
         to: collapseWidth;
         duration: 200
 
-        onRunningChanged: {
+        onRunningChanged:
+        {
             if (!animateClose.running)
                 editorLoader.source = "";
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: gradientBorder
         y: width
         x: parent.width - height
@@ -247,30 +262,16 @@ Rectangle {
         width: parent.height
         transformOrigin: Item.TopLeft
         rotation: 270
-        gradient: Gradient {
-
-            GradientStop {
-                position: 0
-                color: "#141414"
-            }
-
-            GradientStop {
-                position: 0.213
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 0.79
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 1
-                color: "#141414"
-            }
+        gradient: Gradient
+        {
+            GradientStop { position: 0; color: "#141414" }
+            GradientStop { position: 0.213; color: "#232323" }
+            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 1; color: "#141414" }
         }
 
-        MouseArea {
+        MouseArea
+        {
             id: lpClickArea
             anchors.fill: parent
             z: 1
@@ -281,14 +282,15 @@ Rectangle {
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth
 
-            onPositionChanged: {
-                if (drag.active == true) {
+            onPositionChanged:
+            {
+                if (drag.active == true)
+                {
                     var obj = mapToItem(null, mouseX, mouseY);
                     leftSidePanel.width = obj.x + (collapseWidth / 2);
                     //console.log("mouseX:", mouseX, "mapToItem().x:", obj.x);
                 }
             }
-
             //onClicked: animatePanel("")
         }
     }

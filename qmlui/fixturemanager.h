@@ -27,6 +27,7 @@
 #include <QList>
 
 #include "scenevalue.h"
+#include "treemodel.h"
 
 class Doc;
 class Fixture;
@@ -36,6 +37,8 @@ class FixtureManager : public QObject
     Q_OBJECT
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
     Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
+    Q_PROPERTY(QVariant groupsModel READ groupsModel NOTIFY groupsModelChanged)
+
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
 
@@ -69,6 +72,12 @@ public:
     /** Returns a QML-readable list of references to Fixture classes */
     QQmlListProperty<Fixture> fixtures();
 
+    /** Returns the data model to display a tree of Groups/Fixtures */
+    QVariant groupsModel();
+
+    /** Add a list of fixture IDs to a new fixture group */
+    void addFixturesToNewGroup(QList<quint32>fxList);
+
     /** Returns the names of the currently selected fixtures with gobo channels.
      *  The names are in the format: Product - Channel name */
     QVariantList goboChannels();
@@ -81,9 +90,13 @@ public:
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(int index);
 
+protected slots:
+    /** Slot called whenever a new workspace has been loaded */
+    void slotDocLoaded();
+
 signals:
-    void docLoaded();
     void fixturesCountChanged();
+    void groupsModelChanged();
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
     void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
     void channelTypeValueChanged(int type, quint8 value);
@@ -108,6 +121,8 @@ private:
      *  the required $group */
     QVariantList presetsChannels(QLCChannel::Group group);
 
+    void updateFixtureTree();
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
@@ -117,6 +132,8 @@ private:
     QList<Fixture *> m_fixtureList;
     /** Keep a map of references to the available preset channels and a related Fixture ID */
     QMap<const QLCChannel *, quint32>m_presetsCache;
+    /** Data model used by the QML UI to represent groups and fixtures */
+    TreeModel *m_fixtureTree;
 };
 
 #endif // FIXTUREMANAGER_H

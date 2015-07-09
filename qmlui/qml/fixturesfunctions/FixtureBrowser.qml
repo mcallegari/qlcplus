@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 
-Rectangle {
+Rectangle
+{
     id: fxBrowserBox
     anchors.fill: parent
     color: "transparent"
@@ -29,7 +30,8 @@ Rectangle {
     property int manufacturerIndex
     property string selectedModel
 
-    Rectangle {
+    Rectangle
+    {
         id: searchBox
         y: 8
         z: 1
@@ -43,7 +45,8 @@ Rectangle {
         border.width: 2
         border.color: "#111"
 
-        Image {
+        Image
+        {
             id: searchIcon
             y: 3
             width: 24
@@ -54,7 +57,8 @@ Rectangle {
             sourceSize: Qt.size(24, 24)
         }
 
-        TextEdit {
+        TextEdit
+        {
             id: textEdit1
             x: searchIcon.width + 10
             y: 3
@@ -66,7 +70,8 @@ Rectangle {
         }
     }
 
-    ListView {
+    ListView
+    {
         id: manufacturerList
         x: 8
         z: 0
@@ -80,8 +85,10 @@ Rectangle {
         anchors.leftMargin: 8
         focus: true
         boundsBehavior: Flickable.StopAtBounds
-        highlight: Component {
-            Rectangle {
+        highlight: Component
+        {
+            Rectangle
+            {
                 width: parent.width - 30; height: 31
                 color: "#0978FF"; radius: 5
                 y: manufacturerList.currentItem.y + 1
@@ -90,9 +97,11 @@ Rectangle {
         highlightFollowsCurrentItem: false
 
         model: fixtureBrowser.manufacturers()
-        delegate: FixtureDelegate {
+        delegate: FixtureBrowserDelegate
+        {
             isManufacturer: true
-            onClicked: {
+            onClicked:
+            {
                 selectedManufacturer = modelData
                 mfText.label = modelData
                 //console.log("Pressed:" + modelData)
@@ -104,17 +113,17 @@ Rectangle {
             }
         }
 
-        Component.onCompleted: {
+        Component.onCompleted:
+        {
             manufacturerIndex = fixtureBrowser.genericIndex()
             manufacturerList.currentIndex = fixtureBrowser.genericIndex()
             manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
         }
-        ScrollBar {
-            flickable: manufacturerList
-        }
+        ScrollBar { flickable: manufacturerList }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: fixtureArea
         visible: false
         color: "transparent"
@@ -128,7 +137,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 8
 
-        Rectangle {
+        Rectangle
+        {
             id: manufBackLink
             height: 40
             z: 1
@@ -136,7 +146,8 @@ Rectangle {
             anchors.left: parent.left
             color: "#333"
 
-            Image {
+            Image
+            {
                 id: leftArrow
                 rotation: 180
                 anchors.left: parent.left
@@ -148,7 +159,8 @@ Rectangle {
                 width: 18
             }
 
-            RobotoText {
+            RobotoText
+            {
                 id: mfText
                 anchors.left: leftArrow.right
                 anchors.leftMargin: 10
@@ -156,12 +168,13 @@ Rectangle {
                 fontSize: 18
                 fontBold: true
                 labelColor: "#888"
-
             }
-            MouseArea {
+            MouseArea
+            {
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: {
+                onClicked:
+                {
                     fixtureArea.visible = false
                     fxPropsRect.visible = false
                     manufacturerList.visible = true
@@ -183,8 +196,10 @@ Rectangle {
             anchors.left: parent.left
             focus: true
             boundsBehavior: Flickable.StopAtBounds
-            highlight: Component {
-                Rectangle {
+            highlight: Component
+            {
+                Rectangle
+                {
                     width: parent.width - 30; height: 31
                     color: "#0978FF"; radius: 5
                     y: fixtureList.currentItem.y + 1
@@ -192,10 +207,12 @@ Rectangle {
             }
             highlightFollowsCurrentItem: false
 
-            delegate: FixtureDelegate {
+            delegate: FixtureBrowserDelegate
+            {
                 id: dlg
                 manufacturer: selectedManufacturer
-                onClicked: {
+                onClicked:
+                {
                     fixtureList.currentIndex = index
                     fixtureBrowser.model = modelData
                     fxPropsRect.fxManufacturer = selectedManufacturer
@@ -204,12 +221,11 @@ Rectangle {
                     fxPropsRect.visible = true
                 }
             }
-            ScrollBar {
-                flickable: fixtureList
-            }
+            ScrollBar { flickable: fixtureList }
         }
 
-        FixtureProperties {
+        FixtureProperties
+        {
             id: fxPropsRect
             anchors.right: parent.right
             anchors.rightMargin: 4

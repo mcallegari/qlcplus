@@ -23,7 +23,8 @@ import QtQuick.Controls 1.2
 
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: fmContainer
     anchors.fill: parent
     color: "transparent"
@@ -47,30 +48,34 @@ Rectangle {
         }
     }
 
-    ColumnLayout {
-
+    ColumnLayout
+    {
       anchors.fill: parent
       spacing: 3
 
-      Rectangle {
+      Rectangle
+      {
         id: topBar
         width: fmContainer.width
         height: 44
         z: 5
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: ffMenuGradient
             GradientStop { position: 0 ; color: "#222" }
             GradientStop { position: 1 ; color: "#111" }
         }
 
-        RowLayout {
+        RowLayout
+        {
             id: topBarRowLayout
             width: parent.width
             y: 1
 
             spacing: 4
 
-            IconButton {
+            IconButton
+            {
                 id: sceneFunc
                 z: 2
                 width: height
@@ -79,14 +84,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Scenes")
                 counter: functionManager.sceneCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Scene, true);
                     else
                         functionManager.setFunctionFilter(Function.Scene, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: chaserFunc
                 z: 2
                 width: height
@@ -95,14 +102,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Chasers")
                 counter: functionManager.chaserCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Chaser, true);
                     else
                         functionManager.setFunctionFilter(Function.Chaser, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: efxFunc
                 z: 2
                 width: height
@@ -111,14 +120,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("EFX")
                 counter: functionManager.efxCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.EFX, true);
                     else
                         functionManager.setFunctionFilter(Function.EFX, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: collectionFunc
                 z: 2
                 width: height
@@ -127,14 +138,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Collections")
                 counter: functionManager.collectionCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Collection, true);
                     else
                         functionManager.setFunctionFilter(Function.Collection, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: rgbmFunc
                 z: 2
                 width: height
@@ -143,14 +156,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("RGB Matrices")
                 counter: functionManager.rgbMatrixCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.RGBMatrix, true);
                     else
                         functionManager.setFunctionFilter(Function.RGBMatrix, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: showFunc
                 z: 2
                 width: height
@@ -159,14 +174,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Shows")
                 counter: functionManager.showCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Show, true);
                     else
                         functionManager.setFunctionFilter(Function.Show, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: scriptFunc
                 z: 2
                 width: height
@@ -175,14 +192,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Scripts")
                 counter: functionManager.scriptCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Script, true);
                     else
                         functionManager.setFunctionFilter(Function.Script, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: audioFunc
                 z: 2
                 width: height
@@ -191,14 +210,16 @@ Rectangle {
                 checkable: true
                 tooltip: qsTr("Audio")
                 counter: functionManager.audioCount
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                         functionManager.setFunctionFilter(Function.Audio, true);
                     else
                         functionManager.setFunctionFilter(Function.Audio, false);
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: videoFunc
                 z: 2
                 width: height
@@ -214,13 +235,12 @@ Rectangle {
                         functionManager.setFunctionFilter(Function.Video, false);
                 }
             }
-            Rectangle {
-                Layout.fillWidth: true
-            }
+            Rectangle { Layout.fillWidth: true }
         }
       }
 
-      ListView {
+      ListView
+      {
           id: functionsListView
           width: fmContainer.width
           height: fmContainer.height - topBar.height
@@ -233,8 +253,9 @@ Rectangle {
                   Loader
                   {
                       width: parent.width
-                      source: hasChildren ? "FolderDelegate.qml" : "FunctionDelegate.qml"
-                      onLoaded: {
+                      source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FunctionDelegate.qml"
+                      onLoaded:
+                      {
                           item.textLabel = label
                           if (hasChildren)
                           {
@@ -243,17 +264,19 @@ Rectangle {
                           }
                           else
                           {
-                              item.functionID = funcID
+                              item.cRef = classRef
                               //item.functionType = funcType
                           }
                       }
                       Connections
                       {
-                            target: item
-                            onDoubleClicked:
-                            {
-                                loadFunctionEditor(fID, fType)
-                            }
+                          target: item
+                          onDoubleClicked:loadFunctionEditor(fID, fType)
+                      }
+                      Connections
+                      {
+                          target: item
+                          onClicked: if (hasChildren) functionManager.selectFunction(-1, qItem, false)
                       }
                   }
               }

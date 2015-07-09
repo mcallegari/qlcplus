@@ -42,7 +42,6 @@ void TreeModel::clear()
     beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
     for (int i = 0; i < itemsCount; i++)
     {
-
         TreeModelItem *item = m_items.takeLast();
         delete item;
     }
@@ -61,7 +60,7 @@ void TreeModel::enableSorting(bool enable)
     m_sorting = enable;
 }
 
-void TreeModel::addItem(QString label, QStringList data, QString path)
+void TreeModel::addItem(QString label, QVariantList data, QString path)
 {
     //qDebug() << "Adding item" << label << path;
 

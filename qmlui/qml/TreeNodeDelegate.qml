@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FolderDelegate.qml
+  TreeNodeDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: nodeContainer
     width: 350
     height: nodeLabel.height + nodeChildrenView.height
@@ -32,11 +33,15 @@ Rectangle {
     property bool isSelected: false
     property int childrenHeight: 0
     property int variableHeight: 0
+    property string nodeIcon: "qrc:/folder.svg"
+    property string childrenDelegate: "qrc:/FunctionDelegate.qml"
 
     signal toggled(bool expanded, int newHeight)
+    signal clicked(var qItem)
     signal doubleClicked(int fID, int fType)
 
-    Rectangle {
+    Rectangle
+    {
         width: parent.width
         height: 35
         radius: 3
@@ -44,13 +49,15 @@ Rectangle {
         visible: isSelected
     }
 
-    Image {
+    Image
+    {
         width: 40
         height: 35
-        source: "qrc:/folder.svg"
+        source: nodeIcon
     }
 
-    RobotoText {
+    RobotoText
+    {
         id: nodeLabel
         x: 45
         width: parent.width
@@ -59,18 +66,21 @@ Rectangle {
         fontSize: 11
     }
 
-    MouseArea {
+    MouseArea
+    {
         width: parent.width
         height: 35
-        onClicked: {
+        onClicked:
+        {
             isExpanded = !isExpanded
             nodeContainer.toggled(isExpanded, childrenHeight)
             isSelected = true
-            functionManager.selectFunction(-1, nodeContainer, false)
+            nodeContainer.clicked(nodeContainer)
+            //functionManager.selectFunction(-1, nodeContainer, false)
         }
     }
 
-    function childToggled(expanded, height)
+    function nodeToggled(expanded, height)
     {
         if (expanded)
             variableHeight += height;
@@ -78,7 +88,8 @@ Rectangle {
             variableHeight -= height;
     }
 
-    ListView {
+    ListView
+    {
         id: nodeChildrenView
         visible: isExpanded
         x: 30
@@ -86,30 +97,42 @@ Rectangle {
         height: isExpanded ? (childrenHeight + variableHeight) : 0
         model: folderChildren
         delegate:
-            Component {
-                Loader {
-                    width: 350 //parent.width
+            Component
+            {
+                Loader
+                {
+                    width: nodeContainer.width
                     //height: 35
-                    source: hasChildren ? "FolderDelegate.qml" : "FunctionDelegate.qml"
-                    onLoaded: {
+                    source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : childrenDelegate
+                    onLoaded:
+                    {
                         item.textLabel = label
                         if (hasChildren)
                         {
                             item.folderChildren = childrenModel
+                            item.nodeIcon = nodeContainer.nodeIcon
+                            item.childrenDelegate = childrenDelegate
                             item.childrenHeight = (childrenModel.rowCount() * 35)
                         }
                         else
                         {
-                            item.functionID = funcID
+                            item.cRef = classRef
                         }
                     }
-                    Connections {
+                    Connections
+                    {
                          target: item
-                         onToggled: childToggled(item.isExpanded, item.childrenHeight)
+                         onToggled: nodeToggled(item.isExpanded, item.childrenHeight)
                     }
-                    Connections {
+                    Connections
+                    {
                         target: item
-                        onDoubleClicked: nodeContainer.doubleClicked(fID, fType)
+                        onClicked: if (hasChildren) nodeContainer.clicked(item)
+                    }
+                    Connections
+                    {
+                        target: item
+                        onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
                     }
                 }
         }

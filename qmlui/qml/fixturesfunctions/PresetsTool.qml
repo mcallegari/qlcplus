@@ -20,7 +20,8 @@
 import QtQuick 2.3
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: toolRoot
     width: 360
     height: 350
@@ -32,7 +33,8 @@ Rectangle {
     property bool goboPresets: false // false for color wheel, true for gobos
     property int selectedIndex: -1
 
-    onVisibleChanged: {
+    onVisibleChanged:
+    {
         if (visible === true)
         {
             selectedIndex = -1
@@ -42,26 +44,30 @@ Rectangle {
     }
 
     // toolbar area containing the available preset channels
-    Rectangle {
+    Rectangle
+    {
         id: presetToolBar
         width: parent.width
         height: 50
         z: 10
         clip: true
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: ffMenuGradient
             GradientStop { position: 0 ; color: "#222" }
             GradientStop { position: 1 ; color: "#111" }
         }
 
-        ListView {
+        ListView
+        {
             id: prList
             anchors.fill: parent
             orientation: ListView.Horizontal
             boundsBehavior: Flickable.StopAtBounds
             //model: goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
             delegate:
-                Rectangle {
+                Rectangle
+                {
                     id: delRoot
                     width: 150
                     height: presetToolBar.height
@@ -71,12 +77,14 @@ Rectangle {
 
                     property int presetIdx: modelData.presetIndex
 
-                    Component.onCompleted: {
+                    Component.onCompleted:
+                    {
                         if (selectedIndex === -1)
                             selectedIndex = modelData.presetIndex
                     }
 
-                    RobotoText {
+                    RobotoText
+                    {
                         x: 1
                         width: parent.width - 2
                         height: parent.height
@@ -84,12 +92,14 @@ Rectangle {
                         fontSize: 10
                         wrapText: true
                     }
-                    MouseArea {
+                    MouseArea
+                    {
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: delRoot.color = "#555"
                         onExited: delRoot.color = "#333"
-                        onClicked: {
+                        onClicked:
+                        {
                             selectedIndex = presetIdx
                             capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
                         }
@@ -99,7 +109,8 @@ Rectangle {
     }
 
     // flickable layout containing the actual preset capabilities
-    Flickable {
+    Flickable
+    {
         width: parent.width
         height: parent.height - presetToolBar.height
         y: presetToolBar.height
@@ -107,20 +118,23 @@ Rectangle {
         contentWidth: width
         contentHeight: flowView.height
 
-        Flow {
+        Flow
+        {
             id: flowView
             width: parent.width
-            Repeater {
+            Repeater
+            {
                 id: capRepeater
-                delegate: PresetCapabilityItem {
+                delegate: PresetCapabilityItem
+                {
                     capability: modelData
                     capIndex: index + 1
-                    onValueChanged: {
+                    onValueChanged:
+                    {
                         fixtureManager.setPresetValue(selectedIndex, value)
                     }
                 }
             }
         }
     }
-
 }

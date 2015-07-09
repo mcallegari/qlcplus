@@ -35,6 +35,7 @@ TreeModelItem::~TreeModelItem()
     //qDebug() << "!!! WARNING TreeModelItem destroyed WARNING !!!";
     if (hasChildren())
     {
+        m_children->clear();
         delete m_children;
         m_children = NULL;
     }
@@ -50,7 +51,7 @@ void TreeModelItem::setLabel(QString label)
     m_label = label;
 }
 
-void TreeModelItem::setData(QStringList data)
+void TreeModelItem::setData(QVariantList data)
 {
     m_data = data;
 }
@@ -74,7 +75,7 @@ void TreeModelItem::setChildrenColumns(QStringList columns)
     m_children->setColumnNames(columns);
 }
 
-void TreeModelItem::addChild(QString label, QStringList data, bool sorting, QString path)
+void TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path)
 {
     if (m_children == NULL)
     {

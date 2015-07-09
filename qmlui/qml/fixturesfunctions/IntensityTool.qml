@@ -21,7 +21,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
-Rectangle {
+Rectangle
+{
     width: 150
     height: 350
     color: "#333"
@@ -31,14 +32,16 @@ Rectangle {
     property bool dmxValues: true
     property int currentValue: 0
 
-    onCurrentValueChanged: {
+    onCurrentValueChanged:
+    {
         if (dmxValues)
             fixtureManager.setIntensityValue(currentValue)
         else
             fixtureManager.setIntensityValue(currentValue * 2.55)
     }
 
-    RobotoText {
+    RobotoText
+    {
         id: titleBox
         y: 7
         height: 20
@@ -48,7 +51,8 @@ Rectangle {
         fontBold: true
     }
 
-    Image {
+    Image
+    {
         id: intBackgroundImg
         x:30
         y: 30
@@ -58,7 +62,8 @@ Rectangle {
         sourceSize: Qt.size(100, 256)
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: rectMask
         color: "transparent"
         x: 30
@@ -69,7 +74,8 @@ Rectangle {
         rotation: -90
         clip: true
 
-        Image {
+        Image
+        {
             id: intForegroundImg
             y: -256
             width: 100
@@ -81,7 +87,8 @@ Rectangle {
         }
     }
 
-    Slider {
+    Slider
+    {
         id: slider
         x: 20
         y: 30
@@ -92,14 +99,16 @@ Rectangle {
         maximumValue: 255
         stepSize: 1.0
 
-        style: SliderStyle {
+        style: SliderStyle
+        {
             groove: Rectangle { color: "transparent" }
             handle: Rectangle { color: "transparent" }
         }
         onValueChanged: currentValue = slider.value
     }
 
-    CustomSpinBox {
+    CustomSpinBox
+    {
         id: spinBox
         x: 10
         y: 300
@@ -112,11 +121,13 @@ Rectangle {
         onValueChanged: slider.value = value
     }
 
-    DMXPercentageButton {
+    DMXPercentageButton
+    {
         x: 90
         y: 300
         dmxMode: dmxValues
-        onClicked: {
+        onClicked:
+        {
             dmxMode = !dmxMode
             var newVal;
             if (dmxMode == false)

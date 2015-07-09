@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: iRoot
     width: 180
     height: 64
@@ -33,7 +34,8 @@ Rectangle {
 
     signal valueChanged(int value)
 
-    onCapabilityChanged: {
+    onCapabilityChanged:
+    {
         if (capability === null)
             return;
 
@@ -57,14 +59,17 @@ Rectangle {
         capName.label = capability.name
     }
 
-    Row {
-        Rectangle {
+    Row
+    {
+        Rectangle
+        {
             width: 64
             height: 64
             border.width: 1
             border.color: "#111"
 
-            Rectangle {
+            Rectangle
+            {
                 id: col1
                 x: 1
                 y: 1
@@ -72,7 +77,8 @@ Rectangle {
                 height: 62
                 color: "transparent"
             }
-            Rectangle {
+            Rectangle
+            {
                 id: col2
                 x: 32
                 y: 1
@@ -80,14 +86,16 @@ Rectangle {
                 height: 62
                 color: "transparent"
             }
-            RobotoText {
+            RobotoText
+            {
                 id: capIdx
                 anchors.centerIn: parent
                 z: 2
                 label: ""
                 labelColor: "black"
             }
-            Image {
+            Image
+            {
                 id: pic
                 x: 1
                 y: 1
@@ -97,7 +105,8 @@ Rectangle {
                 source: ""
             }
         }
-        RobotoText {
+        RobotoText
+        {
             id: capName
             width: iRoot.width - 64
             height: iRoot.height
@@ -107,7 +116,8 @@ Rectangle {
             wrapText: true
         }
     }
-    Rectangle {
+    Rectangle
+    {
         id: capBar
         y: parent.height - height
         width: 0
@@ -115,7 +125,8 @@ Rectangle {
         z: 10
         color: "blue"
     }
-    MouseArea {
+    MouseArea
+    {
         anchors.fill: parent
         hoverEnabled: true
         preventStealing: false
@@ -124,7 +135,8 @@ Rectangle {
         onExited: capBar.width = 0
         onPressed: iRoot.color = "#666"
         onReleased: iRoot.color = "white"
-        onClicked: {
+        onClicked:
+        {
             var value = ((capability.max - capability.min) * capBar.width) / iRoot.width
             //console.log("max: " + capability.max + " min: " + capability.min + " value: " + value)
             valueChanged(value + capability.min)

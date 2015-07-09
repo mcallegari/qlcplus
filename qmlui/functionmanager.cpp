@@ -51,7 +51,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
-    treeColumns << "funcID" << "funcType";
+    treeColumns << "classRef";
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
 /*
@@ -87,15 +87,17 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
     if (multiSelection == false)
     {
         foreach(selectedFunction f, m_selectedFunctions)
-        {
             f.m_item->setProperty("isSelected", false);
-        }
+
         m_selectedFunctions.clear();
     }
+
     selectedFunction sf;
     sf.m_fID = id;
     sf.m_item = item;
+    item->setProperty("isSelected", true);
     m_selectedFunctions.append(sf);
+
 }
 
 quint32 FunctionManager::createFunction(int type)
@@ -221,9 +223,8 @@ void FunctionManager::slotUpdateFunctionsTree()
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
         if (m_filter == 0 || m_filter & func->type())
         {
-            QStringList params;
-            params.append(QString::number(func->id()));
-            params.append(QString::number(func->type()));
+            QVariantList params;
+            params.append(QVariant::fromValue(func));
             m_functionTree->addItem(func->name(), params, func->path(true));
         }
         switch (func->type())

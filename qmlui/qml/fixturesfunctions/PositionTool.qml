@@ -21,7 +21,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
-Rectangle {
+Rectangle
+{
     id: posToolRoot
     width: 200
     height: 300
@@ -39,7 +40,8 @@ Rectangle {
     property int panDegrees: 0
     property int tiltDegrees: 0
 
-    Rectangle {
+    Rectangle
+    {
         id: rotateButton
         x: parent.width - 40
         width: 40
@@ -51,16 +53,19 @@ Rectangle {
         border.color: "#666"
         border.width: 2
 
-        Image {
+        Image
+        {
             anchors.fill: parent
             source: "qrc:/rotate-right.svg"
             sourceSize: Qt.size(width, height)
         }
-        MouseArea {
+        MouseArea
+        {
             anchors.fill: parent
             onPressed: rotateButton.color = "#555"
             onReleased: rotateButton.color = "#333"
-            onClicked: {
+            onClicked:
+            {
                 gCanvas.rotation += 90
                 if (gCanvas.rotation == 360)
                     gCanvas.rotation = 0
@@ -68,7 +73,8 @@ Rectangle {
         }
     }
 
-    Canvas {
+    Canvas
+    {
         id: gCanvas
         width: posToolRoot.width - 20
         height: width
@@ -103,7 +109,8 @@ Rectangle {
             ctx.stroke();
         }
 
-        function degToRad(degrees) {
+        function degToRad(degrees)
+        {
             return degrees * (Math.PI / 180);
         }
 
@@ -114,7 +121,8 @@ Rectangle {
             var yFactor = 1.0;
             if (eWidth > eHeight)
                 yFactor = eHeight / eWidth;
-            if (eHeight > eWidth) {
+            if (eHeight > eWidth)
+            {
                 xFactor = eWidth / eHeight;
                 r = eHeight / 2;
             }
@@ -147,7 +155,8 @@ Rectangle {
             ctx.stroke();
         }
 
-        onPaint: {
+        onPaint:
+        {
             var ctx = gCanvas.getContext('2d');
             //ctx.save();
             ctx.globalAlpha = 1.0;
@@ -178,18 +187,21 @@ Rectangle {
             drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90)
         }
 
-        MouseArea {
+        MouseArea
+        {
             anchors.fill: parent
 
             property int initialXPos
             property int initialYPos
 
-            onPressed: {
+            onPressed:
+            {
                 // initialize local variables to determine the selection orientation
                 initialXPos = mouse.x
                 initialYPos = mouse.y
             }
-            onPositionChanged: {
+            onPositionChanged:
+            {
                 if (Math.abs(mouse.x - initialXPos) > Math.abs(mouse.y - initialYPos))
                 {
                     if (mouse.x < initialXPos)
@@ -209,19 +221,22 @@ Rectangle {
         }
     }
 
-    Row {
+    Row
+    {
         x: 10
         y: gCanvas.height + 20
         width: parent.width - 20
         height: 40
         spacing: 5
 
-        RobotoText {
+        RobotoText
+        {
             label: "Pan"
             width: 40
             height: 40
         }
-        CustomSpinBox {
+        CustomSpinBox
+        {
             id: panSpinBox
             width: 75
             height: 40
@@ -229,7 +244,8 @@ Rectangle {
             maximumValue: dmxValues ? 255 : panMaxDegrees
             value: 0
 
-            onValueChanged: {
+            onValueChanged:
+            {
                 if (dmxValues)
                     panDegrees = (panMaxDegrees * value) / 255
                 else
@@ -237,7 +253,8 @@ Rectangle {
                 gCanvas.requestPaint()
             }
         }
-        Rectangle {
+        Rectangle
+        {
             width: 50
             height: 40
             border.width: 2
@@ -245,7 +262,8 @@ Rectangle {
             radius: 5
             color: "#1E476E"
 
-            RobotoText {
+            RobotoText
+            {
                 height: 40
                 anchors.horizontalCenter: parent.horizontalCenter
                 label: dmxValues ? "DMX" : "°"
@@ -253,9 +271,11 @@ Rectangle {
                 fontBold: true
             }
 
-            MouseArea {
+            MouseArea
+            {
                 anchors.fill: parent
-                onClicked: {
+                onClicked:
+                {
                     dmxValues = !dmxValues
                     // perform DMX <-> degrees calculation
                     var newVal;
@@ -269,19 +289,22 @@ Rectangle {
         }
     }
 
-    Row {
+    Row
+    {
         x: 10
         y: gCanvas.height + 65
         width: parent.width - 20
         height: 40
         spacing: 5
 
-        RobotoText {
+        RobotoText
+        {
             label: "Tilt"
             width: 40
             height: 40
         }
-        CustomSpinBox {
+        CustomSpinBox
+        {
             id: tiltSpinBox
             width: 75
             height: 40
@@ -289,7 +312,8 @@ Rectangle {
             maximumValue: dmxValues ? 255 : tiltMaxDegrees
             value: 0
 
-            onValueChanged: {
+            onValueChanged:
+            {
                 if (dmxValues)
                     tiltDegrees = (tiltMaxDegrees * value) / 255
                 else
@@ -297,7 +321,8 @@ Rectangle {
                 gCanvas.requestPaint()
             }
         }
-        Rectangle {
+        Rectangle
+        {
             width: 50
             height: 40
             border.width: 2
@@ -305,7 +330,8 @@ Rectangle {
             radius: 5
             color: "#1E476E"
 
-            RobotoText {
+            RobotoText
+            {
                 height: 40
                 anchors.horizontalCenter: parent.horizontalCenter
                 label: dmxValues ? "DMX" : "°"
@@ -313,9 +339,11 @@ Rectangle {
                 fontBold: true
             }
 
-            MouseArea {
+            MouseArea
+            {
                 anchors.fill: parent
-                onClicked: {
+                onClicked:
+                {
                     dmxValues = !dmxValues
                     // perform DMX <-> degrees calculation
                     var newVal;

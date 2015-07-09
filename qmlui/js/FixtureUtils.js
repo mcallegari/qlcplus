@@ -20,7 +20,8 @@
 var lastFixtureID = fixtureManager.invalidFixture()
 var lastColor = "#2C58B0"
 
-function getColorForAddress(address) {
+function getColorForAddress(address) 
+{
     var fxID = fixtureManager.fixtureForAddress(universeGridView.uniStartAddr + address);
     if (fxID === fixtureManager.invalidFixture())
     {
@@ -28,7 +29,7 @@ function getColorForAddress(address) {
     }
     else
     {
-    if (fxID !== lastFixtureID)
+	if (fxID !== lastFixtureID)
 	{
 	    if (lastColor == "#2D84B0")
             lastColor = "#2C58B0";

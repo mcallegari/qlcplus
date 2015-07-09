@@ -22,7 +22,8 @@ import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     width: 100
     height: 40
     color: "transparent"
@@ -31,8 +32,9 @@ Rectangle {
     property string tLabel
     property int functionType: -1
 
-    onFunctionTypeChanged: {
-        switch (func.type)
+    onFunctionTypeChanged:
+    {
+        switch (functionType)
         {
             case Function.Scene: iSrc = "qrc:/scene.svg"; break;
             case Function.Chaser: iSrc = "qrc:/chaser.svg"; break;
@@ -46,19 +48,21 @@ Rectangle {
         }
     }
 
-    RowLayout  {
+    RowLayout
+    {
         anchors.fill: parent
         spacing: 4
 
-        Image {
+        Image
+        {
             source: iSrc
             height: parent.height - 4
             width: height
-            sourceSize.width: height
-            sourceSize.height: height
+            sourceSize: Qt.size(width, height)
         }
 
-        RobotoText {
+        RobotoText
+        {
             Layout.fillWidth: true
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter

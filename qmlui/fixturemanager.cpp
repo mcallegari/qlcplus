@@ -18,8 +18,10 @@
 */
 
 #include <QQuickItem>
+#include <QQmlEngine>
 #include <QVariant>
 #include <QDebug>
+#include <QtMath>
 
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
@@ -37,8 +39,15 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 
     qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
 
+    m_fixtureTree = new TreeModel(this);
+    QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
+    QStringList treeColumns;
+    treeColumns << "classRef";
+    m_fixtureTree->setColumnNames(treeColumns);
+    m_fixtureTree->enableSorting(true);
+
     connect(m_doc, SIGNAL(loaded()),
-            this, SIGNAL(docLoaded()));
+            this, SLOT(slotDocLoaded()));
 }
 
 quint32 FixtureManager::invalidFixture()
@@ -83,6 +92,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
+
+    updateFixtureTree();
 
     return true;
 }
@@ -277,6 +288,39 @@ QQmlListProperty<Fixture> FixtureManager::fixtures()
     return QQmlListProperty<Fixture>(this, m_fixtureList);
 }
 
+QVariant FixtureManager::groupsModel()
+{
+    return QVariant::fromValue(m_fixtureTree);
+}
+
+void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
+{
+    FixtureGroup *group = new FixtureGroup(m_doc);
+    m_doc->addFixtureGroup(group);
+    group->setName(tr("New group %1").arg(group->id() + 1));
+
+    // here we should perform a "smart" grid based
+    // on the 2D position of the fixtures and their heads number.
+    // For now we use the "old" QLC+ mechanism of calculating an
+    // equilateral grid size
+    int headsCount = 0;
+    foreach(quint32 id, fxList)
+    {
+        Fixture* fxi = m_doc->fixture(id);
+        if (fxi != NULL)
+            headsCount += fxi->heads();
+    }
+    qreal side = qSqrt(headsCount);
+    if (side != qFloor(side))
+        side += 1; // Fixture number doesn't provide a full square
+
+    group->setSize(QSize(side, side));
+    foreach(quint32 id, fxList)
+        group->assignFixture(id);
+
+    updateFixtureTree();
+}
+
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
 {
     QVariantList prList;
@@ -310,6 +354,37 @@ QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
     return prList;
 }
 
+void FixtureManager::updateFixtureTree()
+{
+    // create the fixture groups data model
+    m_fixtureTree->clear();
+
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    // add the current universes as groups
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        QVariantList params;
+        params.append(QVariant::fromValue(fixture));
+        m_fixtureTree->addItem(fixture->name(), params, uniNames.at(fixture->universe()));
+    }
+
+    // add the actual Fixture Groups
+    foreach (FixtureGroup* grp, m_doc->fixtureGroups())
+    {
+        foreach(quint32 fxID, grp->fixtureList())
+        {
+            Fixture *fixture = m_doc->fixture(fxID);
+            if (fixture == NULL)
+                continue;
+            QVariantList params;
+            params.append(QVariant::fromValue(fixture));
+            m_fixtureTree->addItem(fixture->name(), params, grp->name());
+        }
+    }
+    emit groupsModelChanged();
+}
+
 QVariantList FixtureManager::goboChannels()
 {
     return presetsChannels(QLCChannel::Gobo);
@@ -339,6 +414,11 @@ QVariantList FixtureManager::presetCapabilities(int index)
     return var;
 }
 
+void FixtureManager::slotDocLoaded()
+{
+    m_fixtureList.clear();
+    m_fixtureList = m_doc->fixtures();
+    emit fixturesCountChanged();
 
-
-
+    updateFixtureTree();
+}

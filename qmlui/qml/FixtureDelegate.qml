@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FunctionDelegate.qml
+  FixtureDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -18,25 +18,36 @@
 */
 
 import QtQuick 2.0
-import com.qlcplus.classes 1.0
 
-import "FunctionDrag.js" as FuncDragJS
+import com.qlcplus.classes 1.0
 
 Rectangle
 {
-    id: funcDelegate
+    id: fxDelegate
     width: 100
     height: 35
 
     color: "transparent"
 
-    property Function cRef
+    property Fixture cRef
     property string textLabel
     property bool isSelected: false
 
     signal toggled
     signal clicked
-    signal doubleClicked(int ID, int Type)
+    signal doubleClicked(int fID, int fType)
+
+    function iconFromType(type)
+    {
+        if (type === "Color Changer")
+            return "qrc:/fixture.svg";
+        else if (type === "Dimmer")
+            return "qrc:/dimmer.svg";
+        else if (type === "Moving Head")
+            return "qrc:/movinghead.svg";
+        else
+            return "qrc:/fixture.svg";
+    }
 
     Rectangle
     {
@@ -48,11 +59,11 @@ Rectangle
 
     IconTextEntry
     {
-        id: funcEntry
+        id: fxEntry
         width: parent.width
         height: parent.height
         tLabel: textLabel
-        functionType: cRef ? cRef.type : -1
+        iSrc: cRef ? iconFromType(cRef.type) : ""
     }
     Rectangle
     {
@@ -64,40 +75,20 @@ Rectangle
 
     MouseArea
     {
-        id: funcMouseArea
+        id: fxMouseArea
         anchors.fill: parent
-
-        drag.target: FunctionDragItem
-        {
-            funcID: cRef ? cRef.id : -1
-            funcLabel: textLabel
-            funcIcon: funcEntry.iSrc
-        }
-        drag.threshold: 30
-
-        onPressed:
-        {
-            FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
-        }
-
-        onPositionChanged:
-            if(drag.active == true)
-                FuncDragJS.handleDrag(mouse);
-        onReleased:
-            if(drag.active == true)
-                FuncDragJS.endDrag(mouse);
+        hoverEnabled: true
 
         onClicked:
         {
             isSelected = true
-            functionManager.selectFunction(cRef.id, funcDelegate,
-                                           (mouse.modifiers & Qt.ControlModifier))
-            //funcDelegate.clicked()
+            //fixtureManager.selectFixture(cRef.id, fxDelegate,
+            //                             (mouse.modifiers & Qt.ControlModifier))
+            fxDelegate.clicked()
         }
         onDoubleClicked:
         {
-            funcDelegate.doubleClicked(cRef.id, cRef.type)
+            fxDelegate.doubleClicked(cRef.id, -1)
         }
     }
 }
-

@@ -54,6 +54,8 @@ public:
 
     Q_INVOKABLE void dumpDmxChannels();
 
+    Q_INVOKABLE void createFixtureGroup();
+
 signals:
 
 protected slots:

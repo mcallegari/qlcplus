@@ -15,8 +15,9 @@
         <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
         <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
         <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
+        <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
         <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
-        <file alias="FolderDelegate.qml">qml/FolderDelegate.qml</file>
+        <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
         <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
         <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
         <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
@@ -36,7 +37,8 @@
         <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
-        <file alias="FixtureDelegate.qml">qml/fixturesfunctions/FixtureDelegate.qml</file>
+        <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
+        <file alias="GroupEditor.qml">qml/fixturesfunctions/GroupEditor.qml</file>
         <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
         <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
         <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>

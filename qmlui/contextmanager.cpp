@@ -158,6 +158,14 @@ void ContextManager::dumpDmxChannels()
     m_functionManager->dumpOnNewScene(dumpList);
 }
 
+void ContextManager::createFixtureGroup()
+{
+    if (m_selectedFixtures.isEmpty())
+        return;
+
+    m_fixtureManager->addFixturesToNewGroup(m_selectedFixtures);
+}
+
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)

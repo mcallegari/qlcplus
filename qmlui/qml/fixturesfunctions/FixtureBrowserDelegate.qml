@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDelegate.qml
+  FixtureBrowserDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick 2.0
 
 import "FixtureDrag.js" as FxDragJS
 
-Item {
+Item
+{
     id: fxDraggableItem
     width: parent.width - 30
     height: 32
@@ -33,13 +34,15 @@ Item {
     property int channels: 1
     signal clicked
 
-    Rectangle {
+    Rectangle
+    {
         anchors.fill: parent
         color: "#11ffffff"
         visible: fxMouseArea.pressed
     }
 
-    Image {
+    Image
+    {
         id: entryIcon
         visible: iconSource ? true : false
         anchors.right: parent.right
@@ -50,7 +53,8 @@ Item {
         width: height
     }
 
-    RobotoText {
+    RobotoText
+    {
         id: textitem
         x: 2
         label: modelData
@@ -59,7 +63,8 @@ Item {
         //fontBold: true
     }
 
-    Rectangle {
+    Rectangle
+    {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: 5
@@ -67,7 +72,8 @@ Item {
         color: "#424246"
     }
 
-    Image {
+    Image
+    {
         id: rightArrow
         visible: isManufacturer
         anchors.right: parent.right
@@ -78,7 +84,8 @@ Item {
         width: 20
     }
 
-    MouseArea {
+    MouseArea
+    {
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
@@ -89,12 +96,13 @@ Item {
         drag.threshold: 30
 
         //onPressed: if(drag.active) FxDragJS.startDrag(mouse);
-        onPressed: {
-                if (fxDraggableItem.isManufacturer == false)
-                {
-                    fxDraggableItem.clicked();
-                    FxDragJS.initProperties();
-                }
+        onPressed:
+        {
+            if (fxDraggableItem.isManufacturer == false)
+            {
+                fxDraggableItem.clicked();
+                FxDragJS.initProperties();
+            }
         }
         onPositionChanged:
             if(fxDraggableItem.isManufacturer == false && drag.active == true)
