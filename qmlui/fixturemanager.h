@@ -90,7 +90,7 @@ public:
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(int index);
 
-protected slots:
+public slots:
     /** Slot called whenever a new workspace has been loaded */
     void slotDocLoaded();
 

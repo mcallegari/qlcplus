@@ -100,17 +100,17 @@ public slots:
      * Load & Save
      *********************************************************************/
 public:
-    /**
-     * Set the name of the current workspace file
-     */
+    /** Set the name of the current workspace file */
     void setFileName(const QString& fileName);
 
-    /**
-     * Get the name of the current workspace file
-     */
+    /** Get the name of the current workspace file */
     QString fileName() const;
 
+    /** Load the workspace with the given $fileName */
     Q_INVOKABLE bool loadWorkspace(const QString& fileName);
+
+    /** Reset everything and start a new workspace */
+    Q_INVOKABLE bool newWorkspace();
 
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;

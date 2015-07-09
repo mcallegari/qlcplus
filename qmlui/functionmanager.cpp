@@ -64,12 +64,12 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 */
 
     connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotUpdateFunctionsTree()));
+            this, SLOT(slotDocLoaded()));
 }
 
 QVariant FunctionManager::functionsList()
 {
-    slotUpdateFunctionsTree();
+    slotDocLoaded();
     return QVariant::fromValue(m_functionTree);
 }
 
@@ -79,7 +79,7 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
         m_filter |= filter;
     else
         m_filter &= ~filter;
-    slotUpdateFunctionsTree();
+    slotDocLoaded();
 }
 
 void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSelection)
@@ -204,13 +204,13 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
 
     if (m_doc->addFunction(newScene) == true)
     {
-        slotUpdateFunctionsTree();
+        slotDocLoaded();
     }
     else
         delete newScene;
 }
 
-void FunctionManager::slotUpdateFunctionsTree()
+void FunctionManager::slotDocLoaded()
 {
     m_sceneCount = m_chaserCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;

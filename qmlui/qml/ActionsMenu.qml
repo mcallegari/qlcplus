@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 
-Rectangle {
+Rectangle
+{
     id: menuRoot
     visible: false
     x: 1
@@ -33,48 +34,63 @@ Rectangle {
     width: actionsMenuEntries.width
     height: actionsMenuEntries.height
 
-    FileDialog {
+    function closeMenu()
+    {
+        contextMenuArea.enabled = false
+        contextMenuArea.z = 0
+        menuRoot.visible = false
+    }
+
+    FileDialog
+    {
         id: fileDialog
         visible: false
 
-        onAccepted: {
+        onAccepted:
+        {
             console.log("You chose: " + fileDialog.fileUrl)
             qlcplus.loadWorkspace(fileDialog.fileUrl)
         }
-        onRejected: {
+        onRejected:
+        {
             console.log("Canceled")
         }
     }
 
-    Column {
+    Column
+    {
         id: actionsMenuEntries
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             id: fileNew
             imgSource: "qrc:///filenew.svg"
             entryText: qsTr("New project")
-            onClicked: {
-
+            onClicked:
+            {
+                qlcplus.newWorkspace()
+                closeMenu()
             }
             onEntered: recentMenu.visible = false
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             id: fileOpen
             imgSource: "qrc:///fileopen.svg"
             entryText: qsTr("Open project")
-            onClicked: {
+            onClicked:
+            {
                 fileDialog.title = qsTr("Open a workspace")
                 fileDialog.nameFilters = [ "Workspace files (*.qxw)", "All files (*)" ]
                 fileDialog.visible = true
-                contextMenuArea.enabled = false
-                contextMenuArea.z = 0
-                menuRoot.visible = false
+                closeMenu()
                 fileDialog.open();
             }
             onEntered: recentMenu.visible = true
             //onExited: recentMenu.visible = false
 
 
-            Rectangle {
+            Rectangle
+            {
                 id: recentMenu
                 x: menuRoot.width
                 width: recentColumn.width
@@ -82,14 +98,18 @@ Rectangle {
                 color: "#202020"
                 visible: false
 
-                Column {
+                Column
+                {
                     id: recentColumn
-                    Repeater {
+                    Repeater
+                    {
                         model: qlcplus.recentFiles
                         delegate:
-                            ContextMenuEntry {
+                            ContextMenuEntry
+                            {
                                 entryText: modelData
-                                onClicked: {
+                                onClicked:
+                                {
                                     recentMenu.visible = false
                                     menuRoot.visible = false
                                     contextMenuArea.enabled = false
@@ -101,14 +121,16 @@ Rectangle {
                 }
             }
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             id: fileSave
             imgSource: "qrc:///filesave.svg"
             entryText: qsTr("Save project")
             onClicked: { }
             onEntered: recentMenu.visible = false
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             id: fileSaveAs
             imgSource: "qrc:///filesaveas.svg"
             entryText: qsTr("Save project as...")

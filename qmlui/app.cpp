@@ -109,6 +109,7 @@ void App::show()
 
 void App::clearDocument()
 {
+    m_doc->masterTimer()->stop();
     m_doc->clearContents();
     //VirtualConsole::instance()->resetContents();
     //SimpleDesk::instance()->clearContents();
@@ -116,6 +117,7 @@ void App::clearDocument()
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->masterTimer()->start();
 }
 
 Doc *App::doc()
@@ -235,6 +237,24 @@ bool App::loadWorkspace(const QString &fileName)
         return true;
     }
     return false;
+}
+
+bool App::newWorkspace()
+{
+    /*
+    QString msg(tr("Do you wish to save the current workspace?\n" \
+                   "Changes will be lost if you don't save them."));
+    if (saveModifiedDoc(tr("New Workspace"), msg) == false)
+    {
+        return false;
+    }
+    */
+
+    clearDocument();
+    m_fixtureManager->slotDocLoaded();
+    m_functionManager->slotDocLoaded();
+    m_contextManager->updateContexts();
+    return true;
 }
 
 void App::updateRecentFilesList(QString filename)

@@ -88,8 +88,8 @@ signals:
     void audioCountChanged();
     void videoCountChanged();
 
-protected slots:
-    void slotUpdateFunctionsTree();
+public slots:
+    void slotDocLoaded();
 
 private:
     QQuickView *m_view;

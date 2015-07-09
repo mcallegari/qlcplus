@@ -203,12 +203,9 @@ Rectangle {
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
-        onPressed:
+        onPressAndHold:
         {
-            if (mouse.button == Qt.LeftButton && mouse.modifiers & Qt.ControlModifier)
-                drag.target = fixtureItem
-            else
-                drag.target = null
+            drag.target = fixtureItem
         }
         /*
         onPositionChanged: {
