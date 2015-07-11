@@ -246,7 +246,7 @@ void EditChannel::slotAddCapabilityClicked()
     {
         if (ec->exec() == QDialog::Accepted)
         {
-            cap = new QLCCapability(ec->capability());
+            cap = ec->capability()->createCopy();
 
             if (m_channel->addCapability(cap) == false)
             {
@@ -347,8 +347,7 @@ void EditChannel::slotWizardClicked()
         QListIterator <QLCCapability*> it(cw.capabilities());
         while (it.hasNext() == true)
         {
-            QLCCapability* cap;
-            cap = new QLCCapability(it.next());
+            QLCCapability* cap = it.next()->createCopy();
             if (m_channel->addCapability(cap) == false)
             {
                 delete cap;

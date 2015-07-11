@@ -397,15 +397,15 @@ void VCCueList_Test::loadXML()
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(1), s2->name());
     QCOMPARE(cl.m_tree->topLevelItem(2)->text(1), s3->name());
     QCOMPARE(cl.m_tree->topLevelItem(3)->text(1), c4->name());
-    QLCInputSource *ni = cl.inputSource(VCCueList::nextInputSourceId);
+    QSharedPointer<QLCInputSource> const& ni = cl.inputSource(VCCueList::nextInputSourceId);
     QCOMPARE(ni->universe(), quint32(0));
     QCOMPARE(ni->channel(), quint32(1));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceD));
-    QLCInputSource *pi = cl.inputSource(VCCueList::previousInputSourceId);
+    QSharedPointer<QLCInputSource> const& pi = cl.inputSource(VCCueList::previousInputSourceId);
     QCOMPARE(pi->universe(), quint32(2));
     QCOMPARE(pi->channel(), quint32(3));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceC));
-    QLCInputSource *pli = cl.inputSource(VCCueList::playbackInputSourceId);
+    QSharedPointer<QLCInputSource> const& pli = cl.inputSource(VCCueList::playbackInputSourceId);
     QCOMPARE(pli->universe(), quint32(4));
     QCOMPARE(pli->channel(), quint32(5));
     QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
@@ -436,9 +436,9 @@ void VCCueList_Test::saveXML()
     cl.setChaser(c->id());
 
     cl.setCaption("Testing");
-    cl.setInputSource(new QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(new QLCInputSource(1, 2), VCCueList::previousInputSourceId);
-    cl.setInputSource(new QLCInputSource(2, 3), VCCueList::playbackInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCCueList::nextInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)), VCCueList::previousInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCCueList::playbackInputSourceId);
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
@@ -818,9 +818,9 @@ void VCCueList_Test::input()
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
-    cl.setInputSource(new QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(new QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(new QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCCueList::nextInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCCueList::previousInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(4, 5)), VCCueList::playbackInputSourceId);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);

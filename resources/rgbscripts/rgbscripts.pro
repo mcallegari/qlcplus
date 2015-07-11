@@ -26,6 +26,7 @@ scripts.files += squaresfromcenter.js
 scripts.files += stripes.js
 scripts.files += stripesfromcenter.js
 scripts.files += verticalfall.js
+scripts.files += waves.js
 
 scripts.path = $$INSTALLROOT/$$RGBSCRIPTDIR
 INSTALLS    += scripts

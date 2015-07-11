@@ -40,6 +40,8 @@ class VCSpeedDialFunction;
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
 #define KXMLQLCVCSpeedDialTapKey "Key"
+#define KXMLQLCVCSpeedDialInfinite "Infinite"
+#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 
 class VCSpeedDial : public VCWidget
@@ -50,6 +52,7 @@ class VCSpeedDial : public VCWidget
 public:
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
+    static const quint8 infiniteInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -116,7 +119,7 @@ public:
     /**
      * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QList <VCSpeedDialFunction> functions);
+    void setFunctions(const QList <VCSpeedDialFunction> & functions);
 
     /**
      * Get the list of functions that are controlled by the dial.
@@ -150,17 +153,20 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
-     * Tap key sequence handler
+     * Tap & infinite key sequence handler
      *********************************************************************/
 public:
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
+    void setInfiniteKeySequence(const QKeySequence& keySequence);
+    QKeySequence infiniteKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
+    QKeySequence m_infiniteKeySequence;
 
     /************************************************************************
      * Absolute value range
@@ -179,7 +185,7 @@ private:
      *************************************************************************/
 public:
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask();
+    ushort visibilityMask() const;
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */

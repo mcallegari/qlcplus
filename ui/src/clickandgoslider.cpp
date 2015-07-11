@@ -25,6 +25,14 @@ ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 {
 }
 
+void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
+{
+    if(isVisible())
+        QSlider::setStyleSheet(styleSheet);
+    else
+        m_styleSheet = styleSheet;
+}
+
 void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
 {
     if (event->modifiers() == Qt::ControlModifier)
@@ -54,4 +62,13 @@ void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
         event->accept();
     }
     QSlider::mousePressEvent(event);
+}
+
+void ClickAndGoSlider::showEvent(QShowEvent *)
+{
+    if (m_styleSheet.isEmpty() == false)
+    {
+        setSliderStyleSheet(m_styleSheet);
+        m_styleSheet = "";
+    }
 }

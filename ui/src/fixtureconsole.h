@@ -59,6 +59,9 @@ public:
     FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone, bool showCheck = true);
     ~FixtureConsole();
 
+protected:
+    void showEvent(QShowEvent* ev);
+
 private:
     Doc* m_doc;
     GroupType m_groupType;

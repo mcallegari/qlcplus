@@ -190,11 +190,11 @@ void InputOutputManager::updateList()
 {
     m_list->blockSignals(true);
     m_list->clear();
-    for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
+    for (quint32 uni = 0; uni < m_ioMap->universesCount(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
     m_list->blockSignals(false);
 
-    if (m_ioMap->universes() == 0)
+    if (m_ioMap->universesCount() == 0)
     {
         if (m_editor != NULL)
         {
@@ -289,7 +289,7 @@ void InputOutputManager::slotCurrentItemChanged()
     QListWidgetItem* item = m_list->currentItem();
     if (item == NULL)
     {
-        if (m_ioMap->universes() == 0)
+        if (m_ioMap->universesCount() == 0)
             return;
 
         m_list->setCurrentItem(m_list->item(0));

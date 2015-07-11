@@ -124,9 +124,7 @@ private slots:
 
 private:
     QSplitter* m_topSplitter;
-
-
-    QGroupBox* m_universeGroup;
+    QFrame* m_universeGroup;
     QComboBox* m_universesCombo;
     QToolButton* m_viewModeButton;
     QToolButton* m_universePageUpButton;

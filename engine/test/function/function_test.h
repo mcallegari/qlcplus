@@ -46,6 +46,9 @@ private slots:
     void stringToRunOrder();
     void directionToString();
     void stringToDirection();
+    void speedToString();
+    void stringToSpeed();
+    void speedOperations();
     void loaderWrongRoot();
     void loaderWrongID();
     void loaderScene();

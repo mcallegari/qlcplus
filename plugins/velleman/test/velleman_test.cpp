@@ -54,36 +54,36 @@ void Velleman_Test::openClose()
     Velleman vo;
     vo.init();
 
-    vo.openOutput(3);
+    vo.openOutput(3, 0);
     QVERIFY(vo.m_currentlyOpen == false);
-    vo.openOutput(2);
+    vo.openOutput(2, 0);
     QVERIFY(vo.m_currentlyOpen == false);
-    vo.openOutput(1);
+    vo.openOutput(1, 0);
     QVERIFY(vo.m_currentlyOpen == false);
 
-    vo.openOutput(0);
+    vo.openOutput(0, 0);
     QVERIFY(vo.m_currentlyOpen == true);
     QCOMPARE(_StartDeviceCalled, 1);
     QCOMPARE(_StopDeviceCalled, 0);
 
-    vo.openOutput(0);
+    vo.openOutput(0, 0);
     QVERIFY(vo.m_currentlyOpen == true);
     QCOMPARE(_StartDeviceCalled, 1);
     QCOMPARE(_StopDeviceCalled, 0);
 
-    vo.closeOutput(3);
+    vo.closeOutput(3, 0);
     QVERIFY(vo.m_currentlyOpen == true);
-    vo.closeOutput(2);
+    vo.closeOutput(2, 0);
     QVERIFY(vo.m_currentlyOpen == true);
-    vo.closeOutput(1);
+    vo.closeOutput(1, 0);
     QVERIFY(vo.m_currentlyOpen == true);
 
-    vo.closeOutput(0);
+    vo.closeOutput(0, 0);
     QVERIFY(vo.m_currentlyOpen == false);
     QCOMPARE(_StartDeviceCalled, 1);
     QCOMPARE(_StopDeviceCalled, 1);
 
-    vo.closeOutput(0);
+    vo.closeOutput(0, 0);
     QVERIFY(vo.m_currentlyOpen == false);
     QCOMPARE(_StartDeviceCalled, 1);
     QCOMPARE(_StopDeviceCalled, 1);
@@ -133,7 +133,7 @@ void Velleman_Test::writeUniverse()
     QVERIFY(_ChannelCount == 0);
     QVERIFY(_SetAllData == NULL);
 
-    vo.openOutput(0);
+    vo.openOutput(0, 0);
     vo.writeUniverse(0, 1, data);
     QVERIFY(_ChannelCount == 0);
     QVERIFY(_SetAllData == NULL);

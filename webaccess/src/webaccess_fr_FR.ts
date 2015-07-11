@@ -199,7 +199,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="235"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Éteindre</translation>
     </message>
 </context>
 <context>
@@ -217,17 +217,17 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="56"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Page précédente</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="64"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Page suivante</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="67"/>
         <source>Reset universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser l&apos;univers</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="69"/>

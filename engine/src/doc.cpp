@@ -40,6 +40,7 @@
 #include "doc.h"
 #include "bus.h"
 #include "rgbscriptscache.h"
+#include "monitorproperties.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -437,35 +438,6 @@ bool Doc::deleteFixture(quint32 id)
     }
 }
 
-bool Doc::moveFixture(quint32 id, quint32 newAddress)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it to new address
-        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
-}
-
 bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 {
     // Delete all fixture instances
@@ -515,41 +487,6 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         m_latestFixtureId = id;
     }
     return true;
-}
-
-bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        int address = fixture->address();
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it with new characteristics
-        int channels;
-        if (mode != NULL)
-            channels = mode->channels().count();
-        else // generic dimmer
-            channels = fixture->channels();
-        for (int i = address; i < address + channels; i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
 }
 
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
@@ -665,8 +602,27 @@ void Doc::slotFixtureChanged(quint32 id)
 {
     /* Keep track of fixture addresses */
     Fixture* fxi = fixture(id);
+
+    // remove it
+    QMutableHashIterator <uint,uint> it(m_addresses);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == id)
+        {
+            qDebug() << Q_FUNC_INFO << " remove: " << it.key() << " val: " << it.value();
+            it.remove();
+        }
+    }
+
     for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
     {
+        /*
+         * setting new universe and address calls this twice,
+         * with an tmp wrong address after the first call (old address() + new universe()).
+         * we only add if the channel is free, to prevent messing up things
+         */
+        Q_ASSERT(!m_addresses.contains(i));
         m_addresses[i] = id;
     }
 
@@ -1013,6 +969,68 @@ MonitorProperties *Doc::monitorProperties()
     return m_monitorProps;
 }
 
+QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
+{
+    if (m_monitorProps == NULL)
+        return QPointF(0, 0);
+
+    qreal xPos = fxRect.x(), yPos = fxRect.y();
+    qreal maxYOffset = 0;
+
+    QSize gridSize = m_monitorProps->gridSize();
+    float gridUnits = 1000.0;
+    if (m_monitorProps->gridUnits() == MonitorProperties::Feet)
+        gridUnits = 304.8;
+
+    QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
+
+    qreal origWidth = fxRect.width();
+    qreal origHeight = fxRect.height();
+
+    foreach(Fixture* fixture, fixtures())
+    {
+        QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
+
+        qreal itemXPos = fxPos.x();
+        qreal itemYPos = fxPos.y();
+        qreal itemWidth = 0, itemHeight = 0;
+        if (fxMode != NULL)
+        {
+            itemWidth = fxMode->physical().width();
+            itemHeight = fxMode->physical().height();
+        }
+        if (itemWidth == 0) itemWidth = 300;
+        if (itemHeight == 0) itemHeight = 300;
+
+        // store the next Y row in case we need to lower down
+        if (itemYPos + itemHeight > maxYOffset )
+            maxYOffset = itemYPos + itemHeight;
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
+        if (fxRect.intersects(itemRect) == true)
+        {
+            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+            if (xPos + fxRect.width() > gridArea.width())
+            {
+                xPos = 0;
+                yPos = maxYOffset + 50;
+                maxYOffset = 0;
+            }
+            fxRect.setX(xPos);
+            fxRect.setY(yPos);
+            // restore width and height as setX and setY mess them
+            fxRect.setWidth(origWidth);
+            fxRect.setHeight(origHeight);
+        }
+    }
+
+    return QPointF(xPos, yPos);
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -1026,6 +1044,8 @@ bool Doc::loadXML(const QDomElement& root)
         qWarning() << Q_FUNC_INFO << "Engine node not found";
         return false;
     }
+
+    emit loading();
 
     if (root.hasAttribute(KXMLQLCStartupFunction))
     {

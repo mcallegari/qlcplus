@@ -66,15 +66,17 @@ int SPIPlugin::capabilities() const
  * Open/close
  *****************************************************************************/
 
-bool SPIPlugin::openOutput(quint32 output)
+bool SPIPlugin::openOutput(quint32 output, quint32 universe)
 {
     if (output != 0)
         return false;
 
     m_referenceCount++;
 
+    addToMap(universe, output, Output);
+
     if (m_spifd != -1)
-        return false;
+        return true;
 
     m_spifd = open(SPI_DEFAULT_DEVICE, O_RDWR);
     if(m_spifd < 0)
@@ -89,10 +91,12 @@ bool SPIPlugin::openOutput(quint32 output)
     return true;
 }
 
-void SPIPlugin::closeOutput(quint32 output)
+void SPIPlugin::closeOutput(quint32 output, quint32 universe)
 {
     if (output != 0)
         return;
+
+    removeFromMap(output, universe, Output);
 
     m_referenceCount--;
 
@@ -154,26 +158,6 @@ void SPIPlugin::setAbsoluteAddress(quint32 uniID, SPIUniverse *uni)
              << "channels and starts at" << uni->m_absoluteAddress;
     m_serializedData.resize(totalChannels);
     qDebug() << "[SPI] total bytes to transmit:" << m_serializedData.size();
-}
-
-void SPIPlugin::setParameter(QString name, QVariant &value)
-{
-    QString prop(name);
-
-    // If property name is UniverseChannels-ID, map the channels count
-    if (prop.startsWith("UniverseChannels"))
-    {
-        QString uniStrId = prop.split("-").at(1);
-        quint32 uniID = uniStrId.toUInt();
-        int chans = value.toInt();
-        SPIUniverse *uniStruct = new SPIUniverse;
-        uniStruct->m_channels = chans;
-        uniStruct->m_autoDetection = false;
-
-        setAbsoluteAddress(uniID, uniStruct);
-
-        m_uniChannelsMap[uniID] = uniStruct;
-    }
 }
 
 QString SPIPlugin::outputInfo(quint32 output)
@@ -240,6 +224,26 @@ void SPIPlugin::configure()
 bool SPIPlugin::canConfigure()
 {
     return true;
+}
+
+void SPIPlugin::setParameter(quint32 universe, quint32 line, Capability type,
+                             QString name, QVariant value)
+{
+    Q_UNUSED(line)
+    Q_UNUSED(type)
+
+    // If property name is UniverseChannels, map the channels count
+    if (name == PLUGIN_UNIVERSECHANNELS)
+    {
+        int chans = value.toInt();
+        SPIUniverse *uniStruct = new SPIUniverse;
+        uniStruct->m_channels = chans;
+        uniStruct->m_autoDetection = false;
+
+        setAbsoluteAddress(universe, uniStruct);
+
+        m_uniChannelsMap[universe] = uniStruct;
+    }
 }
 
 /*****************************************************************************

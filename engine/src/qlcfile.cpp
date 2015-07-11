@@ -166,6 +166,9 @@ QString QLCFile::currentUserName()
     else
         return QString("Unknown windows user");
 #else
+ #if defined(Q_OS_ANDROID)
+    return QString(getenv("USER"));
+ #else
     QString name;
     struct passwd* passwd = getpwuid(getuid());
     if (passwd == NULL)
@@ -174,6 +177,7 @@ QString QLCFile::currentUserName()
         name.append(passwd->pw_gecos);
     name.remove(",,,");
     return name;
+ #endif
 #endif
 }
 
@@ -199,12 +203,14 @@ QDir QLCFile::systemDirectory(QString path, QString extension)
 {
     QDir dir;
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-         dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                    .arg(path));
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                                   .arg(path));
 #elif defined(WIN32) || defined(Q_OS_WIN)
-        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
-                    .arg(QDir::separator())
-                    .arg(path));
+    dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
+                                 .arg(QDir::separator())
+                                 .arg(path));
+#elif defined(Q_OS_ANDROID)
+    dir.setPath(QString("assets:/%1").arg(path.remove(0, path.lastIndexOf("/") + 1)));
 #else
     dir.setPath(path);
 #endif

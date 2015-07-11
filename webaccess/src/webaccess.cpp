@@ -623,7 +623,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             case VCWidget::AudioTriggersWidget:
             {
                 VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
-                triggers->slotEnableButtonToggled(value ? true : false);
+                triggers->toggleEnableButton(value ? true : false);
             }
             break;
             case VCWidget::CueListWidget:

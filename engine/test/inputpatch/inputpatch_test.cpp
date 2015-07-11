@@ -56,7 +56,7 @@ void InputPatch_Test::defaults()
 {
     InputPatch ip(0, this);
     QVERIFY(ip.m_plugin == NULL);
-    QVERIFY(ip.m_input == QLCIOPlugin::invalidLine());
+    QVERIFY(ip.m_pluginLine == QLCIOPlugin::invalidLine());
     QVERIFY(ip.m_profile == NULL);
     QVERIFY(ip.pluginName() == KInputNone);
     QVERIFY(ip.inputName() == KInputNone);
@@ -78,7 +78,7 @@ void InputPatch_Test::patch()
     InputPatch* ip = new InputPatch(0, this);
     ip->set(stub, 0, &prof1);
     QVERIFY(ip->m_plugin == stub);
-    QVERIFY(ip->m_input == 0);
+    QVERIFY(ip->m_pluginLine == 0);
     QVERIFY(ip->m_profile == &prof1);
     QVERIFY(ip->pluginName() == stub->name());
     QVERIFY(ip->inputName() == stub->inputs()[0]);
@@ -92,7 +92,7 @@ void InputPatch_Test::patch()
 
     ip->set(stub, 3, &prof2);
     QVERIFY(ip->m_plugin == stub);
-    QVERIFY(ip->m_input == 3);
+    QVERIFY(ip->m_pluginLine == 3);
     QVERIFY(ip->m_profile == &prof2);
     QVERIFY(ip->pluginName() == stub->name());
     QVERIFY(ip->inputName() == stub->inputs()[3]);
@@ -102,7 +102,7 @@ void InputPatch_Test::patch()
 
     ip->reconnect();
     QVERIFY(ip->m_plugin == stub);
-    QVERIFY(ip->m_input == 3);
+    QVERIFY(ip->m_pluginLine == 3);
     QVERIFY(ip->m_profile == &prof2);
     QVERIFY(ip->pluginName() == stub->name());
     QVERIFY(ip->inputName() == stub->inputs()[3]);

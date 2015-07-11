@@ -48,7 +48,8 @@ public:
         ProMk2,     //! Enttec Pro Mk2 widget using 2 TX outputs
         UltraPro,   //! DMXKing Ultra Pro widget using 2 TX ports
         DMX4ALL,    //! DMX4ALL widget
-        VinceTX     //! Vince USB-DMX512 widget using the TX side of the dongle
+        VinceTX,    //! Vince USB-DMX512 widget using the TX side of the dongle
+        Eurolite    //! Eurolite USB DMX512 Pro widget
     };
 
     /** Get the type of the widget */

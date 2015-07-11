@@ -98,10 +98,9 @@ void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    QListIterator <quint32> it(m_fc->functions());
-    while (it.hasNext() == true)
+    foreach(QVariant fid, m_fc->functions())
     {
-        Function* function = m_doc->function(it.next());
+        Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);
 
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);

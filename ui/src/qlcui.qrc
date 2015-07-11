@@ -23,6 +23,7 @@
         <file alias="configure.png">../../resources/icons/png/configure.png</file>
         <file alias="cuelist.png">../../resources/icons/png/cuelist.png</file>
         <file alias="current.png">../../resources/icons/png/current.png</file>
+        <file alias="delete.png">../../resources/icons/png/delete.png</file>
         <file alias="design.png">../../resources/icons/png/design.png</file>
         <file alias="detach.png">../../resources/icons/png/detach.png</file>
         <file alias="dimmer.png">../../resources/icons/png/dimmer.png</file>

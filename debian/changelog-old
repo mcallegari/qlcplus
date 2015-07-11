@@ -1,3 +1,163 @@
+qlcplus (4.7.4) stable; urgency=low
+
+  * NEW: added support for DMX4ALL Nano DMX adapter (Linux only at the moment)
+  * Virtual Console: Solo Frames now handle Cue Lists and Sliders/Knobs in playback mode too
+  * UI: Fixed some crashes on Function Selection and Widget Selection windows (thanks to David Garyga)
+  * ClickAndGo: improved popup layout when a lot of presets need to be displayed
+  * Channels Configuration: it is now possible to unset a Channel Modifier
+  * Channels Configuration: fixed regression causing QLC+ to hang when forcing a channel to HTP
+  * Show Manager: added delete action to tracks context menu
+  * Show Manager: move cursor when the view is clicked even if the grid is not enabled
+  * Show Manager: it is now possible to lock/unlock items
+  * Audio Editor: it is now possible to select a specific audio card for playback
+  * Cue List widget: Added a progress bar showing the current running cue status
+  * Slider widget: when in submaster mode, restore the saved level
+  * Speed Dial widget: added time divisors in configuration panel (thanks to David Garyga)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 Jul 2014 12:13:14 +0200
+
+qlcplus (4.7.3) stable; urgency=low
+
+  * NEW: it is now possible to assign a modifier curve to a channel
+  * NEW: added Japanese translation (many thanks to Koichiro Saito)
+  * Engine: Fixed fallback IO mapping messing up plugins lines
+  * Engine: Fixed audio playback on non-default device working only once
+  * UI: Fix saving changes when: closing QLC+, opening file, creating new file
+  * VirtualConsole: fixed XY Pad tilt on universes other than 1
+  * Monitor: fixed crash when showing 2D preview of a fixture that has been removed
+  * Monitor: it is now possible to set a background image to the 2D preview
+  * Monitor: fixed fixture positioning through the Fixture Item Editor
+  * Fixture manager: fixed crash when deleting all groups/fixtures (thanks to David Garyga)
+  * Fixture Editor: fixed gobos paths saved on Windows
+  * Plugins/Peperoni: added preliminary input support (thanks to Jan Menzel)
+  * Webaccess: button state now correctly switch depending on the sent value
+  * New fixture: Beamz LCB-252, Cameo LED RGB PAR56 Can, Showtec Dynamic LED v3 (thanks to Sascha Büttner)
+  * New fixture: Monacor LSX-142SRGY, Kam Laserscan 1000 3D, Chauvet DMF-10, TSSS XL35, Kam Powercan TRI54W Slim (thanks to Robert Box)
+  * New fixture: Martin RoboColor-III (thanks to Boudewijn)
+  * New fixture: StageTech LeaderScan Roto (thanks to Noel Utter)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Jun 2014 12:13:14 +0200
+
+qlcplus (4.7.2) stable; urgency=low
+
+  * DIP Switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+  * Fixture Manager: Added DIP Switch tool to fixture add panel to select an address by DIP configuration (thanks to Florian Euchner)
+  * Simple Desk: fixed CPU waste and channels highlight on universes other than 1
+  * Simple Desk: fixed cue stacks playback
+  * Show Manager: fixed wrong track association causing copy & paste errors
+  * Show Manager: fixed audio deletion crash
+  * Virtual Console: Buttons can now stop all functions with a fade out time
+  * Plugins/HID: fixed regression causing non working input
+  * Plugins/Peperoni: added support for newer firmware versions (thanks to Jan Menzel)
+  * Plugins/Peperoni: added support for 2 universes output on USBDMX21
+  * Webaccess: preliminary implementation of Simple Desk
+  * Webaccess: Added Web API for developers who want to control QLC+ via HTML+Javascript+Websocket
+  * Added Catalan translation (thanks to Santiago Benejam Torres)
+  * New fixture: Flash Butrym LED Moving Head Mini Beam 18x3W RGB CREE (thanks to laserandi)
+  * New fixture: Chauvet Wedge Tri, Chauvet Gobo Zoom LED 2.0 (thanks to Jef M)
+  * New fixture: Studio Due City Color 1800, Star Lights Mini Wash Moving Head (thanks to Tolmino)
+  * New fixture: lightmaXX Platinum Line Mini TRI PAR 7x3W, lightmaXX Star Sphere 6 RGBAW (thanks to Flo)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 11 May 2014 12:13:14 +0200
+
+qlcplus (4.7.1) stable; urgency=low
+
+  * Monitor: fixed crash when loading a project with the monitor open
+  * Monitor: show channel's icon in DMX view mode
+  * Monitor: added 2D view Fixture item editor. Can set position, rotation and gel color
+  * Show Manager: fixed common speed mode for Sequence steps
+  * Show Manager: it is no more necessary to create a Scene to add audio tracks
+  * Show Manager: improved import of existing Functions
+  * Show Manager: highlight the clicked step
+  * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
+  * Function Manager: fixed nested folders failure
+  * Scene Editor: fixed crash when a group used by a Scene has been removed
+  * Audio/OSX: fixed crash happening at the end of playback
+  * Audio/Linux: if the selected playback device is not present, fall back to the default device 
+  * Webaccess: fixed Cue list play/stop sequence working only once
+  * Webaccess: fixed sliders movement on a touchscreen
+  * Plugins: Fixed ArtNet input universe indexing
+  * Plugins: fixed ArtNet and E1.31 open/close when the same line is connected to several universes
+  * Plugins: fixed ArtNet and E1.31 input association when the same line is connected to several universes
+  * Plugins: implemented SPI autodetection of multiple universe channels when no fixtures are defined
+  * Added fixture: Pro-Lights ARCLED7314HD (thanks to Tolmino)
+  * Added fixture: American DJ Inno Spot LED (thanks to Paul Hill)
+  * Added fixture: American DJ Sweeper Beam LED (thanks to George Qualley)
+  * Added fixture: Contest Tri4U (thanks to Nicolas K)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 April 2014 12:13:14 +0200
+
+qlcplus (4.7.0) stable; urgency=low
+
+  * NEW: New EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
+  * NEW: Random order for chasers (Jano Svitok) 
+  * Monitor: Added support for dimmer channels, Pan, Tilt, color gels and fixture labels
+  * Monitor: can monitor universes even if they're not patched to an output
+  * Audio Editor: added source file, speed dials and preview buttons
+  * Simple Desk: highlight channels in red when manually moved
+  * Fixture selection: it is now possible to add groups or a whole universe to a Scene
+  * Chaser Editor: fixed some cases of manual adjustments of steps timings
+  * Scene Editor: fixed copy&paste of selected values in all fixtures view mode
+  * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
+             Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
+  * Plugins: DMX USB FX5 is now supported on OSX too
+  * Plugins: Added a +1 to the transmitted ArtNet universe
+  * Added portuguese translation (thanks to Nuno Almeida)
+  * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
+  * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)
+  * Added fixtures: Cameo Flat PAR CAN TRI 3W, Stairville maTrixx SC-100, Varytec LED Magic Mushroom (thanks to Jan Nolte)
+  * Added fixture: Stairville LED bar 240/8 RGB (thanks to Mikko Toivonen)
+  * Added fixture: Martin MAC 301 Wash, Martin MAC 700 Profile (thanks to Paul Evans, bwerst)
+  * Added fixture: BoomToneDJ Slim PAR 7x3W LED RGB, Showtec Event Spot 1800 Q4 (thanks to Lorenzo Andreani)
+  * Added fixtures: Eurolite LED PAR 56 RGB DMX, Expolite TourLed 42 (thanks to Frank Janosch)
+  * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
+  * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
+  * Added fixture: Chauvet EZPAR 64 RGBA (thanks to Ronnie Ross)
+  * Added fixture: beamZ LS 3DRG (thanks to Julian Brennum)
+  * Added fixtures: Chauvet Intimidator Scan LED 300, Chauvet Legend 230SR Beam (thanks to Craig Cudmore)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
+
+qlcplus (4.7.0.RC1) unstable; urgency=low
+
+  * NEW: Input/Output: QLC+ now supports infinite universes
+  * NEW: Input/Output: added universe passthrough mode
+  * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
+  * NEW: Fixture Manager: Added a dedicated dialog to quickly create RGB panels
+  * NEW: Monitor: preliminary support of 2D preview monitor
+  * NEW: RGBMatrix: added audio spectrum mode
+  * NEW: Simple Desk: added channel groups tab
+  * NEW: Plugins: Added SPI plugin (Linux only)
+  * NEW: Plugins: Added FX5 support on Windows & Linux (thanks to Florian Euchner)
+  * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
+  * NEW: Position Tool: XY Pad-like position setting in Scene editor (Jano Svitok)
+  * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
+  * NEW: XY Pad keyboard controls: Shift+arrows - fine control, Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
+  * NEW: Fixture Manager: Fixtures channels can now be manually forced to HTP/LTP
+  * Function Selection: fixed OK button greyed out and various crashes
+  * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
+  * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
+  * Webaccess: fixed positioning of headerless frames
+  * Monitor: added combo box to select which universe to monitor
+  * Editors: fixed crashes when deleting running functions (thanks to plugz)
+  * Plugins: added HID joysticks support on Windows
+  * Documentation: Added Sound Control tutorial (Jano Svitok)
+  * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
+  * Added input profile: Akai APC40 (thanks to Daniel Curry)
+  * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
+  * Added fixture: AGPtek RGB 6ch Crystal Ball (thanks to Davey Daytona)
+  * Added fixture: American DJ Tribar Spot2 (thanks to Rob Goudriaan)
+  * Added fixture: iSolution iMove 5 Series (thanks to Dave Doyle)
+  * Added fixtures: Chauvet Intimidator Beam LED 350, Spot LED 250/350 (thanks to Robert Scheffler)
+  * Added fixtures: Alkalite Octopod DP-80, Eurolite LED DMX Pixel Tube 16 RGB (thanks to Ryan Gough)
+  * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
+  * Added fixtures: American DJ P64 LED Plus, American DJ SP1500 MKII, Laserworld EL 200RGY, Botex DSP-405
+  * Added fixture: Showtec Quatro (thanks to Florian Euchner)
+  * Added fixtures: Chauvet SlimPAR 64, Chauvet Q-Spot 560-LED (thanks to Chris Laurie)
+  * Added fixture: Showtec Phantom 250 Wash (thanks to Cingulingu)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 9 March 2014 12:13:14 +0200
+
 qlcplus (4.6.1) stable; urgency=low
 
   * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode

@@ -21,13 +21,13 @@
 #include <QtXml>
 
 #include "vcmatrixcontrol.h"
+#include "vcwidget.h"
 
 VCMatrixControl::VCMatrixControl(quint8 id)
     : m_id(id)
 {
     m_color = QColor();
     m_resource = QString();
-    m_inputSource = NULL;
 }
 
 VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
@@ -38,16 +38,13 @@ VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
     , m_properties(vcmc.m_properties)
     , m_keySequence(vcmc.m_keySequence)
 {
-    if (vcmc.m_inputSource == NULL)
-        m_inputSource = NULL;
-    else
-        m_inputSource = new QLCInputSource(vcmc.m_inputSource->universe(),
-                                           vcmc.m_inputSource->channel());
+    if (vcmc.m_inputSource != NULL)
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
+                                               vcmc.m_inputSource->channel()));
 }
 
 VCMatrixControl::~VCMatrixControl()
 {
-    delete m_inputSource;
 }
 
 quint8 VCMatrixControl::rgbToValue(QRgb color) const
@@ -191,8 +188,12 @@ bool VCMatrixControl::loadXML(const QDomElement &root)
             {
                 quint32 uni = tag.attribute(KXMLQLCVCMatrixControlInputUniverse).toUInt();
                 quint32 ch = tag.attribute(KXMLQLCVCMatrixControlInputChannel).toUInt();
-                m_inputSource = new QLCInputSource(uni, ch);
+                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
             }
+        }
+        else if (tag.tagName() == KXMLQLCVCMatrixControlKey)
+        {
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(tag.text()));
         }
         else
         {
@@ -253,7 +254,7 @@ bool VCMatrixControl::saveXML(QDomDocument *doc, QDomElement *mtx_root)
     }
 
     /* External input source */
-    if (m_inputSource != NULL && m_inputSource->isValid())
+    if (!m_inputSource.isNull() && m_inputSource->isValid())
     {
         tag = doc->createElement(KXMLQLCVCMatrixControlInput);
         tag.setAttribute(KXMLQLCVCMatrixControlInputUniverse, QString("%1").arg(m_inputSource->universe()));

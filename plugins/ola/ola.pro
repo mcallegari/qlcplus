@@ -14,8 +14,9 @@ INCLUDEPATH += ../interfaces
 macx: {
     #CONFIG    += link_pkgconfig
     #PKGCONFIG += libola libolaserver
-    QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
-    QMAKE_CXXFLAGS_X86_64 += -mmacosx-version-min=10.7
+    #QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
+    #QMAKE_CXXFLAGS_X86_64 = -mmacosx-version-min=10.7
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
     INCLUDEPATH += /opt/local/include
     LIBS      += -L/opt/local/lib -lolaserver -lola -lolacommon -lprotobuf
 } else {
@@ -33,6 +34,7 @@ HEADERS += olaio.h \
            qlclogdestination.h
 
 # Source
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += olaio.cpp \
            olaoutthread.cpp \
            configureolaio.cpp \

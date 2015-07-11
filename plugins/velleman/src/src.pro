@@ -22,9 +22,11 @@ win32: {
     SOURCES += velleman_mock.cpp
 }
 
-HEADERS += velleman.h
-SOURCES += velleman.cpp
 HEADERS += ../../interfaces/qlcioplugin.h
+HEADERS += velleman.h
+
+SOURCES += ../../interfaces/qlcioplugin.cpp
+SOURCES += velleman.cpp
 
 TRANSLATIONS += Velleman_fi_FI.ts
 TRANSLATIONS += Velleman_de_DE.ts

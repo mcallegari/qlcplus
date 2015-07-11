@@ -77,13 +77,24 @@ private slots:
     void slotChooseTapInputSourceClicked();
     void slotTapInputValueChanged(quint32 universe, quint32 channel);
 
+    void slotAbsolutePrecisionCbChecked(bool checked);
+
     void slotAttachKey();
     void slotDetachKey();
 
+    void slotAutoDetectInfiniteInputSourceToggled(bool checked);
+    void slotChooseInfiniteInputSourceClicked();
+    void slotInfiniteInputValueChanged(quint32 universe, quint32 channel);
+
+    void slotAttachInfiniteKey();
+    void slotDetachInfiniteKey();
+
 private:
-    QLCInputSource *m_absoluteInputSource;
-    QLCInputSource *m_tapInputSource;
+    QSharedPointer<QLCInputSource> m_absoluteInputSource;
+    QSharedPointer<QLCInputSource> m_tapInputSource;
     QKeySequence m_tapKeySequence;
+    QSharedPointer<QLCInputSource> m_infiniteInputSource;
+    QKeySequence m_infiniteKeySequence;
 };
 
 /** @} */

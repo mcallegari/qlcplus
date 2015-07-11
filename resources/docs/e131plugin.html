@@ -16,11 +16,55 @@ QLC+ supports the <a href="http://www.opendmx.net/index.php/E1.31">E1.31 protoco
 through an input/output plugin that receives and transmits packets on the network.<br>
 No extra requirements are needed, since QLC+ has a native implementation of the E1.31 protocol
 that works on Linux, Windows and OSX systems.<br>
-The E1.31 plugin can send and receive packets from multiple network cards, virtual addresses
-and multiple universes per network card.<br>
-E1.31 packets will be sent on multicast addresses like this: 239.255.0.x, 
-where 'x' is the universe number selected in QLC+.
+The E1.31 plugin can send and receive packets from multiple network cards, virtual addresses, 
+the loopback device (127.0.0.1) and multiple universes per network interface.<br>
+By default, E1.31 packets will be sent as UDP on multicast addresses like 239.255.0.x, 
+where 'x' is the universe number selected in QLC+. The port used is 5568.<br>
+When using the loopback device packets are always transmitted using address 127.0.0.1.<br>
+When transmitting multiple universes on the same interface, the packets will be sent by default with an E1.31
+Universe ID equal to the QLC+ universe number minus 1.<br>
+<br>
+For example:<br>
+QLC+ Universe 1 --> E1.31 Universe 0<br>
+QLC+ Universe 2 --> E1.31 Universe 1<br>
+...<br>
+QLC+ Universe 8 --> E1.31 Universe 7<br>
+<br>
+If the above settings don't meet the requirements of your network, please read the following chapter.
 </P>
+
+<H1>Configuration</H1>
+
+<P>
+When clicking on the <IMG SRC="qrc:/configure.png" width=32> configuration button,
+a small dialog will be displayed, showing the Universes Configuration panel.<br>
+<br>
+<u>After</u> a QLC+ universe is patched with an E1.31 input or output, an entry will be displayed in this list, 
+allowing to manually configure the desired parameters to be used by the E1.31 plugin.<br>
+Input lines do not have particular parameters, while an output line can be configured wth the following:<br>
+<ul>
+ <li><b>IP Address</b>: This is the destination IP address where the E1.31 plugin will transmit packets to. By default
+     a multicast address is used as described above. By setting this parameter within the 1-255 range, E1.31 will
+     transmit a QLC+ universe to the desired multicast address.<br>
+     When patching a QLC+ universe to the loopback device (127.0.0.1), packets will be always transmitted to 127.0.0.1.
+  </li>
+  <li><b>E1.31 Universe</b>: This is the E1.31 universe that will be actually written in every packet transmitted.
+     By setting this parameter, you can use any QLC+ universe to transmit to the desired E1.31 universe.
+  </li>
+  <li><b>Transmission Mode</b>: Here you can select if QLC+ should transmit full or partial universes.<br>
+     'Full' means that all the 512 DMX channels of a universe are transmitted at the speed rate of the QLC+
+     internal clock (50Hz), producing a fixed bitrate of about 200Kbit/s.<br>
+     'Partial', instead, means that QLC+ will transmit only the DMX channel actually used in a universe,
+     starting from channel 1. For example if you raise channel 3 of a fixture with address 50, the E1.31 plugin
+     will transmit only 53 DMX channels, thus limiting the trasnmission bitrate. Use this setting only if the
+     receiving E1.31 node supports partial transmission.
+  </li>
+</ul>
+Settings that are different from the plugin defaults, will be stored in your QLC+ workspace, to increase the
+portability of a project across different platforms, such as different operating systems or a PC and a Raspberry Pi.
+<br>
+</P>
+
 
 <H1>Compatibility</H1>
 

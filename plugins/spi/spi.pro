@@ -29,9 +29,14 @@ TRANSLATIONS += SPI_pt_BR.ts
 TRANSLATIONS += SPI_ca_ES.ts
 TRANSLATIONS += SPI_ja_JP.ts
 
-HEADERS += spiplugin.h spiconfiguration.h \
-    spioutthread.h
-SOURCES += spiplugin.cpp spiconfiguration.cpp \
-    spioutthread.cpp
-FORMS += spiconfiguration.ui
 HEADERS += ../interfaces/qlcioplugin.h
+HEADERS += spiplugin.h \
+           spiconfiguration.h \
+           spioutthread.h
+
+SOURCES += ../interfaces/qlcioplugin.cpp
+SOURCES += spiplugin.cpp \
+           spiconfiguration.cpp \
+           spioutthread.cpp
+
+FORMS += spiconfiguration.ui

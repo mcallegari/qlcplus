@@ -10,7 +10,7 @@ include(libsndfile-nametool.pri)
 lessThan(QT_MAJOR_VERSION, 5) {
   include(libportaudio-nametool.pri)
 }
-include(liblo-nametool.pri)
+
 include(libfftw-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
@@ -34,7 +34,6 @@ INSTALLS += LIBFTDI LIBFTDI_ID
 INSTALLS += LIBMAD LIBMAD_ID
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 lessThan(QT_MAJOR_VERSION, 5): INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
-INSTALLS += LIBLO LIBLO_ID
 INSTALLS += LIBFFTW LIBFFTW_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
 INSTALLS += LIBQTXML LIBQTXML_ID

@@ -460,6 +460,15 @@ bool QLCFTDI::write(const QByteArray& data)
 
 QByteArray QLCFTDI::read(int size, uchar* userBuffer)
 {
+    if (m_handle == NULL)
+        return QByteArray();
+
+    DWORD RxBytes, TxBytes, event;
+    FT_GetStatus(m_handle, &RxBytes, &TxBytes, &event);
+
+    if (RxBytes < (DWORD)size)
+        return QByteArray();
+
     uchar* buffer = NULL;
 
     if (userBuffer == NULL)
@@ -489,6 +498,21 @@ QByteArray QLCFTDI::read(int size, uchar* userBuffer)
 
 uchar QLCFTDI::readByte(bool* ok)
 {
+    if (m_handle == NULL)
+    {
+        *ok = false;
+        return 0;
+    }
+
+    DWORD RxBytes, TxBytes, event;
+    FT_GetStatus(m_handle, &RxBytes, &TxBytes, &event);
+
+    if (RxBytes < 1)
+    {
+        *ok = false;
+        return 0;
+    }
+
     uchar byte = 0;
     int read = 0;
     FT_Read(m_handle, &byte, 1, (LPDWORD) &read);

@@ -150,7 +150,7 @@ private:
 
     /** Reload icon file from disk */
     void updateIcon();
-    
+
 public slots:
     void slotChooseIcon();
     void slotResetIcon();

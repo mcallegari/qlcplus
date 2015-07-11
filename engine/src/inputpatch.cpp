@@ -37,23 +37,36 @@
  * Initialization
  *****************************************************************************/
 
-InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
+InputPatch::InputPatch(QObject *parent)
     : QObject(parent)
-    , m_inputUniverse(inputUniverse)
+    , m_universe(UINT_MAX)
     , m_plugin(NULL)
-    , m_input(QLCIOPlugin::invalidLine())
+    , m_pluginLine(QLCIOPlugin::invalidLine())
     , m_profile(NULL)
     , m_nextPageCh(USHRT_MAX)
     , m_prevPageCh(USHRT_MAX)
     , m_pageSetCh(USHRT_MAX)
 {
-    Q_ASSERT(parent != NULL);
+
+}
+
+InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
+    : QObject(parent)
+    , m_universe(inputUniverse)
+    , m_plugin(NULL)
+    , m_pluginLine(QLCIOPlugin::invalidLine())
+    , m_profile(NULL)
+    , m_nextPageCh(USHRT_MAX)
+    , m_prevPageCh(USHRT_MAX)
+    , m_pageSetCh(USHRT_MAX)
+{
+
 }
 
 InputPatch::~InputPatch()
 {
     if (m_plugin != NULL)
-        m_plugin->closeInput(m_input);
+        m_plugin->closeInput(m_pluginLine, m_universe);
 }
 
 /*****************************************************************************
@@ -64,57 +77,65 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 {
     bool result = false;
 
-    if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
         disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
                    this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
-        m_plugin->closeInput(m_input);
+        m_plugin->closeInput(m_pluginLine, m_universe);
     }
 
     m_plugin = plugin;
-    m_input = input;
+    m_pluginLine = input;
     m_profile = profile;
 
+    if (m_plugin != NULL)
+    {
+        emit pluginNameChanged();
+        if (m_pluginLine != QLCIOPlugin::invalidLine())
+            emit inputNameChanged();
+        if (m_profile != NULL)
+            emit profileNameChanged();
+    }
+
     /* Open the assigned plugin input */
-    if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
         connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
                 this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
-        result = m_plugin->openInput(m_input);
+        result = m_plugin->openInput(m_pluginLine, m_universe);
 
         if (m_profile != NULL)
-        {
-            QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
-            while (it.hasNext() == true)
-            {
-                it.next();
-                QLCInputChannel *ch = it.value();
-                if (ch != NULL)
-                {
-                    if (m_nextPageCh == USHRT_MAX && ch->type() == QLCInputChannel::NextPage)
-                        m_nextPageCh = m_profile->channelNumber(ch);
-                    else if (m_prevPageCh == USHRT_MAX && ch->type() == QLCInputChannel::PrevPage)
-                        m_prevPageCh = m_profile->channelNumber(ch);
-                    else if (m_pageSetCh == USHRT_MAX && ch->type() == QLCInputChannel::PageSet)
-                        m_pageSetCh = m_profile->channelNumber(ch);
-                }
-            }
-        }
+            setProfilePageControls();
     }
     return result;
 }
 
+bool InputPatch::set(QLCInputProfile *profile)
+{
+    if (m_plugin == NULL || m_pluginLine == QLCIOPlugin::invalidLine())
+        return false;
+
+    m_profile = profile;
+
+    if (m_profile != NULL)
+    {
+        setProfilePageControls();
+        emit profileNameChanged();
+    }
+    return true;
+}
+
 bool InputPatch::reconnect()
 {
-    if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
-        m_plugin->closeInput(m_input);
+        m_plugin->closeInput(m_pluginLine, m_universe);
 #if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(GRACE_MS);
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        return m_plugin->openInput(m_input);
+        return m_plugin->openInput(m_pluginLine, m_universe);
     }
     return false;
 }
@@ -134,17 +155,17 @@ QString InputPatch::pluginName() const
 
 quint32 InputPatch::input() const
 {
-    if (m_plugin != NULL && m_input < quint32(m_plugin->inputs().count()))
-        return m_input;
+    if (m_plugin != NULL && m_pluginLine < quint32(m_plugin->inputs().count()))
+        return m_pluginLine;
     else
         return QLCIOPlugin::invalidLine();
 }
 
 QString InputPatch::inputName() const
 {
-    if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine() &&
-            m_input < quint32(m_plugin->inputs().count()))
-        return m_plugin->inputs()[m_input];
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() &&
+            m_pluginLine < quint32(m_plugin->inputs().count()))
+        return m_plugin->inputs()[m_pluginLine];
     else
         return KInputNone;
 }
@@ -166,15 +187,51 @@ bool InputPatch::isPatched() const
 {
     return input() != QLCIOPlugin::invalidLine();
 }
+
+void InputPatch::setPluginParameter(QString prop, QVariant value)
+{
+    if (m_plugin != NULL)
+        m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, prop, value);
+}
+
+QMap<QString, QVariant> InputPatch::getPluginParameters()
+{
+    if (m_plugin != NULL)
+        return m_plugin->getParameters(m_universe, m_pluginLine, QLCIOPlugin::Input);
+
+    return QMap<QString, QVariant>();
+}
  
 void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 channel,
                                   uchar value, const QString& key)
 {
     // In case we have several lines connected to the same plugin, emit only
     // such values that belong to this particular patch.
-    if (input == m_input)
+    if (input == m_pluginLine)
     {
-        if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_inputUniverse))
-        emit inputValueChanged(m_inputUniverse, channel, value, key);
+        if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+            emit inputValueChanged(m_universe, channel, value, key);
+    }
+}
+
+void InputPatch::setProfilePageControls()
+{
+    if (m_profile != NULL)
+    {
+        QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
+        while (it.hasNext() == true)
+        {
+            it.next();
+            QLCInputChannel *ch = it.value();
+            if (ch != NULL)
+            {
+                if (m_nextPageCh == USHRT_MAX && ch->type() == QLCInputChannel::NextPage)
+                    m_nextPageCh = m_profile->channelNumber(ch);
+                else if (m_prevPageCh == USHRT_MAX && ch->type() == QLCInputChannel::PrevPage)
+                    m_prevPageCh = m_profile->channelNumber(ch);
+                else if (m_pageSetCh == USHRT_MAX && ch->type() == QLCInputChannel::PageSet)
+                    m_pageSetCh = m_profile->channelNumber(ch);
+            }
+        }
     }
 }

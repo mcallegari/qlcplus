@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ConfigureHID</name>
     <message>
@@ -25,16 +25,16 @@
     </message>
 </context>
 <context>
-    <name>HIDFX5Device</name>
+    <name>HIDDMXDevice</name>
     <message>
-        <location filename="hidfx5device.cpp" line="61"/>
-        <source>FX5 USB DMX Interface Error</source>
-        <translation>FX5 USB DMX interface fout</translation>
+        <location filename="hiddmxdevice.cpp" line="61"/>
+        <source>HID DMX Interface Error</source>
+        <translation>HID DMX interface fout</translation>
     </message>
     <message>
-        <location filename="hidfx5device.cpp" line="62"/>
-        <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
-        <translation>Kan de FX5 interface niet openen. Controleer of de udev rule geïnstalleerd is.</translation>
+        <location filename="hiddmxdevice.cpp" line="62"/>
+        <source>Unable to open %1. Make sure the udev rule is installed.</source>
+        <translation>Kan %1 niet openen. Controleer of de udev regel geïnstalleerd is.</translation>
     </message>
 </context>
 <context>
@@ -53,9 +53,9 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="115"/>
-        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation>Deze plugin zorgt voor ondersteuning voor HID gebaseerde joysticks en de FX5 USB DMX adapter.</translation>
+        <location filename="hidplugin.cpp" line="116"/>
+        <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
+        <translation>Deze plugin verzorgt support voor HID-gebaseerde joysticks, gamepads en een aantal USB DMX adapters.</translation>
     </message>
 </context>
 </TS>

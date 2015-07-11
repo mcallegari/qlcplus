@@ -39,6 +39,7 @@ HEADERS += e131packetizer.h \
 
 FORMS += configuree131.ui
 
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += e131packetizer.cpp \
            e131controller.cpp \
            e131plugin.cpp \

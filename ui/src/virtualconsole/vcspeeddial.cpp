@@ -33,6 +33,7 @@
 
 const quint8 VCSpeedDial::absoluteInputSourceId = 0;
 const quint8 VCSpeedDial::tapInputSourceId = 1;
+const quint8 VCSpeedDial::infiniteInputSourceId = 2;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
 /****************************************************************************
@@ -105,7 +106,9 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
     if (dial == NULL)
         return false;
 
-    m_functions = dial->functions();
+    setFunctions(dial->functions());
+    setAbsoluteValueRange(dial->absoluteValueMin(), dial->absoluteValueMax());
+    setVisibilityMask(dial->visibilityMask());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -156,7 +159,7 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
  * Functions
  ****************************************************************************/
 
-void VCSpeedDial::setFunctions(const QList <VCSpeedDialFunction> functions)
+void VCSpeedDial::setFunctions(const QList <VCSpeedDialFunction> & functions)
 {
     m_functions = functions;
 }
@@ -214,6 +217,8 @@ void VCSpeedDial::updateFeedback()
                      float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
+
+    sendFeedback(m_dial->value() == (int)Function::infiniteSpeed() ? UCHAR_MAX : 0, infiniteInputSourceId);
 }
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -235,6 +240,11 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
                                          qreal(absoluteValueMax())));
         m_dial->setValue(ms, true);
     }
+    else if (checkInputSource(universe, pagedCh, value, sender(), infiniteInputSourceId))
+    {
+        if (value != 0)
+            m_dial->toggleInfinite();
+    }
 }
 
 /*********************************************************************
@@ -251,6 +261,16 @@ QKeySequence VCSpeedDial::keySequence() const
     return m_tapKeySequence;
 }
 
+void VCSpeedDial::setInfiniteKeySequence(const QKeySequence& keySequence)
+{
+    m_infiniteKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::infiniteKeySequence() const
+{
+    return m_infiniteKeySequence;
+}
+
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (isEnabled() == false)
@@ -258,6 +278,8 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 
     if (m_tapKeySequence == keySequence)
         m_dial->tap();
+    else if (m_infiniteKeySequence == keySequence)
+        m_dial->toggleInfinite();
 }
 
 
@@ -281,7 +303,7 @@ uint VCSpeedDial::absoluteValueMax() const
     return m_absoluteValueMax;
 }
 
-ushort VCSpeedDial::visibilityMask()
+ushort VCSpeedDial::visibilityMask() const
 {
     return m_visibilityMask;
 }
@@ -358,7 +380,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), absoluteInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), absoluteInputSourceId);
                 }
                 else
                 {
@@ -380,7 +402,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(new QLCInputSource(uni, ch), tapInputSourceId);
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tapInputSourceId);
                 }
                 else
                 {
@@ -393,6 +415,32 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCSpeedDialTapKey)
         {
             setKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialInfinite)
+        {
+            // Input
+            QDomNode sub = node.firstChild();
+            while (sub.isNull() == false)
+            {
+                QDomElement subtag = sub.toElement();
+                if (subtag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = QLCInputSource::invalidUniverse;
+                    quint32 ch = QLCInputSource::invalidChannel;
+                    if (loadXMLInput(subtag, &uni, &ch) == true)
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), infiniteInputSourceId);
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown infinite tag:" << tag.tagName();
+                }
+
+                sub = sub.nextSibling();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialInfiniteKey)
+        {
+            setInfiniteKeySequence(stripKeySequence(QKeySequence(tag.text())));
         }
         else if (tag.tagName() == KXMLQLCWindowState)
         {
@@ -462,6 +510,20 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
         QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialTapKey);
         root.appendChild(tag);
         QDomText text = doc->createTextNode(m_tapKeySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* Infinite input */
+    QDomElement infinite = doc->createElement(KXMLQLCVCSpeedDialInfinite);
+    saveXMLInput(doc, &infinite, inputSource(infiniteInputSourceId));
+    root.appendChild(infinite);
+
+    /* Infinite key sequence */
+    if (m_infiniteKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialInfiniteKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_infiniteKeySequence.toString());
         tag.appendChild(text);
     }
 

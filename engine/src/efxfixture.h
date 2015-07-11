@@ -154,11 +154,8 @@ private:
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;
 
-    /** Elapsed milliseconds since last reset() or durationChanged() */
+    /** Elapsed milliseconds since last reset() */
     uint m_elapsed;
-
-    /** 0..M_PI*2, the position is stored when speed changes, to make the transition smooth */
-    qreal m_startAngle;
 
     /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
     qreal m_currentAngle;

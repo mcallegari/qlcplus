@@ -40,6 +40,7 @@
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
 #define KXMLQLCRGBMatrixEndColor "EndColor"
 #define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
+#define KXMLQLCRGBMatrixDimmerControl "DimmerControl"
 
 #define KXMLQLCRGBMatrixProperty "Property"
 #define KXMLQLCRGBMatrixPropertyName "Name"
@@ -51,6 +52,7 @@
 
 RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
+    , m_dimmerControl(true)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_algorithm(NULL)
     , m_algorithmMutex(QMutex::Recursive)
@@ -74,13 +76,14 @@ RGBMatrix::RGBMatrix(Doc* doc)
 
 RGBMatrix::~RGBMatrix()
 {
-    setAlgorithm(NULL);
+    delete m_algorithm;
     delete m_roundTime;
-    m_roundTime = NULL;
 }
 
 void RGBMatrix::setTotalDuration(quint32 msec)
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_fixtureGroupID == FixtureGroup::invalidId() ||
         m_algorithm == NULL)
             return;
@@ -95,6 +98,8 @@ void RGBMatrix::setTotalDuration(quint32 msec)
 
 quint32 RGBMatrix::totalDuration()
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_fixtureGroupID == FixtureGroup::invalidId() ||
         m_algorithm == NULL)
             return 0;
@@ -107,6 +112,16 @@ quint32 RGBMatrix::totalDuration()
     }
 
     return 0;
+}
+
+void RGBMatrix::setDimmerControl(bool dimmerControl)
+{
+    m_dimmerControl = dimmerControl;
+}
+
+bool RGBMatrix::dimmerControl() const
+{
+    return m_dimmerControl;
 }
 
 /****************************************************************************
@@ -138,6 +153,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     if (mtx == NULL)
         return false;
 
+    setDimmerControl(mtx->dimmerControl());
     setFixtureGroup(mtx->fixtureGroup());
     if (mtx->algorithm() != NULL)
         setAlgorithm(mtx->algorithm()->clone());
@@ -194,6 +210,8 @@ QMutex& RGBMatrix::algorithmMutex()
 
 int RGBMatrix::stepsCount()
 {
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
     if (m_algorithm == NULL)
         return 0;
 
@@ -307,11 +325,13 @@ void RGBMatrix::updateStepColor(int step)
 
 void RGBMatrix::setProperty(QString propName, QString value)
 {
+    QMutexLocker algoLocker(&m_algorithmMutex);
     m_properties[propName] = value;
 }
 
 QString RGBMatrix::property(QString propName)
 {
+    QMutexLocker algoLocker(&m_algorithmMutex);
     return m_properties[propName];
 }
 
@@ -373,6 +393,10 @@ bool RGBMatrix::loadXML(const QDomElement& root)
             QString value = tag.attribute(KXMLQLCRGBMatrixPropertyValue);
             setProperty(name, value);
         }
+        else if (tag.tagName() == KXMLQLCRGBMatrixDimmerControl)
+        {
+            setDimmerControl(tag.text().toInt());
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown RGB matrix tag:" << tag.tagName();
@@ -413,6 +437,12 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Algorithm */
     if (m_algorithm != NULL)
         m_algorithm->saveXML(doc, &root);
+
+    /* Dimmer Control */
+    tag = doc->createElement(KXMLQLCRGBMatrixDimmerControl);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(dimmerControl()));
+    tag.appendChild(text);
 
     /* Start Color */
     tag = doc->createElement(KXMLQLCRGBMatrixStartColor);
@@ -460,7 +490,10 @@ void RGBMatrix::tap()
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
         if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
+        {
             roundCheck(grp->size());
+            resetElapsed();
+        }
     }
 }
 
@@ -473,11 +506,12 @@ void RGBMatrix::preRun(MasterTimer* timer)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (grp != NULL && m_algorithm != NULL)
         {
-            m_direction = direction();
-
             Q_ASSERT(m_fader == NULL);
             m_fader = new GenericFader(doc());
             m_fader->adjustIntensity(getAttributeValue(Intensity));
+
+            // Copy direction from parent class direction
+            m_direction = direction();
 
             if (m_direction == Forward)
             {
@@ -538,7 +572,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
             return;
 
         // Get new map every time when elapsed is reset to zero
-        if (elapsed() == 0)
+        if (elapsed() < MasterTimer::tick())
         {
             qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
             RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
@@ -559,11 +593,40 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
 void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
-    Q_UNUSED(timer);
-    Q_UNUSED(universes);
+    QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        FadeChannel fc = it.value();
+        // fade out only intensity channels
+        if (fc.group(doc()) != QLCChannel::Intensity)
+            continue;
 
-    if (m_fader != NULL)
-        delete m_fader; // Might be NULL if there's no fixture group
+        bool canFade = true;
+        Fixture *fixture = doc()->fixture(fc.fixture());
+        if (fixture != NULL)
+            canFade = fixture->channelCanFade(fc.channel());
+        fc.setStart(fc.current(getAttributeValue(Intensity)));
+
+        fc.setElapsed(0);
+        fc.setReady(false);
+        if (canFade == false)
+        {
+            fc.setFadeTime(0);
+            fc.setTarget(fc.current(getAttributeValue(Intensity)));
+        }
+        else
+        {
+            if (overrideFadeOutSpeed() == defaultSpeed())
+                fc.setFadeTime(fadeOutSpeed());
+            else
+                fc.setFadeTime(overrideFadeOutSpeed());
+            fc.setTarget(0);
+        }
+        timer->faderAdd(fc);
+    }
+
+    delete m_fader;
     m_fader = NULL;
 
     Function::postRun(timer, universes);
@@ -657,7 +720,7 @@ void RGBMatrix::roundCheck(const QSize& size)
     }
 
     m_roundTime->restart();
-    resetElapsed();
+    roundElapsed(duration());
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
@@ -737,7 +800,8 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 m_fader->add(fc);
             }
 
-            if (head.masterIntensityChannel() != QLCChannel::invalid())
+            if (m_dimmerControl &&
+                head.masterIntensityChannel() != QLCChannel::invalid())
             {
                 //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
@@ -772,7 +836,13 @@ void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
     {
         FadeChannel old = oldChannelIterator.value();
         fc.setCurrent(old.current());
-        fc.setStart(old.current());
+        if (fc.target() == old.target())
+        {
+            fc.setStart(old.start());
+            fc.setElapsed(old.elapsed());
+        }
+        else
+            fc.setStart(old.current());
     }
     else
     {

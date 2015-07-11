@@ -112,13 +112,14 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QHBoxLayout *hbox2 = new QHBoxLayout();
-    m_volumeSlider = new ClickAndGoSlider();
+    m_volumeSlider = new ClickAndGoSlider(this);
     m_volumeSlider->setOrientation(Qt::Vertical);
     m_volumeSlider->setRange(0, 100);
-    m_volumeSlider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_volumeSlider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_volumeSlider->setValue(100);
     m_volumeSlider->setFixedWidth(32);
     m_volumeSlider->setEnabled(false);
+
     connect(m_volumeSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotVolumeChanged(int)));
 #endif
@@ -220,6 +221,15 @@ void VCAudioTriggers::enableCapture(bool enable)
         disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
     }
+}
+
+void VCAudioTriggers::toggleEnableButton(bool toggle)
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (m_button)
+        m_button->setChecked(toggle);
 }
 
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)

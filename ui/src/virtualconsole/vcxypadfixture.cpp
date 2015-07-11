@@ -486,7 +486,7 @@ void VCXYPadFixture::readDMX(QList<Universe*> universes, qreal & xmul, qreal & y
             y += universes[uni]->preGMValue(address);
     }
 
-    x /= USHRT_MAX;    
+    x /= USHRT_MAX;
     y /= USHRT_MAX;
 
     if (x < m_xMin || x > m_xMax || y < m_yMin || y > m_yMax) // out of range
@@ -499,8 +499,7 @@ void VCXYPadFixture::readDMX(QList<Universe*> universes, qreal & xmul, qreal & y
 
     if (m_xMax == m_xMin || m_yMax == m_yMin) // avoid divide by zero below
         return;
-        
+
     xmul = (x - m_xMin) / (m_xMax - m_xMin);
     ymul = (y - m_yMin) / (m_yMax - m_yMin);
 }
-

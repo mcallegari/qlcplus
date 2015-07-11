@@ -153,6 +153,9 @@ void RGBMatrixEditor::init()
         break;
     }
 
+    /* Dimmer control */
+    m_dimmerControlCb->setChecked(m_matrix->dimmerControl());
+
     fillPatternCombo();
     fillFixtureGroupCombo();
     fillAnimationCombo();
@@ -211,6 +214,7 @@ void RGBMatrixEditor::init()
     connect(m_singleShot, SIGNAL(clicked()), this, SLOT(slotSingleShotClicked()));
     connect(m_forward, SIGNAL(clicked()), this, SLOT(slotForwardClicked()));
     connect(m_backward, SIGNAL(clicked()), this, SLOT(slotBackwardClicked()));
+    connect(m_dimmerControlCb, SIGNAL(clicked()), this, SLOT(slotDimmerControlClicked()));
 
     // Test slots
     connect(m_testButton, SIGNAL(clicked(bool)),
@@ -871,9 +875,16 @@ void RGBMatrixEditor::slotBackwardClicked()
     slotRestartTest();
 }
 
+void RGBMatrixEditor::slotDimmerControlClicked()
+{
+    m_matrix->setDimmerControl(m_dimmerControlCb->isChecked());
+}
+
 void RGBMatrixEditor::slotFadeInChanged(int ms)
 {
     m_matrix->setFadeInSpeed(ms);
+    uint duration = Function::speedAdd(ms, m_speedDials->duration());
+    m_matrix->setDuration(duration);
 }
 
 void RGBMatrixEditor::slotFadeOutChanged(int ms)
@@ -883,11 +894,7 @@ void RGBMatrixEditor::slotFadeOutChanged(int ms)
 
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    uint duration = 0;
-    if (ms < 0)
-        duration = ms;
-    else
-        duration = m_matrix->fadeInSpeed() + ms;
+    uint duration = Function::speedAdd(m_matrix->fadeInSpeed(), ms);
     m_matrix->setDuration(duration);
 }
 

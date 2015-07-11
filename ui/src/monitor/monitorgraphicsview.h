@@ -25,6 +25,7 @@
 
 #include "fixture.h"
 
+class MonitorProperties;
 class MonitorFixtureItem;
 class Doc;
 
@@ -38,6 +39,7 @@ class MonitorGraphicsView : public QGraphicsView
 
 public:
     MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
+    ~MonitorGraphicsView();
 
     /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
@@ -80,6 +82,9 @@ public:
      */
     bool removeFixture(quint32 id = Fixture::invalidId());
 
+    /** Remove all fixtures from the current view */
+    void clearFixtures();
+
     /** Support function to convert a position in millimeters
      *  to a position in pixels */
     QPointF realPositionToPixels(qreal xpos, qreal ypos);
@@ -94,9 +99,6 @@ public:
 
     /** Retrieve the path to the background image currently set */
     QString backgroundImage() { return m_backgroundImage; }
-
-    /** Update the fixture values to render the 2D preview */
-    void writeUniverse(int index, const QByteArray& ua);
 
 protected:
     /** Triggers the whole view repaint and metrics

@@ -80,8 +80,9 @@ int Peperoni::capabilities() const
  * Outputs
  *****************************************************************************/
 
-bool Peperoni::openOutput(quint32 output)
+bool Peperoni::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (m_usbdmx == NULL)
         return false;
 
@@ -91,8 +92,9 @@ bool Peperoni::openOutput(quint32 output)
     return false;
 }
 
-void Peperoni::closeOutput(quint32 output)
+void Peperoni::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (m_usbdmx == NULL)
         return;
 

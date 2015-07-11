@@ -119,7 +119,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false)
+    if (m_doc->isKiosk() == false && QLCFile::isRaspberry() == false)
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
@@ -259,6 +259,10 @@ void App::init()
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
+    // Listen to DMX value changes and update each Fixture values array
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
     slotRunningFunctionsChanged();
@@ -393,13 +397,17 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
+    m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
     m_doc->clearContents();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
     ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->masterTimer()->start();
 }
 
 Doc *App::doc()
@@ -456,6 +464,21 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption + QString(" *"));
     else
         setWindowTitle(caption);
+}
+
+void App::slotUniversesWritten(int idx, const QByteArray &ua)
+{
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (fixture->universe() != (quint32)idx)
+            continue;
+
+        int fxStartAddr = fixture->address();
+        if (fxStartAddr >= ua.size())
+            continue;
+
+        fixture->setChannelValues(ua.mid(fxStartAddr, fixture->channels()));
+    }
 }
 
 /*****************************************************************************
@@ -915,6 +938,8 @@ QFile::FileError App::slotFileOpen()
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 
     updateFileOpenMenu(fn);
 

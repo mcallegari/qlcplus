@@ -524,7 +524,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
             fc.setFlashing(true);
             // Force add this channel, since it will be removed
             // by MasterTimer once applied
-            timer->fader()->forceAdd(fc);
+            timer->faderForceAdd(fc);
         }
     }
     else
@@ -593,7 +593,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.unlock();
     }
 
-    qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
+    //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
     m_fader->write(ua);
 
@@ -606,8 +606,8 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    if (m_fader == NULL)
-        return;
+    Q_ASSERT(m_fader != NULL);
+
     QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
     while (it.hasNext() == true)
     {
@@ -638,10 +638,9 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
                 fc.setFadeTime(overrideFadeOutSpeed());
             fc.setTarget(0);
         }
-        timer->fader()->add(fc);
+        timer->faderAdd(fc);
     }
 
-    Q_ASSERT(m_fader != NULL);
     delete m_fader;
     m_fader = NULL;
 
@@ -651,7 +650,8 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
                              const QList<Universe*> ua)
 {
-    const QHash <FadeChannel,FadeChannel>& channels(timer->fader()->channels());
+    QMutexLocker channelsLocker(timer->faderMutex());
+    QHash <FadeChannel,FadeChannel> const& channels(timer->faderChannelsRef());
     QHash <FadeChannel,FadeChannel>::const_iterator existing_it = channels.find(fc);
     if (existing_it != channels.constEnd())
     {

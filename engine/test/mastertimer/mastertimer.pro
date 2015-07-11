@@ -14,6 +14,12 @@ INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
+IS_TRAVIS = $$(TRAVIS)
+contains(IS_TRAVIS, "true") {
+    DEFINES += TRAVIS_BUILD
+}
+
+SOURCES += ../../../plugins/interfaces/qlcioplugin.cpp
 SOURCES += mastertimer_test.cpp dmxsource_stub.cpp ../function/function_stub.cpp
 HEADERS += mastertimer_test.h dmxsource_stub.h ../function/function_stub.h ../common/resource_paths.h
 

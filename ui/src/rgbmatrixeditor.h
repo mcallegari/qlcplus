@@ -95,6 +95,8 @@ private slots:
     void slotForwardClicked();
     void slotBackwardClicked();
 
+    void slotDimmerControlClicked();
+
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);

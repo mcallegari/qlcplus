@@ -82,6 +82,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
     setOn(false);
+    m_action = Action(-1); // avoid use of uninitialized value
     setAction(Toggle);
     setFrameStyle(KVCFrameStyleNone);
 
@@ -1086,7 +1087,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
                 label->setFixedWidth(100);
                 ClickAndGoSlider *slider = new ClickAndGoSlider(menu);
                 slider->setOrientation(Qt::Horizontal);
-                slider->setStyleSheet(slStyle);
+                slider->setSliderStyleSheet(slStyle);
                 slider->setFixedSize(QSize(100, 18));
                 slider->setMinimum(0);
                 slider->setMaximum(100);

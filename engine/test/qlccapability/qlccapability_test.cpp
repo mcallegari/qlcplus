@@ -92,49 +92,49 @@ void QLCCapability_Test::overlaps()
 {
     QLCCapability cap1;
     QLCCapability cap2;
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2 contains cap1 completely */
     cap1.setMin(10);
     cap1.setMax(245);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's max overlaps cap1 */
     cap2.setMin(0);
     cap2.setMax(10);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's max overlaps cap1 */
     cap2.setMin(0);
     cap2.setMax(15);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's min overlaps cap1 */
     cap2.setMin(245);
     cap2.setMax(UCHAR_MAX);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's min overlaps cap1 */
     cap2.setMin(240);
     cap2.setMax(UCHAR_MAX);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap1 contains cap2 completely */
     cap2.setMin(20);
     cap2.setMax(235);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     cap2.setMin(0);
     cap2.setMax(9);
-    QVERIFY(cap1.overlaps(cap2) == false);
-    QVERIFY(cap2.overlaps(cap1) == false);
+    QVERIFY(cap1.overlaps(&cap2) == false);
+    QVERIFY(cap2.overlaps(&cap1) == false);
 }
 
 void QLCCapability_Test::copy()
@@ -148,10 +148,10 @@ void QLCCapability_Test::copy()
     cap1.setMax(15);
     cap1.setName("Foobar");
 
-    QLCCapability cap2 = cap1;
-    QVERIFY(cap2.min() == 5);
-    QVERIFY(cap2.max() == 15);
-    QVERIFY(cap2.name() == "Foobar");
+    QLCCapability *cap2 = cap1.createCopy();
+    QVERIFY(cap2->min() == 5);
+    QVERIFY(cap2->max() == 15);
+    QVERIFY(cap2->name() == "Foobar");
 }
 
 void QLCCapability_Test::load()

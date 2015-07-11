@@ -219,21 +219,16 @@
           </item>
           <item row="0" column="1">
            <widget class="QSpinBox" name="m_absoluteMinSpin">
-            <property name="suffix">
-             <string>s</string>
-            </property>
            </widget>
           </item>
           <item row="0" column="2">
            <widget class="QSpinBox" name="m_absoluteMaxSpin">
-            <property name="suffix">
-             <string>s</string>
-            </property>
-            <property name="maximum">
-             <number>300</number>
-            </property>
-            <property name="value">
-             <number>10</number>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QCheckBox" name="m_absolutePrecisionCb">
+            <property name="text">
+             <string>ms precision</string>
             </property>
            </widget>
           </item>
@@ -332,6 +327,120 @@
               <widget class="QToolButton" name="m_detachKey">
                <property name="toolTip">
                 <string>Remove the dial's keyboard shortcut key</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../qlcui.qrc">
+                 <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Infinite</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="title">
+             <string>External Input</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="0" column="0">
+              <widget class="QLabel" name="m_infiniteInputUniverseLabel">
+               <property name="text">
+                <string>Input Universe</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_infiniteInputUniverseEdit"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="m_infiniteInputChannelLabel">
+               <property name="text">
+                <string>Input Channel</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_infiniteInputChannelEdit"/>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="m_autoDetectInfiniteInputButton">
+               <property name="text">
+                <string>Auto Detect</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="m_chooseInfiniteInputButton">
+               <property name="text">
+                <string>Choose...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox_7">
+            <property name="title">
+             <string>Key combination</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0" colspan="2">
+              <widget class="QLineEdit" name="m_infiniteKeyEdit">
+               <property name="toolTip">
+                <string>Keyboard combination to toggle the dial infinite checkbox</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QToolButton" name="m_attachInfiniteKey">
+               <property name="toolTip">
+                <string>Set a key combination for this dial infinite checkbox</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../qlcui.qrc">
+                 <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QToolButton" name="m_detachInfiniteKey">
+               <property name="toolTip">
+                <string>Remove the dial's infinite button keyboard shortcut key</string>
                </property>
                <property name="text">
                 <string notr="true">...</string>
@@ -565,10 +674,26 @@
    </hints>
   </connection>
   <connection>
+   <sender>m_chooseInfiniteInputButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotChooseInfiniteInputSourceClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>354</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>m_autoDetectAbsoluteInputButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+   <slot>slotAutoDetectAbsoluteInputSourceToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>200</x>
@@ -584,7 +709,23 @@
    <sender>m_autoDetectTapInputButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectTapInputSourceClicked()</slot>
+   <slot>slotAutoDetectTapInputSourceToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_autoDetectInfiniteInputButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>slotAutoDetectInfiniteInputSourceToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>195</x>
@@ -602,7 +743,9 @@
   <slot>slotRemoveClicked()</slot>
   <slot>slotChooseAbsoluteInputSourceClicked()</slot>
   <slot>slotChooseTapInputSourceClicked()</slot>
-  <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
+  <slot>slotChooseInfiniteInputSourceClicked()</slot>
+  <slot>slotAutoDetectAbsoluteInputSourceToggled(bool)</slot>
   <slot>slotAutoDetectTapInputSourceClicked()</slot>
+  <slot>slotAutoDetectInfiniteInputSourceToggled(bool)</slot>
  </slots>
 </ui>

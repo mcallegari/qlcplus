@@ -98,6 +98,8 @@ public:
     /** Produce a tap programmatically */
     void tap();
 
+    void toggleInfinite();
+
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
 signals:

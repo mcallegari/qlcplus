@@ -1,0 +1,122 @@
+/*
+  Q Light Controller Plus
+  PluginsList.qml
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+import QtQuick 2.0
+
+Rectangle {
+    id: pluginsContainer
+    anchors.fill: parent
+    color: "transparent"
+
+    property int universeIndex: 0
+    property bool isInput: false
+
+    function loadSources(input)
+    {
+        if (input === true)
+        {
+            uniListView.model = ioManager.universeInputSources(universeIndex)
+            isInput = true
+        }
+        else
+        {
+            uniListView.model = ioManager.universeOutputSources(universeIndex)
+            isInput = false
+        }
+    }
+
+    ListView {
+        id: uniListView
+        anchors.fill: parent
+        boundsBehavior: Flickable.StopAtBounds
+        delegate:
+            Item {
+                id: root
+                height: 60
+                width: pluginsContainer.width
+
+                MouseArea {
+                    id: delegateRoot
+                    width: pluginsContainer.width
+                    height: 60
+
+                    drag.target: pluginItem
+                    drag.threshold: 30
+
+                    onPressed: pluginItem.color = "#444"
+                    onReleased: {
+                        pluginItem.x = 3
+                        pluginItem.y = 0
+
+                        if (pluginItem.Drag.target !== null)
+                        {
+                            if (pluginsContainer.isInput === false)
+                            {
+                                ioManager.addOutputPatch(
+                                        pluginItem.pluginUniverse, pluginItem.pluginName,
+                                        pluginItem.pluginLine)
+                                uniListView.model = ioManager.universeOutputSources(universeIndex)
+                            }
+                            else
+                            {
+                                ioManager.addInputPatch(pluginItem.pluginUniverse, pluginItem.pluginName,
+                                                        pluginItem.pluginLine)
+                                uniListView.model = ioManager.universeInputSources(universeIndex)
+                            }
+                        }
+                        else
+                        {
+                            // return the dragged item to its original position
+                            parent = root
+                            pluginItem.color = "transparent"
+                        }
+                    }
+
+                    PluginDragItem {
+                        id: pluginItem
+                        x: 3
+
+                        // this key must match the one in UniverseIOItem, to avoid dragging
+                        // an input plugin on output and vice-versa
+                        property string dragKey: isInput ? "input-" + universeIndex : "output-" + universeIndex
+
+                        pluginUniverse: modelData.universe
+                        pluginName: modelData.plugin
+                        lineName: modelData.name
+                        pluginLine: modelData.line
+
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: delegateRoot
+                        Drag.hotSpot.x: width / 2
+                        Drag.hotSpot.y: height / 2
+                        Drag.keys: [ dragKey ]
+
+                        // line divider
+                        Rectangle {
+                            width: parent.width - 6
+                            height: 1
+                            y: parent.height - 1
+                            color: "#555"
+                        }
+                    } // PluginDragItem
+                } // MouseArea
+            } // Item
+    } // ListView
+}
+

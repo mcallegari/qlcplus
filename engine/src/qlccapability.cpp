@@ -33,7 +33,9 @@
  ************************************************************************/
 
 QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
-                             const QString &resource, const QColor &color1, const QColor &color2)
+                             const QString &resource, const QColor &color1,
+                             const QColor &color2, QObject *parent)
+    : QObject(parent)
 {
     m_min = min;
     m_max = max;
@@ -43,6 +45,13 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
     m_resourceColor2 = color2;
 }
 
+QLCCapability *QLCCapability::createCopy()
+{
+    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name, m_resourceName,
+                                            m_resourceColor1, m_resourceColor2);
+    return copy;
+}
+/*
 QLCCapability::QLCCapability(const QLCCapability* capability)
 {
     m_min = 0;
@@ -51,7 +60,7 @@ QLCCapability::QLCCapability(const QLCCapability* capability)
     if (capability != NULL)
         *this = *capability;
 }
-
+*/
 QLCCapability::~QLCCapability()
 {
 }
@@ -149,13 +158,13 @@ void QLCCapability::setResourceColors(QColor col1, QColor col2)
     m_resourceName = "";
 }
 
-bool QLCCapability::overlaps(const QLCCapability& cap)
+bool QLCCapability::overlaps(const QLCCapability *cap)
 {
-    if (m_min >= cap.min() && m_min <= cap.max())
+    if (m_min >= cap->min() && m_min <= cap->max())
         return true;
-    else if (m_max >= cap.min() && m_max <= cap.max())
+    else if (m_max >= cap->min() && m_max <= cap->max())
         return true;
-    else if (m_min <= cap.min() && m_max >= cap.min())
+    else if (m_min <= cap->min() && m_max >= cap->min())
         return true;
     else
         return false;
@@ -242,7 +251,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        min = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get high limit attribute (critical) */
@@ -254,7 +263,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        max = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        max = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get (optional) resource name for gobo/effect/... */

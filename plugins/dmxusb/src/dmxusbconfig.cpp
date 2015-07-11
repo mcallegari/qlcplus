@@ -126,6 +126,7 @@ QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     combo->addItem(QString("Ultra Pro"), DMXUSBWidget::UltraPro);
     combo->addItem(QString("DMX4ALL"), DMXUSBWidget::DMX4ALL);
     combo->addItem(QString("Vince TX"), DMXUSBWidget::VinceTX);
+    combo->addItem(QString("Eurolite"), DMXUSBWidget::Eurolite);
     int index = combo->findData(widget->type());
     combo->setCurrentIndex(index);
 

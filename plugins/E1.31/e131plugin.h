@@ -33,10 +33,13 @@
 typedef struct
 {
     QString IPAddress;
-    QString MACAddress;
     E131Controller* controller;
 } E131IO;
 
+#define E131_MCASTIP "mcastIP"
+#define E131_OUTPUTUNI "outputUni"
+#define E131_TRANSMITMODE "transmitMode"
+	
 class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT
@@ -64,19 +67,15 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -92,20 +91,16 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
 
     /** @reimp */
     QString inputInfo(quint32 input);
-
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /*********************************************************************
      * Configuration
@@ -117,12 +112,13 @@ public:
     /** @reimp */
     bool canConfigure();
 
+    /** @reimp */
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+
     QList<QNetworkAddressEntry> interfaces();
 
     /** Get a list of the available Input/Output lines */
     QList<E131IO> getIOMapping();
-
-    void remapOutputs(QList<QString> IPs, QList<int> ports);
 
 private:
     /** List holding the detected system network interfaces */

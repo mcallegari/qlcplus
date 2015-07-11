@@ -56,6 +56,8 @@ class InputPatch;
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePluginParameters "PluginParameters"
+
 /** Universe class contains input/output data for one DMX universe
  */
 class Universe: public QObject
@@ -63,9 +65,14 @@ class Universe: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
 
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
+    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch NOTIFY outputPatchChanged)
+
 public:
     /** Construct a new Universe */
-    Universe(quint32 id, GrandMaster *gm, QObject* parent = 0);
+    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject* parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -115,12 +122,7 @@ public:
     ushort totalChannels();
 
     /**
-     * Reset the change flag. To be used every MasterTimer tick
-     */
-    void resetChanged();
-
-    /**
-     * Returns if the universe has changed since the last resetChanged() call
+     * Returns if the universe has changed since the last MasterTimer tick
      */
     bool hasChanged();
 
@@ -160,6 +162,9 @@ protected:
      * @return Value filtered through grand master (if applicable)
      */
     uchar applyGM(int channel, uchar value);
+
+signals:
+    void nameChanged();
 
 protected:
     /** The universe ID */
@@ -218,6 +223,12 @@ protected slots:
 signals:
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+    /** Notify the listeners that the input patch has changed */
+    void inputPatchChanged();
+
+    /** Notify the listeners that the output patch has changed */
+    void outputPatchChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
@@ -319,9 +330,20 @@ public:
     void zeroRelativeValues();
 
 protected:
-    /** Number of channels used in this universe to optimize dump to plugins */
+    /**
+     * Number of channels used in this universe to optimize the dump to plugins.
+     * This is a dynamic counter that can only increase depending on the
+     * channels used in this universe starting from when a workspace
+     * is loaded
+     */
     ushort m_usedChannels;
-    /** Total number of channels used in this fixture */
+    /**
+     * Total number of channels used in this Universe.
+     * This is set only when a Universe is instructed about Fixture
+     * channel capabilities. Basically just set once if loading an
+     * existing workspace, or several times when adding/removing
+     * Fixtures
+     */
     ushort m_totalChannels;
     /**
      *  Flag that holds if the total number of channels have changed.
@@ -329,8 +351,6 @@ protected:
      *  channels to expect
      */
     bool m_totalChannelsChanged;
-    /** Flag to indicate if the universe has changed */
-    bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
     QSet <int> m_intensityChannels;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
@@ -339,6 +359,8 @@ protected:
     QByteArray* m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */
     QByteArray* m_postGMValues;
+    /** Array of the last preGM values written before the zeroIntensityChannels call  */
+    QByteArray* m_lastPostGMValues;
 
     QVector<short> m_relativeValues;
 
@@ -389,6 +411,17 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+
+    /**
+     * Save a plugin custom parameters (if available) into a tag nested
+     * to the related Input/Output patch
+     *
+     * @param doc The master XML document to save to.
+     * @param wksp_root The workspace root element
+     * @param parameters The map of custom parameters to save
+     */
+    bool savePluginParametersXML(QDomDocument* doc, QDomElement* wksp_root,
+                                 QMap<QString, QVariant>parameters) const;
 };
 
 /** @} */

@@ -60,42 +60,18 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /** Attempt to bind the socket to listen to EWing::UDPPort */
     bool reBindSocket();
-
-    /*************************************************************************
-     * Outputs
-     *************************************************************************/
-public:
-    /** @reimp */
-    bool openOutput(quint32 output) { Q_UNUSED(output); return false; }
-
-    /** @reimp */
-    void closeOutput(quint32 output) { Q_UNUSED(output); }
-
-    /** @reimp */
-    QStringList outputs() { return QStringList(); }
-
-    /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
-    { Q_UNUSED(output); Q_UNUSED(universe); Q_UNUSED(data); }
-
-    /** @reimp */
-    QString outputInfo(quint32 output) { Q_UNUSED(output); return QString(); }
 
     /*************************************************************************
      * Inputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
@@ -104,7 +80,14 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key);
+
+    /*************************************************************************
+     * Outputs
+     *************************************************************************/
+public:
+    /** @reimp */
+    QStringList outputs();
 
     /*************************************************************************
      * Configuration
