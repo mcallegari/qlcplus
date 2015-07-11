@@ -55,9 +55,14 @@ public:
 protected:
     Doc * m_doc;
 
+    void init();
+
 signals:
     /** Emitted whenever a channels group's properties are changed */
     void changed(quint32 id);
+
+public slots:
+    void slotFixtureRemoved(quint32 fixtureId);
 
     /*********************************************************************
      * Load & Save

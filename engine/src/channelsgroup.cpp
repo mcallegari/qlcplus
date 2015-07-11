@@ -42,6 +42,8 @@ ChannelsGroup::ChannelsGroup(Doc* doc)
 {
     setName(tr("New Group"));
     m_doc = doc;
+
+    init();
 }
 
 ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
@@ -53,12 +55,36 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
     , m_channels(chg->getChannels())
     , m_input(chg->inputSource())
 {
-
+    init();
 }
 
 ChannelsGroup::~ChannelsGroup()
 {
-    m_channels.clear();
+}
+
+void ChannelsGroup::init()
+{
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
+            this, SLOT(slotFixtureRemoved(quint32)));
+}
+
+void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
+{
+    bool hasChanged = false;
+
+    QMutableListIterator<SceneValue> channelsIt(m_channels);
+    while (channelsIt.hasNext())
+    {
+        SceneValue scv(channelsIt.next());
+        if (scv.fxi == fixtureId)
+        {
+            channelsIt.remove();
+            hasChanged = true;
+        }
+    }
+
+    if (hasChanged)
+        emit changed(this->id());
 }
 
 /****************************************************************************
@@ -298,8 +324,21 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
         QStringList varray = chansValues.split(",");
         for (int i = 0; i < varray.count(); i+=2)
         {
-            m_channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(), 0));
+            SceneValue scv(QString(varray.at(i)).toUInt(),
+                           QString(varray.at(i + 1)).toUInt(), 0);
+            Fixture* fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
+                continue;
+            }
+            const QLCChannel* ch = fxi->channel(scv.channel);
+            if (ch == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
+                continue;
+            }
+            m_channels.append(scv);
         }
     }
 

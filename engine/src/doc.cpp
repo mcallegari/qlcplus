@@ -126,6 +126,15 @@ void Doc::clearContents()
         delete func;
     }
 
+    // Delete all channels groups
+    QListIterator <quint32> grpchans(m_channelsGroups.keys());
+    while (grpchans.hasNext() == true)
+    {
+        ChannelsGroup* grp = m_channelsGroups.take(grpchans.next());
+        emit channelsGroupRemoved(grp->id());
+        delete grp;
+    }
+
     // Delete all fixture groups
     QListIterator <quint32> grpit(m_fixtureGroups.keys());
     while (grpit.hasNext() == true)
@@ -144,15 +153,6 @@ void Doc::clearContents()
         quint32 fxID = fxi->id();
         delete fxi;
         emit fixtureRemoved(fxID);
-    }
-
-    // Delete all channels groups
-    QListIterator <quint32> grpchans(m_channelsGroups.keys());
-    while (grpchans.hasNext() == true)
-    {
-        ChannelsGroup* grp = m_channelsGroups.take(grpchans.next());
-        emit channelsGroupRemoved(grp->id());
-        delete grp;
     }
 
     m_orderedGroups.clear();
