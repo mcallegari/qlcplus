@@ -51,6 +51,9 @@ public:
     /** Unset the value of a fixture channel */
     void unset(quint32 fxi, quint32 ch);
 
+    /** Unset all the previously set channels/values */
+    void unsetAll();
+
     /** Enable/disable output */
     void setOutputEnabled(bool enable);
 

@@ -51,6 +51,13 @@ void GenericDMXSource::unset(quint32 fxi, quint32 ch)
     m_mutex.unlock();
 }
 
+void GenericDMXSource::unsetAll()
+{
+    m_mutex.lock();
+    m_values.clear();
+    m_mutex.unlock();
+}
+
 void GenericDMXSource::setOutputEnabled(bool enable)
 {
     m_outputEnabled = enable;

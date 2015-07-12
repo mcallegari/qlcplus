@@ -97,6 +97,7 @@ void ContextManager::reattachContext(QString context)
 void ContextManager::updateContexts()
 {
     m_channelsMap.clear();
+    m_source->unsetAll();
     m_selectedFixtures.clear();
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
@@ -203,11 +204,6 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                     if (fixture != NULL)
                         setFixtureSelection(fixture->id(), selectAll);
                 }
-
-                if (m_DMXView->isEnabled())
-                    m_DMXView->updateFixtureSelection(m_selectedFixtures);
-                if (m_2DView->isEnabled())
-                    m_2DView->updateFixtureSelection(m_selectedFixtures);
             }
             break;
             default:
@@ -219,14 +215,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)
-/*
-    QObject *viewObj = m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions");
-    if (viewObj == NULL)
-        return;
 
-    QString currentView = viewObj->property("currentView").toString();
-    qDebug() << "[ContextManager] Current view:" << currentView;
-*/
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
