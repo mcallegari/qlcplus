@@ -54,7 +54,8 @@ void OlaIO::init()
     m_thread = NULL;
     ola::InitLogging(ola::OLA_LOG_WARN, new ola::QLCLogDestination());
     // TODO: load this from a savefile at some point
-    for (unsigned int i = 1; i <= UNIVERSE_COUNT; ++i)
+    // For now, start counting at OLA universe #0
+    for (unsigned int i = 0; i < UNIVERSE_COUNT; ++i)
         m_outputs.append(i);
 
     bool es = false;
@@ -140,7 +141,7 @@ QStringList OlaIO::outputs()
 {
     QStringList list;
     for (int i = 0; i < m_outputs.size(); ++i)
-        list << QString("%1: OLA Universe %1").arg(i + 1);
+        list << QString("%1: OLA Universe %2").arg(i + 1).arg(m_outputs[i]);
     return list;
 }
 
@@ -170,7 +171,7 @@ QString OlaIO::outputInfo(quint32 output)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");
-        str += tr("This is the output for OLA universe %1").arg(output + 1);
+        str += tr("This is the output for OLA universe %1").arg(m_outputs[output]);
         str += QString("</P>");
     }
 
