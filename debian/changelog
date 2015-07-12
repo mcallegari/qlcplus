@@ -1,7 +1,8 @@
 qlcplus (4.9.2) stable; urgency=low
 
   * ChannelsGroup: Fix crashes related to invalid channels (David Garyga)
-  
+  * ShowManager: Fix some cursor teleportation issues (David Garyga)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 16 Aug 2015 20:21:22 +0200
 
 qlcplus (4.9.1) stable; urgency=high
