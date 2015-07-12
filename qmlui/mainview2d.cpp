@@ -363,3 +363,19 @@ void MainView2D::updateFixture(Fixture *fixture)
     }
 }
 
+void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+        quint32 fxID = it.key();
+        QQuickItem *fxItem = it.value();
+        if(fixtures.contains(fxID))
+            fxItem->setProperty("isSelected", true);
+        else
+            fxItem->setProperty("isSelected", false);
+    }
+}
+
+

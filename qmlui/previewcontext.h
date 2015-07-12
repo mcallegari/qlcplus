@@ -48,6 +48,9 @@ protected:
     Doc *m_doc;
 
     bool m_enabled;
+
+    /** Map of QLC+ objects with ID and QML items */
+    QMap<quint32, QQuickItem*> m_itemsMap;
 };
 
 #endif // PREVIEWCONTEXT_H

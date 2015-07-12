@@ -36,7 +36,7 @@ class InputOutputManager;
 
 #define KXMLQLCWorkspace "Workspace"
 
-class App : public QObject
+class App : public QQuickView
 {
     Q_OBJECT
     Q_DISABLE_COPY(App)
@@ -51,9 +51,11 @@ public:
 
     void show();
 
+protected:
+    void keyPressEvent(QKeyEvent * e);
+
 private:
     QQmlEngine m_engine;
-    QQuickView *m_view;
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
     ContextManager *m_contextManager;

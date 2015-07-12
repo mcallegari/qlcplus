@@ -23,116 +23,141 @@ import QtQuick.Controls 1.2
 
 import "DetachWindow.js" as WinLoader
 
-Rectangle {
+Rectangle
+{
     id: mainView
     visible: true
     width: 800
     height: 600
     anchors.fill: parent
 
-    FontLoader {
+    FontLoader
+    {
         source: "qrc:RobotoCondensed-Regular.ttf"
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: mainToolbar
         width: parent.width
         // this can be read from an external variable (QSettings ?) and will still work !
         height: 40
         z: 50
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: bgGradient
             GradientStop { position: 0 ; color: "#1a1a1a" }
             GradientStop { position: 1 ; color: "#111" }
         }
 
-        RowLayout {
+        RowLayout
+        {
             spacing: 5
             anchors.fill: parent
 
             ExclusiveGroup { id: menuBarGroup }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: actEntry
-                imgSource: "qrc:///qlcplus.png"
+                imgSource: "qrc:/qlcplus.png"
                 entryText: qsTr("Actions")
-                onClicked: {
+                onClicked:
+                {
                     actionsMenu.visible = true
                     contextMenuArea.enabled = true
                     contextMenuArea.z = 98
                 }
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: edEntry
                 imgSource: "editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checkable: true
                 checked: true
                 exclusiveGroup: menuBarGroup
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
-                        viewLoader.source = "qrc:///FixturesAndFunctions.qml"
+                        viewLoader.source = "qrc:/FixturesAndFunctions.qml"
                 }
-                onRightClicked: {
-                    WinLoader.createWindow("qrc:///FixturesAndFunctions.qml")
+                /*
+                onRightClicked:
+                {
+                    WinLoader.createWindow("qrc:/FixturesAndFunctions.qml")
                 }
+                */
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: vcEntry
                 imgSource: "virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
                 checkable: true
                 exclusiveGroup: menuBarGroup
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
-                        viewLoader.source = "qrc:///VirtualConsole.qml"
+                        viewLoader.source = "qrc:/VirtualConsole.qml"
                 }
-                onRightClicked: {
-                    WinLoader.createWindow("qrc:///VirtualConsole.qml")
+                onRightClicked:
+                {
+                    WinLoader.createWindow("qrc:/VirtualConsole.qml")
                 }
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: sdEntry
                 imgSource: "simpledesk.svg"
                 entryText: qsTr("Simple Desk")
                 checkable: true
                 exclusiveGroup: menuBarGroup
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
-                        viewLoader.source = "qrc:///SimpleDesk.qml"
+                        viewLoader.source = "qrc:/SimpleDesk.qml"
                 }
-                onRightClicked: {
-                    WinLoader.createWindow("qrc:///SimpleDesk.qml")
+                onRightClicked:
+                {
+                    WinLoader.createWindow("qrc:/SimpleDesk.qml")
                 }
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: smEntry
                 imgSource: "showmanager.svg"
                 entryText: qsTr("Show Manager")
                 checkable: true
                 exclusiveGroup: menuBarGroup
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
-                        viewLoader.source = "qrc:///ShowManager.qml"
+                        viewLoader.source = "qrc:/ShowManager.qml"
                 }
-                onRightClicked: {
-                    WinLoader.createWindow("qrc:///ShowManager.qml")
+                onRightClicked:
+                {
+                    WinLoader.createWindow("qrc:/ShowManager.qml")
                 }
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: ioEntry
                 imgSource: "inputoutput.svg"
                 entryText: qsTr("Input/Output")
                 checkable: true
                 exclusiveGroup: menuBarGroup
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
-                        viewLoader.source = "qrc:///InputOutputManager.qml"
+                        viewLoader.source = "qrc:/InputOutputManager.qml"
                 }
-                onRightClicked: {
-                    WinLoader.createWindow("qrc:///InputOutputManager.qml")
+                onRightClicked:
+                {
+                    WinLoader.createWindow("qrc:/InputOutputManager.qml")
                 }
             }
-            Rectangle {
+            Rectangle
+            {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
             }
@@ -140,7 +165,8 @@ Rectangle {
     }
 
     /** Menu to open/load/save a project */
-    ActionsMenu {
+    ActionsMenu
+    {
         id: actionsMenu
     }
 
@@ -148,12 +174,14 @@ Rectangle {
      *  It fills the whole application window to grab
      *  a click outside the menu and close it
      */
-    MouseArea {
+    MouseArea
+    {
         id: contextMenuArea
         z: 0
         enabled: false
         anchors.fill: parent
-        onClicked: {
+        onClicked:
+        {
             console.log("Root clicked")
             if (actionsMenu.visible == true)
             {
@@ -164,17 +192,19 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: mainViewArea
         width: parent.width
         height: parent.height - mainToolbar.height
         y: mainToolbar.height
         color: "#303030"
 
-        Loader {
+        Loader
+        {
             id: viewLoader
             anchors.fill: parent
-            source: "qrc:///FixturesAndFunctions.qml"
+            source: "qrc:/FixturesAndFunctions.qml"
         }
     }
 }

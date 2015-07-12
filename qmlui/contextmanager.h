@@ -58,6 +58,8 @@ public:
 
     Q_INVOKABLE void createFixtureGroup();
 
+    void handleKeyPress(QKeyEvent *e);
+
 signals:
 
 protected slots:

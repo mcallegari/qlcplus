@@ -20,7 +20,8 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 
-Rectangle {
+Rectangle
+{
     id: baseIconEntry
     width: (parent.width > imgSize + textBox.width + 15) ? parent.width: imgSize + textBox.width + 15
     height: imgSize + 4
@@ -40,18 +41,21 @@ Rectangle {
     border.color: "#1D1D1D"
     border.width: 1
 
-    Gradient {
+    Gradient
+    {
         id: hoverGradient
         GradientStop { position: 0 ; color: "#444" }
         GradientStop { position: 1 ; color: "#171717" }
     }
-    Gradient {
+    Gradient
+    {
         id: pressGradient
         GradientStop { position: 0 ; color: "#6BA6FF" }
         GradientStop { position: 1 ; color: "#171717" }
     }
 
-    Image {
+    Image
+    {
         id: btnIcon
         height: imgSource ? imgSize : 0
         width: height
@@ -61,7 +65,8 @@ Rectangle {
         sourceSize: Qt.size(width, height)
     }
 
-    RobotoText {
+    RobotoText
+    {
         id: textBox
         x: btnIcon.width + 7
         y: 0
@@ -71,15 +76,17 @@ Rectangle {
         fontBold: true
     }
 
-    MouseArea {
+    MouseArea
+    {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
         onEntered: { baseIconEntry.color = hoverColor; baseIconEntry.entered() }
         onExited: { baseIconEntry.color = bgColor; baseIconEntry.exited() }
         onPressed: { baseIconEntry.color = pressedColor }
-        onReleased: {
-                baseIconEntry.clicked();
+        onReleased:
+        {
+            baseIconEntry.clicked();
         }
     }
 }

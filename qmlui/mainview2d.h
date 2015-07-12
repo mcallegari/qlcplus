@@ -46,6 +46,8 @@ public:
 
     void updateFixture(Fixture *fixture);
 
+    void updateFixtureSelection(QList<quint32>fixtures);
+
 protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();
@@ -76,9 +78,6 @@ private:
 
     /** Y offset of the grid to keep it centered */
     qreal m_yOffset;
-
-    /** Map of the 2D Quick items by Fixture IDs */
-    QMap<quint32, QQuickItem*> m_itemsMap;
 
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;

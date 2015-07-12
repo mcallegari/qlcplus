@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-#include <QQuickItem>
-#include <QQmlContext>
 #include <QDomDocument>
+#include <QQmlContext>
+#include <QQuickItem>
 #include <QSettings>
+#include <QKeyEvent>
 
 #include "app.h"
 #include "mainview2d.h"
@@ -42,8 +43,7 @@
 #define MAX_RECENT_FILES    10
 
 App::App()
-    : QObject()
-    , m_view(NULL)
+    : QQuickView()
     , m_fixtureBrowser(NULL)
     , m_fixtureManager(NULL)
     , m_contextManager(NULL)
@@ -64,12 +64,10 @@ void App::startup()
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
     qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
 
-    m_view = new QQuickView();
+    setTitle("Q Light Controller Plus");
+    setIcon(QIcon(":/qlcplus.png"));
 
-    m_view->setTitle("Q Light Controller Plus");
-    m_view->setIcon(QIcon(":/qlcplus.png"));
-
-    m_view->rootContext()->setContextProperty("qlcplus", this);
+    rootContext()->setContextProperty("qlcplus", this);
 
     initDoc();
 
@@ -78,33 +76,39 @@ void App::startup()
     //qmlRegisterType<App>("com.qlcplus.app", 1, 0, "App");
 
     m_ioManager = new InputOutputManager(m_doc);
-    m_view->rootContext()->setContextProperty("ioManager", m_ioManager);
+    rootContext()->setContextProperty("ioManager", m_ioManager);
 
-    m_fixtureBrowser = new FixtureBrowser(m_view, m_doc);
-    m_view->rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
+    m_fixtureBrowser = new FixtureBrowser(this, m_doc);
+    rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
 
-    m_fixtureManager = new FixtureManager(m_view, m_doc);
-    m_view->rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
+    m_fixtureManager = new FixtureManager(this, m_doc);
+    rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
-    m_functionManager = new FunctionManager(m_view, m_doc);
-    m_view->rootContext()->setContextProperty("functionManager", m_functionManager);
+    m_functionManager = new FunctionManager(this, m_doc);
+    rootContext()->setContextProperty("functionManager", m_functionManager);
 
-    m_contextManager = new ContextManager(m_view, m_doc, m_fixtureManager, m_functionManager);
-    m_view->rootContext()->setContextProperty("contextManager", m_contextManager);
+    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    rootContext()->setContextProperty("contextManager", m_contextManager);
 
     // Start up in non-modified state
     m_doc->resetModified();
 
     // and here we go !
-    m_view->setSource(QUrl("qrc:/MainView.qml"));
+    setSource(QUrl("qrc:/MainView.qml"));
     //m_contextManager->activateContext("2D");
 }
 
 void App::show()
 {
-    m_view->setGeometry(0, 0, 800, 600);
-    m_view->showMaximized();
-    //m_view->showFullScreen();
+    setGeometry(0, 0, 800, 600);
+    showMaximized();
+    //showFullScreen();
+}
+
+void App::keyPressEvent(QKeyEvent *e)
+{
+    if (m_contextManager)
+        m_contextManager->handleKeyPress(e);
 }
 
 void App::clearDocument()
@@ -228,7 +232,7 @@ bool App::loadWorkspace(const QString &fileName)
 
     if (loadXML(localFilename) == QFile::NoError)
     {
-        m_view->setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
+        setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
         setFileName(localFilename);
         m_docLoaded = true;
         updateRecentFilesList(localFilename);

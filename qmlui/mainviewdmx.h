@@ -44,6 +44,8 @@ public:
 
     void updateFixture(Fixture *fixture);
 
+    void updateFixtureSelection(QList<quint32>fixtures);
+
 protected:
 
 signals:
@@ -54,9 +56,6 @@ protected slots:
 private:
     /** References to the 2D view and 2D contents for items creation */
     QQuickItem *m_viewDMX;
-
-    /** Map of the fixture 2D items by ID */
-    QMap<quint32, QQuickItem*> m_itemsMap;
 
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;

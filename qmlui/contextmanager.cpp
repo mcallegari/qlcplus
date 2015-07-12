@@ -65,9 +65,15 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 void ContextManager::enableContext(QString context, bool enable)
 {
     if (context == "DMX")
+    {
         m_DMXView->enableContext(enable);
+        m_DMXView->updateFixtureSelection(m_selectedFixtures);
+    }
     else if (context == "2D")
+    {
         m_2DView->enableContext(enable);
+        m_2DView->updateFixtureSelection(m_selectedFixtures);
+    }
 }
 
 void ContextManager::detachContext(QString context)
@@ -112,6 +118,11 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         else
             return;
     }
+
+    if (m_DMXView->isEnabled())
+        m_DMXView->updateFixtureSelection(m_selectedFixtures);
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixtureSelection(m_selectedFixtures);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
@@ -171,6 +182,38 @@ void ContextManager::createFixtureGroup()
         return;
 
     m_fixtureManager->addFixturesToNewGroup(m_selectedFixtures);
+}
+
+void ContextManager::handleKeyPress(QKeyEvent *e)
+{
+    //qDebug() << "Key event received:" << e->text();
+
+    if (e->modifiers() & Qt::ControlModifier)
+    {
+        switch(e->key())
+        {
+            case Qt::Key_A:
+            {
+                bool selectAll = true;
+                if (m_selectedFixtures.count() == m_doc->fixtures().count())
+                    selectAll = false;
+
+                foreach(Fixture *fixture, m_doc->fixtures())
+                {
+                    if (fixture != NULL)
+                        setFixtureSelection(fixture->id(), selectAll);
+                }
+
+                if (m_DMXView->isEnabled())
+                    m_DMXView->updateFixtureSelection(m_selectedFixtures);
+                if (m_2DView->isEnabled())
+                    m_2DView->updateFixtureSelection(m_selectedFixtures);
+            }
+            break;
+            default:
+            break;
+        }
+    }
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
