@@ -23,32 +23,33 @@ import QtQuick.Controls 1.0
 Rectangle
 {
     id: leftSidePanel
-    property bool isOpen: false
-    property int collapseWidth: 50
-    property int expandedWidth: 450
-    property string editorSource: ""
-    property int iconSize: collapseWidth - 4
-    x: 0
-    y: 0
     anchors.left: parent.left;
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
     color: "#232323"
-    z: 0
 
-    function animatePanel()
+    property bool isOpen: false
+    property int collapseWidth: 50
+    property int expandedWidth: 450
+    property string editorSource: ""
+    property int iconSize: collapseWidth - 4
+
+    function animatePanel(checked)
     {
-        if (leftSidePanel.isOpen == false)
+        if (checked === isOpen)
+            return
+
+        if (isOpen == false)
         {
-            editorLoader.source = editorSource;
             animateOpen.start();
-            leftSidePanel.isOpen = true;
+            isOpen = true;
         }
         else
         {
             animateClose.start();
-            leftSidePanel.isOpen = false;
+            isOpen = false;
+            editorSource = ""
         }
     }
 
@@ -64,6 +65,7 @@ Rectangle
             id: editorLoader
             //objectName: "editorLoader"
             anchors.fill: parent
+            source: editorSource
         }
     }
 
@@ -99,8 +101,7 @@ Rectangle
                 {
                     if (checked == true)
                         editorSource = "qrc:/FixtureBrowser.qml"
-                    if (checked != isOpen)
-                        animatePanel();
+                    animatePanel(checked);
                 }
             }
 
@@ -118,8 +119,7 @@ Rectangle
                 {
                     if (checked == true)
                         editorSource = "qrc:/GroupEditor.qml"
-                    if (checked != isOpen)
-                        animatePanel();
+                    animatePanel(checked);
                 }
             }
 
@@ -230,26 +230,20 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateOpen;
-        target: leftSidePanel;
-        properties: "width";
-        to: expandedWidth;
+        id: animateOpen
+        target: leftSidePanel
+        properties: "width"
+        to: expandedWidth
         duration: 200
     }
 
     PropertyAnimation
     {
-        id: animateClose;
-        target: leftSidePanel;
-        properties: "width";
-        to: collapseWidth;
+        id: animateClose
+        target: leftSidePanel
+        properties: "width"
+        to: collapseWidth
         duration: 200
-
-        onRunningChanged:
-        {
-            if (!animateClose.running)
-                editorLoader.source = "";
-        }
     }
 
     Rectangle

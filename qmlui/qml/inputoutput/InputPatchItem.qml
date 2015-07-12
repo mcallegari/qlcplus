@@ -22,7 +22,8 @@ import QtQuick 2.0
 import com.qlcplus.classes 1.0
 import "PluginUtils.js" as PluginUtils
 
-Rectangle {
+Rectangle
+{
     width: parent.width
     height: profileBox.visible ? 110 : 80
     color: "transparent"
@@ -30,7 +31,8 @@ Rectangle {
     property int universeID
     property InputPatch patch
 
-    Rectangle {
+    Rectangle
+    {
         id: patchBox
         width: profileBox.visible ? parent.width - 10 : parent.width
         height: 80
@@ -38,7 +40,8 @@ Rectangle {
         x: profileBox.visible ? 5 : 0
         z: 1
         radius: 3
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: bgGradient
             GradientStop { position: 0.75 ; color: "#999" }
             GradientStop { position: 1 ; color: "#333" }
@@ -46,7 +49,8 @@ Rectangle {
         border.width: 2
         border.color: "#111"
 
-        Rectangle {
+        Rectangle
+        {
             id: valueChangeBox
             x: parent.width - 30
             y: 10
@@ -58,7 +62,8 @@ Rectangle {
             border.color: "#333"
             color: "#666"
 
-            ColorAnimation on color {
+            ColorAnimation on color
+            {
                 id: cAnim
                 from: "#00FF00"
                 to: "#666"
@@ -66,17 +71,20 @@ Rectangle {
                 running: false
             }
 
-            Connections {
+            Connections
+            {
                 id: valChangedSignal
                 target: patch
                 onInputValueChanged: cAnim.restart()
             }
         }
 
-        Row {
+        Row
+        {
             x: 8
             spacing: 3
-            Image {
+            Image
+            {
                 id: pluginIcon
                 y: 2
                 height: patchBox.height - 6
@@ -85,7 +93,8 @@ Rectangle {
                 sourceSize: Qt.size(width, height)
                 fillMode: Image.Stretch
             }
-            RobotoText {
+            RobotoText
+            {
                 height: patchBox.height
                 width: patchBox.width - pluginIcon.width - 6
                 label: patch ? patch.inputName : ""
@@ -94,7 +103,8 @@ Rectangle {
             }
         }
     }
-    Rectangle {
+    Rectangle
+    {
         id: profileBox
         width: parent.width
         height: patchBox.height + 30
@@ -105,12 +115,13 @@ Rectangle {
         color: "#269ABA"
         radius: 10
 
-        RobotoText {
+        RobotoText
+        {
             x: 10
             y: 3
             height: 20
             width: parent.width - 20
-            label: patch.profileName
+            label: patch ? patch.profileName : ""
             labelColor: "black"
             //wrapText: true
         }

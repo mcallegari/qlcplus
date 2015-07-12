@@ -19,20 +19,20 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: rightSidePanel
+    width: collapseWidth
+    height: 500
+    color: "#232323"
+
     property bool isOpen: false
     property int collapseWidth: 50
     property int expandedWidth: 450
     property string editorSource: ""
-    x: 0
-    y: 0
-    width: collapseWidth
-    height: 500
-    color: "#232323"
-    z: 0
 
-    function animatePanel() {
+    function animatePanel()
+    {
         if (rightSidePanel.isOpen == false)
         {
             editorLoader.source = editorSource;
@@ -46,37 +46,43 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: editorArea
         x: collapseWidth
         width: rightSidePanel.width - collapseWidth;
         height: parent.height
         color: "transparent"
 
-        Loader {
+        Loader
+        {
             id: editorLoader
             anchors.fill: parent
 
             property int functionID
 
-            onLoaded: {
+            onLoaded:
+            {
                 item.functionID = functionID
             }
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: 3
         width: collapseWidth
         height: parent.height
         color: "#00000000"
         z: 2
 
-        Column {
+        Column
+        {
             anchors.fill: parent
             spacing: 3
 
-            IconButton {
+            IconButton
+            {
                 id: funcEditor
                 z: 2
                 width: collapseWidth - 4
@@ -89,7 +95,8 @@ Rectangle {
                     animatePanel();
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: addFunction
                 z: 2
                 width: collapseWidth - 4
@@ -97,17 +104,20 @@ Rectangle {
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     addFunctionMenu.visible = !addFunctionMenu.visible
                 }
 
-                AddFunctionMenu {
+                AddFunctionMenu
+                {
                     id: addFunctionMenu
                     visible: false
                     x: -width
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: sceneDump
                 objectName: "dumpButton"
                 z: 2
@@ -116,7 +126,8 @@ Rectangle {
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
                 visible: false
-                onClicked: {
+                onClicked:
+                {
                     contextManager.dumpDmxChannels()
                     editorSource = "qrc:///FunctionManager.qml"
                     if (rightSidePanel.isOpen == false)
@@ -128,7 +139,8 @@ Rectangle {
                     funcEditor.checked = true
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: previewFunc
                 objectName: "previewButton"
                 z: 2
@@ -137,30 +149,34 @@ Rectangle {
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 visible: false
-                onClicked: {
+                onClicked:
+                {
 
                 }
             }
         }
     }
 
-    PropertyAnimation {
-        id: animateOpen;
-        target: rightSidePanel;
-        properties: "width";
-        to: expandedWidth;
+    PropertyAnimation
+    {
+        id: animateOpen
+        target: rightSidePanel
+        properties: "width"
+        to: expandedWidth
         duration: 200
     }
 
-    PropertyAnimation {
-        id: animateClose;
-        target: rightSidePanel;
-        properties: "width";
-        to: collapseWidth;
+    PropertyAnimation
+    {
+        id: animateClose
+        target: rightSidePanel
+        properties: "width"
+        to: collapseWidth
         duration: 200
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: gradientBorder
         y: 0
         x: height
@@ -169,29 +185,16 @@ Rectangle {
         width: parent.height
         transformOrigin: Item.TopLeft
         rotation: 90
-        gradient: Gradient {
-            GradientStop {
-                position: 0
-                color: "#141414"
-            }
-
-            GradientStop {
-                position: 0.213
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 0.79
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 1
-                color: "#141414"
-            }
+        gradient: Gradient
+        {
+            GradientStop { position: 0; color: "#141414" }
+            GradientStop { position: 0.213; color: "#232323" }
+            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 1; color: "#141414" }
         }
 
-        MouseArea {
+        MouseArea
+        {
             id: rpClickArea
             anchors.fill: parent
             z: 1
@@ -202,10 +205,10 @@ Rectangle {
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth
 
-            onPositionChanged: {
-                if (drag.active == true) {
+            onPositionChanged:
+            {
+                if (drag.active == true)
                     rightSidePanel.width = rightSidePanel.parent.width - rightSidePanel.x
-                }
             }
             //onClicked: animatePanel("")
         }

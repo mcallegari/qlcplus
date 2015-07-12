@@ -22,7 +22,8 @@ import QtQuick 2.0
 import com.qlcplus.classes 1.0
 import "PluginUtils.js" as PluginUtils
 
-Rectangle {
+Rectangle
+{
     width: parent.width
     height: 80
     color: "transparent"
@@ -30,13 +31,15 @@ Rectangle {
     property int universeID
     property OutputPatch patch
 
-    Rectangle {
+    Rectangle
+    {
         id: patchBox
         width: parent.width
         height: parent.height
         z: 1
         radius: 3
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: bgGradient
             GradientStop { position: 0.75 ; color: "#999" }
             GradientStop { position: 1 ; color: "#333" }
@@ -44,10 +47,12 @@ Rectangle {
         border.width: 2
         border.color: "#111"
 
-        Row {
+        Row
+        {
             x: 8
             spacing: 3
-            Image {
+            Image
+            {
                 id: pluginIcon
                 y: 2
                 height: patchBox.height - 6
@@ -56,7 +61,8 @@ Rectangle {
                 sourceSize: Qt.size(width, height)
                 fillMode: Image.Stretch
             }
-            RobotoText {
+            RobotoText
+            {
                 height: patchBox.height
                 width: patchBox.width - pluginIcon.width - 6
                 label: patch ? patch.outputName : ""

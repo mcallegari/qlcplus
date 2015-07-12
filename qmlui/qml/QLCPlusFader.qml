@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  QlcpusFader.qml
+  QLCPlusFader.qml
 
   Copyright (c) Massimo Callegari
 
@@ -21,7 +21,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
-Slider {
+Slider
+{
     id: slider
     width: 32
     height: 100
@@ -30,7 +31,8 @@ Slider {
     maximumValue: 255
     stepSize: 1.0
 
-    Gradient {
+    Gradient
+    {
         id: handleGradient
         GradientStop { position: 0; color: "#ccc" }
         GradientStop { position: 0.45; color: "#555" }
@@ -39,7 +41,8 @@ Slider {
         GradientStop { position: 1.0; color: "#888" }
     }
 
-    Gradient {
+    Gradient
+    {
         id: handleGradientHover
         GradientStop { position: 0; color: "#eee" }
         GradientStop { position: 0.45; color: "#999" }
@@ -48,31 +51,34 @@ Slider {
         GradientStop { position: 1.0; color: "#ccc" }
     }
 
-    style: SliderStyle {
+    style: SliderStyle
+        {
         //groove: Rectangle { color: "transparent" }
-        handle: Rectangle {
-            anchors.centerIn: parent
-            color: "transparent"
-            implicitWidth: 30
-            implicitHeight: 32
+        handle:
+            Rectangle
+            {
+                anchors.centerIn: parent
+                color: "transparent"
+                implicitWidth: 30
+                implicitHeight: 32
 
-            Rectangle {
-                anchors.fill: parent
-                rotation: 90
-                gradient: control.pressed ? handleGradientHover : handleGradient
-                border.color: "#5c5c5c"
-                border.width: 1
-                radius: 4
+                Rectangle
+                {
+                    anchors.fill: parent
+                    rotation: 90
+                    gradient: control.pressed ? handleGradientHover : handleGradient
+                    border.color: "#5c5c5c"
+                    border.width: 1
+                    radius: 4
+                }
+    /*
+                Image {
+                    rotation: 90
+                    source: "qrc:/faderhandle.svg"
+                    sourceSize: Qt.size(parent.width, parent.height)
+                }
+    */
             }
-
-/*
-            Image {
-                rotation: 90
-                source: "qrc:/faderhandle.svg"
-                sourceSize: Qt.size(parent.width, parent.height)
-            }
-*/
         }
-    }
     //onValueChanged: currentValue = slider.value
-} 
+}

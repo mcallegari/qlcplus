@@ -18,17 +18,16 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
-Rectangle {
+Rectangle
+{
     id: leftSidePanel
-    x: 0
-    y: 0
     anchors.left: parent.left;
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
     color: "#232323"
-    z: 0
 
     property bool isOpen: false
     property int collapseWidth: 50
@@ -38,46 +37,57 @@ Rectangle {
     property bool showAudioButton: false
     property bool showPluginsButton: false
 
-    function animatePanel() {
-        if (leftSidePanel.isOpen == false)
+    function animatePanel(checked)
+    {
+        if (checked === isOpen)
+            return
+
+        if (isOpen == false)
         {
-            editorLoader.source = editorSource;
             animateOpen.start();
-            leftSidePanel.isOpen = true;
+            isOpen = true;
         }
         else
         {
             animateClose.start();
-            leftSidePanel.isOpen = false;
+            isOpen = false;
+            editorSource = ""
         }
     }
 
-    onUniverseIndexChanged: {
-        if (leftSidePanel.isOpen == true)
+    onUniverseIndexChanged:
+    {
+        if (isOpen == true)
         {
-            editorLoader.source = ""
-            editorLoader.source = editorSource;
+            var src = editorSource
+            editorSource = ""
+            editorSource = src
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: editorArea
         z: 5
         width: leftSidePanel.width - collapseWidth;
         height: parent.height
         color: "transparent"
 
-        Loader {
+        Loader
+        {
             id: editorLoader
             anchors.fill: parent
-            onLoaded: {
+            source: editorSource
+            onLoaded:
+            {
                 item.universeIndex = universeIndex
                 item.loadSources(true)
             }
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: sideBar
         x: parent.width - collapseWidth
         width: collapseWidth
@@ -85,12 +95,16 @@ Rectangle {
         color: "#00000000"
         z: 2
 
-        Column {
+        Column
+        {
             anchors.fill: parent
             anchors.leftMargin: 1
             spacing: 3
 
-            IconButton {
+            ExclusiveGroup { id: ioInputGroup }
+
+            IconButton
+            {
                 id: audioInputButton
                 z: 2
                 visible: showAudioButton
@@ -98,14 +112,18 @@ Rectangle {
                 height: collapseWidth - 4
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
+                exclusiveGroup: ioInputGroup
                 tooltip: qsTr("Show the audio input sources")
-                onToggled: {
-                    editorSource = "qrc:///AudioCardsList.qml"
-                    animatePanel();
+                onToggled:
+                {
+                    if (checked == true)
+                        editorSource = "qrc:/AudioCardsList.qml"
+                    animatePanel(checked);
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 id: uniInputButton
                 z: 2
                 visible: showPluginsButton
@@ -113,14 +131,18 @@ Rectangle {
                 height: collapseWidth - 4
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
+                exclusiveGroup: ioInputGroup
                 tooltip: qsTr("Show the universe input sources")
-                onToggled: {
-                    editorSource = "qrc:///PluginsList.qml"
-                    animatePanel();
+                onToggled:
+                {
+                    if (checked == true)
+                        editorSource = "qrc:/PluginsList.qml"
+                    animatePanel(checked);
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 id: uniProfilesButton
                 z: 2
                 visible: showPluginsButton
@@ -128,13 +150,17 @@ Rectangle {
                 height: collapseWidth - 4
                 imgSource: ""
                 checkable: true
+                exclusiveGroup: ioInputGroup
                 tooltip: qsTr("Show the universe input profiles")
-                onToggled: {
-                    editorSource = "qrc:///ProfilesList.qml"
-                    animatePanel();
+                onToggled:
+                {
+                    if (checked == true)
+                        editorSource = "qrc:/ProfilesList.qml"
+                    animatePanel(checked);
                 }
 
-                RobotoText {
+                RobotoText
+                {
                     anchors.centerIn: parent
                     label: "P"
                     fontSize: 18
@@ -144,28 +170,26 @@ Rectangle {
         }
     }
 
-    PropertyAnimation {
-        id: animateOpen;
-        target: leftSidePanel;
-        properties: "width";
-        to: expandedWidth;
+    PropertyAnimation
+    {
+        id: animateOpen
+        target: leftSidePanel
+        properties: "width"
+        to: expandedWidth
         duration: 200
     }
 
-    PropertyAnimation {
+    PropertyAnimation
+    {
         id: animateClose;
-        target: leftSidePanel;
-        properties: "width";
-        to: collapseWidth;
+        target: leftSidePanel
+        properties: "width"
+        to: collapseWidth
         duration: 200
-
-        onRunningChanged: {
-            if (!animateClose.running)
-                editorLoader.source = "";
-        }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: gradientBorder
         y: width
         x: parent.width - height
@@ -174,30 +198,16 @@ Rectangle {
         width: parent.height
         transformOrigin: Item.TopLeft
         rotation: 270
-        gradient: Gradient {
-
-            GradientStop {
-                position: 0
-                color: "#141414"
-            }
-
-            GradientStop {
-                position: 0.213
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 0.79
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 1
-                color: "#141414"
-            }
+        gradient: Gradient
+        {
+            GradientStop { position: 0; color: "#141414" }
+            GradientStop { position: 0.213; color: "#232323" }
+            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 1; color: "#141414" }
         }
 
-        MouseArea {
+        MouseArea
+        {
             id: lpClickArea
             anchors.fill: parent
             z: 1
@@ -208,8 +218,10 @@ Rectangle {
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth
 
-            onPositionChanged: {
-                if (drag.active == true) {
+            onPositionChanged:
+            {
+                if (drag.active == true)
+                {
                     var obj = mapToItem(null, mouseX, mouseY);
                     leftSidePanel.width = obj.x + (collapseWidth / 2);
                     //console.log("mouseX:", mouseX, "mapToItem().x:", obj.x);

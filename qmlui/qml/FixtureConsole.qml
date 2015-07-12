@@ -20,7 +20,8 @@
 import QtQuick 2.2
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: consoleRoot
     width: channelsRow.width
     height: fxColumn.height
@@ -41,7 +42,8 @@ Rectangle {
     signal sizeChanged(var w, var h)
     signal valueChanged(var fixtureID, var chIndex, var value)
 
-    onValuesChanged: {
+    onValuesChanged:
+    {
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
@@ -52,27 +54,32 @@ Rectangle {
         }
     }
 
-    Column {
+    Column
+    {
         id: fxColumn
-        Rectangle {
+        Rectangle
+        {
             color: "#111"
             width: parent.width
             height: 27
             clip: true
 
-            RobotoText {
+            RobotoText
+            {
                 anchors.verticalCenter: parent.verticalCenter
                 x: 2
                 label: fixtureObj ? fixtureObj.name : ""
                 fontSize: 17
             }
-            DMXPercentageButton {
+            DMXPercentageButton
+            {
                 x: parent.width - width - 3
                 y: 1
                 z: 2
                 height: 25
                 dmxMode: dmxValues
-                onClicked: {
+                onClicked:
+                {
                     dmxValues = !dmxValues
                     for (var i = 0; i < channelsRpt.count; i++)
                     {
@@ -87,20 +94,24 @@ Rectangle {
                 }
             }
 
-            MouseArea {
+            MouseArea
+            {
                 anchors.fill: parent
                 z: 1
                 onClicked: consoleRoot.clicked()
                 onDoubleClicked: consoleRoot.doubleClicked()
             }
         }
-        Row {
+        Row
+        {
             id: channelsRow
-            Repeater {
+            Repeater
+            {
                 id: channelsRpt
                 model: fixtureObj ? fixtureObj.channels : null
                 delegate:
-                    Rectangle {
+                    Rectangle
+                    {
                         color: "transparent"
                         border.width: 1
                         border.color: "#333"
@@ -110,14 +121,16 @@ Rectangle {
                         property alias dmxValue: slider.value
                         property bool dmxMode: true
 
-                        onDmxValueChanged: {
+                        onDmxValueChanged:
+                        {
                             if (dmxMode)
                                 fixtureManager.setChannelValue(fixtureObj.id, index, dmxValue)
                             else
                                 fixtureManager.setChannelValue(fixtureObj.id, index, dmxValue * 2.55)
                         }
 
-                        Image {
+                        Image
+                        {
                             x: 1
                             y: 1
                             width: 32
@@ -126,7 +139,8 @@ Rectangle {
                             sourceSize: Qt.size(width, height)
                             source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                         }
-                        QLCPlusFader {
+                        QLCPlusFader
+                        {
                             id: slider
                             x: 1
                             y: 35
@@ -136,7 +150,8 @@ Rectangle {
                             minimumValue: 0
                             maximumValue: dmxMode ? 255 : 100
                         }
-                        CustomSpinBox {
+                        CustomSpinBox
+                        {
                             y: 167
                             x: 1
                             width: 38

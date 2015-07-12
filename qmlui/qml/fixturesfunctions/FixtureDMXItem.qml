@@ -20,13 +20,15 @@
 import QtQuick 2.2
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: dmxItemRoot
     property Fixture fixtureObj
     property variant values
     property bool isSelected: false
 
-    onValuesChanged: {
+    onValuesChanged:
+    {
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
@@ -43,43 +45,51 @@ Rectangle {
     border.width: 1
     border.color: "#222"
 
-    Column {
+    Column
+    {
         id: fxColumn
         anchors.margins: 1
 
-        Rectangle {
+        Rectangle
+        {
             color: "#111"
             width: parent.width
             height: 20
             clip: true
 
-            RobotoText {
+            RobotoText
+            {
                 anchors.verticalCenter: parent.verticalCenter
                 x: 2
                 label: fixtureObj ? fixtureObj.name : ""
                 fontSize: 15
             }
         }
-        Row {
+        Row
+        {
             id: channelsRow
-            Repeater {
+            Repeater
+            {
                 id: channelsRpt
                 model: fixtureObj ? fixtureObj.channels : null
                 delegate:
-                    Rectangle {
+                    Rectangle
+                {
                         color: "transparent"
                         width: 30
                         height: 50
 
                         property string dmxValue: "0"
 
-                        Image {
+                        Image
+                        {
                             width: 30
                             height: 30
                             sourceSize: Qt.size(width, height)
                             source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                         }
-                        RobotoText {
+                        RobotoText
+                        {
                             anchors.horizontalCenter: parent.horizontalCenter
                             y: 30
                             //width: 30
@@ -89,7 +99,8 @@ Rectangle {
                             label: dmxValue
                         }
                         // vertical divider between channels
-                        Rectangle {
+                        Rectangle
+                        {
                             visible: (index == fixtureObj.channels - 1) ? false : true
                             width: 1
                             height: parent.height
@@ -100,55 +111,60 @@ Rectangle {
             }
         }
     }
-    Timer {
+    Timer
+    {
         id: clickTimer
         interval: 200
         repeat: false
         running: false
-        onTriggered: {
+        onTriggered:
+        {
             isSelected = !isSelected
             contextManager.setFixtureSelection(fixtureObj.id, isSelected)
         }
     }
 
-    MouseArea {
+    MouseArea
+    {
         anchors.fill: parent
-        onClicked: {
-            clickTimer.start()
-        }
-
-        onDoubleClicked: {
+        onClicked: clickTimer.start()
+        onDoubleClicked:
+        {
             clickTimer.stop()
             fxColumn.visible = false
             consoleLoader.source = "qrc:/FixtureConsole.qml"
         }
     }
-    Loader {
+    Loader
+    {
         id: consoleLoader
         anchors.fill: parent
 
-        function setValues(values) {
+        function setValues(values)
+        {
             item.values = values
         }
 
-        onLoaded: {
+        onLoaded:
+        {
             item.fixtureObj = fixtureObj
             item.isSelected = isSelected
             item.values = values
         }
-        Connections {
+        Connections
+        {
              target: consoleLoader.item
-             onClicked: {
-                 clickTimer.start()
-             }
-             onDoubleClicked: {
+             onClicked: clickTimer.start()
+             onDoubleClicked:
+             {
                  clickTimer.stop()
                  consoleLoader.source = ""
                  dmxItemRoot.width = channelsRow.width
                  dmxItemRoot.height = fxColumn.height
                  fxColumn.visible = true
              }
-             onSizeChanged: {
+             onSizeChanged:
+             {
                  if (w != 0 && h != 0)
                  {
                      dmxItemRoot.width = w
@@ -159,7 +175,8 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         anchors.fill: parent
         z: 5
         color: "transparent"
