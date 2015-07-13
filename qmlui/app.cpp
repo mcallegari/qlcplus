@@ -109,6 +109,8 @@ void App::keyPressEvent(QKeyEvent *e)
 {
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
+
+    QQuickView::keyPressEvent(e);
 }
 
 void App::clearDocument()
