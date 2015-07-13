@@ -118,7 +118,7 @@ Rectangle
                 onToggled:
                 {
                     if (checked == true)
-                        editorSource = "qrc:/GroupEditor.qml"
+                        editorSource = "qrc:/FixtureGroupEditor.qml"
                     animatePanel(checked);
                 }
             }

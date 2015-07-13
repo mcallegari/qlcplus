@@ -22,7 +22,8 @@ import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: ceContainer
     anchors.fill: parent
     color: "transparent"
@@ -30,17 +31,20 @@ Rectangle {
     property int functionID: -1
     property Collection collection
 
-    onFunctionIDChanged: {
+    onFunctionIDChanged:
+    {
         collection = functionManager.getFunction(functionID)
     }
 
-    Loader {
+    Loader
+    {
         id: funcMgrLoader
         width: 0
         height: ceContainer.height
         source: ""
 
-        Rectangle {
+        Rectangle
+        {
             width: 2
             height: parent.height
             x: parent.width - 2
@@ -48,30 +52,36 @@ Rectangle {
         }
     }
 
-    Column {
+    Column
+    {
         x: funcMgrLoader.width
-        Rectangle {
+        Rectangle
+        {
             color: "#333"
             width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
             height: 40
 
-            Rectangle {
+            Rectangle
+            {
                 id: backBox
                 width: 40
                 height: 40
                 color: "transparent"
 
-                Image {
+                Image
+                {
                     id: leftArrow
                     anchors.fill: parent
                     rotation: 180
                     source: "qrc:/arrow-right.svg"
                     sourceSize: Qt.size(width, height)
                 }
-                MouseArea {
+                MouseArea
+                {
                     anchors.fill: parent
                     hoverEnabled: true
-                    onClicked: {
+                    onClicked:
+                    {
                         if (funcMgrLoader.width)
                         {
                             funcMgrLoader.source = "";
@@ -85,7 +95,8 @@ Rectangle {
                     onExited: backBox.color = "transparent"
                 }
             }
-            TextEdit {
+            TextInput
+            {
                 id: cNameEdit
                 x: leftArrow.width + 5
                 y: 3
@@ -97,7 +108,8 @@ Rectangle {
                 Layout.fillWidth: true
             }
 
-            IconButton {
+            IconButton
+            {
                 id: addFunc
                 x: parent.width - 90
                 width: height
@@ -105,7 +117,8 @@ Rectangle {
                 imgSource: "qrc:/add.svg"
                 checkable: true
                 tooltip: qsTr("Add a function")
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked)
                     {
                         rightSidePanel.width = rightSidePanel.width * 2
@@ -121,34 +134,38 @@ Rectangle {
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 id: removeFunc
                 x: parent.width - 45
                 width: height
                 height: 40
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected function")
-                onClicked: {
-
-                }
+                onClicked: {   }
             }
         }
 
-        ListView {
+        ListView
+        {
             width: ceContainer.width
             height: ceContainer.height - 40
             y: 40
             boundsBehavior: Flickable.StopAtBounds
             model: collection ? collection.functions : null
-            delegate: CollectionFunctionDelegate {
-                width: ceContainer.width
-                functionID: modelData
-            }
+            delegate:
+                CollectionFunctionDelegate
+                {
+                    width: ceContainer.width
+                    functionID: modelData
+                }
 
-            DropArea {
+            DropArea
+            {
                 anchors.fill: parent
 
-                onDropped: {
+                onDropped:
+                {
                     console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                     console.log("Item fID: " + drag.source.funcID)
                     collection.addFunction(drag.source.funcID)

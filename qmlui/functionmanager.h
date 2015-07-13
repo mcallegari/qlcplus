@@ -30,6 +30,7 @@
 
 class Doc;
 class Function;
+class SceneEditor;
 
 typedef struct
 {
@@ -63,6 +64,7 @@ public:
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
+    Q_INVOKABLE void setEditorFunction(quint32 fID);
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
@@ -101,6 +103,8 @@ private:
     int m_sceneCount, m_chaserCount, m_efxCount;
     int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
     int m_showCount, m_audioCount, m_videoCount;
+
+    SceneEditor *m_sceneEditor;
 };
 
 #endif // FUNCTIONMANAGER_H

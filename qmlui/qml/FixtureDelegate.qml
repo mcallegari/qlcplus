@@ -30,7 +30,7 @@ Rectangle
     color: "transparent"
 
     property Fixture cRef
-    property string textLabel
+    property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
 
     signal toggled

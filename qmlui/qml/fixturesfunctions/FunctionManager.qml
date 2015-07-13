@@ -40,6 +40,7 @@ Rectangle
         switch(funcType)
         {
             case Function.Scene:
+                functionManager.setEditorFunction(funcID)
                 editorLoader.source = "qrc:/SceneEditor.qml";
             break;
             case Function.Collection:
@@ -271,7 +272,7 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onDoubleClicked:loadFunctionEditor(fID, fType)
+                          onDoubleClicked: loadFunctionEditor(ID, Type)
                       }
                       Connections
                       {

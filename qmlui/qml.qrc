@@ -38,7 +38,7 @@
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
         <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
-        <file alias="GroupEditor.qml">qml/fixturesfunctions/GroupEditor.qml</file>
+        <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
         <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
         <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
         <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
@@ -49,6 +49,7 @@
         <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
         <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
         <file alias="CollectionFunctionDelegate.qml">qml/fixturesfunctions/CollectionFunctionDelegate.qml</file>
+        <file alias="SceneEditor.qml">qml/fixturesfunctions/SceneEditor.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
         <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>

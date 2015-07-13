@@ -57,7 +57,7 @@ Rectangle
             sourceSize: Qt.size(24, 24)
         }
 
-        TextEdit
+        TextInput
         {
             id: textEdit1
             x: searchIcon.width + 10

@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "functionmanager.h"
+#include "sceneeditor.h"
 #include "collection.h"
 #include "treemodel.h"
 #include "rgbmatrix.h"
@@ -46,7 +47,11 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
+    m_sceneEditor = new SceneEditor(m_doc, this);
+
     qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
+
+    m_view->rootContext()->setContextProperty("sceneEditor", m_sceneEditor);
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -188,6 +193,22 @@ void FunctionManager::clearTree()
 {
     m_selectedFunctions.clear();
     m_functionTree->clear();
+}
+
+void FunctionManager::setEditorFunction(quint32 fID)
+{
+    Function *f = m_doc->function(fID);
+    if( f == NULL)
+        return;
+
+    switch(f->type())
+    {
+        case Function::Scene:
+            m_sceneEditor->setSceneID(fID);
+        break;
+        default:
+        break;
+    }
 }
 
 void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
