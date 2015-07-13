@@ -106,6 +106,11 @@ Rectangle
                 text: collection ? collection.name : ""
                 font.pixelSize: 20
                 Layout.fillWidth: true
+                onTextChanged:
+                {
+                    if (collection)
+                        collection.name = text
+                }
             }
 
             IconButton

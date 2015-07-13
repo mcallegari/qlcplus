@@ -75,6 +75,8 @@ Rectangle
                 font.pixelSize: 20
                 echoMode: TextInput.Normal
                 Layout.fillWidth: true
+
+                onTextChanged: sceneEditor.sceneName = text
             }
         }
 

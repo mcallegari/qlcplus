@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QDebug>
+
 #include "sceneeditor.h"
 #include "scenevalue.h"
 #include "scene.h"
