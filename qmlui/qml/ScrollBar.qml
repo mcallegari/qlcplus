@@ -20,11 +20,13 @@
 
 import QtQuick 2.0
 
-Item {
+Item
+{
     id: scrollbar
     width: (handleSize + 2 * (backScrollbar.border.width +1))
     visible: (flickable.visibleArea.heightRatio < 1.0)
-    anchors {
+    anchors
+    {
         top: flickable.top
         right: flickable.right
         bottom: flickable.bottom
@@ -34,26 +36,31 @@ Item {
     property Flickable flickable               : null
     property int       handleSize              : 20
 
-    function scrollDown () {
+    function scrollDown ()
+    {
         flickable.contentY = Math.min (flickable.contentY + (flickable.height / 4), flickable.contentHeight - flickable.height);
     }
-    function scrollUp () {
+    function scrollUp ()
+    {
         flickable.contentY = Math.max (flickable.contentY - (flickable.height / 4), 0);
     }
 
-   Binding {
+   Binding
+   {
         target: handle
         property: "y"
         value: (flickable.contentY * clicker.drag.maximumY / (flickable.contentHeight - flickable.height))
         when: (!clicker.drag.active)
     }
-    Binding {
+    Binding
+    {
         target: flickable
         property: "contentY"
         value: (handle.y * (flickable.contentHeight - flickable.height) / clicker.drag.maximumY)
         when: (clicker.drag.active || clicker.pressed)
     }
-    Rectangle {
+    Rectangle
+    {
         id: backScrollbar
         radius: 2
         antialiasing: true
@@ -67,10 +74,12 @@ Item {
             onClicked: { }
         }
     }
-    MouseArea {
+    MouseArea
+    {
         id: btnUp
         height: width
-        anchors {
+        anchors
+        {
             top: parent.top
             left: parent.left
             right: parent.right
@@ -78,12 +87,14 @@ Item {
         }
         onClicked: { scrollUp (); }
 
-        Rectangle {
+        Rectangle
+        {
             anchors.fill: parent
             anchors.centerIn: parent
             color: (btnUp.pressed ? "#0978FF" : "#333")
 
-            Image {
+            Image
+            {
                 anchors.centerIn: parent
                 source: "qrc:/arrow-down.svg"
                 rotation: 180
@@ -91,10 +102,12 @@ Item {
             }
         }
     }
-    MouseArea {
+    MouseArea
+    {
         id: btnDown
         height: width
-        anchors {
+        anchors
+        {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -102,22 +115,26 @@ Item {
         }
         onClicked: { scrollDown (); }
 
-        Rectangle {
+        Rectangle
+        {
             anchors.fill: parent
             anchors.centerIn: parent
             color: (btnDown.pressed ? "#0978FF" : "#333")
 
-            Image {
+            Image
+            {
                 anchors.centerIn: parent
                 source: "qrc:/arrow-down.svg"
                 sourceSize: Qt.size(parent.width - 2, parent.height)
             }
         }
     }
-    Item {
+    Item
+    {
         id: groove
         clip: true
-        anchors {
+        anchors
+        {
             fill: parent
             topMargin: (backScrollbar.border.width +1 + btnUp.height +1)
             leftMargin: (backScrollbar.border.width +1)
@@ -125,9 +142,11 @@ Item {
             bottomMargin: (backScrollbar.border.width +1 + btnDown.height +1)
         }
 
-        MouseArea {
+        MouseArea
+        {
             id: clicker
-            drag {
+            drag
+            {
                 target: handle
                 minimumY: 0;
                 maximumY: (groove.height - handle.height)
@@ -136,15 +155,18 @@ Item {
             anchors { fill: parent; }
             onClicked: { flickable.contentY = (mouse.y / groove.height * (flickable.contentHeight - flickable.height)); }
         }
-        Item {
+        Item
+        {
             id: handle
             height: Math.max (20, (flickable.visibleArea.heightRatio * groove.height))
-            anchors {
+            anchors
+            {
                 left: parent.left
                 right: parent.right
             }
 
-            Rectangle {
+            Rectangle
+            {
                 id: backHandle
                 radius: 2
                 color: (clicker.pressed ? "white" : "black")

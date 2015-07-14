@@ -24,13 +24,20 @@ Rectangle
 {
     id: consoleRoot
     width: channelsRow.width
-    height: fxColumn.height
+    height: parent.height
     color: "#222"
-    border.width: 1
-    border.color: "#aaa"
+    //border.width: 1
+    //border.color: "#aaa"
 
     onWidthChanged: consoleRoot.sizeChanged(width, height)
-    onHeightChanged: consoleRoot.sizeChanged(width, height)
+    onHeightChanged:
+    {
+        if (height < 80)
+            fxColumn.visible = false
+        else
+            fxColumn.visible = true
+        consoleRoot.sizeChanged(width, height)
+    }
 
     property Fixture fixtureObj
     property variant values
@@ -57,8 +64,11 @@ Rectangle
     Column
     {
         id: fxColumn
+        height: parent.height
+        visible: false
         Rectangle
         {
+            id: fxNameBar
             color: "#111"
             width: parent.width
             height: 27
@@ -105,6 +115,7 @@ Rectangle
         Row
         {
             id: channelsRow
+            height: parent.height - fxNameBar.height
             Repeater
             {
                 id: channelsRpt
@@ -116,7 +127,7 @@ Rectangle
                         border.width: 1
                         border.color: "#333"
                         width: 40
-                        height: 190
+                        height: channelsRow.height
 
                         property alias dmxValue: slider.value
                         property bool dmxMode: true
@@ -145,14 +156,14 @@ Rectangle
                             x: 1
                             y: 35
                             width: 32
-                            height: 130
+                            height: parent.height ? parent.height - 32 - 25 : 0
                             anchors.horizontalCenter: parent.horizontalCenter
                             minimumValue: 0
                             maximumValue: dmxMode ? 255 : 100
                         }
                         CustomSpinBox
                         {
-                            y: 167
+                            y: slider.y + slider.height
                             x: 1
                             width: 38
                             height: 25

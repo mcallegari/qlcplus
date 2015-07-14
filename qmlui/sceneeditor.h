@@ -20,13 +20,15 @@
 #ifndef SCENEEDITOR_H
 #define SCENEEDITOR_H
 
-#include <QObject>
 #include <QQuickView>
+#include <QQuickItem>
+#include <QObject>
 
 #include "scenevalue.h"
 
 class Doc;
 class Scene;
+class GenericDMXSource;
 
 class SceneEditor : public QObject
 {
@@ -36,14 +38,25 @@ class SceneEditor : public QObject
     Q_PROPERTY(QString sceneName READ sceneName WRITE setSceneName NOTIFY sceneNameChanged)
 
 public:
-    SceneEditor(Doc *doc, QObject *parent = 0);
+    SceneEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
+    /** Set the ID of the Scene to edit */
     void setSceneID(quint32 id);
+    /** Return the ID of the current Scene being edited */
+    quint32 sceneID() const;
 
+    /** Return a QVariant list of references to the Fixtures
+     *  involved in the Scene editing */
     QVariantList fixtures();
 
+    /** Return the name of the currently edited Scene */
     QString sceneName() const;
+    /** Set the name of the currently edited Scene */
     void setSceneName(QString sceneName);
+
+    /** Enable/disable the preview of the current Scene.
+     *  In this editor, the preview is done with a GenericDMXSource */
+    void setPreview(bool enable);
 
 private:
     void updateFixtureList();
@@ -53,12 +66,16 @@ signals:
     void sceneNameChanged();
 
 private:
-    /** Reference to the project workspace */
+    /** Reference of the QML view */
+    QQuickView *m_view;
+    /** Reference of the project workspace */
     Doc *m_doc;
-    /** Reference to the Scene currently being edited */
+    /** Reference of the Scene currently being edited */
     Scene *m_scene;
     /** A list of references to Fixtures used in $m_scene */
     QVariantList m_fixtures;
+    /** Reference to a DMX source used to edit a Scene */
+    GenericDMXSource* m_source;
 };
 
 #endif // SCENEEDITOR_H

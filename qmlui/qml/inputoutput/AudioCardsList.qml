@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: aclContainer
     anchors.fill: parent
     color: "transparent"
@@ -34,19 +35,23 @@ Rectangle {
             acListView.model = ioManager.audioOutputSources()
     }
 
-    ListView {
+    ListView
+    {
         id: acListView
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         //model: ioManager.audioInputSources()
         delegate:
-            Rectangle {
+            Rectangle
+            {
                 id: acDelegate
                 width: aclContainer.width
                 height: 60
                 color: "transparent"
-                Row {
-                    Image {
+                Row
+                {
+                    Image
+                    {
                         id: pIcon
                         height: acDelegate.height - 4
                         width: height
@@ -57,14 +62,16 @@ Rectangle {
                         fillMode: Image.Stretch
                     }
 
-                    RobotoText {
+                    RobotoText
+                    {
                         height: acDelegate.height
                         width: acDelegate.width - pIcon.width
                         label: modelData.name
                         wrapText: true
                     }
                 }
-                Rectangle {
+                Rectangle
+                {
                     width: acDelegate.width
                     height: 1
                     y: acDelegate.height - 1

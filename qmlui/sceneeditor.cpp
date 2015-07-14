@@ -19,24 +19,52 @@
 
 #include <QDebug>
 
+#include "genericdmxsource.h"
 #include "sceneeditor.h"
 #include "scenevalue.h"
 #include "scene.h"
 #include "doc.h"
 
-SceneEditor::SceneEditor(Doc *doc, QObject *parent)
+SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
+    , m_view(view)
     , m_doc(doc)
     , m_scene(NULL)
+    , m_source(NULL)
 {
-
+    m_source = new GenericDMXSource(m_doc);
 }
 
 void SceneEditor::setSceneID(quint32 id)
 {
+    QQuickItem *bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
+
+    if (id == Function::invalidId())
+    {
+        m_scene = NULL;
+        m_source->unsetAll();
+        //m_source->setOutputEnabled(false);
+        m_fixtures.clear();
+        if (bottomPanel != NULL)
+            bottomPanel->setProperty("visible", false);
+        return;
+    }
     m_scene = qobject_cast<Scene *>(m_doc->function(id));
 
     updateFixtureList();
+    if (bottomPanel != NULL)
+    {
+        bottomPanel->setProperty("visible", true);
+        bottomPanel->setProperty("editorSource", "qrc:/SceneFixtureConsole.qml");
+    }
+}
+
+quint32 SceneEditor::sceneID() const
+{
+    if (m_scene != NULL)
+        return m_scene->id();
+
+    return Function::invalidId();
 }
 
 QVariantList SceneEditor::fixtures()
@@ -63,6 +91,20 @@ void SceneEditor::setSceneName(QString sceneName)
     emit sceneNameChanged();
 }
 
+void SceneEditor::setPreview(bool enable)
+{
+    qDebug() << "[SceneEditor] set preview" << enable;
+    if (enable == true)
+    {
+        foreach(SceneValue sv, m_scene->values())
+            m_source->set(sv.fxi, sv.channel, sv.value);
+    }
+    else
+        m_source->unsetAll();
+
+    m_source->setOutputEnabled(enable);
+}
+
 void SceneEditor::updateFixtureList()
 {
     if(m_scene == NULL)
@@ -71,15 +113,15 @@ void SceneEditor::updateFixtureList()
     QList<quint32> fxIDs;
     m_fixtures.clear();
 
-    foreach(SceneValue value, m_scene->values())
+    foreach(SceneValue sv, m_scene->values())
     {
-        if (fxIDs.contains(value.fxi) == false)
+        if (fxIDs.contains(sv.fxi) == false)
         {
-            Fixture *fixture = m_doc->fixture(value.fxi);
+            Fixture *fixture = m_doc->fixture(sv.fxi);
             if(fixture == NULL)
                 continue;
             m_fixtures.append(QVariant::fromValue(fixture));
-            fxIDs.append(value.fxi);
+            fxIDs.append(sv.fxi);
         }
     }
     emit fixturesChanged();

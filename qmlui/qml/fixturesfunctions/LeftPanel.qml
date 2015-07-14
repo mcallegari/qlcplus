@@ -23,7 +23,7 @@ import QtQuick.Controls 1.0
 Rectangle
 {
     id: leftSidePanel
-    anchors.left: parent.left;
+    anchors.left: parent.left
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
@@ -42,13 +42,13 @@ Rectangle
 
         if (isOpen == false)
         {
-            animateOpen.start();
-            isOpen = true;
+            animateOpen.start()
+            isOpen = true
         }
         else
         {
-            animateClose.start();
-            isOpen = false;
+            animateClose.start()
+            isOpen = false
             editorSource = ""
         }
     }
@@ -56,7 +56,7 @@ Rectangle
     Rectangle
     {
         id: editorArea
-        width: leftSidePanel.width - collapseWidth;
+        width: leftSidePanel.width - collapseWidth
         height: parent.height
         color: "transparent"
 
@@ -101,7 +101,7 @@ Rectangle
                 {
                     if (checked == true)
                         editorSource = "qrc:/FixtureBrowser.qml"
-                    animatePanel(checked);
+                    animatePanel(checked)
                 }
             }
 
@@ -119,7 +119,7 @@ Rectangle
                 {
                     if (checked == true)
                         editorSource = "qrc:/FixtureGroupEditor.qml"
-                    animatePanel(checked);
+                    animatePanel(checked)
                 }
             }
 
@@ -280,8 +280,8 @@ Rectangle
             {
                 if (drag.active == true)
                 {
-                    var obj = mapToItem(null, mouseX, mouseY);
-                    leftSidePanel.width = obj.x + (collapseWidth / 2);
+                    var obj = mapToItem(null, mouseX, mouseY)
+                    leftSidePanel.width = obj.x + (collapseWidth / 2)
                     //console.log("mouseX:", mouseX, "mapToItem().x:", obj.x);
                 }
             }

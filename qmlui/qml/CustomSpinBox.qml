@@ -21,7 +21,8 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.3
 
-SpinBox {
+SpinBox
+{
     id: spinbox
     font.family: "RobotoCondensed"
     font.pointSize: 14
@@ -29,59 +30,68 @@ SpinBox {
 
     property bool showControls: true
 
-    style: SpinBoxStyle {
-        // taken from SpinBoxStyle.qml original code
-        // fundamental for the whole spinbox layout !
-        padding {
-            top: 1
-            left: 2
-            right: controlWidth + 2
-            bottom: 0
-        }
-        background: Rectangle {
-            color: "#333"
-            border.color: "#222"
-            radius: 3
-        }
-        textColor: "white"
-
-        property int controlWidth: showControls ? Math.min(35, spinbox.width / 3) : 0
-
-        incrementControl:
-            Rectangle {
-                visible: showControls
-                implicitHeight: 10
-                implicitWidth: controlWidth
-                border.color: "#222"
-                radius: 3
-                color: styleData.upHovered && !styleData.upPressed
-                    ? "#555" : (styleData.upPressed ? "#222" : "#444")
-                Image {
-                    anchors.centerIn: parent
-                    source: "qrc:/arrow-up.svg"
-                    height: parent.height - 8
-                    sourceSize: Qt.size(parent.width, parent.height - 8)
-                    //opacity: spinbox.enabled ? (styleData.upPressed ? 1 : 0.6) : 0.5
-                }
+    style:
+        SpinBoxStyle
+        {
+            // taken from SpinBoxStyle.qml original code
+            // fundamental for the whole spinbox layout !
+            padding
+            {
+                top: 1
+                left: 2
+                right: controlWidth + 2
+                bottom: 0
             }
-
-        decrementControl:
-            Rectangle {
-                visible: showControls
-                implicitHeight: 10
-                implicitWidth: controlWidth
-                border.color: "#222"
-                radius: 3
-                color: styleData.downHovered && !styleData.downPressed
-                    ? "#555" : (styleData.downPressed ? "#222" : "#444")
-                Image {
-                    anchors.centerIn: parent
-                    source: "qrc:/arrow-up.svg"
-                    rotation: 180
-                    height: parent.height - 8
-                    sourceSize: Qt.size(parent.width, parent.height - 8)
-                    //opacity: spinbox.enabled ? (styleData.downPressed ? 1 : 0.6) : 0.5
+            background:
+                Rectangle
+                {
+                    color: "#333"
+                    border.color: "#222"
+                    radius: 3
                 }
-            }
-    }
+            textColor: "white"
+
+            property int controlWidth: showControls ? Math.min(35, spinbox.width / 3) : 0
+
+            incrementControl:
+                Rectangle
+                {
+                    visible: showControls
+                    implicitHeight: 10
+                    implicitWidth: controlWidth
+                    border.color: "#222"
+                    radius: 3
+                    color: styleData.upHovered && !styleData.upPressed
+                        ? "#555" : (styleData.upPressed ? "#222" : "#444")
+                    Image
+                    {
+                        anchors.centerIn: parent
+                        source: "qrc:/arrow-up.svg"
+                        height: parent.height - 8
+                        sourceSize: Qt.size(parent.width, parent.height - 8)
+                        //opacity: spinbox.enabled ? (styleData.upPressed ? 1 : 0.6) : 0.5
+                    }
+                }
+
+            decrementControl:
+                Rectangle
+                {
+                    visible: showControls
+                    implicitHeight: 10
+                    implicitWidth: controlWidth
+                    border.color: "#222"
+                    radius: 3
+                    color: styleData.downHovered && !styleData.downPressed
+                        ? "#555" : (styleData.downPressed ? "#222" : "#444")
+                    Image
+                    {
+                        anchors.centerIn: parent
+                        source: "qrc:/arrow-up.svg"
+                        rotation: 180
+                        height: parent.height - 8
+                        sourceSize: Qt.size(parent.width, parent.height - 8)
+                        //opacity: spinbox.enabled ? (styleData.downPressed ? 1 : 0.6) : 0.5
+                    }
+                }
+        }
 }

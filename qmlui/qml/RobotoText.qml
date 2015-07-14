@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     width: wrapText ? 100 : textBox.width
     height: 40
 
@@ -33,7 +34,8 @@ Rectangle {
     property bool wrapText: false
     property int textAlign: Text.AlignLeft
 
-    Text {
+    Text
+    {
         id: textBox
         width: wrapText ? parent.width : Text.paintedWidth
         height: wrapText ? parent.height : Text.paintedHeight

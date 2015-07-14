@@ -20,7 +20,8 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 
-Rectangle {
+Rectangle
+{
     id: menuEntry
     width: btnIcon.width + textBox.width + 10
     height: parent.height
@@ -35,12 +36,15 @@ Rectangle {
     property Gradient selGradient: defSelectionGradient
     property ExclusiveGroup exclusiveGroup: null
 
-    onExclusiveGroupChanged: {
+    onExclusiveGroupChanged:
+    {
         if (exclusiveGroup)
             exclusiveGroup.bindCheckable(menuEntry)
     }
-    onCheckedChanged: {
-        if (checked == true) {
+    onCheckedChanged:
+    {
+        if (checked == true)
+        {
             selRect.color = checkedColor;
             menuEntry.gradient = selGradient
         }
@@ -58,29 +62,34 @@ Rectangle {
     //border.color: "black" //"#111"
     //border.width: 1
 
-    Gradient {
+    Gradient
+    {
         id: defBgGradient
         GradientStop { position: 0 ; color: "transparent" }
         //GradientStop { position: 1 ; color: "#111" }
     }
-    Gradient {
+    Gradient
+    {
         id: defSelectionGradient
         GradientStop { position: 0 ; color: "#444" }
         GradientStop { position: 1 ; color: "#171717" }
     }
 
-    Rectangle {
+    Rectangle
+    {
         anchors.fill: parent
         color: "#33ffffff"
         visible: mouseArea1.pressed
     }
 
-    Row {
+    Row
+    {
         spacing: 2
         anchors.fill: parent
         anchors.leftMargin: 3
 
-        Image {
+        Image
+        {
             id: btnIcon
             height: imgSource == "" ? 0 : parent.height - 4
             width: height
@@ -90,20 +99,23 @@ Rectangle {
             sourceSize: Qt.size(width, height)
         }
 
-        Rectangle {
+        Rectangle
+        {
             y: 0
             width: textBox.width
             height: parent.height
             color: "transparent"
 
-            RobotoText {
+            RobotoText
+            {
                 id: textBox
                 label: entryText
                 height: parent.height
                 fontSize: 12
                 fontBold: true
             }
-            Rectangle {
+            Rectangle
+            {
                 id: selRect
                 radius: 2
                 color: "transparent"
@@ -114,27 +126,29 @@ Rectangle {
         }
     }
 
-    MouseArea {
+    MouseArea
+    {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onEntered: { if (checked == false) menuEntry.gradient = selGradient }
         onExited: { if (checked == false) menuEntry.gradient = bgGradient }
-        onClicked: {
+        onClicked:
+        {
             if (mouse.button == Qt.LeftButton)
             {
                 if (checkable == true)
                 {
                     if (checked == false)
                         checked = true
-                    menuEntry.toggled(checked);
+                    menuEntry.toggled(checked)
                 }
                 else
-                    menuEntry.clicked();
+                    menuEntry.clicked()
             }
             else
-                menuEntry.rightClicked();
+                menuEntry.rightClicked()
         }
     }
 }

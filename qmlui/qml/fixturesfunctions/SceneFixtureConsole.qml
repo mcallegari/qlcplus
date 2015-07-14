@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  DMXPercentageButton.qml
+  SceneFixtureConsole.qml
 
   Copyright (c) Massimo Callegari
 
@@ -18,32 +18,27 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 
 Rectangle
 {
-    id: buttonRoot
-    width: 50
-    height: 40
-    border.width: 2
-    border.color: "white"
-    radius: 5
-    color: "#1E476E"
+    id: sfcContainer
+    anchors.fill: parent
+    color: "transparent"
 
-    property bool dmxMode: true
-    signal clicked
-
-    RobotoText
-    {
-        height: parent.height
-        anchors.horizontalCenter: parent.horizontalCenter
-        label: dmxMode ? "DMX" : "%"
-        fontSize: 15
-        fontBold: true
-    }
-
-    MouseArea
+    ListView
     {
         anchors.fill: parent
-        onClicked: buttonRoot.clicked()
+        orientation: ListView.Horizontal
+        model: sceneEditor.fixtures
+        boundsBehavior: Flickable.StopAtBounds
+
+        delegate:
+            FixtureConsole
+            {
+                fixtureObj: modelData
+                height: parent.height
+                color: index % 2 ? "#202020" : "#303030"
+            }
     }
 }

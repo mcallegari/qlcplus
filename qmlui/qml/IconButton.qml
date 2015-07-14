@@ -22,7 +22,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Controls.Private 1.0
 
-Rectangle {
+Rectangle
+{
     id: baseIconButton
     width: 38
     height: 38
@@ -51,20 +52,24 @@ Rectangle {
     border.color: "#1D1D1D"
     border.width: 2
 
-    onExclusiveGroupChanged: {
+    onExclusiveGroupChanged:
+    {
         if (exclusiveGroup)
             exclusiveGroup.bindCheckable(baseIconButton)
     }
     onCheckedChanged: {
-        if (checked == true) {
+        if (checked == true)
+        {
             baseIconButton.color = checkedColor
         }
-        else {
+        else
+        {
             baseIconButton.color = bgColor
         }
     }
 
-    Image {
+    Image
+    {
         id: btnIcon
         anchors.fill: parent
         anchors.margins: 4
@@ -72,13 +77,15 @@ Rectangle {
         sourceSize: Qt.size(width, height)
     }
 
-    MouseArea {
+    MouseArea
+    {
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
         onEntered: { if (checked == false) baseIconButton.color = hoverColor }
         onExited: { if (checked == false) baseIconButton.color = bgColor; Tooltip.hideText() }
-        onReleased: {
+        onReleased:
+        {
             if (checkable == true)
             {
                 checked = !checked
@@ -90,11 +97,11 @@ Rectangle {
 
         onCanceled: Tooltip.hideText()
 
-        Timer {
+        Timer
+        {
            interval: 1000
            running: mouseArea1.containsMouse && tooltip.length
            onTriggered: Tooltip.showText(mouseArea1, Qt.point(mouseArea1.mouseX, mouseArea1.mouseY), tooltip)
         }
-
     }
 }

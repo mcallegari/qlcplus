@@ -150,6 +150,7 @@ Rectangle
             item.fixtureObj = fixtureObj
             item.isSelected = isSelected
             item.values = values
+            item.height = 220
         }
         Connections
         {

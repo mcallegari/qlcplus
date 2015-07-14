@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import com.qlcplus.classes 1.0
+
 Rectangle
 {
     id: seContainer
@@ -27,6 +29,8 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
+
+    Component.onDestruction: functionManager.setEditorFunction(-1)
 
     Column
     {
@@ -92,6 +96,8 @@ Rectangle
                 {
                     cRef: modelData
                     width: seContainer.width
+
+                    Component.onCompleted: contextManager.setFixtureSelection(cRef.id, true)
                 }
         }
     }

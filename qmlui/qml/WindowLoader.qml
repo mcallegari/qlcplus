@@ -22,7 +22,8 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
 
-ApplicationWindow {
+ApplicationWindow
+{
     id: window
     width: 800
     height: 600
@@ -31,16 +32,19 @@ ApplicationWindow {
     property string viewSource
     property string loadedContext: ""
 
-    onClosing: {
+    onClosing:
+    {
         // force the Loader to destroy the QML item
         viewSource = ""
         contextManager.reattachContext(loadedContext)
     }
 
-    Loader {
+    Loader
+    {
         anchors.fill: parent
         source: viewSource
-        onLoaded: {
+        onLoaded:
+        {
             window.loadedContext = item.contextName
             //console.log("Detached context: " + window.loadedContext)
             contextManager.detachContext(loadedContext)

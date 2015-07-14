@@ -182,7 +182,7 @@ public:
     /**
      * Get the value for an invalid function ID (for comparison etc.)
      */
-    Q_INVOKABLE static quint32 invalidId();
+    static quint32 invalidId();
 
 private:
     quint32 m_id;

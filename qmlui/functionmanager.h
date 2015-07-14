@@ -64,6 +64,7 @@ public:
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
+    Q_INVOKABLE void setPreview(bool enable);
     Q_INVOKABLE void setEditorFunction(quint32 fID);
 
     int sceneCount() const { return m_sceneCount; }
@@ -89,15 +90,23 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
+    void functionEditingStarted();
 
 public slots:
     void slotDocLoaded();
 
 private:
+    /** Reference of the QML view */
     QQuickView *m_view;
+    /** Reference of the project workspace */
     Doc *m_doc;
+    /** Reference to the Functions tree model */
     TreeModel *m_functionTree;
+    /** List of the currently selected Functions */
     QList <selectedFunction> m_selectedFunctions;
+
+    /** Flag that hold if Functions preview is enabled or not */
+    bool m_previewEnabled;
 
     quint32 m_filter;
     int m_sceneCount, m_chaserCount, m_efxCount;
