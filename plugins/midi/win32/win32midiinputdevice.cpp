@@ -43,6 +43,8 @@ static void CALLBACK MidiInProc(HMIDIIN hMidiIn, UINT wMsg,
             if (self->processMBC(cmd) == false)
                 return;
         }
+        if (MIDI_CMD(cmd) == MIDI_PROGRAM_CHANGE)
+            data2 = 127;
 
         quint32 channel = 0;
         uchar value = 0;
@@ -105,7 +107,12 @@ void Win32MidiInputDevice::close()
     if (m_handle == NULL)
         return;
 
-    MMRESULT result = midiInClose(m_handle);
+    MMRESULT result = midiInStop(m_handle);
+    if (result != MMSYSERR_NOERROR)
+        qWarning() << Q_FUNC_INFO << "Unable to stop MIDI input with id:" << m_id
+                   << "name:" << name() << ":" << result;
+
+    result = midiInClose(m_handle);
     if (result != MMSYSERR_NOERROR)
         qWarning() << Q_FUNC_INFO << "Unable to close MIDI input with id:" << m_id
                    << "name:" << name() << ":" << result;
