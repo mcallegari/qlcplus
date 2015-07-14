@@ -190,6 +190,9 @@ quint32 Function::invalidId()
 
 void Function::setName(const QString& name)
 {
+    if (m_name == name)
+        return;
+
     m_name = QString(name);
 
     emit nameChanged(m_id);

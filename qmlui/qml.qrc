@@ -27,6 +27,7 @@
         <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
         <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
         <file alias="LeftPanel.qml">qml/fixturesfunctions/LeftPanel.qml</file>
+        <file alias="BottomPanel.qml">qml/fixturesfunctions/BottomPanel.qml</file>
         <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
         <file alias="ColorTool.qml">qml/fixturesfunctions/ColorTool.qml</file>
         <file alias="ColorToolBasic.qml">qml/fixturesfunctions/ColorToolBasic.qml</file>
@@ -38,7 +39,7 @@
         <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
         <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
         <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
-        <file alias="GroupEditor.qml">qml/fixturesfunctions/GroupEditor.qml</file>
+        <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
         <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
         <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
         <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
@@ -49,6 +50,8 @@
         <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
         <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
         <file alias="CollectionFunctionDelegate.qml">qml/fixturesfunctions/CollectionFunctionDelegate.qml</file>
+        <file alias="SceneEditor.qml">qml/fixturesfunctions/SceneEditor.qml</file>
+        <file alias="SceneFixtureConsole.qml">qml/fixturesfunctions/SceneFixtureConsole.qml</file>
 
         <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
         <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>

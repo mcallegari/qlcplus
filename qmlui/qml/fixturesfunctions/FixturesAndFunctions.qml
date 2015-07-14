@@ -71,12 +71,20 @@ Rectangle
             height: parent.height
         }
 
+        BottomPanel {
+            id: bottomPanel
+            objectName: "bottomPanelItem"
+            y: parent.height - height
+            z: 8
+            visible: false
+        }
+
         Rectangle
         {
             id: centerView
             width: parent.width - leftPanel.width - rightPanel.width
             x: leftPanel.width
-            height: parent.height
+            height: parent.height - (bottomPanel.visible ? bottomPanel.height : 0)
             color: "transparent"
 
             Rectangle

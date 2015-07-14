@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: customTextEditRect
     width: 200
     height: 30
@@ -31,7 +32,8 @@ Rectangle {
 
     border.color: "#222"
 
-    TextInput {
+    TextInput
+    {
         id: textEdit2
         color: "#ffffff"
         anchors.right: parent.right

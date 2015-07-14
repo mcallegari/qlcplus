@@ -60,6 +60,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+    connect(m_functionManager, SIGNAL(functionEditingStarted()),
+            this, SLOT(updateContexts()));
 }
 
 void ContextManager::enableContext(QString context, bool enable)

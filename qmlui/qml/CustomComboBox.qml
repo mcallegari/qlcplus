@@ -21,42 +21,51 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
-ComboBox {
+ComboBox
+{
     implicitHeight: 24
     implicitWidth: 150
     currentIndex: 0
-    style: ComboBoxStyle {
-        background: Rectangle {
-            anchors.fill: parent
-            radius: 3
-            color: "#333333"
-            border.width: 1
-            border.color: "#222"
+    style:
+        ComboBoxStyle
+        {
+            background:
+            Rectangle
+            {
+                anchors.fill: parent
+                radius: 3
+                color: "#333333"
+                border.width: 1
+                border.color: "#222"
 
-            Rectangle {
-                width: 30
-                height: parent.height
-                anchors.right: parent.right
-                //border.width: 2
-                //border.color: "#222"
-                color: "transparent" //"#404040"
+                Rectangle
+                {
+                    width: 30
+                    height: parent.height
+                    anchors.right: parent.right
+                    //border.width: 2
+                    //border.color: "#222"
+                    color: "transparent" //"#404040"
 
-                Image {
-                    anchors.centerIn: parent
-                    source: "qrc:/arrow-down.svg"
-                    sourceSize: Qt.size(20, 12)
+                    Image
+                    {
+                        anchors.centerIn: parent
+                        source: "qrc:/arrow-down.svg"
+                        sourceSize: Qt.size(20, 12)
+                    }
                 }
             }
-         }
-        label: RobotoText {
-            //verticalAlignment: Qt.AlignVCenter
-            //anchors.left: parent.left
-            //anchors.leftMargin: 5
-            label: control.currentText
-            anchors.fill: parent
-            fontSize: 12
-            fontBold: true
-        }
+        label:
+            RobotoText
+            {
+                //verticalAlignment: Qt.AlignVCenter
+                //anchors.left: parent.left
+                //anchors.leftMargin: 5
+                label: control.currentText
+                anchors.fill: parent
+                fontSize: 12
+                fontBold: true
+            }
         dropDownButtonWidth: 30
     }
 }

@@ -20,26 +20,30 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: ioMgrContainer
     anchors.fill: parent
     color: "transparent"
 
-    IOLeftPanel {
+    IOLeftPanel
+    {
         id: leftPanel
         x: 0
         z: 5
         height: parent.height
     }
 
-    IORightPanel {
+    IORightPanel
+    {
         id: rightPanel
         x: parent.width - width
         z: 5
         height: parent.height
     }
 
-    Flickable {
+    Flickable
+    {
         width: parent.width - leftPanel.width - rightPanel.width
         height: parent.height
         x: leftPanel.width
@@ -48,24 +52,30 @@ Rectangle {
 
         contentHeight: ioList.height
 
-        Column {
+        Column
+        {
             id: ioList
             width: parent.width
-            AudioIOItem {
-                onSelected: {
+            AudioIOItem
+            {
+                onSelected:
+                {
                     leftPanel.showPluginsButton = false
                     leftPanel.showAudioButton = true
                     rightPanel.showPluginsButton = false
                     rightPanel.showAudioButton = true
                 }
             }
-            Repeater {
+            Repeater
+            {
                 model: ioManager.universes
                 delegate:
-                    UniverseIOItem {
+                    UniverseIOItem
+                    {
                         universe: model.modelData
 
-                        onSelected: {
+                        onSelected:
+                        {
                             leftPanel.universeIndex = index
                             leftPanel.showPluginsButton = true
                             leftPanel.showAudioButton = false

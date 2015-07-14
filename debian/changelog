@@ -2,6 +2,8 @@ qlcplus (4.9.2) stable; urgency=low
 
   * ChannelsGroup: Fix crashes related to invalid channels (David Garyga)
   * ShowManager: Fix some cursor teleportation issues (David Garyga)
+  * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
+  * Plugins/MIDI: fixed Program Change handling on OSX
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 16 Aug 2015 20:21:22 +0200
 

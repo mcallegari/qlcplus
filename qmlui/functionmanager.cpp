@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "functionmanager.h"
+#include "sceneeditor.h"
 #include "collection.h"
 #include "treemodel.h"
 #include "rgbmatrix.h"
@@ -40,13 +41,18 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_previewEnabled(false)
 {
     m_filter = 0;
     m_sceneCount = m_chaserCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
+    m_sceneEditor = new SceneEditor(m_view, m_doc, this);
+
     qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
+
+    m_view->rootContext()->setContextProperty("sceneEditor", m_sceneEditor);
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -86,8 +92,15 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
 {
     if (multiSelection == false)
     {
-        foreach(selectedFunction f, m_selectedFunctions)
-            f.m_item->setProperty("isSelected", false);
+        foreach(selectedFunction sf, m_selectedFunctions)
+        {
+            if (m_previewEnabled && sf.m_fID == m_sceneEditor->sceneID())
+                m_sceneEditor->setPreview(false);
+            sf.m_item->setProperty("isSelected", false);
+            Function *f = m_doc->function(sf.m_fID);
+            if (f != NULL && f->isRunning())
+                f->stop();
+        }
 
         m_selectedFunctions.clear();
     }
@@ -98,6 +111,16 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
     item->setProperty("isSelected", true);
     m_selectedFunctions.append(sf);
 
+    if (m_previewEnabled == true)
+    {
+        Function *f = m_doc->function(sf.m_fID);
+        if (f != NULL)
+            f->start(m_doc->masterTimer());
+    }
+
+    QQuickItem *previewBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("previewButton"));
+    if (previewBtn != NULL)
+        previewBtn->setProperty("visible", true);
 }
 
 quint32 FunctionManager::createFunction(int type)
@@ -188,6 +211,61 @@ void FunctionManager::clearTree()
 {
     m_selectedFunctions.clear();
     m_functionTree->clear();
+}
+
+void FunctionManager::setPreview(bool enable)
+{
+    foreach(selectedFunction sf, m_selectedFunctions)
+    {
+        Function *f = m_doc->function(sf.m_fID);
+        if (f != NULL)
+        {
+            if (enable == false)
+                f->stop();
+            else
+            {
+                f->start(m_doc->masterTimer());
+            }
+        }
+    }
+
+    if (m_selectedFunctions.isEmpty())
+    {
+        if (m_sceneEditor->sceneID() != Function::invalidId())
+            m_sceneEditor->setPreview(enable);
+    }
+
+    m_previewEnabled = enable;
+}
+
+void FunctionManager::setEditorFunction(quint32 fID)
+{
+    if ((int)fID == -1)
+    {
+        // reset all the editor functions
+        m_sceneEditor->setSceneID(Function::invalidId());
+    }
+
+    Function *f = m_doc->function(fID);
+    if (f == NULL)
+        return;
+
+    switch(f->type())
+    {
+        case Function::Scene:
+        {
+            m_sceneEditor->setSceneID(fID);
+            m_sceneEditor->setPreview(m_previewEnabled);
+        }
+        break;
+        default:
+        {
+            if (m_previewEnabled)
+                f->start(m_doc->masterTimer());
+        }
+        break;
+    }
+    emit functionEditingStarted();
 }
 
 void FunctionManager::dumpOnNewScene(QList<SceneValue> list)

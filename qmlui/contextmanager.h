@@ -46,8 +46,6 @@ public:
 
     Q_INVOKABLE void reattachContext(QString context);
 
-    void updateContexts();
-
     Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
 
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
@@ -59,6 +57,10 @@ public:
     Q_INVOKABLE void createFixtureGroup();
 
     void handleKeyPress(QKeyEvent *e);
+
+public slots:
+    /** Resets the data structures and update the currently enabled views */
+    void updateContexts();
 
 signals:
 
@@ -84,7 +86,7 @@ private:
     /** A multihash containing the selected fixtures' capabilities by channel type */
     /** The hash is: int (channel type) , SceneValue (Fixture ID and channel) */
     QMultiHash<int, SceneValue> m_channelsMap;
-    /** Reference to a DMX source used to handle scenes design */
+    /** Reference to a DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;
     /** Reference to the DMX Preview context */
     MainViewDMX *m_DMXView;

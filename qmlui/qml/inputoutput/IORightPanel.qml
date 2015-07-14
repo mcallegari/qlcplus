@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: rightSidePanel
     x: 0
     y: 0
@@ -36,29 +37,32 @@ Rectangle {
     property bool showAudioButton: false
     property bool showPluginsButton: false
 
-    onUniverseIndexChanged: {
-        if (rightSidePanel.isOpen == true)
+    onUniverseIndexChanged:
+    {
+        if (isOpen == true)
         {
             editorLoader.source = ""
             editorLoader.source = editorSource;
         }
     }
 
-    function animatePanel() {
-        if (rightSidePanel.isOpen == false)
+    function animatePanel()
+    {
+        if (isOpen == false)
         {
             editorLoader.source = editorSource;
             animateOpen.start();
-            rightSidePanel.isOpen = true;
+            isOpen = true;
         }
         else
         {
             animateClose.start();
-            rightSidePanel.isOpen = false;
+            isOpen = false;
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: editorArea
         x: collapseWidth
         z: 5
@@ -66,28 +70,33 @@ Rectangle {
         height: parent.height
         color: "transparent"
 
-        Loader {
+        Loader
+        {
             id: editorLoader
             anchors.fill: parent
-            onLoaded: {
+            onLoaded:
+            {
                 item.universeIndex = universeIndex
                 item.loadSources(false)
             }
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: 3
         width: collapseWidth
         height: parent.height
         color: "#00000000"
         z: 2
 
-        Column {
+        Column
+        {
             anchors.fill: parent
             spacing: 3
 
-            IconButton {
+            IconButton
+            {
                 id: audioOutputButton
                 z: 2
                 visible: showAudioButton
@@ -96,13 +105,15 @@ Rectangle {
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
                 tooltip: qsTr("Show the audio output sources")
-                onToggled: {
+                onToggled:
+                {
                     editorSource = "qrc:///AudioCardsList.qml"
                     animatePanel();
                 }
             }
 
-            IconButton {
+            IconButton
+            {
                 id: uniOutputButton
                 z: 2
                 visible: showPluginsButton
@@ -111,7 +122,8 @@ Rectangle {
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
                 tooltip: qsTr("Show the universe output sources")
-                onToggled: {
+                onToggled:
+                {
                     editorSource = "qrc:///PluginsList.qml"
                     animatePanel();
                 }
@@ -119,7 +131,8 @@ Rectangle {
         }
     }
 
-    PropertyAnimation {
+    PropertyAnimation
+    {
         id: animateOpen;
         target: rightSidePanel;
         properties: "width";
@@ -127,7 +140,8 @@ Rectangle {
         duration: 200
     }
 
-    PropertyAnimation {
+    PropertyAnimation
+    {
         id: animateClose;
         target: rightSidePanel;
         properties: "width";
@@ -135,7 +149,8 @@ Rectangle {
         duration: 200
     }
 
-    Rectangle {
+    Rectangle
+    {
         id: gradientBorder
         y: 0
         x: height
@@ -144,29 +159,17 @@ Rectangle {
         width: parent.height
         transformOrigin: Item.TopLeft
         rotation: 90
-        gradient: Gradient {
-            GradientStop {
-                position: 0
-                color: "#141414"
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0; color: "#141414" }
+                GradientStop { position: 0.213; color: "#232323" }
+                GradientStop { position: 0.79; color: "#232323" }
+                GradientStop { position: 1; color: "#141414" }
             }
 
-            GradientStop {
-                position: 0.213
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 0.79
-                color: "#232323"
-            }
-
-            GradientStop {
-                position: 1
-                color: "#141414"
-            }
-        }
-
-        MouseArea {
+        MouseArea
+        {
             id: rpClickArea
             anchors.fill: parent
             z: 1
@@ -177,12 +180,12 @@ Rectangle {
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth
 
-            onPositionChanged: {
-                if (drag.active == true) {
+            onPositionChanged:
+            {
+                if (drag.active == true)
                     rightSidePanel.width = rightSidePanel.parent.width - rightSidePanel.x
-                }
             }
-            //onClicked: animatePanel("")
+            //onClicked: animatePanel()
         }
     }
 }

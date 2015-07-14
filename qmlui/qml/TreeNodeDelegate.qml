@@ -38,7 +38,7 @@ Rectangle
 
     signal toggled(bool expanded, int newHeight)
     signal clicked(var qItem)
-    signal doubleClicked(int fID, int fType)
+    signal doubleClicked(int ID, int Type)
 
     Rectangle
     {

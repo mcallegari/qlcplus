@@ -90,7 +90,8 @@ Rectangle
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
-                onToggled: {
+                onToggled:
+                {
                     editorSource = "qrc:/FunctionManager.qml"
                     animatePanel();
                 }
@@ -104,10 +105,7 @@ Rectangle
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
-                onCheckedChanged:
-                {
-                    addFunctionMenu.visible = !addFunctionMenu.visible
-                }
+                onToggled: addFunctionMenu.visible = !addFunctionMenu.visible
 
                 AddFunctionMenu
                 {
@@ -148,11 +146,9 @@ Rectangle
                 height: collapseWidth - 4
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
+                checkable: true
                 visible: false
-                onClicked:
-                {
-
-                }
+                onToggled: functionManager.setPreview(checked)
             }
         }
     }

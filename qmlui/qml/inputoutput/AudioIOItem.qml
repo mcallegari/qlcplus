@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: audioItem
     width: parent.width
     height: 120
@@ -31,13 +32,15 @@ Rectangle {
     signal selected
 
     // representation of the central Audio block
-    Rectangle {
+    Rectangle
+    {
         anchors.centerIn: parent
         width: 200
         height: 100
         radius: 5
         //color: "#1C2255"
-        gradient: Gradient {
+        gradient: Gradient
+        {
             id: bgGradient
             GradientStop { position: 0 ; color: "#1A551B" }
             GradientStop { position: 1 ; color: "#3C832B" }
@@ -45,7 +48,8 @@ Rectangle {
         border.width: 2
         border.color: "#111"
 
-        RobotoText {
+        RobotoText
+        {
             height: parent.height
             width: parent.width
             label: qsTr("Global Audio")
@@ -55,9 +59,11 @@ Rectangle {
     }
 
     // Global mouse area to select this Audio item
-    MouseArea {
+    MouseArea
+    {
         anchors.fill: parent
-        onClicked: {
+        onClicked:
+        {
             if (isSelected == false)
             {
                 isSelected = true
