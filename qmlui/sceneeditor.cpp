@@ -105,6 +105,22 @@ void SceneEditor::setPreview(bool enable)
     m_source->setOutputEnabled(enable);
 }
 
+bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
+{
+    if (m_scene == NULL)
+        return false;
+
+    return m_scene->checkValue(SceneValue(fxID, channel));
+}
+
+double SceneEditor::channelValue(quint32 fxID, quint32 channel)
+{
+    if (m_scene == NULL)
+        return 0;
+
+    return (double)m_scene->value(fxID, channel);
+}
+
 void SceneEditor::updateFixtureList()
 {
     if(m_scene == NULL)

@@ -33,6 +33,14 @@ Rectangle
     property int expandedHeight: 300
     property string editorSource: ""
 
+    onVisibleChanged:
+    {
+        if(visible == false)
+            editorLoader.source = ""
+        else
+            editorLoader.source = editorSource
+    }
+
     function animatePanel(checked)
     {
         if (checked === isOpen)

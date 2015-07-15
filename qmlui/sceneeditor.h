@@ -58,6 +58,15 @@ public:
      *  In this editor, the preview is done with a GenericDMXSource */
     void setPreview(bool enable);
 
+    /** QML invokable method that returns if the Scene has the
+     *  requested $fixture's $channel */
+    Q_INVOKABLE bool hasChannel(quint32 fxID, quint32 channel);
+
+    /** QML invokable method that returns the values of the
+     *  requested $fixture's $channel */
+    Q_INVOKABLE double channelValue(quint32 fxID, quint32 channel);
+
+
 private:
     void updateFixtureList();
 

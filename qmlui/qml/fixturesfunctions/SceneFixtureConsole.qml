@@ -39,6 +39,8 @@ Rectangle
                 fixtureObj: modelData
                 height: parent.height
                 color: index % 2 ? "#202020" : "#303030"
+                showEnablers: true
+                sceneConsole: true
             }
     }
 }

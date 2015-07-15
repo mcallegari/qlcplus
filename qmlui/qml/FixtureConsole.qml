@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.2
+import QtQuick.Layouts 1.0
+
 import com.qlcplus.classes 1.0
 
 Rectangle
@@ -43,6 +45,8 @@ Rectangle
     property variant values
     property bool dmxValues: true
     property bool isSelected: false
+    property bool showEnablers: false
+    property bool sceneConsole: false
 
     signal doubleClicked
     signal clicked
@@ -123,9 +127,10 @@ Rectangle
                 delegate:
                     Rectangle
                     {
+                        id: chDelegate
                         color: "transparent"
                         border.width: 1
-                        border.color: "#333"
+                        border.color: "#111"
                         width: 40
                         height: channelsRow.height
 
@@ -134,44 +139,94 @@ Rectangle
 
                         onDmxValueChanged:
                         {
-                            if (dmxMode)
-                                fixtureManager.setChannelValue(fixtureObj.id, index, dmxValue)
-                            else
-                                fixtureManager.setChannelValue(fixtureObj.id, index, dmxValue * 2.55)
+                            var val = dmxMode ? dmxValue : dmxValue * 2.55
+                            if (sceneConsole == false)
+                                fixtureManager.setChannelValue(fixtureObj.id, index, val)
                         }
 
-                        Image
+                        // This is the black overlay to "emulate" a disabled channel
+                        Rectangle
                         {
+                            x: 1
+                            y: 16
+                            z: 2
+                            width: parent.width - 2
+                            height: chColumn.height - 16
+                            color: "black"
+                            opacity: 0.7
+                            visible: showEnablers ? !enableCheckBox.isEnabled : false
+                        }
+
+                        ColumnLayout
+                        {
+                            id: chColumn
                             x: 1
                             y: 1
-                            width: 32
-                            height: 32
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            sourceSize: Qt.size(width, height)
-                            source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
-                        }
-                        QLCPlusFader
-                        {
-                            id: slider
-                            x: 1
-                            y: 35
-                            width: 32
-                            height: parent.height ? parent.height - 32 - 25 : 0
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            minimumValue: 0
-                            maximumValue: dmxMode ? 255 : 100
-                        }
-                        CustomSpinBox
-                        {
-                            y: slider.y + slider.height
-                            x: 1
-                            width: 38
-                            height: 25
-                            minimumValue: 0
-                            maximumValue: dmxMode ? 255 : 100
-                            showControls: false
-                            value: slider.value
-                            onValueChanged: dmxValue = value
+                            width: parent.width - 2
+                            spacing: 1
+
+                            Rectangle
+                            {
+                                id: enableCheckBox
+                                width: 34
+                                height: 15
+                                radius: 2
+                                visible: showEnablers
+                                color: isEnabled ? "#0978FF" : "#333"
+                                border.width: 1
+                                border.color: isEnabled ? "white" : "#555"
+                                Layout.alignment: Qt.AlignCenter
+
+                                property bool isEnabled: false
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: enableCheckBox.isEnabled = !enableCheckBox.isEnabled
+                                }
+                            }
+
+                            Image
+                            {
+                                width: 32
+                                height: 32
+                                Layout.alignment: Qt.AlignCenter
+                                sourceSize: Qt.size(width, height)
+                                source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                            }
+                            QLCPlusFader
+                            {
+                                id: slider
+                                width: 32
+                                Layout.preferredHeight:
+                                    chDelegate.height ? chDelegate.height - 32 - 25 - (showEnablers ? 15 : 0) - 4 : 0
+                                Layout.alignment: Qt.AlignCenter
+                                minimumValue: 0
+                                maximumValue: dmxMode ? 255 : 100
+                                enabled: showEnablers ? enableCheckBox.isEnabled : true
+
+                                Component.onCompleted:
+                                {
+                                    if (sceneConsole)
+                                    {
+                                        if (sceneEditor.hasChannel(fixtureObj.id, index) === true)
+                                        {
+                                            if (showEnablers)
+                                                enableCheckBox.isEnabled = true
+                                            slider.value = sceneEditor.channelValue(fixtureObj.id, index)
+                                        }
+                                    }
+                                }
+                            }
+                            CustomSpinBox
+                            {
+                                width: 38
+                                height: 25
+                                minimumValue: 0
+                                maximumValue: dmxMode ? 255 : 100
+                                showControls: false
+                                value: slider.value
+                                onValueChanged: dmxValue = value
+                            }
                         }
                     }
             }
