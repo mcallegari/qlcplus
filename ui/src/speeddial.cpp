@@ -157,8 +157,8 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_sec, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
     m_ms = new FocusSpinBox(this);
-    m_ms->setRange(0, MS_MAX / MS_DIV);
-    m_ms->setPrefix(".");
+    m_ms->setRange(0, MS_MAX);
+    m_ms->setSuffix("ms");
     m_ms->setButtonSymbols(QSpinBox::NoButtons);
     m_ms->setToolTip(tr("Milliseconds"));
     timeHBox->addWidget(m_ms);
@@ -266,7 +266,7 @@ void SpeedDial::setSpinValues(int ms)
         m_sec->setValue(ms / MS_PER_SECOND);
         ms -= (m_sec->value() * MS_PER_SECOND);
 
-        m_ms->setValue(ms / MS_DIV);
+        m_ms->setValue(ms);
     }
     m_hrs->blockSignals(false);
     m_min->blockSignals(false);
@@ -289,11 +289,7 @@ int SpeedDial::spinValues() const
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
         QString msText = m_ms->text();
-        int msInt = m_ms->value();
-        if (msInt < 10 && msText.contains("0") == false)
-            value += (msInt * MS_DIV * 10);
-        else
-            value += (msInt * MS_DIV);
+        value += (msInt);
     }
     else
     {
@@ -436,10 +432,7 @@ void SpeedDial::slotSecondsChanged()
 void SpeedDial::slotMSChanged()
 {
     m_ms->blockSignals(true);
-    if (m_ms->value() < 10)
-        m_ms->setPrefix(".0");
-    else
-        m_ms->setPrefix(".");
+    m_ms->setSuffix("ms");
     m_ms->blockSignals(false);
 
     if (m_preventSignals == false)
