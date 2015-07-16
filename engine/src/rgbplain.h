@@ -35,7 +35,7 @@ class RGBPlain : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBPlain(const Doc * doc);
+    RGBPlain(Doc * doc);
     RGBPlain(const RGBPlain& t, QObject *parent = 0);
     ~RGBPlain();
 

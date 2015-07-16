@@ -33,7 +33,7 @@
 #define KXMLQLCRGBImageOffsetX        "X"
 #define KXMLQLCRGBImageOffsetY        "Y"
 
-RGBImage::RGBImage(const Doc * doc)
+RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
     , m_filename("")
     , m_animationStyle(Static)

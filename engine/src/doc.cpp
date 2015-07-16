@@ -63,7 +63,6 @@ Doc::Doc(QObject* parent, int universes)
     , m_ioPluginCache(new IOPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
-    , m_inputCapture(NULL)
     , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
@@ -235,21 +234,23 @@ MasterTimer* Doc::masterTimer() const
     return m_masterTimer;
 }
 
-AudioCapture *Doc::audioInputCapture()
+QSharedPointer<AudioCapture> Doc::audioInputCapture()
 {
-    if (m_inputCapture == NULL)
+    if (!m_inputCapture)
     {
+        m_inputCapture = QSharedPointer<AudioCapture>(
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-        m_inputCapture = new AudioCapturePortAudio();
+            new AudioCapturePortAudio()
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        m_inputCapture = new AudioCaptureWaveIn();
+            new AudioCaptureWaveIn()
 #else
-        m_inputCapture = new AudioCaptureAlsa();
+            new AudioCaptureAlsa()
 #endif
 #else
-        m_inputCapture = new AudioCaptureQt();
+            new AudioCaptureQt()
 #endif
+            );
     }
     return m_inputCapture;
 }
@@ -257,13 +258,12 @@ AudioCapture *Doc::audioInputCapture()
 void Doc::destroyAudioCapture()
 {
     qDebug() << "Destroying audio capture";
-    if (m_inputCapture != NULL)
+    if (m_inputCapture)
     {
         if (m_inputCapture->isRunning())
             m_inputCapture->stop();
-        delete m_inputCapture;
     }
-    m_inputCapture = NULL;
+    m_inputCapture.clear();
 }
 
 /*****************************************************************************

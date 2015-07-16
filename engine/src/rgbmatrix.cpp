@@ -189,11 +189,6 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         delete m_algorithm;
         m_algorithm = algo;
-        if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
-        {
-            RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
-            audio->setAudioCapture(doc()->audioInputCapture());
-        }
     }
     emit changed(id());
 }

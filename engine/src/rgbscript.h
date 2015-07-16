@@ -41,7 +41,7 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(const Doc * doc);
+    RGBScript(Doc * doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
 

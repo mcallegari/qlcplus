@@ -116,12 +116,10 @@ bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 
 
 void AudioCapture::stop()
 {
-    if (m_fftMagnitudeMap.isEmpty())
+    while (this->isRunning())
     {
-        qDebug() << "[AudioCapture] No clients need us anymore. Shutting down...";
         m_userStop = true;
-        while (this->isRunning())
-            usleep(10000);
+        usleep(10000);
     }
 }
 
@@ -222,6 +220,8 @@ void AudioCapture::processData()
 
 void AudioCapture::run()
 {
+    qDebug() << Q_FUNC_INFO;
+
     m_userStop = false;
 
     while (!m_userStop)
