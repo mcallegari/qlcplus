@@ -124,19 +124,37 @@ function()
           var pos = ((algo.orientation == 0) ? x : y)
           var fill = false;
           var stepPos = pos;
+          // Create an index of the pixel relative the the direction
           switch (algo.direction)
           {
-            case 1: // Left
+            case 0: /* Right */
+              stepPos = pos;
+              break;
+            case 1: /* Left  */
               stepPos = (span - 1 - pos);
-            case 0: // Right
+              break;
+            case 2: /* In    */
+              if (pos <= center)
+                stepPos =  pos
+              else
+                stepPos = (span - 1 - pos);
+              break;
+            case 3: /* Out   */
+              if (pos <= center)
+                stepPos = (center - pos);
+              else
+                stepPos = (pos - center - (isEven ? 1 : 0)); 
+              break;
+          }
+          // Decide whether or not to fill the pixel
+          switch (algo.direction)
+          {
+            case 0: // Right - no break
+            case 1: // Left
               fill = ((stepPos <= step) && (stepPos > (step - tailSteps)));
             break;
+            case 2: // In - no break
             case 3: // Out
-              if (pos <= center)
-                stepPos = center - pos;
-              else
-                stepPos = pos - center - (isEven ? 1 : 0);
-            case 2: // In
               if (stepPos <= center)
               {
                 fill = ((stepPos <= step) && (stepPos > (step - tailSteps)));
@@ -148,6 +166,7 @@ function()
               }
               break;
           }
+          // Determine the fade for this pixel
           var thisRgb = rgb;
           if (fill && (algo.tailfade == 1))
           {
@@ -157,6 +176,7 @@ function()
             var b = Math.round((rgb & 0x00FF) * util.fadeObject[thisTailStep]);
             thisRgb = (r << 16) + (g << 8) + b;
           }
+          // Populate the matrix
           map[y][x] = (fill ? thisRgb : 0);
           map[y][x] = (fill ? thisRgb : 0);
         }
