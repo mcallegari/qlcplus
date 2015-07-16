@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcsoloframeproperties.cpp
 
   Copyright (c) David Garyga
@@ -37,10 +37,10 @@ void VCSoloFrameProperties::setupSoloframeUi()
 {
     QGroupBox* groupBox = new QGroupBox(tab);
     new QVBoxLayout(groupBox);
-    groupBox->setTitle("Soloframe properties");
+    groupBox->setTitle(tr("Solo Frame properties"));
 
     m_soloframeMixingCb = new QCheckBox(groupBox);
-    m_soloframeMixingCb->setText("Slider mixing");
+    m_soloframeMixingCb->setText(tr("Mix sliders in playback mode"));
     groupBox->layout()->addWidget(m_soloframeMixingCb);
 
     // insert groupBox before the vertical spacer

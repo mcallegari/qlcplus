@@ -1,6 +1,6 @@
 /*
-  Q Light Controller
-  vcframeproperties.h
+  Q Light Controller Plus
+  vcsoloframeproperties.h
 
   Copyright (c) David Garyga
 
