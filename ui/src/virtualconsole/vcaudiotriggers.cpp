@@ -153,9 +153,6 @@ VCAudioTriggers::~VCAudioTriggers()
 
     if (m_inputCapture == capture.data())
     {
-        if (m_inputCapture->isRunning())
-            m_inputCapture->stop();
-
         m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
     }
 }
@@ -188,11 +185,9 @@ void VCAudioTriggers::enableCapture(bool enable)
     {
         if (m_inputCapture->isInitialized() == false)
             m_inputCapture->initialize(44100, 1, 2048);
-        m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
-        if (m_inputCapture->isRunning() == false)
-            m_inputCapture->start();
+        m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());
 
         m_button->blockSignals(true);
         m_button->setChecked(true);
@@ -200,7 +195,6 @@ void VCAudioTriggers::enableCapture(bool enable)
 
         // Invalid ID: Stop every other widget
         emit functionStarting(Function::invalidId());
-
     }
     else
     {
@@ -210,8 +204,6 @@ void VCAudioTriggers::enableCapture(bool enable)
             disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                        this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         }
-        if (m_inputCapture->isRunning())
-            m_inputCapture->stop();
 
         m_button->blockSignals(true);
         m_button->setChecked(false);
@@ -503,9 +495,8 @@ void VCAudioTriggers::editProperties()
         tmpSpectrumBars.append(bar->createCopy());
     int barsNumber = m_spectrumBars.count();
 
-    QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
     AudioTriggersConfiguration atc(this, m_doc, barsNumber,
-                                   capture->maxFrequency());
+                                   AudioCapture::maxFrequency());
 
     if (atc.exec() == QDialog::Rejected)
     {
@@ -519,10 +510,16 @@ void VCAudioTriggers::editProperties()
     m_spectrum->setBarsNumber(m_spectrumBars.count());
     if (barsNumber != m_spectrumBars.count())
     {
-        if (capture.data() == m_inputCapture && m_button->isChecked())
-            capture->unregisterBandsNumber(barsNumber);
-        capture->registerBandsNumber(m_spectrumBars.count());
+        QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
+        bool captureIsNew = m_inputCapture != capture.data();
         m_inputCapture = capture.data();
+
+        if (m_button->isChecked() && captureIsNew)
+            m_inputCapture->unregisterBandsNumber(barsNumber);
+        m_inputCapture->registerBandsNumber(m_spectrumBars.count());
+        if (captureIsNew)
+            connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                    this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
     }
 }
 

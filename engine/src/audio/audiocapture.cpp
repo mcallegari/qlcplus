@@ -48,10 +48,10 @@ AudioCapture::AudioCapture (QObject* parent)
 
 AudioCapture::~AudioCapture()
 {
-    if (m_audioBuffer)
-        delete[] m_audioBuffer;
-    if (m_fftInputBuffer)
-        delete[] m_fftInputBuffer;
+    stop();
+
+    delete[] m_audioBuffer;
+    delete[] m_fftInputBuffer;
 #ifdef HAS_FFTW3
     if (m_fftOutputBuffer)
         fftw_free(m_fftOutputBuffer);
@@ -65,6 +65,7 @@ int AudioCapture::defaultBarsNumber()
 
 void AudioCapture::registerBandsNumber(int number)
 {
+    bool firstBand = m_fftMagnitudeMap.isEmpty();
     if (number > 0 && number < FREQ_SUBBANDS_MAX_NUMBER)
     {
         qDebug() << "[AudioCapture] registering" << number << "bands";
@@ -78,6 +79,8 @@ void AudioCapture::registerBandsNumber(int number)
         else
             m_fftMagnitudeMap[number].m_registerCounter++;
     }
+    if (firstBand)
+        start();
 }
 
 void AudioCapture::unregisterBandsNumber(int number)
@@ -88,6 +91,9 @@ void AudioCapture::unregisterBandsNumber(int number)
         m_fftMagnitudeMap[number].m_registerCounter--;
         if (m_fftMagnitudeMap[number].m_registerCounter == 0)
             m_fftMagnitudeMap.remove(number);
+
+        if (m_fftMagnitudeMap.isEmpty())
+            stop();
     }
 }
 

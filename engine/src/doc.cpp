@@ -258,11 +258,6 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
 void Doc::destroyAudioCapture()
 {
     qDebug() << "Destroying audio capture";
-    if (m_inputCapture)
-    {
-        if (m_inputCapture->isRunning())
-            m_inputCapture->stop();
-    }
     m_inputCapture.clear();
 }
 

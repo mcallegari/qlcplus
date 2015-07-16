@@ -46,8 +46,6 @@ RGBAudio::~RGBAudio()
     if (capture.data() == m_audioInput && m_bandsNumber > 0)
     {
         m_audioInput->unregisterBandsNumber(m_bandsNumber);
-        if (m_audioInput->isRunning())
-            m_audioInput->stop();
     }
 }
 
@@ -147,7 +145,6 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
         if (m_audioInput->isInitialized() == false)
             m_audioInput->initialize(44100, 1, 2048);
         m_audioInput->registerBandsNumber(m_bandsNumber);
-        m_audioInput->start();
         return map;
     }
     if (m_barColors.count() == 0)
@@ -156,7 +153,7 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     double volHeight = (m_volumePower * size.height()) / 0x7FFF;
     for (int x = 0; x < m_spectrumValues.count(); x++)
     {
-        int barHeight =  (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
+        int barHeight = (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
         for (int y = size.height() - barHeight; y < size.height(); y++)
         {
             if (m_barColors.count() == 0)
