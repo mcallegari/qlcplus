@@ -104,10 +104,20 @@ void OlaOutThread::run()
  */
 int OlaOutThread::write_dmx(unsigned int universe, const QByteArray& data)
 {
-    m_data.universe = universe;
-    memcpy(m_data.data, data.data(), data.size());
     if (m_pipe)
+    {
+        const unsigned int src_sz = data.size();
+        Q_ASSERT(src_sz <= sizeof(m_data.data));
+
+        m_data.universe = universe;
+        memcpy(m_data.data, data.data(), src_sz);
+
+        // if a full src buffer was not provided, fill the rest of the dst buffer with zeroes.
+        if (src_sz < (int)sizeof(m_data.data))
+            memset(m_data.data+src_sz, 0, sizeof(m_data.data)-src_sz);
+
         m_pipe->Send((uint8_t*) &m_data, sizeof(m_data));
+    }
     return 0;
 }
 
