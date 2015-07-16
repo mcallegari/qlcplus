@@ -153,7 +153,15 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     double volHeight = (m_volumePower * size.height()) / 0x7FFF;
     for (int x = 0; x < m_spectrumValues.count(); x++)
     {
-        int barHeight = (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
+        int barHeight;
+        if (m_maxMagnitude == 0)
+            barHeight = 0;
+        else
+        {
+            barHeight = (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
+            if (barHeight > size.height())
+                barHeight = size.height();
+        }
         for (int y = size.height() - barHeight; y < size.height(); y++)
         {
             if (m_barColors.count() == 0)
