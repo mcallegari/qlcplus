@@ -2,6 +2,8 @@ qlcplus (4.9.2) stable; urgency=low
 
   * ChannelsGroup: Fix crashes related to invalid channels (David Garyga)
   * ShowManager: Fix some cursor teleportation issues (David Garyga)
+  * Audio Input: Fix crashes when selecting another audio input device while an audio input driven function/widget is running (David Garyga)
+  * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
   * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
   * Plugins/MIDI: fixed Program Change handling on OSX and Windows
 
