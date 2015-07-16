@@ -289,6 +289,7 @@ int SpeedDial::spinValues() const
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
         QString msText = m_ms->text();
+        int msInt = m_ms->value();
         value += (msInt);
     }
     else
