@@ -624,6 +624,12 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
     delete m_fader;
     m_fader = NULL;
 
+    {
+        QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_algorithm != NULL)
+            m_algorithm->postRun();
+    }
+
     Function::postRun(timer, universes);
 }
 

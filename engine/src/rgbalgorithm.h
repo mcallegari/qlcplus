@@ -74,6 +74,9 @@ public:
     /** Get the RGBMap for the given step. */
     virtual RGBMap rgbMap(const QSize& size, uint rgb, int step) = 0;
 
+    /** Release resources that may have been acquired in rgbMap() */
+    virtual void postRun() {}
+
     /** Get the name of the algorithm. */
     virtual QString name() const = 0;
 

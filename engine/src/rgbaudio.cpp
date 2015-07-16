@@ -174,6 +174,22 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     return map;
 }
 
+void RGBAudio::postRun()
+{
+    QMutexLocker locker(&m_mutex);
+
+    QSharedPointer<AudioCapture> capture = doc()->audioInputCapture();
+    if (capture.data() == m_audioInput)
+    {
+        disconnect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                   this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
+        if (m_bandsNumber > 0)
+            m_audioInput->unregisterBandsNumber(m_bandsNumber);
+    }
+    m_audioInput = NULL;
+    m_bandsNumber = -1;
+}
+
 QString RGBAudio::name() const
 {
     return QString("Audio Spectrum");
