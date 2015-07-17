@@ -21,7 +21,8 @@ import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: uniItem
     width: parent.width
     height: 120
@@ -37,7 +38,8 @@ Rectangle {
     property InputPatch iPatch: universe ? universe.inputPatch : null
     property OutputPatch oPatch: universe ? universe.outputPatch : null
 
-    onIPatchChanged: {
+    onIPatchChanged:
+    {
         if (iPatch === null)
             inputPatchesNumber = 0
         else
@@ -45,7 +47,8 @@ Rectangle {
         inDropRect.color = "transparent"
     }
 
-    onOPatchChanged: {
+    onOPatchChanged:
+    {
         if (oPatch === null)
             outputPatchesNumber = 0
         else
@@ -56,47 +59,56 @@ Rectangle {
     signal selected(int index)
 
     // area containing the input patches
-    Column {
+    Column
+    {
         id: inputBox
         x: 14
         anchors.verticalCenter: uniItem.verticalCenter
 
-        Repeater {
+        Repeater
+        {
             model: inputPatchesNumber
-            delegate: InputPatchItem {
-                width: inWireBox.width * 3
-
-                universeID: universe.id
-                patch: universe ? universe.inputPatch : null
-
-                DropArea {
-                    id: profDropTarget
-                    z: 2
+            delegate:
+                InputPatchItem
+                {
                     width: inWireBox.width * 3
-                    height: 80
-                    keys: [ universe ? "profile-" + universe.id : "" ]
 
-                    Rectangle {
-                        id: profDropRect
-                        anchors.fill: parent
-                        color: "transparent"
-                        states: [
-                            State {
-                                when: profDropTarget.containsDrag
-                                PropertyChanges {
-                                    target: profDropRect
-                                    color: "#33FFEC55"
+                    universeID: universe.id
+                    patch: universe ? universe.inputPatch : null
+
+                    DropArea
+                    {
+                        id: profDropTarget
+                        z: 2
+                        width: inWireBox.width * 3
+                        height: 80
+                        keys: [ universe ? "profile-" + universe.id : "" ]
+
+                        Rectangle
+                        {
+                            id: profDropRect
+                            anchors.fill: parent
+                            color: "transparent"
+                            states: [
+                                State
+                                {
+                                    when: profDropTarget.containsDrag
+                                    PropertyChanges
+                                    {
+                                        target: profDropRect
+                                        color: "#33FFEC55"
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
                 }
-            }
         }
     }
 
     // Input patches wires box
-    PatchWireBox {
+    PatchWireBox
+    {
         id: inWireBox
         x: uniBox.x - width + 6
         width: wireBoxWidth
@@ -107,7 +119,8 @@ Rectangle {
     }
 
     // Input patch drop area
-    DropArea {
+    DropArea
+    {
         id: inputDropTarget
         x: inputBox.x
         y: 2
@@ -118,14 +131,17 @@ Rectangle {
         // an input plugin on output and vice-versa
         keys: [ universe ? "input-" + universe.id : "" ]
 
-        Rectangle {
+        Rectangle
+        {
             id: inDropRect
             anchors.fill: parent
             color: "transparent"
             states: [
-                State {
+                State
+                {
                     when: inputDropTarget.containsDrag
-                    PropertyChanges {
+                    PropertyChanges
+                    {
                         target: inDropRect
                         color: "#3356FF56"
                     }
@@ -135,22 +151,26 @@ Rectangle {
     }
 
     // representation of the central Universe block
-    Rectangle {
+    Rectangle
+    {
         id: uniBox
         anchors.centerIn: parent
         width: 200
         height: 100
         radius: 5
         //color: "#1C2255"
-        gradient: Gradient {
-            id: bgGradient
-            GradientStop { position: 0 ; color: "#1C2255" }
-            GradientStop { position: 1 ; color: "#2B3483" }
-        }
+        gradient:
+            Gradient
+            {
+                id: bgGradient
+                GradientStop { position: 0 ; color: "#1C2255" }
+                GradientStop { position: 1 ; color: "#2B3483" }
+            }
         border.width: 2
         border.color: "#111"
 
-        RobotoText {
+        RobotoText
+        {
             height: parent.height
             width: parent.width
             label: universe ? universe.name : ""
@@ -160,7 +180,8 @@ Rectangle {
     }
 
     // Output patches wires box
-    PatchWireBox {
+    PatchWireBox
+    {
         id: outWireBox
         x: uniBox.x + uniBox.width - 6
         width: wireBoxWidth
@@ -171,25 +192,30 @@ Rectangle {
     }
 
     // area containing the output patches
-    Column {
+    Column
+    {
         id: outputBox
         x: outWireBox.x + outWireBox.width - 8
         anchors.verticalCenter: uniItem.verticalCenter
 
-        Repeater {
+        Repeater
+        {
             id: outRpt
             model: outputPatchesNumber
-            delegate: OutputPatchItem {
-                width: outWireBox.width * 3
+            delegate:
+                OutputPatchItem
+                {
+                    width: outWireBox.width * 3
 
-                universeID: universe.id
-                patch: universe ? universe.outputPatch : null
-            }
+                    universeID: universe.id
+                    patch: universe ? universe.outputPatch : null
+                }
         }
     }
 
     // Output patch drop area
-    DropArea {
+    DropArea
+    {
         id: outputDropTarget
         x: outWireBox.x + 6
         y: 2
@@ -200,14 +226,17 @@ Rectangle {
         // an input plugin on output and vice-versa
         keys: [ universe ? "output-" + universe.id : "" ]
 
-        Rectangle {
+        Rectangle
+        {
             id: outDropRect
             anchors.fill: parent
             color: "transparent"
             states: [
-                State {
+                State
+                {
                     when: outputDropTarget.containsDrag
-                    PropertyChanges {
+                    PropertyChanges
+                    {
                         target: outDropRect
                         color: "#3356FF56"
                     }
@@ -218,9 +247,11 @@ Rectangle {
     }
 
     // Global mouse area to select this Universe item
-    MouseArea {
+    MouseArea
+    {
         anchors.fill: parent
-        onClicked: {
+        onClicked:
+        {
             if (isSelected == false)
             {
                 isSelected = true
@@ -231,7 +262,8 @@ Rectangle {
     }
 
     // items divider
-    Rectangle {
+    Rectangle
+    {
         width: parent.width
         height: 2
         y: parent.height - 2

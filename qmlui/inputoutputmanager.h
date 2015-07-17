@@ -66,14 +66,8 @@ public slots:
 private:
     Doc *m_doc;
     InputOutputMap* m_ioMap;
-    /** List of the current Fixtures in Doc */
+    /** List of references to the current Universes in Doc */
     QList<Universe *> m_universeList;
-    /** List of the available input sources of a universe */
-    QList<QObject*> m_inputSources;
-    /** List of the available input profiles of a universe */
-    QList<QObject*> m_inputProfiles;
-    /** List of the available output sources of a universe */
-    QList<QObject*> m_outputSources;
 
     QQuickItem *m_selectedItem;
     int m_selectedUniverseIndex;

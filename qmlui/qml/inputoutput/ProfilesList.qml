@@ -19,14 +19,16 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: profilesContainer
     anchors.fill: parent
     color: "transparent"
 
     property int universeIndex: 0
 
-    onUniverseIndexChanged: {
+    onUniverseIndexChanged:
+    {
         profListView.model = ioManager.universeInputProfiles(universeIndex)
     }
 
@@ -35,17 +37,20 @@ Rectangle {
         profListView.model = ioManager.universeInputProfiles(universeIndex)
     }
 
-    ListView {
+    ListView
+    {
         id: profListView
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         delegate:
-            Item {
+            Item
+            {
                 id: root
                 height: 60
                 width: profilesContainer.width
 
-                MouseArea {
+                MouseArea
+                {
                     id: delegateRoot
                     width: profilesContainer.width
                     height: 60
@@ -54,7 +59,8 @@ Rectangle {
                     drag.threshold: 30
 
                     onPressed: profileItem.color = "#444"
-                    onReleased: {
+                    onReleased:
+                    {
                         profileItem.x = 3
                         profileItem.y = 0
 
@@ -71,7 +77,8 @@ Rectangle {
                         }
                     }
 
-                    PluginDragItem {
+                    PluginDragItem
+                    {
                         id: profileItem
                         x: 3
 
@@ -90,7 +97,8 @@ Rectangle {
                         Drag.keys: [ "profile-" + universeIndex ]
 
                         // line divider
-                        Rectangle {
+                        Rectangle
+                        {
                             width: parent.width - 6
                             height: 1
                             y: parent.height - 1

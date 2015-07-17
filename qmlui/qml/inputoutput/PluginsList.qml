@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: pluginsContainer
     anchors.fill: parent
     color: "transparent"
@@ -41,17 +42,20 @@ Rectangle {
         }
     }
 
-    ListView {
+    ListView
+    {
         id: uniListView
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         delegate:
-            Item {
+            Item
+            {
                 id: root
                 height: 60
                 width: pluginsContainer.width
 
-                MouseArea {
+                MouseArea
+                {
                     id: delegateRoot
                     width: pluginsContainer.width
                     height: 60
@@ -60,7 +64,8 @@ Rectangle {
                     drag.threshold: 30
 
                     onPressed: pluginItem.color = "#444"
-                    onReleased: {
+                    onReleased:
+                    {
                         pluginItem.x = 3
                         pluginItem.y = 0
 
@@ -88,7 +93,8 @@ Rectangle {
                         }
                     }
 
-                    PluginDragItem {
+                    PluginDragItem
+                    {
                         id: pluginItem
                         x: 3
 
@@ -108,7 +114,8 @@ Rectangle {
                         Drag.keys: [ dragKey ]
 
                         // line divider
-                        Rectangle {
+                        Rectangle
+                        {
                             width: parent.width - 6
                             height: 1
                             y: parent.height - 1

@@ -30,7 +30,7 @@ Rectangle
     border.color: "#666"
     border.width: 2
 
-    property bool dmxValues: true
+    property bool dmxValues: false
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 

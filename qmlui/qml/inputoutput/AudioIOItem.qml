@@ -74,7 +74,8 @@ Rectangle
     }
 
     // divider
-    Rectangle {
+    Rectangle
+    {
         width: parent.width
         height: 2
         y: parent.height - 2
