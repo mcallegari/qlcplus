@@ -30,6 +30,10 @@
 #define SETTINGS_EMBEDDED "OlaIO/embedded"
 #define UNIVERSE_COUNT 4
 
+#ifndef QLC_OLA_FIRST_UNIVERSE
+#define QLC_OLA_FIRST_UNIVERSE 1
+#endif
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -54,9 +58,8 @@ void OlaIO::init()
     m_thread = NULL;
     ola::InitLogging(ola::OLA_LOG_WARN, new ola::QLCLogDestination());
     // TODO: load this from a savefile at some point
-    // For now, start counting at OLA universe #0
     for (unsigned int i = 0; i < UNIVERSE_COUNT; ++i)
-        m_outputs.append(i);
+        m_outputs.append(i + QLC_OLA_FIRST_UNIVERSE);
 
     bool es = false;
     QSettings settings;
