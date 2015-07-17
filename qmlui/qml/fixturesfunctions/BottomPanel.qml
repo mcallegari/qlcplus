@@ -123,7 +123,7 @@ Rectangle
             hoverEnabled: true
             cursorShape: Qt.OpenHandCursor
             drag.target: bottomSidePanel
-            drag.axis: Drag.yAxis
+            drag.axis: Drag.YAxis
             drag.minimumY: collapseHeight
 
             onPositionChanged:

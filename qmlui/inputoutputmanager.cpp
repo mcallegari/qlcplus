@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QDebug>
 
 #include "inputoutputmanager.h"
-#include "inputoutputobject.h"
 #include "audiorenderer_qt.h"
 #include "audiocapture_qt.h"
 #include "qlcioplugin.h"
@@ -53,6 +53,70 @@ QQmlListProperty<Universe> InputOutputManager::universes()
 QStringList InputOutputManager::universeNames() const
 {
     return m_ioMap->universeNames();
+}
+
+QVariant InputOutputManager::audioInputDevice()
+{
+    QSettings settings;
+    QString devName = tr("Default device");
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        devName = var.toString();
+
+    if (var.isValid() == false || devName == tr("Default device"))
+    {
+        QVariantMap devMap;
+        devMap.insert("name", tr("Default device"));
+        devMap.insert("privateName", "__qlcplusdefault__");
+        return QVariant::fromValue(devMap);
+    }
+
+    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_INPUT &&
+            info.deviceName == devName)
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            return QVariant::fromValue(devMap);
+        }
+    }
+
+    return QVariant();
+}
+
+QVariant InputOutputManager::audioOutputDevice()
+{
+    QSettings settings;
+    QString devName = tr("Default device");
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        devName = var.toString();
+
+    if (var.isValid() == false || devName == tr("Default device"))
+    {
+        QVariantMap devMap;
+        devMap.insert("name", tr("Default device"));
+        devMap.insert("privateName", "__qlcplusdefault__");
+        return QVariant::fromValue(devMap);
+    }
+
+    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT &&
+            info.deviceName == devName)
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            return QVariant::fromValue(devMap);
+        }
+    }
+
+    return QVariant();
 }
 
 QVariant InputOutputManager::audioInputSources()

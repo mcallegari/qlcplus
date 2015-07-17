@@ -35,12 +35,18 @@ class InputOutputManager : public QObject
 
     Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
     Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
+    Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
+    Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
 
 public:
     InputOutputManager(Doc *doc, QObject *parent = 0);
 
     QQmlListProperty<Universe> universes();
     QStringList universeNames() const;
+
+    QVariant audioInputDevice();
+    QVariant audioOutputDevice();
+
     Q_INVOKABLE QVariant audioInputSources();
     Q_INVOKABLE QVariant audioOutputSources();
 
@@ -60,6 +66,8 @@ private:
 
 signals:
     void universesChanged();
+    void audioInputDeviceChanged();
+    void audioOutputDeviceChanged();
 
 public slots:
 

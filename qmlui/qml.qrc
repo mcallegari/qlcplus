@@ -59,6 +59,7 @@
         <file alias="UniverseIOItem.qml">qml/inputoutput/UniverseIOItem.qml</file>
         <file alias="AudioIOItem.qml">qml/inputoutput/AudioIOItem.qml</file>
         <file alias="AudioCardsList.qml">qml/inputoutput/AudioCardsList.qml</file>
+        <file alias="AudioDeviceItem.qml">qml/inputoutput/AudioDeviceItem.qml</file>
         <file alias="PluginsList.qml">qml/inputoutput/PluginsList.qml</file>
         <file alias="ProfilesList.qml">qml/inputoutput/ProfilesList.qml</file>
         <file alias="PluginDragItem.qml">qml/inputoutput/PluginDragItem.qml</file>
