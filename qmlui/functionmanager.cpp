@@ -265,7 +265,11 @@ void FunctionManager::setEditorFunction(quint32 fID)
         }
         break;
     }
-    emit functionEditingStarted();
+
+    if ((int)fID == -1)
+        emit functionEditingChanged(false);
+    else
+        emit functionEditingChanged(true);
 }
 
 void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
@@ -286,6 +290,12 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
     }
     else
         delete newScene;
+}
+
+void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
+{
+    if (m_sceneEditor->sceneID() != Function::invalidId())
+        m_sceneEditor->setChannelValue(fxID, channel, value);
 }
 
 void FunctionManager::slotDocLoaded()

@@ -28,8 +28,6 @@ Rectangle
     width: channelsRow.width
     height: parent.height
     color: "#222"
-    //border.width: 1
-    //border.color: "#aaa"
 
     onWidthChanged: consoleRoot.sizeChanged(width, height)
     onHeightChanged:
@@ -63,6 +61,13 @@ Rectangle
             else
                 channelsRpt.itemAt(i).dmxValue = (values[i] / 255) * 100
         }
+    }
+
+    function setChannelValue(channel, value)
+    {
+        if (showEnablers == true)
+            channelsRpt.itemAt(channel).isEnabled = true
+        channelsRpt.itemAt(channel).dmxValue = value
     }
 
     Column
@@ -136,12 +141,15 @@ Rectangle
 
                         property alias dmxValue: slider.value
                         property bool dmxMode: true
+                        property bool isEnabled: showEnablers ? false : true
 
                         onDmxValueChanged:
                         {
                             var val = dmxMode ? dmxValue : dmxValue * 2.55
                             if (sceneConsole == false)
                                 fixtureManager.setChannelValue(fixtureObj.id, index, val)
+                            else
+                                sceneEditor.setChannelValue(fixtureObj.id, index, val)
                         }
 
                         // This is the black overlay to "emulate" a disabled channel
@@ -154,7 +162,7 @@ Rectangle
                             height: chColumn.height - 16
                             color: "black"
                             opacity: 0.7
-                            visible: showEnablers ? !enableCheckBox.isEnabled : false
+                            visible: showEnablers ? !isEnabled : false
                         }
 
                         ColumnLayout
@@ -177,11 +185,20 @@ Rectangle
                                 border.color: isEnabled ? "white" : "#555"
                                 Layout.alignment: Qt.AlignCenter
 
-                                property bool isEnabled: false
-
-                                MouseArea {
+                                MouseArea
+                                {
                                     anchors.fill: parent
-                                    onClicked: enableCheckBox.isEnabled = !enableCheckBox.isEnabled
+                                    onClicked:
+                                    {
+                                        isEnabled = !isEnabled
+                                        if (sceneConsole == true)
+                                        {
+                                            if (isEnabled == true)
+                                                sceneEditor.setChannelValue(fixtureObj.id, index, 0)
+                                            else
+                                                sceneEditor.unsetChannel(fixtureObj.id, index)
+                                        }
+                                    }
                                 }
                             }
 
@@ -202,7 +219,7 @@ Rectangle
                                 Layout.alignment: Qt.AlignCenter
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
-                                enabled: showEnablers ? enableCheckBox.isEnabled : true
+                                enabled: showEnablers ? isEnabled : true
 
                                 Component.onCompleted:
                                 {
@@ -211,7 +228,7 @@ Rectangle
                                         if (sceneEditor.hasChannel(fixtureObj.id, index) === true)
                                         {
                                             if (showEnablers)
-                                                enableCheckBox.isEnabled = true
+                                                isEnabled = true
                                             slider.value = sceneEditor.channelValue(fixtureObj.id, index)
                                         }
                                     }

@@ -89,7 +89,7 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
 
 void MainViewDMX::updateFixture(Fixture *fixture)
 {
-    if (m_enabled == false || fixture == NULL)
+    if (isEnabled() == false || fixture == NULL)
         return;
 
     if (m_itemsMap.contains(fixture->id()) == false)
@@ -119,6 +119,15 @@ void MainViewDMX::updateFixtureSelection(QList<quint32>fixtures)
         else
             fxItem->setProperty("isSelected", false);
     }
+}
+
+void MainViewDMX::updateFixtureSelection(quint32 fxID, bool enable)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap[fxID];
+    fxItem->setProperty("isSelected", enable);
 }
 
 void MainViewDMX::slotRefreshView()

@@ -25,7 +25,7 @@ Rectangle
 {
     id: posToolRoot
     width: 200
-    height: 300
+    height: 340
     color: "#333"
     border.color: "#666"
     border.width: 2
@@ -42,8 +42,34 @@ Rectangle
 
     Rectangle
     {
+        id: posToolBar
+        width: parent.width
+        height: 32
+        z: 10
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0 ; color: "#222" }
+                GradientStop { position: 1 ; color: "#111" }
+            }
+
+        RobotoText
+        {
+            id: titleBox
+            y: 7
+            height: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            label: qsTr("Position")
+            fontSize: 15
+            fontBold: true
+        }
+    }
+
+    Rectangle
+    {
         id: rotateButton
         x: parent.width - 40
+        y: 32
         width: 40
         height: 40
         z: 2
@@ -79,7 +105,7 @@ Rectangle
         width: posToolRoot.width - 20
         height: width
         x: 10
-        y: 10
+        y: 45
         rotation: 0
 
         antialiasing: true
@@ -224,7 +250,7 @@ Rectangle
     Row
     {
         x: 10
-        y: gCanvas.height + 20
+        y: gCanvas.y + gCanvas.height + 20
         width: parent.width - 20
         height: 40
         spacing: 5
@@ -292,7 +318,7 @@ Rectangle
     Row
     {
         x: 10
-        y: gCanvas.height + 65
+        y: gCanvas.y + gCanvas.height + 65
         width: parent.width - 20
         height: 40
         spacing: 5

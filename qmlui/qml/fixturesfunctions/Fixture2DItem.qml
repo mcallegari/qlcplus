@@ -19,7 +19,8 @@
 
 import QtQuick 2.2
 
-Rectangle {
+Rectangle
+{
     id: fixtureItem
     property int fixtureID: fixtureManager.invalidFixture()
     property string fixtureName: ""
@@ -69,6 +70,7 @@ Rectangle {
 
     function setHeadIntensity(headIndex, intensity)
     {
+        console.log("headIdx: " + headIndex + ", int: " + intensity)
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
 
@@ -88,8 +90,8 @@ Rectangle {
     width: (gridCellSize * mmWidth) / gridUnits
     height: (gridCellSize * mmHeight) / gridUnits
 
-    color: "#2A2A2A";
-    border.width: 1
+    color: "#2A2A2A"
+    border.width: isSelected ? 2 : 1
     border.color: isSelected ? "yellow" : "#AAA"
 
     Drag.active: fxMouseArea.drag.active

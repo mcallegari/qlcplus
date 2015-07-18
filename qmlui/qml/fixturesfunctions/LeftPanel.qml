@@ -138,7 +138,9 @@ Rectangle
                 IntensityTool
                 {
                     id: intTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -158,7 +160,9 @@ Rectangle
                 ColorTool
                 {
                     id: colTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -178,7 +182,9 @@ Rectangle
                 PositionTool
                 {
                     id: posTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -199,7 +205,9 @@ Rectangle
                 PresetsTool
                 {
                     id: cWheelTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -220,7 +228,9 @@ Rectangle
                 PresetsTool
                 {
                     id: gobosTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                     goboPresets: true
                 }

@@ -39,6 +39,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_editingEnabled(false)
 {
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
@@ -60,8 +61,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-    connect(m_functionManager, SIGNAL(functionEditingStarted()),
-            this, SLOT(updateContexts()));
+    connect(m_functionManager, SIGNAL(functionEditingChanged(bool)),
+            this, SLOT(slotFunctionEditingChanged(bool)));
 }
 
 void ContextManager::enableContext(QString context, bool enable)
@@ -101,6 +102,7 @@ void ContextManager::updateContexts()
     m_channelsMap.clear();
     m_source->unsetAll();
     m_selectedFixtures.clear();
+    m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
 }
@@ -123,9 +125,9 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     }
 
     if (m_DMXView->isEnabled())
-        m_DMXView->updateFixtureSelection(m_selectedFixtures);
+        m_DMXView->updateFixtureSelection(fxID, enable);
     if (m_2DView->isEnabled())
-        m_2DView->updateFixtureSelection(m_selectedFixtures);
+        m_2DView->updateFixtureSelection(fxID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
@@ -138,13 +140,9 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         quint32 chType = it.key();
         SceneValue sv = it.value();
         if (enable)
-        {
             m_channelsMap.insert(chType, sv);
-        }
         else
-        {
             m_channelsMap.remove(chType, sv);
-        }
     }
 }
 
@@ -226,8 +224,12 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
-    SceneValue sv(fxID, channel);
-    m_source->set(sv.fxi, sv.channel, (uchar)value);
+    //SceneValue sv(fxID, channel);
+    //m_source->set(sv.fxi, sv.channel, (uchar)value);
+    if (m_editingEnabled == false)
+        m_source->set(fxID, channel, (uchar)value);
+    else
+        m_functionManager->setChannelValue(fxID, channel, (uchar)value);
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
@@ -238,7 +240,12 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
     foreach(SceneValue sv, svList)
     {
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
-            m_source->set(sv.fxi, sv.channel, (uchar)value);
+        {
+            if (m_editingEnabled == false)
+                m_source->set(sv.fxi, sv.channel, (uchar)value);
+            else
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
+        }
     }
 
     /** Monitor the changes from/to 0 */
@@ -270,8 +277,6 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
     slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
-
-
 }
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
@@ -311,4 +316,12 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
         }
     }
 }
+
+void ContextManager::slotFunctionEditingChanged(bool status)
+{
+    updateContexts();
+    m_editingEnabled = status;
+}
+
+
 

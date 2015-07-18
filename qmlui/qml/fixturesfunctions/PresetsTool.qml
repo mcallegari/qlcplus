@@ -37,8 +37,10 @@ Rectangle
     {
         if (visible === true)
         {
-            selectedIndex = -1
+            selectedIndex = 0
+            prList.model = null // force reload
             prList.model = goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
+            capRepeater.model = null // force reload
             capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
         }
     }

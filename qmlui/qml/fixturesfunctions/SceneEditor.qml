@@ -28,9 +28,17 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property int functionID: -1
+    property int functionID
+    property int selectedFixtureIndex: -1
 
     Component.onDestruction: functionManager.setEditorFunction(-1)
+
+    function selectFixture(index)
+    {
+        if (selectedFixtureIndex != -1)
+        sfxList.contentItem.children[selectedFixtureIndex].isSelected = false
+        selectedFixtureIndex = index
+    }
 
     Column
     {
@@ -86,6 +94,7 @@ Rectangle
 
         ListView
         {
+            id: sfxList
             width: seContainer.width
             height: seContainer.height - 40
             y: 40
@@ -98,6 +107,12 @@ Rectangle
                     width: seContainer.width
 
                     Component.onCompleted: contextManager.setFixtureSelection(cRef.id, true)
+                    Component.onDestruction: contextManager.setFixtureSelection(cRef.id, false)
+                    onClicked:
+                    {
+                        sceneEditor.setFixtureSelection(cRef.id)
+                        seContainer.selectFixture(index)
+                    }
                 }
         }
     }

@@ -378,4 +378,15 @@ void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
     }
 }
 
+void MainView2D::updateFixtureSelection(quint32 fxID, bool enable)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap[fxID];
+    fxItem->setProperty("isSelected", enable);
+}
+
+
+
 

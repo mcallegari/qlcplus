@@ -25,22 +25,55 @@ Rectangle
     id: sfcContainer
     anchors.fill: parent
     color: "transparent"
+    objectName: "sceneFixtureConsole"
+
+    Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
+    Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
+
+    function setFixtureChannel(index, channel, value)
+    {
+        if (index < 0 || index >= fixtureList.count)
+            return;
+
+        fixtureList.contentItem.children[index].setChannelValue(channel, value)
+    }
+
+    function scrollToItem(index)
+    {
+        fixtureList.positionViewAtIndex(index, ListView.Beginning)
+    }
 
     ListView
     {
+        id: fixtureList
         anchors.fill: parent
         orientation: ListView.Horizontal
         model: sceneEditor.fixtures
         boundsBehavior: Flickable.StopAtBounds
 
         delegate:
-            FixtureConsole
+            Rectangle
             {
-                fixtureObj: modelData
                 height: parent.height
-                color: index % 2 ? "#202020" : "#303030"
-                showEnablers: true
-                sceneConsole: true
+                width: fxConsole.width + 2
+
+                FixtureConsole
+                {
+                    id: fxConsole
+                    fixtureObj: modelData
+                    height: parent.height
+                    color: index % 2 ? "#202020" : "#303030"
+                    showEnablers: true
+                    sceneConsole: true
+                }
+                // Fixture divider
+                Rectangle
+                {
+                    x: fxConsole.width
+                    height: parent.height
+                    width: 2
+                    color: "#aaa"
+                }
             }
     }
 }

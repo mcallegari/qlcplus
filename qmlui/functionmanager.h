@@ -79,6 +79,8 @@ public:
 
     void dumpOnNewScene(QList<SceneValue> list);
 
+    void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+
 signals:
     void functionsListChanged();
     void sceneCountChanged();
@@ -90,7 +92,7 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
-    void functionEditingStarted();
+    void functionEditingChanged(bool enable);
 
 public slots:
     void slotDocLoaded();

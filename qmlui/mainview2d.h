@@ -48,6 +48,8 @@ public:
 
     void updateFixtureSelection(QList<quint32>fixtures);
 
+    void updateFixtureSelection(quint32 fxID, bool enable);
+
 protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();

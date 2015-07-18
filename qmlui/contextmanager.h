@@ -62,15 +62,22 @@ public slots:
     /** Resets the data structures and update the currently enabled views */
     void updateContexts();
 
-signals:
-
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
+
+    /** Invoked by the QLC+ engine to inform the UI that the Universe at $idx
+     *  has changed */
     void slotUniversesWritten(int idx, const QByteArray& ua);
+
+    /** Invoked when Function editing begins or ends in the Function Manager.
+     *  Context Manager doesn't care much about Functions, it just needs
+     *  to know if it has to set channel values on the GenericDMXSource or
+     *  forward them to the Function Manager */
+    void slotFunctionEditingChanged(bool status);
 
 private:
     /** Reference to the QML view root */
@@ -83,10 +90,12 @@ private:
     FunctionManager *m_functionManager;
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
+    /** A flag indicating if a Function is currently being edited */
+    bool m_editingEnabled;
     /** A multihash containing the selected fixtures' capabilities by channel type */
     /** The hash is: int (channel type) , SceneValue (Fixture ID and channel) */
     QMultiHash<int, SceneValue> m_channelsMap;
-    /** Reference to a DMX source used to handle Scenes dump */
+    /** Reference to a Generic DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;
     /** Reference to the DMX Preview context */
     MainViewDMX *m_DMXView;

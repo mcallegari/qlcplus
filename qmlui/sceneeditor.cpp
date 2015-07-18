@@ -30,6 +30,7 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
     , m_scene(NULL)
+    , m_sceneConsole(NULL)
     , m_source(NULL)
 {
     m_source = new GenericDMXSource(m_doc);
@@ -43,8 +44,9 @@ void SceneEditor::setSceneID(quint32 id)
     {
         m_scene = NULL;
         m_source->unsetAll();
-        //m_source->setOutputEnabled(false);
+        m_source->setOutputEnabled(false);
         m_fixtures.clear();
+        m_fixtureIDs.clear();
         if (bottomPanel != NULL)
             bottomPanel->setProperty("visible", false);
         return;
@@ -105,6 +107,16 @@ void SceneEditor::setPreview(bool enable)
     m_source->setOutputEnabled(enable);
 }
 
+void SceneEditor::sceneConsoleLoaded(bool status)
+{
+    if (status == false)
+        m_sceneConsole = NULL;
+    else
+    {
+        m_sceneConsole = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("sceneFixtureConsole"));
+    }
+}
+
 bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
 {
     if (m_scene == NULL)
@@ -121,23 +133,72 @@ double SceneEditor::channelValue(quint32 fxID, quint32 channel)
     return (double)m_scene->value(fxID, channel);
 }
 
+void SceneEditor::setChannelValue(quint32 fxID, quint32 channel, uchar value)
+{
+    if (m_scene == NULL)
+        return;
+
+    bool blindMode = false;
+    if (m_source->isOutputEnabled() == false)
+        blindMode = true;
+
+    m_scene->setValue(SceneValue(fxID, channel, value), blindMode, false);
+
+    if (m_fixtureIDs.contains(fxID) == false)
+        updateFixtureList();
+    else
+    {
+        if (m_sceneConsole)
+        {
+            int fxIndex = m_fixtureIDs.indexOf(fxID);
+            QMetaObject::invokeMethod(m_sceneConsole, "setFixtureChannel",
+                    Q_ARG(QVariant, fxIndex),
+                    Q_ARG(QVariant, channel),
+                    Q_ARG(QVariant, value));
+        }
+    }
+    if (blindMode == false)
+        m_source->set(fxID, channel,value);
+}
+
+void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
+{
+    if (m_scene == NULL || m_fixtureIDs.contains(fxID) == false)
+        return;
+
+    m_scene->unsetValue(fxID, channel);
+    if (m_source->isOutputEnabled() == true)
+        m_source->unset(fxID, channel);
+}
+
+void SceneEditor::setFixtureSelection(quint32 fxID)
+{
+    if (m_scene == NULL || m_sceneConsole == NULL ||
+        m_fixtureIDs.contains(fxID) == false)
+            return;
+
+    int fxIndex = m_fixtureIDs.indexOf(fxID);
+    QMetaObject::invokeMethod(m_sceneConsole, "scrollToItem",
+            Q_ARG(QVariant, fxIndex));
+}
+
 void SceneEditor::updateFixtureList()
 {
     if(m_scene == NULL)
         return;
 
-    QList<quint32> fxIDs;
+    m_fixtureIDs.clear();
     m_fixtures.clear();
 
     foreach(SceneValue sv, m_scene->values())
     {
-        if (fxIDs.contains(sv.fxi) == false)
+        if (m_fixtureIDs.contains(sv.fxi) == false)
         {
             Fixture *fixture = m_doc->fixture(sv.fxi);
             if(fixture == NULL)
                 continue;
             m_fixtures.append(QVariant::fromValue(fixture));
-            fxIDs.append(sv.fxi);
+            m_fixtureIDs.append(sv.fxi);
         }
     }
     emit fixturesChanged();
