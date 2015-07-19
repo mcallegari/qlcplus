@@ -26,21 +26,36 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
     objectName: "sceneFixtureConsole"
+    property int currentSelIndex: -1
 
     Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
     Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
 
-    function setFixtureChannel(index, channel, value)
+    function setFixtureChannel(fxIdx, channel, value)
     {
-        if (index < 0 || index >= fixtureList.count)
+        console.log("[setFixtureChannel] fxIdx: " + fxIdx + ", count: " + fixtureList.count)
+        if (fxIdx < 0 || fxIdx >= fixtureList.count)
             return;
 
-        fixtureList.contentItem.children[index].setChannelValue(channel, value)
+        fixtureList.currentIndex = fxIdx
+        fixtureList.currentItem.fConsole.setChannelValue(channel, value)
+        fixtureList.currentIndex = -1
+        //fixtureList.contentItem.children[fxIdx].setChannelValue(channel, value)
     }
 
-    function scrollToItem(index)
+    function scrollToItem(fxIdx)
     {
-        fixtureList.positionViewAtIndex(index, ListView.Beginning)
+        console.log("[scrollToItem] fxIdx: " + fxIdx)
+        if (currentSelIndex != -1)
+        {
+            fixtureList.currentIndex = currentSelIndex
+            fixtureList.currentItem.isSelected = false
+        }
+        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
+        fixtureList.currentIndex = fxIdx
+        fixtureList.currentItem.isSelected = true
+        fixtureList.currentIndex = -1
+        currentSelIndex = fxIdx
     }
 
     ListView
@@ -50,29 +65,36 @@ Rectangle
         orientation: ListView.Horizontal
         model: sceneEditor.fixtures
         boundsBehavior: Flickable.StopAtBounds
+        highlightFollowsCurrentItem: false
 
         delegate:
             Rectangle
             {
                 height: parent.height
-                width: fxConsole.width + 2
+                width: fxConsole.width + 4
+                property var fConsole: fxConsole
+                property bool isSelected: false
+                color: "black"
 
                 FixtureConsole
                 {
                     id: fxConsole
+                    x: 2
                     fixtureObj: modelData
                     height: parent.height
-                    color: index % 2 ? "#202020" : "#303030"
+                    color: index % 2 ? "#202020" : "#404040"
                     showEnablers: true
                     sceneConsole: true
                 }
                 // Fixture divider
                 Rectangle
                 {
-                    x: fxConsole.width
-                    height: parent.height
+                    anchors.fill: parent
                     width: 2
-                    color: "#aaa"
+                    color: "transparent"
+                    radius: 3
+                    border.width: 2
+                    border.color: isSelected ? "#0978FF" : "transparent"
                 }
             }
     }
