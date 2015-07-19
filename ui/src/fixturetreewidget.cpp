@@ -185,7 +185,10 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     }
 
     if (m_uniColumn > 0)
+    {
         item->setText(m_uniColumn, QString("%1").arg(fixture->universe() + 1));
+        item->setTextAlignment(m_uniColumn, Qt::AlignHCenter | Qt::AlignVCenter);
+    }
 
     if (m_addressColumn)
     {
