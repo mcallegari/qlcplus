@@ -134,16 +134,9 @@ void MonitorGraphicsView::updateFixture(quint32 id)
         height = mode->physical().height();
     }
 
-    if (fxi->isDimmer())
-    {
-        width = fxi->heads() * 200;
-        height = 200;
-    }
-    else
-    {
-        if (width == 0) width = 300;
-        if (height == 0) height = 300;
-    }
+    if (width == 0) width = 300;
+    if (height == 0) height = 300;
+
 
     MonitorFixtureItem *item = m_fixtures[id];
     item->setSize(QSize((width * m_cellPixels) / m_unitValue, (height * m_cellPixels) / m_unitValue));

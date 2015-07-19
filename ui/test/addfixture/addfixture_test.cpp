@@ -177,7 +177,7 @@ void AddFixture_Test::initialNoFixture()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString(/*KXMLFixtureGeneric*/));
 
     QVERIFY(af.m_universeCombo->isEnabled() == true);
     QCOMPARE(af.m_universeCombo->currentIndex(), 0);
@@ -213,8 +213,8 @@ void AddFixture_Test::initialDimmer()
 
     AddFixture af(NULL, m_doc, fxi);
     QVERIFY(m_doc == af.m_doc);
-    QVERIFY(af.fixtureDef() == NULL);
-    QVERIFY(af.mode() == NULL);
+    QVERIFY(af.fixtureDef() != NULL);
+    QVERIFY(af.mode() != NULL);
     QVERIFY(af.name() == QString("My dimmer"));
     QVERIFY(af.address() == 484);
     QVERIFY(af.universe() == 2);
@@ -268,7 +268,7 @@ void AddFixture_Test::initialDimmer()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString("6 Channel"));
 
     QVERIFY(af.m_universeCombo->isEnabled() == true);
     QCOMPARE(af.m_universeCombo->currentIndex(), 2);
@@ -450,7 +450,7 @@ void AddFixture_Test::selectionGeneric()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString(/*KXMLFixtureGeneric*/));
     QVERIFY(af.fixtureDef() == NULL);
     QVERIFY(af.mode() == NULL);
 

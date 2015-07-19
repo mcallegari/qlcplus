@@ -232,7 +232,12 @@ void FixtureRemap::slotAddTargetFixture()
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
-            fxi->setChannels(channels);
+        {
+            fixtureDef = fxi->genericDimmerDef(channels);
+            mode = fxi->genericDimmerMode(fixtureDef, channels);
+            fxi->setFixtureDefinition(fixtureDef, mode);
+            //fxi->setChannels(channels);
+        }
 
         m_targetDoc->addFixture(fxi);
 

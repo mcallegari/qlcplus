@@ -164,7 +164,7 @@ void ConsoleChannel::init()
     m_label->setWordWrap(true);
 
     /* Set tooltip */
-    if (fxi == NULL || fxi->isDimmer() == true)
+    if (fxi == NULL)
     {
         setToolTip(tr("Intensity"));
     }
@@ -351,8 +351,7 @@ void ConsoleChannel::initMenu()
         m_menu->addSeparator();
 
         // Initialize the preset menu only for intelligent fixtures
-        if (fxi->isDimmer() == false)
-            initCapabilityMenu(ch);
+        initCapabilityMenu(ch);
     }
 }
 

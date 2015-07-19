@@ -996,7 +996,12 @@ void FixtureManager::addFixture()
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
-            fxi->setChannels(channels);
+        {
+            fixtureDef = fxi->genericDimmerDef(channels);
+            mode = fxi->genericDimmerMode(fixtureDef, channels);
+            fxi->setFixtureDefinition(fixtureDef, mode);
+            //fxi->setChannels(channels);
+        }
 
         m_doc->addFixture(fxi);
         latestFxi = fxi->id();
@@ -1257,11 +1262,6 @@ void FixtureManager::editFixtureProperties()
         manuf = fxi->fixtureDef()->manufacturer();
         model = fxi->fixtureDef()->model();
         mode = fxi->fixtureMode()->name();
-    }
-    else
-    {
-        manuf = KXMLFixtureGeneric;
-        model = KXMLFixtureGeneric;
     }
 
     AddFixture af(this, m_doc, fxi);

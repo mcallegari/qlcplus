@@ -154,14 +154,6 @@ public:
      */
     QString type();
 
-    /**
-     * Check, whether the fixture is a dimmer-type fixture (i.e. without
-     * a definition).
-     *
-     * @return true if the fixture is a dimmer, otherwise false
-     */
-    bool isDimmer() const;
-
     /*********************************************************************
      * Universe
      *********************************************************************/
@@ -316,9 +308,6 @@ public:
     ChannelModifier *channelModifier(quint32 idx);
 
 protected:
-    /** Create a generic intensity channel */
-    void createGenericChannel();
-
     /** Find and store channel numbers (pan, tilt, intensity) */
     void findChannels();
 
@@ -328,9 +317,6 @@ protected:
 
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;
-
-    /** Generic intensity channel for dimmer fixtures */
-    QLCChannel* m_genericChannel;
 
     /** List holding the channels indices to exlude from fade transitions */
     QList<int> m_excludeFadeIndices;
@@ -425,6 +411,16 @@ protected:
 
     /** The mode within the fixture definition that this instance uses */
     QLCFixtureMode* m_fixtureMode;
+
+    /*********************************************************************
+     * Generic Dimmer
+     *********************************************************************/
+public:
+    /** Creates and returns a definition for a generic dimmer pack */
+    QLCFixtureDef *genericDimmerDef(int channels);
+
+    /** Creates and returns a fixture mode for a generic dimmer pack */
+    QLCFixtureMode *genericDimmerMode(QLCFixtureDef *def, int channels);
 
     /*********************************************************************
      * Generic RGB panel

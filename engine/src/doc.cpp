@@ -575,8 +575,7 @@ int Doc::totalPowerConsumption(int& fuzzy) const
         Fixture* fxi(fxit.next());
         Q_ASSERT(fxi != NULL);
 
-        // Generic dimmer has no mode and physical
-        if (fxi->isDimmer() == false && fxi->fixtureMode() != NULL)
+        if (fxi->fixtureMode() != NULL)
         {
             QLCPhysical phys = fxi->fixtureMode()->physical();
             if (phys.powerConsumption() > 0)
