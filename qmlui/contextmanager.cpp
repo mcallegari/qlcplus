@@ -57,6 +57,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
     connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
             this, SLOT(slotColorChanged(QColor,QColor)));
+    connect(m_fixtureManager, SIGNAL(positionTypeValueChanged(int,int)),
+            this, SLOT(slotPositionChanged(int,int)));
     connect(m_fixtureManager, SIGNAL(presetChanged(const QLCChannel*,quint8)),
             this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
@@ -212,6 +214,23 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     }
 }
 
+void ContextManager::checkDumpButton(quint32 valCount)
+{
+    /** Monitor the changes from/to 0 */
+    if ((valCount == 0 && m_source->channelsCount() > 0) ||
+        (valCount > 0 && m_source->channelsCount() == 0))
+    {
+        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
+        if (dumpBtn != NULL)
+        {
+            if (valCount)
+                dumpBtn->setProperty("visible", false);
+            else
+                dumpBtn->setProperty("visible", true);
+        }
+    }
+}
+
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)
@@ -227,7 +246,11 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
     //SceneValue sv(fxID, channel);
     //m_source->set(sv.fxi, sv.channel, (uchar)value);
     if (m_editingEnabled == false)
+    {
+        quint32 valCount = m_source->channelsCount();
         m_source->set(fxID, channel, (uchar)value);
+        checkDumpButton(valCount);
+    }
     else
         m_functionManager->setChannelValue(fxID, channel, (uchar)value);
 }
@@ -248,19 +271,8 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
         }
     }
 
-    /** Monitor the changes from/to 0 */
-    if ((valCount == 0 && m_source->channelsCount() > 0) ||
-        (valCount > 0 && m_source->channelsCount() == 0))
-    {
-        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
-        if (dumpBtn != NULL)
-        {
-            if (valCount)
-                dumpBtn->setProperty("visible", false);
-            else
-                dumpBtn->setProperty("visible", true);
-        }
-    }
+    if (m_editingEnabled == false)
+        checkDumpButton(valCount);
 }
 
 void ContextManager::slotColorChanged(QColor col, QColor wauv)
@@ -277,6 +289,34 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
     slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
+}
+
+void ContextManager::slotPositionChanged(int type, int degrees)
+{
+    // list to keep track of the already processed Fixture IDs
+    QList<quint32>fxIDs;
+    quint32 valCount = m_source->channelsCount();
+    QList<SceneValue> typeList = m_channelsMap.values(type);
+
+    foreach(SceneValue sv, typeList)
+    {
+        if (fxIDs.contains(sv.fxi) == true)
+            continue;
+
+        fxIDs.append(sv.fxi);
+
+        QList<SceneValue> svList = m_fixtureManager->getFixturePosition(sv.fxi, type, degrees);
+        foreach(SceneValue posSv, svList)
+        {
+            if (m_editingEnabled == false)
+                m_source->set(posSv.fxi, posSv.channel, posSv.value);
+            else
+                m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
+        }
+    }
+
+    if (m_editingEnabled == false)
+        checkDumpButton(valCount);
 }
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)

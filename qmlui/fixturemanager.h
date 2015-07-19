@@ -56,6 +56,8 @@ public:
     Q_INVOKABLE void setIntensityValue(quint8 value);
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
+    Q_INVOKABLE void setPanValue(int degrees);
+    Q_INVOKABLE void setTiltValue(int degrees);
     Q_INVOKABLE void setPresetValue(int index, quint8 value);
 
     /**
@@ -78,6 +80,13 @@ public:
     /** Add a list of fixture IDs to a new fixture group */
     void addFixturesToNewGroup(QList<quint32>fxList);
 
+    /** Returns a list of SceneValues containing the requested position
+     *  information for the specified Fixture with $fxID and $type (Pan/Tilt).
+     *  This works on degrees because it considers 16-bit modes as well as
+     *  DMX values properly scaled depending on the Fixture max Pan/Tilt degrees.
+     *  It also provides multiple results if multiple heads are available */
+    QList<SceneValue> getFixturePosition(quint32 fxID, int type, int degrees);
+
     /** Returns the names of the currently selected fixtures with gobo channels.
      *  The names are in the format: Product - Channel name */
     QVariantList goboChannels();
@@ -95,15 +104,27 @@ public slots:
     void slotDocLoaded();
 
 signals:
+    /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
+
+    /** Notify the listeners that the Group tree model has changed */
     void groupsModelChanged();
+
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
+
     void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
+
+    /** Notify the listeners that channels of the specified $type should
+     *  be set to the provided $value */
     void channelTypeValueChanged(int type, quint8 value);
 
     /** Notify the listeners that a color has been picked in the ColorTool.
      *  It emits all the possible components: RGB, White, Amber and UV */
     void colorChanged(QColor rgb, QColor wauv);
+
+    /** Notify the listeners that the position of $type is changed
+     *  to $degrees. $type can be Pan or Tilt */
+    void positionTypeValueChanged(int type, int degrees);
 
     /** Notify the listeners that a preset value has been picked.
      *  To uniquely identify which preset channel has changed, a reference
@@ -121,6 +142,8 @@ private:
      *  the required $group */
     QVariantList presetsChannels(QLCChannel::Group group);
 
+    /** Update the tree of Groups and Fixtures and emit a signal
+     *  to update the QML UI */
     void updateFixtureTree();
 
 private:
@@ -134,6 +157,11 @@ private:
     QMap<const QLCChannel *, quint32>m_presetsCache;
     /** Data model used by the QML UI to represent groups and fixtures */
     TreeModel *m_fixtureTree;
+
+    /** Variables to hold the maximum Pan/Tilt degrees discovered
+     *  when enabling the position capability for the selected Fixtures */
+    int m_maxPanDegrees;
+    int m_maxTiltDegrees;
 };
 
 #endif // FIXTUREMANAGER_H

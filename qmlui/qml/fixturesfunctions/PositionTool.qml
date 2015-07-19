@@ -30,15 +30,14 @@ Rectangle
     border.color: "#666"
     border.width: 2
 
-    property bool dmxValues: false
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 
-    property int panValue: 0 // DMX value
-    property int tiltValue: 0 // DMX value
-
     property int panDegrees: 0
     property int tiltDegrees: 0
+
+    onPanDegreesChanged: fixtureManager.setPanValue(panDegrees)
+    onTiltDegreesChanged: fixtureManager.setTiltValue(tiltDegrees)
 
     Rectangle
     {
@@ -267,50 +266,14 @@ Rectangle
             width: 75
             height: 40
             minimumValue: 0
-            maximumValue: dmxValues ? 255 : panMaxDegrees
+            maximumValue: panMaxDegrees
             value: 0
+            suffix: "°"
 
             onValueChanged:
             {
-                if (dmxValues)
-                    panDegrees = (panMaxDegrees * value) / 255
-                else
-                    panDegrees = value
+                panDegrees = value
                 gCanvas.requestPaint()
-            }
-        }
-        Rectangle
-        {
-            width: 50
-            height: 40
-            border.width: 2
-            border.color: "white"
-            radius: 5
-            color: "#1E476E"
-
-            RobotoText
-            {
-                height: 40
-                anchors.horizontalCenter: parent.horizontalCenter
-                label: dmxValues ? "DMX" : "°"
-                fontSize: 15
-                fontBold: true
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    dmxValues = !dmxValues
-                    // perform DMX <-> degrees calculation
-                    var newVal;
-                    if (dmxValues == false)
-                        newVal = (panSpinBox.value / 255) * panMaxDegrees
-                    else
-                        newVal = (panSpinBox.value / panMaxDegrees) * 255
-                    panSpinBox.value = newVal
-                }
             }
         }
     }
@@ -335,50 +298,14 @@ Rectangle
             width: 75
             height: 40
             minimumValue: 0
-            maximumValue: dmxValues ? 255 : tiltMaxDegrees
+            maximumValue: tiltMaxDegrees
             value: 0
+            suffix: "°"
 
             onValueChanged:
             {
-                if (dmxValues)
-                    tiltDegrees = (tiltMaxDegrees * value) / 255
-                else
-                    tiltDegrees = value
+                tiltDegrees = value
                 gCanvas.requestPaint()
-            }
-        }
-        Rectangle
-        {
-            width: 50
-            height: 40
-            border.width: 2
-            border.color: "white"
-            radius: 5
-            color: "#1E476E"
-
-            RobotoText
-            {
-                height: 40
-                anchors.horizontalCenter: parent.horizontalCenter
-                label: dmxValues ? "DMX" : "°"
-                fontSize: 15
-                fontBold: true
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    dmxValues = !dmxValues
-                    // perform DMX <-> degrees calculation
-                    var newVal;
-                    if (dmxValues == false)
-                        newVal = (tiltSpinBox.value / 255) * tiltMaxDegrees
-                    else
-                        newVal = (tiltSpinBox.value / tiltMaxDegrees) * 255
-                    tiltSpinBox.value = newVal
-                }
             }
         }
     }

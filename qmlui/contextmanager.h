@@ -58,6 +58,9 @@ public:
 
     void handleKeyPress(QKeyEvent *e);
 
+private:
+    void checkDumpButton(quint32 valCount);
+
 public slots:
     /** Resets the data structures and update the currently enabled views */
     void updateContexts();
@@ -67,6 +70,7 @@ protected slots:
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
+    void slotPositionChanged(int type, int degrees);
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
     /** Invoked by the QLC+ engine to inform the UI that the Universe at $idx
