@@ -128,7 +128,6 @@ void FixtureGroup_Test::size()
 
 void FixtureGroup_Test::assignFixtureNoSize()
 {
-    QLCPoint pt;
     FixtureGroup grp(m_doc);
     QCOMPARE(grp.headList().size(), 0);
 

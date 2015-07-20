@@ -991,8 +991,8 @@ void FixtureManager::addFixture()
         fxi->setUniverse(universe);
         fxi->setName(modname);
         /* Set a fixture definition & mode if they were
-           selected. Otherwise assign channels to a generic
-           dimmer. */
+           selected. Otherwise create a fixture definition
+           and mode for a generic dimmer. */
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
@@ -1281,7 +1281,18 @@ void FixtureManager::editFixtureProperties()
 
             if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
+                if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+                    af.fixtureDef()->model() == KXMLFixtureGeneric &&
+                    fxi->channels() != af.channels())
+                {
+                    QLCFixtureDef* fixtureDef = fxi->genericDimmerDef(af.channels());
+                    QLCFixtureMode* fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
+                    fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+                }
+                else
+                {
+                    fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
+                }
             }
             else
             {

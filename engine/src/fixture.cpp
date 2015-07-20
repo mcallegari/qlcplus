@@ -159,25 +159,21 @@ void Fixture::setChannels(quint32 channels)
 {
     if (m_fixtureDef == NULL && m_fixtureMode == NULL)
     {
-        m_fixtureDef = genericDimmerDef(channels);
-        m_fixtureMode = genericDimmerMode(m_fixtureDef, channels);
-        setFixtureDefinition(m_fixtureDef, m_fixtureMode);
+        QLCFixtureDef *fixtureDef = genericDimmerDef(channels);
+        QLCFixtureMode *fixtureMode = genericDimmerMode(fixtureDef, channels);
+        setFixtureDefinition(fixtureDef, fixtureMode);
     }
     else
     {
         if ((quint32)m_fixtureMode->channels().size() != channels)
         {
-            delete m_fixtureMode;
-            delete m_fixtureDef;
-            m_fixtureDef = genericDimmerDef(channels);
-            m_fixtureMode = genericDimmerMode(m_fixtureDef, channels);
-            setFixtureDefinition(m_fixtureDef, m_fixtureMode);
+            QLCFixtureDef *fixtureDef = genericDimmerDef(channels);
+            QLCFixtureMode *fixtureMode = genericDimmerMode(fixtureDef, channels);
+            setFixtureDefinition(fixtureDef, fixtureMode);
         }
     }
 
     m_channels = channels;
-    m_values.resize(channels);
-    m_values.fill(0);
 
     emit changed(m_id);
 }
@@ -514,6 +510,11 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
+        if (m_fixtureDef != NULL &&
+            m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
+            m_fixtureDef->model() == KXMLFixtureGeneric)
+                delete m_fixtureDef;
+
         m_fixtureDef = fixtureDef;
         m_fixtureMode = fixtureMode;
 
