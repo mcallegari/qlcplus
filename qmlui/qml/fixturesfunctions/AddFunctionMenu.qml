@@ -21,79 +21,70 @@ import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
 
-Rectangle {
+Rectangle
+{
     id: menuRoot
     width: addFuncMenuEntries.width
     height: addFuncMenuEntries.height
     color: "#333"
+    signal entryClicked(int fType, string fEditor)
 
-    Column {
+    Column
+    {
         id: addFuncMenuEntries
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/scene.svg"
             entryText: qsTr("New Scene")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.Scene, "qrc:/SceneEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/chaser.svg"
             entryText: qsTr("New Chaser")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.Chaser, "qrc:/ChaserEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/efx.svg"
             entryText: qsTr("New EFX")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.EFX, "qrc:/EFXEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/collection.svg"
             entryText: qsTr("New Collection")
-            onClicked: {
-                var newFuncID = functionManager.createFunction(Function.Collection)
-                editorLoader.functionID = newFuncID
-                editorLoader.source = "qrc:/CollectionEditor.qml"
-                menuRoot.visible = false
-            }
+            onClicked: entryClicked(Function.Collection, "qrc:/CollectionEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/rgbmatrix.svg"
             entryText: qsTr("New RGB Matrix")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.RGBMatrix, "qrc:/RGBMatrixEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/showmanager.svg"
             entryText: qsTr("New Show")
-            onClicked: {
-
-            }
+            onClicked: { }
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/script.svg"
             entryText: qsTr("New Script")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.Script, "qrc:/ScriptEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/audio.svg"
             entryText: qsTr("New Audio")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.Audio, "qrc:/AudioEditor.qml")
         }
-        ContextMenuEntry {
+        ContextMenuEntry
+        {
             imgSource: "qrc:/video.svg"
             entryText: qsTr("New Video")
-            onClicked: {
-
-            }
+            onClicked: entryClicked(Function.Video, "qrc:/VideoEditor.qml")
         }
     }
 }

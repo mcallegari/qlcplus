@@ -37,10 +37,11 @@ Rectangle
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
         editorLoader.functionID = funcID
+        functionManager.setEditorFunction(funcID)
+
         switch(funcType)
         {
             case Function.Scene:
-                functionManager.setEditorFunction(funcID)
                 editorLoader.source = "qrc:/SceneEditor.qml";
             break;
             case Function.Collection:

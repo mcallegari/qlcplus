@@ -60,7 +60,7 @@ Rectangle
             id: leftPanel
             x: 0
             z: 5
-            height: parent.height
+            height: parent.height - (bottomPanel.visible ? bottomPanel.height : 0)
         }
 
         RightPanel
@@ -68,7 +68,7 @@ Rectangle
             id: rightPanel
             x: parent.width - width
             z: 5
-            height: parent.height
+            height: parent.height - (bottomPanel.visible ? bottomPanel.height : 0)
         }
 
         BottomPanel {

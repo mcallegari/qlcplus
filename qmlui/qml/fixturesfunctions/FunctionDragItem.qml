@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     property int funcID: -1
     property string funcLabel
     property string funcIcon
@@ -32,7 +33,8 @@ Rectangle {
     opacity: 0.8
     color: "#333"
 
-    IconTextEntry {
+    IconTextEntry
+    {
         id: funcEntry
         width: parent.width
         height: parent.height
