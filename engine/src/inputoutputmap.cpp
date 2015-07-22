@@ -359,6 +359,18 @@ uchar InputOutputMap::grandMasterValue()
  * Patch
  *********************************************************************/
 
+void InputOutputMap::flushInputs()
+{
+    QMutexLocker locker(&m_universeMutex);
+
+    for (int i = 0; i < m_universeArray.count(); i++)
+    {
+        Universe *universe = m_universeArray.at(i);
+
+        universe->flushInput();
+    }
+}
+
 bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
                                    quint32 input, const QString &profileName)
 {
