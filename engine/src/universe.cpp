@@ -65,16 +65,9 @@ Universe::~Universe()
 {
     delete m_preGMValues;
     delete m_postGMValues;
-    if (m_inputPatch != NULL)
-        delete m_inputPatch;
-    if (m_outputPatch != NULL)
-        delete m_outputPatch;
-    if (m_fbPatch != NULL)
-        delete m_fbPatch;
-
-    m_inputPatch = NULL;
-    m_outputPatch = NULL;
-    m_fbPatch = NULL;
+    delete m_inputPatch;
+    delete m_outputPatch;
+    delete m_fbPatch;
 }
 
 void Universe::setName(QString name)
@@ -422,6 +415,14 @@ void Universe::dumpOutput(const QByteArray &data)
         m_totalChannelsChanged = false;
     }
     m_outputPatch->dump(m_id, data);
+}
+
+void Universe::flushInput()
+{
+    if (m_inputPatch == NULL)
+        return;
+
+    m_inputPatch->flush(m_id);
 }
 
 void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)

@@ -104,6 +104,8 @@ void MasterTimer::timerTick()
     qDebug() << "[MasterTimer] *********** tick:" << ticksCount++ << "**********";
 #endif
 
+    doc->inputOutputMap()->flushInputs();
+
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
     {

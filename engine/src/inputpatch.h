@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QMutex>
 
 #include "qlcinputprofile.h"
 
@@ -151,6 +152,22 @@ private:
 private:
     ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
 
+public:
+    void flush(quint32 universe);
+
+    struct InputValue
+    {
+        InputValue() {}
+        InputValue(uchar v, QString const& k)
+            : value(v)
+            , key(k)
+        {}
+        uchar value;
+        QString key;
+    };
+
+    QMutex m_inputBufferMutex;
+    QHash<quint32, InputValue> m_inputBuffer;
 };
 
 /** @} */
