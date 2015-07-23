@@ -59,6 +59,9 @@ public:
     /** Return the controller IP address */
     QString getNetworkIP();
 
+    /** Return the controller subnet mask */
+    QString getNetmask();
+
     /** Returns the map of Nodes discovered by ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
@@ -112,6 +115,9 @@ private:
     /** The controller broadcast address as QHostAddress */
     /** This is where all ArtNet packets are sent to */
     QHostAddress m_broadcastAddr;
+
+    /** Subnet mask of this controller, to be used during configuration */
+    QHostAddress m_netmask;
 
     /** The controller interface MAC address. Used only for ArtPollReply */
     QString m_MACAddress;

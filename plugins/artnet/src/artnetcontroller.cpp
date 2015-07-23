@@ -42,6 +42,8 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
                 m_broadcastAddr = QHostAddress::LocalHost;
             else
                 m_broadcastAddr = iface.broadcast();
+
+            m_netmask = iface.netmask();
             break;
         }
         i++;
@@ -126,6 +128,11 @@ QString ArtNetController::getNetworkIP()
     return m_ipAddr.toString();
 }
 
+QString ArtNetController::getNetmask()
+{
+    return m_netmask.toString();
+}
+
 QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
 {
     return m_nodesList;
@@ -166,9 +173,15 @@ void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    QString iFaceIP = m_ipAddr.toString();
-    QString newIP = iFaceIP.mid(0, iFaceIP.lastIndexOf(".") + 1);
-    newIP.append(address);
+    QStringList iFaceIP = m_ipAddr.toString().split(".");
+    QStringList addList = address.split(".");
+
+    for (int i = 0; i < addList.count(); i++)
+        iFaceIP.replace(4 - addList.count() + i , addList.at(i));
+
+    QString newIP = iFaceIP.join(".");
+    qDebug() << "[setOutputIPAddress] transmit to IP: " << newIP;
+
     m_universeMap[universe].outputAddress = QHostAddress(newIP);
 }
 
