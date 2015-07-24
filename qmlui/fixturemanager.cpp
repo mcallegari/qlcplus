@@ -195,10 +195,12 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
             case QLCChannel::Intensity:
             {
                 QLCChannel::PrimaryColour col = channel->colour();
+                chType = col;
                 switch (col)
                 {
                     case QLCChannel::NoColour:
                         hasDimmer = true;
+                        channelsMap.insert(chType, SceneValue(fxID, ch));
                     break;
                     case QLCChannel::Red:
                     case QLCChannel::Green:
@@ -208,10 +210,10 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
                     case QLCChannel::Yellow:
                     case QLCChannel::White:
                         hasColor = true;
+                        channelsMap.insert(chType, SceneValue(fxID, ch));
                     break;
                     default: break;
                 }
-                chType = col;
             }
             break;
             case QLCChannel::Pan:
@@ -234,6 +236,7 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
 
                     qDebug() << "Fixture" << fixture->name() << "Pan:" << panDeg << ", Tilt:" << tiltDeg;
                 }
+                channelsMap.insert(chType, SceneValue(fxID, ch));
             }
             break;
             case QLCChannel::Colour:
@@ -252,6 +255,7 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
                     m_presetsCache.remove(channel);
                     emit colorWheelChannelsChanged();
                 }
+                channelsMap.insert(chType, SceneValue(fxID, ch));
             }
             break;
             case QLCChannel::Gobo:
@@ -270,6 +274,7 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
                     m_presetsCache.remove(channel);
                     emit goboChannelsChanged();
                 }
+                channelsMap.insert(chType, SceneValue(fxID, ch));
             }
             break;
             default:
@@ -302,8 +307,6 @@ QMultiHash<int, SceneValue> FixtureManager::setFixtureCapabilities(quint32 fxID,
             QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
             capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
         }
-
-        channelsMap.insert(chType, SceneValue(fxID, ch));
     }
     return channelsMap;
 }

@@ -135,6 +135,8 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     if(channels.keys().isEmpty())
         return;
 
+    qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
+
     QHashIterator<int, SceneValue>it(channels);
     while(it.hasNext())
     {
@@ -166,17 +168,7 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
 
 void ContextManager::dumpDmxChannels()
 {
-    QList<SceneValue> chList = m_source->channels();
-    QList<SceneValue> dumpList;
-
-    /** Now create a list with only the channels of the
-     *  currently selected fixtures */
-    foreach(SceneValue sv, chList)
-    {
-        if (m_selectedFixtures.contains(sv.fxi))
-            dumpList.append(sv);
-    }
-    m_functionManager->dumpOnNewScene(dumpList);
+    m_functionManager->dumpOnNewScene(m_selectedFixtures);
 }
 
 void ContextManager::createFixtureGroup()
@@ -206,6 +198,14 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                     if (fixture != NULL)
                         setFixtureSelection(fixture->id(), selectAll);
                 }
+            }
+            break;
+            case Qt::Key_R:
+            {
+                int valCount = m_source->channelsCount();
+                m_source->unsetAll();
+                m_functionManager->resetDumpValues();
+                checkDumpButton(valCount);
             }
             break;
             default:
@@ -243,12 +243,11 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
-    //SceneValue sv(fxID, channel);
-    //m_source->set(sv.fxi, sv.channel, (uchar)value);
     if (m_editingEnabled == false)
     {
         quint32 valCount = m_source->channelsCount();
         m_source->set(fxID, channel, (uchar)value);
+        m_functionManager->setDumpValue(fxID, channel, (uchar)value);
         checkDumpButton(valCount);
     }
     else
@@ -258,14 +257,17 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
     quint32 valCount = m_source->channelsCount();
-    //qDebug() << "type:" << type << "value:" << value;
+    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
     {
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
         {
             if (m_editingEnabled == false)
+            {
                 m_source->set(sv.fxi, sv.channel, (uchar)value);
+                m_functionManager->setDumpValue(sv.fxi, sv.channel, (uchar)value);
+            }
             else
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
         }
@@ -309,7 +311,10 @@ void ContextManager::slotPositionChanged(int type, int degrees)
         foreach(SceneValue posSv, svList)
         {
             if (m_editingEnabled == false)
+            {
                 m_source->set(posSv.fxi, posSv.channel, posSv.value);
+                m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value);
+            }
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
