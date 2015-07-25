@@ -98,6 +98,9 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
     Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return;
+
     MonitorProperties *mProps = m_doc->monitorProperties();
     QLCFixtureMode *fxMode = fixture->fixtureMode();
     QRectF fxRect;
@@ -134,18 +137,33 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
 
     if (fxMode != NULL)
     {
-        if (fxMode->physical().width() != 0)
-            fxRect.setWidth(fxMode->physical().width());
+        QLCPhysical phy = fxMode->physical();
+
+        if (phy.width() != 0)
+            fxRect.setWidth(phy.width());
         else
             fxRect.setWidth(300);
 
-        if (fxMode->physical().height() != 0)
-            fxRect.setHeight(fxMode->physical().height());
+        if (phy.height() != 0)
+            fxRect.setHeight(phy.height());
         else
             fxRect.setHeight(300);
 
         qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
+
+        if (fixture->panMsbChannel() != QLCChannel::invalid())
+        {
+            int panDeg = phy.focusPanMax();
+            if (panDeg == 0) panDeg = 360;
+            newFixtureItem->setProperty("panMaxDegrees", panDeg);
+        }
+        if (fixture->tiltMsbChannel() != QLCChannel::invalid())
+        {
+            int tiltDeg = phy.focusTiltMax();
+            if (tiltDeg == 0) tiltDeg = 270;
+            newFixtureItem->setProperty("tiltMaxDegrees", tiltDeg);
+        }
     }
     else
     {
@@ -300,7 +318,12 @@ void MainView2D::updateFixture(Fixture *fixture)
             colorSet = true;
         }
     }
-    // now scan all the channels in search for color wheels and gobos
+
+    bool setPosition = false;
+    int panDegrees = 0;
+    int tiltDegrees = 0;
+
+    // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *ch = fixture->channel(i);
@@ -310,6 +333,24 @@ void MainView2D::updateFixture(Fixture *fixture)
 
         switch (ch->group())
         {
+            case QLCChannel::Pan:
+            {
+                if (ch->controlByte() == QLCChannel::MSB)
+                    panDegrees += (fixture->channelValueAt(i) << 8);
+                else
+                    panDegrees += (fixture->channelValueAt(i));
+                setPosition = true;
+            }
+            break;
+            case QLCChannel::Tilt:
+            {
+                if (ch->controlByte() == QLCChannel::MSB)
+                    tiltDegrees += (fixture->channelValueAt(i) << 8);
+                else
+                    tiltDegrees += (fixture->channelValueAt(i));
+                setPosition = true;
+            }
+            break;
             case QLCChannel::Colour:
             {
                 if(colorSet)
@@ -360,6 +401,12 @@ void MainView2D::updateFixture(Fixture *fixture)
             default:
             break;
         }
+    }
+    if (setPosition == true)
+    {
+        QMetaObject::invokeMethod(fxItem, "setPosition",
+                Q_ARG(QVariant, panDegrees),
+                Q_ARG(QVariant, tiltDegrees));
     }
 }
 

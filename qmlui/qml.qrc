@@ -72,5 +72,6 @@
         <file alias="FunctionDrag.js">js/FunctionDrag.js</file>
         <file alias="DetachWindow.js">js/DetachWindow.js</file>
         <file alias="PluginUtils.js">js/PluginUtils.js</file>
+        <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     </qresource>
 </RCC>

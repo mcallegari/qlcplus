@@ -19,6 +19,8 @@
 
 import QtQuick 2.2
 
+import "CanvasDrawFunctions.js" as DrawFuncs
+
 Rectangle
 {
     id: fixtureItem
@@ -37,6 +39,9 @@ Rectangle
     property real headSide: 10
     property int headColumns: 1
     property int headRows: 1
+
+    property int panMaxDegrees: 0
+    property int tiltMaxDegrees: 0
 
     property bool isSelected: false
     property bool showLabel: false
@@ -77,6 +82,17 @@ Rectangle
     function setHeadColor(headIndex, color)
     {
         headsRepeater.itemAt(headIndex).headColor = color
+    }
+
+    function setPosition(pan, tilt)
+    {
+        if (panMaxDegrees)
+            positionLayer.panDegrees = (panMaxDegrees / 0xFFFF) * pan
+
+        if (tiltMaxDegrees)
+            positionLayer.tiltDegrees = (tiltMaxDegrees / 0xFFFF) * tilt
+
+        positionLayer.requestPaint()
     }
 
     function setGoboPicture(headIndex, resource)
@@ -168,6 +184,62 @@ Rectangle
                         source: headDelegate.goboSource
                     }
                 }
+        }
+    }
+
+    Canvas
+    {
+        id: positionLayer
+        anchors.fill: parent
+        visible: (panMaxDegrees || tiltMaxDegrees) ? true : false
+
+        property int panDegrees: 0
+        property int tiltDegrees: 0
+
+        property int tiltWidth: ((positionLayer.width / 3) < 30) ? (positionLayer.width / 3) : 30
+        property int panHeight: ((positionLayer.height / 4) < 30) ? (positionLayer.height / 4) : 30
+        property int cursorRadius: tiltWidth / 2
+
+        onPaint:
+        {
+            if (positionLayer.visible == false)
+                return;
+
+            var ctx = positionLayer.getContext('2d');
+            //ctx.save();
+            ctx.globalAlpha = 0.7;
+            ctx.lineWidth = 1;
+
+            ctx.clearRect(0, 0, width, height)
+
+            if (tiltMaxDegrees)
+            {
+                // draw TILT curve
+                ctx.strokeStyle = "#2E77FF";
+                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, tiltWidth, height)
+            }
+            if (panMaxDegrees)
+            {
+                // draw PAN curve
+                ctx.strokeStyle = "#19438F"
+                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width, panHeight)
+            }
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "white";
+
+            if (tiltMaxDegrees)
+            {
+                // draw TILT cursor position
+                ctx.fillStyle = "red";
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height - 30, tiltDegrees + 135, cursorRadius)
+            }
+            if (panMaxDegrees)
+            {
+                // draw PAN cursor position
+                ctx.fillStyle = "green";
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, panHeight, panDegrees + 90, cursorRadius)
+            }
         }
     }
 

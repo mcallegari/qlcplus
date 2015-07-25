@@ -21,6 +21,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
+import "CanvasDrawFunctions.js" as DrawFuncs
+
 Rectangle
 {
     id: posToolRoot
@@ -109,77 +111,6 @@ Rectangle
 
         antialiasing: true
 
-        function drawEllipse (ctx, eX, eY, eWidth, eHeight)
-        {
-            var step = 2*Math.PI/30;
-            var r = eWidth / 2;
-            var xFactor = 1.0;
-            var yFactor = 1.0;
-            if (eWidth > eHeight)
-                yFactor = eHeight / eWidth;
-            if (eHeight > eWidth) {
-                xFactor = eWidth / eHeight;
-                r = eHeight / 2;
-            }
-
-            ctx.beginPath();
-            for(var theta = 0; theta < 2*Math.PI; theta+=step)
-            {
-               var x = eX + xFactor * r * Math.cos(theta) ;
-               var y = eY - yFactor * r * Math.sin(theta) ;
-               ctx.lineTo(x,y);
-            }
-
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
-
-        function degToRad(degrees)
-        {
-            return degrees * (Math.PI / 180);
-        }
-
-        function drawCursor(ctx, eX, eY, eWidth, eHeight, degrees)
-        {
-            var r = eWidth / 2;
-            var xFactor = 1.0;
-            var yFactor = 1.0;
-            if (eWidth > eHeight)
-                yFactor = eHeight / eWidth;
-            if (eHeight > eWidth)
-            {
-                xFactor = eWidth / eHeight;
-                r = eHeight / 2;
-            }
-
-            var radPos = degToRad(degrees);
-            var x = eX + xFactor * r * Math.cos(radPos) ;
-            var y = eY + yFactor * r * Math.sin(radPos) ;
-
-            ctx.beginPath();
-            ctx.ellipse(x - 8, y - 8, 16, 16);
-            ctx.fill();
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
-
-        function drawBasement(ctx, eWidth, eHeight)
-        {
-            ctx.fillStyle = "#222";
-            ctx.strokeStyle = "#333"
-            ctx.beginPath();
-            var halfWidth = eWidth / 2;
-            ctx.moveTo(halfWidth - 80, height);
-            ctx.lineTo(halfWidth - 75, height - 35);
-            ctx.lineTo(halfWidth + 75, height - 35);
-            ctx.lineTo(halfWidth + 80, height);
-            ctx.lineTo(halfWidth - 80, height);
-
-            ctx.fill();
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
-
         onPaint:
         {
             var ctx = gCanvas.getContext('2d');
@@ -190,26 +121,26 @@ Rectangle
 
             ctx.fillRect(0, 0, width, height)
             // draw head basement
-            drawBasement(ctx, width, height);
+            DrawFuncs.drawBasement(ctx, width, height);
 
             ctx.lineWidth = 5;
             // draw TILT curve
             ctx.strokeStyle = "#2E77FF";
-            drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
             // draw PAN curve
             ctx.strokeStyle = "#19438F"
-            drawEllipse(ctx, width / 2, height / 2, width - 30, 50)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, 50)
 
             ctx.lineWidth = 1;
             ctx.strokeStyle = "white";
 
             // draw TILT cursor position
             ctx.fillStyle = "red";
-            drawCursor(ctx, width / 2, height / 2, 40, height - 30, tiltDegrees + 135)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, 40, height - 30, tiltDegrees + 135, 16)
 
             // draw PAN cursor position
             ctx.fillStyle = "green";
-            drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90, 16)
         }
 
         MouseArea
