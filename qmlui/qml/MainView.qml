@@ -31,6 +31,18 @@ Rectangle
     height: 600
     anchors.fill: parent
 
+    function enableContext(ctx)
+    {
+        if (ctx === "VC")
+            vcEntry.visible = true
+        else if (ctx === "SDESK")
+            sdEntry.visible = true
+        else if (ctx === "SHOWMGR")
+            smEntry.visible = true
+        else if (ctx === "IOMGR")
+            ioEntry.visible = true
+    }
+
     FontLoader
     {
         source: "qrc:RobotoCondensed-Regular.ttf"
@@ -81,12 +93,6 @@ Rectangle
                     if (checked == true)
                         viewLoader.source = "qrc:/FixturesAndFunctions.qml"
                 }
-                /*
-                onRightClicked:
-                {
-                    WinLoader.createWindow("qrc:/FixturesAndFunctions.qml")
-                }
-                */
             }
             MenuBarEntry
             {
@@ -102,6 +108,7 @@ Rectangle
                 }
                 onRightClicked:
                 {
+                    vcEntry.visible = false
                     WinLoader.createWindow("qrc:/VirtualConsole.qml")
                 }
             }
@@ -119,6 +126,7 @@ Rectangle
                 }
                 onRightClicked:
                 {
+                    sdEntry.visible = false
                     WinLoader.createWindow("qrc:/SimpleDesk.qml")
                 }
             }
@@ -136,6 +144,7 @@ Rectangle
                 }
                 onRightClicked:
                 {
+                    smEntry.visible = false
                     WinLoader.createWindow("qrc:/ShowManager.qml")
                 }
             }
@@ -153,6 +162,7 @@ Rectangle
                 }
                 onRightClicked:
                 {
+                    ioEntry.visible = false
                     WinLoader.createWindow("qrc:/InputOutputManager.qml")
                 }
             }

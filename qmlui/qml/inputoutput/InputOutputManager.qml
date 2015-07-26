@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-
 import QtQuick 2.0
 
 Rectangle
@@ -25,6 +24,8 @@ Rectangle
     id: ioMgrContainer
     anchors.fill: parent
     color: "transparent"
+
+    property string contextName: "IOMGR"
 
     IOLeftPanel
     {

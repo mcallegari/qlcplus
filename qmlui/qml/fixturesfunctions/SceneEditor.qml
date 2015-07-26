@@ -86,9 +86,20 @@ Rectangle
                 text: sceneEditor.sceneName
                 font.pixelSize: 20
                 echoMode: TextInput.Normal
+                selectByMouse: true
                 Layout.fillWidth: true
 
                 onTextChanged: sceneEditor.sceneName = text
+            }
+            IconButton
+            {
+                id: removeFxButton
+                x: parent.width - 45
+                width: height
+                height: 40
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected fixture")
+                onClicked: {   }
             }
         }
 

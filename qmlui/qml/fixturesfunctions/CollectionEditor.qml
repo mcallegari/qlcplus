@@ -105,6 +105,7 @@ Rectangle
                 color: "#ffffff"
                 text: collection ? collection.name : ""
                 font.pixelSize: 20
+                selectByMouse: true
                 Layout.fillWidth: true
                 onTextChanged:
                 {

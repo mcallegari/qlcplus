@@ -97,6 +97,12 @@ void ContextManager::reattachContext(QString context)
         QMetaObject::invokeMethod(viewObj, "enableContext",
                 Q_ARG(QVariant, context));
     }
+    else
+    {
+
+        QMetaObject::invokeMethod(m_view->rootObject(), "enableContext",
+                Q_ARG(QVariant, context));
+    }
 }
 
 void ContextManager::updateContexts()
