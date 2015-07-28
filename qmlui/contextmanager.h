@@ -35,6 +35,10 @@ class GenericDMXSource;
 class ContextManager : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY (bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
+    Q_PROPERTY(int fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
+
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
                             FixtureManager *fxMgr, FunctionManager *funcMgr,
@@ -50,6 +54,8 @@ public:
 
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
 
+    bool hasSelectedFixtures();
+
     Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y);
 
     Q_INVOKABLE void dumpDmxChannels();
@@ -57,6 +63,9 @@ public:
     Q_INVOKABLE void createFixtureGroup();
 
     void handleKeyPress(QKeyEvent *e);
+
+    int fixturesRotation() const;
+    void setFixturesRotation(int degrees);
 
 private:
     void checkDumpButton(quint32 valCount);
@@ -83,6 +92,9 @@ protected slots:
      *  forward them to the Function Manager */
     void slotFunctionEditingChanged(bool status);
 
+signals:
+    void selectedFixturesChanged();
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
@@ -94,6 +106,8 @@ private:
     FunctionManager *m_functionManager;
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
+    /** Holds the last rotation value to handle relative changes */
+    int m_prevRotation;
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;
     /** A multihash containing the selected fixtures' capabilities by channel type */

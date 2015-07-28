@@ -32,6 +32,11 @@ Flickable {
     property int uniStartAddr: viewUniverseCombo.currentIndex * 512
     property int cellWidth: width / destGrid.columns
 
+    function hasSettings()
+    {
+        return false;
+    }
+
     RobotoText {
         id: uniText
         height: 45

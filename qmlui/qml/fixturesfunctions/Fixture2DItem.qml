@@ -24,6 +24,18 @@ import "CanvasDrawFunctions.js" as DrawFuncs
 Rectangle
 {
     id: fixtureItem
+    x: (gridCellSize * mmXPos) / gridUnits
+    y: (gridCellSize * mmYPos) / gridUnits
+    z: 2
+    width: (gridCellSize * mmWidth) / gridUnits
+    height: (gridCellSize * mmHeight) / gridUnits
+
+    color: "#2A2A2A"
+    border.width: isSelected ? 2 : 1
+    border.color: isSelected ? (isDragging ? "#00FF00" : "yellow") : (isDragging ? "#00FF00" : "#AAA")
+
+    Drag.active: fxMouseArea.drag.active
+
     property int fixtureID: fixtureManager.invalidFixture()
     property string fixtureName: ""
 
@@ -44,6 +56,7 @@ Rectangle
     property int tiltMaxDegrees: 0
 
     property bool isSelected: false
+    property bool isDragging: false
     property bool showLabel: false
 
     onWidthChanged: calculateHeadSize();
@@ -99,18 +112,6 @@ Rectangle
     {
         headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
-
-    x: (gridCellSize * mmXPos) / gridUnits
-    y: (gridCellSize * mmYPos) / gridUnits
-    z: 2
-    width: (gridCellSize * mmWidth) / gridUnits
-    height: (gridCellSize * mmHeight) / gridUnits
-
-    color: "#2A2A2A"
-    border.width: isSelected ? 2 : 1
-    border.color: isSelected ? "yellow" : "#AAA"
-
-    Drag.active: fxMouseArea.drag.active
 
     Flow
     {
@@ -278,6 +279,7 @@ Rectangle
         onPressAndHold:
         {
             drag.target = fixtureItem
+            isDragging = true
             console.log("drag started");
         }
         onReleased:
@@ -289,6 +291,7 @@ Rectangle
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
                 contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
                 drag.target = null
+                isDragging = false
             }
         }
         onClicked:

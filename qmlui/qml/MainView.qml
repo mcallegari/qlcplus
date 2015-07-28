@@ -48,6 +48,16 @@ Rectangle
         source: "qrc:RobotoCondensed-Regular.ttf"
     }
 
+    // Load the "FontAwesome" font for the monochrome icons
+    FontLoader
+    {
+        source: "qrc:FontAwesome.otf"
+    }
+    FontAwesomeVariables
+    {
+        id: fontawesome
+    }
+
     Rectangle
     {
         id: mainToolbar

@@ -27,10 +27,15 @@
 
 class Doc;
 class Fixture;
+class MonitorProperties;
 
 class MainView2D : public PreviewContext
 {
     Q_OBJECT
+
+    Q_PROPERTY(QSize gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
+    Q_PROPERTY(float gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
+
 public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView2D();
@@ -50,11 +55,21 @@ public:
 
     void updateFixtureSelection(quint32 fxID, bool enable);
 
+    void updateFixtureRotation(quint32 fxID, int degrees);
+
+    QSize gridSize() const;
+    void setGridSize(QSize sz);
+
+    float gridUnits() const;
+    void setGridUnits(float units);
+
 protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();
 
 signals:
+    void gridSizeChanged();
+    void gridUnitsChanged();
 
 protected slots:
     void slotRefreshView();
@@ -62,6 +77,8 @@ protected slots:
 private:
     /** References to the 2D view and 2D contents for items creation */
     QQuickItem *m_view2D, *m_contents2D;
+
+    MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;

@@ -12,6 +12,7 @@
         <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
         <file alias="IconButton.qml">qml/IconButton.qml</file>
         <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
+        <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
         <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
         <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
         <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
@@ -44,6 +45,7 @@
         <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
         <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
         <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
+        <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
         <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
         <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
         <file alias="FunctionDragItem.qml">qml/fixturesfunctions/FunctionDragItem.qml</file>

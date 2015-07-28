@@ -39,13 +39,14 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_prevRotation(0)
     , m_editingEnabled(false)
 {
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
     m_2DView = new MainView2D(m_view, m_doc);
-    //m_view->rootContext()->setContextProperty("View2D", m_2DView);
+    m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
 
@@ -154,6 +155,7 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         else
             m_channelsMap.remove(chType, sv);
     }
+    emit selectedFixturesChanged();
 }
 
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
@@ -164,6 +166,14 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 
     foreach(quint32 fxID, fxIDList)
         setFixtureSelection(fxID, true);
+    emit selectedFixturesChanged();
+}
+
+bool ContextManager::hasSelectedFixtures()
+{
+    if (m_selectedFixtures.isEmpty())
+        return false;
+    return true;
 }
 
 void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
@@ -218,6 +228,82 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             break;
         }
     }
+}
+
+int ContextManager::fixturesRotation() const
+{
+    int commonRotation = -1;
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        if (mProps->hasFixturePosition(fxID) == false)
+            continue;
+
+        int rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == -1)
+            commonRotation = rot;
+        else
+        {
+            if (rot != commonRotation)
+                return 0;
+        }
+    }
+
+    if (commonRotation != -1)
+        return commonRotation;
+
+    return 0;
+}
+
+void ContextManager::setFixturesRotation(int degrees)
+{
+    bool mixed = false;
+    int commonRotation = -1;
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    // first, detect if we're setting the rotation
+    // in a mixed context
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        if (mProps->hasFixturePosition(fxID) == false)
+            continue;
+
+        int rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == -1)
+            commonRotation = rot;
+        else
+        {
+            if (rot != commonRotation)
+            {
+                mixed = true;
+                break;
+            }
+        }
+    }
+
+    // if mixed, treat degrees as relative
+    // otherwise set it directly
+    int delta = degrees - m_prevRotation;
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        int rot = 0;
+        if (mProps->hasFixturePosition(fxID))
+            rot = mProps->fixtureRotation(fxID);
+
+        if (mixed == false)
+            rot = degrees;
+        else
+            rot += delta;
+
+        // normalize back to a 0-359 range
+        if (rot < 0) rot += 360;
+        else if (rot >= 360) rot -= 360;
+        mProps->setFixtureRotation(fxID, rot);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixtureRotation(fxID, rot);
+    }
+    m_prevRotation = degrees;
 }
 
 void ContextManager::checkDumpButton(quint32 valCount)

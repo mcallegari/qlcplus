@@ -41,6 +41,7 @@ Rectangle
     property ExclusiveGroup exclusiveGroup: null
 
     property string imgSource: ""
+    property string faSource: ""
 
     property string tooltip: ""
 
@@ -57,7 +58,8 @@ Rectangle
         if (exclusiveGroup)
             exclusiveGroup.bindCheckable(baseIconButton)
     }
-    onCheckedChanged: {
+    onCheckedChanged:
+    {
         if (checked == true)
         {
             baseIconButton.color = checkedColor
@@ -71,10 +73,22 @@ Rectangle
     Image
     {
         id: btnIcon
+        visible: imgSource ? true : false
         anchors.fill: parent
         anchors.margins: 4
         source: imgSource
         sourceSize: Qt.size(width, height)
+    }
+
+    Text
+    {
+        id: faIcon
+        anchors.centerIn: parent
+        visible: faSource ? true : false
+        color: "#222"
+        font.family: "FontAwesome"
+        font.pixelSize: parent.height - 4
+        text: faSource
     }
 
     MouseArea
