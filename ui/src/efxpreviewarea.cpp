@@ -24,6 +24,7 @@
 
 #include "efxpreviewarea.h"
 #include "qlcmacros.h"
+#include "gradient.h"
 
 EFXPreviewArea::EFXPreviewArea(QWidget* parent)
     : QWidget(parent)
@@ -108,6 +109,9 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     QPoint point;
     QColor color;
 
+    //painter.drawImage(QPoint(0, 0), Gradient::getRGBGradient ());
+    painter.drawImage(painter.window (), Gradient::getRGBGradient ());
+
     /* Crosshairs */
     color = palette().color(QPalette::Mid);
     painter.setPen(color);
@@ -137,7 +141,7 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
         */
 
         painter.setBrush(Qt::white);
-	pen.setColor(Qt::black);
+        pen.setColor(Qt::black);
 
         // draw fixture positions
 
@@ -152,6 +156,14 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     }
     else
     {
-        m_timer.stop();
+        //m_timer.stop();
+
+        //Change old behaviour from stop to restart
+        restart();
     }
+}
+
+void EFXPreviewArea::restart ()
+{
+    m_iter = 0;
 }
