@@ -78,7 +78,7 @@ void GenericFader::write(QList<Universe*> ua)
     {
         FadeChannel& fc(it.next().value());
         QLCChannel::Group grp = fc.group(m_doc);
-        quint32 addr = fc.address();
+        quint32 addr = fc.addressInUniverse();
         quint32 universe = fc.universe();
         bool canFade = fc.canFade(m_doc);
 

@@ -32,7 +32,6 @@
 #include "universe.h"
 #include "qlcfile.h"
 
-#define UNIVERSE_SIZE 512
 #define RELATIVE_ZERO 127
 
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
@@ -513,8 +512,7 @@ ChannelModifier *Universe::channelModifier(ushort channel)
 
 bool Universe::write(int channel, uchar value, bool forceLTP)
 {
-    if (channel >= UNIVERSE_SIZE)
-        return false;
+    Q_ASSERT(channel < UNIVERSE_SIZE);
 
     //qDebug() << "Universe write channel" << channel << ", value:" << value;
 

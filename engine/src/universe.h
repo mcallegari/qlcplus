@@ -38,6 +38,8 @@ class InputPatch;
  * @{
  */
 
+#define UNIVERSE_SIZE 512
+
 #define KXMLQLCUniverse "Universe"
 #define KXMLQLCUniverseName "Name"
 #define KXMLQLCUniverseID "ID"
