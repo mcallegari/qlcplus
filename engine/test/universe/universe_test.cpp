@@ -252,28 +252,34 @@ void Universe_Test::write()
     m_uni->setChannelCapability(0, QLCChannel::Intensity);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
     m_uni->setChannelCapability(9, QLCChannel::Intensity);
+    m_uni->setChannelCapability(UNIVERSE_SIZE - 1, QLCChannel::Intensity);
 
-    QVERIFY(m_uni->write(1000, 255) == false);
+    QVERIFY(m_uni->write(UNIVERSE_SIZE - 1, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(9, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(0, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(255));
 
     m_gm->setValue(127);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
 
     QVERIFY(m_uni->write(4, 200) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(100));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
@@ -281,15 +287,6 @@ void Universe_Test::write()
 
 void Universe_Test::writeRelative()
 {
-    // past the end of the array
-    QVERIFY(m_uni->writeRelative(1000, 255) == false);
-    QCOMPARE(m_uni-> m_relativeValues[9], short(0));
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
-
     // 127 == 0
     QVERIFY(m_uni->writeRelative(9, 127) == true);
     QCOMPARE(m_uni->m_relativeValues[9], short(0));
@@ -442,7 +439,7 @@ void Universe_Test::hasChangedEfficiency()
 
 void Universe_Test::hasNotChangedEfficiency()
 {
-    m_uni->write(512, 200);
+    m_uni->write(UNIVERSE_SIZE - 1, 200);
     m_uni->hasChanged();
     QCOMPARE(m_uni->hasChanged(), false);
 

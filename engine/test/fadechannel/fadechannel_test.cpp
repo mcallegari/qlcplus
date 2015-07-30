@@ -25,6 +25,7 @@
 #include "qlcchannel.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
+#include "universe.h"
 
 #define private public
 #include "fadechannel.h"
@@ -49,6 +50,25 @@ void FadeChannel_Test::address()
 
     fc.setFixture(&doc, 12345);
     QCOMPARE(fc.address(), quint32(2));
+}
+
+void FadeChannel_Test::addressInUniverse()
+{
+    Doc doc(this);
+    Fixture* fxi = new Fixture(&doc);
+    fxi->setAddress(UNIVERSE_SIZE);
+    fxi->setChannels(5);
+    doc.addFixture(fxi);
+
+    FadeChannel fc;
+    fc.setChannel(2);
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
+
+    fc.setFixture(&doc, fxi->id());
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
+
+    fc.setFixture(&doc, 12345);
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
 }
 
 void FadeChannel_Test::comparison()

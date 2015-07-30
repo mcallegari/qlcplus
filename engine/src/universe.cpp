@@ -548,8 +548,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
 bool Universe::writeRelative(int channel, uchar value)
 {
-    if (channel >= UNIVERSE_SIZE)
-        return false;
+    Q_ASSERT(channel < UNIVERSE_SIZE);
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
