@@ -684,6 +684,8 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
+    redrawPreview();
+
     // Restart the test after the latest intensity change, delayed
     m_testTimer.start();
 }
