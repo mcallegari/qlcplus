@@ -32,6 +32,7 @@ class TreeModel : public QAbstractListModel
 public:
     enum FixedRoles {
         LabelRole = Qt::UserRole + 1,
+        PathRole,
         ItemsCountRole,
         HasChildrenRole,
         ChildrenModel,

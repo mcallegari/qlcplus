@@ -79,11 +79,12 @@ Rectangle
             {
                 id: sNameEdit
                 x: leftArrow.width + 5
-                y: 3
                 height: 40
                 width: seContainer.width // - addFunc.width - removeFunc.width
-                color: "#ffffff"
+                color: "white"
                 text: sceneEditor.sceneName
+                verticalAlignment: TextInput.AlignVCenter
+                font.family: "RobotoCondensed"
                 font.pixelSize: 20
                 echoMode: TextInput.Normal
                 selectByMouse: true

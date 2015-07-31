@@ -25,8 +25,9 @@
 
 TreeModelItem::TreeModelItem(QString label, QObject *parent)
     : QObject(parent)
+    , m_label(label)
 {
-    m_label = label;
+    m_path = QString();
     m_children = NULL;
 }
 
@@ -51,9 +52,14 @@ void TreeModelItem::setLabel(QString label)
     m_label = label;
 }
 
-void TreeModelItem::setData(QVariantList data)
+QString TreeModelItem::path() const
 {
-    m_data = data;
+    return m_path;
+}
+
+void TreeModelItem::setPath(QString path)
+{
+    m_path = path;
 }
 
 QVariant TreeModelItem::data(int index)
@@ -63,6 +69,11 @@ QVariant TreeModelItem::data(int index)
         return QVariant();
 
     return m_data.at(index);
+}
+
+void TreeModelItem::setData(QVariantList data)
+{
+    m_data = data;
 }
 
 void TreeModelItem::setChildrenColumns(QStringList columns)

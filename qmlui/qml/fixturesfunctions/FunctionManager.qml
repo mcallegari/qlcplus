@@ -261,6 +261,8 @@ Rectangle
                           item.textLabel = label
                           if (hasChildren)
                           {
+                              console.log("Item path: " + path + ",label: " + label)
+                              item.nodePath = path
                               item.folderChildren = childrenModel
                               item.childrenHeight = (childrenModel.rowCount() * 35)
                           }
@@ -279,6 +281,12 @@ Rectangle
                       {
                           target: item
                           onClicked: if (hasChildren) functionManager.selectFunction(-1, qItem, false)
+                      }
+                      Connections
+                      {
+                          ignoreUnknownSignals: true
+                          target: item
+                          onPathChanged: functionManager.setFolderPath(oldPath, newPath)
                       }
                   }
               }
