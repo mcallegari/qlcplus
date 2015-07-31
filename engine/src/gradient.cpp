@@ -15,9 +15,6 @@ QImage Gradient::getRGBGradient()
 
 QColor Gradient::getRGBColor(const quint32 x, const quint32 y)
 {
-    Q_ASSERT(x < 255);
-    Q_ASSERT(y < 255);
-
     initialize();
 
     return QColor(m_rgb.pixel (qMin(x, (quint32)255), qMin(y,(quint32)255)));
