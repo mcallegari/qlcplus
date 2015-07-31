@@ -79,6 +79,9 @@ public:
     /** Get the absolute address for this channel. */
     quint32 address() const;
 
+    /** Get the absolute address in its universe for this channel. */
+    quint32 addressInUniverse() const;
+
     /** Get the channel group. */
     QLCChannel::Group group(const Doc* doc) const;
 

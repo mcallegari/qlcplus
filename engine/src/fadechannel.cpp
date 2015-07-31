@@ -113,7 +113,7 @@ quint32 FadeChannel::fixture() const
 quint32 FadeChannel::universe()
 {
     if (m_universe == Universe::invalid())
-        return (address() >> 9);
+        return address() / UNIVERSE_SIZE;
     return m_universe;
 }
 
@@ -133,6 +133,11 @@ quint32 FadeChannel::address() const
         return channel();
 
     return (m_address + channel());
+}
+
+quint32 FadeChannel::addressInUniverse() const
+{
+    return address() % UNIVERSE_SIZE;
 }
 
 QLCChannel::Group FadeChannel::group(const Doc* doc) const
