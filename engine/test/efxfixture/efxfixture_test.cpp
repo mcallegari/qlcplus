@@ -318,6 +318,10 @@ void EFXFixture_Test::save()
     QVERIFY(tag.text() == "7");
 
     tag = tag.nextSibling().toElement();
+    QVERIFY(tag.tagName() == "Mode");
+    QVERIFY(tag.text() == "0");
+
+    tag = tag.nextSibling().toElement();
     QVERIFY(tag.tagName() == "Direction");
     QVERIFY(tag.text() == "Backward");
 }
