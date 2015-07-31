@@ -501,7 +501,10 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
         combo->setAutoFillBackground (true);
 
         combo->addItems (ef->modeList ());
-        combo->setCurrentText (ef->modeToString (ef->mode ()));
+
+        const int index = combo->findText ( ef->modeToString (ef->mode ()) );
+        combo->setCurrentIndex (index);
+        //combo->setCurrentText (ef->modeToString (ef->mode ()));
 
         m_tree->setItemWidget(item, KColumnMode, combo);
         combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
