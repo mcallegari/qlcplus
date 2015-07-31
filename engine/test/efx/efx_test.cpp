@@ -2954,7 +2954,7 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
-    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)", QTest::SkipSingle);
+    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)", SkipSingle);
 
     QDomDocument doc;
 
