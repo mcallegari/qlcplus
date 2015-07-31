@@ -44,14 +44,15 @@ Rectangle
 
         if (isOpen == false)
         {
-            animateOpen.start();
-            isOpen = true;
+            editorLoader.source = editorSource
+            animateOpen.start()
+            isOpen = true
         }
         else
         {
-            animateClose.start();
-            isOpen = false;
-            editorSource = ""
+            animateClose.start()
+            isOpen = false
+            editorLoader.source = ""
         }
     }
 
@@ -59,9 +60,8 @@ Rectangle
     {
         if (isOpen == true)
         {
-            var src = editorSource
-            editorSource = ""
-            editorSource = src
+            editorLoader.source = ""
+            editorLoader.source = editorSource
         }
     }
 

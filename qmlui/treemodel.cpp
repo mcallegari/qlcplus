@@ -62,7 +62,7 @@ void TreeModel::enableSorting(bool enable)
 
 void TreeModel::addItem(QString label, QVariantList data, QString path)
 {
-    //qDebug() << "Adding item" << label << path;
+    qDebug() << "Adding item" << label << path;
 
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
@@ -88,6 +88,7 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
         else
         {
             item = new TreeModelItem(pathList.at(0));
+            item->setPath(pathList.at(0));
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             item->setChildrenColumns(m_roles);
             int addIndex = getFolderIndex(label);
@@ -122,6 +123,8 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
     if (role == LabelRole)
         return m_items.at(itemRow)->label();
+    else if (role == PathRole)
+        return m_items.at(itemRow)->path();
     else if (role == ItemsCountRole)
         return m_items.count();
     else if (role == HasChildrenRole)
@@ -184,6 +187,7 @@ QHash<int, QByteArray> TreeModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[LabelRole] = "label";
+    roles[PathRole] = "path";
     roles[ItemsCountRole] = "itemsCount";
     roles[HasChildrenRole] = "hasChildren";
     roles[ChildrenModel] = "childrenModel";

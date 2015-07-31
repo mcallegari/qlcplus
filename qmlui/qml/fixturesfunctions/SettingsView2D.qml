@@ -48,7 +48,8 @@ Rectangle
 
             RobotoText
             {
-                anchors.fill: parent
+                x: 5
+                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Global")
             }
         }
@@ -127,7 +128,8 @@ Rectangle
 
             RobotoText
             {
-                anchors.fill: parent
+                x: 5
+                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Selected fixtures")
             }
         }

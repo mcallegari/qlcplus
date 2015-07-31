@@ -285,9 +285,19 @@ void InputOutputManager::addOutputPatch(int universe, QString plugin, QString li
     m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false);
 }
 
+void InputOutputManager::removeOutputPatch(int universe)
+{
+    m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false);
+}
+
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
     m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
+}
+
+void InputOutputManager::removeInputPatch(int universe)
+{
+    m_doc->inputOutputMap()->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
 }
 
 void InputOutputManager::setInputProfile(int universe, QString profileName)
@@ -298,10 +308,14 @@ void InputOutputManager::setInputProfile(int universe, QString profileName)
 void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
 {
     if (m_selectedItem != NULL)
+    {
         m_selectedItem->setProperty("isSelected", false);
+        m_selectedItem->setProperty("z", 1);
+    }
 
     m_selectedItem = item;
     m_selectedUniverseIndex = index;
+    m_selectedItem->setProperty("z", 5);
 
     qDebug() << "[InputOutputManager] Selected universe:" << index;
 }
