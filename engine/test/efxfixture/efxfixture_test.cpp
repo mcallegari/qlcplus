@@ -318,6 +318,10 @@ void EFXFixture_Test::save()
     QVERIFY(tag.text() == "7");
 
     tag = tag.nextSibling().toElement();
+    QVERIFY(tag.tagName() == "Mode");
+    QVERIFY(tag.text() == "0");
+
+    tag = tag.nextSibling().toElement();
     QVERIFY(tag.tagName() == "Direction");
     QVERIFY(tag.text() == "Backward");
 }
@@ -435,7 +439,7 @@ void EFXFixture_Test::setPoint8bit()
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    ef.setPointPanTilt (ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE((int)ua[0]->preGMValues()[0], 5);
     QCOMPARE((int)ua[0]->preGMValues()[1], 1);
     QCOMPARE((int)ua[0]->preGMValues()[2], 0); /* No LSB channels */
@@ -450,7 +454,7 @@ void EFXFixture_Test::setPoint16bit()
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE((int)ua[0]->preGMValues()[0], 5);
     QCOMPARE((int)ua[0]->preGMValues()[1], 1);
     QCOMPARE((int)ua[0]->preGMValues()[2], 102); /* 255 * 0.4 */
@@ -465,7 +469,7 @@ void EFXFixture_Test::setPointPanOnly()
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE((int)ua[0]->preGMValues()[0], 5); /* Pan */
     QCOMPARE((int)ua[0]->preGMValues()[1], 0);
     QCOMPARE((int)ua[0]->preGMValues()[2], 0);
@@ -480,7 +484,7 @@ void EFXFixture_Test::setPointLedBar()
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
-    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE((int)ua[0]->preGMValues()[0], 1); /* Tilt */
     QCOMPARE((int)ua[0]->preGMValues()[1], 0);
     QCOMPARE((int)ua[0]->preGMValues()[2], 0);

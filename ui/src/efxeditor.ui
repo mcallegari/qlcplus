@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>487</width>
     <height>577</height>
    </rect>
   </property>
@@ -166,6 +166,11 @@
          <column>
           <property name="text">
            <string>Fixture</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Mode</string>
           </property>
          </column>
          <column>

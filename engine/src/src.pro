@@ -50,7 +50,8 @@ HEADERS += avolitesd4parser.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
-           qlcphysical.h
+           qlcphysical.h \
+           gradient.h
 
 # Audio
 HEADERS += audio/audio.h \
@@ -137,7 +138,8 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \
-           qlcphysical.cpp
+           qlcphysical.cpp \
+           gradient.cpp
 
 # Audio
 SOURCES += audio/audio.cpp \

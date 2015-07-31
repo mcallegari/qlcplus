@@ -621,18 +621,22 @@ bool EFX::addFixture(EFXFixture* ef)
 {
     Q_ASSERT(ef != NULL);
 
-    /* Search for an existing fixture with the same ID to prevent multiple
-       entries of the same fixture. */
-    QListIterator <EFXFixture*> it(m_fixtures);
-    while (it.hasNext() == true)
+    /* Search for an existing fixture with the same ID and append at last but do
+     * not prevent multiple entries because a fixture can have multiple efx. */
+    //! @todo Prevent multiple entries using head & mode
+    int i;
+    for(i = 0; i < m_fixtures.size (); i++)
     {
-        /* Found the same fixture. Don't add the new one. */
-        if (it.next()->head() == ef->head())
-            return false;
+        if (m_fixtures[i]->head() == ef->head())
+        {
+            m_fixtures.insert(i, ef);
+            break;
+        }
     }
 
-    /* Put the EFXFixture object into our list */
-    m_fixtures.append(ef);
+    /* If not inserted, put the EFXFixture object into our list */
+    if(i >= m_fixtures.size())
+        m_fixtures.append(ef);
 
     emit changed(this->id());
 

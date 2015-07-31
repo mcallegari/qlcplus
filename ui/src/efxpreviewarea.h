@@ -69,6 +69,9 @@ public:
     /** Scale the points in the given polygon of size [0, 255] to the given target size */
     static QPolygon scale(const QPolygon& poly, const QSize& target);
 
+    /** Restart animation. */
+    void restart();
+
 protected:
     /** @reimp */
     void resizeEvent(QResizeEvent* e);
