@@ -29,7 +29,8 @@
 
 import QtQuick 2.0
 
-QtObject {
+QtObject
+{
     readonly property string fa_adjust                  : "\uf042"
     readonly property string fa_adn                     : "\uf170"
     readonly property string fa_align_center            : "\uf037"

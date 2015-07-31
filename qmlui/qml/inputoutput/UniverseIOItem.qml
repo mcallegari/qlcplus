@@ -57,49 +57,92 @@ Rectangle
     }
 
     signal selected(int index)
+    signal patchDragging(bool status)
 
     // area containing the input patches
     Column
     {
         id: inputBox
         x: 14
+        z: 1
         anchors.verticalCenter: uniItem.verticalCenter
 
         Repeater
         {
             model: inputPatchesNumber
             delegate:
-                InputPatchItem
+                Item
                 {
+                    id: ipRoot
                     width: inWireBox.width * 3
+                    height: ipItem.height
 
-                    universeID: universe.id
-                    patch: universe ? universe.inputPatch : null
-
-                    DropArea
+                    MouseArea
                     {
-                        id: profDropTarget
-                        z: 2
-                        width: inWireBox.width * 3
-                        height: 80
-                        keys: [ universe ? "profile-" + universe.id : "" ]
+                        id: ipMouseArea
+                        anchors.fill: parent
+                        propagateComposedEvents: true
 
-                        Rectangle
+                        drag.target: ipItem
+                        drag.threshold: 30
+
+                        onClicked: mouse.accepted = false
+                        onPositionChanged: if (ipMouseArea.drag.active) uniItem.patchDragging(true)
+                        onReleased:
                         {
-                            id: profDropRect
-                            anchors.fill: parent
-                            color: "transparent"
-                            states: [
-                                State
+                            uniItem.patchDragging(false)
+                            if (ipItem.Drag.target !== null)
+                            {
+                                ipItem.Drag.active = false
+                                ioManager.removeInputPatch(universe.id)
+                            }
+                            else
+                            {
+                                // return the item to its original position
+                                ipItem.x = 0
+                                ipItem.y = 0
+                            }
+                        }
+
+                        InputPatchItem
+                        {
+                            id: ipItem
+                            width: ipRoot.width
+
+                            universeID: universe.id
+                            patch: universe ? universe.inputPatch : null
+
+                            Drag.active: ipMouseArea.drag.active
+                            Drag.source: ipMouseArea
+                            Drag.hotSpot.x: width / 2
+                            Drag.hotSpot.y: height / 2
+                            Drag.keys: [ "removePatch" ]
+
+                            DropArea
+                            {
+                                id: profDropTarget
+                                z: 2
+                                anchors.fill: parent
+                                keys: [ universe ? "profile-" + universe.id : "" ]
+
+                                Rectangle
                                 {
-                                    when: profDropTarget.containsDrag
-                                    PropertyChanges
-                                    {
-                                        target: profDropRect
-                                        color: "#33FFEC55"
-                                    }
+                                    id: profDropRect
+                                    anchors.fill: parent
+                                    color: "transparent"
+                                    states: [
+                                        State
+                                        {
+                                            when: profDropTarget.containsDrag
+                                            PropertyChanges
+                                            {
+                                                target: profDropRect
+                                                color: "#33FFEC55"
+                                            }
+                                        }
+                                    ]
                                 }
-                            ]
+                            }
                         }
                     }
                 }
@@ -196,6 +239,7 @@ Rectangle
     {
         id: outputBox
         x: outWireBox.x + outWireBox.width - 8
+        z: 1
         anchors.verticalCenter: uniItem.verticalCenter
 
         Repeater
@@ -203,12 +247,54 @@ Rectangle
             id: outRpt
             model: outputPatchesNumber
             delegate:
-                OutputPatchItem
+                Item
                 {
+                    id: opRoot
                     width: outWireBox.width * 3
+                    height: opItem.height
 
-                    universeID: universe.id
-                    patch: universe ? universe.outputPatch : null
+                    MouseArea
+                    {
+                        id: opMouseArea
+                        anchors.fill: parent
+                        propagateComposedEvents: true
+
+                        drag.target: opItem
+                        drag.threshold: 30
+
+                        onClicked: mouse.accepted = false
+                        onPositionChanged: if (opMouseArea.drag.active) uniItem.patchDragging(true)
+                        onReleased:
+                        {
+                            uniItem.patchDragging(false)
+                            if (opItem.Drag.target !== null)
+                            {
+                                opItem.Drag.active = false
+                                ioManager.removeOutputPatch(universe.id)
+                            }
+                            else
+                            {
+                                // return the item to its original position
+                                opItem.x = 0
+                                opItem.y = 0
+                            }
+                        }
+
+                        OutputPatchItem
+                        {
+                            id: opItem
+                            width: opRoot.width
+
+                            universeID: universe.id
+                            patch: universe ? universe.outputPatch : null
+
+                            Drag.active: opMouseArea.drag.active
+                            Drag.source: opMouseArea
+                            Drag.hotSpot.x: width / 2
+                            Drag.hotSpot.y: height / 2
+                            Drag.keys: [ "removePatch" ]
+                        }
+                    }
                 }
         }
     }
@@ -250,6 +336,7 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
+
         onClicked:
         {
             if (isSelected == false)
