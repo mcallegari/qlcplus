@@ -144,7 +144,6 @@ uchar EFXFixture::fadeIntensity() const
 bool EFXFixture::isValid() const
 {
     Fixture* fxi = doc()->fixture(head().fxi);
-    Q_ASSERT(fxi != NULL);
 
     if (fxi == NULL)
         return false;
