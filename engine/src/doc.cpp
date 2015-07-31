@@ -1003,7 +1003,7 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
 
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
-        qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
 
         if (fxRect.intersects(itemRect) == true)
         {
