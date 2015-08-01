@@ -39,6 +39,7 @@ typedef struct
 #define E131_MCASTIP "mcastIP"
 #define E131_OUTPUTUNI "outputUni"
 #define E131_TRANSMITMODE "transmitMode"
+#define E131_OUTPUTPRIORITY "outputPriority"
 	
 class E131Plugin : public QLCIOPlugin
 {

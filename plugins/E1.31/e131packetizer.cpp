@@ -93,7 +93,7 @@ E131Packetizer::E131Packetizer()
     for (int i = 0; i < 64 - sourceName.length(); i++)
         m_commonHeader.append((char)0x00);
 
-    // Data priority if multiple sources (default to 100)
+    // Data priority if multiple sources (default to 100) (byte 108)
     m_commonHeader.append((char)0x64);
 
     // reserved
@@ -149,7 +149,7 @@ E131Packetizer::~E131Packetizer()
  * Sender functions
  *********************************************************************/
 
-void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const QByteArray &values)
+void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const int &priority, const QByteArray &values)
 {
     data.clear();
     data.append(m_commonHeader);
@@ -167,6 +167,8 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const Q
 
     data[38] = 0x70 | (char)(e131LayerSize >> 8);
     data[39] = (char)(e131LayerSize & 0x00FF);
+
+    data[108] = (char) priority;
 
     data[111] = m_sequence[universe];
 
