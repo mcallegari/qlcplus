@@ -852,6 +852,7 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
 {
+    m_tab->blockSignals(true);
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
         QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
@@ -860,7 +861,9 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
         delete area; // Deletes also FixtureConsole
     }
     m_consoleList.clear();
+    m_tab->blockSignals(false);
 
+    // all fixtures view mode
     if (toggled == false)
     {
         QListIterator <Fixture*> it(selectedFixtures());
@@ -915,6 +918,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
             scrollArea->setWidget(grpBox);
         }
     }
+    // tabbed fixtures view mode
     else
     {
         QListIterator <Fixture*> it(selectedFixtures());
@@ -936,12 +940,19 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
             }
         }
     }
+    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
+
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(sceneUiState()->currentTab());
-
-    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
+    {
+        int prevTabIdx = sceneUiState()->currentTab();
+        if (prevTabIdx > m_tab->count())
+            m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        else
+            m_tab->setCurrentIndex(sceneUiState()->currentTab());
+    }
+    sceneUiState()->setCurrentTab(m_tab->currentIndex());
 }
 
 void SceneEditor::slotRecord()
