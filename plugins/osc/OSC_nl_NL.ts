@@ -40,30 +40,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Output address:</source>
-        <translation type="obsolete">Output adres:</translation>
-    </message>
-    <message>
-        <source>Input port:</source>
-        <translation type="obsolete">Input poort:</translation>
-    </message>
-    <message>
-        <source>OSC Network 2</source>
-        <translation type="obsolete">OSC Netwerk 2</translation>
-    </message>
-    <message>
-        <source>OSC Network 1</source>
-        <translation type="obsolete">OSC Netwerk 1</translation>
-    </message>
-    <message>
-        <source>OSC Network 3</source>
-        <translation type="obsolete">OSC Netwerk 3</translation>
-    </message>
-    <message>
-        <source>OSC Network 4</source>
-        <translation type="obsolete">OSC Netwerk 4</translation>
-    </message>
-    <message>
         <location filename="configureosc.cpp" line="75"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
@@ -104,25 +80,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OSC Network</source>
-        <translation type="obsolete">OSC Netwerk</translation>
-    </message>
-    <message>
         <location filename="oscplugin.cpp" line="109"/>
         <source>Output</source>
         <translation>Output</translation>
-    </message>
-    <message>
-        <source>Status: Not ready</source>
-        <translation type="obsolete">Status: Niet gereed</translation>
-    </message>
-    <message>
-        <source>Address: </source>
-        <translation type="obsolete">Adres: </translation>
-    </message>
-    <message>
-        <source>Status: Ready</source>
-        <translation type="obsolete">Status: Gereed</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="253"/>

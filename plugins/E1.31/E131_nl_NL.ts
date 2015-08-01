@@ -34,14 +34,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Netwerk Mapping</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Netwerk</translation>
-    </message>
-    <message>
         <location filename="configuree131.ui" line="42"/>
         <source>Universe</source>
         <translation>Universe</translation>
@@ -73,10 +65,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Deze plugin zorgt voor DMX output voor apparaten die het E1.31 communicatieprotocol ondersteunen.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

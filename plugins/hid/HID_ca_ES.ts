@@ -27,12 +27,12 @@
 <context>
     <name>HIDDMXDevice</name>
     <message>
-        <location filename="hiddmxdevice.cpp" line="61"/>
+        <location filename="hiddmxdevice.cpp" line="62"/>
         <source>HID DMX Interface Error</source>
         <translation>HID DMX error d&apos;interfície</translation>
     </message>
     <message>
-        <location filename="hiddmxdevice.cpp" line="62"/>
+        <location filename="hiddmxdevice.cpp" line="63"/>
         <source>Unable to open %1. Make sure the udev rule is installed.</source>
         <translation>No es pot obrir %1. Assegurar-vos que la regla de udev està instal·lada.</translation>
     </message>
@@ -40,12 +40,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="313"/>
+        <location filename="hidjsdevice.cpp" line="88"/>
         <source>Axes: %1</source>
         <translation>Eixos: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="315"/>
+        <location filename="hidjsdevice.cpp" line="90"/>
         <source>Buttons: %1</source>
         <translation>Botons: %1</translation>
     </message>
@@ -53,7 +53,7 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="116"/>
+        <location filename="hidplugin.cpp" line="125"/>
         <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
         <translation>Aquest plugin proveeix support HID per joysticks, gamepads i alguns adaptadors USB DMX.</translation>
     </message>

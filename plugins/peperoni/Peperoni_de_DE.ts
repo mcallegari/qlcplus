@@ -4,23 +4,23 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="127"/>
+        <location filename="win32/peperoni.cpp" line="129"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation>Dieses Plugin bietet DMX-Output für Peperoni DMX-Geräte.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="141"/>
+        <location filename="win32/peperoni.cpp" line="143"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
         <translation>Die Bibliothek usbdmx.dll konnte nicht gefunden werden, oder ist zu alt um mit QLC verwendet zu werden.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="223"/>
-        <location filename="unix/peperoni.cpp" line="201"/>
+        <location filename="win32/peperoni.cpp" line="225"/>
+        <location filename="unix/peperoni.cpp" line="205"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Nach neuer Hardware suchen?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="97"/>
+        <location filename="unix/peperoni.cpp" line="99"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation>Dieses Plugin bietet DMX Ein- und Ausgabe für Peperoni DMX-Geräte.</translation>
     </message>

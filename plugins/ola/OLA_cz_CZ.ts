@@ -27,12 +27,12 @@
 <context>
     <name>OlaIO</name>
     <message>
-        <location filename="olaio.cpp" line="156"/>
+        <location filename="olaio.cpp" line="163"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
         <translation>Tento plugin přidává podporu DMX výstupu pro Open Lighting Architecture (OLA).</translation>
     </message>
     <message>
-        <location filename="olaio.cpp" line="170"/>
+        <location filename="olaio.cpp" line="177"/>
         <source>This is the output for OLA universe %1</source>
         <translation>Toto je výstup pro OLA Větev %1</translation>
     </message>

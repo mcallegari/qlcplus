@@ -34,14 +34,6 @@
         <translation>Mode de transmissió</translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Mapatge de Xarxa</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Xarxa</translation>
-    </message>
-    <message>
         <location filename="configuree131.ui" line="42"/>
         <source>Universe</source>
         <translation>Uninvers</translation>
@@ -73,10 +65,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Aquest plugin proveeix sortida DMX per dispositius que suporten el protocol de comunicació E1.31.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl_NL">
+<TS version="2.0" language="nl_NL">
 <context>
     <name>Loopback</name>
     <message>
-        <location filename="loopback.cpp" line="92"/>
-        <location filename="loopback.cpp" line="127"/>
+        <location filename="loopback.cpp" line="91"/>
+        <location filename="loopback.cpp" line="117"/>
         <source>Loopback</source>
         <translation>Loopback</translation>
     </message>
     <message>
-        <location filename="loopback.cpp" line="143"/>
+        <location filename="loopback.cpp" line="133"/>
         <source>This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.</source>
         <translation>Deze plugin verzorgt DMX loopback. Data die naar een output geschreven wordt zal doorgestuurd worden naar de respectievelijke input.</translation>
     </message>
     <message>
-        <location filename="loopback.cpp" line="156"/>
+        <location filename="loopback.cpp" line="146"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="loopback.cpp" line="159"/>
-        <location filename="loopback.cpp" line="181"/>
+        <location filename="loopback.cpp" line="149"/>
+        <location filename="loopback.cpp" line="171"/>
         <source>Status: Used</source>
         <translation>Status: In gebruik</translation>
     </message>
     <message>
-        <location filename="loopback.cpp" line="162"/>
-        <location filename="loopback.cpp" line="184"/>
+        <location filename="loopback.cpp" line="152"/>
+        <location filename="loopback.cpp" line="174"/>
         <source>Status: Not used</source>
         <translation>Status: Niet in gebruik</translation>
     </message>
     <message>
-        <location filename="loopback.cpp" line="178"/>
+        <location filename="loopback.cpp" line="168"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>

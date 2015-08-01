@@ -40,14 +40,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Output address:</source>
-        <translation type="obsolete">Output address:</translation>
-    </message>
-    <message>
-        <source>Input port:</source>
-        <translation type="obsolete">Input port:</translation>
-    </message>
-    <message>
         <location filename="configureosc.cpp" line="75"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>

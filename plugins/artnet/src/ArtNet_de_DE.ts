@@ -10,10 +10,6 @@
         <translation>Dieses Plugin bietet Unterstützung für Geräte mit dem ArtNet-Kommunikationsprotokoll.</translation>
     </message>
     <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
-    </message>
-    <message>
         <location filename="artnetplugin.cpp" line="113"/>
         <source>Output</source>
         <translation>Ausgang</translation>
@@ -114,29 +110,40 @@
         <translation>Kompletter Name</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="71"/>
+        <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
         <translation>%1 Knoten</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="111"/>
+        <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
         <translation>Eingänge</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="117"/>
+        <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
         <translation>Ausgänge</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="157"/>
+        <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="158"/>
+        <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>Invalid IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

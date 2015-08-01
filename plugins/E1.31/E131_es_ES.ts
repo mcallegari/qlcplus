@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>ConfigureE131</name>
     <message>
@@ -34,14 +34,6 @@
         <translation>Modo de Transmisión</translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Mapa de Red</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Red</translation>
-    </message>
-    <message>
         <location filename="configuree131.ui" line="42"/>
         <source>Universe</source>
         <translation>Universo</translation>
@@ -73,10 +65,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Este plugin provee salida DMX para dispositivos que soportan el protocolo de comunicación E1.31.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

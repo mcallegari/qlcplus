@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>ConfigureOSC</name>
     <message>
@@ -38,31 +38,6 @@
         <location filename="configureosc.ui" line="61"/>
         <source>Output Port</source>
         <translation>Puerto de Salida</translation>
-    </message>
-    <message>
-        <source>Output address:</source>
-        <translation type="obsolete">Dirección de Salida:</translation>
-    </message>
-    <message>
-        <source>Input port:</source>
-        <oldsource>Port:</oldsource>
-        <translation type="obsolete">Puerto de Entrada:</translation>
-    </message>
-    <message>
-        <source>OSC Network 2</source>
-        <translation type="obsolete">Red OSC 2</translation>
-    </message>
-    <message>
-        <source>OSC Network 1</source>
-        <translation type="obsolete">Red OSC 1</translation>
-    </message>
-    <message>
-        <source>OSC Network 3</source>
-        <translation type="obsolete">Red OSC 3</translation>
-    </message>
-    <message>
-        <source>OSC Network 4</source>
-        <translation type="obsolete">Red OSC 4</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="75"/>
@@ -105,26 +80,9 @@
         <translation>Paquetes recibidos: </translation>
     </message>
     <message>
-        <source>OSC Network</source>
-        <translation type="obsolete">Red OSC</translation>
-    </message>
-    <message>
         <location filename="oscplugin.cpp" line="109"/>
         <source>Output</source>
         <translation>Salida</translation>
-    </message>
-    <message>
-        <source>Status: Not ready</source>
-        <oldsource>Status: Not open</oldsource>
-        <translation type="obsolete">Estado: No listo</translation>
-    </message>
-    <message>
-        <source>Address: </source>
-        <translation type="obsolete">Dirección:</translation>
-    </message>
-    <message>
-        <source>Status: Ready</source>
-        <translation type="obsolete">Estado: Listo</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="253"/>

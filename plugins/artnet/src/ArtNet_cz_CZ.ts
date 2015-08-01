@@ -9,10 +9,6 @@
         <translation>Tento plugin přidává podporu DMX výstupů pro zařízení podporující komunikační protokol ArtNet.</translation>
     </message>
     <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
-    </message>
-    <message>
         <location filename="artnetplugin.cpp" line="113"/>
         <source>Output</source>
         <translation>Výstup</translation>
@@ -113,29 +109,40 @@
         <translation>Dlouhý název</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="71"/>
+        <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
         <translation>Uzly %1</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="111"/>
+        <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="117"/>
+        <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="157"/>
+        <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
         <translation>Plný</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="158"/>
+        <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
         <translation>Částečný</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>Invalid IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
