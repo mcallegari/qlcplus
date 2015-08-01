@@ -983,6 +983,9 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
 
     foreach(Fixture* fixture, fixtures())
     {
+        if (m_monitorProps->hasFixturePosition(fixture->id()) == false)
+            continue;
+
         QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
         QLCFixtureMode *fxMode = fixture->fixtureMode();
 
