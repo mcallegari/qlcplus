@@ -35,12 +35,18 @@ class InputOutputManager : public QObject
 
     Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
     Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
+    Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
+    Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
 
 public:
     InputOutputManager(Doc *doc, QObject *parent = 0);
 
     QQmlListProperty<Universe> universes();
     QStringList universeNames() const;
+
+    QVariant audioInputDevice();
+    QVariant audioOutputDevice();
+
     Q_INVOKABLE QVariant audioInputSources();
     Q_INVOKABLE QVariant audioOutputSources();
 
@@ -49,7 +55,9 @@ public:
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
     Q_INVOKABLE void addOutputPatch(int universe, QString plugin, QString line);
+    Q_INVOKABLE void removeOutputPatch(int universe);
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
+    Q_INVOKABLE void removeInputPatch(int universe);
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
 
     Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
@@ -60,20 +68,16 @@ private:
 
 signals:
     void universesChanged();
+    void audioInputDeviceChanged();
+    void audioOutputDeviceChanged();
 
 public slots:
 
 private:
     Doc *m_doc;
     InputOutputMap* m_ioMap;
-    /** List of the current Fixtures in Doc */
+    /** List of references to the current Universes in Doc */
     QList<Universe *> m_universeList;
-    /** List of the available input sources of a universe */
-    QList<QObject*> m_inputSources;
-    /** List of the available input profiles of a universe */
-    QList<QObject*> m_inputProfiles;
-    /** List of the available output sources of a universe */
-    QList<QObject*> m_outputSources;
 
     QQuickItem *m_selectedItem;
     int m_selectedUniverseIndex;

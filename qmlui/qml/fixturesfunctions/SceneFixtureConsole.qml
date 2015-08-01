@@ -25,20 +25,77 @@ Rectangle
     id: sfcContainer
     anchors.fill: parent
     color: "transparent"
+    objectName: "sceneFixtureConsole"
+    property int currentSelIndex: -1
+
+    Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
+    Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
+
+    function setFixtureChannel(fxIdx, channel, value)
+    {
+        console.log("[setFixtureChannel] fxIdx: " + fxIdx + ", count: " + fixtureList.count)
+        if (fxIdx < 0 || fxIdx >= fixtureList.count)
+            return;
+
+        fixtureList.currentIndex = fxIdx
+        fixtureList.currentItem.fConsole.setChannelValue(channel, value)
+        fixtureList.currentIndex = -1
+        //fixtureList.contentItem.children[fxIdx].setChannelValue(channel, value)
+    }
+
+    function scrollToItem(fxIdx)
+    {
+        console.log("[scrollToItem] fxIdx: " + fxIdx)
+        if (currentSelIndex != -1)
+        {
+            fixtureList.currentIndex = currentSelIndex
+            fixtureList.currentItem.isSelected = false
+        }
+        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
+        fixtureList.currentIndex = fxIdx
+        fixtureList.currentItem.isSelected = true
+        fixtureList.currentIndex = -1
+        currentSelIndex = fxIdx
+    }
 
     ListView
     {
+        id: fixtureList
         anchors.fill: parent
         orientation: ListView.Horizontal
         model: sceneEditor.fixtures
         boundsBehavior: Flickable.StopAtBounds
+        highlightFollowsCurrentItem: false
 
         delegate:
-            FixtureConsole
+            Rectangle
             {
-                fixtureObj: modelData
                 height: parent.height
-                color: index % 2 ? "#202020" : "#303030"
+                width: fxConsole.width + 4
+                property var fConsole: fxConsole
+                property bool isSelected: false
+                color: "black"
+
+                FixtureConsole
+                {
+                    id: fxConsole
+                    x: 2
+                    fixtureObj: modelData
+                    height: parent.height
+                    color: index % 2 ? "#202020" : "#404040"
+                    showEnablers: true
+                    sceneConsole: true
+                }
+                // Fixture divider
+                Rectangle
+                {
+                    anchors.fill: parent
+                    width: 2
+                    color: "transparent"
+                    radius: 3
+                    border.width: 2
+                    border.color: isSelected ? "#0978FF" : "transparent"
+                }
             }
     }
 }

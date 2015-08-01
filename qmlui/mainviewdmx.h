@@ -46,6 +46,8 @@ public:
 
     void updateFixtureSelection(QList<quint32>fixtures);
 
+    void updateFixtureSelection(quint32 fxID, bool enable);
+
 protected:
 
 signals:

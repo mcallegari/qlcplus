@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QDebug>
 
 #include "inputoutputmanager.h"
-#include "inputoutputobject.h"
 #include "audiorenderer_qt.h"
 #include "audiocapture_qt.h"
 #include "qlcioplugin.h"
@@ -55,65 +55,121 @@ QStringList InputOutputManager::universeNames() const
     return m_ioMap->universeNames();
 }
 
-void InputOutputManager::clearInputList()
+QVariant InputOutputManager::audioInputDevice()
 {
-    int count = m_inputSources.count();
-    for (int i = 0; i < count; i++)
+    QSettings settings;
+    QString devName = tr("Default device");
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        devName = var.toString();
+
+    if (var.isValid() == false || devName == tr("Default device"))
     {
-        QObject *src = m_inputSources.takeLast();
-        delete src;
+        QVariantMap devMap;
+        devMap.insert("name", tr("Default device"));
+        devMap.insert("privateName", "__qlcplusdefault__");
+        return QVariant::fromValue(devMap);
     }
-    m_inputSources.clear();
+
+    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_INPUT &&
+            info.deviceName == devName)
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            return QVariant::fromValue(devMap);
+        }
+    }
+
+    return QVariant();
 }
 
-void InputOutputManager::clearOutputList()
+QVariant InputOutputManager::audioOutputDevice()
 {
-    int count = m_outputSources.count();
-    for (int i = 0; i < count; i++)
+    QSettings settings;
+    QString devName = tr("Default device");
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        devName = var.toString();
+
+    if (var.isValid() == false || devName == tr("Default device"))
     {
-        QObject *src = m_outputSources.takeLast();
-        delete src;
+        QVariantMap devMap;
+        devMap.insert("name", tr("Default device"));
+        devMap.insert("privateName", "__qlcplusdefault__");
+        return QVariant::fromValue(devMap);
     }
-    m_outputSources.clear();
+
+    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT &&
+            info.deviceName == devName)
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            return QVariant::fromValue(devMap);
+        }
+    }
+
+    return QVariant();
 }
 
 QVariant InputOutputManager::audioInputSources()
 {
+    QVariantList inputSources;
     QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
 
-    clearInputList();
-
-    m_inputSources.append(new InputOutputObject(0, tr("Default device"), "__qlcplusdefault__"));
+    QVariantMap defAudioMap;
+    defAudioMap.insert("name", tr("Default device"));
+    defAudioMap.insert("privateName", "__qlcplusdefault__");
+    inputSources.append(defAudioMap);
 
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
-            m_inputSources.append(new InputOutputObject(0, info.deviceName, info.privateName));
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            inputSources.append(devMap);
+        }
     }
 
-    return QVariant::fromValue(m_inputSources);
+    return QVariant::fromValue(inputSources);
 }
 
 QVariant InputOutputManager::audioOutputSources()
 {
+    QVariantList outputSources;
     QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
 
-    clearOutputList();
-
-    m_outputSources.append(new InputOutputObject(0, tr("Default device"), "__qlcplusdefault__"));
+    QVariantMap defAudioMap;
+    defAudioMap.insert("name", tr("Default device"));
+    defAudioMap.insert("privateName", "__qlcplusdefault__");
+    outputSources.append(defAudioMap);
 
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
-            m_outputSources.append(new InputOutputObject(0, info.deviceName, info.privateName));
+        {
+            QVariantMap devMap;
+            devMap.insert("name", info.deviceName);
+            devMap.insert("privateName", info.privateName);
+            outputSources.append(devMap);
+        }
     }
 
-    return QVariant::fromValue(m_outputSources);
+    return QVariant::fromValue(outputSources);
 }
 
 QVariant InputOutputManager::universeInputSources(int universe)
 {
-    clearInputList();
+    QVariantList inputSources;
     QString currPlugin;
     int currLine;
     InputPatch *ip = m_ioMap->inputPatch(universe);
@@ -137,17 +193,24 @@ QVariant InputOutputManager::universeInputSources(int universe)
             quint32 uni = m_ioMap->inputMapping(pluginName, i);
             if (uni == InputOutputMap::invalidUniverse() ||
                (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
-                m_inputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
+            {
+                QVariantMap lineMap;
+                lineMap.insert("universe", universe);
+                lineMap.insert("name", pLine);
+                lineMap.insert("line", i);
+                lineMap.insert("plugin", pluginName);
+                inputSources.append(lineMap);
+            }
             i++;
         }
     }
 
-    return QVariant::fromValue(m_inputSources);
+    return QVariant::fromValue(inputSources);
 }
 
 QVariant InputOutputManager::universeOutputSources(int universe)
 {
-    clearOutputList();
+    QVariantList outputSources;
     QString currPlugin;
     int currLine;
     OutputPatch *op = m_ioMap->outputPatch(universe);
@@ -171,27 +234,28 @@ QVariant InputOutputManager::universeOutputSources(int universe)
             quint32 uni = m_ioMap->outputMapping(pluginName, i);
             if (uni == InputOutputMap::invalidUniverse() ||
                (uni == (quint32)universe || plugin->capabilities() & QLCIOPlugin::Infinite))
-                m_outputSources.append(new InputOutputObject(universe, pLine, QString::number(i), pluginName));
+            {
+                QVariantMap lineMap;
+                lineMap.insert("universe", universe);
+                lineMap.insert("name", pLine);
+                lineMap.insert("line", i);
+                lineMap.insert("plugin", pluginName);
+                outputSources.append(lineMap);
+            }
             i++;
         }
     }
 
-    return QVariant::fromValue(m_outputSources);
+    return QVariant::fromValue(outputSources);
 }
 
 QVariant InputOutputManager::universeInputProfiles(int universe)
 {
-    int count = m_inputProfiles.count();
-    for (int i = 0; i < count; i++)
-    {
-        QObject *src = m_inputProfiles.takeLast();
-        delete src;
-    }
-    m_inputProfiles.clear();
-
+    QVariantList profilesList;
+    QString currentProfile = KInputNone;
     QStringList profileNames = m_doc->inputOutputMap()->profileNames();
     profileNames.sort();
-    QString currentProfile = KInputNone;
+
     if (m_ioMap->inputPatch(universe) != NULL)
         currentProfile = m_ioMap->inputPatch(universe)->profileName();
 
@@ -202,11 +266,18 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
         {
             QString type = ip->typeToString(ip->type());
             if (name != currentProfile)
-                m_inputProfiles.append(new InputOutputObject(universe, name, name, type));
+            {
+                QVariantMap profileMap;
+                profileMap.insert("universe", universe);
+                profileMap.insert("name", name);
+                profileMap.insert("line", name);
+                profileMap.insert("plugin", type);
+                profilesList.append(profileMap);
+            }
         }
     }
 
-    return QVariant::fromValue(m_inputProfiles);
+    return QVariant::fromValue(profilesList);
 }
 
 void InputOutputManager::addOutputPatch(int universe, QString plugin, QString line)
@@ -214,9 +285,19 @@ void InputOutputManager::addOutputPatch(int universe, QString plugin, QString li
     m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false);
 }
 
+void InputOutputManager::removeOutputPatch(int universe)
+{
+    m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false);
+}
+
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
     m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
+}
+
+void InputOutputManager::removeInputPatch(int universe)
+{
+    m_doc->inputOutputMap()->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
 }
 
 void InputOutputManager::setInputProfile(int universe, QString profileName)
@@ -229,9 +310,12 @@ void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
     if (m_selectedItem != NULL)
     {
         m_selectedItem->setProperty("isSelected", false);
+        m_selectedItem->setProperty("z", 1);
     }
+
     m_selectedItem = item;
     m_selectedUniverseIndex = index;
+    m_selectedItem->setProperty("z", 5);
 
     qDebug() << "[InputOutputManager] Selected universe:" << index;
 }

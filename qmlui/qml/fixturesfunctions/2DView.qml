@@ -19,7 +19,8 @@
 
 import QtQuick 2.3
 
-Rectangle {
+Rectangle
+{
     anchors.fill: parent
     color: "black"
 
@@ -31,57 +32,79 @@ Rectangle {
     Component.onCompleted: contextManager.enableContext("2D", true)
     Component.onDestruction: contextManager.enableContext("2D", false)
 
-    Flickable {
+    function setZoom(amount)
+    {
+        if (twoDView.gridScale + amount < 1.0)
+            twoDView.gridScale = 1.0
+        else
+            twoDView.gridScale += amount
+    }
+
+    function hasSettings()
+    {
+        return true;
+    }
+
+    function showSettings(show)
+    {
+        twoDSettings.visible = show
+        twoDView.calculateCellSize()
+    }
+
+    Flickable
+    {
         id: twoDView
         objectName: "twoDView"
         anchors.fill: parent
         z: 1
         boundsBehavior: Flickable.StopAtBounds
-        contentWidth: parent.width
-        contentHeight: parent.height
+        //contentWidth: parent.width
+        //contentHeight: parent.height
 
-        property int gridWidth: 5
-        property int gridHeight: 5
+        property size gridSize: View2D.gridSize
+
         property real gridScale: 1.0
-        property int gridUnits: 1000
+        property real gridUnits: View2D.gridUnits
 
         property real baseCellSize
 
         Component.onCompleted: calculateCellSize()
 
-        onGridWidthChanged: calculateCellSize();
-        onGridHeightChanged: calculateCellSize();
+        onGridSizeChanged: calculateCellSize();
         onGridScaleChanged: calculateCellSize();
         onGridUnitsChanged: calculateCellSize();
 
-        function calculateCellSize() {
+        function calculateCellSize()
+        {
             if (width <= 0 || height <= 0)
                 return;
-            var xDiv = width / gridWidth;
-            var yDiv = height / gridHeight;
+            var w = twoDSettings.visible ? (width - twoDSettings.width) : width
+            var xDiv = w / gridSize.width;
+            var yDiv = height / gridSize.height;
             twoDContents.x = 0;
             twoDContents.y = 0;
+
             if (yDiv < xDiv)
-            {
-                twoDView.baseCellSize = yDiv * gridScale;
-                if (gridScale == 1.0)
-                    twoDContents.x = (width - (yDiv * gridWidth)) / 2;
-            }
+                baseCellSize = yDiv * gridScale;
             else if (xDiv < yDiv)
-            {
                 baseCellSize = xDiv * gridScale;
-                if (gridScale == 1.0)
-                    twoDContents.y = (height - (xDiv * gridHeight)) / 2;
-            }
-            contentWidth = baseCellSize * gridWidth;
-            contentHeight = baseCellSize * gridHeight;
 
             //console.log("Cell size calculated: " + baseCellSize)
+
+            contentWidth = baseCellSize * gridSize.width;
+            contentHeight = baseCellSize * gridSize.height;
+
+            if (contentWidth < w)
+                twoDContents.x = (w - contentWidth) / 2;
+            if (contentHeight < height)
+                twoDContents.y = (height - contentHeight) / 2;
+
             if (baseCellSize > 0)
                 twoDContents.requestPaint();
         }
 
-        Rectangle {
+        Rectangle
+        {
             id: selectionRect
             visible: false
             x: 0
@@ -96,7 +119,8 @@ Rectangle {
             transformOrigin: Item.TopLeft
         }
 
-        Canvas {
+        Canvas
+        {
             id: twoDContents
             objectName: "twoDContents"
             width: twoDView.contentWidth
@@ -110,12 +134,14 @@ Rectangle {
             property real cellSize: twoDView.baseCellSize
             property int gridUnits: twoDView.gridUnits
 
-            function setFlickableStatus(status) {
+            function setFlickableStatus(status)
+            {
                 console.log("Flickable interaction set to: " + status)
                 twoDView.interactive = status
             }
 
-            onPaint: {
+            onPaint:
+            {
                 var ctx = twoDContents.getContext('2d');
                 //ctx.save();
                 ctx.globalAlpha = 1.0;
@@ -128,13 +154,13 @@ Rectangle {
                 ctx.fillRect(0, 0, width, height)
                 ctx.rect(0, 0, width, height)
 
-                for (var vl = 1; vl < twoDView.gridWidth; vl++)
+                for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = cellSize * vl;
                     ctx.moveTo(xPos, 0);
                     ctx.lineTo(xPos, height);
                 }
-                for (var hl = 1; hl < twoDView.gridHeight; hl++)
+                for (var hl = 1; hl < twoDView.gridSize.height; hl++)
                 {
                     var yPos = cellSize * hl;
                     ctx.moveTo(0, yPos);
@@ -145,17 +171,19 @@ Rectangle {
                 //ctx.restore();
             }
 
-            MouseArea {
+            MouseArea
+            {
                 // set the size to cover the whole twoDView
                 x: -twoDContents.x
                 y: -twoDContents.y
-                width: twoDView.width
+                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
                 height: twoDView.height
 
                 property int initialXPos
                 property int initialYPos
 
-                onPressed: {
+                onPressed:
+                {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
 
                     if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
@@ -174,7 +202,8 @@ Rectangle {
                     }
                 }
 
-                onPositionChanged: {
+                onPositionChanged:
+                {
                     if (selectionRect.visible == true)
                     {
                         if (mouse.x !== initialXPos || mouse.y !== initialYPos)
@@ -211,7 +240,8 @@ Rectangle {
                     }
                 }
 
-                onReleased: {
+                onReleased:
+                {
                     if (selectionRect.visible === true)
                     {
                         var rx = selectionRect.x - twoDContents.x
@@ -231,20 +261,30 @@ Rectangle {
                     twoDView.interactive = true
                 }
 
-                onWheel: {
-                    console.log("Wheel delta: " + wheel.angleDelta.y)
+                onWheel:
+                {
+                    //console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
-                        twoDView.gridScale += 0.25;
-                    else {
+                        twoDView.gridScale += 0.5;
+                    else
+                    {
                         if (twoDView.gridScale > 1.0)
-                            twoDView.gridScale -= 0.25;
+                            twoDView.gridScale -= 0.5;
                     }
                 }
             }
-            DropArea {
+            DropArea
+            {
                 anchors.fill: parent
-
             }
         }
+    }
+
+    SettingsView2D
+    {
+        id: twoDSettings
+        visible: false
+        x: parent.width - width
+        z: 5
     }
 }

@@ -35,9 +35,11 @@ public:
     QString label() const;
     void setLabel(QString label);
 
-    void setData(QVariantList data);
+    QString path() const;
+    void setPath(QString path);
 
     QVariant data(int index);
+    void setData(QVariantList data);
 
     void setChildrenColumns(QStringList columns);
 
@@ -51,6 +53,7 @@ public:
 
 private:
     QString m_label;
+    QString m_path;
     QVariantList m_data;
     TreeModel *m_children;
 };

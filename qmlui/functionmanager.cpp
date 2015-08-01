@@ -244,6 +244,8 @@ void FunctionManager::setEditorFunction(quint32 fID)
     {
         // reset all the editor functions
         m_sceneEditor->setSceneID(Function::invalidId());
+        emit functionEditingChanged(false);
+        return;
     }
 
     Function *f = m_doc->function(fID);
@@ -265,19 +267,43 @@ void FunctionManager::setEditorFunction(quint32 fID)
         }
         break;
     }
-    emit functionEditingStarted();
+
+    emit functionEditingChanged(true);
 }
 
-void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
+/*********************************************************************
+ * DMX values (dumping and Scene editor)
+ *********************************************************************/
+
+void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
 {
-    if (list.isEmpty())
+    m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
+}
+
+void FunctionManager::resetDumpValues()
+{
+    m_dumpValues.clear();
+}
+
+void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures)
+{
+    if (selectedFixtures.isEmpty() || m_dumpValues.isEmpty())
         return;
 
     Scene *newScene = new Scene(m_doc);
-    foreach(SceneValue sv, list)
+
+    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_dumpValues);
+    while (it.hasNext() == true)
     {
-        newScene->setValue(sv);
+        it.next();
+        SceneValue sv;
+        sv.fxi = it.key().first;
+        sv.channel = it.key().second;
+        sv.value = it.value();
+        if (selectedFixtures.contains(sv.fxi))
+            newScene->setValue(sv);
     }
+
     newScene->setName(QString("%1 %2").arg(newScene->name()).arg(m_doc->nextFunctionID() + 1));
 
     if (m_doc->addFunction(newScene) == true)
@@ -286,6 +312,12 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> list)
     }
     else
         delete newScene;
+}
+
+void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
+{
+    if (m_sceneEditor->sceneID() != Function::invalidId())
+        m_sceneEditor->setChannelValue(fxID, channel, value);
 }
 
 void FunctionManager::slotDocLoaded()

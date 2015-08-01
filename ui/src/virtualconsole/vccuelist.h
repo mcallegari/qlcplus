@@ -117,7 +117,7 @@ public:
     int getCurrentIndex();
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 private:
     /** Update the list of steps */

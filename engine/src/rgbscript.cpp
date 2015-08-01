@@ -48,7 +48,7 @@ QMutex* RGBScript::s_engineMutex = NULL;
  * Initialization
  ****************************************************************************/
 
-RGBScript::RGBScript(const Doc * doc)
+RGBScript::RGBScript(Doc * doc)
     : RGBAlgorithm(doc)
     , m_apiVersion(0)
 {

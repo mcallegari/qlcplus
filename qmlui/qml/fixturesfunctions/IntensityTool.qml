@@ -40,22 +40,36 @@ Rectangle
             fixtureManager.setIntensityValue(currentValue * 2.55)
     }
 
-    RobotoText
+    Rectangle
     {
-        id: titleBox
-        y: 7
-        height: 20
-        anchors.horizontalCenter: parent.horizontalCenter
-        label: qsTr("Intensity")
-        fontSize: 15
-        fontBold: true
+        id: intToolBar
+        width: parent.width
+        height: 32
+        z: 10
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0 ; color: "#222" }
+                GradientStop { position: 1 ; color: "#111" }
+            }
+
+        RobotoText
+        {
+            id: titleBox
+            y: 7
+            height: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            label: qsTr("Intensity")
+            fontSize: 15
+            fontBold: true
+        }
     }
 
     Image
     {
         id: intBackgroundImg
-        x:30
-        y: 30
+        x: 30
+        y: 35
         width: 100
         height: 256
         source: "qrc:/dimmer-back.svg"
@@ -68,7 +82,7 @@ Rectangle
         color: "transparent"
         x: 30
         width: dmxValues ? slider.value : (slider.value * 2.55)
-        y: 285
+        y: 290
         height: 100
         transformOrigin: Item.TopLeft
         rotation: -90

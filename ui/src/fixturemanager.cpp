@@ -991,12 +991,17 @@ void FixtureManager::addFixture()
         fxi->setUniverse(universe);
         fxi->setName(modname);
         /* Set a fixture definition & mode if they were
-           selected. Otherwise assign channels to a generic
-           dimmer. */
+           selected. Otherwise create a fixture definition
+           and mode for a generic dimmer. */
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
-            fxi->setChannels(channels);
+        {
+            fixtureDef = fxi->genericDimmerDef(channels);
+            mode = fxi->genericDimmerMode(fixtureDef, channels);
+            fxi->setFixtureDefinition(fixtureDef, mode);
+            //fxi->setChannels(channels);
+        }
 
         m_doc->addFixture(fxi);
         latestFxi = fxi->id();
@@ -1258,11 +1263,6 @@ void FixtureManager::editFixtureProperties()
         model = fxi->fixtureDef()->model();
         mode = fxi->fixtureMode()->name();
     }
-    else
-    {
-        manuf = KXMLFixtureGeneric;
-        model = KXMLFixtureGeneric;
-    }
 
     AddFixture af(this, m_doc, fxi);
     af.setWindowTitle(tr("Change fixture properties"));
@@ -1281,7 +1281,18 @@ void FixtureManager::editFixtureProperties()
 
             if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
+                if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+                    af.fixtureDef()->model() == KXMLFixtureGeneric &&
+                    fxi->channels() != af.channels())
+                {
+                    QLCFixtureDef* fixtureDef = fxi->genericDimmerDef(af.channels());
+                    QLCFixtureMode* fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
+                    fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+                }
+                else
+                {
+                    fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
+                }
             }
             else
             {

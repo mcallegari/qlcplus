@@ -33,6 +33,14 @@ Rectangle
     property int expandedHeight: 300
     property string editorSource: ""
 
+    onVisibleChanged:
+    {
+        if(visible == false)
+            editorLoader.source = ""
+        else
+            editorLoader.source = editorSource
+    }
+
     function animatePanel(checked)
     {
         if (checked === isOpen)
@@ -115,7 +123,7 @@ Rectangle
             hoverEnabled: true
             cursorShape: Qt.OpenHandCursor
             drag.target: bottomSidePanel
-            drag.axis: Drag.yAxis
+            drag.axis: Drag.YAxis
             drag.minimumY: collapseHeight
 
             onPositionChanged:

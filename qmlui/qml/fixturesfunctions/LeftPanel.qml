@@ -138,7 +138,9 @@ Rectangle
                 IntensityTool
                 {
                     id: intTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -158,13 +160,16 @@ Rectangle
                 ColorTool
                 {
                     id: colTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
 
             IconButton
             {
+                id: posToolButton
                 objectName: "capPosition"
                 z: 2
                 width: iconSize
@@ -175,11 +180,19 @@ Rectangle
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
                 onCheckedChanged: { posTool.visible = !posTool.visible }
+
+                property int panDegrees: 360
+                property int tiltDegrees: 270
+
                 PositionTool
                 {
                     id: posTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
+                    panMaxDegrees: posToolButton.panDegrees
+                    tiltMaxDegrees: posToolButton.tiltDegrees
                 }
             }
 
@@ -199,7 +212,9 @@ Rectangle
                 PresetsTool
                 {
                     id: cWheelTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                 }
             }
@@ -220,7 +235,9 @@ Rectangle
                 PresetsTool
                 {
                     id: gobosTool
-                    x: iconSize + 4
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: mainToolbar.height + 40
                     visible: false
                     goboPresets: true
                 }

@@ -51,12 +51,31 @@ public:
 
     /** Return the name of the currently edited Scene */
     QString sceneName() const;
+
     /** Set the name of the currently edited Scene */
     void setSceneName(QString sceneName);
 
     /** Enable/disable the preview of the current Scene.
      *  In this editor, the preview is done with a GenericDMXSource */
     void setPreview(bool enable);
+
+    /** Method called by QML to inform the SceneEditor that
+     *  SceneFixtureConsole has been loaded/unloaded. */
+    Q_INVOKABLE void sceneConsoleLoaded(bool status);
+
+    /** QML invokable method that returns if the Scene has the
+     *  requested $fixture's $channel */
+    Q_INVOKABLE bool hasChannel(quint32 fxID, quint32 channel);
+
+    /** QML invokable method that returns the values of the
+     *  requested $fixture's $channel */
+    Q_INVOKABLE double channelValue(quint32 fxID, quint32 channel);
+
+    Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+
+    Q_INVOKABLE void unsetChannel(quint32 fxID, quint32 channel);
+
+    Q_INVOKABLE void setFixtureSelection(quint32 fxID);
 
 private:
     void updateFixtureList();
@@ -72,8 +91,12 @@ private:
     Doc *m_doc;
     /** Reference of the Scene currently being edited */
     Scene *m_scene;
-    /** A list of references to Fixtures used in $m_scene */
+    /** A list of the $m_scene Fixture IDs for fast lookup */
+    QList<quint32> m_fixtureIDs;
+    /** A QML-readable list of references to Fixtures used in $m_scene */
     QVariantList m_fixtures;
+    /** A reference to the SceneFixtureConsole when loaded */
+    QQuickItem *m_sceneConsole;
     /** Reference to a DMX source used to edit a Scene */
     GenericDMXSource* m_source;
 };

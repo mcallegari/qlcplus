@@ -21,7 +21,8 @@ import QtQuick 2.0
 
 import "PluginUtils.js" as PluginUtils
 
-Rectangle {
+Rectangle
+{
     x: 3
     id: pluginDragItem
     width: parent.width
@@ -33,23 +34,28 @@ Rectangle {
     property string pluginLine
     property string lineName
 
-    Row {
+    Row
+    {
         spacing: 3
-        Rectangle {
+        Rectangle
+        {
             radius: 3
             height: pluginDragItem.height - 4
             width: height
-            gradient: Gradient {
-            id: bgGradient
-            GradientStop { position: 0.75 ; color: "#FFF" }
-            GradientStop { position: 1 ; color: "#7F7F7F" }
-            }
+            gradient:
+                Gradient
+                {
+                    id: bgGradient
+                    GradientStop { position: 0.75 ; color: "#FFF" }
+                    GradientStop { position: 1 ; color: "#7F7F7F" }
+                }
             border.width: 2
             border.color: "#777"
             x: 5
             y: 2
 
-            Image {
+            Image
+            {
                 id: pIcon
                 anchors.fill: parent
                 anchors.margins: 3
@@ -59,7 +65,8 @@ Rectangle {
             }
         }
 
-        RobotoText {
+        RobotoText
+        {
             height: pluginDragItem.height
             width: pluginDragItem.width - pIcon.width
             label: lineName

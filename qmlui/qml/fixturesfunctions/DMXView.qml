@@ -17,26 +17,32 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import "FixtureUtils.js" as FxUtils
+import QtQuick 2.0
 
-Flickable {
+Flickable
+{
     id: fixtureDMXView
     anchors.fill: parent
     anchors.margins: 20
 
     contentHeight: flowLayout.height
+    contentWidth: flowLayout.width
 
     property string contextName: "DMX"
 
     Component.onCompleted: contextManager.enableContext("DMX", true)
     Component.onDestruction: contextManager.enableContext("DMX", false)
 
-    Flow {
+    function hasSettings()
+    {
+        return false;
+    }
+
+    Flow
+    {
         id: flowLayout
         objectName: "DMXFlowView"
         spacing: 5
         width: parent.width
     }
-
 }

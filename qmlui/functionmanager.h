@@ -57,6 +57,9 @@ class FunctionManager : public QObject
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
+    /*********************************************************************
+     * Functions
+     *********************************************************************/
     QVariant functionsList();
 
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
@@ -77,7 +80,17 @@ public:
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
 
-    void dumpOnNewScene(QList<SceneValue> list);
+    /*********************************************************************
+     * DMX values (dumping and Scene editor)
+     *********************************************************************/
+public:
+    void setDumpValue(quint32 fxID, quint32 channel, uchar value);
+
+    void resetDumpValues();
+
+    void dumpOnNewScene(QList<quint32> selectedFixtures);
+
+    void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
 signals:
     void functionsListChanged();
@@ -90,7 +103,7 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
-    void functionEditingStarted();
+    void functionEditingChanged(bool enable);
 
 public slots:
     void slotDocLoaded();
@@ -104,6 +117,9 @@ private:
     TreeModel *m_functionTree;
     /** List of the currently selected Functions */
     QList <selectedFunction> m_selectedFunctions;
+
+    /** Map of the values available for dumping to a Scene */
+    QMap <QPair<quint32,quint32>,uchar> m_dumpValues;
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;

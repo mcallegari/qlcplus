@@ -37,10 +37,11 @@ Rectangle
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
         editorLoader.functionID = funcID
+        functionManager.setEditorFunction(funcID)
+
         switch(funcType)
         {
             case Function.Scene:
-                functionManager.setEditorFunction(funcID)
                 editorLoader.source = "qrc:/SceneEditor.qml";
             break;
             case Function.Collection:
@@ -260,6 +261,8 @@ Rectangle
                           item.textLabel = label
                           if (hasChildren)
                           {
+                              console.log("Item path: " + path + ",label: " + label)
+                              item.nodePath = path
                               item.folderChildren = childrenModel
                               item.childrenHeight = (childrenModel.rowCount() * 35)
                           }
@@ -278,6 +281,12 @@ Rectangle
                       {
                           target: item
                           onClicked: if (hasChildren) functionManager.selectFunction(-1, qItem, false)
+                      }
+                      Connections
+                      {
+                          ignoreUnknownSignals: true
+                          target: item
+                          onPathChanged: functionManager.setFolderPath(oldPath, newPath)
                       }
                   }
               }

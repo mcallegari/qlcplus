@@ -21,7 +21,8 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-Rectangle {
+Rectangle
+{
     id: fxProps
     width: 400
     height: columnContainer.height + 8
@@ -41,18 +42,21 @@ Rectangle {
 
     property int fxCount: fixtureManager.fixturesCount
 
-    onFxModeChanged: {
+    onFxModeChanged:
+    {
         console.log("Mode changed: " + fxMode)
         updateAvailableAddress()
     }
     onFxCountChanged: updateAvailableAddress()
 
-    function updateAvailableAddress() {
+    function updateAvailableAddress()
+    {
         fxAddressSpin.value =
                 fixtureBrowser.availableChannel(fxUniverseIndex, fxChannels, fxAddressSpin.value - 1) + 1
     }
 
-    Column {
+    Column
+    {
         id: columnContainer
         anchors.top: parent.top
         anchors.left: parent.left
@@ -60,13 +64,15 @@ Rectangle {
         anchors.margins: 1
         spacing: 4
 
-        Rectangle {
+        Rectangle
+        {
             height: 24
             width: parent.width
             color: "#0d235b"
             radius: 3
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxPropsTitle
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -76,12 +82,14 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        RowLayout
+        {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 14
             spacing: 4
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxNameLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
@@ -89,31 +97,36 @@ Rectangle {
                 fontSize: 14
             }
 
-            CustomTextEdit {
+            CustomTextEdit
+            {
                 id: fxNameTextEdit
                 height: 30
                 inputText: fxName
                 Layout.fillWidth: true
-                onInputTextChanged: {
+                onInputTextChanged:
+                {
                     console.log("Text changed !!")
                     fxProps.fxName = inputText
                 }
             }
         }
 
-        RowLayout {
+        RowLayout
+        {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 14
             spacing: 4
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxUniverseLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Universe")
                 fontSize: 14
             }
-            CustomComboBox {
+            CustomComboBox
+            {
                 id: fxUniverseCombo
                 height: 30
                 Layout.fillWidth: true
@@ -121,19 +134,22 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        RowLayout
+        {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 14
             spacing: 4
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxAddressLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Address")
                 fontSize: 14
             }
-            CustomSpinBox {
+            CustomSpinBox
+            {
                 id: fxAddressSpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 height: 30
@@ -142,14 +158,16 @@ Rectangle {
                 decimals: 0
                 Layout.fillWidth: true
             }
-            RobotoText {
+            RobotoText
+            {
                 id: fxQuantityLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Quantity")
                 fontSize: 14
             }
-            CustomSpinBox {
+            CustomSpinBox
+            {
                 id: fxQuantitySpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 height: 30
@@ -160,19 +178,22 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        RowLayout
+        {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 14
             spacing: 4
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxModeChLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Channels")
                 fontSize: 14
             }
-            CustomSpinBox {
+            CustomSpinBox
+            {
                 id: fxModeChSpin
                 height: 30
                 Layout.fillWidth: true
@@ -181,7 +202,8 @@ Rectangle {
                 decimals: 0
                 value: fixtureBrowser.modeChannels(fxMode)
             }
-            RobotoText {
+            RobotoText
+            {
                 id: fxGapLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
@@ -189,7 +211,8 @@ Rectangle {
                 fontSize: 14
             }
 
-            CustomSpinBox {
+            CustomSpinBox
+            {
                 id: fxGapSpin
                 height: 30
                 Layout.fillWidth: true
@@ -199,12 +222,14 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        RowLayout
+        {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - 14
             spacing: 4
 
-            RobotoText {
+            RobotoText
+            {
                 id: fxModeLabel
                 height: 30
                 anchors.verticalCenter: parent.verticalCenter
@@ -212,16 +237,19 @@ Rectangle {
                 fontSize: 14
             }
 
-            CustomComboBox {
+            CustomComboBox
+            {
                 id: fxModesCombo
                 height: 30
                 model: fixtureBrowser.modes(fxManufacturer, fxModel)
                 Layout.fillWidth: true
-                onCurrentIndexChanged: {
+                onCurrentIndexChanged:
+                {
                     fxProps.fxMode = currentText
                 }
             }
-            IconButton {
+            IconButton
+            {
                 id: fxModeInfo
                 width: 30
                 height: 30

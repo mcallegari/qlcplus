@@ -31,7 +31,7 @@
 #include "rgbtext.h"
 #include "doc.h"
 
-RGBAlgorithm::RGBAlgorithm(const Doc * doc)
+RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
     , m_startColor(QColor())
     , m_endColor(QColor())
@@ -48,7 +48,7 @@ void RGBAlgorithm::setColors(QColor start, QColor end)
  * Available algorithms
  ****************************************************************************/
 
-QStringList RGBAlgorithm::algorithms(const Doc * doc)
+QStringList RGBAlgorithm::algorithms(Doc * doc)
 {
     QStringList list;
     RGBPlain plain(doc);
@@ -63,7 +63,7 @@ QStringList RGBAlgorithm::algorithms(const Doc * doc)
     return list;
 }
 
-RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
+RGBAlgorithm* RGBAlgorithm::algorithm(Doc * doc, const QString& name)
 {
     RGBText text(doc);
     RGBImage image(doc);
@@ -85,7 +85,7 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
  * Load & Save
  ****************************************************************************/
 
-RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
+RGBAlgorithm* RGBAlgorithm::loader(Doc * doc, const QDomElement& root)
 {
     RGBAlgorithm* algo = NULL;
 

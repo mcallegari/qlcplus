@@ -98,6 +98,7 @@ Rectangle
                         item.textLabel = label
                         if (hasChildren)
                         {
+                            item.nodePath = path
                             item.nodeIcon = "qrc:/group.svg"
                             item.childrenDelegate = "qrc:/FixtureDelegate.qml"
                             item.folderChildren = childrenModel

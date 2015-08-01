@@ -137,7 +137,7 @@ public:
     MasterTimer* masterTimer() const;
 
     /** Get the audio input capture object */
-    AudioCapture* audioInputCapture();
+    QSharedPointer<AudioCapture> audioInputCapture();
 
     /** Destroy a previously created audio capture instance */
     void destroyAudioCapture();
@@ -149,7 +149,7 @@ private:
     IOPluginCache* m_ioPluginCache;
     InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;
-    AudioCapture *m_inputCapture;
+    QSharedPointer<AudioCapture> m_inputCapture;
     MonitorProperties *m_monitorProps;
 
     /*********************************************************************

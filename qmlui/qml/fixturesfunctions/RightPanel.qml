@@ -31,18 +31,34 @@ Rectangle
     property int expandedWidth: 450
     property string editorSource: ""
 
+    function createFunctionAndEditor(fType, fEditor)
+    {
+        var newFuncID = functionManager.createFunction(fType)
+        functionManager.setEditorFunction(newFuncID)
+        editorLoader.functionID = newFuncID
+        editorSource = fEditor
+        if (isOpen == false)
+            animatePanel()
+        else
+            editorLoader.source = editorSource;
+        addFunctionMenu.visible = false
+        addFunction.checked = false
+        funcEditor.checked = true
+    }
+
     function animatePanel()
     {
-        if (rightSidePanel.isOpen == false)
+        if (isOpen == false)
         {
             editorLoader.source = editorSource;
             animateOpen.start();
-            rightSidePanel.isOpen = true;
+            isOpen = true;
         }
         else
         {
             animateClose.start();
-            rightSidePanel.isOpen = false;
+            editorLoader.source = ""
+            isOpen = false;
         }
     }
 
@@ -112,6 +128,8 @@ Rectangle
                     id: addFunctionMenu
                     visible: false
                     x: -width
+
+                    onEntryClicked: createFunctionAndEditor(fType, fEditor)
                 }
             }
             IconButton

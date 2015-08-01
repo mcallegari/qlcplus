@@ -99,12 +99,14 @@ Rectangle
             {
                 id: cNameEdit
                 x: leftArrow.width + 5
-                y: 3
                 height: 40
                 width: ceContainer.width - addFunc.width - removeFunc.width
-                color: "#ffffff"
+                color: "white"
                 text: collection ? collection.name : ""
+                verticalAlignment: TextInput.AlignVCenter
+                font.family: "RobotoCondensed"
                 font.pixelSize: 20
+                selectByMouse: true
                 Layout.fillWidth: true
                 onTextChanged:
                 {

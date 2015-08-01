@@ -181,7 +181,7 @@ Rectangle
         anchors.fill: parent
         z: 5
         color: "transparent"
-        border.width: 1
+        border.width: isSelected ? 2 : 1
         border.color: isSelected ? "yellow" : "transparent"
     }
 }

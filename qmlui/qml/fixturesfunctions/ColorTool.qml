@@ -21,7 +21,8 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-Rectangle {
+Rectangle
+{
     id: colorToolBox
     width: 400
     height: 430
@@ -31,18 +32,21 @@ Rectangle {
 
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
 
-    Rectangle {
+    Rectangle
+    {
         id: colorToolBar
         width: parent.width
         height: 32
         z: 10
-        gradient: Gradient {
-            id: ffMenuGradient
-            GradientStop { position: 0 ; color: "#222" }
-            GradientStop { position: 1 ; color: "#111" }
-        }
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0 ; color: "#222" }
+                GradientStop { position: 1 ; color: "#111" }
+            }
 
-        RowLayout {
+        RowLayout
+        {
             id: rowLayout1
             //anchors.horizontalCenter: parent.horizontalCenter
             anchors.left: parent.left
@@ -53,7 +57,8 @@ Rectangle {
             spacing: 5
             ExclusiveGroup { id: menuBarGroup2 }
 
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: basicView
                 entryText: qsTr("Basic")
                 checkable: true
@@ -61,35 +66,41 @@ Rectangle {
                 checkedColor: "green"
                 bgGradient: ffMenuGradient
                 exclusiveGroup: menuBarGroup2
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                     {
                         colorToolQML = "qrc:/ColorToolBasic.qml"
                     }
                 }
             }
-            MenuBarEntry {
+
+            MenuBarEntry
+            {
                 id: rgbView
                 entryText: qsTr("Full")
                 checkable: true
                 checkedColor: "green"
                 bgGradient: ffMenuGradient
                 exclusiveGroup: menuBarGroup2
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                     {
                         colorToolQML = "qrc:/ColorToolFull.qml"
                     }
                 }
             }
-            MenuBarEntry {
+            MenuBarEntry
+            {
                 id: filtersView
                 entryText: qsTr("Filters")
                 checkable: true
                 checkedColor: "green"
                 bgGradient: ffMenuGradient
                 exclusiveGroup: menuBarGroup2
-                onCheckedChanged: {
+                onCheckedChanged:
+                {
                     if (checked == true)
                     {
                         colorToolQML = "qrc:/ColorToolFilters.qml"
@@ -99,7 +110,8 @@ Rectangle {
         }
     }
 
-    Loader {
+    Loader
+    {
         id: toolLoader
         z: 0
         //objectName: "editorLoader"

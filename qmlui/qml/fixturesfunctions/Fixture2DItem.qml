@@ -19,8 +19,23 @@
 
 import QtQuick 2.2
 
-Rectangle {
+import "CanvasDrawFunctions.js" as DrawFuncs
+
+Rectangle
+{
     id: fixtureItem
+    x: (gridCellSize * mmXPos) / gridUnits
+    y: (gridCellSize * mmYPos) / gridUnits
+    z: 2
+    width: (gridCellSize * mmWidth) / gridUnits
+    height: (gridCellSize * mmHeight) / gridUnits
+
+    color: "#2A2A2A"
+    border.width: isSelected ? 2 : 1
+    border.color: isSelected ? (isDragging ? "#00FF00" : "yellow") : (isDragging ? "#00FF00" : "#AAA")
+
+    Drag.active: fxMouseArea.drag.active
+
     property int fixtureID: fixtureManager.invalidFixture()
     property string fixtureName: ""
 
@@ -37,7 +52,11 @@ Rectangle {
     property int headColumns: 1
     property int headRows: 1
 
+    property int panMaxDegrees: 0
+    property int tiltMaxDegrees: 0
+
     property bool isSelected: false
+    property bool isDragging: false
     property bool showLabel: false
 
     onWidthChanged: calculateHeadSize();
@@ -69,6 +88,7 @@ Rectangle {
 
     function setHeadIntensity(headIndex, intensity)
     {
+        console.log("headIdx: " + headIndex + ", int: " + intensity)
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
 
@@ -77,22 +97,21 @@ Rectangle {
         headsRepeater.itemAt(headIndex).headColor = color
     }
 
+    function setPosition(pan, tilt)
+    {
+        if (panMaxDegrees)
+            positionLayer.panDegrees = (panMaxDegrees / 0xFFFF) * pan
+
+        if (tiltMaxDegrees)
+            positionLayer.tiltDegrees = (tiltMaxDegrees / 0xFFFF) * tilt
+
+        positionLayer.requestPaint()
+    }
+
     function setGoboPicture(headIndex, resource)
     {
         headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
-
-    x: (gridCellSize * mmXPos) / gridUnits
-    y: (gridCellSize * mmYPos) / gridUnits
-    z: 2
-    width: (gridCellSize * mmWidth) / gridUnits
-    height: (gridCellSize * mmHeight) / gridUnits
-
-    color: "#2A2A2A";
-    border.width: 1
-    border.color: isSelected ? "yellow" : "#AAA"
-
-    Drag.active: fxMouseArea.drag.active
 
     Flow
     {
@@ -169,6 +188,62 @@ Rectangle {
         }
     }
 
+    Canvas
+    {
+        id: positionLayer
+        anchors.fill: parent
+        visible: (panMaxDegrees || tiltMaxDegrees) ? true : false
+
+        property int panDegrees: 0
+        property int tiltDegrees: 0
+
+        property int tiltWidth: ((positionLayer.width / 3) < 30) ? (positionLayer.width / 3) : 30
+        property int panHeight: ((positionLayer.height / 4) < 30) ? (positionLayer.height / 4) : 30
+        property int cursorRadius: tiltWidth / 2
+
+        onPaint:
+        {
+            if (positionLayer.visible == false)
+                return;
+
+            var ctx = positionLayer.getContext('2d');
+            //ctx.save();
+            ctx.globalAlpha = 0.7;
+            ctx.lineWidth = 1;
+
+            ctx.clearRect(0, 0, width, height)
+
+            if (tiltMaxDegrees)
+            {
+                // draw TILT curve
+                ctx.strokeStyle = "#2E77FF";
+                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, tiltWidth, height)
+            }
+            if (panMaxDegrees)
+            {
+                // draw PAN curve
+                ctx.strokeStyle = "#19438F"
+                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width, panHeight)
+            }
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "white";
+
+            if (tiltMaxDegrees)
+            {
+                // draw TILT cursor position
+                ctx.fillStyle = "red";
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height - 30, tiltDegrees + 135, cursorRadius)
+            }
+            if (panMaxDegrees)
+            {
+                // draw PAN cursor position
+                ctx.fillStyle = "green";
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, panHeight, panDegrees + 90, cursorRadius)
+            }
+        }
+    }
+
     Rectangle
     {
         id: fixtureLabel
@@ -204,6 +279,7 @@ Rectangle {
         onPressAndHold:
         {
             drag.target = fixtureItem
+            isDragging = true
             console.log("drag started");
         }
         onReleased:
@@ -215,6 +291,7 @@ Rectangle {
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
                 contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
                 drag.target = null
+                isDragging = false
             }
         }
         onClicked:

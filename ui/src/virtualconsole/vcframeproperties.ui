@@ -37,7 +37,7 @@
       <attribute name="title">
        <string>General</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="tabLayout">
        <item>
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">

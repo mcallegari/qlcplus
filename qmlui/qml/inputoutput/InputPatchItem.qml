@@ -108,7 +108,7 @@ Rectangle
         id: profileBox
         width: parent.width
         height: patchBox.height + 30
-        visible: patch.profileName === "None" ? false : true
+        visible: patch ? (patch.profileName === "None" ? false : true) : false
 
         border.width: 2
         border.color: "#222"

@@ -28,12 +28,34 @@ Rectangle
     border.width: 2
     border.color: isSelected ? "yellow" : "transparent"
 
+    property int wireBoxWidth: (audioItem.width - audioBox.width) / 8 // one quarter of a audioItem side
     property bool isSelected: false
     signal selected
+
+    AudioDeviceItem
+    {
+        x: 14
+        anchors.verticalCenter: audioItem.verticalCenter
+        width: inWireBox.width * 3
+        audioDevice: ioManager.audioInputDevice
+    }
+
+    // Input device wire box
+    PatchWireBox
+    {
+        id: inWireBox
+        x: audioBox.x - width + 6
+        width: wireBoxWidth
+        height: audioItem.height
+        z: 10
+
+        patchesNumber: 1
+    }
 
     // representation of the central Audio block
     Rectangle
     {
+        id: audioBox
         anchors.centerIn: parent
         width: 200
         height: 100
@@ -58,6 +80,26 @@ Rectangle
         }
     }
 
+    // Output device wire box
+    PatchWireBox
+    {
+        id: outWireBox
+        x: audioBox.x + audioBox.width - 6
+        width: wireBoxWidth
+        height: audioItem.height
+        z: 10
+
+        patchesNumber: 1
+    }
+
+    AudioDeviceItem
+    {
+        x: outWireBox.x + outWireBox.width - 8
+        anchors.verticalCenter: audioItem.verticalCenter
+        width: outWireBox.width * 3
+        audioDevice: ioManager.audioOutputDevice
+    }
+
     // Global mouse area to select this Audio item
     MouseArea
     {
@@ -74,7 +116,8 @@ Rectangle
     }
 
     // divider
-    Rectangle {
+    Rectangle
+    {
         width: parent.width
         height: 2
         y: parent.height - 2

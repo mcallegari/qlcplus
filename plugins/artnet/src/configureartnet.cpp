@@ -18,6 +18,7 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QSpacerItem>
 #include <QComboBox>
 #include <QSpinBox>
 #include <QLabel>
@@ -126,6 +127,7 @@ void ConfigureArtNet::fillMappingTree()
                 QTreeWidgetItem *item = new QTreeWidgetItem(inputItem);
                 item->setText(KMapColumnInterface, controller->getNetworkIP());
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
+                item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
             }
             if (info->type & ArtNetController::Output)
             {
@@ -136,6 +138,7 @@ void ConfigureArtNet::fillMappingTree()
 
                 item->setText(KMapColumnInterface, controller->getNetworkIP());
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
+                item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
 
                 if (info->outputAddress == QHostAddress::LocalHost)
                 {
@@ -144,7 +147,7 @@ void ConfigureArtNet::fillMappingTree()
                 }
                 else
                 {
-                    QWidget *IPwidget = createIPWidget(info->outputAddress.toString());
+                    QWidget *IPwidget = createIPWidget(info->outputAddress.toString(), controller->getNetmask());
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress, IPwidget);
                 }
 
@@ -170,22 +173,54 @@ void ConfigureArtNet::fillMappingTree()
     m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
 }
 
-QWidget *ConfigureArtNet::createIPWidget(QString ip)
+QWidget *ConfigureArtNet::createIPWidget(QString ip, QString netmask)
 {
     QWidget* widget = new QWidget(this);
     widget->setLayout(new QHBoxLayout);
     widget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    QString baseIP = ip.mid(0, ip.lastIndexOf(".") + 1);
-    QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
+    QStringList IPNibbles = ip.split(".");
+    QStringList nmNibbles = netmask.split(".");
 
-    QLabel *label = new QLabel(baseIP, this);
-    QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(1, 255);
-    spin->setValue(finalIP.toInt());
+    bool nmChange = false;
+    QString ipLabel;
+    for (int i = 0; i < 4; i++)
+    {
+        QString ipNibble = IPNibbles.at(i);
+        if (nmNibbles.at(i) != "255")
+        {
+            if (nmChange == false && !ipLabel.isEmpty())
+            {
+                QLabel *label = new QLabel(ipLabel, this);
+                widget->layout()->addWidget(label);
+            }
+            nmChange = true;
+        }
 
-    widget->layout()->addWidget(label);
-    widget->layout()->addWidget(spin);
+        if (nmChange == false)
+        {
+            ipLabel.append(ipNibble);
+            ipLabel.append(".");
+        }
+        else
+        {
+            QSpinBox *spin = new QSpinBox(this);
+            spin->setObjectName("spin");
+            widget->layout()->addWidget(spin);
+
+            if (i < 3)
+            {
+                spin->setRange(0, 255);
+                QLabel *label = new QLabel(".", this);
+                widget->layout()->addWidget(label);
+            }
+            else
+                spin->setRange(1, 255);
+            spin->setValue(ipNibble.toInt());
+        }
+    }
+
+    widget->layout()->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
     return widget;
 }
@@ -219,14 +254,29 @@ void ConfigureArtNet::accept()
             QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
             if (ipWidget != NULL)
             {
-                QSpinBox *spin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                if (spin != NULL)
+                QString IPChanged;
+
+                for (int i = 0; i < ipWidget->layout()->count() - 1; i++)
                 {
-                    if (spin->value() != 255)
-                        m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, spin->value());
-                    else
-                        m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTIP);
+                    if (ipWidget->layout()->itemAt(i)->widget()->objectName() == "spin")
+                    {
+                        QSpinBox *spin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(i)->widget());
+                        if (spin != NULL)
+                        {
+                            if (spin->value() != 255 || IPChanged.isEmpty() == false)
+                                IPChanged.append(QString::number(spin->value()));
+
+                            if (IPChanged.isEmpty() == false &&
+                                i < ipWidget->layout()->count() - 2)
+                                    IPChanged.append(".");
+                        }
+                    }
                 }
+                //qDebug() << "IPchanged = " << IPChanged;
+                if (IPChanged.isEmpty())
+                    m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTIP);
+                else
+                    m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, IPChanged);
             }
 
             QSpinBox *spin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnArtNetUni));

@@ -766,7 +766,7 @@ uchar VCSlider::playbackValue() const
     return m_playbackValue;
 }
 
-void VCSlider::notifyFunctionStarting(quint32 fid)
+void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
 {
     if (mode() == Doc::Design || sliderMode() != Playback)
         return;
@@ -775,7 +775,22 @@ void VCSlider::notifyFunctionStarting(quint32 fid)
         return;
 
     if (m_slider != NULL)
-        m_slider->setValue(0);
+    {
+        int value = SCALE(1.0 - functionIntensity,
+                          0, 1.0,
+                          m_slider->minimum(), m_slider->maximum());
+        if (m_slider->value() > value)
+        {
+            m_externalMovement = true;
+            m_slider->setValue(value);
+            m_externalMovement = false;
+            qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
+
+            Function* function = m_doc->function(m_playbackFunction);
+            if (function != NULL)
+                function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        }
+    }
 }
 
 void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
@@ -987,8 +1002,8 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
             if (function->stopped() == true)
             {
                 function->start(timer);
-                emit functionStarting(m_playbackFunction);
             }
+            emit functionStarting(m_playbackFunction, pIntensity);
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
         }
     }

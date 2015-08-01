@@ -25,7 +25,7 @@
 #include "audiocapture.h"
 #include "doc.h"
 
-RGBPlain::RGBPlain(const Doc * doc)
+RGBPlain::RGBPlain(Doc * doc)
     : RGBAlgorithm(doc)
 {
 }

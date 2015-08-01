@@ -39,12 +39,14 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_prevRotation(0)
+    , m_editingEnabled(false)
 {
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
     m_2DView = new MainView2D(m_view, m_doc);
-    //m_view->rootContext()->setContextProperty("View2D", m_2DView);
+    m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
 
@@ -56,12 +58,14 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
     connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
             this, SLOT(slotColorChanged(QColor,QColor)));
+    connect(m_fixtureManager, SIGNAL(positionTypeValueChanged(int,int)),
+            this, SLOT(slotPositionChanged(int,int)));
     connect(m_fixtureManager, SIGNAL(presetChanged(const QLCChannel*,quint8)),
             this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-    connect(m_functionManager, SIGNAL(functionEditingStarted()),
-            this, SLOT(updateContexts()));
+    connect(m_functionManager, SIGNAL(functionEditingChanged(bool)),
+            this, SLOT(slotFunctionEditingChanged(bool)));
 }
 
 void ContextManager::enableContext(QString context, bool enable)
@@ -94,6 +98,12 @@ void ContextManager::reattachContext(QString context)
         QMetaObject::invokeMethod(viewObj, "enableContext",
                 Q_ARG(QVariant, context));
     }
+    else
+    {
+
+        QMetaObject::invokeMethod(m_view->rootObject(), "enableContext",
+                Q_ARG(QVariant, context));
+    }
 }
 
 void ContextManager::updateContexts()
@@ -101,6 +111,7 @@ void ContextManager::updateContexts()
     m_channelsMap.clear();
     m_source->unsetAll();
     m_selectedFixtures.clear();
+    m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
 }
@@ -123,13 +134,15 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     }
 
     if (m_DMXView->isEnabled())
-        m_DMXView->updateFixtureSelection(m_selectedFixtures);
+        m_DMXView->updateFixtureSelection(fxID, enable);
     if (m_2DView->isEnabled())
-        m_2DView->updateFixtureSelection(m_selectedFixtures);
+        m_2DView->updateFixtureSelection(fxID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
         return;
+
+    qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
 
     QHashIterator<int, SceneValue>it(channels);
     while(it.hasNext())
@@ -138,14 +151,11 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         quint32 chType = it.key();
         SceneValue sv = it.value();
         if (enable)
-        {
             m_channelsMap.insert(chType, sv);
-        }
         else
-        {
             m_channelsMap.remove(chType, sv);
-        }
     }
+    emit selectedFixturesChanged();
 }
 
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
@@ -156,6 +166,14 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 
     foreach(quint32 fxID, fxIDList)
         setFixtureSelection(fxID, true);
+    emit selectedFixturesChanged();
+}
+
+bool ContextManager::hasSelectedFixtures()
+{
+    if (m_selectedFixtures.isEmpty())
+        return false;
+    return true;
 }
 
 void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
@@ -166,17 +184,7 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
 
 void ContextManager::dumpDmxChannels()
 {
-    QList<SceneValue> chList = m_source->channels();
-    QList<SceneValue> dumpList;
-
-    /** Now create a list with only the channels of the
-     *  currently selected fixtures */
-    foreach(SceneValue sv, chList)
-    {
-        if (m_selectedFixtures.contains(sv.fxi))
-            dumpList.append(sv);
-    }
-    m_functionManager->dumpOnNewScene(dumpList);
+    m_functionManager->dumpOnNewScene(m_selectedFixtures);
 }
 
 void ContextManager::createFixtureGroup()
@@ -208,8 +216,109 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                 }
             }
             break;
+            case Qt::Key_R:
+            {
+                int valCount = m_source->channelsCount();
+                m_source->unsetAll();
+                m_functionManager->resetDumpValues();
+                checkDumpButton(valCount);
+            }
+            break;
             default:
             break;
+        }
+    }
+}
+
+int ContextManager::fixturesRotation() const
+{
+    int commonRotation = -1;
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        if (mProps->hasFixturePosition(fxID) == false)
+            continue;
+
+        int rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == -1)
+            commonRotation = rot;
+        else
+        {
+            if (rot != commonRotation)
+                return 0;
+        }
+    }
+
+    if (commonRotation != -1)
+        return commonRotation;
+
+    return 0;
+}
+
+void ContextManager::setFixturesRotation(int degrees)
+{
+    bool mixed = false;
+    int commonRotation = -1;
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    // first, detect if we're setting the rotation
+    // in a mixed context
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        if (mProps->hasFixturePosition(fxID) == false)
+            continue;
+
+        int rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == -1)
+            commonRotation = rot;
+        else
+        {
+            if (rot != commonRotation)
+            {
+                mixed = true;
+                break;
+            }
+        }
+    }
+
+    // if mixed, treat degrees as relative
+    // otherwise set it directly
+    int delta = degrees - m_prevRotation;
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        int rot = 0;
+        if (mProps->hasFixturePosition(fxID))
+            rot = mProps->fixtureRotation(fxID);
+
+        if (mixed == false)
+            rot = degrees;
+        else
+            rot += delta;
+
+        // normalize back to a 0-359 range
+        if (rot < 0) rot += 360;
+        else if (rot >= 360) rot -= 360;
+        mProps->setFixtureRotation(fxID, rot);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixtureRotation(fxID, rot);
+    }
+    m_prevRotation = degrees;
+}
+
+void ContextManager::checkDumpButton(quint32 valCount)
+{
+    /** Monitor the changes from/to 0 */
+    if ((valCount == 0 && m_source->channelsCount() > 0) ||
+        (valCount > 0 && m_source->channelsCount() == 0))
+    {
+        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
+        if (dumpBtn != NULL)
+        {
+            if (valCount)
+                dumpBtn->setProperty("visible", false);
+            else
+                dumpBtn->setProperty("visible", true);
         }
     }
 }
@@ -226,34 +335,38 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
-    SceneValue sv(fxID, channel);
-    m_source->set(sv.fxi, sv.channel, (uchar)value);
+    if (m_editingEnabled == false)
+    {
+        quint32 valCount = m_source->channelsCount();
+        m_source->set(fxID, channel, (uchar)value);
+        m_functionManager->setDumpValue(fxID, channel, (uchar)value);
+        checkDumpButton(valCount);
+    }
+    else
+        m_functionManager->setChannelValue(fxID, channel, (uchar)value);
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
     quint32 valCount = m_source->channelsCount();
-    //qDebug() << "type:" << type << "value:" << value;
+    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
     {
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
-            m_source->set(sv.fxi, sv.channel, (uchar)value);
-    }
-
-    /** Monitor the changes from/to 0 */
-    if ((valCount == 0 && m_source->channelsCount() > 0) ||
-        (valCount > 0 && m_source->channelsCount() == 0))
-    {
-        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
-        if (dumpBtn != NULL)
         {
-            if (valCount)
-                dumpBtn->setProperty("visible", false);
+            if (m_editingEnabled == false)
+            {
+                m_source->set(sv.fxi, sv.channel, (uchar)value);
+                m_functionManager->setDumpValue(sv.fxi, sv.channel, (uchar)value);
+            }
             else
-                dumpBtn->setProperty("visible", true);
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
         }
     }
+
+    if (m_editingEnabled == false)
+        checkDumpButton(valCount);
 }
 
 void ContextManager::slotColorChanged(QColor col, QColor wauv)
@@ -270,8 +383,37 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Cyan, (quint8)cmykColor.cyan());
     slotChannelTypeValueChanged((int)QLCChannel::Magenta, (quint8)cmykColor.magenta());
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
+}
 
+void ContextManager::slotPositionChanged(int type, int degrees)
+{
+    // list to keep track of the already processed Fixture IDs
+    QList<quint32>fxIDs;
+    quint32 valCount = m_source->channelsCount();
+    QList<SceneValue> typeList = m_channelsMap.values(type);
 
+    foreach(SceneValue sv, typeList)
+    {
+        if (fxIDs.contains(sv.fxi) == true)
+            continue;
+
+        fxIDs.append(sv.fxi);
+
+        QList<SceneValue> svList = m_fixtureManager->getFixturePosition(sv.fxi, type, degrees);
+        foreach(SceneValue posSv, svList)
+        {
+            if (m_editingEnabled == false)
+            {
+                m_source->set(posSv.fxi, posSv.channel, posSv.value);
+                m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value);
+            }
+            else
+                m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
+        }
+    }
+
+    if (m_editingEnabled == false)
+        checkDumpButton(valCount);
 }
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
@@ -311,4 +453,12 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
         }
     }
 }
+
+void ContextManager::slotFunctionEditingChanged(bool status)
+{
+    updateContexts();
+    m_editingEnabled = status;
+}
+
+
 

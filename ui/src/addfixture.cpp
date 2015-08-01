@@ -92,8 +92,11 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
             this, SLOT(slotDiptoolButtonClicked()));
 
     /* Fill fixture definition tree (and select a fixture def) */
-    if (fxi != NULL && fxi->isDimmer() == false)
+    if (fxi != NULL)
+    {
         fillTree(fxi->fixtureDef()->manufacturer(), fxi->fixtureDef()->model());
+        m_fixtureID = fxi->id();
+    }
     else
         fillTree(KXMLFixtureGeneric, KXMLFixtureGeneric);
 
@@ -105,10 +108,9 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     /* Simulate first selection and find the next free address */
     slotSelectionChanged();
 
-    // Universe
     if (fxi != NULL)
     {
-        m_fixtureID = fxi->id();
+        // Universe
         m_universeCombo->setCurrentIndex(fxi->universe());
         slotUniverseActivated(fxi->universe());
 
@@ -116,40 +118,26 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
         m_addressValue = fxi->address();
 
         m_multipleGroup->setEnabled(false);
+
+        // Name
+        m_nameEdit->setText(fxi->name());
+        slotNameEdited(fxi->name());
+        m_nameEdit->setModified(true); // Prevent auto-naming
+
+        // Mode
+        int index = m_modeCombo->findText(fxi->fixtureMode()->name());
+        if (index != -1)
+        {
+            m_channelsSpin->setValue(fxi->channels());
+            m_modeCombo->setCurrentIndex(index);
+            slotModeActivated(m_modeCombo->itemText(index));
+        }
     }
     else
     {
         slotUniverseActivated(0);
         findAddress();
-    }
 
-    // Name
-    if (fxi != NULL)
-    {
-        m_nameEdit->setText(fxi->name());
-        slotNameEdited(fxi->name());
-        m_nameEdit->setModified(true); // Prevent auto-naming
-    }
-
-    // Mode
-    if (fxi != NULL)
-    {
-        if (fxi->isDimmer() == false)
-        {
-            int index = m_modeCombo->findText(fxi->fixtureMode()->name());
-            if (index != -1)
-            {
-                m_modeCombo->setCurrentIndex(index);
-                slotModeActivated(m_modeCombo->itemText(index));
-            }
-        }
-        else
-        {
-            m_channelsSpin->setValue(fxi->channels());
-        }
-    }
-    else
-    {
         m_channelsSpin->setValue(1);
     }
 
@@ -617,9 +605,17 @@ void AddFixture::slotSelectionChanged()
     if (manuf == KXMLFixtureGeneric && model == KXMLFixtureGeneric)
     {
         /* Generic dimmer selected. User enters number of channels. */
-        m_fixtureDef = NULL;
-        m_mode = NULL;
-        fillModeCombo(KXMLFixtureGeneric);
+        if (m_fixtureID != Fixture::invalidId())
+        {
+            Fixture *fxi = m_doc->fixture(m_fixtureID);
+            if (fxi != NULL)
+            {
+                m_fixtureDef = fxi->fixtureDef();
+                m_mode = fxi->fixtureMode();
+            }
+        }
+        fillModeCombo();
+        m_modeCombo->setEnabled(false);
         m_channelsSpin->setEnabled(true);
         m_channelList->clear();
 

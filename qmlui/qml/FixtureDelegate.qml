@@ -82,8 +82,6 @@ Rectangle
         onClicked:
         {
             isSelected = true
-            //fixtureManager.selectFixture(cRef.id, fxDelegate,
-            //                             (mouse.modifiers & Qt.ControlModifier))
             fxDelegate.clicked()
         }
         onDoubleClicked:

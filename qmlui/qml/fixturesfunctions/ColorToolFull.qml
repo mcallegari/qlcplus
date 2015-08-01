@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
-Rectangle {
+Rectangle
+{
     id: rootBox
     width: parent.width
     height: parent.height
@@ -33,18 +34,21 @@ Rectangle {
     property bool hasAmberChannel: false
     property bool hasUVChannel: false
 
-    onSelectedColorChanged: {
+    onSelectedColorChanged:
+    {
         fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0, 0, 0)
     }
 
-    Canvas {
+    Canvas
+    {
         id: colorBox
         x: 5
         y: 5
         width: 256
         height: 256
 
-        function getHTMLColor(r, g, b) {
+        function getHTMLColor(r, g, b)
+        {
             var color = r << 16 | g << 8 | b;
             var colStr = color.toString(16);
             return "#" + "000000".substr(0, 6 - colStr.length) + colStr;
@@ -65,7 +69,8 @@ Rectangle {
             ctx.stroke();
         }
 
-        onPaint: {
+        onPaint:
+        {
             var ctx = colorBox.getContext('2d');
             //ctx.save();
             ctx.globalAlpha = 1.0;
@@ -101,7 +106,8 @@ Rectangle {
             }
         }
 
-        MouseArea {
+        MouseArea
+        {
             anchors.fill: parent
 
             function setPickedColor(mouse)
@@ -125,7 +131,8 @@ Rectangle {
         }
     }
 
-    Column {
+    Column
+    {
         id: tColumn
         x: colorBox.width + 10
         y: 5
@@ -137,14 +144,16 @@ Rectangle {
         RobotoText { height: 40; fontSize: 12; label: "HTML"; }
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: rootBox.width - 80
         y: 5
         height: 256
         width: 75
         color: "transparent"
 
-        CustomSpinBox {
+        CustomSpinBox
+        {
             id: rSpin
             width: 75
             height: 38
@@ -152,7 +161,8 @@ Rectangle {
             maximumValue: 255
             decimals: 0
         }
-        CustomSpinBox {
+        CustomSpinBox
+        {
             id: gSpin
             y: 40
             width: 75
@@ -161,7 +171,8 @@ Rectangle {
             maximumValue: 255
             decimals: 0;
         }
-        CustomSpinBox {
+        CustomSpinBox
+        {
             id: bSpin
             y: 80
             width: 75
@@ -170,7 +181,8 @@ Rectangle {
             maximumValue: 255
             decimals: 0;
         }
-        CustomTextEdit {
+        CustomTextEdit
+        {
             id: htmlText
             y: 120
             width: 75
@@ -179,14 +191,17 @@ Rectangle {
     }
 
 
-    Row {
+    Row
+    {
         x: 5
         y: 350
         spacing: 20
-        RobotoText {
+        RobotoText
+        {
             label: qsTr("Selected color");
         }
-        Rectangle {
+        Rectangle
+        {
             width: 70
             height: 40
             color: selectedColor

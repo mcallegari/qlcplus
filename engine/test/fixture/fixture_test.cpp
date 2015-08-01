@@ -184,10 +184,10 @@ void Fixture_Test::dimmer()
     QVERIFY(fxi.channels() == 5);
     QVERIFY(fxi.channel(0) != NULL);
     const QLCChannel* ch = fxi.channel(0);
-    QVERIFY(fxi.channel(1) == ch);
-    QVERIFY(fxi.channel(2) == ch);
-    QVERIFY(fxi.channel(3) == ch);
-    QVERIFY(fxi.channel(4) == ch);
+    QVERIFY(fxi.channel(1) != fxi.channel(0));
+    QVERIFY(fxi.channel(2) != fxi.channel(1));
+    QVERIFY(fxi.channel(3) != fxi.channel(2));
+    QVERIFY(fxi.channel(4) != fxi.channel(3));
     QVERIFY(fxi.channel(5) == NULL);
     QVERIFY(fxi.channel(42) == NULL);
     QVERIFY(fxi.channel(QLCChannel::invalid()) == NULL);
@@ -199,7 +199,7 @@ void Fixture_Test::dimmer()
 
     /* Although the dimmer fixture HAS a channel with this name, it is
        not returned, because all channels have the same name. */
-    QVERIFY(fxi.channel(QLCChannel::Intensity) == QLCChannel::invalid());
+    QVERIFY(fxi.channel(QLCChannel::Intensity) == 0);
 }
 
 void Fixture_Test::fixtureDef()
@@ -456,8 +456,8 @@ void Fixture_Test::loadDimmer()
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 21);
     QVERIFY(fxi.universe() == 3);
-    QVERIFY(fxi.fixtureDef() == NULL);
-    QVERIFY(fxi.fixtureMode() == NULL);
+    QVERIFY(fxi.fixtureDef() != NULL);
+    QVERIFY(fxi.fixtureMode() != NULL);
 }
 
 void Fixture_Test::loadWrongAddress()
@@ -681,8 +681,8 @@ void Fixture_Test::loader()
     QVERIFY(fxi->channels() == 18);
     QVERIFY(fxi->address() == 21);
     QVERIFY(fxi->universe() == 3);
-    QVERIFY(fxi->fixtureDef() == NULL);
-    QVERIFY(fxi->fixtureMode() == NULL);
+    QVERIFY(fxi->fixtureDef() != NULL);
+    QVERIFY(fxi->fixtureMode() != NULL);
 }
 
 void Fixture_Test::save()

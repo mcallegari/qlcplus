@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 
-Rectangle {
+Rectangle
+{
     id: rootBox
     width: 330
     height: 370
@@ -29,22 +30,26 @@ Rectangle {
 
     property color selectedColor
 
-    onSelectedColorChanged: {
+    onSelectedColorChanged:
+    {
         fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0, 0, 0)
     }
 
     property var baseColors: [ 0xFF0000, 0xFF9900, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0x9900FF, 0xFF00FF ]
 
-    function getHTMLColor(r, g, b) {
+    function getHTMLColor(r, g, b)
+    {
         return "#" + r.toString(16) + g.toString(16) + b.toString(16);
     }
 
-    function getBaseHTMLColor(index) {
+    function getBaseHTMLColor(index)
+    {
         var bcStr = baseColors[index].toString(16);
         return "#" + "000000".substr(0, 6 - bcStr.length) + bcStr;
     }
 
-    function getShadedColor(colIndex, index) {
+    function getShadedColor(colIndex, index)
+    {
         var bcStr = baseColors[colIndex].toString(16);
         var htmlColor = "#" + "000000".substr(0, 6 - bcStr.length) + bcStr;
         if (index < 3)
@@ -53,90 +58,101 @@ Rectangle {
             return Qt.darker(htmlColor, 1 + (0.66 * (index - 2)))
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: 40
         y: 5
         width: parent - 10
         height: 42
 
-        Row {
-            Repeater {
+        Row
+        {
+            Repeater
+            {
                 model: 8
                 delegate:
-                    Rectangle {
+                    Rectangle
+                    {
                         width: 40
                         height: 40
                         border.width: 1
                         border.color: "#222"
                         color:  getHTMLColor(index * 36, index * 36, index * 36)
-                        MouseArea {
+                        MouseArea
+                        {
                             anchors.fill: parent
-                            onClicked: {
-                                selectedColor = color
-                            }
+                            onClicked: selectedColor = color
                         }
                     }
             }
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: 40
         y: 52
         width: parent - 10
         height: 42
 
-        Row {
-            Repeater {
+        Row
+        {
+            Repeater
+            {
                 model: 8
                 delegate:
-                    Rectangle {
+                    Rectangle
+                    {
                         width: 40
                         height: 40
                         border.width: 1
                         border.color: "#222"
                         color: getBaseHTMLColor(index)
 
-                        MouseArea {
+                        MouseArea
+                        {
                             anchors.fill: parent
-                            onClicked: {
-                                selectedColor = color
-                            }
+                            onClicked: selectedColor = color
                         }
                     }
             }
         }
     }
 
-    Rectangle {
+    Rectangle
+    {
         x: 40
         y: 100
         width: parent - 10
         height: 42 * 6
 
-        Row {
-            Repeater {
+        Row
+        {
+            Repeater
+            {
                 id: baseColorColumn
                 model: 8
                 delegate:
-                    Column {
+                    Column
+                    {
                         property int colIndex: index
-                        Repeater {
+                        Repeater
+                        {
                             id: colorShades
                             model: 6
                             delegate:
-                                Rectangle {
+                                Rectangle
+                                {
                                     width: 40
                                     height: 40
                                     border.width: 1
                                     border.color: "#222"
                                     color: getShadedColor(colIndex, index)
 
-                                    MouseArea {
+                                    MouseArea
+                                    {
                                         anchors.fill: parent
-                                        onClicked: {
-                                            selectedColor = color
-                                        }
+                                        onClicked: selectedColor = color
                                     }
                                 }
                         }
@@ -146,14 +162,17 @@ Rectangle {
 
     }
 
-    Row {
+    Row
+    {
         x: 40
         y: 350
         spacing: 20
-        RobotoText {
+        RobotoText
+        {
             label: qsTr("Selected color");
         }
-        Rectangle {
+        Rectangle
+        {
             width: 70
             height: 40
             color: selectedColor

@@ -21,29 +21,56 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
+import "CanvasDrawFunctions.js" as DrawFuncs
+
 Rectangle
 {
     id: posToolRoot
     width: 200
-    height: 300
+    height: 340
     color: "#333"
     border.color: "#666"
     border.width: 2
 
-    property bool dmxValues: true
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 
-    property int panValue: 0 // DMX value
-    property int tiltValue: 0 // DMX value
-
     property int panDegrees: 0
     property int tiltDegrees: 0
+
+    onPanDegreesChanged: fixtureManager.setPanValue(panDegrees)
+    onTiltDegreesChanged: fixtureManager.setTiltValue(tiltDegrees)
+
+    Rectangle
+    {
+        id: posToolBar
+        width: parent.width
+        height: 32
+        z: 10
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0 ; color: "#222" }
+                GradientStop { position: 1 ; color: "#111" }
+            }
+
+        RobotoText
+        {
+            id: titleBox
+            y: 7
+            height: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            label: qsTr("Position")
+            fontSize: 15
+            fontBold: true
+        }
+    }
 
     Rectangle
     {
         id: rotateButton
         x: parent.width - 40
+        y: 32
         width: 40
         height: 40
         z: 2
@@ -79,81 +106,10 @@ Rectangle
         width: posToolRoot.width - 20
         height: width
         x: 10
-        y: 10
+        y: 45
         rotation: 0
 
         antialiasing: true
-
-        function drawEllipse (ctx, eX, eY, eWidth, eHeight)
-        {
-            var step = 2*Math.PI/30;
-            var r = eWidth / 2;
-            var xFactor = 1.0;
-            var yFactor = 1.0;
-            if (eWidth > eHeight)
-                yFactor = eHeight / eWidth;
-            if (eHeight > eWidth) {
-                xFactor = eWidth / eHeight;
-                r = eHeight / 2;
-            }
-
-            ctx.beginPath();
-            for(var theta = 0; theta < 2*Math.PI; theta+=step)
-            {
-               var x = eX + xFactor * r * Math.cos(theta) ;
-               var y = eY - yFactor * r * Math.sin(theta) ;
-               ctx.lineTo(x,y);
-            }
-
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
-
-        function degToRad(degrees)
-        {
-            return degrees * (Math.PI / 180);
-        }
-
-        function drawCursor(ctx, eX, eY, eWidth, eHeight, degrees)
-        {
-            var r = eWidth / 2;
-            var xFactor = 1.0;
-            var yFactor = 1.0;
-            if (eWidth > eHeight)
-                yFactor = eHeight / eWidth;
-            if (eHeight > eWidth)
-            {
-                xFactor = eWidth / eHeight;
-                r = eHeight / 2;
-            }
-
-            var radPos = degToRad(degrees);
-            var x = eX + xFactor * r * Math.cos(radPos) ;
-            var y = eY + yFactor * r * Math.sin(radPos) ;
-
-            ctx.beginPath();
-            ctx.ellipse(x - 8, y - 8, 16, 16);
-            ctx.fill();
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
-
-        function drawBasement(ctx, eWidth, eHeight)
-        {
-            ctx.fillStyle = "#222";
-            ctx.strokeStyle = "#333"
-            ctx.beginPath();
-            var halfWidth = eWidth / 2;
-            ctx.moveTo(halfWidth - 80, height);
-            ctx.lineTo(halfWidth - 75, height - 35);
-            ctx.lineTo(halfWidth + 75, height - 35);
-            ctx.lineTo(halfWidth + 80, height);
-            ctx.lineTo(halfWidth - 80, height);
-
-            ctx.fill();
-            ctx.closePath();     //close the end to the start point
-            ctx.stroke();
-        }
 
         onPaint:
         {
@@ -165,26 +121,26 @@ Rectangle
 
             ctx.fillRect(0, 0, width, height)
             // draw head basement
-            drawBasement(ctx, width, height);
+            DrawFuncs.drawBasement(ctx, width, height);
 
             ctx.lineWidth = 5;
             // draw TILT curve
             ctx.strokeStyle = "#2E77FF";
-            drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
             // draw PAN curve
             ctx.strokeStyle = "#19438F"
-            drawEllipse(ctx, width / 2, height / 2, width - 30, 50)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, 50)
 
             ctx.lineWidth = 1;
             ctx.strokeStyle = "white";
 
             // draw TILT cursor position
             ctx.fillStyle = "red";
-            drawCursor(ctx, width / 2, height / 2, 40, height - 30, tiltDegrees + 135)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, 40, height - 30, tiltDegrees + 135, 16)
 
             // draw PAN cursor position
             ctx.fillStyle = "green";
-            drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90, 16)
         }
 
         MouseArea
@@ -224,7 +180,7 @@ Rectangle
     Row
     {
         x: 10
-        y: gCanvas.height + 20
+        y: gCanvas.y + gCanvas.height + 20
         width: parent.width - 20
         height: 40
         spacing: 5
@@ -241,50 +197,14 @@ Rectangle
             width: 75
             height: 40
             minimumValue: 0
-            maximumValue: dmxValues ? 255 : panMaxDegrees
+            maximumValue: panMaxDegrees
             value: 0
+            suffix: "°"
 
             onValueChanged:
             {
-                if (dmxValues)
-                    panDegrees = (panMaxDegrees * value) / 255
-                else
-                    panDegrees = value
+                panDegrees = value
                 gCanvas.requestPaint()
-            }
-        }
-        Rectangle
-        {
-            width: 50
-            height: 40
-            border.width: 2
-            border.color: "white"
-            radius: 5
-            color: "#1E476E"
-
-            RobotoText
-            {
-                height: 40
-                anchors.horizontalCenter: parent.horizontalCenter
-                label: dmxValues ? "DMX" : "°"
-                fontSize: 15
-                fontBold: true
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    dmxValues = !dmxValues
-                    // perform DMX <-> degrees calculation
-                    var newVal;
-                    if (dmxValues == false)
-                        newVal = (panSpinBox.value / 255) * panMaxDegrees
-                    else
-                        newVal = (panSpinBox.value / panMaxDegrees) * 255
-                    panSpinBox.value = newVal
-                }
             }
         }
     }
@@ -292,7 +212,7 @@ Rectangle
     Row
     {
         x: 10
-        y: gCanvas.height + 65
+        y: gCanvas.y + gCanvas.height + 65
         width: parent.width - 20
         height: 40
         spacing: 5
@@ -309,50 +229,14 @@ Rectangle
             width: 75
             height: 40
             minimumValue: 0
-            maximumValue: dmxValues ? 255 : tiltMaxDegrees
+            maximumValue: tiltMaxDegrees
             value: 0
+            suffix: "°"
 
             onValueChanged:
             {
-                if (dmxValues)
-                    tiltDegrees = (tiltMaxDegrees * value) / 255
-                else
-                    tiltDegrees = value
+                tiltDegrees = value
                 gCanvas.requestPaint()
-            }
-        }
-        Rectangle
-        {
-            width: 50
-            height: 40
-            border.width: 2
-            border.color: "white"
-            radius: 5
-            color: "#1E476E"
-
-            RobotoText
-            {
-                height: 40
-                anchors.horizontalCenter: parent.horizontalCenter
-                label: dmxValues ? "DMX" : "°"
-                fontSize: 15
-                fontBold: true
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    dmxValues = !dmxValues
-                    // perform DMX <-> degrees calculation
-                    var newVal;
-                    if (dmxValues == false)
-                        newVal = (tiltSpinBox.value / 255) * tiltMaxDegrees
-                    else
-                        newVal = (tiltSpinBox.value / tiltMaxDegrees) * 255
-                    tiltSpinBox.value = newVal
-                }
             }
         }
     }

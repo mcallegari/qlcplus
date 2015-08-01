@@ -32,7 +32,7 @@
 #define KXMLQLCRGBTextOffsetX        "X"
 #define KXMLQLCRGBTextOffsetY        "Y"
 
-RGBText::RGBText(const Doc * doc)
+RGBText::RGBText(Doc * doc)
     : RGBAlgorithm(doc)
     , m_text(" Q LIGHT CONTROLLER + ")
     , m_animationStyle(Horizontal)

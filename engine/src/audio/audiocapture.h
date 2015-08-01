@@ -108,6 +108,7 @@ public:
     /** @reimpl */
     void run(); //thread run function
 
+protected:
     void stop();
 
 private:

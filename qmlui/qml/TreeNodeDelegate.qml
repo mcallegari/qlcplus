@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 
 Rectangle
 {
@@ -28,6 +28,7 @@ Rectangle
     color: "transparent"
 
     property string textLabel
+    property string nodePath
     property var folderChildren
     property bool isExpanded: false
     property bool isSelected: false
@@ -39,6 +40,7 @@ Rectangle
     signal toggled(bool expanded, int newHeight)
     signal clicked(var qItem)
     signal doubleClicked(int ID, int Type)
+    signal pathChanged(string oldPath, string newPath)
 
     Rectangle
     {
@@ -56,14 +58,31 @@ Rectangle
         source: nodeIcon
     }
 
-    RobotoText
+    TextInput
     {
         id: nodeLabel
         x: 45
-        width: parent.width
+        z: 0
+        width: parent.width - 45
         height: 35
-        label: textLabel
-        fontSize: 11
+        readOnly: true
+        text: textLabel
+        verticalAlignment: TextInput.AlignVCenter
+        color: "white"
+        font.family: "RobotoCondensed"
+        font.pointSize: 12
+        echoMode: TextInput.Normal
+        selectByMouse: true
+        selectionColor: "#4DB8FF"
+        selectedTextColor: "#111"
+
+        onEditingFinished:
+        {
+            z = 0
+            select(0, 0)
+            readOnly = true
+            nodeContainer.pathChanged(nodePath, text)
+        }
     }
 
     MouseArea
@@ -76,7 +95,14 @@ Rectangle
             nodeContainer.toggled(isExpanded, childrenHeight)
             isSelected = true
             nodeContainer.clicked(nodeContainer)
-            //functionManager.selectFunction(-1, nodeContainer, false)
+        }
+        onDoubleClicked:
+        {
+            nodeLabel.z = 5
+            nodeLabel.readOnly = false
+            nodeLabel.focus = true
+            nodeLabel.cursorPosition = nodeLabel.text.length
+            nodeLabel.cursorVisible = true
         }
     }
 
@@ -109,10 +135,13 @@ Rectangle
                         item.textLabel = label
                         if (hasChildren)
                         {
+                            item.nodePath = nodePath + "/" + path
                             item.folderChildren = childrenModel
                             item.nodeIcon = nodeContainer.nodeIcon
                             item.childrenDelegate = childrenDelegate
                             item.childrenHeight = (childrenModel.rowCount() * 35)
+
+                            console.log("Item path: " + item.nodePath + ", label: " + label)
                         }
                         else
                         {
@@ -133,6 +162,12 @@ Rectangle
                     {
                         target: item
                         onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
+                    }
+                    Connections
+                    {
+                        ignoreUnknownSignals: true
+                        target: item
+                        onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
                     }
                 }
         }

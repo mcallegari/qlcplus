@@ -42,7 +42,7 @@ Rectangle
         if (isOpen == true)
         {
             editorLoader.source = ""
-            editorLoader.source = editorSource;
+            editorLoader.source = editorSource
         }
     }
 
@@ -50,14 +50,15 @@ Rectangle
     {
         if (isOpen == false)
         {
-            editorLoader.source = editorSource;
-            animateOpen.start();
-            isOpen = true;
+            editorLoader.source = editorSource
+            animateOpen.start()
+            isOpen = true
         }
         else
         {
-            animateClose.start();
-            isOpen = false;
+            animateClose.start()
+            isOpen = false
+            editorLoader.source = ""
         }
     }
 
@@ -133,19 +134,19 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateOpen;
-        target: rightSidePanel;
-        properties: "width";
-        to: expandedWidth;
+        id: animateOpen
+        target: rightSidePanel
+        properties: "width"
+        to: expandedWidth
         duration: 200
     }
 
     PropertyAnimation
     {
         id: animateClose;
-        target: rightSidePanel;
-        properties: "width";
-        to: collapseWidth;
+        target: rightSidePanel
+        properties: "width"
+        to: collapseWidth
         duration: 200
     }
 
