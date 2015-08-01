@@ -121,12 +121,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     {
         if (mmCoords == false)
         {
-            if (x == 0 && y == 0)
-            {
-                x = (m_xOffset * m_gridUnits) / m_cellPixels;
-                y = (m_yOffset * m_gridUnits) / m_cellPixels;
-            }
-            else
+            if (x != 0 || y != 0)
             {
                 x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
                 y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
@@ -246,15 +241,11 @@ void MainView2D::slotRefreshView()
     if (m_view2D == NULL || m_contents2D == NULL)
         return;
 
-    QList<quint32> mPropsIDs;
-    if (m_monProps)
-        mPropsIDs = m_monProps->fixtureItemsID();
-
     resetItems();
 
     foreach(Fixture *fixture, m_doc->fixtures())
     {
-        if (mPropsIDs.contains(fixture->id()))
+        if (m_monProps->hasFixturePosition(fixture->id()))
         {
             QPointF fxPos = m_monProps->fixturePosition(fixture->id());
             createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
@@ -314,6 +305,12 @@ void MainView2D::updateFixture(Fixture *fixture)
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
             colorSet = true;
+        }
+        if (colorSet == false && mdIndex != QLCChannel::invalid())
+        {
+            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                    Q_ARG(QVariant, headIdx),
+                    Q_ARG(QVariant, QColor(Qt::white)));
         }
     }
 

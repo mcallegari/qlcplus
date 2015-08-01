@@ -87,10 +87,19 @@ function endDrag(mouse)
     if (draggedItem == null)
         return;
 
+    var currContext = previewLoader.item.contextName;
+    console.log("Current context: " + currContext)
+    var x = 0;
+    var y = 0;
+    if (currContext === "2D")
+    {
+        x = draggedItem.x - leftSidePanel.width;
+        y = draggedItem.y - previewLoader.y - viewToolbar.height
+    }
+
     fixtureManager.addFixture(manufacturer, model, mode, name,
                               universeIndex, address, channels, quantity, gap,
-                              draggedItem.x - leftSidePanel.width,
-                              draggedItem.y - previewLoader.y - viewToolbar.height);
+                              x, y);
     draggedItem.destroy();
     draggedItem = null;
 }

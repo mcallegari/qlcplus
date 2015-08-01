@@ -184,7 +184,8 @@ Rectangle
             }
         }
 
-        ListView {
+        ListView
+        {
             id: fixtureList
             x: 8
             z: 0
@@ -196,15 +197,15 @@ Rectangle
             anchors.left: parent.left
             focus: true
             boundsBehavior: Flickable.StopAtBounds
-            highlight: Component
-            {
+            highlight:
                 Rectangle
                 {
-                    width: parent.width - 30; height: 31
-                    color: "#0978FF"; radius: 5
-                    y: fixtureList.currentItem.y + 1
+                    width: fixtureList.width - 30
+                    height: 31
+                    color: "#0978FF"
+                    radius: 5
+                    y: fixtureList.currentItem ? fixtureList.currentItem.y + 1 : 0
                 }
-            }
             highlightFollowsCurrentItem: false
 
             delegate: FixtureBrowserDelegate
