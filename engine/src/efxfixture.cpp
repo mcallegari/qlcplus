@@ -21,10 +21,6 @@
 #include <QDomElement>
 #include <QDebug>
 #include <math.h>
-#include <QImage>
-#include <QLinearGradient>
-#include <QPainter>
-#include <QRgb>
 
 #include "genericfader.h"
 #include "mastertimer.h"
@@ -391,7 +387,6 @@ uint EFXFixture::timeOffset() const
 /*****************************************************************************
  * Running
  *****************************************************************************/
-#include <stdio.h>
 void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 {
     m_elapsed += MasterTimer::tick();

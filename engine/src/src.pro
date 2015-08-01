@@ -50,8 +50,7 @@ HEADERS += avolitesd4parser.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
-           qlcphysical.h \
-           gradient.h
+           qlcphysical.h
 
 # Audio
 HEADERS += audio/audio.h \
@@ -92,6 +91,7 @@ HEADERS += bus.h \
            functionuistate.h \
            genericdmxsource.h \
            genericfader.h \
+           gradient.h \
            grandmaster.h \
            grouphead.h \
            inputoutputmap.h \
@@ -138,8 +138,8 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \
-           qlcphysical.cpp \
-           gradient.cpp
+           qlcphysical.cpp
+
 
 # Audio
 SOURCES += audio/audio.cpp \
@@ -191,6 +191,7 @@ SOURCES += bus.cpp \
            functionuistate.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
+           gradient.cpp \
            grandmaster.cpp \
            grouphead.cpp \
            inputoutputmap.cpp \

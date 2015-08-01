@@ -43,7 +43,7 @@ class Doc;
 #define KXMLQLCEFXFixtureStartOffset "StartOffset"
 #define KXMLQLCEFXFixtureIntensity "Intensity"
 
-#define KXMLQLCEFXFixtureModePanTilt "Pan & Tilt"
+#define KXMLQLCEFXFixtureModePanTilt "Position"
 #define KXMLQLCEFXFixtureModeDimmer "Dimmer"
 #define KXMLQLCEFXFixtureModeRGB "RGB"
 
