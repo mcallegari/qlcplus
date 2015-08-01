@@ -18,11 +18,12 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QMessageBox>
 #include <QSpacerItem>
 #include <QComboBox>
+#include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
-#include <QString>
 #include <QDebug>
 
 #include "configureartnet.h"
@@ -147,7 +148,7 @@ void ConfigureArtNet::fillMappingTree()
                 }
                 else
                 {
-                    QWidget *IPwidget = createIPWidget(info->outputAddress.toString(), controller->getNetmask());
+                    QWidget *IPwidget = new QLineEdit(info->outputAddress.toString());
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress, IPwidget);
                 }
 
@@ -173,56 +174,9 @@ void ConfigureArtNet::fillMappingTree()
     m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
 }
 
-QWidget *ConfigureArtNet::createIPWidget(QString ip, QString netmask)
+void ConfigureArtNet::showIPAlert(QString ip)
 {
-    QWidget* widget = new QWidget(this);
-    widget->setLayout(new QHBoxLayout);
-    widget->layout()->setContentsMargins(0, 0, 0, 0);
-
-    QStringList IPNibbles = ip.split(".");
-    QStringList nmNibbles = netmask.split(".");
-
-    bool nmChange = false;
-    QString ipLabel;
-    for (int i = 0; i < 4; i++)
-    {
-        QString ipNibble = IPNibbles.at(i);
-        if (nmNibbles.at(i) != "255")
-        {
-            if (nmChange == false && !ipLabel.isEmpty())
-            {
-                QLabel *label = new QLabel(ipLabel, this);
-                widget->layout()->addWidget(label);
-            }
-            nmChange = true;
-        }
-
-        if (nmChange == false)
-        {
-            ipLabel.append(ipNibble);
-            ipLabel.append(".");
-        }
-        else
-        {
-            QSpinBox *spin = new QSpinBox(this);
-            spin->setObjectName("spin");
-            widget->layout()->addWidget(spin);
-
-            if (i < 3)
-            {
-                spin->setRange(0, 255);
-                QLabel *label = new QLabel(".", this);
-                widget->layout()->addWidget(label);
-            }
-            else
-                spin->setRange(1, 255);
-            spin->setValue(ipNibble.toInt());
-        }
-    }
-
-    widget->layout()->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-    return widget;
+    QMessageBox::critical(this, tr("Invalid IP"), tr("%1 is not a valid IP.\nPlease fix it before confirming.").arg(ip));
 }
 
 ConfigureArtNet::~ConfigureArtNet()
@@ -251,27 +205,51 @@ void ConfigureArtNet::accept()
             if (type == ArtNetController::Output)
                 cap = QLCIOPlugin::Output;
 
-            QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-            if (ipWidget != NULL)
+            QLineEdit *ipEdit = qobject_cast<QLineEdit*>(m_uniMapTree->itemWidget(item, KMapColumnIPAddress));
+            if (ipEdit != NULL)
             {
+                QString newIP = ipEdit->text();
+                QStringList IPNibbles = newIP.split(".");
+
+                // perform all the preliminary IP validity checks
+                if (IPNibbles.count() < 4)
+                {
+                    showIPAlert(newIP);
+                    return;
+                }
+                if (IPNibbles.at(0).toInt() == 255 ||
+                    IPNibbles.at(0).toInt() == 0 ||
+                    IPNibbles.at(3).toInt() == 0)
+                {
+                    showIPAlert(newIP);
+                    return;
+                }
+
+                QString origIP = item->text(KNodesColumnIP);
+                QStringList origIPNibbles = origIP.split(".");
                 QString IPChanged;
 
-                for (int i = 0; i < ipWidget->layout()->count() - 1; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    if (ipWidget->layout()->itemAt(i)->widget()->objectName() == "spin")
+                    // some more validity check
+                    if (IPNibbles.at(i).toInt() < 0 || IPNibbles.at(i).toInt() > 255)
                     {
-                        QSpinBox *spin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(i)->widget());
-                        if (spin != NULL)
-                        {
-                            if (spin->value() != 255 || IPChanged.isEmpty() == false)
-                                IPChanged.append(QString::number(spin->value()));
+                        showIPAlert(newIP);
+                        return;
+                    }
 
-                            if (IPChanged.isEmpty() == false &&
-                                i < ipWidget->layout()->count() - 2)
-                                    IPChanged.append(".");
-                        }
+                    if (IPNibbles.at(i) != origIPNibbles.at(i) || IPChanged.isEmpty() == false)
+                    {
+                        // if the 4th nibble is 255, then skip it as it is the default
+                        if (i == 3 && IPNibbles.at(i).toInt() == 255 && IPChanged.isEmpty())
+                            continue;
+
+                        IPChanged.append(IPNibbles.at(i));
+                        if (i < 3)
+                            IPChanged.append(".");
                     }
                 }
+
                 //qDebug() << "IPchanged = " << IPChanged;
                 if (IPChanged.isEmpty())
                     m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTIP);
