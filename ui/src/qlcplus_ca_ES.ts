@@ -348,7 +348,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="277"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Components</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
@@ -4164,17 +4164,17 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="269"/>
         <source>Dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Cotrol de dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="266"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajusta el dimmer de fixtures al 100%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Other Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Altres controls</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="285"/>
@@ -4653,7 +4653,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="selectinputchannel.ui" line="32"/>
         <source>Allow unpatched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Permet universos sense apedaçar</translation>
     </message>
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
@@ -6943,12 +6943,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietats del Marc Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesclar sliders en Mode Reproducció </translation>
     </message>
 </context>
 <context>
@@ -7072,7 +7072,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>ms precision</source>
-        <translation type="unfinished"></translation>
+        <translation>precisió en ms</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="241"/>
@@ -7109,22 +7109,22 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="355"/>
         <source>Infinite</source>
-        <translation type="unfinished">Infinit</translation>
+        <translation>Infinit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="413"/>
         <source>Keyboard combination to toggle the dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinació de tecles que canvia la casella infinit en el selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="423"/>
         <source>Set a key combination for this dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar la combinació de tecles per a la casella infinit d&apos;aquest selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="443"/>
         <source>Remove the dial&apos;s infinite button keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Treure drecera teclat de la casella infinit d&apos;aquest selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
