@@ -106,14 +106,35 @@ void ContextManager::reattachContext(QString context)
     }
 }
 
-void ContextManager::updateContexts()
+void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
-    m_source->unsetAll();
+    resetValues();
+    foreach(quint32 fxID, m_selectedFixtures)
+        setFixtureSelection(fxID, false);
+
     m_selectedFixtures.clear();
     m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
+}
+
+void ContextManager::resetValues()
+{
+    QMap<QPair<quint32, quint32>, uchar> dumpValues = m_functionManager->dumpValues();
+    int dumpValuesCount = m_functionManager->dumpValuesCount();
+    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(dumpValues);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        SceneValue sv;
+        sv.fxi = it.key().first;
+        sv.channel = it.key().second;
+        m_source->set(sv.fxi, sv.channel, 0);
+    }
+    m_source->unsetAll();
+    m_functionManager->resetDumpValues();
+    checkDumpButton(dumpValuesCount);
 }
 
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
@@ -218,9 +239,8 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             break;
             case Qt::Key_R:
             {
-                int valCount = m_source->channelsCount();
-                m_source->unsetAll();
-                m_functionManager->resetDumpValues();
+                int valCount = m_functionManager->dumpValuesCount();
+                resetValues();
                 checkDumpButton(valCount);
             }
             break;
@@ -308,9 +328,10 @@ void ContextManager::setFixturesRotation(int degrees)
 
 void ContextManager::checkDumpButton(quint32 valCount)
 {
+    int dumpValuesCount = m_functionManager->dumpValuesCount();
     /** Monitor the changes from/to 0 */
-    if ((valCount == 0 && m_source->channelsCount() > 0) ||
-        (valCount > 0 && m_source->channelsCount() == 0))
+    if ((valCount == 0 && dumpValuesCount > 0) ||
+        (valCount > 0 && dumpValuesCount == 0))
     {
         QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
         if (dumpBtn != NULL)
@@ -337,7 +358,7 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 {
     if (m_editingEnabled == false)
     {
-        quint32 valCount = m_source->channelsCount();
+        quint32 valCount = m_functionManager->dumpValuesCount();
         m_source->set(fxID, channel, (uchar)value);
         m_functionManager->setDumpValue(fxID, channel, (uchar)value);
         checkDumpButton(valCount);
@@ -348,7 +369,7 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
-    quint32 valCount = m_source->channelsCount();
+    quint32 valCount = m_functionManager->dumpValuesCount();
     //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
@@ -389,7 +410,7 @@ void ContextManager::slotPositionChanged(int type, int degrees)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
-    quint32 valCount = m_source->channelsCount();
+    quint32 valCount = m_functionManager->dumpValuesCount();
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
     foreach(SceneValue sv, typeList)
@@ -456,7 +477,7 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
 
 void ContextManager::slotFunctionEditingChanged(bool status)
 {
-    updateContexts();
+    resetContexts();
     m_editingEnabled = status;
 }
 

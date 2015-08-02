@@ -280,8 +280,18 @@ void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
     m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
 }
 
-void FunctionManager::resetDumpValues()
+QMap<QPair<quint32, quint32>, uchar> FunctionManager::dumpValues() const
 {
+    return m_dumpValues;
+}
+
+int FunctionManager::dumpValuesCount() const
+{
+    return m_dumpValues.count();
+}
+
+void FunctionManager::resetDumpValues()
+{    
     m_dumpValues.clear();
 }
 

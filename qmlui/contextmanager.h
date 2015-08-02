@@ -72,7 +72,10 @@ private:
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
-    void updateContexts();
+    void resetContexts();
+
+    /** Resets the current values used for dumping or preview */
+    void resetValues();
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
