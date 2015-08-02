@@ -64,6 +64,13 @@ Rectangle
             fontSize: 15
             fontBold: true
         }
+        // allow the tool to be dragged around
+        // by holding it on the title bar
+        MouseArea
+        {
+            anchors.fill: parent
+            drag.target: posToolRoot
+        }
     }
 
     Rectangle

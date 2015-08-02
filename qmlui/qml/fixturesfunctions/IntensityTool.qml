@@ -23,6 +23,7 @@ import QtQuick.Controls.Styles 1.2
 
 Rectangle
 {
+    id: intRoot
     width: 150
     height: 350
     color: "#333"
@@ -62,6 +63,13 @@ Rectangle
             label: qsTr("Intensity")
             fontSize: 15
             fontBold: true
+        }
+        // allow the tool to be dragged around
+        // by holding it on the title bar
+        MouseArea
+        {
+            anchors.fill: parent
+            drag.target: intRoot
         }
     }
 

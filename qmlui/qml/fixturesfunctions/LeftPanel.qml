@@ -134,7 +134,8 @@ Rectangle
                 tooltip: qsTr("Intensity")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: { intTool.visible = !intTool.visible }
+                onCheckedChanged: intTool.visible = !intTool.visible
+                onCounterChanged: if (counter == 0) intTool.visible = false
                 IntensityTool
                 {
                     id: intTool
@@ -156,7 +157,8 @@ Rectangle
                 tooltip: qsTr("Color")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: { colTool.visible = !colTool.visible }
+                onCheckedChanged: colTool.visible = !colTool.visible
+                onCounterChanged: if (counter == 0) colTool.visible = false
                 ColorTool
                 {
                     id: colTool
@@ -179,7 +181,8 @@ Rectangle
                 tooltip: qsTr("Position")
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
-                onCheckedChanged: { posTool.visible = !posTool.visible }
+                onCheckedChanged: posTool.visible = !posTool.visible
+                onCounterChanged: if (counter == 0) posTool.visible = false
 
                 property int panDegrees: 360
                 property int tiltDegrees: 270
@@ -208,7 +211,9 @@ Rectangle
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
 
-                onCheckedChanged: { cWheelTool.visible = !cWheelTool.visible }
+                onCheckedChanged: cWheelTool.visible = !cWheelTool.visible
+                onCounterChanged: if (counter == 0) cWheelTool.visible = false
+
                 PresetsTool
                 {
                     id: cWheelTool
@@ -231,7 +236,8 @@ Rectangle
                 counter: 0
                 exclusiveGroup: capabilitiesGroup
 
-                onCheckedChanged: { gobosTool.visible = !gobosTool.visible }
+                onCheckedChanged: gobosTool.visible = !gobosTool.visible
+                onCounterChanged: if (counter == 0) gobosTool.visible = false
                 PresetsTool
                 {
                     id: gobosTool
