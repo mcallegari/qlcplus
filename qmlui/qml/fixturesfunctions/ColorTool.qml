@@ -114,7 +114,6 @@ Rectangle
             {
                 Layout.fillWidth: true
                 height: colorToolBar.height
-                anchors.fill: parent
                 drag.target: colorToolBox
             }
         }

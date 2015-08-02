@@ -110,11 +110,19 @@ void SceneEditor::setPreview(bool enable)
 void SceneEditor::sceneConsoleLoaded(bool status)
 {
     if (status == false)
+    {
         m_sceneConsole = NULL;
+        m_fxConsoleMap.clear();
+    }
     else
     {
         m_sceneConsole = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("sceneFixtureConsole"));
     }
+}
+
+void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
+{
+    m_fxConsoleMap[index] = item;
 }
 
 bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
@@ -151,10 +159,12 @@ void SceneEditor::setChannelValue(quint32 fxID, quint32 channel, uchar value)
         if (m_sceneConsole)
         {
             int fxIndex = m_fixtureIDs.indexOf(fxID);
-            QMetaObject::invokeMethod(m_sceneConsole, "setFixtureChannel",
-                    Q_ARG(QVariant, fxIndex),
-                    Q_ARG(QVariant, channel),
-                    Q_ARG(QVariant, value));
+            if (m_fxConsoleMap.contains(fxIndex))
+            {
+                QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
+                        Q_ARG(QVariant, channel),
+                        Q_ARG(QVariant, value));
+            }
         }
     }
     if (blindMode == false)
