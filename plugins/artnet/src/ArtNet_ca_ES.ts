@@ -136,13 +136,14 @@
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP invàlida</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 no es una IP vàlida.
+Per favor arregla-ho abans de seguir.</translation>
     </message>
 </context>
 </TS>
