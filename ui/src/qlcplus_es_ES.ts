@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -348,7 +348,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="277"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Componentes</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
@@ -2002,7 +2002,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotación del Punto de Inicio del Patrón</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -4194,17 +4194,17 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="rgbmatrixeditor.ui" line="269"/>
         <source>Dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="266"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajusta el canal de dimmer de fixtures al 100%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Other Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Otros controles</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="339"/>
@@ -4660,7 +4660,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="selectinputchannel.ui" line="32"/>
         <source>Allow unpatched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir universos sin patchear</translation>
     </message>
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
@@ -6957,12 +6957,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del Marco Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezclar sliders en Modo Reproducción</translation>
     </message>
 </context>
 <context>
@@ -7086,7 +7086,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>ms precision</source>
-        <translation type="unfinished"></translation>
+        <translation>precisión en ms</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="241"/>
@@ -7123,22 +7123,22 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="355"/>
         <source>Infinite</source>
-        <translation type="unfinished">Infinito</translation>
+        <translation>Infinito</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="413"/>
         <source>Keyboard combination to toggle the dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinación de teclas que activa la casilla de infinito en el selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="423"/>
         <source>Set a key combination for this dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una combinacion de teclas para la casilla de infinito de este selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="443"/>
         <source>Remove the dial&apos;s infinite button keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar el atajo de teclado de la casilla de infinito del selector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
