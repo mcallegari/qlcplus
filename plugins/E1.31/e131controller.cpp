@@ -24,6 +24,7 @@
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
+#define E131_PRIORITY_DEFAULT 100
 
 E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)
@@ -102,7 +103,7 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
         else
             info.mcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
         info.outputUniverse = universe;
-        info.outputPriority = 100;
+        info.outputPriority = E131_PRIORITY_DEFAULT;
         info.trasmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
@@ -225,7 +226,7 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
     QByteArray dmxPacket;
     QHostAddress outAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
     quint32 outUniverse = universe;
-    quint32 outPriority = 100;
+    quint32 outPriority = E131_PRIORITY_DEFAULT;
     TransmissionMode transmitMode = Full;
 
     if (m_universeMap.contains(universe))
