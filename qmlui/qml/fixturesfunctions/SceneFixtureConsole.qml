@@ -34,16 +34,8 @@ Rectangle
     function scrollToItem(fxIdx)
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
-        if (currentSelIndex != -1)
-        {
-            fixtureList.currentIndex = currentSelIndex
-            fixtureList.currentItem.isSelected = false
-        }
-        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
-        fixtureList.currentIndex = fxIdx
-        fixtureList.currentItem.isSelected = true
-        fixtureList.currentIndex = -1
         currentSelIndex = fxIdx
+        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
     }
 
     ListView
@@ -60,11 +52,11 @@ Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                property var fConsole: fxConsole
-                property bool isSelected: false
+                property bool isSelected: (index == currentSelIndex) ? true : false
                 color: "black"
 
                 Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
+                Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
 
                 FixtureConsole
                 {

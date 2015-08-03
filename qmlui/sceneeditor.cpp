@@ -122,7 +122,14 @@ void SceneEditor::sceneConsoleLoaded(bool status)
 
 void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
 {
+    qDebug() << "[SceneEditor] Fixture console registered at index" << index;
     m_fxConsoleMap[index] = item;
+}
+
+void SceneEditor::unRegisterFixtureConsole(int index)
+{
+    qDebug() << "[SceneEditor] Fixture console unregistered at index" << index;
+    m_fxConsoleMap.take(index);
 }
 
 bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)

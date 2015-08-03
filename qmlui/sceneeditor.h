@@ -64,6 +64,7 @@ public:
     Q_INVOKABLE void sceneConsoleLoaded(bool status);
 
     Q_INVOKABLE void registerFixtureConsole(int index, QQuickItem *item);
+    Q_INVOKABLE void unRegisterFixtureConsole(int index);
 
     /** QML invokable method that returns if the Scene has the
      *  requested $fixture's $channel */
