@@ -26,6 +26,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
+#include <qmath.h>
 
 #include "mastertimer.h"
 #include "speeddial.h"
@@ -95,23 +96,37 @@ SpeedDial::SpeedDial(QWidget* parent)
     layout()->setMargin(2);
 
     QHBoxLayout* topHBox = new QHBoxLayout();
-    QVBoxLayout* pmVBox = new QVBoxLayout();
+    QVBoxLayout* pmVBox1 = new QVBoxLayout();
+    QVBoxLayout* pmVBox2 = new QVBoxLayout();
     layout()->addItem(topHBox);
 
     m_plus = new QToolButton(this);
     m_plus->setIconSize(QSize(32, 32));
     m_plus->setIcon(QIcon(":/edit_add.png"));
-    pmVBox->addWidget(m_plus, Qt::AlignVCenter | Qt::AlignLeft);
+    pmVBox1->addWidget(m_plus, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_plus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
     connect(m_plus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
 
     m_minus = new QToolButton(this);
     m_minus->setIconSize(QSize(32, 32));
     m_minus->setIcon(QIcon(":/edit_remove.png"));
-    pmVBox->addWidget(m_minus, Qt::AlignVCenter | Qt::AlignLeft);
+    pmVBox1->addWidget(m_minus, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_minus, SIGNAL(pressed()), this, SLOT(slotPlusMinus()));
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
-    topHBox->addItem(pmVBox);
+    topHBox->addItem(pmVBox1);
+
+    m_mult = new QToolButton(this);
+    m_mult->setText ("*2");
+    pmVBox2->addWidget(m_mult, Qt::AlignVCenter | Qt::AlignLeft);
+    connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
+    connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
+
+    m_div = new QToolButton(this);
+    m_div->setText ("/2");
+    pmVBox2->addWidget(m_div, Qt::AlignVCenter | Qt::AlignLeft);
+    connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
+    connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
+    topHBox->addItem(pmVBox2);
 
     m_dial = new QDial(this);
     m_dial->setWrapping(true);
@@ -343,6 +358,26 @@ void SpeedDial::slotPlusMinusTimeout()
         else
             m_dial->setValue(m_dial->value() + m_dial->singleStep()); // Normal increment
         m_timer->start(TIMER_REPEAT);
+    }
+}
+
+void SpeedDial::slotMultDiv()
+{
+    Q_ASSERT(m_focus != NULL);
+
+    if (m_div->isDown() == true)
+    {
+
+    }
+    else if (m_mult->isDown() == true)
+    {
+        const int ms = m_ms->value () * 2;
+        const int sec = m_sec->value () * 2;
+        const int min = m_min->value () * 2;
+
+        m_ms->setValue ( CLAMP(ms, 0, MS_MAX));
+        m_sec->setValue ( CLAMP(sec + ms / MS_MAX, 0, SEC_MAX));
+        m_min->setValue ( CLAMP(min + sec / SEC_MAX + ms / MS_MAX, 0, MIN_MAX));
     }
 }
 

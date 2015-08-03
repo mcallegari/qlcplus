@@ -119,6 +119,7 @@ private:
 private slots:
     void slotPlusMinus();
     void slotPlusMinusTimeout();
+    void slotMultDiv();
     void slotDialChanged(int value);
     void slotHoursChanged();
     void slotMinutesChanged();
@@ -134,6 +135,8 @@ private:
     QDial* m_dial;
     QToolButton* m_plus;
     QToolButton* m_minus;
+    QToolButton* m_mult;
+    QToolButton* m_div;
     FocusSpinBox* m_hrs;
     FocusSpinBox* m_min;
     FocusSpinBox* m_sec;
