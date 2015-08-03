@@ -44,7 +44,7 @@
 #define TIMER_REPEAT 10
 #define TAP_STOP_TIMEOUT 30000
 
-#define DEFAULT_VISIBILITY_MASK 0x00FF
+#define DEFAULT_VISIBILITY_MASK 0x01FF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -496,6 +496,8 @@ void SpeedDial::slotInfiniteChecked(bool state)
     m_sec->setEnabled(!state);
     m_ms->setEnabled(!state);
     m_tap->setEnabled(!state);
+    m_mult->setEnabled(!state);
+    m_div->setEnabled(!state);
 
     if (state == true)
     {
@@ -610,6 +612,17 @@ void SpeedDial::setVisibilityMask(ushort mask)
 
     if (mask & Infinite) m_infiniteCheck->show();
     else m_infiniteCheck->hide();
+
+    if (mask & MultDiv)
+    {
+        m_mult->show ();
+        m_div->show ();
+    }
+    else
+    {
+        m_mult->hide ();
+        m_div->hide ();
+    }
 
     m_visibilityMask = mask;
 }

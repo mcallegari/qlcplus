@@ -78,7 +78,8 @@ public:
         Minutes      = 1 << 4,
         Seconds      = 1 << 5,
         Milliseconds = 1 << 6,
-        Infinite     = 1 << 7
+        Infinite     = 1 << 7,
+        MultDiv     = 1 << 8,
     };
 
     SpeedDial(QWidget* parent);
