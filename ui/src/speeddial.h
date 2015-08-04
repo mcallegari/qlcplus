@@ -80,6 +80,7 @@ public:
         Milliseconds = 1 << 6,
         Infinite     = 1 << 7,
         MultDiv     = 1 << 8,
+        Apply     = 1 << 9,
     };
 
     SpeedDial(QWidget* parent);
@@ -129,6 +130,7 @@ private slots:
     void slotInfiniteChecked(bool state);
     void slotSpinFocusGained();
     void slotTapClicked();
+    void slotApplyClicked();
     void slotTapTimeout();
 
 private:
@@ -144,6 +146,7 @@ private:
     FocusSpinBox* m_ms;
     QCheckBox* m_infiniteCheck;
     QPushButton* m_tap;
+    QPushButton* m_apply;
     FocusSpinBox* m_focus;
 
     int m_previousDialValue;

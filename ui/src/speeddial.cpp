@@ -40,11 +40,13 @@
 #define MS_MAX    999
 #define MS_DIV    10
 
+#define MS_MAX_DIPLAY    99
+
 #define TIMER_HOLD   250
 #define TIMER_REPEAT 10
 #define TAP_STOP_TIMEOUT 30000
 
-#define DEFAULT_VISIBILITY_MASK 0x01FF
+#define DEFAULT_VISIBILITY_MASK 0x03FF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -98,6 +100,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     QHBoxLayout* topHBox = new QHBoxLayout();
     QVBoxLayout* pmVBox1 = new QVBoxLayout();
     QVBoxLayout* pmVBox2 = new QVBoxLayout();
+    QVBoxLayout* taVBox3 = new QVBoxLayout();
     layout()->addItem(topHBox);
 
     m_plus = new QToolButton(this);
@@ -116,13 +119,15 @@ SpeedDial::SpeedDial(QWidget* parent)
     topHBox->addItem(pmVBox1);
 
     m_mult = new QToolButton(this);
-    m_mult->setText ("*2");
+    m_mult->setIconSize(QSize(32, 32));
+    m_mult->setIcon(QIcon(":/mult.png"));
     pmVBox2->addWidget(m_mult, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
 
     m_div = new QToolButton(this);
-    m_div->setText ("/2");
+    m_div->setIconSize(QSize(32, 32));
+    m_div->setIcon(QIcon(":/div.png"));
     pmVBox2->addWidget(m_div, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
@@ -138,8 +143,16 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_tap = new QPushButton(tr("Tap"), this);
     m_tap->setStyleSheet(tapDefaultSS);
     m_tap->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    topHBox->addWidget(m_tap);
+    taVBox3->addWidget(m_tap);
     connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
+
+    m_apply = new QPushButton(tr("Apply"), this);
+    m_apply->setStyleSheet(tapDefaultSS);
+    m_apply->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    taVBox3->addWidget(m_apply);
+    connect(m_apply, SIGNAL(clicked()), this, SLOT(slotApplyClicked()));
+
+    topHBox->addItem (taVBox3);
 
     QHBoxLayout* timeHBox = new QHBoxLayout();
     layout()->addItem(timeHBox);
@@ -367,17 +380,13 @@ void SpeedDial::slotMultDiv()
 
     if (m_div->isDown() == true)
     {
-
+        const int ms = spinValues () / 2;
+        setSpinValues (ms);
     }
     else if (m_mult->isDown() == true)
     {
-        const int ms = m_ms->value () * 2;
-        const int sec = m_sec->value () * 2;
-        const int min = m_min->value () * 2;
-
-        m_ms->setValue ( CLAMP(ms, 0, MS_MAX));
-        m_sec->setValue ( CLAMP(sec + ms / MS_MAX, 0, SEC_MAX));
-        m_min->setValue ( CLAMP(min + sec / SEC_MAX + ms / MS_MAX, 0, MIN_MAX));
+        const int ms = spinValues () * 2;
+        setSpinValues (ms);
     }
 }
 
@@ -555,6 +564,16 @@ void SpeedDial::slotTapClicked()
     emit tapped();
 }
 
+void SpeedDial::slotApplyClicked()
+{
+    m_value = spinValues();
+    if (m_preventSignals == false)
+        emit valueChanged(m_value);
+
+    // stop tap button blinking if it was
+    stopTimers();
+}
+
 void SpeedDial::slotTapTimeout()
 {
     if (m_tapTick == false)
@@ -623,6 +642,9 @@ void SpeedDial::setVisibilityMask(ushort mask)
         m_mult->hide ();
         m_div->hide ();
     }
+
+    if (mask & Apply) m_apply->show();
+    else m_apply->hide();
 
     m_visibilityMask = mask;
 }

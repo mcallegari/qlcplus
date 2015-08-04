@@ -1,7 +1,7 @@
 ﻿<RCC>
-    <qresource>
+    <qresource prefix="/">
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
-	<file alias="animation.png">../../resources/icons/png/animation.png</file>
+        <file alias="animation.png">../../resources/icons/png/animation.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
         <file alias="audio.png">../../resources/icons/png/audio.png</file>
         <file alias="audioinput.png">../../resources/icons/png/audioinput.png</file>
@@ -28,6 +28,7 @@
         <file alias="detach.png">../../resources/icons/png/detach.png</file>
         <file alias="dimmer.png">../../resources/icons/png/dimmer.png</file>
         <file alias="diptool.png">../../resources/icons/png/diptool.png</file>
+        <file alias="div.png">../../resources/icons/png/div.png</file>
         <file alias="down.png">../../resources/icons/png/down.png</file>
         <file alias="ds_top.png">../../resources/icons/png/ds_top.png</file>
         <file alias="ds_border.png">../../resources/icons/png/ds_border.png</file>
@@ -88,6 +89,7 @@
         <file alias="label.png">../../resources/icons/png/label.png</file>
         <file alias="monitor.png">../../resources/icons/png/monitor.png</file>
         <file alias="movinghead.png">../../resources/icons/png/movinghead.png</file>
+        <file alias="mult.png">../../resources/icons/png/mult.png</file>
         <file alias="operate.png">../../resources/icons/png/operate.png</file>
         <file alias="other.png">../../resources/icons/png/other.png</file>
         <file alias="pan.png">../../resources/icons/png/pan.png</file>
@@ -122,7 +124,7 @@
         <file alias="uncheck.png">../../resources/icons/png/uncheck.png</file>
         <file alias="undo.png">../../resources/icons/png/undo.png</file>
         <file alias="ungroup.png">../../resources/icons/png/ungroup.png</file>
-	<file alias="unlock.png">../../resources/icons/png/unlock.png</file>
+        <file alias="unlock.png">../../resources/icons/png/unlock.png</file>
         <file alias="up.png">../../resources/icons/png/up.png</file>
         <file alias="video.png">../../resources/icons/png/video.png</file>
         <file alias="virtualconsole.png">../../resources/icons/png/virtualconsole.png</file>

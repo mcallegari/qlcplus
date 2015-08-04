@@ -510,6 +510,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="m_applyCheck">
+         <property name="text">
+          <string>Show the apply button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="m_hoursCheck">
          <property name="text">
           <string>Show the hours field</string>
