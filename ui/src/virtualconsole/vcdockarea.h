@@ -52,13 +52,6 @@ signals:
 
 private:
     GrandMasterSlider* m_gm;
-
-    /*********************************************************************
-     * Event Handlers & Signals
-     *********************************************************************/
-protected:
-    void showEvent(QShowEvent* event);
-    void hideEvent(QHideEvent* event);
 };
 
 /** @} */
