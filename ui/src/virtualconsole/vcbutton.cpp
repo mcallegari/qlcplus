@@ -647,7 +647,7 @@ void VCButton::pressFunction()
         f = m_doc->function(m_function);
         if (f == NULL)
             return;
-
+/*
         if (VirtualConsole::instance() != NULL &&
             VirtualConsole::instance()->isTapModifierDown() == true)
         {
@@ -656,6 +656,7 @@ void VCButton::pressFunction()
             blink(50);
         }
         else
+*/
         {
             // if the button is in a SoloFrame and the function is running but was
             // started by a different function (a chaser or collection), turn other
