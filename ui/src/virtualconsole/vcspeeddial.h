@@ -43,6 +43,7 @@ class VCSpeedDialFunction;
 #define KXMLQLCVCSpeedDialInfinite "Infinite"
 #define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
+#define KXMLQLCVCSpeedDialTime "Time"
 
 class VCSpeedDial : public VCWidget
 {
