@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>DMXUSB</name>
     <message>
@@ -102,17 +102,17 @@
         <location filename="enttecdmxusbpro.cpp" line="91"/>
         <location filename="enttecdmxusbpro.cpp" line="96"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protokol</translation>
+        <translation>Protokol</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="100"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Výrobce</translation>
+        <translation>Výrobce</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="103"/>
         <source>Serial number</source>
-        <translation type="unfinished">Sériové číslo</translation>
+        <translation>Sériové číslo</translation>
     </message>
 </context>
 <context>
@@ -152,22 +152,22 @@
     <message>
         <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>MIDI Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstup MIDI</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="212"/>
         <source>DMX Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstup DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>MIDI Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstup MIDI</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="219"/>
         <source>DMX Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Výstup DMX</translation>
     </message>
 </context>
 </TS>

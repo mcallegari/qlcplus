@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -136,13 +136,13 @@
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Neplatná IP adresa</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 není platná IP adresa. Prosím opravte.</translation>
     </message>
 </context>
 </TS>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutBox</name>
     <message>
@@ -348,7 +348,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="277"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Komponenty</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
@@ -730,7 +730,7 @@ Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návr
     <message>
         <location filename="app.cpp" line="634"/>
         <source>Toggle Virtual Console Live edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapni/vypni úpravy Virtuálního pracoviště</translation>
     </message>
     <message>
         <location filename="app.cpp" line="639"/>
@@ -1671,7 +1671,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="collectioneditor.ui" line="93"/>
         <source>See what the Collection does when it is run</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat co kolekce udělá když poběží</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="126"/>
@@ -2254,7 +2254,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="815"/>
         <source>Add RGB panel...</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat RGB panel...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="820"/>
@@ -3168,42 +3168,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="110"/>
         <source>Control Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Control Change</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="115"/>
         <source>Note On/Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Note On/Off</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="120"/>
         <source>Note Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation>Note Aftertouch</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="125"/>
         <source>Program Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Program Change</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="130"/>
         <source>Channel Aftertouch</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel Aftertouch</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="135"/>
         <source>Pitch Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Pitch Wheel</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="140"/>
         <source>Beat Clock: Start/Stop/Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Beat Clock: Start/Stop/Continue</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="145"/>
         <source>Beat Clock: Beat</source>
-        <translation type="unfinished"></translation>
+        <translation>Beat Clock: Beat</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="166"/>
@@ -4186,17 +4186,17 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="269"/>
         <source>Dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Ovládání stmívače</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="266"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit kanál stmívače na zařízeních na 100%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Other Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Jiné nastavení</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="339"/>
@@ -4468,7 +4468,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="156"/>
         <source>Test the execution of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit tento skript</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="176"/>
@@ -4503,7 +4503,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.ui" line="195"/>
         <source>Check the syntax of this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Skontrolovat syntax tohoto skriptu</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="89"/>
@@ -7070,7 +7070,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>ms precision</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesnost na ms</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="241"/>
@@ -7107,22 +7107,22 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="355"/>
         <source>Infinite</source>
-        <translation type="unfinished">Nekonečno</translation>
+        <translation>Nekonečno</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="413"/>
         <source>Keyboard combination to toggle the dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombinace kláves pro přepnutí nekonečna</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="423"/>
         <source>Set a key combination for this dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit kombinaci kláves pro přepnutí nekonečna</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="443"/>
         <source>Remove the dial&apos;s infinite button keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Odebrat zkratkovou klávesu pro nekonečno</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
@@ -7215,7 +7215,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="151"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvukové spoušte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="152"/>
@@ -7472,7 +7472,7 @@ Délka: %3
     <message>
         <location filename="videoeditor.ui" line="170"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit libovolné URL pro tohle video</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="229"/>
@@ -7508,17 +7508,17 @@ Délka: %3
     <message>
         <location filename="videoeditor.ui" line="262"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Režim přehrávání</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="268"/>
         <source>Single shot</source>
-        <translation type="unfinished">Jednorázově</translation>
+        <translation>Jednorázově</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="278"/>
         <source>Loop</source>
-        <translation type="unfinished">Smyčka</translation>
+        <translation>Smyčka</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="130"/>
@@ -7543,12 +7543,12 @@ Délka: %3
     <message>
         <location filename="videoeditor.cpp" line="171"/>
         <source>Video source URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdrojové URL videa</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="172"/>
         <source>Enter a URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadaj URL:</translation>
     </message>
 </context>
 <context>
