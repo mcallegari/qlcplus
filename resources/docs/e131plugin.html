@@ -59,6 +59,11 @@ Input lines do not have particular parameters, while an output line can be confi
      will transmit only 53 DMX channels, thus limiting the trasnmission bitrate. Use this setting only if the
      receiving E1.31 node supports partial transmission.
   </li>
+  <li><b>Priority</b>: E1.31 source priority.<br>
+     <b>0</b> is the minimum priority, <b>200</b> is the maximum, <b>100</b> is default priority. When E1.31 receiver
+     gets data for a particular universe from multiple sources, it uses data from source with the highest priority.
+     This allows various failover schemes. Note that QLC+ does not yet acknowledge priority on input.
+  </li>
 </ul>
 Settings that are different from the plugin defaults, will be stored in your QLC+ workspace, to increase the
 portability of a project across different platforms, such as different operating systems or a PC and a Raspberry Pi.
