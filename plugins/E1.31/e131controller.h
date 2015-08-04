@@ -34,6 +34,7 @@ typedef struct
     ushort outputUniverse;
     int trasmissionMode;
     int type;
+    int outputPriority;
 } UniverseInfo;
 
 class E131Controller : public QObject
@@ -70,6 +71,9 @@ public:
 
     /** Set a specific E1.31 output universe for the given QLC+ universe */
     void setOutputUniverse(quint32 universe, quint32 e131Uni);
+
+    /** Set a specific E1.31 output priority for the given QLC+ universe */
+    void setOutputPriority(quint32 universe, quint32 e131Priority);
 
     /** Set the transmission mode of the ArtNet DMX packets over the network.
      *  It can be 'Full', which transmits always 512 channels, or

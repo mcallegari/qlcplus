@@ -24,6 +24,7 @@
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
+#define E131_PRIORITY_DEFAULT 100
 
 E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)
@@ -102,6 +103,7 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
         else
             info.mcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
         info.outputUniverse = universe;
+        info.outputPriority = E131_PRIORITY_DEFAULT;
         info.trasmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
@@ -137,6 +139,15 @@ void E131Controller::setOutputUniverse(quint32 universe, quint32 e131Uni)
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputUniverse = e131Uni;
+}
+
+void E131Controller::setOutputPriority(quint32 universe, quint32 e131Priority)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputPriority = e131Priority;
 }
 
 void E131Controller::setTransmissionMode(quint32 universe, E131Controller::TransmissionMode mode)
@@ -215,6 +226,7 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
     QByteArray dmxPacket;
     QHostAddress outAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
     quint32 outUniverse = universe;
+    quint32 outPriority = E131_PRIORITY_DEFAULT;
     TransmissionMode transmitMode = Full;
 
     if (m_universeMap.contains(universe))
@@ -222,6 +234,7 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
         UniverseInfo info = m_universeMap[universe];
         outAddress = info.mcastAddress;
         outUniverse = info.outputUniverse;
+        outPriority = info.outputPriority;
         transmitMode = TransmissionMode(info.trasmissionMode);
     }
 
@@ -229,10 +242,10 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
     {
         QByteArray wholeuniverse(512, 0);
         wholeuniverse.replace(0, data.length(), data);
-        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, wholeuniverse);
+        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, outPriority, wholeuniverse);
     }
     else
-        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, data);
+        m_packetizer->setupE131Dmx(dmxPacket, outUniverse, outPriority, data);
 
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
                                              outAddress, E131_DEFAULT_PORT);

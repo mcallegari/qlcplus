@@ -40,7 +40,7 @@ public:
      *********************************************************************/
 
     /** Prepare an E1.31 DMX packet */
-    void setupE131Dmx(QByteArray& data, const int& universe, const QByteArray &values);
+    void setupE131Dmx(QByteArray& data, const int& universe, const int& priority, const QByteArray &values);
 
     /*********************************************************************
      * Receiver functions

@@ -57,6 +57,11 @@
            <string>Transmission Mode</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>Priority</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>

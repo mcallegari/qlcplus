@@ -32,6 +32,10 @@
 #define KMapColumnIPAddress     2
 #define KMapColumnE131Uni       3
 #define KMapColumnTransmitMode  4
+#define KMapColumnPriority      5
+
+#define E131_PRIORITY_MIN 0
+#define E131_PRIORITY_MAX 200
 
 /*****************************************************************************
  * Initialization
@@ -123,6 +127,11 @@ void ConfigureE131::fillMappingTree()
                 if (info->trasmissionMode == E131Controller::Partial)
                     combo->setCurrentIndex(1);
                 m_uniMapTree->setItemWidget(item, KMapColumnTransmitMode, combo);
+
+                QSpinBox *spin2 = new QSpinBox(this);
+                spin2->setRange(E131_PRIORITY_MIN, E131_PRIORITY_MAX);
+                spin2->setValue(info->outputPriority);
+                m_uniMapTree->setItemWidget(item, KMapColumnPriority, spin2);
             }
         }
     }
@@ -132,6 +141,7 @@ void ConfigureE131::fillMappingTree()
     m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
     m_uniMapTree->resizeColumnToContents(KMapColumnE131Uni);
     m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
+    m_uniMapTree->resizeColumnToContents(KMapColumnPriority);
 }
 
 QWidget *ConfigureE131::createIPWidget(QString ip)
@@ -206,6 +216,16 @@ void ConfigureE131::accept()
                                            E131Controller::transmissionModeToString(E131Controller::Partial));
                 else
                     m_plugin->unSetParameter(universe, line, cap, E131_TRANSMITMODE);
+            }
+
+            QSpinBox *spin2 = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnPriority));
+            if (spin2 != NULL)
+            {
+                if ((spin2->value() >= E131_PRIORITY_MIN) &&
+                    (spin2->value() <= E131_PRIORITY_MAX))
+                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTPRIORITY, spin2->value());
+                else
+                    m_plugin->unSetParameter(universe, line, cap, E131_OUTPUTPRIORITY);
             }
         }
     }

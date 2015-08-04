@@ -298,6 +298,8 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
         controller->setOutputUniverse(universe, value.toUInt());
     else if (name == E131_TRANSMITMODE)
         controller->setTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
+    else if (name == E131_OUTPUTPRIORITY)
+        controller->setOutputPriority(universe, value.toUInt());
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
