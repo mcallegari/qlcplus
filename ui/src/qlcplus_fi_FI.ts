@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1670,17 +1670,22 @@ The selected file has been moved or deleted.</source>
         <translation>Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="53"/>
+        <location filename="collectioneditor.ui" line="93"/>
+        <source>See what the Collection does when it is run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="126"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="61"/>
+        <location filename="collectioneditor.ui" line="40"/>
         <source>Add function(s) to the collection</source>
         <translation>Lisää funktioita kokoelmaan</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="81"/>
+        <location filename="collectioneditor.ui" line="60"/>
         <source>Remove the selected function</source>
         <translation>Poista valitut funktiot kokoelmasta</translation>
     </message>
@@ -2000,7 +2005,7 @@ The selected file has been moved or deleted.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Kuvion aloituspisteen kääntö</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -5220,7 +5225,7 @@ Duration: %3
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="788"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="789"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.1" language="it_IT">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1671,17 +1671,22 @@ Il file selezionato è stato spostato o eliminato.</translation>
         <translation>Nome della funzione che stai editando</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="53"/>
+        <location filename="collectioneditor.ui" line="93"/>
+        <source>See what the Collection does when it is run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="126"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="61"/>
+        <location filename="collectioneditor.ui" line="40"/>
         <source>Add function(s) to the collection</source>
         <translation>Aggiungi funzioni alla collezione</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="81"/>
+        <location filename="collectioneditor.ui" line="60"/>
         <source>Remove the selected function</source>
         <translation>Rimuovi la funzione selezionata</translation>
     </message>
@@ -2002,7 +2007,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Punto di partenza della rotazione del modello</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="383"/>
         <location filename="efxeditor.ui" line="494"/>
         <source>°</source>
@@ -5253,7 +5258,7 @@ Durata: %3
         <translation>Ferma TUTTE le funzioni!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="788"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="789"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>

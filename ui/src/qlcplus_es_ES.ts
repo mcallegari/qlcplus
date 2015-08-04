@@ -1672,17 +1672,22 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <translation>Editar el Nombre de la función actual</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="53"/>
+        <location filename="collectioneditor.ui" line="93"/>
+        <source>See what the Collection does when it is run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="126"/>
         <source>Function</source>
         <translation>Función</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="61"/>
+        <location filename="collectioneditor.ui" line="40"/>
         <source>Add function(s) to the collection</source>
         <translation>Añadir funciones a la colección</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="81"/>
+        <location filename="collectioneditor.ui" line="60"/>
         <source>Remove the selected function</source>
         <translation>Eliminar la función seleccionada</translation>
     </message>
@@ -5256,7 +5261,7 @@ Duración: %3
         <translation>¡Detener TODAS las funciones!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="788"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="789"/>
         <source>Icon</source>
         <translation>Ícono</translation>
     </message>

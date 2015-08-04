@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>ConfigureE131</name>
     <message>
@@ -34,29 +34,39 @@
         <translation>Modo de Transmisión</translation>
     </message>
     <message>
+        <location filename="configuree131.ui" line="62"/>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="configuree131.ui" line="42"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="75"/>
+        <location filename="configuree131.cpp" line="80"/>
         <source>Inputs</source>
         <translation>Entradas</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="81"/>
+        <location filename="configuree131.cpp" line="86"/>
         <source>Outputs</source>
         <translation>Salidas</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="121"/>
+        <location filename="configuree131.cpp" line="126"/>
         <source>Full</source>
         <translation>Completo</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="122"/>
+        <location filename="configuree131.cpp" line="127"/>
         <source>Partial</source>
         <translation>Parcial</translation>
+    </message>
+    <message>
+        <location filename="configuree131.cpp" line="135"/>
+        <source>%1 - min, %2 - default, %3 - max</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
