@@ -90,7 +90,7 @@
    <item row="1" column="3">
     <widget class="QToolButton" name="m_testButton">
      <property name="toolTip">
-      <string>See what the EFX does when it is run</string>
+      <string>See what the Collection does when it is run</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
