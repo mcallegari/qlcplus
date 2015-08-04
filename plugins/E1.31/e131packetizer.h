@@ -25,6 +25,8 @@
 #ifndef E131PACKETIZER_H
 #define E131PACKETIZER_H
 
+#define E131_PRIORITY_DEFAULT 100
+
 class E131Packetizer
 {
     /*********************************************************************

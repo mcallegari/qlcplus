@@ -27,7 +27,6 @@
 #include <QScopedPointer>
 
 #define E131_DEFAULT_PORT     5568
-#define E131_PRIORITY_DEFAULT 100
 
 typedef struct
 {
