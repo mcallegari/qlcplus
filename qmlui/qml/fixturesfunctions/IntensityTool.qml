@@ -118,7 +118,7 @@ Rectangle
         height: 256
         orientation: Qt.Vertical
         minimumValue: 0
-        maximumValue: 255
+        maximumValue: dmxValues ? 255 : 100
         stepSize: 1.0
 
         style: SliderStyle
@@ -137,7 +137,7 @@ Rectangle
         width: 75
         height: 40
         minimumValue: 0
-        maximumValue: slider.maximumValue
+        maximumValue: dmxValues ? 255 : 100
         value: slider.value
 
         onValueChanged: slider.value = value
@@ -150,16 +150,17 @@ Rectangle
         dmxMode: dmxValues
         onClicked:
         {
-            dmxMode = !dmxMode
-            var newVal;
-            if (dmxMode == false)
+            var slVal = slider.value
+            var newVal
+            dmxValues = !dmxValues
+            if (dmxValues == false)
             {
-                newVal = (slider.value / 255) * 100
+                newVal = (slVal / 255) * 100
                 slider.maximumValue = 100
             }
             else
             {
-                newVal = (slider.value / 100) * 255
+                newVal = (slVal / 100) * 255
                 slider.maximumValue = 255
             }
             slider.value = newVal
