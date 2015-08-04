@@ -24,7 +24,6 @@
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
-#define E131_PRIORITY_DEFAULT 100
 
 E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)

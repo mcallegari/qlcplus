@@ -221,11 +221,10 @@ void ConfigureE131::accept()
             QSpinBox *spin2 = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnPriority));
             if (spin2 != NULL)
             {
-                if ((spin2->value() >= E131_PRIORITY_MIN) &&
-                    (spin2->value() <= E131_PRIORITY_MAX))
-                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTPRIORITY, spin2->value());
-                else
+                if (spin2->value() == E131_PRIORITY_DEFAULT)
                     m_plugin->unSetParameter(universe, line, cap, E131_OUTPUTPRIORITY);
+                else
+                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTPRIORITY, spin2->value());
             }
         }
     }
