@@ -36,7 +36,7 @@
     <message>
         <location filename="configuree131.ui" line="62"/>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -66,7 +66,7 @@
     <message>
         <location filename="configuree131.cpp" line="135"/>
         <source>%1 - min, %2 - default, %3 - max</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - mín, %2 - por defecto, %3 - máx</translation>
     </message>
 </context>
 <context>

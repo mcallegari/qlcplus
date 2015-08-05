@@ -1674,7 +1674,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="collectioneditor.ui" line="93"/>
         <source>See what the Collection does when it is run</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver lo que hace la Colección cuando es ejecutada</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="126"/>
