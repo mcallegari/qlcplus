@@ -458,9 +458,9 @@ void EFX_Test::fixtures()
     QCOMPARE(e->fixtures().size(), 2);
 
     /* Must not be able to add the same fixture twice */
-    QVERIFY(!e->addFixture(ef1));
-    QVERIFY(!e->addFixture(ef2));
-    QCOMPARE(e->fixtures().size(), 2);
+    //QVERIFY(!e->addFixture(ef1));
+    //QVERIFY(!e->addFixture(ef2));
+    //QCOMPARE(e->fixtures().size(), 2);
 
     /* Try to remove a non-member fixture */
     EFXFixture* ef3 = new EFXFixture(e);
@@ -2954,6 +2954,8 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
+    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)", SkipSingle);
+
     QDomDocument doc;
 
     QDomElement root = doc.createElement("Function");
@@ -3171,6 +3173,7 @@ void EFX_Test::save()
             int expectHead = 0;
             bool expectBackward = false;
             int expectIntensity = 255;
+            int expectedMode = 0;
             int expectStartOffset = 0;
 
             QDomNode subnode = tag.firstChild();
@@ -3231,6 +3234,11 @@ void EFX_Test::save()
                 else if (subtag.tagName() == "Intensity")
                 {
                     QCOMPARE(subtag.text().toInt(), expectIntensity);
+                    intensity = true;
+                }
+                else if (subtag.tagName() == "Mode")
+                {
+                    QCOMPARE(subtag.text().toInt(), expectedMode);
                     intensity = true;
                 }
                 else
