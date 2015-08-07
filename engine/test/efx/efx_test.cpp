@@ -2250,8 +2250,8 @@ void EFX_Test::rotateAndScale()
     efx.setYOffset(127);
     efx.setRotation(90);
     efx.rotateAndScale(&x, &y);
-    QCOMPARE(floor(x + 0.5), float(190));
-    QCOMPARE(floor(y + 0.5), float(135));
+    QCOMPARE(floor(x + 0.5), double(190));
+    QCOMPARE(floor(y + 0.5), double(135));
 
     x = -0.125333;
     y = 0.992115;
@@ -2261,8 +2261,8 @@ void EFX_Test::rotateAndScale()
     efx.setYOffset(127);
     efx.setRotation(90);
     efx.rotateAndScale(&x, &y);
-    QCOMPARE(floor(x + 0.5), float(253));
-    QCOMPARE(floor(y + 0.5), float(128));
+    QCOMPARE(floor(x + 0.5), double(253));
+    QCOMPARE(floor(y + 0.5), double(128));
 
     x = -0.125333;
     y = 0.992115;
@@ -2272,8 +2272,8 @@ void EFX_Test::rotateAndScale()
     efx.setYOffset(127);
     efx.setRotation(90);
     efx.rotateAndScale(&x, &y);
-    QCOMPARE(floor(x + 0.5), float(253));
-    QCOMPARE(floor(y + 0.5), float(135));
+    QCOMPARE(floor(x + 0.5), double(253));
+    QCOMPARE(floor(y + 0.5), double(135));
 
     x = -0.125333;
     y = 0.992115;
@@ -2283,8 +2283,8 @@ void EFX_Test::rotateAndScale()
     efx.setYOffset(127);
     efx.setRotation(90);
     efx.rotateAndScale(&x, &y);
-    QCOMPARE(floor(x + 0.5), float(127));
-    QCOMPARE(floor(y + 0.5), float(135));
+    QCOMPARE(floor(x + 0.5), double(127));
+    QCOMPARE(floor(y + 0.5), double(135));
 
     x = -0.125333;
     y = 0.992115;
@@ -2294,8 +2294,8 @@ void EFX_Test::rotateAndScale()
     efx.setYOffset(127);
     efx.setRotation(90);
     efx.rotateAndScale(&x, &y);
-    QCOMPARE(floor(x + 0.5), float(127));
-    QCOMPARE(floor(y + 0.5), float(143));
+    QCOMPARE(floor(x + 0.5), double(127));
+    QCOMPARE(floor(y + 0.5), double(143));
 }
 
 void EFX_Test::copyFrom()
