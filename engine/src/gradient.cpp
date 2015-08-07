@@ -22,6 +22,7 @@
 #include <QImage>
 #include <QColor>
 #include <QPainter>
+#include <QLinearGradient>
 
 QImage Gradient::m_rgb = QImage();
 
@@ -36,7 +37,7 @@ QColor Gradient::getRGBColor(const quint32 x, const quint32 y)
 {
     initialize();
 
-    return QColor(m_rgb.pixel (qMin(x, (quint32)255), qMin(y,(quint32)255)));
+    return QColor(m_rgb.pixel(qMin(x, (quint32)255), qMin(y,(quint32)255)));
 }
 
 void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
@@ -45,90 +46,51 @@ void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
     QColor col(r, g , b);
     QColor bottom = Qt::white;
 
-    QLinearGradient blackGrad(QPointF(0,0), QPointF(0, 127));
+    QLinearGradient blackGrad(QPointF(0, 0), QPointF(0, 127));
     blackGrad.setColorAt(0, top);
     blackGrad.setColorAt(1, col);
-    QLinearGradient whiteGrad(QPointF(0,128), QPointF(0, 255));
+    QLinearGradient whiteGrad(QPointF(0, 128), QPointF(0, 255));
     whiteGrad.setColorAt(0, col);
     whiteGrad.setColorAt(1, bottom);
 
-    painter->fillRect(x, 0, x, 128, blackGrad);
-    painter->fillRect(x, 128, x, 256, whiteGrad);
+    painter->fillRect(x, 0, x + 1, 128, blackGrad);
+    painter->fillRect(x, 128, x + 1, 256, whiteGrad);
 }
 
-void Gradient::initialize ()
+void Gradient::initialize()
 {
-    if( m_rgb.isNull () == false )
+    if( m_rgb.isNull() == false )
         return;
 
-    //m_rgb = QImage(252, 256, QImage::Format_RGB32);
-    m_rgb = QImage(256, 256, QImage::Format_RGB32);
-
-    int r = 0xFF;
-    int g = 0;
-    int b = 0;
-    int x = 0;
-    int i = 0;
-
+    m_rgb = QImage(252, 256, QImage::Format_RGB32);
     QPainter painter(&m_rgb);
 
-    // R: 255  G:  0  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g+=6;
-        if (g == 252) g = 255;
-    }
-    x+=42;
+    int x = 0;
 
-    // R: 255  G: 255  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r-=6;
-        if (r < 6) r = 0;
-    }
-    x+=42;
+    QList<int> baseColors;
+    baseColors << 0xFF0000 << 0xFFFF00 << 0x00FF00 << 0x00FFFF << 0x0000FF << 0xFF00FF << 0xFF0000;
 
-    // R: 0  G: 255  B:  0
-    for (i = x; i < x + 43; i++)
+    for (int c = 0; c < 6; c++)
     {
-        fillWithGradient(r, g, b, &painter, i);
-        b+=6;
-        if (b == 252) b = 255;
-    }
-    x+=43;
+        float r = (baseColors[c] >> 16) & 0x00FF;
+        float g = (baseColors[c] >> 8) & 0x00FF;
+        float b = baseColors[c] & 0x00FF;
+        int nr = (baseColors[c + 1] >> 16) & 0x00FF;
+        int ng = (baseColors[c + 1] >> 8) & 0x00FF;
+        int nb = baseColors[c + 1] & 0x00FF;
+        float rD = (nr - r) / 42;
+        float gD = (ng - g) / 42;
+        float bD = (nb - b) / 42;
 
-    // R: 0  G: 255  B:  255
-    r=0; g=255;b=255;
-    for (i = x; i < x + 43; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g-=6;
-        if (g < 6) g = 0;
+        for (int i = x; i < x + 42; i++)
+        {
+            fillWithGradient(r, g, b, &painter, i);
+            r+=rD;
+            g+=gD;
+            b+=bD;
+        }
+        x+=42;
     }
-    x+=43;
-
-    // R: 0  G:  0  B:  255
-    r=0; g=0;b=255;
-    for (i = x; i < x + 43; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r+=6;
-        if (r == 252) r = 255;
-    }
-    x+=43;
-
-    // R: 255  G:  0  B:  255
-    r=255; g=0;b=255;
-    for (i = x; i < x + 43; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        b-=6;
-        if (b < 6) b = 0;
-    }
-    x+=43;
-    // R: 255  G:  0  B:  0
 }
 
 

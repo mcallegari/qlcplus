@@ -89,12 +89,6 @@ protected:
     void setupGradient(QColor begin, QColor end);
 
     /**
-     * Helper function to draw a vertical gradient from
-     * black to white to a given X position
-     */
-    void fillWithGradient(int r, int g, int b, QPainter *painter, int x);
-
-    /**
      * Prepare the widget to display a full color picker
      * with all gradients of colors from black to white
      * and 16 default colors

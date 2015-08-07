@@ -109,8 +109,7 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     QPoint point;
     QColor color;
 
-    //painter.drawImage(QPoint(0, 0), Gradient::getRGBGradient ());
-    painter.drawImage(painter.window (), Gradient::getRGBGradient ());
+    painter.drawImage(painter.window(), Gradient::getRGBGradient());
 
     /* Crosshairs */
     color = palette().color(QPalette::Mid);
@@ -148,10 +147,9 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
         // drawing from the end -- so that lower numbers are on top
         for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
         {
-	    point = m_fixturePoints.at(i).at(m_iter);
-            
+            point = m_fixturePoints.at(i).at(m_iter);
             painter.drawEllipse(point, 8, 8);
-	    painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
+            painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
         }
     }
     else

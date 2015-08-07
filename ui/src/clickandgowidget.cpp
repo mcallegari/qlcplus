@@ -28,6 +28,7 @@
 #include "qlccapability.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
+#include "gradient.h"
 
 #define CELL_W  150
 #define CELL_H  45
@@ -71,30 +72,8 @@ void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
     m_linearColor = true;
 }
 
-void ClickAndGoWidget::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
-{
-    QColor top = Qt::black;
-    QColor col(r, g , b);
-    QColor bottom = Qt::white;
-
-    QLinearGradient blackGrad(QPointF(0,0), QPointF(0, 127));
-    blackGrad.setColorAt(0, top);
-    blackGrad.setColorAt(1, col);
-    QLinearGradient whiteGrad(QPointF(0,128), QPointF(0, 255));
-    whiteGrad.setColorAt(0, col);
-    whiteGrad.setColorAt(1, bottom);
-
-    painter->fillRect(x, 0, x, 128, blackGrad);
-    painter->fillRect(x, 128, x, 256, whiteGrad);
-}
-
 void ClickAndGoWidget::setupColorPicker()
 {
-    int r = 0xFF;
-    int g = 0;
-    int b = 0;
-    int x = 30;
-    int i = 0;
     int cw = 15;
 
     m_width = 252 + 30;
@@ -104,70 +83,23 @@ void ClickAndGoWidget::setupColorPicker()
 
     // Draw 16 default color squares
     painter.fillRect(0, 0, cw, 32, QColor(Qt::white));
-    painter.fillRect(cw, 0, cw + cw, 32, QColor(Qt::black));
+    painter.fillRect(cw, 0, cw, 32, QColor(Qt::black));
     painter.fillRect(0, 32, cw, 64, QColor(Qt::red));
-    painter.fillRect(cw, 32, cw + cw, 64, QColor(Qt::darkRed));
+    painter.fillRect(cw, 32, cw, 64, QColor(Qt::darkRed));
     painter.fillRect(0, 64, cw, 96, QColor(Qt::green));
-    painter.fillRect(cw, 64, cw + cw, 96, QColor(Qt::darkGreen));
+    painter.fillRect(cw, 64, cw, 96, QColor(Qt::darkGreen));
     painter.fillRect(0, 96, cw, 128, QColor(Qt::blue));
-    painter.fillRect(cw, 96, cw + cw, 128, QColor(Qt::darkBlue));
+    painter.fillRect(cw, 96, cw, 128, QColor(Qt::darkBlue));
     painter.fillRect(0, 128, cw, 160, QColor(Qt::cyan));
-    painter.fillRect(cw, 128, cw + cw, 160, QColor(Qt::darkCyan));
+    painter.fillRect(cw, 128, cw, 160, QColor(Qt::darkCyan));
     painter.fillRect(0, 160, cw, 192, QColor(Qt::magenta));
-    painter.fillRect(cw, 160, cw + cw, 192, QColor(Qt::darkMagenta));
+    painter.fillRect(cw, 160, cw, 192, QColor(Qt::darkMagenta));
     painter.fillRect(0, 192, cw, 224, QColor(Qt::yellow));
-    painter.fillRect(cw, 192, cw + cw, 224, QColor(Qt::darkYellow));
+    painter.fillRect(cw, 192, cw, 224, QColor(Qt::darkYellow));
     painter.fillRect(0, 224, cw, 256, QColor(Qt::gray));
-    painter.fillRect(cw, 224, cw + cw, 256, QColor(Qt::darkGray));
+    painter.fillRect(cw, 224, cw, 256, QColor(Qt::darkGray));
 
-    // R: 255  G:  0  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g+=6;
-        if (g == 252) g = 255;
-    }
-    x+=42;
-    // R: 255  G: 255  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r-=6;
-        if (r < 6) r = 0;
-    }
-    x+=42;
-    // R: 0  G: 255  B:  0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        b+=6;
-        if (b == 252) b = 255;
-    }
-    x+=42;
-    // R: 0  G: 255  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g-=6;
-        if (g < 6) g = 0;
-    }
-    x+=42;
-    // R: 0  G:  0  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r+=6;
-        if (r == 252) r = 255;
-    }
-    x+=42;
-    // R: 255  G:  0  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        b-=6;
-        if (b < 6) b = 0;
-    }
-    // R: 255  G:  0  B:  0
+    painter.drawImage(cw * 2, 0, Gradient::getRGBGradient());
 }
 
 void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
