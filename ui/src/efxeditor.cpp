@@ -25,6 +25,7 @@
 #include <QComboBox>
 #include <QCheckBox>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QSpinBox>
 #include <QPainter>
 #include <QLabel>
@@ -242,6 +243,9 @@ void EFXEditor::initMovementPage()
     connect(m_yPhaseSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotYPhaseSpinChanged(int)));
 
+    connect(m_colorCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotSetColorBackground(bool)));
+
     QString algo(EFX::algorithmToString(m_efx->algorithm()));
     /* Select the EFX's algorithm from the algorithm combo */
     for (int i = 0; i < m_algorithmCombo->count(); i++)
@@ -345,6 +349,11 @@ void EFXEditor::slotTabChanged(int tab)
     //When preview animation is opened restart animation but avoid restart if test is running.
     if(tab == 1 && (m_testButton->isChecked () == false))
         m_previewArea->restart ();
+}
+
+void EFXEditor::slotSetColorBackground(bool checked)
+{
+    m_previewArea->showColorBackground(checked);
 }
 
 bool EFXEditor::interruptRunning()
@@ -1095,15 +1104,15 @@ void EFXEditor::redrawPreview()
     if (m_previewArea == NULL)
         return;
 
-    QVector <QPoint> points;
-    m_efx->preview(points);
+    QPolygonF polygon;
+    m_efx->preview(polygon);
 
-    QVector <QVector <QPoint> > fixturePoints;
+    QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
  
-    m_previewArea->setPoints(points);
-    m_previewArea->setFixturePoints(fixturePoints);
+    m_previewArea->setPolygon(polygon);
+    m_previewArea->setFixturePolygons(fixturePoints);
 
-    m_previewArea->draw(m_efx->duration() / points.size());
+    m_previewArea->draw(m_efx->duration() / polygon.size());
 }
 

@@ -254,12 +254,12 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Circle;
 }
 
-void EFX::preview(QVector <QPoint>& polygon) const
+void EFX::preview(QPolygonF &polygon) const
 {
     preview(polygon, Function::Forward, 0);
 }
 
-void EFX::previewFixtures(QVector <QVector <QPoint> >& polygons) const
+void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 {
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
@@ -268,29 +268,31 @@ void EFX::previewFixtures(QVector <QVector <QPoint> >& polygons) const
     }
 }
 
-void EFX::preview(QVector <QPoint>& polygon, Function::Direction direction, int startOffset) const
+void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
     int stepCount = 128;
     int step = 0;
-    qreal stepSize = (qreal)(1) / ((qreal)(stepCount) / (M_PI * 2.0));
+    float stepSize = (float)(1) / ((float)(stepCount) / (M_PI * 2.0));
 
-    qreal i = 0;
-    qreal x = 0;
-    qreal y = 0;
+    float i = 0;
+    float x = 0;
+    float y = 0;
 
-    /* Resize the array to contain stepCount points */
-    polygon.resize(stepCount);
+    /* Reset the polygon to fill it with new values */
+    polygon.clear();
 
     /* Draw a preview of the effect */
     for (step = 0; step < stepCount; step++)
     {
         calculatePoint(direction, startOffset, i, &x, &y);
-        polygon[step] = QPoint(int(x), int(y));
+        polygon << QPointF(x, y);
         i += stepSize;
     }
+    // add one more step to complete the shape
+    polygon << polygon[0];
 }
 
-void EFX::calculatePoint(Function::Direction direction, int startOffset, qreal iterator, qreal* x, qreal* y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
 {
     iterator = calculateDirection(direction, iterator);
     iterator += convertOffset(startOffset + m_startOffset);
@@ -301,18 +303,18 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, qreal i
     calculatePoint(iterator, x, y);
 }
 
-void EFX::rotateAndScale(qreal* x, qreal* y) const
+void EFX::rotateAndScale(float* x, float* y) const
 {
-    qreal xx = *x;
-    qreal yy = *y;
-    qreal w = m_width * getAttributeValue(Width);
-    qreal h = m_height * getAttributeValue(Height);
+    float xx = *x;
+    float yy = *y;
+    float w = m_width * getAttributeValue(Width);
+    float h = m_height * getAttributeValue(Height);
 
     *x = (m_xOffset * getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
     *y = (m_yOffset * getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
 }
 
-qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) const
+float EFX::calculateDirection(Function::Direction direction, float iterator) const
 {
     if (direction == this->direction())
         return iterator;
@@ -335,7 +337,7 @@ qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) con
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
-void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
+void EFX::calculatePoint(float iterator, float* x, float* y) const
 {
     switch (algorithm())
     {
@@ -404,11 +406,11 @@ void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
                 *x = cos((m_xFrequency * iterator) - m_xPhase);
             else
             {
-                qreal iterator0 = ((iterator + m_xPhase) / M_PI);
+                float iterator0 = ((iterator + m_xPhase) / M_PI);
                 int fff = iterator0;
                 iterator0 -= (fff - fff % 2);
-                qreal forward = 1 - floor(iterator0); // 1 when forward
-                qreal backward = 1 - forward; // 1 when backward
+                float forward = 1 - floor(iterator0); // 1 when forward
+                float backward = 1 - forward; // 1 when backward
                 iterator0 = iterator0 - floor(iterator0);
                 *x = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
             }
@@ -416,11 +418,11 @@ void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
                 *y = cos((m_yFrequency * iterator) - m_yPhase);
             else
             {
-                qreal iterator0 = ((iterator + m_yPhase) / M_PI);
+                float iterator0 = ((iterator + m_yPhase) / M_PI);
                 int fff = iterator0;
                 iterator0 -= (fff - fff % 2);
-                qreal forward = 1 - floor(iterator0); // 1 when forward
-                qreal backward = 1 - forward; // 1 when backward
+                float forward = 1 - floor(iterator0); // 1 when forward
+                float backward = 1 - forward; // 1 when backward
                 iterator0 = iterator0 - floor(iterator0);
                 *y = (forward * iterator0 + backward * (1 - iterator0)) * 2 - 1;
             }
@@ -479,7 +481,7 @@ int EFX::rotation() const
 
 void EFX::updateRotationCache()
 {
-    qreal r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
+    float r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
     m_cosR = cos(r);
     m_sinR = sin(r);
 }
@@ -499,7 +501,7 @@ int EFX::startOffset() const
     return m_startOffset;
 }
 
-qreal EFX::convertOffset(int offset) const
+float EFX::convertOffset(int offset) const
 {
     return M_PI/180 * (offset % 360);
 }
@@ -551,7 +553,7 @@ int EFX::yOffset() const
 
 void EFX::setXFrequency(int freq)
 {
-    m_xFrequency = static_cast<qreal> (CLAMP(freq, 0, 32));
+    m_xFrequency = static_cast<float> (CLAMP(freq, 0, 32));
     emit changed(this->id());
 }
 
@@ -562,7 +564,7 @@ int EFX::xFrequency() const
 
 void EFX::setYFrequency(int freq)
 {
-    m_yFrequency = static_cast<qreal> (CLAMP(freq, 0, 32));
+    m_yFrequency = static_cast<float> (CLAMP(freq, 0, 32));
     emit changed(this->id());
 }
 
@@ -585,7 +587,7 @@ bool EFX::isFrequencyEnabled()
 
 void EFX::setXPhase(int phase)
 {
-    m_xPhase = static_cast<qreal> (CLAMP(phase, 0, 359)) * M_PI / 180.0;
+    m_xPhase = static_cast<float> (CLAMP(phase, 0, 359)) * M_PI / 180.0;
     emit changed(this->id());
 }
 
@@ -596,7 +598,7 @@ int EFX::xPhase() const
 
 void EFX::setYPhase(int phase)
 {
-    m_yPhase = static_cast<qreal> (CLAMP(phase, 0, 359)) * M_PI / 180.0;
+    m_yPhase = static_cast<float> (CLAMP(phase, 0, 359)) * M_PI / 180.0;
     emit changed(this->id());
 }
 
@@ -1140,7 +1142,7 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
  * Intensity
  *****************************************************************************/
 
-void EFX::adjustAttribute(qreal fraction, int attributeIndex)
+void EFX::adjustAttribute(float fraction, int attributeIndex)
 {
     switch (attributeIndex)
     {

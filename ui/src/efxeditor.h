@@ -80,6 +80,7 @@ private slots:
     void slotRestartTest();
     void slotModeChanged(Doc::Mode mode);
     void slotTabChanged(int tab);
+    void slotSetColorBackground(bool checked);
 
 private:
     EFXPreviewArea* m_previewArea;

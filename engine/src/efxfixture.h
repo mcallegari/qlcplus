@@ -190,7 +190,7 @@ private:
     uint m_elapsed;
 
     /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
-    qreal m_currentAngle;
+    float m_currentAngle;
 
     /*************************************************************************
      * Running
@@ -200,9 +200,9 @@ private:
     void nextStep(MasterTimer* timer, QList<Universe *> universes);
 
     /** Write this EFXFixture's channel data to universes */
-    void setPointPanTilt(QList<Universe *> universes, qreal pan, qreal tilt);
-    void setPointDimmer(QList<Universe *> universes, qreal dimmer);
-    void setPointRGB (QList<Universe *> universes, qreal x, qreal y);
+    void setPointPanTilt(QList<Universe *> universes, float pan, float tilt);
+    void setPointDimmer(QList<Universe *> universes, float dimmer);
+    void setPointRGB (QList<Universe *> universes, float x, float y);
 
     /* Run the start scene if necessary */
     void start(MasterTimer* timer, QList<Universe *> universes);

@@ -161,9 +161,9 @@ void EFXFixture::durationChanged()
     // To avoid jumps when changing duration,
     // the elapsed time is rescaled to the
     // new duration.
-    m_elapsed = SCALE(qreal(m_currentAngle),
-            qreal(0), qreal(M_PI * 2),
-            qreal(0), qreal(m_parent->duration()));
+    m_elapsed = SCALE(float(m_currentAngle),
+            float(0), float(M_PI * 2),
+            float(0), float(m_parent->duration()));
 
     // Serial or Asymmetric propagation mode:
     // we must substract the offset from the current position
@@ -410,12 +410,12 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 
     // Scale from elapsed time in relation to overall duration to a point in a circle
     uint pos = (m_elapsed + timeOffset()) % m_parent->duration();
-    m_currentAngle = SCALE(qreal(pos),
-                           qreal(0), qreal(m_parent->duration()),
-                           qreal(0), qreal(M_PI * 2));
+    m_currentAngle = SCALE(float(pos),
+                           float(0), float(m_parent->duration()),
+                           float(0), float(M_PI * 2));
 
-    qreal valX = 0;
-    qreal valY = 0;
+    float valX = 0;
+    float valY = 0;
 
     if ((m_parent->propagationMode() == EFX::Serial &&
         m_elapsed < (m_parent->duration() + timeOffset()))
@@ -461,7 +461,7 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
     }
 }
 
-void EFXFixture::setPointPanTilt(QList<Universe *> universes, qreal pan, qreal tilt)
+void EFXFixture::setPointPanTilt(QList<Universe *> universes, float pan, float tilt)
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
@@ -504,7 +504,7 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, qreal pan, qreal t
     }
 }
 
-void EFXFixture::setPointDimmer(QList<Universe *> universes, qreal dimmer)
+void EFXFixture::setPointDimmer(QList<Universe *> universes, float dimmer)
 {
     Q_UNUSED(universes);
 
@@ -518,7 +518,7 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, qreal dimmer)
     }
 }
 
-void EFXFixture::setPointRGB(QList<Universe *> universes, qreal x, qreal y)
+void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
 {
     Q_UNUSED(universes);
 
@@ -590,7 +590,7 @@ void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
             else
                 fc.setFadeTime(m_parent->fadeOutSpeed());
 
-            fc.setStart(uchar(floor((qreal(fadeIntensity()) * intensity()) + 0.5)));
+            fc.setStart(uchar(floor((float(fadeIntensity()) * intensity()) + 0.5)));
             fc.setCurrent(fc.start());
             fc.setTarget(0);
             // Give zero-fading to MasterTimer because EFX will stop after this call
