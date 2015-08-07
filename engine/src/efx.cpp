@@ -288,8 +288,6 @@ void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOf
         polygon << QPointF(x, y);
         i += stepSize;
     }
-    // add one more step to complete the shape
-    polygon << polygon[0];
 }
 
 void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
@@ -481,7 +479,7 @@ int EFX::rotation() const
 
 void EFX::updateRotationCache()
 {
-    float r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
+    double r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
     m_cosR = cos(r);
     m_sinR = sin(r);
 }
@@ -1142,7 +1140,7 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
  * Intensity
  *****************************************************************************/
 
-void EFX::adjustAttribute(float fraction, int attributeIndex)
+void EFX::adjustAttribute(qreal fraction, int attributeIndex)
 {
     switch (attributeIndex)
     {

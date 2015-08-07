@@ -304,12 +304,12 @@ private:
     /**
      * cached cos(m_rotation) to speed up computation
      */
-    float m_cosR;
+    double m_cosR;
 
     /**
      * cached sin(m_rotation) to speed up computation
      */
-    float m_sinR;
+    double m_sinR;
 
     /*********************************************************************
      * Start Offset
@@ -595,7 +595,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustAttribute(float fraction, int attributeIndex = 0);
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
 
 /** @} */

@@ -39,23 +39,23 @@ void EFXPreviewArea_Test::setPoints()
     EFXPreviewArea area(NULL);
     area.show();
 
-    QPolygon poly(5);
-    poly.setPoint(0, QPoint(0, 0));
-    poly.setPoint(1, QPoint(10, 10));
-    poly.setPoint(2, QPoint(20, 20));
-    poly.setPoint(3, QPoint(128, 128));
-    poly.setPoint(4, QPoint(255, 255));
+    QPolygonF poly;
+    poly << QPointF(0, 0);
+    poly << QPointF(10, 10);
+    poly << QPointF(20, 20);
+    poly << QPointF(128, 128);
+    poly << QPointF(255, 255);
 
     area.setPolygon(poly);
 
     QSize size = QSize(200, 200);
     area.resize(size);
     QCOMPARE(area.m_original, poly);
-    QCOMPARE(area.m_scaled[0], QPoint(0, 0));
-    QCOMPARE(area.m_scaled[1], QPoint(7, 7));
-    QCOMPARE(area.m_scaled[2], QPoint(15, 15));
-    QCOMPARE(area.m_scaled[3], QPoint(100, 100));
-    QCOMPARE(area.m_scaled[4], QPoint(200, 200));
+    QCOMPARE(area.m_scaled[0].toPoint(), QPoint(0, 0));
+    QCOMPARE(area.m_scaled[1].toPoint(), QPoint(8, 8));
+    QCOMPARE(area.m_scaled[2].toPoint(), QPoint(16, 16));
+    QCOMPARE(area.m_scaled[3].toPoint(), QPoint(100, 100));
+    QCOMPARE(area.m_scaled[4].toPoint(), QPoint(200, 200));
 }
 
 void EFXPreviewArea_Test::draw()
@@ -63,12 +63,12 @@ void EFXPreviewArea_Test::draw()
     EFXPreviewArea area(NULL);
     area.show();
 
-    QPolygon poly(5);
-    poly.setPoint(0, QPoint(0, 0));
-    poly.setPoint(1, QPoint(10, 10));
-    poly.setPoint(2, QPoint(20, 20));
-    poly.setPoint(3, QPoint(128, 128));
-    poly.setPoint(4, QPoint(255, 255));
+    QPolygonF poly;
+    poly << QPointF(0, 0);
+    poly << QPointF(10, 10);
+    poly << QPointF(20, 20);
+    poly << QPointF(128, 128);
+    poly << QPointF(255, 255);
     area.setPolygon(poly);
 
     area.draw();
