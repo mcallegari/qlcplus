@@ -233,13 +233,13 @@ Rectangle
             {
                 // draw TILT cursor position
                 ctx.fillStyle = "red";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height - 30, tiltDegrees + 135, cursorRadius)
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height, tiltDegrees + 135, cursorRadius)
             }
             if (panMaxDegrees)
             {
                 // draw PAN cursor position
                 ctx.fillStyle = "green";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, panHeight, panDegrees + 90, cursorRadius)
+                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width, panHeight, panDegrees + 90, cursorRadius)
             }
         }
     }
