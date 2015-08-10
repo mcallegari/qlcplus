@@ -313,6 +313,7 @@ void FixtureManager::slotFixtureGroupChanged(quint32 id)
     FixtureGroup* grp = m_doc->fixtureGroup(id);
     Q_ASSERT(grp != NULL);
     m_fixtures_tree->updateGroupItem(item, grp);
+    updateGroupMenu();
 }
 
 void FixtureManager::slotDocLoaded()
