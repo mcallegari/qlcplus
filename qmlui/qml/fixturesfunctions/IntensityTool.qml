@@ -23,6 +23,7 @@ import QtQuick.Controls.Styles 1.2
 
 Rectangle
 {
+    id: intRoot
     width: 150
     height: 350
     color: "#333"
@@ -62,6 +63,13 @@ Rectangle
             label: qsTr("Intensity")
             fontSize: 15
             fontBold: true
+        }
+        // allow the tool to be dragged around
+        // by holding it on the title bar
+        MouseArea
+        {
+            anchors.fill: parent
+            drag.target: intRoot
         }
     }
 
@@ -110,7 +118,7 @@ Rectangle
         height: 256
         orientation: Qt.Vertical
         minimumValue: 0
-        maximumValue: 255
+        maximumValue: dmxValues ? 255 : 100
         stepSize: 1.0
 
         style: SliderStyle
@@ -129,7 +137,7 @@ Rectangle
         width: 75
         height: 40
         minimumValue: 0
-        maximumValue: slider.maximumValue
+        maximumValue: dmxValues ? 255 : 100
         value: slider.value
 
         onValueChanged: slider.value = value
@@ -142,16 +150,17 @@ Rectangle
         dmxMode: dmxValues
         onClicked:
         {
-            dmxMode = !dmxMode
-            var newVal;
-            if (dmxMode == false)
+            var slVal = slider.value
+            var newVal
+            dmxValues = !dmxValues
+            if (dmxValues == false)
             {
-                newVal = (slider.value / 255) * 100
+                newVal = (slVal / 255) * 100
                 slider.maximumValue = 100
             }
             else
             {
-                newVal = (slider.value / 100) * 255
+                newVal = (slVal / 100) * 255
                 slider.maximumValue = 255
             }
             slider.value = newVal

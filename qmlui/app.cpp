@@ -239,7 +239,7 @@ bool App::loadWorkspace(const QString &fileName)
         m_docLoaded = true;
         updateRecentFilesList(localFilename);
         emit docLoadedChanged();
-        m_contextManager->updateContexts();
+        m_contextManager->resetContexts();
         return true;
     }
     return false;
@@ -259,7 +259,7 @@ bool App::newWorkspace()
     clearDocument();
     m_fixtureManager->slotDocLoaded();
     m_functionManager->slotDocLoaded();
-    m_contextManager->updateContexts();
+    m_contextManager->resetContexts();
     return true;
 }
 

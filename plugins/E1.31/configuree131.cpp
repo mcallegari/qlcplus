@@ -26,6 +26,7 @@
 
 #include "configuree131.h"
 #include "e131plugin.h"
+#include "e131packetizer.h"
 
 #define KMapColumnInterface     0
 #define KMapColumnUniverse      1
@@ -131,6 +132,7 @@ void ConfigureE131::fillMappingTree()
                 QSpinBox *spin2 = new QSpinBox(this);
                 spin2->setRange(E131_PRIORITY_MIN, E131_PRIORITY_MAX);
                 spin2->setValue(info->outputPriority);
+                spin2->setToolTip(tr("%1 - min, %2 - default, %3 - max").arg(E131_PRIORITY_MIN).arg(E131_PRIORITY_DEFAULT).arg(E131_PRIORITY_MAX));
                 m_uniMapTree->setItemWidget(item, KMapColumnPriority, spin2);
             }
         }
@@ -221,11 +223,10 @@ void ConfigureE131::accept()
             QSpinBox *spin2 = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnPriority));
             if (spin2 != NULL)
             {
-                if ((spin2->value() >= E131_PRIORITY_MIN) &&
-                    (spin2->value() <= E131_PRIORITY_MAX))
-                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTPRIORITY, spin2->value());
-                else
+                if (spin2->value() == E131_PRIORITY_DEFAULT)
                     m_plugin->unSetParameter(universe, line, cap, E131_OUTPUTPRIORITY);
+                else
+                    m_plugin->setParameter(universe, line, cap, E131_OUTPUTPRIORITY, spin2->value());
             }
         }
     }

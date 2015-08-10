@@ -94,7 +94,7 @@ E131Packetizer::E131Packetizer()
         m_commonHeader.append((char)0x00);
 
     // Data priority if multiple sources (default to 100) (byte 108)
-    m_commonHeader.append((char)0x64);
+    m_commonHeader.append((char)E131_PRIORITY_DEFAULT);
 
     // reserved
     m_commonHeader.append('\0');

@@ -44,7 +44,7 @@ public slots:
 private:
     void fillNodesTree();
     void fillMappingTree();
-    QWidget *createIPWidget(QString ip, QString netmask);
+    void showIPAlert(QString ip);
 
 private:
     ArtNetPlugin* m_plugin;

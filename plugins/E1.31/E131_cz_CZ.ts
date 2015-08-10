@@ -34,12 +34,9 @@
         <translation>Spůsob přenosu</translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Přiřazení sítě</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Síť</translation>
+        <location filename="configuree131.ui" line="62"/>
+        <source>Priority</source>
+        <translation>Priorita</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -47,24 +44,29 @@
         <translation>Větev</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="75"/>
+        <location filename="configuree131.cpp" line="80"/>
         <source>Inputs</source>
         <translation>Vstupy</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="81"/>
+        <location filename="configuree131.cpp" line="86"/>
         <source>Outputs</source>
         <translation>Výstupy</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="121"/>
+        <location filename="configuree131.cpp" line="126"/>
         <source>Full</source>
         <translation>Plný</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="122"/>
+        <location filename="configuree131.cpp" line="127"/>
         <source>Partial</source>
         <translation>Částečný</translation>
+    </message>
+    <message>
+        <location filename="configuree131.cpp" line="135"/>
+        <source>%1 - min, %2 - default, %3 - max</source>
+        <translation>%1 - nejnižší, %2 - základní, %3 - nejvyšší</translation>
     </message>
 </context>
 <context>
@@ -73,10 +75,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Tento plugin umožňuje podporu DMX výstupu pro zařízení podporující komunikační protokol E1.31.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

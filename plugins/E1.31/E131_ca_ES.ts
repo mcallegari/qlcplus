@@ -34,12 +34,9 @@
         <translation>Mode de transmissió</translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Mapatge de Xarxa</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Xarxa</translation>
+        <location filename="configuree131.ui" line="62"/>
+        <source>Priority</source>
+        <translation>Prioritat</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -47,24 +44,29 @@
         <translation>Uninvers</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="75"/>
+        <location filename="configuree131.cpp" line="80"/>
         <source>Inputs</source>
         <translation>Entrades</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="81"/>
+        <location filename="configuree131.cpp" line="86"/>
         <source>Outputs</source>
         <translation>Sortides</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="121"/>
+        <location filename="configuree131.cpp" line="126"/>
         <source>Full</source>
         <translation>Complet</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="122"/>
+        <location filename="configuree131.cpp" line="127"/>
         <source>Partial</source>
         <translation>Parcial</translation>
+    </message>
+    <message>
+        <location filename="configuree131.cpp" line="135"/>
+        <source>%1 - min, %2 - default, %3 - max</source>
+        <translation>%1 - min, %2 - defecte, %3 . max</translation>
     </message>
 </context>
 <context>
@@ -73,10 +75,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Aquest plugin proveeix sortida DMX per dispositius que suporten el protocol de comunicació E1.31.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

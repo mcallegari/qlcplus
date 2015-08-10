@@ -178,6 +178,7 @@ Rectangle
                 y: -twoDContents.y
                 width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
                 height: twoDView.height
+                z: 1
 
                 property int initialXPos
                 property int initialYPos

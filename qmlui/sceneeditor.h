@@ -63,6 +63,9 @@ public:
      *  SceneFixtureConsole has been loaded/unloaded. */
     Q_INVOKABLE void sceneConsoleLoaded(bool status);
 
+    Q_INVOKABLE void registerFixtureConsole(int index, QQuickItem *item);
+    Q_INVOKABLE void unRegisterFixtureConsole(int index);
+
     /** QML invokable method that returns if the Scene has the
      *  requested $fixture's $channel */
     Q_INVOKABLE bool hasChannel(quint32 fxID, quint32 channel);
@@ -97,6 +100,9 @@ private:
     QVariantList m_fixtures;
     /** A reference to the SceneFixtureConsole when loaded */
     QQuickItem *m_sceneConsole;
+    /** Keep a track of the registered Fixture consoles in a Scene Console,
+     *  to rapidly set a channel value */
+    QMap<int, QQuickItem *> m_fxConsoleMap;
     /** Reference to a DMX source used to edit a Scene */
     GenericDMXSource* m_source;
 };

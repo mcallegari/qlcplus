@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="95"/>
+        <location filename="udmx.cpp" line="101"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
         <translation>Aquest plugin proveeix suport de sortida DMX per dispositius Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="189"/>
+        <location filename="udmx.cpp" line="195"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vol reescanejar el seu maquinari?</translation>
     </message>

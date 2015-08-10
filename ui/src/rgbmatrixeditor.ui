@@ -257,16 +257,16 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>misc</string>
+      <string>Other Controls</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QCheckBox" name="m_dimmerControlCb">
-        <property name="text">
-         <string>Dimmer control</string>
-        </property>
         <property name="toolTip">
          <string>Set the dimmer channel of fixtures to 100%</string>
+        </property>
+        <property name="text">
+         <string>Dimmer control</string>
         </property>
        </widget>
       </item>

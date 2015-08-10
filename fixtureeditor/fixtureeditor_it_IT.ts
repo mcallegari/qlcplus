@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.1" language="it_IT">
 <context>
     <name>AboutBox</name>
     <message>
@@ -283,7 +283,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.cpp" line="48"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -311,7 +311,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.cpp" line="50"/>
         <source>Colour</source>
         <translation>Colore</translation>
     </message>
@@ -321,17 +321,17 @@
         <translation>Secondo colore</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="49"/>
+        <location filename="editcapability.cpp" line="52"/>
         <source>Effect</source>
         <translation>Effetto</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="132"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Open Gobo File</source>
         <translation>Apri file di gobo</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="135"/>
+        <location filename="editcapability.cpp" line="138"/>
         <source>Gobo pictures</source>
         <translation>Immagini Gobo</translation>
     </message>
@@ -431,7 +431,7 @@
     <message>
         <location filename="editchannel.cpp" line="254"/>
         <location filename="editchannel.cpp" line="320"/>
-        <location filename="editchannel.cpp" line="364"/>
+        <location filename="editchannel.cpp" line="363"/>
         <source>Overlapping values</source>
         <translation>Valori in soprapposizione</translation>
     </message>
@@ -442,7 +442,7 @@
         <translation>I valori delle proprietà si sovrappongono con altre proprietà!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="365"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Alcune proprietà non possono essere create in quanto ci sono valori in sovrapposizione.</translation>
     </message>

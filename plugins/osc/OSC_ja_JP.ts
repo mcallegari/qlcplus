@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ja_JP">
+<TS version="2.1" language="ja_JP">
 <context>
     <name>ConfigureOSC</name>
     <message>
@@ -38,14 +38,6 @@
         <location filename="configureosc.ui" line="61"/>
         <source>Output Port</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Output address:</source>
-        <translation type="obsolete">Output address:</translation>
-    </message>
-    <message>
-        <source>Input port:</source>
-        <translation type="obsolete">Input port:</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="75"/>

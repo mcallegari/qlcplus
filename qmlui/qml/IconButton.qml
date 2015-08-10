@@ -69,6 +69,11 @@ Rectangle
             baseIconButton.color = bgColor
         }
     }
+    onCounterChanged:
+    {
+        if (counter == 0)
+            checked = false
+    }
 
     Image
     {

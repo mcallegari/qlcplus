@@ -47,18 +47,8 @@ public:
 
     void setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode);
 
-signals:
-    void visibilityChanged(bool isVisible);
-
 private:
     GrandMasterSlider* m_gm;
-
-    /*********************************************************************
-     * Event Handlers & Signals
-     *********************************************************************/
-protected:
-    void showEvent(QShowEvent* event);
-    void hideEvent(QHideEvent* event);
 };
 
 /** @} */

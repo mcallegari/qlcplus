@@ -24,11 +24,13 @@
 
 #include "efxpreviewarea.h"
 #include "qlcmacros.h"
+#include "gradient.h"
 
 EFXPreviewArea::EFXPreviewArea(QWidget* parent)
     : QWidget(parent)
     , m_timer(this)
     , m_iter(0)
+    , m_colorBg(false)
 {
     QPalette p = palette();
     p.setColor(QPalette::Window, p.color(QPalette::Base));
@@ -43,20 +45,20 @@ EFXPreviewArea::~EFXPreviewArea()
 {
 }
 
-void EFXPreviewArea::setPoints(const QVector <QPoint>& points)
+void EFXPreviewArea::setPolygon(const QPolygonF& polygon)
 {
-    m_original = QPolygon(points);
-    m_points = scale(m_original, size());
+    m_original = polygon;
+    m_scaled = scale(m_original, size());
 }
 
-void EFXPreviewArea::setFixturePoints(const QVector<QVector<QPoint> >& fixturePoints)
+void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
 {
     m_originalFixturePoints.resize(fixturePoints.size());
     m_fixturePoints.resize(fixturePoints.size());
 
     for(int i = 0; i < m_fixturePoints.size(); ++i)
     {
-        m_originalFixturePoints[i] = QPolygon(fixturePoints[i]);
+        m_originalFixturePoints[i] = QPolygonF(fixturePoints[i]);
         m_fixturePoints[i] = scale(m_originalFixturePoints[i], size());
     }
 }
@@ -74,15 +76,15 @@ void EFXPreviewArea::slotTimeout()
     repaint();
 }
 
-QPolygon EFXPreviewArea::scale(const QPolygon& poly, const QSize& target)
+QPolygonF EFXPreviewArea::scale(const QPolygonF& poly, const QSize& target)
 {
-    QPolygon scaled(poly.size());
+    QPolygonF scaled;
     for (int i = 0; i < poly.size(); i++)
     {
-        QPoint pt = poly.point(i);
+        QPointF pt = poly.at(i);
         pt.setX((int) SCALE(qreal(pt.x()), qreal(0), qreal(255), qreal(0), qreal(target.width())));
         pt.setY((int) SCALE(qreal(pt.y()), qreal(0), qreal(255), qreal(0), qreal(target.height())));
-        scaled.setPoint(i, pt);
+        scaled << pt;
     }
 
     return scaled;
@@ -90,7 +92,7 @@ QPolygon EFXPreviewArea::scale(const QPolygon& poly, const QSize& target)
 
 void EFXPreviewArea::resizeEvent(QResizeEvent* e)
 {
-    m_points = scale(m_original, e->size());
+    m_scaled = scale(m_original, e->size());
 
     for(int i = 0; i < m_fixturePoints.size(); ++i)
     {
@@ -105,8 +107,11 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
 
     QPainter painter(this);
     QPen pen;
-    QPoint point;
+    QPointF point;
     QColor color;
+
+    if (m_colorBg)
+        painter.drawImage(painter.window(), Gradient::getRGBGradient());
 
     /* Crosshairs */
     color = palette().color(QPalette::Mid);
@@ -115,17 +120,17 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     painter.drawLine(width() >> 1, 0, width() >> 1, height());
     painter.drawLine(0, height() >> 1, width(), height() >> 1);
 
-    if (m_iter < m_points.size())
+    if (m_iter < m_scaled.size())
         m_iter++;
 
     /* Plain points with text color */
     color = palette().color(QPalette::Text);
     pen.setColor(color);
     painter.setPen(pen);
-    painter.drawPolygon(m_points);
+    painter.drawPolygon(m_scaled);
 
     // Draw the points from the point array
-    if (m_iter < m_points.size() && m_iter >= 0)
+    if (m_iter < m_scaled.size() && m_iter >= 0)
     {
         /*
         // draw origin
@@ -137,21 +142,34 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
         */
 
         painter.setBrush(Qt::white);
-	pen.setColor(Qt::black);
+        pen.setColor(Qt::black);
 
         // draw fixture positions
 
         // drawing from the end -- so that lower numbers are on top
         for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
         {
-	    point = m_fixturePoints.at(i).at(m_iter);
-            
+            point = m_fixturePoints.at(i).at(m_iter);
             painter.drawEllipse(point, 8, 8);
-	    painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
+            painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
         }
     }
     else
     {
-        m_timer.stop();
+        //m_timer.stop();
+
+        //Change old behaviour from stop to restart
+        restart();
     }
+}
+
+void EFXPreviewArea::restart ()
+{
+    m_iter = 0;
+}
+
+void EFXPreviewArea::showColorBackground(bool enable)
+{
+    m_colorBg = enable;
+    repaint();
 }

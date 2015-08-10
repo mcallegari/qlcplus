@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pt_PT">
+<TS version="2.1" language="pt_PT">
 <context>
     <name>ConfigureE131</name>
     <message>
@@ -34,12 +34,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Network Mapping</source>
-        <translation type="obsolete">Mapa de Rede</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="obsolete">Rede</translation>
+        <location filename="configuree131.ui" line="62"/>
+        <source>Priority</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -47,23 +44,28 @@
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="75"/>
+        <location filename="configuree131.cpp" line="80"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="81"/>
+        <location filename="configuree131.cpp" line="86"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="121"/>
+        <location filename="configuree131.cpp" line="126"/>
         <source>Full</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="122"/>
+        <location filename="configuree131.cpp" line="127"/>
         <source>Partial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configuree131.cpp" line="135"/>
+        <source>%1 - min, %2 - default, %3 - max</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -73,10 +75,6 @@
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Este plugin fornece suporte de saída DMX para dispositivos que usam o protocolo de comunicação E1.31.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="108"/>

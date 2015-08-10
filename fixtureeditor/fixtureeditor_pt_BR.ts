@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pt_PT">
+<TS version="2.1" language="pt_PT">
 <context>
     <name>AboutBox</name>
     <message>
@@ -284,7 +284,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.cpp" line="48"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -312,7 +312,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.cpp" line="50"/>
         <source>Colour</source>
         <translation>Cor</translation>
     </message>
@@ -322,17 +322,17 @@
         <translation>Cor Secundária</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="49"/>
+        <location filename="editcapability.cpp" line="52"/>
         <source>Effect</source>
         <translation>Efeito</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="132"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Open Gobo File</source>
         <translation>Abrir ficheiro de Gobos</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="135"/>
+        <location filename="editcapability.cpp" line="138"/>
         <source>Gobo pictures</source>
         <translation>Imagens de gobos</translation>
     </message>
@@ -432,7 +432,7 @@
     <message>
         <location filename="editchannel.cpp" line="254"/>
         <location filename="editchannel.cpp" line="320"/>
-        <location filename="editchannel.cpp" line="364"/>
+        <location filename="editchannel.cpp" line="363"/>
         <source>Overlapping values</source>
         <translation>Subreposição de valores</translation>
     </message>
@@ -443,7 +443,7 @@
         <translation>Os valores da capacidade estão sobrepostos com outra capacidade!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="365"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Algumas capacidades não podem ser criadas devido a uma sobreposição de valores.</translation>
     </message>

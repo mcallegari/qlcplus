@@ -56,18 +56,3 @@ void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)
         m_gm->setInvertedAppearance(true);
 }
 
-/*****************************************************************************
- * Event Handlers
- *****************************************************************************/
-
-void VCDockArea::showEvent(QShowEvent* event)
-{
-    Q_UNUSED(event);
-    emit visibilityChanged(true);
-}
-
-void VCDockArea::hideEvent(QHideEvent* event)
-{
-    Q_UNUSED(event);
-    emit visibilityChanged(false);
-}

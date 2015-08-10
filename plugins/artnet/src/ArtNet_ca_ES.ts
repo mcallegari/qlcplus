@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>ArtNetPlugin</name>
     <message>
         <location filename="artnetplugin.cpp" line="78"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <translation>Aquest plugin proveeix sortida DMX per dispositius que suporten el protocol de comunicació ArtNet.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
@@ -113,29 +109,41 @@
         <translation>Nom Llarg</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="71"/>
+        <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
         <translation>%1 Nodes</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="111"/>
+        <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
         <translation>Entrades</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="117"/>
+        <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
         <translation>Sortides</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="157"/>
+        <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
         <translation>Complet</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="158"/>
+        <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
         <translation>Parcial</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>Invalid IP</source>
+        <translation>IP invàlida</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation>%1 no es una IP vàlida.
+Per favor arregla-ho abans de seguir.</translation>
     </message>
 </context>
 </TS>

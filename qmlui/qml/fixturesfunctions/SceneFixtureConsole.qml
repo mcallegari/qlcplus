@@ -31,31 +31,11 @@ Rectangle
     Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
     Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
 
-    function setFixtureChannel(fxIdx, channel, value)
-    {
-        console.log("[setFixtureChannel] fxIdx: " + fxIdx + ", count: " + fixtureList.count)
-        if (fxIdx < 0 || fxIdx >= fixtureList.count)
-            return;
-
-        fixtureList.currentIndex = fxIdx
-        fixtureList.currentItem.fConsole.setChannelValue(channel, value)
-        fixtureList.currentIndex = -1
-        //fixtureList.contentItem.children[fxIdx].setChannelValue(channel, value)
-    }
-
     function scrollToItem(fxIdx)
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
-        if (currentSelIndex != -1)
-        {
-            fixtureList.currentIndex = currentSelIndex
-            fixtureList.currentItem.isSelected = false
-        }
-        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
-        fixtureList.currentIndex = fxIdx
-        fixtureList.currentItem.isSelected = true
-        fixtureList.currentIndex = -1
         currentSelIndex = fxIdx
+        fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
     }
 
     ListView
@@ -72,9 +52,11 @@ Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                property var fConsole: fxConsole
-                property bool isSelected: false
+                property bool isSelected: (index == currentSelIndex) ? true : false
                 color: "black"
+
+                Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
+                Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
 
                 FixtureConsole
                 {

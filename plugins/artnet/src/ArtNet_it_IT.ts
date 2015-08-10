@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.1" language="it_IT">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -8,10 +8,6 @@
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
         <translation>Questa plugin permette la trasmissione di segnale DMX a dispositivi che supportano il protocollo di comunicazione ArtNet.</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="obsolete">%1: %2</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
@@ -114,29 +110,41 @@
         <translation>Nome lungo</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="71"/>
+        <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
         <translation>%1 nodi</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="111"/>
+        <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
         <translation>Ingressi</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="117"/>
+        <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
         <translation>Uscite</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="157"/>
+        <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
         <translation>Completa</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="158"/>
+        <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
         <translation>Parziale</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>Invalid IP</source>
+        <translation>IP non valido</translation>
+    </message>
+    <message>
+        <location filename="configureartnet.cpp" line="179"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation>%1 non è un IP valido.
+Correggilo prima di confermare.</translation>
     </message>
 </context>
 </TS>

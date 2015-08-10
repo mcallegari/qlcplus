@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>ConfigureOSC</name>
     <message>
@@ -38,30 +38,6 @@
         <location filename="configureosc.ui" line="61"/>
         <source>Output Port</source>
         <translation>Výstupní port</translation>
-    </message>
-    <message>
-        <source>Output address:</source>
-        <translation type="obsolete">Adresa výstupu:</translation>
-    </message>
-    <message>
-        <source>Input port:</source>
-        <translation type="obsolete">Vstupní port:</translation>
-    </message>
-    <message>
-        <source>OSC Network 2</source>
-        <translation type="obsolete">OSC Síť 2</translation>
-    </message>
-    <message>
-        <source>OSC Network 1</source>
-        <translation type="obsolete">OSC Síť 1</translation>
-    </message>
-    <message>
-        <source>OSC Network 3</source>
-        <translation type="obsolete">OSC Síť 3</translation>
-    </message>
-    <message>
-        <source>OSC Network 4</source>
-        <translation type="obsolete">OSC Síť 4</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="75"/>
@@ -104,25 +80,9 @@
         <translation>Přijatých paketů:</translation>
     </message>
     <message>
-        <source>OSC Network</source>
-        <translation type="obsolete">OSC Síť</translation>
-    </message>
-    <message>
         <location filename="oscplugin.cpp" line="109"/>
         <source>Output</source>
         <translation>Výstup</translation>
-    </message>
-    <message>
-        <source>Status: Not ready</source>
-        <translation type="obsolete">Stav: Nepřipraveno</translation>
-    </message>
-    <message>
-        <source>Address: </source>
-        <translation type="obsolete">Adresa:</translation>
-    </message>
-    <message>
-        <source>Status: Ready</source>
-        <translation type="obsolete">Stav: Připraveno</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="253"/>

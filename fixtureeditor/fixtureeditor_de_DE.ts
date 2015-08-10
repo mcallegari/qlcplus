@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -284,7 +284,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.cpp" line="48"/>
         <source>Gobo</source>
         <translation>Gobo (Maske)</translation>
     </message>
@@ -312,7 +312,7 @@
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.cpp" line="50"/>
         <source>Colour</source>
         <translation>Farbe</translation>
     </message>
@@ -322,17 +322,17 @@
         <translation>Zweite Farbe</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="49"/>
+        <location filename="editcapability.cpp" line="52"/>
         <source>Effect</source>
         <translation>Effekt</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="132"/>
+        <location filename="editcapability.cpp" line="135"/>
         <source>Open Gobo File</source>
         <translation>Öffne Gobo Datei</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="135"/>
+        <location filename="editcapability.cpp" line="138"/>
         <source>Gobo pictures</source>
         <translation>Gobo-Bilder</translation>
     </message>
@@ -434,7 +434,7 @@
     <message>
         <location filename="editchannel.cpp" line="254"/>
         <location filename="editchannel.cpp" line="320"/>
-        <location filename="editchannel.cpp" line="364"/>
+        <location filename="editchannel.cpp" line="363"/>
         <source>Overlapping values</source>
         <translation>Überlappende Werte</translation>
     </message>
@@ -445,7 +445,7 @@
         <translation>Der Funktionswert überlappt mit einem anderen Funktionswert!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="365"/>
+        <location filename="editchannel.cpp" line="364"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Einige Funktionen konnte nicht angelegt werden aufgrund von überlappenden Werten.</translation>
     </message>

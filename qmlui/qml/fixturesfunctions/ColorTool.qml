@@ -51,6 +51,7 @@ Rectangle
             //anchors.horizontalCenter: parent.horizontalCenter
             anchors.left: parent.left
             anchors.leftMargin: 10
+            anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.top: parent.top
 
@@ -106,6 +107,14 @@ Rectangle
                         colorToolQML = "qrc:/ColorToolFilters.qml"
                     }
                 }
+            }
+            // allow the tool to be dragged around
+            // by holding it on the title bar
+            MouseArea
+            {
+                Layout.fillWidth: true
+                height: colorToolBar.height
+                drag.target: colorToolBox
             }
         }
     }

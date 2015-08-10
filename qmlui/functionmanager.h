@@ -84,8 +84,16 @@ public:
      * DMX values (dumping and Scene editor)
      *********************************************************************/
 public:
+    /** Store a channel value for Scene dumping */
     void setDumpValue(quint32 fxID, quint32 channel, uchar value);
 
+    /** Return the currently set channel values */
+    QMap <QPair<quint32,quint32>,uchar> dumpValues() const;
+
+    /** Return the number of the currently set channel values */
+    int dumpValuesCount() const;
+
+    /** Reset the currently set channel values */
     void resetDumpValues();
 
     void dumpOnNewScene(QList<quint32> selectedFixtures);

@@ -25,6 +25,7 @@
 #include <QComboBox>
 #include <QCheckBox>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QSpinBox>
 #include <QPainter>
 #include <QLabel>
@@ -49,9 +50,10 @@
 
 #define KColumnNumber  0
 #define KColumnName    1
-#define KColumnReverse 2
-#define KColumnStartOffset 3
-#define KColumnIntensity 4
+#define KColumnMode    2
+#define KColumnReverse 3
+#define KColumnStartOffset 4
+#define KColumnIntensity 5
 
 #define PROPERTY_FIXTURE "fixture"
 
@@ -241,6 +243,9 @@ void EFXEditor::initMovementPage()
     connect(m_yPhaseSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotYPhaseSpinChanged(int)));
 
+    connect(m_colorCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotSetColorBackground(bool)));
+
     QString algo(EFX::algorithmToString(m_efx->algorithm()));
     /* Select the EFX's algorithm from the algorithm combo */
     for (int i = 0; i < m_algorithmCombo->count(); i++)
@@ -302,7 +307,12 @@ void EFXEditor::initMovementPage()
 void EFXEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
+    {
         m_efx->start(m_doc->masterTimer());
+
+        //Restart animation so preview it is in sync with real test
+        m_previewArea->restart();
+    }
     else
         m_efx->stopAndWait();
 }
@@ -335,6 +345,15 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 void EFXEditor::slotTabChanged(int tab)
 {
     efxUiState()->setCurrentTab(tab);
+
+    //When preview animation is opened restart animation but avoid restart if test is running.
+    if(tab == 1 && (m_testButton->isChecked () == false))
+        m_previewArea->restart ();
+}
+
+void EFXEditor::slotSetColorBackground(bool checked)
+{
+    m_previewArea->showColorBackground(checked);
 }
 
 bool EFXEditor::interruptRunning()
@@ -379,6 +398,7 @@ void EFXEditor::updateFixtureTree()
         addFixtureItem(it.next());
     m_tree->resizeColumnToContents(KColumnNumber);
     m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnMode);
     m_tree->resizeColumnToContents(KColumnReverse);
     m_tree->resizeColumnToContents(KColumnStartOffset);
     m_tree->resizeColumnToContents(KColumnIntensity);
@@ -460,6 +480,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     else
         item->setCheckState(KColumnReverse, Qt::Unchecked);
 
+    updateModeColumn (item, ef);
     updateIntensityColumn(item, ef);
     updateStartOffsetColumn(item, ef);
 
@@ -472,9 +493,33 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
 
     m_tree->resizeColumnToContents(KColumnNumber);
     m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnMode);
     m_tree->resizeColumnToContents(KColumnReverse);
     m_tree->resizeColumnToContents(KColumnStartOffset);
     m_tree->resizeColumnToContents(KColumnIntensity);
+}
+
+void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
+{
+    Q_ASSERT(item != NULL);
+    Q_ASSERT(ef != NULL);
+
+    if (m_tree->itemWidget(item, KColumnMode) == NULL)
+    {
+        QComboBox* combo = new QComboBox(m_tree);
+        combo->setAutoFillBackground (true);
+
+        combo->addItems (ef->modeList ());
+
+        const int index = combo->findText ( ef->modeToString (ef->mode ()) );
+        combo->setCurrentIndex (index);
+        //combo->setCurrentText (ef->modeToString (ef->mode ()));
+
+        m_tree->setItemWidget(item, KColumnMode, combo);
+        combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        connect(combo, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(slotFixtureModeChanged(int)));
+    }
 }
 
 void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
@@ -533,6 +578,7 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
 
     m_tree->resizeColumnToContents(KColumnNumber);
     m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnMode);
     m_tree->resizeColumnToContents(KColumnReverse);
     m_tree->resizeColumnToContents(KColumnStartOffset);
     m_tree->resizeColumnToContents(KColumnIntensity);
@@ -609,8 +655,22 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
         else
             ef->setDirection(Function::Forward);
 
-	redrawPreview();
+        redrawPreview();
     }
+}
+
+void EFXEditor::slotFixtureModeChanged(int index)
+{
+    QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
+    Q_ASSERT(combo != NULL);
+
+    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    Q_ASSERT(ef != NULL);
+
+    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+
+    // Restart the test after the latest mode change, delayed
+    m_testTimer.start();
 }
 
 void EFXEditor::slotFixtureIntensityChanged(int intensity)
@@ -633,16 +693,22 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
+    redrawPreview();
+
     // Restart the test after the latest intensity change, delayed
     m_testTimer.start();
 }
 
 void EFXEditor::slotAddFixtureClicked()
 {
+    /* The following code is the original QLC+ code (EFX with only Pan-Tilt).
+     * Now, with modes, the same fixture could be duplicated. */
+
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
     QList <GroupHead> disabled;
     QTreeWidgetItemIterator twit(m_tree);
+    /*
     while (*twit != NULL)
     {
         EFXFixture* ef = reinterpret_cast <EFXFixture*>
@@ -652,8 +718,10 @@ void EFXEditor::slotAddFixtureClicked()
         disabled.append(ef->head());
         twit++;
     }
+    */
 
-    /* Disable all fixtures that don't have pan OR tilt channels */
+    /* Disable all fixtures that don't have pan OR tilt, dimmer or RGB channels */
+    /*
     QListIterator <Fixture*> fxit(m_doc->fixtures());
     while (fxit.hasNext() == true)
     {
@@ -683,6 +751,7 @@ void EFXEditor::slotAddFixtureClicked()
             }
         }
     }
+    */
 
     /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
@@ -1035,14 +1104,15 @@ void EFXEditor::redrawPreview()
     if (m_previewArea == NULL)
         return;
 
-    QVector <QPoint> points;
-    m_efx->preview(points);
+    QPolygonF polygon;
+    m_efx->preview(polygon);
 
-    QVector <QVector <QPoint> > fixturePoints;
+    QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
  
-    m_previewArea->setPoints(points);
-    m_previewArea->setFixturePoints(fixturePoints);
+    m_previewArea->setPolygon(polygon);
+    m_previewArea->setFixturePolygons(fixturePoints);
 
-    m_previewArea->draw(m_efx->duration() / points.size());
+    m_previewArea->draw(m_efx->duration() / polygon.size());
 }
+

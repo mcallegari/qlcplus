@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>ConfigureOlaIO</name>
     <message>
@@ -27,12 +27,12 @@
 <context>
     <name>OlaIO</name>
     <message>
-        <location filename="olaio.cpp" line="156"/>
+        <location filename="olaio.cpp" line="163"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Open Lighting Architecturen (OLA) kautta.</translation>
     </message>
     <message>
-        <location filename="olaio.cpp" line="170"/>
+        <location filename="olaio.cpp" line="177"/>
         <source>This is the output for OLA universe %1</source>
         <translation type="unfinished">Tämä on OLA-universumin %1 ulostulo</translation>
     </message>
