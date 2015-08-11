@@ -65,7 +65,7 @@ public:
     Doc *getDoc();
 
 protected:
-    /** Create a new channels group ID */
+    /** Create a new widget ID */
     quint32 newWidgetId();
 
 protected:
@@ -73,7 +73,7 @@ protected:
     Doc* m_doc;
 
 private:
-    /** Latest assigned fixture group ID */
+    /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
 
     /*********************************************************************
