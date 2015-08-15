@@ -89,7 +89,7 @@ protected:
      *********************************************************************/
 public:
     /**
-     * Set this function's unique ID
+     * Set this widget's unique ID
      *
      * @param id This widget's unique ID
      */
