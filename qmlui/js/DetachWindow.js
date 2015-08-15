@@ -17,12 +17,29 @@
   limitations under the License.
 */
 
-function createWindow(source) {
-    console.log("create window called");
+function createWindow(source)
+{
+    console.log("Creating detached window");
     var itemComponent = Qt.createComponent("WindowLoader.qml");
     if (itemComponent.status === Component.Ready)
     {
         var windowItem = itemComponent.createObject(mainView, {"viewSource": source});
+        windowItem.show();
+    }
+    else if (itemComponent.status === Component.Error)
+    {
+        console.log("error creating component");
+        console.log(itemComponent.errorString());
+    }
+}
+
+function createVCWindow(source, page)
+{
+    console.log("Creating detached window");
+    var itemComponent = Qt.createComponent("WindowLoader.qml");
+    if (itemComponent.status === Component.Ready)
+    {
+        var windowItem = itemComponent.createObject(mainView, {"viewSource": source, "page": page});
         windowItem.show();
     }
     else if (itemComponent.status === Component.Error)

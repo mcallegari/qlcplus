@@ -42,6 +42,7 @@ Rectangle
 
     property string imgSource: ""
     property string faSource: ""
+    property color faColor: "#222"
 
     property string tooltip: ""
 
@@ -90,7 +91,7 @@ Rectangle
         id: faIcon
         anchors.centerIn: parent
         visible: faSource ? true : false
-        color: "#222"
+        color: faColor
         font.family: "FontAwesome"
         font.pixelSize: parent.height - 4
         text: faSource

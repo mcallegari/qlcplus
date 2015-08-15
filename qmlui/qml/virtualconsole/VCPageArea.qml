@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDragItem.qml
+  VCPageArea.qml
 
   Copyright (c) Massimo Callegari
 
@@ -21,28 +21,21 @@ import QtQuick 2.0
 
 Rectangle
 {
-    property int channels: 1
-    property string manufacturer
-    property string model
-    property string mode
+    anchors.fill: parent
+    color: "transparent"
 
-    width: 80
-    height: 80
-    z: 10
-    border.width: 1
-    border.color: "black"
-    opacity: 0.7
-    color: "white"
+    property int page: 0
 
-    RobotoText
+    Component.onCompleted: virtualConsole.renderPage(vcPage, page)
+
+    Flickable
     {
+        id: vcPage
+        objectName: "vcPage" + page
         anchors.fill: parent
-        anchors.margins: 1
-        label: manufacturer + " - " + model
-        labelColor: "black"
-        fontSize: 10
-        wrapText: true
+        z: 1
+        boundsBehavior: Flickable.StopAtBounds
+        //contentWidth: width
+        //contentHeight: height
     }
-
-    Drag.active: fxMouseArea.drag.active
 }

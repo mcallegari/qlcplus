@@ -40,7 +40,7 @@ Rectangle
     {
         if (ctx === "UniverseGrid")
             uniView.visible = true
-        if (ctx === "DMX")
+        else if (ctx === "DMX")
             dmxView.visible = true
         else if (ctx === "2D")
             twodView.visible = true

@@ -75,8 +75,12 @@
     <!-- Virtual Console -->
     <file alias="VirtualConsole.qml">qml/virtualconsole/VirtualConsole.qml</file>
     <file alias="VCLeftPanel.qml">qml/virtualconsole/VCLeftPanel.qml</file>
+    <file alias="VCPageArea.qml">qml/virtualconsole/VCPageArea.qml</file>
     <file alias="WidgetsList.qml">qml/virtualconsole/WidgetsList.qml</file>
     <file alias="WidgetDragItem.qml">qml/virtualconsole/WidgetDragItem.qml</file>
+    <file alias="VCWidgetItem.qml">qml/virtualconsole/VCWidgetItem.qml</file>
+    <file alias="VCFrameItem.qml">qml/virtualconsole/VCFrameItem.qml</file>
+    <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>
 
     <!-- JavaScript helpers -->
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>

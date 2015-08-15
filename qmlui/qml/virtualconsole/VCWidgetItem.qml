@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDragItem.qml
+  VCWidgetItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -21,28 +21,27 @@ import QtQuick 2.0
 
 Rectangle
 {
-    property int channels: 1
-    property string manufacturer
-    property string model
-    property string mode
-
-    width: 80
-    height: 80
-    z: 10
+    width: 100
+    height: 100
+    color: "darkgray"
     border.width: 1
-    border.color: "black"
-    opacity: 0.7
-    color: "white"
+    border.color: "#111"
 
-    RobotoText
+    function setCommonProperties(obj)
     {
-        anchors.fill: parent
-        anchors.margins: 1
-        label: manufacturer + " - " + model
-        labelColor: "black"
-        fontSize: 10
-        wrapText: true
+        if (obj === null)
+            return;
+
+        x = obj.geometry.x
+        y = obj.geometry.y
+        width = obj.geometry.width
+        height = obj.geometry.height
+        color = obj.backgroundColor
     }
 
-    Drag.active: fxMouseArea.drag.active
+    // resize area
+    Rectangle
+    {
+
+    }
 }

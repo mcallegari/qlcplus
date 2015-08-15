@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QFontDatabase>
 #include <QDomDocument>
 #include <QQmlContext>
 #include <QQuickItem>
@@ -29,6 +30,7 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
+#include "virtualconsole.h"
 #include "inputoutputmanager.h"
 
 #include "rgbscriptscache.h"
@@ -67,6 +69,8 @@ void App::startup()
     setTitle("Q Light Controller Plus");
     setIcon(QIcon(":/qlcplus.png"));
 
+    QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf");
+
     rootContext()->setContextProperty("qlcplus", this);
 
     initDoc();
@@ -90,6 +94,9 @@ void App::startup()
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
     rootContext()->setContextProperty("contextManager", m_contextManager);
 
+    m_virtualConsole = new VirtualConsole(this, m_doc);
+    rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
+
     // Start up in non-modified state
     m_doc->resetModified();
 
@@ -100,7 +107,8 @@ void App::startup()
 
 void App::show()
 {
-    setGeometry(0, 0, 800, 600);
+    //setGeometry(0, 0, 800, 600);
+    setGeometry(0, 0, 1272, 689); // youtube recording
     showMaximized();
     //showFullScreen();
 }
@@ -344,28 +352,14 @@ bool App::loadXML(const QDomDocument &doc, bool goToConsole, bool fromMemory)
         {
             m_doc->loadXML(tag);
         }
-#if 0
         else if (tag.tagName() == KXMLQLCVirtualConsole)
         {
-            VirtualConsole::instance()->loadXML(tag);
+            m_virtualConsole->loadXML(tag);
         }
+#if 0
         else if (tag.tagName() == KXMLQLCSimpleDesk)
         {
             SimpleDesk::instance()->loadXML(tag);
-        }
-        else if (tag.tagName() == KXMLFixture)
-        {
-            /* Legacy support code, nowadays in Doc */
-            Fixture::loader(tag, m_doc);
-        }
-        else if (tag.tagName() == KXMLQLCFunction)
-        {
-            /* Legacy support code, nowadays in Doc */
-            Function::loader(tag, m_doc);
-        }
-        else if (tag.tagName() == KXMLQLCCreator)
-        {
-            /* Ignore creator information */
         }
 #endif
         else
@@ -383,10 +377,10 @@ bool App::loadXML(const QDomDocument &doc, bool goToConsole, bool fromMemory)
     else
         // Set the active window to what was saved in the workspace file
         setActiveWindow(activeWindowName);
-
-    // Perform post-load operations
-    VirtualConsole::instance()->postLoad();
 */
+    // Perform post-load operations
+    m_virtualConsole->postLoad();
+
     if (m_doc->errorLog().isEmpty() == false &&
         fromMemory == false)
     {

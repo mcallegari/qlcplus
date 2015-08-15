@@ -33,6 +33,7 @@ class FixtureManager;
 class ContextManager;
 class FunctionManager;
 class InputOutputManager;
+class VirtualConsole;
 
 #define KXMLQLCWorkspace "Workspace"
 
@@ -61,6 +62,7 @@ private:
     ContextManager *m_contextManager;
     FunctionManager *m_functionManager;
     InputOutputManager *m_ioManager;
+    VirtualConsole *m_virtualConsole;
 
     /*********************************************************************
      * Doc
