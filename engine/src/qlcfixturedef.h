@@ -153,7 +153,7 @@ public:
      *
      * @return An arbitrarily-ordered list of possible channels in a fixture
      */
-    QList <QLCChannel*> channels() const;
+    QList <QLCChannel*> channels();
 
 protected:
     /** Available channels */

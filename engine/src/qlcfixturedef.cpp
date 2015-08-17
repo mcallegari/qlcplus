@@ -235,7 +235,7 @@ QLCChannel* QLCFixtureDef::channel(const QString& name)
     return NULL;
 }
 
-QList <QLCChannel*> QLCFixtureDef::channels() const
+QList <QLCChannel*> QLCFixtureDef::channels()
 {
     checkLoaded();
     return m_channels;
