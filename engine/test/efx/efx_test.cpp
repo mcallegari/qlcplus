@@ -50,7 +50,7 @@ void EFX_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir));
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir));
 }
 
 void EFX_Test::cleanupTestCase()

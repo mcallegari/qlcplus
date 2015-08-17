@@ -41,7 +41,7 @@ void VCXYPadFixtureEditor_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);

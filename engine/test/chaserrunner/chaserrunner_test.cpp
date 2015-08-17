@@ -48,7 +48,7 @@ void ChaserRunner_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    m_doc->fixtureDefCache()->load(dir);
+    m_doc->fixtureDefCache()->loadMap(dir);
 }
 
 void ChaserRunner_Test::cleanupTestCase()
