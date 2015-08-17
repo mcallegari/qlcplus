@@ -37,7 +37,7 @@ class ContextManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY (bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
-    Q_PROPERTY(int fixturesRotation READ fixturesRotation WRITE setFixturesRotation CONSTANT)
+    Q_PROPERTY(int fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
