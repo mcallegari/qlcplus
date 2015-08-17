@@ -54,7 +54,10 @@ QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
     {
         QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
+        {
+            def->checkLoaded();
             return def;
+        }
     }
 
     return NULL;
@@ -179,6 +182,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         QDomElement root = doc.documentElement();
         if (root.tagName() == KXMLQLCFixtureMap)
         {
+            int fxCount = 0;
             QDomNode node = root.firstChild();
             while (node.isNull() == false)
             {
@@ -211,6 +215,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
                         if (addFixtureDef(fxi) == false)
                             delete fxi;
                         fxi = NULL;
+                        fxCount++;
                     }
                 }
                 else
@@ -220,6 +225,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
                 node = node.nextSibling();
             }
+            qDebug() << fxCount << "fixtures found in map";
         }
         else
         {

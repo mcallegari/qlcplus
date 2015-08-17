@@ -155,26 +155,23 @@ void QLCFixtureDef::checkLoaded()
     if (m_isLoaded == true)
         return;
 
-    if (m_isLoaded == false)
+    if (manufacturer() == KXMLFixtureGeneric &&
+       (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
     {
-        if (manufacturer() == KXMLFixtureGeneric &&
-           (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
-        {
-            m_isLoaded = true;
-            return;
-        }
-        if (m_defFileAbsolutePath.isEmpty())
-        {
-            qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
-            return;
-        }
-        qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
-        bool error = loadXML(m_defFileAbsolutePath);
-        if (error == false)
-        {
-            m_isLoaded = true;
-            m_defFileAbsolutePath = QString();
-        }
+        m_isLoaded = true;
+        return;
+    }
+    if (m_defFileAbsolutePath.isEmpty())
+    {
+        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        return;
+    }
+    qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
+    bool error = loadXML(m_defFileAbsolutePath);
+    if (error == false)
+    {
+        m_isLoaded = true;
+        m_defFileAbsolutePath = QString();
     }
 }
 
@@ -184,7 +181,6 @@ void QLCFixtureDef::checkLoaded()
 
 bool QLCFixtureDef::addChannel(QLCChannel* channel)
 {
-    checkLoaded();
     if (channel != NULL && m_channels.contains(channel) == false)
     {
         m_channels.append(channel);
@@ -198,7 +194,6 @@ bool QLCFixtureDef::addChannel(QLCChannel* channel)
 
 bool QLCFixtureDef::removeChannel(QLCChannel* channel)
 {
-    checkLoaded();
     /* First remove the channel from all modes */
     QListIterator <QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
@@ -221,7 +216,6 @@ bool QLCFixtureDef::removeChannel(QLCChannel* channel)
 
 QLCChannel* QLCFixtureDef::channel(const QString& name)
 {
-    checkLoaded();
     QListIterator <QLCChannel*> it(m_channels);
     QLCChannel* ch = NULL;
 
@@ -235,9 +229,8 @@ QLCChannel* QLCFixtureDef::channel(const QString& name)
     return NULL;
 }
 
-QList <QLCChannel*> QLCFixtureDef::channels()
+QList <QLCChannel*> QLCFixtureDef::channels() const
 {
-    checkLoaded();
     return m_channels;
 }
 
@@ -247,7 +240,6 @@ QList <QLCChannel*> QLCFixtureDef::channels()
 
 bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
 {
-    checkLoaded();
     if (mode != NULL && m_modes.contains(mode) == false)
     {
         m_modes.append(mode);
@@ -261,7 +253,6 @@ bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
 
 bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 {
-    checkLoaded();
     QMutableListIterator <QLCFixtureMode*> it(m_modes);
     while (it.hasNext() == true)
     {
@@ -278,7 +269,6 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 
 QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 {
-    checkLoaded();
     QListIterator <QLCFixtureMode*> it(m_modes);
     QLCFixtureMode* mode = NULL;
 
@@ -294,7 +284,6 @@ QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 
 QList <QLCFixtureMode*> QLCFixtureDef::modes()
 {
-    checkLoaded();
     return m_modes;
 }
 
