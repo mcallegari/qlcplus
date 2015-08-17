@@ -110,7 +110,10 @@ Rectangle
 
     function setGoboPicture(headIndex, resource)
     {
-        headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
+        if (Qt.platform.os === "android")
+            headsRepeater.itemAt(headIndex).goboSource = resource
+        else
+            headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
 
     Flow

@@ -171,7 +171,7 @@ QVariant InputOutputManager::universeInputSources(int universe)
 {
     QVariantList inputSources;
     QString currPlugin;
-    int currLine;
+    int currLine = -1;
     InputPatch *ip = m_ioMap->inputPatch(universe);
     if (ip != NULL)
     {
@@ -212,7 +212,7 @@ QVariant InputOutputManager::universeOutputSources(int universe)
 {
     QVariantList outputSources;
     QString currPlugin;
-    int currLine;
+    int currLine = -1;
     OutputPatch *op = m_ioMap->outputPatch(universe);
     if (op != NULL)
     {

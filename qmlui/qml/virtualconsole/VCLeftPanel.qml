@@ -141,7 +141,7 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateClose;
+        id: animateClose
         target: leftSidePanel
         properties: "width"
         to: collapseWidth
@@ -173,7 +173,7 @@ Rectangle
             z: 1
             x: parent.width - width
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: leftSidePanel
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth

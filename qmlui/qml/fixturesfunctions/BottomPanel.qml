@@ -121,7 +121,7 @@ Rectangle
             anchors.fill: parent
             z: 1
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: bottomSidePanel
             drag.axis: Drag.YAxis
             drag.minimumY: collapseHeight
