@@ -169,7 +169,12 @@ void App::initDoc()
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
             this, SLOT(slotSetProgressText(const QString&)));
 #endif
+#if defined Q_OS_ANDROID
+    QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
+    m_doc->ioPluginCache()->load(QDir(pluginsPath));
+#else
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
+#endif
 
     /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
