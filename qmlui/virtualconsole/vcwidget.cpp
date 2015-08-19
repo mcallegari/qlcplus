@@ -29,6 +29,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_id(invalidId())
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
+    , m_allowResize(true)
     , m_isDisabled(false)
     , m_caption(QString())
     , m_backgroundColor(QColor("#333"))
@@ -167,6 +168,24 @@ void VCWidget::setGeometry(QRect rect)
     m_geometry = rect;
     setDocModified();
     emit geometryChanged(rect);
+}
+
+/*********************************************************************
+ * Allow resize
+ *********************************************************************/
+
+bool VCWidget::allowResize() const
+{
+    return m_allowResize;
+}
+
+void VCWidget::setAllowResize(bool allowResize)
+{
+    if (m_allowResize == allowResize)
+        return;
+
+    m_allowResize = allowResize;
+    emit allowResizeChanged(allowResize);
 }
 
 /*********************************************************************

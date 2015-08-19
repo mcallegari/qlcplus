@@ -22,13 +22,14 @@
 
 #include "vcframe.h"
 #include "vcbutton.h"
+#include "vcsoloframe.h"
 #include "virtualconsole.h"
 
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
-    , m_showHeader(false)
-    , m_showEnable(false)
+    , m_showHeader(true)
+    , m_showEnable(true)
     , m_multipageMode(false)
 {
     setType(VCWidget::FrameWidget);
@@ -82,13 +83,31 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     switch (type)
     {
+        case FrameWidget:
+        {
+            VCFrame *frame = new VCFrame(m_doc, m_vc, this);
+            frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            m_childrenList << frame;
+            m_vc->addWidgetToMap(frame);
+            frame->render(m_vc->view(), parent);
+        }
+        break;
+        case SoloFrameWidget:
+        {
+            VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
+            soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            m_childrenList << soloframe;
+            m_vc->addWidgetToMap(soloframe);
+            soloframe->render(m_vc->view(), parent);
+        }
+        break;
         case ButtonWidget:
         {
             VCButton *button = new VCButton(m_doc, this);
             button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-            button->render(m_vc->view(), parent);
             m_childrenList << button;
             m_vc->addWidgetToMap(button);
+            button->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -215,8 +234,18 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete frame;
             else
             {
-                //addWidgetToPageMap(frame);
                 m_childrenList.append(frame);
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCSoloFrame)
+        {
+            /* Create a new frame into its parent */
+            VCSoloFrame* soloframe = new VCSoloFrame(m_doc, m_vc, this);
+            if (soloframe->loadXML(&tag) == false)
+                delete soloframe;
+            else
+            {
+                m_childrenList.append(soloframe);
             }
         }
         else if (tag.tagName() == KXMLQLCVCButton)

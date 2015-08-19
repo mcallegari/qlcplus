@@ -58,6 +58,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     {
         VCFrame *page = new VCFrame(m_doc, this, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+        page->setAllowResize(false);
+        page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
         m_pages.append(page);
     }

@@ -56,7 +56,7 @@ public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
 
-    void render(QQuickView *view, QQuickItem *parent);
+    virtual void render(QQuickView *view, QQuickItem *parent);
 
 protected:
     /** Reference to the Virtual Console, used to add new widgets */

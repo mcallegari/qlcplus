@@ -65,6 +65,7 @@ class VCWidget : public QObject
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+    Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
     Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
@@ -114,6 +115,7 @@ private:
     /*********************************************************************
      * Type
      *********************************************************************/
+
 public:
     enum WidgetType
     {
@@ -166,6 +168,21 @@ signals:
 
 protected:
     QRect m_geometry;
+
+    /*********************************************************************
+     * Allow resize
+     *********************************************************************/
+public:
+    bool allowResize() const;
+
+public slots:
+    void setAllowResize(bool allowResize);
+
+signals:
+    void allowResizeChanged(bool allowResize);
+
+protected:
+    bool m_allowResize;
 
     /*********************************************************************
      * Disable state
