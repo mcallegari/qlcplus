@@ -6,6 +6,7 @@
         <file alias="amber.svg">amber.svg</file>
         <file alias="animation.svg">animation.svg</file>
         <file alias="apply.svg">apply.svg</file>
+        <file alias="arrow-corner.svg">arrow-corner.svg</file>
         <file alias="arrow-down.svg">arrow-down.svg</file>
         <file alias="arrow-right.svg">arrow-right.svg</file>
         <file alias="arrow-up.svg">arrow-up.svg</file>
@@ -62,6 +63,7 @@
         <file alias="prism.svg">prism.svg</file>
         <file alias="red.svg">red.svg</file>
         <file alias="remove.svg">remove.svg</file>
+        <file alias="resize.svg">resize.svg</file>
         <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
         <file alias="rotate-right.svg">rotate-right.svg</file>
         <file alias="search.svg">search.svg</file>
@@ -81,6 +83,7 @@
         <file alias="video.svg">video.svg</file>
         <file alias="virtualconsole.svg">virtualconsole.svg</file>
         <file alias="white.svg">white.svg</file>
+        <file alias="xypad.svg">xypad.svg</file>
         <file alias="yellow.svg">yellow.svg</file>
     </qresource>
 </RCC>
