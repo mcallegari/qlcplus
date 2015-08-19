@@ -124,7 +124,8 @@ public:
         CueListWidget,
         LabelWidget,
         AudioTriggersWidget,
-        AnimationWidget
+        AnimationWidget,
+        ClockWidget
     };
 
 public:
