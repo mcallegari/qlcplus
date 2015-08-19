@@ -107,6 +107,22 @@ Rectangle
                     animatePanel(checked);
                 }
             }
+
+            IconButton
+            {
+                id: resizeModeButton
+                z: 2
+                width: collapseWidth - 4
+                height: collapseWidth - 4
+                imgSource: "qrc:/resize.svg"
+                checkable: true
+                checked: virtualConsole.resizeMode
+                tooltip: qsTr("Enable/Disable the widgets resize mode")
+                onToggled:
+                {
+                    virtualConsole.resizeMode = checked
+                }
+            }
 /*
             IconButton
             {

@@ -35,6 +35,8 @@ public:
     VCButton(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCButton();
 
+    void setID(quint32 id);
+
     void render(QQuickView *view, QQuickItem *parent);
 
     /*********************************************************************

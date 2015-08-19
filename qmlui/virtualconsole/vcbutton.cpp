@@ -25,10 +25,19 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
 {
     setType(VCWidget::ButtonWidget);
+    setBackgroundColor(QColor("#444"));
 }
 
 VCButton::~VCButton()
 {
+}
+
+void VCButton::setID(quint32 id)
+{
+    VCWidget::setID(id);
+
+    if (caption().isEmpty())
+        setCaption(tr("Button %1").arg(id));
 }
 
 void VCButton::render(QQuickView *view, QQuickItem *parent)
@@ -47,6 +56,7 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
     QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
 
     item->setParentItem(parent);
+    item->setProperty("z", 10);
     item->setProperty("buttonObj", QVariant::fromValue(this));
 }
 

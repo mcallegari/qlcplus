@@ -127,7 +127,8 @@ public:
         CueListWidget,
         LabelWidget,
         AudioTriggersWidget,
-        AnimationWidget
+        AnimationWidget,
+        ClockWidget
     };
 
 public:
@@ -142,6 +143,9 @@ public:
 
     /** Convert a widget's type to a SVG icon */
     static QString typeToIcon(int type);
+
+    /** Convert a widget's type string into type */
+    static WidgetType stringToType(QString str);
 
 protected:
     int m_type;

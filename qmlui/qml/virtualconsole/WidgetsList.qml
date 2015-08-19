@@ -28,18 +28,19 @@ Rectangle
     ListModel
     {
         id: wModel
-        ListElement { name: qsTr("Button"); type: "button"; icon: "button" }
+        ListElement { name: qsTr("Button"); type: "Button"; icon: "button" }
         ListElement { name: qsTr("Button Matrix"); type: "buttonmatrix"; icon: "buttonmatrix" }
-        ListElement { name: qsTr("Slider"); type: "slider"; icon: "slider" }
+        ListElement { name: qsTr("Slider"); type: "Slider"; icon: "slider" }
         ListElement { name: qsTr("Slider Matrix"); type: "slidermatrix"; icon: "sliders" }
-        ListElement { name: qsTr("Knob"); type: "knob"; icon: "knob" }
-        ListElement { name: qsTr("Speed Dial"); type: "speeddial"; icon: "speed" }
-        ListElement { name: qsTr("Cue List"); type: "cuelist"; icon: "cuelist" }
-        ListElement { name: qsTr("Animation"); type: "animation"; icon: "animation" }
-        ListElement { name: qsTr("Frame"); type: "frame"; icon: "frame" }
-        ListElement { name: qsTr("Solo Frame"); type: "soloframe"; icon: "soloframe" }
-        ListElement { name: qsTr("Label"); type: "label"; icon: "label" }
-        ListElement { name: qsTr("Audio Triggers"); type: "audiotriggers"; icon: "audiotriggers" }
+        ListElement { name: qsTr("Knob"); type: "Knob"; icon: "knob" }
+        ListElement { name: qsTr("Speed Dial"); type: "Speed dial"; icon: "speed" }
+        ListElement { name: qsTr("XY Pad"); type: "XYPad"; icon: "xypad" }
+        ListElement { name: qsTr("Cue List"); type: "Cue list"; icon: "cuelist" }
+        ListElement { name: qsTr("Animation"); type: "Animation"; icon: "animation" }
+        ListElement { name: qsTr("Frame"); type: "Frame"; icon: "frame" }
+        ListElement { name: qsTr("Solo Frame"); type: "Solo frame"; icon: "soloframe" }
+        ListElement { name: qsTr("Label"); type: "Label"; icon: "label" }
+        ListElement { name: qsTr("Audio Triggers"); type: "Audio Triggers"; icon: "audiotriggers" }
         ListElement { name: qsTr("Clock"); type: "clock"; icon: "clock" }
     }
 
@@ -65,24 +66,30 @@ Rectangle
                     drag.target: widgetItem
                     drag.threshold: 30
 
-                    onPressed: widgetItem.color = "#444"
+                    onPressed:
+                    {
+                        //widgetItem.color = "#444"
+                        widgetItem.reduced = true
+                        widgetItem.x = mouse.x
+                    }
                     onReleased:
                     {
-                        widgetItem.x = 3
-                        widgetItem.y = 0
-
                         if (widgetItem.Drag.target !== null)
                         {
                             // create the widget here
+                            //console.log("Item dropped on " + widgetItem.Drag.target)
+                            widgetItem.Drag.drop()
                         }
                         else
                         {
                             // return the dragged item to its original position
                             parent = root
-                            widgetItem.color = "transparent"
                         }
+                        widgetItem.x = 3
+                        widgetItem.y = 0
+                        widgetItem.reduced = false
+                        //widgetItem.color = "transparent"
                     }
-
                     WidgetDragItem
                     {
                         id: widgetItem
@@ -93,9 +100,10 @@ Rectangle
                         widgetIconName: icon
 
                         Drag.active: delegateRoot.drag.active
-                        Drag.source: delegateRoot
-                        Drag.hotSpot.x: width / 2
-                        Drag.hotSpot.y: height / 2
+                        Drag.source: widgetItem
+                        Drag.hotSpot.x: 30
+                        Drag.hotSpot.y: 30
+                        Drag.keys: [ "vcwidget" ]
 
                         // line divider
                         Rectangle
@@ -104,6 +112,7 @@ Rectangle
                             height: 1
                             y: parent.height - 1
                             color: "#555"
+                            visible: widgetItem.reduced ? false : true
                         }
                     } // PluginDragItem
                 } // MouseArea

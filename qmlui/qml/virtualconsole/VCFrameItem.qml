@@ -26,12 +26,18 @@ VCWidgetItem
 {
     id: frameRoot
     property VCFrame frameObj: null
+    property bool dropActive: false
 
     clip: true
 
     onFrameObjChanged:
     {
         setCommonProperties(frameObj)
+    }
+
+    onDropActiveChanged:
+    {
+        frameRoot.color = dropActive ? "#9DFF52" : frameObj.backgroundColor
     }
 
     // Frame header
@@ -107,5 +113,26 @@ VCWidgetItem
                 visible: frameObj ? frameObj.showEnable : true
             }
         }
+    }
+
+    DropArea
+    {
+        id: dropArea
+        anchors.fill: parent
+        objectName: "frameDropArea" + frameObj.id
+        z: 2 // children must be above the VCWidget resize controls
+
+        onEntered: virtualConsole.setDropTarget(frameRoot, true)
+        onExited: virtualConsole.setDropTarget(frameRoot, false)
+        onDropped:
+        {
+            if (frameObj === null || dropActive === false)
+                return;
+            console.log("Item dropped in frame " + frameObj.id)
+            var pos = drag.source.mapToItem(frameRoot, 0, 0);
+            frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+        }
+
+        keys: [ "vcwidget" ]
     }
 }

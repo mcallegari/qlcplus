@@ -35,8 +35,12 @@ class VirtualConsole : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool resizeMode READ resizeMode WRITE setResizeMode NOTIFY resizeModeChanged)
+
 public:
     VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
+
+    QQuickView *view();
 
     Q_INVOKABLE void renderPage(QQuickItem *parent, int page);
 
@@ -50,6 +54,7 @@ private:
     /*********************************************************************
      * Contents
      *********************************************************************/
+
 public:
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
@@ -64,16 +69,50 @@ public:
 
     //QList<VCWidget *> getChildren(VCWidget *obj);
 
- protected:
+    /** Get resize mode flag */
+    bool resizeMode() const;
+
+    /** Set the VC in resize mode */
+    void setResizeMode(bool resizeMode);
+
+signals:
+    void resizeModeChanged(bool resizeMode);
+
+protected:
     /** Create a new widget ID */
     quint32 newWidgetId();
 
 protected:
+    /** A list of VCFrames representing the main VC pages */
     QVector<VCFrame*> m_pages;
+
+    /** A map of all the VC widgets references with their IDs */
     QHash <quint32, VCWidget *> m_widgetsMap;
 
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
+
+    bool m_resizeMode;
+
+    /*********************************************************************
+     * Drag & Drop
+     *********************************************************************/
+public:
+    /** Add or remove a target to the dropTargets list.
+     *  This is used to handle the stacking order of highlight areas
+     *  of frames when dragging/dropping a new widget on the VC */
+    Q_INVOKABLE void setDropTarget(QQuickItem *target, bool enable);
+
+    /** Reset the drop targets list.
+     *  deleteTargets is true when a new widget is dropped, so
+     *  drop areas highlight is no more needed */
+    void resetDropTargets(bool deleteTargets);
+
+protected:
+    /** A list of the QML targets used for drag & drop of new widgets.
+     *  Items are stacked in a precise order to handle the enter/exit events
+     *  of a drag item and highlight only the last item entered */
+    QList<QQuickItem *>m_dropTargets;
 
     /*********************************************************************
      * Load & Save

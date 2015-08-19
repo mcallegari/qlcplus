@@ -50,19 +50,26 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
     , m_latestWidgetId(0)
+    , m_resizeMode(false)
 {
     Q_ASSERT(m_doc != NULL);
 
     for (int i = 0; i < VC_PAGES_NUMBER; i++)
     {
-        VCFrame *page = new VCFrame(m_doc, this);
+        VCFrame *page = new VCFrame(m_doc, this, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+        page->setGeometry(QRect(0, 0, 1920, 1080));
         m_pages.append(page);
     }
 
     qmlRegisterType<VCWidget>("com.qlcplus.classes", 1, 0, "VCWidget");
     qmlRegisterType<VCFrame>("com.qlcplus.classes", 1, 0, "VCFrame");
     qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
+}
+
+QQuickView *VirtualConsole::view()
+{
+    return m_view;
 }
 
 void VirtualConsole::renderPage(QQuickItem *parent, int page)
@@ -77,7 +84,7 @@ void VirtualConsole::renderPage(QQuickItem *parent, int page)
     parent->setProperty("contentWidth", pageRect.width());
     parent->setProperty("contentHeight", pageRect.height());
 
-    //qDebug() << "[VC] renderPage. Parent:" << parent << "rect:" << pageRect;
+    qDebug() << "[VC] renderPage. Parent:" << parent << "rect:" << pageRect;
 
     m_pages.at(page)->render(m_view, parent);
 }
@@ -149,6 +156,57 @@ VCWidget *VirtualConsole::widget(quint32 id)
         return NULL;
 
     return m_widgetsMap.value(id, NULL);
+}
+
+bool VirtualConsole::resizeMode() const
+{
+    return m_resizeMode;
+}
+
+void VirtualConsole::setResizeMode(bool resizeMode)
+{
+    if (m_resizeMode == resizeMode)
+        return;
+
+    m_resizeMode = resizeMode;
+    emit resizeModeChanged(resizeMode);
+}
+
+/*********************************************************************
+ * Drag & Drop
+ *********************************************************************/
+
+void VirtualConsole::setDropTarget(QQuickItem *target, bool enable)
+{
+    if (enable == true)
+    {
+        resetDropTargets(false);
+        m_dropTargets << target;
+        target->setProperty("dropActive", true);
+    }
+    else
+    {
+        for (int i = 0; i < m_dropTargets.count(); i++)
+        {
+            if (m_dropTargets.at(i) == target)
+            {
+                m_dropTargets.at(i)->setProperty("dropActive", false);
+                if (i > 0)
+                    m_dropTargets.at(i - 1)->setProperty("dropActive", true);
+                m_dropTargets.removeLast();
+                return;
+            }
+        }
+    }
+}
+
+void VirtualConsole::resetDropTargets(bool deleteTargets)
+{
+    foreach(QQuickItem *item, m_dropTargets)
+        item->setProperty("dropActive", false);
+
+    if (deleteTargets)
+        m_dropTargets.clear();
 }
 
 /*****************************************************************************

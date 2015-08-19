@@ -31,7 +31,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_geometry(QRect(0,0,0,0))
     , m_isDisabled(false)
     , m_caption(QString())
-    , m_backgroundColor(QColor(Qt::darkGray))
+    , m_backgroundColor(QColor("#333"))
     , m_hasCustomBackgroundColor(false)
     , m_foregroundColor(QColor(Qt::white))
     , m_hasCustomForegroundColor(false)
@@ -96,10 +96,10 @@ QString VCWidget::typeToString(int type)
 
         case ButtonWidget: return QString(tr("Button"));
         case SliderWidget: return QString(tr("Slider"));
-        case XYPadWidget: return QString(tr("XYPad"));
         case FrameWidget: return QString(tr("Frame"));
-        case SoloFrameWidget: return QString(tr("Solo frame"));
-        case SpeedDialWidget: return QString(tr("Speed dial"));
+        case SoloFrameWidget: return QString(tr("Solo Frame"));
+        case SpeedDialWidget: return QString(tr("Speed Dial"));
+        case XYPadWidget: return QString(tr("XY Pad"));
         case CueListWidget: return QString(tr("Cue list"));
         case LabelWidget: return QString(tr("Label"));
         case AudioTriggersWidget: return QString(tr("Audio Triggers"));
@@ -117,19 +117,37 @@ QString VCWidget::typeToIcon(int type)
     {
         case ButtonWidget: return QString("qrc:/button.svg");
         case SliderWidget: return QString("qrc:/slider.svg");
-        case XYPadWidget: return QString("qrc:/xypad.svg");
         case FrameWidget: return QString("qrc:/frame.svg");
         case SoloFrameWidget: return QString("qrc:/soloframe.svg");
         case SpeedDialWidget: return QString("qrc:/speed.svg");
+        case XYPadWidget: return QString("qrc:/xypad.svg");
         case CueListWidget: return QString("qrc:/cuelist.svg");
         case LabelWidget: return QString("qrc:/label.svg");
         case AudioTriggersWidget: return QString("qrc:/audioinput.svg");
         case AnimationWidget: return QString("qrc:/rgbmatrix.svg");
+        case ClockWidget: return QString("qrc:/clock.svg");
         case UnknownWidget:
         default:
              return QString("qrc:/virtualconsole.svg");
     }
     return QString("qrc:/virtualconsole.svg");
+}
+
+VCWidget::WidgetType VCWidget::stringToType(QString str)
+{
+    if (str == "Button") return ButtonWidget;
+    else if (str == "Slider") return SliderWidget;
+    else if (str == "XYPad") return XYPadWidget;
+    else if (str == "Frame") return FrameWidget;
+    else if (str == "Solo frame") return SoloFrameWidget;
+    else if (str == "Speed dial") return SpeedDialWidget;
+    else if (str == "Cue list") return CueListWidget;
+    else if (str == "Label") return LabelWidget;
+    else if (str == "Audio Triggers") return AudioTriggersWidget;
+    else if (str == "Animation") return AnimationWidget;
+    else if (str == "Clock") return ClockWidget;
+
+    return UnknownWidget;
 }
 
 /*********************************************************************

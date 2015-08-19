@@ -30,6 +30,7 @@ Rectangle
     property string widgetName
     property string widgetType
     property string widgetIconName
+    property bool reduced: false
 
     Row
     {
@@ -68,6 +69,7 @@ Rectangle
             width: widgetDragItem.width - wIcon.width
             label: widgetName
             wrapText: true
+            visible: reduced ? false : true
         }
     }
 }

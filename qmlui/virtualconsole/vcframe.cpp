@@ -22,9 +22,11 @@
 
 #include "vcframe.h"
 #include "vcbutton.h"
+#include "virtualconsole.h"
 
-VCFrame::VCFrame(Doc *doc, QObject *parent)
+VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_vc(vc)
     , m_showHeader(false)
     , m_showEnable(false)
     , m_multipageMode(false)
@@ -54,8 +56,11 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     item->setParentItem(parent);
     item->setProperty("frameObj", QVariant::fromValue(this));
 
+    QString chName = QString("frameDropArea%1").arg(id());
+    QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+
     foreach(VCWidget *child, m_childrenList)
-        child->render(view, item);
+        child->render(view, childrenArea);
 }
 
 bool VCFrame::hasChildren()
@@ -66,6 +71,29 @@ bool VCFrame::hasChildren()
 QList<VCWidget *> VCFrame::children()
 {
     return m_childrenList;
+}
+
+void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
+{
+    qDebug() << "[VCFrame] adding widget of type:" << wType << pos;
+    m_vc->resetDropTargets(true);
+
+    VCWidget::WidgetType type = stringToType(wType);
+
+    switch (type)
+    {
+        case ButtonWidget:
+        {
+            VCButton *button = new VCButton(m_doc, this);
+            button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            button->render(m_vc->view(), parent);
+            m_childrenList << button;
+            m_vc->addWidgetToMap(button);
+        }
+        break;
+        default:
+        break;
+    }
 }
 
 /*********************************************************************
@@ -182,7 +210,7 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
             /* Create a new frame into its parent */
-            VCFrame* frame = new VCFrame(m_doc, this);
+            VCFrame* frame = new VCFrame(m_doc, m_vc, this);
             if (frame->loadXML(&tag) == false)
                 delete frame;
             else

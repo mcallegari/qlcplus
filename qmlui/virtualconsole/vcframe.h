@@ -39,6 +39,8 @@
 #define KXMLQLCVCFramePrevious    "Previous"
 #define KXMLQLCVCFramePagesLoop   "PagesLoop"
 
+class VirtualConsole;
+
 class VCFrame : public VCWidget
 {
     Q_OBJECT
@@ -51,10 +53,14 @@ class VCFrame : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(Doc* doc = NULL, QObject *parent = 0);
+    VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
 
     void render(QQuickView *view, QQuickItem *parent);
+
+protected:
+    /** Reference to the Virtual Console, used to add new widgets */
+    VirtualConsole *m_vc;
 
     /*********************************************************************
      * Children
@@ -63,6 +69,8 @@ public:
     bool hasChildren();
 
     QList<VCWidget *>children();
+
+    Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
 protected:
     /** List holdin the Frame children
