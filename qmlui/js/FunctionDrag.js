@@ -52,7 +52,7 @@ function createItem()
     {
         draggedItem = itemComponent.createObject(mainView,
                   {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
-                   "funcID": fID, "funcLabel": fLabel, "funcIcon": fIcon });
+                   "funcID": fID, "funcLabel": fLabel, "funcIcon": fIcon, "Drag.keys": "function" });
     }
     else if (itemComponent.status === Component.Error)
     {

@@ -67,18 +67,16 @@ Rectangle
         id: funcMouseArea
         anchors.fill: parent
 
-        drag.target: FunctionDragItem
-        {
-            funcID: cRef ? cRef.id : -1
-            funcLabel: textLabel
-            funcIcon: funcEntry.iSrc
-        }
+        drag.target:
+            FunctionDragItem
+            {
+                funcID: cRef ? cRef.id : -1
+                funcLabel: textLabel
+                funcIcon: funcEntry.iSrc
+            }
         drag.threshold: 30
 
-        onPressed:
-        {
-            FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
-        }
+        onPressed: FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
 
         onPositionChanged:
             if(drag.active == true)

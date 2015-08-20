@@ -170,6 +170,8 @@ Rectangle
             DropArea
             {
                 anchors.fill: parent
+                // accept only functions
+                keys: [ "function" ]
 
                 onDropped:
                 {
