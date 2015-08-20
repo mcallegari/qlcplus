@@ -26,16 +26,13 @@ Rectangle
 
     property int page: 0
 
-    Component.onCompleted: virtualConsole.renderPage(vcPage, page)
+    Component.onCompleted: virtualConsole.renderPage(vcPage, vcPage.contentItem, page)
 
     Flickable
     {
         id: vcPage
         objectName: "vcPage" + page
         anchors.fill: parent
-        z: 1
         boundsBehavior: Flickable.StopAtBounds
-        //contentWidth: width
-        //contentHeight: height
     }
 }

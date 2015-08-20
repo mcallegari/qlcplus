@@ -42,7 +42,7 @@ public:
 
     QQuickView *view();
 
-    Q_INVOKABLE void renderPage(QQuickItem *parent, int page);
+    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
 private:
     /** Reference of the QML view */

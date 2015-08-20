@@ -74,7 +74,7 @@ QQuickView *VirtualConsole::view()
     return m_view;
 }
 
-void VirtualConsole::renderPage(QQuickItem *parent, int page)
+void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)
 {
     if (parent == NULL)
         return;
@@ -86,9 +86,9 @@ void VirtualConsole::renderPage(QQuickItem *parent, int page)
     parent->setProperty("contentWidth", pageRect.width());
     parent->setProperty("contentHeight", pageRect.height());
 
-    qDebug() << "[VC] renderPage. Parent:" << parent << "rect:" << pageRect;
+    qDebug() << "[VC] renderPage. Parent:" << parent << "contents rect:" << pageRect;
 
-    m_pages.at(page)->render(m_view, parent);
+    m_pages.at(page)->render(m_view, contentItem);
 }
 
 /*********************************************************************
