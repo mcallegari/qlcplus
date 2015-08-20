@@ -34,11 +34,12 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_caption(QString())
     , m_backgroundColor(QColor("#333"))
     , m_hasCustomBackgroundColor(false)
-    , m_foregroundColor(QColor(Qt::white))
+    , m_foregroundColor(QColor(Qt::black))
     , m_hasCustomForegroundColor(false)
     , m_page(0)
 {
     m_font = QFont("RobotoCondensed");
+    m_font.setPointSize(10);
 }
 
 VCWidget::~VCWidget()

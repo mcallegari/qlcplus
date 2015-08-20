@@ -26,6 +26,7 @@ VCWidgetItem
 {
     id: buttonRoot
     property VCButton buttonObj: null
+    property bool isOn: buttonObj ? buttonObj.isOn : false
     radius: 4
 
     gradient: Gradient
@@ -49,7 +50,7 @@ VCWidgetItem
         height: parent.height - 2
         color: "transparent"
         border.width: (buttonRoot.width > 80) ? 3 : 2
-        border.color: "#A0A0A0"
+        border.color: isOn ? "green" : "#A0A0A0"
         radius: 3
 
         Rectangle
@@ -72,8 +73,66 @@ VCWidgetItem
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
+                lineHeight: 0.8
                 color: buttonObj ? buttonObj.foregroundColor : "#111"
             }
+
+            Image
+            {
+                visible: buttonObj ? (buttonObj.actionType === VCButton.Flash) : false
+                x: parent.width - 22
+                y: 4
+                width: 18
+                height: 18
+                source: "qrc:/flash.svg"
+                sourceSize: Qt.size(width, height)
+            }
         }
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked:
+        {
+            if (buttonObj.actionType === VCButton.Toggle)
+                buttonObj.isOn = !buttonObj.isOn
+        }
+        onPressed:
+        {
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.isOn = true
+        }
+        onReleased:
+        {
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.isOn = false
+        }
+    }
+
+    DropArea
+    {
+        id: dropArea
+        anchors.fill: parent
+        z: 2 // this area must be above the VCWidget resize controls
+        keys: [ "function" ]
+
+        onDropped:
+        {
+            // attach function here
+            buttonObj.setFunction(drag.source.funcID)
+        }
+
+        states: [
+            State
+            {
+                when: dropArea.containsDrag
+                PropertyChanges
+                {
+                    target: buttonRoot
+                    color: "#9DFF52"
+                }
+            }
+        ]
     }
 }

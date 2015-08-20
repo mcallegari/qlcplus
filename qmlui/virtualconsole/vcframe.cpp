@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
 #include <QDebug>
 #include <QtXml>
 
@@ -57,11 +58,14 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     item->setParentItem(parent);
     item->setProperty("frameObj", QVariant::fromValue(this));
 
-    QString chName = QString("frameDropArea%1").arg(id());
-    QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+    if (m_childrenList.count() > 0)
+    {
+        QString chName = QString("frameDropArea%1").arg(id());
+        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
 
-    foreach(VCWidget *child, m_childrenList)
-        child->render(view, childrenArea);
+        foreach(VCWidget *child, m_childrenList)
+            child->render(view, childrenArea);
+    }
 }
 
 bool VCFrame::hasChildren()
@@ -86,6 +90,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         case FrameWidget:
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
+            QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
             m_childrenList << frame;
             m_vc->addWidgetToMap(frame);
@@ -95,6 +100,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         case SoloFrameWidget:
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
+            QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
             m_childrenList << soloframe;
             m_vc->addWidgetToMap(soloframe);
@@ -104,6 +110,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         case ButtonWidget:
         {
             VCButton *button = new VCButton(m_doc, this);
+            QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
             m_childrenList << button;
             m_vc->addWidgetToMap(button);
@@ -234,6 +241,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete frame;
             else
             {
+                QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
                 m_childrenList.append(frame);
             }
         }
@@ -245,6 +253,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete soloframe;
             else
             {
+                QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
                 m_childrenList.append(soloframe);
             }
         }
@@ -256,7 +265,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 delete button;
             else
             {
-                //addWidgetToPageMap(button);
+                QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
                 m_childrenList.append(button);
             }
         }

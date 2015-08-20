@@ -20,9 +20,12 @@
 #include <QtXml>
 
 #include "vcbutton.h"
+#include "doc.h"
 
 VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_function(Function::invalidId())
+    , m_isOn(false)
 {
     setType(VCWidget::ButtonWidget);
     setBackgroundColor(QColor("#444"));
@@ -60,6 +63,110 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
     item->setProperty("buttonObj", QVariant::fromValue(this));
 }
 
+/*********************************************************************
+ * Function attachment
+ *********************************************************************/
+
+void VCButton::setFunction(quint32 fid)
+{
+    bool running = false;
+
+    Function* current = m_doc->function(m_function);
+    if (current != NULL)
+    {
+        if(current->isRunning())
+        {
+            running = true;
+            current->stop();
+        }
+    }
+
+    Function* function = m_doc->function(fid);
+    if (function != NULL)
+    {
+        m_function = fid;
+        if(running)
+            function->start(m_doc->masterTimer());
+    }
+    else
+    {
+        /* No function attachment */
+        m_function = Function::invalidId();
+    }
+}
+
+quint32 VCButton::function() const
+{
+    return m_function;
+}
+
+/*********************************************************************
+ * Button state
+ *********************************************************************/
+
+bool VCButton::isOn() const
+{
+    return m_isOn;
+}
+
+void VCButton::setOn(bool isOn)
+{
+    if (m_isOn == isOn)
+        return;
+
+    if (m_function == Function::invalidId())
+        return;
+
+    m_isOn = isOn;
+    emit isOnChanged(isOn);
+}
+
+/*********************************************************************
+ * Button action
+ *********************************************************************/
+
+VCButton::Action VCButton::actionType() const
+{
+    return m_actionType;
+}
+
+void VCButton::setActionType(VCButton::Action actionType)
+{
+    if (m_actionType == actionType)
+        return;
+
+    m_actionType = actionType;
+    emit actionTypeChanged(actionType);
+}
+
+QString VCButton::actionToString(VCButton::Action action)
+{
+    if (action == Flash)
+        return QString(KXMLQLCVCButtonActionFlash);
+    else if (action == Blackout)
+        return QString(KXMLQLCVCButtonActionBlackout);
+    else if (action == StopAll)
+        return QString(KXMLQLCVCButtonActionStopAll);
+    else
+        return QString(KXMLQLCVCButtonActionToggle);
+}
+
+VCButton::Action VCButton::stringToAction(const QString& str)
+{
+    if (str == KXMLQLCVCButtonActionFlash)
+        return Flash;
+    else if (str == KXMLQLCVCButtonActionBlackout)
+        return Blackout;
+    else if (str == KXMLQLCVCButtonActionStopAll)
+        return StopAll;
+    else
+        return Toggle;
+}
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
 bool VCButton::loadXML(const QDomElement* root)
 {
     Q_ASSERT(root != NULL);
@@ -73,7 +180,9 @@ bool VCButton::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
+    QString str;
     QDomNode node = root->firstChild();
+
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
@@ -87,6 +196,19 @@ bool VCButton::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
         {
             loadXMLAppearance(&tag);
+        }
+        else if (tag.tagName() == KXMLQLCVCButtonFunction)
+        {
+            str = tag.attribute(KXMLQLCVCButtonFunctionID);
+            setFunction(str.toUInt());
+        }
+        else if (tag.tagName() == KXMLQLCVCButtonAction)
+        {
+            setActionType(stringToAction(tag.text()));
+            /*
+            if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
+                setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
+            */
         }
         else
         {
