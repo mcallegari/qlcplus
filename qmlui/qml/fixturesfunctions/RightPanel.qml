@@ -30,6 +30,7 @@ Rectangle
     property int collapseWidth: 50
     property int expandedWidth: 450
     property string editorSource: ""
+    property int iconSize: collapseWidth - 4
 
     function createFunctionAndEditor(fType, fEditor)
     {
@@ -101,8 +102,8 @@ Rectangle
             {
                 id: funcEditor
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
@@ -116,8 +117,8 @@ Rectangle
             {
                 id: addFunction
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
@@ -137,8 +138,8 @@ Rectangle
                 id: sceneDump
                 objectName: "dumpButton"
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
                 visible: false
@@ -160,8 +161,8 @@ Rectangle
                 id: previewFunc
                 objectName: "previewButton"
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 checkable: true

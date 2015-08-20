@@ -36,6 +36,7 @@ Rectangle
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
+    property int iconSize: collapseWidth - 4
 
     function animatePanel(checked)
     {
@@ -108,8 +109,8 @@ Rectangle
                 id: audioInputButton
                 z: 2
                 visible: showAudioButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
                 exclusiveGroup: ioInputGroup
@@ -127,8 +128,8 @@ Rectangle
                 id: uniInputButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
                 exclusiveGroup: ioInputGroup
@@ -146,8 +147,8 @@ Rectangle
                 id: uniProfilesButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: ""
                 checkable: true
                 exclusiveGroup: ioInputGroup

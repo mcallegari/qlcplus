@@ -33,6 +33,7 @@ Rectangle
     property int collapseWidth: 50
     property int expandedWidth: 400
     property string editorSource: ""
+    property int iconSize: collapseWidth - 4
 
     function animatePanel(checked)
     {
@@ -94,8 +95,8 @@ Rectangle
             {
                 id: addWidgetButton
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/add.svg"
                 checkable: true
                 exclusiveGroup: vcButtonsGroup
@@ -112,8 +113,8 @@ Rectangle
             {
                 id: resizeModeButton
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/resize.svg"
                 checkable: true
                 checked: virtualConsole.resizeMode
@@ -123,26 +124,22 @@ Rectangle
                     virtualConsole.resizeMode = checked
                 }
             }
-/*
             IconButton
             {
-                id: uniInputButton
+                id: funcEditor
                 z: 2
-                visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
-                imgSource: "qrc:/inputoutput.svg"
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/functions.svg"
+                tooltip: qsTr("Function Manager")
                 checkable: true
-                exclusiveGroup: ioInputGroup
-                tooltip: qsTr("Show the universe input sources")
                 onToggled:
                 {
                     if (checked == true)
-                        editorSource = "qrc:/PluginsList.qml"
+                        editorSource = "qrc:/FunctionManager.qml"
                     animatePanel(checked);
                 }
             }
-*/
         }
     }
 

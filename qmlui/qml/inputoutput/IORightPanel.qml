@@ -36,6 +36,7 @@ Rectangle
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
+    property int iconSize: collapseWidth - 4
 
     onUniverseIndexChanged:
     {
@@ -101,8 +102,8 @@ Rectangle
                 id: audioOutputButton
                 z: 2
                 visible: showAudioButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
                 tooltip: qsTr("Show the audio output sources")
@@ -118,8 +119,8 @@ Rectangle
                 id: uniOutputButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
                 tooltip: qsTr("Show the universe output sources")
