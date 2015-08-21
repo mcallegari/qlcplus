@@ -42,7 +42,8 @@ HEADERS += \
     virtualconsole/vcwidget.h \
     virtualconsole/vcframe.h \
     virtualconsole/vcsoloframe.h \
-    virtualconsole/vcbutton.h
+    virtualconsole/vcbutton.h \
+    virtualconsole/vclabel.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -63,7 +64,8 @@ SOURCES += \
     virtualconsole/vcwidget.cpp \
     virtualconsole/vcframe.cpp \
     virtualconsole/vcsoloframe.cpp \
-    virtualconsole/vcbutton.cpp
+    virtualconsole/vcbutton.cpp \
+    virtualconsole/vclabel.cpp
 
 RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

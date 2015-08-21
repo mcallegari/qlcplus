@@ -16,6 +16,7 @@
         <file alias="audiotriggers.svg">audiotriggers.svg</file>
         <file alias="back.svg">back.svg</file>
         <file alias="beam.svg">beam.svg</file>
+        <file alias="blackout.svg">blackout.svg</file>
         <file alias="blue.svg">blue.svg</file>
         <file alias="button.svg">button.svg</file>
         <file alias="buttonmatrix.svg">buttonmatrix.svg</file>
@@ -80,6 +81,7 @@
         <file alias="soloframe.svg">soloframe.svg</file>
         <file alias="speed.svg">speed.svg</file>
         <file alias="star.svg">star.svg</file>
+        <file alias="stopall.svg">stopall.svg</file>
         <file alias="tilt.svg">tilt.svg</file>
         <file alias="uniview.svg">uniview.svg</file>
         <file alias="uv.svg">uv.svg</file>

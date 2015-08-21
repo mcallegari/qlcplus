@@ -39,6 +39,13 @@ VCWidgetItem
     {
         setCommonProperties(buttonObj)
         lightCol.color = Qt.lighter(buttonRoot.color, 1.2)
+
+        if (buttonObj.actionType === VCButton.Flash)
+            buttonIcon.source = "qrc:/flash.svg"
+        else if (buttonObj.actionType === VCButton.StopAll)
+            buttonIcon.source = "qrc:/stopall.svg"
+        else if (buttonObj.actionType === VCButton.Blackout)
+            buttonIcon.source = "qrc:/blackout.svg"
     }
 
     Rectangle
@@ -67,6 +74,7 @@ VCWidgetItem
             Text
             {
                 x: 2
+                z: 2
                 width: parent.width - 4
                 height: parent.height
                 font: buttonObj ? buttonObj.font : null
@@ -80,12 +88,14 @@ VCWidgetItem
 
             Image
             {
-                visible: buttonObj ? (buttonObj.actionType === VCButton.Flash) : false
+                id: buttonIcon
+                visible: buttonObj ? (buttonObj.actionType != VCButton.Toggle) : false
                 x: parent.width - 22
-                y: 4
-                width: 18
-                height: 18
-                source: "qrc:/flash.svg"
+                y: 3
+                z: 1
+                width: 20
+                height: 20
+                source: ""
                 sourceSize: Qt.size(width, height)
             }
         }

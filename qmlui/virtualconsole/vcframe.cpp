@@ -22,6 +22,7 @@
 #include <QtXml>
 
 #include "vcframe.h"
+#include "vclabel.h"
 #include "vcbutton.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
@@ -119,6 +120,16 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             addWidgetToPageMap(button);
             m_vc->addWidgetToMap(button);
             button->render(m_vc->view(), parent);
+        }
+        break;
+        case LabelWidget:
+        {
+            VCLabel *label = new VCLabel(m_doc, this);
+            QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
+            label->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            addWidgetToPageMap(label);
+            m_vc->addWidgetToMap(label);
+            label->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -417,6 +428,18 @@ bool VCFrame::loadXML(const QDomElement* root)
             {
                 QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
                 addWidgetToPageMap(button);
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCLabel)
+        {
+            /* Create a new label into its parent */
+            VCLabel* label = new VCLabel(m_doc, this);
+            if (label->loadXML(&tag) == false)
+                delete label;
+            else
+            {
+                QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
+                addWidgetToPageMap(label);
             }
         }
         else

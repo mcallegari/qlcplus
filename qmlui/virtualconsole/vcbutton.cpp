@@ -26,6 +26,7 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_function(Function::invalidId())
     , m_isOn(false)
+    , m_actionType(Toggle)
 {
     setType(VCWidget::ButtonWidget);
     setBackgroundColor(QColor("#444"));
@@ -59,7 +60,6 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
     QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
 
     item->setParentItem(parent);
-    item->setProperty("z", 10);
     item->setProperty("buttonObj", QVariant::fromValue(this));
 }
 
@@ -220,8 +220,6 @@ bool VCButton::loadXML(const QDomElement* root)
 
     /* All buttons start raised... */
     //setOn(false);
-
-    return true;
 
     return true;
 }

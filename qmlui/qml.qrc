@@ -81,6 +81,7 @@
     <file alias="VCWidgetItem.qml">qml/virtualconsole/VCWidgetItem.qml</file>
     <file alias="VCFrameItem.qml">qml/virtualconsole/VCFrameItem.qml</file>
     <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>
+    <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
 
     <!-- JavaScript helpers -->
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>

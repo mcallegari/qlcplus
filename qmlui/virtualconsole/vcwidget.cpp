@@ -435,6 +435,10 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
                 setFont(font);
             }
         }
+        else if (tag.tagName() == KXMLQLCVCFrameStyle)
+        {
+            /** LEGACY: no more supported/needed */
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << tag.tagName();
