@@ -28,6 +28,7 @@ VCWidgetItem
     property VCFrame frameObj: null
     property bool dropActive: false
     property bool isSolo: false
+    property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
     clip: true
 
@@ -41,6 +42,12 @@ VCWidgetItem
     onDropActiveChanged:
     {
         frameRoot.color = dropActive ? "#9DFF52" : frameObj.backgroundColor
+    }
+
+    onIsCollapsedChanged:
+    {
+        frameRoot.width = isCollapsed ? 200 : frameObj.geometry.width
+        frameRoot.height = isCollapsed ? 36 : frameObj.geometry.height
     }
 
     // Frame header
@@ -59,6 +66,7 @@ VCWidgetItem
             width: parent.width - 4
             spacing: 2
 
+            // expand/collapse button
             IconButton
             {
                 width: 32
@@ -67,22 +75,12 @@ VCWidgetItem
                 faSource: checked ? "\uf065" /* fa_expand */ : "\uf066" /* fa_compress */
                 faColor: "white"
                 checkable: true
+                checked: isCollapsed
                 //checkedColor: bgColor
-                onToggled:
-                {
-                    if (checked)
-                    {
-                        frameRoot.width = 200
-                        frameRoot.height = 36
-                    }
-                    else
-                    {
-                        frameRoot.width = frameObj.geometry.width
-                        frameRoot.height = frameObj.geometry.height
-                    }
-                }
+                onToggled: frameObj.isCollapsed = checked
             }
 
+            // header bar and caption
             Rectangle
             {
                 height: 32
@@ -106,6 +104,7 @@ VCWidgetItem
                 }
             }
 
+            // enable button
             IconButton
             {
                 width: 32
@@ -113,7 +112,55 @@ VCWidgetItem
                 checkable: true
                 tooltip: qsTr("Enable/Disable this frame")
                 imgSource: "qrc:/apply.svg"
+                imgMargins: 1
                 visible: frameObj ? frameObj.showEnable : true
+            }
+
+            // multi page controls
+            Rectangle
+            {
+                visible: frameObj ? frameObj.multiPageMode : false
+                width: 168
+                height: 32
+                color: "transparent"
+
+                IconButton
+                {
+                    width: 32
+                    height: 32
+                    tooltip: qsTr("Previous page")
+                    imgSource: "qrc:/back.svg"
+                    imgMargins: 1
+                    onClicked: frameObj.gotoPreviousPage()
+                }
+                Rectangle
+                {
+                    x: 34
+                    width: 100
+                    height: 32
+                    radius: 3
+                    color: "black"
+
+                    Text
+                    {
+                        anchors.centerIn: parent
+                        font.family: "RobotoCondensed"
+                        font.pointSize: 12
+                        font.bold: true
+                        text: qsTr("Page") + " " + (frameObj ? frameObj.currentPage + 1 : "1")
+                        color: "red"
+                    }
+                }
+                IconButton
+                {
+                    x: 136
+                    width: 32
+                    height: 32
+                    tooltip: qsTr("Next page")
+                    imgSource: "qrc:/forward.svg"
+                    imgMargins: 1
+                    onClicked: frameObj.gotoNextPage()
+                }
             }
         }
     }

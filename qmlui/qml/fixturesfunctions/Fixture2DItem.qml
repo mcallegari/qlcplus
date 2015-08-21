@@ -88,7 +88,7 @@ Rectangle
 
     function setHeadIntensity(headIndex, intensity)
     {
-        console.log("headIdx: " + headIndex + ", int: " + intensity)
+        //console.log("headIdx: " + headIndex + ", int: " + intensity)
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
 

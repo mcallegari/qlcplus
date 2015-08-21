@@ -29,6 +29,7 @@ Rectangle
     color: "darkgray"
     border.width: 1
     border.color: "#111"
+    visible: wObj ? wObj.isVisible : true
 
     property VCWidget wObj: null
 
@@ -55,7 +56,7 @@ Rectangle
         // this must be above the widget root but
         // underneath the widget children (if any)
         z: 1
-        visible: virtualConsole.resizeMode && wObj.allowResize
+        visible: virtualConsole.resizeMode && wObj && wObj.allowResize
 
         // mouse area to move the widget
         MouseArea

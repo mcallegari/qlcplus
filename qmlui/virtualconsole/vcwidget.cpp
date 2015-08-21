@@ -31,6 +31,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_geometry(QRect(0,0,0,0))
     , m_allowResize(true)
     , m_isDisabled(false)
+    , m_isVisible(true)
     , m_caption(QString())
     , m_backgroundColor(QColor("#333"))
     , m_hasCustomBackgroundColor(false)
@@ -206,6 +207,24 @@ void VCWidget::setDisabled(bool disable)
     m_isDisabled = disable;
     setDocModified();
     emit disabledStateChanged(disable);
+}
+
+/*********************************************************************
+ * Visibility state
+ *********************************************************************/
+
+void VCWidget::setVisible(bool isVisible)
+{
+    if (m_isVisible == isVisible)
+        return;
+
+    m_isVisible = isVisible;
+    emit isVisibleChanged(isVisible);
+}
+
+bool VCWidget::isVisible() const
+{
+    return m_isVisible;
 }
 
 /*****************************************************************************
@@ -406,6 +425,7 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
             if (tag.text() != KXMLQLCVCWidgetBackgroundImageNone)
                 setBackgroundImage(m_doc->denormalizeComponentPath(tag.text()));
         }
+*/
         else if (tag.tagName() == KXMLQLCVCWidgetFont)
         {
             if (tag.text() != KXMLQLCVCWidgetFontDefault)
@@ -415,7 +435,6 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
                 setFont(font);
             }
         }
-*/
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << tag.tagName();

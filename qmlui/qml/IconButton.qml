@@ -41,6 +41,7 @@ Rectangle
     property ExclusiveGroup exclusiveGroup: null
 
     property string imgSource: ""
+    property int imgMargins: 4
     property string faSource: ""
     property color faColor: "#222"
 
@@ -81,7 +82,7 @@ Rectangle
         id: btnIcon
         visible: imgSource ? true : false
         anchors.fill: parent
-        anchors.margins: 4
+        anchors.margins: imgMargins
         source: imgSource
         sourceSize: Qt.size(width, height)
     }

@@ -48,11 +48,14 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     item->setProperty("isSolo", true);
     item->setProperty("frameObj", QVariant::fromValue(this));
 
-    QString chName = QString("frameDropArea%1").arg(id());
-    QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+    if (m_pagesMap.count() > 0)
+    {
+        QString chName = QString("frameDropArea%1").arg(id());
+        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
 
-    foreach(VCWidget *child, m_childrenList)
-        child->render(view, childrenArea);
+        foreach(VCWidget *child, m_pagesMap.keys())
+            child->render(view, childrenArea);
+    }
 }
 
 /*****************************************************************************

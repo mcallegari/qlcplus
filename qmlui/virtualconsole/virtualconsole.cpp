@@ -105,7 +105,11 @@ VCFrame *VirtualConsole::page(int page) const
 
 void VirtualConsole::resetContents()
 {
+    foreach (VCFrame *page, m_pages)
+        page->deleteChildren();
 
+    m_widgetsMap.clear();
+    m_latestWidgetId = 0;
 }
 
 quint32 VirtualConsole::newWidgetId()

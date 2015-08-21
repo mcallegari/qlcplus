@@ -14,6 +14,7 @@
         <file alias="audio.svg">audio.svg</file>
         <file alias="audiocard.svg">audiocard.svg</file>
         <file alias="audiotriggers.svg">audiotriggers.svg</file>
+        <file alias="back.svg">back.svg</file>
         <file alias="beam.svg">beam.svg</file>
         <file alias="blue.svg">blue.svg</file>
         <file alias="button.svg">button.svg</file>
@@ -40,6 +41,7 @@
         <file alias="fixture.svg">fixture.svg</file>
         <file alias="flash.svg">flash.svg</file>
         <file alias="folder.svg">folder.svg</file>
+        <file alias="forward.svg">forward.svg</file>
         <file alias="frame.svg">frame.svg</file>
         <file alias="functions.svg">functions.svg</file>
         <file alias="gobo.svg">gobo.svg</file>

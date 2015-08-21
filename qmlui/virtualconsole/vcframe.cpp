@@ -31,7 +31,11 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_vc(vc)
     , m_showHeader(true)
     , m_showEnable(true)
-    , m_multipageMode(false)
+    , m_isCollapsed(false)
+    , m_multiPageMode(false)
+    , m_currentPage(0)
+    , m_totalPagesNumber(1)
+    , m_pagesLoop(false)
 {
     setType(VCWidget::FrameWidget);
 }
@@ -58,24 +62,24 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     item->setParentItem(parent);
     item->setProperty("frameObj", QVariant::fromValue(this));
 
-    if (m_childrenList.count() > 0)
+    if (m_pagesMap.count() > 0)
     {
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
 
-        foreach(VCWidget *child, m_childrenList)
+        foreach(VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
 
 bool VCFrame::hasChildren()
 {
-    return !m_childrenList.isEmpty();
+    return !m_pagesMap.isEmpty();
 }
 
 QList<VCWidget *> VCFrame::children()
 {
-    return m_childrenList;
+    return m_pagesMap.keys();
 }
 
 void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
@@ -92,7 +96,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
-            m_childrenList << frame;
+            addWidgetToPageMap(frame);
             m_vc->addWidgetToMap(frame);
             frame->render(m_vc->view(), parent);
         }
@@ -102,7 +106,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
-            m_childrenList << soloframe;
+            addWidgetToPageMap(soloframe);
             m_vc->addWidgetToMap(soloframe);
             soloframe->render(m_vc->view(), parent);
         }
@@ -112,13 +116,38 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-            m_childrenList << button;
+            addWidgetToPageMap(button);
             m_vc->addWidgetToMap(button);
             button->render(m_vc->view(), parent);
         }
         break;
         default:
         break;
+    }
+}
+
+void VCFrame::deleteChildren()
+{
+    if (m_pagesMap.isEmpty())
+        return;
+
+    QMapIterator <VCWidget*, int> it(m_pagesMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        VCWidget *widget = it.key();
+        if(widget->type() == FrameWidget)
+        {
+            VCFrame *frame = static_cast<VCFrame*>(widget);
+            frame->deleteChildren();
+        }
+        else if(widget->type() == SoloFrameWidget)
+        {
+            VCFrame *soloframe = static_cast<VCFrame*>(widget);
+            soloframe->deleteChildren();
+        }
+        m_pagesMap.remove(widget);
+        delete widget;
     }
 }
 
@@ -159,21 +188,125 @@ void VCFrame::setShowEnable(bool showEnable)
 }
 
 /*********************************************************************
+ * Collapsed state
+ *********************************************************************/
+
+bool VCFrame::isCollapsed() const
+{
+    return m_isCollapsed;
+}
+
+void VCFrame::setCollapsed(bool isCollapsed)
+{
+    if (m_isCollapsed == isCollapsed)
+        return;
+
+    m_isCollapsed = isCollapsed;
+    emit collapsedChanged(isCollapsed);
+}
+
+/*********************************************************************
  * Multi page mode
  *********************************************************************/
 
-bool VCFrame::multipageMode() const
+bool VCFrame::multiPageMode() const
 {
-    return m_multipageMode;
+    return m_multiPageMode;
 }
 
-void VCFrame::setMultipageMode(bool multipageMode)
+void VCFrame::setMultiPageMode(bool multiPageMode)
 {
-    if (m_multipageMode == multipageMode)
+    if (m_multiPageMode == multiPageMode)
         return;
 
-    m_multipageMode = multipageMode;
-    emit multipageModeChanged(multipageMode);
+    m_multiPageMode = multiPageMode;
+    emit multiPageModeChanged(multiPageMode);
+}
+
+void VCFrame::setTotalPagesNumber(int num)
+{
+    m_totalPagesNumber = num;
+}
+
+int VCFrame::totalPagesNumber() const
+{
+    return m_totalPagesNumber;
+}
+
+int VCFrame::currentPage() const
+{
+    if (m_multiPageMode == false)
+        return 0;
+    return m_currentPage;
+}
+
+void VCFrame::setCurrentPage(int pageNum)
+{
+    if (pageNum < 0 || pageNum >= m_totalPagesNumber)
+        return;
+
+    m_currentPage = pageNum;
+
+    QMapIterator <VCWidget*, int> it(m_pagesMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        int page = it.value();
+        VCWidget *widget = it.key();
+        if (page == m_currentPage)
+        {
+            widget->setDisabled(false);
+            widget->setVisible(true);
+            //widget->updateFeedback();
+        }
+        else
+        {
+            widget->setDisabled(true);
+            widget->setVisible(false);
+        }
+    }
+    setDocModified();
+    emit currentPageChanged(m_currentPage);
+}
+
+void VCFrame::setPagesLoop(bool pagesLoop)
+{
+    m_pagesLoop = pagesLoop;
+}
+
+bool VCFrame::pagesLoop() const
+{
+    return m_pagesLoop;
+}
+
+void VCFrame::gotoPreviousPage()
+{
+    if (m_pagesLoop && m_currentPage == 0)
+        setCurrentPage(m_totalPagesNumber - 1);
+    else
+        setCurrentPage(m_currentPage - 1);
+
+    //sendFeedback(m_currentPage, previousPageInputSourceId);
+}
+
+void VCFrame::gotoNextPage()
+{
+    if (m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
+        setCurrentPage(0);
+    else
+        setCurrentPage(m_currentPage + 1);
+
+    //sendFeedback(m_currentPage, nextPageInputSourceId);
+}
+
+void VCFrame::addWidgetToPageMap(VCWidget *widget)
+{
+    m_pagesMap.insert(widget, widget->page());
+}
+
+void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
+{
+    m_pagesMap.remove(widget);
 }
 
 /*****************************************************************************
@@ -200,6 +333,8 @@ bool VCFrame::loadXML(const QDomElement* root)
 
     /* Children */
     QDomNode node = root->firstChild();
+    int currentPage = 0;
+
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
@@ -223,12 +358,27 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
                 setShowHeader(false);
         }
+        else if (tag.tagName() == KXMLQLCVCFrameIsCollapsed)
+        {
+            /* Collapsed */
+            if (tag.text() == KXMLQLCTrue)
+                setCollapsed(true);
+        }
         else if (tag.tagName() == KXMLQLCVCFrameShowEnableButton)
         {
             if (tag.text() == KXMLQLCTrue)
                 setShowEnable(true);
             else
                 setShowEnable(false);
+        }
+        else if (tag.tagName() == KXMLQLCVCFrameMultipage)
+        {
+            setMultiPageMode(true);
+            if (tag.hasAttribute(KXMLQLCVCFramePagesNumber))
+                setTotalPagesNumber(tag.attribute(KXMLQLCVCFramePagesNumber).toInt());
+
+            if(tag.hasAttribute(KXMLQLCVCFrameCurrentPage))
+                currentPage = tag.attribute(KXMLQLCVCFrameCurrentPage).toInt();
         }
 
         /** ***************** children widgets *************************** */
@@ -242,7 +392,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-                m_childrenList.append(frame);
+                addWidgetToPageMap(frame);
             }
         }
         else if (tag.tagName() == KXMLQLCVCSoloFrame)
@@ -254,7 +404,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-                m_childrenList.append(soloframe);
+                addWidgetToPageMap(soloframe);
             }
         }
         else if (tag.tagName() == KXMLQLCVCButton)
@@ -266,7 +416,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-                m_childrenList.append(button);
+                addWidgetToPageMap(button);
             }
         }
         else
@@ -276,6 +426,9 @@ bool VCFrame::loadXML(const QDomElement* root)
 
         node = node.nextSibling();
     }
+
+    if (multiPageMode() == true)
+        setCurrentPage(currentPage);
 
     return true;
 }

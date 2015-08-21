@@ -67,6 +67,7 @@ class VCWidget : public QObject
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
+    Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY isVisibleChanged)
     Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor NOTIFY foregroundColorChanged)
@@ -175,7 +176,6 @@ protected:
 public:
     bool allowResize() const;
 
-public slots:
     void setAllowResize(bool allowResize);
 
 signals:
@@ -205,6 +205,19 @@ signals:
 
 protected:
     bool m_isDisabled;
+
+    /*********************************************************************
+     * Visibility state
+     *********************************************************************/
+public:
+    void setVisible(bool isVisible);
+
+    bool isVisible() const;
+signals:
+    void isVisibleChanged(bool isVisible);
+
+protected:
+    bool m_isVisible;
 
     /*********************************************************************
      * Caption

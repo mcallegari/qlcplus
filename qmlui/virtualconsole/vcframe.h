@@ -47,11 +47,14 @@ class VCFrame : public VCWidget
 
     Q_PROPERTY(bool showHeader READ showHeader WRITE setShowHeader NOTIFY showHeaderChanged)
     Q_PROPERTY(bool showEnable READ showEnable WRITE setShowEnable NOTIFY showEnableChanged)
-    Q_PROPERTY(bool multipageMode READ multipageMode WRITE setMultipageMode NOTIFY multipageModeChanged)
+    Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setCollapsed NOTIFY collapsedChanged)
+    Q_PROPERTY(bool multiPageMode READ multiPageMode WRITE setMultiPageMode NOTIFY multiPageModeChanged)
+    Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
+
 public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
@@ -66,16 +69,14 @@ protected:
      * Children
      *********************************************************************/
 public:
+    /** Returns if this frame has chidren widgets */
     bool hasChildren();
 
     QList<VCWidget *>children();
 
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
-protected:
-    /** List holdin the Frame children
-     *  To be decided if we need a QMap here */
-    QList<VCWidget *> m_childrenList;
+    void deleteChildren();
 
     /*********************************************************************
      * Header
@@ -110,18 +111,58 @@ protected:
     bool m_showEnable;
 
     /*********************************************************************
+     * Collapsed state
+     *********************************************************************/
+public:
+    bool isCollapsed() const;
+
+    void setCollapsed(bool isCollapsed);
+
+signals:
+    void collapsedChanged(bool isCollapsed);
+
+protected:
+    bool m_isCollapsed;
+
+    /*********************************************************************
      * Multi page mode
      *********************************************************************/
 public:
-    bool multipageMode() const;
+    bool multiPageMode() const;
+    void setMultiPageMode(bool multiPageMode);
 
-    void setMultipageMode(bool multipageMode);
+    void setTotalPagesNumber(int num);
+    int totalPagesNumber() const;
+
+    int currentPage() const;
+    void setCurrentPage(int pageNum);
+
+    void setPagesLoop(bool pagesLoop);
+    bool pagesLoop() const;
+
+    Q_INVOKABLE void gotoPreviousPage();
+    Q_INVOKABLE void gotoNextPage();
+
+    void addWidgetToPageMap(VCWidget *widget);
+    void removeWidgetFromPageMap(VCWidget *widget);
 
 signals:
-    void multipageModeChanged(bool multipageMode);
+    void multiPageModeChanged(bool multiPageMode);
+    void currentPageChanged(int page);
 
 protected:
-    bool m_multipageMode;
+    /** Flag to enable/disable multiple pages on this frame */
+    bool m_multiPageMode;
+    /** The currently selected page of this frame */
+    ushort m_currentPage;
+    /** The total number of pages of this frame */
+    ushort m_totalPagesNumber;
+    /** Flag to cycle through pages when reaching the end */
+    bool m_pagesLoop;
+
+    /** Here's where the magic takes place. This holds a map
+     *  of pages/widgets to be shown/hidden when page is changed */
+    QMap <VCWidget *, int> m_pagesMap;
 
     /*********************************************************************
      * Load & Save
