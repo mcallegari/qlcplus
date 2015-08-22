@@ -22,6 +22,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 import "DetachWindow.js" as WinLoader
+import "."
 
 Rectangle
 {
@@ -126,7 +127,7 @@ Rectangle
                     onRightClicked:
                     {
                         uniView.visible = false
-                        WinLoader.createWindow("qrc:///UniverseGridView.qml")
+                        WinLoader.createWindow("qrc:/UniverseGridView.qml")
                     }
                 }
                 MenuBarEntry
@@ -135,7 +136,6 @@ Rectangle
                     imgSource: "dmxview.svg"
                     entryText: qsTr("DMX View")
                     checkable: true
-                    //checked: true
                     checkedColor: "yellow"
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
@@ -150,7 +150,7 @@ Rectangle
                     onRightClicked:
                     {
                         dmxView.visible = false
-                        WinLoader.createWindow("qrc:///DMXView.qml")
+                        WinLoader.createWindow("qrc:/DMXView.qml")
                     }
                 }
                 MenuBarEntry
@@ -174,7 +174,7 @@ Rectangle
                     onRightClicked:
                     {
                         twodView.visible = false
-                        WinLoader.createWindow("qrc:///2DView.qml")
+                        WinLoader.createWindow("qrc:/2DView.qml")
                     }
                 }
                 MenuBarEntry
@@ -196,7 +196,7 @@ Rectangle
                     }
                     onRightClicked:
                     {
-                        WinLoader.createWindow("qrc:///3DView.qml")
+                        WinLoader.createWindow("qrc:/3DView.qml")
                     }
                 }
 
@@ -228,13 +228,13 @@ Rectangle
                 IconButton
                 {
                     height: viewToolbar.height - 2
-                    faSource: fontawesome.fa_search_minus
+                    faSource: FontAwesome.fa_search_minus
                     onClicked: previewLoader.item.setZoom(-0.5)
                 }
                 IconButton
                 {
                     height: viewToolbar.height - 2
-                    faSource: fontawesome.fa_search_plus
+                    faSource: FontAwesome.fa_search_plus
                     onClicked: previewLoader.item.setZoom(0.5)
                 }
             }

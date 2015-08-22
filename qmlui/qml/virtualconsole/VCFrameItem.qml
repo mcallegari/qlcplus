@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
+import "."
 
 VCWidgetItem
 {
@@ -72,7 +73,7 @@ VCWidgetItem
                 width: 32
                 height: 32
                 tooltip: qsTr("Expand/Collapse this frame")
-                faSource: checked ? "\uf065" /* fa_expand */ : "\uf066" /* fa_compress */
+                faSource: checked ? FontAwesome.fa_expand : FontAwesome.fa_compress
                 faColor: "white"
                 checkable: true
                 checked: isCollapsed

@@ -53,10 +53,6 @@ Rectangle
     {
         source: "qrc:FontAwesome.otf"
     }
-    FontAwesomeVariables
-    {
-        id: fontawesome
-    }
 
     Rectangle
     {
