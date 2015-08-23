@@ -21,12 +21,14 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
+import "."
+
 Rectangle
 {
     id: intRoot
     width: 150
     height: 350
-    color: "#333"
+    color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
 
@@ -50,8 +52,8 @@ Rectangle
         gradient:
             Gradient
             {
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
         RobotoText

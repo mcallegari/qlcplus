@@ -20,13 +20,15 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import "."
+
 Rectangle
 {
     id: settingsRoot
     width: 300
     height: parent.height
 
-    color: "#333"
+    color: UISettings.bgMedium
     border.width: 1
     border.color: "#222"
 
@@ -43,7 +45,7 @@ Rectangle
         {
             width: settingsRoot.width
             height: 38
-            color: "#555"
+            color: UISettings.sectionHeader
             Layout.columnSpan: 2
 
             RobotoText
@@ -122,7 +124,7 @@ Rectangle
         {
             width: settingsRoot.width
             height: 38
-            color: "#555"
+            color: UISettings.sectionHeader
             visible: fxPropsVisible
             Layout.columnSpan: 2
 

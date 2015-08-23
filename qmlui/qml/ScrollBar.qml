@@ -19,6 +19,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Item
 {
@@ -33,8 +34,8 @@ Item
         margins: 1
     }
 
-    property Flickable flickable               : null
-    property int       handleSize              : 20
+    property Flickable flickable  : null
+    property int       handleSize : 20
 
     function scrollDown ()
     {
@@ -91,7 +92,7 @@ Item
         {
             anchors.fill: parent
             anchors.centerIn: parent
-            color: (btnUp.pressed ? "#0978FF" : "#333")
+            color: (btnUp.pressed ? UISettings.highlight : UISettings.bgMedium)
 
             Image
             {
@@ -119,7 +120,7 @@ Item
         {
             anchors.fill: parent
             anchors.centerIn: parent
-            color: (btnDown.pressed ? "#0978FF" : "#333")
+            color: (btnDown.pressed ? UISettings.highlight : UISettings.bgMedium)
 
             Image
             {

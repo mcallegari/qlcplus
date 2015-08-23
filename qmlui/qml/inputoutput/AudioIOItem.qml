@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -26,7 +27,7 @@ Rectangle
     height: 120
     color: isSelected ? "#2D444E" : "transparent"
     border.width: 2
-    border.color: isSelected ? "yellow" : "transparent"
+    border.color: isSelected ? UISettings.selection : "transparent"
 
     property int wireBoxWidth: (audioItem.width - audioBox.width) / 8 // one quarter of a audioItem side
     property bool isSelected: false
@@ -121,7 +122,7 @@ Rectangle
         width: parent.width
         height: 2
         y: parent.height - 2
-        color: isSelected ? "yellow" : "#666"
+        color: isSelected ? UISettings.selection : "#666"
     }
 }
 

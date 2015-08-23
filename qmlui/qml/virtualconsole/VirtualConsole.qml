@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import "DetachWindow.js" as WinLoader
+import "."
 
 Rectangle
 {
@@ -56,8 +57,8 @@ Rectangle
             gradient: Gradient
             {
                 id: vcTbGradient
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
             RowLayout
@@ -73,7 +74,7 @@ Rectangle
                     entryText: qsTr("Page 1")
                     checkable: true
                     checked: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: vcTbGradient
                     exclusiveGroup: vcToolbarGroup
                     onCheckedChanged:
@@ -95,7 +96,7 @@ Rectangle
                     id: vcPage2
                     entryText: qsTr("Page 2")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: vcTbGradient
                     exclusiveGroup: vcToolbarGroup
                     onCheckedChanged:

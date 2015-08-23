@@ -61,6 +61,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
         page->setAllowResize(false);
         page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
+        page->setFont(QFont("RobotoCondensed", 16));
         m_pages.append(page);
     }
 

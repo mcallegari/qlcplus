@@ -1,3 +1,4 @@
+singleton UISettings 1.0 UISettings.qml
 singleton FontAwesome 1.0 FontAwesomeVariables.qml
 
 ContextMenuEntry 0.1 ContextMenuEntry.qml

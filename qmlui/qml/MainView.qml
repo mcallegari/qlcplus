@@ -21,6 +21,8 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import "."
+
 import "DetachWindow.js" as WinLoader
 
 Rectangle
@@ -45,27 +47,25 @@ Rectangle
 
     FontLoader
     {
-        source: "qrc:RobotoCondensed-Regular.ttf"
+        source: "qrc:/RobotoCondensed-Regular.ttf"
     }
 
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
-        source: "qrc:FontAwesome.otf"
+        source: "qrc:/FontAwesome.otf"
     }
 
     Rectangle
     {
         id: mainToolbar
         width: parent.width
-        // this can be read from an external variable (QSettings ?) and will still work !
-        height: 40
+        height: UISettings.iconSizeDefault
         z: 50
         gradient: Gradient
         {
-            id: bgGradient
-            GradientStop { position: 0 ; color: "#1a1a1a" }
-            GradientStop { position: 1 ; color: "#111" }
+            GradientStop { position: 0; color: UISettings.toolbarStartMain }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
         RowLayout
@@ -214,7 +214,7 @@ Rectangle
         width: parent.width
         height: parent.height - mainToolbar.height
         y: mainToolbar.height
-        color: "#303030"
+        color: UISettings.bgMain
 
         Loader
         {

@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -26,7 +27,7 @@ Rectangle
     anchors.leftMargin: 0
     width: parent.width
     height: collapseHeight
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseHeight: 40
@@ -87,8 +88,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 

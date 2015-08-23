@@ -20,6 +20,7 @@
 import QtQuick 2.2
 
 import "CanvasDrawFunctions.js" as DrawFuncs
+import "."
 
 Rectangle
 {
@@ -32,7 +33,7 @@ Rectangle
 
     color: "#2A2A2A"
     border.width: isSelected ? 2 : 1
-    border.color: isSelected ? (isDragging ? "#00FF00" : "yellow") : (isDragging ? "#00FF00" : "#AAA")
+    border.color: isSelected ? (isDragging ? "#00FF00" : UISettings.selection) : (isDragging ? "#00FF00" : "#AAA")
 
     Drag.active: fxMouseArea.drag.active
 

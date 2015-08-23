@@ -19,12 +19,14 @@
 
 import QtQuick 2.0
 
+import "."
+
 Rectangle
 {
     id: rightSidePanel
     width: collapseWidth
     height: 500
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseWidth: 50
@@ -87,15 +89,14 @@ Rectangle
 
     Rectangle
     {
-        x: 3
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             spacing: 3
 
             IconButton
@@ -203,8 +204,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 

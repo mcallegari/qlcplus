@@ -91,13 +91,13 @@ Rectangle
         {
             id: viewToolbar
             width: parent.width
-            height: 34
+            height: UISettings.iconSizeMedium
             z: 10
             gradient: Gradient
             {
                 id: ffMenuGradient
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
             RowLayout
@@ -113,7 +113,7 @@ Rectangle
                     imgSource: "uniview.svg"
                     entryText: qsTr("Universe View")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -136,7 +136,7 @@ Rectangle
                     imgSource: "dmxview.svg"
                     entryText: qsTr("DMX View")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -160,7 +160,7 @@ Rectangle
                     entryText: qsTr("2D View")
                     checkable: true
                     checked: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -183,7 +183,7 @@ Rectangle
                     imgSource: "3dview.svg"
                     entryText: qsTr("3D View")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:

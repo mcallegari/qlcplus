@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -32,16 +33,17 @@ Rectangle
     border.width: 1
     border.color: "black"
     opacity: 0.7
-    color: "white"
+    color: UISettings.bgMedium
 
     RobotoText
     {
         anchors.fill: parent
         anchors.margins: 1
         label: manufacturer + " - " + model
-        labelColor: "black"
+        labelColor: UISettings.fgMain
         fontSize: 10
         wrapText: true
+        textAlign: Text.AlignHCenter
     }
 
     Drag.active: fxMouseArea.drag.active

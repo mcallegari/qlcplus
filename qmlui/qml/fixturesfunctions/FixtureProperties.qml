@@ -21,12 +21,14 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
+import "."
+
 Rectangle
 {
     id: fxProps
     width: 400
     height: columnContainer.height + 8
-    color: "#555555"
+    color: UISettings.bgLight
     radius: 4
     border.color: "#444"
 
@@ -74,11 +76,8 @@ Rectangle
             RobotoText
             {
                 id: fxPropsTitle
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.centerIn: parent
                 label: qsTr("Fixture properties")
-                //horizontalAlignment: Text.AlignHCenter
-                fontSize: 16
             }
         }
 

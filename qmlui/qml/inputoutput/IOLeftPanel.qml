@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+import "."
+
 Rectangle
 {
     id: leftSidePanel
@@ -27,7 +29,7 @@ Rectangle
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseWidth: 50
@@ -93,12 +95,12 @@ Rectangle
         x: parent.width - collapseWidth
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.leftMargin: 1
             spacing: 3
 
@@ -182,7 +184,7 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateClose;
+        id: animateClose
         target: leftSidePanel
         properties: "width"
         to: collapseWidth
@@ -202,8 +204,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 

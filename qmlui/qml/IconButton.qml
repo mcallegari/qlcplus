@@ -22,17 +22,19 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Controls.Private 1.0
 
+import "."
+
 Rectangle
 {
     id: baseIconButton
-    width: 38
-    height: 38
+    width: UISettings.iconSizeDefault
+    height: UISettings.iconSizeDefault
     visible: counter ? true : false
 
     property color bgColor: "#5F5F5F"
     property color hoverColor: "#B6B6B6"
     property color pressColor: "#054A9E"
-    property color checkedColor: "#0978FF"
+    property color checkedColor: UISettings.highlight
 
     property bool checkable: false
     property bool checked: false

@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -57,7 +58,7 @@ Rectangle
         x: funcMgrLoader.width
         Rectangle
         {
-            color: "#333"
+            color: UISettings.bgMedium
             width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
             height: 40
 
@@ -101,7 +102,7 @@ Rectangle
                 x: leftArrow.width + 5
                 height: 40
                 width: ceContainer.width - addFunc.width - removeFunc.width
-                color: "white"
+                color: UISettings.fgMain
                 text: collection ? collection.name : ""
                 verticalAlignment: TextInput.AlignVCenter
                 font.family: "RobotoCondensed"

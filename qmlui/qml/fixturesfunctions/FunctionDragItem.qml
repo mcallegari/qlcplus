@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -31,7 +32,7 @@ Rectangle
     border.width: 1
     border.color: "black"
     opacity: 0.8
-    color: "#333"
+    color: UISettings.bgMedium
 
     IconTextEntry
     {

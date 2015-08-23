@@ -74,7 +74,7 @@ VCWidgetItem
                 height: 32
                 tooltip: qsTr("Expand/Collapse this frame")
                 faSource: checked ? FontAwesome.fa_expand : FontAwesome.fa_compress
-                faColor: "white"
+                faColor: UISettings.fgMain
                 checkable: true
                 checked: isCollapsed
                 //checkedColor: bgColor
