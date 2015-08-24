@@ -5,6 +5,7 @@ qlcplus (4.9.2) stable; urgency=low
   * Simple Desk: Fix cue playback on universes 2+ (David Garyga)
   * Virtual Console Solo Frame: Option to allow mixing of sliders in playback mode (David Garyga)
   * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
+  * RGB Matrix: Fix fade jumping in some cases (David Garyga)
   * Audio Input: Fix crashes when selecting another audio input device while an audio input driven function/widget is running (David Garyga)
   * VC XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
   * Scene Editor: correctly select the fixture tab when switching from tabbed/all channels view
