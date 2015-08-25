@@ -20,13 +20,14 @@
 import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
     id: menuRoot
     width: addFuncMenuEntries.width
     height: addFuncMenuEntries.height
-    color: "#333"
+    color: UISettings.bgMedium
     signal entryClicked(int fType, string fEditor)
 
     Column

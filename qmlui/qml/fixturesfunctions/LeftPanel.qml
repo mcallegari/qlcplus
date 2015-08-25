@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+import "."
+
 Rectangle
 {
     id: leftSidePanel
@@ -27,7 +29,7 @@ Rectangle
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseWidth: 50
@@ -75,7 +77,7 @@ Rectangle
         x: parent.width - collapseWidth
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         ExclusiveGroup { id: fxManagerGroup }
@@ -83,7 +85,7 @@ Rectangle
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.leftMargin: 1
             spacing: 3
 
@@ -282,8 +284,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 
@@ -294,7 +296,7 @@ Rectangle
             z: 1
             x: parent.width - width
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: leftSidePanel
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth

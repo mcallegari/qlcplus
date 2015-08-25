@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 
+import "."
+
 Rectangle
 {
     id: fxBrowserBox
@@ -40,7 +42,7 @@ Rectangle
         anchors.rightMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
-        color: "#303030"
+        color: UISettings.bgMain
         radius: 5
         border.width: 2
         border.color: "#111"
@@ -64,7 +66,7 @@ Rectangle
             y: 3
             height: 24
             width: searchBox.width - searchIcon.width - 10
-            color: "#ffffff"
+            color: UISettings.fgMain
             text: qsTr("")
             font.pixelSize: 18
         }
@@ -144,7 +146,7 @@ Rectangle
             z: 1
             anchors.right: parent.right
             anchors.left: parent.left
-            color: "#333"
+            color: blMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
 
             Image
             {
@@ -153,7 +155,7 @@ Rectangle
                 anchors.left: parent.left
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:///arrow-right.svg"
+                source: "qrc:/arrow-right.svg"
                 sourceSize: Qt.size(width, height)
                 height: 26
                 width: 18
@@ -167,20 +169,20 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: 18
                 fontBold: true
-                labelColor: "#888"
+                labelColor: UISettings.fgMedium
             }
             MouseArea
             {
+                id: blMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
+
                 onClicked:
                 {
                     fixtureArea.visible = false
                     fxPropsRect.visible = false
                     manufacturerList.visible = true
                 }
-                onEntered: manufBackLink.color = "#444"
-                onExited: manufBackLink.color = "#333"
             }
         }
 
@@ -202,7 +204,7 @@ Rectangle
                 {
                     width: fixtureList.width - 30
                     height: 31
-                    color: "#0978FF"
+                    color: UISettings.highlight
                     radius: 5
                     y: fixtureList.currentItem ? fixtureList.currentItem.y + 1 : 0
                 }

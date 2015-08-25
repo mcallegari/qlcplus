@@ -48,7 +48,7 @@ void VCXYPad_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void VCXYPad_Test::init()
@@ -352,38 +352,39 @@ void VCXYPad_Test::modeChange()
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
 
-    VCXYPad pad(&w, m_doc);
-    pad.show();
+    VCXYPad* pad = new VCXYPad(&w, m_doc);
+    pad->show();
     w.show();
-    pad.resize(QSize(200, 200));
+    pad->resize(QSize(200, 200));
 
     VCXYPadFixture xy(m_doc);
     xy.setHead(GroupHead(fxi->id(), 0));
-    pad.appendFixture(xy);
-    QCOMPARE(pad.fixtures().size(), 1);
-    QCOMPARE(pad.fixtures()[0].m_xMSB, QLCChannel::invalid());
-    QCOMPARE(pad.fixtures()[0].m_xLSB, QLCChannel::invalid());
+    pad->appendFixture(xy);
+    QCOMPARE(pad->fixtures().size(), 1);
+    QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_xLSB, QLCChannel::invalid());
 
     m_doc->setMode(Doc::Operate);
-    QVERIFY(pad.fixtures()[0].m_xMSB != QLCChannel::invalid());
-    QVERIFY(pad.fixtures()[0].m_yMSB != QLCChannel::invalid());
+    QVERIFY(pad->fixtures()[0].m_xMSB != QLCChannel::invalid());
+    QVERIFY(pad->fixtures()[0].m_yMSB != QLCChannel::invalid());
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], &pad);
+    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], pad);
 /*
     // FIXME !!
-    pad.m_area->setPosition(QPoint(pad.m_area->width(), pad.m_area->height()));
-    pad.writeDMX(m_doc->masterTimer(), &ua);
+    pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
     QCOMPARE(ua.preGMValues()[0], char(255));
     QCOMPARE(ua.preGMValues()[1], char(255));
 
-    pad.m_area->setPosition(QPoint(pad.m_area->width() / 2, pad.m_area->height() / 4));
-    pad.writeDMX(m_doc->masterTimer(), &ua);
+    pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
     QCOMPARE(ua.preGMValues()[0], char(128));
     QCOMPARE(ua.preGMValues()[1], char(64));
 */
     m_doc->setMode(Doc::Design);
-    QCOMPARE(pad.fixtures()[0].m_xMSB, QLCChannel::invalid());
-    QCOMPARE(pad.fixtures()[0].m_yMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_yMSB, QLCChannel::invalid());
+    delete pad;
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
 }
 

@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -44,7 +45,7 @@ Rectangle
     {
         Rectangle
         {
-            color: "#333"
+            color: UISettings.bgMedium
             width: seContainer.width
             height: 40
 
@@ -81,7 +82,7 @@ Rectangle
                 x: leftArrow.width + 5
                 height: 40
                 width: seContainer.width // - addFunc.width - removeFunc.width
-                color: "white"
+                color: UISettings.fgMain
                 text: sceneEditor.sceneName
                 verticalAlignment: TextInput.AlignVCenter
                 font.family: "RobotoCondensed"

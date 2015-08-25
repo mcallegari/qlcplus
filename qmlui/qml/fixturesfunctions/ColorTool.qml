@@ -20,14 +20,15 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import "."
 
 Rectangle
 {
     id: colorToolBox
     width: 400
     height: 430
-    color: "#444"
-    border.color: "#222"
+    color: UISettings.bgMedium
+    border.color: "#666"
     border.width: 2
 
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
@@ -41,8 +42,8 @@ Rectangle
         gradient:
             Gradient
             {
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
         RowLayout

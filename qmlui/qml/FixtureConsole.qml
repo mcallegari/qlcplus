@@ -21,13 +21,14 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.0
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
     id: consoleRoot
     width: channelsRow.width
     height: parent.height
-    color: "#222"
+    color: UISettings.bgStrong
 
     onWidthChanged: consoleRoot.sizeChanged(width, height)
     onHeightChanged:
@@ -180,7 +181,7 @@ Rectangle
                                 height: 15
                                 radius: 2
                                 visible: showEnablers
-                                color: isEnabled ? "#0978FF" : "#333"
+                                color: isEnabled ? UISettings.highlight : UISettings.bgMedium
                                 border.width: 1
                                 border.color: isEnabled ? "white" : "#555"
                                 Layout.alignment: Qt.AlignCenter

@@ -20,13 +20,16 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 
+import "."
+
 Rectangle
 {
     id: menuEntry
     width: btnIcon.width + textBox.width + 10
     height: parent.height
+    gradient: (checked || mouseArea1.containsMouse) ? selGradient : bgGradient
 
-    property color checkedColor: "#12B4FF"
+    property color checkedColor: UISettings.toolbarSelectionMain
 
     property bool checkable: false
     property string imgSource: ""
@@ -41,26 +44,10 @@ Rectangle
         if (exclusiveGroup)
             exclusiveGroup.bindCheckable(menuEntry)
     }
-    onCheckedChanged:
-    {
-        if (checked == true)
-        {
-            selRect.color = checkedColor;
-            menuEntry.gradient = selGradient
-        }
-        else {
-            selRect.color = "transparent";
-            menuEntry.gradient = bgGradient
-        }
-    }
 
     signal clicked
     signal rightClicked
     signal toggled
-
-    gradient: bgGradient
-    //border.color: "black" //"#111"
-    //border.width: 1
 
     Gradient
     {
@@ -118,7 +105,7 @@ Rectangle
             {
                 id: selRect
                 radius: 2
-                color: "transparent"
+                color: checked ? checkedColor : "transparent"
                 height: 5
                 width: textBox.width
                 y: parent.height - height - 1
@@ -132,8 +119,6 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onEntered: { if (checked == false) menuEntry.gradient = selGradient }
-        onExited: { if (checked == false) menuEntry.gradient = bgGradient }
         onClicked:
         {
             if (mouse.button == Qt.LeftButton)

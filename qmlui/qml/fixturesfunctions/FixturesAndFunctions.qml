@@ -22,6 +22,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 import "DetachWindow.js" as WinLoader
+import "."
 
 Rectangle
 {
@@ -40,7 +41,7 @@ Rectangle
     {
         if (ctx === "UniverseGrid")
             uniView.visible = true
-        if (ctx === "DMX")
+        else if (ctx === "DMX")
             dmxView.visible = true
         else if (ctx === "2D")
             twodView.visible = true
@@ -90,13 +91,13 @@ Rectangle
         {
             id: viewToolbar
             width: parent.width
-            height: 34
+            height: UISettings.iconSizeMedium
             z: 10
             gradient: Gradient
             {
                 id: ffMenuGradient
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
             RowLayout
@@ -112,7 +113,7 @@ Rectangle
                     imgSource: "uniview.svg"
                     entryText: qsTr("Universe View")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -126,7 +127,7 @@ Rectangle
                     onRightClicked:
                     {
                         uniView.visible = false
-                        WinLoader.createWindow("qrc:///UniverseGridView.qml")
+                        WinLoader.createWindow("qrc:/UniverseGridView.qml")
                     }
                 }
                 MenuBarEntry
@@ -135,8 +136,7 @@ Rectangle
                     imgSource: "dmxview.svg"
                     entryText: qsTr("DMX View")
                     checkable: true
-                    //checked: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -150,7 +150,7 @@ Rectangle
                     onRightClicked:
                     {
                         dmxView.visible = false
-                        WinLoader.createWindow("qrc:///DMXView.qml")
+                        WinLoader.createWindow("qrc:/DMXView.qml")
                     }
                 }
                 MenuBarEntry
@@ -160,7 +160,7 @@ Rectangle
                     entryText: qsTr("2D View")
                     checkable: true
                     checked: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -174,7 +174,7 @@ Rectangle
                     onRightClicked:
                     {
                         twodView.visible = false
-                        WinLoader.createWindow("qrc:///2DView.qml")
+                        WinLoader.createWindow("qrc:/2DView.qml")
                     }
                 }
                 MenuBarEntry
@@ -183,7 +183,7 @@ Rectangle
                     imgSource: "3dview.svg"
                     entryText: qsTr("3D View")
                     checkable: true
-                    checkedColor: "yellow"
+                    checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     exclusiveGroup: menuBarGroup2
                     onCheckedChanged:
@@ -196,7 +196,7 @@ Rectangle
                     }
                     onRightClicked:
                     {
-                        WinLoader.createWindow("qrc:///3DView.qml")
+                        WinLoader.createWindow("qrc:/3DView.qml")
                     }
                 }
 
@@ -228,13 +228,13 @@ Rectangle
                 IconButton
                 {
                     height: viewToolbar.height - 2
-                    faSource: fontawesome.fa_search_minus
+                    faSource: FontAwesome.fa_search_minus
                     onClicked: previewLoader.item.setZoom(-0.5)
                 }
                 IconButton
                 {
                     height: viewToolbar.height - 2
-                    faSource: fontawesome.fa_search_plus
+                    faSource: FontAwesome.fa_search_plus
                     onClicked: previewLoader.item.setZoom(0.5)
                 }
             }

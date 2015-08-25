@@ -20,6 +20,7 @@
 import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -53,7 +54,7 @@ Rectangle
     {
         anchors.fill: parent
         radius: 3
-        color: "#0978FF"
+        color: UISettings.highlight
         visible: isSelected
     }
 

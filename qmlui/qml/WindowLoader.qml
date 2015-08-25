@@ -22,12 +22,14 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 import QtQuick.Window 2.0
 
+import "."
+
 ApplicationWindow
 {
     id: window
     width: 800
     height: 600
-    color: "#303030"
+    color: UISettings.bgMain
 
     property string viewSource
     property string loadedContext: ""

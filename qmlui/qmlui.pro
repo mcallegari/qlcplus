@@ -14,6 +14,7 @@ QML_IMPORT_PATH =
 
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/src/audio
+INCLUDEPATH     += virtualconsole
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
@@ -35,6 +36,14 @@ HEADERS += \
     mainview2d.h \
     mainviewdmx.h \
     sceneeditor.h
+    
+HEADERS += \
+    virtualconsole/virtualconsole.h \
+    virtualconsole/vcwidget.h \
+    virtualconsole/vcframe.h \
+    virtualconsole/vcsoloframe.h \
+    virtualconsole/vcbutton.h \
+    virtualconsole/vclabel.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -49,10 +58,16 @@ SOURCES += main.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
     sceneeditor.cpp
+    
+SOURCES += \
+    virtualconsole/virtualconsole.cpp \
+    virtualconsole/vcwidget.cpp \
+    virtualconsole/vcframe.cpp \
+    virtualconsole/vcsoloframe.cpp \
+    virtualconsole/vcbutton.cpp \
+    virtualconsole/vclabel.cpp
 
 RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
-
-OTHER_FILES += qml/RobotoText.qml
 
 # Installation
 target.path = $$INSTALLROOT/$$BINDIR

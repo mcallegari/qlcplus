@@ -313,6 +313,7 @@ void FixtureManager::slotFixtureGroupChanged(quint32 id)
     FixtureGroup* grp = m_doc->fixtureGroup(id);
     Q_ASSERT(grp != NULL);
     m_fixtures_tree->updateGroupItem(item, grp);
+    updateGroupMenu();
 }
 
 void FixtureManager::slotDocLoaded()
@@ -1282,12 +1283,14 @@ void FixtureManager::editFixtureProperties()
             if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
                 if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
-                    af.fixtureDef()->model() == KXMLFixtureGeneric &&
-                    fxi->channels() != af.channels())
+                    af.fixtureDef()->model() == KXMLFixtureGeneric)
                 {
-                    QLCFixtureDef* fixtureDef = fxi->genericDimmerDef(af.channels());
-                    QLCFixtureMode* fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
-                    fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+                    if (fxi->channels() != af.channels())
+                    {
+                        QLCFixtureDef* fixtureDef = fxi->genericDimmerDef(af.channels());
+                        QLCFixtureMode* fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
+                        fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+                    }
                 }
                 else
                 {

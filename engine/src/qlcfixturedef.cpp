@@ -155,26 +155,23 @@ void QLCFixtureDef::checkLoaded()
     if (m_isLoaded == true)
         return;
 
-    if (m_isLoaded == false)
+    if (manufacturer() == KXMLFixtureGeneric &&
+       (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
     {
-        if (manufacturer() == KXMLFixtureGeneric &&
-           (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
-        {
-            m_isLoaded = true;
-            return;
-        }
-        if (m_defFileAbsolutePath.isEmpty())
-        {
-            qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
-            return;
-        }
-        qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
-        bool error = loadXML(m_defFileAbsolutePath);
-        if (error == false)
-        {
-            m_isLoaded = true;
-            m_defFileAbsolutePath = QString();
-        }
+        m_isLoaded = true;
+        return;
+    }
+    if (m_defFileAbsolutePath.isEmpty())
+    {
+        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        return;
+    }
+    qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
+    bool error = loadXML(m_defFileAbsolutePath);
+    if (error == false)
+    {
+        m_isLoaded = true;
+        m_defFileAbsolutePath = QString();
     }
 }
 
@@ -272,7 +269,6 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 
 QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 {
-    checkLoaded();
     QListIterator <QLCFixtureMode*> it(m_modes);
     QLCFixtureMode* mode = NULL;
 
@@ -288,7 +284,6 @@ QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 
 QList <QLCFixtureMode*> QLCFixtureDef::modes()
 {
-    checkLoaded();
     return m_modes;
 }
 

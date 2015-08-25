@@ -759,46 +759,70 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             if (rgb.size() == 3)
             {
                 // RGB color mixing
-                FadeChannel fc;
-                fc.setFixture(doc(), grpHead.fxi);
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(rgb.at(0));
-                fc.setTarget(qRed(map[y][x]));
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                    fc.setChannel(rgb.at(0));
+                    fc.setTarget(qRed(map[y][x]));
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
 
-                fc.setChannel(rgb.at(1));
-                fc.setTarget(qGreen(map[y][x]));
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(rgb.at(2));
-                fc.setTarget(qBlue(map[y][x]));
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                    fc.setChannel(rgb.at(1));
+                    fc.setTarget(qGreen(map[y][x]));
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
+
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
+
+                    fc.setChannel(rgb.at(2));
+                    fc.setTarget(qBlue(map[y][x]));
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
             }
             else if (cmy.size() == 3)
             {
                 // CMY color mixing
                 QColor col(map[y][x]);
 
-                FadeChannel fc;
-                fc.setFixture(doc(), grpHead.fxi);
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(cmy.at(0));
-                fc.setTarget(col.cyan());
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                    fc.setChannel(cmy.at(0));
+                    fc.setTarget(col.cyan());
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
 
-                fc.setChannel(cmy.at(1));
-                fc.setTarget(col.magenta());
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
 
-                fc.setChannel(cmy.at(2));
-                fc.setTarget(col.yellow());
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
+                    fc.setChannel(cmy.at(1));
+                    fc.setTarget(col.magenta());
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
+
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc(), grpHead.fxi);
+
+                    fc.setChannel(cmy.at(2));
+                    fc.setTarget(col.yellow());
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
             }
 
             if (m_dimmerControl &&
@@ -858,9 +882,7 @@ void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
     if (fc.target() == 0)
         fc.setFadeTime(fadeOutSpeed());
     else
-    {
         fc.setFadeTime(fadeTime);
-    }
 }
 
 /*********************************************************************

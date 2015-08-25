@@ -52,7 +52,7 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     /* Set the class name "VCClock" as the object name as well */
     setObjectName(VCClock::staticMetaObject.className());
 
-    setType(VCWidget::LabelWidget);
+    setType(VCWidget::ClockWidget);
     setCaption("");
     resize(QSize(150, 50));
     QFont font = qApp->font();

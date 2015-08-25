@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -182,6 +183,6 @@ Rectangle
         z: 5
         color: "transparent"
         border.width: isSelected ? 2 : 1
-        border.color: isSelected ? "yellow" : "transparent"
+        border.color: isSelected ? UISettings.selection : "transparent"
     }
 }

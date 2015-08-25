@@ -138,6 +138,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
+
+    m_doc->masterTimer()->registerDMXSource(this, "XYPad");
 }
 
 VCXYPad::~VCXYPad()
@@ -479,12 +481,10 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate && isDisabled() == false)
     {
-        m_doc->masterTimer()->registerDMXSource(this, "XYPad");
         enableWidgetUI(true);
     }
     else
     {
-        m_doc->masterTimer()->unregisterDMXSource(this);
         enableWidgetUI(false);
     }
 

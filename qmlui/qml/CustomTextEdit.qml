@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -25,7 +26,7 @@ Rectangle
     width: 200
     height: 30
     radius: 3
-    color: "#333333"
+    color: UISettings.bgMedium
 
     property alias inputText: textEdit2.text
     property int fontSize: 17
@@ -35,7 +36,7 @@ Rectangle
     TextInput
     {
         id: textEdit2
-        color: "#ffffff"
+        color: UISettings.fgMain
         anchors.right: parent.right
         anchors.rightMargin: 4
         anchors.left: parent.left

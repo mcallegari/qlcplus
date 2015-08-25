@@ -510,7 +510,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
-        if (m_fixtureDef != NULL &&
+        if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
             m_fixtureDef->model() == KXMLFixtureGeneric)
                 delete m_fixtureDef;

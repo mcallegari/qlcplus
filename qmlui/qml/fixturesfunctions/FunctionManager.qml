@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -63,9 +64,8 @@ Rectangle
         z: 5
         gradient: Gradient
         {
-            id: ffMenuGradient
-            GradientStop { position: 0 ; color: "#222" }
-            GradientStop { position: 1 ; color: "#111" }
+            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
         RowLayout

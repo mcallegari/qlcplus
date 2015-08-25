@@ -22,13 +22,14 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
 import "CanvasDrawFunctions.js" as DrawFuncs
+import "."
 
 Rectangle
 {
     id: posToolRoot
     width: 200
     height: 340
-    color: "#333"
+    color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
 
@@ -50,8 +51,8 @@ Rectangle
         gradient:
             Gradient
             {
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
         RobotoText
@@ -83,7 +84,7 @@ Rectangle
         z: 2
 
         radius: 3
-        color: "#333"
+        color: rotMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
         border.color: "#666"
         border.width: 2
 
@@ -95,9 +96,9 @@ Rectangle
         }
         MouseArea
         {
+            id: rotMouseArea
             anchors.fill: parent
-            onPressed: rotateButton.color = "#555"
-            onReleased: rotateButton.color = "#333"
+
             onClicked:
             {
                 gCanvas.rotation += 90
