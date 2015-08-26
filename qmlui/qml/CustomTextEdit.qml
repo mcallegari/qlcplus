@@ -37,10 +37,8 @@ Rectangle
     {
         id: textEdit2
         color: UISettings.fgMain
-        anchors.right: parent.right
-        anchors.rightMargin: 4
-        anchors.left: parent.left
-        anchors.leftMargin: 4
+        anchors.fill: parent
+        anchors.margins: 4
         clip: false
         font.family: "RobotoCondensed"
         font.pixelSize: fontSize

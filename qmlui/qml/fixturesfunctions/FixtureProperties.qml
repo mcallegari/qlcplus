@@ -81,17 +81,20 @@ Rectangle
             }
         }
 
-        RowLayout
+        GridLayout
         {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 14
-            spacing: 4
+            x: 4
+            width: parent.width - 8
+            columns: 4
+            columnSpacing: 5
+            rowSpacing: 4
 
+            // row 1
             RobotoText
             {
                 id: fxNameLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
+                //anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Name")
                 fontSize: 14
             }
@@ -99,8 +102,8 @@ Rectangle
             CustomTextEdit
             {
                 id: fxNameTextEdit
-                height: 30
                 inputText: fxName
+                Layout.columnSpan: 3
                 Layout.fillWidth: true
                 onInputTextChanged:
                 {
@@ -108,19 +111,12 @@ Rectangle
                     fxProps.fxName = inputText
                 }
             }
-        }
 
-        RowLayout
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 14
-            spacing: 4
-
+            // row 2
             RobotoText
             {
                 id: fxUniverseLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Universe")
                 fontSize: 14
             }
@@ -128,22 +124,16 @@ Rectangle
             {
                 id: fxUniverseCombo
                 height: 30
+                Layout.columnSpan: 3
                 Layout.fillWidth: true
                 model: ioManager.universeNames
             }
-        }
 
-        RowLayout
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 14
-            spacing: 4
-
+            // row 3
             RobotoText
             {
                 id: fxAddressLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Address")
                 fontSize: 14
             }
@@ -151,17 +141,15 @@ Rectangle
             {
                 id: fxAddressSpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
-                height: 30
+                Layout.fillWidth: true
                 minimumValue: 1
                 maximumValue: 512
                 decimals: 0
-                Layout.fillWidth: true
             }
             RobotoText
             {
                 id: fxQuantityLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Quantity")
                 fontSize: 14
             }
@@ -169,32 +157,23 @@ Rectangle
             {
                 id: fxQuantitySpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
-                height: 30
+                Layout.fillWidth: true
                 minimumValue: 1
                 maximumValue: 512
                 decimals: 0
-                Layout.fillWidth: true
             }
-        }
 
-        RowLayout
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 14
-            spacing: 4
-
+            // row 4
             RobotoText
             {
                 id: fxModeChLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Channels")
                 fontSize: 14
             }
             CustomSpinBox
             {
                 id: fxModeChSpin
-                height: 30
                 Layout.fillWidth: true
                 minimumValue: 1
                 maximumValue: 512
@@ -205,7 +184,6 @@ Rectangle
             {
                 id: fxGapLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Gap")
                 fontSize: 14
             }
@@ -213,49 +191,54 @@ Rectangle
             CustomSpinBox
             {
                 id: fxGapSpin
-                height: 30
                 Layout.fillWidth: true
                 minimumValue: 0
                 maximumValue: 511
                 decimals: 0
             }
-        }
 
-        RowLayout
-        {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - 14
-            spacing: 4
-
+            // row 5
             RobotoText
             {
                 id: fxModeLabel
                 height: 30
-                anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Mode")
                 fontSize: 14
             }
 
-            CustomComboBox
+            Rectangle
             {
-                id: fxModesCombo
+                color: "transparent"
+                Layout.columnSpan: 3
                 height: 30
-                model: fixtureBrowser.modes(fxManufacturer, fxModel)
                 Layout.fillWidth: true
-                onCurrentIndexChanged:
-                {
-                    fxProps.fxMode = currentText
-                }
-            }
-            IconButton
-            {
-                id: fxModeInfo
-                width: 30
-                height: 30
-                imgSource: "qrc:/info.svg"
-                checkable: true
-                onToggled: {
 
+                RowLayout
+                {
+                    width: parent.width
+
+                    CustomComboBox
+                    {
+                        id: fxModesCombo
+                        height: 30
+                        Layout.fillWidth: true
+                        model: fixtureBrowser.modes(fxManufacturer, fxModel)
+                        onCurrentIndexChanged:
+                        {
+                            fxProps.fxMode = currentText
+                        }
+                    }
+                    IconButton
+                    {
+                        id: fxModeInfo
+                        width: 30
+                        height: 30
+                        imgSource: "qrc:/info.svg"
+                        checkable: true
+                        onToggled: {
+
+                        }
+                    }
                 }
             }
         }
