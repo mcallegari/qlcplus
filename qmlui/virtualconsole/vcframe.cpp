@@ -404,6 +404,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             {
                 QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
                 addWidgetToPageMap(frame);
+                m_vc->addWidgetToMap(frame);
             }
         }
         else if (tag.tagName() == KXMLQLCVCSoloFrame)
@@ -416,6 +417,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             {
                 QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
                 addWidgetToPageMap(soloframe);
+                m_vc->addWidgetToMap(soloframe);
             }
         }
         else if (tag.tagName() == KXMLQLCVCButton)
@@ -428,6 +430,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             {
                 QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
                 addWidgetToPageMap(button);
+                m_vc->addWidgetToMap(button);
             }
         }
         else if (tag.tagName() == KXMLQLCVCLabel)
@@ -440,6 +443,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             {
                 QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
                 addWidgetToPageMap(label);
+                m_vc->addWidgetToMap(label);
             }
         }
         else

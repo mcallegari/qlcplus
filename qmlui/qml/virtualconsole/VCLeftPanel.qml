@@ -32,7 +32,7 @@ Rectangle
 
     property bool isOpen: false
     property int collapseWidth: 50
-    property int expandedWidth: 400
+    property int expandedWidth: 350
     property string editorSource: ""
     property int iconSize: collapseWidth - 4
 
@@ -105,23 +105,35 @@ Rectangle
                 {
                     if (checked == true)
                         editorSource = "qrc:/WidgetsList.qml"
-                    animatePanel(checked);
+                    animatePanel(checked)
                 }
             }
 
             IconButton
             {
-                id: resizeModeButton
+                id: editModeButton
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/resize.svg"
+                imgSource: "qrc:/edit.svg"
                 checkable: true
-                checked: virtualConsole.resizeMode
-                tooltip: qsTr("Enable/Disable the widgets resize mode")
+                //checked: virtualConsole.resizeMode
+                tooltip: qsTr("Enable/Disable the widgets edit mode")
                 onToggled:
                 {
-                    virtualConsole.resizeMode = checked
+                    virtualConsole.editMode = checked
+                    if (checked == true)
+                        editorSource = "qrc:/VCWidgetProperties.qml"
+
+                    animatePanel(checked)
+                }
+
+                SequentialAnimation on color
+                {
+                    PropertyAnimation { to: "orange"; duration: 500 }
+                    PropertyAnimation { to: UISettings.highlight; duration: 500 }
+                    running: editModeButton.checked
+                    loops: Animation.Infinite
                 }
             }
             IconButton

@@ -31,14 +31,13 @@ VCWidgetItem
 
     gradient: Gradient
     {
-        GradientStop { id: lightCol; position: 0 ; color: buttonRoot.color }
+        GradientStop { position: 0 ; color: Qt.lighter(buttonRoot.color, 1.3) }
         GradientStop { position: 1 ; color: buttonRoot.color }
     }
 
     onButtonObjChanged:
     {
         setCommonProperties(buttonObj)
-        lightCol.color = Qt.lighter(buttonRoot.color, 1.2)
 
         if (buttonObj.actionType === VCButton.Flash)
             buttonIcon.source = "qrc:/flash.svg"
@@ -90,7 +89,7 @@ VCWidgetItem
             {
                 id: buttonIcon
                 visible: buttonObj ? (buttonObj.actionType != VCButton.Toggle) : false
-                x: parent.width - 22
+                x: parent.width - 23
                 y: 3
                 z: 1
                 width: 20
@@ -106,6 +105,9 @@ VCWidgetItem
         anchors.fill: parent
         onClicked:
         {
+            if (virtualConsole.editMode)
+                return;
+
             if (buttonObj.actionType === VCButton.Toggle)
                 buttonObj.isOn = !buttonObj.isOn
         }

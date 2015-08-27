@@ -29,10 +29,11 @@ Rectangle
     border.width: 2
 
     property color selectedColor
+    signal colorChanged(real r, real g, real b, real white, real amber, real uv)
 
     onSelectedColorChanged:
     {
-        fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0, 0, 0)
+        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
     }
 
     property var baseColors: [ 0xFF0000, 0xFF9900, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0x9900FF, 0xFF00FF ]

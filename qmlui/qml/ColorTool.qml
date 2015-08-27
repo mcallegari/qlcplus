@@ -33,6 +33,8 @@ Rectangle
 
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
 
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+
     Rectangle
     {
         id: colorToolBar
@@ -42,6 +44,7 @@ Rectangle
         gradient:
             Gradient
             {
+                id: cBarGradient
                 GradientStop { position: 0; color: UISettings.toolbarStartSub }
                 GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
@@ -66,7 +69,7 @@ Rectangle
                 checkable: true
                 checked: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -83,7 +86,7 @@ Rectangle
                 entryText: qsTr("Full")
                 checkable: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -99,7 +102,7 @@ Rectangle
                 entryText: qsTr("Filters")
                 checkable: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -129,5 +132,15 @@ Rectangle
         width: colorToolBox.width
         height: parent.height - colorToolBar.height
         source: colorToolQML
+
+        Connections
+        {
+             target: toolLoader.item
+             ignoreUnknownSignals: true
+             onColorChanged:
+             {
+                 colorToolBox.colorChanged(r, g, b, white, amber, uv)
+             }
+        }
     }
 }

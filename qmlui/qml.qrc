@@ -8,24 +8,27 @@
     <file alias="qmldir">qml/qmldir</file>
 
     <!-- Common components -->
-    <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
-    <file alias="RobotoText.qml">qml/RobotoText.qml</file>
-    <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
+    <file alias="ColorTool.qml">qml/ColorTool.qml</file>
+    <file alias="ColorToolBasic.qml">qml/ColorToolBasic.qml</file>
+    <file alias="ColorToolFull.qml">qml/ColorToolFull.qml</file>
     <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
-    <file alias="IconButton.qml">qml/IconButton.qml</file>
-    <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
-    <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
-    <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
+    <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
+    <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
+    <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
-    <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
-    <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
-    <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
+    <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
+    <file alias="IconButton.qml">qml/IconButton.qml</file>
+    <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
+    <file alias="MainView.qml">qml/MainView.qml</file>
+    <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
-    <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
+    <file alias="RobotoText.qml">qml/RobotoText.qml</file>
+    <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
+    <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
 
@@ -35,9 +38,6 @@
     <file alias="LeftPanel.qml">qml/fixturesfunctions/LeftPanel.qml</file>
     <file alias="BottomPanel.qml">qml/fixturesfunctions/BottomPanel.qml</file>
     <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
-    <file alias="ColorTool.qml">qml/fixturesfunctions/ColorTool.qml</file>
-    <file alias="ColorToolBasic.qml">qml/fixturesfunctions/ColorToolBasic.qml</file>
-    <file alias="ColorToolFull.qml">qml/fixturesfunctions/ColorToolFull.qml</file>
     <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
@@ -82,6 +82,7 @@
     <file alias="WidgetsList.qml">qml/virtualconsole/WidgetsList.qml</file>
     <file alias="WidgetDragItem.qml">qml/virtualconsole/WidgetDragItem.qml</file>
     <file alias="VCWidgetItem.qml">qml/virtualconsole/VCWidgetItem.qml</file>
+    <file alias="VCWidgetProperties.qml">qml/virtualconsole/VCWidgetProperties.qml</file>
     <file alias="VCFrameItem.qml">qml/virtualconsole/VCFrameItem.qml</file>
     <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>

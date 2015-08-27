@@ -39,3 +39,8 @@ bool PreviewContext::isEnabled()
     return m_enabled;
 }
 
+QQuickView *PreviewContext::view()
+{
+    return m_view;
+}
+

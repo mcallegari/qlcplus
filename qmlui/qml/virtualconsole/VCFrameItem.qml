@@ -171,7 +171,7 @@ VCWidgetItem
         id: dropArea
         anchors.fill: parent
         objectName: "frameDropArea" + frameObj.id
-        z: 2 // children must be above the VCWidget resize controls
+        z: 5 // children must be above the VCWidget resizeLayer
 
         onEntered: virtualConsole.setDropTarget(frameRoot, true)
         onExited: virtualConsole.setDropTarget(frameRoot, false)
