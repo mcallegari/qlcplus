@@ -57,7 +57,8 @@ const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
 const quint8 VCFrame::enableInputSourceId = 2;
 
-VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
+VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse)
+    : VCWidget(parent, doc)
     , m_hbox(NULL)
     , m_collapseButton(NULL)
     , m_enableButton(NULL)

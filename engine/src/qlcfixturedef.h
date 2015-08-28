@@ -122,7 +122,7 @@ public:
     /** Get the definition's author */
     QString author();
 
-private:
+    /** Check if the full definition has been loaded */
     void checkLoaded();
 
 protected:

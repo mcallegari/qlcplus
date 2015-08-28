@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -26,7 +27,7 @@ Rectangle
     y: 0
     width: collapseWidth
     height: 500
-    color: "#232323"
+    color: UISettings.bgStrong
     z: 0
 
     property bool isOpen: false
@@ -36,6 +37,7 @@ Rectangle
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
+    property int iconSize: collapseWidth - 4
 
     onUniverseIndexChanged:
     {
@@ -85,15 +87,14 @@ Rectangle
 
     Rectangle
     {
-        x: 3
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             spacing: 3
 
             IconButton
@@ -101,14 +102,14 @@ Rectangle
                 id: audioOutputButton
                 z: 2
                 visible: showAudioButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
                 tooltip: qsTr("Show the audio output sources")
                 onToggled:
                 {
-                    editorSource = "qrc:///AudioCardsList.qml"
+                    editorSource = "qrc:/AudioCardsList.qml"
                     animatePanel();
                 }
             }
@@ -118,14 +119,14 @@ Rectangle
                 id: uniOutputButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
                 tooltip: qsTr("Show the universe output sources")
                 onToggled:
                 {
-                    editorSource = "qrc:///PluginsList.qml"
+                    editorSource = "qrc:/PluginsList.qml"
                     animatePanel();
                 }
             }
@@ -143,7 +144,7 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateClose;
+        id: animateClose
         target: rightSidePanel
         properties: "width"
         to: collapseWidth
@@ -164,8 +165,8 @@ Rectangle
             Gradient
             {
                 GradientStop { position: 0; color: "#141414" }
-                GradientStop { position: 0.213; color: "#232323" }
-                GradientStop { position: 0.79; color: "#232323" }
+                GradientStop { position: 0.21; color: UISettings.bgStrong }
+                GradientStop { position: 0.79; color: UISettings.bgStrong }
                 GradientStop { position: 1; color: "#141414" }
             }
 
@@ -176,7 +177,7 @@ Rectangle
             z: 1
             x: parent.width - width
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: rightSidePanel
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth

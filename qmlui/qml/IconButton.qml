@@ -22,17 +22,19 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Controls.Private 1.0
 
+import "."
+
 Rectangle
 {
     id: baseIconButton
-    width: 38
-    height: 38
+    width: UISettings.iconSizeDefault
+    height: UISettings.iconSizeDefault
     visible: counter ? true : false
 
     property color bgColor: "#5F5F5F"
     property color hoverColor: "#B6B6B6"
     property color pressColor: "#054A9E"
-    property color checkedColor: "#0978FF"
+    property color checkedColor: UISettings.highlight
 
     property bool checkable: false
     property bool checked: false
@@ -41,7 +43,9 @@ Rectangle
     property ExclusiveGroup exclusiveGroup: null
 
     property string imgSource: ""
+    property int imgMargins: 4
     property string faSource: ""
+    property color faColor: "#222"
 
     property string tooltip: ""
 
@@ -80,7 +84,7 @@ Rectangle
         id: btnIcon
         visible: imgSource ? true : false
         anchors.fill: parent
-        anchors.margins: 4
+        anchors.margins: imgMargins
         source: imgSource
         sourceSize: Qt.size(width, height)
     }
@@ -90,7 +94,7 @@ Rectangle
         id: faIcon
         anchors.centerIn: parent
         visible: faSource ? true : false
-        color: "#222"
+        color: faColor
         font.family: "FontAwesome"
         font.pixelSize: parent.height - 4
         text: faSource

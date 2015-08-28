@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -114,7 +115,7 @@ Rectangle
             color: "#aaa"
             font.family: "FontAwesome"
             font.pixelSize: 55
-            text: fontawesome.fa_trash_o
+            text: FontAwesome.fa_trash_o
         }
 
         DropArea

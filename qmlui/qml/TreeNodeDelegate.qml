@@ -19,6 +19,8 @@
 
 import QtQuick 2.2
 
+import "."
+
 Rectangle
 {
     id: nodeContainer
@@ -47,7 +49,7 @@ Rectangle
         width: parent.width
         height: 35
         radius: 3
-        color: "#0978FF"
+        color: UISettings.highlight
         visible: isSelected
     }
 
@@ -68,7 +70,7 @@ Rectangle
         readOnly: true
         text: textLabel
         verticalAlignment: TextInput.AlignVCenter
-        color: "white"
+        color: UISettings.fgMain
         font.family: "RobotoCondensed"
         font.pointSize: 12
         echoMode: TextInput.Normal

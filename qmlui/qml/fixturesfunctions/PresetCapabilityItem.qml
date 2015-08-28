@@ -50,7 +50,12 @@ Rectangle
 
         //console.log("Capability res name: " + capability.resourceName)
         if (capability.resourceName)
-            pic.source = "file:/" + capability.resourceName
+        {
+            if (Qt.platform.os === "android")
+                pic.source = capability.resourceName
+            else
+                pic.source = "file:/" + capability.resourceName
+        }
         if (capability.resourceColor1 == "#000000" &&
             capability.resourceColor2 == "#000000" &&
             capability.resourceName == "")

@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+import "."
+
 Rectangle
 {
     id: leftSidePanel
@@ -27,7 +29,7 @@ Rectangle
     anchors.leftMargin: 0
     width: collapseWidth
     height: parent.height
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseWidth: 50
@@ -36,6 +38,7 @@ Rectangle
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
+    property int iconSize: collapseWidth - 4
 
     function animatePanel(checked)
     {
@@ -92,12 +95,12 @@ Rectangle
         x: parent.width - collapseWidth
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.leftMargin: 1
             spacing: 3
 
@@ -108,8 +111,8 @@ Rectangle
                 id: audioInputButton
                 z: 2
                 visible: showAudioButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
                 exclusiveGroup: ioInputGroup
@@ -127,8 +130,8 @@ Rectangle
                 id: uniInputButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
                 exclusiveGroup: ioInputGroup
@@ -146,8 +149,8 @@ Rectangle
                 id: uniProfilesButton
                 z: 2
                 visible: showPluginsButton
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: ""
                 checkable: true
                 exclusiveGroup: ioInputGroup
@@ -181,7 +184,7 @@ Rectangle
 
     PropertyAnimation
     {
-        id: animateClose;
+        id: animateClose
         target: leftSidePanel
         properties: "width"
         to: collapseWidth
@@ -201,8 +204,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 
@@ -213,7 +216,7 @@ Rectangle
             z: 1
             x: parent.width - width
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: leftSidePanel
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth

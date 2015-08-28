@@ -151,7 +151,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         else
             fxRect.setHeight(300);
 
-        qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
+        //qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
 
         if (fixture->panMsbChannel() != QLCChannel::invalid())
@@ -270,7 +270,7 @@ void MainView2D::updateFixture(Fixture *fixture)
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
-        qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
         if (mdIndex != QLCChannel::invalid())
             intValue = (qreal)fixture->channelValueAt(mdIndex) / 255;

@@ -20,11 +20,13 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
+import "."
 
 ComboBox
 {
-    implicitHeight: 24
+    implicitHeight: 30
     implicitWidth: 150
+
     currentIndex: 0
     style:
         ComboBoxStyle
@@ -34,7 +36,7 @@ ComboBox
             {
                 anchors.fill: parent
                 radius: 3
-                color: "#333333"
+                color: UISettings.bgMedium
                 border.width: 1
                 border.color: "#222"
 

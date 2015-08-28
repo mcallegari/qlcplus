@@ -20,12 +20,14 @@
 import QtQuick 2.3
 import com.qlcplus.classes 1.0
 
+import "."
+
 Rectangle
 {
     id: toolRoot
     width: 360
     height: 350
-    color: "#333"
+    color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
     clip: true
@@ -55,9 +57,8 @@ Rectangle
         clip: true
         gradient: Gradient
         {
-            id: ffMenuGradient
-            GradientStop { position: 0 ; color: "#222" }
-            GradientStop { position: 1 ; color: "#111" }
+            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
         ListView
@@ -73,7 +74,7 @@ Rectangle
                     id: delRoot
                     width: 150
                     height: presetToolBar.height
-                    color: "#333"
+                    color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
                     border.color: "#666"
 
@@ -96,10 +97,10 @@ Rectangle
                     }
                     MouseArea
                     {
+                        id: prMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onEntered: delRoot.color = "#555"
-                        onExited: delRoot.color = "#333"
+
                         onClicked:
                         {
                             selectedIndex = presetIdx

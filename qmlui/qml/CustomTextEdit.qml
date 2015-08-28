@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -25,25 +26,26 @@ Rectangle
     width: 200
     height: 30
     radius: 3
-    color: "#333333"
+    color: UISettings.bgMedium
 
     property alias inputText: textEdit2.text
-    property int fontSize: 17
+    property int fontSize: 16
+
+    signal textChanged(var text)
 
     border.color: "#222"
 
     TextInput
     {
         id: textEdit2
-        color: "#ffffff"
-        anchors.right: parent.right
-        anchors.rightMargin: 4
-        anchors.left: parent.left
-        anchors.leftMargin: 4
+        color: UISettings.fgMain
+        anchors.fill: parent
+        anchors.margins: 4
         clip: false
         font.family: "RobotoCondensed"
-        font.pixelSize: fontSize
+        font.pointSize: fontSize
         echoMode: TextInput.Normal
         anchors.verticalCenter: parent.verticalCenter
+        onTextChanged: customTextEditRect.textChanged(text)
     }
 }

@@ -19,17 +19,20 @@
 
 import QtQuick 2.0
 
+import "."
+
 Rectangle
 {
     id: rightSidePanel
     width: collapseWidth
     height: 500
-    color: "#232323"
+    color: UISettings.bgStrong
 
     property bool isOpen: false
     property int collapseWidth: 50
     property int expandedWidth: 450
     property string editorSource: ""
+    property int iconSize: collapseWidth - 4
 
     function createFunctionAndEditor(fType, fEditor)
     {
@@ -86,23 +89,22 @@ Rectangle
 
     Rectangle
     {
-        x: 3
         width: collapseWidth
         height: parent.height
-        color: "#00000000"
+        color: "transparent"
         z: 2
 
         Column
         {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
             spacing: 3
 
             IconButton
             {
                 id: funcEditor
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
@@ -116,8 +118,8 @@ Rectangle
             {
                 id: addFunction
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
@@ -137,8 +139,8 @@ Rectangle
                 id: sceneDump
                 objectName: "dumpButton"
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
                 visible: false
@@ -160,8 +162,8 @@ Rectangle
                 id: previewFunc
                 objectName: "previewButton"
                 z: 2
-                width: collapseWidth - 4
-                height: collapseWidth - 4
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 checkable: true
@@ -202,8 +204,8 @@ Rectangle
         gradient: Gradient
         {
             GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.213; color: "#232323" }
-            GradientStop { position: 0.79; color: "#232323" }
+            GradientStop { position: 0.21; color: UISettings.bgStrong }
+            GradientStop { position: 0.79; color: UISettings.bgStrong }
             GradientStop { position: 1; color: "#141414" }
         }
 
@@ -214,7 +216,7 @@ Rectangle
             z: 1
             x: parent.width - width
             hoverEnabled: true
-            cursorShape: Qt.OpenHandCursor
+            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: rightSidePanel
             drag.axis: Drag.XAxis
             drag.minimumX: collapseWidth

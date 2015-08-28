@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -27,9 +28,9 @@ Rectangle
     color: "transparent"
     clip: true
 
-    property string label
-    property color labelColor: "white"
-    property int fontSize: 16
+    property string label: ""
+    property color labelColor: UISettings.fgMain
+    property int fontSize: 16 //UISettings.textSizeDefault
     property bool fontBold: false
     property bool wrapText: false
     property int textAlign: Text.AlignLeft

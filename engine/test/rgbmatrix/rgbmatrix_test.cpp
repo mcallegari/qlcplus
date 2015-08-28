@@ -43,7 +43,7 @@ void RGBMatrix_Test::initTestCase()
     QDir fxiDir(INTERNAL_FIXTUREDIR);
     fxiDir.setFilter(QDir::Files);
     fxiDir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(fxiDir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(fxiDir) == true);
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
     QVERIFY(def != NULL);

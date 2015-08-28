@@ -21,6 +21,7 @@ import QtQuick 2.0
 import com.qlcplus.classes 1.0
 
 import "FunctionDrag.js" as FuncDragJS
+import "."
 
 Rectangle
 {
@@ -42,7 +43,7 @@ Rectangle
     {
         anchors.fill: parent
         radius: 3
-        color: "#0978FF"
+        color: UISettings.highlight
         visible: isSelected
     }
 
@@ -67,18 +68,16 @@ Rectangle
         id: funcMouseArea
         anchors.fill: parent
 
-        drag.target: FunctionDragItem
-        {
-            funcID: cRef ? cRef.id : -1
-            funcLabel: textLabel
-            funcIcon: funcEntry.iSrc
-        }
+        drag.target:
+            FunctionDragItem
+            {
+                funcID: cRef ? cRef.id : -1
+                funcLabel: textLabel
+                funcIcon: funcEntry.iSrc
+            }
         drag.threshold: 30
 
-        onPressed:
-        {
-            FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
-        }
+        onPressed: FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
 
         onPositionChanged:
             if(drag.active == true)

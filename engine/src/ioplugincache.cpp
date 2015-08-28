@@ -61,6 +61,11 @@ void IOPluginCache::load(const QDir& dir)
         /* Attempt to load a plugin from the path */
         QString fileName(it.next());
         QString path = dir.absoluteFilePath(fileName);
+#if defined Q_OS_ANDROID
+        if (fileName.toLower().contains("qt") || fileName.toLower().startsWith("libplugins") ||
+            fileName.toLower().contains("qlcplus"))
+                continue;
+#endif
         QPluginLoader loader(path, this);
         QLCIOPlugin* ptr = qobject_cast<QLCIOPlugin*> (loader.instance());
         if (ptr != NULL)

@@ -20,17 +20,20 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import "."
 
 Rectangle
 {
     id: colorToolBox
     width: 400
     height: 430
-    color: "#444"
-    border.color: "#222"
+    color: UISettings.bgMedium
+    border.color: "#666"
     border.width: 2
 
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
+
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
 
     Rectangle
     {
@@ -41,8 +44,9 @@ Rectangle
         gradient:
             Gradient
             {
-                GradientStop { position: 0 ; color: "#222" }
-                GradientStop { position: 1 ; color: "#111" }
+                id: cBarGradient
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
             }
 
         RowLayout
@@ -65,7 +69,7 @@ Rectangle
                 checkable: true
                 checked: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -82,7 +86,7 @@ Rectangle
                 entryText: qsTr("Full")
                 checkable: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -98,7 +102,7 @@ Rectangle
                 entryText: qsTr("Filters")
                 checkable: true
                 checkedColor: "green"
-                bgGradient: ffMenuGradient
+                bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
                 onCheckedChanged:
                 {
@@ -128,5 +132,15 @@ Rectangle
         width: colorToolBox.width
         height: parent.height - colorToolBar.height
         source: colorToolQML
+
+        Connections
+        {
+             target: toolLoader.item
+             ignoreUnknownSignals: true
+             onColorChanged:
+             {
+                 colorToolBox.colorChanged(r, g, b, white, amber, uv)
+             }
+        }
     }
 }

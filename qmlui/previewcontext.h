@@ -24,7 +24,6 @@
 #include <QQuickView>
 
 class Doc;
-class MainView2D;
 
 class PreviewContext : public QObject
 {
@@ -35,6 +34,8 @@ public:
     virtual void enableContext(bool enable);
 
     virtual bool isEnabled();
+
+    QQuickView *view();
 
 signals:
 
@@ -47,6 +48,8 @@ protected:
     /** Reference to the project workspace */
     Doc *m_doc;
 
+    /** Flag that holds the enable status of the view.
+     *  Enabled means visible on the screen */
     bool m_enabled;
 
     /** Map of QLC+ objects with ID and QML items */
