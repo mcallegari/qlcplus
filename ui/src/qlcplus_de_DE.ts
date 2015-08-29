@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>AboutBox</name>
     <message>
@@ -348,7 +348,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="277"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Komponenten</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
@@ -1673,7 +1673,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="collectioneditor.ui" line="93"/>
         <source>See what the Collection does when it is run</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammlungs-Vorschau</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="126"/>
@@ -4197,17 +4197,17 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="269"/>
         <source>Dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmersteuerung</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="266"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt den Dimmer-Kanal der Geräte auf 100%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Other Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Andere Steuerungen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="339"/>
@@ -4662,7 +4662,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="selectinputchannel.ui" line="32"/>
         <source>Allow unpatched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaube ungepatchte Universen</translation>
     </message>
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
@@ -6960,12 +6960,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzelrahmen-Eingenschaften</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Schieberegler im Abspielmodus mischen</translation>
     </message>
 </context>
 <context>
@@ -7089,7 +7089,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>ms precision</source>
-        <translation type="unfinished"></translation>
+        <translation>ms-Präzision</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="241"/>
@@ -7127,22 +7127,22 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="355"/>
         <source>Infinite</source>
-        <translation type="unfinished">Unendlich</translation>
+        <translation>Unendlich</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="413"/>
         <source>Keyboard combination to toggle the dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination um die &quot;Unendlich&quot;-Checkbox umzuschalten</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="423"/>
         <source>Set a key combination for this dial infinite checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Tastenkombination für die &quot;Unendlich&quot;-Checkbox festlegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="443"/>
         <source>Remove the dial&apos;s infinite button keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Tastenkombination für die &quot;Unendlich&quot;-Checkbox entfernen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
