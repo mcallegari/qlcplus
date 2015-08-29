@@ -459,6 +459,7 @@ bool QLCFTDI::write(const QByteArray& data)
     }
     else
     {
+        m_handle->waitForBytesWritten(10);
         return true;
     }
 }
