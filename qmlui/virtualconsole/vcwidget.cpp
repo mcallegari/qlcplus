@@ -38,6 +38,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_foregroundColor(QColor(Qt::black))
     , m_hasCustomForegroundColor(false)
     , m_page(0)
+    , m_intensity(1.0)
 {
     m_font = QFont("RobotoCondensed");
     m_font.setPointSize(10);
@@ -359,6 +360,27 @@ void VCWidget::setPage(int pNum)
 int VCWidget::page()
 {
     return m_page;
+}
+
+void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+{
+    Q_UNUSED(widget)
+    Q_UNUSED(fid);
+    Q_UNUSED(fIntensity);
+}
+
+/*********************************************************************
+ * Intensity
+ *********************************************************************/
+
+void VCWidget::adjustIntensity(qreal val)
+{
+    m_intensity = val;
+}
+
+qreal VCWidget::intensity()
+{
+    return m_intensity;
 }
 
 /*****************************************************************************

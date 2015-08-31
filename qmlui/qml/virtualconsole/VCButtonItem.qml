@@ -29,6 +29,15 @@ VCWidgetItem
     property bool isOn: buttonObj ? buttonObj.isOn : false
     radius: 4
 
+    onIsOnChanged:
+    {
+        if (isOn == false)
+        {
+            // activate the blink effect here
+            blink.start()
+        }
+    }
+
     gradient: Gradient
     {
         GradientStop { position: 0 ; color: Qt.lighter(buttonRoot.color, 1.3) }
@@ -56,11 +65,12 @@ VCWidgetItem
         height: parent.height - 2
         color: "transparent"
         border.width: (buttonRoot.width > 80) ? 3 : 2
-        border.color: isOn ? "green" : "#A0A0A0"
+        border.color: isOn ? "#00FF00" : "#A0A0A0"
         radius: 3
 
         Rectangle
         {
+            id: bodyBg
             x: 3
             y: 3
             width: parent.width - 6
@@ -69,6 +79,15 @@ VCWidgetItem
             border.width: 1
             color: "transparent"
             clip: true
+
+            ColorAnimation on color
+            {
+                id: blink
+                from: "black"
+                to: "transparent"
+                duration: 250
+                running: false
+            }
 
             Text
             {
@@ -109,17 +128,17 @@ VCWidgetItem
                 return;
 
             if (buttonObj.actionType === VCButton.Toggle)
-                buttonObj.isOn = !buttonObj.isOn
+                buttonObj.requestStateChange(!buttonObj.isOn)
         }
         onPressed:
         {
             if (buttonObj.actionType === VCButton.Flash)
-                buttonObj.isOn = true
+                buttonObj.requestStateChange(true)
         }
         onReleased:
         {
             if (buttonObj.actionType === VCButton.Flash)
-                buttonObj.isOn = false
+                buttonObj.requestStateChange(false)
         }
     }
 

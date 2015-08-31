@@ -61,9 +61,21 @@ public:
 
     virtual void render(QQuickView *view, QQuickItem *parent);
 
+    /** Method used to indicate if this Frame has a SoloFrame parent
+     *  at any lower level. This is used to determine if
+     *  children widget should be connected to handle the Solo Frame
+     *  feature */
+    void setHasSoloParent(bool hasSoloParent);
+
+    /** Returns if this Frame has a Solo Frame parent at any lower level */
+    bool hasSoloParent() const;
+
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
     VirtualConsole *m_vc;
+
+    /** Flag that holds if this frame has a Solo parent widget */
+    bool m_hasSoloParent;
 
     /*********************************************************************
      * Children
@@ -72,11 +84,15 @@ public:
     /** Returns if this frame has chidren widgets */
     bool hasChildren();
 
-    QList<VCWidget *>children();
+    QList<VCWidget *>children(bool recursive = false);
 
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
     void deleteChildren();
+
+protected:
+    void setupWidget(VCWidget *widget);
+    void deleteWidget(VCWidget *widget);
 
     /*********************************************************************
      * Header
@@ -143,9 +159,6 @@ public:
     Q_INVOKABLE void gotoPreviousPage();
     Q_INVOKABLE void gotoNextPage();
 
-    void addWidgetToPageMap(VCWidget *widget);
-    void removeWidgetFromPageMap(VCWidget *widget);
-
 signals:
     void multiPageModeChanged(bool multiPageMode);
     void currentPageChanged(int page);
@@ -163,6 +176,12 @@ protected:
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * Widget Function
+     *********************************************************************/
+protected slots:
+    virtual void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity = 1.0);
 
     /*********************************************************************
      * Load & Save
