@@ -96,7 +96,7 @@ void EFXFixture::setHead(GroupHead const & head)
 
     QList<Mode> modes;
 
-    if((fxi->panMsbChannel(head.head) != QLCChannel::invalid()) &&
+    if((fxi->panMsbChannel(head.head) != QLCChannel::invalid()) ||
             (fxi->tiltMsbChannel(head.head) != QLCChannel::invalid()))
         modes << PanTilt;
 
@@ -204,7 +204,7 @@ QStringList EFXFixture::modeList()
 
     QStringList modes;
 
-    if((fxi->panMsbChannel(head().head) != QLCChannel::invalid()) &&
+    if((fxi->panMsbChannel(head().head) != QLCChannel::invalid()) ||
             (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid()) )
         modes << KXMLQLCEFXFixtureModePanTilt;
 
