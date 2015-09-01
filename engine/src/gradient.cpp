@@ -62,7 +62,7 @@ void Gradient::initialize()
     if( m_rgb.isNull() == false )
         return;
 
-    m_rgb = QImage(252, 256, QImage::Format_RGB32);
+    m_rgb = QImage(256, 256, QImage::Format_RGB32);
     QPainter painter(&m_rgb);
 
     int x = 0;
