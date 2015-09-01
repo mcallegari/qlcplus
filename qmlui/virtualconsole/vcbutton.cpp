@@ -110,6 +110,7 @@ void VCButton::setFunction(quint32 fid)
         /* No function attachment */
         m_function = Function::invalidId();
     }
+    setDocModified();
 }
 
 quint32 VCButton::function() const

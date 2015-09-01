@@ -43,6 +43,7 @@
         <file alias="fixture.svg">fixture.svg</file>
         <file alias="flash.svg">flash.svg</file>
         <file alias="folder.svg">folder.svg</file>
+        <file alias="font.svg">font.svg</file>
         <file alias="forward.svg">forward.svg</file>
         <file alias="frame.svg">frame.svg</file>
         <file alias="functions.svg">functions.svg</file>

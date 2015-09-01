@@ -271,6 +271,7 @@ void VCFrame::setCollapsed(bool isCollapsed)
 
     m_isCollapsed = isCollapsed;
     emit collapsedChanged(isCollapsed);
+    setDocModified();
 }
 
 /*********************************************************************
