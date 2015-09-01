@@ -218,6 +218,8 @@ public:
      */
     void dumpOutput(const QByteArray& data);
 
+    void flushInput();
+
 protected slots:
     /** Slot called every time an input patch sends data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);

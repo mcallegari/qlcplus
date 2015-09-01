@@ -212,7 +212,7 @@ public:
     /**
      * Retrieve the list of references of the Universe in the input/output map
      */
-    QList<Universe *>universes() const;
+    QList<Universe*> universes() const;
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -304,6 +304,8 @@ private:
      *********************************************************************/
 
 public:
+    void flushInputs();
+
     /**
      * Patch the given universe to go through the given input plugin
      *

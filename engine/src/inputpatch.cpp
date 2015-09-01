@@ -201,7 +201,7 @@ QMap<QString, QVariant> InputPatch::getPluginParameters()
 
     return QMap<QString, QVariant>();
 }
- 
+
 void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 channel,
                                   uchar value, const QString& key)
 {
@@ -210,7 +210,27 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
     if (input == m_pluginLine)
     {
         if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
-            emit inputValueChanged(m_universe, channel, value, key);
+        {
+            QMutexLocker inputBufferLocker(&m_inputBufferMutex);
+            InputValue val(value, key);
+            if (m_inputBuffer.contains(channel))
+            {
+                InputValue const& curVal = m_inputBuffer.value(channel);
+                if (curVal.value != val.value)
+                {
+                    // Every ON/OFF changes must pass through
+                    if (curVal.value == 0 || val.value == 0)
+                    {
+                        emit inputValueChanged(m_universe, channel, curVal.value, curVal.key);
+                    }
+                    m_inputBuffer.insert(channel, val);
+                }
+            }
+            else
+            {
+                m_inputBuffer.insert(channel, val);
+            }
+        }
     }
 }
 
@@ -233,5 +253,18 @@ void InputPatch::setProfilePageControls()
                     m_pageSetCh = m_profile->channelNumber(ch);
             }
         }
+    }
+}
+
+void InputPatch::flush(quint32 universe)
+{
+    if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+    {
+        QMutexLocker inputBufferLocker(&m_inputBufferMutex);
+        for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin(); it != m_inputBuffer.end(); ++it)
+        {
+            emit inputValueChanged(m_universe, it.key(), it.value().value, it.value().key);
+        }
+        m_inputBuffer.clear();
     }
 }
