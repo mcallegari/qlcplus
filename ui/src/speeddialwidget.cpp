@@ -59,18 +59,21 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent)
     /* Create dials */
     m_fadeIn = new SpeedDial(this);
     m_fadeIn->setTitle(tr("Fade In"));
+    m_fadeIn->setVisibilityMask (m_fadeIn->defaultVisibilityMask ()  & ~(SpeedDial::Apply) );   //hide apply button
     layout()->addWidget(m_fadeIn);
     connect(m_fadeIn, SIGNAL(valueChanged(int)), this, SIGNAL(fadeInChanged(int)));
     connect(m_fadeIn, SIGNAL(tapped()), this, SIGNAL(fadeInTapped()));
 
     m_fadeOut = new SpeedDial(this);
     m_fadeOut->setTitle(tr("Fade Out"));
+    m_fadeOut->setVisibilityMask (m_fadeOut->defaultVisibilityMask ()  & ~(SpeedDial::Apply) );   //hide apply button
     layout()->addWidget(m_fadeOut);
     connect(m_fadeOut, SIGNAL(valueChanged(int)), this, SIGNAL(fadeOutChanged(int)));
     connect(m_fadeOut, SIGNAL(tapped()), this, SIGNAL(fadeOutTapped()));
 
     m_hold = new SpeedDial(this);
     m_hold->setTitle(tr("Hold"));
+    m_hold->setVisibilityMask (m_hold->defaultVisibilityMask ()  & ~(SpeedDial::Apply) );   //hide apply button
     layout()->addWidget(m_hold);
     connect(m_hold, SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(int)));
     connect(m_hold, SIGNAL(tapped()), this, SIGNAL(holdTapped()));
