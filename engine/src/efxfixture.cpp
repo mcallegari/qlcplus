@@ -89,6 +89,28 @@ EFXFixture::~EFXFixture()
 void EFXFixture::setHead(GroupHead const & head)
 {
     m_head = head;
+
+    Fixture* fxi = doc()->fixture(head.fxi);
+    if (fxi == NULL)
+        return;
+
+    QList<Mode> modes;
+
+    if((fxi->panMsbChannel(head.head) != QLCChannel::invalid()) &&
+            (fxi->tiltMsbChannel(head.head) != QLCChannel::invalid()))
+        modes << PanTilt;
+
+    if((fxi->masterIntensityChannel(head.head) != QLCChannel::invalid()))
+        modes << Dimmer;
+
+    if((fxi->rgbChannels (head.head).size () >= 3))
+        modes << RGB;
+
+    if (!modes.contains(m_mode))
+    {
+        if (modes.size() > 0)
+            m_mode = modes[0];
+    }
 }
 
 GroupHead const & EFXFixture::head() const
