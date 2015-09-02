@@ -37,6 +37,7 @@
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
+QImage EFXFixture::m_rgbGradient = QImage();
 
 EFXFixture::EFXFixture(const EFX* parent)
     : m_parent(parent)
@@ -56,6 +57,9 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_intensity(1.0)
 {
     Q_ASSERT(parent != NULL);
+
+    if(m_rgbGradient.isNull ())
+        m_rgbGradient = Gradient::getRGBGradient (256, 256);
 }
 
 void EFXFixture::copyFrom(const EFXFixture* ef)
@@ -530,7 +534,7 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
     if (rgbChannels.size () >= 3)
     {
-        QColor pixel = Gradient::getRGBColor (x, y);
+        QColor pixel = m_rgbGradient.pixel (x, y);
 
         setFadeChannel(rgbChannels[0], pixel.red ());
         setFadeChannel(rgbChannels[1], pixel.green ());
