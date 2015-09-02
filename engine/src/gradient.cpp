@@ -37,7 +37,7 @@ QColor Gradient::getRGBColor(const quint32 x, const quint32 y)
 {
     initialize();
 
-    return QColor(m_rgb.pixel(qMin(x, (quint32)255), qMin(y,(quint32)255)));
+    return QColor(m_rgb.pixel(qMin(x, (quint32)m_rgb.width ()-1), qMin(y,(quint32)m_rgb.height ()-1)));
 }
 
 void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
