@@ -49,6 +49,7 @@ class Doc;
 #define KXMLQLCVCCueList "CueList"
 #define KXMLQLCVCCueListFunction "Function" // Legacy
 #define KXMLQLCVCCueListChaser "Chaser"
+#define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
 #define KXMLQLCVCCueListKey "Key"
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
@@ -116,6 +117,12 @@ public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
 
+    /** Get the index of the item below the current item */
+    int getNextIndex();
+
+    /** Get the index of the item above the current item */
+    int getPrevIndex();
+
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
@@ -175,8 +182,21 @@ private:
     /** Stop associated */
     void stopChaser();
 
+public:
+    enum NextPrevBehavior
+    {
+        DefaultRunFirst = 0,
+        RunNext,
+        Select,
+        Nothing
+    };
+public:
+    void setNextPrevBehavior(unsigned int nextPrev);
+    unsigned int nextPrevBehavior() const;
+
 private:
     quint32 m_chaserID;
+    unsigned int m_nextPrevBehavior;
     QTreeWidget* m_tree;
     QToolButton* m_crossfadeButton;
     QToolButton* m_playbackButton;
