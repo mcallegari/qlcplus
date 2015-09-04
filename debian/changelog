@@ -19,6 +19,7 @@ qlcplus (4.9.2) stable; urgency=low
   * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
   * Plugins/MIDI: fixed Program Change handling on OSX and Windows
   * Plugins/ArtNet: it is now possible to enter an arbitrary output IP
+  * Plugins/OSC: it is now possible to enter an arbitrary output IP
   * Plugins/E1.31: added stream priority to configuration (thanks to Nathan Durnan)
   * RGB Scripts: added Plasma Colors script (thanks to Nathan Durnan)
   * Fixture Editor: Channel capability editing is now done in a single window

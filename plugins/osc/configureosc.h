@@ -43,7 +43,7 @@ public slots:
 
 private:
     void fillMappingTree();
-    QWidget *createIPWidget(QString ip);
+    void showIPAlert(QString ip);
 
 private:
     OSCPlugin* m_plugin;

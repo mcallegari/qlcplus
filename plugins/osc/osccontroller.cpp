@@ -167,10 +167,7 @@ void OSCController::setFeedbackIPAddress(quint32 universe, QString address)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    QString iFaceIP = m_ipAddr.toString();
-    QString newIP = iFaceIP.mid(0, iFaceIP.lastIndexOf(".") + 1);
-    newIP.append(address);
-    m_universeMap[universe].feedbackAddress = QHostAddress(newIP);
+    m_universeMap[universe].feedbackAddress = QHostAddress(address);
 }
 
 void OSCController::setFeedbackPort(quint32 universe, quint16 port)
@@ -186,10 +183,7 @@ void OSCController::setOutputIPAddress(quint32 universe, QString address)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    QString iFaceIP = m_ipAddr.toString();
-    QString newIP = iFaceIP.mid(0, iFaceIP.lastIndexOf(".") + 1);
-    newIP.append(address);
-    m_universeMap[universe].outputAddress = QHostAddress(newIP);
+    m_universeMap[universe].outputAddress = QHostAddress(address);
 }
 
 void OSCController::setOutputPort(quint32 universe, quint16 port)

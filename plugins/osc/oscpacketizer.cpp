@@ -59,7 +59,10 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
 {
     data.clear();
     if (path.isEmpty())
+    {
+        qDebug() << Q_FUNC_INFO << "Empty path, can't create packet";
         return;
+    }
 
     data.append(path);
     // add trailing zeros to reach a multiple of 4
@@ -74,11 +77,8 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
     if (zeroNumber > 0)
         data.append(QByteArray(zeroNumber, 0x00));
 
-    for (int i = 0; i < types.length(); i++)
+    for (int i = 0; i < types.length() && i < values.length(); i++)
     {
-        if (i >= values.length())
-            return;
-
         if (types.at(i) == 'f')
         {
             uchar val = (uchar)values.at(i);

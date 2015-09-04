@@ -18,10 +18,11 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QMessageBox>
 #include <QComboBox>
+#include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
-#include <QString>
 #include <QDebug>
 
 #include "configureosc.h"
@@ -111,9 +112,9 @@ void ConfigureOSC::fillMappingTree()
                 {
                     QWidget *IPwidget;
                     if (info->feedbackAddress == QHostAddress::Null)
-                        IPwidget = createIPWidget(baseIP);
+                        IPwidget = new QLineEdit(baseIP);
                     else
-                        IPwidget = createIPWidget(info->feedbackAddress.toString());
+                        IPwidget = new QLineEdit(info->feedbackAddress.toString());
                     m_uniMapTree->setItemWidget(item, KMapColumnOutputAddress, IPwidget);
                 }
 
@@ -141,9 +142,9 @@ void ConfigureOSC::fillMappingTree()
                 {
                     QWidget *IPwidget;
                     if (info->outputAddress == QHostAddress::Null)
-                        IPwidget = createIPWidget(baseIP);
+                        IPwidget = new QLineEdit(baseIP);
                     else
-                        IPwidget = createIPWidget(info->outputAddress.toString());
+                        IPwidget = new QLineEdit(info->outputAddress.toString());
                     m_uniMapTree->setItemWidget(item, KMapColumnOutputAddress, IPwidget);
                 }
 
@@ -162,24 +163,9 @@ void ConfigureOSC::fillMappingTree()
     m_uniMapTree->resizeColumnToContents(KMapColumnOutputPort);
 }
 
-QWidget *ConfigureOSC::createIPWidget(QString ip)
+void ConfigureOSC::showIPAlert(QString ip)
 {
-    QWidget* widget = new QWidget(this);
-    widget->setLayout(new QHBoxLayout);
-    widget->layout()->setContentsMargins(0, 0, 0, 0);
-
-    QString baseIP = ip.mid(0, ip.lastIndexOf(".") + 1);
-    QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
-
-    QLabel *label = new QLabel(baseIP, this);
-    QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(1, 255);
-    spin->setValue(finalIP.toInt());
-
-    widget->layout()->addWidget(label);
-    widget->layout()->addWidget(spin);
-
-    return widget;
+    QMessageBox::critical(this, tr("Invalid IP"), tr("%1 is not a valid IP.\nPlease fix it before confirming.").arg(ip));
 }
 
 /*****************************************************************************
@@ -213,26 +199,29 @@ void ConfigureOSC::accept()
                     m_plugin->unSetParameter(universe, line, cap, OSC_INPUTPORT);
             }
 
-            QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnOutputAddress);
-            if (ipWidget != NULL)
+            QLineEdit *ipEdit = qobject_cast<QLineEdit*>(m_uniMapTree->itemWidget(item, KMapColumnOutputAddress));
+            if (ipEdit != NULL)
             {
-                QSpinBox *spin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                if (spin != NULL)
+                QHostAddress newHostAddress(ipEdit->text());
+                if (newHostAddress.isNull() && ipEdit->text().size() > 0)
                 {
-                    if (type == OSCController::Input)
-                    {
-                        if (spin->value() != 1)
-                            m_plugin->setParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP, spin->value());
-                        else
-                            m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP);
-                    }
+                    showIPAlert(ipEdit->text());
+                    return;
+                }
+
+                if (type == OSCController::Input)
+                {
+                    if (!newHostAddress.isNull())
+                        m_plugin->setParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP, newHostAddress.toString());
                     else
-                    {
-                        if (spin->value() != 1)
-                            m_plugin->setParameter(universe, line, cap, OSC_OUTPUTIP, spin->value());
-                        else
-                            m_plugin->unSetParameter(universe, line, cap, OSC_OUTPUTIP);
-                    }
+                        m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, OSC_FEEDBACKIP);
+                }
+                else
+                {
+                    if (!newHostAddress.isNull())
+                        m_plugin->setParameter(universe, line, cap, OSC_OUTPUTIP, newHostAddress.toString());
+                    else
+                        m_plugin->unSetParameter(universe, line, cap, OSC_OUTPUTIP);
                 }
             }
 
