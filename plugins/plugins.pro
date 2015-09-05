@@ -18,10 +18,14 @@ TEMPLATE = subdirs
  SUBDIRS              += enttecwing
  SUBDIRS              += hid
  !macx:!win32:SUBDIRS += spi
+
+ greaterThan(QT_MAJOR_VERSION, 4) {
+    !macx:!win32:SUBDIRS += uart
+ }
+ #!macx:!win32:SUBDIRS += gpio
 }
 
 SUBDIRS              += artnet
 SUBDIRS              += E1.31
 SUBDIRS              += loopback
 SUBDIRS              += osc
-
