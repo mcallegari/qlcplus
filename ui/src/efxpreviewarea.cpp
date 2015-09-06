@@ -111,7 +111,7 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     QColor color;
 
     if (m_colorBg)
-        painter.drawImage(painter.window(), Gradient::getRGBGradient());
+        painter.drawImage(painter.window(), Gradient::getRGBGradient(256, 256));
 
     /* Crosshairs */
     color = palette().color(QPalette::Mid);
