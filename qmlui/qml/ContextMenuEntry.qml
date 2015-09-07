@@ -23,7 +23,7 @@ import QtQuick.Controls 1.2
 Rectangle
 {
     id: baseIconEntry
-    width: (parent.width > itemWidth) ? parent.width: itemWidth
+    width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     height: imgSize + 4
 
     property int imgSize: 40

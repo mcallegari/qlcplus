@@ -29,16 +29,24 @@ VCWidgetItem
     property bool isOn: buttonObj ? buttonObj.isOn : false
     radius: 4
 
+    onIsOnChanged:
+    {
+        if (isOn == false)
+        {
+            // activate the blink effect here
+            blink.start()
+        }
+    }
+
     gradient: Gradient
     {
-        GradientStop { id: lightCol; position: 0 ; color: buttonRoot.color }
+        GradientStop { position: 0 ; color: Qt.lighter(buttonRoot.color, 1.3) }
         GradientStop { position: 1 ; color: buttonRoot.color }
     }
 
     onButtonObjChanged:
     {
         setCommonProperties(buttonObj)
-        lightCol.color = Qt.lighter(buttonRoot.color, 1.2)
 
         if (buttonObj.actionType === VCButton.Flash)
             buttonIcon.source = "qrc:/flash.svg"
@@ -57,11 +65,12 @@ VCWidgetItem
         height: parent.height - 2
         color: "transparent"
         border.width: (buttonRoot.width > 80) ? 3 : 2
-        border.color: isOn ? "green" : "#A0A0A0"
+        border.color: isOn ? "#00FF00" : "#A0A0A0"
         radius: 3
 
         Rectangle
         {
+            id: bodyBg
             x: 3
             y: 3
             width: parent.width - 6
@@ -70,6 +79,15 @@ VCWidgetItem
             border.width: 1
             color: "transparent"
             clip: true
+
+            ColorAnimation on color
+            {
+                id: blink
+                from: "black"
+                to: "transparent"
+                duration: 250
+                running: false
+            }
 
             Text
             {
@@ -90,7 +108,7 @@ VCWidgetItem
             {
                 id: buttonIcon
                 visible: buttonObj ? (buttonObj.actionType != VCButton.Toggle) : false
-                x: parent.width - 22
+                x: parent.width - 23
                 y: 3
                 z: 1
                 width: 20
@@ -106,18 +124,21 @@ VCWidgetItem
         anchors.fill: parent
         onClicked:
         {
+            if (virtualConsole.editMode)
+                return;
+
             if (buttonObj.actionType === VCButton.Toggle)
-                buttonObj.isOn = !buttonObj.isOn
+                buttonObj.requestStateChange(!buttonObj.isOn)
         }
         onPressed:
         {
             if (buttonObj.actionType === VCButton.Flash)
-                buttonObj.isOn = true
+                buttonObj.requestStateChange(true)
         }
         onReleased:
         {
             if (buttonObj.actionType === VCButton.Flash)
-                buttonObj.isOn = false
+                buttonObj.requestStateChange(false)
         }
     }
 

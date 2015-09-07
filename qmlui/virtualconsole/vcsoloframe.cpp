@@ -58,6 +58,21 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     }
 }
 
+/*********************************************************************
+ * Widget Function
+ *********************************************************************/
+
+void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
+{
+    qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
+    foreach(VCWidget *child, children(true))
+    {
+        if (child != widget)
+            child->notifyFunctionStarting(widget, fid, intensity);
+    }
+    widget->notifyFunctionStarting(widget, fid, intensity);
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

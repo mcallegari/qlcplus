@@ -27,13 +27,14 @@ QtObject
     property color bgMain:   "#303030"
     property color bgStrong: "#232323"
     property color bgMedium: "#333"
-    property color bgLight:  "#555"
+    property color bgLight:  "#5F5F5F"
 
     property color fgMain:   "white"
     property color fgMedium: "#888"
 
     property color sectionHeader: "#555"
     property color highlight: "#0978FF"
+    property color hover: "#B6B6B6"
     property color selection: "yellow"
 
     property color toolbarStartMain: "#1a1a1a"

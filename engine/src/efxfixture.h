@@ -30,6 +30,7 @@ class EFXFixture;
 class Scene;
 class EFX;
 class Doc;
+class QImage;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -230,6 +231,7 @@ public:
 
 private:
     qreal m_intensity;
+    static QImage m_rgbGradient;
 
     void setFadeChannel(quint32 nChannel, uchar val);
 };

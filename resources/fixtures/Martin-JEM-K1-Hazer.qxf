@@ -11,7 +11,7 @@
  <Type>Smoke</Type>
  <Channel Name="Haze Density">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="19">Stanby</Capability>
+  <Capability Min="0" Max="19">Standby</Capability>
   <Capability Min="20" Max="219">Proportional output level control</Capability>
   <Capability Min="220" Max="255">Prime</Capability>
  </Channel>

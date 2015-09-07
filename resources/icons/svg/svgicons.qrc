@@ -33,6 +33,7 @@
         <file alias="dmxusbplugin.svg">dmxusbplugin.svg</file>
         <file alias="dmxview.svg">dmxview.svg</file>
         <file alias="e131plugin.svg">e131plugin.svg</file>
+        <file alias="edit.svg">edit.svg</file>
         <file alias="editor.svg">editor.svg</file>
         <file alias="efx.svg">efx.svg</file>
         <file alias="filenew.svg">filenew.svg</file>
@@ -42,6 +43,7 @@
         <file alias="fixture.svg">fixture.svg</file>
         <file alias="flash.svg">flash.svg</file>
         <file alias="folder.svg">folder.svg</file>
+        <file alias="font.svg">font.svg</file>
         <file alias="forward.svg">forward.svg</file>
         <file alias="frame.svg">frame.svg</file>
         <file alias="functions.svg">functions.svg</file>

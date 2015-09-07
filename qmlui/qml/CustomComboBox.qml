@@ -24,8 +24,9 @@ import "."
 
 ComboBox
 {
-    implicitHeight: 24
+    implicitHeight: 30
     implicitWidth: 150
+
     currentIndex: 0
     style:
         ComboBoxStyle

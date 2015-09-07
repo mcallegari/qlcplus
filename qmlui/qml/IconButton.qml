@@ -31,8 +31,8 @@ Rectangle
     height: UISettings.iconSizeDefault
     visible: counter ? true : false
 
-    property color bgColor: "#5F5F5F"
-    property color hoverColor: "#B6B6B6"
+    property color bgColor: UISettings.bgLight
+    property color hoverColor: UISettings.hover
     property color pressColor: "#054A9E"
     property color checkedColor: UISettings.highlight
 

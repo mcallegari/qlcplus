@@ -34,9 +34,11 @@ Rectangle
     property bool hasAmberChannel: false
     property bool hasUVChannel: false
 
+    signal colorChanged(real r, real g, real b, real white, real amber, real uv)
+
     onSelectedColorChanged:
     {
-        fixtureManager.setColorValue(selectedColor.r * 255, selectedColor.g * 255, selectedColor.b * 255, 0, 0, 0)
+        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
     }
 
     Canvas

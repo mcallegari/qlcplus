@@ -24,6 +24,8 @@
 #include <QObject>
 #include <QHash>
 
+#include "previewcontext.h"
+
 class QDomElement;
 class VCWidget;
 class VCFrame;
@@ -31,25 +33,19 @@ class Doc;
 
 #define KXMLQLCVirtualConsole "VirtualConsole"
 
-class VirtualConsole : public QObject
+class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool resizeMode READ resizeMode WRITE setResizeMode NOTIFY resizeModeChanged)
+    Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
+    Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
 
 public:
     VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    QQuickView *view();
-
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
-private:
-    /** Reference of the QML view */
-    QQuickView *m_view;
-
-    /** Reference of the project workspace */
-    Doc *m_doc;
+    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
 
     /*********************************************************************
      * Contents
@@ -70,13 +66,17 @@ public:
     //QList<VCWidget *> getChildren(VCWidget *obj);
 
     /** Get resize mode flag */
-    bool resizeMode() const;
+    bool editMode() const;
 
     /** Set the VC in resize mode */
-    void setResizeMode(bool resizeMode);
+    void setEditMode(bool editMode);
+
+    VCWidget *selectedWidget() const;
 
 signals:
-    void resizeModeChanged(bool resizeMode);
+    void editModeChanged(bool editMode);
+
+    void selectedWidgetChanged(VCWidget * selectedWidget);
 
 protected:
     /** Create a new widget ID */
@@ -93,6 +93,8 @@ protected:
     quint32 m_latestWidgetId;
 
     bool m_resizeMode;
+
+    VCWidget *m_selectedWidget;
 
     /*********************************************************************
      * Drag & Drop

@@ -46,13 +46,12 @@
 #define VC_PAGES_NUMBER 4
 
 VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
-    : QObject(parent)
-    , m_view(view)
-    , m_doc(doc)
+    : PreviewContext(view, doc, parent)
     , m_latestWidgetId(0)
     , m_resizeMode(false)
+    , m_selectedWidget(NULL)
 {
-    Q_ASSERT(m_doc != NULL);
+    Q_ASSERT(doc != NULL);
 
     for (int i = 0; i < VC_PAGES_NUMBER; i++)
     {
@@ -70,11 +69,6 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
 }
 
-QQuickView *VirtualConsole::view()
-{
-    return m_view;
-}
-
 void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)
 {
     if (parent == NULL)
@@ -90,6 +84,24 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     qDebug() << "[VC] renderPage. Parent:" << parent << "contents rect:" << pageRect;
 
     m_pages.at(page)->render(m_view, contentItem);
+}
+
+void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
+{
+    // disable any previously selected widget
+    foreach(QQuickItem *widget, m_itemsMap.values())
+        widget->setProperty("isSelected", false);
+    m_itemsMap.clear();
+
+    if (enable)
+    {
+        m_itemsMap[wID] = item;
+        m_selectedWidget = m_widgetsMap[wID];
+    }
+    else
+        m_selectedWidget = NULL;
+
+    emit selectedWidgetChanged(m_selectedWidget);
 }
 
 /*********************************************************************
@@ -165,18 +177,23 @@ VCWidget *VirtualConsole::widget(quint32 id)
     return m_widgetsMap.value(id, NULL);
 }
 
-bool VirtualConsole::resizeMode() const
+bool VirtualConsole::editMode() const
 {
     return m_resizeMode;
 }
 
-void VirtualConsole::setResizeMode(bool resizeMode)
+void VirtualConsole::setEditMode(bool resizeMode)
 {
     if (m_resizeMode == resizeMode)
         return;
 
     m_resizeMode = resizeMode;
-    emit resizeModeChanged(resizeMode);
+    emit editModeChanged(resizeMode);
+}
+
+VCWidget *VirtualConsole::selectedWidget() const
+{
+    return m_selectedWidget;
 }
 
 /*********************************************************************
