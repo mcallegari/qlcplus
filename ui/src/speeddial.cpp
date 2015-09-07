@@ -118,19 +118,31 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
     topHBox->addItem(pmVBox1);
 
+    //Add top mult / div buttons
+    QHBoxLayout* mdHBoxLayout = new QHBoxLayout();
+    pmVBox2->addLayout (mdHBoxLayout);
+
     m_mult = new QToolButton(this);
     m_mult->setIconSize(QSize(32, 32));
     m_mult->setIcon(QIcon(":/up.png"));
-    pmVBox2->addWidget(m_mult, Qt::AlignVCenter | Qt::AlignLeft);
+    mdHBoxLayout->addWidget(m_mult, Qt::AlignCenter);
     connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
 
     m_div = new QToolButton(this);
     m_div->setIconSize(QSize(32, 32));
     m_div->setIcon(QIcon(":/down.png"));
-    pmVBox2->addWidget(m_div, Qt::AlignVCenter | Qt::AlignLeft);
+    mdHBoxLayout->addWidget(m_div, Qt::AlignCenter);
     connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
+
+    m_mulDivFactor = new QSpinBox(this);
+    m_mulDivFactor->setRange(2, 100);
+    m_mulDivFactor->setValue (2);
+    m_mulDivFactor->setSuffix("x");
+    m_mulDivFactor->setButtonSymbols(QSpinBox::NoButtons);
+    pmVBox2->addWidget(m_mulDivFactor, Qt::AlignCenter);
+
     topHBox->addItem(pmVBox2);
 
     m_dial = new QDial(this);
@@ -383,12 +395,12 @@ void SpeedDial::slotMultDiv()
 
     if (m_div->isDown() == true)
     {
-        const int ms = spinValues () / 2;
+        const int ms = spinValues () / m_mulDivFactor->value ();
         setSpinValues (ms);
     }
     else if (m_mult->isDown() == true)
     {
-        const int ms = spinValues () * 2;
+        const int ms = spinValues () * m_mulDivFactor->value ();
         setSpinValues (ms);
     }
 }
@@ -639,11 +651,13 @@ void SpeedDial::setVisibilityMask(ushort mask)
     {
         m_mult->show ();
         m_div->show ();
+        m_mulDivFactor->show ();
     }
     else
     {
         m_mult->hide ();
         m_div->hide ();
+        m_mulDivFactor->hide ();
     }
 
     if (mask & Apply) m_apply->show();

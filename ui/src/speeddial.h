@@ -140,6 +140,7 @@ private:
     QToolButton* m_minus;
     QToolButton* m_mult;
     QToolButton* m_div;
+    QSpinBox* m_mulDivFactor;
     FocusSpinBox* m_hrs;
     FocusSpinBox* m_min;
     FocusSpinBox* m_sec;
