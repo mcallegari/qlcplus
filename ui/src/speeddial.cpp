@@ -46,7 +46,7 @@
 #define TIMER_REPEAT 10
 #define TAP_STOP_TIMEOUT 30000
 
-#define DEFAULT_VISIBILITY_MASK 0x03FF
+#define DEFAULT_VISIBILITY_MASK 0xFF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -120,14 +120,14 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     m_mult = new QToolButton(this);
     m_mult->setIconSize(QSize(32, 32));
-    m_mult->setIcon(QIcon(":/mult.png"));
+    m_mult->setIcon(QIcon(":/up.png"));
     pmVBox2->addWidget(m_mult, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
 
     m_div = new QToolButton(this);
     m_div->setIconSize(QSize(32, 32));
-    m_div->setIcon(QIcon(":/div.png"));
+    m_div->setIcon(QIcon(":/down.png"));
     pmVBox2->addWidget(m_div, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
@@ -204,6 +204,9 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     m_timer->setInterval(TIMER_HOLD);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotPlusMinusTimeout()));
+
+    //Hide elements according to current visibility mask
+    setVisibilityMask(m_visibilityMask);
 }
 
 SpeedDial::~SpeedDial()
