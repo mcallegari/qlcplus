@@ -118,21 +118,19 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
     topHBox->addItem(pmVBox1);
 
-    //Add top mult / div buttons
-    QHBoxLayout* mdHBoxLayout = new QHBoxLayout();
-    pmVBox2->addLayout (mdHBoxLayout);
-
     m_mult = new QToolButton(this);
     m_mult->setIconSize(QSize(32, 32));
     m_mult->setIcon(QIcon(":/up.png"));
-    mdHBoxLayout->addWidget(m_mult, Qt::AlignCenter);
+    pmVBox2->addWidget(m_mult);
+    pmVBox2->setAlignment (m_mult, Qt::AlignCenter);
     connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
 
     m_div = new QToolButton(this);
     m_div->setIconSize(QSize(32, 32));
     m_div->setIcon(QIcon(":/down.png"));
-    mdHBoxLayout->addWidget(m_div, Qt::AlignCenter);
+    pmVBox2->addWidget(m_div);
+    pmVBox2->setAlignment (m_div, Qt::AlignCenter);
     connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
     connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
 
@@ -141,7 +139,8 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_mulDivFactor->setValue (2);
     m_mulDivFactor->setSuffix("x");
     m_mulDivFactor->setButtonSymbols(QSpinBox::NoButtons);
-    pmVBox2->addWidget(m_mulDivFactor, Qt::AlignCenter);
+    pmVBox2->addWidget(m_mulDivFactor);
+    pmVBox2->setAlignment (m_mulDivFactor, Qt::AlignCenter);
 
     topHBox->addItem(pmVBox2);
 
