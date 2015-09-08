@@ -154,6 +154,7 @@ private:
     int m_previousDialValue;
     bool m_preventSignals;
     int m_value;
+    int m_originalValue;
 
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;

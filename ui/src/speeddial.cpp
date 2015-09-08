@@ -89,6 +89,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_previousDialValue(0)
     , m_preventSignals(false)
     , m_value(0)
+    , m_originalValue(0)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
     , m_tapTick(false)
@@ -392,12 +393,10 @@ void SpeedDial::slotPlusMinusTimeout()
 
 void SpeedDial::slotMultiplierDivisor()
 {
-    Q_ASSERT(m_focus != NULL);
+    int ms;
 
     if (m_div->isDown() == true)
     {
-        const int ms = spinValues() / 2;
-        setSpinValues(ms);
         if(m_currentFactor == 1)
             m_currentFactor = -2;
         else if (m_currentFactor > 0)
@@ -407,19 +406,25 @@ void SpeedDial::slotMultiplierDivisor()
     }
     else if (m_mult->isDown() == true)
     {
-        const int ms = spinValues() * 2;
-        setSpinValues(ms);
         if (m_currentFactor == -2)
             m_currentFactor = 1;
         else if (m_currentFactor > 0)
             m_currentFactor *= 2;
         else
             m_currentFactor /= 2;
+
     }
     if (m_currentFactor > 0)
+    {
+        ms = m_originalValue * m_currentFactor;
         m_mulDivFactor->setText(QString("%1x").arg(m_currentFactor));
+    }
     else
+    {
+        ms = m_originalValue / qAbs(m_currentFactor);
         m_mulDivFactor->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
+    }
+    setSpinValues(ms);
 }
 
 void SpeedDial::slotDialChanged(int value)
@@ -466,6 +471,8 @@ void SpeedDial::slotDialChanged(int value)
         m_value = newValue;
         m_value = CLAMP(m_value, 0, INT_MAX);
         m_focus->setValue(m_value);
+        if (m_currentFactor == 1)
+            m_originalValue = m_value;
     }
 
     // stop tap button blinking if it was
