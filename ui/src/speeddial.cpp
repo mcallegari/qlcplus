@@ -47,7 +47,7 @@
 #define TIMER_REPEAT     10
 #define TAP_STOP_TIMEOUT 30000
 
-#define DEFAULT_VISIBILITY_MASK 0x03FF
+#define DEFAULT_VISIBILITY_MASK 0x00FF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
