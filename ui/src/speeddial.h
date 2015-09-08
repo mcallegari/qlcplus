@@ -78,7 +78,9 @@ public:
         Minutes      = 1 << 4,
         Seconds      = 1 << 5,
         Milliseconds = 1 << 6,
-        Infinite     = 1 << 7
+        Infinite     = 1 << 7,
+        MultDiv     = 1 << 8,
+        Apply     = 1 << 9,
     };
 
     SpeedDial(QWidget* parent);
@@ -119,6 +121,7 @@ private:
 private slots:
     void slotPlusMinus();
     void slotPlusMinusTimeout();
+    void slotMultDiv();
     void slotDialChanged(int value);
     void slotHoursChanged();
     void slotMinutesChanged();
@@ -127,6 +130,7 @@ private slots:
     void slotInfiniteChecked(bool state);
     void slotSpinFocusGained();
     void slotTapClicked();
+    void slotApplyClicked();
     void slotTapTimeout();
 
 private:
@@ -134,12 +138,16 @@ private:
     QDial* m_dial;
     QToolButton* m_plus;
     QToolButton* m_minus;
+    QToolButton* m_mult;
+    QToolButton* m_div;
+    QSpinBox* m_mulDivFactor;
     FocusSpinBox* m_hrs;
     FocusSpinBox* m_min;
     FocusSpinBox* m_sec;
     FocusSpinBox* m_ms;
     QCheckBox* m_infiniteCheck;
     QPushButton* m_tap;
+    QPushButton* m_apply;
     FocusSpinBox* m_focus;
 
     int m_previousDialValue;

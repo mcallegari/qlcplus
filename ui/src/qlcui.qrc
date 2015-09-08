@@ -1,7 +1,7 @@
 ﻿<RCC>
-    <qresource>
+    <qresource prefix="/">
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
-	<file alias="animation.png">../../resources/icons/png/animation.png</file>
+        <file alias="animation.png">../../resources/icons/png/animation.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
         <file alias="audio.png">../../resources/icons/png/audio.png</file>
         <file alias="audioinput.png">../../resources/icons/png/audioinput.png</file>
@@ -122,7 +122,7 @@
         <file alias="uncheck.png">../../resources/icons/png/uncheck.png</file>
         <file alias="undo.png">../../resources/icons/png/undo.png</file>
         <file alias="ungroup.png">../../resources/icons/png/ungroup.png</file>
-	<file alias="unlock.png">../../resources/icons/png/unlock.png</file>
+        <file alias="unlock.png">../../resources/icons/png/unlock.png</file>
         <file alias="up.png">../../resources/icons/png/up.png</file>
         <file alias="video.png">../../resources/icons/png/video.png</file>
         <file alias="virtualconsole.png">../../resources/icons/png/virtualconsole.png</file>

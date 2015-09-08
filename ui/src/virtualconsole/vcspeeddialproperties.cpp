@@ -99,8 +99,10 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
 
     ushort dialMask = m_dial->visibilityMask();
     if (dialMask & SpeedDial::PlusMinus) m_pmCheck->setChecked(true);
+    if (dialMask & SpeedDial::MultDiv) m_mdCheck->setChecked(true);
     if (dialMask & SpeedDial::Dial) m_dialCheck->setChecked(true);
     if (dialMask & SpeedDial::Tap) m_tapCheck->setChecked(true);
+    if (dialMask & SpeedDial::Apply) m_applyCheck->setChecked(true);
     if (dialMask & SpeedDial::Hours) m_hoursCheck->setChecked(true);
     if (dialMask & SpeedDial::Minutes) m_minCheck->setChecked(true);
     if (dialMask & SpeedDial::Seconds) m_secCheck->setChecked(true);
@@ -142,8 +144,10 @@ void VCSpeedDialProperties::accept()
 
     ushort dialMask = 0;
     if (m_pmCheck->isChecked()) dialMask |= SpeedDial::PlusMinus;
+    if (m_mdCheck->isChecked()) dialMask |= SpeedDial::MultDiv;
     if (m_dialCheck->isChecked()) dialMask |= SpeedDial::Dial;
     if (m_tapCheck->isChecked()) dialMask |= SpeedDial::Tap;
+    if (m_applyCheck->isChecked()) dialMask |= SpeedDial::Apply;
     if (m_hoursCheck->isChecked()) dialMask |= SpeedDial::Hours;
     if (m_minCheck->isChecked()) dialMask |= SpeedDial::Minutes;
     if (m_secCheck->isChecked()) dialMask |= SpeedDial::Seconds;

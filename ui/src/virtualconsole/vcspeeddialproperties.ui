@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>455</height>
+    <width>531</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Functions">
       <attribute name="title">
@@ -218,12 +218,10 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="m_absoluteMinSpin">
-           </widget>
+           <widget class="QSpinBox" name="m_absoluteMinSpin"/>
           </item>
           <item row="0" column="2">
-           <widget class="QSpinBox" name="m_absoluteMaxSpin">
-           </widget>
+           <widget class="QSpinBox" name="m_absoluteMaxSpin"/>
           </item>
           <item row="0" column="3">
            <widget class="QCheckBox" name="m_absolutePrecisionCb">
@@ -482,79 +480,89 @@
       <attribute name="title">
        <string>Appearance</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QCheckBox" name="m_pmCheck">
-           <property name="text">
-            <string>Show plus and minus buttons</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_dialCheck">
-           <property name="text">
-            <string>Show the central dial</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_tapCheck">
-           <property name="text">
-            <string>Show the tap button</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_hoursCheck">
-           <property name="text">
-            <string>Show the hours field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_minCheck">
-           <property name="text">
-            <string>Show the minutes field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_secCheck">
-           <property name="text">
-            <string>Show the seconds field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_msCheck">
-           <property name="text">
-            <string>Show the milliseconds field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_infiniteCheck">
-           <property name="text">
-            <string>Show the infinite option</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="m_pmCheck">
+         <property name="text">
+          <string>Show plus and minus buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_mdCheck">
+         <property name="text">
+          <string>Show mult and div buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_dialCheck">
+         <property name="text">
+          <string>Show the central dial</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_tapCheck">
+         <property name="text">
+          <string>Show the tap button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_applyCheck">
+         <property name="text">
+          <string>Show the apply button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_hoursCheck">
+         <property name="text">
+          <string>Show the hours field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_minCheck">
+         <property name="text">
+          <string>Show the minutes field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_secCheck">
+         <property name="text">
+          <string>Show the seconds field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_msCheck">
+         <property name="text">
+          <string>Show the milliseconds field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_infiniteCheck">
+         <property name="text">
+          <string>Show the infinite option</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>256</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
