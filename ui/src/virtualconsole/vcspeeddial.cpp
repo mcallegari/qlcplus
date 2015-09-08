@@ -459,8 +459,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialTime)
         {
-            const int val =tag.text ().toUInt (); Q_UNUSED(val);
-            m_dial->setValue (tag.text ().toUInt ());
+            m_dial->setValue(tag.text().toUInt());
         }
         else
         {
@@ -512,7 +511,7 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Save time */
     QDomElement time = doc->createElement(KXMLQLCVCSpeedDialTime);
     root.appendChild(time);
-    QDomText text = doc->createTextNode(QString::number (m_dial->value ()));
+    QDomText text = doc->createTextNode(QString::number(m_dial->value()));
     time.appendChild(text);
 
     /* Key sequence */

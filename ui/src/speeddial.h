@@ -27,6 +27,7 @@ class QPushButton;
 class QToolButton;
 class QFocusEvent;
 class QCheckBox;
+class QLabel;
 class QTimer;
 class QDial;
 class QTime;
@@ -79,8 +80,8 @@ public:
         Seconds      = 1 << 5,
         Milliseconds = 1 << 6,
         Infinite     = 1 << 7,
-        MultDiv     = 1 << 8,
-        Apply     = 1 << 9,
+        MultDiv      = 1 << 8,
+        Apply        = 1 << 9,
     };
 
     SpeedDial(QWidget* parent);
@@ -121,7 +122,7 @@ private:
 private slots:
     void slotPlusMinus();
     void slotPlusMinusTimeout();
-    void slotMultDiv();
+    void slotMultiplierDivisor();
     void slotDialChanged(int value);
     void slotHoursChanged();
     void slotMinutesChanged();
@@ -140,7 +141,7 @@ private:
     QToolButton* m_minus;
     QToolButton* m_mult;
     QToolButton* m_div;
-    QSpinBox* m_mulDivFactor;
+    QLabel* m_mulDivFactor;
     FocusSpinBox* m_hrs;
     FocusSpinBox* m_min;
     FocusSpinBox* m_sec;
@@ -157,6 +158,8 @@ private:
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
     bool m_tapTick;
+
+    int m_currentFactor;
 
     /*************************************************************************
      * Elements visibility

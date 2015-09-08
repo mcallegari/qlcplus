@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>531</width>
-    <height>646</height>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Functions">
       <attribute name="title">
@@ -81,7 +81,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Fade In *</string>
+           <string>Fade In factor</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Fade In Time to the function.</string>
@@ -89,7 +89,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Fade Out *</string>
+           <string>Fade Out factor</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Fade Out Time to the function.</string>
@@ -97,7 +97,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Duration * (+tap)</string>
+           <string>Duration factor (+tap)</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Duration to the function.</string>
@@ -165,6 +165,12 @@
           <string>Absolute Value</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="1" column="0">
            <widget class="QLabel" name="m_absoluteInputUniverseLabel">
             <property name="text">
@@ -239,12 +245,24 @@
           <string>Tap</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox">
             <property name="title">
              <string>External Input</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
+             <property name="topMargin">
+              <number>4</number>
+             </property>
+             <property name="bottomMargin">
+              <number>4</number>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="m_tapInputUniverseLabel">
                <property name="text">
@@ -291,6 +309,12 @@
              <string>Key combination</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
+             <property name="topMargin">
+              <number>4</number>
+             </property>
+             <property name="bottomMargin">
+              <number>4</number>
+             </property>
              <item row="0" column="0" colspan="2">
               <widget class="QLineEdit" name="m_keyEdit">
                <property name="toolTip">
@@ -353,12 +377,24 @@
           <string>Infinite</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox_6">
             <property name="title">
              <string>External Input</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
+             <property name="topMargin">
+              <number>4</number>
+             </property>
+             <property name="bottomMargin">
+              <number>4</number>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="m_infiniteInputUniverseLabel">
                <property name="text">
@@ -405,6 +441,12 @@
              <string>Key combination</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_9">
+             <property name="topMargin">
+              <number>4</number>
+             </property>
+             <property name="bottomMargin">
+              <number>4</number>
+             </property>
              <item row="0" column="0" colspan="2">
               <widget class="QLineEdit" name="m_infiniteKeyEdit">
                <property name="toolTip">
@@ -491,7 +533,7 @@
        <item>
         <widget class="QCheckBox" name="m_mdCheck">
          <property name="text">
-          <string>Show mult and div buttons</string>
+          <string>Show multiplier and divisor buttons</string>
          </property>
         </widget>
        </item>

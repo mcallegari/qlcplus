@@ -23,6 +23,7 @@
 #include <QPushButton>
 #include <QToolButton>
 #include <QCheckBox>
+#include <QLabel>
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
@@ -42,11 +43,11 @@
 
 #define MS_MAX_DIPLAY    99
 
-#define TIMER_HOLD   250
-#define TIMER_REPEAT 10
+#define TIMER_HOLD       250
+#define TIMER_REPEAT     10
 #define TAP_STOP_TIMEOUT 30000
 
-#define DEFAULT_VISIBILITY_MASK 0xFF
+#define DEFAULT_VISIBILITY_MASK 0x03FF
 
 const QString tapDefaultSS = "QPushButton { background-color: #DDDDDD; border: 2px solid #6A6A6A; border-radius: 5px; }"
                              "QPushButton:pressed { background-color: #AAAAAA; }"
@@ -91,6 +92,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
     , m_tapTick(false)
+    , m_currentFactor(1)
     , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
     new QVBoxLayout(this);
@@ -122,25 +124,25 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_mult->setIconSize(QSize(32, 32));
     m_mult->setIcon(QIcon(":/up.png"));
     pmVBox2->addWidget(m_mult);
-    pmVBox2->setAlignment (m_mult, Qt::AlignCenter);
-    connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
-    connect(m_mult, SIGNAL(released()), this, SLOT(slotMultDiv()));
+    pmVBox2->setAlignment(m_mult, Qt::AlignCenter);
+    connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultiplierDivisor()));
+    connect(m_mult, SIGNAL(released()), this, SLOT(slotMultiplierDivisor()));
+
+    m_mulDivFactor = new QLabel(this);
+    m_mulDivFactor->setText("1x");
+    m_mulDivFactor->setFrameStyle(QFrame::Box);
+    m_mulDivFactor->setFixedWidth(42);
+    m_mulDivFactor->setAlignment(Qt::AlignCenter);
+    pmVBox2->addWidget(m_mulDivFactor);
+    pmVBox2->setAlignment(m_mulDivFactor, Qt::AlignCenter);
 
     m_div = new QToolButton(this);
     m_div->setIconSize(QSize(32, 32));
     m_div->setIcon(QIcon(":/down.png"));
     pmVBox2->addWidget(m_div);
-    pmVBox2->setAlignment (m_div, Qt::AlignCenter);
-    connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultDiv()));
-    connect(m_div, SIGNAL(released()), this, SLOT(slotMultDiv()));
-
-    m_mulDivFactor = new QSpinBox(this);
-    m_mulDivFactor->setRange(2, 100);
-    m_mulDivFactor->setValue (2);
-    m_mulDivFactor->setSuffix("x");
-    m_mulDivFactor->setButtonSymbols(QSpinBox::NoButtons);
-    pmVBox2->addWidget(m_mulDivFactor);
-    pmVBox2->setAlignment (m_mulDivFactor, Qt::AlignCenter);
+    pmVBox2->setAlignment(m_div, Qt::AlignCenter);
+    connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultiplierDivisor()));
+    connect(m_div, SIGNAL(released()), this, SLOT(slotMultiplierDivisor()));
 
     topHBox->addItem(pmVBox2);
 
@@ -388,20 +390,36 @@ void SpeedDial::slotPlusMinusTimeout()
     }
 }
 
-void SpeedDial::slotMultDiv()
+void SpeedDial::slotMultiplierDivisor()
 {
     Q_ASSERT(m_focus != NULL);
 
     if (m_div->isDown() == true)
     {
-        const int ms = spinValues () / m_mulDivFactor->value ();
-        setSpinValues (ms);
+        const int ms = spinValues() / 2;
+        setSpinValues(ms);
+        if(m_currentFactor == 1)
+            m_currentFactor = -2;
+        else if (m_currentFactor > 0)
+            m_currentFactor /= 2;
+        else
+            m_currentFactor *= 2;
     }
     else if (m_mult->isDown() == true)
     {
-        const int ms = spinValues () * m_mulDivFactor->value ();
-        setSpinValues (ms);
+        const int ms = spinValues() * 2;
+        setSpinValues(ms);
+        if (m_currentFactor == -2)
+            m_currentFactor = 1;
+        else if (m_currentFactor > 0)
+            m_currentFactor *= 2;
+        else
+            m_currentFactor /= 2;
     }
+    if (m_currentFactor > 0)
+        m_mulDivFactor->setText(QString("%1x").arg(m_currentFactor));
+    else
+        m_mulDivFactor->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
 }
 
 void SpeedDial::slotDialChanged(int value)
@@ -521,6 +539,7 @@ void SpeedDial::slotInfiniteChecked(bool state)
     m_tap->setEnabled(!state);
     m_mult->setEnabled(!state);
     m_div->setEnabled(!state);
+    m_mulDivFactor->setEnabled(!state);
 
     if (state == true)
     {
@@ -648,15 +667,15 @@ void SpeedDial::setVisibilityMask(ushort mask)
 
     if (mask & MultDiv)
     {
-        m_mult->show ();
-        m_div->show ();
-        m_mulDivFactor->show ();
+        m_mult->show();
+        m_div->show();
+        m_mulDivFactor->show();
     }
     else
     {
-        m_mult->hide ();
-        m_div->hide ();
-        m_mulDivFactor->hide ();
+        m_mult->hide();
+        m_div->hide();
+        m_mulDivFactor->hide();
     }
 
     if (mask & Apply) m_apply->show();
