@@ -576,9 +576,7 @@ void EFXFixture::start(MasterTimer* timer, QList<Universe *> universes)
 
         if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
-            FadeChannel fc;
-            fc.setFixture(doc(), head().fxi);
-            fc.setChannel(fxi->masterIntensityChannel(head().head));
+            FadeChannel fc(doc(), head().fxi, fxi->masterIntensityChannel(head().head));
             if (m_parent->overrideFadeInSpeed() != Function::defaultSpeed())
                 fc.setFadeTime(m_parent->overrideFadeInSpeed());
             else
@@ -607,9 +605,7 @@ void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
 
         if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
-            FadeChannel fc;
-            fc.setFixture(doc(), head().fxi);
-            fc.setChannel(fxi->masterIntensityChannel(head().head));
+            FadeChannel fc(doc(), head().fxi, fxi->masterIntensityChannel(head().head));
 
             if (m_parent->overrideFadeOutSpeed() != Function::defaultSpeed())
                 fc.setFadeTime(m_parent->overrideFadeOutSpeed());
@@ -650,9 +646,7 @@ qreal EFXFixture::intensity() const
  *****************************************************************************/
 void EFXFixture::setFadeChannel(quint32 nChannel, uchar val)
 {
-    FadeChannel fc;
-    fc.setFixture(doc(), head().fxi);
-    fc.setChannel(nChannel);
+    FadeChannel fc(doc(), head().fxi, nChannel);
 
     fc.setTarget(val);
     m_parent->m_fader->forceAdd(fc);

@@ -641,7 +641,7 @@ void EFXFixture_Test::start()
 
     FadeChannel fc;
     fc.setFixture(m_doc, fxi->id());
-    fc.setChannel(fxi->masterIntensityChannel());
+    fc.setChannel(m_doc, fxi->masterIntensityChannel());
     QVERIFY(e.m_fader->m_channels.contains(fc) == true);
     QCOMPARE(e.m_fader->m_channels[fc].fadeTime(), uint(1000));
 
@@ -676,7 +676,7 @@ void EFXFixture_Test::stop()
     QCOMPARE(e.m_fader->m_channels.size(), 1);
     FadeChannel fc;
     fc.setFixture(m_doc, fxi->id());
-    fc.setChannel(fxi->masterIntensityChannel());
+    fc.setChannel(m_doc, fxi->masterIntensityChannel());
     QVERIFY(e.m_fader->m_channels.contains(fc) == true);
 
     // Then stop
