@@ -105,14 +105,14 @@
        <item row="1" column="0" colspan="4">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Behavior of the Next/Prev buttons when the chaser is not active</string>
+          <string>Behavior of the Next/Previous buttons when the chaser is not active</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0" colspan="4">
         <widget class="QComboBox" name="m_nextPrevBehaviorCombo">
          <property name="toolTip">
-          <string>Behavior of the Next/Prev buttons when the chaser is not active</string>
+          <string>Behavior of the Next/Previous buttons when the chaser is not active</string>
          </property>
          <property name="currentIndex">
           <number>0</number>
@@ -124,12 +124,12 @@
          </item>
          <item>
           <property name="text">
-           <string>Run chaser from next/prev step</string>
+           <string>Run chaser from next/previous step</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Select next/prev step</string>
+           <string>Select next/previous step</string>
           </property>
          </item>
          <item>
