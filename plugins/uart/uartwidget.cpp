@@ -21,8 +21,8 @@
 #include <QTime>
 #include <math.h>
 
-#include <stropts.h>
-#include <asm/termios.h>
+#include <sys/ioctl.h>
+#include <asm/termbits.h>
 
 #include "uartwidget.h"
 
