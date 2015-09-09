@@ -449,13 +449,21 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
 
     if (forcedType != Undefined)
     {
-        qDebug() << "--- Channel" << channel << "forced type" << forcedType;
         (*m_channelsMask)[channel] = char(forcedType);
-        if (forcedType == HTP && group == QLCChannel::Intensity)
+        if (forcedType == HTP)
         {
-            //qDebug() << "--- Channel" << channel << "Intensity + HTP";
-            (*m_channelsMask)[channel] = char(HTP | Intensity);
+            //qDebug() << "--- Channel" << channel << "forced type HTP";
             m_intensityChannels << channel;
+            if (group == QLCChannel::Intensity)
+            {
+                //qDebug() << "--- Channel" << channel << "Intensity + HTP";
+                (*m_channelsMask)[channel] = char(HTP | Intensity);
+            }
+        }
+        else if (forcedType == LTP)
+        {
+            //qDebug() << "--- Channel" << channel << "forced type LTP";
+            m_nonIntensityChannels << channel;
         }
     }
     else
@@ -468,7 +476,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         }
         else
         {
-            //qDebug() << "--- Channel" << channel << " is LTP";
+            //qDebug() << "--- Channel" << channel << "LTP";
             (*m_channelsMask)[channel] = char(LTP);
             m_nonIntensityChannels << channel;
         }
