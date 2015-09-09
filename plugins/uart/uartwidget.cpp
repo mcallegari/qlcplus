@@ -108,12 +108,11 @@ void UARTWidget::run()
         return;
     }
 
-    int fd = m_serialPort->handle();
-
 // If the "new" custom baud rate method is available, then use it to
 // make sure the baud rate is properly set to 250Kbps
 
 #if defined(TCGETS2)
+    int fd = m_serialPort->handle();
     static const int rate = 250000;
 
     struct termios2 tio;  // linux-specific terminal stuff
