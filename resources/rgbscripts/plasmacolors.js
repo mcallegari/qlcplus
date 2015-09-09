@@ -23,72 +23,50 @@ var testAlgo;
 (
 function()
 {
-	var colorPaletteList = 
-		"White," +
-		"Cream," +
-		"Pink," +
-		"Rose," +
-		"Coral," +
-		"Dim Red," +
-		"Red," +
-		"Orange," +
-		"Dim Orange," +
-		"Goldenrod," +
-		"Gold," +
-		"Yellow," +
-		"Dim Yellow," +
-		"Lime," +
-		"Pale Green," +
-		"Dim Green," +
-		"Green," +
-		"Seafoam," +
-		"Turquoise," +
-		"Teal," +
-		"Cyan," +
-		"Electric Blue," +
-		"Blue," +
-		"Dim Blue," +
-		"Pale Blue," +
-		"Indigo," +
-		"Purple," +
-		"Violet," +
-		"Magenta," +
-		"Hot Pink," +
-		"Deep Pink," +
-		"OFF";
-	var colorPalette = new Array(
-		0xFFFFFF, // White
-		0xFFFF7F, // Cream
-		0xFF7F7F, // Pink
-		0x7F3F3F, // Rose
-		0x7F3F1F, // Coral
-		0x7F0000, // Dim Red
-		0xFF0000, // Red
-		0xFF3F00, // Orange
-		0x7F1F00, // Dim Orange
-		0x7F3F00, // Goldenrod
-		0xFF7F00, // Gold
-		0xFFFF00, // Yellow
-		0x7F7F00, // Dim Yellow
-		0x7FFF00, // Lime
-		0x3F7F00, // Pale Green
-		0x007F00, // Dim Green
-		0x00FF00, // Green
-		0x00FF3F, // Seafoam
-		0x007F3F, // Turquoise
-		0x007F7F, // Teal
-		0x00FFFF, // Cyan
-		0x007FFF, // Electric Blue
-		0x0000FF, // Blue
-		0x00007F, // Dim Blue
-		0x1F1F7F, // Pale Blue
-		0x1F00BF, // Indigo
-		0x3F00BF, // Purple
-		0x7F007F, // Violet
-		0xFF00FF, // Magenta
-		0xFF003F, // Hot Pink
-		0x7F001F, // Deep Pink
-		0x000000); // OFF
+	var colorPalette = new Object;
+	colorPalette.collection = new Array(
+		["White"        , 0xFFFFFF],	//  0
+		["Cream"        , 0xFFFF7F],	//  1
+		["Pink"         , 0xFF7F7F],	//  2
+		["Rose"         , 0x7F3F3F],	//  3
+		["Coral"        , 0x7F3F1F],	//  4
+		["Dim Red"      , 0x7F0000],	//  5
+		["Red"          , 0xFF0000],	//  6
+		["Orange"       , 0xFF3F00],	//  7
+		["Dim Orange"   , 0x7F1F00],	//  8
+		["Goldenrod"    , 0x7F3F00],	//  9
+		["Gold"         , 0xFF7F00],	// 10
+		["Yellow"       , 0xFFFF00],	// 11
+		["Dim Yellow"   , 0x7F7F00],	// 12
+		["Lime"         , 0x7FFF00],	// 13
+		["Pale Green"   , 0x3F7F00],	// 14
+		["Dim Green"    , 0x007F00],	// 15
+		["Green"        , 0x00FF00],	// 16
+		["Seafoam"      , 0x00FF3F],	// 17
+		["Turquoise"    , 0x007F3F],	// 18
+		["Teal"         , 0x007F7F],	// 19
+		["Cyan"         , 0x00FFFF],	// 20
+		["Electric Blue", 0x007FFF],	// 21
+		["Blue"         , 0x0000FF],	// 22
+		["Dim Blue"     , 0x00007F],	// 23
+		["Pale Blue"    , 0x1F1F7F],	// 24
+		["Indigo"       , 0x1F00BF],	// 25
+		["Purple"       , 0x3F00BF],	// 26
+		["Violet"       , 0x7F007F],	// 27
+		["Magenta"      , 0xFF00FF],	// 28
+		["Hot Pink"     , 0xFF003F],	// 29
+		["Deep Pink"    , 0x7F001F],	// 30
+		["OFF"          , 0x000000]);	// 31
+	colorPalette.makeSubArray = function(_index)
+	{
+		var _array = new Array();
+		for (var i = 0; i < colorPalette.collection.length; i++)
+		{
+			_array.push(colorPalette.collection[i][_index]);
+		}
+		return _array;
+	}
+	colorPalette.names  = colorPalette.makeSubArray(0);
 
 	var algo = new Object;
 	algo.apiVersion = 2;
@@ -102,27 +80,27 @@ function()
 	algo.color1Index = 0;
 	algo.properties.push(
 		"name:color1Index|type:list|display:Color 1|" +
-		"values:" + colorPaletteList + "|" +
+		"values:" + colorPalette.names.toString() + "|" +
 		"write:setColor1|read:getColor1");
 	algo.color2Index = 6;
 	algo.properties.push(
 		"name:color2Index|type:list|display:Color 2|" +
-		"values:" + colorPaletteList + "|" +
+		"values:" + colorPalette.names.toString() + "|" +
 		"write:setColor2|read:getColor2");
 	algo.color3Index = 16;
 	algo.properties.push(
 		"name:color3Index|type:list|display:Color 3|" +
-		"values:" + colorPaletteList + "|" +
+		"values:" + colorPalette.names.toString() + "|" +
 		"write:setColor3|read:getColor3");
 	algo.color4Index = 22;
 	algo.properties.push(
 		"name:color4Index|type:list|display:Color 4|" +
-		"values:" + colorPaletteList + "|" +
+		"values:" + colorPalette.names.toString() + "|" +
 		"write:setColor4|read:getColor4");
 	algo.color5Index = 31;
 	algo.properties.push(
 		"name:color5Index|type:list|display:Color 5|" +
-		"values:" + colorPaletteList + "|" +
+		"values:" + colorPalette.names.toString() + "|" +
 		"write:setColor5|read:getColor5");
 	algo.presetSize = 5;
 	algo.properties.push(
@@ -150,74 +128,19 @@ function()
 
 	algo.setColor = function(_index, _preset)
 	{
-		if      (_preset == "White"        ) algo.colorIndex[_index] =  0;
-		else if (_preset == "Cream"        ) algo.colorIndex[_index] =  1;
-		else if (_preset == "Pink"         ) algo.colorIndex[_index] =  2;
-		else if (_preset == "Rose"         ) algo.colorIndex[_index] =  3;
-		else if (_preset == "Coral"        ) algo.colorIndex[_index] =  4;
-		else if (_preset == "Dim Red"      ) algo.colorIndex[_index] =  5;
-		else if (_preset == "Red"          ) algo.colorIndex[_index] =  6;
-		else if (_preset == "Orange"       ) algo.colorIndex[_index] =  7;
-		else if (_preset == "Dim Orange"   ) algo.colorIndex[_index] =  8;
-		else if (_preset == "Goldenrod"    ) algo.colorIndex[_index] =  9;
-		else if (_preset == "Gold"         ) algo.colorIndex[_index] = 10;
-		else if (_preset == "Yellow"       ) algo.colorIndex[_index] = 11;
-		else if (_preset == "Dim Yellow"   ) algo.colorIndex[_index] = 12;
-		else if (_preset == "Lime"         ) algo.colorIndex[_index] = 13;
-		else if (_preset == "Pale Green"   ) algo.colorIndex[_index] = 14;
-		else if (_preset == "Dim Green"    ) algo.colorIndex[_index] = 15;
-		else if (_preset == "Green"        ) algo.colorIndex[_index] = 16;
-		else if (_preset == "Seafoam"      ) algo.colorIndex[_index] = 17;
-		else if (_preset == "Turquoise"    ) algo.colorIndex[_index] = 18;
-		else if (_preset == "Teal"         ) algo.colorIndex[_index] = 19;
-		else if (_preset == "Cyan"         ) algo.colorIndex[_index] = 20;
-		else if (_preset == "Electric Blue") algo.colorIndex[_index] = 21;
-		else if (_preset == "Blue"         ) algo.colorIndex[_index] = 22;
-		else if (_preset == "Dim Blue"     ) algo.colorIndex[_index] = 23;
-		else if (_preset == "Pale Blue"    ) algo.colorIndex[_index] = 24;
-		else if (_preset == "Indigo"       ) algo.colorIndex[_index] = 25;
-		else if (_preset == "Purple"       ) algo.colorIndex[_index] = 26;
-		else if (_preset == "Violet"       ) algo.colorIndex[_index] = 27;
-		else if (_preset == "Magenta"      ) algo.colorIndex[_index] = 28;
-		else if (_preset == "Hot Pink"     ) algo.colorIndex[_index] = 29;
-		else if (_preset == "Deep Pink"    ) algo.colorIndex[_index] = 30;
-		else algo.colorIndex[_index] = 31;
+		var i = colorPalette.names.indexOf(_preset);
+		if (i == -1) 
+			i = (colorPalette.collection.length - 1);
+		algo.colorIndex[_index] = i;
 		return algo.colorIndex[_index];
 	}
 	algo.getColor = function(_index)
 	{
-		if      (algo.colorIndex[_index] ==  0) return "White";
-		else if (algo.colorIndex[_index] ==  1) return "Cream";
-		else if (algo.colorIndex[_index] ==  2) return "Pink";
-		else if (algo.colorIndex[_index] ==  3) return "Rose";
-		else if (algo.colorIndex[_index] ==  4) return "Coral";
-		else if (algo.colorIndex[_index] ==  5) return "Dim Red";
-		else if (algo.colorIndex[_index] ==  6) return "Red";
-		else if (algo.colorIndex[_index] ==  7) return "Orange";
-		else if (algo.colorIndex[_index] ==  8) return "Dim Orange";
-		else if (algo.colorIndex[_index] ==  9) return "Goldenrod";
-		else if (algo.colorIndex[_index] == 10) return "Gold";
-		else if (algo.colorIndex[_index] == 11) return "Yellow";
-		else if (algo.colorIndex[_index] == 12) return "Dim Yellow";
-		else if (algo.colorIndex[_index] == 13) return "Lime";
-		else if (algo.colorIndex[_index] == 14) return "Pale Green";
-		else if (algo.colorIndex[_index] == 15) return "Dim Green";
-		else if (algo.colorIndex[_index] == 16) return "Green";
-		else if (algo.colorIndex[_index] == 17) return "Seafoam";
-		else if (algo.colorIndex[_index] == 18) return "Turquoise";
-		else if (algo.colorIndex[_index] == 19) return "Teal";
-		else if (algo.colorIndex[_index] == 20) return "Cyan";
-		else if (algo.colorIndex[_index] == 21) return "Electric Blue";
-		else if (algo.colorIndex[_index] == 22) return "Blue";
-		else if (algo.colorIndex[_index] == 23) return "Dim Blue";
-		else if (algo.colorIndex[_index] == 24) return "Pale Blue";
-		else if (algo.colorIndex[_index] == 25) return "Indigo";
-		else if (algo.colorIndex[_index] == 26) return "Purple";
-		else if (algo.colorIndex[_index] == 27) return "Violet";
-		else if (algo.colorIndex[_index] == 28) return "Magenta";
-		else if (algo.colorIndex[_index] == 29) return "Hot Pink";
-		else if (algo.colorIndex[_index] == 30) return "Deep Pink";
-		else return "OFF";
+		var i = algo.colorIndex[_index];
+		if (i < 0) i = 0;
+		if (i >= colorPalette.collection.length)
+			i = (colorPalette.collection.length - 1);
+		return colorPalette.collection[i][0];
 	}
 
 	algo.setColor1 = function(_preset)
@@ -309,7 +232,7 @@ function()
 		util.colorArray = new Array();
 		for (var j = 0; j < algo.colorIndex.length; j++)
 		{
-			util.colorArray[j] = colorPalette[algo.colorIndex[j]];
+			util.colorArray[j] = colorPalette.collection[algo.colorIndex[j]][1];
 		}
 		for (var i = 0; i < util.colorArray.length; i++)
 		{
