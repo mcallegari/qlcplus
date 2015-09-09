@@ -47,7 +47,7 @@ void GPIOPlugin::init()
         GPIOPinInfo *gpio = new GPIOPinInfo;
         gpio->m_number = i;
         gpio->m_usage = NoUsage;
-        gpio->m_value = 0;
+        gpio->m_value = 1;
 
         QString pinPath = QString("/sys/class/gpio/gpio%1/value").arg(i);
         gpio->m_file = new QFile(pinPath);
@@ -146,7 +146,8 @@ void GPIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArra
         if (gpio->m_enabled == false || gpio->m_usage != OutputUsage)
             continue;
 
-        uchar boolVal = uchar(data.at(i)) < 128 ? 0 : 1;
+        //qDebug() << "[GPIO] writing GPIO number:" << i;
+        uchar boolVal = uchar(data.at(i)) < 128 ? 1 : 0;
         if (gpio->m_value != boolVal)
             setPinValue(i, boolVal);
     }
@@ -221,9 +222,7 @@ void GPIOPlugin::setPinUsage(int gpioNumber, GPIOPlugin::PinUsage usage)
     if (usage == NoUsage)
     {
         if (gpio->m_usage == InputUsage)
-        {
             m_gpioList[gpioNumber]->m_file->close();
-        }
 
         m_gpioList[gpioNumber]->m_usage = usage;
 
@@ -278,15 +277,20 @@ void GPIOPlugin::setPinValue(int gpioNumber, uchar value)
     GPIOPinInfo *gpio = m_gpioList.at(gpioNumber);
     if (gpio->m_file->isOpen() == false)
     {
+        //qDebug() << "[GPIO] Opening value file of PIN" << gpioNumber;
         if (!gpio->m_file->open(QIODevice::WriteOnly))
         {
             qDebug() << "[GPIO] Error, cannot open PIN" << gpioNumber << "for writing";
             return;
         }
     }
-    QByteArray data;
-    data.append(value);
-    gpio->m_file->write(data);
+
+    qDebug() << "[GPIO] writing PIN" << gpioNumber << "with value" << value;
+    //gpio->m_file->reset();
+    //gpio->m_file->write(QString::number(value).toLatin1());
+    gpio->m_file->putChar(value + 48);
+    gpio->m_file->close();
+    //gpio->m_file->write("\n");
     m_gpioList[gpioNumber]->m_value = value;
 }
 

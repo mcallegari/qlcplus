@@ -104,7 +104,7 @@ void ReadThread::run()
 
             //qDebug() << "Reading file:" << gpio->m_file->fileName();
             gpio->m_file->reset();
-            QByteArray dataRead = gpio->m_file->readAll();
+            QByteArray dataRead = gpio->m_file->readAll().simplified();
             if (dataRead.isEmpty())
                 continue;
             uchar newVal = dataRead.toUInt();
