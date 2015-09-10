@@ -37,6 +37,7 @@ class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
 
@@ -65,6 +66,10 @@ public:
 
     //QList<VCWidget *> getChildren(VCWidget *obj);
 
+    int selectedPage() const;
+
+    void setSelectedPage(int selectedPage);
+
     /** Get resize mode flag */
     bool editMode() const;
 
@@ -77,6 +82,8 @@ signals:
     void editModeChanged(bool editMode);
 
     void selectedWidgetChanged(VCWidget * selectedWidget);
+
+    void selectedPageChanged(int selectedPage);
 
 protected:
     /** Create a new widget ID */
@@ -93,6 +100,8 @@ protected:
     quint32 m_latestWidgetId;
 
     bool m_resizeMode;
+
+    int m_selectedPage;
 
     VCWidget *m_selectedWidget;
 

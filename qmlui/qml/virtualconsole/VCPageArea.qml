@@ -24,9 +24,9 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property int page: 0
+    property int page: -1
 
-    Component.onCompleted: virtualConsole.renderPage(vcPage, vcPage.contentItem, page)
+    onPageChanged: virtualConsole.renderPage(vcPage, vcPage.contentItem, page)
 
     Flickable
     {

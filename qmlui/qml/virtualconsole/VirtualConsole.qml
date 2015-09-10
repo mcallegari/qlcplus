@@ -31,6 +31,23 @@ Rectangle
     color: "transparent"
 
     property string contextName: "VC"
+    property int selectedPage: virtualConsole.selectedPage
+    property bool docLoaded: qlcplus.docLoaded
+
+    onDocLoadedChanged:
+    {
+        // force a reload of the selected page
+        pageLoader.active = false
+        pageLoader.active = true
+    }
+
+    onSelectedPageChanged:
+    {
+        pageLoader.source = ""
+        if (selectedPage < 0)
+            return;
+        pageLoader.source = "qrc:/VCPageArea.qml"
+    }
 
     VCLeftPanel
     {
@@ -80,10 +97,7 @@ Rectangle
                     onCheckedChanged:
                     {
                         if (checked == true)
-                        {
-                            //currentViewQML = "qrc:/UniverseGridView.qml"
-                            //currentView = "UniverseGrid"
-                        }
+                            virtualConsole.selectedPage = 0
                     }
                     onRightClicked:
                     {
@@ -102,10 +116,7 @@ Rectangle
                     onCheckedChanged:
                     {
                         if (checked == true)
-                        {
-                            //currentViewQML = "qrc:/UniverseGridView.qml"
-                            //currentView = "UniverseGrid"
-                        }
+                            virtualConsole.selectedPage = 1
                     }
                     onRightClicked:
                     {
@@ -130,6 +141,7 @@ Rectangle
             onLoaded:
             {
                 // set the page
+                pageLoader.item.page = selectedPage
             }
         }
     }
