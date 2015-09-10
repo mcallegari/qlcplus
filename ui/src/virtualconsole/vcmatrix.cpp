@@ -555,6 +555,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         controlButton->setText("S");
     }
     else if (control.m_type == VCMatrixControl::EndColor)
@@ -563,6 +564,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         controlButton->setText("E");
     }
     else if (control.m_type == VCMatrixControl::ResetEndColor)
@@ -572,6 +574,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
         controlButton->setMaximumWidth(80);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         QString btnLabel = tr("End Color Reset");
         controlButton->setToolTip(btnLabel);
         controlButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
@@ -584,6 +587,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
         controlButton->setMaximumWidth(80);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         QString btnLabel = control.m_resource;
         if (!control.m_properties.isEmpty())
         {
@@ -998,4 +1002,3 @@ bool VCMatrix::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     return true;
 }
-

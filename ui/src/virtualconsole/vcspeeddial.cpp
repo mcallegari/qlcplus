@@ -26,15 +26,23 @@
 #include "vcpropertieseditor.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialfunction.h"
+#include "vcspeeddialpreset.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
 #include "function.h"
+#include "flowlayout.h"
+
+#define UPDATE_TIMEOUT 50
 
 const quint8 VCSpeedDial::absoluteInputSourceId = 0;
 const quint8 VCSpeedDial::tapInputSourceId = 1;
 const quint8 VCSpeedDial::infiniteInputSourceId = 2;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
+
+static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+                                   "QPushButton:pressed { border: 2px solid #0000FF; }"
+                                   "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 /****************************************************************************
  * Initialization
@@ -47,7 +55,9 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     , m_absoluteValueMax(1000 * 10)
     , m_visibilityMask(SpeedDial::defaultVisibilityMask())
 {
-    new QVBoxLayout(this);
+    setFrameStyle(KVCFrameStyleSunken);
+
+    QVBoxLayout* vBox = new QVBoxLayout(this);
     layout()->setMargin(0);
 
     m_dial = new SpeedDial(this);
@@ -69,17 +79,39 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
+    // Presets
+    m_presetsLayout = new FlowLayout(3);
+    vBox->addLayout(m_presetsLayout);
+
+    /* Update timer */
+    m_updateTimer = new QTimer(this);
+    connect(m_updateTimer, SIGNAL(timeout()),
+            this, SLOT(slotUpdate()));
+    m_updateTimer->setSingleShot(true);
+
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 }
 
 VCSpeedDial::~VCSpeedDial()
 {
+    foreach(VCSpeedDialPreset* preset, m_presets)
+    {
+        delete preset;
+    }
 }
 
 void VCSpeedDial::enableWidgetUI(bool enable)
 {
     m_dial->setEnabled(enable);
+
+    // Presets enable
+    foreach (QWidget *presetWidget, m_presets.keys())
+        presetWidget->setEnabled(enable);
+
+    // Presets: update state
+    if (enable)
+        slotUpdate();
 }
 
 /*****************************************************************************
@@ -109,6 +141,12 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
     setFunctions(dial->functions());
     setAbsoluteValueRange(dial->absoluteValueMin(), dial->absoluteValueMax());
     setVisibilityMask(dial->visibilityMask());
+
+    resetPresets();
+    foreach (VCSpeedDialPreset const* preset, dial->presets())
+    {
+        addPreset(*preset);
+    }
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -192,6 +230,7 @@ void VCSpeedDial::slotDialValueChanged(int ms)
         }
     }
     updateFeedback();
+    m_updateTimer->start(UPDATE_TIMEOUT);
 }
 
 void VCSpeedDial::slotDialTapped()
@@ -207,9 +246,103 @@ void VCSpeedDial::slotDialTapped()
     }
 }
 
+void VCSpeedDial::slotUpdate()
+{
+    int currentValue = m_dial->value();
+
+    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        QWidget* widget = it.key();
+        VCSpeedDialPreset* preset = it.value();
+
+        {
+            QPushButton* button = reinterpret_cast<QPushButton*>(widget);
+            button->setDown(preset->m_value == currentValue);
+        }
+    }
+}
+
+/*********************************************************************
+ * Presets
+ *********************************************************************/
+
+void VCSpeedDial::addPreset(VCSpeedDialPreset const& preset)
+{
+    QWidget *presetWidget = NULL;
+
+    {
+        QPushButton *presetButton = new QPushButton(this);
+        presetWidget = presetButton;
+        presetButton->setStyleSheet(presetBtnSS.arg("#BBBBBB"));
+        presetButton->setMinimumWidth(36);
+        presetButton->setMaximumWidth(80);
+        presetButton->setFocusPolicy(Qt::TabFocus);
+        QString btnLabel = preset.m_showName ?
+            preset.m_name : Function::speedToString(preset.m_value);
+        presetButton->setToolTip(btnLabel);
+        presetButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
+    }
+
+    Q_ASSERT(presetWidget != NULL);
+
+    connect(reinterpret_cast<QPushButton*>(presetWidget), SIGNAL(clicked()),
+            this, SLOT(slotPresetClicked()));
+
+    if (mode() == Doc::Design)
+        presetWidget->setEnabled(false);
+
+    m_presets[presetWidget] = new VCSpeedDialPreset(preset);
+    m_presetsLayout->addWidget(presetWidget);
+
+    if (m_presets[presetWidget]->m_inputSource != NULL)
+    {
+        setInputSource(m_presets[presetWidget]->m_inputSource,
+                       m_presets[presetWidget]->m_id);
+    }
+
+    m_updateTimer->start(UPDATE_TIMEOUT);
+}
+
+void VCSpeedDial::resetPresets()
+{
+    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        QWidget* widget = it.key();
+        m_presetsLayout->removeWidget(widget);
+        delete widget;
+
+        VCSpeedDialPreset* preset = it.value();
+        if (!preset->m_inputSource.isNull())
+            setInputSource(QSharedPointer<QLCInputSource>(), preset->m_id);
+        delete preset;
+    }
+    m_presets.clear();
+}
+
+QList<VCSpeedDialPreset*> VCSpeedDial::presets() const
+{
+    QList<VCSpeedDialPreset*> presetsList = m_presets.values();
+    qSort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
+    return presetsList;
+}
+
+void VCSpeedDial::slotPresetClicked()
+{
+    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+    VCSpeedDialPreset *preset = m_presets[btn];
+
+    Q_ASSERT(preset != NULL);
+
+    {
+        m_dial->setValue(preset->m_value, true);
+    }
+}
+
 /*****************************************************************************
-+ * External input
-+ *****************************************************************************/
+ * External input
+ *****************************************************************************/
 
 void VCSpeedDial::updateFeedback()
 {
@@ -219,6 +352,19 @@ void VCSpeedDial::updateFeedback()
     sendFeedback(fbv, absoluteInputSourceId);
 
     sendFeedback(m_dial->value() == (int)Function::infiniteSpeed() ? UCHAR_MAX : 0, infiniteInputSourceId);
+
+    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCSpeedDialPreset* preset = it.value();
+        if (preset->m_inputSource != NULL)
+        {
+            {
+                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+                sendFeedback(button->isDown() ? 0xff : 0);
+            }
+        }
+    }
 }
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -233,17 +379,32 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
         if (value != 0)
             m_dial->tap();
     }
-    else if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
     {
         int ms = static_cast<int> (SCALE(qreal(value), qreal(0), qreal(255),
                                          qreal(absoluteValueMin()),
                                          qreal(absoluteValueMax())));
         m_dial->setValue(ms, true);
     }
-    else if (checkInputSource(universe, pagedCh, value, sender(), infiniteInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), infiniteInputSourceId))
     {
         if (value != 0)
             m_dial->toggleInfinite();
+    }
+
+    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCSpeedDialPreset *preset = it.value();
+        if (preset->m_inputSource != NULL &&
+                preset->m_inputSource->universe() == universe &&
+                preset->m_inputSource->channel() == pagedCh)
+        {
+            {
+                QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+                button->click();
+            }
+        }
     }
 }
 
@@ -278,8 +439,19 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 
     if (m_tapKeySequence == keySequence)
         m_dial->tap();
-    else if (m_infiniteKeySequence == keySequence)
+    if (m_infiniteKeySequence == keySequence)
         m_dial->toggleInfinite();
+
+    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCSpeedDialPreset *preset = it.value();
+        if (preset->m_keySequence == keySequence)
+        {
+            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+            button->click();
+        }
+    }
 }
 
 
@@ -347,6 +519,8 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
 
     /* Children */
     QDomNode node = root->firstChild();
+    // Sorted list for new presets
+    QList<VCSpeedDialPreset> newPresets;
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
@@ -453,6 +627,12 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         {
             loadXMLAppearance(&tag);
         }
+        else if(tag.tagName() == KXMLQLCVCSpeedDialPreset)
+        {
+            VCSpeedDialPreset preset(0xff);
+            if (preset.loadXML(tag))
+                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+        }
         else if (tag.tagName() == KXMLQLCVCSpeedDialVisibilityMask)
         {
             setVisibilityMask(tag.text().toUShort());
@@ -468,6 +648,9 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
 
         node = node.nextSibling();
     }
+
+    foreach (VCSpeedDialPreset const& preset, newPresets)
+        addPreset(preset);
 
     return true;
 }
@@ -542,6 +725,10 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     {
         speeddialfunction.saveXML(doc, &root);
     }
+
+    // Presets
+    foreach(VCSpeedDialPreset *preset, presets())
+        preset->saveXML(doc, &root);
 
     return true;
 }

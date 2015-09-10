@@ -105,8 +105,6 @@ protected:
 protected slots:
     /** @reimp */
     void accept();
-
-
 };
 
 /** @} */

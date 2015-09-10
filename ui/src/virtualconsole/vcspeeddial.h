@@ -28,6 +28,8 @@ class QDomDocument;
 class QDomElement;
 class SpeedDial;
 class VCSpeedDialFunction;
+class VCSpeedDialPreset;
+class FlowLayout;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -141,6 +143,7 @@ private slots:
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
+    FlowLayout* m_presetsLayout;
 
     /*********************************************************************
      * External input
@@ -194,6 +197,27 @@ public:
 
 private:
     ushort m_visibilityMask;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    void addPreset(VCSpeedDialPreset const& preset);
+    void resetPresets();
+    QList<VCSpeedDialPreset *> presets() const;
+
+protected slots:
+    void slotPresetClicked();
+
+protected:
+    QHash<QWidget*, VCSpeedDialPreset*> m_presets;
+
+private slots:
+    void slotUpdate();
+
+private:
+    /** timer for updating the preset buttons */
+    QTimer* m_updateTimer;
 
     /*************************************************************************
      * Load & Save

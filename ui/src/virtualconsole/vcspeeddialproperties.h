@@ -21,11 +21,14 @@
 #define VCSPEEDDIALPROPERTIES_H
 
 #include <QDialog>
+
 #include "ui_vcspeeddialproperties.h"
 #include "qlcinputsource.h"
 
 class VCSpeedDial;
 class VCSpeedDialFunction;
+class VCSpeedDialPreset;
+class SpeedDialWidget;
 class Doc;
 
 /** @addtogroup ui_vc_props
@@ -35,9 +38,10 @@ class Doc;
 class VCSpeedDialProperties : public QDialog, public Ui_VCSpeedDialProperties
 {
     Q_OBJECT
+    Q_DISABLE_COPY(VCSpeedDialProperties)
 
 public:
-    VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc);
+    explicit VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc);
     ~VCSpeedDialProperties();
 
 public slots:
@@ -95,6 +99,39 @@ private:
     QKeySequence m_tapKeySequence;
     QSharedPointer<QLCInputSource> m_infiniteInputSource;
     QKeySequence m_infiniteKeySequence;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+private:
+    void updateTree();
+    void updateTreeItem(VCSpeedDialPreset const& preset);
+    VCSpeedDialPreset* getSelectedPreset();
+    void addPreset(VCSpeedDialPreset* control);
+    void removePreset(quint8 id);
+    void updatePresetInputSource(QSharedPointer<QLCInputSource> const& source);
+
+protected slots:
+    void slotTreeSelectionChanged();
+    void slotAddPresetClicked();
+    void slotRemovePresetClicked();
+    void slotShowPresetNameClicked();
+    void slotPresetNameEdited(QString const& newName);
+    void slotSpeedDialWidgetToggle(bool state);
+    void slotSpeedDialWidgetDestroyed(QObject* dial);
+    void slotSpeedDialWidgetDurationChanged(int ms);
+
+    void slotAutoDetectPresetInputToggled(bool checked);
+    void slotPresetInputValueChanged(quint32 universe, quint32 channel);
+    void slotChoosePresetInputClicked();
+
+    void slotAttachPresetKey();
+    void slotDetachPresetKey();
+
+protected:
+    quint8 m_lastAssignedID;
+    QList<VCSpeedDialPreset*> m_presets;
+    SpeedDialWidget* m_speedDialWidget;
 };
 
 /** @} */
