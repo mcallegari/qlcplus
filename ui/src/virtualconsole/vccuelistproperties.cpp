@@ -62,6 +62,9 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     m_chaserId = cueList->chaserID();
     updateChaserName();
 
+    /* Next/Prev behavior */
+    m_nextPrevBehaviorCombo->setCurrentIndex(m_cueList->nextPrevBehavior());
+
     /* Connections */
     connect(m_chaserAttachButton, SIGNAL(clicked()), this, SLOT(slotChaserAttachClicked()));
     connect(m_chaserDetachButton, SIGNAL(clicked()), this, SLOT(slotChaserDetachClicked()));
@@ -163,6 +166,9 @@ void VCCueListProperties::accept()
 
     /* Chaser */
     m_cueList->setChaser(m_chaserId);
+
+    /* Next/Prev behavior */
+    m_cueList->setNextPrevBehavior(m_nextPrevBehaviorCombo->currentIndex());
 
     /* Key sequences */
     m_cueList->setNextKeySequence(m_nextKeySequence);
