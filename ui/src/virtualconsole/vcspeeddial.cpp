@@ -457,6 +457,10 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         {
             setVisibilityMask(tag.text().toUShort());
         }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialTime)
+        {
+            m_dial->setValue(tag.text().toUInt());
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown speed dial tag:" << tag.tagName();
@@ -503,6 +507,12 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     QDomElement tap = doc->createElement(KXMLQLCVCSpeedDialTap);
     saveXMLInput(doc, &tap, inputSource(tapInputSourceId));
     root.appendChild(tap);
+
+    /* Save time */
+    QDomElement time = doc->createElement(KXMLQLCVCSpeedDialTime);
+    root.appendChild(time);
+    QDomText text = doc->createTextNode(QString::number(m_dial->value()));
+    time.appendChild(text);
 
     /* Key sequence */
     if (m_tapKeySequence.isEmpty() == false)

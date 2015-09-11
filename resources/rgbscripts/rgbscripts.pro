@@ -14,6 +14,7 @@ scripts.files += fillunfillsquaresfromcenter.js
 scripts.files += gradient.js
 scripts.files += opposite.js
 scripts.files += plasma.js
+scripts.files += plasmacolors.js
 scripts.files += randomcolumn.js
 scripts.files += randomfillcolumn.js
 scripts.files += randomfillrow.js

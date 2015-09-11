@@ -71,7 +71,7 @@ public:
     quint32 universe();
 
     /** Set channel within the Fixture. */
-    void setChannel(quint32 num);
+    void setChannel(const Doc* doc, quint32 num);
 
     /** Get channel within the Fixture. */
     quint32 channel() const;
@@ -159,6 +159,7 @@ private:
     quint32 m_universe;
     quint32 m_channel;
     quint32 m_address;
+    QLCChannel::Group m_group;
 
     int m_start;
     int m_target;

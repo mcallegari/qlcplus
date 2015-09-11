@@ -80,12 +80,15 @@ bool EnttecDMXUSBOpen::open(quint32 line, bool input)
 {
     Q_UNUSED(input)
 
+#if defined(QTSERIAL)
+    Q_UNUSED(line)
+#else
     if (DMXUSBWidget::open(line) == false)
         return close(line);
 
     if (ftdi()->clearRts() == false)
         return close(line);
-
+#endif
     start(QThread::TimeCriticalPriority);
     return true;
 }
@@ -167,6 +170,20 @@ void EnttecDMXUSBOpen::run()
         m_granularity = Bad;
     else
         m_granularity = Good;
+
+#if defined(QTSERIAL)
+    if (DMXUSBWidget::open(0) == false)
+    {
+        close(0);
+        return;
+    }
+
+    if (ftdi()->clearRts() == false)
+    {
+        close(0);
+        return;
+    }
+#endif
 
     m_running = true;
     while (m_running == true)

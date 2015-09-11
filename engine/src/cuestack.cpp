@@ -432,7 +432,7 @@ void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         {
             it.next();
             FadeChannel fc;
-            fc.setChannel(it.key());
+            fc.setChannel(doc(), it.key());
             fc.setTarget(it.value());
             int uni = qFloor(fc.channel() / 512);
             if (uni < ua.size())
@@ -589,9 +589,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     {
         oldit.next();
 
-        FadeChannel fc;
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(oldit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), oldit.key());
 
         if (fc.group(doc()) == QLCChannel::Intensity)
         {
@@ -609,10 +607,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (newit.hasNext() == true)
     {
         newit.next();
-        FadeChannel fc;
-
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(newit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), newit.key());
         fc.setTarget(newit.value());
         fc.setElapsed(0);
         fc.setReady(false);

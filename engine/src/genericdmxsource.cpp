@@ -99,9 +99,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
     {
         it.next();
 
-        FadeChannel fc;
-        fc.setFixture(m_doc, it.key().first);
-        fc.setChannel(it.key().second);
+        FadeChannel fc(m_doc, it.key().first, it.key().second);
 
         QLCChannel::Group grp = fc.group(m_doc);
         quint32 address = fc.address();

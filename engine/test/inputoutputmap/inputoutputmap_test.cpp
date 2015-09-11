@@ -368,6 +368,8 @@ void InputOutputMap_Test::slotValueChanged()
 
     QSignalSpy spy(&im, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
     stub->emitValueChanged(UINT_MAX, 0, 15, UCHAR_MAX);
+    QVERIFY(spy.size() == 0);
+    im.flushInputs();
     QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -376,6 +378,8 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 3, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
@@ -383,11 +387,15 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 1, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
 
     stub->emitValueChanged(UINT_MAX, 0, 5, 127);
+    QVERIFY(spy.size() == 1);
+    im.flushInputs();
     QVERIFY(spy.size() == 2);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -395,6 +403,34 @@ void InputOutputMap_Test::slotValueChanged()
     QVERIFY(spy.at(1).at(0) == 0);
     QVERIFY(spy.at(1).at(1) == 5);
     QVERIFY(spy.at(1).at(2) == 127);
+
+    stub->emitValueChanged(UINT_MAX, 0, 2, 0);
+    QVERIFY(spy.size() == 2);
+    stub->emitValueChanged(UINT_MAX, 0, 2, UCHAR_MAX);
+    QVERIFY(spy.size() == 3);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    im.flushInputs();
+    QVERIFY(spy.size() == 4);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    QVERIFY(spy.at(3).at(0) == 0);
+    QVERIFY(spy.at(3).at(1) == 2);
+    QVERIFY(spy.at(3).at(2) == UCHAR_MAX);
 }
 
 void InputOutputMap_Test::slotConfigurationChanged()

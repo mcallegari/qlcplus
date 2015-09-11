@@ -27,10 +27,13 @@ NanoDMX::NanoDMX(const QString& serial, const QString& name,
     : DMXUSBWidget(serial, name, vendor, 0)
 {
     Q_UNUSED(id)
-#ifdef LIBFTDI1
+#if defined LIBFTDI1
     m_device = (libusb_device *)usb_ref;
-#else
+#elif defined LIBFTDI
     m_device = (struct usb_device *)usb_ref;
+#else
+    Q_UNUSED(usb_ref)
+    m_device = NULL;
 #endif
 }
 
@@ -70,6 +73,7 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     return ftdi()->write(chanMsg);
 }
 
+#ifndef QTSERIAL
 QString NanoDMX::getDeviceName()
 {
     if (m_device == NULL)
@@ -128,6 +132,7 @@ QString NanoDMX::getDeviceName()
     }
     return QString();
 }
+#endif
 
 /****************************************************************************
  * Open & Close
@@ -137,7 +142,11 @@ bool NanoDMX::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    QString ttyName = "";
+#else
     QString ttyName = getDeviceName();
+#endif
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
     else

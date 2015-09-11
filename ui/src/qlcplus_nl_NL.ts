@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl_NL">
+<TS version="2.0" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1859,12 +1859,12 @@ The selected file has been moved or deleted.</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="682"/>
+        <location filename="efxeditor.ui" line="701"/>
         <source>EFX name</source>
         <translation>EFX naam</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="689"/>
+        <location filename="efxeditor.ui" line="708"/>
         <source>The name of the function being edited</source>
         <translation>De naam van de functie die gewijzigd wordt</translation>
     </message>
@@ -1879,18 +1879,18 @@ The selected file has been moved or deleted.</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="173"/>
+        <location filename="efxeditor.ui" line="178"/>
         <source>Reverse</source>
         <translation>Omgekeerd</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="178"/>
-        <location filename="efxeditor.ui" line="504"/>
+        <location filename="efxeditor.ui" line="183"/>
+        <location filename="efxeditor.ui" line="289"/>
         <source>Start Offset</source>
         <translation>Startpositie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="183"/>
+        <location filename="efxeditor.ui" line="188"/>
         <source>Intensity</source>
         <translation>Intensiteit</translation>
     </message>
@@ -1930,203 +1930,213 @@ The selected file has been moved or deleted.</source>
         <translation>Asymmetrisch</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="205"/>
+        <location filename="efxeditor.ui" line="210"/>
         <source>Movement</source>
         <translation>Beweging</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="233"/>
+        <location filename="efxeditor.ui" line="238"/>
         <source>Pattern</source>
         <translation>Patroon</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="245"/>
+        <location filename="efxeditor.ui" line="250"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Patroon wat de spiegel/head volgt</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="255"/>
+        <location filename="efxeditor.ui" line="260"/>
         <source>Parameters</source>
         <translation>Parameters</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="293"/>
+        <location filename="efxeditor.ui" line="282"/>
         <source>Width</source>
         <translation>Breedte</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="300"/>
+        <location filename="efxeditor.ui" line="487"/>
         <source>Value width of the pattern</source>
         <translation>Breedte van het patroon</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="313"/>
+        <location filename="efxeditor.ui" line="453"/>
         <source>Height</source>
         <translation>Hoogte</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="320"/>
+        <location filename="efxeditor.ui" line="500"/>
         <source>Value height of the pattern</source>
         <translation>Hoogte van het patroon</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="333"/>
+        <location filename="efxeditor.ui" line="467"/>
         <source>X offset</source>
         <translation>X offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="340"/>
+        <location filename="efxeditor.ui" line="520"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Middelpunt van het patroon op de X-as</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="353"/>
+        <location filename="efxeditor.ui" line="460"/>
         <source>Y offset</source>
         <translation>Y offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="360"/>
+        <location filename="efxeditor.ui" line="474"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Middelpunt van het patroon op de Y-as</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="373"/>
+        <location filename="efxeditor.ui" line="513"/>
         <source>Rotation</source>
         <translation>Rotatie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="380"/>
+        <location filename="efxeditor.ui" line="309"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
-    <message>
-        <location filename="efxeditor.ui" line="383"/>
-        <location filename="efxeditor.ui" line="494"/>
+    <message utf8="true">
+        <location filename="efxeditor.ui" line="312"/>
+        <location filename="efxeditor.ui" line="410"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="396"/>
+        <location filename="efxeditor.ui" line="302"/>
         <source>X frequency</source>
         <translation>X frequentie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="406"/>
+        <location filename="efxeditor.ui" line="390"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>X frequentie van de Lissajousfiguur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="422"/>
+        <location filename="efxeditor.ui" line="380"/>
         <source>Y frequency</source>
         <translation>Y frequentie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="432"/>
+        <location filename="efxeditor.ui" line="364"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Y frequentie van de Lissajousfiguur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="448"/>
+        <location filename="efxeditor.ui" line="354"/>
         <source>X phase</source>
         <translation>X phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="471"/>
+        <location filename="efxeditor.ui" line="325"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Lissajous pattern&apos;s X fase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="487"/>
+        <location filename="efxeditor.ui" line="423"/>
         <source>Y phase</source>
         <translation>Y fase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="636"/>
+        <location filename="efxeditor.ui" line="655"/>
         <source>Show/Hide speed dial window</source>
         <translation>Toon/verberg het speed dial venster</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="273"/>
+        <location filename="efxeditor.ui" line="440"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Y fase van de Lissajousfiguur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="514"/>
+        <location filename="efxeditor.ui" line="173"/>
+        <source>Mode</source>
+        <translation type="unfinished">Mode</translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="403"/>
         <source>Relative</source>
         <translation>Relatief</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="524"/>
+        <location filename="efxeditor.ui" line="533"/>
+        <source>Color Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="543"/>
         <source>Direction</source>
         <translation>Richting</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="530"/>
+        <location filename="efxeditor.ui" line="549"/>
         <source>Run the pattern forwards</source>
         <translation>Start patroon voorwaarts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="533"/>
+        <location filename="efxeditor.ui" line="552"/>
         <source>Forward</source>
         <translation>Vooruit</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="562"/>
         <source>Run the pattern backwards</source>
         <translation>Start patroon achterwaarts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="546"/>
+        <location filename="efxeditor.ui" line="565"/>
         <source>Backward</source>
         <translation>Terug</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="572"/>
+        <location filename="efxeditor.ui" line="591"/>
         <source>Run order</source>
         <translation>Looprichting</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="578"/>
+        <location filename="efxeditor.ui" line="597"/>
         <source>Run through over and over again</source>
         <translation>Blijf het patroon herhalen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="581"/>
+        <location filename="efxeditor.ui" line="600"/>
         <source>Loop</source>
         <translation>Herhalen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="610"/>
         <source>Run through once and stop</source>
         <translation>Volg het patroon een keer en stop daarna</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="594"/>
+        <location filename="efxeditor.ui" line="613"/>
         <source>Single shot</source>
         <translation>Eenmalig</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="620"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Run voorwaarts, dan achterwaarts, weer voorwaarts etc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="623"/>
         <source>Ping pong</source>
         <translation>Ping pong</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="656"/>
+        <location filename="efxeditor.ui" line="675"/>
         <source>See what the EFX does when it is run</source>
         <translation>Bekijk hoe het eruit ziet als de EFX loopt</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="719"/>
+        <location filename="efxeditor.cpp" line="788"/>
         <source>Remove fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="720"/>
+        <location filename="efxeditor.cpp" line="789"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Wil je de geselecteerde fixtures verwijderen?</translation>
     </message>
@@ -2178,218 +2188,218 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="372"/>
+        <location filename="fixturemanager.cpp" line="373"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="368"/>
+        <location filename="fixturemanager.cpp" line="369"/>
         <source>Fixtures Groups</source>
         <translation>Fixturegroepen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="372"/>
+        <location filename="fixturemanager.cpp" line="373"/>
         <source>Channels</source>
         <translation>Kanalen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="385"/>
+        <location filename="fixturemanager.cpp" line="386"/>
         <source>Channels Groups</source>
         <translation>Kanaalgroepen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="578"/>
+        <location filename="fixturemanager.cpp" line="579"/>
         <source>All fixtures</source>
         <translation>Alle fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="578"/>
+        <location filename="fixturemanager.cpp" line="579"/>
         <source>This group contains all fixtures.</source>
         <translation>Deze groep bevat alle fixtures.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="590"/>
+        <location filename="fixturemanager.cpp" line="591"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere fixtures geselecteerd&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om de geselecteerde fixtures te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="596"/>
+        <location filename="fixturemanager.cpp" line="597"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere fixtures geselecteerd&lt;/H1&gt;&lt;P&gt;Wijzigingen aan fixture lijst niet toegestaan in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="605"/>
+        <location filename="fixturemanager.cpp" line="606"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Geen fixtures&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om fixtures toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="611"/>
+        <location filename="fixturemanager.cpp" line="612"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een fixture van de lijst of klik &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt;om fixtures toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="663"/>
+        <location filename="fixturemanager.cpp" line="664"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerdere groepen geselecteerd&lt;/H1&gt;&lt;P&gt;Klik op &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om geselecteerde groups te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="671"/>
+        <location filename="fixturemanager.cpp" line="672"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een kanaal groep van de lijst of klik op &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe kanaalgroep toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="696"/>
+        <location filename="fixturemanager.cpp" line="697"/>
         <source>Add group...</source>
         <translation>Voeg groep toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="702"/>
-        <location filename="fixturemanager.cpp" line="810"/>
+        <location filename="fixturemanager.cpp" line="703"/>
+        <location filename="fixturemanager.cpp" line="811"/>
         <source>Add fixture...</source>
         <translation>Voeg fixture toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="815"/>
+        <location filename="fixturemanager.cpp" line="816"/>
         <source>Add RGB panel...</source>
         <translation>Voeg RGB Panel toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="820"/>
+        <location filename="fixturemanager.cpp" line="821"/>
         <source>Delete items</source>
         <translation>Verwijder items</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="825"/>
+        <location filename="fixturemanager.cpp" line="826"/>
         <source>Properties...</source>
         <translation>Eigenschappen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="830"/>
+        <location filename="fixturemanager.cpp" line="831"/>
         <source>Channels Fade Configuration...</source>
         <translation>Kanalen Fade configuratie...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="836"/>
+        <location filename="fixturemanager.cpp" line="837"/>
         <source>Add fixture to group...</source>
         <translation>Voeg fixture toe aan groep...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="839"/>
+        <location filename="fixturemanager.cpp" line="840"/>
         <source>Remove fixture from group</source>
         <translation>Verwijder fixture van groep</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="843"/>
+        <location filename="fixturemanager.cpp" line="844"/>
         <source>New Group...</source>
         <translation>Nieuwe groep...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="846"/>
+        <location filename="fixturemanager.cpp" line="847"/>
         <source>Move group up...</source>
         <translation>Groep naar boven verplaatsen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="852"/>
+        <location filename="fixturemanager.cpp" line="853"/>
         <source>Move group down...</source>
         <translation>Group naar beneden verplaatsen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="858"/>
+        <location filename="fixturemanager.cpp" line="859"/>
         <source>Import fixtures...</source>
         <translation>Importeer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="863"/>
+        <location filename="fixturemanager.cpp" line="864"/>
         <source>Export fixtures...</source>
         <translation>Exporteer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="869"/>
+        <location filename="fixturemanager.cpp" line="870"/>
         <source>Remap fixtures...</source>
         <translation>Fixtures herschikken...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="902"/>
+        <location filename="fixturemanager.cpp" line="903"/>
         <source>Fixture manager</source>
         <translation>Fixture manager</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="970"/>
+        <location filename="fixturemanager.cpp" line="971"/>
         <source>Generic Dimmer</source>
         <translation>Algemene dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1089"/>
+        <location filename="fixturemanager.cpp" line="1090"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Rij %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1151"/>
+        <location filename="fixturemanager.cpp" line="1152"/>
         <source>Delete Fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1152"/>
+        <location filename="fixturemanager.cpp" line="1153"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Wil je de geslecteerde items verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1207"/>
+        <location filename="fixturemanager.cpp" line="1208"/>
         <source>Delete Channels Group</source>
         <translation>Verwijder Kanalengroep</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1208"/>
+        <location filename="fixturemanager.cpp" line="1209"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Wil je de geselecteerde groepen verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1268"/>
+        <location filename="fixturemanager.cpp" line="1269"/>
         <source>Change fixture properties</source>
         <translation>Wijzig fixture eigenschappen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1309"/>
+        <location filename="fixturemanager.cpp" line="1312"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1310"/>
+        <location filename="fixturemanager.cpp" line="1313"/>
         <source>Please enter a valid address</source>
         <translation>Vul een geldig adres in</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1386"/>
+        <location filename="fixturemanager.cpp" line="1389"/>
         <source>Ungroup fixtures?</source>
         <translation>Fixtures uit de groep halen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1387"/>
+        <location filename="fixturemanager.cpp" line="1390"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Wil je de geselecteerde fixtures uit de groep halen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1502"/>
+        <location filename="fixturemanager.cpp" line="1505"/>
         <source>Import Fixtures List</source>
         <translation>Importeer lijst met fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1507"/>
+        <location filename="fixturemanager.cpp" line="1510"/>
         <source>Export Fixtures List As</source>
         <translation>Export lijst met fixtures als</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1513"/>
+        <location filename="fixturemanager.cpp" line="1516"/>
         <source>Fixtures List (*%1)</source>
         <translation>Fixtures lijst (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1515"/>
+        <location filename="fixturemanager.cpp" line="1518"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1517"/>
+        <location filename="fixturemanager.cpp" line="1520"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
@@ -4964,118 +4974,118 @@ Duur: %3
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="208"/>
+        <location filename="simpledesk.cpp" line="211"/>
         <source>View mode</source>
         <translation>Weergavemodus</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="217"/>
+        <location filename="simpledesk.cpp" line="220"/>
         <source>Previous page</source>
         <translation>Vorige pagina</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="225"/>
+        <location filename="simpledesk.cpp" line="228"/>
         <source>Current page</source>
         <translation>Huidige pagina</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="233"/>
+        <location filename="simpledesk.cpp" line="236"/>
         <source>Next page</source>
         <translation>Volgende pagina</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="241"/>
+        <location filename="simpledesk.cpp" line="244"/>
         <source>Reset universe</source>
         <translation>Reset universe</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="246"/>
+        <location filename="simpledesk.cpp" line="249"/>
         <source>Universe</source>
         <translation>Universe</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="286"/>
+        <location filename="simpledesk.cpp" line="289"/>
         <source>Playback</source>
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="283"/>
-        <location filename="simpledesk.cpp" line="293"/>
+        <location filename="simpledesk.cpp" line="286"/>
+        <location filename="simpledesk.cpp" line="296"/>
         <source>Cue Stack</source>
         <translation>Cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="303"/>
+        <location filename="simpledesk.cpp" line="306"/>
         <source>Previous cue</source>
         <translation>Vorige cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="309"/>
+        <location filename="simpledesk.cpp" line="312"/>
         <source>Stop cue stack</source>
         <translation>Stop cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="315"/>
+        <location filename="simpledesk.cpp" line="318"/>
         <source>Next cue</source>
         <translation>Volgende cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="323"/>
+        <location filename="simpledesk.cpp" line="326"/>
         <source>Clone cue stack</source>
         <translation>Kloon cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="329"/>
+        <location filename="simpledesk.cpp" line="332"/>
         <source>Edit cue stack</source>
         <translation>Wijzig cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="336"/>
+        <location filename="simpledesk.cpp" line="339"/>
         <source>Record cue</source>
         <translation>Neem cue op</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="540"/>
+        <location filename="simpledesk.cpp" line="543"/>
         <source>Channel groups</source>
         <translation>Kanaalgroepen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="884"/>
+        <location filename="simpledesk.cpp" line="887"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1066"/>
+        <location filename="simpledesk.cpp" line="1069"/>
         <source>No selection</source>
         <translation>Geen selectie</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1089"/>
+        <location filename="simpledesk.cpp" line="1092"/>
         <source>Cue name</source>
         <translation>Cue naam</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1096"/>
+        <location filename="simpledesk.cpp" line="1099"/>
         <source>Multiple Cues</source>
         <translation>Meerdere cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1193"/>
+        <location filename="simpledesk.cpp" line="1196"/>
         <source>Delete cue</source>
         <translation>Verwijder cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1247"/>
+        <location filename="simpledesk.cpp" line="1250"/>
         <source>Clone Cue Stack</source>
         <translation>Kloon cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1247"/>
+        <location filename="simpledesk.cpp" line="1250"/>
         <source>Clone To Playback#</source>
         <translation>Kloon naar Playback#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1313"/>
+        <location filename="simpledesk.cpp" line="1316"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -5083,32 +5093,37 @@ Duur: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="136"/>
+        <location filename="speeddial.cpp" line="163"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="speeddial.cpp" line="178"/>
         <source>Hours</source>
         <translation>Uren</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="145"/>
+        <location filename="speeddial.cpp" line="187"/>
         <source>Minutes</source>
         <translation>Minuten</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="154"/>
+        <location filename="speeddial.cpp" line="196"/>
         <source>Seconds</source>
         <translation>Seconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="163"/>
+        <location filename="speeddial.cpp" line="205"/>
         <source>Milliseconds</source>
         <translation>Milliseconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="169"/>
+        <location filename="speeddial.cpp" line="211"/>
         <source>Infinite</source>
         <translation>Oneindig</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="123"/>
+        <location filename="speeddial.cpp" line="157"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5520,22 +5535,22 @@ Duur: %3
         <translation>Cue list</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1057"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1057"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1057"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1057"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
@@ -5583,192 +5598,218 @@ Duur: %3
         <translation>Ontkoppel huidge chaser van de cue list</translation>
     </message>
     <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="108"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="115"/>
+        <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
+        <source>Run chaser from first/last step (default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
+        <source>Run chaser from next/previous step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
+        <source>Select next/previous step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
+        <source>Do nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="159"/>
         <source>Playback</source>
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="271"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="308"/>
         <source>Next Cue</source>
         <translation>Volgende cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="196"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="345"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="494"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="233"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="382"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="531"/>
         <source>Key Combination</source>
         <translation>Toetscombinatie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="391"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="428"/>
         <source>The key combination used to step to the next cue</source>
         <translation>Toetscombinatie om naar de volgende cue te gaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="357"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="394"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Wijs een toetscombinatie toe om naar de volgende cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="208"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="374"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="506"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="245"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="411"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="543"/>
         <source>Clear the key binding</source>
         <translation>Toetscombinatie verwijderen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="136"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="285"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="434"/>
-        <source>External Input</source>
-        <translation>Externe Input</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="142"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="291"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="440"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="581"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="641"/>
-        <source>Input universe</source>
-        <translation>Input Universe</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="298"/>
-        <source>Input universe for skipping to the next cue</source>
-        <translation>Input universe om naar de volgende cue te springen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="156"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="305"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="454"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="595"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="655"/>
-        <source>Input channel</source>
-        <translation>Input Kanaal</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="312"/>
-        <source>Input channel for skipping to the next cue</source>
-        <translation>Input kanaal om naar de volgende cue te gaan</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="319"/>
-        <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Indien aangezet is het mogelijk een externe knop te koppelen die naar de volgende cue springt.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="173"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="322"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="471"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="672"/>
+        <source>External Input</source>
+        <translation>Externe Input</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="179"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="328"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="477"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="618"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="678"/>
+        <source>Input universe</source>
+        <translation>Input Universe</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="335"/>
+        <source>Input universe for skipping to the next cue</source>
+        <translation>Input universe om naar de volgende cue te springen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="342"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="491"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="632"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="692"/>
+        <source>Input channel</source>
+        <translation>Input Kanaal</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="349"/>
+        <source>Input channel for skipping to the next cue</source>
+        <translation>Input kanaal om naar de volgende cue te gaan</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="356"/>
+        <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
+        <translation>Indien aangezet is het mogelijk een externe knop te koppelen die naar de volgende cue springt.</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="210"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="359"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="508"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="649"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="709"/>
         <source>Auto Detect</source>
         <translation>Autodetectie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="332"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="369"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Kies een input universe/kanaal om naar de volgende cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="335"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="484"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="625"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="685"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="223"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="372"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="521"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="662"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="722"/>
         <source>Choose...</source>
         <translation>Kies...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="420"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="457"/>
         <source>Previous Cue</source>
         <translation>Vorige cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="540"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="577"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Toetscombinatie om naar de vorige cue te gaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="523"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="560"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Wijs een toetscombinatie toe om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="447"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="484"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Input universe om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="461"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="498"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Input kanaal om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="468"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="505"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Indien aangezet is het mogelijk een externe knop te koppelen die naar de vorige cue springt.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="481"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="518"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Kies een input universe/kanaal om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="242"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="279"/>
         <source>The key combination used to stop the cue list</source>
         <translation>Toetscombinatie om de cue te stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="225"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="262"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Wijs een toetscombinatie toe om de cue te stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="149"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="588"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="648"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="625"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="685"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Input universe om de cue list te stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="163"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="602"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="662"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="200"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="639"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="699"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Input kanaal om de cue te stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="170"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="609"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="669"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="207"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="646"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="706"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Indien aangezet is het mogelijk een externe knop te koppelen die de cue list stopt</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="622"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="682"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="220"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="659"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="719"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
         <translation>Kies een input universe/kanaal om de cue list te stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="569"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="575"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
         <source>Left Slider</source>
         <translation>Linker slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="635"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="672"/>
         <source>Right Slider</source>
         <translation>Rechter slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="223"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="229"/>
         <source>No function</source>
         <translation>Geen functie</translation>
     </message>
@@ -5776,13 +5817,13 @@ Duur: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="352"/>
-        <location filename="virtualconsole/vcframe.cpp" line="469"/>
+        <location filename="virtualconsole/vcframe.cpp" line="353"/>
+        <location filename="virtualconsole/vcframe.cpp" line="470"/>
         <source>Page: %1</source>
         <translation>Pagina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1277"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1278"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
@@ -6994,8 +7035,9 @@ Duur: %3
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
-        <source>Fade In *</source>
-        <translation>Fade In</translation>
+        <source>Fade In factor</source>
+        <oldsource>Fade In *</oldsource>
+        <translation type="unfinished">Fade In</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
@@ -7004,8 +7046,9 @@ Duur: %3
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
-        <source>Fade Out *</source>
-        <translation>Fade Out</translation>
+        <source>Fade Out factor</source>
+        <oldsource>Fade Out *</oldsource>
+        <translation type="unfinished">Fade Out</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
@@ -7014,8 +7057,9 @@ Duur: %3
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
-        <source>Duration * (+tap)</source>
-        <translation>Duur * (+tap)</translation>
+        <source>Duration factor (+tap)</source>
+        <oldsource>Duration * (+tap)</oldsource>
+        <translation type="unfinished">Duur * (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
@@ -7043,137 +7087,147 @@ Duur: %3
         <translation>Absolute waarde</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="171"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="253"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="367"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="177"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="269"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="401"/>
         <source>Input Universe</source>
         <translation>Input Universe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="185"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="263"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="377"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="191"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="279"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="411"/>
         <source>Input Channel</source>
         <translation>Input Kanaal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="199"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="273"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="387"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="205"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="289"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="421"/>
         <source>Auto Detect</source>
         <translation>Autodetectie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="209"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="283"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="397"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="215"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="299"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Choose...</source>
         <translation>Kies...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="216"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="222"/>
         <source>Range</source>
         <translation>Bereik</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="235"/>
         <source>ms precision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="241"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="247"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="257"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
         <source>External Input</source>
         <translation>Externe Input</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="293"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="407"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="309"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="441"/>
         <source>Key combination</source>
         <translation>Toetscombinatie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="299"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="321"/>
         <source>Keyboard combination to control the dial tap</source>
         <translation>Toetscombinatie om de dial tap aan te sturen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="309"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="331"/>
         <source>Set a key combination for this dial</source>
         <translation>Definieer een toetscombinatie voor deze dial</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="329"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="351"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Verwijder de toetscombinatie van deze dial</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="355"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="377"/>
         <source>Infinite</source>
         <translation type="unfinished">Oneindig</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="413"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="453"/>
         <source>Keyboard combination to toggle the dial infinite checkbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="423"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="463"/>
         <source>Set a key combination for this dial infinite checkbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="443"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
         <source>Remove the dial&apos;s infinite button keyboard shortcut key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="523"/>
         <source>Appearance</source>
         <translation>Uiterlijk</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="491"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="529"/>
         <source>Show plus and minus buttons</source>
         <translation>Toon plus en min knoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="498"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="536"/>
+        <source>Show multiplier and divisor buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="543"/>
         <source>Show the central dial</source>
         <translation>Toon de central dial</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="505"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="550"/>
         <source>Show the tap button</source>
         <translation>Toon de tap knoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="512"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="557"/>
+        <source>Show the apply button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
         <source>Show the hours field</source>
         <translation>Toon het uren veld</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="519"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
         <source>Show the minutes field</source>
         <translation>Toon het minuten veld</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="526"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="578"/>
         <source>Show the seconds field</source>
         <translation>Toon het seconden veld</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="533"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="585"/>
         <source>Show the milliseconds field</source>
         <translation>Toon het milliseconden veld</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="540"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
         <source>Show the infinite option</source>
         <translation>Toon de oneindige optie</translation>
     </message>
@@ -7231,13 +7285,18 @@ Duur: %3
         <translation>Animatie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="155"/>
-        <location filename="virtualconsole/vcwidget.cpp" line="157"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="153"/>
+        <source>Clock</source>
+        <translation type="unfinished">Klok</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcwidget.cpp" line="156"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="158"/>
         <source>Unknown</source>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="509"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="511"/>
         <source>This widget has no properties</source>
         <translation>Deze widget heeft geen eigenschappen</translation>
     </message>

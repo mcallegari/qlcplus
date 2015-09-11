@@ -10,4 +10,5 @@ GenericName[nl]=Lichtregeling
 Exec=qlcplus --open %f
 Icon=qlcplus
 MimeType=application/x-qlc-workspace;
-Categories=Lighting;Art;Qt;AudioVideo;
+Categories=Qt;AudioVideo;
+

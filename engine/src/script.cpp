@@ -578,9 +578,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                 GenericFader* gf = fader();
                 Q_ASSERT(gf != NULL);
 
-                FadeChannel fc;
-                fc.setFixture(doc, fxi->id());
-                fc.setChannel(ch);
+                FadeChannel fc(doc, fxi->id(), ch);
                 fc.setTarget(value);
                 fc.setFadeTime(time);
 

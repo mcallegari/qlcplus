@@ -104,6 +104,8 @@ void MasterTimer::timerTick()
     qDebug() << "[MasterTimer] *********** tick:" << ticksCount++ << "**********";
 #endif
 
+    doc->inputOutputMap()->flushInputs();
+
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
     {
@@ -192,9 +194,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
                 uint ch = it.key() - fxi->universeAddress();
                 if (fxi->channelCanFade(ch))
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc, fxi->id());
-                    fc.setChannel(ch);
+                    FadeChannel fc(doc, fxi->id(), ch);
                     fc.setStart(it.value());
                     fc.setTarget(0);
                     fc.setFadeTime(timeout);

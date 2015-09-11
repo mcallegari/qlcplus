@@ -128,9 +128,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
     // update/add the changed channel
     if (blind == false && m_fader != NULL)
     {
-        FadeChannel fc;
-        fc.setFixture(doc(), scv.fxi);
-        fc.setChannel(scv.channel);
+        FadeChannel fc(doc(), scv.fxi, scv.channel);
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
         fc.setCurrent(scv.value);
@@ -517,9 +515,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         // so enforce all values that the user has chosen to flash.
         foreach (const SceneValue& sv, m_values.keys())
         {
-            FadeChannel fc;
-            fc.setFixture(doc(), sv.fxi);
-            fc.setChannel(sv.channel);
+            FadeChannel fc(doc(), sv.fxi, sv.channel);
             fc.setTarget(sv.value);
             fc.setFlashing(true);
             // Force add this channel, since it will be removed
@@ -568,9 +564,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             SceneValue value(it.next().key());
             bool canFade = true;
 
-            FadeChannel fc;
-            fc.setFixture(doc(), value.fxi);
-            fc.setChannel(value.channel);
+            FadeChannel fc(doc(), value.fxi, value.channel);
             fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
             if (fixture != NULL)

@@ -68,7 +68,7 @@ void GenericFader_Test::addRemove()
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
 
     FadeChannel wrong;
     fc.setFixture(m_doc, 0);
@@ -88,15 +88,15 @@ void GenericFader_Test::addRemove()
     QVERIFY(fader.m_channels.contains(fc) == false);
     QCOMPARE(fader.m_channels.count(), 0);
 
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     fader.add(fc);
     QVERIFY(fader.m_channels.contains(fc) == true);
 
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     fader.add(fc);
     QVERIFY(fader.m_channels.contains(fc) == true);
 
-    fc.setChannel(2);
+    fc.setChannel(m_doc, 2);
     fader.add(fc);
     QVERIFY(fader.m_channels.contains(fc) == true);
     QCOMPARE(fader.m_channels.count(), 3);
@@ -105,7 +105,7 @@ void GenericFader_Test::addRemove()
     QCOMPARE(fader.m_channels.count(), 0);
 
     fc.setFixture(m_doc, 0);
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     fc.setTarget(127);
     fader.add(fc);
     QCOMPARE(fader.m_channels.size(), 1);
@@ -130,7 +130,7 @@ void GenericFader_Test::writeZeroFade()
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
-    fc.setChannel(5);
+    fc.setChannel(m_doc, 5);
     fc.setStart(0);
     fc.setTarget(255);
     fc.setFadeTime(0);
@@ -149,7 +149,7 @@ void GenericFader_Test::writeLoop()
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
-    fc.setChannel(5);
+    fc.setChannel(m_doc, 5);
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
@@ -179,14 +179,14 @@ void GenericFader_Test::adjustIntensity()
 
     // HTP channel
     fc.setFixture(m_doc, 0);
-    fc.setChannel(5);
+    fc.setChannel(m_doc, 5);
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
     fader.add(fc);
 
     // LTP channel
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     fader.add(fc);
 
     qreal intensity = 0.5;

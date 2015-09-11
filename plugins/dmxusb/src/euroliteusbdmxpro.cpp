@@ -27,10 +27,13 @@ EuroliteUSBDMXPro::EuroliteUSBDMXPro(const QString& serial, const QString& name,
     : DMXUSBWidget(serial, name, vendor, 0)
 {
     Q_UNUSED(id)
-#ifdef LIBFTDI1
+#if defined LIBFTDI1
     m_device = (libusb_device *)usb_ref;
-#else
+#elif defined LIBFTDI
     m_device = (struct usb_device *)usb_ref;
+#else
+    Q_UNUSED(usb_ref)
+    m_device = NULL;
 #endif
 }
 
@@ -45,6 +48,7 @@ DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
     return DMXUSBWidget::Eurolite;
 }
 
+#ifndef QTSERIAL
 QString EuroliteUSBDMXPro::getDeviceName()
 {
     if (m_device == NULL)
@@ -108,6 +112,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
     }
     return QString();
 }
+#endif
 
 /****************************************************************************
  * Open & Close
@@ -117,7 +122,11 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    QString ttyName = "";
+#else
     QString ttyName = getDeviceName();
+#endif
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
     else

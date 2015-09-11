@@ -253,6 +253,7 @@ bool App::loadWorkspace(const QString &fileName)
         updateRecentFilesList(localFilename);
         emit docLoadedChanged();
         m_contextManager->resetContexts();
+        m_doc->resetModified();
         return true;
     }
     return false;

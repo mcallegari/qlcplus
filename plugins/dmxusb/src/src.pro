@@ -9,13 +9,12 @@ QT          += gui core
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH += ../../interfaces
 
-exists( $$[QT_INSTALL_LIBS]/libQtSerialPort.a ) {
-    CONFIG += serialport
-}
+#CONFIG += qtserial
 
-serialport {
+qtserial {
     message(Building with QtSerialport support.)
     DEFINES += QTSERIAL
+    QT += serialport
 } else {
 # Use FTD2XX by default only in Windows. Uncomment the two rows with curly
 # braces to use ftd2xx interface on unix.
@@ -97,7 +96,7 @@ SOURCES += ../../midi/common/midiprotocol.cpp
 
 unix:!macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 
-serialport {
+qtserial {
     SOURCES += qlcftdi-qtserial.cpp
 } else {
     CONFIG(ftd2xx) {

@@ -580,4 +580,5 @@
   <fixture path="Venue-LEDPAR64.qxf" mf="Venue" md="LED PAR64"/>
   <fixture path="Venue-Scanner-4.qxf" mf="Venue" md="Scanner 4"/>
   <fixture path="Venue-THINPAR-64.qxf" mf="Venue" md="THINPar 64"/>
+  <fixture path="XStatic-X-240Bar-RGB.qxf" mf="XStatic" md="X-240Bar RGB"/>
 </FixturesMap>

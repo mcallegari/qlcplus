@@ -33,6 +33,9 @@
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
 
+#define KXMLQLCVCButtonIntensity "Intensity"
+#define KXMLQLCVCButtonIntensityAdjust "Adjust"
+
 class VCButton : public VCWidget
 {
     Q_OBJECT
@@ -71,6 +74,25 @@ public:
      *         if there isn't one
      */
     quint32 function() const;
+
+    /**
+     *  The actual method used to request a change of state of this
+     *  Button. Depending on the action type this will start/stop
+     *  the attached Function, if any */
+    Q_INVOKABLE void requestStateChange(bool pressed);
+
+    /** @reimp */
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+
+protected slots:
+    /** Handler for function running signal */
+    void slotFunctionRunning(quint32 fid);
+
+    /** Handler for function stop signal */
+    void slotFunctionStopped(quint32 fid);
+
+    /** Basically the same as slotFunctionStopped() but for flash signal */
+    void slotFunctionFlashing(quint32 fid, bool state);
 
 protected:
     /** The function that this button is controlling */
@@ -117,6 +139,36 @@ signals:
 
 protected:
     Action m_actionType;
+
+    /*********************************************************************
+     * Startup intensity adjustment
+     *********************************************************************/
+public:
+    /**
+     * Make the button adjust the attached function's intensity when the
+     * button is used to start the function.
+     *
+     * @param enable true to make the button adjust intensity, false to disable
+     *               intensity adjustment
+     */
+    void enableStartupIntensity(bool enable);
+
+    /** Check, whether the button adjusts intensity */
+    bool isStartupIntensityEnabled() const;
+
+    /**
+     * Set the amount of the startupintensity adjustment.
+     *
+     * @param fraction Intensity adjustment amount (0.0 - 1.0)
+     */
+    void setStartupIntensity(qreal fraction);
+
+    /** Get the amount of intensity adjustment. */
+    qreal startupIntensity() const;
+
+protected:
+    bool m_startupIntensityEnabled;
+    qreal m_startupIntensity;
 
     /*********************************************************************
      * Load & Save

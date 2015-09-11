@@ -30,6 +30,7 @@
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
+    , m_hasSoloParent(false)
     , m_showHeader(true)
     , m_showEnable(true)
     , m_isCollapsed(false)
@@ -73,14 +74,41 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     }
 }
 
+void VCFrame::setHasSoloParent(bool hasSoloParent)
+{
+    m_hasSoloParent = hasSoloParent;
+}
+
+bool VCFrame::hasSoloParent() const
+{
+    return m_hasSoloParent;
+}
+
 bool VCFrame::hasChildren()
 {
     return !m_pagesMap.isEmpty();
 }
 
-QList<VCWidget *> VCFrame::children()
+QList<VCWidget *> VCFrame::children(bool recursive)
 {
-    return m_pagesMap.keys();
+    QList<VCWidget *> widgetsList;
+
+    if (recursive == false)
+        return m_pagesMap.keys();
+    else
+    {
+        foreach(VCWidget *widget, m_pagesMap.keys())
+        {
+            widgetsList.append(widget);
+            if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
+            {
+                VCFrame *frame = qobject_cast<VCFrame *>(widget);
+                widgetsList.append(frame->children(true));
+            }
+        }
+    }
+
+    return widgetsList;
 }
 
 void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
@@ -97,7 +125,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
-            addWidgetToPageMap(frame);
+            setupWidget(frame);
             m_vc->addWidgetToMap(frame);
             frame->render(m_vc->view(), parent);
         }
@@ -107,7 +135,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
-            addWidgetToPageMap(soloframe);
+            setupWidget(soloframe);
             m_vc->addWidgetToMap(soloframe);
             soloframe->render(m_vc->view(), parent);
         }
@@ -117,7 +145,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-            addWidgetToPageMap(button);
+            setupWidget(button);
             m_vc->addWidgetToMap(button);
             button->render(m_vc->view(), parent);
         }
@@ -127,7 +155,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             label->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-            addWidgetToPageMap(label);
+            setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
         }
@@ -160,6 +188,35 @@ void VCFrame::deleteChildren()
         m_pagesMap.remove(widget);
         delete widget;
     }
+}
+
+void VCFrame::setupWidget(VCWidget *widget)
+{
+    m_pagesMap.insert(widget, widget->page());
+
+    // if we're a normal Frame and we have a Solo Frame parent
+    // then passthrough the widget functionStarting signal.
+    // If we're not into a Solo Frame parent, then don't even connect
+    // the signal, so each widget will know to immediately start the Function
+    if (xmlTagName() == KXMLQLCVCFrame && m_hasSoloParent == true)
+    {
+        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
+                this, SIGNAL(functionStarting(VCWidget *,quint32,qreal)));
+    }
+
+    // otherwise, if we're a Solo Frame, connect the widget
+    // functionStarting signal to a slot to handle the event
+    if (xmlTagName() == KXMLQLCVCSoloFrame)
+    {
+        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
+                this, SLOT(slotFunctionStarting(VCWidget *,quint32,qreal)));
+    }
+
+}
+
+void VCFrame::deleteWidget(VCWidget *widget)
+{
+    m_pagesMap.remove(widget);
 }
 
 /*********************************************************************
@@ -214,6 +271,7 @@ void VCFrame::setCollapsed(bool isCollapsed)
 
     m_isCollapsed = isCollapsed;
     emit collapsedChanged(isCollapsed);
+    setDocModified();
 }
 
 /*********************************************************************
@@ -310,14 +368,18 @@ void VCFrame::gotoNextPage()
     //sendFeedback(m_currentPage, nextPageInputSourceId);
 }
 
-void VCFrame::addWidgetToPageMap(VCWidget *widget)
-{
-    m_pagesMap.insert(widget, widget->page());
-}
+/*********************************************************************
+ * Widget Function
+ *********************************************************************/
 
-void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
+void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
 {
-    m_pagesMap.remove(widget);
+    Q_UNUSED(widget)
+    Q_UNUSED(fid)
+    Q_UNUSED(fIntensity)
+
+    if (xmlTagName() == KXMLQLCVCFrame)
+        qDebug() << "[VCFrame] ERROR ! This should never happen !";
 }
 
 /*****************************************************************************
@@ -398,12 +460,18 @@ bool VCFrame::loadXML(const QDomElement* root)
         {
             /* Create a new frame into its parent */
             VCFrame* frame = new VCFrame(m_doc, m_vc, this);
+
+            // if we're a Solo Frame or we have a Solo Frame parent, set
+            // the new frame accordingly
+            if (xmlTagName() == KXMLQLCVCSoloFrame || m_hasSoloParent == true)
+                frame->setHasSoloParent(true);
+
             if (frame->loadXML(&tag) == false)
                 delete frame;
             else
             {
                 QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-                addWidgetToPageMap(frame);
+                setupWidget(frame);
                 m_vc->addWidgetToMap(frame);
             }
         }
@@ -416,7 +484,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-                addWidgetToPageMap(soloframe);
+                setupWidget(soloframe);
                 m_vc->addWidgetToMap(soloframe);
             }
         }
@@ -429,7 +497,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-                addWidgetToPageMap(button);
+                setupWidget(button);
                 m_vc->addWidgetToMap(button);
             }
         }
@@ -442,7 +510,7 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
             {
                 QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-                addWidgetToPageMap(label);
+                setupWidget(label);
                 m_vc->addWidgetToMap(label);
             }
         }

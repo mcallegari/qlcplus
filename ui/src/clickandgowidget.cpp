@@ -76,7 +76,7 @@ void ClickAndGoWidget::setupColorPicker()
 {
     int cw = 15;
 
-    m_width = 252 + 30;
+    m_width = 256 + 30;
     m_height = 256;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);

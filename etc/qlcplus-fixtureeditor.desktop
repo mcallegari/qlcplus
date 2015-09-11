@@ -10,4 +10,4 @@ GenericName[nl]=Bewerker voor armaturen
 Exec=qlcplus-fixtureeditor --open %f
 Icon=qlcplus-fixtureeditor
 MimeType=application/x-qlc-fixture;
-Categories=Lighting;Art;Qt;AudioVideo;
+Categories=Qt;AudioVideo;

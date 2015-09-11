@@ -29,8 +29,11 @@ class QPainter;
 class Gradient
 {
 public:
+    /** Get a gradient of default size (252x256) */
     static QImage getRGBGradient();
-    static QColor getRGBColor(const quint32 x, const quint32 y);
+
+    /** Get a gradient of input size */
+    static QImage getRGBGradient(const int width, const int height);
 
 private:
     static QImage m_rgb;

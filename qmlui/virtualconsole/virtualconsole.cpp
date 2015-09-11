@@ -49,6 +49,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
     , m_latestWidgetId(0)
     , m_resizeMode(false)
+    , m_selectedPage(0)
     , m_selectedWidget(NULL)
 {
     Q_ASSERT(doc != NULL);
@@ -123,6 +124,7 @@ void VirtualConsole::resetContents()
 
     m_widgetsMap.clear();
     m_latestWidgetId = 0;
+    m_selectedPage = 0;
 }
 
 quint32 VirtualConsole::newWidgetId()
@@ -175,6 +177,20 @@ VCWidget *VirtualConsole::widget(quint32 id)
         return NULL;
 
     return m_widgetsMap.value(id, NULL);
+}
+
+int VirtualConsole::selectedPage() const
+{
+    return m_selectedPage;
+}
+
+void VirtualConsole::setSelectedPage(int selectedPage)
+{
+    if (m_selectedPage == selectedPage)
+        return;
+
+    m_selectedPage = selectedPage;
+    emit selectedPageChanged(selectedPage);
 }
 
 bool VirtualConsole::editMode() const

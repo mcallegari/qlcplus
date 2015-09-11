@@ -529,19 +529,24 @@ QVariantList FixtureManager::presetCapabilities(int index)
 void FixtureManager::slotDocLoaded()
 {
     QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
-    capItem->setProperty("counter", 0);
+    if (capItem)
+        capItem->setProperty("counter", 0);
 
     capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
-    capItem->setProperty("counter", 0);
+    if (capItem)
+        capItem->setProperty("counter", 0);
 
     capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
-    capItem->setProperty("counter", 0);
+    if (capItem)
+        capItem->setProperty("counter", 0);
 
     capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColorWheel"));
-    capItem->setProperty("counter", 0);
+    if (capItem)
+        capItem->setProperty("counter", 0);
 
     capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
-    capItem->setProperty("counter", 0);
+    if (capItem)
+        capItem->setProperty("counter", 0);
 
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();

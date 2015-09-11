@@ -84,7 +84,7 @@ const QString cfLabelNoStyle =
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
-    //, m_chaser(NULL)
+    , m_nextPrevBehavior(DefaultRunFirst)
     , m_timer(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
@@ -450,14 +450,26 @@ void VCCueList::updateStepList()
 
 int VCCueList::getCurrentIndex()
 {
-    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
-    int index = 0;
-    if (selected.size() > 0)
-    {
-        QTreeWidgetItem* item(selected.first());
-        index = m_tree->indexOfTopLevelItem(item);
-    }
-    return index;
+    QTreeWidgetItem* item = m_tree->currentItem();
+    if (item != NULL)
+        return m_tree->indexOfTopLevelItem(item);
+    return 0;
+}
+
+int VCCueList::getNextIndex()
+{
+    int count = m_tree->topLevelItemCount();
+    if (count > 0)
+        return (getCurrentIndex() + 1) % count;
+    return 0;
+}
+
+int VCCueList::getPrevIndex()
+{
+    int currentIndex = getCurrentIndex();
+    if (currentIndex == 0)
+        return m_tree->topLevelItemCount() - 1;
+    return currentIndex - 1;
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -539,14 +551,28 @@ void VCCueList::slotNextCue()
     if (ch == NULL)
         return;
 
-    /* Create the runner only when the first/last cue is engaged. */
     if (ch->isRunning())
     {
         ch->next();
     }
     else
     {
-        startChaser();
+        switch (m_nextPrevBehavior)
+        {
+            case DefaultRunFirst:
+                startChaser();
+                break;
+            case RunNext:
+                startChaser(getNextIndex());
+                break;
+            case Select:
+                m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
+        }
     }
 }
 
@@ -559,14 +585,28 @@ void VCCueList::slotPreviousCue()
     if (ch == NULL)
         return;
 
-    /* Create the runner only when the first/last cue is engaged. */
     if (ch->isRunning())
     {
         ch->previous();
     }
     else
     {
-        startChaser(m_tree->topLevelItemCount() - 1);
+        switch (m_nextPrevBehavior)
+        {
+            case DefaultRunFirst:
+                startChaser(m_tree->topLevelItemCount() - 1);
+                break;
+            case RunNext:
+                startChaser(getPrevIndex());
+                break;
+            case Select:
+                m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
+                break;
+            case Nothing:
+                break;
+            default:
+                Q_ASSERT(false);
+        }
     }
 }
 
@@ -708,6 +748,20 @@ void VCCueList::stopChaser()
     if (ch == NULL)
         return;
     ch->stop();
+}
+
+void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
+{
+    Q_ASSERT(nextPrev == DefaultRunFirst
+            || nextPrev == RunNext
+            || nextPrev == Select
+            || nextPrev == Nothing);
+    m_nextPrevBehavior = nextPrev;
+}
+
+unsigned int VCCueList::nextPrevBehavior() const
+{
+    return m_nextPrevBehavior;
 }
 
 /*****************************************************************************
@@ -1213,6 +1267,19 @@ bool VCCueList::loadXML(const QDomElement* root)
         {
             setChaser(tag.text().toUInt());
         }
+        else if (tag.tagName() == KXMLQLCVCCueListNextPrevBehavior)
+        {
+            unsigned int nextPrev = tag.text().toUInt();
+            if (nextPrev != DefaultRunFirst
+                    && nextPrev != RunNext
+                    && nextPrev != Select
+                    && nextPrev != Nothing)
+            {
+                qWarning() << Q_FUNC_INFO << "Next/Prev behavior" << nextPrev << "does not exist.";
+                nextPrev = DefaultRunFirst;
+            }
+            setNextPrevBehavior(nextPrev);
+        }
         else if (tag.tagName() == KXMLQLCVCCueListFunction)
         {
             // Collect legacy file format steps into a list
@@ -1278,6 +1345,12 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     tag = doc->createElement(KXMLQLCVCCueListChaser);
     root.appendChild(tag);
     text = doc->createTextNode(QString::number(chaserID()));
+    tag.appendChild(text);
+
+    /* Next/Prev behavior */
+    tag = doc->createElement(KXMLQLCVCCueListNextPrevBehavior);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(nextPrevBehavior()));
     tag.appendChild(text);
 
     /* Next cue */

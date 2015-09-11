@@ -760,30 +760,21 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             {
                 // RGB color mixing
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(rgb.at(0));
+                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(0));
                     fc.setTarget(qRed(map[y][x]));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(rgb.at(1));
+                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(1));
                     fc.setTarget(qGreen(map[y][x]));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(rgb.at(2));
+                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(2));
                     fc.setTarget(qBlue(map[y][x]));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
@@ -795,30 +786,21 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 QColor col(map[y][x]);
 
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(cmy.at(0));
+                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(0));
                     fc.setTarget(col.cyan());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(cmy.at(1));
+                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(1));
                     fc.setTarget(col.magenta());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc(), grpHead.fxi);
-
-                    fc.setChannel(cmy.at(2));
+                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(2));
                     fc.setTarget(col.yellow());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
@@ -831,9 +813,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
                 QColor col(map[y][x]);
-                FadeChannel fc;
-                fc.setFixture(doc(), grpHead.fxi);
-                fc.setChannel(head.masterIntensityChannel());
+                FadeChannel fc(doc(), grpHead.fxi, head.masterIntensityChannel());
                 if (col.value() == 0 && mdAssigned != head.masterIntensityChannel())
                     fc.setTarget(0);
                 else

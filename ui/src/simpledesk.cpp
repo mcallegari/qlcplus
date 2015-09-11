@@ -94,11 +94,14 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_PAGE_CHANNELS);
-    if (var.isValid() == true)
+    if (var.isValid() == true && var.toUInt() > 0)
+    {
+        qDebug() << "[SimpleDesk] Using custom channels per page setting";
         m_channelsPerPage = var.toUInt();
+    }
 
     var = settings.value(SETTINGS_PAGE_PLAYBACKS);
-    if (var.isValid() == true)
+    if (var.isValid() == true && var.toUInt() > 0)
         m_playbacksPerPage = var.toUInt();
 
     // default all the universes pages to 1
