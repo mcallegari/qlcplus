@@ -1,8 +1,9 @@
 /*
   Q Light Controller
-  qlcftdi-ftd2xx.cpp
+  ftd2xx-interface.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,12 +23,8 @@
 #include <QDebug>
 #include <QMap>
 
-#include "dmxusbwidget.h"
+#include "ftd2xx-interface.h"
 #include "enttecdmxusbpro.h"
-#include "enttecdmxusbopen.h"
-#include "stageprofi.h"
-#include "vinceusbdmx512.h"
-#include "qlcftdi.h"
 
 /**
  * Get some interesting strings from the device.
@@ -38,10 +35,9 @@
  * @param serial Returned serial string
  * @return FT_OK if strings were extracted successfully
  */
-static FT_STATUS qlcftdi_get_strings(DWORD deviceIndex,
-                                     QString& vendor,
-                                     QString& description,
-                                     QString& serial)
+static FT_STATUS get_interface_info(DWORD deviceIndex,
+                                     QString& vendor, QString& description,
+                                     QString& serial, quint16 &VID, quint16 &PID)
 {
     char cVendor[256];
     char cVendorId[256];
@@ -65,7 +61,10 @@ static FT_STATUS qlcftdi_get_strings(DWORD deviceIndex,
     status = FT_EE_Read(handle, &pData);
     if (status == FT_OK)
     {
-        if (pData.ProductId == QLCFTDI::DMX4ALLPID)
+        *VID = pData.VendorId;
+        *PID = pData.ProductId;
+
+        if (pData.ProductId == DMXInterface::DMX4ALLPID)
             vendor = QString("DMX4ALL");
         else
             vendor = QString(cVendor);
@@ -78,26 +77,24 @@ static FT_STATUS qlcftdi_get_strings(DWORD deviceIndex,
     return status;
 }
 
-QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vendor, quint32 id)
-    : m_serial(serial)
-    , m_name(name)
-    , m_vendor(vendor)
-    , m_id(id)
+FTD2XXInterface::FTD2XXInterface(const QString& serial, const QString& name, const QString& vendor,
+                                 quint16 VID, quint16 PID, quint32 id)
+    : DMXInterface(serial, name, vendor, VID, PID , id)
     , m_handle(NULL)
 {
 }
 
-QLCFTDI::~QLCFTDI()
+FTD2XXInterface::~FTD2XXInterface()
 {
     if (isOpen() == true)
         close();
 }
 
-QString QLCFTDI::readLabel(quint32 id, uchar label, int *ESTA_code)
+QString FTD2XXInterface::readLabel(uchar label, int *ESTA_code)
 {
     FT_HANDLE ftdi = NULL;
 
-    if (FT_Open(id, &ftdi) != FT_OK)
+    if (FT_Open(m_id, &ftdi) != FT_OK)
         return QString();
 
     if(FT_ResetDevice(ftdi) != FT_OK)
@@ -150,30 +147,27 @@ QString QLCFTDI::readLabel(quint32 id, uchar label, int *ESTA_code)
     return QString(array);
 }
 
-QList <DMXUSBWidget*> QLCFTDI::widgets()
+DMXInterface::Type FTD2XXInterface::type()
 {
-    QList <DMXUSBWidget*> widgetList;
-    quint32 input_id = 0;
-    quint32 output_id = 0;
+    return DMXInterface::FTD2xx;
+}
+
+QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discoveredList)
+{
+    QList <DMXInterface*> interfacesList;
+    int id = 0;
 
     /* Find out the number of FTDI devices present */
     DWORD num = 0;
     FT_STATUS status = FT_CreateDeviceInfoList(&num);
-    if (status != FT_OK)
+    if (status != FT_OK || num <= 0)
     {
-        qWarning() << Q_FUNC_INFO << "CreateDeviceInfoList:" << status;
-        return widgetList;
-    }
-    else if (num <= 0)
-    {
-        return widgetList;
+        qWarning() << Q_FUNC_INFO << "[FTD2XXInterface] Error in FT_CreateDeviceInfoList:" << status;
+        return interfacesList;
     }
 
     // Allocate storage for list based on numDevices
     FT_DEVICE_LIST_INFO_NODE* devInfo = new FT_DEVICE_LIST_INFO_NODE[num];
-
-	// Get a map of user-forced serials and their types
-    QMap <QString,QVariant> types(typeMap());
 
     // Get the device information list
     if (FT_GetDeviceInfoList(devInfo, &num) == FT_OK)
@@ -181,11 +175,12 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         for (DWORD i = 0; i < num; i++)
         {
             QString vendor, name, serial;
-            FT_STATUS s = qlcftdi_get_strings(i, vendor, name, serial);
+            quint16 VID, PID;
+            FT_STATUS s = get_interface_info(i, vendor, name, serial, &VID, &PID);
             if (s != FT_OK || name.isEmpty() || serial.isEmpty())
             {
 				// Seems that some otherwise working devices don't provide
-				// FT_PROGRAM_DATA struct used by qlcftdi_get_strings().
+                // FT_PROGRAM_DATA struct used by get_interface_info().
                 name = QString(devInfo[i].Description);
 				serial = QString(devInfo[i].SerialNumber);
 				vendor = QString();
@@ -193,111 +188,24 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
             qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 
-            if (types.contains(serial) == true)
+            // TODO: Skip non wanted devices here ?
+
+            FTD2XXInterface *iface = new FTD2XXInterface(serial, name, vendor, VID, PID, id++);
+
+            if (discoveredList.contains(iface) == true)
             {
-                // Force a widget with a specific serial to either type
-                DMXUSBWidget::Type type = (DMXUSBWidget::Type)
-                                                    types[serial].toInt();
-                switch (type)
-                {
-                case DMXUSBWidget::OpenTX:
-                    widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++, i);
-                    break;
-                case DMXUSBWidget::ProMk2:
-                {
-                    EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id, i);
-                    promkii->setOutputsNumber(2);
-                    promkii->setMidiPortsNumber(1, 1);
-                    output_id += 3;
-                    input_id += 2;
-                    widgetList << promkii;
-                    break;
-                }
-                case DMXUSBWidget::UltraPro:
-                {
-                    EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++, i);
-                    ultra->setOutputsNumber(2);
-                    ultra->setDMXKingMode();
-                    output_id += 2;
-                    widgetList << ultra;
-                    break;
-                }
-                case DMXUSBWidget::VinceTX:
-                    widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++, i);
-                    break;
-                default:
-                case DMXUSBWidget::ProRXTX:
-                    widgetList << new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++, i);
-                    break;
-                }
+                delete iface;
+                continue;
             }
-            else if (name.toUpper().contains("PRO MK2") == true)
-            {
-                EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id, i);
-                promkii->setOutputsNumber(2);
-                promkii->setMidiPortsNumber(1, 1);
-                output_id += 3;
-                input_id += 2;
-                widgetList << promkii;
-            }
-            else if (name.toUpper().contains("DMX USB PRO"))
-            {
-                /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
-                int ESTAID = 0;
-                int DEVID = 0;
-                QString manName = readLabel(i, DMXKING_USB_DEVICE_MANUFACTURER, &ESTAID);
-                qDebug() << "--------> Device Manufacturer: " << manName;
-                QString devName = readLabel(i, DMXKING_USB_DEVICE_NAME, &DEVID);
-                qDebug() << "--------> Device Name: " << devName;
-                qDebug() << "--------> ESTA Code: " << QString::number(ESTAID, 16) << ", Device ID: " << QString::number(DEVID, 16);
-                if (ESTAID == DMXKING_ESTA_ID)
-                {
-                    if (DEVID == ULTRADMX_PRO_DEV_ID)
-                    {
-                        EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(serial, name, vendor, output_id, input_id++, i);
-                        ultra->setOutputsNumber(2);
-                        ultra->setDMXKingMode();
-                        ultra->setRealName(devName);
-                        output_id += 2;
-                        widgetList << ultra;
-                    }
-                    else
-                    {
-                        EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++, 0, i);
-                        pro->setInputsNumber(0);
-                        pro->setRealName(devName);
-                        widgetList << pro;
-                    }
-                }
-                else
-                {
-                    /* This is probably a Enttec DMX USB Pro widget */
-                    EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(serial, name, vendor, output_id++, input_id++, i);
-                    pro->setRealName(devName);
-                    widgetList << pro;
-                }
-            }
-            else if (name.toUpper().contains("USB-DMX512 CONVERTER") == true)
-            {
-                widgetList << new VinceUSBDMX512(serial, name, vendor, output_id++, i);
-            }
-            else if (vendor.toUpper().contains("DMX4ALL") == true)
-            {
-                widgetList << new Stageprofi(serial, name, vendor, output_id++, i);
-            }
-            else
-            {
-                /* This is probably an Open DMX USB widget */
-                widgetList << new EnttecDMXUSBOpen(serial, name, vendor, output_id++, i);
-            }
+            interfacesList << iface;
         }
     }
 
     delete [] devInfo;
-    return widgetList;
+    return interfacesList;
 }
 
-bool QLCFTDI::open()
+bool FTD2XXInterface::open()
 {
     if (isOpen() == true)
         return true;
@@ -314,13 +222,13 @@ bool QLCFTDI::open()
     }
 }
 
-bool QLCFTDI::openByPID(const int PID)
+bool FTD2XXInterface::openByPID(const int PID)
 {
     Q_UNUSED(PID)
     return open();
 }
 
-bool QLCFTDI::close()
+bool FTD2XXInterface::close()
 {
     FT_STATUS status = FT_Close(m_handle);
     m_handle = NULL;
@@ -335,12 +243,12 @@ bool QLCFTDI::close()
     }
 }
 
-bool QLCFTDI::isOpen() const
+bool FTD2XXInterface::isOpen() const
 {
     return (m_handle != NULL) ? true : false;
 }
 
-bool QLCFTDI::reset()
+bool FTD2XXInterface::reset()
 {
     FT_STATUS status = FT_ResetDevice(m_handle);
     if (status != FT_OK)
@@ -354,7 +262,7 @@ bool QLCFTDI::reset()
     }
 }
 
-bool QLCFTDI::setLineProperties()
+bool FTD2XXInterface::setLineProperties()
 {
     FT_STATUS status = FT_SetDataCharacteristics(m_handle, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE);
     if (status != FT_OK)
@@ -368,7 +276,7 @@ bool QLCFTDI::setLineProperties()
     }
 }
 
-bool QLCFTDI::setBaudRate()
+bool FTD2XXInterface::setBaudRate()
 {
     FT_STATUS status = FT_SetBaudRate(m_handle, 250000);
     if (status != FT_OK)
@@ -382,7 +290,7 @@ bool QLCFTDI::setBaudRate()
     }
 }
 
-bool QLCFTDI::setFlowControl()
+bool FTD2XXInterface::setFlowControl()
 {
     FT_STATUS status = FT_SetFlowControl(m_handle, 0, 0, 0);
     if (status != FT_OK)
@@ -396,7 +304,7 @@ bool QLCFTDI::setFlowControl()
     }
 }
 
-bool QLCFTDI::clearRts()
+bool FTD2XXInterface::clearRts()
 {
     FT_STATUS status = FT_ClrRts(m_handle);
     if (status != FT_OK)
@@ -410,7 +318,7 @@ bool QLCFTDI::clearRts()
     }
 }
 
-bool QLCFTDI::purgeBuffers()
+bool FTD2XXInterface::purgeBuffers()
 {
     FT_STATUS status = FT_Purge(m_handle, FT_PURGE_RX | FT_PURGE_TX);
     if (status != FT_OK)
@@ -424,7 +332,7 @@ bool QLCFTDI::purgeBuffers()
     }
 }
 
-bool QLCFTDI::setBreak(bool on)
+bool FTD2XXInterface::setBreak(bool on)
 {
     FT_STATUS status;
     if (on == true)
@@ -443,7 +351,7 @@ bool QLCFTDI::setBreak(bool on)
     }
 }
 
-bool QLCFTDI::write(const QByteArray& data)
+bool FTD2XXInterface::write(const QByteArray& data)
 {
     DWORD written = 0;
     FT_STATUS status = FT_Write(m_handle, (char*) data.data(), data.size(), &written);
@@ -458,7 +366,7 @@ bool QLCFTDI::write(const QByteArray& data)
     }
 }
 
-QByteArray QLCFTDI::read(int size, uchar* userBuffer)
+QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
 {
     if (m_handle == NULL)
         return QByteArray();
@@ -496,7 +404,7 @@ QByteArray QLCFTDI::read(int size, uchar* userBuffer)
     return array;
 }
 
-uchar QLCFTDI::readByte(bool* ok)
+uchar FTD2XXInterface::readByte(bool* ok)
 {
     if (m_handle == NULL)
     {

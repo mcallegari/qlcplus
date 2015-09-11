@@ -63,7 +63,7 @@ bool DMXUSB::rescanWidgets()
     while(m_widgets.isEmpty() == false)
         delete m_widgets.takeFirst();
 
-    m_widgets = QLCFTDI::widgets();
+    m_widgets = DMXUSBWidget::widgets();
 
     foreach (DMXUSBWidget* widget, m_widgets)
     {

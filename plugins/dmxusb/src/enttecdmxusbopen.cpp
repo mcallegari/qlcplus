@@ -25,7 +25,6 @@
 
 #include "enttecdmxusbopen.h"
 #include "qlcmacros.h"
-#include "qlcftdi.h"
 
 #define DMX_MAB 16
 #define DMX_BREAK 110
@@ -37,10 +36,10 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                                   quint32 outputLine, quint32 id, QObject* parent)
+EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
+                                   quint32 outputLine, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(serial, name, vendor, outputLine, id)
+    , DMXUSBWidget(interface, outputLine)
     , m_running(false)
     , m_universe(QByteArray(513, 0))
     , m_frequency(30)
@@ -86,7 +85,7 @@ bool EnttecDMXUSBOpen::open(quint32 line, bool input)
     if (DMXUSBWidget::open(line) == false)
         return close(line);
 
-    if (ftdi()->clearRts() == false)
+    if (interface()->clearRts() == false)
         return close(line);
 #endif
     start(QThread::TimeCriticalPriority);
@@ -191,19 +190,19 @@ void EnttecDMXUSBOpen::run()
         // Measure how much time passes during these calls
         time.restart();
 
-        if (ftdi()->setBreak(true) == false)
+        if (interface()->setBreak(true) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_BREAK);
 
-        if (ftdi()->setBreak(false) == false)
+        if (interface()->setBreak(false) == false)
             goto framesleep;
 
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (ftdi()->write(m_universe) == false)
+        if (interface()->write(m_universe) == false)
             goto framesleep;
 
 framesleep:
