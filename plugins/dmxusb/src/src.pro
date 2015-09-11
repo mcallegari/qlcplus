@@ -82,7 +82,8 @@ HEADERS += dmxusb.h \
 unix:!macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
 SOURCES += ../../interfaces/qlcioplugin.cpp
-SOURCES += dmxusb.cpp \
+SOURCES += dmxinterface.cpp \
+           dmxusb.cpp \
            dmxusbwidget.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \

@@ -29,8 +29,6 @@
 #define EUROLITE_USB_DMX_PRO_START_OF_MSG  char(0x7E)
 #define EUROLITE_USB_DMX_PRO_END_OF_MSG    char(0xE7)
 
-class QLCFTDI;
-
 class EuroliteUSBDMXPro : public DMXUSBWidget
 {
     /************************************************************************
