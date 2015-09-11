@@ -21,12 +21,7 @@
 #ifndef DMXINTERFACE_H
 #define DMXINTERFACE_H
 
-#include <QByteArray>
-#include <QSettings>
-#include <QString>
-#include <QMutex>
-#include <QList>
-#include <QMap>
+#include <QtCore>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 

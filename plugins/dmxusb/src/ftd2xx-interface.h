@@ -20,12 +20,10 @@
 #ifndef FTD2XXINTERFACE_H
 #define FTD2XXINTERFACE_H
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-  #include <windows.h>
-#endif
-#include <ftd2xx.h>
-
 #include "dmxinterface.h"
+
+typedef void *PVOID;
+typedef PVOID	FT_HANDLE;
 
 class FTD2XXInterface : public DMXInterface
 {
@@ -93,3 +91,5 @@ public:
 private:
     FT_HANDLE m_handle;
 };
+
+#endif
