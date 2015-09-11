@@ -11,6 +11,7 @@
 		<comment xml:lang="fr">Espace de travail QLC+</comment>
 		<comment xml:lang="fi">QLC+ työtila</comment>
 		<comment xml:lang="it">Spazio di lavoro QLC+</comment>
+		<comment xml:lang="nl">QLC+ werkruimte</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-fixture">
 		<sub-class-of type="application/xml"/>
@@ -23,6 +24,7 @@
 		<comment xml:lang="fr">QLC+ définitions des projecteurs</comment>
 		<comment xml:lang="fi">QLC+ valaisinmääritys</comment>
 		<comment xml:lang="it">Definizione di Fixture QLC+</comment>
+		<comment xml:lang="nl">QLC+ armatuur definitie</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-inputprofile">
 		<sub-class-of type="application/xml"/>
@@ -35,5 +37,6 @@
 		<comment xml:lang="fr">QLC+ profil d'entrée</comment>
 		<comment xml:lang="fi">QLC+ syöttölaiteprofiili</comment>
 		<comment xml:lang="it">Profilo di input QLC+</comment>
+		<comment xml:lang="nl">QLC+ invoerprofiel</comment>
 	</mime-type>
 </mime-info>

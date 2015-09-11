@@ -6,7 +6,9 @@ GenericName[de]=Lichtsteuerung
 GenericName[fi]=Valojen ohjaus
 GenericName[fr]=Controlleur d'éclairages
 GenericName[it]=Controllore di luci
+GenericName[nl]=Lichtregeling
 Exec=qlcplus --open %f
 Icon=qlcplus
 MimeType=application/x-qlc-workspace;
 Categories=Qt;AudioVideo;
+
