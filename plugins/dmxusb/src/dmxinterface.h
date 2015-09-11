@@ -53,55 +53,22 @@ public:
     };
 
     /** Comparator function for matching DMXInterfaces */
-    bool operator== (const DMXInterface& iface) const
-    {
-        if (m_name == iface.m_name &&
-            m_serial == iface.m_serial &&
-            m_vendor == iface.m_vendor)
-                return true;
-        return false;
-    }
+    bool operator== (const DMXInterface& iface) const;
 
     /**
      * Check if an interface is supported by QLC+
      *
      * @return true if supported, false if unsupported
      */
-    static bool validInterface(quint16 vendor, quint16 product)
-    {
-        if (vendor != DMXInterface::FTDIVID &&
-            vendor != DMXInterface::ATMELVID &&
-            vendor != DMXInterface::MICROCHIPVID)
-                return false;
-
-        if (product != DMXInterface::FTDIPID &&
-            product != DMXInterface::DMX4ALLPID &&
-            product != DMXInterface::NANODMXPID &&
-            product != DMXInterface::EUROLITEPID)
-                return false;
-
-        return true;
-    }
+    static bool validInterface(quint16 vendor, quint16 product);
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
      * be used to force the plugin to use pro/open method on which widget.
      */
-    static QMap <QString,QVariant> typeMap()
-    {
-        QMap <QString,QVariant> typeMap;
-        QSettings settings;
-        QVariant var(settings.value(SETTINGS_TYPE_MAP));
-        if (var.isValid() == true)
-            typeMap = var.toMap();
-        return typeMap;
-    }
+    static QMap <QString,QVariant> typeMap();
 
-    static void storeTypeMap(const QMap <QString,QVariant> map)
-    {
-        QSettings settings;
-        settings.setValue(SETTINGS_TYPE_MAP, map);
-    }
+    static void storeTypeMap(const QMap <QString,QVariant> map);
 
     /************************************************************************
      * Construction & Generic Information
@@ -118,42 +85,35 @@ public:
      * @param id The ID of the device (used only when FTD2XX is the backend)
      */
     DMXInterface(const QString& serial, const QString& name, const QString &vendor,
-                 quint16 VID, quint16 PID, quint32 id = 0)
-        : m_serial(serial)
-        , m_name(name)
-        , m_vendor(vendor)
-        , m_vendorID(VID)
-        , m_productID(PID)
-        , m_id(id)
-    { }
+                 quint16 VID, quint16 PID, quint32 id = 0);
 
     /** Destructor */
-    virtual ~DMXInterface() { }
+    virtual ~DMXInterface();
 
-    virtual QString readLabel(uchar label, int *ESTA_code);
+    virtual QString readLabel(uchar label, int *ESTA_code) = 0;
 
     /** Get the widget's USB serial number */
-    QString serial() const { return m_serial; }
+    QString serial() const;
 
     /** Get the widget's USB name */
-    QString name() const { return m_name; }
+    QString name() const;
 
     /** Get the widget's USB vendor name */
-    QString vendor() const { return m_vendor; }
+    QString vendor() const;
 
     /** Get the widget's USB vendor ID */
-    quint16 vendorID() const { return m_vendorID; }
+    quint16 vendorID() const;
 
     /** Get the widget's USB product ID */
-    quint16 productID() const { return m_productID; }
+    quint16 productID() const;
 
     /** Get the widget's FTD2XX ID number */
-    quint32 id() const { return m_id; }
+    quint32 id() const;
 
     /** Virtual method to retrieve the original USB
      *  bus location of the device.
      *  Used only in Linux to perform a sysfs lookup */
-    virtual quint8 busLocation() { return 0; }
+    virtual quint8 busLocation();
 
 private:
     QString m_serial;
@@ -170,46 +130,46 @@ public:
     virtual DMXInterface::Type type() = 0;
 
     /** Open the widget */
-    virtual bool open();
+    virtual bool open() = 0;
 
     /** Open the widget using a specific Product ID */
-    virtual bool openByPID(const int FTDIPID);
+    virtual bool openByPID(const int FTDIPID) = 0;
 
     /** Close the widget */
-    virtual bool close();
+    virtual bool close() = 0;
 
     /** Check if the widget is open */
-    virtual bool isOpen() const;
+    virtual bool isOpen() const = 0;
 
     /** Reset the communications line */
-    virtual bool reset();
+    virtual bool reset() = 0;
 
     /** Setup communications line for 8N2 traffic */
-    virtual bool setLineProperties();
+    virtual bool setLineProperties() = 0;
 
     /** Set 250kbps baud rate */
-    virtual bool setBaudRate();
+    virtual bool setBaudRate() = 0;
 
     /** Disable flow control */
-    virtual bool setFlowControl();
+    virtual bool setFlowControl() = 0;
 
     /** Clear the RTS bit */
-    virtual bool clearRts();
+    virtual bool clearRts() = 0;
 
     /** Purge TX & RX buffers */
-    virtual bool purgeBuffers();
+    virtual bool purgeBuffers() = 0;
 
     /** Toggle communications line BREAK condition on/off */
-    virtual bool setBreak(bool on);
+    virtual bool setBreak(bool on) = 0;
 
     /** Write data to a previously-opened line */
-    virtual bool write(const QByteArray& data);
+    virtual bool write(const QByteArray& data) = 0;
 
     /** Read data from a previously-opened line. Optionally provide own data buffer. */
-    virtual QByteArray read(int size, uchar* buffer = NULL);
+    virtual QByteArray read(int size, uchar* buffer = NULL) = 0;
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
-    virtual uchar readByte(bool* ok = NULL);
+    virtual uchar readByte(bool* ok = NULL) = 0;
 };
 
 #endif

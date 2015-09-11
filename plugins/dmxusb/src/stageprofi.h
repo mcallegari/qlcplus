@@ -22,8 +22,6 @@
 
 #include "dmxusbwidget.h"
 
-class QLCFTDI;
-
 class Stageprofi : public DMXUSBWidget
 {
     /************************************************************************

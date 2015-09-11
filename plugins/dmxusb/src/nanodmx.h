@@ -24,8 +24,6 @@
 
 #include "dmxusbwidget.h"
 
-class QLCFTDI;
-
 class NanoDMX : public DMXUSBWidget
 {
     /************************************************************************
