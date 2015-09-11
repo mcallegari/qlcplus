@@ -397,21 +397,31 @@ void SpeedDial::slotMultiplierDivisor()
 
     if (m_div->isDown() == true)
     {
-        if(m_currentFactor == 1)
+        if (m_currentFactor == 1)
             m_currentFactor = -2;
         else if (m_currentFactor > 0)
+        {
             m_currentFactor /= 2;
+        }
         else
-            m_currentFactor *= 2;
+        {
+            if (m_currentFactor > -2048)
+                m_currentFactor *= 2;
+        }
     }
     else if (m_mult->isDown() == true)
     {
         if (m_currentFactor == -2)
             m_currentFactor = 1;
         else if (m_currentFactor > 0)
-            m_currentFactor *= 2;
+        {
+            if (m_currentFactor < 2048)
+                m_currentFactor *= 2;
+        }
         else
+        {
             m_currentFactor /= 2;
+        }
 
     }
     if (m_currentFactor > 0)
