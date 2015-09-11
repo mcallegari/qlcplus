@@ -28,44 +28,6 @@
 class DMXInterface
 {
     /************************************************************************
-     * Widget enumeration
-     ************************************************************************/
-public:
-    static const int FTDIVID = 0x0403;      //! FTDI Vendor ID
-    static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
-    static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
-    static const int FTDIPID = 0x6001;      //! FTDI Product ID
-    static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
-    static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
-    static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
-
-    /** Driver types */
-    enum Type
-    {
-        libFTDI = 0,
-        FTD2xx,
-        QtSerial
-    };
-
-    /** Comparator function for matching DMXInterfaces */
-    bool operator== (const DMXInterface& iface) const;
-
-    /**
-     * Check if an interface is supported by QLC+
-     *
-     * @return true if supported, false if unsupported
-     */
-    static bool validInterface(quint16 vendor, quint16 product);
-
-    /**
-     * Get a map of [serial = type] bindings that tells which serials should
-     * be used to force the plugin to use pro/open method on which widget.
-     */
-    static QMap <QString,QVariant> typeMap();
-
-    static void storeTypeMap(const QMap <QString,QVariant> map);
-
-    /************************************************************************
      * Construction & Generic Information
      ************************************************************************/
 public:
@@ -117,6 +79,46 @@ private:
     quint16 m_vendorID;
     quint16 m_productID;
     quint32 m_id;
+
+    /************************************************************************
+     * Widget enumeration
+     ************************************************************************/
+public:
+    static const int FTDIVID = 0x0403;      //! FTDI Vendor ID
+    static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
+    static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
+    static const int FTDIPID = 0x6001;      //! FTDI Product ID
+    static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
+    static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
+    static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
+
+    /** Driver types */
+    enum Type
+    {
+        libFTDI = 0,
+        FTD2xx,
+        QtSerial
+    };
+
+    /** Comparator function for matching DMXInterfaces */
+    bool operator== (const DMXInterface& iface) const;
+
+    /**
+     * Check if an interface is supported by QLC+
+     *
+     * @return true if supported, false if unsupported
+     */
+    static bool validInterface(quint16 vendor, quint16 product);
+
+    bool checkInfo(QString &serial, QString &name, QString &vendor);
+
+    /**
+     * Get a map of [serial = type] bindings that tells which serials should
+     * be used to force the plugin to use pro/open method on which widget.
+     */
+    static QMap <QString,QVariant> typeMap();
+
+    static void storeTypeMap(const QMap <QString,QVariant> map);
 
     /************************************************************************
      * DMX/Serial Interface Methods

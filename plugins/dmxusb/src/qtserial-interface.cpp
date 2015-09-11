@@ -119,12 +119,18 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
                                       info.productIdentifier(), id++);
         iface->setInfo(info);
 
-        if (discoveredList.contains(iface) == true)
+        bool found = false;
+        for (int c = 0; c < discoveredList.count(); c++)
         {
-            delete iface;
-            continue;
+            if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
+            {
+                delete iface;
+                found = true;
+                break;
+            }
         }
-        interfacesList << iface;
+        if (found == false)
+            interfacesList << iface;
     }
 
     return interfacesList;
@@ -140,7 +146,7 @@ bool QtSerialInterface::open()
     if (isOpen() == true)
         return true;
 
-    qDebug() << Q_FUNC_INFO << "Open device ID: " << m_id << "(" << m_info.description() << ")";
+    qDebug() << Q_FUNC_INFO << "Open device ID: " << id() << "(" << m_info.description() << ")";
 
     m_handle = new QSerialPort(m_info);
     if (m_handle == NULL)
