@@ -20,10 +20,6 @@
 #ifndef ENTTECDMXUSBPRO_H
 #define ENTTECDMXUSBPRO_H
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-#   include <windows.h>
-#endif
-
 #include <QByteArray>
 #include <QThread>
 

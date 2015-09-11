@@ -18,13 +18,10 @@
   limitations under the License.
 */
 
-#include <QSettings>
-#include <QVariant>
-#include <QDebug>
-#include <QMap>
-
 #include "ftd2xx-interface.h"
 #include "enttecdmxusbpro.h"
+
+#include <ftd2xx.h>
 
 /**
  * Get some interesting strings from the device.
@@ -61,8 +58,8 @@ static FT_STATUS get_interface_info(DWORD deviceIndex,
     status = FT_EE_Read(handle, &pData);
     if (status == FT_OK)
     {
-        *VID = pData.VendorId;
-        *PID = pData.ProductId;
+        VID = pData.VendorId;
+        PID = pData.ProductId;
 
         if (pData.ProductId == DMXInterface::DMX4ALLPID)
             vendor = QString("DMX4ALL");
@@ -94,7 +91,7 @@ QString FTD2XXInterface::readLabel(uchar label, int *ESTA_code)
 {
     FT_HANDLE ftdi = NULL;
 
-    if (FT_Open(m_id, &ftdi) != FT_OK)
+    if (FT_Open(id(), &ftdi) != FT_OK)
         return QString();
 
     if(FT_ResetDevice(ftdi) != FT_OK)
@@ -176,7 +173,7 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
         {
             QString vendor, name, serial;
             quint16 VID, PID;
-            FT_STATUS s = get_interface_info(i, vendor, name, serial, &VID, &PID);
+            FT_STATUS s = get_interface_info(i, vendor, name, serial, VID, PID);
             if (s != FT_OK || name.isEmpty() || serial.isEmpty())
             {
 				// Seems that some otherwise working devices don't provide
@@ -210,7 +207,7 @@ bool FTD2XXInterface::open()
     if (isOpen() == true)
         return true;
 
-    FT_STATUS status = FT_Open(m_id, &m_handle);
+    FT_STATUS status = FT_Open(id(), &m_handle);
     if (status != FT_OK)
     {
         qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;

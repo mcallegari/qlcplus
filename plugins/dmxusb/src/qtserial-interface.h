@@ -95,3 +95,5 @@ private:
     QSerialPortInfo m_info;
 };
 
+#endif
+
