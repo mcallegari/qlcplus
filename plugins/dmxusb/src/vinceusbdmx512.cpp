@@ -20,9 +20,8 @@
 #include <QDebug>
 #include "vinceusbdmx512.h"
 
-VinceUSBDMX512::VinceUSBDMX512(const QString &serial, const QString &name, const QString &vendor,
-                               quint32 outputLine, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, outputLine, id)
+VinceUSBDMX512::VinceUSBDMX512(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
     // TODO: Check if DMX IN is available
 }
@@ -68,11 +67,11 @@ bool VinceUSBDMX512::open(quint32 line, bool input)
     if (DMXUSBWidget::open() == false)
         return false;
 
-    if (ftdi()->clearRts() == false)
+    if (interface()->clearRts() == false)
         return false;
 
     // Write two null bytes
-    if (ftdi()->write(QByteArray(2, 0x00)) == false)
+    if (interface()->write(QByteArray(2, 0x00)) == false)
         return false;
 
     // Request start DMX command
@@ -113,7 +112,7 @@ bool VinceUSBDMX512::writeData(Command command, const QByteArray &data)
     }
     message.append(VINCE_END_OF_MSG);                   // Stop condition
 
-    return ftdi()->write(message);
+    return interface()->write(message);
 }
 
 QByteArray VinceUSBDMX512::readData(bool* ok)
@@ -127,7 +126,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     {
         *ok = false;
         // Attempt to read byte
-        byte = ftdi()->readByte(ok);
+        byte = interface()->readByte(ok);
         if (*ok == false)
             return data;
 
@@ -152,7 +151,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
         ushort i;
         for (i = 0; i < dataLength; i++)
         {
-            byte = ftdi()->readByte(ok);
+            byte = interface()->readByte(ok);
             if (*ok == false)
             {
                 qWarning() << Q_FUNC_INFO << "No available byte to read (" << (dataLength - i) << "missing bytes)";
@@ -163,7 +162,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     }
 
     // Read end of message
-    byte = ftdi()->readByte();
+    byte = interface()->readByte();
     if (byte != VINCE_END_OF_MSG)
     {
         qWarning() << Q_FUNC_INFO << "Incorrect end of message received:" << byte;

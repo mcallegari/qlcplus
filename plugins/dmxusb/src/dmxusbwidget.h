@@ -21,7 +21,15 @@
 #ifndef DMXUSBWIDGET_H
 #define DMXUSBWIDGET_H
 
-#include "qlcftdi.h"
+#if defined(FTD2XX)
+  #include "ftd2xx-interface.h"
+#endif
+#if defined(LIBFTDI) || defined(LIBFTDI1)
+  #include "libftdi-interface.h"
+#endif
+#if defined(QTSERIAL)
+  #include "qtserial-interface.h"
+#endif
 
 /**
  * This is the base interface class for ENTTEC USB DMX [Pro|Open] widgets.
@@ -36,7 +44,7 @@ public:
      * @param name The name of the widget
      * @param id The ID of the device in FTD2XX (0 when libftdi is used)
      */
-    DMXUSBWidget(const QString& serial, const QString& name, const QString &vendor, quint32 outputLine, quint32 id = 0);
+    DMXUSBWidget(DMXInterface *interface, quint32 outputLine);
 
     virtual ~DMXUSBWidget();
 
@@ -55,11 +63,13 @@ public:
     /** Get the type of the widget */
     virtual Type type() const = 0;
 
-    /** Get the QLCFTDI instance */
-    QLCFTDI* ftdi() const;
+    /** Get the DMXInterface instance */
+    DMXInterface* interface() const;
+
+    static QList<DMXUSBWidget *> widgets();
 
 private:
-    QLCFTDI* m_ftdi;
+    DMXInterface* m_interface;
 
     /********************************************************************
      * Open & close

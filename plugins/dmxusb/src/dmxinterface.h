@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
-  qlcftdi.h
+  Q Light Controller Plus
+  dmxinterface.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#ifndef QLCFTDI_H
-#define QLCFTDI_H
+#ifndef DMXINTERFACE_H
+#define DMXINTERFACE_H
 
 #include <QByteArray>
 #include <QSettings>
@@ -27,28 +28,9 @@
 #include <QList>
 #include <QMap>
 
-#if defined(FTD2XX)
-  #if defined(WIN32) || defined(Q_OS_WIN)
-    #include <windows.h>
-  #endif
-  #include <ftd2xx.h>
-#elif defined(LIBFTDI) || defined(LIBFTDI1)
-  #include <ftdi.h>
-#elif defined(QTSERIAL)
-  #include <QtSerialPort/QSerialPort>
-  #include <QtSerialPort/QSerialPortInfo>
-#endif
-
-#if defined(LIBFTDI1)
-  #include <unistd.h>
-  #include <libusb.h>
-#endif
-
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 
-class DMXUSBWidget;
-
-class QLCFTDI
+class DMXInterface
 {
     /************************************************************************
      * Widget enumeration
@@ -62,19 +44,44 @@ public:
     static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
     static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
 
-#if defined(FTD2XX)
-    static QString readLabel(quint32 id, uchar label, int *ESTA_code);
-#elif defined(LIBFTDI) || defined(LIBFTDI1)
-    static QString readLabel(struct ftdi_context *ftdi, char *name, char *serial, uchar label, int *ESTA_code);
-#elif defined(QTSERIAL)
-    static QString readLabel(const QSerialPortInfo &info, uchar label, int *ESTA_code);
-#endif
+    /** Driver types */
+    enum Type
+    {
+        libFTDI = 0,
+        FTD2xx,
+        QtSerial
+    };
+
+    /** Comparator function for matching DMXInterfaces */
+    bool operator== (const DMXInterface& iface) const
+    {
+        if (m_name == iface.m_name &&
+            m_serial == iface.m_serial &&
+            m_vendor == iface.m_vendor)
+                return true;
+        return false;
+    }
+
     /**
-     * Compose a list of available widgets
+     * Check if an interface is supported by QLC+
      *
-     * @return A list of enttec-compabitble devices
+     * @return true if supported, false if unsupported
      */
-    static QList<DMXUSBWidget *> widgets();
+    static bool validInterface(quint16 vendor, quint16 product)
+    {
+        if (vendor != DMXInterface::FTDIVID &&
+            vendor != DMXInterface::ATMELVID &&
+            vendor != DMXInterface::MICROCHIPVID)
+                return false;
+
+        if (product != DMXInterface::FTDIPID &&
+            product != DMXInterface::DMX4ALLPID &&
+            product != DMXInterface::NANODMXPID &&
+            product != DMXInterface::EUROLITEPID)
+                return false;
+
+        return true;
+    }
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
@@ -101,16 +108,29 @@ public:
      ************************************************************************/
 public:
     /**
-     * Construct a new QLCFTDI instance for one widget.
+     * Construct a new DMXInterface instance for one DMX adapter.
      *
-     * @param serial The widget's USB serial number
-     * @param name The widget's USB name (description)
+     * @param serial The interface USB serial number
+     * @param name The interface USB name (description)
+     * @param vendor The interface USB vendor name (description)
+     * @param VID The interface USB vendor ID
+     * @param PID The interfce USB product ID
      * @param id The ID of the device (used only when FTD2XX is the backend)
      */
-    QLCFTDI(const QString& serial, const QString& name, const QString &vendor, quint32 id = 0);
+    DMXInterface(const QString& serial, const QString& name, const QString &vendor,
+                 quint16 VID, quint16 PID, quint32 id = 0)
+        : m_serial(serial)
+        , m_name(name)
+        , m_vendor(vendor)
+        , m_vendorID(VID)
+        , m_productID(PID)
+        , m_id(id)
+    { }
 
     /** Destructor */
-    virtual ~QLCFTDI();
+    virtual ~DMXInterface() { }
+
+    virtual QString readLabel(uchar label, int *ESTA_code);
 
     /** Get the widget's USB serial number */
     QString serial() const { return m_serial; }
@@ -118,72 +138,78 @@ public:
     /** Get the widget's USB name */
     QString name() const { return m_name; }
 
-    /** Get the widget's USB vendor */
+    /** Get the widget's USB vendor name */
     QString vendor() const { return m_vendor; }
+
+    /** Get the widget's USB vendor ID */
+    quint16 vendorID() const { return m_vendorID; }
+
+    /** Get the widget's USB product ID */
+    quint16 productID() const { return m_productID; }
 
     /** Get the widget's FTD2XX ID number */
     quint32 id() const { return m_id; }
+
+    /** Virtual method to retrieve the original USB
+     *  bus location of the device.
+     *  Used only in Linux to perform a sysfs lookup */
+    virtual quint8 busLocation() { return 0; }
 
 private:
     QString m_serial;
     QString m_name;
     QString m_vendor;
+    quint16 m_vendorID;
+    quint16 m_productID;
     quint32 m_id;
 
     /************************************************************************
-     * FTDI Interface Methods
+     * DMX/Serial Interface Methods
      ************************************************************************/
 public:
+    virtual DMXInterface::Type type() = 0;
+
     /** Open the widget */
-    bool open();
+    virtual bool open();
 
     /** Open the widget using a specific Product ID */
-    bool openByPID(const int FTDIPID);
+    virtual bool openByPID(const int FTDIPID);
 
     /** Close the widget */
-    bool close();
+    virtual bool close();
 
     /** Check if the widget is open */
-    bool isOpen() const;
+    virtual bool isOpen() const;
 
     /** Reset the communications line */
-    bool reset();
+    virtual bool reset();
 
     /** Setup communications line for 8N2 traffic */
-    bool setLineProperties();
+    virtual bool setLineProperties();
 
     /** Set 250kbps baud rate */
-    bool setBaudRate();
+    virtual bool setBaudRate();
 
     /** Disable flow control */
-    bool setFlowControl();
+    virtual bool setFlowControl();
 
     /** Clear the RTS bit */
-    bool clearRts();
+    virtual bool clearRts();
 
     /** Purge TX & RX buffers */
-    bool purgeBuffers();
+    virtual bool purgeBuffers();
 
     /** Toggle communications line BREAK condition on/off */
-    bool setBreak(bool on);
+    virtual bool setBreak(bool on);
 
     /** Write data to a previously-opened line */
-    bool write(const QByteArray& data);
+    virtual bool write(const QByteArray& data);
 
     /** Read data from a previously-opened line. Optionally provide own data buffer. */
-    QByteArray read(int size, uchar* buffer = NULL);
+    virtual QByteArray read(int size, uchar* buffer = NULL);
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
-    uchar readByte(bool* ok = NULL);
-
-private:
-#if defined(FTD2XX)
-    FT_HANDLE m_handle;
-#elif defined(LIBFTDI) || defined(LIBFTDI1)
-    struct ftdi_context m_handle;
-#elif defined(QTSERIAL)
-    QSerialPort *m_handle;
-#endif
+    virtual uchar readByte(bool* ok = NULL);
 };
 
 #endif

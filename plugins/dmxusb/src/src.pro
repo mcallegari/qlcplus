@@ -77,7 +77,7 @@ HEADERS += dmxusb.h \
            enttecdmxusbopen.h \
            stageprofi.h \
            vinceusbdmx512.h \
-           qlcftdi.h
+           dmxinterface.h
 
 unix:!macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
@@ -97,12 +97,15 @@ SOURCES += ../../midi/common/midiprotocol.cpp
 unix:!macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 
 qtserial {
-    SOURCES += qlcftdi-qtserial.cpp
+    SOURCES += qtserial-interface.cpp
+    HEADERS += qtserial-interface.h
 } else {
     CONFIG(ftd2xx) {
-        SOURCES += qlcftdi-ftd2xx.cpp
+        SOURCES += ftd2xx-interface.cpp
+        HEADERS += ftd2xx-interface.h
     } else {
-        SOURCES += qlcftdi-libftdi.cpp
+        SOURCES += libftdi-interface.cpp
+        HEADERS += libftdi-interface.h
     }
 }
 

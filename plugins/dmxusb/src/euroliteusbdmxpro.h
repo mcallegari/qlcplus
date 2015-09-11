@@ -37,8 +37,7 @@ class EuroliteUSBDMXPro : public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EuroliteUSBDMXPro(const QString& serial, const QString& name, const QString& vendor,
-            void *usb_ref, quint32 id = 0);
+    EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine);
     virtual ~EuroliteUSBDMXPro();
 
     /** @reimp */
@@ -69,12 +68,6 @@ private:
 private:
     /** File handle for /dev/ttyACMx */
     QFile m_file;
-
-#ifdef LIBFTDI1
-    libusb_device *m_device;
-#else
-    struct usb_device *m_device;
-#endif
 
     QByteArray m_universe;
 };

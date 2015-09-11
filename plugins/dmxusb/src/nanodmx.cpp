@@ -22,19 +22,9 @@
 #include <QDebug>
 #include <QDir>
 
-NanoDMX::NanoDMX(const QString& serial, const QString& name,
-                       const QString &vendor, void *usb_ref, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, 0)
+NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
-    Q_UNUSED(id)
-#if defined LIBFTDI1
-    m_device = (libusb_device *)usb_ref;
-#elif defined LIBFTDI
-    m_device = (struct usb_device *)usb_ref;
-#else
-    Q_UNUSED(usb_ref)
-    m_device = NULL;
-#endif
 }
 
 NanoDMX::~NanoDMX()
@@ -70,26 +60,19 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
-    return ftdi()->write(chanMsg);
+    return interface()->write(chanMsg);
 }
 
 #ifndef QTSERIAL
 QString NanoDMX::getDeviceName()
 {
-    if (m_device == NULL)
-        return QString();
-
     QDir sysfsDevDir("/sys/bus/usb/devices");
     QStringList devDirs = sysfsDevDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
-#ifdef LIBFTDI1
-        if (dir.startsWith(QString::number(libusb_get_port_number(m_device))) &&
-#else
-        if (dir.startsWith(QString::number(m_device->bus->location)) &&
-#endif
+        if (dir.startsWith(QString::number(interface()->busLocation())) &&
             dir.contains(".") &&
             dir.contains(":") == false)
         {

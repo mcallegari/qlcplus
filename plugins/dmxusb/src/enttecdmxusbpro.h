@@ -62,8 +62,8 @@ class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(const QString& serial, const QString& name, const QString& vendor,
-                    quint32 outputLine, quint32 inputLine = 0, quint32 id = 0);
+    EnttecDMXUSBPro(DMXInterface *interface,
+                    quint32 outputLine, quint32 inputLine = 0);
 
     virtual ~EnttecDMXUSBPro();
 
