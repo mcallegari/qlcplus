@@ -23,6 +23,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtmultimediawidgets-nametool.pri)
   include(libqtopengl-nametool.pri)
   include(libqtprintsupport-nametool.pri)
+  include(libqtserialport-nametool.pri)
 }
 include(libqlcplusengine-nametool.pri)
 
@@ -56,6 +57,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
   INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
   INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
+  INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
 }
 
 qmlui: {
@@ -117,6 +119,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
     qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
+# QtSerialPort depends on QtCore
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTSERIALPORT_DIR/$$LIBQTSERIALPORT_FILE
+
 }
 
 qmlui: {

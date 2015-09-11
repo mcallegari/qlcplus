@@ -32,6 +32,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtmultimedia-nametool.pri)
   include(libqtmultimediawidgets-nametool.pri)
   include(libqtopengl-nametool.pri)
+  include(libqtserialport-nametool.pri)
 }
 include(imageformats-nametool.pri)
 include(libqlcplusengine-nametool.pri)

@@ -20,54 +20,8 @@
 
 #include "dmxinterface.h"
 
-bool DMXInterface::operator== (const DMXInterface& iface) const
-{
-    if (m_name == iface.m_name &&
-        m_serial == iface.m_serial &&
-        m_vendor == iface.m_vendor)
-            return true;
-    return false;
-}
-
-bool DMXInterface::validInterface(quint16 vendor, quint16 product)
-{
-    if (vendor != DMXInterface::FTDIVID &&
-        vendor != DMXInterface::ATMELVID &&
-        vendor != DMXInterface::MICROCHIPVID)
-            return false;
-
-    if (product != DMXInterface::FTDIPID &&
-        product != DMXInterface::DMX4ALLPID &&
-        product != DMXInterface::NANODMXPID &&
-        product != DMXInterface::EUROLITEPID)
-            return false;
-
-    return true;
-}
-
-QMap <QString,QVariant> DMXInterface::typeMap()
-{
-    QMap <QString,QVariant> typeMap;
-    QSettings settings;
-    QVariant var(settings.value(SETTINGS_TYPE_MAP));
-    if (var.isValid() == true)
-        typeMap = var.toMap();
-    return typeMap;
-}
-
-void DMXInterface::storeTypeMap(const QMap <QString,QVariant> map)
-{
-    QSettings settings;
-    settings.setValue(SETTINGS_TYPE_MAP, map);
-}
-
-DMXInterface::DMXInterface(
-        const QString& serial,
-        const QString& name,
-        const QString &vendor,
-        quint16 VID,
-        quint16 PID,
-        quint32 id /* = 0 */)
+DMXInterface::DMXInterface(const QString& serial, const QString& name, const QString &vendor,
+                           quint16 VID, quint16 PID, quint32 id)
     : m_serial(serial)
     , m_name(name)
     , m_vendor(vendor)
@@ -115,4 +69,44 @@ quint8 DMXInterface::busLocation()
 {
     return 0;
 }
+
+bool DMXInterface::validInterface(quint16 vendor, quint16 product)
+{
+    if (vendor != DMXInterface::FTDIVID &&
+        vendor != DMXInterface::ATMELVID &&
+        vendor != DMXInterface::MICROCHIPVID)
+            return false;
+
+    if (product != DMXInterface::FTDIPID &&
+        product != DMXInterface::DMX4ALLPID &&
+        product != DMXInterface::NANODMXPID &&
+        product != DMXInterface::EUROLITEPID)
+            return false;
+
+    return true;
+}
+
+bool DMXInterface::checkInfo(QString &serial, QString &name, QString &vendor)
+{
+    if (m_serial == serial && m_name == name && m_vendor == vendor)
+        return true;
+    return false;
+}
+
+QMap <QString,QVariant> DMXInterface::typeMap()
+{
+    QMap <QString,QVariant> typeMap;
+    QSettings settings;
+    QVariant var(settings.value(SETTINGS_TYPE_MAP));
+    if (var.isValid() == true)
+        typeMap = var.toMap();
+    return typeMap;
+}
+
+void DMXInterface::storeTypeMap(const QMap <QString,QVariant> map)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_TYPE_MAP, map);
+}
+
 

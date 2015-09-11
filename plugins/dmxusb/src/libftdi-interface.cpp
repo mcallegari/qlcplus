@@ -192,12 +192,18 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         iface->setBusLocation(dev->bus->location);
 #endif
 
-        if (discoveredList.contains(iface) == true)
+        bool found = false;
+        for (int c = 0; c < discoveredList.count(); c++)
         {
-            delete iface;
-            continue;
+            if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
+            {
+                delete iface;
+                found = true;
+                break;
+            }
         }
-        interfacesList << iface;
+        if (found == false)
+            interfacesList << iface;
 
 #ifndef LIBFTDI1
       }
