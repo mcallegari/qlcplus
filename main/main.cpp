@@ -129,7 +129,7 @@ void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const 
             QLCArgs::logFile.write((char *)"\n");
             QLCArgs::logFile.flush();
         }
-#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+#if defined(Q_OS_WIN)
         if (QLCArgs::dbgBox != NULL)
             QLCArgs::dbgBox->addText(msg);
 #else
@@ -314,7 +314,7 @@ int main(int argc, char** argv)
     /* Create and initialize the QLC application object */
     App app;
 
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WIN32)
     if (QLCArgs::logToFile == false && QLCArgs::debugLevel < QtSystemMsg)
     {
         QLCArgs::dbgBox = new DebugBox(&app);
