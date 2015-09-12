@@ -371,7 +371,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="14"/>
         <source>Add Button Matrix</source>
-        <translation>Aggiungi matrice di bottoni</translation>
+        <translation>Aggiungi matrice di pulsanti</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="21"/>
@@ -386,7 +386,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="34"/>
         <source>Add functions to be attached to the buttons in the matrix</source>
-        <translation>Aggiungi funzioni da aggiungere al bottone nella matrice</translation>
+        <translation>Aggiungi funzioni da aggiungere al pulsante nella matrice</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="54"/>
@@ -401,22 +401,22 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="93"/>
         <source>Horizontal button count</source>
-        <translation>Numero di bottoni orizzontali</translation>
+        <translation>Numero di pulsanti orizzontali</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="100"/>
         <source>Number of buttons per horizontal row</source>
-        <translation>Numero di bottoni per righe orizzontali</translation>
+        <translation>Numero di pulsanti per righe orizzontali</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="113"/>
         <source>Button size</source>
-        <translation>Grandezza del bottone</translation>
+        <translation>Grandezza del pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="120"/>
         <source>Created buttons&apos; size</source>
-        <translation>Grandezza dei bottoni creati</translation>
+        <translation>Grandezza dei pulsanti creati</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="123"/>
@@ -426,12 +426,12 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="136"/>
         <source>Vertical button count</source>
-        <translation>Numero di bottoni in verticale</translation>
+        <translation>Numero di pulsanti in verticale</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="143"/>
         <source>Number of buttons per vertical column</source>
-        <translation>Numero di bottoni per colonne verticali</translation>
+        <translation>Numero di pulsanti per colonne verticali</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="153"/>
@@ -441,7 +441,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="160"/>
         <source>Functions / Buttons</source>
-        <translation>Funzioni / Bottoni</translation>
+        <translation>Funzioni / Pulsanti</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="173"/>
@@ -451,7 +451,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="179"/>
         <source>Place the buttons inside a normal frame</source>
-        <translation>Inserisci i bottoni in una cornice normale</translation>
+        <translation>Inserisci i pulsanti in una cornice normale</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="182"/>
@@ -1382,7 +1382,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="60"/>
         <source>Step</source>
-        <translation>Passo</translation>
+        <translation>Step</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
@@ -1409,7 +1409,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="722"/>
         <source>Add step(s) to the current position</source>
-        <translation>Aggiungi passi alla posizione corrente</translation>
+        <translation>Aggiungi step alla posizione corrente</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="576"/>
@@ -1450,7 +1450,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="334"/>
         <source>All steps have common fade in speed set by the chaser</source>
-        <translation>Tutti i passi hanno una velocità comune di fade in impostata dal chaser</translation>
+        <translation>Tutti gli step hanno una velocità comune di fade in impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="337"/>
@@ -1462,14 +1462,14 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="350"/>
         <source>Each step has its own fade in speed set by the chaser</source>
-        <translation>Ogni passo ha la propria velocità di fade in impostata dal chaser</translation>
+        <translation>Ogni step ha la propria velocità di fade in impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="353"/>
         <location filename="chasereditor.ui" line="428"/>
         <location filename="chasereditor.ui" line="509"/>
         <source>Per Step</source>
-        <translation>Per passo</translation>
+        <translation>Per Step</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="366"/>
@@ -1490,12 +1490,12 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="409"/>
         <source>All steps have common fade out speed set by the chaser</source>
-        <translation>Tutti i passi hanno una velocità comune di fade out impostata dal chaser</translation>
+        <translation>Tutti gli step hanno una velocità comune di fade out impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="425"/>
         <source>Each step has its own fade out speed set by the chaser</source>
-        <translation>Ogni passo ha la propria velocità di fade out impostata dal chaser</translation>
+        <translation>Ogni step ha la propria velocità di fade out impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="441"/>
@@ -1505,17 +1505,17 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="457"/>
         <source>Step Duration</source>
-        <translation>Durata Passo</translation>
+        <translation>Durata dello step</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="487"/>
         <source>All steps have common step duration set by the chaser</source>
-        <translation>Tutti i passi hanno una durata comune impostata dal chaser</translation>
+        <translation>Tutti gli step hanno una durata comune impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="506"/>
         <source>Each step has its own duration set by the chaser</source>
-        <translation>Ogni passo ha la propria durata impostata dal chaser</translation>
+        <translation>Ogni step ha la propria durata impostata dal chaser</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="603"/>
@@ -1530,27 +1530,27 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="654"/>
         <source>Skip to the next step</source>
-        <translation>Salta al prossimo passo</translation>
+        <translation>Passa allo step successivo</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="637"/>
         <source>Skip to the previous step</source>
-        <translation>Salta al passo precedente</translation>
+        <translation>Passa allo step precedente</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="98"/>
         <source>Remove the selected step</source>
-        <translation>Elimina il passo selezionato</translation>
+        <translation>Elimina lo step selezionato</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
-        <translation>Aumentare il passo selezionato</translation>
+        <translation>Sposta lo step selezionato in su</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="537"/>
         <source>Lower the selected step once</source>
-        <translation>Abbassare il passo selezionato</translation>
+        <translation>Sposta lo step selezionato in giù</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="147"/>
@@ -1590,7 +1590,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="259"/>
         <source>Start from the first step</source>
-        <translation>Partire dal primo passo</translation>
+        <translation>Parti dal primo step</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="262"/>
@@ -1600,7 +1600,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.ui" line="278"/>
         <source>Start from the last step</source>
-        <translation>Partire dall&apos;ultimo passo</translation>
+        <translation>Parti dall&apos;ultimo step</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="281"/>
@@ -1650,7 +1650,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="chasereditor.cpp" line="905"/>
         <source>Multiple Steps</source>
-        <translation>Passi Multipli</translation>
+        <translation>Step multipli</translation>
     </message>
 </context>
 <context>
@@ -1796,7 +1796,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="99"/>
         <source>Button</source>
-        <translation>Bottone</translation>
+        <translation>Pulsante</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="106"/>
@@ -1878,7 +1878,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="efxeditor.ui" line="163"/>
         <source>Step</source>
-        <translation>Passo</translation>
+        <translation>Step</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="168"/>
@@ -3602,7 +3602,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="inputprofileeditor.cpp" line="493"/>
         <source>Button %1</source>
-        <translation>Bottone %1</translation>
+        <translation>Pulsante %1</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="533"/>
@@ -4274,7 +4274,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="291"/>
         <source>Start from the first step</source>
-        <translation>Esecuzione dal primo passo</translation>
+        <translation>Esecuzione dal primo step</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="294"/>
@@ -4284,7 +4284,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="304"/>
         <source>Start from the last step</source>
-        <translation>Esecuzione dall&apos;ultimo passo</translation>
+        <translation>Esecuzione dall&apos;ultimo step</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="307"/>
@@ -4429,7 +4429,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="sceneeditor.cpp" line="172"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
-        <translation>Clona questa scena e aggiungi un nuovo passo al chaser selezionato</translation>
+        <translation>Clona questa scena e aggiungi un nuovo step al chaser selezionato</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="174"/>
@@ -4706,7 +4706,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="showmanager/showeditor.ui" line="58"/>
         <source>Steps</source>
-        <translation>Passi</translation>
+        <translation>Step</translation>
     </message>
     <message>
         <location filename="showmanager/showeditor.ui" line="66"/>
@@ -5250,12 +5250,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="132"/>
         <source>Button %1</source>
-        <translation>Bottone %1</translation>
+        <translation>Pulsante %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="307"/>
         <source>Select button icon</source>
-        <translation>Seleziona l&apos;icona per il bottone</translation>
+        <translation>Seleziona l&apos;icona per il pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="308"/>
@@ -5283,7 +5283,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="14"/>
         <source>Button properties</source>
-        <translation>Proprietà del bottone</translation>
+        <translation>Proprietà del pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="362"/>
@@ -5293,12 +5293,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
         <source>Button label</source>
-        <translation>Etichetta del bottone</translation>
+        <translation>Etichetta del pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
         <source>Text to display on the button</source>
-        <translation>Testo da mostrare sul bottone</translation>
+        <translation>Testo da mostrare sul pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
@@ -5308,17 +5308,17 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="389"/>
         <source>The function that this button controls</source>
-        <translation>La funzione che questo bottone controlla</translation>
+        <translation>La funzione che questo pulsante controlla</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="399"/>
         <source>Attach a function to this button</source>
-        <translation>Attacca una Funzione a questo Bottone</translation>
+        <translation>Connetti una funzione a questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="419"/>
         <source>Detach the button&apos;s function attachment</source>
-        <translation>Stacca la Funzione collegata a questo Bottone</translation>
+        <translation>Disconnetti la funzione connessa a questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
@@ -5333,12 +5333,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="164"/>
         <source>Set a key combination for this button</source>
-        <translation>Seleziona una combinazione di tasti per questo bottone</translation>
+        <translation>Seleziona una combinazione di tasti per questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation>Rimuovi la combinazione di tasti che attiva questo bottone</translation>
+        <translation>Rimuovi la combinazione di tasti che attiva questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="284"/>
@@ -5353,7 +5353,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>L&apos;universo di Ingresso che invia i dati a questo bottone</translation>
+        <translation>L&apos;universo di ingresso che invia i dati a questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="290"/>
@@ -5363,12 +5363,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Il canale di ingresso particolare all&apos;interno dell&apos;universo di Ingresso che invia i dati a questo bottone</translation>
+        <translation>Il canale di ingresso particolare all&apos;interno dell&apos;universo di ingresso che invia i dati a questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="303"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Scegli un universo di ingresso esterno con il relativo canale a cui questo bottone deve rispondere.</translation>
+        <translation>Scegli un universo di ingresso esterno con il relativo canale a cui questo pulsante deve rispondere.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="59"/>
@@ -5413,7 +5413,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="340"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Quando attivata, è possibile fare clic su un pulsante esterno per assegnarlo a questo bottone della console virtuale.</translation>
+        <translation>Quando attivata, è possibile fare clic su un pulsante esterno per assegnarlo a questo pulsante della console virtuale.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="343"/>
@@ -5423,12 +5423,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="30"/>
         <source>On button press...</source>
-        <translation>Quando si preme il bottone...</translation>
+        <translation>Quando si preme il pulsante...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="36"/>
         <source>Toggle the assigned function on/off with this button</source>
-        <translation>Attiva la funzione assegnata in modalità on/off con questo bottone</translation>
+        <translation>Attiva la funzione assegnata in modalità on/off con questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
@@ -5438,7 +5438,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
         <source>Flash the assigned function with this button</source>
-        <translation>Modalità Flash alla funzione assegnata con questo bottone</translation>
+        <translation>Modalità Flash alla funzione assegnata con questo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="52"/>
@@ -5529,12 +5529,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="212"/>
         <source>Go to previous step in the list</source>
-        <translation>Vai al passo precedente nella lista</translation>
+        <translation>Vai allo step precedente nella lista</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="221"/>
         <source>Go to next step in the list</source>
-        <translation>Vai al passo successivo nella lista</translation>
+        <translation>Vai allo step successivo nella lista</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="229"/>
@@ -5598,7 +5598,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="74"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
-        <translation>Seleziona il chaser da usare come lista di azioni</translation>
+        <translation>Seleziona il chaser da usare come step per la lista di azioni</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="91"/>
@@ -5614,17 +5614,17 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation>Avvia il Chaser dal primo/ultimo step (default)</translation>
+        <translation>Avvia il chaser dal primo/ultimo step (default)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <source>Run chaser from next/previous step</source>
-        <translation>Avvia il Chaser dal prossimo/precedente step</translation>
+        <translation>Avvia il chaser dal successivo/precedente step</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
         <source>Select next/previous step</source>
-        <translation>Seleziona il prossimo/precedente step</translation>
+        <translation>Seleziona il successivo/precedente step</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
@@ -5686,7 +5686,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="356"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione successiva.</translation>
+        <translation>Quando attivato, puoi cliccare su di un pulsante esterno in modo da assegnarlo per il passaggio all&apos;azione successiva.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="210"/>
@@ -5739,7 +5739,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="505"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione precedente.</translation>
+        <translation>Quando attivato, puoi cliccare su di un pulsante esterno in modo da assegnarlo per il passaggio all&apos;azione precedente.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="518"/>
@@ -5775,7 +5775,7 @@ Durata: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="646"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="706"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
-        <translation>Quando premuto, puoi cliccare un bottone esterno per assegnarlo come controllo che interrompe la lista di azioni</translation>
+        <translation>Quando premuto, puoi cliccare un pulsante esterno per assegnarlo come controllo che interrompe la lista di azioni</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="220"/>
@@ -6328,7 +6328,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="321"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation>Se commutato, puoi premere un bottone di un controller esterno ed assegnarlo a questo controllo</translation>
+        <translation>Se attivato, puoi premere un pulsante di un controller esterno ed assegnarlo a questo controllo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="334"/>
@@ -6414,7 +6414,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="30"/>
         <source>Virtual Console Size</source>
-        <translation>Dimensione Console Virtuale</translation>
+        <translation>Dimensione della console virtuale</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="36"/>
@@ -6455,7 +6455,7 @@ Durata: %3
         <location filename="virtualconsole/vcproperties.ui" line="516"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
-        <translation>Dimensione bottone</translation>
+        <translation>Dimensione pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="247"/>
@@ -6503,7 +6503,7 @@ Durata: %3
         <location filename="virtualconsole/vcproperties.ui" line="572"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
-        <translation>Stile stato bottone</translation>
+        <translation>Stile stato pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="506"/>
@@ -7247,7 +7247,7 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="143"/>
         <source>Button</source>
-        <translation>Bottone</translation>
+        <translation>Pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="144"/>
@@ -7703,12 +7703,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
         <source>New Button</source>
-        <translation>Nuovo Bottone</translation>
+        <translation>Nuovo pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
         <source>New Button Matrix</source>
-        <translation>Nuova Matrice di Bottoni</translation>
+        <translation>Nuova matrice di pulsanti</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
