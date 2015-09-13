@@ -135,6 +135,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         QPointF fxOrig = m_monProps->fixturePosition(fxID);
         fxRect.setX(fxOrig.x());
         fxRect.setY(fxOrig.y());
+        newFixtureItem->setProperty("rotation", m_monProps->fixtureRotation(fxID));
     }
 
     if (fxMode != NULL)

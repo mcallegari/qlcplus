@@ -43,7 +43,6 @@ Rectangle
 
         if (isOpen == false)
         {
-            editorLoader.source = editorSource
             animateOpen.start()
             isOpen = true
         }
@@ -51,7 +50,7 @@ Rectangle
         {
             animateClose.start()
             isOpen = false
-            editorLoader.source = ""
+            editorSource = ""
         }
     }
 
@@ -117,6 +116,7 @@ Rectangle
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
                 checkable: true
+                exclusiveGroup: vcButtonsGroup
                 //checked: virtualConsole.resizeMode
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
                 onToggled:
@@ -145,6 +145,7 @@ Rectangle
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
+                exclusiveGroup: vcButtonsGroup
                 onToggled:
                 {
                     if (checked == true)
