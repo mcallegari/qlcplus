@@ -7,7 +7,7 @@
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Venue</Manufacturer>
- <Model>THINPar 64</Model>
+ <Model>ThinPar 64</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
