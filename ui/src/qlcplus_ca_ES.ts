@@ -1914,7 +1914,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="efxeditor.ui" line="173"/>
         <source>Mode</source>
-        <translation type="unfinished">Mode</translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="178"/>
@@ -2057,7 +2057,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="efxeditor.ui" line="533"/>
         <source>Color Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de Fons</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="543"/>
@@ -5098,7 +5098,7 @@ Durada: %3
     <message>
         <location filename="speeddial.cpp" line="163"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <location filename="speeddial.cpp" line="178"/>
@@ -5604,27 +5604,27 @@ Durada: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="108"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="115"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprotament dels botons Previ/següent quan els chaser no es actiu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecutar el chaser des de el primer/darrer pas (per defecte)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <source>Run chaser from next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecutar el chaser des de el pròxim/següent pas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
         <source>Select next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Selccionar el següent/previ pas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>No fer res</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="159"/>
@@ -7036,7 +7036,7 @@ Durada: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In factor</source>
         <oldsource>Fade In *</oldsource>
-        <translation type="unfinished">Fade In *</translation>
+        <translation>Factor de Fade In</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
@@ -7047,7 +7047,7 @@ Durada: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out factor</source>
         <oldsource>Fade Out *</oldsource>
-        <translation type="unfinished">Fade Out *</translation>
+        <translation>Factor de Fade Out</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
@@ -7058,7 +7058,7 @@ Durada: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration factor (+tap)</source>
         <oldsource>Duration * (+tap)</oldsource>
-        <translation type="unfinished">Durada * (+tap)</translation>
+        <translation>Factor de Durada (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
@@ -7188,7 +7188,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="536"/>
         <source>Show multiplier and divisor buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar els botons Multiplicador i Divisor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="543"/>
@@ -7203,7 +7203,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="557"/>
         <source>Show the apply button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el botó Aplicar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
@@ -7286,7 +7286,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Clock</source>
-        <translation type="unfinished">Rellotge</translation>
+        <translation>Rellotge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="156"/>
