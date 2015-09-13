@@ -489,14 +489,6 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
 
     /* Select newly-added fixtures so that they can be moved quickly */
     m_tree->setCurrentItem(item);
-    redrawPreview();
-
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnMode);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
@@ -753,7 +745,6 @@ void EFXEditor::slotAddFixtureClicked()
     }
     */
 
-    /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
     fs.setSelectionMode(FixtureSelection::Heads);
@@ -774,6 +765,13 @@ void EFXEditor::slotAddFixtureClicked()
             else
                 delete ef;
         }
+
+        m_tree->resizeColumnToContents(KColumnNumber);
+        m_tree->resizeColumnToContents(KColumnName);
+        m_tree->resizeColumnToContents(KColumnMode);
+        m_tree->resizeColumnToContents(KColumnReverse);
+        m_tree->resizeColumnToContents(KColumnStartOffset);
+        m_tree->resizeColumnToContents(KColumnIntensity);
 
         redrawPreview();
 
@@ -805,7 +803,7 @@ void EFXEditor::slotRemoveFixtureClicked()
                 delete ef;
         }
 
-	redrawPreview();
+        redrawPreview();
 
         // Continue if appropriate
         continueRunning(running);
