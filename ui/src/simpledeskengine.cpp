@@ -144,6 +144,11 @@ void SimpleDeskEngine::resetUniverse(int universe)
     doc()->inputOutputMap()->releaseUniverses(true);
 }
 
+void SimpleDeskEngine::resetChannel(uint channel)
+{
+    m_values.remove(channel);
+}
+
 /****************************************************************************
  * Cue Stacks
  ****************************************************************************/

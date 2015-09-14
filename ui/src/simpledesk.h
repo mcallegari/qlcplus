@@ -116,6 +116,7 @@ private slots:
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
+    void slotChannelResetClicked(quint32 fxID, quint32 channel);
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);

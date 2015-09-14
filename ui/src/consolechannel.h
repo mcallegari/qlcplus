@@ -55,7 +55,6 @@ public:
     ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
 
     ~ConsoleChannel();
-    void setChannelStyleSheet(const QString& styleSheet);
 
 private:
     void init();
@@ -116,7 +115,20 @@ private slots:
 
 signals:
     void valueChanged(quint32 fxi, quint32 channel, uchar value);
+
+    /*************************************************************************
+     * Look & Feel
+     *************************************************************************/
+public:
+    void setChannelStyleSheet(const QString& styleSheet);
+    void showResetButton(bool show);
+
+private slots:
+    void slotResetButtonClicked();
+
+signals:
     void checked(quint32 fxi, quint32 channel, bool state);
+    void resetRequest(quint32 fxi, quint32 channel);
 
 private:
     QToolButton* m_presetButton;
@@ -124,6 +136,9 @@ private:
     QSpinBox* m_spin;
     ClickAndGoSlider* m_slider;
     QLabel* m_label;
+    QToolButton* m_resetButton;
+
+    bool m_showResetButton;
 
     /*************************************************************************
      * Menu
