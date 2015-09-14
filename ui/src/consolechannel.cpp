@@ -303,6 +303,7 @@ void ConsoleChannel::showResetButton(bool show)
             m_resetButton->setMaximumSize(QSize(32, 32));
             m_resetButton->setFocusPolicy(Qt::NoFocus);
             m_resetButton->setIcon(QIcon(":/fileclose.png"));
+            m_resetButton->setToolTip(tr("Reset this channel"));
         }
         connect(m_resetButton, SIGNAL(clicked(bool)),
                 this, SLOT(slotResetButtonClicked()));

@@ -492,6 +492,7 @@ void SimpleDesk::initSliderView(bool fullMode)
             else
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
             console->setFixture(fixture->id());
+            console->enableResetButton(true);
             quint32 absoluteAddr = fixture->universeAddress();
             QByteArray fxValues = fixture->channelValues();
             for (quint32 i = 0; i < fixture->channels(); i++)
@@ -511,6 +512,8 @@ void SimpleDesk::initSliderView(bool fullMode)
             fixturesLayout->addWidget(console);
             connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+            connect(console, SIGNAL(resetRequest(quint32,quint32)),
+                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
             c++;
             m_consoleList[fixture->id()] = console;
         }
@@ -713,21 +716,44 @@ void SimpleDesk::slotUniverseResetClicked()
 
 void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 {
-    ConsoleChannel *slider = qobject_cast<ConsoleChannel *>(sender());
+    qDebug() << "Reset button clicked";
+
     if (fxID != Fixture::invalidId())
     {
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
             return;
+
         quint32 absAddr = fixture->universeAddress() + channel;
         m_engine->resetChannel(absAddr);
-        if (fixture->id() % 2 == 0)
-            slider->setChannelStyleSheet(ssOdd);
+
+        if (m_viewModeButton->isChecked() == true)
+        {
+            Fixture *fixture = m_doc->fixture(fxID);
+            if (fixture == NULL)
+                return;
+
+            FixtureConsole *fc = m_consoleList[fxID];
+            if (fc != NULL)
+            {
+                if (fixture->id() % 2 == 0)
+                    fc->setChannelStylesheet(channel, ssOdd);
+                else
+                    fc->setChannelStylesheet(channel, ssEven);
+            }
+        }
         else
-            slider->setChannelStyleSheet(ssEven);
+        {
+            ConsoleChannel *slider = qobject_cast<ConsoleChannel *>(sender());
+            if (fixture->id() % 2 == 0)
+                slider->setChannelStyleSheet(ssOdd);
+            else
+                slider->setChannelStyleSheet(ssEven);
+        }
     }
     else
     {
+        ConsoleChannel *slider = qobject_cast<ConsoleChannel *>(sender());
         m_engine->resetChannel(channel);
         slider->setChannelStyleSheet(ssNone);
     }

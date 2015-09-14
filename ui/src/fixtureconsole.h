@@ -59,6 +59,11 @@ public:
     FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone, bool showCheck = true);
     ~FixtureConsole();
 
+    void enableResetButton(bool enable);
+
+signals:
+    void resetRequest(quint32 fxID, quint32 channel);
+
 protected:
     void showEvent(QShowEvent* ev);
 
