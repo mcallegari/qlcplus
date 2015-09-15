@@ -583,6 +583,7 @@ void VCCueList_Test::saveXML()
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
     QCOMPARE(nextPrevBehavior, 1);
+    QCOMPARE(slidersMode, 1);
 }
 
 void VCCueList_Test::nextPrevious()
