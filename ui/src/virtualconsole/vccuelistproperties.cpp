@@ -139,6 +139,11 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Crossfade Cue List page
      ************************************************************************/
 
+    if (cueList->slidersMode() == VCCueList::Sweep)
+        m_sweepButton->setChecked(true);
+    else
+        m_crossFadeRadio->setChecked(true);
+
     /* Connections */
     connect(m_cf1AutoDetectInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotCF1AutoDetectInputToggled(bool)));
@@ -181,6 +186,11 @@ void VCCueListProperties::accept()
     m_cueList->setInputSource(m_playbackInputSource, VCCueList::playbackInputSourceId);
     m_cueList->setInputSource(m_cf1InputSource, VCCueList::cf1InputSourceId);
     m_cueList->setInputSource(m_cf2InputSource, VCCueList::cf2InputSourceId);
+
+    if (m_sweepButton->isChecked())
+        m_cueList->setSlidersMode(VCCueList::Sweep);
+    else
+        m_cueList->setSlidersMode(VCCueList::Crossfade);
 
     QDialog::accept();
 }

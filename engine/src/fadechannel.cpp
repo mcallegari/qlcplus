@@ -56,7 +56,7 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
     , m_fadeTime(ch.m_fadeTime)
     , m_elapsed(ch.m_elapsed)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)

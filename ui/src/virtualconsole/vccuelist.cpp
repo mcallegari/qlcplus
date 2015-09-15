@@ -89,6 +89,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
     , m_primaryLeft(true)
+    , m_slidersMode(Crossfade)
 {
     /* Set the class name "VCCueList" as the object name as well */
     setObjectName(VCCueList::staticMetaObject.className());
@@ -618,7 +619,13 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    setSlidersInfo(m_primaryIndex);
+    if (slidersMode() == Sweep)
+    {
+        m_sl1BottomLabel->setStyleSheet(cfLabelBlueStyle);
+        m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+    }
+    else
+        setSlidersInfo(m_primaryIndex);
     emit stepChanged(m_primaryIndex);
 }
 
@@ -764,6 +771,51 @@ unsigned int VCCueList::nextPrevBehavior() const
     return m_nextPrevBehavior;
 }
 
+VCCueList::SlidersMode VCCueList::slidersMode() const
+{
+    return m_slidersMode;
+}
+
+void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
+{
+    m_slidersMode = mode;
+
+    if (m_slider1->isVisible() == true)
+    {
+        bool show = (mode == Crossfade) ? true : false;
+        m_linkCheck->setVisible(show);
+        m_sl2TopLabel->setVisible(show);
+        m_slider2->setVisible(show);
+        m_sl2BottomLabel->setVisible(show);
+    }
+    if (mode == Sweep)
+    {
+        m_slider1->setMaximum(255);
+        m_slider1->setValue(0);
+    }
+    else
+    {
+        m_slider1->setMaximum(100);
+        m_slider1->setValue(100);
+    }
+}
+
+VCCueList::SlidersMode VCCueList::stringToSlidersMode(QString modeStr)
+{
+    if (modeStr == "Sweep")
+        return Sweep;
+
+    return Crossfade;
+}
+
+QString VCCueList::slidersModeToString(VCCueList::SlidersMode mode)
+{
+    if (mode == Sweep)
+        return "Sweep";
+
+    return "Crossfade";
+}
+
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
@@ -794,60 +846,93 @@ void VCCueList::setSlidersInfo(int index)
 
 void VCCueList::slotShowCrossfadePanel(bool enable)
 {
-    m_linkCheck->setVisible(enable);
     m_sl1TopLabel->setVisible(enable);
     m_slider1->setVisible(enable);
     m_sl1BottomLabel->setVisible(enable);
-    m_sl2TopLabel->setVisible(enable);
-    m_slider2->setVisible(enable);
-    m_sl2BottomLabel->setVisible(enable);
+    if (slidersMode() == Crossfade)
+    {
+        m_linkCheck->setVisible(enable);
+        m_sl2TopLabel->setVisible(enable);
+        m_slider2->setVisible(enable);
+        m_sl2BottomLabel->setVisible(enable);
+    }
 }
 
 void VCCueList::slotSlider1ValueChanged(int value)
 {
-    bool switchFunction = false;
-    m_sl1TopLabel->setText(QString("%1%").arg(value));
-    if (m_linkCheck->isChecked())
-        m_slider2->setValue(100 - value);
-
-    Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
-        return;
-
-    ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-
-    if(ch->runningStepsNumber() == 2)
+    if (slidersMode() == Sweep)
     {
-        if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
+        m_sl1TopLabel->setText(QString("%1").arg(value));
+        Chaser* ch = chaser();
+        if (ch == NULL || ch->stopped())
+            return;
+        int newStep = value; // by default we assume the Chaser has more than 256 steps
+        if (ch->stepsCount() < 256)
         {
-            ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-            m_primaryLeft = false;
-            switchFunction = true;
+            if(value == UCHAR_MAX)
+                newStep = ch->stepsCount() - 1;
+            else
+                newStep = qFloor(value / (UCHAR_MAX / ch->stepsCount()));
         }
-        else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
+        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
+
+        if (newStep == ch->currentStepIndex())
+            return; // nothing to do
+
+        ch->setStepIndex(newStep);
+    }
+    else
+    {
+        bool switchFunction = false;
+        m_sl1TopLabel->setText(QString("%1%").arg(value));
+        if (m_linkCheck->isChecked())
+            m_slider2->setValue(100 - value);
+
+        Chaser* ch = chaser();
+        if (ch == NULL || ch->stopped())
+            return;
+
+        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+
+        if(ch->runningStepsNumber() == 2)
         {
-            ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
-            m_primaryLeft = true;
-            switchFunction = true;
+            if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
+            {
+                ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+                m_primaryLeft = false;
+                switchFunction = true;
+            }
+            else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
+            {
+                ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+                m_primaryLeft = true;
+                switchFunction = true;
+            }
+        }
+
+        if (switchFunction)
+        {
+            m_primaryIndex = m_secondaryIndex;
+            QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
+            if (item != NULL)
+            {
+                m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
+                m_tree->setCurrentItem(item);
+            }
+            setSlidersInfo(m_primaryIndex);
         }
     }
 
-    if (switchFunction)
-    {
-        m_primaryIndex = m_secondaryIndex;
-        QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
-        if (item != NULL)
-        {
-            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-            m_tree->setCurrentItem(item);
-        }
-        setSlidersInfo(m_primaryIndex);
-    }
     updateFeedback();
 }
 
 void VCCueList::slotSlider2ValueChanged(int value)
 {
+    if (slidersMode() == Sweep)
+    {
+        qDebug() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
+        return;
+    }
     bool switchFunction = false;
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
@@ -1231,6 +1316,10 @@ bool VCCueList::loadXML(const QDomElement* root)
                 subNode = subNode.nextSibling();
             }
         }
+        else if (tag.tagName() == KXMLQLCVCCueListSlidersMode)
+        {
+            setSlidersMode(stringToSlidersMode(tag.text()));
+        }
         else if (tag.tagName() == KXMLQLCVCCueListCrossfadeLeft)
         {
             QDomNode subNode = tag.firstChild();
@@ -1381,6 +1470,11 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tag, inputSource(playbackInputSourceId));
 
     /* Crossfade cue list */
+    tag = doc->createElement(KXMLQLCVCCueListSlidersMode);
+    root.appendChild(tag);
+    text = doc->createTextNode(slidersModeToString(slidersMode()));
+    tag.appendChild(text);
+
     QSharedPointer<QLCInputSource> cf1Src = inputSource(cf1InputSourceId);
     if (!cf1Src.isNull() && cf1Src->isValid())
     {

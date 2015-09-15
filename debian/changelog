@@ -8,10 +8,11 @@ qlcplus (4.9.2) stable; urgency=low
   * Virtual Console/Solo Frame: Option to allow mixing of sliders in playback mode (David Garyga)
   * Virtual Console/Speed Dial: Introduced new features (see documentation)
   * Virtual Console/Cue List: Options for the Next/Previous buttons behavior (David Garyga)
+  * Virtual Console/Cue List: Added a new "Sweep" mode for the side slider (see documentation)
+  * Virtual Console/XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
   * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
   * RGB Matrix: Fix 4.9.1 regression which makes fading of green and blue colors not smooth (David Garyga)
   * Audio Input: Fix crashes when selecting another audio input device while an audio input driven function/widget is running (David Garyga)
-  * VC XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
   * Scene Editor: correctly select the fixture tab when switching from tabbed/all channels view
   * EFX Editor: it is now possible to use an EFX on RGB channels (thanks to Giorgio Rebecchi)
   * Collection Editor: added preview button (thanks to Giorgio Rebecchi)

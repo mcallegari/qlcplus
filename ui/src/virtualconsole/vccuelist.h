@@ -56,6 +56,7 @@ class Doc;
 #define KXMLQLCVCCueListPlayback "Playback"
 #define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
 #define KXMLQLCVCCueListCrossfadeRight "CrossRight"
+#define KXMLQLCVCCueListSlidersMode "SlidersMode"
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -210,6 +211,19 @@ private:
     /*************************************************************************
      * Crossfade
      *************************************************************************/
+public:
+    enum SlidersMode
+    {
+        Crossfade = 0,
+        Sweep
+    };
+
+    SlidersMode slidersMode() const;
+    void setSlidersMode(SlidersMode mode);
+
+    SlidersMode stringToSlidersMode(QString modeStr);
+    QString slidersModeToString(SlidersMode mode);
+
 protected:
     void setSlidersInfo(int index);
 
@@ -231,6 +245,7 @@ private:
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
     bool m_primaryLeft;
+    SlidersMode m_slidersMode;
 
     /*************************************************************************
      * Key sequences
