@@ -139,7 +139,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Crossfade Cue List page
      ************************************************************************/
 
-    if (cueList->slidersMode() == VCCueList::Sweep)
+    if (cueList->slidersMode() == VCCueList::Steps)
         m_sweepButton->setChecked(true);
     else
         m_crossFadeRadio->setChecked(true);
@@ -188,7 +188,7 @@ void VCCueListProperties::accept()
     m_cueList->setInputSource(m_cf2InputSource, VCCueList::cf2InputSourceId);
 
     if (m_sweepButton->isChecked())
-        m_cueList->setSlidersMode(VCCueList::Sweep);
+        m_cueList->setSlidersMode(VCCueList::Steps);
     else
         m_cueList->setSlidersMode(VCCueList::Crossfade);
 

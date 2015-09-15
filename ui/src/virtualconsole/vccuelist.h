@@ -215,7 +215,7 @@ public:
     enum SlidersMode
     {
         Crossfade = 0,
-        Sweep
+        Steps
     };
 
     SlidersMode slidersMode() const;

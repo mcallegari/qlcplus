@@ -619,7 +619,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    if (slidersMode() == Sweep)
+    if (slidersMode() == Steps)
     {
         m_sl1BottomLabel->setStyleSheet(cfLabelBlueStyle);
         m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
@@ -788,7 +788,7 @@ void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
         m_slider2->setVisible(show);
         m_sl2BottomLabel->setVisible(show);
     }
-    if (mode == Sweep)
+    if (mode == Steps)
     {
         m_slider1->setMaximum(255);
         m_slider1->setValue(0);
@@ -802,16 +802,16 @@ void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
 
 VCCueList::SlidersMode VCCueList::stringToSlidersMode(QString modeStr)
 {
-    if (modeStr == "Sweep")
-        return Sweep;
+    if (modeStr == "Steps")
+        return Steps;
 
     return Crossfade;
 }
 
 QString VCCueList::slidersModeToString(VCCueList::SlidersMode mode)
 {
-    if (mode == Sweep)
-        return "Sweep";
+    if (mode == Steps)
+        return "Steps";
 
     return "Crossfade";
 }
@@ -860,7 +860,7 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
 
 void VCCueList::slotSlider1ValueChanged(int value)
 {
-    if (slidersMode() == Sweep)
+    if (slidersMode() == Steps)
     {
         m_sl1TopLabel->setText(QString("%1").arg(value));
         Chaser* ch = chaser();
@@ -928,7 +928,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
 
 void VCCueList::slotSlider2ValueChanged(int value)
 {
-    if (slidersMode() == Sweep)
+    if (slidersMode() == Steps)
     {
         qDebug() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;

@@ -55,25 +55,23 @@ by double clicking on the Cue List widget.<br>
    <B>Cue list</B>
   </TD>
   <TD>
-   This panel allows the user to select the <A HREF="file:concept.html#Chaser">Chaser</A> 
-   to associate with the Cue List.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/attach.png">
-  </TD>
-  <TD>
-   Associate a <A HREF="file:concept.html#Chaser">Chaser</A> with the Cue List using
-   the <A HREF="file:selectfunction.html">Select Function</A> dialog.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/detach.png">
-  </TD>
-  <TD>
-   Remove the selected Chaser from the Cue List.
+   <b>Chaser</b>: Select the <A HREF="file:concept.html#Chaser">Chaser</A>
+   to associate with the Cue List.<br>
+   <IMG SRC="qrc:/attach.png"> Associate a <A HREF="file:concept.html#Chaser">Chaser</A> with the Cue List using
+   the <A HREF="file:selectfunction.html">Select Function</A> dialog.<br>
+   <IMG SRC="qrc:/detach.png"> Detach the selected Chaser from the Cue List.<br><br>
+   <b>Behavior of the Next/Previous buttons when the chaser is not active</b>: Select the behaviour
+   of the Next and Previous buttons when the Chaser is not running. Basically this option determines
+   the action that should be taken when the Chaser is started for the first time or when the Chaser
+   is stopped at any step in the list.<br>
+   The possible choices are:
+   <UL>
+    <LI>Run chaser from first/last step (default): This is the default behaviour and it will run the Chaser
+    with its original running order (Normal or Reverse)</LI>
+    <LI>Run chaser from next/previous step: Start the Chaser from the step where it has been interrupted</LI>
+    <LI>Select next/previous step: This performs only a selection of a step, without running the Chaser</LI>
+    <LI>Do nothing: No action is taken in this case. This is useful when working only with the Play/Stop button</LI>
+   </UL>
   </TD>
  </TR>
  <TR>
@@ -107,10 +105,16 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <B>Crossfade</B>
+   <B>Side Sliders</B>
   </TD>
   <TD>
-   You can select external input for the two crossfaders.
+   <B>Behaviour</B>: Select the behaviour of the side sliders. If "Crossfade" is selected, 2 sliders will
+   be displayed on the left side panel, implementing the crossfade functionality between steps.<br>
+   If "Steps" is selected, only one slider will be displayed,
+   and its value will determine which step of the Cue List to run.<br>
+   <B>Left Slider</B>: Select an external input for the left slider.<br>
+   <B>Right Slider</B>: Select an external input for the right slider. 
+   This has no effect with the "Steps" behaviour.<br>
   </TD>
  </TR>
 </TABLE>

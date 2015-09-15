@@ -631,7 +631,7 @@
           <item>
            <widget class="QRadioButton" name="m_sweepButton">
             <property name="text">
-             <string>Sweep</string>
+             <string>Steps</string>
             </property>
            </widget>
           </item>
