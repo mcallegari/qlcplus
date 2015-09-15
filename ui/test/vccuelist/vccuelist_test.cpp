@@ -449,7 +449,7 @@ void VCCueList_Test::saveXML()
 
     int chaser = 0, next = 0, nextKey = 0, nextInput = 0, previous = 0, previousKey = 0,
         previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, wstate = 0, appearance = 0,
-        nextPrevBehavior = 0;
+        nextPrevBehavior = 0, slidersMode = 0;
 
     QVERIFY(cl.saveXML(&xmldoc, &root) == true);
     QDomElement clroot = root.firstChild().toElement();
@@ -557,6 +557,10 @@ void VCCueList_Test::saveXML()
         else if (tag.tagName() == KXMLQLCVCCueListNextPrevBehavior)
         {
             ++nextPrevBehavior;
+        }
+        else if (tag.tagName() == KXMLQLCVCCueListSlidersMode)
+        {
+            ++slidersMode;
         }
         else
         {
