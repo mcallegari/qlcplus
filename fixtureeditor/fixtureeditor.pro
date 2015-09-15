@@ -28,7 +28,6 @@ HEADERS += ../ui/src/aboutbox.h \
            addchannelsdialog.h \
            app.h \
            capabilitywizard.h \
-           editcapability.h \
            editchannel.h \
            edithead.h \
            editmode.h \
@@ -38,7 +37,6 @@ HEADERS += ../ui/src/aboutbox.h \
 FORMS += ../ui/src/aboutbox.ui \
          addchannelsdialog.ui \
          capabilitywizard.ui \
-         editcapability.ui \
          editchannel.ui \
          edithead.ui \
          editmode.ui \
@@ -50,7 +48,6 @@ SOURCES += ../ui/src/aboutbox.cpp \
            addchannelsdialog.cpp \
            app.cpp \
            capabilitywizard.cpp \
-           editcapability.cpp \
            editchannel.cpp \
            edithead.cpp \
            editmode.cpp \

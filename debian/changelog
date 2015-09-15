@@ -20,6 +20,7 @@ qlcplus (4.9.2) stable; urgency=low
   * Plugins/ArtNet: it is now possible to enter an arbitrary output IP
   * Plugins/E1.31: added stream priority to configuration (thanks to Nathan Durnan)
   * RGB Scripts: added Plasma Colors script (thanks to Nathan Durnan)
+  * Fixture Editor: Channel capability editing is now done in a single window
   * New fixture: Ayra ComPar 20 (thanks to Rob Nieuwenhuizen)
   * New fixture: XStatic X-240Bar RGB (thanks to Nathan Durnan)
   * New fixture: Venue ThinPAR 38 (thanks to Thierry Rodolfo)

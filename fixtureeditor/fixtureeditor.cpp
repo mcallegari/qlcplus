@@ -50,7 +50,6 @@
 #include <errno.h>
 #endif
 
-#include "editcapability.h"
 #include "fixtureeditor.h"
 #include "editchannel.h"
 #include "editmode.h"

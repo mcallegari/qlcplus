@@ -19,6 +19,8 @@
 
 #include <QTreeWidgetItem>
 #include <QRadioButton>
+#include <QColorDialog>
+#include <QFileDialog>
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QTreeWidget>
@@ -27,14 +29,15 @@
 #include <QLineEdit>
 #include <QGroupBox>
 #include <QSettings>
+#include <QPainter>
 #include <QPoint>
 #include <QSize>
 
 #include "qlccapability.h"
-#include "qlcchannel.h"
+#include "qlcconfig.h"
+#include "qlcfile.h"
 
 #include "capabilitywizard.h"
-#include "editcapability.h"
 #include "editchannel.h"
 #include "util.h"
 #include "app.h"
@@ -50,6 +53,7 @@ EditChannel::EditChannel(QWidget* parent, QLCChannel* channel)
     : QDialog(parent)
 {
     m_channel = new QLCChannel(channel);
+    m_currentCapability = NULL;
 
     setupUi(this);
     init();
@@ -79,7 +83,7 @@ void EditChannel::init()
     Q_ASSERT(m_channel != NULL);
 
     /* Set window title */
-    setWindowTitle(QString("Edit Channel: ") + m_channel->name());
+    setWindowTitle(tr("Edit Channel: ") + m_channel->name());
 
     /* Set name edit */
     m_nameEdit->setText(m_channel->name());
@@ -144,22 +148,79 @@ void EditChannel::init()
             this, SLOT(slotAddCapabilityClicked()));
     connect(m_removeCapabilityButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveCapabilityClicked()));
-    connect(m_editCapabilityButton, SIGNAL(clicked()),
-            this, SLOT(slotEditCapabilityClicked()));
     connect(m_wizardButton, SIGNAL(clicked()),
             this, SLOT(slotWizardClicked()));
 
     /* Capability list connections */
-    connect(m_capabilityList,
-            SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-            this,
-            SLOT(slotCapabilityListSelectionChanged(QTreeWidgetItem*)));
-    connect(m_capabilityList,
-            SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this,
-            SLOT(slotEditCapabilityClicked()));
+    connect(m_capabilityList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+            this, SLOT(slotCapabilityListSelectionChanged(QTreeWidgetItem*)));
+    connect(m_capabilityList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
+            this, SLOT(slotEditCapabilityClicked()));
+
+    connect(m_minSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotMinSpinChanged(int)));
+    connect(m_maxSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotMaxSpinChanged(int)));
+    connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
+            this, SLOT(slotDescriptionEdited(const QString&)));
+    connect(m_pictureButton, SIGNAL(pressed()),
+            this, SLOT(slotPictureButtonPressed()));
+    connect(m_color1Button, SIGNAL(pressed()),
+            this, SLOT(slotColor1ButtonPressed()));
+    connect(m_color2Button, SIGNAL(pressed()),
+            this, SLOT(slotColor2ButtonPressed()));
 
     refreshCapabilities();
+    m_valueGroup->setVisible(false);
+    m_resourceGroup->setVisible(false);
+}
+
+void EditChannel::setupCapabilityGroup()
+{
+    m_valueGroup->setVisible(true);
+    m_resourceGroup->setVisible(true);
+
+    if (m_channel->group() == QLCChannel::Gobo)
+        m_resourceGroup->setTitle(tr("Gobo"));
+    else if (m_channel->group() == QLCChannel::Colour)
+        m_resourceGroup->setTitle(tr("Colour"));
+    else if (m_channel->group() == QLCChannel::Effect)
+        m_resourceGroup->setTitle(tr("Effect"));
+    else
+        m_resourceGroup->hide();
+
+    // temporarily block signals to avoid a full tree refresh
+    m_minSpin->blockSignals(true);
+    m_maxSpin->blockSignals(true);
+    m_descriptionEdit->blockSignals(true);
+
+    m_minSpin->setValue(m_currentCapability->min());
+    m_maxSpin->setValue(m_currentCapability->max());
+    m_descriptionEdit->setText(m_currentCapability->name());
+    m_descriptionEdit->setValidator(CAPS_VALIDATOR(this));
+    m_minSpin->setFocus();
+    m_minSpin->selectAll();
+
+    m_minSpin->blockSignals(false);
+    m_maxSpin->blockSignals(false);
+    m_descriptionEdit->blockSignals(false);
+
+    if (m_currentCapability->resourceName().isEmpty() == false)
+        m_resourceButton->setIcon(QIcon(m_currentCapability->resourceName()));
+    else if (m_currentCapability->resourceColor1().isValid())
+    {
+        QPixmap pix(58, 58);
+        if (m_currentCapability->resourceColor2().isValid())
+        {
+            QPainter painter(&pix);
+            painter.fillRect(0, 0, 29, 58, m_currentCapability->resourceColor1());
+            painter.fillRect(29, 0, 58, 58, m_currentCapability->resourceColor2());
+        }
+        else
+            pix.fill(m_currentCapability->resourceColor1());
+        m_color2Button->setEnabled(true);
+        m_resourceButton->setIcon(pix);
+    }
 }
 
 void EditChannel::slotNameChanged(const QString& name)
@@ -216,22 +277,13 @@ void EditChannel::slotColourActivated(const QString& colour)
 void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem* item)
 {
     if (item == NULL)
-    {
         m_removeCapabilityButton->setEnabled(false);
-        m_editCapabilityButton->setEnabled(false);
-    }
     else
-    {
         m_removeCapabilityButton->setEnabled(true);
-        m_editCapabilityButton->setEnabled(true);
-    }
 }
 
 void EditChannel::slotAddCapabilityClicked()
 {
-    EditCapability* ec = NULL;
-    QLCCapability* cap = NULL;
-    bool ok = false;
     uchar minFound = 0;
 
     foreach(QLCCapability *cap, m_channel->capabilities())
@@ -240,35 +292,14 @@ void EditChannel::slotAddCapabilityClicked()
             minFound = cap->max() + 1;
     }
 
-    ec = new EditCapability(this, NULL, m_channel->group(), minFound);
+    m_currentCapability = new QLCCapability();
+    m_currentCapability->setMin(minFound);
+    m_currentCapability->setMax(UCHAR_MAX);
+    m_channel->addCapability(m_currentCapability);
+    refreshCapabilities();
+    m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(m_capabilityList->topLevelItemCount() - 1));
 
-    while (ok == false)
-    {
-        if (ec->exec() == QDialog::Accepted)
-        {
-            cap = ec->capability()->createCopy();
-
-            if (m_channel->addCapability(cap) == false)
-            {
-                QMessageBox::warning(this,
-                                     tr("Overlapping values"),
-                                     tr("The capability's values overlap with another capability!"));
-                delete cap;
-                ok = false;
-            }
-            else
-            {
-                refreshCapabilities();
-                ok = true;
-            }
-        }
-        else
-        {
-            ok = true;
-        }
-    }
-
-    delete ec;
+    setupCapabilityGroup();
 }
 
 void EditChannel::slotRemoveCapabilityClicked()
@@ -291,50 +322,27 @@ void EditChannel::slotRemoveCapabilityClicked()
     m_channel->removeCapability(currentCapability());
     delete item;
     m_capabilityList->setCurrentItem(next);
+    m_currentCapability = currentCapability();
+    if (m_currentCapability != NULL)
+        setupCapabilityGroup();
+    else
+    {
+        m_valueGroup->setVisible(false);
+        m_resourceGroup->setVisible(false);
+    }
 }
 
 void EditChannel::slotEditCapabilityClicked()
 {
-    EditCapability* ec = NULL;
-    QLCCapability* real = NULL;
-    QLCCapability* min = NULL;
-    QLCCapability* max = NULL;
-    bool ok = false;
-
-    real = currentCapability();
-    if (real == NULL)
-        return;
-
-    ec = new EditCapability(this, real, m_channel->group());
-
-    while (ok == false)
+    m_currentCapability = currentCapability();
+    if (m_currentCapability == NULL)
     {
-        if (ec->exec() == QDialog::Accepted)
-        {
-            min = m_channel->searchCapability(ec->capability()->min());
-            max = m_channel->searchCapability(ec->capability()->max());
-            if ((min != NULL && min != real) ||
-                    (max != NULL && max != real))
-            {
-                QMessageBox::warning(this,
-                                     tr("Overlapping values"),
-                                     tr("The capability's values overlap with another capability!"));
-                ok = false;
-            }
-            else
-            {
-                *real = *ec->capability();
-                refreshCapabilities();
-                ok = true;
-            }
-        }
-        else
-        {
-            ok = true;
-        }
+        m_valueGroup->setVisible(false);
+        m_resourceGroup->setVisible(false);
+        return;
     }
 
-    delete ec;
+    setupCapabilityGroup();
 }
 
 void EditChannel::slotWizardClicked()
@@ -366,6 +374,98 @@ void EditChannel::slotWizardClicked()
         }
     }
 }
+
+void EditChannel::slotMinSpinChanged(int value)
+{
+    m_currentCapability->setMin(value);
+
+    QTreeWidgetItem *item = m_capabilityList->currentItem();
+    if (item != NULL)
+    {
+        QString str;
+        str.sprintf("%.3d", value);
+        item->setText(COL_MIN, str);
+    }
+}
+
+void EditChannel::slotMaxSpinChanged(int value)
+{
+    m_currentCapability->setMax(value);
+
+    QTreeWidgetItem *item = m_capabilityList->currentItem();
+    if (item != NULL)
+    {
+        QString str;
+        str.sprintf("%.3d", value);
+        item->setText(COL_MAX, str);
+    }
+}
+
+void EditChannel::slotDescriptionEdited(const QString& text)
+{
+    m_currentCapability->setName(text);
+
+    QTreeWidgetItem *item = m_capabilityList->currentItem();
+    if (item != NULL)
+        item->setText(COL_NAME, text);
+}
+
+void EditChannel::slotPictureButtonPressed()
+{
+    QFileDialog dialog(this);
+    QDir dir = QLCFile::systemDirectory(GOBODIR);
+    dialog.setWindowTitle(tr("Open Gobo File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setDirectory(dir);
+    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)"));
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QString filename = dialog.selectedFiles().first();
+    if (filename.isEmpty() == true)
+        return;
+
+    m_resourceButton->setIcon(QIcon(filename));
+    m_currentCapability->setResourceName(filename);
+}
+
+void EditChannel::slotColor1ButtonPressed()
+{
+    QColorDialog dialog(this);
+    if (m_currentCapability->resourceColor1().isValid())
+        dialog.setCurrentColor(m_currentCapability->resourceColor1());
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QColor color = dialog.selectedColor();
+    QPixmap pix(58, 58);
+    pix.fill(color);
+    m_resourceButton->setIcon(pix);
+    m_currentCapability->setResourceColors(color, QColor());
+    m_color2Button->setEnabled(true);
+}
+
+void EditChannel::slotColor2ButtonPressed()
+{
+    QColorDialog dialog(this);
+    if (m_currentCapability->resourceColor2().isValid())
+        dialog.setCurrentColor(m_currentCapability->resourceColor2());
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QColor color = dialog.selectedColor();
+    QColor firstColor = m_currentCapability->resourceColor1();
+    QPixmap pix(58, 58);
+    QPainter painter(&pix);
+    painter.fillRect(0, 0, 29, 58, firstColor);
+    painter.fillRect(29, 0, 58, 58, color);
+
+    m_resourceButton->setIcon(pix);
+    m_currentCapability->setResourceColors(firstColor, color);
+}
+
 
 void EditChannel::refreshCapabilities()
 {
