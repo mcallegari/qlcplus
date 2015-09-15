@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.9.2 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -64,10 +64,10 @@
  </Channel>
  <Mode Name="Main">
   <Physical>
-   <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Height="0" Width="0" Depth="0"/>
+   <Bulb ColourTemperature="0" Type="None" Lumens="0"/>
+   <Dimensions Width="246" Height="350" Weight="25" Depth="419"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="975" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Haze Density</Channel>

@@ -3,10 +3,10 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.9.2 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
- <Manufacturer>ProLights</Manufacturer>
+ <Manufacturer>Pro-Lights</Manufacturer>
  <Model>SmartBat</Model>
  <Type>Color Changer</Type>
  <Channel Name="Dimmer">
@@ -36,14 +36,14 @@
  <Channel Name="Color + Color Temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color2="#ffff00" Min="11" Max="30" Color="#ff0000">R 100%  G 0-100%   B 0</Capability>
-  <Capability Color2="#00ff00" Min="31" Max="50" Color="#ffff00">R 100%~0  G 100%  B 0</Capability>
-  <Capability Color2="#00ffff" Min="51" Max="70" Color="#00ff00">R 0  G 100%  B 0~100%</Capability>
-  <Capability Color2="#0000ff" Min="71" Max="90" Color="#00ffff">R 0  G 100%~0  B 100%</Capability>
-  <Capability Color2="#ff00ff" Min="91" Max="110" Color="#0000ff">R 0~100%  G 0  B 100%</Capability>
-  <Capability Color2="#ff0000" Min="111" Max="130" Color="#ff00ff">R 100%  G 0  B 100%~0</Capability>
-  <Capability Color2="#ffffff" Min="131" Max="150" Color="#ff0000">R: 100% / G: Up / B: Up</Capability>
-  <Capability Color2="#ff00ff" Min="151" Max="170" Color="#ffffff">R 100%  G 100%~0  B 100%</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">R 100%  G 0-100%   B 0</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">R 100%~0  G 100%  B 0</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">R 0  G 100%  B 0~100%</Capability>
+  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">R 0  G 100%~0  B 100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">R 0~100%  G 0  B 100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">R 100%  G 0  B 100%~0</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">R: 100% / G: Up / B: Up</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#ff00ff">R 100%  G 100%~0  B 100%</Capability>
   <Capability Min="171" Max="200" Color="#ffffff">R 100%  G 100%  B 100%  W 100%</Capability>
   <Capability Min="201" Max="205" Color="#ffc076">Colot temperature 1: 3200K</Capability>
   <Capability Min="206" Max="210" Color="#ffc61e">Color temperature 2: 3400K</Capability>
@@ -85,11 +85,11 @@
  </Channel>
  <Mode Name="10 Ch Mode">
   <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="3.4" Height="184" Width="138" Depth="145"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
+   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
+   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -104,11 +104,11 @@
  </Mode>
  <Mode Name="4 Ch Mode">
   <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="3.4" Height="184" Width="138" Depth="145"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
+   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
+   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -117,11 +117,11 @@
  </Mode>
  <Mode Name="6 Ch Mode">
   <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="3.4" Height="184" Width="138" Depth="145"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
+   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
+   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>

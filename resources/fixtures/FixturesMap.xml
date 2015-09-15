@@ -29,6 +29,7 @@
   <fixture path="American-DJ-Hypnotic-RGB.qxf" mf="American DJ" md="Hypnotic RGB"/>
   <fixture path="American-DJ-Inno-Color-Beam-LED.qxf" mf="American DJ" md="Inno Color Beam LED"/>
   <fixture path="American-DJ-Inno-Color-Beam-Quad-7.qxf" mf="American DJ" md="Inno Color Beam Quad 7"/>
+  <fixture path="American-DJ-Inno-Pocket-Beam-Q4.qxf" mf="American DJ" md="Inno Pocket Beam Q4"/>
   <fixture path="American-DJ-Inno-Pocket-Roll.qxf" mf="American DJ" md="Inno Pocket Roll"/>
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
   <fixture path="American-DJ-Inno-Pocket-Spot.qxf" mf="American DJ" md="Inno Pocket Spot"/>
@@ -227,6 +228,7 @@
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
   <fixture path="Eurolite-LED-FE-1500.qxf" mf="Eurolite" md="LED FE-1500"/>
   <fixture path="Eurolite-LED-Flood-Light-252-RGB-19.qxf" mf="Eurolite" md="LED Flood Light 252 RGB 19°"/>
+  <fixture path="Eurolite-LED-KLS-401.qxf" mf="Eurolite" md="LED KLS-401"/>
   <fixture path="Eurolite-LED-PAR-56-RGB-DMX.qxf" mf="Eurolite" md="LED PAR 56 RGB DMX"/>
   <fixture path="Eurolite-LED-PAR56.qxf" mf="Eurolite" md="LED PAR56"/>
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
@@ -244,6 +246,7 @@
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-15W-QCL-RGB.qxf" mf="Eurolite" md="LED PST-15W QCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
+  <fixture path="Eurolite-TB-250.qxf" mf="Eurolite" md="TB-250"/>
   <fixture path="Eurolite-TC-150.qxf" mf="Eurolite" md="TC-150"/>
   <fixture path="Eurolite-TC-200.qxf" mf="Eurolite" md="TC-200"/>
   <fixture path="Eurolite-TC-250.qxf" mf="Eurolite" md="TC-250"/>
@@ -372,6 +375,7 @@
   <fixture path="Look-Solutions-Unique-2.1.qxf" mf="Look Solutions" md="Unique 2.1"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
+  <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
   <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
   <fixture path="Martin-Atomic-3000.qxf" mf="Martin" md="Atomic 3000"/>
   <fixture path="Martin-CX-10-Extreme.qxf" mf="Martin" md="CX-10 Extreme"/>
@@ -441,7 +445,9 @@
   <fixture path="Pro-Lights-LumiPAR12Q.qxf" mf="Pro-Lights" md="LumiPAR12Q"/>
   <fixture path="Pro-Lights-LumiPAR18QPRO.qxf" mf="Pro-Lights" md="LumiPAR18QPRO"/>
   <fixture path="Pro-Lights-Omni-Tri-9.qxf" mf="Pro-Lights" md="Omni Tri-9"/>
+  <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
   <fixture path="Pro-Lights-Strobo-1500DMX.qxf" mf="Pro-Lights" md="Strobo 1500DMX"/>
+  <fixture path="Pro-Lights-UVStrip18.qxf" mf="Pro-Lights" md="UVStrip18"/>
   <fixture path="Pro-Lights-V200.qxf" mf="Pro-Lights" md="V200"/>
   <fixture path="Pro-Lights-XP250.qxf" mf="Pro-Lights" md="XP250"/>
   <fixture path="Pro-Lights-XP575-Spot.qxf" mf="Pro-Lights" md="XP575 Spot"/>
@@ -580,6 +586,7 @@
   <fixture path="Varytec-LED-Hellball-3.qxf" mf="Varytec" md="LED Hellball 3"/>
   <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
   <fixture path="Varytec-LED-Magic-Mushroom.qxf" mf="Varytec" md="LED Magic Mushroom"/>
+  <fixture path="Varytec-LED-PAR56.qxf" mf="Varytec" md="LED PAR56"/>
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
   <fixture path="Varytec-Thunderscan-FX.qxf" mf="Varytec" md="Thunderscan FX"/>
   <fixture path="Velleman-Beam-Driver-250.qxf" mf="Velleman" md="Beam Driver 250"/>
