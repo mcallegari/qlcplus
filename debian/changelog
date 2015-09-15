@@ -28,10 +28,12 @@ qlcplus (4.9.2) stable; urgency=low
   * New fixtures: Eurolite LED KLS-401 (thanks to Robert Box)
   * New fixtures: Chauvet Intimidator Wave 360 IRC, Varytec LED PAR56 (thanks to Habefaro)
   * New fixture: American DJ Fog Fury Jett (thanks to Dean Clough)
-  * New fixture: Eurolite TB-250 (thanks to Ovidijus Cepukas)
+  * New fixture: Eurolite TB-250, Futurelight DJ-HEAD 575 SPOT (thanks to Ovidijus Cepukas)
   * New fixture: Pro-Lights UVStrip18 (thanks to Alessandro Grechi)
-  * New fixture: American DJ Inno Pocket Beam Q4, Martin ZR24/7 Hazer (thanks to George Qualley)
-  * New fixture: Pro-Lights SmartBat (thanks to Lorenzo Andreani)
+  * New fixtures: American DJ Inno Pocket Beam Q4, Martin ZR24/7 Hazer, Blizzard Lighting Stimul-Eye (thanks to George Qualley)
+  * New fixture: American DJ Mega TriPar Profile Plus (thanks to George Qualley)
+  * New fixture: Pro-Lights SmartBat, Robe ClubWash 600 CT (thanks to Lorenzo Andreani)
+  * New fixture: Stairville Show Bar Tri 18x3W RGB (thanks to Udo Besenreuther)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Sep 2015 20:21:22 +0200
 
