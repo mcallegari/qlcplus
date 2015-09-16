@@ -156,7 +156,7 @@
   <Channel Number="5">Gobo Rotation</Channel>
   <Channel Number="6">Prism</Channel>
   <Channel Number="7">Focus</Channel>
-  <Channel Number="8">DImmer</Channel>
+  <Channel Number="8">Dimmer</Channel>
   <Channel Number="9">Shutter/Strobe</Channel>
   <Channel Number="10">Channel Functions</Channel>
  </Mode>
@@ -179,7 +179,7 @@
   <Channel Number="8">Gobo Rotation</Channel>
   <Channel Number="9">Prism</Channel>
   <Channel Number="10">Focus</Channel>
-  <Channel Number="11">DImmer</Channel>
+  <Channel Number="11">Dimmer</Channel>
   <Channel Number="12">Shutter/Strobe</Channel>
   <Channel Number="13">Channel Functions</Channel>
  </Mode>
