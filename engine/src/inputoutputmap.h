@@ -29,6 +29,8 @@
 #include "grandmaster.h"
 
 class QLCInputSource;
+class QDomDocument;
+class QDomElement;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;

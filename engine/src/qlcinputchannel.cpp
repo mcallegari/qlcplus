@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
 #include <QtXml>
 #include <QIcon>
@@ -235,6 +237,42 @@ bool QLCInputChannel::loadXML(const QDomElement& root)
     return true;
 }
 
+bool QLCInputChannel::loadXML2(QXmlStreamReader &root)
+{
+
+
+    if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
+    {
+        qWarning() << Q_FUNC_INFO << "Channel node not found";
+        return false;
+    }
+
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCInputChannelName)
+        {
+            setName(root.readElementText());
+        }
+        else if (root.name() == KXMLQLCInputChannelType)
+        {
+            setType(stringToType(root.readElementText()));
+        }
+        else if (root.name() == KXMLQLCInputChannelMovement)
+        {
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelSensitivity))
+                setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toInt());
+            if (root.readElementText() == KXMLQLCInputChannelRelative)
+                setMovementType(Relative);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown input channel tag" << root.name();
+        }
+    }
+
+    return true;
+}
+
 bool QLCInputChannel::saveXML(QDomDocument* doc, QDomElement* root,
                               quint32 channelNumber) const
 {
@@ -276,5 +314,30 @@ bool QLCInputChannel::saveXML(QDomDocument* doc, QDomElement* root,
         subtag.appendChild(text);
     }
 
+    return true;
+}
+
+bool QLCInputChannel::saveXML2(QXmlStreamWriter *doc, quint32 channelNumber) const
+{
+    if (doc == NULL || doc->device() == NULL)
+        return false;
+
+    doc->writeStartElement(KXMLQLCInputChannel);
+    doc->writeAttribute(KXMLQLCInputChannelNumber,
+                        QString("%1").arg(channelNumber));
+
+    doc->writeTextElement(KXMLQLCInputChannelName, m_name);
+    doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));
+
+    /* Save only slider's relative movement */
+    if (type() == Slider && movementType() == Relative)
+    {
+        doc->writeStartElement(KXMLQLCInputChannelMovement);
+        doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
+        doc->writeCharacters(KXMLQLCInputChannelRelative);
+        doc->writeEndElement();
+    }
+
+    doc->writeEndElement();
     return true;
 }

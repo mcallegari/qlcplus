@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamWriter>
 #include <QtTest>
-#include <QtXml>
 
 #include "qlcinputprofile_test.h"
 #include "qlcinputprofile.h"
@@ -302,35 +302,28 @@ void QLCInputProfile_Test::assign()
 
 void QLCInputProfile_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement profile = doc.createElement("InputProfile");
-    QDomElement manuf = doc.createElement("Manufacturer");
-    QDomText manufText = doc.createTextNode("Behringer");
-    manuf.appendChild(manufText);
-    profile.appendChild(manuf);
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("BCF2000");
-    model.appendChild(modelText);
-    profile.appendChild(model);
-    doc.appendChild(profile);
+    xmlWriter.writeStartDocument();
+    xmlWriter.writeDTD("<!DOCTYPE InputProfile>");
+    xmlWriter.writeStartElement("InputProfile");
+    xmlWriter.writeTextElement("Manufacturer", "Behringer");
+    xmlWriter.writeTextElement("Model", "BCF2000");
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "492");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Type", "Slider");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement ch = doc.createElement("Channel");
-    ch.setAttribute("Number", 492);
-    profile.appendChild(ch);
-
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    ch.appendChild(name);
-
-    QDomElement type = doc.createElement("Type");
-    QDomText typeText = doc.createTextNode("Slider");
-    type.appendChild(typeText);
-    ch.appendChild(type);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
 
     QLCInputProfile ip;
-    QVERIFY(ip.loadXML(doc) == true);
+    QVERIFY(ip.loadXML(xmlReader) == true);
     QVERIFY(ip.manufacturer() == "Behringer");
     QVERIFY(ip.model() == "BCF2000");
     QVERIFY(ip.channels().size() == 1);
@@ -341,12 +334,16 @@ void QLCInputProfile_Test::load()
 
 void QLCInputProfile_Test::loadNoProfile()
 {
-    QDomDocument doc;
+    QXmlStreamReader doc;
     QLCInputProfile ip;
     QVERIFY(ip.loadXML(doc) == false);
 
-    QDomElement root = doc.createElement("Whatever");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("Whatever");
+
+    doc.setDevice(&buffer);
     QVERIFY(ip.loadXML(doc) == false);
 }
 

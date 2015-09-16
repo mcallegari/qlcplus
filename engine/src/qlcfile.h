@@ -23,6 +23,8 @@
 #include <QFile>
 #include <QDir>
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QDomDocument;
 class QDomElement;
 class QString;
@@ -63,10 +65,17 @@ public:
      *
      * @param path Path to the file to read
      * @return QDomDocument (null doc if not successful)
-     *
-     * @return An error code (QFile::NoError if successful)
      */
     static QDomDocument readXML(const QString& path);
+
+    /**
+     * !!! this should replace readXML in the end !!!
+     * Request a QXmlStreamReader for an XML file
+     *
+     * @param path Path to the file to read
+     * @return QXmlStreamReader (unitialized if not successful)
+     */
+    static QXmlStreamReader *getXMLReader(const QString& path);
 
     /**
      * Get a common XML file header as a QDomDocument
@@ -76,6 +85,17 @@ public:
      * @return A new QDomDocument containing the header
      */
     static QDomDocument getXMLHeader(const QString& content, const QString& author = QString());
+
+    /**
+     * !!! this should replace getXMLHeader in the end !!!
+     * Write a common XML header on the given document
+     *
+     * @param xml The instance of a XML writer
+     * @param content The content type (Settings, Workspace)
+     * @param author The file's author (overridden by current user name if empty)
+     * @return true on success, false on failure
+     */
+    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString& content, const QString& author = QString());
 
     /**
      * Get a string that gives a textual description for the given file

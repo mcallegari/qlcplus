@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
-#include <QtXml>
+#include <QDebug>
 #include <QMap>
 
 #include "qlcinputchannel.h"
@@ -262,16 +264,21 @@ void QLCInputProfile::destroyChannels()
 
 QLCInputProfile* QLCInputProfile::loader(const QString& path)
 {
-    QDomDocument doc(QLCFile::readXML(path));
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(path);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to load input profile from" << path;
         return NULL;
     }
 
     QLCInputProfile* profile = new QLCInputProfile();
-    if (profile->loadXML(doc) == false)
+    if (profile->loadXML(*doc) == false)
     {
+        qWarning() << path << QString("%1\nLine %2, column %3")
+                    .arg(doc->errorString())
+                    .arg(doc->lineNumber())
+                    .arg(doc->columnNumber());
+
         delete profile;
         profile = NULL;
     }
@@ -280,49 +287,54 @@ QLCInputProfile* QLCInputProfile::loader(const QString& path)
         profile->m_path = path;
     }
 
+    doc->device()->close();
+    delete doc->device();
+    delete doc;
+
     return profile;
 }
 
-bool QLCInputProfile::loadXML(const QDomDocument& doc)
+bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
 {
-    QDomElement root = doc.documentElement();
-    if (root.tagName() == KXMLQLCInputProfile)
+    if (doc.readNextStartElement() == false)
+        return false;
+
+    qDebug() << "--->" << doc.name();
+
+    if (doc.name() == KXMLQLCInputProfile)
     {
-        QDomNode node = root.firstChild();
-        while (node.isNull() == false)
+        while (doc.readNextStartElement())
         {
-            QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCCreator)
+            if (doc.name() == KXMLQLCCreator)
             {
-                /* Ignore */
+                /* Ignore this block */
+                doc.skipCurrentElement();
             }
-            if (tag.tagName() == KXMLQLCInputProfileManufacturer)
+            else if (doc.name() == KXMLQLCInputProfileManufacturer)
             {
-                setManufacturer(tag.text());
+                setManufacturer(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCInputProfileModel)
+            else if (doc.name() == KXMLQLCInputProfileModel)
             {
-                setModel(tag.text());
+                setModel(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCInputProfileType)
+            else if (doc.name() == KXMLQLCInputProfileType)
             {
-                setType(stringToType(tag.text()));
+                setType(stringToType(doc.readElementText()));
             }
-            else if (tag.tagName() == KXMLQLCInputChannel)
+            else if (doc.name() == KXMLQLCInputChannel)
             {
-                QString str = tag.attribute(KXMLQLCInputChannelNumber);
+                QString str = doc.attributes().value(KXMLQLCInputChannelNumber).toString();
                 if (str.isEmpty() == false)
                 {
                     quint32 ch = str.toInt();
                     QLCInputChannel* ich = new QLCInputChannel();
-                    if (ich->loadXML(tag) == true)
+                    if (ich->loadXML2(doc) == true)
                         insertChannel(ch, ich);
                     else
                         delete ich;
                 }
             }
-
-            node = node.nextSibling();
         }
 
         return true;
@@ -343,44 +355,26 @@ bool QLCInputProfile::saveXML(const QString& fileName)
         return false;
     }
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCInputProfile));
-    Q_ASSERT(doc.isNull() == false);
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    QLCFile::writeXMLHeader(&doc, KXMLQLCInputProfile);
 
-    /* Create a text stream for the file */
-    QTextStream stream(&file);
-
-    /* THE MASTER XML ROOT NODE */
-    QDomElement root = doc.documentElement();
-
-    /* Manufacturer */
-    QDomElement tag = doc.createElement(KXMLQLCInputProfileManufacturer);
-    root.appendChild(tag);
-    QDomText text = doc.createTextNode(m_manufacturer);
-    tag.appendChild(text);
-
-    /* Model */
-    tag = doc.createElement(KXMLQLCInputProfileModel);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_model);
-    tag.appendChild(text);
-
-    /* Type */
-    tag = doc.createElement(KXMLQLCInputProfileType);
-    root.appendChild(tag);
-    text = doc.createTextNode(typeToString(m_type));
-    tag.appendChild(text);
+    doc.writeTextElement(KXMLQLCInputProfileManufacturer, m_manufacturer);
+    doc.writeTextElement(KXMLQLCInputProfileModel, m_model);
+    doc.writeTextElement(KXMLQLCInputProfileType, typeToString(m_type));
 
     /* Write channels to the document */
     QMapIterator <quint32, QLCInputChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         it.next();
-        it.value()->saveXML(&doc, &root, it.key());
+        it.value()->saveXML2(&doc, it.key());
     }
 
-    /* Write the document into the stream */
     m_path = fileName;
-    stream << doc.toString();
+    /* End the document and close all the open elements */
+    doc.writeEndDocument();
     file.close();
 
     return true;

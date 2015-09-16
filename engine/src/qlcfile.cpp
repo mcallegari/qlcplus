@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QFile>
 #include <QtXml>
 
@@ -32,7 +34,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define KXMLQLCplusNamespace "http://qlcplus.sourceforge.net/"
+#define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
 QDomDocument QLCFile::readXML(const QString& path)
 {
@@ -64,6 +66,30 @@ QDomDocument QLCFile::readXML(const QString& path)
     file.close();
 
     return doc;
+}
+
+QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
+{
+    QXmlStreamReader *reader = NULL;
+
+    if (path.isEmpty() == true)
+    {
+        qWarning() << Q_FUNC_INFO
+                   << "Empty path given. Not attempting to load file.";
+        return reader;
+    }
+
+    QFile *file = new QFile(path);
+    if (file->open(QIODevice::ReadOnly | QFile::Text) == true)
+    {
+        reader = new QXmlStreamReader(file);
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to open file:" << path;
+    }
+
+    return reader;
 }
 
 QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author)
@@ -115,6 +141,29 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     subtag.appendChild(text);
 
     return doc;
+}
+
+bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)
+{
+    if (xml == NULL || xml->device() == NULL)
+        return false;
+
+    xml->writeStartDocument();
+    xml->writeDTD(QString("<!DOCTYPE %1>").arg(content));
+
+    xml->writeStartElement(content);
+    xml->writeAttribute("xmlns", KXMLQLCplusNamespace + content);
+
+    xml->writeStartElement(KXMLQLCCreator);
+    xml->writeTextElement(KXMLQLCCreatorName, APPNAME);
+    xml->writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    if (author.isEmpty())
+        xml->writeTextElement(KXMLQLCCreatorAuthor, currentUserName());
+    else
+        xml->writeTextElement(KXMLQLCCreatorAuthor, author);
+    xml->writeEndElement(); // close KXMLQLCCreator
+
+    return true;
 }
 
 QString QLCFile::errorString(QFile::FileError error)

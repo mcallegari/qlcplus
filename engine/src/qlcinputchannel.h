@@ -20,7 +20,8 @@
 #ifndef QLCINPUTCHANNEL_H
 #define QLCINPUTCHANNEL_H
 
-
+class QXmlStreamWriter;
+class QXmlStreamReader;
 class QLCInputProfile;
 class QDomDocument;
 class QDomElement;
@@ -146,6 +147,9 @@ public:
      */
     bool loadXML(const QDomElement& root);
 
+    /** #### TEMPORARY ! Should become loadXML */
+    bool loadXML2(QXmlStreamReader &root);
+
     /**
      * Save this channel's contents to the given XML document, setting the
      * given channel number as the channel's number.
@@ -157,6 +161,9 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* root,
                  quint32 channelNumber) const;
+
+    /** #### TEMPORARY ! Should become saveXML */
+    bool saveXML2(QXmlStreamWriter *doc, quint32 channelNumber) const;
 };
 
 /** @} */

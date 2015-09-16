@@ -27,8 +27,7 @@
 
 class QLCInputChannel;
 class QLCInputProfile;
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine Engine
  * @{
@@ -174,7 +173,7 @@ public:
     bool saveXML(const QString& fileName);
 
     /** Load an input profile from the given document */
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */
