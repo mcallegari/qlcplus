@@ -108,9 +108,7 @@ protected slots:
     void slotRemovePresetClicked();
     void slotShowPresetNameClicked();
     void slotPresetNameEdited(QString const& newName);
-    void slotSpeedDialWidgetToggle(bool state);
-    void slotSpeedDialWidgetDestroyed(QObject* dial);
-    void slotSpeedDialWidgetDurationChanged(int ms);
+    void slotSpeedDialWidgetValueChanged(int ms);
 
     void slotAutoDetectPresetInputToggled(bool checked);
     void slotPresetInputValueChanged(quint32 universe, quint32 channel);
@@ -122,7 +120,6 @@ protected slots:
 protected:
     quint8 m_lastAssignedID;
     QList<VCSpeedDialPreset*> m_presets;
-    SpeedDialWidget* m_speedDialWidget;
 };
 
 /** @} */

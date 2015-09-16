@@ -45,7 +45,6 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     : QDialog(dial)
     , m_dial(dial)
     , m_doc(doc)
-    , m_speedDialWidget(NULL)
 {
     Q_ASSERT(dial != NULL);
     Q_ASSERT(doc != NULL);
@@ -132,8 +131,9 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
             this, SLOT(slotShowPresetNameClicked()));
     connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)),
             this, SLOT(slotPresetNameEdited(QString const&)));
-    connect(m_speedDialWidgetButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotSpeedDialWidgetToggle(bool)));
+
+    connect(m_speedDialWidget, SIGNAL(valueChanged(int)),
+            this, SLOT(slotSpeedDialWidgetValueChanged(int)));
 
     connect(m_adPresetInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectPresetInputToggled(bool)));
@@ -508,8 +508,7 @@ void VCSpeedDialProperties::slotTreeSelectionChanged()
         m_showPresetNameCb->setChecked(preset->m_showName);
         m_showPresetNameCb->blockSignals(false);
         m_presetNameEdit->setText(preset->m_name);
-        if (m_speedDialWidget != NULL)
-            m_speedDialWidget->setDuration(preset->m_value);
+        m_speedDialWidget->setValue(preset->m_value);
     }
 }
 
@@ -535,49 +534,7 @@ void VCSpeedDialProperties::slotPresetNameEdited(QString const& newName)
     }
 }
 
-void VCSpeedDialProperties::slotSpeedDialWidgetToggle(bool state)
-{
-    if (state)
-    {
-        if (m_speedDialWidget == NULL)
-        {
-            m_speedDialWidget = new SpeedDialWidget(this);
-            m_speedDialWidget->setAttribute(Qt::WA_DeleteOnClose);
-            m_speedDialWidget->setWindowTitle(tr("%1 preset").arg(m_nameEdit->text()));
-            m_speedDialWidget->setDurationTitle("");
-            m_speedDialWidget->setFadeInEnabled(false);
-            m_speedDialWidget->setFadeInVisible(false);
-            m_speedDialWidget->setFadeOutEnabled(false);
-            m_speedDialWidget->setFadeOutVisible(false);
-            m_speedDialWidget->show();
-            connect(m_speedDialWidget, SIGNAL(holdChanged(int)),
-                    this, SLOT(slotSpeedDialWidgetDurationChanged(int)));
-            connect(m_speedDialWidget, SIGNAL(destroyed(QObject*)),
-                    this, SLOT(slotSpeedDialWidgetDestroyed(QObject*)));
-        }
-
-        VCSpeedDialPreset* preset = getSelectedPreset();
-        if (preset != NULL)
-        {
-            m_speedDialWidget->setDuration(preset->m_value);
-        }
-    }
-    else
-    {
-        if (m_speedDialWidget != NULL)
-        {
-            m_speedDialWidget->deleteLater();
-            m_speedDialWidget = NULL;
-        }
-    }
-}
-
-void VCSpeedDialProperties::slotSpeedDialWidgetDestroyed(QObject*)
-{
-    m_speedDialWidgetButton->setChecked(false);
-}
-
-void VCSpeedDialProperties::slotSpeedDialWidgetDurationChanged(int ms)
+void VCSpeedDialProperties::slotSpeedDialWidgetValueChanged(int ms)
 {
     VCSpeedDialPreset* preset = getSelectedPreset();
 

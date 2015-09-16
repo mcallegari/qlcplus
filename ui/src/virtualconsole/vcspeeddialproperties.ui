@@ -476,7 +476,7 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <layout class="QGridLayout" name="gridLayout_10">
-         <item row="0" column="1" rowspan="9">
+         <item row="0" column="0" rowspan="9">
           <widget class="QTreeWidget" name="m_presetsTree">
            <column>
             <property name="text">
@@ -490,7 +490,7 @@
            </column>
           </widget>
          </item>
-         <item row="9" column="1">
+         <item row="9" column="0">
           <widget class="QGroupBox" name="m_externalInputGroup">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -575,7 +575,7 @@
            </layout>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item row="0" column="1">
           <widget class="QPushButton" name="m_addPresetButton">
            <property name="text">
             <string> Add preset</string>
@@ -586,7 +586,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="1">
           <widget class="QPushButton" name="m_removePresetButton">
            <property name="text">
             <string> Remove</string>
@@ -597,41 +597,25 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
+         <item row="2" column="1">
           <widget class="QCheckBox" name="m_showPresetNameCb">
            <property name="text">
             <string>Show preset name</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="2">
+         <item row="3" column="1">
           <widget class="QLineEdit" name="m_presetNameEdit">
            <property name="toolTip">
             <string>Preset name</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="2">
-          <widget class="QToolButton" name="m_speedDialWidgetButton">
-           <property name="toolTip">
-            <string>Show/Hide speed dial window</string>
-           </property>
-           <property name="icon">
-            <iconset resource="qlcui.qrc">
-             <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>28</width>
-             <height>28</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
+         <item row="4" column="1">
+          <widget class="SpeedDial" name="m_speedDialWidget">
           </widget>
          </item>
-         <item row="9" column="2">
+         <item row="9" column="1">
           <widget class="QGroupBox" name="groupBox_8">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
