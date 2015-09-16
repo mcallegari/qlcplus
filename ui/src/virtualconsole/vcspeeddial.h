@@ -42,10 +42,12 @@ class FlowLayout;
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
 #define KXMLQLCVCSpeedDialTapKey "Key"
-#define KXMLQLCVCSpeedDialInfinite "Infinite"
-#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 #define KXMLQLCVCSpeedDialTime "Time"
+
+// Legacy: infinite checkbox
+#define KXMLQLCVCSpeedDialInfinite "Infinite"
+#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 
 class VCSpeedDial : public VCWidget
 {
@@ -55,7 +57,6 @@ class VCSpeedDial : public VCWidget
 public:
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
-    static const quint8 infiniteInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -157,20 +158,17 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
-     * Tap & infinite key sequence handler
+     * Tap & presets key sequence handler
      *********************************************************************/
 public:
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
-    void setInfiniteKeySequence(const QKeySequence& keySequence);
-    QKeySequence infiniteKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
-    QKeySequence m_infiniteKeySequence;
 
     /************************************************************************
      * Absolute value range

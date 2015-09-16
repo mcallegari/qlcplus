@@ -37,7 +37,6 @@
 
 const quint8 VCSpeedDial::absoluteInputSourceId = 0;
 const quint8 VCSpeedDial::tapInputSourceId = 1;
-const quint8 VCSpeedDial::infiniteInputSourceId = 2;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
 static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
@@ -53,7 +52,6 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     , m_dial(NULL)
     , m_absoluteValueMin(0)
     , m_absoluteValueMax(1000 * 10)
-    , m_visibilityMask(SpeedDial::defaultVisibilityMask())
 {
     setFrameStyle(KVCFrameStyleSunken);
 
@@ -64,6 +62,8 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     layout()->addWidget(m_dial);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged(int)));
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
+
+    setVisibilityMask(SpeedDial::defaultVisibilityMask() & ~SpeedDial::Infinite);
 
     setType(VCWidget::SpeedDialWidget);
     setCaption(tr("Duration"));
@@ -336,7 +336,16 @@ void VCSpeedDial::slotPresetClicked()
     Q_ASSERT(preset != NULL);
 
     {
-        m_dial->setValue(preset->m_value, true);
+        // Special case: infinite buttons should act as checkboxes
+        // so the previous value can be restore when clicking 2 times on them
+        if (preset->m_value == (int)Function::infiniteSpeed())
+        {
+            m_dial->toggleInfinite();
+        }
+        else // Normal case
+        {
+            m_dial->setValue(preset->m_value, true);
+        }
     }
 }
 
@@ -350,8 +359,6 @@ void VCSpeedDial::updateFeedback()
                      float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
-
-    sendFeedback(m_dial->value() == (int)Function::infiniteSpeed() ? UCHAR_MAX : 0, infiniteInputSourceId);
 
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -386,11 +393,6 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
                                          qreal(absoluteValueMax())));
         m_dial->setValue(ms, true);
     }
-    if (checkInputSource(universe, pagedCh, value, sender(), infiniteInputSourceId))
-    {
-        if (value != 0)
-            m_dial->toggleInfinite();
-    }
 
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -422,16 +424,6 @@ QKeySequence VCSpeedDial::keySequence() const
     return m_tapKeySequence;
 }
 
-void VCSpeedDial::setInfiniteKeySequence(const QKeySequence& keySequence)
-{
-    m_infiniteKeySequence = QKeySequence(keySequence);
-}
-
-QKeySequence VCSpeedDial::infiniteKeySequence() const
-{
-    return m_infiniteKeySequence;
-}
-
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (isEnabled() == false)
@@ -439,8 +431,6 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 
     if (m_tapKeySequence == keySequence)
         m_dial->tap();
-    if (m_infiniteKeySequence == keySequence)
-        m_dial->toggleInfinite();
 
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -491,6 +481,15 @@ void VCSpeedDial::setVisibilityMask(ushort mask)
  * Load & Save
  *****************************************************************************/
 
+static QSharedPointer<VCSpeedDialPreset> createInfinitePreset()
+{
+    QSharedPointer<VCSpeedDialPreset> infinitePreset(new VCSpeedDialPreset(16));
+    infinitePreset->m_value = Function::infiniteSpeed();
+    infinitePreset->m_name = Function::speedToString(Function::infiniteSpeed());
+    infinitePreset->m_showName = true;
+    return infinitePreset;
+}
+
 bool VCSpeedDial::loadXML(const QDomElement* root)
 {
     Q_ASSERT(root != NULL);
@@ -521,6 +520,8 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     QDomNode node = root->firstChild();
     // Sorted list for new presets
     QList<VCSpeedDialPreset> newPresets;
+    // legacy: transform the infinite checkbox into an infinite preset
+    QSharedPointer<VCSpeedDialPreset> infinitePreset(NULL);
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
@@ -592,7 +593,10 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialInfinite)
         {
-            // Input
+            // Legacy: infinite checkbox input
+            if (!infinitePreset)
+                infinitePreset = createInfinitePreset();
+
             QDomNode sub = node.firstChild();
             while (sub.isNull() == false)
             {
@@ -602,7 +606,9 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                     quint32 uni = QLCInputSource::invalidUniverse;
                     quint32 ch = QLCInputSource::invalidChannel;
                     if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), infiniteInputSourceId);
+                    {
+                        infinitePreset->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+                    }
                 }
                 else
                 {
@@ -614,7 +620,11 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialInfiniteKey)
         {
-            setInfiniteKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            // Legacy: infinite checkbox key sequence
+            if (!infinitePreset)
+                infinitePreset = createInfinitePreset();
+
+            infinitePreset->m_keySequence = stripKeySequence(QKeySequence(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCWindowState)
         {
@@ -635,7 +645,17 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialVisibilityMask)
         {
-            setVisibilityMask(tag.text().toUShort());
+            ushort mask = tag.text().toUShort();
+
+            // legacy: infinite checkbox
+            if (mask & SpeedDial::Infinite)
+            {
+                mask &= ~SpeedDial::Infinite;
+                if (!infinitePreset)
+                    infinitePreset = createInfinitePreset();
+            }
+
+            setVisibilityMask(mask);
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialTime)
         {
@@ -649,8 +669,19 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         node = node.nextSibling();
     }
 
-    foreach (VCSpeedDialPreset const& preset, newPresets)
-        addPreset(preset);
+    if (infinitePreset && newPresets.size() > 0)
+    {
+        qWarning() << Q_FUNC_INFO << "Can't have an infinite checkbox + presets";
+        return false;
+    }
+
+    if (infinitePreset)
+        addPreset(*infinitePreset);
+    else
+    {
+        foreach (VCSpeedDialPreset const& preset, newPresets)
+            addPreset(preset);
+    }
 
     return true;
 }
@@ -703,20 +734,6 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
         QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialTapKey);
         root.appendChild(tag);
         QDomText text = doc->createTextNode(m_tapKeySequence.toString());
-        tag.appendChild(text);
-    }
-
-    /* Infinite input */
-    QDomElement infinite = doc->createElement(KXMLQLCVCSpeedDialInfinite);
-    saveXMLInput(doc, &infinite, inputSource(infiniteInputSourceId));
-    root.appendChild(infinite);
-
-    /* Infinite key sequence */
-    if (m_infiniteKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialInfiniteKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_infiniteKeySequence.toString());
         tag.appendChild(text);
     }
 
