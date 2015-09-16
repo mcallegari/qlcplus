@@ -25,8 +25,10 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
+#ifdef QT_XML_LIB
 class QDomDocument;
 class QDomElement;
+#endif
 class QString;
 
 /** @addtogroup engine Engine
@@ -60,6 +62,7 @@ class QString;
 class QLCFile
 {
 public:
+#ifdef QT_XML_LIB
     /**
      * Read an XML file to a QDomDocument structure
      *
@@ -69,15 +72,6 @@ public:
     static QDomDocument readXML(const QString& path);
 
     /**
-     * !!! this should replace readXML in the end !!!
-     * Request a QXmlStreamReader for an XML file
-     *
-     * @param path Path to the file to read
-     * @return QXmlStreamReader (unitialized if not successful)
-     */
-    static QXmlStreamReader *getXMLReader(const QString& path);
-
-    /**
      * Get a common XML file header as a QDomDocument
      *
      * @param content The content type (Settings, Workspace)
@@ -85,6 +79,16 @@ public:
      * @return A new QDomDocument containing the header
      */
     static QDomDocument getXMLHeader(const QString& content, const QString& author = QString());
+#endif
+
+    /**
+     * !!! this should replace readXML in the end !!!
+     * Request a QXmlStreamReader for an XML file
+     *
+     * @param path Path to the file to read
+     * @return QXmlStreamReader (unitialized if not successful)
+     */
+    static QXmlStreamReader *getXMLReader(const QString& path);
 
     /**
      * !!! this should replace getXMLHeader in the end !!!

@@ -20,7 +20,11 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QFile>
-#include <QtXml>
+#ifdef QT_XML_LIB
+#   include <QtXml>
+#else
+#   include <QDebug>
+#endif
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
@@ -36,6 +40,7 @@
 
 #define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
+#ifdef QT_XML_LIB
 QDomDocument QLCFile::readXML(const QString& path)
 {
     if (path.isEmpty() == true)
@@ -68,30 +73,6 @@ QDomDocument QLCFile::readXML(const QString& path)
     return doc;
 }
 
-QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
-{
-    QXmlStreamReader *reader = NULL;
-
-    if (path.isEmpty() == true)
-    {
-        qWarning() << Q_FUNC_INFO
-                   << "Empty path given. Not attempting to load file.";
-        return reader;
-    }
-
-    QFile *file = new QFile(path);
-    if (file->open(QIODevice::ReadOnly | QFile::Text) == true)
-    {
-        reader = new QXmlStreamReader(file);
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "Unable to open file:" << path;
-    }
-
-    return reader;
-}
-
 QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author)
 {
     if (content.isEmpty() == true)
@@ -100,7 +81,7 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     QDomImplementation dom;
     QDomDocument doc(dom.createDocumentType(content, QString(), QString()));
 
-    QDomProcessingInstruction instr = doc.createProcessingInstruction( 
+    QDomProcessingInstruction instr = doc.createProcessingInstruction(
         "xml", "version='1.0' encoding='UTF-8'");
 
     doc.appendChild(instr);
@@ -141,6 +122,31 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     subtag.appendChild(text);
 
     return doc;
+}
+#endif
+
+QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
+{
+    QXmlStreamReader *reader = NULL;
+
+    if (path.isEmpty() == true)
+    {
+        qWarning() << Q_FUNC_INFO
+                   << "Empty path given. Not attempting to load file.";
+        return reader;
+    }
+
+    QFile *file = new QFile(path);
+    if (file->open(QIODevice::ReadOnly | QFile::Text) == true)
+    {
+        reader = new QXmlStreamReader(file);
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to open file:" << path;
+    }
+
+    return reader;
 }
 
 bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)

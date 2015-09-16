@@ -6,7 +6,7 @@ INCLUDEPATH += ../common
 DEPENDPATH  += ../common
 
 CONFIG  += qt
-QT      += core xml
+QT      += core
 
 HEADERS     += ../../interfaces/qlcioplugin.h
 HEADERS     += ../../../engine/src/qlcfile.h

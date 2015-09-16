@@ -299,8 +299,6 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
     if (doc.readNextStartElement() == false)
         return false;
 
-    qDebug() << "--->" << doc.name();
-
     if (doc.name() == KXMLQLCInputProfile)
     {
         while (doc.readNextStartElement())
