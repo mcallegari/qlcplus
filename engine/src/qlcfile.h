@@ -91,6 +91,12 @@ public:
     static QXmlStreamReader *getXMLReader(const QString& path);
 
     /**
+     * Release an existing instance of an XML reader, by closing
+     * the device file, and freeing the resources
+     */
+    static void releaseXMLReader(QXmlStreamReader *reader);
+
+    /**
      * !!! this should replace getXMLHeader in the end !!!
      * Write a common XML header on the given document
      *

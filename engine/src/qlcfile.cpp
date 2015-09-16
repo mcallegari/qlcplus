@@ -149,6 +149,19 @@ QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
     return reader;
 }
 
+void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
+{
+    if (reader == NULL)
+        return;
+    if (reader->device() != NULL)
+    {
+        if (reader->device()->isOpen())
+            reader->device()->close();
+        delete reader->device();
+    }
+    delete reader;
+}
+
 bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)
 {
     if (xml == NULL || xml->device() == NULL)
