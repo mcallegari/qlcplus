@@ -239,8 +239,6 @@ bool QLCInputChannel::loadXML(const QDomElement& root)
 
 bool QLCInputChannel::loadXML2(QXmlStreamReader &root)
 {
-
-
     if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
     {
         qWarning() << Q_FUNC_INFO << "Channel node not found";
@@ -260,7 +258,11 @@ bool QLCInputChannel::loadXML2(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCInputChannelMovement)
         {
             if (root.attributes().hasAttribute(KXMLQLCInputChannelSensitivity))
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+                setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toString().toInt());
+#else
                 setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toInt());
+#endif
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
         }
