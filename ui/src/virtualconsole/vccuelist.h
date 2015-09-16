@@ -115,15 +115,36 @@ public:
     /** Get the chaser function that is used as cue list steps */
     Chaser *chaser();
 
+public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
 
-    /** Get the index of the item below the current item */
+private:
+    /** Get the index of the next item, based on the chaser direction */
     int getNextIndex();
 
-    /** Get the index of the item above the current item */
+    /** Get the index of the previous item, based on the chaser direction */
     int getPrevIndex();
 
+    /** Get the index of the first item, based on the chaser direction */
+    int getFirstIndex();
+
+    /** Get the index of the last item, based on the chaser direction */
+    int getLastIndex();
+
+    /** Get the index of the item above the selected item */
+    int getNextTreeIndex();
+
+    /** Get the index of the item below the selected item */
+    int getPrevTreeIndex();
+
+    /** Get the index of the item on top of the tree */
+    int getFirstTreeIndex();
+
+    /** Get the index of the item at the bottom of the tree */
+    int getLastTreeIndex();
+
+public:
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 

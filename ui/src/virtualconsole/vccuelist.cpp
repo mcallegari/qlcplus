@@ -451,13 +451,61 @@ void VCCueList::updateStepList()
 
 int VCCueList::getCurrentIndex()
 {
-    QTreeWidgetItem* item = m_tree->currentItem();
-    if (item != NULL)
-        return m_tree->indexOfTopLevelItem(item);
-    return 0;
+    int index = m_tree->indexOfTopLevelItem(m_tree->currentItem());
+    if (index == -1)
+        index = 0;
+    return index;
 }
 
 int VCCueList::getNextIndex()
+{
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return -1;
+
+    if (ch->direction() == Function::Forward)
+        return getNextTreeIndex();
+    else
+        return getPrevTreeIndex();
+}
+
+int VCCueList::getPrevIndex()
+{
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return -1;
+
+    if (ch->direction() == Function::Forward)
+        return getPrevTreeIndex();
+    else
+        return getNextTreeIndex();
+}
+
+int VCCueList::getFirstIndex()
+{
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return -1;
+
+    if (ch->direction() == Function::Forward)
+        return getFirstTreeIndex();
+    else
+        return getLastTreeIndex();
+}
+
+int VCCueList::getLastIndex()
+{
+    Chaser* ch = chaser();
+    if (ch == NULL)
+        return -1;
+
+    if (ch->direction() == Function::Forward)
+        return getLastTreeIndex();
+    else
+        return getFirstTreeIndex();
+}
+
+int VCCueList::getNextTreeIndex()
 {
     int count = m_tree->topLevelItemCount();
     if (count > 0)
@@ -465,12 +513,22 @@ int VCCueList::getNextIndex()
     return 0;
 }
 
-int VCCueList::getPrevIndex()
+int VCCueList::getPrevTreeIndex()
 {
     int currentIndex = getCurrentIndex();
-    if (currentIndex == 0)
-        return m_tree->topLevelItemCount() - 1;
+    if (currentIndex <= 0)
+        return getLastTreeIndex();
     return currentIndex - 1;
+}
+
+int VCCueList::getFirstTreeIndex()
+{
+    return 0;
+}
+
+int VCCueList::getLastTreeIndex()
+{
+    return m_tree->topLevelItemCount() - 1;
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -539,7 +597,10 @@ void VCCueList::slotPlayback()
     }
     else
     {
-        startChaser(getCurrentIndex());
+        if (m_tree->currentItem() != NULL)
+            startChaser(getCurrentIndex());
+        else
+            startChaser();
     }
 }
 
@@ -561,7 +622,7 @@ void VCCueList::slotNextCue()
         switch (m_nextPrevBehavior)
         {
             case DefaultRunFirst:
-                startChaser();
+                startChaser(getFirstIndex());
                 break;
             case RunNext:
                 startChaser(getNextIndex());
@@ -595,7 +656,7 @@ void VCCueList::slotPreviousCue()
         switch (m_nextPrevBehavior)
         {
             case DefaultRunFirst:
-                startChaser(m_tree->topLevelItemCount() - 1);
+                startChaser(getLastIndex());
                 break;
             case RunNext:
                 startChaser(getPrevIndex());
