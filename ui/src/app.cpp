@@ -60,6 +60,13 @@
  #include "videoprovider.h"
 #endif
 
+//#define DEBUG_SPEED
+
+#ifdef DEBUG_SPEED
+ #include <QTime>
+ QTime speedTime;
+#endif
+
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
@@ -422,7 +429,9 @@ void App::initDoc()
 
     connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
-
+#ifdef DEBUG_SPEED
+    speedTime.start();
+#endif
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
     m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
@@ -447,6 +456,10 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
     m_doc->inputOutputMap()->loadDefaults();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
+#endif
 
     m_doc->masterTimer()->start();
 }
@@ -925,10 +938,18 @@ QFile::FileError App::slotFileOpen()
        can be loaded even if the workspace file has been moved */
     m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
 
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
+
     /* Load the file */
     QFile::FileError error = loadXML(fn);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -1171,10 +1192,18 @@ void App::slotRecentFileClicked(QAction *recent)
        can be loaded even if the workspace file has been moved */
     m_doc->setWorkspacePath(QFileInfo(recentAbsPath).absolutePath());
 
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
+
     /* Load the file */
     QFile::FileError error = loadXML(recentAbsPath);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -1184,7 +1213,8 @@ void App::slotRecentFileClicked(QAction *recent)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
-
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 }
 
 /*****************************************************************************
