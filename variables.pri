@@ -79,88 +79,88 @@ android:USERDATADIR    = .qlcplus
 
 # Documentation
 win32:DOCSDIR      = Documents
-unix:!macx:DOCSDIR = $$DATADIR/documents
+unix:!macx:DOCSDIR = $$DATADIR/Documents
 macx:DOCSDIR       = $$DATADIR/Documents
-android:DOCSDIR    = $$DATADIR/documents
+android:DOCSDIR    = $$DATADIR/Documents
 
 # Input profiles
 win32:INPUTPROFILEDIR      = InputProfiles
-unix:!macx:INPUTPROFILEDIR = $$DATADIR/inputprofiles
+unix:!macx:INPUTPROFILEDIR = $$DATADIR/Inputprofiles
 macx:INPUTPROFILEDIR       = $$DATADIR/InputProfiles
-android:INPUTPROFILEDIR    = $$DATADIR/inputprofiles
+android:INPUTPROFILEDIR    = $$DATADIR/Inputprofiles
 
 # User input profiles
 win32:USERINPUTPROFILEDIR      = $$USERDATADIR/InputProfiles
-unix:!macx:USERINPUTPROFILEDIR = $$USERDATADIR/inputprofiles
+unix:!macx:USERINPUTPROFILEDIR = $$USERDATADIR/Inputprofiles
 macx:USERINPUTPROFILEDIR       = $$USERDATADIR/InputProfiles
-android:USERINPUTPROFILEDIR    = $$USERDATADIR/inputprofiles
+android:USERINPUTPROFILEDIR    = $$USERDATADIR/Inputprofiles
 
 # Midi templates
 win32:MIDITEMPLATEDIR      = MidiTemplates
-unix:!macx:MIDITEMPLATEDIR = $$DATADIR/miditemplates
+unix:!macx:MIDITEMPLATEDIR = $$DATADIR/MidiTemplates
 macx:MIDITEMPLATEDIR       = $$DATADIR/MidiTemplates
-android:MIDITEMPLATEDIR    = $$DATADIR/miditemplates
+android:MIDITEMPLATEDIR    = $$DATADIR/MidiTemplates
 
 # User midi templates
 win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
-unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
+unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/MidiTemplates
 macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
-android:USERMIDITEMPLATEDIR    = $$USERDATADIR/miditemplates
+android:USERMIDITEMPLATEDIR    = $$USERDATADIR/MidiTemplates
 
 # Channel modifiers templates
 win32:MODIFIERSTEMPLATEDIR      = ModifiersTemplates
-unix:!macx:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
+unix:!macx:MODIFIERSTEMPLATEDIR = $$DATADIR/ModifiersTemplates
 macx:MODIFIERSTEMPLATEDIR       = $$DATADIR/ModifiersTemplates
-android:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
+android:MODIFIERSTEMPLATEDIR    = $$DATADIR/ModifiersTemplates
 
 # User midi templates
 win32:USERMODIFIERSTEMPLATEDIR      = $$USERDATADIR/ModifiersTemplates
-unix:!macx:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
+unix:!macx:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/ModifiersTemplates
 macx:USERMODIFIERSTEMPLATEDIR       = $$USERDATADIR/ModifiersTemplates
-android:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
+android:USERMODIFIERSTEMPLATEDIR    = $$USERDATADIR/ModifiersTemplates
 
 # Fixtures
 win32:FIXTUREDIR      = Fixtures
-unix:!macx:FIXTUREDIR = $$DATADIR/fixtures
+unix:!macx:FIXTUREDIR = $$DATADIR/Fixtures
 macx:FIXTUREDIR       = $$DATADIR/Fixtures
-android:FIXTUREDIR    = $$DATADIR/fixtures
+android:FIXTUREDIR    = $$DATADIR/Fixtures
 
 # Gobos
 win32:GOBODIR      = Gobos
-unix:!macx:GOBODIR = $$DATADIR/gobos
+unix:!macx:GOBODIR = $$DATADIR/Gobos
 macx:GOBODIR       = $$DATADIR/Gobos
-android:GOBODIR    = $$DATADIR/gobos
+android:GOBODIR    = $$DATADIR/Gobos
 
 # User fixtures
 win32:USERFIXTUREDIR      = $$USERDATADIR/Fixtures
-unix:!macx:USERFIXTUREDIR = $$USERDATADIR/fixtures
+unix:!macx:USERFIXTUREDIR = $$USERDATADIR/Fixtures
 macx:USERFIXTUREDIR       = $$USERDATADIR/Fixtures
-android:USERFIXTUREDIR    = $$USERDATADIR/fixtures
+android:USERFIXTUREDIR    = $$USERDATADIR/Fixtures
 
 # Plugins
 win32:PLUGINDIR      = Plugins
 unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
-macx:PLUGINDIR       = PlugIns
+macx:PLUGINDIR       = Plugins
 android:PLUGINDIR    = Plugins
 
 # Translations
 win32:TRANSLATIONDIR      =
-unix:!macx:TRANSLATIONDIR = $$DATADIR/translations
+unix:!macx:TRANSLATIONDIR = $$DATADIR/Translations
 macx:TRANSLATIONDIR       = $$DATADIR/Translations
-android:TRANSLATIONDIR    = $$DATADIR/translations
+android:TRANSLATIONDIR    = $$DATADIR/Translations
 
 # RGB Scripts
 win32:RGBSCRIPTDIR      = RGBScripts
-unix:!macx:RGBSCRIPTDIR = $$DATADIR/rgbscripts
+unix:!macx:RGBSCRIPTDIR = $$DATADIR/RGBscripts
 macx:RGBSCRIPTDIR       = $$DATADIR/RGBScripts
-android:RGBSCRIPTDIR    = $$DATADIR/rgbscripts
+android:RGBSCRIPTDIR    = $$DATADIR/RGBscripts
 
 # User RGB Scripts
 win32:USERRGBSCRIPTDIR      = $$USERDATADIR/RGBScripts
-unix:!macx:USERRGBSCRIPTDIR = $$USERDATADIR/rgbscripts
+unix:!macx:USERRGBSCRIPTDIR = $$USERDATADIR/RGBscripts
 macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
 
 # RGB Scripts
 win32:WEBFILESDIR      = Web
-unix:!macx:WEBFILESDIR = $$DATADIR/web
+unix:!macx:WEBFILESDIR = $$DATADIR/Web
 macx:WEBFILESDIR       = $$DATADIR/Web
