@@ -109,17 +109,20 @@ popd
 #############################################################################
 # Velleman test
 #############################################################################
-
-$SLEEPCMD
-pushd .
-cd plugins/velleman/test
-$TESTPREFIX ./test.sh
-RESULT=$?
-if [ $RESULT != 0 ]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Skip Velleman test (not supported on OSX)"
+else
+  $SLEEPCMD
+  pushd .
+  cd plugins/velleman/test
+  $TESTPREFIX ./test.sh
+  RESULT=$?
+  if [ $RESULT != 0 ]; then
     echo "Velleman unit test failed ($RESULT). Please fix before commit."
 	exit $RESULT
+  fi
+  popd
 fi
-popd
 
 #############################################################################
 # MIDI tests
