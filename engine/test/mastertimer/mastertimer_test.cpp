@@ -193,7 +193,7 @@ void MasterTimer_Test::interval()
     /* Wait for one second */
     QTest::qWait(1000);
 
-#ifndef TRAVIS_BUILD
+#ifndef SKIP_TEST
     /* It's not guaranteed that context switch happens exactly after 50
        cycles, so we just have to estimate here... */
     QVERIFY(fs.m_writeCalls >= 49 && fs.m_writeCalls <= 51);

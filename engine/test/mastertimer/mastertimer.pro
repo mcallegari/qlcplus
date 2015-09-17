@@ -16,7 +16,13 @@ LIBS         += -lqlcplusengine
 
 IS_TRAVIS = $$(TRAVIS)
 contains(IS_TRAVIS, "true") {
-    DEFINES += TRAVIS_BUILD
+    DEFINES += SKIP_TEST
+}
+
+CURRUSR = $$(USER)
+IS_BUILDBOT = $$find(CURRUSR, "build")
+count(IS_BUILDBOT, 1) {
+    DEFINES += SKIP_TEST
 }
 
 SOURCES += ../../../plugins/interfaces/qlcioplugin.cpp
