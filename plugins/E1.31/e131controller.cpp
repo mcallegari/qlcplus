@@ -25,61 +25,29 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-E131Controller::E131Controller(QString ipaddr, Type type, quint32 line, QObject *parent)
+E131Controller::E131Controller(QNetworkInterface const& interface, QString const& ipaddr,
+                               Type type, quint32 line, QObject *parent)
     : QObject(parent)
+    , m_interface(interface)
+    , m_ipAddr(ipaddr)
+    , m_packetSent(0)
+    , m_packetReceived(0)
+    , m_line(line)
+    , m_UdpSocket(new QUdpSocket(this))
+    , m_packetizer(new E131Packetizer())
 {
-    m_ipAddr = QHostAddress(ipaddr);
-    m_line = line;
-
     qDebug() << "[E131Controller] type: " << type;
-    m_packetizer.reset(new E131Packetizer());
-    m_packetSent = 0;
-    m_packetReceived = 0;
-
-    m_UdpSocket = new QUdpSocket(this);
-
-    // reset initial DMX values if we're an input
-    if (type == Input)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        if (m_UdpSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT,
-                              QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-#else
-        if (m_UdpSocket->bind(QHostAddress::Any, E131_DEFAULT_PORT,
-                              QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-#endif
-        {
-            qDebug() << Q_FUNC_INFO << "Socket input bind failed !!";
-            return;
-        }
-    }
-    else
-    {
-        if (m_UdpSocket->bind(m_ipAddr, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-        {
-            qDebug() << Q_FUNC_INFO << "Socket output bind failed !!";
-            return;
-        }
-    }
-
-    connect(m_UdpSocket, SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
+    m_UdpSocket->bind(m_ipAddr, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    // Output multicast on the correct interface
+    m_UdpSocket->setMulticastInterface(m_interface);
+    // Don't send multicast to self
+    m_UdpSocket->setSocketOption(QAbstractSocket::MulticastLoopbackOption, false);
 }
 
 E131Controller::~E131Controller()
 {
     qDebug() << Q_FUNC_INFO;
-    disconnect(m_UdpSocket, SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
-    m_UdpSocket->close();
-    QMapIterator<int, QByteArray *> it(m_dmxValuesMap);
-    while(it.hasNext())
-    {
-        it.next();
-        QByteArray *ba = it.value();
-        delete ba;
-    }
-    m_dmxValuesMap.clear();
+    qDeleteAll(m_dmxValuesMap);
 }
 
 QString E131Controller::getNetworkIP()
@@ -97,38 +65,197 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
     else
     {
         UniverseInfo info;
+        info.inputMulticast = true;
+        info.inputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+        info.inputUcastPort = E131_DEFAULT_PORT;
+        info.inputUniverse = universe + 1;
+        info.inputSocket.clear();
+        info.outputMulticast = true;
         if (m_ipAddr == QHostAddress::LocalHost)
-            info.mcastAddress = QHostAddress::LocalHost;
+        {
+            info.outputMcastAddress = QHostAddress::LocalHost;
+            info.outputUcastAddress = QHostAddress::LocalHost;
+            info.outputUcastPort = E131_DEFAULT_PORT;
+        }
         else
-            info.mcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
-        info.outputUniverse = universe;
+        {
+            info.outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+            info.outputUcastAddress = QHostAddress(quint32((m_ipAddr.toIPv4Address() & 0xFFFFFF00) + (universe + 1)));
+            info.outputUcastPort = E131_DEFAULT_PORT;
+        }
+        info.outputUniverse = universe + 1;
+        info.outputTransmissionMode = Full;
         info.outputPriority = E131_PRIORITY_DEFAULT;
-        info.trasmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
     }
+
     if (type == Input)
-        m_UdpSocket->joinMulticastGroup(m_universeMap[universe].mcastAddress);
+    {
+        UniverseInfo& info = m_universeMap[universe];
+        info.inputSocket.clear();
+        info.inputSocket = getInputSocket(true, info.inputMcastAddress, E131_DEFAULT_PORT);
+    }
 }
 
 void E131Controller::removeUniverse(quint32 universe, E131Controller::Type type)
 {
     if (m_universeMap.contains(universe))
     {
-        if (m_universeMap[universe].type == type)
+        UniverseInfo& info = m_universeMap[universe];
+        if (type == Input)
+            info.inputSocket.clear();
+
+        if (info.type == type)
             m_universeMap.take(universe);
         else
-            m_universeMap[universe].type &= ~type;
+            info.type &= ~type;
     }
 }
 
-void E131Controller::setIPAddress(quint32 universe, QString address)
+void E131Controller::setInputMulticast(quint32 universe, bool multicast)
 {
     if (m_universeMap.contains(universe) == false)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].mcastAddress = QHostAddress(QString("239.255.0.%1").arg(address));
+    UniverseInfo& info = m_universeMap[universe];
+
+    if (info.inputMulticast == multicast)
+        return;
+    info.inputMulticast = multicast;
+
+    info.inputSocket.clear();
+    if (multicast)
+        info.inputSocket = getInputSocket(true, info.inputMcastAddress, E131_DEFAULT_PORT);
+    else
+        info.inputSocket = getInputSocket(false, m_ipAddr, info.inputUcastPort);
+}
+
+QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostAddress const& address, quint16 port)
+{
+    if (!multicast && port == E131_DEFAULT_PORT)
+        return m_UdpSocket;
+
+    foreach(UniverseInfo const& info, m_universeMap)
+    {
+        if (info.inputSocket && info.inputMulticast == multicast)
+        {
+            if (info.inputMulticast && info.inputMcastAddress == address)
+                return info.inputSocket;
+            if (!info.inputMulticast && info.inputUcastPort == port)
+                return info.inputSocket;
+        }
+    }
+
+    QSharedPointer<QUdpSocket> inputSocket(new QUdpSocket(this));
+
+    if (multicast)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        inputSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+#else
+        inputSocket->bind(QHostAddress::Any, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+#endif
+        inputSocket->joinMulticastGroup(address, m_interface);
+    }
+    else
+    {
+        inputSocket->bind(m_ipAddr, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    }
+
+    connect(inputSocket.data(), SIGNAL(readyRead()),
+            this, SLOT(processPendingPackets()));
+
+    return inputSocket;
+}
+
+void E131Controller::setInputMCastAddress(quint32 universe, QString address)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    UniverseInfo& info = m_universeMap[universe];
+
+    QHostAddress newAddress(QString("239.255.0.%1").arg(address));
+    if (info.inputMcastAddress == newAddress)
+        return;
+    info.inputMcastAddress = newAddress;
+
+    if (!info.inputMulticast)
+    {
+        info.inputSocket.clear();
+        info.inputSocket = getInputSocket(true, info.inputMcastAddress, E131_DEFAULT_PORT);
+    }
+}
+
+void E131Controller::setInputUCastPort(quint32 universe, quint16 port)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    UniverseInfo& info = m_universeMap[universe];
+
+    if (info.inputUcastPort == port)
+        return;
+    info.inputUcastPort = port;
+
+    if (!info.inputMulticast)
+    {
+        info.inputSocket.clear();
+        info.inputSocket = getInputSocket(false, m_ipAddr, info.inputUcastPort);
+    }
+}
+
+void E131Controller::setInputUniverse(quint32 universe, quint32 e131Uni)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    UniverseInfo& info = m_universeMap[universe];
+
+    if (info.inputUniverse == e131Uni)
+        return;
+    info.inputUniverse = e131Uni;
+}
+
+void E131Controller::setOutputMulticast(quint32 universe, bool multicast)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputMulticast = multicast;
+}
+
+void E131Controller::setOutputMCastAddress(quint32 universe, QString address)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(address));
+}
+
+void E131Controller::setOutputUCastAddress(quint32 universe, QString address)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputUcastAddress = QHostAddress(address);
+}
+
+void E131Controller::setOutputUCastPort(quint32 universe, quint16 port)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].outputUcastPort = port;
 }
 
 void E131Controller::setOutputUniverse(quint32 universe, quint32 e131Uni)
@@ -149,13 +276,13 @@ void E131Controller::setOutputPriority(quint32 universe, quint32 e131Priority)
     m_universeMap[universe].outputPriority = e131Priority;
 }
 
-void E131Controller::setTransmissionMode(quint32 universe, E131Controller::TransmissionMode mode)
+void E131Controller::setOutputTransmissionMode(quint32 universe, E131Controller::TransmissionMode mode)
 {
     if (m_universeMap.contains(universe) == false)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].trasmissionMode = int(mode);
+    m_universeMap[universe].outputTransmissionMode = int(mode);
 }
 
 QString E131Controller::transmissionModeToString(E131Controller::TransmissionMode mode)
@@ -224,18 +351,29 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
     QMutexLocker locker(&m_dataMutex);
     QByteArray dmxPacket;
     QHostAddress outAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+    quint16 outPort = E131_DEFAULT_PORT;
     quint32 outUniverse = universe;
     quint32 outPriority = E131_PRIORITY_DEFAULT;
     TransmissionMode transmitMode = Full;
 
     if (m_universeMap.contains(universe))
     {
-        UniverseInfo info = m_universeMap[universe];
-        outAddress = info.mcastAddress;
+        UniverseInfo const& info = m_universeMap[universe];
+        if (info.outputMulticast)
+        {
+            outAddress = info.outputMcastAddress;
+        }
+        else
+        {
+            outAddress = info.outputUcastAddress;
+            outPort = info.outputUcastPort;
+        }
         outUniverse = info.outputUniverse;
         outPriority = info.outputPriority;
-        transmitMode = TransmissionMode(info.trasmissionMode);
+        transmitMode = TransmissionMode(info.outputTransmissionMode);
     }
+    else
+        qWarning() << Q_FUNC_INFO << "universe" << universe << "unknown";
 
     if (transmitMode == Full)
     {
@@ -247,12 +385,12 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
         m_packetizer->setupE131Dmx(dmxPacket, outUniverse, outPriority, data);
 
     qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
-                                             outAddress, E131_DEFAULT_PORT);
+                                             outAddress, outPort);
     if (sent < 0)
     {
         qDebug() << "sendDmx failed";
         qDebug() << "Errno: " << m_UdpSocket->error();
-        qDebug() << "Errmgs: " << m_UdpSocket->errorString();
+        qDebug() << "Errmsg: " << m_UdpSocket->errorString();
     }
     else
         m_packetSent++;
@@ -260,40 +398,52 @@ void E131Controller::sendDmx(const quint32 universe, const QByteArray &data)
 
 void E131Controller::processPendingPackets()
 {
-    while (m_UdpSocket->hasPendingDatagrams())
+    QUdpSocket* socket = qobject_cast<QUdpSocket*>(sender());
+    Q_ASSERT(socket != NULL);
+
+    while (socket->hasPendingDatagrams())
     {
         QByteArray datagram;
         QHostAddress senderAddress;
-        datagram.resize(m_UdpSocket->pendingDatagramSize());
-        m_UdpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
-        if (senderAddress != m_ipAddr)
-        {
-            qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
-            if (m_packetizer->checkPacket(datagram) == true)
-            {
-                QByteArray dmxData;
-                quint32 universe;
-                if (this->type() == Input)
-                {
-                    m_packetReceived++;
-                    if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
-                    {
-                        QByteArray *dmxValues;
-                        if (m_dmxValuesMap.contains(universe) == false)
-                            m_dmxValuesMap[universe] = new QByteArray(512, 0);
-                        dmxValues = m_dmxValuesMap[universe];
+        datagram.resize(socket->pendingDatagramSize());
+        socket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
 
-                        for (int i = 0; i < dmxData.length(); i++)
+        QByteArray dmxData;
+        quint32 e131universe;
+        if (m_packetizer->checkPacket(datagram)
+                && m_packetizer->fillDMXdata(datagram, dmxData, e131universe))
+        {
+            qDebug() << "Received packet with size: " << datagram.size() << ", from: " << senderAddress.toString()
+                << ", for E1.31 universe: " << e131universe;
+            ++m_packetReceived;
+
+            for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+            {
+                quint32 universe = it.key();
+                UniverseInfo& info = it.value();
+                if (info.inputSocket == socket && info.inputUniverse == e131universe)
+                {
+                    QByteArray *dmxValues;
+                    if (m_dmxValuesMap.contains(universe) == false)
+                        m_dmxValuesMap[universe] = new QByteArray(512, 0);
+                    dmxValues = m_dmxValuesMap[universe];
+
+                    for (int i = 0; i < dmxData.length(); i++)
+                    {
+                        if (dmxValues->at(i) != dmxData.at(i))
                         {
-                            if (dmxValues->at(i) != dmxData.at(i))
-                            {
-                                dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
-                                emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
-                            }
+                            dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
+                            emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                         }
                     }
                 }
             }
         }
+        else
+        {
+            qDebug() << "Received packet with size: " << datagram.size() << ", from: " << senderAddress.toString()
+                << ", that does not look like E1.31";
+        }
     }
+// TODO? use this test?                if (senderAddress != m_ipAddr || info.inputMulticast == false)
 }

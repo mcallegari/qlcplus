@@ -160,7 +160,6 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const i
     int e131LayerSize = data.count() - 38;
     int dmpLayerSize = data.count() - 115;
     int valCountPlusOne = values.count() + 1;
-    int uniPlusOne = universe + 1;
 
     data[16] = 0x70 | (char)(rootLayerSize >> 8);
     data[17] = (char)(rootLayerSize & 0x00FF);
@@ -172,8 +171,8 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const i
 
     data[111] = m_sequence[universe];
 
-    data[113] = (char)(uniPlusOne >> 8);
-    data[114] = (char)(uniPlusOne & 0x00FF);
+    data[113] = (char)(universe >> 8);
+    data[114] = (char)(universe & 0x00FF);
 
     data[115] = 0x70 | (char)(dmpLayerSize >> 8);
     data[116] = (char)(dmpLayerSize & 0x00FF);
@@ -214,7 +213,7 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
         return false;
     dmx.clear();
 
-    universe = (data[113] << 8) + data[114] - 1;
+    universe = (data[113] << 8) + data[114];
 
     unsigned int msb = (data[123] & 0xff);
     unsigned int lsb = (data[124] & 0xff);
@@ -225,4 +224,3 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
         dmx.append(data.at(i));
     return true;
 }
-
