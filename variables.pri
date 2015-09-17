@@ -12,7 +12,15 @@ APPVERSION = 4.9.2 GIT
 
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
-!macx:QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+
+!macx {
+ system( g++ --version | grep -e "4.6.[0-9]" ) {
+   message("g++ version 4.6 found")
+ }
+ else {
+   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+ }
+}
 CONFIG         += warn_on
 
 # Build everything in the order specified in .pro files

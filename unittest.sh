@@ -25,6 +25,10 @@ else
   if [ ${#XPID} -gt 0 ]; then
     HAS_XSERVER="1"
   fi
+  # is this a OSB build ?
+  if [ "$CURRUSER" == "abuild" ]; then
+    HAS_XSERVER="0"
+  fi
 fi
 
 # if we're running as build slave, set a sleep time to start/stop xvfb between tests
