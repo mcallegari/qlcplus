@@ -9,7 +9,7 @@ TESTPREFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
 
-if [ "$CURRUSER" == "buildbot" ]; then
+if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ `which xvfb-run` == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
@@ -24,10 +24,6 @@ else
   XPID=`pidof X`
   if [ ${#XPID} -gt 0 ]; then
     HAS_XSERVER="1"
-  fi
-  # is this a OSB build ?
-  if [ "$CURRUSER" == "abuild" ]; then
-    HAS_XSERVER="0"
   fi
 fi
 
