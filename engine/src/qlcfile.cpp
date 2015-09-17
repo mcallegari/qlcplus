@@ -19,7 +19,9 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QCoreApplication>
 #include <QFile>
+
 #ifdef QT_XML_LIB
 #   include <QtXml>
 #else

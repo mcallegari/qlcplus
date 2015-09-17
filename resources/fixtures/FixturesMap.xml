@@ -485,6 +485,7 @@
   <fixture path="Robe-Robin-600E-Beam.qxf" mf="Robe" md="Robin 600E Beam"/>
   <fixture path="Robe-Robin-600E-Spot.qxf" mf="Robe" md="Robin 600E Spot (v1.1)"/>
   <fixture path="Robe-Robin-600E-Wash.qxf" mf="Robe" md="Robin 600E Wash"/>
+  <fixture path="Robe-Robin-MiniMe.qxf" mf="Robe" md="Robin MiniMe"/>
   <fixture path="Robe-Scan-575-XT.qxf" mf="Robe" md="Scan 575 XT"/>
   <fixture path="Robe-Wash-575-XT.qxf" mf="Robe" md="Wash 575 XT"/>
   <fixture path="Robe_ColorMix_240_AT.qxf" mf="Robe" md="ColorMix 240 AT"/>

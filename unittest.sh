@@ -7,6 +7,7 @@
 CURRUSER=`whoami`
 TESTPREFIX=""
 SLEEPCMD=""
+HAS_XSERVER="0"
 
 if [ "$CURRUSER" == "buildbot" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -15,8 +16,14 @@ if [ "$CURRUSER" == "buildbot" ]; then
       exit
     fi
     TESTPREFIX="xvfb-run"
+    HAS_XSERVER="1"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed ?"
+  fi
+else
+  XPID=`pidof X`
+  if [ ${#XPID} -gt 0 ]; then
+    HAS_XSERVER="1"
   fi
 fi
 
@@ -54,6 +61,8 @@ done
 # UI tests
 #############################################################################
 
+if [ "$HAS_XSERVER" -eq "1" ]; then
+
 TESTDIR=ui/test
 TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
 for test in ${TESTS}
@@ -79,6 +88,8 @@ do
         exit ${RESULT}
     fi
 done
+
+fi
 
 #############################################################################
 # Enttec wing tests
