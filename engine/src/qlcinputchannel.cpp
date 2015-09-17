@@ -197,47 +197,7 @@ void QLCInputChannel::setMovementSensitivity(int value)
  * Load & Save
  ****************************************************************************/
 
-bool QLCInputChannel::loadXML(const QDomElement& root)
-{
-    /* Verify that the tag contains an input channel */
-    if (root.tagName() != KXMLQLCInputChannel)
-    {
-        qWarning() << Q_FUNC_INFO << "Channel node not found";
-        return false;
-    }
-
-    /* Go thru all sub tags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
-    {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCInputChannelName)
-        {
-            setName(tag.text());
-        }
-        else if (tag.tagName() == KXMLQLCInputChannelType)
-        {
-            setType(stringToType(tag.text()));
-        }
-        else if (tag.tagName() == KXMLQLCInputChannelMovement)
-        {
-            if (tag.hasAttribute(KXMLQLCInputChannelSensitivity))
-                setMovementSensitivity(tag.attribute(KXMLQLCInputChannelSensitivity).toInt());
-            if (tag.text() == KXMLQLCInputChannelRelative)
-                setMovementType(Relative);
-        }
-        else
-        {
-            qWarning() << Q_FUNC_INFO << "Unknown input channel tag" << tag.tagName();
-        }
-
-        node = node.nextSibling();
-    }
-
-    return true;
-}
-
-bool QLCInputChannel::loadXML2(QXmlStreamReader &root)
+bool QLCInputChannel::loadXML(QXmlStreamReader &root)
 {
     if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
     {
@@ -275,51 +235,7 @@ bool QLCInputChannel::loadXML2(QXmlStreamReader &root)
     return true;
 }
 
-bool QLCInputChannel::saveXML(QDomDocument* doc, QDomElement* root,
-                              quint32 channelNumber) const
-{
-    QDomElement subtag;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
-    Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
-
-    /* The channel tag */
-    tag = doc->createElement(KXMLQLCInputChannel);
-    root->appendChild(tag);
-
-    /* Channel number attribute */
-    tag.setAttribute(KXMLQLCInputChannelNumber,
-                     QString("%1").arg(channelNumber));
-
-    /* Name */
-    subtag = doc->createElement(KXMLQLCInputChannelName);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(m_name);
-    subtag.appendChild(text);
-
-    /* Type */
-    subtag = doc->createElement(KXMLQLCInputChannelType);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(typeToString(m_type));
-    subtag.appendChild(text);
-
-    /* Save only slider's relative movement */
-    if (type() == Slider && movementType() == Relative)
-    {
-        subtag = doc->createElement(KXMLQLCInputChannelMovement);
-        subtag.setAttribute(KXMLQLCInputChannelSensitivity, movementSensitivity());
-        tag.appendChild(subtag);
-        text = doc->createTextNode(KXMLQLCInputChannelRelative);
-        subtag.appendChild(text);
-    }
-
-    return true;
-}
-
-bool QLCInputChannel::saveXML2(QXmlStreamWriter *doc, quint32 channelNumber) const
+bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const
 {
     if (doc == NULL || doc->device() == NULL)
         return false;

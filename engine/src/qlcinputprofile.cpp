@@ -327,7 +327,7 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
                 {
                     quint32 ch = str.toInt();
                     QLCInputChannel* ich = new QLCInputChannel();
-                    if (ich->loadXML2(doc) == true)
+                    if (ich->loadXML(doc) == true)
                         insertChannel(ch, ich);
                     else
                         delete ich;
@@ -367,7 +367,7 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     while (it.hasNext() == true)
     {
         it.next();
-        it.value()->saveXML2(&doc, it.key());
+        it.value()->saveXML(&doc, it.key());
     }
 
     m_path = fileName;

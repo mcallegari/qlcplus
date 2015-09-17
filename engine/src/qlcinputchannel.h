@@ -23,8 +23,6 @@
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QLCInputProfile;
-class QDomDocument;
-class QDomElement;
 class QString;
 
 /** @addtogroup engine Engine
@@ -145,25 +143,17 @@ public:
      * @param root An input channel tag
      * @return true if successful, otherwise false
      */
-    bool loadXML(const QDomElement& root);
-
-    /** #### TEMPORARY ! Should become loadXML */
-    bool loadXML2(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save this channel's contents to the given XML document, setting the
      * given channel number as the channel's number.
      *
      * @param doc The master XML document to save to
-     * @param root The input profile root to save under
      * @param channelNumber The channel's number in the channel map
      * @return true if successful, otherwise false
      */
-    bool saveXML(QDomDocument* doc, QDomElement* root,
-                 quint32 channelNumber) const;
-
-    /** #### TEMPORARY ! Should become saveXML */
-    bool saveXML2(QXmlStreamWriter *doc, quint32 channelNumber) const;
+    bool saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const;
 };
 
 /** @} */
