@@ -11,7 +11,7 @@ if [ -n "$QTDIR" ]; then
 else
     # if lrelease is not available, try with lrelease-qt4
     if [ -z "$LRELEASE_BIN" ]; then
-        LRELEASE_BIN=`which lrelease-qt`
+        LRELEASE_BIN=`which lrelease-qt4`
         if [ -z "$LRELEASE_BIN" ]; then
             echo "lrelease and lrelease-qt4 are not present in this system !"
             exit
