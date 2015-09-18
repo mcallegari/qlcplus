@@ -110,7 +110,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 case DMXUSBWidget::VinceTX:
                     widgetList << new VinceUSBDMX512(iface, output_id++);
                 break;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
                 case DMXUSBWidget::Eurolite:
                     widgetList << new EuroliteUSBDMXPro(iface, output_id++);
                 break;
