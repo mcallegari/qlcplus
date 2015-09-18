@@ -107,9 +107,7 @@ bool Stageprofi::open(quint32 line, bool input)
     if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
-        {
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
-        }
     }
 
     return true;

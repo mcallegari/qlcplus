@@ -87,7 +87,7 @@ HEADERS += dmxusb.h \
            vinceusbdmx512.h \
            dmxinterface.h
 
-unix:!macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
+unix:macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
 SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += dmxinterface.cpp \
@@ -103,7 +103,7 @@ INCLUDEPATH += ../../midi/common
 HEADERS += ../../midi/common/midiprotocol.h
 SOURCES += ../../midi/common/midiprotocol.cpp
 
-unix:!macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
+unix:macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 
 CONFIG(qtserial) {
     SOURCES += qtserial-interface.cpp

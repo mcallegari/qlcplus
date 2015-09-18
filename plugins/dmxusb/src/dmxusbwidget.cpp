@@ -24,7 +24,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
   #include "nanodmx.h"
   #include "euroliteusbdmxpro.h"
 #endif
@@ -176,7 +176,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
         {
             widgetList << new Stageprofi(iface, output_id++);
         }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
         else if (iface->vendorID() == DMXInterface::ATMELVID &&
                  iface->productID() == DMXInterface::NANODMXPID)
         {

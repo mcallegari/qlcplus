@@ -170,6 +170,7 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
             continue;
 
         char ser[256];
+        memset(ser, 0, 256);
         char nme[256];
         char vend[256];
 
@@ -183,27 +184,26 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
                     "PID:" << QString::number(dev_descriptor.idProduct, 16);
         qDebug() << Q_FUNC_INFO << "DMX USB serial: " << serial << "name:" << name << "vendor:" << vendor;
 
-        LibFTDIInterface *iface =
-                new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
-                                     dev_descriptor.idProduct, id++);
-#ifdef LIBFTDI1
-        iface->setBusLocation(libusb_get_port_number(dev));
-#else
-        iface->setBusLocation(dev->bus->location);
-#endif
-
         bool found = false;
         for (int c = 0; c < discoveredList.count(); c++)
         {
             if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
             {
-                delete iface;
                 found = true;
                 break;
             }
         }
         if (found == false)
+        {
+            LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
+                                                           dev_descriptor.idProduct, id++);
+#ifdef LIBFTDI1
+            iface->setBusLocation(libusb_get_port_number(dev));
+#else
+            iface->setBusLocation(dev->bus->location);
+#endif
             interfacesList << iface;
+        }
 
 #ifndef LIBFTDI1
       }

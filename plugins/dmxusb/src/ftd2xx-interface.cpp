@@ -185,22 +185,22 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
 
             qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 
-            // TODO: Skip non wanted devices here ?
-
-            FTD2XXInterface *iface = new FTD2XXInterface(serial, name, vendor, VID, PID, id++);
-
             bool found = false;
             for (int c = 0; c < discoveredList.count(); c++)
             {
                 if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
                 {
-                    delete iface;
                     found = true;
                     break;
                 }
             }
             if (found == false)
+            {
+                FTD2XXInterface *iface = new FTD2XXInterface(serial, name, vendor, VID, PID, id);
                 interfacesList << iface;
+            }
+
+            id++;
         }
     }
 

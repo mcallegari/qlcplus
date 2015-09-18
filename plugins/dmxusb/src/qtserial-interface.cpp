@@ -114,23 +114,22 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
             continue;
 
-        QtSerialInterface *iface =
-                new QtSerialInterface(serial, name, vendor, info.vendorIdentifier(),
-                                      info.productIdentifier(), id++);
-        iface->setInfo(info);
-
         bool found = false;
         for (int c = 0; c < discoveredList.count(); c++)
         {
             if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
             {
-                delete iface;
                 found = true;
                 break;
             }
         }
         if (found == false)
+        {
+            QtSerialInterface *iface = new QtSerialInterface(serial, name, vendor, info.vendorIdentifier(),
+                                                             info.productIdentifier(), id++);
+            iface->setInfo(info);
             interfacesList << iface;
+        }
     }
 
     return interfacesList;
@@ -156,7 +155,6 @@ bool QtSerialInterface::open()
     }
     else
     {
-        //m_handle->moveToThread(QCoreApplication::instance()->thread());
         if (m_handle->open(QIODevice::ReadWrite) == false)
         {
             qWarning() << Q_FUNC_INFO << name() << "cannot open serial driver";
@@ -335,7 +333,7 @@ bool QtSerialInterface::setBreak(bool on)
 
 bool QtSerialInterface::write(const QByteArray& data)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     if (m_handle == NULL)
         return false;
@@ -354,7 +352,7 @@ bool QtSerialInterface::write(const QByteArray& data)
 
 QByteArray QtSerialInterface::read(int size, uchar* userBuffer)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     Q_UNUSED(userBuffer)
 
@@ -375,7 +373,7 @@ uchar QtSerialInterface::readByte(bool* ok)
     if (m_handle == NULL)
         return 0;
 
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     if (m_handle->waitForReadyRead(10) == true)
     {
