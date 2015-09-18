@@ -17,6 +17,8 @@ if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
     fi
     TESTPREFIX="xvfb-run"
     HAS_XSERVER="1"
+    # if we're running as build slave, set a sleep time to start/stop xvfb between tests
+    SLEEPCMD="sleep 1"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "We're on OSX. Any prefix needed ?"
   fi
@@ -25,11 +27,6 @@ else
   if [ ${#XPID} -gt 0 ]; then
     HAS_XSERVER="1"
   fi
-fi
-
-# if we're running as build slave, set a sleep time to start/stop xvfb between tests
-if [[ "$USER" == "buildbot" ]]; then
-  SLEEPCMD="sleep 1"
 fi
 
 TESTDIR=engine/test
