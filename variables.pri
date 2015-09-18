@@ -13,14 +13,6 @@ APPVERSION = 4.9.2 GIT
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
 
-!macx {
- system( g++ --version | grep -e "4.6.[0-9]" ) {
-   message("g++ version 4.6 found")
- }
- else {
-   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
- }
-}
 CONFIG         += warn_on
 
 # Build everything in the order specified in .pro files
@@ -32,6 +24,16 @@ CONFIG         -= release
 
 # Disable this when making a release
 CONFIG         += debug
+
+!macx {
+ system( g++ --version | grep -e "4.6.[0-9]" ) {
+   message("g++ version 4.6 found")
+   QMAKE_CXXFLAGS += -Wno-error=strict-overflow
+ }
+ else {
+   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+ }
+}
 
 # Disable these if you don't want to see SVN revision in the About Box
 #unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
