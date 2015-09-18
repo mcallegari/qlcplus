@@ -3,14 +3,26 @@
 # Translated languages (update these also to qlcplus.pro)
 languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 
+LRELEASE_BIN=`which lrelease`
+
+# if QTDIR has been defined, use those tools right away
+if [ -n "$QTDIR" ]; then
+    LRELEASE_BIN=$QTDIR/bin/lrelease
+else
+    # if lrelease is not available, try with lrelease-qt4
+    if [ -z "$LRELEASE_BIN" ]; then
+        LRELEASE_BIN=`which lrelease-qt`
+        if [ -z "$LRELEASE_BIN" ]; then
+            echo "lrelease and lrelease-qt4 are not present in this system !"
+            exit
+        fi
+    fi
+fi
+
 # Compile all files for the given language into one common qlcplus_<lang>.qm file
 function compile {
     echo Processing $1
-    if [ -n "$QTDIR" ]; then
-    	$QTDIR/bin/lrelease -silent `find . -name *_$1.ts` -qm qlcplus_$1.qm
-    else
-        lrelease -silent `find . -name *_$1.ts` -qm qlcplus_$1.qm
-    fi
+    $LRELEASE_BIN -silent `find . -name *_$1.ts` -qm qlcplus_$1.qm
 }
 
 # Compile all translated languages present in $languages
