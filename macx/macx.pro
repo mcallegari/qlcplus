@@ -122,7 +122,6 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # QtSerialPort depends on QtCore
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTSERIALPORT_DIR/$$LIBQTSERIALPORT_FILE
-
 }
 
 qmlui: {
