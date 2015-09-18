@@ -29,8 +29,13 @@ EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine
 
 EuroliteUSBDMXPro::~EuroliteUSBDMXPro()
 {
+#ifdef QTSERIAL
+    if (isOpen())
+        DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 }
 
 DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
@@ -101,10 +106,11 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
     Q_UNUSED(input)
 
 #ifdef QTSERIAL
-    QString ttyName = "";
+    if (DMXUSBWidget::open() == false)
+        return false;
 #else
     QString ttyName = getDeviceName();
-#endif
+
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
     else
@@ -117,7 +123,7 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
                    << m_file.errorString();
         return false;
     }
-
+#endif
     return true;
 }
 
@@ -126,8 +132,13 @@ bool EuroliteUSBDMXPro::close(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    if (isOpen())
+        return DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 
     return true;
 }
@@ -171,8 +182,13 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
+#ifdef QTSERIAL
+    if (isOpen() == false)
+        return false;
+#else
     if (m_file.isOpen() == false)
         return false;
+#endif
 
     QByteArray request(data);
     request.prepend(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
@@ -182,9 +198,16 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     request.prepend(EUROLITE_USB_DMX_PRO_START_OF_MSG); // Start byte
     request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
+#ifdef QTSERIAL
+    if (interface()->write(request) == false)
+#else
     if (m_file.write(request) == false)
+#endif
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+#ifdef QTSERIAL
+        interface()->purgeBuffers();
+#endif
         return false;
     }
     else

@@ -29,8 +29,13 @@ NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
 
 NanoDMX::~NanoDMX()
 {
+#ifdef QTSERIAL
+    if (isOpen())
+        DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 }
 
 DMXUSBWidget::Type NanoDMX::type() const
@@ -193,8 +198,13 @@ bool NanoDMX::close(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    if (isOpen())
+        return DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 
     return true;
 }
