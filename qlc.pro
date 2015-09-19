@@ -3,6 +3,7 @@ include(variables.pri)
 TEMPLATE = subdirs
 
 android: CONFIG += qmlui
+ios: CONFIG += qmlui
 
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
@@ -18,7 +19,7 @@ else {
   SUBDIRS      += main
 }
 SUBDIRS          += resources
-!android:SUBDIRS += fixtureeditor
+!android:!ios:SUBDIRS += fixtureeditor
 SUBDIRS          += etc
 macx:SUBDIRS     += launcher
 SUBDIRS          += plugins

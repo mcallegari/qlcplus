@@ -20,7 +20,9 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDomText>
+#if !defined(Q_OS_IOS)
 #include <QProcess>
+#endif
 #include <QDebug>
 #include <QUrl>
 
@@ -620,10 +622,10 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
     QStringList programArgs;
     for (int i = 1; i < tokens.size(); i++)
         programArgs << tokens[i][1];
-
+#if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
     newProcess->start(programName, programArgs);
-
+#endif
     return QString();
 }
 

@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 CONFIG  += ordered
-!android {
+!android:!ios {
 SUBDIRS += src
 SUBDIRS += test
 }

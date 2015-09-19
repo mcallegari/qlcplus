@@ -67,7 +67,7 @@ SOURCES += \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp
 
-RESOURCES += qml.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
+RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 
 macx {
     # This must be after "TARGET = " and before target installation so that
@@ -79,4 +79,16 @@ macx {
 target.path = $$INSTALLROOT/$$BINDIR
 INSTALLS   += target
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../android-files
+android: ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../android-files
+
+ios: {
+    ios_icon.files = $$files($$PWD/../ios-files/qlcplus*.png)
+    QMAKE_BUNDLE_DATA += ios_icon
+
+    fixtures.files += $$files($$PWD/../resources/fixtures/FixturesMap.xml)
+    fixtures.files += $$files($$PWD/../resources/fixtures/*.qxf)
+    fixtures.path = Fixtures
+    QMAKE_BUNDLE_DATA += fixtures
+
+    QMAKE_INFO_PLIST = $$PWD/../ios-files/Info.plist
+}
