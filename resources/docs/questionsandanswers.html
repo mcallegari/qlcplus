@@ -61,18 +61,20 @@ Here you can either find the answer directly or find help to point you in the ri
  </TR>
  <TR>
   <TD><H2>A:</H2></TD>
-  <TD>The problem is in a new Apple USB driver. The procedure to disable it follows below.<br>
-      <B>Please note that this can compromise the behaviour of other USB devices, so do it only 
-      if you know what you're doing! </B><br>
+  <TD>The problem is in a new Apple USB driver, which takes control of every FTDI based device detected in the system.<br>
+      You can download the <A HREF="http://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</A>
+      to enable/disable the Apple driver.<BR>
+      Otherwise you can disable the driver manually, by following the steps below.<br>
       From a terminal type the following commands:<br>
       <PRE>
       cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
       sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
       sudo touch /System/Library/Extensions
       </PRE>
-      Otherwise you can download the <A HREF="http://www.enttec.com/support-center/kb/article/108-OS_X_Mavericks_(10.9)_-_IMPORTANT">ENTTEC FTDI tool</A>
-      to enable/disable the Apple driver.<BR>
-      <B>Please note that every time OSX receives an update, you need to perform this procedure again !</B>
+      <B>Note 1: this can compromise the behaviour of other USB devices, so do it only 
+      if you know what you're doing! </B><br>
+      <B>Note 2: every time OSX receives an update, you need to perform this procedure again !</B><br>
+      <B>Note 3: Most likely, when you disable/enable the Apple driver, you need to reboot your Mac</B>
   </TD>
  </TR>
 </TABLE>
