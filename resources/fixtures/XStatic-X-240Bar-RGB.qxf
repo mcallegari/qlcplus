@@ -7,7 +7,7 @@
   <Author>Nathan Durnan</Author>
  </Creator>
  <Manufacturer>XStatic</Manufacturer>
- <Model>X-240Bar RGB IRC</Model>
+ <Model>X-240Bar RGB</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red 1">
   <Group Byte="0">Intensity</Group>
