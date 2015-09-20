@@ -13,14 +13,6 @@ APPVERSION = 4.9.2 GIT
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
 
-!macx {
- system( g++ --version | grep -e "4.6.[0-9]" ) {
-   message("g++ version 4.6 found")
- }
- else {
-   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
- }
-}
 CONFIG         += warn_on
 
 # Build everything in the order specified in .pro files
@@ -32,6 +24,16 @@ CONFIG         -= release
 
 # Disable this when making a release
 CONFIG         += debug
+
+!macx:!ios: {
+ system( g++ --version | grep -e "4.6.[0-9]" ) {
+   message("g++ version 4.6 found")
+   QMAKE_CXXFLAGS += -Wno-error=strict-overflow
+ }
+ else {
+   QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+ }
+}
 
 # Disable these if you don't want to see SVN revision in the About Box
 #unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
@@ -60,115 +62,137 @@ win32:INSTALLROOT       = $$(SystemDrive)/qlcplus
 macx:INSTALLROOT        = ~/QLC+.app/Contents
 unix:!macx:INSTALLROOT += /usr
 android:INSTALLROOT     = /
+ios:INSTALLROOT         = /
 
 # Binaries
 win32:BINDIR      =
 unix:!macx:BINDIR = bin
 macx:BINDIR       = MacOS
 android:BINDIR    = bin
+ios:BINDIR        =
 
 # Libraries
 win32:LIBSDIR      =
 unix:!macx:LIBSDIR = lib
 macx:LIBSDIR       = Frameworks
 android:LIBSDIR    = /libs/armeabi-v7a
+ios:LIBSDIR        = lib
 
 # Data
 win32:DATADIR      =
 unix:!macx:DATADIR = share/qlcplus
 macx:DATADIR       = Resources
 android:DATADIR    = /assets
+ios:DATADIR        =
 
 # User Data
 win32:USERDATADIR      = QLC+
 unix:!macx:USERDATADIR = .qlcplus
 macx:USERDATADIR       = "Library/Application Support/QLC+"
 android:USERDATADIR    = .qlcplus
+ios:USERDATADIR        = .qlcplus
 
 # Documentation
 win32:DOCSDIR      = Documents
 unix:!macx:DOCSDIR = $$DATADIR/documents
 macx:DOCSDIR       = $$DATADIR/Documents
 android:DOCSDIR    = $$DATADIR/documents
+ios:DOCSDIR        = Documents
 
 # Input profiles
 win32:INPUTPROFILEDIR      = InputProfiles
 unix:!macx:INPUTPROFILEDIR = $$DATADIR/inputprofiles
 macx:INPUTPROFILEDIR       = $$DATADIR/InputProfiles
 android:INPUTPROFILEDIR    = $$DATADIR/inputprofiles
+ios:INPUTPROFILEDIR        = InputProfiles
 
 # User input profiles
 win32:USERINPUTPROFILEDIR      = $$USERDATADIR/InputProfiles
 unix:!macx:USERINPUTPROFILEDIR = $$USERDATADIR/inputprofiles
 macx:USERINPUTPROFILEDIR       = $$USERDATADIR/InputProfiles
 android:USERINPUTPROFILEDIR    = $$USERDATADIR/inputprofiles
+ios:USERINPUTPROFILEDIR        = $$USERDATADIR/InputProfiles
 
 # Midi templates
 win32:MIDITEMPLATEDIR      = MidiTemplates
 unix:!macx:MIDITEMPLATEDIR = $$DATADIR/miditemplates
 macx:MIDITEMPLATEDIR       = $$DATADIR/MidiTemplates
 android:MIDITEMPLATEDIR    = $$DATADIR/miditemplates
+ios:MIDITEMPLATEDIR        = MidiTemplates
 
 # User midi templates
 win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
 unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
 macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
 android:USERMIDITEMPLATEDIR    = $$USERDATADIR/miditemplates
+ios:USERMIDITEMPLATEDIR        = $$USERDATADIR/MidiTemplates
 
 # Channel modifiers templates
 win32:MODIFIERSTEMPLATEDIR      = ModifiersTemplates
 unix:!macx:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
 macx:MODIFIERSTEMPLATEDIR       = $$DATADIR/ModifiersTemplates
-android:MODIFIERSTEMPLATEDIR = $$DATADIR/modifierstemplates
+android:MODIFIERSTEMPLATEDIR    = $$DATADIR/modifierstemplates
+ios:MODIFIERSTEMPLATEDIR        = ModifiersTemplates
 
 # User midi templates
 win32:USERMODIFIERSTEMPLATEDIR      = $$USERDATADIR/ModifiersTemplates
 unix:!macx:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
 macx:USERMODIFIERSTEMPLATEDIR       = $$USERDATADIR/ModifiersTemplates
-android:USERMODIFIERSTEMPLATEDIR = $$USERDATADIR/modifierstemplates
+android:USERMODIFIERSTEMPLATEDIR    = $$USERDATADIR/modifierstemplates
+ios:USERMODIFIERSTEMPLATEDIR        = $$USERDATADIR/ModifiersTemplates
 
 # Fixtures
 win32:FIXTUREDIR      = Fixtures
 unix:!macx:FIXTUREDIR = $$DATADIR/fixtures
 macx:FIXTUREDIR       = $$DATADIR/Fixtures
 android:FIXTUREDIR    = $$DATADIR/fixtures
+ios:FIXTUREDIR        = Fixtures
 
 # Gobos
 win32:GOBODIR      = Gobos
 unix:!macx:GOBODIR = $$DATADIR/gobos
 macx:GOBODIR       = $$DATADIR/Gobos
 android:GOBODIR    = $$DATADIR/gobos
+ios:GOBODIR        = Gobos
 
 # User fixtures
 win32:USERFIXTUREDIR      = $$USERDATADIR/Fixtures
 unix:!macx:USERFIXTUREDIR = $$USERDATADIR/fixtures
 macx:USERFIXTUREDIR       = $$USERDATADIR/Fixtures
 android:USERFIXTUREDIR    = $$USERDATADIR/fixtures
+ios:USERFIXTUREDIR        = $$USERDATADIR/Fixtures
 
 # Plugins
 win32:PLUGINDIR      = Plugins
 unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
 macx:PLUGINDIR       = PlugIns
 android:PLUGINDIR    = Plugins
+ios:PLUGINDIR        = Plugins
 
 # Translations
 win32:TRANSLATIONDIR      =
 unix:!macx:TRANSLATIONDIR = $$DATADIR/translations
 macx:TRANSLATIONDIR       = $$DATADIR/Translations
 android:TRANSLATIONDIR    = $$DATADIR/translations
+ios:TRANSLATIONDIR        =
 
 # RGB Scripts
 win32:RGBSCRIPTDIR      = RGBScripts
 unix:!macx:RGBSCRIPTDIR = $$DATADIR/rgbscripts
 macx:RGBSCRIPTDIR       = $$DATADIR/RGBScripts
 android:RGBSCRIPTDIR    = $$DATADIR/rgbscripts
+ios:RGBSCRIPTDIR        = RGBScripts
 
 # User RGB Scripts
 win32:USERRGBSCRIPTDIR      = $$USERDATADIR/RGBScripts
 unix:!macx:USERRGBSCRIPTDIR = $$USERDATADIR/rgbscripts
 macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
+android:USERRGBSCRIPTDIR    = $$USERDATADIR/rgbscripts
+ios:USERRGBSCRIPTDIR        = $$USERDATADIR/RGBScripts
 
 # RGB Scripts
 win32:WEBFILESDIR      = Web
 unix:!macx:WEBFILESDIR = $$DATADIR/web
 macx:WEBFILESDIR       = $$DATADIR/Web
+android:WEBFILESDIR    = $$DATADIR/web
+ios:WEBFILESDIR        = Web

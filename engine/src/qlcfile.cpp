@@ -272,7 +272,10 @@ bool QLCFile::isRaspberry()
 QDir QLCFile::systemDirectory(QString path, QString extension)
 {
     QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
+#if defined(Q_OS_IOS)
+    dir.setPath(QString("%1/%2").arg(QCoreApplication::applicationDirPath())
+                                   .arg(path));
+#elif defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(path));
 #elif defined(WIN32) || defined(Q_OS_WIN)
