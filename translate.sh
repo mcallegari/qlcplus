@@ -13,7 +13,7 @@ else
     if [ -z "$LRELEASE_BIN" ]; then
         LRELEASE_BIN=`which lrelease-qt4`
 
-        # if lrelease-qt4 is not available, try with lrelease-qt4
+        # if lrelease-qt4 is not available, try with lrelease-qt5
         if [ -z "$LRELEASE_BIN" ]; then
 	    LRELEASE_BIN=`which lrelease-qt5`
 	    if [ -z "$LRELEASE_BIN" ]; then
