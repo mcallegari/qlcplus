@@ -88,6 +88,9 @@ public:
     /** @reimp */
     virtual bool open(quint32 line, bool input = false);
 
+     /** @reimp */
+     virtual bool close(quint32 line = 0, bool input = false);
+
     /************************************************************************
      * Name & Serial
      ************************************************************************/
