@@ -27,8 +27,6 @@
 
 #include "dmxusbwidget.h"
 
-class QLCFTDI;
-
 class EnttecDMXUSBOpen : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
@@ -46,8 +44,8 @@ public:
      * @param id The device's unique ID (FTD2XX only)
      * @param parent The owner of this object
      */
-    EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                     quint32 outputLine, quint32 id = 0, QObject* parent = 0);
+    EnttecDMXUSBOpen(DMXInterface *interface,
+                     quint32 outputLine, QObject* parent = 0);
 
     /** Destructor */
     virtual ~EnttecDMXUSBOpen();

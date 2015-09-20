@@ -88,9 +88,9 @@ void DMXUSBConfig::slotTypeComboActivated(int index)
     if (var.isValid() == true)
     {
         DMXUSBWidget::Type type = (DMXUSBWidget::Type)combo->itemData(index).toInt();
-        QMap <QString,QVariant> typeMap(QLCFTDI::typeMap());
+        QMap <QString,QVariant> typeMap(DMXInterface::typeMap());
         typeMap[var.toString()] = type;
-        QLCFTDI::storeTypeMap(typeMap);
+        DMXInterface::storeTypeMap(typeMap);
     }
 
     QTimer::singleShot(0, this, SLOT(slotRefresh()));

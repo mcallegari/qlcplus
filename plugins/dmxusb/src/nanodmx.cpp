@@ -22,25 +22,20 @@
 #include <QDebug>
 #include <QDir>
 
-NanoDMX::NanoDMX(const QString& serial, const QString& name,
-                       const QString &vendor, void *usb_ref, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, 0)
+NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
-    Q_UNUSED(id)
-#if defined LIBFTDI1
-    m_device = (libusb_device *)usb_ref;
-#elif defined LIBFTDI
-    m_device = (struct usb_device *)usb_ref;
-#else
-    Q_UNUSED(usb_ref)
-    m_device = NULL;
-#endif
 }
 
 NanoDMX::~NanoDMX()
 {
+#ifdef QTSERIAL
+    if (isOpen())
+        DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 }
 
 DMXUSBWidget::Type NanoDMX::type() const
@@ -50,6 +45,16 @@ DMXUSBWidget::Type NanoDMX::type() const
 
 bool NanoDMX::checkReply()
 {
+#ifdef QTSERIAL
+    bool ok = false;
+    uchar res;
+
+    res = interface()->readByte(&ok);
+    if (ok == false || res != 0x47)
+        return false;
+
+    return true;
+#else
     QByteArray reply = m_file.readAll();
     //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
     for (int i = 0; i < reply.count(); i++)
@@ -63,6 +68,7 @@ bool NanoDMX::checkReply()
 
     qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
     return false;
+#endif
 }
 
 bool NanoDMX::sendChannelValue(int channel, uchar value)
@@ -70,26 +76,19 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
-    return ftdi()->write(chanMsg);
+    return interface()->write(chanMsg);
 }
 
 #ifndef QTSERIAL
 QString NanoDMX::getDeviceName()
 {
-    if (m_device == NULL)
-        return QString();
-
     QDir sysfsDevDir("/sys/bus/usb/devices");
     QStringList devDirs = sysfsDevDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
-#ifdef LIBFTDI1
-        if (dir.startsWith(QString::number(libusb_get_port_number(m_device))) &&
-#else
-        if (dir.startsWith(QString::number(m_device->bus->location)) &&
-#endif
+        if (dir.startsWith(QString::number(interface()->busLocation())) &&
             dir.contains(".") &&
             dir.contains(":") == false)
         {
@@ -143,10 +142,11 @@ bool NanoDMX::open(quint32 line, bool input)
     Q_UNUSED(input)
 
 #ifdef QTSERIAL
-    QString ttyName = "";
+    if (DMXUSBWidget::open() == false)
+        return false;
 #else
     QString ttyName = getDeviceName();
-#endif
+
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
     else
@@ -159,12 +159,17 @@ bool NanoDMX::open(quint32 line, bool input)
                    << m_file.errorString();
         return false;
     }
+#endif
 
     QByteArray initSequence;
 
     /* Check connection */
     initSequence.append("C?");
+#ifdef QTSERIAL
+    if (interface()->write(initSequence) == true)
+#else
     if (m_file.write(initSequence) == true)
+#endif
     {
         if (checkReply() == false)
             return false;
@@ -175,10 +180,14 @@ bool NanoDMX::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
+#ifdef QTSERIAL
+    if (interface()->write(initSequence) == true)
+#else
     if (m_file.write(initSequence) == true)
+#endif
     {
         if (checkReply() == false)
-            return false;
+            qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
     }
 
     return true;
@@ -189,8 +198,13 @@ bool NanoDMX::close(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    if (isOpen())
+        return DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 
     return true;
 }
@@ -234,8 +248,13 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
+#ifdef QTSERIAL
+    if (isOpen() == false)
+        return false;
+#else
     if (m_file.isOpen() == false)
         return false;
+#endif
 
     /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
      * a maximum of 256 channels, I need to split a 512 universe into 2 */
@@ -256,15 +275,23 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
         arrayTransfer.insert(261, char(0x01));
     }
 
+#ifdef QTSERIAL
+    if (interface()->write(arrayTransfer) == false)
+#else
     if (m_file.write(arrayTransfer) == false)
+#endif
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+#ifdef QTSERIAL
+        interface()->purgeBuffers();
+#endif
         return false;
     }
-    else
-    {
-        return true;
-    }
+
+    if (checkReply() == false)
+        interface()->purgeBuffers();
+
+    return true;
 }
 
 

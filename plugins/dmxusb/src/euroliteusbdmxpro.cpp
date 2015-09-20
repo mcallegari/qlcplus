@@ -22,25 +22,20 @@
 #include <QDebug>
 #include <QDir>
 
-EuroliteUSBDMXPro::EuroliteUSBDMXPro(const QString& serial, const QString& name,
-                       const QString &vendor, void *usb_ref, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, 0)
+EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
-    Q_UNUSED(id)
-#if defined LIBFTDI1
-    m_device = (libusb_device *)usb_ref;
-#elif defined LIBFTDI
-    m_device = (struct usb_device *)usb_ref;
-#else
-    Q_UNUSED(usb_ref)
-    m_device = NULL;
-#endif
 }
 
 EuroliteUSBDMXPro::~EuroliteUSBDMXPro()
 {
+#ifdef QTSERIAL
+    if (isOpen())
+        DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 }
 
 DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
@@ -51,26 +46,14 @@ DMXUSBWidget::Type EuroliteUSBDMXPro::type() const
 #ifndef QTSERIAL
 QString EuroliteUSBDMXPro::getDeviceName()
 {
-    if (m_device == NULL)
-        return QString();
-
     QDir sysfsDevDir("/sys/bus/usb/devices");
     QStringList devDirs = sysfsDevDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 
     // 1- scan all the devices in the device bus
     foreach (QString dir, devDirs)
     {
-#ifdef LIBFTDI1
-        qDebug() << QString::number(libusb_get_port_number(m_device));
-#else
-        qDebug() << QString::number(m_device->bus->location);
-#endif
 
-#ifdef LIBFTDI1
-        if (dir.startsWith(QString::number(libusb_get_port_number(m_device))) &&
-#else
-        if (dir.startsWith(QString::number(m_device->bus->location)) &&
-#endif
+        if (dir.startsWith(QString::number(interface()->busLocation())) &&
             dir.contains(":") == false)
         {
             // 2- Match the product name
@@ -123,10 +106,11 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
     Q_UNUSED(input)
 
 #ifdef QTSERIAL
-    QString ttyName = "";
+    if (DMXUSBWidget::open() == false)
+        return false;
 #else
     QString ttyName = getDeviceName();
-#endif
+
     if (ttyName.isEmpty())
         m_file.setFileName("/dev/ttyACM0");
     else
@@ -139,7 +123,7 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
                    << m_file.errorString();
         return false;
     }
-
+#endif
     return true;
 }
 
@@ -148,8 +132,13 @@ bool EuroliteUSBDMXPro::close(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
+#ifdef QTSERIAL
+    if (isOpen())
+        return DMXUSBWidget::close();
+#else
     if (m_file.isOpen() == true)
         m_file.close();
+#endif
 
     return true;
 }
@@ -193,8 +182,13 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
+#ifdef QTSERIAL
+    if (isOpen() == false)
+        return false;
+#else
     if (m_file.isOpen() == false)
         return false;
+#endif
 
     QByteArray request(data);
     request.prepend(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
@@ -204,9 +198,16 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
     request.prepend(EUROLITE_USB_DMX_PRO_START_OF_MSG); // Start byte
     request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
+#ifdef QTSERIAL
+    if (interface()->write(request) == false)
+#else
     if (m_file.write(request) == false)
+#endif
     {
         qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+#ifdef QTSERIAL
+        interface()->purgeBuffers();
+#endif
         return false;
     }
     else

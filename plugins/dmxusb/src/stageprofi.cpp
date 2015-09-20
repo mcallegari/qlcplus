@@ -22,9 +22,8 @@
 #include <QString>
 #include <QDebug>
 
-Stageprofi::Stageprofi(const QString& serial, const QString& name,
-                       const QString &vendor, quint32 outputLine, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, outputLine, id)
+Stageprofi::Stageprofi(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
 }
 
@@ -42,7 +41,7 @@ bool Stageprofi::checkReply()
     bool ok = false;
     uchar res;
 
-    res = ftdi()->readByte(&ok);
+    res = interface()->readByte(&ok);
     if (ok == false || res != 0x47)
         return false;
 
@@ -71,7 +70,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
-    return ftdi()->write(chanMsg);
+    return interface()->write(chanMsg);
 }
 
 /****************************************************************************
@@ -92,7 +91,7 @@ bool Stageprofi::open(quint32 line, bool input)
 
     /* Check connection */
     initSequence.append("C?");
-    if (ftdi()->write(initSequence) == true)
+    if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
         {
@@ -105,12 +104,10 @@ bool Stageprofi::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-    if (ftdi()->write(initSequence) == true)
+    if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
-        {
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
-        }
     }
 
     return true;
@@ -175,17 +172,17 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
             }
             fastTrans.append(data[i]);
 
-            if (ftdi()->write(fastTrans) == false)
+            if (interface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-                ftdi()->purgeBuffers();
+                interface()->purgeBuffers();
                 return false;
             }
             else
             {
                 m_universe[i] = data[i];
                 if (checkReply() == false)
-                    ftdi()->purgeBuffers();
+                    interface()->purgeBuffers();
             }
         }
     }
