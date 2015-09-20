@@ -203,7 +203,4 @@ void Win32MidiOutputDevice::writeSysEx(QByteArray message)
             /* Should put a delay in here rather than a busy-wait */
         }
     }
-
-    /* Close the MIDI device */
-    midiOutClose(m_handle);
 }
