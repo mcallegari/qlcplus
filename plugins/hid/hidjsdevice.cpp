@@ -71,11 +71,6 @@ QString HIDJsDevice::path() const
     return m_file.fileName();
 }
 
-bool HIDJsDevice::readEvent()
-{
-    return false;
-}
-
 /*****************************************************************************
  * Device info
  *****************************************************************************/

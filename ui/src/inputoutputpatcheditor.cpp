@@ -523,10 +523,7 @@ void InputOutputPatchEditor::slotConfigureInputClicked()
 void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& pluginName, bool success)
 {
     if (success == false)
-    {
-        showPluginMappingError();
         return;
-    }
 
     QTreeWidgetItem* item = pluginItem(pluginName);
     if (item == NULL)

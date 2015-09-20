@@ -40,6 +40,7 @@
 HIDDMXDevice::HIDDMXDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
 {
+    qDebug() << Q_FUNC_INFO;
     m_capabilities = QLCIOPlugin::Output;
     m_mode = DMX_MODE_NONE;
     init();
@@ -47,6 +48,7 @@ HIDDMXDevice::HIDDMXDevice(HIDPlugin* parent, quint32 line, const QString &name,
 
 HIDDMXDevice::~HIDDMXDevice()
 {
+    qDebug() << Q_FUNC_INFO;
     closeInput();
     closeOutput();
     hid_close(m_handle);
@@ -56,7 +58,7 @@ void HIDDMXDevice::init()
 {
     /* Device name */
     m_handle = hid_open_path(path().toUtf8().constData());
-    
+
     if (!m_handle)
     {
         QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
@@ -78,7 +80,7 @@ bool HIDDMXDevice::openInput()
 {
     m_mode |= DMX_MODE_INPUT;
     updateMode();
-    
+
     return true;
 }
 

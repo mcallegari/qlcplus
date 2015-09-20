@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDebug>
 #include <QString>
 
 #include "hiddevice.h"
@@ -25,6 +26,7 @@
 HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : QThread(parent)
 {
+    qDebug() << Q_FUNC_INFO;
     m_name = QString("%1: %2").arg(line + 1).arg(name);
     m_file.setFileName(path);
     m_line = line;
@@ -33,12 +35,12 @@ HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const
 
 HIDDevice::~HIDDevice()
 {
+    qDebug() << Q_FUNC_INFO;
     if (isRunning() == true)
     {
         m_running = false;
         wait();
     }
-    closeInput();
 }
 
 /*****************************************************************************

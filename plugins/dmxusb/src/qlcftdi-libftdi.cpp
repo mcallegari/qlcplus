@@ -155,16 +155,8 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         Q_ASSERT(dev != NULL);
 
         // Skip non wanted devices
-        if (dev_descriptor.idVendor != QLCFTDI::FTDIVID &&
-            dev_descriptor.idVendor != QLCFTDI::ATMELVID &&
-            dev_descriptor.idVendor != QLCFTDI::MICROCHIPVID)
-                continue;
-
-        if (dev_descriptor.idProduct != QLCFTDI::FTDIPID &&
-            dev_descriptor.idProduct != QLCFTDI::DMX4ALLPID &&
-            dev_descriptor.idProduct != QLCFTDI::NANODMXPID &&
-            dev_descriptor.idProduct != QLCFTDI::EUROLITEPID)
-                continue;
+        if (!isDeviceWanted(dev_descriptor.idVendor, dev_descriptor.idProduct))
+            continue;
 
         char ser[256];
         char nme[256];

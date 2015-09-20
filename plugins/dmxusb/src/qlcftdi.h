@@ -96,6 +96,20 @@ public:
         settings.setValue(SETTINGS_TYPE_MAP, map);
     }
 
+    static bool isDeviceWanted(int vid, int pid)
+    {
+        if (vid != QLCFTDI::FTDIVID &&
+            vid != QLCFTDI::ATMELVID &&
+            vid != QLCFTDI::MICROCHIPVID)
+            return false;
+        if (pid != QLCFTDI::FTDIPID &&
+            pid != QLCFTDI::DMX4ALLPID &&
+            pid != QLCFTDI::NANODMXPID &&
+            pid != QLCFTDI::EUROLITEPID)
+            return false;
+        return true;
+    }
+
     /************************************************************************
      * Construction & Generic Information
      ************************************************************************/

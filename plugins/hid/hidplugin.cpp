@@ -297,7 +297,7 @@ void HIDPlugin::rescanDevices()
     }
 
     hid_free_enumeration(devs);
-    
+
     /* Destroy those devices that were no longer found. */
     while (destroyList.isEmpty() == false)
     {
@@ -305,7 +305,7 @@ void HIDPlugin::rescanDevices()
         m_devices.removeAll(dev);
         delete dev;
     }
-    
+
     emit configurationChanged();
 }
 
@@ -369,6 +369,24 @@ void HIDPlugin::removeDevice(HIDDevice* device)
     delete device;
 
     emit configurationChanged();
+}
+
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void HIDPlugin::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
+}
+
+void HIDPlugin::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
 }
 
 /*****************************************************************************
