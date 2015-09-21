@@ -183,6 +183,13 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
     return true;
 }
 
+bool EnttecDMXUSBPro::close(quint32 line, bool input)
+{
+    if (input == true)
+        stopThread();
+    return DMXUSBWidget::close(line, input);
+}
+
 /****************************************************************************
  * Name & Serial
  ****************************************************************************/
