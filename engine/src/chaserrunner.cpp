@@ -569,6 +569,10 @@ int ChaserRunner::getNextStepIndex()
             else
                 currentStepIndex = 0;
         }
+        // Don't run the same function 2 times in a row
+        while (currentStepIndex < m_chaser->steps().size()
+                && randomStepIndex(currentStepIndex) == m_lastRunStepIdx)
+            ++currentStepIndex;
         currentStepIndex = randomStepIndex(currentStepIndex);
     }
     else // Ping Pong

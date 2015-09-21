@@ -1,6 +1,7 @@
 qlcplus (4.9.2) stable; urgency=low
 
   * Channel Groups: Fix crashes related to invalid channels (David Garyga)
+  * Chaser: Fix flickering issue when chaser order is Random (David Garyga)
   * Engine: some more fixes for forced HTP/LTP channels
   * Show Manager: Fix some cursor teleportation issues (David Garyga)
   * Simple Desk: Fix cue playback on universes 2+ (David Garyga)
