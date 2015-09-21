@@ -78,13 +78,13 @@ bool AudioCapturePortAudio::initialize()
 
     AudioCapture::initialize();
 
-    inputParameters.channelCount = channels;
+    inputParameters.channelCount = m_channels;
     inputParameters.sampleFormat = paInt16;
     inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
     /* -- setup stream -- */
-    err = Pa_OpenStream( &stream, &inputParameters, NULL, sampleRate, paFramesPerBufferUnspecified,
+    err = Pa_OpenStream( &stream, &inputParameters, NULL, m_sampleRate, paFramesPerBufferUnspecified,
               paClipOff, /* we won't output out of range samples so don't bother clipping them */
               NULL, /* no callback, use blocking API */
               NULL ); /* no callback, so no callback userData */

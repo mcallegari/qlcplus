@@ -82,14 +82,14 @@ bool AudioCaptureAlsa::initialize()
         qWarning("cannot set sample format (%s)\n", snd_strerror (err));
         return false;
     }
-    if ((err = snd_pcm_hw_params_set_rate_near (m_captureHandle, hw_params, &sampleRate, 0)) < 0)
+    if ((err = snd_pcm_hw_params_set_rate_near (m_captureHandle, hw_params, &m_sampleRate, 0)) < 0)
     {
         qWarning("cannot set sample rate (%s)\n", snd_strerror (err));
         return false;
     }
-    if ((err = snd_pcm_hw_params_set_channels (m_captureHandle, hw_params, channels)) < 0)
+    if ((err = snd_pcm_hw_params_set_channels (m_captureHandle, hw_params, m_channels)) < 0)
     {
-        qWarning("cannot set channel count to %d (%s)\n", channels, snd_strerror (err));
+        qWarning("cannot set channel count to %d (%s)\n", m_channels, snd_strerror (err));
         return false;
     }
     if ((err = snd_pcm_hw_params (m_captureHandle, hw_params)) < 0)

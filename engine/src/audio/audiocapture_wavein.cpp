@@ -63,8 +63,8 @@ bool AudioCaptureWaveIn::initialize()
 
     format.wFormatTag = WAVE_FORMAT_PCM; // simple, uncompressed format
     format.wBitsPerSample = 16;
-    format.nChannels = channels;
-    format.nSamplesPerSec = sampleRate;
+    format.nChannels = m_channels;
+    format.nSamplesPerSec = m_sampleRate;
     format.nAvgBytesPerSec = format.nSamplesPerSec *
                              format.nChannels *
                              (format.wBitsPerSample / 8);
