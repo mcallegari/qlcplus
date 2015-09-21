@@ -27,7 +27,13 @@
 #include <QMutex>
 #include <QMap>
 
-#define SETTINGS_AUDIO_INPUT_DEVICE  "audio/input"
+#define SETTINGS_AUDIO_INPUT_DEVICE   "audio/input"
+#define SETTINGS_AUDIO_INPUT_SRATE    "audio/samplerate"
+#define SETTINGS_AUDIO_INPUT_CHANNELS "audio/channels"
+
+#define AUDIO_DEFAULT_SAMPLE_RATE     44100
+#define AUDIO_DEFAULT_CHANNELS        1
+#define AUDIO_DEFAULT_BUFFER_SIZE     2048 // bytes per channel
 
 #define FREQ_SUBBANDS_MAX_NUMBER        32
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
@@ -81,7 +87,7 @@ public:
      * @param bufferSize Audio dat buffer size\
      * @return initialization result (\b true - success, \b false - failure)
      */
-    virtual bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
+    virtual bool initialize();
 
     /*!
      * Returns input interface latency in milliseconds.

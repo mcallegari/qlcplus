@@ -90,6 +90,7 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     , m_currentProfileName(KInputNone)
     , m_currentFeedbackPluginName(KOutputNone)
     , m_currentFeedback(QLCIOPlugin::invalidLine())
+    , m_inputCapture(NULL)
 {
     Q_ASSERT(universe < m_ioMap->universesCount());
     Q_ASSERT(ioMap != NULL);
@@ -130,11 +131,17 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     setupMappingPage();
     setupProfilePage();
 
-    fillAudioTree();
+    initAudioTab();
 
     /* Listen to itemChanged() signals to catch check state changes */
     connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
             this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
+    connect(m_srateCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotSampleRateIndexChanged(int)));
+    connect(m_chansCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotAudioChannelsChanged(int)));
+    connect(m_audioPreviewButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioInputPreview(bool)));
 
     /* Select the top-most "None" item */
     m_mapTree->setCurrentItem(m_mapTree->topLevelItem(0));
@@ -146,6 +153,8 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
 
 InputOutputPatchEditor::~InputOutputPatchEditor()
 {
+    if (m_audioPreviewButton->isChecked())
+        m_audioPreviewButton->setChecked(false);
 }
 
 /****************************************************************************
@@ -873,7 +882,7 @@ edit:
  * Audio tree
  ****************************************************************************/
 
-void InputOutputPatchEditor::fillAudioTree()
+void InputOutputPatchEditor::initAudioTab()
 {
     QList<AudioDeviceInfo> devList;
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -944,6 +953,34 @@ void InputOutputPatchEditor::fillAudioTree()
         defItem->setCheckState(KAudioColumnHasOutput, Qt::Checked);
 
     m_audioMapTree->resizeColumnToContents(KAudioColumnDeviceName);
+
+    var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
+    if (var.isValid())
+    {
+        int srate = var.toInt();
+        for (int i = 0; i < m_srateCombo->count(); i++)
+        {
+            if (m_srateCombo->itemText(i).toInt() == srate)
+            {
+                m_srateCombo->blockSignals(true);
+                m_srateCombo->setCurrentIndex(i);
+                m_srateCombo->blockSignals(false);
+                break;
+            }
+        }
+    }
+
+    var = settings.value(SETTINGS_AUDIO_INPUT_CHANNELS);
+    if (var.isValid())
+    {
+        int channels = var.toInt();
+        if (channels == 2)
+        {
+            m_chansCombo->blockSignals(true);
+            m_chansCombo->setCurrentIndex(1);
+            m_chansCombo->blockSignals(false);
+        }
+    }
 }
 
 void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, int col)
@@ -1008,4 +1045,60 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
     /* Start listening to this signal once again */
     connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
             this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
+}
+
+void InputOutputPatchEditor::slotSampleRateIndexChanged(int index)
+{
+    QSettings settings;
+    int selectedRate = m_srateCombo->itemText(index).toInt();
+    if (selectedRate == AUDIO_DEFAULT_SAMPLE_RATE)
+        settings.remove(SETTINGS_AUDIO_INPUT_SRATE);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_SRATE, selectedRate);
+    if (m_audioPreviewButton->isChecked())
+        m_audioPreviewButton->setChecked(false);
+    emit audioInputDeviceChanged();
+}
+
+void InputOutputPatchEditor::slotAudioChannelsChanged(int index)
+{
+    QSettings settings;
+    int channels = (index == 0) ? 1: 2;
+    if (channels == AUDIO_DEFAULT_CHANNELS)
+        settings.remove(SETTINGS_AUDIO_INPUT_CHANNELS);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_CHANNELS, channels);
+    if (m_audioPreviewButton->isChecked())
+        m_audioPreviewButton->setChecked(false);
+    emit audioInputDeviceChanged();
+}
+
+void InputOutputPatchEditor::slotAudioInputPreview(bool enable)
+{
+    QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
+    m_inputCapture = capture.data();
+
+    if (enable == true)
+    {
+        if (m_inputCapture->isInitialized() == false)
+            m_inputCapture->initialize();
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+        m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+    }
+    else
+    {
+        m_inputCapture->unregisterBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                   this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+    }
+}
+
+void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+{
+    Q_UNUSED(spectrumBands)
+    Q_UNUSED(size)
+    Q_UNUSED(maxMagnitude)
+
+    m_levelProgress->setValue(power);
 }

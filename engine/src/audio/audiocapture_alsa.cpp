@@ -34,7 +34,7 @@ AudioCaptureAlsa::~AudioCaptureAlsa()
         snd_pcm_close (m_captureHandle);
 }
 
-bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureAlsa::initialize()
 {
     snd_pcm_hw_params_t *hw_params;
     QString dev_name = "default";
@@ -44,6 +44,8 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         dev_name = var.toString();
+
+    AudioCapture::initialize();
 
     pcm_name = strdup(dev_name.toLatin1().data());
 
@@ -103,7 +105,7 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
         return false;
     }
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCaptureAlsa::latency()

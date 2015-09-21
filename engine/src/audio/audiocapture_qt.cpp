@@ -39,8 +39,10 @@ AudioCaptureQt::~AudioCaptureQt()
     m_audioInput = NULL;
 }
 
-bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureQt::initialize()
 {
+    AudioCapture::initialize();
+
     QSettings settings;
     QString devName = "";
     QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultInputDevice();
@@ -59,8 +61,8 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
         }
     }
 
-    m_format.setSampleRate(sampleRate);
-    m_format.setChannelCount(channels);
+    m_format.setSampleRate(m_sampleRate);
+    m_format.setChannelCount(m_channels);
     m_format.setSampleSize(16);
     m_format.setSampleType(QAudioFormat::SignedInt);
     m_format.setByteOrder(QAudioFormat::LittleEndian);
@@ -70,8 +72,8 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
     {
         qWarning() << "Requested format not supported - trying to use nearest";
         m_format = audioDevice.nearestFormat(m_format);
-        channels = m_format.channelCount();
-        sampleRate = m_format.sampleRate();
+        m_channels = m_format.channelCount();
+        m_sampleRate = m_format.sampleRate();
     }
 
     m_audioInput = new QAudioInput(audioDevice, m_format, this);
@@ -84,7 +86,7 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
 
     m_input = m_audioInput->start();
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCaptureQt::latency()

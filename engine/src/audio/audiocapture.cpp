@@ -18,6 +18,7 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QDebug>
 #include <qmath.h>
 
@@ -102,13 +103,26 @@ bool AudioCapture::isInitialized()
     return m_isInitialized;
 }
 
-bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCapture::initialize()
 {
-    Q_UNUSED(sampleRate)
+    int bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
+    m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
+    m_channels = AUDIO_DEFAULT_CHANNELS;
 
-    m_captureSize = bufferSize * channels;
-    m_sampleRate = sampleRate;
-    m_channels = channels;
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
+
+    if (var.isValid() == true)
+        m_sampleRate = var.toInt();
+
+    var = settings.value(SETTINGS_AUDIO_INPUT_CHANNELS);
+
+    if (var.isValid() == true)
+        m_channels = var.toInt();
+
+    qDebug() << "[AudioCapture] initialize" << m_sampleRate << m_channels;
+
+    m_captureSize = bufferSize * m_channels;
 
     m_audioBuffer = new int16_t[m_captureSize];
     m_fftInputBuffer = new double[m_captureSize];

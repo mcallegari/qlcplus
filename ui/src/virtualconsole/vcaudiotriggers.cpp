@@ -185,7 +185,7 @@ void VCAudioTriggers::enableCapture(bool enable)
     if (enable == true)
     {
         if (m_inputCapture->isInitialized() == false)
-            m_inputCapture->initialize(44100, 1, 2048);
+            m_inputCapture->initialize();
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());

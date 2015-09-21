@@ -53,7 +53,7 @@ AudioCapturePortAudio::~AudioCapturePortAudio()
         qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
 }
 
-bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCapturePortAudio::initialize()
 {
     PaError err;
     PaStreamParameters inputParameters;
@@ -75,6 +75,8 @@ bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels,
         Pa_Terminate();
         return false;
     }
+
+    AudioCapture::initialize();
 
     inputParameters.channelCount = channels;
     inputParameters.sampleFormat = paInt16;
@@ -102,7 +104,7 @@ bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels,
         return false;
     }
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCapturePortAudio::latency()

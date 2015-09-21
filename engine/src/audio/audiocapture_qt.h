@@ -36,7 +36,7 @@ public:
     ~AudioCaptureQt();
 
     /** @reimpl */
-    bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
+    bool initialize();
 
     /** @reimpl */
     qint64 latency();
