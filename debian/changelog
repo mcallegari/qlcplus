@@ -1,4 +1,4 @@
-qlcplus (4.9.2) stable; urgency=low
+qlcplus (4.10.0) stable; urgency=low
 
   * Channel Groups: Fix crashes related to invalid channels (David Garyga)
   * Chaser: Fix flickering issue when chaser order is Random (David Garyga)
@@ -9,11 +9,12 @@ qlcplus (4.9.2) stable; urgency=low
   * Virtual Console/Solo Frame: Option to allow mixing of sliders in playback mode (David Garyga)
   * Virtual Console/Speed Dial: Introduced new features (see documentation)
   * Virtual Console/Cue List: Options for the Next/Previous buttons behavior (David Garyga)
-  * Virtual Console/Cue List: Added a new "Sweep" mode for the side slider (see documentation)
+  * Virtual Console/Cue List: Added a new "Steps" mode for the side slider (see documentation)
   * Virtual Console/XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
   * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
   * RGB Matrix: Fix 4.9.1 regression which makes fading of green and blue colors not smooth (David Garyga)
   * Audio Input: Fix crashes when selecting another audio input device while an audio input driven function/widget is running (David Garyga)
+  * Audio Input: It is now possible to select the audio input format (sample rate and channels)
   * Scene Editor: correctly select the fixture tab when switching from tabbed/all channels view
   * EFX Editor: it is now possible to use an EFX on RGB channels (thanks to Giorgio Rebecchi)
   * Collection Editor: added preview button (thanks to Giorgio Rebecchi)
@@ -42,7 +43,7 @@ qlcplus (4.9.2) stable; urgency=low
   * New fixture: Pro-Lights SmartBat, Robe ClubWash 600 CT (thanks to Lorenzo Andreani)
   * New fixture: Stairville Show Bar Tri 18x3W RGB (thanks to Udo Besenreuther)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Sep 2015 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 30 Sep 2015 20:21:22 +0200
 
 qlcplus (4.9.1) stable; urgency=high
 
