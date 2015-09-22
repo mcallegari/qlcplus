@@ -222,11 +222,26 @@ void VCSpeedDial::slotDialValueChanged(int ms)
         if (function != NULL)
         {
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
-                function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                else
+                    function->setFadeInSpeed(ms);
+            }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
-                function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                else
+                    function->setFadeOutSpeed(ms);
+            }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
-                function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                else
+                    function->setDuration(ms);
+            }
         }
     }
     updateFeedback();
