@@ -6,7 +6,7 @@
     <message>
         <location filename="win32/peperoni.cpp" line="129"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation>Ce plugin permet le support de la sortie des interfaces Peperoni.</translation>
+        <translation>Ce plugin offre le support de la sortie des interfaces Peperoni.</translation>
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="143"/>
@@ -22,7 +22,7 @@
     <message>
         <location filename="unix/peperoni.cpp" line="99"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
-        <translation>Ce plugin permet le support de l&apos;entrée et la sortie des interfaces Peperoni.</translation>
+        <translation>Ce plugin offre le support de l&apos;entrée et la sortie des interfaces Peperoni.</translation>
     </message>
 </context>
 <context>

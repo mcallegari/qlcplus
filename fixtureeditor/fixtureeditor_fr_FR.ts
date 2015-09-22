@@ -34,7 +34,7 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation>Éditeur de mode du projecteur</translation>
+        <translation>Éditeur de mode de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
@@ -64,12 +64,12 @@
     <message>
         <location filename="app.cpp" line="147"/>
         <source>Fixture loading failed</source>
-        <translation>Échec du chargement du projecteur</translation>
+        <translation>Échec du chargement de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="app.cpp" line="148"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Impossible de charger la définition du projecteur :</translation>
+        <translation>Impossible de charger la définition de l&apos;appareil : </translation>
     </message>
     <message>
         <location filename="app.cpp" line="251"/>
@@ -107,7 +107,7 @@
     <message>
         <location filename="app.cpp" line="269"/>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Enregistrer sous...</translation>
+        <translation type="unfinished">Enregistrer sous... (&amp;A)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="270"/>
@@ -160,7 +160,7 @@
     <message>
         <location filename="app.cpp" line="368"/>
         <source>Open a fixture definition</source>
-        <translation>Ouvrir la définition d&apos;un projecteur</translation>
+        <translation>Ouvrir la définition d&apos;un appareil</translation>
     </message>
 </context>
 <context>
@@ -168,7 +168,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="13"/>
         <source>Capability Wizard</source>
-        <translation>Assistant de fonction</translation>
+        <translation>Assistant de fonctionnalités</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
@@ -188,12 +188,12 @@
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
         <source>Width</source>
-        <translation type="unfinished">Largeur</translation>
+        <translation>Plage</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
         <source>Number of values per capability</source>
-        <translation>Le nombre de valeurs par fonction</translation>
+        <translation>Le nombre de valeurs par fonctionnalité</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="65"/>
@@ -203,7 +203,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="72"/>
         <source>Number of capabilities to create</source>
-        <translation>Le nombre de fonctions à créer</translation>
+        <translation>Le nombre de fonctionnalités à générer</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="88"/>
@@ -213,12 +213,12 @@
     <message>
         <location filename="capabilitywizard.ui" line="94"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>La base commune du nom pour toutes les fonctions (utilisez # pour créer un nombre incrémental).</translation>
+        <translation>La base commune du nom pour toutes les fonctionnalités (utilisez &apos;#&apos; pour générer un nombre incrémental).</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="97"/>
         <source>Capability #</source>
-        <translation>Fonction #</translation>
+        <translation>Fonctionnalité #</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="107"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="113"/>
         <source>A list of capabilities that would be created with these settings</source>
-        <translation>La liste des fonctions qui vont être créées</translation>
+        <translation>La liste des fonctionnalités qui vont être générées selon les paramètres fournis</translation>
     </message>
 </context>
 <context>
@@ -356,44 +356,44 @@
     <message>
         <location filename="editchannel.ui" line="52"/>
         <source>Primary colour level controlled by this channel</source>
-        <translation>La couleur principale contrôlée par ce canal</translation>
+        <translation>La couleur primaire contrôlée par ce canal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="194"/>
         <source>Capability Values</source>
-        <translation type="unfinished">Plage de la fonction</translation>
+        <translation>Valeurs de la fonctionnalité</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="242"/>
         <source>Min</source>
-        <translation type="unfinished">Début</translation>
+        <translation>Début</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="255"/>
         <source>Max</source>
-        <translation type="unfinished">Fin</translation>
+        <translation>Fin</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="278"/>
         <location filename="editchannel.cpp" line="184"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="315"/>
         <location filename="editchannel.ui" line="326"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="344"/>
         <source>Picture</source>
-        <translation type="unfinished">Image</translation>
+        <translation>Image</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="358"/>
         <source>Second Colour</source>
-        <translation type="unfinished">Couleur secondaire</translation>
+        <translation>Couleur secondaire</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="383"/>
@@ -413,7 +413,7 @@
     <message>
         <location filename="editchannel.ui" line="72"/>
         <source>Capabilities</source>
-        <translation>Fonctions</translation>
+        <translation>Fonctionnalités</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="164"/>
@@ -434,31 +434,31 @@
     <message>
         <location filename="editchannel.ui" line="78"/>
         <source>Add a new capability</source>
-        <translation>Ajouter une nouvelle fonction</translation>
+        <translation>Ajouter une nouvelle fonctionnalité</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="131"/>
         <source>Remove the selected capability</source>
-        <translation>Supprimer la fonction sélectionnée</translation>
+        <translation>Supprimer la fonctionnalité sélectionnée</translation>
     </message>
     <message>
         <source>Edit the selected capability</source>
-        <translation type="obsolete">Éditer la fonction sélectionnée</translation>
+        <translation type="obsolete">Éditer la fonctionnalité sélectionnée</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="111"/>
         <source>Capability wizard</source>
-        <translation>Assistant de fonction</translation>
+        <translation>Assistant de fonctionnalité</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="86"/>
         <source>Edit Channel: </source>
-        <translation type="unfinished"></translation>
+        <translation>Éditeur de canal : </translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="188"/>
         <source>Effect</source>
-        <translation type="unfinished">Effet</translation>
+        <translation>Effet</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="371"/>
@@ -468,12 +468,12 @@
     <message>
         <location filename="editchannel.cpp" line="417"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished">Ovrir un fichier de gobo</translation>
+        <translation>Ouvrir un fichier de gobo</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="420"/>
         <source>Gobo pictures</source>
-        <translation type="unfinished">Image de gobo</translation>
+        <translation>Images de gobo</translation>
     </message>
     <message>
         <source>The capability&apos;s values overlap with another capability!</source>
@@ -482,7 +482,7 @@
     <message>
         <location filename="editchannel.cpp" line="372"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
-        <translation>Certaines fonctions n&apos;ont pas pu être créées à cause d&apos;un chevauchement de valeurs.</translation>
+        <translation>Certaines fonctionnalités n&apos;ont pas pu être générées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>
 </context>
 <context>
@@ -490,7 +490,7 @@
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation>Éditeur de source</translation>
+        <translation>Éditeur de tête</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
@@ -554,27 +554,27 @@
     <message>
         <location filename="editmode.ui" line="166"/>
         <source>Heads</source>
-        <translation>Sources</translation>
+        <translation>Têtes</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="179"/>
         <source>Head</source>
-        <translation>Source</translation>
+        <translation>Tête</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="187"/>
         <source>Compose a new head</source>
-        <translation>Définir une nouvelle source</translation>
+        <translation>Définir une nouvelle tête</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="207"/>
         <source>Remove the selected head</source>
-        <translation>Supprimer la source sélectionnée</translation>
+        <translation>Supprimer la tête sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="227"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation>Éditer les canaux qui appartiennent à la source sélectionnée</translation>
+        <translation>Éditer les canaux qui appartiennent à la tête sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="230"/>
@@ -584,12 +584,12 @@
     <message>
         <location filename="editmode.ui" line="247"/>
         <source>Raise the selected head</source>
-        <translation>Monter la source sélectionnée</translation>
+        <translation>Monter la tête sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="267"/>
         <source>Lower the selected head</source>
-        <translation>Descendre la source sélectionnée</translation>
+        <translation>Descendre la tête sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="301"/>
@@ -845,7 +845,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="14"/>
         <source>Fixture</source>
-        <translation>Projecteur</translation>
+        <translation>Appareil</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="24"/>
@@ -860,7 +860,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="49"/>
         <source>The manufacturer name for this fixture (e.g. Martin)</source>
-        <translation>Le nom du fabricant du projecteur (ex : Martin)</translation>
+        <translation>Le nom du fabricant de l&apos;appareil (ex : Martin)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="56"/>
@@ -870,7 +870,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="69"/>
         <source>The model name for this fixture (e.g. MAC250)</source>
-        <translation>Le nom du modèle du projecteur (ex : MAC250)</translation>
+        <translation>Le nom du modèle de l&apos;appareil (ex : MAC250)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="76"/>
@@ -880,7 +880,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="89"/>
         <source>The general type of this fixture</source>
-        <translation>Le type de projecteur</translation>
+        <translation>Le type de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="210"/>
@@ -933,7 +933,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="360"/>
         <source>Paste the channel in clipboard to this fixture</source>
-        <translation>Coller le canal dans le presse-papier vers ce projecteur</translation>
+        <translation>Coller le canal depuis le presse-papier vers ce projecteur</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="393"/>
@@ -948,7 +948,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="443"/>
         <source>Heads</source>
-        <translation>Sources</translation>
+        <translation>Têtes</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="451"/>
@@ -988,7 +988,7 @@
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
-        <translation>Voulez vous enregistrer les modifications du projecteur
+        <translation>Voulez vous enregistrer les modifications de l&apos;appareil
 &quot;%1&quot;
 avant de quitter ?</translation>
     </message>
@@ -1003,14 +1003,14 @@ avant de quitter ?</translation>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
         <translation>Nom du fabricant manquant.
-Impossible d&apos;enregistrer le projecteur.</translation>
+Impossible d&apos;enregistrer l&apos;appareil.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="240"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
         <translation>Nom du modèle manquant.
-Impossible d&apos;enregistrer le projecteur.</translation>
+Impossible d&apos;enregistrer l&apos;appareil.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="269"/>
@@ -1024,18 +1024,18 @@ Impossible d&apos;enregistrer le projecteur.</translation>
         <source>Unable to save fixture definition:
 %1</source>
         <oldsource>Unable to save fixture definition: </oldsource>
-        <translation>Impossible d&apos;enregistrer la définition du projecteur :
+        <translation>Impossible d&apos;enregistrer la définition de l&apos;appareil :
 %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="285"/>
         <source>Save fixture definition</source>
-        <translation>Enregistrer la définition du projecteur</translation>
+        <translation>Enregistrer la définition de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="346"/>
         <source>New Fixture</source>
-        <translation>Nouveau projecteur</translation>
+        <translation>Nouvel appareil</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="423"/>
@@ -1059,17 +1059,17 @@ Impossible d&apos;enregistrer le projecteur.</translation>
         <location filename="fixtureeditor.cpp" line="432"/>
         <location filename="fixtureeditor.cpp" line="516"/>
         <source>You must give the channel a descriptive name!</source>
-        <translation>Veuillez donner un nom explicite pour le canal !</translation>
+        <translation>Veuillez donner un nom au canal !</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
         <source>Are you sure you wish to remove channel: %1 ?</source>
-        <translation>Êtes-vous sûr de vouloir supprimer le canal &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de vouloir supprimer le canal &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
         <source>Are you sure you wish to remove mode: %1 ?</source>
-        <translation>Êtes-vous sûr de vouloir supprimer le mode &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de vouloir supprimer le mode &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>
@@ -1131,7 +1131,7 @@ Impossible d&apos;enregistrer le projecteur.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="826"/>
         <source>Give a unique name for the mode</source>
-        <translation>Nom unique pour le nouveau mode</translation>
+        <translation>Donnez un nom unique au nouveau mode</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="828"/>
