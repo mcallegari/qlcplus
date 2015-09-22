@@ -406,11 +406,8 @@ void SimpleDesk::initUniversesCombo()
     m_universesCombo->addItems(m_doc->inputOutputMap()->universeNames());
     if (currIdx != -1)
         m_universesCombo->setCurrentIndex(currIdx);
-    if (m_universesPage.length() < m_universesCombo->count())
-    {
-        for (int i = 0; i < m_universesCombo->count() - m_universesPage.length(); i++)
-            m_universesPage.append(1);
-    }
+    while (m_universesPage.length() < m_universesCombo->count())
+        m_universesPage.append(1);
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
 }
