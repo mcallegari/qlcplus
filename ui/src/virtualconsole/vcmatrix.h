@@ -154,7 +154,7 @@ private slots:
     void slotUpdate();
 
 private:
-    /** timer for updating the step list */
+    /** timer for updating the controls */
     QTimer* m_updateTimer;
 
     /*********************************************************************

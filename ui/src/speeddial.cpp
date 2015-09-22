@@ -241,6 +241,9 @@ void SpeedDial::setValue(int ms, bool emitValue)
     else
         m_infiniteCheck->setChecked(false);
 
+    // Time has changed, stop blinking
+    stopTimers(false, true);
+
     m_preventSignals = false;
 }
 

@@ -372,138 +372,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string>Infinite</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <property name="topMargin">
-           <number>4</number>
-          </property>
-          <property name="bottomMargin">
-           <number>4</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QGroupBox" name="groupBox_6">
-            <property name="title">
-             <string>External Input</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_7">
-             <property name="topMargin">
-              <number>4</number>
-             </property>
-             <property name="bottomMargin">
-              <number>4</number>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="m_infiniteInputUniverseLabel">
-               <property name="text">
-                <string>Input Universe</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" colspan="2">
-              <widget class="QLineEdit" name="m_infiniteInputUniverseEdit"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="m_infiniteInputChannelLabel">
-               <property name="text">
-                <string>Input Channel</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="2">
-              <widget class="QLineEdit" name="m_infiniteInputChannelEdit"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QPushButton" name="m_autoDetectInfiniteInputButton">
-               <property name="text">
-                <string>Auto Detect</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QPushButton" name="m_chooseInfiniteInputButton">
-               <property name="text">
-                <string>Choose...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QGroupBox" name="groupBox_7">
-            <property name="title">
-             <string>Key combination</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_9">
-             <property name="topMargin">
-              <number>4</number>
-             </property>
-             <property name="bottomMargin">
-              <number>4</number>
-             </property>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLineEdit" name="m_infiniteKeyEdit">
-               <property name="toolTip">
-                <string>Keyboard combination to toggle the dial infinite checkbox</string>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QToolButton" name="m_attachInfiniteKey">
-               <property name="toolTip">
-                <string>Set a key combination for this dial infinite checkbox</string>
-               </property>
-               <property name="text">
-                <string notr="true">...</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../qlcui.qrc">
-                 <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QToolButton" name="m_detachInfiniteKey">
-               <property name="toolTip">
-                <string>Remove the dial's infinite button keyboard shortcut key</string>
-               </property>
-               <property name="text">
-                <string notr="true">...</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../qlcui.qrc">
-                 <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -587,13 +455,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="m_infiniteCheck">
-         <property name="text">
-          <string>Show the infinite option</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -605,6 +466,230 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Presets</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="0" column="0" rowspan="9">
+          <widget class="QTreeWidget" name="m_presetsTree">
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QGroupBox" name="m_externalInputGroup">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>External Input</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="2" column="0">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>298</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1" colspan="2">
+             <widget class="QLineEdit" name="m_presetInputChannelEdit">
+              <property name="toolTip">
+               <string>The particular input channel within the input universe that sends data to this preset button</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QPushButton" name="m_choosePresetInputButton">
+              <property name="toolTip">
+               <string>Choose an external input universe &amp; channel that this preset button should listen to</string>
+              </property>
+              <property name="text">
+               <string>Choose...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="m_adPresetInputButton">
+              <property name="toolTip">
+               <string>When toggled, you can move an external control to assign it to this preset button</string>
+              </property>
+              <property name="text">
+               <string>Auto Detect</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" colspan="2">
+             <widget class="QLineEdit" name="m_presetInputUniverseEdit">
+              <property name="toolTip">
+               <string>The input universe that sends data to this preset button</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="m_inputChannelLabel">
+              <property name="text">
+               <string>Input channel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="m_inputUniverseLabel">
+              <property name="text">
+               <string>Input universe</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="m_addPresetButton">
+           <property name="text">
+            <string> Add preset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="m_removePresetButton">
+           <property name="text">
+            <string> Remove</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="m_showPresetNameCb">
+           <property name="text">
+            <string>Show preset name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="m_presetNameEdit">
+           <property name="toolTip">
+            <string>Preset name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="SpeedDial" name="m_speedDialWidget">
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QGroupBox" name="groupBox_8">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Key combination</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_11">
+            <property name="leftMargin">
+             <number>3</number>
+            </property>
+            <property name="topMargin">
+             <number>9</number>
+            </property>
+            <property name="rightMargin">
+             <number>3</number>
+            </property>
+            <item row="1" column="0">
+             <widget class="QToolButton" name="m_detachPresetKey">
+              <property name="toolTip">
+               <string>Remove the preset buttons's keyboard shortcut key</string>
+              </property>
+              <property name="text">
+               <string notr="true">...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../qlcui.qrc">
+                <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>32</width>
+                <height>32</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="m_attachPresetKey">
+              <property name="toolTip">
+               <string>Set a key combination for this preset button</string>
+              </property>
+              <property name="text">
+               <string notr="true">...</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../qlcui.qrc">
+                <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>32</width>
+                <height>32</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLineEdit" name="m_presetKeyEdit">
+              <property name="toolTip">
+               <string>Keyboard combination that toggles this preset button</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -724,22 +809,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_chooseInfiniteInputButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotChooseInfiniteInputSourceClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>327</x>
-     <y>354</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>394</x>
-     <y>352</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>m_autoDetectAbsoluteInputButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>VCSpeedDialProperties</receiver>
@@ -771,31 +840,13 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>m_autoDetectInfiniteInputButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectInfiniteInputSourceToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>195</x>
-     <y>355</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>349</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>slotAddClicked()</slot>
   <slot>slotRemoveClicked()</slot>
   <slot>slotChooseAbsoluteInputSourceClicked()</slot>
   <slot>slotChooseTapInputSourceClicked()</slot>
-  <slot>slotChooseInfiniteInputSourceClicked()</slot>
   <slot>slotAutoDetectAbsoluteInputSourceToggled(bool)</slot>
   <slot>slotAutoDetectTapInputSourceClicked()</slot>
-  <slot>slotAutoDetectInfiniteInputSourceToggled(bool)</slot>
  </slots>
 </ui>

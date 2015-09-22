@@ -28,6 +28,8 @@ class QDomDocument;
 class QDomElement;
 class SpeedDial;
 class VCSpeedDialFunction;
+class VCSpeedDialPreset;
+class FlowLayout;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -40,10 +42,12 @@ class VCSpeedDialFunction;
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
 #define KXMLQLCVCSpeedDialTapKey "Key"
-#define KXMLQLCVCSpeedDialInfinite "Infinite"
-#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 #define KXMLQLCVCSpeedDialTime "Time"
+
+// Legacy: infinite checkbox
+#define KXMLQLCVCSpeedDialInfinite "Infinite"
+#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 
 class VCSpeedDial : public VCWidget
 {
@@ -53,7 +57,6 @@ class VCSpeedDial : public VCWidget
 public:
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
-    static const quint8 infiniteInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -141,6 +144,7 @@ private slots:
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
+    FlowLayout* m_presetsLayout;
 
     /*********************************************************************
      * External input
@@ -154,20 +158,17 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
-     * Tap & infinite key sequence handler
+     * Tap & presets key sequence handler
      *********************************************************************/
 public:
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
-    void setInfiniteKeySequence(const QKeySequence& keySequence);
-    QKeySequence infiniteKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
-    QKeySequence m_infiniteKeySequence;
 
     /************************************************************************
      * Absolute value range
@@ -194,6 +195,27 @@ public:
 
 private:
     ushort m_visibilityMask;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    void addPreset(VCSpeedDialPreset const& preset);
+    void resetPresets();
+    QList<VCSpeedDialPreset *> presets() const;
+
+protected slots:
+    void slotPresetClicked();
+
+protected:
+    QHash<QWidget*, VCSpeedDialPreset*> m_presets;
+
+private slots:
+    void slotUpdate();
+
+private:
+    /** timer for updating the preset buttons */
+    QTimer* m_updateTimer;
 
     /*************************************************************************
      * Load & Save
