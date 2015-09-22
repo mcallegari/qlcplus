@@ -39,7 +39,7 @@ on the numeric keypad.
 </P>
 
 <P>
-Clicking the <B>infinite</B> button disables all of the dial's controls and sets the
+Clicking an <B>infinite</B> button disables all of the dial's controls and sets the
 currently adjusted functions' speed to infinity. For example, with a 
 <A HREF="file:concept.html#Chaser">Chaser</A>, an infinite duration means that it will never
 switch to the next step unless manually instructed to (see <A HREF="file:vccuelist.html">Cue List</A>).
@@ -174,10 +174,49 @@ the big dial is not needed).
    <B>Show the milliseconds field</B>
   </TD>
  </TR>
+</TABLE>
+
+<H3>Configuration - Presets tab</H3>
+<P>
+A preset is a way to have a quick access to a predifined value for a speed dial.<br>
+Each preset is represented as a button in the speed dial widget layout,
+and can be either clicked with the mouse or pressed on a touchscreen, or
+associated to a key combination or an external controller input line.<br>
+On the left of the preset tab, there is the list of presets. When selecting a preset
+in this list, the button on the right will be able to edit its properties.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
-   <B>Show the inifinite option</B>
+   <B><IMG SRC="qrc:/edit_add.png" HEIGHT="16"/> Add preset</B>
   </TD>
+  <TD>Add a preset</TD>
+ </TR>
+ <TR>
+  <TD>
+   <B><IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> Remove preset</B>
+  </TD>
+  <TD>Remove selected preset</TD>
+ </TR>
+ <TR>
+  <TD>
+   <B><IMG SRC="qrc:/checkbox_full.png" HEIGHT="16"/> Show preset name</B>
+  </TD>
+  <TD>When checked, the name of the selected preset will be displayed on its button.<br>
+  When unchecked, the value of the selected preset will be displayed on its button.</TD>
+ </TR>
+ <TR>
+  <TD>
+   <B><IMG SRC="qrc:/editclear.png" HEIGHT="16"/> Name edit field</B>
+  </TD>
+  <TD>Edit the selected preset's name</TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/speed.png" HEIGHT="16"/><B>Speed dial</B>
+  </TD>
+  <TD>Edit the selected preset's value</TD>
  </TR>
 </TABLE>
 
