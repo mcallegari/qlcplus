@@ -37,7 +37,7 @@ E131Controller::E131Controller(QNetworkInterface const& interface, QString const
     , m_packetizer(new E131Packetizer())
 {
     qDebug() << "[E131Controller] type: " << type;
-    m_UdpSocket->bind(m_ipAddr, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    m_UdpSocket->bind(m_ipAddr, 0);
     // Output multicast on the correct interface
     m_UdpSocket->setMulticastInterface(m_interface);
     // Don't send multicast to self
@@ -128,9 +128,6 @@ void E131Controller::setInputMulticast(quint32 universe, bool multicast)
 
 QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostAddress const& address, quint16 port)
 {
-    if (!multicast && port == E131_DEFAULT_PORT)
-        return m_UdpSocket;
-
     foreach(UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputMulticast == multicast)
