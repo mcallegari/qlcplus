@@ -154,6 +154,8 @@ void ConfigureE131::fillMappingTree()
                     multicastCb->setChecked(false);
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
                             new QLineEdit(info->outputUcastAddress.toString()));
+                    if (QHostAddress(controller->getNetworkIP()) == QHostAddress::LocalHost)
+                        m_uniMapTree->itemWidget(item, KMapColumnIPAddress)->setEnabled(false);
                     QSpinBox* portSpin = new QSpinBox(this);
                     portSpin->setRange(0, 0xffff);
                     portSpin->setValue(info->outputUcastPort);
@@ -281,6 +283,8 @@ void ConfigureE131::slotMulticastCheckboxClicked()
 
                     m_uniMapTree->setItemWidget(item, KMapColumnIPAddress,
                             new QLineEdit(info->outputUcastAddress.toString()));
+                    if (QHostAddress(controller->getNetworkIP()) == QHostAddress::LocalHost)
+                        m_uniMapTree->itemWidget(item, KMapColumnIPAddress)->setEnabled(false);
                     QSpinBox* portSpin = new QSpinBox(this);
                     portSpin->setRange(0, 0xffff);
                     portSpin->setValue(info->outputUcastPort);

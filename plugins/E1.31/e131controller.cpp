@@ -71,18 +71,12 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
         info.inputUniverse = universe + 1;
         info.inputSocket.clear();
         info.outputMulticast = true;
-        if (m_ipAddr == QHostAddress::LocalHost)
-        {
-            info.outputMcastAddress = QHostAddress::LocalHost;
-            info.outputUcastAddress = QHostAddress::LocalHost;
-            info.outputUcastPort = E131_DEFAULT_PORT;
-        }
-        else
-        {
-            info.outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+        info.outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
+        if (m_ipAddr != QHostAddress::LocalHost)
             info.outputUcastAddress = QHostAddress(quint32((m_ipAddr.toIPv4Address() & 0xFFFFFF00) + (universe + 1)));
-            info.outputUcastPort = E131_DEFAULT_PORT;
-        }
+        else
+            info.outputUcastAddress = m_ipAddr;
+        info.outputUcastPort = E131_DEFAULT_PORT;
         info.outputUniverse = universe + 1;
         info.outputTransmissionMode = Full;
         info.outputPriority = E131_PRIORITY_DEFAULT;
