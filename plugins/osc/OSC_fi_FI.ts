@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fi_FI">
+<TS version="2.0" language="fi_FI">
 <context>
     <name>ConfigureOSC</name>
     <message>
@@ -40,13 +40,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="75"/>
+        <location filename="configureosc.cpp" line="76"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="81"/>
+        <location filename="configureosc.cpp" line="82"/>
         <source>Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>Invalid IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

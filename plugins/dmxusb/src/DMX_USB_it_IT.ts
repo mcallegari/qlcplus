@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT">
+<TS version="2.0" language="it_IT">
 <context>
     <name>DMXUSB</name>
     <message>
@@ -61,37 +61,37 @@
 <context>
     <name>EnttecDMXUSBOpen</name>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="111"/>
+        <location filename="enttecdmxusbopen.cpp" line="112"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="116"/>
+        <location filename="enttecdmxusbopen.cpp" line="117"/>
         <source>DMX Channels</source>
         <translation>Canali DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="119"/>
+        <location filename="enttecdmxusbopen.cpp" line="120"/>
         <source>DMX Frame Frequency</source>
         <translation>Frequenza del frame DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="123"/>
+        <location filename="enttecdmxusbopen.cpp" line="124"/>
         <source>Bad</source>
         <translation>Sbagliato</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="125"/>
+        <location filename="enttecdmxusbopen.cpp" line="126"/>
         <source>Good</source>
         <translation>Buono</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="127"/>
+        <location filename="enttecdmxusbopen.cpp" line="128"/>
         <source>Patch this widget to a universe to find out.</source>
         <translation>Usa questo dispositivo per un universo libero.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="128"/>
+        <location filename="enttecdmxusbopen.cpp" line="129"/>
         <source>System Timer Accuracy</source>
         <translation>Precisione del Timer di Sistema</translation>
     </message>
@@ -99,18 +99,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="91"/>
-        <location filename="enttecdmxusbpro.cpp" line="96"/>
+        <location filename="enttecdmxusbpro.cpp" line="82"/>
+        <location filename="enttecdmxusbpro.cpp" line="87"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="100"/>
+        <location filename="enttecdmxusbpro.cpp" line="91"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="103"/>
+        <location filename="enttecdmxusbpro.cpp" line="94"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
@@ -118,54 +118,54 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="euroliteusbdmxpro.cpp" line="164"/>
-        <location filename="nanodmx.cpp" line="205"/>
-        <location filename="stageprofi.cpp" line="135"/>
-        <location filename="vinceusbdmx512.cpp" line="48"/>
+        <location filename="euroliteusbdmxpro.cpp" line="162"/>
+        <location filename="nanodmx.cpp" line="228"/>
+        <location filename="stageprofi.cpp" line="132"/>
+        <location filename="vinceusbdmx512.cpp" line="47"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
     <message>
-        <location filename="euroliteusbdmxpro.cpp" line="171"/>
-        <location filename="nanodmx.cpp" line="212"/>
-        <location filename="stageprofi.cpp" line="142"/>
-        <location filename="vinceusbdmx512.cpp" line="52"/>
+        <location filename="euroliteusbdmxpro.cpp" line="169"/>
+        <location filename="nanodmx.cpp" line="235"/>
+        <location filename="stageprofi.cpp" line="139"/>
+        <location filename="vinceusbdmx512.cpp" line="51"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
     <message>
-        <location filename="euroliteusbdmxpro.cpp" line="166"/>
-        <location filename="nanodmx.cpp" line="207"/>
-        <location filename="stageprofi.cpp" line="137"/>
-        <location filename="vinceusbdmx512.cpp" line="50"/>
+        <location filename="euroliteusbdmxpro.cpp" line="164"/>
+        <location filename="nanodmx.cpp" line="230"/>
+        <location filename="stageprofi.cpp" line="134"/>
+        <location filename="vinceusbdmx512.cpp" line="49"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="113"/>
-        <location filename="euroliteusbdmxpro.cpp" line="168"/>
-        <location filename="nanodmx.cpp" line="209"/>
-        <location filename="stageprofi.cpp" line="139"/>
+        <location filename="enttecdmxusbopen.cpp" line="114"/>
+        <location filename="euroliteusbdmxpro.cpp" line="166"/>
+        <location filename="nanodmx.cpp" line="232"/>
+        <location filename="stageprofi.cpp" line="136"/>
         <source>Manufacturer</source>
         <translation>Produttore</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="210"/>
+        <location filename="enttecdmxusbpro.cpp" line="208"/>
         <source>MIDI Input</source>
         <translation>Ingresso MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="212"/>
+        <location filename="enttecdmxusbpro.cpp" line="210"/>
         <source>DMX Input</source>
         <translation>Ingresso DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="217"/>
+        <location filename="enttecdmxusbpro.cpp" line="215"/>
         <source>MIDI Output</source>
         <translation>Uscita MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="219"/>
+        <location filename="enttecdmxusbpro.cpp" line="217"/>
         <source>DMX Output</source>
         <translation>Uscita DMX</translation>
     </message>

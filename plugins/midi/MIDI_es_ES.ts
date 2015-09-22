@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>ConfigureMidiPlugin</name>
     <message>
@@ -108,82 +108,82 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="125"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="195"/>
         <source>No error occurred.</source>
         <translation>No se produjo ningún error.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="127"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="197"/>
         <source>An error occurred when reading from the file.</source>
         <translation>Se produjo un error al leer desde el archivo.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="129"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="199"/>
         <source>An error occurred when writing to the file.</source>
         <translation>Se produjo un error al escribir al archivo.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="131"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="201"/>
         <source>A fatal error occurred.</source>
         <translation>Se produjo un error fatal.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="133"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="203"/>
         <source>Resource error occurred.</source>
         <translation>Se produjo un error de recursos.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="135"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="205"/>
         <source>The file could not be opened.</source>
         <translation>El archivo no pudo ser abierto.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="137"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="207"/>
         <source>The operation was aborted.</source>
         <translation>Se abortó la operación.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="139"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="209"/>
         <source>A timeout occurred.</source>
         <translation>Se ha producido un tiempo de espera.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="141"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="211"/>
         <source>An unspecified error occurred.</source>
         <translation>Se ha producido un error no especificado.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="143"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="213"/>
         <source>The file could not be removed.</source>
         <translation>El archivo no pudo ser eliminado.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="145"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="215"/>
         <source>The file could not be renamed.</source>
         <translation>El archivo no pudo ser renombrado.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="147"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="217"/>
         <source>The position in the file could not be changed.</source>
         <translation>La posición en el archivo no pudo ser cambiado.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="149"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="219"/>
         <source>The file could not be resized.</source>
         <translation>No se pudo cambiar el tamaño del archivo.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="151"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="221"/>
         <source>The file could not be accessed.</source>
         <translation>No se puede acceder al archivo.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="153"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="223"/>
         <source>The file could not be copied.</source>
         <translation>El archivo no puede ser copiado.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="155"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="225"/>
         <source>An unknown error occurred.</source>
         <translation>Se ha producido un error desconocido.</translation>
     </message>

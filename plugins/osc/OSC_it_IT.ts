@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT">
+<TS version="2.0" language="it_IT">
 <context>
     <name>ConfigureOSC</name>
     <message>
@@ -40,14 +40,26 @@
         <translation>Porta di trasmissione</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="75"/>
+        <location filename="configureosc.cpp" line="76"/>
         <source>Inputs</source>
         <translation>Ingressi</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="81"/>
+        <location filename="configureosc.cpp" line="82"/>
         <source>Outputs</source>
         <translation>Uscite</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>Invalid IP</source>
+        <translation>Indirizzo IP non valido</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation>%1 non è un indirizzo IP valido.
+E&apos; necessario sistemare prima di confermare.</translation>
     </message>
 </context>
 <context>
