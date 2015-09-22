@@ -31,7 +31,7 @@
     <message>
         <location filename="common/configuremidiplugin.ui" line="20"/>
         <source>Refresh</source>
-        <translation>Rafraichir</translation>
+        <translation>Rafraîchir</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.cpp" line="127"/>
@@ -54,7 +54,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="139"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
-        <translation>Ce plugin permet le support des périphériques MIDI.</translation>
+        <translation>Ce plugin offre le support des périphériques MIDI.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="153"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="203"/>
         <source>Resource error occurred.</source>
-        <translation type="unfinished">Une erreur liée aux ressources est survenue.</translation>
+        <translation>Une erreur liée aux ressources est survenue.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="205"/>

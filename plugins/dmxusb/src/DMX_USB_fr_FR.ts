@@ -6,7 +6,7 @@
     <message>
         <location filename="dmxusb.cpp" line="135"/>
         <source>This plugin provides DMX output support for</source>
-        <translation>Ce plugin permet le support des interfaces</translation>
+        <translation>Ce plugin offre le support des interfaces</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="139"/>
@@ -74,7 +74,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="enttecdmxusbopen.cpp" line="120"/>
         <source>DMX Frame Frequency</source>
-        <translation>Fréquence de la trame DMX</translation>
+        <translation>Fréquence de trame DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="124"/>
@@ -89,7 +89,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="enttecdmxusbopen.cpp" line="128"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished">Patchez ce plugin à un univers pour l&apos;utiliser.</translation>
+        <translation>Patchez ce plugin à un univers pour la découvrir.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="129"/>

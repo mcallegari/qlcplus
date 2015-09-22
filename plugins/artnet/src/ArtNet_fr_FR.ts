@@ -7,7 +7,7 @@
         <location filename="artnetplugin.cpp" line="78"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
-        <translation>Ce plugin permet le support des périphériques supportant le protocole ArtNet.</translation>
+        <translation>Ce plugin offre le support des périphériques supportant le protocole ArtNet.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
@@ -57,37 +57,37 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des univers</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="30"/>
         <source>Configuration of the patched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des univers patchés</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="38"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="43"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="48"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Addresse IP</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="53"/>
         <source>ArtNet Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="58"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de transmission</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="67"/>
@@ -112,38 +112,39 @@
     <message>
         <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
-        <translation type="unfinished">Nœuds</translation>
+        <translation>Nœuds de %1</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrées</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Entière</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Partielle</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP invalide</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 n&apos;est pas une IP valide.
+Veuillez la corriger avant de valider.</translation>
     </message>
 </context>
 </TS>
