@@ -294,28 +294,41 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
     if (controller == NULL)
         return;
 
-    if (name == E131_INPUTMULTICAST)
-        controller->setInputMulticast(universe, value.toInt());
-    else if (name == E131_INPUTMCASTIP)
-        controller->setInputMCastAddress(universe, value.toString());
-    else if (name == E131_INPUTUCASTPORT)
-        controller->setInputUCastPort(universe, value.toUInt());
-    else if (name == E131_INPUTUNIVERSE)
-        controller->setInputUniverse(universe, value.toUInt());
-    else if (name == E131_OUTPUTMULTICAST)
-        controller->setOutputMulticast(universe, value.toInt());
-    else if (name == E131_OUTPUTMCASTIP)
-        controller->setOutputMCastAddress(universe, value.toString());
-    else if (name == E131_OUTPUTUCASTIP)
-        controller->setOutputUCastAddress(universe, value.toString());
-    else if (name == E131_OUTPUTUCASTPORT)
-        controller->setOutputUCastPort(universe, value.toUInt());
-    else if (name == E131_OUTPUTUNI)
-        controller->setOutputUniverse(universe, value.toUInt());
-    else if (name == E131_OUTPUTTRANSMITMODE)
-        controller->setOutputTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
-    else if (name == E131_OUTPUTPRIORITY)
-        controller->setOutputPriority(universe, value.toUInt());
+    if (type == Input)
+    {
+        if (name == E131_MULTICAST)
+            controller->setInputMulticast(universe, value.toInt());
+        else if (name == E131_MCASTIP)
+            controller->setInputMCastAddress(universe, value.toString());
+        else if (name == E131_UCASTPORT)
+            controller->setInputUCastPort(universe, value.toUInt());
+        else if (name == E131_UNIVERSE)
+            controller->setInputUniverse(universe, value.toUInt());
+        else
+        {
+            qWarning() << Q_FUNC_INFO << name << "is not a valid E1.31 input parameter";
+            return;
+        }
+    }
+    else // if (type == Output)
+    {
+        if (name == E131_MULTICAST)
+            controller->setOutputMulticast(universe, value.toInt());
+        else if (name == E131_MCASTIP)
+            controller->setOutputMCastAddress(universe, value.toString());
+        else if (name == E131_UCASTIP)
+            controller->setOutputUCastAddress(universe, value.toString());
+        else if (name == E131_UCASTPORT)
+            controller->setOutputUCastPort(universe, value.toUInt());
+        else if (name == E131_UNIVERSE)
+            controller->setOutputUniverse(universe, value.toUInt());
+        else if (name == E131_TRANSMITMODE)
+            controller->setOutputTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
+        else if (name == E131_PRIORITY)
+            controller->setOutputPriority(universe, value.toUInt());
+        else
+            qWarning() << Q_FUNC_INFO << name << "is not a valid E1.31 output parameter";
+    }
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
