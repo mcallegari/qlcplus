@@ -52,13 +52,14 @@
     <message>
         <location filename="configureosc.cpp" line="168"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Invàlida</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="168"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 no es una IP vàlida.
+Si us plau arreglar-ho abans de confirmar. </translation>
     </message>
 </context>
 <context>
