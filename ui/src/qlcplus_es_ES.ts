@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1702,7 +1702,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="consolechannel.cpp" line="306"/>
         <source>Reset this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar este canal</translation>
     </message>
 </context>
 <context>
@@ -2012,7 +2012,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotación del Punto de Inicio del Patrón</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="312"/>
         <location filename="efxeditor.ui" line="410"/>
         <source>°</source>
@@ -3365,22 +3365,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="254"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="260"/>
         <source>Sample Rate (Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="267"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="274"/>
         <source>Level Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor de nivel</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
@@ -5815,12 +5815,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
         <source>Side Sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Sliders Laterales</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportamiento</translation>
+        <translation>Comportamiento</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="624"/>
@@ -5830,7 +5830,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="634"/>
         <source>Steps</source>
-        <translation type="unfinished">Pasos</translation>
+        <translation>Pasos</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="644"/>
@@ -7210,82 +7210,82 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Presets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="488"/>
         <source>Value</source>
-        <translation type="unfinished">Valor</translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal de Entrada dentro del universo de Entrada que manda datos a este botón de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="531"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir un universo de Entrada externo y el canal que este botón de preset tiene que escuchar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede mover un controlador externo para asignarlo a este botón de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="554"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>El universo de Entrada que manda datos a este botón de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal de Entrada</translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
         <source>Input universe</source>
-        <translation type="unfinished">Universo de Entrada</translation>
+        <translation>Universo de Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="581"/>
         <source> Add preset</source>
-        <translation type="unfinished"> Añadir preset</translation>
+        <translation> Añadir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
         <source> Remove</source>
-        <translation type="unfinished"> Eliminar</translation>
+        <translation> Eliminar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="603"/>
         <source>Show preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el nombre del preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="610"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="642"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar el atajo de teclado para este botón de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="662"/>
         <source>Set a key combination for this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una combinacion de teclas para este botón de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="682"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinación de teclas que activa este botón de preset</translation>
     </message>
     <message>
         <source>Infinite</source>
