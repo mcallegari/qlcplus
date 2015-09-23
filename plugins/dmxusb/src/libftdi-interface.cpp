@@ -115,6 +115,11 @@ DMXInterface::Type LibFTDIInterface::type()
     return DMXInterface::libFTDI;
 }
 
+QString LibFTDIInterface::typeString()
+{
+    return "libFTDI";
+}
+
 QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
     QList <DMXInterface*> interfacesList;

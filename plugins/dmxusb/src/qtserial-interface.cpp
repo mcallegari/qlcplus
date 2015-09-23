@@ -49,6 +49,7 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
 
     if (serial.open(QIODevice::ReadWrite) == false)
         return QString();
+    serial.setReadBufferSize(1024);
 
     serial.setBaudRate(250000);
     serial.setDataBits(QSerialPort::Data8);
@@ -74,7 +75,8 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
     Q_ASSERT(buffer != NULL);
 
     QByteArray array;
-    //usleep(300000); // give some time to the device to respond
+    // wait 100ms maximum for the device to respond
+    serial.waitForReadyRead(100);
     int read = serial.read(buffer, 40);
     //qDebug() << Q_FUNC_INFO << "Data read: " << read;
     array = QByteArray::fromRawData((char*) buffer, read);
@@ -95,6 +97,11 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
 DMXInterface::Type QtSerialInterface::type()
 {
     return DMXInterface::QtSerial;
+}
+
+QString QtSerialInterface::typeString()
+{
+    return "QtSerialPort";
 }
 
 QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discoveredList)

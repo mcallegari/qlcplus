@@ -32,7 +32,7 @@
 #endif
 
 /**
- * This is the base interface class for ENTTEC USB DMX [Pro|Open] widgets.
+ * This is the base interface class for all the USB DMX widgets.
  */
 class DMXUSBWidget
 {
@@ -40,9 +40,8 @@ public:
     /**
      * Construct a new DMXUSBWidget object.
      *
-     * @param serial The widget's USB serial
-     * @param name The name of the widget
-     * @param id The ID of the device in FTD2XX (0 when libftdi is used)
+     * @param interface The widget's DMXInterface instance
+     * @param outputLine the specific output line this widget is going to control
      */
     DMXUSBWidget(DMXInterface *interface, quint32 outputLine);
 
@@ -51,11 +50,11 @@ public:
     /** Widget types */
     enum Type
     {
-        ProRXTX,    //! Enttec Pro widget using the TX side of the dongle
+        ProRXTX,    //! Enttec Pro widget using the TX/RX features of the dongle
         OpenTX,     //! Enttec Open widget (only TX)
-        ProMk2,     //! Enttec Pro Mk2 widget using 2 TX outputs
-        UltraPro,   //! DMXKing Ultra Pro widget using 2 TX ports
-        DMX4ALL,    //! DMX4ALL widget
+        ProMk2,     //! Enttec Pro Mk2 widget using 2 TX, 1 RX, 1 MIDI TX and 1 MIDI RX ports
+        UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1RX ports
+        DMX4ALL,    //! DMX4ALL widget (only TX)
         VinceTX,    //! Vince USB-DMX512 widget using the TX side of the dongle
         Eurolite    //! Eurolite USB DMX512 Pro widget
     };
@@ -66,7 +65,12 @@ public:
     /** Get the DMXInterface instance */
     DMXInterface* interface() const;
 
+    /** Get the DMXInterface driver in use as a string */
+    QString interfaceTypeString() const;
+
     static QList<DMXUSBWidget *> widgets();
+
+    bool forceInterfaceDriver(DMXInterface::Type type);
 
 private:
     DMXInterface* m_interface;

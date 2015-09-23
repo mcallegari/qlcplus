@@ -59,6 +59,13 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
         // to break a full DMX universe transmission
         m_universe = QByteArray(channels + 1, 0);
     }
+
+// on OSX, QtSerialPort cannot handle an OpenDMX device
+// so, unfortunately, we need to switch back to libftdi
+#if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
+    if (interface->type() == DMXInterface::QtSerial)
+        forceInterfaceDriver(DMXInterface::libFTDI);
+#endif
 }
 
 EnttecDMXUSBOpen::~EnttecDMXUSBOpen()

@@ -49,6 +49,9 @@ public:
     DMXInterface::Type type();
 
     /** @reimpl */
+    QString typeString();
+
+    /** @reimpl */
     bool open();
 
     /** @reimpl */

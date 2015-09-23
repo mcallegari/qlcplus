@@ -24,7 +24,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtmultimediawidgets-nametool.pri)
   include(libqtopengl-nametool.pri)
   include(libqtprintsupport-nametool.pri)
-  #include(libqtserialport-nametool.pri)
+  include(libqtserialport-nametool.pri)
   greaterThan(QT_MINOR_VERSION, 4) {
     include(libqtdbus-nametool.pri)
   }
@@ -61,7 +61,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
   INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
   INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
-  #INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
+  INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
   greaterThan(QT_MINOR_VERSION, 4) {
     INSTALLS += LIBQTDBUS LIBQTDBUS_ID
   }

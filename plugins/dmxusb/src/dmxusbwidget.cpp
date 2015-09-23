@@ -33,6 +33,8 @@
 
 DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
 {
+    Q_ASSERT(interface != NULL);
+
     m_outputBaseLine = outputLine;
     m_inputBaseLine = 0;
 
@@ -53,6 +55,14 @@ DMXUSBWidget::~DMXUSBWidget()
 DMXInterface *DMXUSBWidget::interface() const
 {
     return m_interface;
+}
+
+QString DMXUSBWidget::interfaceTypeString() const
+{
+    if (m_interface == NULL)
+        return QString();
+
+    return m_interface->typeString();
 }
 
 QList<DMXUSBWidget *> DMXUSBWidget::widgets()
@@ -196,6 +206,38 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
     }
 
     return widgetList;
+}
+
+bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
+{
+    DMXInterface *forcedIface = NULL;
+
+    qDebug() << "[DMXUSBWidget] forcing widget" << m_interface->name() << "to type:" << type;
+
+#if defined(FTD2XX)
+    if (type == DMXInterface::FTD2xx)
+        forcedIface = new FTD2XXInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+#if defined(QTSERIAL)
+    if (type == DMXInterface::QtSerial)
+        forcedIface = new QtSerialInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+#if defined(LIBFTDI) || defined(LIBFTDI1)
+    if (type == DMXInterface::libFTDI)
+        forcedIface = new LibFTDIInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+
+    if (forcedIface != NULL)
+    {
+        delete m_interface;
+        m_interface = forcedIface;
+        return true;
+    }
+
+    return false;
 }
 
 /****************************************************************************
