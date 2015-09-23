@@ -34,3 +34,6 @@ launcher/qlcplus-launcher
 hotplugmonitor/test/test
 qmlui/qlcplus-qml
 *.qm
+
+# Backup files
+*~
