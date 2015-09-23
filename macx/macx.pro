@@ -17,6 +17,7 @@ include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
+
 greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtwidgets-nametool.pri)
   include(libqtmultimedia-nametool.pri)
@@ -24,6 +25,9 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtopengl-nametool.pri)
   include(libqtprintsupport-nametool.pri)
   #include(libqtserialport-nametool.pri)
+  greaterThan(QT_MINOR_VERSION, 4) {
+    include(libqtdbus-nametool.pri)
+  }
 }
 include(libqlcplusengine-nametool.pri)
 
@@ -58,6 +62,9 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
   INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
   #INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
+  greaterThan(QT_MINOR_VERSION, 4) {
+    INSTALLS += LIBQTDBUS LIBQTDBUS_ID
+  }
 }
 
 qmlui: {
@@ -80,6 +87,11 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 
 greaterThan(QT_MAJOR_VERSION, 4) {
+
+# Starting from Qt 5.5.0, all this nametool stuff
+# is not needed anymore cause @rpath is used
+
+  lessThan(QT_MINOR_VERSION, 5) {
 # QtWidgets depends on QtCore and QtGui
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
@@ -122,6 +134,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # QtSerialPort depends on QtCore
     #qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     #    $$INSTALLROOT/$$LIBSDIR/$$LIBQTSERIALPORT_DIR/$$LIBQTSERIALPORT_FILE
+  }
 }
 
 qmlui: {
