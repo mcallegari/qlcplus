@@ -42,4 +42,22 @@
 		<comment xml:lang="it">Profilo di input QLC+</comment>
 		<comment xml:lang="nl">QLC+ invoerprofiel</comment>
 	</mime-type>
+	<mime-type type="application/x-qlc-miditemplate">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE MidiTemplate&gt;"/>
+		</magic>
+		<glob pattern="*.qxm"/>
+		<comment xml:lang="cz">QLC+ MIDI šablona</comment>
+		<comment xml:lang="en">QLC+ MIDI template</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-channelmodifier">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE ChannelModifier&gt;"/>
+		</magic>
+		<glob pattern="*.qxmt"/>
+		<comment xml:lang="cz">QLC+ šablona modifikátoru kanálu</comment>
+		<comment xml:lang="en">QLC+ channel modifier template</comment>
+	</mime-type>
 </mime-info>
