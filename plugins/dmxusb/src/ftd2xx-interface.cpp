@@ -149,6 +149,11 @@ DMXInterface::Type FTD2XXInterface::type()
     return DMXInterface::FTD2xx;
 }
 
+QString FTD2XXInterface::typeString()
+{
+    return "FTD2xx";
+}
+
 QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
     QList <DMXInterface*> interfacesList;

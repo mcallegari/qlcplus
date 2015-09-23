@@ -162,6 +162,8 @@ QString DMXUSB::outputInfo(quint32 output)
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");
         str += tr("Device is operating correctly.");
+        str += QString("<BR>");
+        str += tr("Driver in use: %1").arg(m_outputs[output]->interfaceTypeString());
         str += QString("</P>");
         QString add = m_outputs[output]->additionalInfo();
         if (add.isEmpty() == false)

@@ -24,7 +24,7 @@ unix: !macx: {
 }
 
 macx: {
-    #CONFIG += qtserial
+    CONFIG += qtserial
     CONFIG += libftdi
 }
 

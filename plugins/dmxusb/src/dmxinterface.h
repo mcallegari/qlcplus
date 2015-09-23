@@ -100,9 +100,6 @@ public:
         QtSerial
     };
 
-    /** Comparator function for matching DMXInterfaces */
-    bool operator== (const DMXInterface& iface) const;
-
     /**
      * Check if an interface is supported by QLC+
      *
@@ -125,6 +122,8 @@ public:
      ************************************************************************/
 public:
     virtual DMXInterface::Type type() = 0;
+
+    virtual QString typeString() = 0;
 
     /** Open the widget */
     virtual bool open() = 0;
