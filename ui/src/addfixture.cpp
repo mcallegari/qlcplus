@@ -616,6 +616,7 @@ void AddFixture::slotSelectionChanged()
         }
         fillModeCombo();
         m_modeCombo->setEnabled(false);
+        m_channelsSpin->setValue(1);
         m_channelsSpin->setEnabled(true);
         m_channelList->clear();
 
