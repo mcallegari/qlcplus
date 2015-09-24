@@ -79,7 +79,7 @@ void ConfigureE131::fillMappingTree()
         if (controller == NULL)
             continue;
 
-        qDebug() << "[ArtNet] controller IP" << controller->getNetworkIP() << "type:" << controller->type();
+        qDebug() << "[E1.31] controller IP" << controller->getNetworkIP() << "type:" << controller->type();
         if ((controller->type() & E131Controller::Input) && inputItem == NULL)
         {
             inputItem = new QTreeWidgetItem(m_uniMapTree);
