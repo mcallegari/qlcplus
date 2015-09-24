@@ -1697,7 +1697,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="consolechannel.cpp" line="306"/>
         <source>Reset this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar aquest canal</translation>
     </message>
 </context>
 <context>
@@ -3357,22 +3357,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="254"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="260"/>
         <source>Sample Rate (Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Freqüència de mostreig (Hz)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="267"/>
         <source>Channels</source>
-        <translation type="unfinished">Canals</translation>
+        <translation>Canals</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="274"/>
         <source>Level Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor de nivell</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
@@ -5824,12 +5824,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
         <source>Side Sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Sliders Laterals</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Comportament</translation>
+        <translation>Comportament</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="624"/>
@@ -5839,7 +5839,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="634"/>
         <source>Steps</source>
-        <translation type="unfinished">Pasos</translation>
+        <translation>Pasos</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="644"/>
@@ -7196,82 +7196,82 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Presets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="488"/>
         <source>Value</source>
-        <translation type="unfinished">Valor</translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal d&apos;Entrada dins del univers d&apos;Entrada que envia dades a aquest botó</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="531"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Triar un univers d&apos;Entrada extern i el canal que aquest botó de preset ha d&apos;escoltar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està actiu, pot moure un controlador extern per assignar-lo a aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="554"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal d&apos;Entrada</translation>
+        <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
         <source>Input universe</source>
-        <translation type="unfinished">Univers d&apos;Entrada</translation>
+        <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="581"/>
         <source> Add preset</source>
-        <translation type="unfinished">Afegir preset</translation>
+        <translation>Afegir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
         <source> Remove</source>
-        <translation type="unfinished"> Eliminar</translation>
+        <translation> Eliminar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="603"/>
         <source>Show preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar el nom del preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="610"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="642"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Treure la drecera del teclat per aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="662"/>
         <source>Set a key combination for this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una combinació de tecles per aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="682"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinació de tecles que activa aquest botó de preset</translation>
     </message>
     <message>
         <source>Infinite</source>
