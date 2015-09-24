@@ -29,6 +29,9 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
+    if (m_IOmapping.size() > 0)
+        return;
+
     m_IOmapping.clear();
 
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
@@ -85,8 +88,8 @@ QStringList E131Plugin::outputs()
 {
     QStringList list;
     int j = 0;
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
+
     foreach (E131IO line, m_IOmapping)
     {
         list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
@@ -97,8 +100,7 @@ QStringList E131Plugin::outputs()
 
 QString E131Plugin::outputInfo(quint32 output)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return QString();
@@ -126,8 +128,7 @@ QString E131Plugin::outputInfo(quint32 output)
 
 bool E131Plugin::openOutput(quint32 output, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return false;
@@ -185,8 +186,7 @@ QStringList E131Plugin::inputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     foreach (E131IO line, m_IOmapping)
     {
@@ -198,8 +198,7 @@ QStringList E131Plugin::inputs()
 
 bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return false;
@@ -243,8 +242,7 @@ void E131Plugin::closeInput(quint32 input, quint32 universe)
 
 QString E131Plugin::inputInfo(quint32 input)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return QString();
