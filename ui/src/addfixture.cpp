@@ -422,7 +422,7 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
 
 void AddFixture::updateMaximumAmount()
 {
-    m_amountSpin->setRange(1, (512 - m_addressSpin->value()) /
+    m_amountSpin->setRange(1, (513 - m_addressSpin->value()) /
                            (m_channelsSpin->value() + m_gapSpin->value()));
 }
 
