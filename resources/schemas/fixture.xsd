@@ -22,7 +22,7 @@
 
   usage (from fixtures dir, replace "_" with "-"):
 
-    xmllint __noout __schema ../etc/fixture.xsd *.qxf
+    xmllint __noout __schema ../schemas/fixture.xsd *.qxf
 
   xmllint is part of libxml2-utils package in ubuntu.
 -->

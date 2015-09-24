@@ -22,7 +22,7 @@
 
   usage (from modifiertemplates dir, replace "_" with "-"):
 
-    xmllint __noout __schema ../etc/modifiertemplate.xsd *.qxmt
+    xmllint __noout __schema ../schemas/modifiertemplate.xsd *.qxmt
 
   xmllint is part of libxml2-utils package in ubuntu.
 -->
