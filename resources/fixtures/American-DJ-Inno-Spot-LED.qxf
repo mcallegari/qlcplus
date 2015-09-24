@@ -103,7 +103,7 @@
  <Mode Name="10 channel mode">
   <Physical>
    <Bulb Lumens="22300" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="206" Height="285" Weight="6,5" Depth="242"/>
+   <Dimensions Width="206" Height="285" Weight="6.5" Depth="242"/>
    <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="93" DmxConnector="3-pin"/>

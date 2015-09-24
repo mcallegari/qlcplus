@@ -126,8 +126,8 @@
  <Mode Name="1 Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6,3" Depth="973"/>
-   <Lens DegreesMax="3,5" Name="Other" DegreesMin="3,5"/>
+   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
+   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
@@ -136,8 +136,8 @@
  <Mode Name="6 Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6,3" Depth="973"/>
-   <Lens DegreesMax="3,5" Name="Other" DegreesMin="3,5"/>
+   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
+   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
@@ -151,8 +151,8 @@
  <Mode Name="11 Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6,3" Depth="973"/>
-   <Lens DegreesMax="3,5" Name="Other" DegreesMin="3,5"/>
+   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
+   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
@@ -195,8 +195,8 @@
  <Mode Name="15 Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6,3" Depth="973"/>
-   <Lens DegreesMax="3,5" Name="Other" DegreesMin="3,5"/>
+   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
+   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>

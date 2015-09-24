@@ -47,7 +47,7 @@
  <Mode Name="Full">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="292" Height="267" Weight="2,2" Depth="343"/>
+   <Dimensions Width="292" Height="267" Weight="2.2" Depth="343"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1" DmxConnector="3-pin"/>
@@ -62,7 +62,7 @@
  <Mode Name="Simple">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="292" Height="267" Weight="2,2" Depth="343"/>
+   <Dimensions Width="292" Height="267" Weight="2.2" Depth="343"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1" DmxConnector="3-pin"/>
