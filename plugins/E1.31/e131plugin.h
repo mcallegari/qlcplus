@@ -33,14 +33,18 @@
 typedef struct
 {
     QString IPAddress;
+    QNetworkInterface interface;
     E131Controller* controller;
 } E131IO;
 
+#define E131_MULTICAST "multicast"
 #define E131_MCASTIP "mcastIP"
-#define E131_OUTPUTUNI "outputUni"
+#define E131_UCASTIP "ucastIP"
+#define E131_UCASTPORT "ucastPort"
+#define E131_UNIVERSE "universe"
 #define E131_TRANSMITMODE "transmitMode"
-#define E131_OUTPUTPRIORITY "outputPriority"
-	
+#define E131_PRIORITY "priority"
+
 class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT
@@ -127,7 +131,7 @@ private:
 
 
     /** Map of the E131 plugin Input/Output lines */
-    QList<E131IO>m_IOmapping;
+    QList<E131IO> m_IOmapping;
 };
 
 #endif

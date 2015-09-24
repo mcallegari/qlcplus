@@ -29,7 +29,6 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-
     m_IOmapping.clear();
 
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
@@ -41,6 +40,7 @@ void E131Plugin::init()
             {
                 E131IO tmpIO;
                 tmpIO.IPAddress = entry.ip().toString();
+                tmpIO.interface = interface;
                 tmpIO.controller = NULL;
                 m_IOmapping.append(tmpIO);
 
@@ -137,7 +137,8 @@ bool E131Plugin::openOutput(quint32 output, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
-        E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(output).interface,
+                                                        m_IOmapping.at(output).IPAddress,
                                                         E131Controller::Output, output, this);
         m_IOmapping[output].controller = controller;
     }
@@ -208,7 +209,8 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[input].controller == NULL)
     {
-        E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(input).interface,
+                                                        m_IOmapping.at(input).IPAddress,
                                                         E131Controller::Input, input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
@@ -292,14 +294,41 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
     if (controller == NULL)
         return;
 
-    if (name == E131_MCASTIP)
-        controller->setIPAddress(universe, value.toString());
-    else if (name == E131_OUTPUTUNI)
-        controller->setOutputUniverse(universe, value.toUInt());
-    else if (name == E131_TRANSMITMODE)
-        controller->setTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
-    else if (name == E131_OUTPUTPRIORITY)
-        controller->setOutputPriority(universe, value.toUInt());
+    if (type == Input)
+    {
+        if (name == E131_MULTICAST)
+            controller->setInputMulticast(universe, value.toInt());
+        else if (name == E131_MCASTIP)
+            controller->setInputMCastAddress(universe, value.toString());
+        else if (name == E131_UCASTPORT)
+            controller->setInputUCastPort(universe, value.toUInt());
+        else if (name == E131_UNIVERSE)
+            controller->setInputUniverse(universe, value.toUInt());
+        else
+        {
+            qWarning() << Q_FUNC_INFO << name << "is not a valid E1.31 input parameter";
+            return;
+        }
+    }
+    else // if (type == Output)
+    {
+        if (name == E131_MULTICAST)
+            controller->setOutputMulticast(universe, value.toInt());
+        else if (name == E131_MCASTIP)
+            controller->setOutputMCastAddress(universe, value.toString());
+        else if (name == E131_UCASTIP)
+            controller->setOutputUCastAddress(universe, value.toString());
+        else if (name == E131_UCASTPORT)
+            controller->setOutputUCastPort(universe, value.toUInt());
+        else if (name == E131_UNIVERSE)
+            controller->setOutputUniverse(universe, value.toUInt());
+        else if (name == E131_TRANSMITMODE)
+            controller->setOutputTransmissionMode(universe, E131Controller::stringToTransmissionMode(value.toString()));
+        else if (name == E131_PRIORITY)
+            controller->setOutputPriority(universe, value.toUInt());
+        else
+            qWarning() << Q_FUNC_INFO << name << "is not a valid E1.31 output parameter";
+    }
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
