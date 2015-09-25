@@ -34,6 +34,11 @@
 
 #define RELATIVE_ZERO 127
 
+#define KXMLUniverseNormalBlend "Normal"
+#define KXMLUniverseMaskBlend "Mask"
+#define KXMLUniverseAdditiveBlend "Additive"
+#define KXMLUniverseSubtractiveBlend "Subtractive"
+
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QObject(parent)
     , m_id(id)
@@ -242,6 +247,40 @@ const QByteArray* Universe::postGMValues() const
 void Universe::zeroRelativeValues()
 {
     m_relativeValues.fill(0);
+}
+
+Universe::BlendMode Universe::stringToBlendMode(QString mode)
+{
+    if (mode == KXMLUniverseNormalBlend)
+        return NormalBlend;
+    else if (mode == KXMLUniverseMaskBlend)
+        return MaskBlend;
+    else if (mode == KXMLUniverseAdditiveBlend)
+        return AdditiveBlend;
+    else if (mode == KXMLUniverseSubtractiveBlend)
+        return SubtractiveBlend;
+
+    return NormalBlend;
+}
+
+QString Universe::blendModeToString(Universe::BlendMode mode)
+{
+    switch(mode)
+    {
+        default:
+        case NormalBlend:
+            return QString(KXMLUniverseNormalBlend);
+        break;
+        case MaskBlend:
+            return QString(KXMLUniverseMaskBlend);
+        break;
+        case AdditiveBlend:
+            return QString(KXMLUniverseAdditiveBlend);
+        break;
+        case SubtractiveBlend:
+            return QString(KXMLUniverseSubtractiveBlend);
+        break;
+    }
 }
 
 const QByteArray Universe::preGMValues() const
@@ -530,7 +569,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {
-        qDebug() << "Universe HTP check not passed";
+        qDebug() << "[Universe] HTP check not passed" << channel << value;
         return false;
     }
 
@@ -573,6 +612,71 @@ bool Universe::writeRelative(int channel, uchar value)
     value = CLAMP(val, 0, (int)UCHAR_MAX);
 
     value = applyGM(channel, value);
+    (*m_postGMValues)[channel] = char(value);
+
+    return true;
+}
+
+bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
+{
+    if (channel >= m_usedChannels)
+        m_usedChannels = channel + 1;
+
+    switch (blend)
+    {
+        case NormalBlend:
+            return write(channel, value);
+        break;
+        case MaskBlend:
+        {
+            if (m_preGMValues == NULL)
+                break;
+
+            if (value)
+            {
+                float currValue = (float)uchar(m_preGMValues->at(channel));
+                if (currValue)
+                    value = (float)uchar(m_preGMValues->at(channel)) * ((float)value / 255.0);
+                else
+                    value = 0;
+            }
+            (*m_preGMValues)[channel] = char(value);
+
+        }
+        break;
+        case AdditiveBlend:
+        {
+            if (m_preGMValues == NULL)
+                break;
+
+            uchar currVal = uchar(m_preGMValues->at(channel));
+            value = qMin((int)currVal + value, 255);
+            (*m_preGMValues)[channel] = char(value);
+        }
+        break;
+        case SubtractiveBlend:
+        {
+            if (m_preGMValues == NULL)
+                break;
+
+            uchar currVal = uchar(m_preGMValues->at(channel));
+            if (value >= currVal)
+                value = 0;
+            else
+                value = currVal - value;
+            (*m_preGMValues)[channel] = char(value);
+        }
+        break;
+        default:
+            qDebug() << "[Universe] Blend mode not handled. Implement me !" << blend;
+        break;
+    }
+
+    value = applyGM(channel, value);
+
+    if (m_modifiers.at(channel) != NULL)
+        value = m_modifiers.at(channel)->getValue(value);
+
     (*m_postGMValues)[channel] = char(value);
 
     return true;

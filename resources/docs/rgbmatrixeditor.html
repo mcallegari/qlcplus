@@ -90,63 +90,58 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
    <B>Pattern</B>
   </TD>
   <TD>
-   Select the pattern and color that are used on the selected fixture group for drawing graphics.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <B>Plain Color</B>
-  </TD>
-  <TD>
-   When the <B>Plain Color</B> pattern is selected, all the pixels of the RGB Matrix will be lit to
-   the color selected
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <B>Animated Text</B>
-  </TD>
-  <TD>
-   Available only when <B>Text</B> is the selected pattern.
+   Select the pattern and colors that are used on the selected fixture group for drawing graphics.<br>
+   Patterns can be:
    <UL>
-    <LI>The text edit field is used to edit the text content that is scrolled/flashed on the matrix.</LI>
-    <LI>The font button <IMG SRC="qrc:/fonts.png"/> is used to select the font (tip: bitmap fonts work best)</LI>
-    <LI>The drop-down box is used to select the animation style (Horizontal, Vertical or Letters)</LI>
-   </UL>
+    <LI><B>Plain Color</B>: all the pixels of the matrix will be lit to the selected color</LI>
+    <br>
+    <LI><B>Animated Text</B>: display an animated text with the following parameters:
+      <UL>
+        <LI>The text edit field is used to edit the text content that is scrolled/flashed on the matrix.</LI>
+        <LI>The font button <IMG SRC="qrc:/fonts.png"/> is used to select the font (tip: bitmap fonts work best)</LI>
+        <LI>The drop-down box is used to select the animation style (Horizontal, Vertical or Letters)</LI>
+      </UL>
+    </LI>
+    <br>
+    <LI><B>Audio Spectrum</B>: QLC+ will start capturing data from the chosen audio input device and will 
+      represent the audio spectrum as vertical bars in the RGB Matrix with the selected start and end color.<br>
+      For an optimal usage of this pattern, the hold time of the Matrix must be set to a reasonably low value (e.g. .20)
+    </LI>
+    <br>
+    <LI><B>Image</B>: display an image loaded from a file, with the following parameters:
+      <UL>
+        <LI>The text edit field is used to edit the image filename</LI>
+        <LI>The image button <IMG SRC="qrc:/image.png"/> is used to load an image from file</LI>
+	<LI>The drop-down box is used to select the animation style (Static, Horizontal, Vertical or Animation)</LI>
+      </UL>
+      <P>Supported formats: PNG, XPM, JPG, GIF (for animated gifs only first frame is used).</P>
+      <P>Styles:</P>
+      <UL>
+	<LI><B>Static</B> - the image is statically displayed on the matrix. If the image is smaller than the matrix, 
+	it is repeated in both directions. (Tip: for stripes, use 1-point-high images)</LI>
+	<LI><B>Horizontal</B> - the image is scrolled horizontaly. Again, image is repeated in both directions.</LI>
+	<LI><B>Vertical</B> - same as <B>Horizontal</B>, but in vertical direction.</LI>
+	<LI><B>Animation</B> - play animation. Stack the frames (of width equal to matrix's) side by side in one image.
+	For example, when matrix is 8x8 and you want to have 4 frames, make image 32x8. The image is still repeated
+	vertically.</LI>
+      </UL>
+    </LI>
+    <BR>
+    The rest of the pattern list is filled with <A HREF="file:concept.html#RGBScript">RGB Scripts</A>
+    loaded when QLC+ starts up.<br>
+    Depending on the selected pattern, it is possible to choose a start and an end color. Some patterns
+    do not allow colors at all (since they elapse them autonomously) or allow just one color.<br>
   </TD>
  </TR>
  <TR>
   <TD>
-   <B>Audio Spectrum</B>
+   <B>Pattern Blend Mode</B>
   </TD>
-  <TD>
-   When the <B>Audio Spectrum</B> pattern is selected, QLC+ will start capturing data from the chosen
-   audio input device and will represent the audio spectrum as vertical bars in the RGB Matrix with the
-   selected start and end color.<br>
-   For an optimal usage of this pattern, the hold time of the Matrix must be set to a reasonably low value (e.g. .20)
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <B>Image</B>
-  </TD>
-  <TD>
-   Available only when <B>Image</B> is the selected pattern.
-   <UL>
-    <LI>The text edit field is used to edit the image filename</LI>
-    <LI>The image button <IMG SRC="qrc:/image.png"/> is used to select the image</LI>
-    <LI>The drop-down box is used to select the animation style (Static, Horizontal, Vertical or Animation)</LI>
-   </UL>
-   <P>Supported formats: PNG, XPM, JPG, GIF (for animated gifs only first frame is used).</P>
-   <P>Styles:</P>
-   <UL>
-    <LI><B>Static</B> - the image is statically displayed on the matrix. If the image is smaller than the matrix, 
-     it is repeated in both directions. (Tip: for stripes, use 1-point-high images)</LI>
-    <LI><B>Horizontal</B> - the image is scrolled horizontaly. Again, image is repeated in both directions.</LI>
-    <LI><B>Vertical</B> - same as <B>Horizontal</B>, but in vertical direction.</LI>
-    <LI><B>Animation</B> - play animation. Stack the frames (of width equal to matrix's) side by side in one image.
-     For example, when matrix is 8x8 and you want to have 4 frames, make image 32x8. The image is still repeated
-     vertically.</LI>
+  <TD>The blend mode is the mechanism used to mix multiple RGB Matrices running one on top of the other.<br>
+    Here's a representation of how it works:
+    <P><IMG SRC="file:images/blending.png" /></P>
+    The matrix running on the bottom layer must use the default mode, to prepare a ground of colors that
+    all the above layers can use to perform blending.
   </TD>
  </TR>
  <TR>

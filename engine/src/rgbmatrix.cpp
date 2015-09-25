@@ -54,6 +54,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
     , m_dimmerControl(true)
     , m_fixtureGroupID(FixtureGroup::invalidId())
+    , m_group(NULL)
     , m_algorithm(NULL)
     , m_algorithmMutex(QMutex::Recursive)
     , m_startColor(Qt::red)
@@ -172,6 +173,8 @@ bool RGBMatrix::copyFrom(const Function* function)
 void RGBMatrix::setFixtureGroup(quint32 id)
 {
     m_fixtureGroupID = id;
+    QMutexLocker algoLocker(&m_algorithmMutex);
+    m_group = doc()->fixtureGroup(m_fixtureGroupID);
 }
 
 quint32 RGBMatrix::fixtureGroup() const
@@ -496,14 +499,17 @@ void RGBMatrix::preRun(MasterTimer* timer)
 {
     Q_UNUSED(timer);
 
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
-        if (grp != NULL && m_algorithm != NULL)
+
+        m_group = doc()->fixtureGroup(m_fixtureGroupID);
+
+        if (m_group != NULL && m_algorithm != NULL)
         {
             Q_ASSERT(m_fader == NULL);
             m_fader = new GenericFader(doc());
             m_fader->adjustIntensity(getAttributeValue(Intensity));
+            m_fader->setBlendMode(blendMode());
 
             // Copy direction from parent class direction
             m_direction = direction();
@@ -515,7 +521,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
             }
             else
             {
-                m_step = m_algorithm->rgbMapStepCount(grp->size()) - 1;
+                m_step = m_algorithm->rgbMapStepCount(m_group->size()) - 1;
                 if (m_endColor.isValid())
                 {
                     m_stepColor = m_endColor.rgb();
@@ -547,21 +553,20 @@ void RGBMatrix::preRun(MasterTimer* timer)
 void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
-    Q_UNUSED(universes);
 
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-    if (grp == NULL)
-    {
-        // No fixture group to control
-        stop();
-        return;
-    }
-
-    // No time to do anything.
-    if (duration() == 0)
-        return;
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
+        if (m_group == NULL)
+        {
+            // No fixture group to control
+            stop();
+            return;
+        }
+
+        // No time to do anything.
+        if (duration() == 0)
+            return;
+
         // Invalid/nonexistent script
         if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
             return;
@@ -570,8 +575,8 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         if (elapsed() < MasterTimer::tick())
         {
             qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
-            RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
-            updateMapChannels(map, grp);
+            RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), m_step);
+            updateMapChannels(map, m_group);
         }
     }
 
@@ -583,7 +588,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
     // Check if we need to change direction, stop completely or go to next step
     if (elapsed() >= duration())
-        roundCheck(grp->size());
+        roundCheck(m_group->size());
 }
 
 void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
@@ -874,4 +879,16 @@ void RGBMatrix::adjustAttribute(qreal fraction, int attributeIndex)
     if (m_fader != NULL && attributeIndex == Function::Intensity)
         m_fader->adjustIntensity(fraction);
     Function::adjustAttribute(fraction, attributeIndex);
+}
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
+
+void RGBMatrix::setBlendMode(Universe::BlendMode mode)
+{
+    if (m_fader != NULL)
+        m_fader->setBlendMode(mode);
+    Function::setBlendMode(mode);
+    emit changed(id());
 }

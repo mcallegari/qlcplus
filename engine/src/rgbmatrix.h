@@ -92,6 +92,7 @@ public:
 
 private:
     quint32 m_fixtureGroupID;
+    FixtureGroup *m_group;
 
     /************************************************************************
      * Algorithm
@@ -201,6 +202,13 @@ private:
 public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimpl */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

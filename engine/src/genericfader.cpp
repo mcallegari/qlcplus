@@ -22,11 +22,11 @@
 
 #include "genericfader.h"
 #include "fadechannel.h"
-#include "universe.h"
 #include "doc.h"
 
 GenericFader::GenericFader(Doc* doc)
     : m_intensity(1)
+    , m_blendMode(Universe::NormalBlend)
     , m_doc(doc)
 {
     Q_ASSERT(doc != NULL);
@@ -92,10 +92,10 @@ void GenericFader::write(QList<Universe*> ua)
         if (universe != Universe::invalid())
         {
             //qDebug() << "[GenericFader] >>> uni:" << universe << ", address:" << addr << ", value:" << value;
-            ua[universe]->write(addr, value);
+            ua[universe]->writeBlended(addr, value, m_blendMode);
         }
 
-        if (grp == QLCChannel::Intensity)
+        if (grp == QLCChannel::Intensity && m_blendMode == Universe::NormalBlend)
         {
             // Remove all HTP channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves CPU a bit.
@@ -123,4 +123,9 @@ void GenericFader::adjustIntensity(qreal fraction)
 qreal GenericFader::intensity() const
 {
     return m_intensity;
+}
+
+void GenericFader::setBlendMode(Universe::BlendMode mode)
+{
+    m_blendMode = mode;
 }

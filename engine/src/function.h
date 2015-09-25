@@ -27,13 +27,14 @@
 #include <QList>
 #include <QIcon>
 
+#include "universe.h"
+
 class QDomDocument;
 class QDomElement;
 
 class GenericFader;
 class MasterTimer;
 class Function;
-class Universe;
 class Doc;
 
 class FunctionUiState;
@@ -48,6 +49,7 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
 #define KXMLQLCFunctionValueType "Type"
@@ -668,7 +670,7 @@ private:
     QWaitCondition m_functionStopped;
 
     /*************************************************************************
-     * Intensity
+     * Attributes
      *************************************************************************/
 public:
     /**
@@ -738,8 +740,26 @@ signals:
 
 private:
     bool m_startedAsChild;
-    //qreal m_intensity;
     QList <Attribute> m_attributes;
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /**
+     * Set a specific blend mode to be used by this Function
+     * For now this is used only by RGBMatrix but it's been
+     * placed here for generic usage
+     */
+    virtual void setBlendMode(Universe::BlendMode mode);
+
+    /**
+     * Return the blend mode set on this Function
+     */
+    virtual Universe::BlendMode blendMode() const;
+
+private:
+    Universe::BlendMode m_blendMode;
 };
 
 /** @} */

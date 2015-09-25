@@ -84,6 +84,7 @@ Function::Function(QObject *parent)
     , m_stop(true)
     , m_running(false)
     , m_startedAsChild(false)
+    , m_blendMode(Universe::NormalBlend)
 {
 
 }
@@ -107,6 +108,7 @@ Function::Function(Doc* doc, Type t)
     , m_stop(true)
     , m_running(false)
     , m_startedAsChild(false)
+    , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
     registerAttribute(tr("Intensity"));
@@ -335,6 +337,8 @@ bool Function::saveXMLCommon(QDomElement *root) const
     root->setAttribute(KXMLQLCFunctionName, name());
     if (path(true).isEmpty() == false)
         root->setAttribute(KXMLQLCFunctionPath, path(true));
+    if (blendMode() != Universe::NormalBlend)
+        root->setAttribute(KXMLQLCFunctionBlendMode, Universe::blendModeToString(blendMode()));
 
     return true;
 }
@@ -736,8 +740,12 @@ bool Function::loader(const QDomElement& root, Doc* doc)
     QString name = root.attribute(KXMLQLCFunctionName);
     Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
     QString path;
+    Universe::BlendMode blendMode = Universe::NormalBlend;
+
     if (root.hasAttribute(KXMLQLCFunctionPath))
         path = root.attribute(KXMLQLCFunctionPath);
+    if (root.hasAttribute(KXMLQLCFunctionBlendMode))
+        blendMode = Universe::stringToBlendMode(root.attribute(KXMLQLCFunctionBlendMode));
 
     /* Check for ID validity before creating the function */
     if (id == Function::invalidId())
@@ -773,6 +781,7 @@ bool Function::loader(const QDomElement& root, Doc* doc)
 
     function->setName(name);
     function->setPath(path);
+    function->setBlendMode(blendMode);
     if (function->loadXML(root) == true)
     {
         if (doc->addFunction(function, id) == true)
@@ -1047,5 +1056,15 @@ int Function::getAttributeIndex(QString name) const
 QList<Attribute> Function::attributes()
 {
     return m_attributes;
+}
+
+void Function::setBlendMode(Universe::BlendMode mode)
+{
+    m_blendMode = mode;
+}
+
+Universe::BlendMode Function::blendMode() const
+{
+    return m_blendMode;
 }
 

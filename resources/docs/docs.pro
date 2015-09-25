@@ -82,7 +82,8 @@ docs.files = \
              webinterface.html
              
 imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
-imgs.files += images/channelmodifier.png \
+imgs.files += images/blending.png \
+              images/channelmodifier.png \
               images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
@@ -93,12 +94,12 @@ imgs.files += images/channelmodifier.png \
               images/multipage3.png \
               images/multipage4.png \
               images/pan-tilt.png \
-			  images/track-mute.png \
-			  images/track-solo.png \
-			  images/tutorial1_1.png \
+              images/track-mute.png \
+              images/track-solo.png \
+              images/tutorial1_1.png \
               images/tutorial1_2.png \
               images/tutorial1_3.png \
-			  images/xypad.png \
-			  images/xypad2.png
+              images/xypad.png \
+              images/xypad2.png
 
 INSTALLS += docs imgs

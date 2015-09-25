@@ -369,6 +369,23 @@ protected:
     QVector<short> m_relativeValues;
 
     /************************************************************************
+     * Blend mode
+     ************************************************************************/
+public:
+    enum BlendMode {
+        NormalBlend = 0,
+        MaskBlend,
+        AdditiveBlend,
+        SubtractiveBlend
+    };
+
+    /** Return a blend mode from a string */
+    static BlendMode stringToBlendMode(QString mode);
+
+    /** Return a string from a blend mode, to be saved into a XML */
+    static QString blendModeToString(BlendMode mode);
+
+    /************************************************************************
      * Writing
      ************************************************************************/
 public:
@@ -393,6 +410,19 @@ public:
      * @return true if successful, otherwise false
      */
     bool writeRelative(int channel, uchar value);
+
+    /**
+     * Write DMX values with the given blend mode.
+     * If blend == NormalBlend the generic write method is called
+     * and all the HTP/LTP checks are performed
+     *
+     * @param channel The channel number to write to
+     * @param value The value to write
+     * @param blend The blend mode to be used on $value
+     *
+     * @return true if successful, otherwise false
+     */
+    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
 
     /*********************************************************************
      * Load & Save

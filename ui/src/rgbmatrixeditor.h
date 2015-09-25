@@ -30,9 +30,7 @@
 
 class SpeedDialWidget;
 class QGraphicsScene;
-class RGBMatrix;
 class QTimer;
-class Doc;
 
 /** @addtogroup ui_functions
  * @{
@@ -75,6 +73,7 @@ private slots:
     void slotSpeedDialToggle(bool state);
     void slotPatternActivated(const QString& text);
     void slotFixtureGroupActivated(int index);
+    void slotBlendModeChanged(int index);
     void slotStartColorButtonClicked();
     void slotEndColorButtonClicked();
     void slotResetEndColorButtonClicked();

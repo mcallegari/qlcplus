@@ -17,6 +17,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Virtual Console/XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
   * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
   * RGB Matrix: Fix 4.9.1 regression which makes fading of green and blue colors not smooth (David Garyga)
+  * RGB Matrix: Introduced blending mode between matrices (see documentation)
   * Audio Input: Fix crashes when selecting another audio input device while an audio input driven function/widget is running (David Garyga)
   * Audio Input: It is now possible to select the audio input format (sample rate and channels)
   * Scene Editor: correctly select the fixture tab when switching from tabbed/all channels view

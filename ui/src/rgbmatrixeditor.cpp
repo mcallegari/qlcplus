@@ -37,14 +37,12 @@
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "rgbmatrixeditor.h"
-#include "rgbmatrix.h"
+#include "rgbimage.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
-#include "rgbimage.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "scene.h"
-#include "doc.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"
 #define RECT_SIZE 30
@@ -129,39 +127,42 @@ void RGBMatrixEditor::init()
     /* Running order */
     switch (m_matrix->runOrder())
     {
-    default:
-    case Function::Loop:
-        m_loop->setChecked(true);
+        default:
+        case Function::Loop:
+            m_loop->setChecked(true);
         break;
-    case Function::PingPong:
-        m_pingPong->setChecked(true);
+        case Function::PingPong:
+            m_pingPong->setChecked(true);
         break;
-    case Function::SingleShot:
-        m_singleShot->setChecked(true);
+        case Function::SingleShot:
+            m_singleShot->setChecked(true);
         break;
     }
 
     /* Running direction */
     switch (m_matrix->direction())
     {
-    default:
-    case Function::Forward:
-        m_forward->setChecked(true);
+        default:
+        case Function::Forward:
+            m_forward->setChecked(true);
         break;
-    case Function::Backward:
-        m_backward->setChecked(true);
+        case Function::Backward:
+            m_backward->setChecked(true);
         break;
     }
 
     /* Dimmer control */
     m_dimmerControlCb->setChecked(m_matrix->dimmerControl());
 
+    /* Blend mode */
+    m_blendModeCombo->setCurrentIndex(m_matrix->blendMode());
+
     fillPatternCombo();
     fillFixtureGroupCombo();
     fillAnimationCombo();
     fillImageAnimationCombo();
 
-    QPixmap pm(100, 26);
+    QPixmap pm(50, 26);
     pm.fill(m_matrix->startColor());
     m_startColorButton->setIcon(QIcon(pm));
 
@@ -186,6 +187,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotPatternActivated(const QString&)));
     connect(m_fixtureGroupCombo, SIGNAL(activated(int)),
             this, SLOT(slotFixtureGroupActivated(int)));
+    connect(m_blendModeCombo, SIGNAL(activated(int)),
+            this, SLOT(slotBlendModeChanged(int)));
     connect(m_startColorButton, SIGNAL(clicked()),
             this, SLOT(slotStartColorButtonClicked()));
     connect(m_endColorButton, SIGNAL(clicked()),
@@ -357,18 +360,24 @@ void RGBMatrixEditor::updateExtraOptions()
             m_startColorButton->hide();
             m_endColorButton->hide();
             m_resetEndColorButton->hide();
-        }
-        else if (accColors == 1)
-        {
-            m_startColorButton->show();
-            m_endColorButton->hide();
-            m_resetEndColorButton->hide();
+            m_blendModeLabel->hide();
+            m_blendModeCombo->hide();
         }
         else
         {
             m_startColorButton->show();
-            m_endColorButton->show();
-            m_resetEndColorButton->show();
+            if (accColors == 1 || m_blendModeCombo->currentIndex() != 0)
+            {
+                m_endColorButton->hide();
+                m_resetEndColorButton->hide();
+            }
+            else
+            {
+                m_endColorButton->show();
+                m_resetEndColorButton->show();
+            }
+            m_blendModeLabel->show();
+            m_blendModeCombo->show();
         }
     }
 }
@@ -675,6 +684,31 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
     }
 }
 
+void RGBMatrixEditor::slotBlendModeChanged(int index)
+{
+    m_matrix->setBlendMode(Universe::BlendMode(index));
+
+    if (index == Universe::MaskBlend)
+    {
+        m_matrix->setEndColor(QColor());
+        QPixmap pm(50, 26);
+        pm.fill(Qt::transparent);
+        m_endColorButton->setIcon(QIcon(pm));
+
+        m_matrix->setStartColor(Qt::white);
+        m_matrix->calculateColorDelta();
+        pm.fill(Qt::white);
+        m_startColorButton->setIcon(QIcon(pm));
+        m_startColorButton->setEnabled(false);
+        slotRestartTest();
+    }
+    else
+    {
+        m_startColorButton->setEnabled(true);
+    }
+    updateExtraOptions();
+}
+
 void RGBMatrixEditor::slotStartColorButtonClicked()
 {
     QColor col = QColorDialog::getColor(m_matrix->startColor());
@@ -682,7 +716,7 @@ void RGBMatrixEditor::slotStartColorButtonClicked()
     {
         m_matrix->setStartColor(col);
         m_matrix->calculateColorDelta();
-        QPixmap pm(100, 26);
+        QPixmap pm(50, 26);
         pm.fill(col);
         m_startColorButton->setIcon(QIcon(pm));
         slotRestartTest();
@@ -696,7 +730,7 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
     {
         m_matrix->setEndColor(col);
         m_matrix->calculateColorDelta();
-        QPixmap pm(100, 26);
+        QPixmap pm(50, 26);
         pm.fill(col);
         m_endColorButton->setIcon(QIcon(pm));
         slotRestartTest();
@@ -707,7 +741,7 @@ void RGBMatrixEditor::slotResetEndColorButtonClicked()
 {
     m_matrix->setEndColor(QColor());
     m_matrix->calculateColorDelta();
-    QPixmap pm(100, 26);
+    QPixmap pm(50, 26);
     pm.fill(Qt::transparent);
     m_endColorButton->setIcon(QIcon(pm));
     slotRestartTest();
