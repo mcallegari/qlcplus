@@ -228,7 +228,7 @@
         <translation>Počet nalezených šablon zařízení: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="626"/>
+        <location filename="addfixture.cpp" line="627"/>
         <source>Dimmers</source>
         <translatorcomment>Dimmery</translatorcomment>
         <translation>Stmívače</translation>
@@ -4119,218 +4119,255 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Editor RGB šablon</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="389"/>
+        <location filename="rgbmatrixeditor.ui" line="489"/>
         <source>RGB matrix name</source>
         <translation>Název RGB šablony</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="402"/>
+        <location filename="rgbmatrixeditor.ui" line="502"/>
         <source>The name of this RGB matrix function</source>
         <translation>Název této RGB šablony funkce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="433"/>
+        <location filename="rgbmatrixeditor.ui" line="533"/>
         <source>Save this matrix to a sequence</source>
         <translation>Ulož tuto RGB šablónu ako sekvenci</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="453"/>
+        <location filename="rgbmatrixeditor.ui" line="553"/>
         <source>Toggle between circle and square preview</source>
         <translation>Přepnout mezi náhledem kruhu a čtverce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="499"/>
+        <location filename="rgbmatrixeditor.ui" line="599"/>
         <source>Fixture group</source>
         <translation>Skupina zařízení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="512"/>
+        <location filename="rgbmatrixeditor.ui" line="612"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Skupina zařízení k použití jako šablonlona bodů</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="28"/>
+        <location filename="rgbmatrixeditor.ui" line="37"/>
         <source>Pattern</source>
         <translation>Vzor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="74"/>
+        <location filename="rgbmatrixeditor.ui" line="79"/>
         <source>The RGB matrix pattern</source>
         <translation>Vzor RGB šablony</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="96"/>
+        <location filename="rgbmatrixeditor.ui" line="154"/>
         <source>Animated Text</source>
         <translation>Animovaný text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="108"/>
+        <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>Text to display</source>
         <translation>Text zobrazení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="115"/>
+        <location filename="rgbmatrixeditor.ui" line="182"/>
         <source>Choose the font</source>
         <translation>Zvolte styl písma</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation>Resetovat konečnou barvu</translation>
+        <translation type="obsolete">Resetovat konečnou barvu</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="84"/>
+        <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>Properties</source>
         <translation>Vlastnosti</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="135"/>
+        <location filename="rgbmatrixeditor.ui" line="202"/>
         <source>Animation style</source>
         <translation>Styl animace</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="145"/>
+        <location filename="rgbmatrixeditor.ui" line="212"/>
         <source>Image</source>
         <translation>Obrázek</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="184"/>
+        <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Offset</source>
         <translation>Posunutí</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="190"/>
+        <location filename="rgbmatrixeditor.ui" line="272"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="197"/>
+        <location filename="rgbmatrixeditor.ui" line="279"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Zvednout vzor X bodů vodorovně</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="210"/>
+        <location filename="rgbmatrixeditor.ui" line="292"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="217"/>
+        <location filename="rgbmatrixeditor.ui" line="299"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Zvednout vzor Y bodů svisle</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="269"/>
+        <location filename="rgbmatrixeditor.ui" line="357"/>
         <source>Dimmer control</source>
         <translation>Ovládání stmívače</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="266"/>
+        <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
         <translation>Nastavit kanál stmívače na zařízeních na 100%</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="260"/>
+        <location filename="rgbmatrixeditor.ui" line="52"/>
+        <source>Matrix end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="68"/>
+        <source>Reset the end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="86"/>
+        <source>Matrix start color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="99"/>
+        <source>Blend mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="107"/>
+        <source>Default (HTP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="112"/>
+        <source>Mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="117"/>
+        <source>Additive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="122"/>
+        <source>Subtractive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="342"/>
         <source>Other Controls</source>
         <translation>Jiné nastavení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="339"/>
+        <location filename="rgbmatrixeditor.ui" line="433"/>
         <source>Run Order</source>
         <translation>Režim běhu</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="345"/>
+        <location filename="rgbmatrixeditor.ui" line="445"/>
         <source>Run through over and over again</source>
         <translation>Běží v nekonečné smičce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="348"/>
+        <location filename="rgbmatrixeditor.ui" line="448"/>
         <source>Loop</source>
         <translation>Smyčka</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="358"/>
+        <location filename="rgbmatrixeditor.ui" line="458"/>
         <source>Run through once and stop</source>
         <translation>Jednou proběhne a ukončí se</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="361"/>
+        <location filename="rgbmatrixeditor.ui" line="461"/>
         <source>Single Shot</source>
         <translation>Jednorázově</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="368"/>
+        <location filename="rgbmatrixeditor.ui" line="468"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Nejprve jede dopředu, pak zpět a opět dopředu, atp.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="371"/>
+        <location filename="rgbmatrixeditor.ui" line="471"/>
         <source>Ping Pong</source>
         <translation>Kyvadlo</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="285"/>
+        <location filename="rgbmatrixeditor.ui" line="373"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="61"/>
         <source>Matrix start colour</source>
-        <translation>Počáteční barva</translation>
+        <translation type="obsolete">Počáteční barva</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="34"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation>Konečná barva</translation>
+        <translation type="obsolete">Konečná barva</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="291"/>
+        <location filename="rgbmatrixeditor.ui" line="385"/>
         <source>Start from the first step</source>
         <translation>Začít od prvního kroku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="294"/>
+        <location filename="rgbmatrixeditor.ui" line="388"/>
         <source>Forward</source>
         <translation>Od začátku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="304"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
         <source>Start from the last step</source>
         <translation>Začít od posledního kroku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="307"/>
+        <location filename="rgbmatrixeditor.ui" line="401"/>
         <source>Backward</source>
         <translation>Od konce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="413"/>
+        <location filename="rgbmatrixeditor.ui" line="513"/>
         <source>Show/Hide speed dial window</source>
         <translation>Zobrazit/Skrýt okno rychlostí</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="473"/>
+        <location filename="rgbmatrixeditor.ui" line="573"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Ukázat co RGB šablona udělá, když poběží</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="267"/>
+        <location filename="rgbmatrixeditor.cpp" line="270"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="481"/>
+        <location filename="rgbmatrixeditor.cpp" line="490"/>
         <source>No fixture group to control</source>
         <translation>Žádná skupina zařízení k ovládání</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="787"/>
+        <location filename="rgbmatrixeditor.cpp" line="821"/>
         <source>Select image</source>
         <translation>Volba obrázku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="789"/>
+        <location filename="rgbmatrixeditor.cpp" line="823"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>

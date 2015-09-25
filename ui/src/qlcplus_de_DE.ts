@@ -229,7 +229,7 @@
         <translation>Gefundene Geräte: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="626"/>
+        <location filename="addfixture.cpp" line="627"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
     </message>
@@ -4130,218 +4130,255 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>RGB Matrix Editor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="389"/>
+        <location filename="rgbmatrixeditor.ui" line="489"/>
         <source>RGB matrix name</source>
         <translation>RGB-Matrix-Name</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="402"/>
+        <location filename="rgbmatrixeditor.ui" line="502"/>
         <source>The name of this RGB matrix function</source>
         <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="433"/>
+        <location filename="rgbmatrixeditor.ui" line="533"/>
         <source>Save this matrix to a sequence</source>
         <translation>Diese Matrix als Sequenz speichern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="453"/>
+        <location filename="rgbmatrixeditor.ui" line="553"/>
         <source>Toggle between circle and square preview</source>
         <translation>Zwischen Kreis- und Viereckvorschau umschalten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="499"/>
+        <location filename="rgbmatrixeditor.ui" line="599"/>
         <source>Fixture group</source>
         <translation>Gerätegruppe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="512"/>
+        <location filename="rgbmatrixeditor.ui" line="612"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Diese Gerätegruppe als Pixel-Matrix verwenden</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="28"/>
+        <location filename="rgbmatrixeditor.ui" line="37"/>
         <source>Pattern</source>
         <translation>Figur/Muster</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="74"/>
+        <location filename="rgbmatrixeditor.ui" line="79"/>
         <source>The RGB matrix pattern</source>
         <translation>Die RGB-Matrix-Figur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="96"/>
+        <location filename="rgbmatrixeditor.ui" line="154"/>
         <source>Animated Text</source>
         <translation>Animierter Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="108"/>
+        <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>Text to display</source>
         <translation>Anzuzeigender Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="115"/>
+        <location filename="rgbmatrixeditor.ui" line="182"/>
         <source>Choose the font</source>
         <translation>Schriftart auswählen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="50"/>
         <source>Reset end colour</source>
-        <translation>Endfarbe zurücksetzen</translation>
+        <translation type="obsolete">Endfarbe zurücksetzen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="84"/>
+        <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="135"/>
+        <location filename="rgbmatrixeditor.ui" line="202"/>
         <source>Animation style</source>
         <translation>Animationsstil</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="145"/>
+        <location filename="rgbmatrixeditor.ui" line="212"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="184"/>
+        <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Offset</source>
         <translation>Abstand</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="190"/>
+        <location filename="rgbmatrixeditor.ui" line="272"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="197"/>
+        <location filename="rgbmatrixeditor.ui" line="279"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Muster X Pixel horizontal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="210"/>
+        <location filename="rgbmatrixeditor.ui" line="292"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="217"/>
+        <location filename="rgbmatrixeditor.ui" line="299"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Muster Y Pixel vertikal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="269"/>
+        <location filename="rgbmatrixeditor.ui" line="357"/>
         <source>Dimmer control</source>
         <translation>Dimmersteuerung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="266"/>
+        <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
         <translation>Setzt den Dimmer-Kanal der Geräte auf 100%</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="260"/>
+        <location filename="rgbmatrixeditor.ui" line="52"/>
+        <source>Matrix end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="68"/>
+        <source>Reset the end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="86"/>
+        <source>Matrix start color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="99"/>
+        <source>Blend mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="107"/>
+        <source>Default (HTP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="112"/>
+        <source>Mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="117"/>
+        <source>Additive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="122"/>
+        <source>Subtractive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="342"/>
         <source>Other Controls</source>
         <translation>Andere Steuerungen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="339"/>
+        <location filename="rgbmatrixeditor.ui" line="433"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="345"/>
+        <location filename="rgbmatrixeditor.ui" line="445"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="348"/>
+        <location filename="rgbmatrixeditor.ui" line="448"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="358"/>
+        <location filename="rgbmatrixeditor.ui" line="458"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="361"/>
+        <location filename="rgbmatrixeditor.ui" line="461"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="368"/>
+        <location filename="rgbmatrixeditor.ui" line="468"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="371"/>
+        <location filename="rgbmatrixeditor.ui" line="471"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="285"/>
+        <location filename="rgbmatrixeditor.ui" line="373"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="61"/>
         <source>Matrix start colour</source>
-        <translation>Matrix-Startfarbe</translation>
+        <translation type="obsolete">Matrix-Startfarbe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="34"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation>Matrix-Endfarbe</translation>
+        <translation type="obsolete">Matrix-Endfarbe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="291"/>
+        <location filename="rgbmatrixeditor.ui" line="385"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="294"/>
+        <location filename="rgbmatrixeditor.ui" line="388"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="304"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="307"/>
+        <location filename="rgbmatrixeditor.ui" line="401"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="413"/>
+        <location filename="rgbmatrixeditor.ui" line="513"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="473"/>
+        <location filename="rgbmatrixeditor.ui" line="573"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Vorschau der RGB-Matrix</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="267"/>
+        <location filename="rgbmatrixeditor.cpp" line="270"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="481"/>
+        <location filename="rgbmatrixeditor.cpp" line="490"/>
         <source>No fixture group to control</source>
         <translation>Keine Gerätegruppe zu steuern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="787"/>
+        <location filename="rgbmatrixeditor.cpp" line="821"/>
         <source>Select image</source>
         <translation>Bildauswahl</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="789"/>
+        <location filename="rgbmatrixeditor.cpp" line="823"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
