@@ -100,6 +100,7 @@
   <fixture path="Briteq-BTX-180LS.qxf" mf="Briteq" md="BTX-180LS"/>
   <fixture path="Briteq-COB-PAR56-RGB.qxf" mf="Briteq" md="COB PAR56 RGB"/>
   <fixture path="Briteq-Pro-Beamer-Zoom.qxf" mf="Briteq" md="Pro Beamer Zoom"/>
+  <fixture path="Cameo-CL-Superfly-HP.qxf" mf="Cameo" md="CL Superfly HP"/>
   <fixture path="Cameo-CLBARL10RGBA.qxf" mf="Cameo" md="LED Colour Bar RGBA (CLBAR10RGBA)"/>
   <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="Flat PAR CAN TRI 3W"/>
   <fixture path="Cameo-Gobo-Scanner-60.qxf" mf="Cameo" md="Gobo Scanner 60"/>

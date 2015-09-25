@@ -106,6 +106,8 @@ void ConfigureE131::fillMappingTree()
 
                 item->setText(KMapColumnInterface, controller->getNetworkIP());
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
+                item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
+
                 QCheckBox* multicastCb = new QCheckBox();
                 if (info->inputMulticast)
                 {
@@ -140,6 +142,7 @@ void ConfigureE131::fillMappingTree()
 
                 item->setText(KMapColumnInterface, controller->getNetworkIP());
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
+                item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
 
                 QCheckBox* multicastCb = new QCheckBox(this);
                 if (info->outputMulticast)
