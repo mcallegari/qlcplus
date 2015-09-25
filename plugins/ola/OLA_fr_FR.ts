@@ -29,7 +29,7 @@
     <message>
         <location filename="olaio.cpp" line="163"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
-        <translation>Ce plugin permet le support de la sortie de l&apos;OLA (Open Lighting Architecture).</translation>
+        <translation>Ce plugin offre le support de la sortie de OLA (Open Lighting Architecture).</translation>
     </message>
     <message>
         <location filename="olaio.cpp" line="177"/>
