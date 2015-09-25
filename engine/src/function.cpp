@@ -158,6 +158,7 @@ bool Function::copyFrom(const Function* function)
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
     m_path = function->path(true);
+    m_blendMode = function->blendMode();
     uiState()->copyFrom(function->uiState());
 
     emit changed(m_id);
