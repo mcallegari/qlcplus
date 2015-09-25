@@ -81,10 +81,12 @@
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
   <fixture path="Blizzard-Lighting-Hotbox-EXA.qxf" mf="Blizzard Lighting" md="Hotbox EXA"/>
+  <fixture path="Blizzard-Lighting-HotBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="HotBox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Hotbox-RGBAW.qxf" mf="Blizzard Lighting" md="Hotbox 5 RGBAW"/>
   <fixture path="Blizzard-Lighting-Hotbox-RGBW.qxf" mf="Blizzard Lighting" md="Hotbox RGBW"/>
   <fixture path="Blizzard-Lighting-Puck-Fab5.qxf" mf="Blizzard Lighting" md="Puck Fab5"/>
   <fixture path="Blizzard-Lighting-Puck-RGBAW.qxf" mf="Blizzard Lighting" md="Puck RGBAW"/>
+  <fixture path="Blizzard-Lighting-RokBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="Rokbox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
@@ -126,6 +128,7 @@
   <fixture path="Chauvet-COLORpalette.qxf" mf="Chauvet" md="COLORpalette"/>
   <fixture path="Chauvet-ColorStrip-Mini.qxf" mf="Chauvet" md="ColorStrip Mini"/>
   <fixture path="Chauvet-CORE-3x3.qxf" mf="Chauvet" md="CORE 3x3"/>
+  <fixture path="Chauvet-COREpar-80.qxf" mf="Chauvet" md="COREpar 80"/>
   <fixture path="Chauvet-Derby-X.qxf" mf="Chauvet" md="Derby X"/>
   <fixture path="Chauvet-DMF-10.qxf" mf="Chauvet" md="DMF-10"/>
   <fixture path="Chauvet-DMX-Mega-Strobe-III.qxf" mf="Chauvet" md="DMX Mega Strobe III"/>
@@ -329,6 +332,7 @@
   <fixture path="GLP-YPOCBasicColor.qxf" mf="GLP" md="YPOC Basic Color"/>
   <fixture path="GLP-YPOCColor.qxf" mf="GLP" md="YPOC Color"/>
   <fixture path="GLP-YPOCColor575.qxf" mf="GLP" md="YPOC Color 575"/>
+  <fixture path="GLX-Lighting-Power-LED-Beam-38-Narrow.qxf" mf="GLX Lighting" md="Power LED Beam 38 Narrow"/>
   <fixture path="Griven-Kolorado-2500.qxf" mf="Griven" md="Kolorado 2500"/>
   <fixture path="High-End-Systems-Studio-Command-1200.qxf" mf="High End Systems" md="Studio Command 1200"/>
   <fixture path="High-End-Systems-Technobeam.qxf" mf="High End Systems" md="Technobeam"/>
@@ -349,6 +353,7 @@
   <fixture path="JB-Systems-COB-4BAR.qxf" mf="JB Systems" md="COB-4BAR"/>
   <fixture path="JB-Systems-COB-Plano.qxf" mf="JB Systems" md="COB-PLANO"/>
   <fixture path="JB-Systems-Dynamo-250.qxf" mf="JB Systems" md="Dynamo 250"/>
+  <fixture path="JB-Systems-Dynaspot.qxf" mf="JB Systems" md="Dynaspot"/>
   <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
   <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
@@ -439,6 +444,7 @@
   <fixture path="NJD-Spectre.qxf" mf="NJD" md="Spectre"/>
   <fixture path="Optima-Lighting-PAR64-LED.qxf" mf="Optima Lighting" md="PAR64 LED"/>
   <fixture path="PixelRANGE-PixelPar-44.qxf" mf="PixelRANGE" md="PixelPar 44"/>
+  <fixture path="PR-Lighting-Pilot-575.qxf" mf="PR Lighting" md="Pilot 575"/>
   <fixture path="PR-Lighting-PR-5000-Spot.qxf" mf="PR Lighting" md="PR 5000 Spot"/>
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
   <fixture path="Pro-Lights-CromoSpot-150.qxf" mf="Pro-Lights" md="CromoSpot150"/>
@@ -533,6 +539,7 @@
   <fixture path="Stairville-AF-150.qxf" mf="Stairville" md="AF-150"/>
   <fixture path="Stairville-AF-40-DMX.qxf" mf="Stairville" md="AF-40 DMX"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
+  <fixture path="Stairville-DJ-Lase-150-RGY-MkII.qxf" mf="Stairville" md="DJ Lase 150-RGY MkII"/>
   <fixture path="Stairville-DJ-Lase-GR-140-RGY-MKII.qxf" mf="Stairville" md="DJ Lase GR-140 RGY MKII"/>
   <fixture path="Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf" mf="Stairville" md="HL-x9 Quad Color Flood 9x8W"/>
   <fixture path="Stairville-Hz-200-DMX.qxf" mf="Stairville" md="Hz-200 DMX"/>
