@@ -3,7 +3,12 @@
 # Translated languages (update these also to qlcplus.pro)
 languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 
-LRELEASE_BIN=`which lrelease`
+if [ -n "$1" ]; then
+    echo "Forcing the use of lrelease-$1"
+    LRELEASE_BIN=`which lrelease-$1`
+else
+    LRELEASE_BIN=`which lrelease`
+fi
 
 # if QTDIR has been defined, use those tools right away
 if [ -n "$QTDIR" ]; then
