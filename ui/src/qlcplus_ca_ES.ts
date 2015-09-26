@@ -1767,7 +1767,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="24"/>
         <source>Dump only non-zero values</source>
-        <translation>Bolcar només velors diferents de zero</translation>
+        <translation>Bolcar només valors diferents de zero</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="43"/>
@@ -4211,42 +4211,42 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="52"/>
         <source>Matrix end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color final de la matriu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="68"/>
         <source>Reset the end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir el color final</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="86"/>
         <source>Matrix start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color d&apos;inici de la matriu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de barreja</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="107"/>
         <source>Default (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Per defecte (HTP)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="112"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Màscara</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="117"/>
         <source>Additive</source>
-        <translation type="unfinished"></translation>
+        <translation>Additiu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Subtractive</source>
-        <translation type="unfinished"></translation>
+        <translation>Substractiu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="342"/>
