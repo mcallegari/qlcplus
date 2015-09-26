@@ -21,7 +21,7 @@
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>Multicast</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicast</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
@@ -31,7 +31,7 @@
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="62"/>
@@ -81,13 +81,14 @@
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP invàlida</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 no es una IP vàlida.
+Si us plau arreglar-ho abans de continuar.</translation>
     </message>
 </context>
 <context>
