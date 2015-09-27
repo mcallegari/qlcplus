@@ -109,7 +109,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    void run(); //thread run function
+    virtual void run(); //thread run function
 
     void stop();
 

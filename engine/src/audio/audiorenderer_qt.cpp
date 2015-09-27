@@ -46,7 +46,7 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
 {
     QSettings settings;
     QString devName = "";
-    QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultOutputDevice();
+    m_deviceInfo = QAudioDeviceInfo::defaultOutputDevice();
 
     QVariant var;
     if (m_device.isEmpty())
@@ -61,7 +61,7 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         {
             if (deviceInfo.deviceName() == devName)
             {
-                audioDevice = deviceInfo;
+                m_deviceInfo = deviceInfo;
                 break;
             }
         }
@@ -97,33 +97,12 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         return false;
     }
 
-    if (!audioDevice.isFormatSupported(m_format))
+    if (!m_deviceInfo.isFormatSupported(m_format))
     {
-        m_format = audioDevice.nearestFormat(m_format);
+        m_format = m_deviceInfo.nearestFormat(m_format);
         qWarning() << "Default format not supported - trying to use nearest" << m_format.sampleRate();
 
     }
-
-    m_audioOutput = new QAudioOutput(audioDevice, m_format, this);
-
-    if( m_audioOutput == NULL )
-    {
-        qWarning() << "Cannot open audio output stream from device" << audioDevice.deviceName();
-        return false;
-    }
-
-    m_audioOutput->setBufferSize(8192 * 8);
-    m_output = m_audioOutput->start();
-
-    if( m_audioOutput->error() != QAudio::NoError )
-    {
-        qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
-        return false;
-    }
-
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    m_output->write(QByteArray(2048, 0));
-#endif
 
     return true;
 }
@@ -204,4 +183,32 @@ void AudioRendererQt::suspend()
 void AudioRendererQt::resume()
 {
     m_audioOutput->resume();
+}
+
+void AudioRendererQt::run()
+{
+    if (m_audioOutput == NULL)
+    {
+        m_audioOutput = new QAudioOutput(m_deviceInfo, m_format);
+
+        if(m_audioOutput == NULL)
+        {
+            qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.deviceName();
+            return;
+        }
+
+        m_audioOutput->setBufferSize(8192 * 8);
+        m_output = m_audioOutput->start();
+
+        if(m_audioOutput->error() != QAudio::NoError)
+        {
+            qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
+            return;
+        }
+
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_output->write(QByteArray(2048, 0));
+#endif
+    }
+    AudioRenderer::run();
 }
