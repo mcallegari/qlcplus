@@ -269,6 +269,9 @@ void Audio::slotEndOfStream()
         m_decoder->seek(0);
     }
     Function::postRun(NULL, QList<Universe *>());
+
+    if (!stopped())
+        stop();
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -389,8 +392,6 @@ void Audio::preRun(MasterTimer* timer)
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
-    else
-        return; // avoid this function to even start
 
     Function::preRun(timer);
 }
