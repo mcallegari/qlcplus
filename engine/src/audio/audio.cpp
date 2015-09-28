@@ -410,8 +410,6 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer)
-    Q_UNUSED(universes)
     slotEndOfStream();
 
     Function::postRun(timer, universes);
