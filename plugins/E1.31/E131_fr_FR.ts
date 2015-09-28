@@ -21,27 +21,27 @@
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>Multicast</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicast</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Addresse IP</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="62"/>
         <source>E1.31 Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers E1.31</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="67"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de transmission</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="72"/>
@@ -81,13 +81,14 @@
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP invalide</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 n&apos;est pas une IP valide.
+Veuillez la corriger avant de valider.</translation>
     </message>
 </context>
 <context>
