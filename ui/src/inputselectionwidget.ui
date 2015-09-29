@@ -28,6 +28,12 @@
    </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="m_extInputGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>External Input</string>
      </property>
@@ -106,6 +112,12 @@
    </item>
    <item row="0" column="1">
     <widget class="QGroupBox" name="m_keyInputGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Key combination</string>
      </property>
@@ -131,7 +143,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="qlcui.qrc">
           <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
         </property>
         <property name="iconSize">
@@ -151,7 +163,7 @@
          <string notr="true">...</string>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="qlcui.qrc">
           <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
         </property>
         <property name="iconSize">
@@ -177,6 +189,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
+ </resources>
  <connections/>
 </ui>

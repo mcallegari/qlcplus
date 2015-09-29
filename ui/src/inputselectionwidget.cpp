@@ -61,6 +61,17 @@ void InputSelectionWidget::setWidgetPage(int page)
     m_widgetPage = page;
 }
 
+bool InputSelectionWidget::isAutoDetecting()
+{
+   return m_autoDetectInputButton->isChecked();
+}
+
+void InputSelectionWidget::stopAutoDetection()
+{
+    if(m_autoDetectInputButton->isChecked())
+        m_autoDetectInputButton->toggle();
+}
+
 void InputSelectionWidget::setKeySequence(const QKeySequence &keySequence)
 {
     m_keySequence = QKeySequence(keySequence);
@@ -113,6 +124,7 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
                    SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotInputValueChanged(quint32,quint32)));
     }
+    emit autoDetectToggled(checked);
 }
 
 void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 channel)

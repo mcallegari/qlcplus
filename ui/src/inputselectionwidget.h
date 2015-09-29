@@ -39,6 +39,8 @@ public:
     void setKeyInputVisibility(bool visible);
     void setTitle(QString title);
     void setWidgetPage(int page);
+    bool isAutoDetecting();
+    void stopAutoDetection();
 
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
@@ -53,6 +55,9 @@ protected slots:
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
+
+signals:
+    void autoDetectToggled(bool checked);
 
 protected:
     void updateInputSource();
