@@ -362,39 +362,39 @@
     <message>
         <location filename="editchannel.ui" line="194"/>
         <source>Capability Values</source>
-        <translation type="unfinished">Funktionswerte</translation>
+        <translation>Funktionswerte</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="242"/>
         <source>Min</source>
-        <translation type="unfinished">Min</translation>
+        <translation>Min</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="255"/>
         <source>Max</source>
-        <translation type="unfinished">Max</translation>
+        <translation>Max</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="278"/>
         <location filename="editchannel.cpp" line="184"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo (Maske)</translation>
+        <translation>Gobo (Maske)</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="315"/>
         <location filename="editchannel.ui" line="326"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="344"/>
         <source>Picture</source>
-        <translation type="unfinished">Bild</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="358"/>
         <source>Second Colour</source>
-        <translation type="unfinished">Zweite Farbe</translation>
+        <translation>Zweite Farbe</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="383"/>
@@ -456,12 +456,12 @@
     <message>
         <location filename="editchannel.cpp" line="86"/>
         <source>Edit Channel: </source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal bearbeiten: </translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="188"/>
         <source>Effect</source>
-        <translation type="unfinished">Effekt</translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="371"/>
@@ -471,12 +471,12 @@
     <message>
         <location filename="editchannel.cpp" line="417"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished">Öffne Gobo Datei</translation>
+        <translation>Öffne Gobo Datei</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="420"/>
         <source>Gobo pictures</source>
-        <translation type="unfinished">Gobo-Bilder</translation>
+        <translation>Gobo-Bilder</translation>
     </message>
     <message>
         <source>The capability&apos;s values overlap with another capability!</source>
