@@ -30,6 +30,9 @@ class SpeedDial;
 class VCSpeedDialFunction;
 class VCSpeedDialPreset;
 class FlowLayout;
+class QLabel;
+class QPushButton;
+class QToolButton;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -41,7 +44,14 @@ class FlowLayout;
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
+#define KXMLQLCVCSpeedDialMult "Mult"
+#define KXMLQLCVCSpeedDialDiv "Div"
+#define KXMLQLCVCSpeedDialMultDivReset "MultDivReset"
 #define KXMLQLCVCSpeedDialTapKey "Key"
+#define KXMLQLCVCSpeedDialMultKey "MultKey"
+#define KXMLQLCVCSpeedDialDivKey "DivKey"
+#define KXMLQLCVCSpeedDialMultDivResetKey "MultDivResetKey"
+#define KXMLQLCVCSpeedDialResetFactorOnDialChange "ResetFactorOnDialChange"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 #define KXMLQLCVCSpeedDialTime "Time"
 
@@ -55,8 +65,19 @@ class VCSpeedDial : public VCWidget
     Q_DISABLE_COPY(VCSpeedDial)
 
 public:
+    // 0xffff mask is used by SpeedDial.
+    // VCSpeedDial uses the 0xffff0000 mask.
+    enum Visibility
+    {
+        MultDiv    = 0x10000 << 0,
+        Apply      = 0x10000 << 1,
+    };
+
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
+    static const quint8 multInputSourceId;
+    static const quint8 divInputSourceId;
+    static const quint8 multDivResetInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -136,7 +157,7 @@ public:
 
 private slots:
     /** Catch dial value changes and patch them to controlled functions */
-    void slotDialValueChanged(int ms);
+    void slotDialValueChanged();
 
     /** Catch dial tap button clicks and patch them to controlled functions */
     void slotDialTapped();
@@ -144,7 +165,30 @@ private slots:
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
+    QWidget* m_multDivTopSpacer;
+    QToolButton* m_multButton;
+    QLabel* m_multDivLabel;
+    QToolButton* m_divButton;
+    QPushButton* m_multDivResetButton;
+    QLabel* m_multDivResultLabel;
+    QPushButton* m_applyButton;
     FlowLayout* m_presetsLayout;
+
+protected slots:
+    void slotMult();
+    void slotDiv();
+    void slotMultDivReset();
+    void slotMultDivChanged();
+    void slotFactoredValueChanged();
+
+private:
+    qint32 m_currentFactor;
+    qint32 m_factoredValue;
+    bool m_resetFactorOnDialChange;
+
+public:
+    void setResetFactorOnDialChange(bool value);
+    bool resetFactorOnDialChange() const;
 
     /*********************************************************************
      * External input
@@ -161,14 +205,23 @@ protected slots:
      * Tap & presets key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence& keySequence);
-    QKeySequence keySequence() const;
+    void setTapKeySequence(const QKeySequence& keySequence);
+    QKeySequence tapKeySequence() const;
+    void setMultKeySequence(const QKeySequence& keySequence);
+    QKeySequence multKeySequence() const;
+    void setDivKeySequence(const QKeySequence& keySequence);
+    QKeySequence divKeySequence() const;
+    void setMultDivResetKeySequence(const QKeySequence& keySequence);
+    QKeySequence multDivResetKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
+    QKeySequence m_multKeySequence;
+    QKeySequence m_divKeySequence;
+    QKeySequence m_multDivResetKeySequence;
 
     /************************************************************************
      * Absolute value range
@@ -179,22 +232,22 @@ public:
     uint absoluteValueMax() const;
 
 private:
-    uint m_absoluteValueMin;
-    uint m_absoluteValueMax;
+    quint32 m_absoluteValueMin;
+    quint32 m_absoluteValueMax;
 
     /*************************************************************************
      * Elements visibility
      *************************************************************************/
 public:
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask() const;
+    quint32 visibilityMask() const;
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */
-    void setVisibilityMask(ushort mask);
+    void setVisibilityMask(quint32 mask);
 
 private:
-    ushort m_visibilityMask;
+    quint32 m_visibilityMask;
 
     /*********************************************************************
      * Presets

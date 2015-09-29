@@ -37,6 +37,9 @@
 
 const quint8 VCSpeedDial::absoluteInputSourceId = 0;
 const quint8 VCSpeedDial::tapInputSourceId = 1;
+const quint8 VCSpeedDial::multInputSourceId = 2;
+const quint8 VCSpeedDial::divInputSourceId = 3;
+const quint8 VCSpeedDial::multDivResetInputSourceId = 4;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
 static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
@@ -49,21 +52,25 @@ static const QString presetBtnSS = "QPushButton { background-color: %1; height: 
 
 VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
-    , m_dial(NULL)
+    , m_currentFactor(1)
+    , m_resetFactorOnDialChange(false)
     , m_absoluteValueMin(0)
     , m_absoluteValueMax(1000 * 10)
 {
     setFrameStyle(KVCFrameStyleSunken);
 
     QVBoxLayout* vBox = new QVBoxLayout(this);
-    layout()->setMargin(0);
+    vBox->setMargin(0);
+
+    QHBoxLayout* speedDialHBox = new QHBoxLayout();
+    vBox->addLayout(speedDialHBox);
 
     m_dial = new SpeedDial(this);
-    layout()->addWidget(m_dial);
-    connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged(int)));
+    speedDialHBox->addWidget(m_dial);
+    connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged()));
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
 
-    setVisibilityMask(SpeedDial::defaultVisibilityMask() & ~SpeedDial::Infinite);
+    m_factoredValue = m_dial->value();
 
     setType(VCWidget::SpeedDialWidget);
     setCaption(tr("Duration"));
@@ -79,9 +86,53 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
+    // Mult and div
+    QVBoxLayout* multDivResetResultVBox = new QVBoxLayout();
+    m_multDivTopSpacer = new QLabel();
+    multDivResetResultVBox->addWidget(m_multDivTopSpacer);
+    QHBoxLayout* multDivResetHBox = new QHBoxLayout();
+    QVBoxLayout* multDivVBox = new QVBoxLayout();
+    m_multButton = new QToolButton();
+    // m_multButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_multButton->setIconSize(QSize(32, 32));
+    m_multButton->setIcon(QIcon(":/up.png"));
+    connect(m_multButton, SIGNAL(clicked()),
+            this, SLOT(slotMult()));
+    multDivVBox->addWidget(m_multButton, Qt::AlignVCenter | Qt::AlignLeft);
+    m_multDivLabel = new QLabel();
+    m_multDivLabel->setAlignment(Qt::AlignCenter);
+    m_multDivLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    multDivVBox->addWidget(m_multDivLabel, Qt::AlignVCenter | Qt::AlignLeft);
+    m_divButton = new QToolButton();
+    // m_divButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_divButton->setIconSize(QSize(32, 32));
+    m_divButton->setIcon(QIcon(":/down.png"));
+    connect(m_divButton, SIGNAL(clicked()),
+            this, SLOT(slotDiv()));
+    multDivVBox->addWidget(m_divButton, Qt::AlignVCenter | Qt::AlignLeft);
+    multDivResetHBox->addLayout(multDivVBox);
+    m_multDivResetButton = new QPushButton(tr("R\nE\nS\nE\nT"));
+    // m_multDivResetButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    connect(m_multDivResetButton, SIGNAL(clicked()),
+            this, SLOT(slotMultDivReset()));
+    multDivResetHBox->addWidget(m_multDivResetButton);
+    multDivResetResultVBox->addLayout(multDivResetHBox);
+    m_multDivResultLabel = new QLabel();
+    m_multDivResultLabel->setAlignment(Qt::AlignCenter);
+    m_multDivResultLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_multDivResultLabel->setBackgroundRole(QPalette::BrightText);
+    multDivResetResultVBox->addWidget(m_multDivResultLabel);
+    speedDialHBox->addLayout(multDivResetResultVBox);
+
+    // Update labels
+    slotMultDivChanged();
+
     // Presets
     m_presetsLayout = new FlowLayout(3);
     vBox->addLayout(m_presetsLayout);
+
+    // Don't show Infinite button: it's handled by presets
+    setVisibilityMask(SpeedDial::defaultVisibilityMask() & ~SpeedDial::Infinite);
 
     /* Update timer */
     m_updateTimer = new QTimer(this);
@@ -104,6 +155,11 @@ VCSpeedDial::~VCSpeedDial()
 void VCSpeedDial::enableWidgetUI(bool enable)
 {
     m_dial->setEnabled(enable);
+
+    // Mult and div
+    m_multButton->setEnabled(enable);
+    m_divButton->setEnabled(enable);
+    m_multDivResetButton->setEnabled(enable);
 
     // Presets enable
     foreach (QWidget *presetWidget, m_presets.keys())
@@ -141,6 +197,12 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
     setFunctions(dial->functions());
     setAbsoluteValueRange(dial->absoluteValueMin(), dial->absoluteValueMax());
     setVisibilityMask(dial->visibilityMask());
+    setResetFactorOnDialChange(dial->resetFactorOnDialChange());
+
+    setTapKeySequence(dial->tapKeySequence());
+    setMultKeySequence(dial->multKeySequence());
+    setDivKeySequence(dial->divKeySequence());
+    setMultDivResetKeySequence(dial->multDivResetKeySequence());
 
     resetPresets();
     foreach (VCSpeedDialPreset const* preset, dial->presets())
@@ -212,38 +274,15 @@ void VCSpeedDial::tap()
     m_dial->tap();
 }
 
-void VCSpeedDial::slotDialValueChanged(int ms)
+void VCSpeedDial::slotDialValueChanged()
 {
-    const QVector <quint32> multipliers = VCSpeedDialFunction::speedMultiplierValuesTimes1000();
+    // The (m_currentFactor != 1) test ensures that we don't call
+    // slotMultDivChanged() 2 times
+    if (m_resetFactorOnDialChange && m_currentFactor != 1)
+        slotMultDivReset();
+    else
+        slotMultDivChanged();
 
-    foreach (const VCSpeedDialFunction &speeddialfunction, m_functions)
-    {
-        Function* function = m_doc->function(speeddialfunction.functionId);
-        if (function != NULL)
-        {
-            if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
-            {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
-                else
-                    function->setFadeInSpeed(ms);
-            }
-            if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
-            {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
-                else
-                    function->setFadeOutSpeed(ms);
-            }
-            if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
-            {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
-                else
-                    function->setDuration(ms);
-            }
-        }
-    }
     updateFeedback();
     m_updateTimer->start(UPDATE_TIMEOUT);
 }
@@ -364,6 +403,123 @@ void VCSpeedDial::slotPresetClicked()
     }
 }
 
+void VCSpeedDial::slotMult()
+{
+    if (m_currentFactor == -2)
+    {
+        m_currentFactor = 1;
+        slotMultDivChanged();
+    }
+    else if (m_currentFactor > 0)
+    {
+        if (m_currentFactor < 2048)
+        {
+            m_currentFactor *= 2;
+            slotMultDivChanged();
+        }
+    }
+    else
+    {
+        m_currentFactor /= 2;
+        slotMultDivChanged();
+    }
+}
+
+void VCSpeedDial::slotDiv()
+{
+    if (m_currentFactor == 1)
+    {
+        m_currentFactor = -2;
+        slotMultDivChanged();
+    }
+    else if (m_currentFactor > 0)
+    {
+        m_currentFactor /= 2;
+        slotMultDivChanged();
+    }
+    else
+    {
+        if (m_currentFactor > -2048)
+        {
+            m_currentFactor *= 2;
+            slotMultDivChanged();
+        }
+    }
+}
+
+void VCSpeedDial::slotMultDivReset()
+{
+    if (m_currentFactor != 1)
+    {
+        m_currentFactor = 1;
+        slotMultDivChanged();
+    }
+}
+
+void VCSpeedDial::slotMultDivChanged()
+{
+    if (m_currentFactor > 0)
+    {
+        m_factoredValue = m_dial->value() * m_currentFactor;
+        m_multDivLabel->setText(QString("%1x").arg(m_currentFactor));
+    }
+    else
+    {
+        m_factoredValue = m_dial->value() / qAbs(m_currentFactor);
+        m_multDivLabel->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
+    }
+    m_multDivResultLabel->setText(Function::speedToString(m_factoredValue));
+
+    slotFactoredValueChanged();
+}
+
+void VCSpeedDial::slotFactoredValueChanged()
+{
+    const QVector<quint32> multipliers = VCSpeedDialFunction::speedMultiplierValuesTimes1000();
+
+    int ms = m_factoredValue;
+
+    foreach (const VCSpeedDialFunction &speeddialfunction, m_functions)
+    {
+        Function* function = m_doc->function(speeddialfunction.functionId);
+        if (function != NULL)
+        {
+            if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                else
+                    function->setFadeInSpeed(ms);
+            }
+            if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                else
+                    function->setFadeOutSpeed(ms);
+            }
+            if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
+            {
+                if ((uint)ms != Function::infiniteSpeed())
+                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                else
+                    function->setDuration(ms);
+            }
+        }
+    }
+}
+
+
+void VCSpeedDial::setResetFactorOnDialChange(bool value)
+{
+    m_resetFactorOnDialChange = value;
+}
+
+bool VCSpeedDial::resetFactorOnDialChange() const
+{
+    return m_resetFactorOnDialChange;
+}
+
 /*****************************************************************************
  * External input
  *****************************************************************************/
@@ -409,6 +565,13 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
         m_dial->setValue(ms, true);
     }
 
+    if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
+        slotMult();
+    if (checkInputSource(universe, pagedCh, value, sender(), divInputSourceId))
+        slotDiv();
+    if (checkInputSource(universe, pagedCh, value, sender(), multDivResetInputSourceId))
+        slotMultDivReset();
+
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
     {
@@ -429,14 +592,44 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
  * Tap key sequence handler
  *********************************************************************/
 
-void VCSpeedDial::setKeySequence(const QKeySequence& keySequence)
+void VCSpeedDial::setTapKeySequence(const QKeySequence& keySequence)
 {
     m_tapKeySequence = QKeySequence(keySequence);
 }
 
-QKeySequence VCSpeedDial::keySequence() const
+QKeySequence VCSpeedDial::tapKeySequence() const
 {
     return m_tapKeySequence;
+}
+
+void VCSpeedDial::setMultKeySequence(const QKeySequence& keySequence)
+{
+    m_multKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::multKeySequence() const
+{
+    return m_multKeySequence;
+}
+
+void VCSpeedDial::setDivKeySequence(const QKeySequence& keySequence)
+{
+    m_divKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::divKeySequence() const
+{
+    return m_divKeySequence;
+}
+
+void VCSpeedDial::setMultDivResetKeySequence(const QKeySequence& keySequence)
+{
+    m_multDivResetKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::multDivResetKeySequence() const
+{
+    return m_multDivResetKeySequence;
 }
 
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
@@ -446,6 +639,13 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 
     if (m_tapKeySequence == keySequence)
         m_dial->tap();
+
+    if (m_multKeySequence == keySequence)
+        slotMult();
+    if (m_divKeySequence == keySequence)
+        slotDiv();
+    if (m_multDivResetKeySequence == keySequence)
+        slotMultDivReset();
 
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -480,15 +680,35 @@ uint VCSpeedDial::absoluteValueMax() const
     return m_absoluteValueMax;
 }
 
-ushort VCSpeedDial::visibilityMask() const
+quint32 VCSpeedDial::visibilityMask() const
 {
     return m_visibilityMask;
 }
 
-void VCSpeedDial::setVisibilityMask(ushort mask)
+void VCSpeedDial::setVisibilityMask(quint32 mask)
 {
     if (m_dial != NULL)
         m_dial->setVisibilityMask(mask);
+
+    if (mask & MultDiv)
+    {
+        m_multDivTopSpacer->show();
+        m_multButton->show();
+        m_multDivLabel->show();
+        m_divButton->show();
+        m_multDivResetButton->show();
+        m_multDivResultLabel->show();
+    }
+    else
+    {
+        m_multDivTopSpacer->hide();
+        m_multButton->hide();
+        m_multDivLabel->hide();
+        m_divButton->hide();
+        m_multDivResetButton->hide();
+        m_multDivResultLabel->hide();
+    }
+
     m_visibilityMask = mask;
 }
 
@@ -602,9 +822,92 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 sub = sub.nextSibling();
             }
         }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialResetFactorOnDialChange)
+        {
+            // Reset factor on dial change
+            setResetFactorOnDialChange(tag.text() == KXMLQLCTrue);
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialMult)
+        {
+            // Input
+            QDomNode sub = node.firstChild();
+            while (sub.isNull() == false)
+            {
+                QDomElement subtag = sub.toElement();
+                if (subtag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = QLCInputSource::invalidUniverse;
+                    quint32 ch = QLCInputSource::invalidChannel;
+                    if (loadXMLInput(subtag, &uni, &ch) == true)
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), multInputSourceId);
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown mult tag:" << tag.tagName();
+                }
+
+                sub = sub.nextSibling();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialDiv)
+        {
+            // Input
+            QDomNode sub = node.firstChild();
+            while (sub.isNull() == false)
+            {
+                QDomElement subtag = sub.toElement();
+                if (subtag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = QLCInputSource::invalidUniverse;
+                    quint32 ch = QLCInputSource::invalidChannel;
+                    if (loadXMLInput(subtag, &uni, &ch) == true)
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), divInputSourceId);
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown div tag:" << tag.tagName();
+                }
+
+                sub = sub.nextSibling();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialMultDivReset)
+        {
+            // Input
+            QDomNode sub = node.firstChild();
+            while (sub.isNull() == false)
+            {
+                QDomElement subtag = sub.toElement();
+                if (subtag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = QLCInputSource::invalidUniverse;
+                    quint32 ch = QLCInputSource::invalidChannel;
+                    if (loadXMLInput(subtag, &uni, &ch) == true)
+                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), multDivResetInputSourceId);
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown multdiv reset tag:" << tag.tagName();
+                }
+
+                sub = sub.nextSibling();
+            }
+        }
         else if (tag.tagName() == KXMLQLCVCSpeedDialTapKey)
         {
-            setKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setTapKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialMultKey)
+        {
+            setMultKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialDivKey)
+        {
+            setDivKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialMultDivResetKey)
+        {
+            setMultDivResetKeySequence(stripKeySequence(QKeySequence(tag.text())));
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialInfinite)
         {
@@ -660,7 +963,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialVisibilityMask)
         {
-            ushort mask = tag.text().toUShort();
+            quint32 mask = tag.text().toUInt();
 
             // legacy: infinite checkbox
             if (mask & SpeedDial::Infinite)
@@ -737,18 +1040,69 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tap, inputSource(tapInputSourceId));
     root.appendChild(tap);
 
+    // MultDiv options
+    if (m_resetFactorOnDialChange)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialResetFactorOnDialChange);
+        QDomText text = doc->createTextNode(KXMLQLCTrue);
+        tag.appendChild(text);
+        root.appendChild(tag);
+    }
+
+    /* Mult input */
+    QDomElement mult = doc->createElement(KXMLQLCVCSpeedDialMult);
+    saveXMLInput(doc, &mult, inputSource(multInputSourceId));
+    root.appendChild(mult);
+
+    /* Div input */
+    QDomElement div = doc->createElement(KXMLQLCVCSpeedDialDiv);
+    saveXMLInput(doc, &div, inputSource(divInputSourceId));
+    root.appendChild(div);
+
+    /* MultDiv Reset input */
+    QDomElement multDivReset = doc->createElement(KXMLQLCVCSpeedDialMultDivReset);
+    saveXMLInput(doc, &multDivReset, inputSource(multDivResetInputSourceId));
+    root.appendChild(multDivReset);
+
     /* Save time */
     QDomElement time = doc->createElement(KXMLQLCVCSpeedDialTime);
     root.appendChild(time);
     QDomText text = doc->createTextNode(QString::number(m_dial->value()));
     time.appendChild(text);
 
-    /* Key sequence */
+    /* Tap key sequence */
     if (m_tapKeySequence.isEmpty() == false)
     {
         QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialTapKey);
         root.appendChild(tag);
         QDomText text = doc->createTextNode(m_tapKeySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* Mult key sequence */
+    if (m_multKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialMultKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_multKeySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* Div key sequence */
+    if (m_divKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialDivKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_divKeySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* MultDiv Reset key sequence */
+    if (m_multDivResetKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialMultDivResetKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_multDivResetKeySequence.toString());
         tag.appendChild(text);
     }
 
