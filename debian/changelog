@@ -3,6 +3,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Channel Groups: Fix crashes related to invalid channels (David Garyga)
   * Chaser: Fix flickering issue when chaser order is Random (David Garyga)
   * Engine: some more fixes for forced HTP/LTP channels
+  * Engine: fixed 4.9.x regression causing QLC+ to hang at the end of audio playback
   * Add Fixture dialog: Generic fixtures don't take the number of channels of the previously selected fixture (David Garyga)
   * Add Fixture dialog: Fix address 512 not usable by adding several fixtures at a time (David Garyga)
   * Show Manager: Fix some cursor teleportation issues (David Garyga)
@@ -40,6 +41,7 @@ qlcplus (4.10.0) stable; urgency=low
   * New fixtures: Contest MiniCube-6TCb, Eurolite LED FE-1500, Lightronics FXLD618C2I, JB Systems COB-4BAR (thanks to Robert Box)
   * New fixtures: Eurolite LED KLS-401, Chauvet Intimidator Wash Zoom 350 IRC, Equinox Party Par LED PAR 56 (thanks to Robert Box)
   * New fixtures: Robe Robin MiniMe, PR Lighting Pilot 575, Stairville DJ Lase 150-RGY MkII, JB Systems Dynaspot (thanks to Robert Box)
+  * New fixture: American DJ Hyper Gem LED (thanks to Robert Box)
   * New fixtures: Chauvet Intimidator Wave 360 IRC, Varytec LED PAR56 (thanks to Habefaro)
   * New fixture: American DJ Fog Fury Jett (thanks to Dean Clough)
   * New fixtures: Eurolite TB-250, Futurelight DJ-HEAD 575 SPOT, GLX Lighting Power LED Beam 38 Narrow (thanks to Ovidijus Cepukas)
