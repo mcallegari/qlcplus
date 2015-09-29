@@ -25,14 +25,9 @@
 #include <QList>
 
 #include "ui_vccuelistproperties.h"
-#include "qlcinputsource.h"
 
 class InputSelectionWidget;
-class MasterTimer;
 class VCCueList;
-class OutputMap;
-class InputMap;
-class Function;
 class Doc;
 
 /** @addtogroup ui_vc_props

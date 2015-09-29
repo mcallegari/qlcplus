@@ -17,21 +17,11 @@
   limitations under the License.
 */
 
-#include <QTreeWidgetItem>
-#include <QTreeWidget>
-#include <QHeaderView>
-#include <QDebug>
-
 #include "vccuelistproperties.h"
 #include "inputselectionwidget.h"
 #include "functionselection.h"
 #include "vccuelist.h"
-#include "qlcmacros.h"
 #include "doc.h"
-
-#define KColumnNumber 0
-#define KColumnName   1
-#define KColumnID     2
 
 VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     : QDialog(cueList)
