@@ -27,6 +27,11 @@ RequestExecutionLevel user
 !insertmacro MUI_LANGUAGE "German"
 !insertmacro MUI_LANGUAGE "Spanish"
 !insertmacro MUI_LANGUAGE "SpanishInternational"
+!insertmacro MUI_LANGUAGE "Czech"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "Finnish"
+!insertmacro MUI_LANGUAGE "Japanese"
+!insertmacro MUI_LANGUAGE "Catalan"
 
 !define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
 

@@ -81,6 +81,7 @@ HEADERS += aboutbox.h \
            inputoutputmanager.h \
            inputoutputpatcheditor.h \
            inputprofileeditor.h \
+           inputselectionwidget.h \
            knobwidget.h \
            palettegenerator.h \
            playbackslider.h \
@@ -181,6 +182,7 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         inputselectionwidget.ui \
          monitor/monitorbackgroundselection.ui \
          monitor/monitorfixturepropertieseditor.ui \
          positiontool.ui \
@@ -252,6 +254,7 @@ SOURCES += aboutbox.cpp \
            inputoutputmanager.cpp \
            inputoutputpatcheditor.cpp \
            inputprofileeditor.cpp \
+           inputselectionwidget.cpp \
            knobwidget.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \

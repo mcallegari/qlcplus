@@ -1701,7 +1701,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="consolechannel.cpp" line="306"/>
         <source>Reset this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Kanal zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -2065,7 +2065,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.ui" line="173"/>
         <source>Mode</source>
-        <translation type="unfinished">Modus</translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="403"/>
@@ -2075,7 +2075,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.ui" line="533"/>
         <source>Color Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrundfarbe</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="543"/>
@@ -3364,22 +3364,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="254"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguration</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="260"/>
         <source>Sample Rate (Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abtastrate (Hz)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="267"/>
         <source>Channels</source>
-        <translation type="unfinished">Kanäle</translation>
+        <translation>Kanäle</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="274"/>
         <source>Level Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Level Monitor</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
@@ -4241,42 +4241,42 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="52"/>
         <source>Matrix end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Endfarbe</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="68"/>
         <source>Reset the end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Endfarbe zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="86"/>
         <source>Matrix start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Startfarbe</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Übergangsmodus</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="107"/>
         <source>Default (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard (HTP)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="112"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maske</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="117"/>
         <source>Additive</source>
-        <translation type="unfinished"></translation>
+        <translation>Additiv</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Subtractive</source>
-        <translation type="unfinished"></translation>
+        <translation>Subtraktiv</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="342"/>
@@ -5164,7 +5164,7 @@ Dauer: %3
     <message>
         <location filename="speeddial.cpp" line="163"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <location filename="speeddial.cpp" line="178"/>
@@ -5783,27 +5783,27 @@ Dauer: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="108"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="115"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation type="unfinished"></translation>
+        <translation>Verhalten der &quot;Nächster/Voriger&quot;-Knöpfe wenn der Chaser nicht aktiv ist</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaser vom ersten/letzen Schritt starten (Standard)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <source>Run chaser from next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaser vom nächsten/vorigen Schritt starten</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
         <source>Select next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächsten/Vorigen Schritt auswählen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Nichts unternehmen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="200"/>
@@ -5829,12 +5829,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
         <source>Side Sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten-Schieberegler</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Verhalten</translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="624"/>
@@ -5844,7 +5844,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="634"/>
         <source>Steps</source>
-        <translation type="unfinished">Schritte</translation>
+        <translation>Schritte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="644"/>
@@ -7125,7 +7125,7 @@ Dauer: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In factor</source>
         <oldsource>Fade In *</oldsource>
-        <translation type="unfinished">Einblenden *</translation>
+        <translation>Einblend-Faktor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
@@ -7136,7 +7136,7 @@ Dauer: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out factor</source>
         <oldsource>Fade Out *</oldsource>
-        <translation type="unfinished">Ausblenden *</translation>
+        <translation>Ausblend-Faktor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
@@ -7147,7 +7147,7 @@ Dauer: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration factor (+tap)</source>
         <oldsource>Duration * (+tap)</oldsource>
-        <translation type="unfinished">Dauer * (+tap)</translation>
+        <translation>Zeitdauer-Faktor (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
@@ -7246,82 +7246,82 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="488"/>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingangs-Kanal im Eingangsuniversum, der Daten an diesen Voreinstellungsknopf sendet</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="531"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle ein externes Eingangsuniversum- und Kanal, auf das dieser Voreinstellungsknopf reagieren soll</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn aktiv kann ein externer Regler/Schalter betätigt werden um ihn diesem Voreinstellungsknopf zuzuweisen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="554"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Eingangsuniversum, auf das dieser Voreinstellungsknopf reagiert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
         <source>Input channel</source>
-        <translation type="unfinished">Eingangskanal</translation>
+        <translation>Eingangskanal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
         <source>Input universe</source>
-        <translation type="unfinished">Eingangsuniversum</translation>
+        <translation>Eingangsuniversum</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="581"/>
         <source> Add preset</source>
-        <translation type="unfinished"> Einstellung hinzufügen</translation>
+        <translation> Einstellung hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
         <source> Remove</source>
-        <translation type="unfinished"> Entfernen</translation>
+        <translation> Entfernen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="603"/>
         <source>Show preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Voreinstellungs anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="610"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Voreinstellung</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="642"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination des Voreinstellungsknopfes</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="662"/>
         <source>Set a key combination for this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze eine Tastenkombination für diesen Voreinstellungsknopf</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="682"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination die diesen Voreinstellungsknopf umschaltet</translation>
     </message>
     <message>
         <source>Infinite</source>
@@ -7352,7 +7352,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="404"/>
         <source>Show multiplier and divisor buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikations- und Divisionsknöpfe anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="411"/>
@@ -7367,7 +7367,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="425"/>
         <source>Show the apply button</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf zum Anwenden anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
@@ -7449,7 +7449,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Clock</source>
-        <translation type="unfinished">Uhr</translation>
+        <translation>Uhr</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="156"/>

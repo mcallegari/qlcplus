@@ -84,7 +84,7 @@ docs.files = \
 imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
 imgs.files += images/blending.png \
               images/channelmodifier.png \
-              images/e131_configure_input_universe.png \
+              images/e131_configuration.png \
               images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
