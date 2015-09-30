@@ -2,6 +2,7 @@
 Type=Application
 Name=QLC+ Fixture Editor
 GenericName=Edit fixtures
+GenericName[cz]=Editor definicí zařízení
 GenericName[de]=Gerätedefinitionen bearbeiten
 GenericName[fi]=Muokkaa valaisimia
 GenericName[fr]=Edition des Projecteurs
