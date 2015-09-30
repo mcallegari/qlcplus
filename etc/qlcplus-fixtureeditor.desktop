@@ -9,6 +9,7 @@ GenericName[fr]=Edition des Projecteurs
 GenericName[it]=Editor di Fixture
 GenericName[nl]=Bewerker voor armaturen
 GenericName[es]=Editor de Fixtures
+GenericName[ca]=Editor de Fixtures
 Exec=qlcplus-fixtureeditor --open %f
 Icon=qlcplus-fixtureeditor
 MimeType=application/x-qlc-fixture;

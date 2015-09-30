@@ -9,6 +9,7 @@ GenericName[fr]=Controlleur d'éclairages
 GenericName[it]=Controllore di luci
 GenericName[nl]=Lichtregeling
 GenericName[es]=Controlador de iluminación
+GenericName[ca]=Controlador d'iluminació
 Exec=qlcplus --open %f
 Icon=qlcplus
 MimeType=application/x-qlc-workspace;

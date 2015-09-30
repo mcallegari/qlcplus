@@ -14,6 +14,7 @@
 		<comment xml:lang="it">Spazio di lavoro QLC+</comment>
 		<comment xml:lang="nl">QLC+ werkruimte</comment>
 		<comment xml:lang="es">Espacio de trabajo QLC+</comment>
+		<comment xml:lang="ca">Espai de treball QLC+</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-fixture">
 		<sub-class-of type="application/xml"/>
@@ -29,6 +30,7 @@
 		<comment xml:lang="it">Definizione di Fixture QLC+</comment>
 		<comment xml:lang="nl">QLC+ armatuur definitie</comment>
 		<comment xml:lang="es">Definición de fixture QLC+</comment>
+		<comment xml:lang="ca">Definició de fixture QLC+</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-inputprofile">
 		<sub-class-of type="application/xml"/>
@@ -44,6 +46,7 @@
 		<comment xml:lang="it">Profilo di input QLC+</comment>
 		<comment xml:lang="nl">QLC+ invoerprofiel</comment>
 		<comment xml:lang="es">Perfil de Entrada QLC+</comment>
+		<comment xml:lang="ca">Perfil d'Entrada QLC+</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-miditemplate">
 		<sub-class-of type="application/xml"/>
@@ -54,6 +57,7 @@
 		<comment xml:lang="cz">QLC+ MIDI šablona</comment>
 		<comment xml:lang="en">QLC+ MIDI template</comment>
 		<comment xml:lang="es">Plantilla MIDI QLC+</comment>
+		<comment xml:lang="ca">Plantilla MIDI QLC+</comment>
 	</mime-type>
 	<mime-type type="application/x-qlc-channelmodifier">
 		<sub-class-of type="application/xml"/>
@@ -64,5 +68,6 @@
 		<comment xml:lang="cz">QLC+ šablona modifikátoru kanálu</comment>
 		<comment xml:lang="en">QLC+ channel modifier template</comment>
 		<comment xml:lang="es">Plantilla de Modificadores de Canal QLC+</comment>
+		<comment xml:lang="ca">Plantilla de Modificadors de Canal QLC+</comment>
 	</mime-type>
 </mime-info>
