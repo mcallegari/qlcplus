@@ -27,6 +27,8 @@
 #include <QList>
 #include <QHash>
 
+#include "scenevalue.h"
+
 class FixtureGroup;
 class RGBMatrix;
 class Fixture;
@@ -116,16 +118,16 @@ public:
     void addToDoc();
 
 private:
-    void createColorScene(QHash<quint32, quint32> chMap, QString name, PaletteSubType subType);
+    void createColorScene(QList<SceneValue> chMap, QString name, PaletteSubType subType);
 
-    void createRGBCMYScene(QHash<quint32, quint32> rcMap,
-                            QHash<quint32, quint32> gmMap,
-                            QHash<quint32, quint32> byMap,
-                            QString name, bool rgb, PaletteSubType subType);
+    void createRGBCMYScene(QList<SceneValue> rcMap,
+                           QList<SceneValue> gmMap,
+                           QList<SceneValue> byMap,
+                           QString name, bool rgb, PaletteSubType subType);
 
     void createCapabilityScene(QHash<quint32, quint32> chMap, PaletteSubType subType);
 
-    void createRGBMatrices(QHash<quint32, quint32> rgbMap);
+    void createRGBMatrices(QList<SceneValue> rgbMap);
 
     void createChaser(QString name);
 

@@ -24,6 +24,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Scene Editor: correctly select the fixture tab when switching from tabbed/all channels view
   * EFX Editor: it is now possible to use an EFX on RGB channels (thanks to Giorgio Rebecchi)
   * Collection Editor: added preview button (thanks to Giorgio Rebecchi)
+  * Function Wizard: improved creation of color scenes for RGB panels
   * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
   * Plugins/MIDI: fixed Program Change handling on OSX and Windows
   * Plugins/MIDI: (Windows) do not close the device when sending SysEx data
