@@ -268,7 +268,8 @@ void Audio::slotEndOfStream()
         m_audio_out = NULL;
         m_decoder->seek(0);
     }
-    Function::postRun(NULL, QList<Universe *>());
+    if (!stopped())
+        stop();
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -377,10 +378,10 @@ void Audio::preRun(MasterTimer* timer)
  #else
         m_audio_out = new AudioRendererAlsa(m_audioDevice);
  #endif
+        m_audio_out->moveToThread(QCoreApplication::instance()->thread());
 #else
         m_audio_out = new AudioRendererQt(m_audioDevice);
 #endif
-        m_audio_out->moveToThread(QCoreApplication::instance()->thread());
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->setFadeIn(fadeInSpeed());
@@ -389,8 +390,6 @@ void Audio::preRun(MasterTimer* timer)
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
-    else
-        return; // avoid this function to even start
 
     Function::preRun(timer);
 }
@@ -411,7 +410,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer)
-    Q_UNUSED(universes)
     slotEndOfStream();
+
+    Function::postRun(timer, universes);
 }

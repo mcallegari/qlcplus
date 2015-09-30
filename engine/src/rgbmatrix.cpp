@@ -503,8 +503,14 @@ void RGBMatrix::preRun(MasterTimer* timer)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
 
         m_group = doc()->fixtureGroup(m_fixtureGroupID);
+        if (m_group == NULL)
+        {
+            // No fixture group to control
+            stop();
+            return;
+        }
 
-        if (m_group != NULL && m_algorithm != NULL)
+        if (m_algorithm != NULL)
         {
             Q_ASSERT(m_fader == NULL);
             m_fader = new GenericFader(doc());
@@ -593,41 +599,44 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
 void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
-    QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
-    while (it.hasNext() == true)
+    if (m_fader != NULL)
     {
-        it.next();
-        FadeChannel fc = it.value();
-        // fade out only intensity channels
-        if (fc.group(doc()) != QLCChannel::Intensity)
-            continue;
-
-        bool canFade = true;
-        Fixture *fixture = doc()->fixture(fc.fixture());
-        if (fixture != NULL)
-            canFade = fixture->channelCanFade(fc.channel());
-        fc.setStart(fc.current(getAttributeValue(Intensity)));
-
-        fc.setElapsed(0);
-        fc.setReady(false);
-        if (canFade == false)
+        QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
+        while (it.hasNext() == true)
         {
-            fc.setFadeTime(0);
-            fc.setTarget(fc.current(getAttributeValue(Intensity)));
-        }
-        else
-        {
-            if (overrideFadeOutSpeed() == defaultSpeed())
-                fc.setFadeTime(fadeOutSpeed());
+            it.next();
+            FadeChannel fc = it.value();
+            // fade out only intensity channels
+            if (fc.group(doc()) != QLCChannel::Intensity)
+                continue;
+
+            bool canFade = true;
+            Fixture *fixture = doc()->fixture(fc.fixture());
+            if (fixture != NULL)
+                canFade = fixture->channelCanFade(fc.channel());
+            fc.setStart(fc.current(getAttributeValue(Intensity)));
+
+            fc.setElapsed(0);
+            fc.setReady(false);
+            if (canFade == false)
+            {
+                fc.setFadeTime(0);
+                fc.setTarget(fc.current(getAttributeValue(Intensity)));
+            }
             else
-                fc.setFadeTime(overrideFadeOutSpeed());
-            fc.setTarget(0);
+            {
+                if (overrideFadeOutSpeed() == defaultSpeed())
+                    fc.setFadeTime(fadeOutSpeed());
+                else
+                    fc.setFadeTime(overrideFadeOutSpeed());
+                fc.setTarget(0);
+            }
+            timer->faderAdd(fc);
         }
-        timer->faderAdd(fc);
-    }
 
-    delete m_fader;
-    m_fader = NULL;
+        delete m_fader;
+        m_fader = NULL;
+    }
 
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);

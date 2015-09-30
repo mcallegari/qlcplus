@@ -33,11 +33,19 @@ To access it, run the "regedit" tool and search for the key named "qlcplus".<br>
 
 <H2>Mac OSX</H2>
 <P>
-Configuration files are located in your user $HOME directory, in the Library/Preferences folder.<br>
+Configuration files are located in your user $HOME directory, in the Library/Preferences folder,
+which is by default hidden by OSX.<br>
 Here's the quick command to access it from a terminal:<br>
 <code>cd $HOME/Library/Preferences</code><br>
-QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</code> while the Fixture editor 
-configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>.<br>
+The QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</code> while the Fixture editor 
+configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>.<br><br>
+<B>Please note that preferences are cached !</B> Basically OSX loads all the plist files in memory at boot, 
+and if you change them manually it will ignore the changes. Even worse, periodically it refreshes the files, 
+so it overwrites your changes.<br>
+The solution is, after changing a .plist file, open a terminal and type this:<br>
+<code>killall -u yourusername cfprefsd</code><br>
+Where <code>yourusername</code> is the name of the user you use to access your Mac. The command forces OSX
+to reload the preferences, including your changes.
 </P>
 
 <H1 id="reset">2 Configuration Reset</H1>
@@ -76,8 +84,10 @@ included in every Windows version. They are presented as follows:
 Parameters are stored in a plain text file that you can modify with a plain text 
 editor like <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a> or similar. They are presented as follows:
 <PRE>
-    &lt;key&gt;category/name&lt;/key&gt;
-    &lt;string&gt;value&lt;/string&gt;
+    &lt;key&gt;category.name&lt;/key&gt;
+    &lt;string&gt;value&lt;/string&gt; 
+    or 
+    &lt;integer&gt;42&lt;/integer&gt;
 </PRE>
 </P>
 
