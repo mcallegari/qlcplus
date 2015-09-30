@@ -23,9 +23,11 @@ if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
     echo "We're on OSX. Any prefix needed ?"
   fi
 else
-  XPID=`pidof X`
-  if [ ${#XPID} -gt 0 ]; then
-    HAS_XSERVER="1"
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    XPID=`pidof X`
+    if [ ${#XPID} -gt 0 ]; then
+      HAS_XSERVER="1"
+    fi
   fi
 fi
 
