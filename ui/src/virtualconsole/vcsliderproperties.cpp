@@ -29,16 +29,12 @@
 #include <QSpinBox>
 #include <QLabel>
 
-#include "qlcinputprofile.h"
-#include "qlcinputchannel.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
 
+#include "inputselectionwidget.h"
 #include "vcsliderproperties.h"
-#include "selectinputchannel.h"
 #include "functionselection.h"
-#include "mastertimer.h"
-#include "inputpatch.h"
 #include "vcslider.h"
 #include "fixture.h"
 #include "doc.h"
@@ -145,13 +141,13 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /********************************************************************
      * External input
      ********************************************************************/
-    m_inputSource = m_slider->inputSource();
-    updateInputSource();
 
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectInputToggled(bool)));
-    connect(m_chooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseInputClicked()));
+    m_inputSelWidget = new InputSelectionWidget(m_doc, this);
+    m_inputSelWidget->setKeyInputVisibility(false);
+    m_inputSelWidget->setInputSource(m_slider->inputSource());
+    m_inputSelWidget->setWidgetPage(m_slider->page());
+    m_inputSelWidget->show();
+    m_extControlLayout->addWidget(m_inputSelWidget);
 
     /*********************************************************************
      * Level page
@@ -179,8 +175,6 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Function */
     m_playbackFunctionId = m_slider->playbackFunction();
     updatePlaybackFunctionName();
-
-
 }
 
 VCSliderProperties::~VCSliderProperties()
@@ -250,51 +244,6 @@ void VCSliderProperties::slotModeSubmasterClicked()
     setLevelPageVisibility(false);
     setPlaybackPageVisibility(false);
     setSubmasterPageVisibility(true);
-}
-
-void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCSliderProperties::slotInputValueChanged(quint32 universe, quint32 channel)
-{
-    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_slider->page() << 16) | channel));
-    updateInputSource();
-}
-
-void VCSliderProperties::slotChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updateInputSource();
-    }
-}
-
-void VCSliderProperties::updateInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
-    {
-        uniName = KInputNone;
-        chName = KInputNone;
-    }
-
-    m_inputUniverseEdit->setText(uniName);
-    m_inputChannelEdit->setText(chName);
 }
 
 void VCSliderProperties::setLevelPageVisibility(bool visible)
@@ -902,7 +851,7 @@ void VCSliderProperties::accept()
         m_slider->setInvertedAppearance(true);
 
     /* External input */
-    m_slider->setInputSource(m_inputSource);
+    m_slider->setInputSource(m_inputSelWidget->inputSource());
 
     /* Close dialog */
     QDialog::accept();

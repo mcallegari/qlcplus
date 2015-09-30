@@ -23,14 +23,11 @@
 #include <QDialog>
 
 #include "ui_vcsliderproperties.h"
-#include "qlcinputsource.h"
 
+class InputSelectionWidget;
 class QTreeWidgetItem;
 class QLCCapability;
-class MasterTimer;
 class QLCChannel;
-class OutputMap;
-class InputMap;
 class VCSlider;
 class Fixture;
 class Doc;
@@ -50,9 +47,6 @@ public:
 
 private:
     Doc* m_doc;
-    OutputMap* m_outputMap;
-    InputMap* m_inputMap;
-    MasterTimer* m_masterTimer;
 
     /*********************************************************************
      * General page
@@ -62,19 +56,14 @@ protected slots:
     void slotModePlaybackClicked();
     void slotModeSubmasterClicked();
 
-    void slotAutoDetectInputToggled(bool checked);
-    void slotInputValueChanged(quint32 universe, quint32 channel);
-    void slotChooseInputClicked();
-
 protected:
-    void updateInputSource();
     void setLevelPageVisibility(bool visible);
     void setPlaybackPageVisibility(bool visible);
     void setSubmasterPageVisibility(bool visible);
 
 protected:
-    QSharedPointer<QLCInputSource> m_inputSource;
     int m_sliderMode;
+    InputSelectionWidget *m_inputSelWidget;
 
     /*********************************************************************
      * Level page
