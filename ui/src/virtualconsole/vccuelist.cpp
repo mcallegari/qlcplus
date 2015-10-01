@@ -853,7 +853,7 @@ void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
     if (mode == Steps)
     {
         m_slider1->setMaximum(255);
-        m_slider1->setValue(0);
+        m_slider1->setValue(255);
     }
     else
     {
@@ -924,6 +924,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
 {
     if (slidersMode() == Steps)
     {
+        value = 255 - value;
         m_sl1TopLabel->setText(QString("%1").arg(value));
         Chaser* ch = chaser();
         if (ch == NULL || ch->stopped())
@@ -931,10 +932,11 @@ void VCCueList::slotSlider1ValueChanged(int value)
         int newStep = value; // by default we assume the Chaser has more than 256 steps
         if (ch->stepsCount() < 256)
         {
-            if(value == UCHAR_MAX)
+            float stepSize = 255.0 / (float)ch->stepsCount();
+            if(value >= 255.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
-                newStep = qFloor(value / (UCHAR_MAX / ch->stepsCount()));
+                newStep = qFloor((float)value / stepSize);
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
