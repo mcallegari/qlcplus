@@ -719,16 +719,19 @@ void FixtureRemap::accept()
                 }
                 // this is crucial: here all the "unmapped" fixtures will be lost forever !
                 e->removeAllFixtures();
+                QList<quint32>remappedFixtures;
 
                 foreach( EFXFixture *efxFix, fixListCopy)
                 {
                     quint32 fxID = efxFix->head().fxi;
                     for (int i = 0; i < sourceList.count(); i++)
                     {
-                        SceneValue val = sourceList.at(i);
-                        if (val.fxi == fxID)
+                        SceneValue srcVal = sourceList.at(i);
+                        SceneValue tgtVal = targetList.at(i);
+                        // check for fixture ID match. EFX remapping must be performed
+                        // just once for each target fixture
+                        if (srcVal.fxi == fxID && remappedFixtures.contains(tgtVal.fxi) == false)
                         {
-                            SceneValue tgtVal = targetList.at(i);
                             Fixture *docFix = m_doc->fixture(tgtVal.fxi);
                             quint32 fxCh = tgtVal.channel;
                             const QLCChannel *chan = docFix->channel(fxCh);
@@ -737,10 +740,11 @@ void FixtureRemap::accept()
                             {
                                 EFXFixture* ef = new EFXFixture(e);
                                 ef->copyFrom(efxFix);
-                                ef->setHead(GroupHead(tgtVal.fxi)); // TODO!!! head!!!
+                                ef->setHead(GroupHead(tgtVal.fxi, 0)); // TODO!!! head!!!
                                 if (e->addFixture(ef) == false)
                                     delete ef;
-                                qDebug() << "EFX remap" << val.fxi << "to" << tgtVal.fxi;
+                                qDebug() << "EFX remap" << srcVal.fxi << "to" << tgtVal.fxi;
+                                remappedFixtures.append(tgtVal.fxi);
                             }
                         }
                     }

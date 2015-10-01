@@ -480,7 +480,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     else
         item->setCheckState(KColumnReverse, Qt::Unchecked);
 
-    updateModeColumn (item, ef);
+    updateModeColumn(item, ef);
     updateIntensityColumn(item, ef);
     updateStartOffsetColumn(item, ef);
 
@@ -499,12 +499,12 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
     if (m_tree->itemWidget(item, KColumnMode) == NULL)
     {
         QComboBox* combo = new QComboBox(m_tree);
-        combo->setAutoFillBackground (true);
+        combo->setAutoFillBackground(true);
 
-        combo->addItems (ef->modeList ());
+        combo->addItems(ef->modeList());
 
-        const int index = combo->findText ( ef->modeToString (ef->mode ()) );
-        combo->setCurrentIndex (index);
+        const int index = combo->findText(ef->modeToString(ef->mode ()) );
+        combo->setCurrentIndex(index);
         //combo->setCurrentText (ef->modeToString (ef->mode ()));
 
         m_tree->setItemWidget(item, KColumnMode, combo);
