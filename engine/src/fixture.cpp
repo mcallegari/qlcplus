@@ -364,7 +364,7 @@ quint32 Fixture::masterIntensityChannel(int head) const
 QVector <quint32> Fixture::rgbChannels(int head) const
 {
     if (head == -1)
-        return QLCChannel::invalid();
+        return QVector <quint32> ();
 
     if (m_fixtureMode != NULL)
     {
@@ -382,7 +382,7 @@ QVector <quint32> Fixture::rgbChannels(int head) const
 QVector <quint32> Fixture::cmyChannels(int head) const
 {
     if (head == -1)
-        return QLCChannel::invalid();
+        return QVector <quint32> ();
 
     if (m_fixtureMode != NULL)
     {
