@@ -818,9 +818,9 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Custom range window */
     if (m_hRangeSlider->minimumPosition() != 0 ||
-        m_hRangeSlider->maximumPosition() != 256 ||
+        m_hRangeSlider->maximumPosition() != 255 ||
         m_vRangeSlider->minimumPosition() != 0 ||
-        m_vRangeSlider->maximumPosition() != 256)
+        m_vRangeSlider->maximumPosition() != 255)
     {
         tag = doc->createElement(KXMLQLCVCXYPadRangeWindow);
         tag.setAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
