@@ -353,7 +353,7 @@ void EFXEditor::slotTabChanged(int tab)
 
 void EFXEditor::slotSetColorBackground(bool checked)
 {
-    m_previewArea->showColorBackground(checked);
+    m_previewArea->showGradientBackground(checked);
 }
 
 bool EFXEditor::interruptRunning()

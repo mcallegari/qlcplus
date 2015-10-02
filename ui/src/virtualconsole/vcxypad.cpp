@@ -44,9 +44,11 @@
 #include "mastertimer.h"
 #include "vcxypadarea.h"
 #include "inputpatch.h"
+#include "flowlayout.h"
 #include "vcxypad.h"
 #include "fixture.h"
 #include "apputil.h"
+#include "efx.h"
 #include "doc.h"
 
 const quint8 VCXYPad::panInputSourceId = 0;
@@ -54,6 +56,10 @@ const quint8 VCXYPad::tiltInputSourceId = 1;
 
 const qreal MAX_VALUE = 256.0;
 const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
+
+static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+                                   "QPushButton:pressed { border: 2px solid #0000FF; }"
+                                   "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 /*****************************************************************************
  * VCXYPad Initialization
@@ -64,36 +70,51 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     /* Set the class name "VCXYPad" as the object name as well */
     setObjectName(VCXYPad::staticMetaObject.className());
 
-    m_hbox = new QHBoxLayout(this);
+    m_mainVbox = new QVBoxLayout(this);
+
+    m_padBox = new QHBoxLayout;
+    m_mainVbox->addLayout(m_padBox);
+
     m_lvbox = new QVBoxLayout;
     m_lvbox->addSpacing(20);
+    // left side vertical range slider
     m_vRangeSlider = new ctkRangeSlider(this);
     m_lvbox->addWidget(m_vRangeSlider);
     m_lvbox->addSpacing(25);
 
-    m_hbox->addLayout(m_lvbox);
+    m_padBox->addLayout(m_lvbox);
 
     m_cvbox = new QVBoxLayout;
-    m_hbox->addLayout(m_cvbox);
+    m_padBox->addLayout(m_cvbox);
 
+    // top horizontal range slider
     m_hRangeSlider = new ctkRangeSlider(Qt::Horizontal, this);
     m_cvbox->addWidget(m_hRangeSlider);
 
+    // central XYPad
     m_area = new VCXYPadArea(this);
     m_cvbox->addWidget(m_area);
 
+    // bottom horizontal slider
     m_hSlider = new QSlider(Qt::Horizontal, this);
     m_cvbox->addWidget(m_hSlider);
 
     m_rvbox = new QVBoxLayout;
-    m_hbox->addLayout(m_rvbox);
+    m_padBox->addLayout(m_rvbox);
     m_rvbox->addSpacing(20);
+
+    // left side vertical slider
     m_vSlider = new QSlider(this);
     m_rvbox->addWidget(m_vSlider);
     m_rvbox->addSpacing(25);
 
-    m_vSlider->setRange(0, 256);
-    m_hSlider->setRange(0, 256);
+    // bottom preset space
+    m_presetsLayout = new FlowLayout();
+    m_mainVbox->addLayout(m_presetsLayout);
+    m_efx = NULL;
+
+    m_vSlider->setRange(0, 255);
+    m_hSlider->setRange(0, 255);
     m_vSlider->setInvertedAppearance(true);
     m_vSlider->setTickPosition(QSlider::TicksLeft);
     m_vSlider->setTickInterval(16);
@@ -102,11 +123,11 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_vSlider->setStyle(AppUtil::saneStyle());
     m_hSlider->setStyle(AppUtil::saneStyle());
 
-    m_hRangeSlider->setRange(0, 256);
+    m_hRangeSlider->setRange(0, 255);
     m_vRangeSlider->setInvertedAppearance(true);
-    m_vRangeSlider->setRange(0, 256);
-    m_hRangeSlider->setMaximumPosition(256);
-    m_vRangeSlider->setMaximumPosition(256);
+    m_vRangeSlider->setRange(0, 255);
+    m_hRangeSlider->setMaximumPosition(255);
+    m_vRangeSlider->setMaximumPosition(255);
 
     connect(m_area, SIGNAL(positionChanged(const QPointF&)),
             this, SLOT(slotPositionChanged(const QPointF&)));
@@ -163,6 +184,9 @@ void VCXYPad::enableWidgetUI(bool enable)
             fxi.disarm();
         it.setValue(fxi);
     }
+
+    foreach(QWidget *presetBtn, m_presets.keys())
+        presetBtn->setEnabled(enable);
 
     /* Reset the changed flag in m_area so that the pad won't immediately set a value
        when mode is changed */
@@ -406,8 +430,160 @@ void VCXYPad::slotRangeValueChanged()
     QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
                QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
     m_area->setRangeWindow(rect);
+    if (m_efx != NULL && m_efx->isRunning())
+    {
+        m_efx->setXOffset(rect.x() + rect.width() / 2);
+        m_efx->setYOffset(rect.y() + rect.height() / 2);
+        m_efx->setWidth(rect.width() / 2);
+        m_efx->setHeight(rect.height() / 2);
+
+        // recalculate preview polygons
+        QPolygonF polygon;
+        m_efx->preview(polygon);
+
+        QVector <QPolygonF> fixturePoints;
+        m_efx->previewFixtures(fixturePoints);
+
+        m_area->setEFXPolygons(polygon, fixturePoints);
+        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+    }
     m_area->update();
 }
+
+/*********************************************************************
+ * Presets
+ *********************************************************************/
+
+QString VCXYPad::presetName(const VCXYPadPreset &preset)
+{
+    QString label;
+
+    if (preset.m_type == VCXYPadPreset::Position)
+    {
+        QPointF pos = preset.position();
+        label = QString("X:%1 - Y:%2").arg((int)pos.x()).arg((int)pos.y());
+    }
+    else if (preset.m_type == VCXYPadPreset::EFX)
+    {
+        quint32 efxID = preset.efxID();
+        Function *f = m_doc->function(efxID);
+        if (f == NULL || f->type() != Function::EFX)
+            return QString();
+        label = f->name();
+    }
+
+    return label;
+}
+
+void VCXYPad::addPreset(const VCXYPadPreset &preset)
+{
+    QString label = presetName(preset);
+
+    if(label.isEmpty())
+    {
+        qDebug() << "VCXYPad Preset label empty. Not adding it";
+        return;
+    }
+
+    QPushButton *presetButton = new QPushButton(this);
+    QWidget *presetWidget = presetButton;
+    presetButton->setStyleSheet(presetBtnSS.arg("#BBBBBB"));
+    presetButton->setMinimumWidth(36);
+    presetButton->setMaximumWidth(80);
+    presetButton->setFocusPolicy(Qt::TabFocus);
+    presetButton->setText(fontMetrics().elidedText(label, Qt::ElideRight, 72));
+
+    connect(presetButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotPresetClicked()));
+
+    if (mode() == Doc::Design)
+        presetWidget->setEnabled(false);
+
+    m_presets[presetWidget] = new VCXYPadPreset(preset);
+    m_presetsLayout->addWidget(presetWidget);
+
+    if (m_presets[presetWidget]->m_inputSource != NULL)
+    {
+        setInputSource(m_presets[presetWidget]->m_inputSource, m_presets[presetWidget]->m_id);
+    }
+}
+
+void VCXYPad::resetPresets()
+{
+    for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        QWidget* widget = it.key();
+        m_presetsLayout->removeWidget(widget);
+        delete widget;
+
+        VCXYPadPreset* preset = it.value();
+        if (!preset->m_inputSource.isNull())
+            setInputSource(QSharedPointer<QLCInputSource>(), preset->m_id);
+        delete preset;
+    }
+    m_presets.clear();
+}
+
+QList<VCXYPadPreset *> VCXYPad::presets() const
+{
+    QList<VCXYPadPreset*> presets = m_presets.values();
+    qSort(presets.begin(), presets.end(), VCXYPadPreset::compare);
+    return presets;
+}
+
+void VCXYPad::slotPresetClicked()
+{
+    if (mode() == Doc::Design)
+        return;
+
+    QPushButton *btn = qobject_cast<QPushButton*>(sender());
+    VCXYPadPreset *preset = m_presets[btn];
+
+    Q_ASSERT(preset != NULL);
+
+    // stop any previously started EFX
+    if (m_efx != NULL && m_efx->isRunning())
+        m_efx->stop();
+
+    if (preset->m_type == VCXYPadPreset::EFX)
+    {
+        Function *f = m_doc->function(preset->m_efxID);
+        if (f == NULL || f->type() != Function::EFX)
+            return;
+        m_efx = qobject_cast<EFX*>(f);
+
+        QRectF rect = m_area->rangeWindow();
+        if (rect.isValid())
+        {
+            m_efx->setXOffset(rect.x() + rect.width() / 2);
+            m_efx->setYOffset(rect.y() + rect.height() / 2);
+            m_efx->setWidth(rect.width() / 2);
+            m_efx->setHeight(rect.height() / 2);
+        }
+
+        QPolygonF polygon;
+        m_efx->preview(polygon);
+
+        QVector <QPolygonF> fixturePoints;
+        m_efx->previewFixtures(fixturePoints);
+
+        m_area->enableEFXPreview(true);
+        m_area->setEFXPolygons(polygon, fixturePoints);
+        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+        m_efx->start(m_doc->masterTimer());
+    }
+    else if (preset->m_type == VCXYPadPreset::Position)
+    {
+        m_area->enableEFXPreview(false);
+        m_area->setPosition(preset->m_dmxPos);
+        m_area->repaint();
+    }
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
 
 void VCXYPad::updateFeedback()
 {
@@ -529,6 +705,9 @@ bool VCXYPad::loadXML(const QDomElement* root)
             setInvertedAppearance(true);
     }
 
+    // Sorted list for new presets
+    QList<VCXYPadPreset> newPresets;
+
     /* Children */
     node = root->firstChild();
     while (node.isNull() == false)
@@ -582,6 +761,12 @@ bool VCXYPad::loadXML(const QDomElement* root)
             if (fxi.loadXML(tag) == true)
                 appendFixture(fxi);
         }
+        else if(tag.tagName() == KXMLQLCVCXYPadPreset)
+        {
+            VCXYPadPreset preset(0xff);
+            if (preset.loadXML(tag))
+                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown XY Pad tag:" << tag.tagName();
@@ -589,6 +774,9 @@ bool VCXYPad::loadXML(const QDomElement* root)
 
         node = node.nextSibling();
     }
+
+    foreach (VCXYPadPreset const& preset, newPresets)
+        addPreset(preset);
 
     setGeometry(x, y, w, h);
     show(); // Qt doesn't update the widget's geometry without this.
@@ -614,6 +802,12 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLCommon(doc, &root);
 
     root.setAttribute(KXMLQLCVCXYPadInvertedAppearance, invertedAppearance());
+
+    /* Window state */
+    saveXMLWindowState(doc, &root);
+
+    /* Appearance */
+    saveXMLAppearance(doc, &root);
 
     /* Fixtures */
     foreach (VCXYPadFixture fixture, m_fixtures)
@@ -648,11 +842,9 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tag, inputSource(tiltInputSourceId));
     root.appendChild(tag);
 
-    /* Window state */
-    saveXMLWindowState(doc, &root);
-
-    /* Appearance */
-    saveXMLAppearance(doc, &root);
+    // Presets
+    foreach(VCXYPadPreset *preset, presets())
+        preset->saveXML(doc, &root);
 
     return true;
 }

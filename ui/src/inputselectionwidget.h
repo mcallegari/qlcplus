@@ -41,6 +41,7 @@ public:
     void setWidgetPage(int page);
     bool isAutoDetecting();
     void stopAutoDetection();
+    void emitOddValues(bool enable);
 
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
@@ -58,6 +59,8 @@ protected slots:
 
 signals:
     void autoDetectToggled(bool checked);
+    void inputValueChanged(quint32 universe, quint32 channel);
+    void keySequenceChanged(QKeySequence key);
 
 protected:
     void updateInputSource();
@@ -67,6 +70,8 @@ private:
     QKeySequence m_keySequence;
     QSharedPointer<QLCInputSource> m_inputSource;
     int m_widgetPage;
+    bool m_emitOdd;
+    quint32 m_signalsReceived;
 };
 
 #endif // INPUTSELECTIONWIDGET_H

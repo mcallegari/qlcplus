@@ -27,6 +27,7 @@
 #include <QList>
 
 #include "vcxypadfixture.h"
+#include "vcxypadpreset.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
@@ -39,8 +40,10 @@ class MasterTimer;
 class VCXYPadArea;
 class QHBoxLayout;
 class QVBoxLayout;
+class FlowLayout;
 class QByteArray;
 class QSlider;
+class EFX;
 class Doc;
 
 /** @addtogroup ui_vc_widgets
@@ -82,15 +85,17 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QHBoxLayout* m_hbox;
-    QVBoxLayout* m_lvbox; // left vertical box
-    QVBoxLayout* m_cvbox; // center vertical box
-    QVBoxLayout* m_rvbox; // right vertical box
-    QSlider* m_vSlider;
-    QSlider* m_hSlider;
-    ctkRangeSlider *m_vRangeSlider;
-    ctkRangeSlider *m_hRangeSlider;
+    QVBoxLayout* m_mainVbox;  // main vertical layout
+    QHBoxLayout* m_padBox; // box containing sliders and XYPad
+    QVBoxLayout* m_lvbox; // left vertical box (vertical ctkSlider)
+    QVBoxLayout* m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout* m_rvbox; // right vertical box (vertical slider)
+    QSlider* m_vSlider; // tilt slider
+    QSlider* m_hSlider; // pan slider
+    ctkRangeSlider *m_vRangeSlider; // range window height control
+    ctkRangeSlider *m_hRangeSlider; // range window width control
     VCXYPadArea* m_area;
+    FlowLayout *m_presetsLayout;
 
     /*************************************************************************
      * Clipboard
@@ -175,6 +180,22 @@ private:
     bool m_padInteraction;
     bool m_sliderInteraction;
     bool m_inputValueChanged;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    QString presetName(VCXYPadPreset const& preset);
+    void addPreset(VCXYPadPreset const& preset);
+    void resetPresets();
+    QList<VCXYPadPreset *> presets() const;
+
+protected slots:
+    void slotPresetClicked();
+
+protected:
+    QHash<QWidget *, VCXYPadPreset *> m_presets;
+    EFX *m_efx;
 
     /*********************************************************************
      * External input

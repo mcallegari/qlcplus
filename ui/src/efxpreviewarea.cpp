@@ -30,13 +30,12 @@ EFXPreviewArea::EFXPreviewArea(QWidget* parent)
     : QWidget(parent)
     , m_timer(this)
     , m_iter(0)
-    , m_colorBg(false)
+    , m_gradientBg(false)
+    , m_bgAlpha(255)
 {
     QPalette p = palette();
     p.setColor(QPalette::Window, p.color(QPalette::Base));
     setPalette(p);
-
-    setAutoFillBackground(true);
 
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(slotTimeout()));
 }
@@ -108,10 +107,15 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     QPainter painter(this);
     QPen pen;
     QPointF point;
-    QColor color;
+    QColor color = Qt::white;
 
-    if (m_colorBg)
+    if (m_gradientBg)
         painter.drawImage(painter.window(), Gradient::getRGBGradient(256, 256));
+    else
+    {
+        color.setAlpha(m_bgAlpha);
+        painter.fillRect(rect(), color);
+    }
 
     /* Crosshairs */
     color = palette().color(QPalette::Mid);
@@ -168,8 +172,13 @@ void EFXPreviewArea::restart ()
     m_iter = 0;
 }
 
-void EFXPreviewArea::showColorBackground(bool enable)
+void EFXPreviewArea::showGradientBackground(bool enable)
 {
-    m_colorBg = enable;
+    m_gradientBg = enable;
     repaint();
+}
+
+void EFXPreviewArea::setBackgroundAlpha(int alpha)
+{
+    m_bgAlpha = alpha;
 }

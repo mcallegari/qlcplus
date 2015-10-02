@@ -27,6 +27,8 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     : QWidget(parent)
     , m_doc(doc)
     , m_widgetPage(0)
+    , m_emitOdd(false)
+    , m_signalsReceived(0)
 {
     Q_ASSERT(doc != NULL);
 
@@ -72,6 +74,11 @@ void InputSelectionWidget::stopAutoDetection()
         m_autoDetectInputButton->toggle();
 }
 
+void InputSelectionWidget::emitOddValues(bool enable)
+{
+    m_emitOdd = enable;
+}
+
 void InputSelectionWidget::setKeySequence(const QKeySequence &keySequence)
 {
     m_keySequence = QKeySequence(keySequence);
@@ -99,15 +106,15 @@ void InputSelectionWidget::slotAttachKey()
     AssignHotKey ahk(this, m_keySequence);
     if (ahk.exec() == QDialog::Accepted)
     {
-        m_keySequence = QKeySequence(ahk.keySequence());
-        m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+        setKeySequence(QKeySequence(ahk.keySequence()));
+        emit keySequenceChanged(m_keySequence);
     }
 }
 
 void InputSelectionWidget::slotDetachKey()
 {
-    m_keySequence = QKeySequence();
-    m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+    setKeySequence(QKeySequence());
+    emit keySequenceChanged(m_keySequence);
 }
 
 void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
@@ -129,8 +136,19 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
 
 void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 channel)
 {
+    if (m_emitOdd == true && m_signalsReceived % 2)
+    {
+        emit inputValueChanged(universe, (m_widgetPage << 16) | channel);
+        m_signalsReceived++;
+        return;
+    }
+
     m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_widgetPage << 16) | channel));
     updateInputSource();
+    m_signalsReceived++;
+
+    if (m_emitOdd == false)
+        emit inputValueChanged(universe, (m_widgetPage << 16) | channel);
 }
 
 void InputSelectionWidget::slotChooseInputClicked()

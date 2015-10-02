@@ -92,6 +92,7 @@ protected:
 public:
     bool operator<(VCMatrixControl const& right) const;
     static bool compare(VCMatrixControl const* left, VCMatrixControl const* right);
+
     /************************************************************************
      * Load & Save
      ***********************************************************************/
