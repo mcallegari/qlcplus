@@ -9,7 +9,7 @@
 
 require 'libxml'
 
-NS = ['xmlns:http://qlcplus.sourceforge.net/FixtureDefinition']
+NS = ['xmlns:http://www.qlcplus.org/FixtureDefinition']
 
 class FixtureDef
   class Creator 
@@ -230,7 +230,7 @@ class FixtureDef
         node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '').gsub('&', '&amp;')
       end
 
-      @doc.root.namespaces.namespace = LibXML::XML::Namespace.new(@doc.root, nil, "http://qlcplus.sourceforge.net/FixtureDefinition")
+      @doc.root.namespaces.namespace = LibXML::XML::Namespace.new(@doc.root, nil, "http://www.qlcplus.org/FixtureDefinition")
       @doc.save(path, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
 
       @doc = LibXML::XML::Document.file(path)
@@ -254,7 +254,7 @@ class Fixtures
 
   def load_fixtures(path)
     Dir.chdir(path) do
-      Dir.glob('*.qxf') do |f|
+      Dir.glob('*.qxf').sort.each do |f|
         @fixtures << FixtureDef.new(f)
       end
     end
