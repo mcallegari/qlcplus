@@ -32,12 +32,8 @@ else
     fi
 
     # no X server ? Let's look for xvfb. This is how Travis is setup
-    if [ "$HAS_XSERVER" -eq "0" ]; then
-      if [ `which xvfb-run` != "" ]; then
-        TESTPREFIX="xvfb-run"
-        SLEEPCMD="sleep 1"
+    if [ -n "$TRAVIS" ]; then
         HAS_XSERVER="1"
-      fi
     fi
   fi
 fi
