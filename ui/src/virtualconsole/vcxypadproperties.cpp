@@ -79,7 +79,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_panInputWidget->setWidgetPage(m_xypad->page());
     m_panInputWidget->emitOddValues(true);
     m_panInputWidget->show();
-    m_panInputLayout->addWidget(m_panInputWidget);
+    m_extInputLayout->addWidget(m_panInputWidget);
     connect(m_panInputWidget, SIGNAL(autoDetectToggled(bool)),
             this, SLOT(slotPanAutoDetectToggled(bool)));
     connect(m_panInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
@@ -92,7 +92,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_tiltInputWidget->setWidgetPage(m_xypad->page());
     m_panInputWidget->emitOddValues(true);
     m_tiltInputWidget->show();
-    m_tiltInputLayout->addWidget(m_tiltInputWidget);
+    m_extInputLayout->addWidget(m_tiltInputWidget);
     connect(m_tiltInputWidget, SIGNAL(autoDetectToggled(bool)),
             this, SLOT(slotTiltAutoDetectToggled(bool)));
     connect(m_tiltInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),

@@ -56,12 +56,12 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QVBoxLayout" name="m_panInputLayout"/>
+           <layout class="QVBoxLayout" name="m_extInputLayout"/>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -110,33 +110,6 @@
              <string>Inverted</string>
             </property>
            </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QFrame" name="frame_2">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <layout class="QVBoxLayout" name="m_tiltInputLayout"/>
           </item>
          </layout>
         </widget>

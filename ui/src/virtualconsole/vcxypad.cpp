@@ -113,8 +113,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_mainVbox->addLayout(m_presetsLayout);
     m_efx = NULL;
 
-    m_vSlider->setRange(0, 255);
-    m_hSlider->setRange(0, 255);
+    m_vSlider->setRange(0, 256);
+    m_hSlider->setRange(0, 256);
     m_vSlider->setInvertedAppearance(true);
     m_vSlider->setTickPosition(QSlider::TicksLeft);
     m_vSlider->setTickInterval(16);
@@ -123,11 +123,11 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_vSlider->setStyle(AppUtil::saneStyle());
     m_hSlider->setStyle(AppUtil::saneStyle());
 
-    m_hRangeSlider->setRange(0, 255);
+    m_hRangeSlider->setRange(0, 256);
     m_vRangeSlider->setInvertedAppearance(true);
-    m_vRangeSlider->setRange(0, 255);
-    m_hRangeSlider->setMaximumPosition(255);
-    m_vRangeSlider->setMaximumPosition(255);
+    m_vRangeSlider->setRange(0, 256);
+    m_hRangeSlider->setMaximumPosition(256);
+    m_vRangeSlider->setMaximumPosition(256);
 
     connect(m_area, SIGNAL(positionChanged(const QPointF&)),
             this, SLOT(slotPositionChanged(const QPointF&)));
@@ -818,9 +818,9 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Custom range window */
     if (m_hRangeSlider->minimumPosition() != 0 ||
-        m_hRangeSlider->maximumPosition() != 255 ||
+        m_hRangeSlider->maximumPosition() != 256 ||
         m_vRangeSlider->minimumPosition() != 0 ||
-        m_vRangeSlider->maximumPosition() != 255)
+        m_vRangeSlider->maximumPosition() != 256)
     {
         tag = doc->createElement(KXMLQLCVCXYPadRangeWindow);
         tag.setAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
