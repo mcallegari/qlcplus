@@ -27,6 +27,7 @@
 
 #include "doc.h"
 
+class EFXPreviewArea;
 class QPaintEvent;
 class QMouseEvent;
 
@@ -136,6 +137,17 @@ public:
 private:
     /** Range in degrees (for the full range) */
     QRectF m_degreesRange;
+
+    /*************************************************************************
+     * EFX Preview
+     *************************************************************************/
+public:
+    void enableEFXPreview(bool enable);
+    void setEFXPolygons(const QPolygonF& pattern, const QVector<QPolygonF> fixtures);
+    void setEFXInterval(int interval);
+
+private:
+    EFXPreviewArea* m_previewArea;
 
     /*************************************************************************
      * Event handlers

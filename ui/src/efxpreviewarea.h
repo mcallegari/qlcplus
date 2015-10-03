@@ -73,7 +73,9 @@ public:
     void restart();
 
     /** Enable/disable a color map background */
-    void showColorBackground(bool enable);
+    void showGradientBackground(bool enable);
+
+    void setBackgroundAlpha(int alpha);
 
 protected:
     /** @reimp */
@@ -101,7 +103,10 @@ private:
     int m_iter;
 
     /** Flag to enable/disable a color map background */
-    bool m_colorBg;
+    bool m_gradientBg;
+
+    /** The background color alpha */
+    int m_bgAlpha;
 };
 
 /** @} */

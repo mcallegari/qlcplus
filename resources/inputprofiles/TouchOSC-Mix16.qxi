@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE InputProfile>
-<InputProfile xmlns="http://qlcplus.sourceforge.net/InputProfile">
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.1.0</Version>
-  <Author>Massimo Callegari</Author>
+  <Version>4.10.0 GIT</Version>
+  <Author>dragon</Author>
  </Creator>
  <Manufacturer>Touch OSC</Manufacturer>
  <Model>Mix 16</Model>
@@ -341,6 +341,10 @@
   <Name>/3/toggle4</Name>
   <Type>Button</Type>
  </Channel>
+ <Channel Number="60671">
+  <Name>/1/xy_1</Name>
+  <Type>Slider</Type>
+ </Channel>
  <Channel Number="61425">
   <Name>/3/fader3</Name>
   <Type>Slider</Type>
@@ -375,6 +379,10 @@
  </Channel>
  <Channel Number="64833">
   <Name>/4/multifader1/11</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64886">
+  <Name>/1/xy_0</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="64892">

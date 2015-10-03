@@ -27,8 +27,8 @@
   xmllint is part of libxml2-utils package in ubuntu.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-targetNamespace="http://qlcplus.sourceforge.net/FixtureDefinition"
-xmlns="http://qlcplus.sourceforge.net/FixtureDefinition"
+targetNamespace="http://www.qlcplus.org/FixtureDefinition"
+xmlns="http://www.qlcplus.org/FixtureDefinition"
 elementFormDefault="qualified"
 >
 

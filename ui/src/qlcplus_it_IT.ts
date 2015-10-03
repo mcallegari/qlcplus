@@ -1985,7 +1985,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="efxeditor.ui" line="467"/>
         <source>X offset</source>
-        <translation>Posizione della X</translation>
+        <translation>Posizione X</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="520"/>
@@ -3474,7 +3474,7 @@ Consultare la documentazione relativa alle plugin per risolvere il problema.</tr
     <message>
         <location filename="inputprofileeditor.ui" line="14"/>
         <source>Input Profile Editor</source>
-        <translation>Editor del Profilo di Ingresso</translation>
+        <translation>Editor del profilo di ingresso</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="28"/>
@@ -3489,7 +3489,7 @@ Consultare la documentazione relativa alle plugin per risolvere il problema.</tr
     <message>
         <location filename="inputprofileeditor.ui" line="34"/>
         <source>The name of the company that made the device</source>
-        <translation>Nome della Fabbrica che ha costruito il dispositivo</translation>
+        <translation>Il nome del produttore che ha costruito il dispositivo</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="71"/>
@@ -3622,7 +3622,7 @@ Consultare la documentazione relativa alle plugin per risolvere il problema.</tr
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
         <translation>È stata attivata la procedura guidata per la creazione dei canali di ingresso. Dopo aver cliccato OK, muovere i controlli del tuo dispositivo di input mappato. Essi dovrebbero apparire nella lista. Fare clic sul pulsante della procedura guidata nuovamente per fermare il rilevamento automatico dei canali.
 
-Si noti che la procedura guidata non può dire la differenza tra una manopola e uno slider percui ti tocca cambiarli manualmente.</translation>
+Si noti che la procedura guidata non può dire la differenza tra una manopola e uno slider per cui dovrai aggiustarli manualmente.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="493"/>
@@ -4133,7 +4133,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="489"/>
         <source>RGB matrix name</source>
-        <translation>Nome Matrice RGB</translation>
+        <translation>Nome della matrice RGB</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="502"/>
@@ -4232,7 +4232,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="357"/>
         <source>Dimmer control</source>
-        <translation>Controllo Dimmer</translation>
+        <translation>Controlla canale dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="354"/>
@@ -4302,7 +4302,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="458"/>
         <source>Run through once and stop</source>
-        <translation>Esecuzione singola e poi Stop</translation>
+        <translation>Esecuzione singola e poi interrompi</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="461"/>

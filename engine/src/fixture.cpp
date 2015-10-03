@@ -268,6 +268,9 @@ QSet <quint32> Fixture::channels(QLCChannel::Group group, QLCChannel::PrimaryCol
 
 quint32 Fixture::panMsbChannel(int head) const
 {
+    if (head == -1)
+        return QLCChannel::invalid();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
@@ -283,6 +286,9 @@ quint32 Fixture::panMsbChannel(int head) const
 
 quint32 Fixture::tiltMsbChannel(int head) const
 {
+    if (head == -1)
+        return QLCChannel::invalid();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
@@ -298,6 +304,9 @@ quint32 Fixture::tiltMsbChannel(int head) const
 
 quint32 Fixture::panLsbChannel(int head) const
 {
+    if (head == -1)
+        return QLCChannel::invalid();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
@@ -313,6 +322,9 @@ quint32 Fixture::panLsbChannel(int head) const
 
 quint32 Fixture::tiltLsbChannel(int head) const
 {
+    if (head == -1)
+        return QLCChannel::invalid();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
@@ -328,6 +340,9 @@ quint32 Fixture::tiltLsbChannel(int head) const
 
 quint32 Fixture::masterIntensityChannel(int head) const
 {
+    if (head == -1)
+        return QLCChannel::invalid();
+
     if (m_fixtureMode != NULL)
     {
         quint32 dimmerCh = QLCChannel::invalid();
@@ -348,6 +363,9 @@ quint32 Fixture::masterIntensityChannel(int head) const
 
 QVector <quint32> Fixture::rgbChannels(int head) const
 {
+    if (head == -1)
+        return QVector <quint32> ();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())
@@ -363,6 +381,9 @@ QVector <quint32> Fixture::rgbChannels(int head) const
 
 QVector <quint32> Fixture::cmyChannels(int head) const
 {
+    if (head == -1)
+        return QVector <quint32> ();
+
     if (m_fixtureMode != NULL)
     {
         if (head < m_fixtureMode->heads().size())

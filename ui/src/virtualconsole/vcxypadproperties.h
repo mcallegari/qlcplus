@@ -23,10 +23,11 @@
 #include <QDialog>
 
 #include "ui_vcxypadproperties.h"
-#include "qlcinputsource.h"
 #include "vcxypadfixture.h"
 
-class InputMap;
+class InputSelectionWidget;
+class VCXYPadPreset;
+class VCXYPadArea;
 class VCXYPad;
 class Doc;
 
@@ -49,6 +50,8 @@ public:
 private:
     VCXYPad* m_xypad;
     Doc* m_doc;
+    InputSelectionWidget *m_panInputWidget;
+    InputSelectionWidget *m_tiltInputWidget;
 
     /********************************************************************
      * Fixtures page
@@ -68,24 +71,38 @@ private slots:
     void slotSelectionChanged(QTreeWidgetItem* item);
 
     /********************************************************************
-     * Fixtures page
+     * External controls
      ********************************************************************/
-private slots:
+private slots:   
     void slotPanAutoDetectToggled(bool toggled);
-    void slotPanChooseClicked();
     void slotPanInputValueChanged(quint32 uni, quint32 ch);
-
     void slotTiltAutoDetectToggled(bool toggled);
-    void slotTiltChooseClicked();
     void slotTiltInputValueChanged(quint32 uni, quint32 ch);
 
+    /********************************************************************
+     * Presets
+     ********************************************************************/
 private:
-    void updatePanInputSource();
-    void updateTiltInputSource();
+    void updatePresetsTree();
+    void updateTreeItem(VCXYPadPreset const& preset);
+    VCXYPadPreset *getSelectedPreset();
+    void removePreset(quint8 id);
+
+protected slots:
+    void slotAddPositionClicked();
+    void slotAddEFXClicked();
+    void slotRemovePresetClicked();
+    void slotPresetSelectionChanged();
+    void slotXYPadPositionChanged(const QPointF& pt);
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
 
 private:
-    QSharedPointer<QLCInputSource> m_panInputSource;
-    QSharedPointer<QLCInputSource> m_tiltInputSource;
+    VCXYPadArea* m_xyArea;
+    InputSelectionWidget *m_presetInputWidget;
+
+    quint8 m_lastAssignedID;
+    QList<VCXYPadPreset*> m_presetList;
 
     /********************************************************************
      * OK/Cancel

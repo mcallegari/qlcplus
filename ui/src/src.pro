@@ -156,6 +156,7 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcxypadarea.h \
            virtualconsole/vcxypadfixture.h \
            virtualconsole/vcxypadfixtureeditor.h \
+           virtualconsole/vcxypadpreset.h \
            virtualconsole/vcxypadproperties.h \
            virtualconsole/virtualconsole.h
 
@@ -329,6 +330,7 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcxypadarea.cpp \
            virtualconsole/vcxypadfixture.cpp \
            virtualconsole/vcxypadfixtureeditor.cpp \
+           virtualconsole/vcxypadpreset.cpp \
            virtualconsole/vcxypadproperties.cpp \
            virtualconsole/virtualconsole.cpp
 
