@@ -1256,6 +1256,8 @@ QFile::FileError App::loadXML(const QString& fileName)
             retval = QFile::ReadError;
         }
     }
+    else
+        retval = QFile::ReadError;
 
     return retval;
 }
