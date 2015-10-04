@@ -42,6 +42,7 @@ public slots:
 private slots:
     void slotMidiChannelValueChanged(int index);
     void slotModeActivated(int index);
+    void slotSendNoteOffToggled(bool value);
     void slotInitMessageActivated(int index);
     void slotInitMessageChanged(QString midiTemplateName);
     void slotUpdateTree();
@@ -49,6 +50,7 @@ private slots:
 private:
     QWidget* createMidiChannelWidget(int select);
     QWidget* createModeWidget(MidiDevice::Mode mode);
+    QWidget* createSendNoteOffWidget(bool checked, bool enabled);
     QWidget* createInitMessageWidget(QString midiTemplateName);
 
 private:

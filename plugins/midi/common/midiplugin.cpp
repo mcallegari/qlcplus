@@ -299,7 +299,7 @@ void MidiPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel,
         qDebug() << "[sendFeedBack] Dev:" << dev->name() << ", channel:" << channel << ", value:" << value;
         uchar cmd = 0;
         uchar data1 = 0, data2 = 0;
-        if (QLCMIDIProtocol::feedbackToMidi(channel, value, dev->midiChannel(),
+        if (QLCMIDIProtocol::feedbackToMidi(channel, value, dev->midiChannel(), dev->sendNoteOff(),
                                         &cmd, &data1, &data2) == true)
         {
             qDebug() << "[sendFeedBack] cmd:" << cmd << "data1:" << data1 << "data2:" << data2;

@@ -21,6 +21,7 @@
 #include <QTreeWidget>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QCheckBox>
 #include <QDebug>
 
 #include "configuremidiplugin.h"
@@ -35,7 +36,8 @@
 #define COL_NAME        0
 #define COL_CHANNEL     1
 #define COL_MODE        2
-#define COL_INITMESSAGE 3
+#define COL_SENDNOTEOFF 3
+#define COL_INITMESSAGE 4
 
 ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     : QDialog(parent)
@@ -73,6 +75,20 @@ void ConfigureMidiPlugin::slotMidiChannelValueChanged(int value)
         dev->setMidiChannel(MAX_MIDI_CHANNELS);
     else
         dev->setMidiChannel(value - 1);
+}
+
+void ConfigureMidiPlugin::slotSendNoteOffToggled(bool value)
+{
+    QWidget* widget = qobject_cast<QWidget*> (QObject::sender());
+    Q_ASSERT(widget != NULL);
+
+    QVariant var = widget->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+
+    dev->setSendNoteOff(value);
 }
 
 void ConfigureMidiPlugin::slotModeActivated(int index)
@@ -141,6 +157,11 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
 
+        widget = createSendNoteOffWidget(dev->sendNoteOff(), true);
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        item->setTextAlignment(COL_SENDNOTEOFF, Qt::AlignCenter);
+        m_tree->setItemWidget(item, COL_SENDNOTEOFF, widget);
+
         widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
@@ -163,6 +184,11 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createModeWidget(dev->mode());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
+
+        widget = createSendNoteOffWidget(false, false);
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        item->setTextAlignment(COL_SENDNOTEOFF, Qt::AlignCenter);
+        m_tree->setItemWidget(item, COL_SENDNOTEOFF, widget);
 
         widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
@@ -206,6 +232,15 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotModeActivated(int)));
 
     return combo;
+}
+
+QWidget* ConfigureMidiPlugin::createSendNoteOffWidget(bool checked, bool enabled)
+{
+    QCheckBox* check = new QCheckBox;
+    check->setChecked(checked);
+    check->setEnabled(enabled);
+    connect(check, SIGNAL(toggled(bool)), this, SLOT(slotSendNoteOffToggled(bool)));
+    return check;
 }
 
 QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)

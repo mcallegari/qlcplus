@@ -59,6 +59,14 @@
      </column>
      <column>
       <property name="text">
+       <string>Note Off</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeft|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Init Message</string>
       </property>
      </column>

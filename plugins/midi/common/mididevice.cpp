@@ -24,6 +24,7 @@
 #define SETTINGS_MIDICHANNEL "midiplugin/%1/%2/midichannel"
 #define SETTINGS_MODE "midiplugin/%1/%2/mode"
 #define SETTINGS_INITMESSAGE "midiplugin/%1/%2/initmessage"
+#define SETTINGS_SENDNOTEOFF "midiplugin/%1/%2/sendnoteoff"
 
 #define SETTINGS_MIDICHANNEL_OLD "midiplugin/%1/midichannel"
 #define SETTINGS_MODE_OLD "midiplugin/%1/mode"
@@ -71,6 +72,7 @@ MidiDevice::MidiDevice(const QVariant& uid, const QString& name, DeviceType devi
     , m_name(name)
     , m_midiChannel(0)
     , m_mode(ControlChange)
+    , m_sendNoteOff(true)
 {
     loadSettings();
 }
@@ -160,6 +162,20 @@ QString MidiDevice::midiTemplateName() const
 }
 
 /****************************************************************************
+ * Send Note OFF
+ ****************************************************************************/
+
+void MidiDevice::setSendNoteOff(bool sendNoteOff)
+{
+    m_sendNoteOff = sendNoteOff;
+}
+
+bool MidiDevice::sendNoteOff() const
+{
+    return m_sendNoteOff;
+}
+
+/****************************************************************************
  * Private API
  ****************************************************************************/
 
@@ -203,6 +219,13 @@ void MidiDevice::loadSettings()
         setMidiTemplateName(value.toString());
     else
         setMidiTemplateName("");
+
+    key = QString(SETTINGS_SENDNOTEOFF).arg(devType, name());
+    value = settings.value(key);
+    if (value.isValid() == true)
+        setSendNoteOff(value.toBool());
+    else
+        setSendNoteOff(true);
 }
 
 void MidiDevice::saveSettings() const
@@ -218,6 +241,9 @@ void MidiDevice::saveSettings() const
 
     key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     settings.setValue(key, midiTemplateName());
+
+    key = QString(SETTINGS_SENDNOTEOFF).arg(devType, name());
+    settings.setValue(key, sendNoteOff());
 
     qDebug() << "[MIDI] Saving mididevice with template name: " << midiTemplateName();
 }
