@@ -223,6 +223,11 @@ bool VCFrame::isCollapsed() const
     return m_collapsed;
 }
 
+QSize VCFrame::originalSize() const
+{
+    return QSize(m_width, m_height);
+}
+
 void VCFrame::slotCollapseButtonToggled(bool toggle)
 {
     if (toggle == true)
@@ -779,6 +784,8 @@ bool VCFrame::loadXML(const QDomElement* root)
             bool visible = false;
             loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
+            m_width = w;
+            m_height = h;
         }
         else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
         {

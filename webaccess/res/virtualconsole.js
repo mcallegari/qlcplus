@@ -58,6 +58,8 @@ function enableCue(id, idx) {
 }
 
 /* VCFrame */
+var framesWidth = new Array();
+var framesHeight = new Array();
 var framesTotalPages = new Array();
 var framesCurrentPage = new Array();
 
@@ -65,6 +67,29 @@ function updateFrameLabel(id) {
  var framePageObj = document.getElementById("fr" + id + "Page");
  var newLabel = "Page " + (framesCurrentPage[id] + 1);
  framePageObj.innerHTML = newLabel;
+}
+
+function frameToggleCollapse(id) {
+  var frameObj = document.getElementById("fr" + id);
+  var mpHeader = document.getElementById("frMpHdr" + id);
+  var origWidth = framesWidth[id];
+  var origHeight = framesHeight[id];
+
+  if (frameObj.clientWidth == origWidth)
+  {
+    frameObj.style.width = "200px";
+    if (mpHeader) mpHeader.style.visibility = 'hidden';
+  }
+  else
+  {
+    frameObj.style.width = origWidth + "px";
+    if (mpHeader) mpHeader.style.visibility = 'visible';
+  }
+
+  if (frameObj.clientHeight == origHeight)
+    frameObj.style.height = "36px";
+  else
+    frameObj.style.height = origHeight + "px";
 }
 
 function frameNextPage(id) {

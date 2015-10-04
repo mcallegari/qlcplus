@@ -111,6 +111,8 @@ public:
 
     bool isCollapsed() const;
 
+    QSize originalSize() const;
+
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
 
