@@ -10,6 +10,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Simple Desk: Fix cue playback on universes 2+ (David Garyga)
   * Simple Desk: Fix crash when selecting recently added universe (David Garyga)
   * Simple Desk: Added reset buttons to reset a single channel
+  * Simple Desk: Fix page count when channels per page does not divide 512 (Jano Svitok, reported by Florian)
   * Virtual Console/Solo Frame: Option to allow mixing of sliders in playback mode (David Garyga)
   * Virtual Console/Speed Dial: Introduced multiplier/divisor, apply and presets buttons (see documentation)
   * Virtual Console/Cue List: Options for the Next/Previous buttons behavior (David Garyga)
