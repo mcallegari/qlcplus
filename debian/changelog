@@ -38,6 +38,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Plugins/E1.31: added stream priority to configuration (thanks to Nathan Durnan)
   * Plugins/E1.31: added unicast support (David Garyga)
   * Plugins/DMXUSB: fixed close/open sequence on a Enttec Pro input line
+  * Plugins/DMXUSB: fixed the usage of multiple adapters
   * Web Access: implemented frames collapse functionality
   * RGB Scripts: added Plasma Colors script (thanks to Nathan Durnan)
   * Fixture Editor: Channel capability editing is now done in a single window

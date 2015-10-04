@@ -246,6 +246,11 @@ bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
 
 bool DMXUSBWidget::open(quint32 line, bool input)
 {
+    if (input)
+        line += m_inputBaseLine;
+    else
+        line += m_outputBaseLine;
+
     if (input == true && m_inputsMap.contains(line))
     {
         quint32 devLine = m_inputsMap[line];
@@ -258,7 +263,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     }
     else
     {
-        qWarning() << "Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
+        qWarning() << "[DMXUSBWidget] Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
         return false;
     }
 
@@ -293,7 +298,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     if (m_interface->purgeBuffers() == false)
         return close(line);
 
-    qDebug() << Q_FUNC_INFO << "FTDI correctly opened and configured";
+    qDebug() << Q_FUNC_INFO << "Interface correctly opened and configured";
 
     return true;
 }
