@@ -546,6 +546,20 @@ void VCXYPad::slotPresetClicked()
     if (m_efx != NULL && m_efx->isRunning())
         m_efx->stop();
 
+    // deactivate all previously activated buttons first
+    for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        QPushButton* cBtn = reinterpret_cast<QPushButton*>(it.key());
+        if (cBtn->isDown() == true)
+        {
+            cBtn->setDown(false);
+            VCXYPadPreset *pr = it.value();
+            if (pr->m_inputSource.isNull() == false)
+                sendFeedback(pr->m_inputSource->lowerValue(), pr->m_inputSource);
+        }
+    }
+
     if (preset->m_type == VCXYPadPreset::EFX)
     {
         Function *f = m_doc->function(preset->m_efxID);
@@ -572,12 +586,18 @@ void VCXYPad::slotPresetClicked()
         m_area->setEFXPolygons(polygon, fixturePoints);
         m_area->setEFXInterval(m_efx->duration() / polygon.size());
         m_efx->start(m_doc->masterTimer());
+        btn->setDown(true);
+        if (preset->m_inputSource.isNull() == false)
+            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
     }
     else if (preset->m_type == VCXYPadPreset::Position)
     {
         m_area->enableEFXPreview(false);
         m_area->setPosition(preset->m_dmxPos);
         m_area->repaint();
+        if (preset->m_inputSource.isNull() == false)
+            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+        btn->setDown(true);
     }
 }
 
@@ -637,7 +657,23 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                           qreal(0), areaHeight));
     }
     else
-        return;
+    {
+        for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+                it != m_presets.end(); ++it)
+        {
+            VCXYPadPreset *preset = it.value();
+            if (preset->m_inputSource != NULL &&
+                    preset->m_inputSource->universe() == universe &&
+                    preset->m_inputSource->channel() == pagedCh)
+            {
+                {
+                    QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+                    button->click();
+                    return;
+                }
+            }
+        }
+    }
 
     m_inputValueChanged = true;
 

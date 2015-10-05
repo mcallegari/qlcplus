@@ -39,8 +39,11 @@ VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &vcpp)
     , m_keySequence(vcpp.m_keySequence)
 {
     if (vcpp.m_inputSource != NULL)
+    {
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
                                                vcpp.m_inputSource->channel()));
+        m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
+    }
 }
 
 VCXYPadPreset::~VCXYPadPreset()

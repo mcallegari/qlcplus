@@ -415,12 +415,20 @@ public:
     void remapInputSources(int pgNum);
 
     /**
-     * Send feedback to en external controller.
+     * Send feedback to an external controller.
      *
      * @param value value from 0 to 255 to be sent
      * @param id ID of the input source where to send feedback
      */
     void sendFeedback(int value, quint8 id = 0);
+
+    /**
+     * Send feedback to an external controller.
+     *
+     * @param value value from 0 to 255 to be sent
+     * @param src the QLCInputSource reference to send the feedback to
+     */
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
 
     /**
      * Send the feedback data again, e.g. after page flip

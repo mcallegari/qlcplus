@@ -55,12 +55,14 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     : QDialog(xypad)
     , m_xypad(xypad)
     , m_doc(doc)
-    , m_lastAssignedID(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(xypad != NULL);
 
     setupUi(this);
+
+    // IDs 0-15 are reserved for XYPad base controls
+    m_lastAssignedID = 15;
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -106,6 +108,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
      ********************************************************************/
 
     m_presetInputWidget = new InputSelectionWidget(m_doc, this);
+    m_presetInputWidget->setCustomFeedbackVisibility(true);
     m_presetInputWidget->setWidgetPage(m_xypad->page());
     m_presetInputWidget->show();
     m_presetInputLayout->addWidget(m_presetInputWidget);

@@ -857,6 +857,7 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     if (checkInputSource(universe, pagedCh, value, sender()))
     {
         m_slider->setValue((int) value);
+        return;
     }
 
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();

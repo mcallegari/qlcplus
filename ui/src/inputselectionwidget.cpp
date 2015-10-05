@@ -205,6 +205,9 @@ void InputSelectionWidget::updateInputSource()
     {
         m_lowerSpin->setValue(m_inputSource->lowerValue());
         m_upperSpin->setValue(m_inputSource->upperValue());
+        if (m_customFbButton->isVisible() &&
+            (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX))
+                m_feedbackGroup->setVisible(true);
     }
 
     m_inputUniverseEdit->setText(uniName);

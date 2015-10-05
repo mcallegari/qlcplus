@@ -563,32 +563,33 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
         if (value != 0)
             m_dial->tap();
     }
-    if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), absoluteInputSourceId))
     {
         int ms = static_cast<int> (SCALE(qreal(value), qreal(0), qreal(255),
                                          qreal(absoluteValueMin()),
                                          qreal(absoluteValueMax())));
         m_dial->setValue(ms, true);
     }
-
-    if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
         slotMult();
-    if (checkInputSource(universe, pagedCh, value, sender(), divInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), divInputSourceId))
         slotDiv();
-    if (checkInputSource(universe, pagedCh, value, sender(), multDivResetInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), multDivResetInputSourceId))
         slotMultDivReset();
-
-    for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
-            it != m_presets.end(); ++it)
+    else
     {
-        VCSpeedDialPreset *preset = it.value();
-        if (preset->m_inputSource != NULL &&
-                preset->m_inputSource->universe() == universe &&
-                preset->m_inputSource->channel() == pagedCh)
+        for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
+                it != m_presets.end(); ++it)
         {
+            VCSpeedDialPreset *preset = it.value();
+            if (preset->m_inputSource != NULL &&
+                    preset->m_inputSource->universe() == universe &&
+                    preset->m_inputSource->channel() == pagedCh)
             {
-                QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
-                button->click();
+                {
+                    QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+                    button->click();
+                }
             }
         }
     }

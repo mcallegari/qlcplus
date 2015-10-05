@@ -255,6 +255,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         it.next();
         quint8 id = it.key();
         QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
+        src->setRange(it.value()->lowerValue(), it.value()->upperValue());
         setInputSource(src, id);
     }
 
@@ -627,6 +628,11 @@ void VCWidget::sendFeedback(int value, quint8 id)
 {
     /* Send input feedback */
     QSharedPointer<QLCInputSource> src = inputSource(id);
+    sendFeedback(value, src);
+}
+
+void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
+{
     if (!src.isNull() && src->isValid() == true)
     {
         // if in relative mode, send a "feedback" to this
