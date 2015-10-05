@@ -443,7 +443,6 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
 
             if (QLCMIDIProtocol::feedbackToMidi(i + 1, data.at(i),
                                                 universe, // MIDI output channel is QLC+ universe
-                                                true, // send Note OFF
                                                 &cmd, &data1, &data2) == true)
             {
                 qDebug() << Q_FUNC_INFO << "cmd:" << cmd << "data1:" << data1 << "data2:" << data2;

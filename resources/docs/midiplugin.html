@@ -9,7 +9,7 @@
 
 <H1>MIDI input/output plugin</H1>
 
-<H1 id="introduction">Introduction</H1>
+<H1>Introduction</H1>
 <P>
 This plugin gives input/output support for the <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>
 and gives the user freedom to control typical parameters like channels, Program Change and Control Change.<br>
@@ -20,7 +20,7 @@ The usage can vary from fader-to-fader control (the BCF2000 case) to sequence tr
 shows (metronome controlled gigs using an audio sequencer)
 </P>
 
-<H1 id="configuration">Configuration</H1>
+<H1>Configuration</H1>
 
 <P>
 When you click on the configuration button a window will appear, showing all the MIDI input and output lines
@@ -46,10 +46,6 @@ Each line has three options that can be changed depending on your needs:
       </li>
      </ul>
  </li>
- <li><b>Note Off</b>: This configuration is available only for MIDI output. When <b>checked</b> (default), value 0 is sent as <i>Note Off message</i>.
-      When <b>unchecked</b>, <i>Note On message with velocity 0</i> is sent. This obviously affects only channels that are set to send <i>Note messages</i>.
-      <b>Hint</b>: Uncheck this for Akai APC Mini.
- </li>
  <li><b>Initialization message</b>: This is a list of presets (templates) containing the intialization message 
         that QLC+ will send when opening a MIDI device before using it. A detailed explanation of this functionality
         is written below.
@@ -57,7 +53,7 @@ Each line has three options that can be changed depending on your needs:
 </ul>
 </P>
 
-<H1 id="feedbacks">Feedbacks</H1>
+<H1>Feedbacks</H1>
 
 <P>
 The MIDI plugin is the one of the QLC+ plugins supporting feedback. When QLC+ detects a MIDI device with an output line, it will
@@ -75,7 +71,7 @@ Let's look at some examples:
 </ul>
 </P>
 
-<H1 id="beat-clock">MIDI beat clock</H1>
+<H1>MIDI beat clock</H1>
 <P>
 Starting from version 4.5.0, QLC+ supports the <A HREF="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</A><br>
 Not to be confused with the <A HREF="http://en.wikipedia.org/wiki/MIDI_timecode">MIDI timecode</A>, the MIDI beat clock is 
@@ -101,7 +97,7 @@ In a similar way you can catch the beat signal as well. Just disable the auto-de
 beat controller (invert steps 3 and 4).
 </P>
 
-<H1 id="initialization-message">MIDI initialization message</H1>
+<H1>MIDI initialization message</H1>
 <P>
 There might be cases where your MIDI device needs some commands to turn into a specific operating mode<br>
 The MIDI protocol can handle this through SysEx. These are particular messages to instruct a MIDI device how to behave.<br>
@@ -123,7 +119,7 @@ You can create the ones you need and place them in your MidiTemplates folder.<br
 You are welcome to submit them in the QLC+ forum.
 </P>
 
-<H1 id="channelsmap">QLC+ Channels map</H1>
+<H1><A name="channelsmap"></A>QLC+ Channels map</H1>
 
 <P>To handle a mix of various MIDI messages (Notes, PC, CC, etc..), QLC+ remaps them into a sequential order.<br>
 Following, the channel numbers to be used in the <a href="file:howto-input-profiles.html">Input Profile editor</a>:

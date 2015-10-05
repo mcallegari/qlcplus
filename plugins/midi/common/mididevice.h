@@ -99,16 +99,6 @@ private:
     QString m_midiTemplateName;
 
     /************************************************************************
-     * Send Note OFF
-     ************************************************************************/
-public:
-    void setSendNoteOff(bool sendNoteOff);
-    bool sendNoteOff() const;
-
-private:
-    bool m_sendNoteOff;
-
-    /************************************************************************
      * Virtual Open/Close
      ************************************************************************/
 public:

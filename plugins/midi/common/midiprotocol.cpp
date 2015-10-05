@@ -119,8 +119,7 @@ bool QLCMIDIProtocol::midiSysCommonToInput(uchar cmd, uchar data1, uchar data2,
 }
 
 bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
-                                     uchar midiChannel, bool sendNoteOff,
-                                     uchar* cmd,
+                                     uchar midiChannel, uchar* cmd,
                                      uchar* data1, uchar* data2)
 {
     // for OMNI mode, retrieve the original MIDI channel where data was sent
@@ -138,7 +137,7 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
     }
     else if (channel >= CHANNEL_OFFSET_NOTE && channel <= CHANNEL_OFFSET_NOTE_MAX)
     {
-        if (value == 0 && sendNoteOff)
+        if (value == 0)
             *cmd = MIDI_NOTE_OFF;
         else
             *cmd = MIDI_NOTE_ON;
