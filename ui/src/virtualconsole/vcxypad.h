@@ -206,6 +206,7 @@ public:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotKeyPressed(const QKeySequence& keySequence);
 
     /*************************************************************************
      * QLC+ mode

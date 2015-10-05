@@ -291,8 +291,8 @@
               <string>Remove</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../resources/icons/svg/svgicons.qrc">
-               <normaloff>:/remove.svg</normaloff>:/remove.svg</iconset>
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
              </property>
             </widget>
            </item>
@@ -348,7 +348,6 @@
  </widget>
  <resources>
   <include location="../qlcui.qrc"/>
-  <include location="../../../resources/icons/svg/svgicons.qrc"/>
   <include location="../qlcui.qrc"/>
  </resources>
  <connections>

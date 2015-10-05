@@ -595,10 +595,6 @@ void VCXYPad::updateFeedback()
     sendFeedback(Yfb, tiltInputSourceId);
 }
 
-/*****************************************************************************
- * External input
- *****************************************************************************/
-
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
@@ -647,6 +643,23 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
 
     m_area->setPosition(pt);
     m_area->update();
+}
+
+void VCXYPad::slotKeyPressed(const QKeySequence &keySequence)
+{
+    if (isEnabled() == false)
+        return;
+
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset *preset = it.value();
+        if (preset->m_keySequence == keySequence)
+        {
+            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
+            button->click();
+        }
+    }
 }
 
 /*****************************************************************************
