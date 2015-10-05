@@ -86,43 +86,49 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
-    // Mult and div
-    QVBoxLayout* multDivResetResultVBox = new QVBoxLayout();
-    m_multDivTopSpacer = new QLabel();
-    multDivResetResultVBox->addWidget(m_multDivTopSpacer);
-    QHBoxLayout* multDivResetHBox = new QHBoxLayout();
-    QVBoxLayout* multDivVBox = new QVBoxLayout();
-    m_multButton = new QToolButton();
-    // m_multButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_multButton->setIconSize(QSize(32, 32));
-    m_multButton->setIcon(QIcon(":/up.png"));
-    connect(m_multButton, SIGNAL(clicked()),
-            this, SLOT(slotMult()));
-    multDivVBox->addWidget(m_multButton, Qt::AlignVCenter | Qt::AlignLeft);
+    // Multiplier, factor and and divider box
+    QHBoxLayout* multFactorDivHBox = new QHBoxLayout();
+
+    m_divButton = new QToolButton();
+    m_divButton->setIconSize(QSize(32, 32));
+    m_divButton->setIcon(QIcon(":/back.png"));
+    m_divButton->setToolTip(tr("Divide the current time by 2"));
+    connect(m_divButton, SIGNAL(clicked()),
+            this, SLOT(slotDiv()));
+    multFactorDivHBox->addWidget(m_divButton, Qt::AlignVCenter | Qt::AlignLeft);
+
+    QVBoxLayout* labelsVboxBox = new QVBoxLayout();
+
     m_multDivLabel = new QLabel();
     m_multDivLabel->setAlignment(Qt::AlignCenter);
     m_multDivLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    multDivVBox->addWidget(m_multDivLabel, Qt::AlignVCenter | Qt::AlignLeft);
-    m_divButton = new QToolButton();
-    // m_divButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_divButton->setIconSize(QSize(32, 32));
-    m_divButton->setIcon(QIcon(":/down.png"));
-    connect(m_divButton, SIGNAL(clicked()),
-            this, SLOT(slotDiv()));
-    multDivVBox->addWidget(m_divButton, Qt::AlignVCenter | Qt::AlignLeft);
-    multDivResetHBox->addLayout(multDivVBox);
-    m_multDivResetButton = new QPushButton(tr("R\nE\nS\nE\nT"));
-    // m_multDivResetButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    connect(m_multDivResetButton, SIGNAL(clicked()),
-            this, SLOT(slotMultDivReset()));
-    multDivResetHBox->addWidget(m_multDivResetButton);
-    multDivResetResultVBox->addLayout(multDivResetHBox);
+    labelsVboxBox->addWidget(m_multDivLabel, Qt::AlignVCenter | Qt::AlignLeft);
+
     m_multDivResultLabel = new QLabel();
     m_multDivResultLabel->setAlignment(Qt::AlignCenter);
     m_multDivResultLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_multDivResultLabel->setBackgroundRole(QPalette::BrightText);
-    multDivResetResultVBox->addWidget(m_multDivResultLabel);
-    speedDialHBox->addLayout(multDivResetResultVBox);
+    labelsVboxBox->addWidget(m_multDivResultLabel);
+
+    multFactorDivHBox->addLayout(labelsVboxBox);
+
+    m_multButton = new QToolButton();
+    m_multButton->setIconSize(QSize(32, 32));
+    m_multButton->setIcon(QIcon(":/forward.png"));
+    m_multButton->setToolTip(tr("Multiply the current time by 2"));
+    connect(m_multButton, SIGNAL(clicked()),
+            this, SLOT(slotMult()));
+    multFactorDivHBox->addWidget(m_multButton, Qt::AlignVCenter | Qt::AlignLeft);
+
+    m_multDivResetButton = new QToolButton();
+    m_multDivResetButton->setIconSize(QSize(32, 32));
+    m_multDivResetButton->setIcon(QIcon(":/fileclose.png"));
+    m_multDivResetButton->setToolTip(tr("Reset the current factor to 1x"));
+    connect(m_multDivResetButton, SIGNAL(clicked()),
+            this, SLOT(slotMultDivReset()));
+    multFactorDivHBox->addWidget(m_multDivResetButton);
+
+    vBox->addLayout(multFactorDivHBox);
 
     // Update labels
     slotMultDivChanged();
@@ -468,7 +474,7 @@ void VCSpeedDial::slotMultDivChanged()
         m_factoredValue = m_dial->value() / qAbs(m_currentFactor);
         m_multDivLabel->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
     }
-    m_multDivResultLabel->setText(Function::speedToString(m_factoredValue));
+    m_multDivResultLabel->setText("(" + Function::speedToString(m_factoredValue) + ")");
 
     slotFactoredValueChanged();
 }
@@ -692,7 +698,6 @@ void VCSpeedDial::setVisibilityMask(quint32 mask)
 
     if (mask & MultDiv)
     {
-        m_multDivTopSpacer->show();
         m_multButton->show();
         m_multDivLabel->show();
         m_divButton->show();
@@ -701,7 +706,6 @@ void VCSpeedDial::setVisibilityMask(quint32 mask)
     }
     else
     {
-        m_multDivTopSpacer->hide();
         m_multButton->hide();
         m_multDivLabel->hide();
         m_divButton->hide();

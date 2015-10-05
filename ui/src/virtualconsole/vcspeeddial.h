@@ -165,11 +165,10 @@ private slots:
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
-    QWidget* m_multDivTopSpacer;
     QToolButton* m_multButton;
     QLabel* m_multDivLabel;
     QToolButton* m_divButton;
-    QPushButton* m_multDivResetButton;
+    QToolButton* m_multDivResetButton;
     QLabel* m_multDivResultLabel;
     QPushButton* m_applyButton;
     FlowLayout* m_presetsLayout;

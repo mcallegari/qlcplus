@@ -201,10 +201,12 @@ void InputSelectionWidget::updateInputSource()
         uniName = KInputNone;
         chName = KInputNone;
     }
+    else
+    {
+        m_lowerSpin->setValue(m_inputSource->lowerValue());
+        m_upperSpin->setValue(m_inputSource->upperValue());
+    }
 
     m_inputUniverseEdit->setText(uniName);
     m_inputChannelEdit->setText(chName);
-
-    m_lowerSpin->setValue(m_inputSource->lowerValue());
-    m_upperSpin->setValue(m_inputSource->upperValue());
 }
