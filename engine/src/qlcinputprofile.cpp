@@ -41,6 +41,7 @@
 
 QLCInputProfile::QLCInputProfile()
 {
+    m_midiSendNoteOff = true;
 }
 
 QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)
@@ -62,6 +63,8 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         m_model = profile.m_model;
         m_path = profile.m_path;
         m_type = profile.m_type;
+        m_midiSendNoteOff = profile.m_midiSendNoteOff;
+        m_globalSettingsMap = profile.m_globalSettingsMap;
 
         /* Destroy all existing channels */
         destroyChannels();
@@ -165,6 +168,26 @@ QList<QLCInputProfile::Type> QLCInputProfile::types()
         << Dmx
         << Enttec;
     return result;
+}
+
+/********************************************************************
+ * Plugin-specific global settings
+ ********************************************************************/
+
+void QLCInputProfile::setMidiSendNoteOff(bool enable)
+{
+    m_midiSendNoteOff = enable;
+    m_globalSettingsMap["MIDISendNoteOff"] = QVariant(enable);
+}
+
+bool QLCInputProfile::midiSendNoteOff() const
+{
+    return m_midiSendNoteOff;
+}
+
+QMap<QString, QVariant> QLCInputProfile::globalSettings() const
+{
+    return m_globalSettingsMap;
 }
 
 /****************************************************************************
@@ -320,6 +343,13 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
             {
                 setType(stringToType(doc.readElementText()));
             }
+            else if (doc.name() == KXMLQLCInputProfileMidiSendNoteOff)
+            {
+                if (doc.readElementText() == KXMLQLCFalse)
+                    setMidiSendNoteOff(false);
+                else
+                    setMidiSendNoteOff(true);
+            }
             else if (doc.name() == KXMLQLCInputChannel)
             {
                 QString str = doc.attributes().value(KXMLQLCInputChannelNumber).toString();
@@ -361,6 +391,9 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     doc.writeTextElement(KXMLQLCInputProfileManufacturer, m_manufacturer);
     doc.writeTextElement(KXMLQLCInputProfileModel, m_model);
     doc.writeTextElement(KXMLQLCInputProfileType, typeToString(m_type));
+
+    if (midiSendNoteOff() == false)
+        doc.writeTextElement(KXMLQLCInputProfileMidiSendNoteOff, QString(KXMLQLCFalse));
 
     /* Write channels to the document */
     QMapIterator <quint32, QLCInputChannel*> it(m_channels);

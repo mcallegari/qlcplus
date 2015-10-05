@@ -238,6 +238,19 @@ void InputPatch::setProfilePageControls()
 {
     if (m_profile != NULL)
     {
+        if (m_plugin != NULL)
+        {
+            QMap<QString, QVariant> settings = m_profile->globalSettings();
+            if (settings.isEmpty() == false)
+            {
+                QMapIterator <QString,QVariant> it(settings);
+                while (it.hasNext() == true)
+                {
+                    it.next();
+                    m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, it.key(), it.value());
+                }
+            }
+        }
         QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
         while (it.hasNext() == true)
         {

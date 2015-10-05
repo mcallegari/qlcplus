@@ -29,6 +29,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Collection Editor: added preview button (thanks to Giorgio Rebecchi)
   * Fixture Remap: fixed remapping of EFX functions
   * Function Wizard: improved creation of color scenes for RGB panels
+  * Input Profiles: added an option for MIDI profiles to feedback a Note Off or a Note On with 0 velocity. APCMini now works out of the box. (Jano Svitok)
   * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
   * Plugins/MIDI: fixed Program Change handling on OSX and Windows
   * Plugins/MIDI: (Windows) do not close the device when sending SysEx data

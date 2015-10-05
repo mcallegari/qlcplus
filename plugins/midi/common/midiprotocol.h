@@ -59,12 +59,15 @@ namespace QLCMIDIProtocol
      * @param channel The input channel that receives feedback data
      * @param value The channel's feedback value
      * @param MIDI channel to send data on (0-15)
+     * @param sendNoteOff if true, for value 0 Note Off is sent.
+     *                    If false, Note On with velocity 0 is sent.
      * @param cmd MIDI command byte
      * @param data1 MIDI first data byte
      * @param data2 MIDI second data byte
      * @return true if the values were parsed successfully, otherwise false
      */
-    bool feedbackToMidi(quint32 channel, uchar value, uchar midiChannel,
+    bool feedbackToMidi(quint32 channel, uchar value,
+                        uchar midiChannel, bool sendNoteOff,
                         uchar* cmd, uchar* data1,
                         uchar* data2);
 }
