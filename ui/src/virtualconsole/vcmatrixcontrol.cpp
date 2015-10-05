@@ -192,6 +192,13 @@ bool VCMatrixControl::loadXML(const QDomElement &root)
                 quint32 uni = tag.attribute(KXMLQLCVCMatrixControlInputUniverse).toUInt();
                 quint32 ch = tag.attribute(KXMLQLCVCMatrixControlInputChannel).toUInt();
                 m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+
+                uchar min = 0, max = UCHAR_MAX;
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(tag.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(tag.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+                m_inputSource->setRange(min, max);
             }
         }
         else if (tag.tagName() == KXMLQLCVCMatrixControlKey)
@@ -262,6 +269,10 @@ bool VCMatrixControl::saveXML(QDomDocument *doc, QDomElement *mtx_root)
         tag = doc->createElement(KXMLQLCVCMatrixControlInput);
         tag.setAttribute(KXMLQLCVCMatrixControlInputUniverse, QString("%1").arg(m_inputSource->universe()));
         tag.setAttribute(KXMLQLCVCMatrixControlInputChannel, QString("%1").arg(m_inputSource->channel()));
+        if (m_inputSource->lowerValue() != 0)
+            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+        if (m_inputSource->upperValue() != UCHAR_MAX)
+            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
         root.appendChild(tag);
     }
 

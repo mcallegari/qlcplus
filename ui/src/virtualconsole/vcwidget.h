@@ -503,10 +503,12 @@ protected:
 
     bool saveXMLCommon(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLAppearance(QDomDocument* doc, QDomElement* widget_root);
+    /** Save the defualt input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root);
-    /** Save input source from $uni and $ch to $root */
+    /** Save input source from a $src input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
                       const QLCInputSource *src) const;
+    /** Save input source from a $src input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
                       QSharedPointer<QLCInputSource> const& src) const;
 

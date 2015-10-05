@@ -613,6 +613,23 @@ void VCXYPad::updateFeedback()
     int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
                          float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
     sendFeedback(Yfb, tiltInputSourceId);
+
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset* preset = it.value();
+        if (preset->m_inputSource != NULL)
+        {
+            {
+                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+                if (preset->m_inputSource.isNull() == false)
+                    sendFeedback(button->isDown() ?
+                                 preset->m_inputSource->upperValue() :
+                                 preset->m_inputSource->lowerValue(),
+                                 preset->m_inputSource);
+            }
+        }
+    }
 }
 
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,

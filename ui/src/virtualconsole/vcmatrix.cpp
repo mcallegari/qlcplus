@@ -835,12 +835,15 @@ void VCMatrix::updateFeedback()
             if (control->widgetType() == VCMatrixControl::Knob)
             {
                 KnobWidget* knob = reinterpret_cast<KnobWidget*>(it.key());
-                sendFeedback(knob->value(), control->m_id);
+                sendFeedback(knob->value(), control->m_inputSource);
             }
             else // if (control->widgetType() == VCMatrixControl::Button)
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                sendFeedback(button->isDown() ? 0xff : 0);
+                sendFeedback(button->isDown() ?
+                                 control->m_inputSource->upperValue() :
+                                 control->m_inputSource->lowerValue(),
+                                 control->m_inputSource);
             }
         }
     }

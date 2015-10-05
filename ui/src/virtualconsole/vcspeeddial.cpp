@@ -545,7 +545,11 @@ void VCSpeedDial::updateFeedback()
         {
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                sendFeedback(button->isDown() ? 0xff : 0);
+                if (preset->m_inputSource.isNull() == false)
+                    sendFeedback(button->isDown() ?
+                                 preset->m_inputSource->upperValue() :
+                                 preset->m_inputSource->lowerValue(),
+                                 preset->m_inputSource);
             }
         }
     }
@@ -835,10 +839,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 QDomElement subtag = sub.toElement();
                 if (subtag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), multInputSourceId);
+                    loadXMLInput(subtag, multInputSourceId);
                 }
                 else
                 {
@@ -857,10 +858,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 QDomElement subtag = sub.toElement();
                 if (subtag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), divInputSourceId);
+                    loadXMLInput(subtag, divInputSourceId);
                 }
                 else
                 {
@@ -879,10 +877,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 QDomElement subtag = sub.toElement();
                 if (subtag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), multDivResetInputSourceId);
+                    loadXMLInput(subtag, multDivResetInputSourceId);
                 }
                 else
                 {
