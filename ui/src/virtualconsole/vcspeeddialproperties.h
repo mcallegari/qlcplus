@@ -25,6 +25,7 @@
 #include "ui_vcspeeddialproperties.h"
 #include "qlcinputsource.h"
 
+class InputSelectionWidget;
 class VCSpeedDial;
 class VCSpeedDialFunction;
 class VCSpeedDialPreset;
@@ -69,27 +70,16 @@ private:
     /************************************************************************
      * Input page
      ************************************************************************/
-private:
-    void updateInputSources();
-
 private slots:
-    void slotAutoDetectAbsoluteInputSourceToggled(bool checked);
-    void slotChooseAbsoluteInputSourceClicked();
-    void slotAbsoluteInputValueChanged(quint32 universe, quint32 channel);
-
-    void slotAutoDetectTapInputSourceToggled(bool checked);
-    void slotChooseTapInputSourceClicked();
-    void slotTapInputValueChanged(quint32 universe, quint32 channel);
-
     void slotAbsolutePrecisionCbChecked(bool checked);
 
-    void slotAttachKey();
-    void slotDetachKey();
-
 private:
-    QSharedPointer<QLCInputSource> m_absoluteInputSource;
-    QSharedPointer<QLCInputSource> m_tapInputSource;
-    QKeySequence m_tapKeySequence;
+    InputSelectionWidget *m_absoluteInputWidget;
+    InputSelectionWidget *m_tapInputWidget;
+
+    InputSelectionWidget *m_multInputWidget;
+    InputSelectionWidget *m_divInputWidget;
+    InputSelectionWidget *m_multDivResetInputWidget;
 
     /*********************************************************************
      * Presets
