@@ -416,14 +416,14 @@ void VCWidget_Test::loadInput()
     xmldoc.appendChild(root);
 
     StubWidget stub(&w, m_doc);
-    QCOMPARE(stub.loadXMLInput(&root), true);
+    QCOMPARE(stub.loadXMLInput(root), true);
 
     QLCInputSource *src = new QLCInputSource(12, 34);
     QCOMPARE(stub.inputSource()->universe(), src->universe());
     QCOMPARE(stub.inputSource()->channel(), src->channel());
 
     root.setTagName("Output");
-    QCOMPARE(stub.loadXMLInput(&root), false);
+    QCOMPARE(stub.loadXMLInput(root), false);
     QCOMPARE(stub.inputSource()->universe(), src->universe());
     QCOMPARE(stub.inputSource()->channel(), src->channel());
 }

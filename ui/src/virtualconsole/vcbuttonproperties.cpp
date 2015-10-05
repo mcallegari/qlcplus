@@ -53,6 +53,7 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     setupUi(this);
 
     m_inputSelWidget = new InputSelectionWidget(m_doc, this);
+    m_inputSelWidget->setCustomFeedbackVisibility(true);
     m_inputSelWidget->setKeySequence(m_button->keySequence());
     m_inputSelWidget->setInputSource(m_button->inputSource());
     m_inputSelWidget->setWidgetPage(m_button->page());

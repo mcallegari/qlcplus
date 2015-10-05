@@ -34,6 +34,7 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+    m_customFbButton->setVisible(false);
     m_feedbackGroup->setVisible(false);
 
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
@@ -60,6 +61,11 @@ InputSelectionWidget::~InputSelectionWidget()
 void InputSelectionWidget::setKeyInputVisibility(bool visible)
 {
     m_keyInputGroup->setVisible(visible);
+}
+
+void InputSelectionWidget::setCustomFeedbackVisibility(bool visible)
+{
+    m_customFbButton->setVisible(visible);
 }
 
 void InputSelectionWidget::setTitle(QString title)

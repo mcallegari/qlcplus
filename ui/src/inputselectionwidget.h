@@ -37,6 +37,7 @@ public:
     ~InputSelectionWidget();
 
     void setKeyInputVisibility(bool visible);
+    void setCustomFeedbackVisibility(bool visible);
     void setTitle(QString title);
     void setWidgetPage(int page);
     bool isAutoDetecting();
