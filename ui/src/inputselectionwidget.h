@@ -57,6 +57,10 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
 
+    void slotCustomFeedbackToggled(bool checked);
+    void slotLowerSpinValueChanged(int value);
+    void slotUpperSpinValueChanged(int value);
+
 signals:
     void autoDetectToggled(bool checked);
     void inputValueChanged(quint32 universe, quint32 channel);

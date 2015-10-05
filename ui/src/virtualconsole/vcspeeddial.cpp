@@ -567,10 +567,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 QDomElement subtag = sub.toElement();
                 if (subtag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), absoluteInputSourceId);
+                    loadXMLInput(subtag, absoluteInputSourceId);
                 }
                 else
                 {
@@ -589,10 +586,7 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 QDomElement subtag = sub.toElement();
                 if (subtag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tapInputSourceId);
+                    loadXMLInput(subtag, tapInputSourceId);
                 }
                 else
                 {

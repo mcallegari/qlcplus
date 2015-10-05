@@ -56,6 +56,17 @@ private:
     quint32 m_channel;
 
     /*********************************************************************
+     * Custom feedback
+     *********************************************************************/
+public:
+    void setRange(uchar lower, uchar upper);
+    uchar lowerValue() const;
+    uchar upperValue() const;
+
+protected:
+    uchar m_lower, m_upper;
+
+    /*********************************************************************
      * Working mode
      *********************************************************************/
 public:

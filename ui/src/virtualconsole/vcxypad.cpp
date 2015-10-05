@@ -736,17 +736,13 @@ bool VCXYPad::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCXYPadPan)
         {
-            quint32 uni = 0, ch = 0;
             xpos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
-            if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), panInputSourceId);
+            loadXMLInput(tag.firstChild().toElement(), panInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadTilt)
         {
-            quint32 uni = 0, ch = 0;
             ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
-            if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
-                setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), tiltInputSourceId);
+            loadXMLInput(tag.firstChild().toElement(), tiltInputSourceId);
         }
         else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
         {

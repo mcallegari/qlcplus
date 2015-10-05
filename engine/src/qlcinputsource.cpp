@@ -35,6 +35,8 @@ QLCInputSource::QLCInputSource(QThread *parent)
     : QThread(parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
+    , m_lower(0)
+    , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_inputValue(0)
@@ -47,6 +49,8 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     : QThread(parent)
     , m_universe(universe)
     , m_channel(channel)
+    , m_lower(0)
+    , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_inputValue(0)
@@ -101,6 +105,22 @@ void QLCInputSource::setPage(ushort pgNum)
 ushort QLCInputSource::page() const
 {
     return (ushort)(m_channel >> 16);
+}
+
+void QLCInputSource::setRange(uchar lower, uchar upper)
+{
+    m_lower = lower;
+    m_upper = upper;
+}
+
+uchar QLCInputSource::lowerValue() const
+{
+    return m_lower;
+}
+
+uchar QLCInputSource::upperValue() const
+{
+    return m_upper;
 }
 
 /*********************************************************************

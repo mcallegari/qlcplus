@@ -61,6 +61,8 @@ class QFile;
 #define KXMLQLCVCWidgetInput "Input"
 #define KXMLQLCVCWidgetInputUniverse "Universe"
 #define KXMLQLCVCWidgetInputChannel "Channel"
+#define KXMLQLCVCWidgetInputLowerValue "LowerValue"
+#define KXMLQLCVCWidgetInputUpperValue "UpperValue"
 
 #define KXMLQLCWindowState "WindowState"
 #define KXMLQLCWindowStateVisible "Visible"
@@ -486,7 +488,8 @@ public:
 protected:
     bool loadXMLCommon(const QDomElement* root);
     bool loadXMLAppearance(const QDomElement* appearance_root);
-    bool loadXMLInput(const QDomElement* root);
+    bool loadXMLInput(const QDomElement& root, const quint8& id = 0);
+
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const;
 

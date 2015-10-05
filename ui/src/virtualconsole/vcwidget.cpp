@@ -811,21 +811,28 @@ bool VCWidget::loadXMLAppearance(const QDomElement* root)
     return true;
 }
 
-bool VCWidget::loadXMLInput(const QDomElement* root)
+bool VCWidget::loadXMLInput(const QDomElement &root, const quint8 &id)
 {
-    Q_ASSERT(root != NULL);
+    Q_ASSERT(&root != NULL);
 
-    quint32 uni = 0;
-    quint32 ch = 0;
-    if (loadXMLInput(*root, &uni, &ch) == true)
-    {
-        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
-        return true;
-    }
-    else
-    {
+    if (root.tagName() != KXMLQLCVCWidgetInput)
         return false;
-    }
+
+    quint32 uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
+    quint32 ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
+    uchar min = 0, max = UCHAR_MAX;
+
+    QSharedPointer<QLCInputSource>newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    if (root.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+        min = uchar(root.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
+    if (root.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+        max = uchar(root.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+
+    newSrc->setRange(min, max);
+
+    setInputSource(newSrc, id);
+
+    return true;
 }
 
 bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const
@@ -945,6 +952,10 @@ bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
         QDomElement tag = doc->createElement(KXMLQLCVCWidgetInput);
         tag.setAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
         tag.setAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
+        if (src->lowerValue() != 0)
+            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
+        if (src->upperValue() != UCHAR_MAX)
+            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
         root->appendChild(tag);
     }
 

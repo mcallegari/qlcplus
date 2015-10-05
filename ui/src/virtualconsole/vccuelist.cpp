@@ -1316,9 +1316,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), nextInputSourceId);
+                    loadXMLInput(subTag, nextInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1340,9 +1338,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), previousInputSourceId);
+                    loadXMLInput(subTag, previousInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1364,9 +1360,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), playbackInputSourceId);
+                    loadXMLInput(subTag, playbackInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
@@ -1392,9 +1386,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), cf1InputSourceId);
+                    loadXMLInput(subTag, cf1InputSourceId);
                 }
             }
         }
@@ -1406,9 +1398,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), cf2InputSourceId);
+                    loadXMLInput(subTag, cf2InputSourceId);
                 }
             }
         }
