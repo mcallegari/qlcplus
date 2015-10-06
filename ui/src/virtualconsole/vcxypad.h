@@ -53,6 +53,8 @@ class Doc;
 #define KXMLQLCVCXYPad "XYPad"
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
+#define KXMLQLCVCXYPadWidth "Width"
+#define KXMLQLCVCXYPadHeight "Height"
 #define KXMLQLCVCXYPadPosition "Position"
 #define KXMLQLCVCXYPadRangeWindow "Window"
 #define KXMLQLCVCXYPadRangeHorizMin "hMin"
@@ -81,6 +83,8 @@ class VCXYPad : public VCWidget, public DMXSource
 public:
     static const quint8 panInputSourceId;
     static const quint8 tiltInputSourceId;
+    static const quint8 widthInputSourceId;
+    static const quint8 heightInputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -204,7 +208,7 @@ protected:
     void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
-    void slotPresetClicked();
+    void slotPresetClicked(bool checked);
 
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;

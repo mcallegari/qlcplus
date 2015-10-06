@@ -54,12 +54,16 @@
 
 const quint8 VCXYPad::panInputSourceId = 0;
 const quint8 VCXYPad::tiltInputSourceId = 1;
+const quint8 VCXYPad::widthInputSourceId = 2;
+const quint8 VCXYPad::heightInputSourceId = 3;
 
 const qreal MAX_VALUE = 256.0;
 const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
 
 static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
                                    "QPushButton:pressed { border: 2px solid #0000FF; }"
+                                   "QPushButton:checked { border: 2px solid #0000FF; }"
+                                   "QPushButton:unchecked { border: 2px solid #6A6A6A; }"
                                    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 /*****************************************************************************
@@ -519,7 +523,7 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
         presetButton->setCheckable(true);
 
     connect(presetButton, SIGNAL(clicked(bool)),
-            this, SLOT(slotPresetClicked()));
+            this, SLOT(slotPresetClicked(bool)));
 
     if (mode() == Doc::Design)
         presetWidget->setEnabled(false);
@@ -557,7 +561,7 @@ QList<VCXYPadPreset *> VCXYPad::presets() const
     return presets;
 }
 
-void VCXYPad::slotPresetClicked()
+void VCXYPad::slotPresetClicked(bool checked)
 {
     if (mode() == Doc::Design)
         return;
@@ -580,18 +584,29 @@ void VCXYPad::slotPresetClicked()
             it != m_presets.end(); ++it)
     {
         QPushButton* cBtn = reinterpret_cast<QPushButton*>(it.key());
-        if (cBtn->isDown() == true)
+        VCXYPadPreset *cPr = it.value();
+        if (preset->m_id == cPr->m_id)
+            continue;
+
+        cBtn->blockSignals(true);
+        if (cPr->m_type == VCXYPadPreset::EFX || cPr->m_type == VCXYPadPreset::Scene)
         {
-            cBtn->setDown(false);
-            VCXYPadPreset *pr = it.value();
-            if (pr->m_inputSource.isNull() == false)
-                sendFeedback(pr->m_inputSource->lowerValue(), pr->m_inputSource);
+            if (cBtn->isChecked() == true)
+                cBtn->setChecked(false);
         }
+        else
+        {
+            if (cBtn->isDown() == true)
+                cBtn->setDown(false);
+        }
+        cBtn->blockSignals(false);
+        if (cPr->m_inputSource.isNull() == false)
+            sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
     }
 
     if (preset->m_type == VCXYPadPreset::EFX)
     {
-        if (btn->isChecked() == false)
+        if (checked == false)
         {
             m_area->enableEFXPreview(false);
             return;
@@ -602,7 +617,9 @@ void VCXYPad::slotPresetClicked()
             return;
         m_efx = qobject_cast<EFX*>(f);
 
-        QRectF rect = m_area->rangeWindow();
+        QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
+                   QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
+        m_area->setRangeWindow(rect);
         if (rect.isValid())
         {
             m_efx->setXOffset(rect.x() + rect.width() / 2);
@@ -621,13 +638,13 @@ void VCXYPad::slotPresetClicked()
         m_area->setEFXPolygons(polygon, fixturePoints);
         m_area->setEFXInterval(m_efx->duration() / polygon.size());
         m_efx->start(m_doc->masterTimer());
-        btn->setDown(true);
+
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
     }
     else if (preset->m_type == VCXYPadPreset::Scene)
     {
-        if (btn->isChecked() == false)
+        if (checked == false)
             return;
 
         Function *f = m_doc->function(preset->m_funcID);
@@ -657,21 +674,28 @@ void VCXYPad::slotPresetClicked()
         }
 
         m_area->enableEFXPreview(false);
+        // reset the area window as we're switching to relative
+        m_area->setRangeWindow(QRectF());
         m_area->setPosition(QPointF(128, 128));
         m_area->repaint();
         m_scene->start(m_doc->masterTimer());
-        btn->setDown(true);
+
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
     }
     else if (preset->m_type == VCXYPadPreset::Position)
     {
         m_area->enableEFXPreview(false);
+        QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
+                   QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
+        m_area->setRangeWindow(rect);
         m_area->setPosition(preset->m_dmxPos);
         m_area->repaint();
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+        btn->blockSignals(true);
         btn->setDown(true);
+        btn->blockSignals(false);
     }
 }
 
@@ -718,34 +742,73 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
 
     if (checkInputSource(universe, pagedCh, value, sender(), panInputSourceId))
     {
-
-        qreal areaWidth = MAX_VALUE;
-        qreal xOffset = 0;
-        QRectF rangeWindow = m_area->rangeWindow();
-        if (rangeWindow.isValid())
+        if (m_efx == NULL)
         {
-            areaWidth = rangeWindow.width();
-            xOffset = rangeWindow.x();
+            qreal areaWidth = MAX_VALUE;
+            qreal xOffset = 0;
+            QRectF rangeWindow = m_area->rangeWindow();
+            if (rangeWindow.isValid())
+            {
+                areaWidth = rangeWindow.width();
+                xOffset = rangeWindow.x();
+            }
+            pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
+                          qreal(0), areaWidth));
         }
-        pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                      qreal(0), areaWidth));
+        else
+        {
+            if (m_efx->isRunning() == false)
+                return;
+            m_hRangeSlider->setMinimumValue(value);
+            slotRangeValueChanged();
+            return;
+        }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), tiltInputSourceId))
     {
-        qreal yOffset = 0;
-        qreal areaHeight = MAX_VALUE;
-        QRectF rangeWindow = m_area->rangeWindow();
-        if (rangeWindow.isValid())
+        if (m_efx == NULL)
         {
-            areaHeight = rangeWindow.height();
-            yOffset = rangeWindow.y();
+            qreal yOffset = 0;
+            qreal areaHeight = MAX_VALUE;
+            QRectF rangeWindow = m_area->rangeWindow();
+            if (rangeWindow.isValid())
+            {
+                areaHeight = rangeWindow.height();
+                yOffset = rangeWindow.y();
+            }
+            if (invertedAppearance() == false)
+                pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255),
+                              qreal(0), areaHeight));
+            else
+                pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0),
+                              qreal(0), areaHeight));
         }
-        if (invertedAppearance() == false)
-            pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                          qreal(0), areaHeight));
         else
-            pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0),
-                          qreal(0), areaHeight));
+        {
+            if (m_efx->isRunning() == false)
+                return;
+            m_vRangeSlider->setMinimumValue(value);
+            slotRangeValueChanged();
+            return;
+        }
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), widthInputSourceId))
+    {
+        if (m_efx != NULL && m_efx->isRunning())
+        {
+            m_hRangeSlider->setMaximumValue(value);
+            slotRangeValueChanged();
+        }
+        return;
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), heightInputSourceId))
+    {
+        if (m_efx != NULL && m_efx->isRunning())
+        {
+            m_vRangeSlider->setMaximumValue(value);
+            slotRangeValueChanged();
+        }
+        return;
     }
     else
     {
@@ -871,6 +934,14 @@ bool VCXYPad::loadXML(const QDomElement* root)
             ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
             loadXMLInput(tag.firstChild().toElement(), tiltInputSourceId);
         }
+        else if (tag.tagName() == KXMLQLCVCXYPadWidth)
+        {
+            loadXMLInput(tag.firstChild().toElement(), widthInputSourceId);
+        }
+        else if (tag.tagName() == KXMLQLCVCXYPadHeight)
+        {
+            loadXMLInput(tag.firstChild().toElement(), heightInputSourceId);
+        }
         else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
         {
             if (tag.hasAttribute(KXMLQLCVCXYPadRangeHorizMin))
@@ -976,6 +1047,16 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
     tag = doc->createElement(KXMLQLCVCXYPadTilt);
     tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
     saveXMLInput(doc, &tag, inputSource(tiltInputSourceId));
+    root.appendChild(tag);
+
+    /* Width */
+    tag = doc->createElement(KXMLQLCVCXYPadWidth);
+    saveXMLInput(doc, &tag, inputSource(widthInputSourceId));
+    root.appendChild(tag);
+
+    /* Height */
+    tag = doc->createElement(KXMLQLCVCXYPadHeight);
+    saveXMLInput(doc, &tag, inputSource(heightInputSourceId));
     root.appendChild(tag);
 
     // Presets

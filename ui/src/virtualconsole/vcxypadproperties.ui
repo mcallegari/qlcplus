@@ -58,6 +58,9 @@
           <item>
            <layout class="QHBoxLayout" name="m_extInputLayout"/>
           </item>
+          <item>
+           <layout class="QHBoxLayout" name="m_sizeInputLayout"/>
+          </item>
          </layout>
         </widget>
        </item>

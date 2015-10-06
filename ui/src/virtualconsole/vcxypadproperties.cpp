@@ -101,6 +101,22 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_tiltInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
             this, SLOT(slotTiltInputValueChanged(quint32,quint32)));
 
+    m_widthInputWidget = new InputSelectionWidget(m_doc, this);
+    m_widthInputWidget->setTitle(tr("Width"));
+    m_widthInputWidget->setKeyInputVisibility(false);
+    m_widthInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::widthInputSourceId));
+    m_widthInputWidget->setWidgetPage(m_xypad->page());
+    m_widthInputWidget->show();
+    m_sizeInputLayout->addWidget(m_widthInputWidget);
+
+    m_heightInputWidget = new InputSelectionWidget(m_doc, this);
+    m_heightInputWidget->setTitle(tr("Height"));
+    m_heightInputWidget->setKeyInputVisibility(false);
+    m_heightInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::heightInputSourceId));
+    m_heightInputWidget->setWidgetPage(m_xypad->page());
+    m_heightInputWidget->show();
+    m_sizeInputLayout->addWidget(m_heightInputWidget);
+
     slotSelectionChanged(NULL);
     fillTree();
 
@@ -662,6 +678,8 @@ void VCXYPadProperties::accept()
     m_xypad->setCaption(m_nameEdit->text());
     m_xypad->setInputSource(m_panInputWidget->inputSource(), VCXYPad::panInputSourceId);
     m_xypad->setInputSource(m_tiltInputWidget->inputSource(), VCXYPad::tiltInputSourceId);
+    m_xypad->setInputSource(m_widthInputWidget->inputSource(), VCXYPad::widthInputSourceId);
+    m_xypad->setInputSource(m_heightInputWidget->inputSource(), VCXYPad::heightInputSourceId);
     if (m_YNormalRadio->isChecked())
         m_xypad->setInvertedAppearance(false);
     else

@@ -52,6 +52,8 @@ private:
     Doc* m_doc;
     InputSelectionWidget *m_panInputWidget;
     InputSelectionWidget *m_tiltInputWidget;
+    InputSelectionWidget *m_widthInputWidget;
+    InputSelectionWidget *m_heightInputWidget;
 
     /********************************************************************
      * Fixtures page
