@@ -109,6 +109,7 @@
   <fixture path="Cameo-LED-Mini-PAR-CAN-RGB-7x3W.qxf" mf="Cameo" md="LED Mini PAR CAN RGB 7x3W"/>
   <fixture path="Cameo-LED-Mini-PAR-CAN-RGBW-7x8W.qxf" mf="Cameo" md="LED Mini PAR CAN RGBW 7x8W"/>
   <fixture path="Cameo-LED-Mini-PAR-CAN-White-7x4W.qxf" mf="Cameo" md="LED Mini PAR CAN White 7x4W"/>
+  <fixture path="Cameo-LED-Moving-Head-60W-CLMHRGB60W.qxf" mf="Cameo" md="LED Moving Head 60W CLMHR60W"/>
   <fixture path="Cameo-LED-RGB-PAR56-9x3W.qxf" mf="Cameo" md="LED RGB PAR56 9x3W"/>
   <fixture path="Cameo-LED-RGB-PAR56-Can.qxf" mf="Cameo" md="LED RGB PAR56 Can"/>
   <fixture path="Cameo-LED-RGB-PAR64-18x3W.qxf" mf="Cameo" md="LED RGB PAR64 18x3W"/>
