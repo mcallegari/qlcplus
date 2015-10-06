@@ -385,6 +385,7 @@
   <fixture path="lightmaXX-Star-Sphere-6-RGBAW.qxf" mf="lightmaXX" md="Star Sphere 6 RGBAW"/>
   <fixture path="Lightronics-FXLD618C2I.qxf" mf="Lightronics" md="FXLD618C2I"/>
   <fixture path="Lite-Works-ColorChanger.qxf" mf="Lite-Works" md="ColorChanger"/>
+  <fixture path="LiteCraft-LED-PAR-64-AT3.qxf" mf="Litecraft" md="LED PAR 64 AT3"/>
   <fixture path="Litecraft-PowerBar-4.qxf" mf="Litecraft" md="PowerBar 4"/>
   <fixture path="Look-Solutions-Unique-2.1.qxf" mf="Look Solutions" md="Unique 2.1"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
@@ -470,6 +471,7 @@
   <fixture path="Proel-Analogue-Dimmer-6Ch.qxf" mf="Proel" md="Analogue Dimmer 6Ch"/>
   <fixture path="Proel-Dreamlight-250-Eclipse-Spot.qxf" mf="Proel" md="Dreamlight 250 Eclipse Spot"/>
   <fixture path="Proel-Moving-Head-3Wx108-LED-RGBW.qxf" mf="Proel" md="Moving Head 3Wx108 LED RGBW"/>
+  <fixture path="Proel-PLLED64RGB.qxf" mf="Proel" md="PLLED64RGB"/>
   <fixture path="Proel-Tarkus-575-Spot.qxf" mf="Proel" md="Tarkus 575 Spot"/>
   <fixture path="Pulse-ECO-LED-PAR56.qxf" mf="Pulse" md="ECO LED PAR56"/>
   <fixture path="Pulse-SlimLite-56.qxf" mf="Pulse" md="SlimLite 56"/>
