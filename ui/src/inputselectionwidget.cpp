@@ -203,11 +203,14 @@ void InputSelectionWidget::updateInputSource()
     }
     else
     {
+        m_lowerSpin->blockSignals(true);
+        m_upperSpin->blockSignals(true);
         m_lowerSpin->setValue(m_inputSource->lowerValue());
         m_upperSpin->setValue(m_inputSource->upperValue());
-        if (m_customFbButton->isVisible() &&
-            (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX))
-                m_feedbackGroup->setVisible(true);
+        if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
+            m_customFbButton->setChecked(true);
+        m_lowerSpin->blockSignals(false);
+        m_upperSpin->blockSignals(false);
     }
 
     m_inputUniverseEdit->setText(uniName);
