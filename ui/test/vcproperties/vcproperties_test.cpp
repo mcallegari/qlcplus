@@ -46,7 +46,6 @@ void VCProperties_Test::initial()
     VCProperties p;
 
     QCOMPARE(p.m_size, QSize(1920, 1080));
-    QCOMPARE(p.m_tapModifier, Qt::ControlModifier);
     QCOMPARE(p.m_gmChannelMode, GrandMaster::Intensity);
     QCOMPARE(p.m_gmValueMode, GrandMaster::Reduce);
     QCOMPARE(p.m_gmInputUniverse, InputOutputMap::invalidUniverse());
@@ -57,7 +56,6 @@ void VCProperties_Test::copy()
 {
     VCProperties p;
     p.m_size = QSize(1, 2);
-    p.m_tapModifier = Qt::ShiftModifier;
     p.m_gmChannelMode = GrandMaster::AllChannels;
     p.m_gmValueMode = GrandMaster::Limit;
     p.m_gmInputUniverse = 5;
@@ -65,7 +63,6 @@ void VCProperties_Test::copy()
 
     VCProperties p2(p);
     QCOMPARE(p2.m_size, p.m_size);
-    QCOMPARE(p2.m_tapModifier, p.m_tapModifier);
     QCOMPARE(p2.m_gmChannelMode, p.m_gmChannelMode);
     QCOMPARE(p2.m_gmValueMode, p.m_gmValueMode);
     QCOMPARE(p2.m_gmInputUniverse, p.m_gmInputUniverse);
@@ -73,7 +70,6 @@ void VCProperties_Test::copy()
 
     VCProperties p3 = p;
     QCOMPARE(p3.m_size, p.m_size);
-    QCOMPARE(p3.m_tapModifier, p.m_tapModifier);
     QCOMPARE(p3.m_gmChannelMode, p.m_gmChannelMode);
     QCOMPARE(p3.m_gmValueMode, p.m_gmValueMode);
     QCOMPARE(p3.m_gmInputUniverse, p.m_gmInputUniverse);
@@ -114,11 +110,6 @@ void VCProperties_Test::loadXMLHappy()
     size.setAttribute("Height", "20");
     root.appendChild(size);
 
-    // Keyboard
-    QDomElement kb = xmldoc.createElement("Keyboard");
-    kb.setAttribute("TapModifier", QString::number(Qt::AltModifier));
-    root.appendChild(kb);
-
     // Grand Master
     QDomElement gm = xmldoc.createElement("GrandMaster");
     gm.setAttribute("ChannelMode", "All");
@@ -138,7 +129,6 @@ void VCProperties_Test::loadXMLHappy()
     VCProperties p;
     QVERIFY(p.loadXML(root) == true);
     QCOMPARE(p.size(), QSize(10, 20));
-    QCOMPARE(p.tapModifier(), Qt::AltModifier);
     QCOMPARE(p.grandMasterChannelMode(), GrandMaster::AllChannels);
     QCOMPARE(p.grandMasterValueMode(), GrandMaster::Limit);
     QCOMPARE(p.grandMasterInputUniverse(), quint32(2));
@@ -181,7 +171,6 @@ void VCProperties_Test::saveXML()
 
     VCProperties p;
     p.m_size = QSize(33, 44);
-    p.m_tapModifier = Qt::MetaModifier;
     p.m_gmChannelMode = GrandMaster::AllChannels;
     p.m_gmValueMode = GrandMaster::Limit;
     p.m_gmInputUniverse = 3;
@@ -195,7 +184,6 @@ void VCProperties_Test::saveXML()
     VCProperties p2;
     QVERIFY(p2.loadXML(root.firstChild().toElement()) == true);
     QCOMPARE(p2.size(), QSize(33, 44));
-    QCOMPARE(p2.tapModifier(), Qt::MetaModifier);
     QCOMPARE(p2.grandMasterChannelMode(), GrandMaster::AllChannels);
     QCOMPARE(p2.grandMasterValueMode(), GrandMaster::Limit);
     QCOMPARE(p2.grandMasterInputUniverse(), quint32(3));

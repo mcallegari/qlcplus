@@ -35,8 +35,6 @@
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
 
-    , m_tapModifier(Qt::ControlModifier)
-
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -47,8 +45,6 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
-
-    , m_tapModifier(properties.m_tapModifier)
 
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
@@ -74,20 +70,6 @@ void VCProperties::setSize(const QSize& size)
 QSize VCProperties::size() const
 {
     return m_size;
-}
-
-/*****************************************************************************
- * Keyboard
- *****************************************************************************/
-
-void VCProperties::setTapModifier(Qt::KeyboardModifier mod)
-{
-    m_tapModifier = mod;
-}
-
-Qt::KeyboardModifier VCProperties::tapModifier() const
-{
-    return m_tapModifier;
 }
 
 /*****************************************************************************
@@ -175,13 +157,6 @@ bool VCProperties::loadXML(const QDomElement& root)
             if (sz.isValid() == true)
                 setSize(sz);
         }
-        else if (tag.tagName() == KXMLQLCVCPropertiesKeyboard)
-        {
-            /* Tap modifier */
-            str = tag.attribute(KXMLQLCVCPropertiesKeyboardTapModifier);
-            if (str.isEmpty() == false)
-                setTapModifier(Qt::KeyboardModifier(str.toInt()));
-        }
         else if (tag.tagName() == KXMLQLCVCPropertiesGrandMaster)
         {
             quint32 universe = InputOutputMap::invalidUniverse();
@@ -235,11 +210,6 @@ bool VCProperties::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
     tag = doc->createElement(KXMLQLCVCPropertiesSize);
     tag.setAttribute(KXMLQLCVCPropertiesSizeWidth, QString::number(size().width()));
     tag.setAttribute(KXMLQLCVCPropertiesSizeHeight, QString::number(size().height()));
-    prop_root.appendChild(tag);
-
-    /* Keyboard */
-    tag = doc->createElement(KXMLQLCVCPropertiesKeyboard);
-    tag.setAttribute(KXMLQLCVCPropertiesKeyboardTapModifier, tapModifier());
     prop_root.appendChild(tag);
 
     /***********************
