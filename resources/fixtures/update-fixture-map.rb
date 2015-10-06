@@ -9,7 +9,10 @@
 
 require 'libxml'
 
-NS = ['xmlns:http://www.qlcplus.org/FixtureDefinition']
+NS_URI = 'http://www.qlcplus.org/FixtureDefinition' 
+OLD_NS_URI = 'http://qlcplus.sourceforge.net/FixtureDefinition'
+
+NS = ['xmlns:'+ NS_URI]
 
 class FixtureDef
   class Creator 
@@ -211,6 +214,13 @@ class FixtureDef
   end
 
   def load(path)
+    puts path
+    qxf = File.read(path)
+    if qxf.include?(OLD_NS_URI)
+        qxf.gsub!(OLD_NS_URI, NS_URI)
+        File.open(path, 'w').write(qxf)
+    end
+
     @doc = LibXML::XML::Document.file(path)
     if @doc.root.namespaces.default.nil?
       puts "fixing #{path}"
@@ -230,7 +240,7 @@ class FixtureDef
         node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '').gsub('&', '&amp;')
       end
 
-      @doc.root.namespaces.namespace = LibXML::XML::Namespace.new(@doc.root, nil, "http://www.qlcplus.org/FixtureDefinition")
+      @doc.root.namespaces.namespace = LibXML::XML::Namespace.new(@doc.root, nil, NS_URI)
       @doc.save(path, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
 
       @doc = LibXML::XML::Document.file(path)
@@ -261,7 +271,8 @@ class Fixtures
   end
 
   def update_fixtures_map(filename = 'FixturesMap.xml')
-    doc = LibXML::XML::Document.file(filename)
+    orig_data = File.read(filename)
+    doc = LibXML::XML::Document.string(orig_data)
     doc.root.children.map(&:remove!)
     @fixtures.sort_by {|f| f.path.downcase }.each do |f|
       node = LibXML::XML::Node.new('fixture')
@@ -271,9 +282,14 @@ class Fixtures
       doc.root << node
     end
     if doc.root.namespaces.default.nil?
-      doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, "http://qlcplus.sourceforge.net/FixturesMap")
+      doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, "http://www.qlcplus.org/FixturesMap")
     end
-    doc.save(filename, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
+    new_data = doc.to_s(:indent => true, :encoding => LibXML::XML::Encoding::UTF_8).gsub('http://qlcplus.sourceforge.net/FixturesMap', 'http://www.qlcplus.org/FixturesMap')
+    if orig_data != new_data
+      File.open(filename, 'w') do |f|
+        f.write(new_data)
+      end
+    end
   end
 
   def make_overview(filename = 'index.html')

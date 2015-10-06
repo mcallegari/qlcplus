@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixturesMap>
-<FixturesMap xmlns="http://qlcplus.sourceforge.net/FixturesMap">
+<FixturesMap xmlns="http://www.qlcplus.org/FixturesMap">
   <fixture path="Abstract-Twister-4.qxf" mf="Abstract" md="Twister 4"/>
   <fixture path="ADB-ALC4.qxf" mf="ADB" md="ALC4"/>
   <fixture path="AGPtek-RGB-6ch-crystal-ball.qxf" mf="AGPtek" md="RGB 6ch crystal ball"/>
