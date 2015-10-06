@@ -34,8 +34,9 @@ class QDomElement;
 #define KXMLQLCVCXYPadPreset         "Preset"
 #define KXMLQLCVCXYPadPresetID       "ID"
 #define KXMLQLCVCXYPadPresetType     "Type"
+#define KXMLQLCVCXYPadPresetName     "Name"
 
-#define KXMLQLCVCXYPadPresetEFXID    "EFXID"
+#define KXMLQLCVCXYPadPresetFuncID   "FuncID"
 #define KXMLQLCVCXYPadPresetXPos     "X"
 #define KXMLQLCVCXYPadPresetYPos     "Y"
 
@@ -57,11 +58,12 @@ public:
     enum PresetType
     {
         Position = 0,
-        EFX
+        EFX,
+        Scene
     };
 
-    void setEFXID(quint32 id);
-    quint32 efxID() const;
+    void setFunctionID(quint32 id);
+    quint32 functionID() const;
 
     void setPosition(QPointF pos);
     QPointF position() const;
@@ -81,12 +83,16 @@ public:
     /** The preset type */
     PresetType m_type;
 
+    /** The preset name */
+    QString m_name;
+
     /** Position in DMX coordinates 0.0..(256.0 - 1/256)
       * when the preset type is Position */
     QPointF m_dmxPos;
 
-    /** ID of the EFX when the preset type is EFX */
-    quint32 m_efxID;
+    /** ID of the Function controlled by this preset
+     *  when type is EFX or Scene */
+    quint32 m_funcID;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;

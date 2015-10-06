@@ -48,6 +48,7 @@
 #include "vcxypad.h"
 #include "fixture.h"
 #include "apputil.h"
+#include "scene.h"
 #include "efx.h"
 #include "doc.h"
 
@@ -112,6 +113,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_presetsLayout = new FlowLayout();
     m_mainVbox->addLayout(m_presetsLayout);
     m_efx = NULL;
+    m_scene = NULL;
 
     m_vSlider->setRange(0, 256);
     m_hSlider->setRange(0, 256);
@@ -338,6 +340,14 @@ void VCXYPad::updateDegreesRange()
 
 void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
 {
+    if (m_scene != NULL)
+        writeScenePositions(timer, universes);
+    else
+        writeXYFixtures(timer, universes);
+}
+
+void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
+{
     Q_UNUSED(timer);
 
     if (m_area->hasPositionChanged() == true)
@@ -358,7 +368,7 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
     }
 
 
-    QVariantList positions;    
+    QVariantList positions;
     foreach (VCXYPadFixture fixture, m_fixtures)
     {
         qreal x(-1), y(-1);
@@ -375,6 +385,40 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
     }
 
     emit fixturePositions(positions);
+}
+
+void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universes)
+{
+    Q_UNUSED(timer);
+
+    if (m_scene == NULL || m_scene->isRunning() == false)
+        return;
+
+    QPointF pt = m_area->position();
+    uchar panCoarse = uchar(qFloor(pt.x()));
+    uchar panFine = uchar((pt.x() - qFloor(pt.x())) * 256);
+    uchar tiltCoarse = uchar(qFloor(pt.y()));
+    uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
+
+    foreach(SceneChannel sc, m_sceneChannels)
+    {
+        if(sc.m_universe >= (quint32)universes.count())
+            continue;
+        if (sc.m_group == QLCChannel::Pan)
+        {
+            if (sc.m_subType == QLCChannel::MSB)
+                universes.at(sc.m_universe)->writeRelative(sc.m_channel, panCoarse);
+            else
+                universes.at(sc.m_universe)->writeRelative(sc.m_channel, panFine);
+        }
+        else
+        {
+            if (sc.m_subType == QLCChannel::MSB)
+                universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltCoarse);
+            else
+                universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltFine);
+        }
+    }
 }
 
 void VCXYPad::slotPositionChanged(const QPointF& pt)
@@ -454,30 +498,9 @@ void VCXYPad::slotRangeValueChanged()
  * Presets
  *********************************************************************/
 
-QString VCXYPad::presetName(const VCXYPadPreset &preset)
-{
-    QString label;
-
-    if (preset.m_type == VCXYPadPreset::Position)
-    {
-        QPointF pos = preset.position();
-        label = QString("X:%1 - Y:%2").arg((int)pos.x()).arg((int)pos.y());
-    }
-    else if (preset.m_type == VCXYPadPreset::EFX)
-    {
-        quint32 efxID = preset.efxID();
-        Function *f = m_doc->function(efxID);
-        if (f == NULL || f->type() != Function::EFX)
-            return QString();
-        label = f->name();
-    }
-
-    return label;
-}
-
 void VCXYPad::addPreset(const VCXYPadPreset &preset)
 {
-    QString label = presetName(preset);
+    QString label = preset.m_name;
 
     if(label.isEmpty())
     {
@@ -492,6 +515,8 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
     presetButton->setMaximumWidth(80);
     presetButton->setFocusPolicy(Qt::TabFocus);
     presetButton->setText(fontMetrics().elidedText(label, Qt::ElideRight, 72));
+    if (preset.m_type == VCXYPadPreset::EFX || preset.m_type == VCXYPadPreset::Scene)
+        presetButton->setCheckable(true);
 
     connect(presetButton, SIGNAL(clicked(bool)),
             this, SLOT(slotPresetClicked()));
@@ -546,6 +571,10 @@ void VCXYPad::slotPresetClicked()
     if (m_efx != NULL && m_efx->isRunning())
         m_efx->stop();
 
+    // stop any previously started Scene
+    if (m_scene != NULL && m_scene->isRunning())
+        m_scene->stop();
+
     // deactivate all previously activated buttons first
     for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -562,7 +591,13 @@ void VCXYPad::slotPresetClicked()
 
     if (preset->m_type == VCXYPadPreset::EFX)
     {
-        Function *f = m_doc->function(preset->m_efxID);
+        if (btn->isChecked() == false)
+        {
+            m_area->enableEFXPreview(false);
+            return;
+        }
+
+        Function *f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::EFX)
             return;
         m_efx = qobject_cast<EFX*>(f);
@@ -586,6 +621,45 @@ void VCXYPad::slotPresetClicked()
         m_area->setEFXPolygons(polygon, fixturePoints);
         m_area->setEFXInterval(m_efx->duration() / polygon.size());
         m_efx->start(m_doc->masterTimer());
+        btn->setDown(true);
+        if (preset->m_inputSource.isNull() == false)
+            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+    }
+    else if (preset->m_type == VCXYPadPreset::Scene)
+    {
+        if (btn->isChecked() == false)
+            return;
+
+        Function *f = m_doc->function(preset->m_funcID);
+        if (f == NULL || f->type() != Function::Scene)
+            return;
+
+        m_scene = qobject_cast<Scene*>(f);
+        m_sceneChannels.clear();
+
+        foreach(SceneValue scv, m_scene->values())
+        {
+            Fixture *fixture = m_doc->fixture(scv.fxi);
+            if (fixture == NULL)
+                continue;
+            const QLCChannel *ch = fixture->channel(scv.channel);
+            if (ch == NULL)
+                continue;
+            if (ch->group() != QLCChannel::Pan && ch->group() != QLCChannel::Tilt)
+                continue;
+
+            SceneChannel sChan;
+            sChan.m_universe = fixture->universe();
+            sChan.m_channel = fixture->universeAddress() + scv.channel;
+            sChan.m_group = ch->group();
+            sChan.m_subType = ch->controlByte();
+            m_sceneChannels.append(sChan);
+        }
+
+        m_area->enableEFXPreview(false);
+        m_area->setPosition(QPointF(128, 128));
+        m_area->repaint();
+        m_scene->start(m_doc->masterTimer());
         btn->setDown(true);
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);

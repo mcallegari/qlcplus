@@ -65,6 +65,14 @@ class Doc;
 
 #define KXMLQLCVCXYPadInvertedAppearance "InvertedAppearance"
 
+typedef struct
+{
+    quint32 m_universe;
+    quint32 m_channel; // absolute channel address
+    QLCChannel::Group m_group;
+    QLCChannel::ControlByte m_subType;
+} SceneChannel;
+
 class VCXYPad : public VCWidget, public DMXSource
 {
     Q_OBJECT
@@ -168,6 +176,9 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
+protected:
+    void writeXYFixtures(MasterTimer* timer, QList<Universe*> universes);
+
 public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
@@ -185,10 +196,12 @@ private:
      * Presets
      *********************************************************************/
 public:
-    QString presetName(VCXYPadPreset const& preset);
     void addPreset(VCXYPadPreset const& preset);
     void resetPresets();
     QList<VCXYPadPreset *> presets() const;
+
+protected:
+    void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
     void slotPresetClicked();
@@ -196,6 +209,8 @@ protected slots:
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;
     EFX *m_efx;
+    Scene *m_scene;
+    QList<SceneChannel> m_sceneChannels;
 
     /*********************************************************************
      * External input
