@@ -20,6 +20,7 @@ qlcplus (4.10.0) stable; urgency=low
   * Virtual Console/Cue List: Allow to resize columns to 0 pixels, to completely hide them
   * Virtual Console/XYPad: Introduced presets, including the usage of existing EFX and Scenes (see documentation)
   * Virtual Console/XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
+  * Virtual Console: fixed Grand Master not sending feedbacks
   * RGB Matrix Audio Spectrum: Fix crash when audio input volume is set to zero (David Garyga)
   * RGB Matrix: Fix 4.9.1 regression which makes fading of green and blue colors not smooth (David Garyga)
   * RGB Matrix: Introduced blending mode between matrices (see documentation)
