@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -20,7 +20,7 @@
  <Channel Name="Color-wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="14">Open / White</Capability>
-  <Capability Color="#ffaa00" Min="16" Max="29">Orange&#xd;</Capability>
+  <Capability Color="#ffaa00" Min="16" Max="29">Orange&#13;</Capability>
   <Capability Color="#00007f" Min="30" Max="44">Blue</Capability>
   <Capability Color="#00aa00" Min="45" Max="59">Green</Capability>
   <Capability Color="#ffff00" Min="60" Max="74">Yellow</Capability>

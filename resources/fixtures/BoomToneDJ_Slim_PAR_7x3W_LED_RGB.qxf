@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -31,24 +31,24 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="6">Dimmer Mode</Capability>
-  <Capability Min="7" Max="65">Strobe (Slow > Fast)</Capability>
+  <Capability Min="7" Max="65">Strobe (Slow &gt; Fast)</Capability>
   <Capability Min="66" Max="69">None</Capability>
-  <Capability Min="70" Max="128">Pulse Strobe (Slow > Fast)</Capability>
+  <Capability Min="70" Max="128">Pulse Strobe (Slow &gt; Fast)</Capability>
   <Capability Min="129" Max="132">None</Capability>
-  <Capability Min="133" Max="191">Strobe Fadding In (Slow > Fast)</Capability>
+  <Capability Min="133" Max="191">Strobe Fadding In (Slow &gt; Fast)</Capability>
   <Capability Min="192" Max="195">None</Capability>
-  <Capability Min="196" Max="255">Strobe Fadding Out (Slow > Fast)</Capability>
+  <Capability Min="196" Max="255">Strobe Fadding Out (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Strobe (7 Ch Mode)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="6">Dimmer Mode (If Ch7>=60 Program Running Speed from Slow to Fast)</Capability>
-  <Capability Min="7" Max="65">Strobe (Slow > Fast)</Capability>
+  <Capability Min="0" Max="6">Dimmer Mode (If Ch7&gt;=60 Program Running Speed from Slow to Fast)</Capability>
+  <Capability Min="7" Max="65">Strobe (Slow &gt; Fast)</Capability>
   <Capability Min="66" Max="69">None</Capability>
-  <Capability Min="70" Max="128">Pulse Strobe (Slow > Fast)</Capability>
+  <Capability Min="70" Max="128">Pulse Strobe (Slow &gt; Fast)</Capability>
   <Capability Min="129" Max="132">None</Capability>
-  <Capability Min="133" Max="191">Strobe Fadding In (Slow > Fast)</Capability>
+  <Capability Min="133" Max="191">Strobe Fadding In (Slow &gt; Fast)</Capability>
   <Capability Min="192" Max="195">None</Capability>
-  <Capability Min="196" Max="255">Strobe Fadding Out (Slow > Fast)</Capability>
+  <Capability Min="196" Max="255">Strobe Fadding Out (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Static Color Select (if Ch7 60-119) or Strobe Slow to Fast (if Ch7 120-179)">
   <Group Byte="0">Maintenance</Group>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -13,8 +13,8 @@
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="15">Dimmer/off (channel 6>31 and &lt;128)</Capability>
-  <Capability Min="16" Max="255">Dimmer/on (channel 6>31 and &lt;128)</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
  </Channel>
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
@@ -23,8 +23,8 @@
  </Channel>
  <Channel Name="Speed/Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="15">Strobe off/Speed slow - fast (channel 6>31 and &lt;224)</Capability>
-  <Capability Min="16" Max="255">Strobe with 16 adjustable speeds/Speed slow - fast (channel 6>31 and &lt;224)</Capability>
+  <Capability Min="0" Max="15">Strobe off/Speed slow - fast (channel 6&gt;31 and &lt;224)</Capability>
+  <Capability Min="16" Max="255">Strobe with 16 adjustable speeds/Speed slow - fast (channel 6&gt;31 and &lt;224)</Capability>
  </Channel>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
@@ -41,15 +41,15 @@
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="15">Dimmer/off (channel 6>31 and &lt;128)</Capability>
-  <Capability Min="16" Max="255">Dimmer/on (channel 6>31 and &lt;128)</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="15">Dimmer/off (channel 6>31 and &lt;128)</Capability>
-  <Capability Min="16" Max="255">Dimmer/on (channel 6>31 and &lt;128)</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
  </Channel>
  <Mode Name="6 DMX channels">
   <Physical>

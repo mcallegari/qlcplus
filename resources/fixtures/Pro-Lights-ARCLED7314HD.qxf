@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -67,7 +67,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Strobe: 1 > 20 Hz</Capability>
+  <Capability Min="10" Max="255">Strobe: 1 &gt; 20 Hz</Capability>
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -137,7 +137,7 @@
  </Channel>
  <Channel Name="Framing blade 1, position">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Out->In</Capability>
+  <Capability Min="0" Max="255">Out-&gt;In</Capability>
  </Channel>
  <Channel Name="Framing blade 1, angle">
   <Group Byte="0">Beam</Group>
@@ -147,7 +147,7 @@
  </Channel>
  <Channel Name="Framing blade 2, position">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Out->In</Capability>
+  <Capability Min="0" Max="255">Out-&gt;In</Capability>
  </Channel>
  <Channel Name="Framing blade 2, angle">
   <Group Byte="0">Beam</Group>
@@ -157,7 +157,7 @@
  </Channel>
  <Channel Name="Framing blade 3, position">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Out->In</Capability>
+  <Capability Min="0" Max="255">Out-&gt;In</Capability>
  </Channel>
  <Channel Name="Framing blade 3, angle">
   <Group Byte="0">Beam</Group>
@@ -167,7 +167,7 @@
  </Channel>
  <Channel Name="Framing blade 4, position">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Out->In</Capability>
+  <Capability Min="0" Max="255">Out-&gt;In</Capability>
  </Channel>
  <Channel Name="Framing blade 4, angle">
   <Group Byte="0">Beam</Group>

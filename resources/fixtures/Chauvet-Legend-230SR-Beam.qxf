@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -204,8 +204,8 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="Osram Sirius 230W" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="415" Weight="18,73" Depth="498"/>
-   <Lens DegreesMax="2,3" Name="Other" DegreesMin="2,3"/>
+   <Dimensions Width="343" Height="415" Weight="18.73" Depth="498"/>
+   <Lens DegreesMax="2.3" Name="Other" DegreesMin="2.3"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
@@ -228,8 +228,8 @@
  <Mode Name="Mode 2">
   <Physical>
    <Bulb Lumens="0" Type="Osram Sirius 230W" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="415" Weight="18,73" Depth="498"/>
-   <Lens DegreesMax="2,3" Name="Other" DegreesMin="2,3"/>
+   <Dimensions Width="343" Height="415" Weight="18.73" Depth="498"/>
+   <Lens DegreesMax="2.3" Name="Other" DegreesMin="2.3"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>

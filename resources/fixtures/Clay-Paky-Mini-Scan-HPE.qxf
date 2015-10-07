@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -30,9 +30,9 @@
   <Capability Min="84" Max="104">360° Position</Capability>
   <Capability Min="105" Max="126">450° Position</Capability>
   <Capability Min="127" Max="127">540° Position</Capability>
-  <Capability Min="128" Max="190">CCW Rotation [Fast->Slow]</Capability>
+  <Capability Min="128" Max="190">CCW Rotation [Fast-&gt;Slow]</Capability>
   <Capability Min="191" Max="192">Stop Rotation</Capability>
-  <Capability Min="193" Max="255">CW Rotation [Slow->Fast]</Capability>
+  <Capability Min="193" Max="255">CW Rotation [Slow-&gt;Fast]</Capability>
  </Channel>
  <Channel Name="Gobo Select">
   <Group Byte="0">Gobo</Group>

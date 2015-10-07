@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -12,13 +12,13 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="127">Color Select</Capability>
-  <Capability Min="128" Max="255">Color Rotation slow -> fast</Capability>
+  <Capability Min="128" Max="255">Color Rotation slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Dimmer &amp; Strobe">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Dimmer Min -> Max</Capability>
+  <Capability Min="0" Max="127">Dimmer Min -&gt; Max</Capability>
   <Capability Min="128" Max="139">Open</Capability>
-  <Capability Min="140" Max="241">Strobe 0.66Hz -> 5Hz</Capability>
+  <Capability Min="140" Max="241">Strobe 0.66Hz -&gt; 5Hz</Capability>
   <Capability Min="242" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Pan 1 - 4">

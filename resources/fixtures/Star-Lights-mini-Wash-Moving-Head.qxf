@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -19,11 +19,11 @@
  </Channel>
  <Channel Name="Pan fine 16 bit">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Tilt fine 16 bit">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="XY-Speed">
   <Group Byte="0">Speed</Group>

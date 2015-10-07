@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -50,8 +50,8 @@ QRG</Model>
  </Channel>
  <Channel Name="Auto Speed / Sound Sensitivity">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="10">Auto program speed (Slow to fast) - No function when ch5 >> 181-255</Capability>
-  <Capability Min="11" Max="255">Auto program speed (Slow to fast) - Sound Sensitivity when ch5 >> 181-255</Capability>
+  <Capability Min="0" Max="10">Auto program speed (Slow to fast) - No function when ch5 &gt;&gt; 181-255</Capability>
+  <Capability Min="11" Max="255">Auto program speed (Slow to fast) - Sound Sensitivity when ch5 &gt;&gt; 181-255</Capability>
  </Channel>
  <Channel Name="Dimmer (8ch mode)">
   <Group Byte="0">Intensity</Group>
@@ -72,12 +72,12 @@ QRG</Model>
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="255">Strobe Speed (slow to fast)</Capability>
  </Channel>
- <Channel Name="Shutter (5ch mode) - When ch2 >> 006-255">
+ <Channel Name="Shutter (5ch mode) - When ch2 &gt;&gt; 006-255">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">Open</Capability>
   <Capability Min="6" Max="255">Pulse speed (slow to fast)</Capability>
  </Channel>
- <Channel Name="Strobe Effects (5ch mode) - When ch2 >> 006-255">
+ <Channel Name="Strobe Effects (5ch mode) - When ch2 &gt;&gt; 006-255">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="42">Ramp up</Capability>
@@ -134,8 +134,8 @@ QRG</Model>
   </Physical>
   <Channel Number="0">Dimmer (5ch mode)</Channel>
   <Channel Number="1">Strobe Speed (5ch mode)</Channel>
-  <Channel Number="2">Shutter (5ch mode) - When ch2 >> 006-255</Channel>
-  <Channel Number="3">Strobe Effects (5ch mode) - When ch2 >> 006-255</Channel>
+  <Channel Number="2">Shutter (5ch mode) - When ch2 &gt;&gt; 006-255</Channel>
+  <Channel Number="3">Strobe Effects (5ch mode) - When ch2 &gt;&gt; 006-255</Channel>
   <Channel Number="4">Zone Strobe Macros</Channel>
  </Mode>
  <Mode Name="2 Channel mode">

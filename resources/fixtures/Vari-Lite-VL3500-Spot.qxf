@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -126,35 +126,35 @@
  </Channel>
  <Channel Name="Shutter 1a">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 1b">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 2a">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 2b">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 3a">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 3b">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 4a">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter 4b">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Shutter (open -> closed)</Capability>
+  <Capability Min="0" Max="255">Shutter (open -&gt; closed)</Capability>
  </Channel>
  <Channel Name="Shutter Rotation">
   <Group Byte="0">Beam</Group>

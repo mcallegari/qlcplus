@@ -214,36 +214,38 @@ class FixtureDef
   end
 
   def load(path)
-    puts path
     qxf = File.read(path)
     if qxf.include?(OLD_NS_URI)
         qxf.gsub!(OLD_NS_URI, NS_URI)
-        File.open(path, 'w').write(qxf)
+        File.open(path, 'w') {|f| f.write(qxf) }
     end
 
-    @doc = LibXML::XML::Document.file(path)
+    @doc = LibXML::XML::Document.string(qxf)
+    @doc.root.find('//xmlns:Dimensions', NS).each do |node|
+      node['Weight'] = node['Weight'].gsub(',','.')
+    end
+
+    @doc.root.find('//xmlns:Lens', NS).each do |node|
+      node['DegreesMin'] = node['DegreesMin'].gsub(',','.')
+    end
+
+    @doc.root.find('//xmlns:Lens', NS).each do |node|
+      node['DegreesMax'] = node['DegreesMax'].gsub(',','.')
+    end
+
+    @doc.root.find('//xmlns:Author', NS).each do |node|
+      node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '').gsub('&', '&amp;')
+    end
+
     if @doc.root.namespaces.default.nil?
-      puts "fixing #{path}"
-      @doc.root.find('//Dimensions').each do |node|
-        node['Weight'] = node['Weight'].gsub(',','.')
-      end
-
-      @doc.root.find('//DegreesMin').each do |node|
-        node['Weight'] = node['Weight'].gsub(',','.')
-      end
-
-      @doc.root.find('//DegreesMax').each do |node|
-        node['Weight'] = node['Weight'].gsub(',','.')
-      end
-
-      @doc.root.find('//Author').each do |node|
-        node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '').gsub('&', '&amp;')
-      end
-
       @doc.root.namespaces.namespace = LibXML::XML::Namespace.new(@doc.root, nil, NS_URI)
-      @doc.save(path, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
+    end
 
-      @doc = LibXML::XML::Document.file(path)
+    qxf2 = @doc.to_s(:indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
+
+    if qxf != qxf2
+      File.open(path, 'w') {|f| f.write(qxf2) }
+      @doc = LibXML::XML::Document.string(qxf2)
     end
     @path = path
     @manufacturer = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content

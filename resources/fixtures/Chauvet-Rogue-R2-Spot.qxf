@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -41,9 +41,9 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3">Closed</Capability>
   <Capability Min="4" Max="7">Open</Capability>
-  <Capability Min="8" Max="76">Slow -> Fast</Capability>
-  <Capability Min="77" Max="145">Pluse Effect (Slow -> Fast)</Capability>
-  <Capability Min="146" Max="215">Ramdom Effect (Slow -> Fast)</Capability>
+  <Capability Min="8" Max="76">Slow -&gt; Fast</Capability>
+  <Capability Min="77" Max="145">Pluse Effect (Slow -&gt; Fast)</Capability>
+  <Capability Min="146" Max="215">Ramdom Effect (Slow -&gt; Fast)</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Color Wheel 1">
@@ -64,8 +64,8 @@
   <Capability Min="104" Max="111" Color2="#0000ff" Color="#ff00ff">Magenta/Dark Blue</Capability>
   <Capability Min="112" Max="119" Color2="#ff8000" Color="#0000ff">Dark Blue/Orange</Capability>
   <Capability Min="120" Max="127" Color2="#ffffff" Color="#ff8000">Orange/White</Capability>
-  <Capability Min="128" Max="191" Res="Others/rainbow.png">Clockwise Color Scroll (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255" Res="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Color Wheel 2">
   <Group Byte="0">Colour</Group>
@@ -85,8 +85,8 @@
   <Capability Min="104" Max="111" Color2="#ff66ff" Color="#ff8000">Orange / Pink</Capability>
   <Capability Min="112" Max="119" Color2="#00ffff" Color="#ff66ff">Pink / Light Blue</Capability>
   <Capability Min="120" Max="127" Color2="#ffffff" Color="#66ffff">Light Blue / White</Capability>
-  <Capability Min="128" Max="191" Res="Others/rainbow.png">Clockwise Color Scroll (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255" Res="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Clockwise Color Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Counter-clockwise Color Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -98,17 +98,17 @@
   <Capability Min="40" Max="47" Res="Chauvet/gobo00058.png">Gobo 5</Capability>
   <Capability Min="48" Max="55" Res="Chauvet/gobo00059.png">Gobo 6</Capability>
   <Capability Min="56" Max="63" Res="Chauvet/gobo00060.png">Gobo 7</Capability>
-  <Capability Min="64" Max="119">Gobo Shake 1-7 (Slow -> Fast)</Capability>
+  <Capability Min="64" Max="119">Gobo Shake 1-7 (Slow -&gt; Fast)</Capability>
   <Capability Min="120" Max="127" Res="Others/open.png">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Rotate">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="63">Gobo Index</Capability>
-  <Capability Min="64" Max="147">Clockwise Rotation (Slow -> Fast)</Capability>
-  <Capability Min="148" Max="231">Counter-clockwise Rotation (Slow -> Fast)</Capability>
-  <Capability Min="232" Max="255">Boomerang Effect (Slow -> Fast)</Capability>
+  <Capability Min="64" Max="147">Clockwise Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="148" Max="231">Counter-clockwise Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="232" Max="255">Boomerang Effect (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
@@ -121,10 +121,10 @@
   <Capability Min="42" Max="48" Res="Chauvet/gobo00066.png">Gobo 6</Capability>
   <Capability Min="49" Max="55" Res="Chauvet/gobo00067.png">Gobo 7</Capability>
   <Capability Min="56" Max="63" Res="Chauvet/gobo00068.png">Gobo 8</Capability>
-  <Capability Min="64" Max="120">Gobo Shake 1-8 (Slow -> Fast)</Capability>
+  <Capability Min="64" Max="120">Gobo Shake 1-8 (Slow -&gt; Fast)</Capability>
   <Capability Min="121" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191">Clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise Gobo Scroll (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
@@ -138,16 +138,16 @@
  <Channel Name="Prism Rotate">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127">Prism Index</Capability>
-  <Capability Min="128" Max="189">Counter-clockwise Rotation (Fast -> Slow)</Capability>
+  <Capability Min="128" Max="189">Counter-clockwise Rotation (Fast -&gt; Slow)</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Clockwise Rotation (Slow -> Fast)</Capability>
+  <Capability Min="194" Max="255">Clockwise Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="63">Wide -> Narrow</Capability>
-  <Capability Min="64" Max="127">Iris Effect (Slow -> Fast)</Capability>
-  <Capability Min="128" Max="191">Iris Effect (In Slow -> Out Fast)</Capability>
-  <Capability Min="192" Max="255">Iris Effect (Out Slow -> In Fast)</Capability>
+  <Capability Min="0" Max="63">Wide -&gt; Narrow</Capability>
+  <Capability Min="64" Max="127">Iris Effect (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191">Iris Effect (In Slow -&gt; Out Fast)</Capability>
+  <Capability Min="192" Max="255">Iris Effect (Out Slow -&gt; In Fast)</Capability>
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>

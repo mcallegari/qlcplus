@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -13,9 +13,9 @@
   <Group Byte="0">Shutter</Group>
   <Capability Max="19" Min="0">Shutter closed</Capability>
   <Capability Max="49" Min="20">Shutter open</Capability>
-  <Capability Max="200" Min="50">Strobe, slow -> fast</Capability>
+  <Capability Max="200" Min="50">Strobe, slow -&gt; fast</Capability>
   <Capability Max="210" Min="201">Shutter open</Capability>
-  <Capability Max="255" Min="211">Random strobe, slow -> fast</Capability>
+  <Capability Max="255" Min="211">Random strobe, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -28,21 +28,21 @@
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
   <Colour>Cyan</Colour>
-  <Capability Max="255" Min="0">White -> Full Cyan</Capability>
+  <Capability Max="255" Min="0">White -&gt; Full Cyan</Capability>
  </Channel>
  <Channel Name="Magenta">
   <Group Byte="0">Intensity</Group>
   <Colour>Magenta</Colour>
-  <Capability Max="255" Min="0">White -> Full Magenta</Capability>
+  <Capability Max="255" Min="0">White -&gt; Full Magenta</Capability>
  </Channel>
  <Channel Name="Yellow">
   <Group Byte="0">Intensity</Group>
   <Colour>Yellow</Colour>
-  <Capability Max="255" Min="0">White -> Full Yellow</Capability>
+  <Capability Max="255" Min="0">White -&gt; Full Yellow</Capability>
  </Channel>
  <Channel Name="CTO">
   <Group Byte="0">Colour</Group>
-  <Capability Max="255" Min="0">Open (6000 K) -> Warm (3200 K)</Capability>
+  <Capability Max="255" Min="0">Open (6000 K) -&gt; Warm (3200 K)</Capability>
  </Channel>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
@@ -71,9 +71,9 @@
   <Capability Max="150" Color="#9f4d9d" Min="146">Congo</Capability>
   <Capability Max="155" Color="#d04f4e" Min="151">Red</Capability>
   <Capability Max="160" Color="#ffffff" Min="156">Open</Capability>
-  <Capability Max="200" Res="Others/rainbow.png" Min="161">CW, Fast -> Slow</Capability>
+  <Capability Max="200" Res="Others/rainbow.png" Min="161">CW, Fast -&gt; Slow</Capability>
   <Capability Max="203" Min="201">Stop, color wheel stops at current position</Capability>
-  <Capability Max="243" Res="Others/rainbow.png" Min="204">CCW, Slow -> Fast</Capability>
+  <Capability Max="243" Res="Others/rainbow.png" Min="204">CCW, Slow -&gt; Fast</Capability>
   <Capability Max="247" Min="244">Random color Fast</Capability>
   <Capability Max="251" Min="248">Random color Medium</Capability>
   <Capability Max="255" Min="252">Random color Slow</Capability>
@@ -91,44 +91,44 @@
   <Capability Max="49" Res="Others/gobo00067.png" Min="45">Gobo 3</Capability>
   <Capability Max="54" Res="Others/gobo00068.png" Min="50">Gobo 4</Capability>
   <Capability Max="59" Res="Others/gobo00069.png" Min="55">Gobo 5</Capability>
-  <Capability Max="89" Min="60" Res="Others/gobo00065.png">Gobo 1 Shake, 360° slow -> 10° fast</Capability>
-  <Capability Max="119" Min="90" Res="Others/gobo00066.png">Gobo 2 Shake, 360° slow -> 10° fast</Capability>
-  <Capability Max="149" Min="120" Res="Others/gobo00067.png">Gobo 3 Shake, 360° slow -> 10° fast</Capability>
-  <Capability Max="179" Min="150" Res="Others/gobo00068.png">Gobo 4 Shake, 360° slow -> 10° fast</Capability>
-  <Capability Max="209" Min="180" Res="Others/gobo00069.png">Gobo 5 Shake, 360° slow -> 10° fast</Capability>
-  <Capability Max="232" Min="210">CW gobo wheel scroll, fast -> slow</Capability>
-  <Capability Max="255" Min="233">CCW gobo wheel scroll, slow -> fast</Capability>
+  <Capability Max="89" Min="60" Res="Others/gobo00065.png">Gobo 1 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="119" Min="90" Res="Others/gobo00066.png">Gobo 2 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="149" Min="120" Res="Others/gobo00067.png">Gobo 3 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="179" Min="150" Res="Others/gobo00068.png">Gobo 4 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="209" Min="180" Res="Others/gobo00069.png">Gobo 5 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="232" Min="210">CW gobo wheel scroll, fast -&gt; slow</Capability>
+  <Capability Max="255" Min="233">CCW gobo wheel scroll, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Gobo 1 indexing">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="255" Min="0">Gobo indexing, -197.5° -> +197.5°</Capability>
+  <Capability Max="255" Min="0">Gobo indexing, -197.5° -&gt; +197.5°</Capability>
  </Channel>
  <Channel Name="Gobo 1 rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Max="2" Min="0">Stop, gobo indexed at 0°</Capability>
-  <Capability Max="126" Min="3">CW, fast -> slow</Capability>
+  <Capability Max="126" Min="3">CW, fast -&gt; slow</Capability>
   <Capability Max="129" Min="127">Stop, gobo stops at current position</Capability>
-  <Capability Max="253" Min="130">CCW, slow -> fast</Capability>
+  <Capability Max="253" Min="130">CCW, slow -&gt; fast</Capability>
   <Capability Max="255" Min="254">Stop, gobo indexed at 90°</Capability>
  </Channel>
  <Channel Name="Gobo wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Max="0" Res="Others/gobo00022.png" Min="0">Open</Capability>
-  <Capability Max="14" Min="1">Open -> Gobo 1</Capability>
+  <Capability Max="14" Min="1">Open -&gt; Gobo 1</Capability>
   <Capability Max="15" Res="ClayPaky/gobo00064.png" Min="15">Gobo 1</Capability>
-  <Capability Max="29" Min="16">Gobo 1 -> Gobo 2</Capability>
+  <Capability Max="29" Min="16">Gobo 1 -&gt; Gobo 2</Capability>
   <Capability Max="30" Res="ClayPaky/gobo00066.png" Min="30">Gobo 2</Capability>
-  <Capability Max="44" Min="31">Gobo 2 -> Gobo 3</Capability>
+  <Capability Max="44" Min="31">Gobo 2 -&gt; Gobo 3</Capability>
   <Capability Max="45" Res="ClayPaky/gobo00019.png" Min="45">Gobo 3</Capability>
-  <Capability Max="59" Min="46">Gobo 3 -> Gobo 4</Capability>
+  <Capability Max="59" Min="46">Gobo 3 -&gt; Gobo 4</Capability>
   <Capability Max="60" Res="Chauvet/gobo00003.png" Min="60">Gobo 4</Capability>
-  <Capability Max="74" Min="61">Gobo 4 -> Gobo 5</Capability>
+  <Capability Max="74" Min="61">Gobo 4 -&gt; Gobo 5</Capability>
   <Capability Max="75" Res="Chauvet/gobo00066.png" Min="75">Gobo 5</Capability>
-  <Capability Max="89" Min="76">Gobo 5 -> Gobo 6</Capability>
+  <Capability Max="89" Min="76">Gobo 5 -&gt; Gobo 6</Capability>
   <Capability Max="90" Res="ClayPaky/gobo00079.png" Min="90">Gobo 6</Capability>
-  <Capability Max="104" Min="91">Gobo 6 -> Gobo 7</Capability>
+  <Capability Max="104" Min="91">Gobo 6 -&gt; Gobo 7</Capability>
   <Capability Max="105" Res="Others/gobo00045.png" Min="105">Gobo 7</Capability>
-  <Capability Max="119" Min="106">Gobo 7 -> Open</Capability>
+  <Capability Max="119" Min="106">Gobo 7 -&gt; Open</Capability>
   <Capability Max="120" Min="120">Open</Capability>
   <Capability Max="125" Res="ClayPaky/gobo00064.png" Min="121">Gobo 1 Stepped</Capability>
   <Capability Max="130" Res="ClayPaky/gobo00066.png" Min="126">Gobo 2 Stepped</Capability>
@@ -138,52 +138,52 @@
   <Capability Max="150" Res="ClayPaky/gobo00079.png" Min="146">Gobo 6 Stepped</Capability>
   <Capability Max="155" Res="Others/gobo00045.png" Min="151">Gobo 7 Stepped</Capability>
   <Capability Max="160" Min="156">Open</Capability>
-  <Capability Max="200" Min="161">CW gobo wheel rotation, fast -> slow</Capability>
+  <Capability Max="200" Min="161">CW gobo wheel rotation, fast -&gt; slow</Capability>
   <Capability Max="203" Min="201">Stop: gobo wheel stops at current position</Capability>
-  <Capability Max="243" Min="204">CCW gobo wheel rotation, slow -> fast</Capability>
+  <Capability Max="243" Min="204">CCW gobo wheel rotation, slow -&gt; fast</Capability>
   <Capability Max="247" Min="244">Random Fast</Capability>
   <Capability Max="251" Min="248">Random Medium</Capability>
   <Capability Max="255" Min="252">Random Slow</Capability>
  </Channel>
  <Channel Name="Wash effect">
   <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Open -> full wash effect</Capability>
+  <Capability Max="255" Min="0">Open -&gt; full wash effect</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Open -> closed</Capability>
+  <Capability Max="255" Min="0">Open -&gt; closed</Capability>
  </Channel>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Flood -> spot</Capability>
+  <Capability Max="255" Min="0">Flood -&gt; spot</Capability>
  </Channel>
  <Channel Name="Zoom fine">
   <Group Byte="1">Beam</Group>
-  <Capability Max="255" Min="0">Flood -> spot</Capability>
+  <Capability Max="255" Min="0">Flood -&gt; spot</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Infinity -> near </Capability>
+  <Capability Max="255" Min="0">Infinity -&gt; near </Capability>
  </Channel>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>
-  <Capability Max="255" Min="0">Infinity -> near </Capability>
+  <Capability Max="255" Min="0">Infinity -&gt; near </Capability>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Left -> right</Capability>
+  <Capability Max="255" Min="0">Left -&gt; right</Capability>
  </Channel>
  <Channel Name="Pan fine">
   <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Left -> right</Capability>
+  <Capability Max="255" Min="0">Left -&gt; right</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Up -> down</Capability>
+  <Capability Max="255" Min="0">Up -&gt; down</Capability>
  </Channel>
  <Channel Name="Tilt fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Up -> down</Capability>
+  <Capability Max="255" Min="0">Up -&gt; down</Capability>
  </Channel>
  <Channel Name="Control / Settings">
   <Group Byte="0">Maintenance</Group>

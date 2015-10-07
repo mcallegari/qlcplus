@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -130,8 +130,8 @@
  <Mode Name="DMX 11-channel">
   <Physical>
    <Bulb Lumens="2850" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="254" Height="478" Weight="6,7" Depth="279"/>
-   <Lens DegreesMax="21,8" Name="Other" DegreesMin="21,8"/>
+   <Dimensions Width="254" Height="478" Weight="6.7" Depth="279"/>
+   <Lens DegreesMax="21.8" Name="Other" DegreesMin="21.8"/>
    <Focus PanMax="180" Type="Head" TiltMax="90"/>
    <Technical PowerConsumption="236" DmxConnector="3-pin"/>
   </Physical>
@@ -150,8 +150,8 @@
  <Mode Name="DMX 8-Channel">
   <Physical>
    <Bulb Lumens="2850" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="254" Height="478" Weight="6,7" Depth="279"/>
-   <Lens DegreesMax="21,8" Name="Other" DegreesMin="21,8"/>
+   <Dimensions Width="254" Height="478" Weight="6.7" Depth="279"/>
+   <Lens DegreesMax="21.8" Name="Other" DegreesMin="21.8"/>
    <Focus PanMax="180" Type="Head" TiltMax="90"/>
    <Technical PowerConsumption="236" DmxConnector="3-pin"/>
   </Physical>

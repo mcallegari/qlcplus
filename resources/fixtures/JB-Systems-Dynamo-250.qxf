@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -21,7 +21,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
   <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Shutter speed (slow -> fast)</Capability>
+  <Capability Min="16" Max="131">Shutter speed (slow -&gt; fast)</Capability>
   <Capability Min="132" Max="247">Shaking</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
@@ -38,7 +38,7 @@
   <Capability Res="Others/gobo00042.png" Min="94" Max="104">Red</Capability>
   <Capability Res="ClayPaky/gobo00005.png" Min="105" Max="116">Blue+Magenta</Capability>
   <Capability Res="Chauvet/gobo00053.png" Min="117" Max="127">White (gobo)</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo change speed (slow -> fast)</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo change speed (slow -&gt; fast)</Capability>
  </Channel>
  <Mode Name="4 Channel">
   <Physical>

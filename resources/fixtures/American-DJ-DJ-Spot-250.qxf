@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -48,10 +48,10 @@
  <Channel Name="Special Functions">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No Rotation</Capability>
-  <Capability Min="16" Max="91">Gobo Strobe - Fast -> slow</Capability>
-  <Capability Min="92" Max="135">Color Strobe - Fast -> slow</Capability>
-  <Capability Min="136" Max="195">Gobo and Color Strobe - Fast -> slow</Capability>
-  <Capability Min="196" Max="255">Gobo Shake - Fast -> slow</Capability>
+  <Capability Min="16" Max="91">Gobo Strobe - Fast -&gt; slow</Capability>
+  <Capability Min="92" Max="135">Color Strobe - Fast -&gt; slow</Capability>
+  <Capability Min="136" Max="195">Gobo and Color Strobe - Fast -&gt; slow</Capability>
+  <Capability Min="196" Max="255">Gobo Shake - Fast -&gt; slow</Capability>
  </Channel>
  <Channel Name="Pan and tilt speed">
   <Group Byte="0">Speed</Group>

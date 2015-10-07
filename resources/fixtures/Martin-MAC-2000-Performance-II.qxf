@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -13,10 +13,10 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
   <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="72">Strobe (fast > slow)</Capability>
+  <Capability Min="50" Max="72">Strobe (fast &gt; slow)</Capability>
   <Capability Min="73" Max="79">Shutter open, lamp power reduced (MAC 2000 E only)</Capability>
-  <Capability Min="80" Max="99">Opening pulse (fast > slow)</Capability>
-  <Capability Min="100" Max="119">Closing pulse (fast > slow)</Capability>
+  <Capability Min="80" Max="99">Opening pulse (fast &gt; slow)</Capability>
+  <Capability Min="100" Max="119">Closing pulse (fast &gt; slow)</Capability>
   <Capability Min="120" Max="127">Shutter open</Capability>
   <Capability Min="128" Max="147">Random strobe, fast</Capability>
   <Capability Min="148" Max="167">Random strobe, medium</Capability>
@@ -40,22 +40,22 @@
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
   <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White > Cyan</Capability>
+  <Capability Min="0" Max="255">White &gt; Cyan</Capability>
  </Channel>
  <Channel Name="Magenta">
   <Group Byte="0">Intensity</Group>
   <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White > Magenta</Capability>
+  <Capability Min="0" Max="255">White &gt; Magenta</Capability>
  </Channel>
  <Channel Name="Yellow">
   <Group Byte="0">Intensity</Group>
   <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White > Yellow</Capability>
+  <Capability Min="0" Max="255">White &gt; Yellow</Capability>
  </Channel>
  <Channel Name="CTC">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold > Warm</Capability>
+  <Capability Min="0" Max="255">Cold &gt; Warm</Capability>
  </Channel>
  <Channel Name="Gobo Wheel, Gobo &amp; Function">
   <Group Byte="0">Gobo</Group>
@@ -70,24 +70,24 @@
   <Capability Min="45" Max="49" Res="Others/gobo00050.png">Continuous rotation Gobo 3</Capability>
   <Capability Min="50" Max="54" Res="SGM/gobo00370.png">Continuous rotation Gobo 4</Capability>
   <Capability Min="55" Max="59" Res="SGM/gobo00318.png">Continuous rotation Gobo 5</Capability>
-  <Capability Min="60" Max="74" Res="ClayPaky/gobo00053.png">Indexed shake Gobo 1 (slow > fast)</Capability>
-  <Capability Min="75" Max="89" Res="GLP/gobo00008.png">Indexed shake Gobo 2 (slow > fast)</Capability>
-  <Capability Min="90" Max="104" Res="Others/gobo00050.png">Indexed shake Gobo 3 (slow > fast)</Capability>
-  <Capability Min="105" Max="119" Res="SGM/gobo00370.png">Indexed shake Gobo 4 (slow > fast)</Capability>
-  <Capability Min="120" Max="134" Res="SGM/gobo00318.png">Indexed shake Gobo 5 (slow > fast)</Capability>
-  <Capability Min="135" Max="149" Res="ClayPaky/gobo00053.png">Rotating shake Gobo 1 (slow > fast)</Capability>
-  <Capability Min="150" Max="164" Res="GLP/gobo00008.png">Rotating shake Gobo 2 (slow > fast)</Capability>
-  <Capability Min="165" Max="179" Res="Others/gobo00050.png">Rotating shake Gobo 3 (slow > fast)</Capability>
-  <Capability Min="180" Max="194" Res="SGM/gobo00370.png">Rotating shake Gobo 4 (slow > fast)</Capability>
-  <Capability Min="195" Max="209" Res="SGM/gobo00318.png">Rotating shake Gobo 5 (slow > fast)</Capability>
-  <Capability Min="210" Max="232">Gobo wheel rotation CW (slow > fast)</Capability>
-  <Capability Min="233" Max="255">Gobo wheel rotation CCW (fast > slow)</Capability>
+  <Capability Min="60" Max="74" Res="ClayPaky/gobo00053.png">Indexed shake Gobo 1 (slow &gt; fast)</Capability>
+  <Capability Min="75" Max="89" Res="GLP/gobo00008.png">Indexed shake Gobo 2 (slow &gt; fast)</Capability>
+  <Capability Min="90" Max="104" Res="Others/gobo00050.png">Indexed shake Gobo 3 (slow &gt; fast)</Capability>
+  <Capability Min="105" Max="119" Res="SGM/gobo00370.png">Indexed shake Gobo 4 (slow &gt; fast)</Capability>
+  <Capability Min="120" Max="134" Res="SGM/gobo00318.png">Indexed shake Gobo 5 (slow &gt; fast)</Capability>
+  <Capability Min="135" Max="149" Res="ClayPaky/gobo00053.png">Rotating shake Gobo 1 (slow &gt; fast)</Capability>
+  <Capability Min="150" Max="164" Res="GLP/gobo00008.png">Rotating shake Gobo 2 (slow &gt; fast)</Capability>
+  <Capability Min="165" Max="179" Res="Others/gobo00050.png">Rotating shake Gobo 3 (slow &gt; fast)</Capability>
+  <Capability Min="180" Max="194" Res="SGM/gobo00370.png">Rotating shake Gobo 4 (slow &gt; fast)</Capability>
+  <Capability Min="195" Max="209" Res="SGM/gobo00318.png">Rotating shake Gobo 5 (slow &gt; fast)</Capability>
+  <Capability Min="210" Max="232">Gobo wheel rotation CW (slow &gt; fast)</Capability>
+  <Capability Min="233" Max="255">Gobo wheel rotation CCW (fast &gt; slow)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel, Rotation Coarse">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="2">No rotation</Capability>
-  <Capability Min="3" Max="127">CCW (slow > fast)</Capability>
-  <Capability Min="128" Max="252">CW (fast > slow)</Capability>
+  <Capability Min="3" Max="127">CCW (slow &gt; fast)</Capability>
+  <Capability Min="128" Max="252">CW (fast &gt; slow)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel, Fine Position">
   <Group Byte="1">Gobo</Group>
@@ -112,8 +112,8 @@
  <Channel Name="Gobo Animation Wheel, Position/Velocity">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="2">No rotation</Capability>
-  <Capability Min="3" Max="127">CCW (slow > fast)</Capability>
-  <Capability Min="128" Max="252">CW (fast > slow)</Capability>
+  <Capability Min="3" Max="127">CCW (slow &gt; fast)</Capability>
+  <Capability Min="128" Max="252">CW (fast &gt; slow)</Capability>
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
  <Channel Name="Effect Wheel Selection">
@@ -126,10 +126,10 @@
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="199">Open > Closed</Capability>
+  <Capability Min="0" Max="199">Open &gt; Closed</Capability>
   <Capability Min="200" Max="215">Closed</Capability>
-  <Capability Min="216" Max="229">Pulse opening (fast > slow)</Capability>
-  <Capability Min="230" Max="243">Pulse closing, (fast > slow)</Capability>
+  <Capability Min="216" Max="229">Pulse opening (fast &gt; slow)</Capability>
+  <Capability Min="230" Max="243">Pulse closing, (fast &gt; slow)</Capability>
   <Capability Min="244" Max="246">Random pulse opening, fast</Capability>
   <Capability Min="247" Max="249">Random pulse opening, slow</Capability>
   <Capability Min="250" Max="252">Random pulse closing, fast</Capability>
@@ -137,11 +137,11 @@
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity > near</Capability>
+  <Capability Min="0" Max="255">Infinity &gt; near</Capability>
  </Channel>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Flood > spot</Capability>
+  <Capability Min="0" Max="255">Flood &gt; spot</Capability>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -162,7 +162,7 @@
  <Channel Name="Dimmer Speed and Gobo Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
-  <Capability Min="3" Max="239">Fast > Slow</Capability>
+  <Capability Min="3" Max="239">Fast &gt; Slow</Capability>
   <Capability Min="240" Max="242">Tracking, STUd = OFF (studio mode off)</Capability>
   <Capability Min="243" Max="245">Tracking, STUd = ON (studio mode on)</Capability>
   <Capability Min="246" Max="248">Tracking, SCUT = OFF (shortcuts off)</Capability>
@@ -172,7 +172,7 @@
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
-  <Capability Min="3" Max="242">Fast > slow</Capability>
+  <Capability Min="3" Max="242">Fast &gt; slow</Capability>
   <Capability Min="243" Max="245">Tracking, PTSP = SLOW (slow pan/tilt speed)</Capability>
   <Capability Min="246" Max="248">Tracking, PTSP = NORM (normal pan/tilt speed) </Capability>
   <Capability Min="249" Max="251">Tracking, PTSP = FAST (fast pan/tilt speed)</Capability>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -41,13 +41,13 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="2">RGBW Dimmer</Capability>
   <Capability Min="3" Max="223">Color Mixing</Capability>
-  <Capability Min="224" Max="234">Snap Color Changes (Slow > Fast)</Capability>
-  <Capability Min="235" Max="243">Fading Color Changes (Slow > Fast)</Capability>
-  <Capability Min="244" Max="255">Sound Control (Slow > Fast)</Capability>
+  <Capability Min="224" Max="234">Snap Color Changes (Slow &gt; Fast)</Capability>
+  <Capability Min="235" Max="243">Fading Color Changes (Slow &gt; Fast)</Capability>
+  <Capability Min="244" Max="255">Sound Control (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Effect Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Effect Speed (Slow > Fast)</Capability>
+  <Capability Min="0" Max="255">Effect Speed (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -59,11 +59,11 @@
  </Channel>
  <Channel Name="Pan Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan Speed (Slow > Fast)</Capability>
+  <Capability Min="0" Max="255">Pan Speed (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Tilt Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Tilt Speed (Slow > Fast)</Capability>
+  <Capability Min="0" Max="255">Tilt Speed (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
