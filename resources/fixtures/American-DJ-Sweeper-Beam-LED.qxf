@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -48,7 +48,7 @@
  <Channel Name="Tilt Movement Macro Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="255">Slow -> Fast</Capability>
+  <Capability Min="8" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Chases">
   <Group Byte="0">Effect</Group>
@@ -73,7 +73,7 @@
  </Channel>
  <Channel Name="Chase Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -82,7 +82,7 @@
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No Function</Capability>
-  <Capability Min="16" Max="131">Strobing (Slow -> Fast)</Capability>
+  <Capability Min="16" Max="131">Strobing (Slow -&gt; Fast)</Capability>
   <Capability Min="132" Max="139">No Function</Capability>
   <Capability Min="140" Max="181">Slow Open - Fast Close</Capability>
   <Capability Min="182" Max="189">No Function</Capability>

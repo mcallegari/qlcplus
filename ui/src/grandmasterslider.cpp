@@ -25,8 +25,10 @@
 
 #include "grandmasterslider.h"
 #include "clickandgoslider.h"
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "vcproperties.h"
+#include "inputpatch.h"
 #include "apputil.h"
 
 GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
@@ -116,6 +118,7 @@ void GrandMasterSlider::setInvertedAppearance(bool invert)
 {
     Q_ASSERT(m_slider != NULL);
     m_slider->setInvertedAppearance(invert);
+    sendFeedback();
 }
 
 void GrandMasterSlider::slotValueChanged(int value)
@@ -175,6 +178,7 @@ void GrandMasterSlider::updateDisplayValue()
         str = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
     m_valueLabel->setText(str);
+    sendFeedback();
 }
 
 void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
@@ -189,6 +193,32 @@ void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode m
     Q_UNUSED(mode);
     updateTooltip();
     updateDisplayValue();
+}
+
+void GrandMasterSlider::sendFeedback()
+{
+    quint32 universe = VirtualConsole::instance()->properties().grandMasterInputUniverse();
+    quint32 channel = VirtualConsole::instance()->properties().grandMasterInputChannel();
+    QString chName;
+
+    if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
+        return;
+
+    InputPatch* pat = m_ioMap->inputPatch(universe);
+    if (pat != NULL)
+    {
+        QLCInputProfile* profile = pat->profile();
+        if (profile != NULL)
+        {
+            QLCInputChannel* ich = profile->channel(channel);
+            if (ich != NULL)
+                chName = ich->name();
+        }
+    }
+    if (m_slider->invertedAppearance())
+        m_ioMap->sendFeedBack(universe, channel, UCHAR_MAX - m_slider->value(), chName);
+    else
+        m_ioMap->sendFeedBack(universe, channel, m_slider->value(), chName);
 }
 
 /*****************************************************************************

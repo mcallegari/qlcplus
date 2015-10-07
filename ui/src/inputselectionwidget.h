@@ -37,6 +37,7 @@ public:
     ~InputSelectionWidget();
 
     void setKeyInputVisibility(bool visible);
+    void setCustomFeedbackVisibility(bool visible);
     void setTitle(QString title);
     void setWidgetPage(int page);
     bool isAutoDetecting();
@@ -56,6 +57,10 @@ protected slots:
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
+
+    void slotCustomFeedbackToggled(bool checked);
+    void slotLowerSpinValueChanged(int value);
+    void slotUpperSpinValueChanged(int value);
 
 signals:
     void autoDetectToggled(bool checked);

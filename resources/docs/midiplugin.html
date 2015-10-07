@@ -12,7 +12,7 @@
 <H1>Introduction</H1>
 <P>
 This plugin gives input/output support for the <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>
-and gives the user freedom to control typical parameters like channels, Program Change and Control Change.<br>
+and gives the user freedom to control typical parameters like channels, Notes, Program Change and Control Change.<br>
 
 The MIDI plugin can be quite powerful used in combination with MIDI devices such as keyboards, MIDI controllers 
 (like Behringer BCF2000 or KORG nanoKONTROL) or a software audio sequencer like Cubase or Ardour 3.<br>
@@ -54,9 +54,8 @@ Each line has three options that can be changed depending on your needs:
 </P>
 
 <H1>Feedbacks</H1>
-
 <P>
-The MIDI plugin is the one of the QLC+ plugins supporting feedback. When QLC+ detects a MIDI device with an output line, it will
+The MIDI plugin is one of the QLC+ plugins supporting feedbacks. When QLC+ detects a MIDI device with an output line, it will
 enable the feedback check box in the <A HREF="file:howto-input-output-mapping.html">Input/Output panel</A>. Please note that output
 and feedback are exclusive, so they cannot both be used at the same time.<br>
 If your MIDI device supports a return channel, QLC+ can send a visual/mechanical feedback to it. 
@@ -69,6 +68,31 @@ Let's look at some examples:
  <li>Input: <b>OSC</b> ---> Output: <b>DMX USB</b> --> Feedback: <b>MIDI</b></li>
  <li>Input: <b>Enttec Wing</b> --> Output: <b>ArtNet</b> --> Feedback: <b>MIDI</b></li>
 </ul>
+</P>
+
+<H1>AKAI APC LED Feedbacks</H1>
+<P>
+When using one of the Akai APC family controller, there is one feature that could come very handy: LED color feedbacks.<br>
+The default behaviour with Virtual Console buttons is: value = 0: LED off, value = 255: LED green<br>
+This can be customized when selecting an input channel, by pressing the "Custom feedback" button.<br>
+A new area is displayed, showing the possibility to enter a lower and an upper value. This is basically translated in which
+values QLC+ should send for buttons on/off states.<br>
+Since the MIDI protocol works in a range of 0-127 values, and QLC+ works in the DMX range of 0-255, the following table points you
+directly to the values you should enter to obtain the desired color of an APC LED. Basically they are taken from APC manuals and
+doubled.
+<table>
+<tr><th>Value</th><th>LED color</th></tr>
+<tr><td>0</td><td>Off</td></tr>
+<tr><td>2</td><td>Green</td></tr>
+<tr><td>4</td><td>Green Blinking</td></tr>
+<tr><td>6</td><td>Red</td></tr>
+<tr><td>8</td><td>Red Blinking</td></tr>
+<tr><td>10</td><td>Yellow</td></tr>
+<tr><td>12</td><td>Yellow Blinking</td></tr>
+<tr><td>14-255</td><td>Green</td></tr>
+</table>
+It's interesting to notice that you don't necessarily need to keep 0 as lower value. For example with lower = 6 and upper = 2
+the result will be: Function Off -> red LED, Function On -> green LED.
 </P>
 
 <H1>MIDI beat clock</H1>

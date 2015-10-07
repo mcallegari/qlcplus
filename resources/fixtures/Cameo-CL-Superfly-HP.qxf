@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Colour Selection">
   <Group Byte="0">Colour</Group>
-  <Capability Max="7" Min="0" Color="#ff0000">Red&#xd;</Capability>
+  <Capability Max="7" Min="0" Color="#ff0000">Red&#13;</Capability>
   <Capability Max="15" Min="8" Color="#00ff00">Green</Capability>
   <Capability Max="23" Min="16" Color="#0000ff">Blue</Capability>
   <Capability Max="31" Min="24" Color="#ffffff">White</Capability>

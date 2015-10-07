@@ -52,6 +52,8 @@ private:
     Doc* m_doc;
     InputSelectionWidget *m_panInputWidget;
     InputSelectionWidget *m_tiltInputWidget;
+    InputSelectionWidget *m_widthInputWidget;
+    InputSelectionWidget *m_heightInputWidget;
 
     /********************************************************************
      * Fixtures page
@@ -91,7 +93,9 @@ private:
 protected slots:
     void slotAddPositionClicked();
     void slotAddEFXClicked();
+    void slotAddSceneClicked();
     void slotRemovePresetClicked();
+    void slotPresetNameEdited(QString const& newName);
     void slotPresetSelectionChanged();
     void slotXYPadPositionChanged(const QPointF& pt);
     void slotInputValueChanged(quint32 universe, quint32 channel);

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -21,7 +21,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
   <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Strobing (Slow -> Fast)</Capability>
+  <Capability Min="16" Max="131">Strobing (Slow -&gt; Fast)</Capability>
   <Capability Min="132" Max="139">Open</Capability>
   <Capability Min="140" Max="181">Slow Open - Fast Close</Capability>
   <Capability Min="182" Max="189">Open</Capability>
@@ -50,11 +50,11 @@
   <Capability Min="107" Max="113" Color="#8000ff">Gobo 6 / UV (Shake)</Capability>
   <Capability Min="114" Max="120" Color="#00ffff">Gobo 7 / Light Blue (Shake)</Capability>
   <Capability Color2="#66ffff" Min="121" Max="127" Color="#800080">Gobo 8 / UV &amp; Light Blue (Shake)</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo Wheel Rotation (Slow -> Fast)</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo Wheel Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% -> 100%</Capability>
+  <Capability Min="0" Max="255">0% -&gt; 100%</Capability>
  </Channel>
  <Channel Name="Dimmer Mode">
   <Group Byte="0">Maintenance</Group>

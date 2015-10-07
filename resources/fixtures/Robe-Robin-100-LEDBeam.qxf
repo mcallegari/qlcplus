@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -226,17 +226,17 @@
   <Capability Min="10" Max="12" Color="#faf6ed">White 5600 K </Capability>
   <Capability Min="13" Max="15" Color="#fefcf9">White 8000 K</Capability>
   <Capability Min="16" Max="16" Color="#137cc3">Blue (Blue=full, Red+Green+White=0)</Capability>
-  <Capability Min="17" Max="55" Color="#1793c8">Red=0, Green->up,Blue =full, White=0</Capability>
+  <Capability Min="17" Max="55" Color="#1793c8">Red=0, Green-&gt;up,Blue =full, White=0</Capability>
   <Capability Min="56" Max="56" Color="#60afca">Light Blue (Red=0, Green=full, Blue =full, White=0)</Capability>
-  <Capability Min="57" Max="95" Color="#b5dcc1">Red=0, Green=full, Blue->down, White=0</Capability>
+  <Capability Min="57" Max="95" Color="#b5dcc1">Red=0, Green=full, Blue-&gt;down, White=0</Capability>
   <Capability Min="96" Max="96" Color="#87c326">Green (Red=0, Green=full, Blue =0, White=0)</Capability>
-  <Capability Min="97" Max="134" Color="#bad02c">Red->up, Green=full, Blue=0, White=0</Capability>
+  <Capability Min="97" Max="134" Color="#bad02c">Red-&gt;up, Green=full, Blue=0, White=0</Capability>
   <Capability Min="135" Max="135" Color="#e8d72f">Yellow (Red=full, Green=full, Blue=0, White=0)</Capability>
-  <Capability Min="136" Max="174" Color="#e56a5c">Red=full, Green->down, Blue=0, White=0</Capability>
+  <Capability Min="136" Max="174" Color="#e56a5c">Red=full, Green-&gt;down, Blue=0, White=0</Capability>
   <Capability Min="175" Max="175" Color="#dc2b4e">Red(Red=full, Green=0, Blue=0, White=0)</Capability>
-  <Capability Min="176" Max="214" Color="#cc3d6b">Red=full, Green=0, Blue->up, White=0</Capability>
+  <Capability Min="176" Max="214" Color="#cc3d6b">Red=full, Green=0, Blue-&gt;up, White=0</Capability>
   <Capability Min="215" Max="215" Color="#bb4e8b">Magenta (Red=full, Green=0, Blue=full, White=0)</Capability>
-  <Capability Min="216" Max="246" Color="#9182b5">Red -> down, Green=0, Blue=full, White=0</Capability>
+  <Capability Min="216" Max="246" Color="#9182b5">Red -&gt; down, Green=0, Blue=full, White=0</Capability>
   <Capability Min="247" Max="247" Color="#1793dc">Blue (Red=0, Green=0, Blue=full, White=0)</Capability>
   <Capability Min="248" Max="248" Res="Others/rainbow.png">Rainbow effect (with fade time)</Capability>
   <Capability Min="249" Max="249" Res="Others/rainbow.png">Rainbow effect</Capability>
@@ -256,18 +256,18 @@
  <Channel Name="Shutter/Strobe 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">Strobe effect from slow--> fast (zones 2,3 only)</Capability>
-  <Capability Min="64" Max="95">Strobe effect from slow--> fast (All zones together)</Capability>
-  <Capability Min="96" Max="111">Zone effects+rainbow effects speed control, slow--> fast </Capability>
-  <Capability Min="112" Max="127">Zone effects+rainbow effects speed control, fast--> slow</Capability>
-  <Capability Min="128" Max="143">Opening pulses in sequences from slow--> fast
+  <Capability Min="32" Max="63">Strobe effect from slow--&gt; fast (zones 2,3 only)</Capability>
+  <Capability Min="64" Max="95">Strobe effect from slow--&gt; fast (All zones together)</Capability>
+  <Capability Min="96" Max="111">Zone effects+rainbow effects speed control, slow--&gt; fast </Capability>
+  <Capability Min="112" Max="127">Zone effects+rainbow effects speed control, fast--&gt; slow</Capability>
+  <Capability Min="128" Max="143">Opening pulses in sequences from slow--&gt; fast
 (All zones together)</Capability>
-  <Capability Min="144" Max="159">Closing pulses in sequences from fast--> slow
+  <Capability Min="144" Max="159">Closing pulses in sequences from fast--&gt; slow
 (All zones together) </Capability>
-  <Capability Min="160" Max="175">Random strobe effect from slow--> fast (random zone)</Capability>
-  <Capability Min="176" Max="191">Random strobe effect from slow--> fast (random zone +
+  <Capability Min="160" Max="175">Random strobe effect from slow--&gt; fast (random zone)</Capability>
+  <Capability Min="176" Max="191">Random strobe effect from slow--&gt; fast (random zone +
 random strobe)</Capability>
-  <Capability Min="192" Max="223">Random strobe effect from slow --> fast (All zones together)</Capability>
+  <Capability Min="192" Max="223">Random strobe effect from slow --&gt; fast (All zones together)</Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Dimmer">

@@ -9,6 +9,7 @@
  <Manufacturer>Akai</Manufacturer>
  <Model>APC Mini</Model>
  <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
  <Channel Number="48">
   <Name>Slider 1</Name>
   <Type>Slider</Type>

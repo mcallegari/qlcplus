@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -28,7 +28,7 @@
   <Capability Min="0" Max="5">Macro Off</Capability>
   <Capability Min="6" Max="42">Macro 1 - Up ramp</Capability>
   <Capability Min="43" Max="85">Macro 2 - Down ramp</Capability>
-  <Capability Min="86" Max="128">Macro 3 - Up &lt; > Down ramp</Capability>
+  <Capability Min="86" Max="128">Macro 3 - Up &lt; &gt; Down ramp</Capability>
   <Capability Min="129" Max="171">Macro 4 - Random</Capability>
   <Capability Min="172" Max="214">Macro 5 - Lighting</Capability>
   <Capability Min="215" Max="255">Macro 6 - Spikes</Capability>

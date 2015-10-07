@@ -68,7 +68,6 @@ class SpeedDial : public QGroupBox
     Q_DISABLE_COPY(SpeedDial)
 
 public:
-
     enum Visibility
     {
         None         = 0,
@@ -80,8 +79,6 @@ public:
         Seconds      = 1 << 5,
         Milliseconds = 1 << 6,
         Infinite     = 1 << 7,
-        MultDiv      = 1 << 8,
-        Apply        = 1 << 9,
     };
 
     SpeedDial(QWidget* parent);
@@ -122,7 +119,6 @@ private:
 private slots:
     void slotPlusMinus();
     void slotPlusMinusTimeout();
-    void slotMultiplierDivisor();
     void slotDialChanged(int value);
     void slotHoursChanged();
     void slotMinutesChanged();
@@ -131,7 +127,6 @@ private slots:
     void slotInfiniteChecked(bool state);
     void slotSpinFocusGained();
     void slotTapClicked();
-    void slotApplyClicked();
     void slotTapTimeout();
 
 private:
@@ -139,45 +134,38 @@ private:
     QDial* m_dial;
     QToolButton* m_plus;
     QToolButton* m_minus;
-    QToolButton* m_mult;
-    QToolButton* m_div;
-    QLabel* m_mulDivFactor;
     FocusSpinBox* m_hrs;
     FocusSpinBox* m_min;
     FocusSpinBox* m_sec;
     FocusSpinBox* m_ms;
     QCheckBox* m_infiniteCheck;
     QPushButton* m_tap;
-    QPushButton* m_apply;
     FocusSpinBox* m_focus;
 
     int m_previousDialValue;
     bool m_preventSignals;
     int m_value;
-    int m_originalValue;
 
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
     bool m_tapTick;
-
-    int m_currentFactor;
 
     /*************************************************************************
      * Elements visibility
      *************************************************************************/
 public:
     /** Return the widget's elements default visibility bitmask */
-    static ushort defaultVisibilityMask();
+    static quint16 defaultVisibilityMask();
 
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask();
+    quint16 visibilityMask();
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */
-    void setVisibilityMask(ushort mask);
+    void setVisibilityMask(quint16 mask);
 
 private:
-    ushort m_visibilityMask;
+    quint16 m_visibilityMask;
 };
 
 /** @} */

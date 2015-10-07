@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -58,7 +58,7 @@
  <Channel Name="Shutter Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No Strobe</Capability>
-  <Capability Min="10" Max="255">Min > Max</Capability>
+  <Capability Min="10" Max="255">Min &gt; Max</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>

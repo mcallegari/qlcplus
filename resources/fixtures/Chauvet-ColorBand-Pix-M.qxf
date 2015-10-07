@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -214,7 +214,7 @@
  </Channel>
  <Channel Name="Speed / Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast (When Ch. 38 is between 32-233), Strobe</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast (When Ch. 38 is between 32-233), Strobe</Capability>
  </Channel>
  <Channel Name="RGB Mode">
   <Group Byte="0">Colour</Group>

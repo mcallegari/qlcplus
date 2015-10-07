@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -36,7 +36,7 @@
  <Mode Name="Default">
   <Physical>
    <Bulb Lumens="0" Type="R7S" ColourTemperature="0"/>
-   <Dimensions Width="400" Height="175" Weight="9,24" Depth="230"/>
+   <Dimensions Width="400" Height="175" Weight="9.24" Depth="230"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
@@ -49,7 +49,7 @@
  <Mode Name="Parallel">
   <Physical>
    <Bulb Lumens="0" Type="R7S" ColourTemperature="0"/>
-   <Dimensions Width="400" Height="175" Weight="9,24" Depth="230"/>
+   <Dimensions Width="400" Height="175" Weight="9.24" Depth="230"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>

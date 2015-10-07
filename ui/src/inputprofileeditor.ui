@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>408</height>
+    <width>520</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,36 +28,6 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="m_manufacturerEdit">
-         <property name="toolTip">
-          <string>The name of the company that made the device</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="m_modelEdit">
-         <property name="toolTip">
-          <string>The device's model name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="m_manufacturerLabel">
          <property name="text">
@@ -80,8 +50,53 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="m_typeCombo">
+        <widget class="QComboBox" name="m_typeCombo"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="m_manufacturerEdit">
+         <property name="toolTip">
+          <string>The name of the company that made the device</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="m_modelEdit">
+         <property name="toolTip">
+          <string>The device's model name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QGroupBox" name="m_midiGroupSettings">
+         <property name="title">
+          <string>MIDI Global Settings</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="m_noteOffCheck">
+            <property name="text">
+             <string>When MIDI notes are used, send a Note Off when value is 0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

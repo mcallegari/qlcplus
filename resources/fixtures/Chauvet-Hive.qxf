@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -12,92 +12,92 @@
  <Channel Name="Pod1_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod1_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod1_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod2_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod2_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod2_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod3_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod3_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod3_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod4_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod4_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod4_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod5_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod5_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod5_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod6_R">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod6_G">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pod6_B">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>

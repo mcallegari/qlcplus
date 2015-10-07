@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -51,8 +51,8 @@
   <Capability Min="106" Max="111" Color="#0000ff" Color2="#55ff7f">Blue + Light Green</Capability>
   <Capability Min="112" Max="117" Color="#55ff7f" Color2="#ffaa00">Light Green + Amber</Capability>
   <Capability Min="118" Max="127" Color="#ffaa00" Color2="#ffffff">Amber + White</Capability>
-  <Capability Min="128" Max="191" Res="Others/rainbow.png">Color Cycle (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse Color Cycle (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Color Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse Color Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -77,18 +77,18 @@
   <Capability Min="42" Max="47" Res="Chauvet/gobo00051.png">Gobo 7</Capability>
   <Capability Min="48" Max="53" Res="Chauvet/gobo00052.png">Gobo 8</Capability>
   <Capability Min="54" Max="63" Res="Chauvet/gobo00053.png">Gobo 9</Capability>
-  <Capability Min="64" Max="71" Res="Chauvet/gobo00053.png">Gobo 9 Shake (Slow -> Fast)</Capability>
-  <Capability Min="72" Max="79" Res="Chauvet/gobo00052.png">Gobo 8 Shake (Slow -> Fast)</Capability>
-  <Capability Min="80" Max="85" Res="Chauvet/gobo00051.png">Gobo 7 Shake (Slow -> Fast)</Capability>
-  <Capability Min="86" Max="91" Res="Chauvet/gobo00050.png">Gobo 6 Shake (Slow -> Fast)</Capability>
-  <Capability Min="92" Max="97" Res="Chauvet/gobo00049.png">Gobo 5 Shake (Slow -> Fast)</Capability>
-  <Capability Min="98" Max="103" Res="Chauvet/gobo00048.png">Gobo 4 Shake (Slow -> Fast)</Capability>
-  <Capability Min="104" Max="109" Res="Chauvet/gobo00047.png">Gobo 3 Shake (Slow -> Fast)</Capability>
-  <Capability Min="110" Max="115" Res="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -> Fast)</Capability>
-  <Capability Min="116" Max="121" Res="Chauvet/gobo00045.png">Gobo 1 Shake (Slow -> Fast)</Capability>
+  <Capability Min="64" Max="71" Res="Chauvet/gobo00053.png">Gobo 9 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="72" Max="79" Res="Chauvet/gobo00052.png">Gobo 8 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="80" Max="85" Res="Chauvet/gobo00051.png">Gobo 7 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="86" Max="91" Res="Chauvet/gobo00050.png">Gobo 6 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="92" Max="97" Res="Chauvet/gobo00049.png">Gobo 5 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="98" Max="103" Res="Chauvet/gobo00048.png">Gobo 4 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="104" Max="109" Res="Chauvet/gobo00047.png">Gobo 3 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="110" Max="115" Res="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="116" Max="121" Res="Chauvet/gobo00045.png">Gobo 1 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="122" Max="127" Res="Others/open.png">Open</Capability>
-  <Capability Min="128" Max="191">Gobo Cycle (Slow -> Fast)</Capability>
-  <Capability Min="192" Max="255">Reverse Gobo Cycle (Slow -> Fast)</Capability>
+  <Capability Min="128" Max="191">Gobo Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255">Reverse Gobo Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>

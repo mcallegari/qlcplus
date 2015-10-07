@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -60,7 +60,7 @@
  <Mode Name="Default">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="265" Height="125" Weight="3,8" Depth="192"/>
+   <Dimensions Width="265" Height="125" Weight="3.8" Depth="192"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>

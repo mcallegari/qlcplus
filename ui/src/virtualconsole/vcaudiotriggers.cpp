@@ -567,7 +567,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
         }
         else if (tag.tagName() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(&tag);
+            loadXMLInput(tag);
         }
         else if (tag.tagName() == KXMLQLCVCATKey)
         {

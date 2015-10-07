@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -33,17 +33,17 @@
  <Channel Name="Strobe control">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">Off</Capability>
-  <Capability Min="10" Max="255">Strobe slow -> fast</Capability>
+  <Capability Min="10" Max="255">Strobe slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Spot 1: Brightness red or running speed">
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimming from 0 - 100%/running speed slow -> fast</Capability>
+  <Capability Min="0" Max="255" Color="#ff0000">Dimming from 0 - 100%/running speed slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Spot 1: Brightness green or fade time">
   <Group Byte="0">Effect</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimming from 0 - 100%/fade time fast -> slow</Capability>
+  <Capability Min="0" Max="255" Color="#00ff00">Dimming from 0 - 100%/fade time fast -&gt; slow</Capability>
  </Channel>
  <Channel Name="Spot 1: Brightness blue">
   <Group Byte="0">Intensity</Group>

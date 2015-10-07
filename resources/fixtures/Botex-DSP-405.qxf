@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -28,7 +28,7 @@
  <Mode Name="4 Channels">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2,6" Depth="53"/>
+   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
@@ -41,7 +41,7 @@
  <Mode Name="2 Channels">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2,6" Depth="53"/>
+   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
@@ -52,7 +52,7 @@
  <Mode Name="1 Channel">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2,6" Depth="53"/>
+   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>

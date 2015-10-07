@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -118,7 +118,7 @@
  <Channel Name="CT Linear">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">RGB Mode</Capability>
-  <Capability Min="51" Max="255">White 2700K -> 6500K</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
  </Channel>
  <Channel Name="CT Preset 1">
   <Group Byte="0">Colour</Group>
@@ -167,22 +167,22 @@
  <Channel Name="CT Linear 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">RGB Mode</Capability>
-  <Capability Min="51" Max="255">White 2700K -> 6500K</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
  </Channel>
  <Channel Name="CT Linear 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">RGB Mode</Capability>
-  <Capability Min="51" Max="255">White 2700K -> 6500K</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
  </Channel>
  <Channel Name="CT Linear 3">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">RGB Mode</Capability>
-  <Capability Min="51" Max="255">White 2700K -> 6500K</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
  </Channel>
  <Channel Name="CT Linear 4">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="50">RGB Mode</Capability>
-  <Capability Min="51" Max="255">White 2700K -> 6500K</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
  </Channel>
  <Mode Name="Standard 5 Channels (CT 7 Preset)">
   <Physical>

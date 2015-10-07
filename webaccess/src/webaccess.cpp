@@ -699,26 +699,36 @@ void WebAccess::slotFramePageChanged(int pageNum)
 QString WebAccess::getFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
+    QSize origSize = frame->originalSize();
+    int w = frame->isCollapsed() ? 200 : origSize.width();
+    int h = frame->isCollapsed() ? 36 : origSize.height();
 
-    QString str = "<div class=\"vcframe\" style=\"left: " + QString::number(frame->x()) +
-          "px; top: " + QString::number(frame->y()) + "px; width: " +
-           QString::number(frame->width()) +
-          "px; height: " + QString::number(frame->height()) + "px; "
+    QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
+          "style=\"left: " + QString::number(frame->x()) +
+          "px; top: " + QString::number(frame->y()) + "px; width: " + QString::number(w) +
+          "px; height: " + QString::number(h) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
           "border: 1px solid " + border.name() + ";\">\n";
 
     if (frame->isHeaderVisible())
     {
+        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0; z-index: 1;\" href=\"javascript:frameToggleCollapse(";
+        str += QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
         str += "<div class=\"vcframeHeader\" style=\"color:" +
-                frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
+                frame->foregroundColor().name() + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
+
+        m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
+        m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
+
         if (frame->multipageMode())
         {
-            str += "<div style=\"position: absolute; top: 0; right:0; z-index: 1;\">\n";
+            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\"";
+            str += "style=\"position: absolute; top: 0; right: 2px; z-index: 1;\">\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=\"27\"></a>\n";
-            str += "<div class=\"vcframePageLabel\" id=\"fr" + QString::number(frame->id()) + "Page\">";
-            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div>\n";
+            str += "<img src=\"back.png\" width=\"27\"></a>";
+            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">";
+            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
             str += "<img src=\"forward.png\" width=\"27\"></a>\n";
@@ -740,21 +750,30 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 {
     QColor border(255, 0, 0);
+    QSize origSize = frame->originalSize();
+    int w = frame->isCollapsed() ? 200 : origSize.width();
+    int h = frame->isCollapsed() ? 36 : origSize.height();
 
-    QString str = "<div class=\"vcsoloframe\" style=\"left: " + QString::number(frame->x()) +
-          "px; top: " + QString::number(frame->y()) + "px; width: " +
-           QString::number(frame->width()) +
-          "px; height: " + QString::number(frame->height()) + "px; "
+    QString str = "<div class=\"vcsoloframe\" id=\"fr" + QString::number(frame->id()) + "\" "
+          "style=\"left: " + QString::number(frame->x()) +
+          "px; top: " + QString::number(frame->y()) + "px; width: " + QString::number(w) +
+          "px; height: " + QString::number(h) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
           "border: 1px solid " + border.name() + ";\">\n";
 
     if (frame->isHeaderVisible())
     {
+        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0; z-index: 1;\" href=\"javascript:frameToggleCollapse(";
+        str += QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
         str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
-                frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
+                frame->foregroundColor().name() + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
+
+        m_JScode += "framesWidth[" + QString::number(frame->id()) + "] = " + QString::number(origSize.width()) + ";\n";
+        m_JScode += "framesHeight[" + QString::number(frame->id()) + "] = " + QString::number(origSize.height()) + ";\n";
+
         if (frame->multipageMode())
         {
-            str += "<div style=\"position: absolute; top: 0; right:0; z-index: 1;\">\n";
+            str += "<div style=\"position: absolute; top: 0; right: 2px; z-index: 1;\">\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
             str += "<img src=\"back.png\" width=\"27\"></a>\n";

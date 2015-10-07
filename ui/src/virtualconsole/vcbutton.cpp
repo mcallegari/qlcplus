@@ -498,10 +498,14 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 
 void VCButton::updateFeedback()
 {
-    if (m_on == true)
-        sendFeedback(UCHAR_MAX);
-    else
-        sendFeedback(0);
+    QSharedPointer<QLCInputSource> src = inputSource();
+    if (!src.isNull() && src->isValid() == true)
+    {
+        if (m_on == true)
+            sendFeedback(src->upperValue());
+        else
+            sendFeedback(src->lowerValue());
+    }
 }
 
 /*****************************************************************************
@@ -858,7 +862,7 @@ bool VCButton::loadXML(const QDomElement* root)
         }
         else if (tag.tagName() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(&tag);
+            loadXMLInput(tag);
         }
         else if (tag.tagName() == KXMLQLCVCButtonAction)
         {

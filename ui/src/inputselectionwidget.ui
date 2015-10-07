@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>466</width>
-    <height>131</height>
+    <width>504</width>
+    <height>185</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -26,103 +26,9 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="m_extInputGroup">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>External Input</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayoutExternalInput">
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Input Channel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QPushButton" name="m_chooseInputButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Choose an external input universe &amp; channel that this widget should listen to.</string>
-        </property>
-        <property name="text">
-         <string>Choose...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Input Universe</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="m_autoDetectInputButton">
-        <property name="toolTip">
-         <string>When toggled, you can click an external button to assign it to this widget.</string>
-        </property>
-        <property name="text">
-         <string>Auto Detect</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="checked">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="4">
-       <widget class="QLineEdit" name="m_inputUniverseEdit">
-        <property name="toolTip">
-         <string>The input universe that sends data to this widget</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="4">
-       <widget class="QLineEdit" name="m_inputChannelEdit">
-        <property name="toolTip">
-         <string>The particular input channel within the input universe that sends data to this widget</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
+   <property name="verticalSpacing">
+    <number>0</number>
+   </property>
    <item row="0" column="1">
     <widget class="QGroupBox" name="m_keyInputGroup">
      <property name="sizePolicy">
@@ -139,13 +45,13 @@
        <number>3</number>
       </property>
       <property name="topMargin">
-       <number>9</number>
+       <number>4</number>
       </property>
       <property name="rightMargin">
        <number>3</number>
       </property>
-      <property name="horizontalSpacing">
-       <number>12</number>
+      <property name="bottomMargin">
+       <number>4</number>
       </property>
       <item row="1" column="2">
        <widget class="QToolButton" name="m_detachKey">
@@ -195,6 +101,174 @@
         <property name="readOnly">
          <bool>true</bool>
         </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="m_extInputGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>External Input</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutExternalInput">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="m_autoDetectInputButton">
+        <property name="toolTip">
+         <string>When toggled, you can click an external button to assign it to this widget.</string>
+        </property>
+        <property name="text">
+         <string>Auto Detect</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Input Universe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Input Channel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="4">
+       <widget class="QLineEdit" name="m_inputUniverseEdit">
+        <property name="toolTip">
+         <string>The input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0">
+       <widget class="QToolButton" name="m_customFbButton">
+        <property name="text">
+         <string>Custom Feedback</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="4">
+       <widget class="QLineEdit" name="m_inputChannelEdit">
+        <property name="toolTip">
+         <string>The particular input channel within the input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" colspan="2">
+       <widget class="QPushButton" name="m_chooseInputButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Choose an external input universe &amp; channel that this widget should listen to.</string>
+        </property>
+        <property name="text">
+         <string>Choose...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="5">
+       <widget class="QGroupBox" name="m_feedbackGroup">
+        <property name="title">
+         <string>Custom feedback</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="topMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>3</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Lower value</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QSpinBox" name="m_upperSpin">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>255</number>
+           </property>
+           <property name="value">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="m_lowerSpin">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Upper value</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

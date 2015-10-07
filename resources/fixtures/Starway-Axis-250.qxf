@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -11,19 +11,19 @@
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min > Max</Capability>
+  <Capability Min="0" Max="255">Min &gt; Max</Capability>
  </Channel>
  <Channel Name="Pan fine">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min > Max</Capability>
+  <Capability Min="0" Max="255">Min &gt; Max</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min > Max</Capability>
+  <Capability Min="0" Max="255">Min &gt; Max</Capability>
  </Channel>
  <Channel Name="Tilt fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min > Max</Capability>
+  <Capability Min="0" Max="255">Min &gt; Max</Capability>
  </Channel>
  <Channel Name="Speed Pan/Tilt">
   <Group Byte="0">Speed</Group>
@@ -46,32 +46,32 @@
   <Capability Min="91" Max="103" Color="#005500">Dark Green</Capability>
   <Capability Min="104" Max="116" Color="#00007f">Dark Blue</Capability>
   <Capability Min="117" Max="127" Color="#ff0000">Red</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Loop Color Fast>Slow</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="187">Loop Color Fast&gt;Slow</Capability>
   <Capability Min="188" Max="193">No Rotation</Capability>
   <Capability Res="Others/rainbow.png" Min="194" Max="255">Loop color Slow&lt;Fast</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/open.png" Min="0" Max="13">Open</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00036.png" Min="14" Max="27">Gobo 1</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00023.png" Min="28" Max="41">Gobo 2</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00012.png" Min="42" Max="55">Gobo 3</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/SGM/gobo00022.png" Min="56" Max="69">Gobo 4</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00037.png" Min="70" Max="83">Gobo 5</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00028.png" Min="84" Max="97">Gobo 6</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00010.png" Min="98" Max="115">Gobo 7</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00036.png" Min="116" Max="135">Gobo 1 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00023.png" Min="136" Max="155">Gobo 2 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00012.png" Min="156" Max="175">Gobo 3 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/SGM/gobo00022.png" Min="176" Max="195">Gobo 4 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00037.png" Min="196" Max="215">Gobo 5 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00028.png" Min="216" Max="235">Gobo 6 Shake</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00010.png" Min="236" Max="255">Gobo 7 Shake</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="13">Open</Capability>
+  <Capability Res="Others/gobo00036.png" Min="14" Max="27">Gobo 1</Capability>
+  <Capability Res="Others/gobo00023.png" Min="28" Max="41">Gobo 2</Capability>
+  <Capability Res="Others/gobo00012.png" Min="42" Max="55">Gobo 3</Capability>
+  <Capability Res="SGM/gobo00022.png" Min="56" Max="69">Gobo 4</Capability>
+  <Capability Res="Others/gobo00037.png" Min="70" Max="83">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00028.png" Min="84" Max="97">Gobo 6</Capability>
+  <Capability Res="Chauvet/gobo00010.png" Min="98" Max="115">Gobo 7</Capability>
+  <Capability Res="Others/gobo00036.png" Min="116" Max="135">Gobo 1 Shake</Capability>
+  <Capability Res="Others/gobo00023.png" Min="136" Max="155">Gobo 2 Shake</Capability>
+  <Capability Res="Others/gobo00012.png" Min="156" Max="175">Gobo 3 Shake</Capability>
+  <Capability Res="SGM/gobo00022.png" Min="176" Max="195">Gobo 4 Shake</Capability>
+  <Capability Res="Others/gobo00037.png" Min="196" Max="215">Gobo 5 Shake</Capability>
+  <Capability Res="ClayPaky/gobo00028.png" Min="216" Max="235">Gobo 6 Shake</Capability>
+  <Capability Res="Chauvet/gobo00010.png" Min="236" Max="255">Gobo 7 Shake</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Off</Capability>
-  <Capability Min="8" Max="127">RLoop Min>Max</Capability>
+  <Capability Min="8" Max="127">RLoop Min&gt;Max</Capability>
   <Capability Min="128" Max="135">Off</Capability>
   <Capability Min="136" Max="255">Lloop Max&lt;Min</Capability>
  </Channel>
@@ -79,7 +79,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Close</Capability>
   <Capability Min="32" Max="63">Intensity</Capability>
-  <Capability Min="64" Max="95">Strobe Min>Max</Capability>
+  <Capability Min="64" Max="95">Strobe Min&gt;Max</Capability>
   <Capability Min="96" Max="127">Open</Capability>
   <Capability Min="128" Max="159">Pulse</Capability>
   <Capability Min="160" Max="191">Open</Capability>

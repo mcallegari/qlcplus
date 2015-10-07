@@ -25,8 +25,9 @@
 
 VCXYPadPreset::VCXYPadPreset(quint8 id)
     : m_id(id)
+    , m_name(QString())
     , m_dmxPos(QPointF())
-    , m_efxID(Function::invalidId())
+    , m_funcID(Function::invalidId())
 {
 
 }
@@ -34,13 +35,17 @@ VCXYPadPreset::VCXYPadPreset(quint8 id)
 VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &vcpp)
     : m_id(vcpp.m_id)
     , m_type(vcpp.m_type)
+    , m_name(vcpp.m_name)
     , m_dmxPos(vcpp.m_dmxPos)
-    , m_efxID(vcpp.m_efxID)
+    , m_funcID(vcpp.m_funcID)
     , m_keySequence(vcpp.m_keySequence)
 {
     if (vcpp.m_inputSource != NULL)
+    {
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
                                                vcpp.m_inputSource->channel()));
+        m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
+    }
 }
 
 VCXYPadPreset::~VCXYPadPreset()
@@ -48,14 +53,14 @@ VCXYPadPreset::~VCXYPadPreset()
 
 }
 
-void VCXYPadPreset::setEFXID(quint32 id)
+void VCXYPadPreset::setFunctionID(quint32 id)
 {
-    m_efxID = id;
+    m_funcID = id;
 }
 
-quint32 VCXYPadPreset::efxID() const
+quint32 VCXYPadPreset::functionID() const
 {
-    return m_efxID;
+    return m_funcID;
 }
 
 void VCXYPadPreset::setPosition(QPointF pos)
@@ -82,6 +87,8 @@ QString VCXYPadPreset::typeToString(VCXYPadPreset::PresetType type)
 {
     if (type == EFX)
         return "EFX";
+    else if (type == Scene)
+        return "Scene";
 
     return "Position";
 }
@@ -90,6 +97,8 @@ VCXYPadPreset::PresetType VCXYPadPreset::stringToType(QString str)
 {
     if (str == "EFX")
         return EFX;
+    else if (str == "Scene")
+        return Scene;
 
     return Position;
 }
@@ -129,9 +138,13 @@ bool VCXYPadPreset::loadXML(const QDomElement &root)
         {
             m_type = stringToType(tag.text());
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetEFXID)
+        else if (tag.tagName() == KXMLQLCVCXYPadPresetName)
         {
-            setEFXID(tag.text().toUInt());
+            m_name = tag.text();
+        }
+        else if (tag.tagName() == KXMLQLCVCXYPadPresetFuncID)
+        {
+            setFunctionID(tag.text().toUInt());
         }
         else if (tag.tagName() == KXMLQLCVCXYPadPresetXPos)
         {
@@ -151,6 +164,13 @@ bool VCXYPadPreset::loadXML(const QDomElement &root)
                 quint32 uni = tag.attribute(KXMLQLCVCXYPadPresetInputUniverse).toUInt();
                 quint32 ch = tag.attribute(KXMLQLCVCXYPadPresetInputChannel).toUInt();
                 m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+
+                uchar min = 0, max = UCHAR_MAX;
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(tag.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(tag.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+                m_inputSource->setRange(min, max);
             }
         }
         else if (tag.tagName() == KXMLQLCVCXYPadPresetKey)
@@ -188,11 +208,16 @@ bool VCXYPadPreset::saveXML(QDomDocument *doc, QDomElement *xypad_root)
     text = doc->createTextNode(typeToString(m_type));
     tag.appendChild(text);
 
-    if (m_type == EFX)
+    tag = doc->createElement(KXMLQLCVCXYPadPresetName);
+    root.appendChild(tag);
+    text = doc->createTextNode(m_name);
+    tag.appendChild(text);
+
+    if (m_type == EFX || m_type == Scene)
     {
-        tag = doc->createElement(KXMLQLCVCXYPadPresetEFXID);
+        tag = doc->createElement(KXMLQLCVCXYPadPresetFuncID);
         root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_efxID));
+        text = doc->createTextNode(QString::number(m_funcID));
         tag.appendChild(text);
     }
     else if (m_type == Position)
@@ -213,6 +238,10 @@ bool VCXYPadPreset::saveXML(QDomDocument *doc, QDomElement *xypad_root)
         tag = doc->createElement(KXMLQLCVCXYPadPresetInput);
         tag.setAttribute(KXMLQLCVCXYPadPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
         tag.setAttribute(KXMLQLCVCXYPadPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
+        if (m_inputSource->lowerValue() != 0)
+            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+        if (m_inputSource->upperValue() != UCHAR_MAX)
+            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
         root.appendChild(tag);
     }
 

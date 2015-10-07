@@ -89,11 +89,9 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_previousDialValue(0)
     , m_preventSignals(false)
     , m_value(0)
-    , m_originalValue(0)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
     , m_tapTick(false)
-    , m_currentFactor(1)
     , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
     new QVBoxLayout(this);
@@ -102,7 +100,6 @@ SpeedDial::SpeedDial(QWidget* parent)
 
     QHBoxLayout* topHBox = new QHBoxLayout();
     QVBoxLayout* pmVBox1 = new QVBoxLayout();
-    QVBoxLayout* pmVBox2 = new QVBoxLayout();
     QVBoxLayout* taVBox3 = new QVBoxLayout();
     layout()->addItem(topHBox);
 
@@ -121,32 +118,6 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_minus, SIGNAL(released()), this, SLOT(slotPlusMinus()));
     topHBox->addItem(pmVBox1);
 
-    m_mult = new QToolButton(this);
-    m_mult->setIconSize(QSize(32, 32));
-    m_mult->setIcon(QIcon(":/up.png"));
-    pmVBox2->addWidget(m_mult);
-    pmVBox2->setAlignment(m_mult, Qt::AlignCenter);
-    connect(m_mult, SIGNAL(pressed()), this, SLOT(slotMultiplierDivisor()));
-    connect(m_mult, SIGNAL(released()), this, SLOT(slotMultiplierDivisor()));
-
-    m_mulDivFactor = new QLabel(this);
-    m_mulDivFactor->setText("1x");
-    m_mulDivFactor->setFrameStyle(QFrame::Box);
-    m_mulDivFactor->setFixedWidth(42);
-    m_mulDivFactor->setAlignment(Qt::AlignCenter);
-    pmVBox2->addWidget(m_mulDivFactor);
-    pmVBox2->setAlignment(m_mulDivFactor, Qt::AlignCenter);
-
-    m_div = new QToolButton(this);
-    m_div->setIconSize(QSize(32, 32));
-    m_div->setIcon(QIcon(":/down.png"));
-    pmVBox2->addWidget(m_div);
-    pmVBox2->setAlignment(m_div, Qt::AlignCenter);
-    connect(m_div, SIGNAL(pressed()), this, SLOT(slotMultiplierDivisor()));
-    connect(m_div, SIGNAL(released()), this, SLOT(slotMultiplierDivisor()));
-
-    topHBox->addItem(pmVBox2);
-
     m_dial = new QDial(this);
     m_dial->setWrapping(true);
     m_dial->setNotchesVisible(true);
@@ -159,12 +130,6 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_tap->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     taVBox3->addWidget(m_tap);
     connect(m_tap, SIGNAL(clicked()), this, SLOT(slotTapClicked()));
-
-    m_apply = new QPushButton(tr("Apply"), this);
-    m_apply->setStyleSheet(tapDefaultSS);
-    m_apply->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-    taVBox3->addWidget(m_apply);
-    connect(m_apply, SIGNAL(clicked()), this, SLOT(slotApplyClicked()));
 
     topHBox->addItem (taVBox3);
 
@@ -394,52 +359,6 @@ void SpeedDial::slotPlusMinusTimeout()
     }
 }
 
-void SpeedDial::slotMultiplierDivisor()
-{
-    int ms;
-
-    if (m_div->isDown() == true)
-    {
-        if (m_currentFactor == 1)
-            m_currentFactor = -2;
-        else if (m_currentFactor > 0)
-        {
-            m_currentFactor /= 2;
-        }
-        else
-        {
-            if (m_currentFactor > -2048)
-                m_currentFactor *= 2;
-        }
-    }
-    else if (m_mult->isDown() == true)
-    {
-        if (m_currentFactor == -2)
-            m_currentFactor = 1;
-        else if (m_currentFactor > 0)
-        {
-            if (m_currentFactor < 2048)
-                m_currentFactor *= 2;
-        }
-        else
-        {
-            m_currentFactor /= 2;
-        }
-
-    }
-    if (m_currentFactor > 0)
-    {
-        ms = m_originalValue * m_currentFactor;
-        m_mulDivFactor->setText(QString("%1x").arg(m_currentFactor));
-    }
-    else
-    {
-        ms = m_originalValue / qAbs(m_currentFactor);
-        m_mulDivFactor->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
-    }
-    setSpinValues(ms);
-}
-
 void SpeedDial::slotDialChanged(int value)
 {
     Q_ASSERT(m_focus != NULL);
@@ -484,8 +403,6 @@ void SpeedDial::slotDialChanged(int value)
         m_value = newValue;
         m_value = CLAMP(m_value, 0, INT_MAX);
         m_focus->setValue(m_value);
-        if (m_currentFactor == 1)
-            m_originalValue = m_value;
     }
 
     // stop tap button blinking if it was
@@ -557,9 +474,6 @@ void SpeedDial::slotInfiniteChecked(bool state)
     m_sec->setEnabled(!state);
     m_ms->setEnabled(!state);
     m_tap->setEnabled(!state);
-    m_mult->setEnabled(!state);
-    m_div->setEnabled(!state);
-    m_mulDivFactor->setEnabled(!state);
 
     if (state == true)
     {
@@ -617,16 +531,6 @@ void SpeedDial::slotTapClicked()
     emit tapped();
 }
 
-void SpeedDial::slotApplyClicked()
-{
-    m_value = spinValues();
-    if (m_preventSignals == false)
-        emit valueChanged(m_value);
-
-    // stop tap button blinking if it was
-    stopTimers();
-}
-
 void SpeedDial::slotTapTimeout()
 {
     if (m_tapTick == false)
@@ -641,17 +545,17 @@ void SpeedDial::slotTapTimeout()
     }
 }
 
-ushort SpeedDial::defaultVisibilityMask()
+quint16 SpeedDial::defaultVisibilityMask()
 {
     return DEFAULT_VISIBILITY_MASK;
 }
 
-ushort SpeedDial::visibilityMask()
+quint16 SpeedDial::visibilityMask()
 {
     return m_visibilityMask;
 }
 
-void SpeedDial::setVisibilityMask(ushort mask)
+void SpeedDial::setVisibilityMask(quint16 mask)
 {
     if (mask & PlusMinus)
     {
@@ -684,22 +588,6 @@ void SpeedDial::setVisibilityMask(ushort mask)
 
     if (mask & Infinite) m_infiniteCheck->show();
     else m_infiniteCheck->hide();
-
-    if (mask & MultDiv)
-    {
-        m_mult->show();
-        m_div->show();
-        m_mulDivFactor->show();
-    }
-    else
-    {
-        m_mult->hide();
-        m_div->hide();
-        m_mulDivFactor->hide();
-    }
-
-    if (mask & Apply) m_apply->show();
-    else m_apply->hide();
 
     m_visibilityMask = mask;
 }

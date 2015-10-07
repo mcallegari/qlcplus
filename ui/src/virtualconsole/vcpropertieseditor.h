@@ -83,13 +83,9 @@ private:
     /*************************************************************************
      * Layout page
      *************************************************************************/
-private:
-    void fillTapModifierCombo();
-
 private slots:
     void slotSizeXChanged(int value);
     void slotSizeYChanged(int value);
-    void slotTapModifierActivated(int index);
 
     /*************************************************************************
      * Widgets page

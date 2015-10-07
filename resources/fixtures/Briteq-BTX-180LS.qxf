@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -27,7 +27,7 @@
  </Channel>
  <Channel Name="Pan / Tilt Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">fast > slow</Capability>
+  <Capability Min="0" Max="255">fast &gt; slow</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -72,7 +72,7 @@
   <Capability Min="48" Max="55">COLOR 7  CTO 5600K (cold white) </Capability>
   <Capability Color="#66ccff" Min="56" Max="63">COLOR 8  Pale Blue </Capability>
   <Capability Min="64" Max="127">Indexing (intermediate positions) </Capability>
-  <Capability Min="128" Max="189">Color wheel turning clockwise (fast>slow)</Capability>
+  <Capability Min="128" Max="189">Color wheel turning clockwise (fast&gt;slow)</Capability>
   <Capability Min="190" Max="193">Color wheel stops turning </Capability>
   <Capability Min="194" Max="255">Color wheel turning counter clockwise (slow&lt;fast)</Capability>
  </Channel>
@@ -93,7 +93,7 @@
   <Capability Res="Others/gobo00045.png" Min="101" Max="109">Gobo 5 Shake</Capability>
   <Capability Res="ClayPaky/gobo00012.png" Min="110" Max="118">Gobo 6 Shake</Capability>
   <Capability Res="Robe/gobo00026.png" Min="119" Max="127">Gobo 7 Shake</Capability>
-  <Capability Min="128" Max="189">Gobo wheel turning clockwise (fast>slow)</Capability>
+  <Capability Min="128" Max="189">Gobo wheel turning clockwise (fast&gt;slow)</Capability>
   <Capability Min="190" Max="193">Gobo wheel stops turning </Capability>
   <Capability Min="194" Max="255">Gobo wheel turning counter clockwise (slow&lt;fast)</Capability>
  </Channel>
@@ -123,7 +123,7 @@
   <Capability Res="Others/gobo00043.png" Min="104" Max="111">Gobo 6 Shake</Capability>
   <Capability Res="SGM/gobo00284.png" Min="112" Max="119">Gobo 7 Shake</Capability>
   <Capability Res="SGM/gobo00360.png" Min="120" Max="127">Gobo 8 Shake</Capability>
-  <Capability Min="128" Max="189">Gobo wheel turning clockwise (fast>slow)</Capability>
+  <Capability Min="128" Max="189">Gobo wheel turning clockwise (fast&gt;slow)</Capability>
   <Capability Min="190" Max="193">Gobo wheel stops turning </Capability>
   <Capability Min="194" Max="255">Gobo wheel turning counter clockwise (slow&lt;fast)</Capability>
  </Channel>
@@ -141,7 +141,7 @@
  </Channel>
  <Channel Name="Iris (maximum to minimum)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Max > Min</Capability>
+  <Capability Min="0" Max="255">Max &gt; Min</Capability>
  </Channel>
  <Channel Name="Focus (close to distant)">
   <Group Byte="0">Beam</Group>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -57,7 +57,7 @@
  <Mode Name="8 Channel">
   <Physical>
    <Bulb Lumens="1325" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="275" Weight="1,9" Depth="66"/>
+   <Dimensions Width="276" Height="275" Weight="1.9" Depth="66"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="33" DmxConnector="3-pin"/>
@@ -74,7 +74,7 @@
  <Mode Name="4 Channel">
   <Physical>
    <Bulb Lumens="1325" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="275" Weight="1,9" Depth="66"/>
+   <Dimensions Width="276" Height="275" Weight="1.9" Depth="66"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="33" DmxConnector="3-pin"/>

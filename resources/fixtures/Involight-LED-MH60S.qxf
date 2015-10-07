@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -49,8 +49,8 @@
   <Capability Color2="#ff0000" Min="106" Max="112" Color="#11855b">Kelly + Red</Capability>
   <Capability Color2="#0000ff" Min="113" Max="119" Color="#ff0000">Red + Dark Blue</Capability>
   <Capability Color2="#ffffff" Min="120" Max="127" Color="#0000ff">Dark Blue + White</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png" Min="128" Max="191">Positive rainbow effect with increasing speed</Capability>
-  <Capability Res="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png" Min="192" Max="255">Negative rainbow effect with increasing speed</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="191">Positive rainbow effect with increasing speed</Capability>
+  <Capability Res="Others/rainbow.png" Min="192" Max="255">Negative rainbow effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -37,7 +37,7 @@
   <Capability Min="50" Max="56" Color="#aaffff">Light Blue</Capability>
   <Capability Min="57" Max="63" Color="#ff00ff">Pink</Capability>
   <Capability Min="64" Max="127">Color Mixing</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="189">Clockwise Rotation (Fast > Slow)</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="189">Clockwise Rotation (Fast &gt; Slow)</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Res="Others/rainbow.png" Min="194" Max="255">Counter Clockwise Rotation (Slow &lt; Fast)</Capability>
  </Channel>
@@ -59,12 +59,12 @@
   <Capability Res="SGM-Color/gobo00402.png" Min="119" Max="127">Gobo 6 Shake</Capability>
   <Capability Min="128" Max="189">Rotation Slow &lt; Fast</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Rotation Fast >  Slow</Capability>
+  <Capability Min="194" Max="255">Rotation Fast &gt;  Slow</Capability>
  </Channel>
  <Channel Name="Gobo Rot">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Index</Capability>
-  <Capability Min="128" Max="189">Fast > Slow</Capability>
+  <Capability Min="128" Max="189">Fast &gt; Slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Slow &lt; Fast</Capability>
  </Channel>
@@ -76,7 +76,7 @@
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127">Index</Capability>
-  <Capability Min="128" Max="189">Fast > Slow</Capability>
+  <Capability Min="128" Max="189">Fast &gt; Slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Slow &lt; Fast</Capability>
  </Channel>

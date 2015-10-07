@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>380</width>
-    <height>449</height>
+    <height>491</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,7 +85,7 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="1" column="0">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -97,29 +97,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="1" column="0">
-        <widget class="QGroupBox" name="m_tapGroup">
-         <property name="title">
-          <string>Tap Modifier</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Key</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="m_tapModifierCombo">
-            <property name="toolTip">
-             <string>The keyboard key that turns button clicks to taps</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -824,7 +801,6 @@
  <tabstops>
   <tabstop>m_sizeXSpin</tabstop>
   <tabstop>m_sizeYSpin</tabstop>
-  <tabstop>m_tapModifierCombo</tabstop>
   <tabstop>m_buttonWspin</tabstop>
   <tabstop>m_buttonHspin</tabstop>
   <tabstop>m_sliderWspin</tabstop>

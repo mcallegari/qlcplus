@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -67,27 +67,27 @@
  </Channel>
  <Channel Name="Color change speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">slow -> fast</Capability>
+  <Capability Min="0" Max="255">slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Strobe effect of the RGBWA LEDs">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4">No strobe effect</Capability>
-  <Capability Min="5" Max="254">Strobe effect fast -> slow</Capability>
+  <Capability Min="5" Max="254">Strobe effect fast -&gt; slow</Capability>
   <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
  </Channel>
  <Channel Name="White strobe LEDs">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">Blackout (all strobe LEDs off)</Capability>
-  <Capability Min="10" Max="19">Running light pattern 1 fast -> slow</Capability>
-  <Capability Min="20" Max="29">Running light pattern 2 fast -> slow</Capability>
-  <Capability Min="30" Max="39">Running light pattern 3 fast -> slow</Capability>
-  <Capability Min="40" Max="49">Running light pattern 4 fast -> slow</Capability>
-  <Capability Min="50" Max="59">Running light pattern 5 fast -> slow</Capability>
-  <Capability Min="60" Max="69">Running light pattern 6 fast -> slow</Capability>
-  <Capability Min="70" Max="79">Running light pattern 7 fast -> slow</Capability>
-  <Capability Min="80" Max="89">Running light pattern 8 fast -> slow</Capability>
-  <Capability Min="90" Max="99">Running light pattern 9 fast -> slow</Capability>
-  <Capability Min="100" Max="109">Running light pattern 10 fast -> slow</Capability>
+  <Capability Min="10" Max="19">Running light pattern 1 fast -&gt; slow</Capability>
+  <Capability Min="20" Max="29">Running light pattern 2 fast -&gt; slow</Capability>
+  <Capability Min="30" Max="39">Running light pattern 3 fast -&gt; slow</Capability>
+  <Capability Min="40" Max="49">Running light pattern 4 fast -&gt; slow</Capability>
+  <Capability Min="50" Max="59">Running light pattern 5 fast -&gt; slow</Capability>
+  <Capability Min="60" Max="69">Running light pattern 6 fast -&gt; slow</Capability>
+  <Capability Min="70" Max="79">Running light pattern 7 fast -&gt; slow</Capability>
+  <Capability Min="80" Max="89">Running light pattern 8 fast -&gt; slow</Capability>
+  <Capability Min="90" Max="99">Running light pattern 9 fast -&gt; slow</Capability>
+  <Capability Min="100" Max="109">Running light pattern 10 fast -&gt; slow</Capability>
   <Capability Min="110" Max="255">All strobe LEDs constantly on</Capability>
  </Channel>
  <Channel Name="Laser">
@@ -103,15 +103,15 @@
  <Channel Name="Strobe effect lasers">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4">No strobe effect</Capability>
-  <Capability Min="5" Max="254">Strobe effect fast -> slow</Capability>
+  <Capability Min="5" Max="254">Strobe effect fast -&gt; slow</Capability>
   <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
  </Channel>
  <Channel Name="Rotation of the RGBWA LEDs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No rotation</Capability>
-  <Capability Min="5" Max="127">Clockwise rotation slow -> fast</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation slow -&gt; fast</Capability>
   <Capability Min="128" Max="133">No rotation</Capability>
-  <Capability Min="134" Max="255">Anticlockwise rotation slow -> fast</Capability>
+  <Capability Min="134" Max="255">Anticlockwise rotation slow -&gt; fast</Capability>
  </Channel>
  <Mode Name="8-channel">
   <Physical>

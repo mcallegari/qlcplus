@@ -34,6 +34,9 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+    m_customFbButton->setVisible(false);
+    m_feedbackGroup->setVisible(false);
+
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
 
@@ -41,6 +44,13 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
             this, SLOT(slotAutoDetectInputToggled(bool)));
     connect(m_chooseInputButton, SIGNAL(clicked()),
             this, SLOT(slotChooseInputClicked()));
+
+    connect(m_customFbButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotCustomFeedbackToggled(bool)));
+    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotLowerSpinValueChanged(int)));
+    connect(m_upperSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpperSpinValueChanged(int)));
 }
 
 InputSelectionWidget::~InputSelectionWidget()
@@ -51,6 +61,11 @@ InputSelectionWidget::~InputSelectionWidget()
 void InputSelectionWidget::setKeyInputVisibility(bool visible)
 {
     m_keyInputGroup->setVisible(visible);
+}
+
+void InputSelectionWidget::setCustomFeedbackVisibility(bool visible)
+{
+    m_customFbButton->setVisible(visible);
 }
 
 void InputSelectionWidget::setTitle(QString title)
@@ -161,6 +176,21 @@ void InputSelectionWidget::slotChooseInputClicked()
     }
 }
 
+void InputSelectionWidget::slotCustomFeedbackToggled(bool checked)
+{
+    m_feedbackGroup->setVisible(checked);
+}
+
+void InputSelectionWidget::slotLowerSpinValueChanged(int value)
+{
+    m_inputSource->setRange(uchar(value), uchar(m_upperSpin->value()));
+}
+
+void InputSelectionWidget::slotUpperSpinValueChanged(int value)
+{
+    m_inputSource->setRange(uchar(m_lowerSpin->value()), uchar(value));
+}
+
 void InputSelectionWidget::updateInputSource()
 {
     QString uniName;
@@ -170,6 +200,17 @@ void InputSelectionWidget::updateInputSource()
     {
         uniName = KInputNone;
         chName = KInputNone;
+    }
+    else
+    {
+        m_lowerSpin->blockSignals(true);
+        m_upperSpin->blockSignals(true);
+        m_lowerSpin->setValue(m_inputSource->lowerValue());
+        m_upperSpin->setValue(m_inputSource->upperValue());
+        if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
+            m_customFbButton->setChecked(true);
+        m_lowerSpin->blockSignals(false);
+        m_upperSpin->blockSignals(false);
     }
 
     m_inputUniverseEdit->setText(uniName);

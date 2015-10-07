@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,7 +39,7 @@
  </Channel>
  <Channel Name="Dimmer / Speed / Audio">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (Mode &lt; 113) / Speed (113&lt;Mode&lt;245) / Audio (Mode >245)</Capability>
+  <Capability Min="0" Max="255">Dimmer (Mode &lt; 113) / Speed (113&lt;Mode&lt;245) / Audio (Mode &gt;245)</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
@@ -72,7 +72,7 @@
   <Capability Min="0" Max="15">No strobe</Capability>
   <Capability Min="16" Max="250">Strobe (slow to fast)</Capability>
  </Channel>
- <Channel Name="Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 > 10)">
+ <Channel Name="Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 &gt; 10)">
   <Group Byte="0">Intensity</Group>
  </Channel>
  <Channel Name="Red (ch 6 &lt; 11)">
@@ -249,7 +249,7 @@
   <Channel Number="0">Red (ch 6 &lt; 11)</Channel>
   <Channel Number="1">Green (ch 6 &lt; 11)</Channel>
   <Channel Number="2">Blue (ch 6 &lt; 11)</Channel>
-  <Channel Number="3">Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 > 10)</Channel>
+  <Channel Number="3">Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 &gt; 10)</Channel>
   <Channel Number="4">Strobe (6 ch)</Channel>
   <Channel Number="5">Mode</Channel>
  </Mode>

@@ -38,6 +38,7 @@
 #include "vcxypadarea.h"
 #include "vcxypad.h"
 #include "apputil.h"
+#include "scene.h"
 #include "doc.h"
 #include "efx.h"
 
@@ -55,12 +56,14 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     : QDialog(xypad)
     , m_xypad(xypad)
     , m_doc(doc)
-    , m_lastAssignedID(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(xypad != NULL);
 
     setupUi(this);
+
+    // IDs 0-15 are reserved for XYPad base controls
+    m_lastAssignedID = 15;
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -98,6 +101,22 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_tiltInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
             this, SLOT(slotTiltInputValueChanged(quint32,quint32)));
 
+    m_widthInputWidget = new InputSelectionWidget(m_doc, this);
+    m_widthInputWidget->setTitle(tr("Width"));
+    m_widthInputWidget->setKeyInputVisibility(false);
+    m_widthInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::widthInputSourceId));
+    m_widthInputWidget->setWidgetPage(m_xypad->page());
+    m_widthInputWidget->show();
+    m_sizeInputLayout->addWidget(m_widthInputWidget);
+
+    m_heightInputWidget = new InputSelectionWidget(m_doc, this);
+    m_heightInputWidget->setTitle(tr("Height"));
+    m_heightInputWidget->setKeyInputVisibility(false);
+    m_heightInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::heightInputSourceId));
+    m_heightInputWidget->setWidgetPage(m_xypad->page());
+    m_heightInputWidget->show();
+    m_sizeInputLayout->addWidget(m_heightInputWidget);
+
     slotSelectionChanged(NULL);
     fillTree();
 
@@ -106,6 +125,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
      ********************************************************************/
 
     m_presetInputWidget = new InputSelectionWidget(m_doc, this);
+    m_presetInputWidget->setCustomFeedbackVisibility(true);
     m_presetInputWidget->setWidgetPage(m_xypad->page());
     m_presetInputWidget->show();
     m_presetInputLayout->addWidget(m_presetInputWidget);
@@ -119,13 +139,18 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
             this, SLOT(slotAddPositionClicked()));
     connect(m_addEfxButton, SIGNAL(clicked(bool)),
             this, SLOT(slotAddEFXClicked()));
+    connect(m_addSceneButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotAddSceneClicked()));
     connect(m_removePresetButton, SIGNAL(clicked()),
             this, SLOT(slotRemovePresetClicked()));
+    connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)),
+            this, SLOT(slotPresetNameEdited(QString const&)));
     connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotPresetSelectionChanged()));
 
     m_xyArea = new VCXYPadArea(this);
-    m_xyArea->setFixedSize(140, 140);
+    //m_xyArea->setFixedSize(140, 140);
+    m_xyArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_xyArea->setMode(Doc::Operate);
     m_presetLayout->addWidget(m_xyArea);
     connect(m_xyArea, SIGNAL(positionChanged(QPointF)),
@@ -392,9 +417,11 @@ void VCXYPadProperties::updatePresetsTree()
         VCXYPadPreset *preset = m_presetList.at(i);
         QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
-        item->setText(0, m_xypad->presetName(*preset));
+        item->setText(0, preset->m_name);
         if (preset->m_type == VCXYPadPreset::EFX)
             item->setIcon(0, QIcon(":/efx.png"));
+        else if (preset->m_type == VCXYPadPreset::Scene)
+            item->setIcon(0, QIcon(":/scene.png"));
         else if (preset->m_type == VCXYPadPreset::Position)
             item->setIcon(0, QIcon(":/xypad.png"));
     }
@@ -411,7 +438,7 @@ void VCXYPadProperties::updateTreeItem(const VCXYPadPreset &preset)
         QTreeWidgetItem* treeItem = m_presetsTree->topLevelItem(i);
         if (treeItem->data(0, Qt::UserRole).toUInt() == preset.m_id)
         {
-            treeItem->setText(0, m_xypad->presetName(preset));
+            treeItem->setText(0, preset.m_name);
             m_presetsTree->resizeColumnToContents(0);
             m_presetsTree->blockSignals(false);
             return;
@@ -457,6 +484,7 @@ void VCXYPadProperties::slotAddPositionClicked()
     VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
     newPreset->m_type = VCXYPadPreset::Position;
     newPreset->m_dmxPos = m_xyArea->position();
+    newPreset->m_name = QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
     m_presetList.append(newPreset);
     updatePresetsTree();
 }
@@ -470,7 +498,7 @@ void VCXYPadProperties::slotAddEFXClicked()
     foreach (VCXYPadPreset *preset, m_presetList)
     {
         if (preset->m_type == VCXYPadPreset::EFX)
-            ids.append(preset->m_efxID);
+            ids.append(preset->m_funcID);
     }
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
@@ -481,7 +509,59 @@ void VCXYPadProperties::slotAddEFXClicked()
             return;
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::EFX;
-        newPreset->m_efxID = fID;
+        newPreset->m_funcID = fID;
+        newPreset->m_name = f->name();
+        m_presetList.append(newPreset);
+        updatePresetsTree();
+    }
+}
+
+void VCXYPadProperties::slotAddSceneClicked()
+{
+    FunctionSelection fs(this, m_doc);
+    fs.setMultiSelection(false);
+    fs.setFilter(Function::Scene, true);
+    QList <quint32> ids;
+    foreach (VCXYPadPreset *preset, m_presetList)
+    {
+        if (preset->m_type == VCXYPadPreset::Scene)
+            ids.append(preset->m_funcID);
+    }
+
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
+    {
+        quint32 fID = fs.selection().first();
+        Function *f = m_doc->function(fID);
+        if (f == NULL || f->type() != Function::Scene)
+            return;
+        Scene *scene = qobject_cast<Scene*>(f);
+        bool panTiltFound = false;
+        foreach(SceneValue scv, scene->values())
+        {
+            Fixture *fixture = m_doc->fixture(scv.fxi);
+            if (fixture == NULL)
+                continue;
+            const QLCChannel *ch = fixture->channel(scv.channel);
+            if (ch == NULL)
+                continue;
+            if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)
+            {
+                panTiltFound = true;
+                break;
+            }
+        }
+        if (panTiltFound == false)
+        {
+            QMessageBox::critical(this, tr("Error"),
+                                  tr("The selected Scene does not include any Pan or Tilt channel.\n"
+                                     "Please select one with such channels."),
+                                  QMessageBox::Close);
+            return;
+        }
+        VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
+        newPreset->m_type = VCXYPadPreset::Scene;
+        newPreset->m_funcID = fID;
+        newPreset->m_name = f->name();
         m_presetList.append(newPreset);
         updatePresetsTree();
     }
@@ -497,17 +577,30 @@ void VCXYPadProperties::slotRemovePresetClicked()
     updatePresetsTree();
 }
 
+void VCXYPadProperties::slotPresetNameEdited(const QString &newName)
+{
+    VCXYPadPreset* preset = getSelectedPreset();
+
+    if (preset != NULL)
+    {
+        preset->m_name = newName;
+
+        updateTreeItem(*preset);
+    }
+}
+
 void VCXYPadProperties::slotPresetSelectionChanged()
 {
     VCXYPadPreset *preset = getSelectedPreset();
 
     if (preset != NULL)
     {
+        m_presetNameEdit->setText(preset->m_name);
         m_presetInputWidget->setInputSource(preset->m_inputSource);
         m_presetInputWidget->setKeySequence(preset->m_keySequence.toString(QKeySequence::NativeText));
         if (preset->m_type == VCXYPadPreset::EFX)
         {
-            Function *f = m_doc->function(preset->efxID());
+            Function *f = m_doc->function(preset->functionID());
             if (f == NULL || f->type() != Function::EFX)
                 return;
             EFX *efx = qobject_cast<EFX*>(f);
@@ -529,6 +622,14 @@ void VCXYPadProperties::slotPresetSelectionChanged()
             m_xyArea->repaint();
             m_xyArea->blockSignals(false);
         }
+        else if (preset->m_type == VCXYPadPreset::Scene)
+        {
+            m_xyArea->enableEFXPreview(false);
+            m_xyArea->blockSignals(true);
+            m_xyArea->setPosition(QPointF(127, 127));
+            m_xyArea->repaint();
+            m_xyArea->blockSignals(false);
+        }
     }
 }
 
@@ -539,6 +640,14 @@ void VCXYPadProperties::slotXYPadPositionChanged(const QPointF &pt)
     if (preset != NULL)
     {
         preset->m_dmxPos = pt;
+        if (preset->m_type == VCXYPadPreset::Position &&
+            preset->m_name.startsWith("X:"))
+        {
+            preset->m_name = QString("X:%1 - Y:%2").arg((int)pt.x()).arg((int)pt.y());
+            m_presetNameEdit->blockSignals(true);
+            m_presetNameEdit->setText(preset->m_name);
+            m_presetNameEdit->blockSignals(false);
+        }
         updateTreeItem(*preset);
     }
 }
@@ -569,6 +678,8 @@ void VCXYPadProperties::accept()
     m_xypad->setCaption(m_nameEdit->text());
     m_xypad->setInputSource(m_panInputWidget->inputSource(), VCXYPad::panInputSourceId);
     m_xypad->setInputSource(m_tiltInputWidget->inputSource(), VCXYPad::tiltInputSourceId);
+    m_xypad->setInputSource(m_widthInputWidget->inputSource(), VCXYPad::widthInputSourceId);
+    m_xypad->setInputSource(m_heightInputWidget->inputSource(), VCXYPad::heightInputSourceId);
     if (m_YNormalRadio->isChecked())
         m_xypad->setInvertedAppearance(false);
     else

@@ -61,6 +61,8 @@ class QFile;
 #define KXMLQLCVCWidgetInput "Input"
 #define KXMLQLCVCWidgetInputUniverse "Universe"
 #define KXMLQLCVCWidgetInputChannel "Channel"
+#define KXMLQLCVCWidgetInputLowerValue "LowerValue"
+#define KXMLQLCVCWidgetInputUpperValue "UpperValue"
 
 #define KXMLQLCWindowState "WindowState"
 #define KXMLQLCWindowStateVisible "Visible"
@@ -413,12 +415,20 @@ public:
     void remapInputSources(int pgNum);
 
     /**
-     * Send feedback to en external controller.
+     * Send feedback to an external controller.
      *
      * @param value value from 0 to 255 to be sent
      * @param id ID of the input source where to send feedback
      */
     void sendFeedback(int value, quint8 id = 0);
+
+    /**
+     * Send feedback to an external controller.
+     *
+     * @param value value from 0 to 255 to be sent
+     * @param src the QLCInputSource reference to send the feedback to
+     */
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
 
     /**
      * Send the feedback data again, e.g. after page flip
@@ -486,16 +496,19 @@ public:
 protected:
     bool loadXMLCommon(const QDomElement* root);
     bool loadXMLAppearance(const QDomElement* appearance_root);
-    bool loadXMLInput(const QDomElement* root);
+    bool loadXMLInput(const QDomElement& root, const quint8& id = 0);
+
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const;
 
     bool saveXMLCommon(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLAppearance(QDomDocument* doc, QDomElement* widget_root);
+    /** Save the defualt input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root);
-    /** Save input source from $uni and $ch to $root */
+    /** Save input source from a $src input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
                       const QLCInputSource *src) const;
+    /** Save input source from a $src input source to $root */
     bool saveXMLInput(QDomDocument* doc, QDomElement* root,
                       QSharedPointer<QLCInputSource> const& src) const;
 

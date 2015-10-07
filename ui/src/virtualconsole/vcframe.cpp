@@ -223,6 +223,11 @@ bool VCFrame::isCollapsed() const
     return m_collapsed;
 }
 
+QSize VCFrame::originalSize() const
+{
+    return QSize(m_width, m_height);
+}
+
 void VCFrame::slotCollapseButtonToggled(bool toggle)
 {
     if (toggle == true)
@@ -779,6 +784,8 @@ bool VCFrame::loadXML(const QDomElement* root)
             bool visible = false;
             loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
+            m_width = w;
+            m_height = h;
         }
         else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
         {
@@ -851,9 +858,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), enableInputSourceId);
+                    loadXMLInput(subTag, enableInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -875,9 +880,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), nextPageInputSourceId);
+                    loadXMLInput(subTag, nextPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
@@ -899,9 +902,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0, ch = 0;
-                    if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)), previousPageInputSourceId);
+                    loadXMLInput(subTag, previousPageInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {

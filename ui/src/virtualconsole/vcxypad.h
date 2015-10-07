@@ -53,6 +53,8 @@ class Doc;
 #define KXMLQLCVCXYPad "XYPad"
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
+#define KXMLQLCVCXYPadWidth "Width"
+#define KXMLQLCVCXYPadHeight "Height"
 #define KXMLQLCVCXYPadPosition "Position"
 #define KXMLQLCVCXYPadRangeWindow "Window"
 #define KXMLQLCVCXYPadRangeHorizMin "hMin"
@@ -65,6 +67,14 @@ class Doc;
 
 #define KXMLQLCVCXYPadInvertedAppearance "InvertedAppearance"
 
+typedef struct
+{
+    quint32 m_universe;
+    quint32 m_channel; // absolute channel address
+    QLCChannel::Group m_group;
+    QLCChannel::ControlByte m_subType;
+} SceneChannel;
+
 class VCXYPad : public VCWidget, public DMXSource
 {
     Q_OBJECT
@@ -73,6 +83,8 @@ class VCXYPad : public VCWidget, public DMXSource
 public:
     static const quint8 panInputSourceId;
     static const quint8 tiltInputSourceId;
+    static const quint8 widthInputSourceId;
+    static const quint8 heightInputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -168,6 +180,9 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
+protected:
+    void writeXYFixtures(MasterTimer* timer, QList<Universe*> universes);
+
 public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
@@ -185,17 +200,21 @@ private:
      * Presets
      *********************************************************************/
 public:
-    QString presetName(VCXYPadPreset const& preset);
     void addPreset(VCXYPadPreset const& preset);
     void resetPresets();
     QList<VCXYPadPreset *> presets() const;
 
+protected:
+    void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
+
 protected slots:
-    void slotPresetClicked();
+    void slotPresetClicked(bool checked);
 
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;
     EFX *m_efx;
+    Scene *m_scene;
+    QList<SceneChannel> m_sceneChannels;
 
     /*********************************************************************
      * External input
@@ -206,6 +225,7 @@ public:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotKeyPressed(const QKeySequence& keySequence);
 
     /*************************************************************************
      * QLC+ mode

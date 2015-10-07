@@ -49,6 +49,9 @@ protected:
     void fillTree();
     void updateChannelItem(QTreeWidgetItem* item, QLCInputChannel* ch);
 
+protected slots:
+    void slotTypeComboChanged(int );
+
 private:
     InputOutputMap* m_ioMap;
 

@@ -835,12 +835,15 @@ void VCMatrix::updateFeedback()
             if (control->widgetType() == VCMatrixControl::Knob)
             {
                 KnobWidget* knob = reinterpret_cast<KnobWidget*>(it.key());
-                sendFeedback(knob->value(), control->m_id);
+                sendFeedback(knob->value(), control->m_inputSource);
             }
             else // if (control->widgetType() == VCMatrixControl::Button)
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                sendFeedback(button->isDown() ? 0xff : 0);
+                sendFeedback(button->isDown() ?
+                                 control->m_inputSource->upperValue() :
+                                 control->m_inputSource->lowerValue(),
+                                 control->m_inputSource);
             }
         }
     }
@@ -857,6 +860,7 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     if (checkInputSource(universe, pagedCh, value, sender()))
     {
         m_slider->setValue((int) value);
+        return;
     }
 
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
@@ -928,7 +932,7 @@ bool VCMatrix::loadXML(const QDomElement *root)
         }
         else if (tag.tagName() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(&tag);
+            loadXMLInput(tag);
         }
         else if(tag.tagName() == KXMLQLCVCMatrixControl)
         {

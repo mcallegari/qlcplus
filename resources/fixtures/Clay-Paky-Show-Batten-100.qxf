@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,7 +44,7 @@
   <Capability Min="4" Max="69">Strobe Min &lt; Max</Capability>
   <Capability Min="70" Max="74">Light On</Capability>
   <Capability Min="75" Max="140">Pulse Min &lt; Max</Capability>
-  <Capability Min="141" Max="206">Pulse Max > Min</Capability>
+  <Capability Min="141" Max="206">Pulse Max &gt; Min</Capability>
   <Capability Min="207" Max="211">Light On</Capability>
   <Capability Min="212" Max="224">Random Strobe Low</Capability>
   <Capability Min="225" Max="237">Random Strobe Medium</Capability>

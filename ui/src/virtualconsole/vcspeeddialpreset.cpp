@@ -39,8 +39,11 @@ VCSpeedDialPreset::VCSpeedDialPreset(VCSpeedDialPreset const& preset)
     , m_keySequence(preset.m_keySequence)
 {
     if (preset.m_inputSource != NULL)
+    {
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(preset.m_inputSource->universe(),
                                                        preset.m_inputSource->channel()));
+        m_inputSource->setRange(preset.m_inputSource->lowerValue(), preset.m_inputSource->upperValue());
+    }
 }
 
 VCSpeedDialPreset::~VCSpeedDialPreset()
@@ -101,6 +104,13 @@ bool VCSpeedDialPreset::loadXML(const QDomElement &root)
                 quint32 uni = tag.attribute(KXMLQLCVCSpeedDialPresetInputUniverse).toUInt();
                 quint32 ch = tag.attribute(KXMLQLCVCSpeedDialPresetInputChannel).toUInt();
                 m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+
+                uchar min = 0, max = UCHAR_MAX;
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(tag.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
+                if (tag.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(tag.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+                m_inputSource->setRange(min, max);
             }
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialPresetKey)
@@ -152,6 +162,10 @@ bool VCSpeedDialPreset::saveXML(QDomDocument *doc, QDomElement *mtx_root)
         tag = doc->createElement(KXMLQLCVCSpeedDialPresetInput);
         tag.setAttribute(KXMLQLCVCSpeedDialPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
         tag.setAttribute(KXMLQLCVCSpeedDialPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
+        if (m_inputSource->lowerValue() != 0)
+            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+        if (m_inputSource->upperValue() != UCHAR_MAX)
+            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
         root.appendChild(tag);
     }
 

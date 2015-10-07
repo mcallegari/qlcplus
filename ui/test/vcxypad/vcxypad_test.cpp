@@ -263,6 +263,8 @@ void VCXYPad_Test::saveXML()
     pad.m_area->setPosition(QPointF(23, 45));
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCXYPad::panInputSourceId);
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCXYPad::tiltInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 10)), VCXYPad::widthInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 8)), VCXYPad::heightInputSourceId);
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
 
@@ -278,7 +280,8 @@ void VCXYPad_Test::saveXML()
     QDomElement root = xmldoc.createElement("Root");
     xmldoc.appendChild(root);
 
-    int fixture = 0, position = 0, wstate = 0, appearance = 0, pan = 0, tilt = 0;
+    int fixture = 0, position = 0, wstate = 0, appearance = 0;
+    int pan = 0, tilt = 0, width = 0, height = 0;
 
     QVERIFY(pad.saveXML(&xmldoc, &root) == true);
     QDomNode node = root.firstChild();
@@ -315,6 +318,18 @@ void VCXYPad_Test::saveXML()
             QCOMPARE(tag.firstChild().toElement().attribute("Universe"), QString("2"));
             QCOMPARE(tag.firstChild().toElement().attribute("Channel"), QString("3"));
         }
+        else if (tag.tagName() == "Width")
+        {
+            width++;
+            QCOMPARE(tag.firstChild().toElement().attribute("Universe"), QString("1"));
+            QCOMPARE(tag.firstChild().toElement().attribute("Channel"), QString("10"));
+        }
+        else if (tag.tagName() == "Height")
+        {
+            height++;
+            QCOMPARE(tag.firstChild().toElement().attribute("Universe"), QString("3"));
+            QCOMPARE(tag.firstChild().toElement().attribute("Channel"), QString("8"));
+        }
         else if (tag.tagName() == "WindowState")
         {
             wstate++;
@@ -335,6 +350,8 @@ void VCXYPad_Test::saveXML()
     QCOMPARE(position, 0);
     QCOMPARE(pan, 1);
     QCOMPARE(tilt, 1);
+    QCOMPARE(width, 1);
+    QCOMPARE(height, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
 }

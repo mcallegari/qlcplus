@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -59,7 +59,7 @@
  <Mode Name="2-Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="25"/>
@@ -70,7 +70,7 @@
  <Mode Name="3-Channel Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="25"/>
@@ -82,7 +82,7 @@
  <Mode Name="3-Channel Mode 2">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="25"/>
@@ -94,7 +94,7 @@
  <Mode Name="6-Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="25"/>

@@ -41,9 +41,6 @@ class Doc;
 #define KXMLQLCVCPropertiesSizeWidth "Width"
 #define KXMLQLCVCPropertiesSizeHeight "Height"
 
-#define KXMLQLCVCPropertiesKeyboard "Keyboard"
-#define KXMLQLCVCPropertiesKeyboardTapModifier "TapModifier"
-
 #define KXMLQLCVCPropertiesGrandMaster "GrandMaster"
 #define KXMLQLCVCPropertiesGrandMasterVisible "Visible"
 #define KXMLQLCVCPropertiesGrandMasterChannelMode "ChannelMode"
@@ -77,19 +74,6 @@ public:
 
 private:
     QSize m_size;
-
-    /*********************************************************************
-     * Keyboard
-     *********************************************************************/
-public:
-    /** Set the tap modifier key */
-    void setTapModifier(Qt::KeyboardModifier mod);
-
-    /** Get the tap modifier key */
-    Qt::KeyboardModifier tapModifier() const;
-
-private:
-    Qt::KeyboardModifier m_tapModifier;
 
     /*************************************************************************
      * Grand Master

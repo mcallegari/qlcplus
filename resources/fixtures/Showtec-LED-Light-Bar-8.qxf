@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -36,122 +36,122 @@
  <Channel Name="Red S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Red S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Green S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Blue S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -36,9 +36,9 @@
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="31">Nothing</Capability>
-  <Capability Min="32" Max="63">Dim -> Bright</Capability>
-  <Capability Min="64" Max="95">Bright -> Dim</Capability>
-  <Capability Min="96" Max="127">Dim -> Bright -> Dim</Capability>
+  <Capability Min="32" Max="63">Dim -&gt; Bright</Capability>
+  <Capability Min="64" Max="95">Bright -&gt; Dim</Capability>
+  <Capability Min="96" Max="127">Dim -&gt; Bright -&gt; Dim</Capability>
   <Capability Min="128" Max="159">Color Mixing</Capability>
   <Capability Min="160" Max="191">3 Color Change</Capability>
   <Capability Min="192" Max="223">7 Color Change</Capability>

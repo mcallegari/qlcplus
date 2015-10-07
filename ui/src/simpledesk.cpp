@@ -441,7 +441,7 @@ void SimpleDesk::initUniverseSliders()
 void SimpleDesk::initUniversePager()
 {
     qDebug() << Q_FUNC_INFO;
-    m_universePageSpin->setRange(1, int(512 / m_channelsPerPage));
+    m_universePageSpin->setRange(1, int((512 + m_channelsPerPage - 1) / m_channelsPerPage));
     m_universePageSpin->setValue(1);
     slotUniversePageChanged(1);
 

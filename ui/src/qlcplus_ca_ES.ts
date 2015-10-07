@@ -903,12 +903,12 @@ The selected file has been moved or deleted.</source>
 L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1328"/>
+        <location filename="app.cpp" line="1330"/>
         <source>Warning</source>
         <translation>Advertència</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1329"/>
+        <location filename="app.cpp" line="1331"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>S&apos;han produït alguns errors en carregar el projecte:</translation>
     </message>
@@ -3116,27 +3116,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>GrandMasterSlider</name>
     <message>
-        <location filename="grandmasterslider.cpp" line="88"/>
+        <location filename="grandmasterslider.cpp" line="90"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="142"/>
+        <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
         <translation>Gran Master &lt;B&gt;limita&lt;/B&gt; el valor màxim de</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="145"/>
+        <location filename="grandmasterslider.cpp" line="148"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
         <translation>Gran Master &lt;B&gt;redueix&lt;/B&gt; el valor actual de</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="154"/>
+        <location filename="grandmasterslider.cpp" line="157"/>
         <source>intensity channels</source>
         <translation>canals d&apos;intensitat</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="157"/>
+        <location filename="grandmasterslider.cpp" line="160"/>
         <source>all channels</source>
         <translation>tor els canals</translation>
     </message>
@@ -3476,155 +3476,253 @@ Si us plau, consulteu la documentació dels plugins per solucionar això.</trans
         <translation>General</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="34"/>
+        <location filename="inputprofileeditor.ui" line="58"/>
         <source>The name of the company that made the device</source>
         <translation>Nom de la companyia</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="44"/>
+        <location filename="inputprofileeditor.ui" line="68"/>
         <source>The device&apos;s model name</source>
         <translation>Nom del model del dispositiu</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="64"/>
+        <location filename="inputprofileeditor.ui" line="34"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="71"/>
+        <location filename="inputprofileeditor.ui" line="41"/>
         <source>Model</source>
         <translation>Model</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="78"/>
-        <location filename="inputprofileeditor.ui" line="125"/>
+        <location filename="inputprofileeditor.ui" line="48"/>
+        <location filename="inputprofileeditor.ui" line="140"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="90"/>
+        <location filename="inputprofileeditor.ui" line="75"/>
+        <source>MIDI Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="81"/>
+        <source>When MIDI notes are used, send a Note Off when value is 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="105"/>
         <source>Channels</source>
         <translation>Canals</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="115"/>
+        <location filename="inputprofileeditor.ui" line="130"/>
         <source>Channel</source>
         <translation>Canal</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="120"/>
+        <location filename="inputprofileeditor.ui" line="135"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="130"/>
-        <location filename="inputprofileeditor.ui" line="241"/>
+        <location filename="inputprofileeditor.ui" line="145"/>
+        <location filename="inputprofileeditor.ui" line="256"/>
         <source>Behaviour</source>
         <translation>Comportament</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="138"/>
+        <location filename="inputprofileeditor.ui" line="153"/>
         <source>Add a new channel description</source>
         <translation>Afegir una nova descripció per el canal</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="158"/>
+        <location filename="inputprofileeditor.ui" line="173"/>
         <source>Remove the selected channels</source>
         <translation>Eliminar els canals seleccionats</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="178"/>
+        <location filename="inputprofileeditor.ui" line="193"/>
         <source>Edit the selected channel</source>
         <translation>Editar el canal selecionat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="198"/>
+        <location filename="inputprofileeditor.ui" line="213"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
         <translation>Afegir automàticament canals a la llista cuant mogui els controls del dispositiu</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="253"/>
+        <location filename="inputprofileeditor.ui" line="268"/>
         <source>Movement</source>
         <translation>Moviment</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="267"/>
+        <location filename="inputprofileeditor.ui" line="282"/>
         <source>Absolute</source>
         <translation>Absolut</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="272"/>
+        <location filename="inputprofileeditor.ui" line="287"/>
         <source>Relative</source>
         <translation>Relatiu</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="280"/>
+        <location filename="inputprofileeditor.ui" line="295"/>
         <source>Sensitivity</source>
         <translation>Sensibilitat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="97"/>
+        <location filename="inputprofileeditor.cpp" line="101"/>
         <source>File not writable</source>
         <translation>Arxiu només de lectura</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="98"/>
+        <location filename="inputprofileeditor.cpp" line="102"/>
         <source>You do not have permission to write to the file %1. You might not be able to save your modifications to the profile.</source>
         <translation>No teniu permissos per escriure al arxiu %1. Pot se que no sigui possible desar les modificacions al perfil.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="197"/>
+        <location filename="inputprofileeditor.cpp" line="219"/>
         <source>Missing information</source>
         <translation>Falta informació</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="198"/>
+        <location filename="inputprofileeditor.cpp" line="220"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>Falta el nom del fabricant o model.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="228"/>
-        <location filename="inputprofileeditor.cpp" line="324"/>
+        <location filename="inputprofileeditor.cpp" line="250"/>
+        <location filename="inputprofileeditor.cpp" line="346"/>
         <source>Channel already exists</source>
         <translation>El canal ja existeix</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="229"/>
-        <location filename="inputprofileeditor.cpp" line="325"/>
+        <location filename="inputprofileeditor.cpp" line="251"/>
+        <location filename="inputprofileeditor.cpp" line="347"/>
         <source>Channel %1 already exists</source>
         <translation>El Canal %1 ja existeix</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="251"/>
+        <location filename="inputprofileeditor.cpp" line="273"/>
         <source>Delete channels</source>
         <translation>Eliminar canals</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="252"/>
+        <location filename="inputprofileeditor.cpp" line="274"/>
         <source>Delete all %1 selected channels?</source>
         <translation>Eliminar els %1 canals seleccionats?</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="365"/>
+        <location filename="inputprofileeditor.cpp" line="387"/>
         <source>Channel wizard activated</source>
         <translation>Assistent de Canals activat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="366"/>
+        <location filename="inputprofileeditor.cpp" line="388"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
         <translation>Teniu activat l&apos;assistent de canal d&apos;Entrada. Després de prema OK mogui els controls mapejats del seu perfil d&apos;Entrada. Apareixeran a la llista. Premi de nou el botó de l&apos;assistent per atura l&apos;autodetecció de canals.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="493"/>
+        <location filename="inputprofileeditor.cpp" line="515"/>
         <source>Button %1</source>
         <translation>Botó %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="533"/>
+        <location filename="inputprofileeditor.cpp" line="555"/>
         <source>Slider %1</source>
         <translation>Slider %1</translation>
+    </message>
+</context>
+<context>
+    <name>InputSelectionWidget</name>
+    <message>
+        <location filename="inputselectionwidget.ui" line="41"/>
+        <source>Key combination</source>
+        <translation type="unfinished">Combinació de tecles</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="59"/>
+        <source>Reset the keyboard shortcut key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="79"/>
+        <source>Set a key combination for this widget</source>
+        <translation type="unfinished">Seleccionar una combinació de tecles per aquest widget</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="99"/>
+        <source>Keyboard combination that toggles this widget</source>
+        <translation type="unfinished">Combinació de tecles que activa aquest widget</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="118"/>
+        <source>External Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="136"/>
+        <source>When toggled, you can click an external button to assign it to this widget.</source>
+        <translation type="unfinished">Si està actiu, pot pressionar un botó extern per assignar a aquest widget.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="139"/>
+        <source>Auto Detect</source>
+        <translation type="unfinished">Detectar Automàticament</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="155"/>
+        <source>Input Universe</source>
+        <translation type="unfinished">Univers d&apos;Entrada</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="162"/>
+        <source>Input Channel</source>
+        <translation type="unfinished">Canal d&apos;Entrada</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="169"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="192"/>
+        <source>Custom Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="202"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="218"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
+        <translation type="unfinished">Triar l&apos;univers i el canal d&apos;Entrada que aquest grup ha d&apos;escoltar.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="221"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Triar...</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="228"/>
+        <source>Custom feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="240"/>
+        <source>Lower value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="267"/>
+        <source>Upper value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3866,38 +3964,38 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>PaletteGenerator</name>
     <message>
-        <location filename="palettegenerator.cpp" line="100"/>
+        <location filename="palettegenerator.cpp" line="101"/>
         <source>Primary colours</source>
         <translation>Colors primaris</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="101"/>
+        <location filename="palettegenerator.cpp" line="102"/>
         <source>16 Colours</source>
         <translation>16 Colors</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="102"/>
+        <location filename="palettegenerator.cpp" line="103"/>
         <source>Shutter macros</source>
         <translatorcomment>obturador. De moment deix shutter</translatorcomment>
         <translation>Macros de Shutter</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="103"/>
+        <location filename="palettegenerator.cpp" line="104"/>
         <source>Gobo macros</source>
         <translation>Macros de Gobo</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="104"/>
+        <location filename="palettegenerator.cpp" line="105"/>
         <source>Colour macros</source>
         <translation>Macros de Color</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="105"/>
+        <location filename="palettegenerator.cpp" line="106"/>
         <source>Animations</source>
         <translation>Animacions</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="108"/>
+        <location filename="palettegenerator.cpp" line="109"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
@@ -3992,83 +4090,83 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Blanc</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="337"/>
+        <location filename="palettegenerator.cpp" line="362"/>
         <source>%1 %2 - %3</source>
         <translation>%1 %2 - %3</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="341"/>
+        <location filename="palettegenerator.cpp" line="366"/>
         <source>%1 %2 - %3 (Even)</source>
         <translation>%1 %2 - %3 (Parell)</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="342"/>
+        <location filename="palettegenerator.cpp" line="367"/>
         <source>%1 %2 - %3 (Odd)</source>
         <translation>%1 %2 - %3 (Senar)</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="404"/>
+        <location filename="palettegenerator.cpp" line="429"/>
         <source> - Even</source>
         <translation> - Parell</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="405"/>
+        <location filename="palettegenerator.cpp" line="430"/>
         <source> - Odd</source>
         <translation> - Senar</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="422"/>
+        <location filename="palettegenerator.cpp" line="445"/>
         <source> - RGB Group</source>
         <translation> - Grup RGB</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="428"/>
+        <location filename="palettegenerator.cpp" line="451"/>
         <source>Animation %1</source>
         <translation>Animació %1</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="447"/>
+        <location filename="palettegenerator.cpp" line="470"/>
         <source>%1 chaser - %2</source>
         <translation>%1 chaser - %2</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="519"/>
+        <location filename="palettegenerator.cpp" line="542"/>
         <source>Red scene</source>
         <translation>Escena Vermella</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="520"/>
+        <location filename="palettegenerator.cpp" line="543"/>
         <source>Green scene</source>
         <translation>Escena Verda</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="521"/>
+        <location filename="palettegenerator.cpp" line="544"/>
         <source>Blue scene</source>
         <translation>Escena Blava</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="522"/>
+        <location filename="palettegenerator.cpp" line="545"/>
         <source>Cyan scene</source>
         <translation>Escena Cyan</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="523"/>
+        <location filename="palettegenerator.cpp" line="546"/>
         <source>Magenta scene</source>
         <translation>Escena Magenta</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="524"/>
+        <location filename="palettegenerator.cpp" line="547"/>
         <source>Yellow scene</source>
         <translation>Escena Groga</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="525"/>
+        <location filename="palettegenerator.cpp" line="548"/>
         <source>White scene</source>
         <translation>Escena Blanca</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="532"/>
-        <location filename="palettegenerator.cpp" line="534"/>
+        <location filename="palettegenerator.cpp" line="555"/>
+        <location filename="palettegenerator.cpp" line="557"/>
         <source>Scene</source>
         <translation>Escena</translation>
     </message>
@@ -5158,37 +5256,36 @@ Durada: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="163"/>
         <source>Apply</source>
-        <translation>Aplicar</translation>
+        <translation type="obsolete">Aplicar</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="178"/>
+        <location filename="speeddial.cpp" line="143"/>
         <source>Hours</source>
         <translation>Hores</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="187"/>
+        <location filename="speeddial.cpp" line="152"/>
         <source>Minutes</source>
         <translation>Minuts</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="196"/>
+        <location filename="speeddial.cpp" line="161"/>
         <source>Seconds</source>
         <translation>Segons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="205"/>
+        <location filename="speeddial.cpp" line="170"/>
         <source>Milliseconds</source>
         <translation>Milisegons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="211"/>
+        <location filename="speeddial.cpp" line="176"/>
         <source>Infinite</source>
         <translation>Infinit</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="157"/>
+        <location filename="speeddial.cpp" line="128"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5321,17 +5418,17 @@ Durada: %3
         <translation>Imatges (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="556"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="560"/>
         <source>Toggle Blackout</source>
         <translation>Activar/Desactivar Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="558"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="562"/>
         <source>Stop ALL functions!</source>
         <translation>Aturar TOTES les funcions!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="789"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="793"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
@@ -5344,167 +5441,154 @@ Durada: %3
         <translation>Propietats del Botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="20"/>
         <source>On button press...</source>
         <translation>Modalitat del Botó...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="36"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="26"/>
         <source>Toggle the assigned function on/off with this button</source>
         <translation>Activa o Desactiva la funció assignada cada vegada que es prem el botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="29"/>
         <source>Toggle function on/off</source>
         <translation>Mode Interruptor on/off</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
         <source>Flash the assigned function with this button</source>
         <translation>Activa la funció assignada mentre el botó estigui premut</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="52"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="42"/>
         <source>Flash function (only for scenes)</source>
         <translation>Mode Flash (només per escenes)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="59"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
         <source>Toggle Blackout</source>
         <translation>Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="64"/>
         <source>Stop All Functions</source>
         <translation>Atura Totes les Funcions</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="81"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="71"/>
         <source>Fade time:</source>
         <translation>Durada de Fade:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
         <source>Key combination</source>
-        <translation>Combinació de tecles</translation>
+        <translation type="obsolete">Combinació de tecles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation>Treure drecera del teclat per aquest botó</translation>
+        <translation type="obsolete">Treure drecera del teclat per aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="164"/>
         <source>Set a key combination for this button</source>
-        <translation>Seleccionar una combinació de tecles per aquest botó</translation>
+        <translation type="obsolete">Seleccionar una combinació de tecles per aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="184"/>
         <source>Keyboard combination that toggles this button</source>
-        <translation>Combinació de tecles que activa aquest botó</translation>
+        <translation type="obsolete">Combinació de tecles que activa aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="197"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
         <source>Adjust function intensity when it is running</source>
         <translation>Ajusta la intensitat de la funció quant està en execució</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="200"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="129"/>
         <source>Adjust Function Intensity</source>
         <translation>Ajustar la intensitat de la funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="215"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
         <translation>Percentatge d&apos;intensitat pre-ajustat de la funció quant s&apos;executa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="265"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="194"/>
         <source>Attributes</source>
         <translation>Atributs</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="284"/>
         <source>External Input</source>
-        <translation>Entrada Externa</translation>
+        <translation type="obsolete">Entrada Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="323"/>
         <source>Input Universe</source>
-        <translation>Univers d&apos;Entrada</translation>
+        <translation type="obsolete">Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="290"/>
         <source>Input Channel</source>
-        <translation>Canal d&apos;Entrada</translation>
+        <translation type="obsolete">Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="303"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Triar una entrada externa i el canal que aquest botó ha d&apos;escoltar.</translation>
+        <translation type="obsolete">Triar una entrada externa i el canal que aquest botó ha d&apos;escoltar.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="306"/>
         <source>Choose...</source>
-        <translation>Triar...</translation>
+        <translation type="obsolete">Triar...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="340"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Si està actiu, pot premer un botó extern per assignar-lo a aquest botó de la consola virtual.</translation>
+        <translation type="obsolete">Si està actiu, pot premer un botó extern per assignar-lo a aquest botó de la consola virtual.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="343"/>
         <source>Auto Detect</source>
-        <translation>Detectar Automàticament</translation>
+        <translation type="obsolete">Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>El canal d&apos;Entrada dins d&apos;aquest univers d&apos;Entrada que envia dades a aquest widget</translation>
+        <translation type="obsolete">El canal d&apos;Entrada dins d&apos;aquest univers d&apos;Entrada que envia dades a aquest widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest widget</translation>
+        <translation type="obsolete">L&apos;univers d&apos;Entrada que envia dades a aquest widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="362"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="219"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="225"/>
         <source>Button label</source>
         <translation>Etiqueta del Botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="232"/>
         <source>Text to display on the button</source>
         <translation>Texte a mostrar al botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="239"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="389"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="246"/>
         <source>The function that this button controls</source>
         <translation>La funció que es controlada per aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="256"/>
         <source>Attach a function to this button</source>
         <translation>Enllaçar una funció a aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="419"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="276"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Desenllaçar la funció del botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.cpp" line="142"/>
+        <location filename="virtualconsole/vcbuttonproperties.cpp" line="132"/>
         <source>No function</source>
         <translation>Cap funció</translation>
     </message>
@@ -5575,47 +5659,47 @@ Durada: %3
         <translation>Enllaç</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="194"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="195"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Motrar/Amagar els sliders de crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="204"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="205"/>
         <source>Play/Stop Cue list</source>
         <translation>Executar/aturar la llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="214"/>
         <source>Go to previous step in the list</source>
         <translation>Anar al pas anterior de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="223"/>
         <source>Go to next step in the list</source>
         <translation>Anar al pas seqüent de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="231"/>
         <source>Cue list</source>
         <translation>Lliste de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Duration</source>
         <translation>Durada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -5694,202 +5778,159 @@ Durada: %3
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="233"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="382"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="531"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
+        <source>Side Faders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Key Combination</source>
-        <translation>Combinació de Tecles</translation>
+        <translation type="obsolete">Combinació de Tecles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="279"/>
         <source>The key combination used to stop the cue list</source>
-        <translation>La combinació de tecles emprada per aturar la Llista de Cues</translation>
+        <translation type="obsolete">La combinació de tecles emprada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="262"/>
         <source>Bind a key combination to stop the cue list</source>
-        <translation>Vincular una combinació de tecles per aturar la llista de Cues</translation>
+        <translation type="obsolete">Vincular una combinació de tecles per aturar la llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="245"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="411"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="543"/>
         <source>Clear the key binding</source>
-        <translation>Esborrar el vincle de tecles</translation>
+        <translation type="obsolete">Esborrar el vincle de tecles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="173"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="322"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="471"/>
         <source>External Input</source>
-        <translation>Entrada Externa</translation>
+        <translation type="obsolete">Entrada Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="179"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="328"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="477"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="656"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="722"/>
         <source>Input universe</source>
-        <translation>Univers d&apos;Entrada</translation>
+        <translation type="obsolete">Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="663"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="729"/>
         <source>Input universe for stopping the cue list</source>
-        <translation>Univers d&apos;Entrada per aturar la Llista de Cues</translation>
+        <translation type="obsolete">Univers d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="342"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="491"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="670"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="736"/>
         <source>Input channel</source>
-        <translation>Canal d&apos;Entrada</translation>
+        <translation type="obsolete">Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="200"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="677"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="743"/>
         <source>Input channel for stopping the cue list</source>
-        <translation>Canal d&apos;Entrada per aturar la Llista de Cues</translation>
+        <translation type="obsolete">Canal d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="207"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="684"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="750"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
-        <translation>Si està actiu, pot premer un botó extern per assignar-lo com a control que atura la Llista de Cues</translation>
+        <translation type="obsolete">Si està actiu, pot premer un botó extern per assignar-lo com a control que atura la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="210"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="359"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="508"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="687"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="753"/>
         <source>Auto Detect</source>
-        <translation>Detectar Automàticament</translation>
+        <translation type="obsolete">Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="220"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="697"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="763"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
-        <translation>Triar un univers/canal d&apos;Entrada per aturar la Llista de Cues</translation>
+        <translation type="obsolete">Triar un univers/canal d&apos;Entrada per aturar la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="223"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="372"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="521"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="700"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="766"/>
         <source>Choose...</source>
-        <translation>Triar...</translation>
+        <translation type="obsolete">Triar...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="308"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="182"/>
         <source>Next Cue</source>
         <translation>Següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="428"/>
         <source>The key combination used to step to the next cue</source>
-        <translation>La combinació de tecles emprada per saltar al següent Cue</translation>
+        <translation type="obsolete">La combinació de tecles emprada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="394"/>
         <source>Bind a key combination to skip to the next cue</source>
-        <translation>Vinculer la combinació de tecles emprada per saltar al següent Cue</translation>
+        <translation type="obsolete">Vinculer la combinació de tecles emprada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="335"/>
         <source>Input universe for skipping to the next cue</source>
-        <translation>Univers d&apos;Entrada per saltar al següent Cue</translation>
+        <translation type="obsolete">Univers d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="349"/>
         <source>Input channel for skipping to the next cue</source>
-        <translation>Canal d&apos;Entrada per saltar al següent Cue</translation>
+        <translation type="obsolete">Canal d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="356"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Si està activat, pot pressionar  un botó per assignar-lo com a control que salta al següent Cue.</translation>
+        <translation type="obsolete">Si està activat, pot pressionar  un botó per assignar-lo com a control que salta al següent Cue.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="369"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
-        <translation>Triar un univers/canl d&apos;Entrada per saltar al següent Cue</translation>
+        <translation type="obsolete">Triar un univers/canl d&apos;Entrada per saltar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="457"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="205"/>
         <source>Previous Cue</source>
         <translation>Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="577"/>
         <source>The key combination used to step to the previous cue</source>
-        <translation>la combinació de tecles emprada per pasar al següent Cue</translation>
+        <translation type="obsolete">la combinació de tecles emprada per pasar al següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="560"/>
         <source>Bind a key combination to skip to the previous cue</source>
-        <translation>Vincular una combinació de tecles per saltar al Cue anterior</translation>
+        <translation type="obsolete">Vincular una combinació de tecles per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="484"/>
         <source>Input universe for skipping to the previous cue</source>
-        <translation>Univers d&apos;Entrada per saltar al Cue anterior</translation>
+        <translation type="obsolete">Univers d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="498"/>
         <source>Input channel for skipping to the previous cue</source>
-        <translation>Canal d&apos;Entrada per saltar al Cue anterior</translation>
+        <translation type="obsolete">Canal d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="505"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Si està actiu, pot pressionar un botó extern per assignar-lo com a control que salta al Cue anterior.</translation>
+        <translation type="obsolete">Si està actiu, pot pressionar un botó extern per assignar-lo com a control que salta al Cue anterior.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="518"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
-        <translation>Triar un univers/canal d&apos;Entrada per saltar al Cue anterior</translation>
+        <translation type="obsolete">Triar un univers/canal d&apos;Entrada per saltar al Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
         <source>Side Sliders</source>
-        <translation>Sliders Laterals</translation>
+        <translation type="obsolete">Sliders Laterals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="234"/>
         <source>Behaviour</source>
         <translation>Comportament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="624"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="246"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="634"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
         <source>Steps</source>
         <translation>Pasos</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="644"/>
         <source>Left Slider</source>
-        <translation>Slider Esquerre</translation>
+        <translation type="obsolete">Slider Esquerre</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="710"/>
         <source>Right Slider</source>
-        <translation>Slider Dret</translation>
+        <translation type="obsolete">Slider Dret</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="239"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
+        <source>Left Fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
+        <source>Right Fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -5897,13 +5938,13 @@ Durada: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="353"/>
-        <location filename="virtualconsole/vcframe.cpp" line="470"/>
+        <location filename="virtualconsole/vcframe.cpp" line="358"/>
+        <location filename="virtualconsole/vcframe.cpp" line="475"/>
         <source>Page: %1</source>
         <translation>Pàgina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1278"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1279"/>
         <source>Add</source>
         <translation>Afegir</translation>
     </message>
@@ -6263,7 +6304,7 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="167"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="351"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="357"/>
         <source>Input universe</source>
         <translation>Univers d&apos;Entrada</translation>
     </message>
@@ -6274,7 +6315,7 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="184"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="350"/>
         <source>Input channel</source>
         <translation>Canal d&apos;Entrada</translation>
     </message>
@@ -6290,7 +6331,7 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="217"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="320"/>
         <source>Choose...</source>
         <translation>Triar...</translation>
     </message>
@@ -6302,7 +6343,7 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="324"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="330"/>
         <source>Auto Detect</source>
         <translation>Detectar Automàticament</translation>
     </message>
@@ -6312,100 +6353,100 @@ Durada: %3
         <translation>Controls Personalitzats</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="372"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="378"/>
         <source> Add start color knobs</source>
         <translation>Afegir perilla de color inicial</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="400"/>
         <source> Add end color knobs</source>
         <translation>Afegir perilla de color final</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="405"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="411"/>
         <source> Add end color reset</source>
         <translation>Afegir restablir color final</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="438"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
         <source> Remove</source>
         <translation> Eliminar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="416"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="422"/>
         <source> Add preset</source>
         <translation>Afegir preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="269"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="268"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="274"/>
         <source>Value</source>
         <translation>Valor</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="367"/>
         <source> Add start color</source>
         <translation> Afegir color d&apos;inici</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="383"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="389"/>
         <source> Add end color</source>
         <translation>Afegir un color de final</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="455"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="461"/>
         <source>Key combination</source>
         <translation>Combinació de tecles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="470"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="476"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
         <translation>Treure drecera del teclat per aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="490"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="496"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
         <translation>Seleccionar una combinació de tecles per aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="510"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="516"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
         <translation>Combinació de tecles que activa aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="282"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="288"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="301"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="307"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
         <translation>El canal d&apos;Entrada dins de aquest univers d&apos;Entrada que envia dades a aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="311"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="317"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
         <translation>Triar un univers d&apos;Entrada extern i el canal que aquest controlador te que escoltar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="321"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="327"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
         <translation>Si està actiu, pot moure un controlado extern per assignar-lo a aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="334"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="340"/>
         <source>The input universe that sends data to this control</source>
         <translation>L&apos;univers d&apos;Entrada que envia dades a aquest controlador</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="433"/>
         <source> Add text</source>
         <translation> Afegir text</translation>
     </message>
@@ -6490,236 +6531,233 @@ Durada: %3
         <translation>Açada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="104"/>
         <source>Tap Modifier</source>
-        <translation>Modificador de Tap</translation>
+        <translation type="obsolete">Modificador de Tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="110"/>
         <source>Key</source>
-        <translation>Tecla</translation>
+        <translation type="obsolete">Tecla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="117"/>
         <source>The keyboard key that turns button clicks to taps</source>
-        <translation>La tecla que converteix clicks del botó en Taps</translation>
+        <translation type="obsolete">La tecla que converteix clicks del botó en Taps</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="128"/>
+        <location filename="virtualconsole/vcproperties.ui" line="105"/>
         <source>Widgets</source>
         <translation>Widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="140"/>
+        <location filename="virtualconsole/vcproperties.ui" line="117"/>
         <source>Widgets default properties</source>
         <translation>Propietats per defecte dels widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="169"/>
+        <location filename="virtualconsole/vcproperties.ui" line="146"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
         <translation>Valor del selector ràpid</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="162"/>
+        <location filename="virtualconsole/vcproperties.ui" line="139"/>
         <source>XY Pad size</source>
         <oldsource>XY Pad size:</oldsource>
         <translation>Mida del XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="226"/>
+        <location filename="virtualconsole/vcproperties.ui" line="203"/>
         <source>Slider size</source>
         <oldsource>Slider size:</oldsource>
         <translation>Mida del Slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="332"/>
+        <location filename="virtualconsole/vcproperties.ui" line="309"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
         <translation>Mida del Marc</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="549"/>
+        <location filename="virtualconsole/vcproperties.ui" line="526"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
         <translation>Mida del selector ràpid</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="247"/>
+        <location filename="virtualconsole/vcproperties.ui" line="224"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
         <translation>Mida del marc Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="523"/>
+        <location filename="virtualconsole/vcproperties.ui" line="500"/>
         <source>Cue List size</source>
         <oldsource>Cue List size:</oldsource>
         <translation>Mida de la Llista Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="516"/>
+        <location filename="virtualconsole/vcproperties.ui" line="493"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
         <translation>Mida del Botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="572"/>
+        <location filename="virtualconsole/vcproperties.ui" line="549"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
         <translation>Estil del estat del botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcproperties.ui" line="483"/>
         <source>LED</source>
         <translation>LED</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="254"/>
+        <location filename="virtualconsole/vcproperties.ui" line="231"/>
         <source>Border</source>
         <translation>Vora</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="233"/>
+        <location filename="virtualconsole/vcproperties.ui" line="210"/>
         <source>Audio triggers size</source>
         <oldsource>Audio triggers size:</oldsource>
         <translation>Disparador d&apos;Àudio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="365"/>
-        <location filename="virtualconsole/vcproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcproperties.ui" line="342"/>
+        <location filename="virtualconsole/vcproperties.ui" line="428"/>
+        <location filename="virtualconsole/vcproperties.ui" line="566"/>
         <location filename="virtualconsole/vcproperties.ui" line="589"/>
-        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="579"/>
+        <location filename="virtualconsole/vcproperties.ui" line="556"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
         <translation>Mida de la animació</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="629"/>
+        <location filename="virtualconsole/vcproperties.ui" line="606"/>
         <source>Grand Master</source>
         <translation>Gran Master</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="635"/>
+        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>Channels</source>
         <translation>Canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="641"/>
+        <location filename="virtualconsole/vcproperties.ui" line="618"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Aplicar Gran Master només a canals d&apos;intensitat.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="644"/>
+        <location filename="virtualconsole/vcproperties.ui" line="621"/>
         <source>Intensity</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="651"/>
+        <location filename="virtualconsole/vcproperties.ui" line="628"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Aplicar Gran Master a tots els canals.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="654"/>
+        <location filename="virtualconsole/vcproperties.ui" line="631"/>
         <source>All channels</source>
         <translation>Tots els canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="664"/>
+        <location filename="virtualconsole/vcproperties.ui" line="641"/>
         <source>Values</source>
         <translation>Valors</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="670"/>
+        <location filename="virtualconsole/vcproperties.ui" line="647"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Fer que el Gran Master reduexi els nnivells percentualment.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="673"/>
+        <location filename="virtualconsole/vcproperties.ui" line="650"/>
         <source>Reduce</source>
         <translation>Reduir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="680"/>
+        <location filename="virtualconsole/vcproperties.ui" line="657"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Fer que el Gran Master limiti el volor màxim dels canals.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="683"/>
+        <location filename="virtualconsole/vcproperties.ui" line="660"/>
         <source>Limit</source>
         <translation>Limitar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="693"/>
+        <location filename="virtualconsole/vcproperties.ui" line="670"/>
         <source>External Input</source>
         <translation>Entrda Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="699"/>
+        <location filename="virtualconsole/vcproperties.ui" line="676"/>
         <source>Input Universe</source>
         <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="706"/>
+        <location filename="virtualconsole/vcproperties.ui" line="683"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Univers d&apos;Entrada per el slider del Gran Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="716"/>
+        <location filename="virtualconsole/vcproperties.ui" line="693"/>
         <source>Input Channel</source>
         <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="723"/>
+        <location filename="virtualconsole/vcproperties.ui" line="700"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Canal d&apos;Entrada per el slider del Gran Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="746"/>
+        <location filename="virtualconsole/vcproperties.ui" line="723"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Si està actiu, pot moure un slider/perilla extern per assignar-lo al slider del Gran Master.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="749"/>
+        <location filename="virtualconsole/vcproperties.ui" line="726"/>
         <source>Auto Detect</source>
         <translation>Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="762"/>
+        <location filename="virtualconsole/vcproperties.ui" line="739"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Triar l&apos;univers i el canal d&apos;Entrada que el slider de GRan Master ha d&apos;escoltar.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="765"/>
+        <location filename="virtualconsole/vcproperties.ui" line="742"/>
         <source>Choose...</source>
         <translation>Triar...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="788"/>
+        <location filename="virtualconsole/vcproperties.ui" line="765"/>
         <source>Slider movement</source>
         <translation>Moviment del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="794"/>
+        <location filename="virtualconsole/vcproperties.ui" line="771"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="801"/>
+        <location filename="virtualconsole/vcproperties.ui" line="778"/>
         <source>Inverted</source>
         <translation>Invertit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="460"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="429"/>
         <source>%1: Unknown</source>
         <translation>%1: Desconegut</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="476"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="445"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
@@ -6795,268 +6833,259 @@ Durada: %3
         <translation>Invertit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="109"/>
         <source>External Input</source>
-        <translation>Entrada Externa</translation>
+        <translation type="obsolete">Entrada Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="115"/>
         <source>Input universe</source>
-        <translation>Univers d&apos;Entrada</translation>
+        <translation type="obsolete">Univers d&apos;Entrada</translation>
+    </message>
+    <message>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="obsolete">L&apos;univers d&apos;Entrada que envia dades a aquest widget</translation>
+    </message>
+    <message>
+        <source>Input channel</source>
+        <translation type="obsolete">Canal d&apos;Entrada</translation>
+    </message>
+    <message>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="obsolete">El canal d&apos;Entrada dins d&apos;aquest univers d&apos;Entrada que envia dades a aquest widget</translation>
+    </message>
+    <message>
+        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
+        <translation type="obsolete">Triar un univers d&apos;Entrada i un canal externs que aquest widget ha d&apos;escoltar</translation>
+    </message>
+    <message>
+        <source>Choose...</source>
+        <translation type="obsolete">Triar...</translation>
+    </message>
+    <message>
+        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
+        <translation type="obsolete">Si està actiu, pot moure un slider/perilla extern per assignar-lo a aquest slider de la Consola Virtual.</translation>
+    </message>
+    <message>
+        <source>Auto Detect</source>
+        <translation type="obsolete">Detectar Automàticament</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="122"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest widget</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
-        <source>Input channel</source>
-        <translation>Canal d&apos;Entrada</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="139"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>El canal d&apos;Entrada dins d&apos;aquest univers d&apos;Entrada que envia dades a aquest widget</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="162"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation>Triar un univers d&apos;Entrada i un canal externs que aquest widget ha d&apos;escoltar</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="165"/>
-        <source>Choose...</source>
-        <translation>Triar...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="172"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation>Si està actiu, pot moure un slider/perilla extern per assignar-lo a aquest slider de la Consola Virtual.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="175"/>
-        <source>Auto Detect</source>
-        <translation>Detectar Automàticament</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="201"/>
         <source>Widget appearance</source>
         <translation>Aparença del widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="207"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="128"/>
         <source>Slider</source>
         <translation>Slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="224"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="145"/>
         <source>Knob</source>
         <translation>Perilla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="193"/>
         <source>Level</source>
         <translation>Nivell</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="251"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="199"/>
         <source>Value range</source>
         <translation>Rang de valors</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="257"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="205"/>
         <source>Low limit</source>
         <translation>Límit inferior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="264"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="212"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <translation>El valor DMX mínim que es pot establir amb aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="274"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="222"/>
         <source>High limit</source>
         <translation>Límit superior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="281"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="229"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>El valor DMX mes alt que es pot establir amb aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="310"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="258"/>
         <source>Set value range from the selected capability</source>
         <translation>Ajustar el rang de valors de la capacitat seleccionada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="313"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="261"/>
         <source>From capability</source>
         <translation>A partir de les capacitats</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="281"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="338"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="286"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="291"/>
         <source>Range</source>
         <translation>Rang</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="301"/>
         <source>Select all channels</source>
         <translation>Seleccionar tots els canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="304"/>
         <source>All</source>
         <translation>Tots</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="363"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="311"/>
         <source>Unselect everything</source>
         <translation>Deseleccionar tot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="366"/>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="375"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="373"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="321"/>
         <source>Invert selection</source>
         <translation>Invertir selecció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="376"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="324"/>
         <source>Invert</source>
         <translation>Invertir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="396"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="344"/>
         <source>Choose channels by channel group</source>
         <translation>Triar canals per grups de canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="347"/>
         <source>By group...</source>
         <translation>Per Grup...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
         <source>Monitor the selected channels and update the slider level</source>
         <translation>Monitoreja els canals seleccionat i actualitza el nivell del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="369"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Click &amp;&amp; Go</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="437"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="385"/>
         <source>Intensity</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="444"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="392"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="458"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="406"/>
         <source>Gobo/Effect/Macro</source>
         <translation>Gobo/Efecte/Macro</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="481"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="429"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Fer que aquest Slider controli el nivell dels canals seleccionats</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="432"/>
         <source>Switch to Level Mode</source>
         <translation>Canviar a Mode Nivell</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="492"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="440"/>
         <source>Playback</source>
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="498"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="446"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="504"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="452"/>
         <source>Function that is attached to the slider</source>
         <translation>Funció que està enllaçada a aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="514"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="462"/>
         <source>Attach a function to the slider</source>
         <translation>Enllaçar una funció al slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="534"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="482"/>
         <source>Detach the current function from the slider</source>
         <translation>Desenllaçar la funció actual d&apos;aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="570"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="518"/>
         <source>Make the slider control a function</source>
         <translation>Fer que el slider controli una funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="573"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="521"/>
         <source>Switch to Playback Mode</source>
         <translation>Canviar al Mode Reproducció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="581"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="529"/>
         <source>Submaster</source>
         <translation>Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="587"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="535"/>
         <source>Slider submaster mode is active</source>
         <translation>Mode submaster del slider està actiu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="610"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="558"/>
         <source>Make the slider act as a submaster</source>
         <translation>Fer que el slider actui com a submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="613"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="561"/>
         <source>Switch to Submaster Mode</source>
         <translation>Canviar a Mode Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="681"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="630"/>
         <source>Select channels by group</source>
         <translation>Seleccionar canals per grup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="682"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="631"/>
         <source>Select a channel group</source>
         <translation>Seleccionar un Grup de Canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="739"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="688"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -7077,9 +7106,24 @@ Durada: %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="69"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="76"/>
         <source>Duration</source>
         <translation>Durada</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="95"/>
+        <source>Divide the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="118"/>
+        <source>Multiply the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="126"/>
+        <source>Reset the current factor to 1x</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7163,150 +7207,147 @@ Durada: %3
         <translation>Valor absolut</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="177"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="269"/>
         <source>Input Universe</source>
-        <translation>Univers d&apos;Entrada</translation>
+        <translation type="obsolete">Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="191"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="279"/>
         <source>Input Channel</source>
-        <translation>Canal d&apos;Entrada</translation>
+        <translation type="obsolete">Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="205"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="289"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="544"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="408"/>
         <source>Auto Detect</source>
         <translation>Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="215"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="299"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="534"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="398"/>
         <source>Choose...</source>
         <translation>Triar...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="222"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="177"/>
         <source>Range</source>
         <translation>Rang</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="235"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="190"/>
         <source>ms precision</source>
         <translation>precisió en ms</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="203"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="257"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="502"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="308"/>
+        <source>Multiplier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
+        <source>Reset multiplier factor when the dial value changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="309"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="627"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="491"/>
         <source>Key combination</source>
         <translation>Combinació de tecles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="321"/>
         <source>Keyboard combination to control the dial tap</source>
-        <translation>Combinació de tecles que controla el Tap del selector</translation>
+        <translation type="obsolete">Combinació de tecles que controla el Tap del selector</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="331"/>
         <source>Set a key combination for this dial</source>
-        <translation>Seleccionar una combinació de tecles per aquest selector</translation>
+        <translation type="obsolete">Seleccionar una combinació de tecles per aquest selector</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="351"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation>Treure la drecera de teclat per aquest Selector</translation>
+        <translation type="obsolete">Treure la drecera de teclat per aquest Selector</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="338"/>
         <source>Presets</source>
         <translation>Presets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="347"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="488"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
         <source>Value</source>
         <translation>Valor</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="385"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
         <translation>El canal d&apos;Entrada dins del univers d&apos;Entrada que envia dades a aquest botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="531"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="395"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
         <translation>Triar un univers d&apos;Entrada extern i el canal que aquest botó de preset ha d&apos;escoltar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="405"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
         <translation>Si està actiu, pot moure un controlador extern per assignar-lo a aquest botó de preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="554"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
         <source>The input universe that sends data to this preset button</source>
         <translation>L&apos;univers d&apos;Entrada que envia dades a aquest botó de preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="428"/>
         <source>Input channel</source>
         <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="435"/>
         <source>Input universe</source>
         <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="581"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="445"/>
         <source> Add preset</source>
         <translation>Afegir preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="456"/>
         <source> Remove</source>
         <translation> Eliminar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="603"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
         <source>Show preset name</source>
         <translation>Mostrar el nom del preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="610"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
         <source>Preset name</source>
         <translation>Nom del preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="642"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="506"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
         <translation>Treure la drecera del teclat per aquest botó de preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="662"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="526"/>
         <source>Set a key combination for this preset button</source>
         <translation>Seleccionar una combinació de tecles per aquest botó de preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="682"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="546"/>
         <source>Keyboard combination that toggles this preset button</source>
         <translation>Combinació de tecles que activa aquest botó de preset</translation>
     </message>
@@ -7327,58 +7368,73 @@ Durada: %3
         <translation type="obsolete">Treure drecera teclat de la casella infinit d&apos;aquest selector</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="391"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="225"/>
         <source>Appearance</source>
         <translation>Aparença</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="397"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>Show plus and minus buttons</source>
         <translation>Mostra els botons mes i menys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="404"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="280"/>
         <source>Show multiplier and divisor buttons</source>
         <translation>Mostrar els botons Multiplicador i Divisor</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="411"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="238"/>
         <source>Show the central dial</source>
         <translation>Mostra el dial central</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
         <source>Show the tap button</source>
         <translation>Mostra el botó tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="425"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="287"/>
         <source>Show the apply button</source>
         <translation>Mostrar el botó Aplicar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
         <source>Show the hours field</source>
         <translation>Mostra el camp d&apos;hores</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="439"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
         <source>Show the minutes field</source>
         <translation>Mostra el camp minuts</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="446"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="266"/>
         <source>Show the seconds field</source>
         <translation>Mostra els camp segons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="453"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="273"/>
         <source>Show the milliseconds field</source>
         <translation>Mostra el camp milisegons</translation>
     </message>
     <message>
         <source>Show the infinite option</source>
         <translation type="obsolete">Mostra la opció infinit</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="108"/>
+        <source>Multiply by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="117"/>
+        <source>Divide by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="126"/>
+        <source>Factor Reset Input</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7445,7 +7501,7 @@ Durada: %3
         <translation>Desconegut</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="511"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="512"/>
         <source>This widget has no properties</source>
         <translation>Aquest widget no te propietats</translation>
     </message>
@@ -7471,7 +7527,7 @@ Durada: %3
 <context>
     <name>VCXYPadArea</name>
     <message>
-        <location filename="virtualconsole/vcxypadarea.cpp" line="258"/>
+        <location filename="virtualconsole/vcxypadarea.cpp" line="302"/>
         <source>Shift: fine, Ctrl:10x</source>
         <translation>Majúscules: fi, Ctrl: 10x</translation>
     </message>
@@ -7528,118 +7584,170 @@ Durada: %3
         <translation>Propietats del XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="124"/>
         <source>Fixtures</source>
         <translation>Fixtures</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="130"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Llista de fixtures que son controlades per aquest pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="55"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="155"/>
         <source>Fixture</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="60"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="160"/>
         <source>X-Axis</source>
         <translation>Eix X</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="65"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="165"/>
         <source>Y-Axis</source>
         <translation>Eix Y</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="73"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Afegir fixture(s) al pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="193"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Treure el fixture seleccionat del pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="113"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="213"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Editar els eixos del fixture seleccionat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="147"/>
-        <source>Input</source>
-        <translation>Entrada</translation>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
+        <source>Presets</source>
+        <translation type="unfinished">Presets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="153"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
+        <source>Name</source>
+        <translation type="unfinished">Nom</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
+        <source>Add position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
+        <source>Add EFX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
+        <source>Add Scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
+        <source>Remove</source>
+        <translation type="unfinished">Eliminar</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
+        <source>Preset name</source>
+        <translation type="unfinished">Nom del preset</translation>
+    </message>
+    <message>
+        <source>Input</source>
+        <translation type="obsolete">Entrada</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="79"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Eix horitzontal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="159"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
-        <translation>Univers d&apos;Entrada</translation>
+        <translation type="obsolete">Univers d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
-        <translation>Canal d&apos;Entrada</translation>
+        <translation type="obsolete">Canal d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="200"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
-        <translation>Detectar Automàticament</translation>
+        <translation type="obsolete">Detectar Automàticament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="210"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
-        <translation>Triar...</translation>
+        <translation type="obsolete">Triar...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="220"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="92"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Eix vertical</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="301"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="83"/>
         <source>XY Pad Name</source>
         <translation>Nom del XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="308"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="90"/>
         <source>The name of this XY Pad</source>
         <translation>El nom de aquest XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="315"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="97"/>
         <source>Y-Axis slider movement</source>
         <translation>Moviment a l&apos;eix Y del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="321"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="103"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="331"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="113"/>
         <source>Inverted</source>
         <translation>Invertit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="238"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="105"/>
+        <source>Width</source>
+        <translation type="unfinished">Ample</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="113"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="328"/>
         <source>Remove fixtures</source>
         <translation>Treure fixtures</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="239"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="329"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Vol eliminar el fixture seleccionat?</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="555"/>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="556"/>
+        <source>The selected Scene does not include any Pan or Tilt channel.
+Please select one with such channels.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7783,229 +7891,229 @@ Durada: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="301"/>
         <source>New Button</source>
         <translation>Nou Botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="304"/>
         <source>New Button Matrix</source>
         <translation>Nova Matriu de Botons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="307"/>
         <source>New Slider</source>
         <translation>Nou Slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="310"/>
         <source>New Slider Matrix</source>
         <translation>Nova Matriu de Sliders</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="313"/>
         <source>New Knob</source>
         <translation>Nova Perilla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Speed Dial</source>
         <translation>Nou Selector Ràpid</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="319"/>
         <source>New XY pad</source>
         <translation>Nou XY Pad</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="322"/>
         <source>New Cue list</source>
         <translation>Nova Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Frame</source>
         <translation>Nou Marc</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Solo frame</source>
         <translation>Nou Marc Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="332"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
         <source>New Label</source>
         <translation>Nova Etiqueta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="334"/>
         <source>New Audio Triggers</source>
         <translation>Nou Disparador d&apos;Àudio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="338"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="337"/>
         <source>New Clock</source>
         <translation>Nou Rellotge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="341"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
         <translation>Nova animació</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="363"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
         <source>Virtual Console Settings</source>
         <translation>Propietats de la Consola Virtual</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="369"/>
         <source>Cut</source>
         <translation>Tallar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="373"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="372"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="376"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="375"/>
         <source>Paste</source>
         <translation>Enganxar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="380"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="379"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="383"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Widget Properties</source>
         <translation>Propietats del widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="386"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Rename Widget</source>
         <translation>Reanomenar widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="400"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
         <source>Background Color</source>
         <translation>color de Fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="402"/>
         <source>Background Image</source>
         <translation>Imatge de Fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="406"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="420"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="433"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="405"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="432"/>
         <source>Default</source>
         <translation>Per defecte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="417"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="416"/>
         <source>Font Colour</source>
         <translation>Color de la Font</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="430"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="429"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="443"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="442"/>
         <source>Sunken</source>
         <translation>Enfonsat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="446"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="445"/>
         <source>Raised</source>
         <translation>Elevat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="449"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="448"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="460"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="459"/>
         <source>Bring to front</source>
         <translation>Porta al davant</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="463"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="462"/>
         <source>Send to back</source>
         <translation>Porta al fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="477"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="476"/>
         <source>&amp;Add</source>
         <translation>&amp;Afegir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="498"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="497"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="510"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="509"/>
         <source>&amp;Background</source>
         <translation>&amp;Fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="518"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="517"/>
         <source>&amp;Foreground</source>
         <translation>&amp;Primer Pla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="525"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="524"/>
         <source>F&amp;ont</source>
         <translation>F&amp;ont</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="532"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="531"/>
         <source>F&amp;rame</source>
         <translation>&amp;Marc</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="540"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="539"/>
         <source>Stacking &amp;order</source>
         <translation>O&amp;rdre de apilament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="881"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="880"/>
         <source>Knob %1</source>
         <translation>Perilla %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1150"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1149"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vol eliminar el widget seleccionat?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1151"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1150"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1203"/>
         <source>Rename widgets</source>
         <translation>Reanomenar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1203"/>
         <source>Caption:</source>
         <translation>Títol:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1257"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1256"/>
         <source>Select background image</source>
         <translation>Seleccioni la imatge de fons</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1258"/>
         <source>Images</source>
         <translation>Imatges</translation>
     </message>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,17 +18,17 @@
  <Channel Name="red/white">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 >100</Capability>
+  <Capability Min="0" Max="255">0 &gt;100</Capability>
  </Channel>
  <Channel Name="green/orange">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 > 100</Capability>
+  <Capability Min="0" Max="255">0 &gt; 100</Capability>
  </Channel>
  <Channel Name="blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 > 100</Capability>
+  <Capability Min="0" Max="255">0 &gt; 100</Capability>
  </Channel>
  <Channel Name="movement">
   <Group Byte="0">Pan</Group>

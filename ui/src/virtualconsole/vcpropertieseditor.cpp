@@ -56,7 +56,6 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     /* General page */
     m_sizeXSpin->setValue(properties.size().width());
     m_sizeYSpin->setValue(properties.size().height());
-    fillTapModifierCombo();
 
     /* Widgets page */
     QSettings settings;
@@ -300,31 +299,6 @@ QSize VCPropertiesEditor::rgbMatrixSize()
  * Layout page
  *****************************************************************************/
 
-void VCPropertiesEditor::fillTapModifierCombo()
-{
-    QList <int> mods;
-    mods << Qt::ShiftModifier;
-    mods << Qt::ControlModifier;
-    mods << Qt::AltModifier;
-    mods << Qt::MetaModifier;
-
-    foreach (int mod, mods)
-    {
-        QKeySequence seq(mod);
-        QString str(seq.toString(QKeySequence::NativeText));
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-        m_tapModifierCombo->addItem(str, mod);
-#else
-        m_tapModifierCombo->addItem(str.remove(QRegExp("\\W")).trimmed(), mod);
-#endif
-        if (mod == int(m_properties.tapModifier()))
-            m_tapModifierCombo->setCurrentIndex(m_tapModifierCombo->count() - 1);
-    }
-
-    connect(m_tapModifierCombo, SIGNAL(activated(int)),
-            this, SLOT(slotTapModifierActivated(int)));
-}
-
 void VCPropertiesEditor::slotSizeXChanged(int value)
 {
     QSize sz(m_properties.size());
@@ -337,11 +311,6 @@ void VCPropertiesEditor::slotSizeYChanged(int value)
     QSize sz(m_properties.size());
     sz.setHeight(value);
     m_properties.setSize(sz);
-}
-
-void VCPropertiesEditor::slotTapModifierActivated(int index)
-{
-    m_properties.setTapModifier(Qt::KeyboardModifier(m_tapModifierCombo->itemData(index).toInt()));
 }
 
 void VCPropertiesEditor::slotSpeedDialConfirmed()

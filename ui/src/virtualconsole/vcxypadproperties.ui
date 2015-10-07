@@ -42,7 +42,7 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -56,7 +56,10 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QVBoxLayout" name="m_extInputLayout"/>
+           <layout class="QHBoxLayout" name="m_extInputLayout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="m_sizeInputLayout"/>
           </item>
          </layout>
         </widget>
@@ -286,28 +289,40 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="m_addSceneButton">
+             <property name="text">
+              <string>Add Scene</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/scene.png</normaloff>:/scene.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="m_removePresetButton">
              <property name="text">
               <string>Remove</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../resources/icons/svg/svgicons.qrc">
-               <normaloff>:/remove.svg</normaloff>:/remove.svg</iconset>
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
              </property>
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Preset name</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="m_presetNameEdit"/>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -348,7 +363,6 @@
  </widget>
  <resources>
   <include location="../qlcui.qrc"/>
-  <include location="../../../resources/icons/svg/svgicons.qrc"/>
   <include location="../qlcui.qrc"/>
  </resources>
  <connections>

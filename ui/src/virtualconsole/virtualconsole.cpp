@@ -132,7 +132,6 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_scrollArea(NULL)
     , m_contents(NULL)
 
-    , m_tapModifierDown(false)
     , m_liveEdit(false)
 {
     Q_ASSERT(s_instance == NULL);
@@ -1514,7 +1513,6 @@ void VirtualConsole::resetContents()
     updateActions();
 
     /* Reset all properties but size */
-    m_properties.setTapModifier(Qt::ControlModifier);
     m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
     m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
@@ -1588,11 +1586,6 @@ void VirtualConsole::initContents()
  * Key press handler
  *****************************************************************************/
 
-bool VirtualConsole::isTapModifierDown() const
-{
-    return m_tapModifierDown;
-}
-
 void VirtualConsole::keyPressEvent(QKeyEvent* event)
 {
     if (event->isAutoRepeat() == true)
@@ -1600,9 +1593,6 @@ void VirtualConsole::keyPressEvent(QKeyEvent* event)
         event->ignore();
         return;
     }
-
-    if ((event->modifiers() & Qt::ControlModifier) != 0)
-        m_tapModifierDown = true;
 
     QKeySequence seq(event->key() | (event->modifiers() & ~Qt::ControlModifier));
     emit keyPressed(seq);
@@ -1617,9 +1607,6 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
         event->ignore();
         return;
     }
-
-    if ((event->modifiers() & Qt::ControlModifier) == 0)
-        m_tapModifierDown = false;
 
     QKeySequence seq(event->key() | event->modifiers());
     emit keyReleased(seq);

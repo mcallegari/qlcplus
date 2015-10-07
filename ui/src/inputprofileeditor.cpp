@@ -62,6 +62,10 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
 
     setupUi(this);
 
+    m_midiGroupSettings->setVisible(false);
+    connect(m_typeCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotTypeComboChanged(int)));
+
     /* Connect the buttons to slots */
     connect(m_addButton, SIGNAL(clicked()),
             this, SLOT(slotAddClicked()));
@@ -109,7 +113,14 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
         const QLCInputProfile::Type type = types.at(i);
         m_typeCombo->addItem(QLCInputProfile::typeToString(type), type);
         if (m_profile->type() == type)
+        {
             m_typeCombo->setCurrentIndex(i);
+            if (type == QLCInputProfile::Midi)
+            {
+                m_midiGroupSettings->setVisible(true);
+                m_noteOffCheck->setChecked(m_profile->midiSendNoteOff());
+            }
+        }
     }
 
     /* Profile manufacturer & model */
@@ -167,6 +178,14 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
     item->setIcon(KColumnType, ch->icon());
 }
 
+void InputProfileEditor::slotTypeComboChanged(int)
+{
+    if (currentProfileType() == QLCInputProfile::Midi)
+        m_midiGroupSettings->setVisible(true);
+    else
+        m_midiGroupSettings->setVisible(false);
+}
+
 /****************************************************************************
  * OK & Cancel
  ****************************************************************************/
@@ -189,6 +208,9 @@ void InputProfileEditor::accept()
     m_profile->setManufacturer(m_manufacturerEdit->text());
     m_profile->setModel(m_modelEdit->text());
     m_profile->setType(currentProfileType());
+
+    if (currentProfileType() == QLCInputProfile::Midi)
+        m_profile->setMidiSendNoteOff(m_noteOffCheck->isChecked());
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||
