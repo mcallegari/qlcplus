@@ -903,12 +903,12 @@ The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1328"/>
+        <location filename="app.cpp" line="1330"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1329"/>
+        <location filename="app.cpp" line="1331"/>
         <source>Some errors occurred while loading the project:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3100,27 +3100,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>GrandMasterSlider</name>
     <message>
-        <location filename="grandmasterslider.cpp" line="88"/>
+        <location filename="grandmasterslider.cpp" line="90"/>
         <source>GM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="142"/>
+        <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="145"/>
+        <location filename="grandmasterslider.cpp" line="148"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="154"/>
+        <location filename="grandmasterslider.cpp" line="157"/>
         <source>intensity channels</source>
         <translation>intensiteettikanaville</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="157"/>
+        <location filename="grandmasterslider.cpp" line="160"/>
         <source>all channels</source>
         <translation>kaikille kanaville</translation>
     </message>
@@ -3454,141 +3454,151 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="64"/>
+        <location filename="inputprofileeditor.ui" line="34"/>
         <source>Manufacturer</source>
         <translation>Valmistaja</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="34"/>
+        <location filename="inputprofileeditor.ui" line="58"/>
         <source>The name of the company that made the device</source>
         <translation>Laitteen valmistaneen yrityksen nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="71"/>
+        <location filename="inputprofileeditor.ui" line="41"/>
         <source>Model</source>
         <translation>Malli</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="44"/>
+        <location filename="inputprofileeditor.ui" line="68"/>
         <source>The device&apos;s model name</source>
         <translation>Laitteen mallin nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="90"/>
+        <location filename="inputprofileeditor.ui" line="105"/>
         <source>Channels</source>
         <translation>Kanavat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="115"/>
+        <location filename="inputprofileeditor.ui" line="130"/>
         <source>Channel</source>
         <translation>Kanava</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="120"/>
+        <location filename="inputprofileeditor.ui" line="135"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="78"/>
-        <location filename="inputprofileeditor.ui" line="125"/>
+        <location filename="inputprofileeditor.ui" line="48"/>
+        <location filename="inputprofileeditor.ui" line="140"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="130"/>
-        <location filename="inputprofileeditor.ui" line="241"/>
+        <location filename="inputprofileeditor.ui" line="75"/>
+        <source>MIDI Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="81"/>
+        <source>When MIDI notes are used, send a Note Off when value is 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="145"/>
+        <location filename="inputprofileeditor.ui" line="256"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="253"/>
+        <location filename="inputprofileeditor.ui" line="268"/>
         <source>Movement</source>
         <translation type="unfinished">Liike</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="267"/>
+        <location filename="inputprofileeditor.ui" line="282"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="272"/>
+        <location filename="inputprofileeditor.ui" line="287"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="280"/>
+        <location filename="inputprofileeditor.ui" line="295"/>
         <source>Sensitivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="138"/>
+        <location filename="inputprofileeditor.ui" line="153"/>
         <source>Add a new channel description</source>
         <translation>Lisää uusi kanavakuvaus</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="158"/>
+        <location filename="inputprofileeditor.ui" line="173"/>
         <source>Remove the selected channels</source>
         <translation>Poista valitut kanavat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="178"/>
+        <location filename="inputprofileeditor.ui" line="193"/>
         <source>Edit the selected channel</source>
         <translation>Muokkaa valittua kanavaa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="198"/>
+        <location filename="inputprofileeditor.ui" line="213"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
         <translation>Lisää kanavia listaan automaattisesti kun laitteen toimintoja käytetään</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="97"/>
+        <location filename="inputprofileeditor.cpp" line="101"/>
         <source>File not writable</source>
         <translation>Tiedoston ei voida kirjoittaa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="98"/>
+        <location filename="inputprofileeditor.cpp" line="102"/>
         <source>You do not have permission to write to the file %1. You might not be able to save your modifications to the profile.</source>
         <translation>Sinulla ei ole oikeuksia kirjoittaa tiedostoon %1. Et ehkä voi tallettaa muutoksiasi valittuun profiiliin.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="197"/>
+        <location filename="inputprofileeditor.cpp" line="219"/>
         <source>Missing information</source>
         <translation>Puutteelliset tiedot</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="198"/>
+        <location filename="inputprofileeditor.cpp" line="220"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>Valmistaja ja/tai mallinimike puuttuu.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="228"/>
-        <location filename="inputprofileeditor.cpp" line="324"/>
+        <location filename="inputprofileeditor.cpp" line="250"/>
+        <location filename="inputprofileeditor.cpp" line="346"/>
         <source>Channel already exists</source>
         <translation>Kanava on jo olemassa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="229"/>
-        <location filename="inputprofileeditor.cpp" line="325"/>
+        <location filename="inputprofileeditor.cpp" line="251"/>
+        <location filename="inputprofileeditor.cpp" line="347"/>
         <source>Channel %1 already exists</source>
         <translation>Kanava %1 on jo olemassa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="251"/>
+        <location filename="inputprofileeditor.cpp" line="273"/>
         <source>Delete channels</source>
         <translation>Poista kanavia</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="252"/>
+        <location filename="inputprofileeditor.cpp" line="274"/>
         <source>Delete all %1 selected channels?</source>
         <translation>Poistetaanko kaikki %1 valittua kanavaa?</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="365"/>
+        <location filename="inputprofileeditor.cpp" line="387"/>
         <source>Channel wizard activated</source>
         <translation>Kanavavelho on aktiivisena</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="366"/>
+        <location filename="inputprofileeditor.cpp" line="388"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
@@ -3597,14 +3607,102 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaan, joten sinun täytyy tehdä vastaavat muutokset käsin.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="493"/>
+        <location filename="inputprofileeditor.cpp" line="515"/>
         <source>Button %1</source>
         <translation>Nappi %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="533"/>
+        <location filename="inputprofileeditor.cpp" line="555"/>
         <source>Slider %1</source>
         <translation>Liuku %1</translation>
+    </message>
+</context>
+<context>
+    <name>InputSelectionWidget</name>
+    <message>
+        <location filename="inputselectionwidget.ui" line="41"/>
+        <source>Key combination</source>
+        <translation type="unfinished">Näppäinyhdistelmä</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="59"/>
+        <source>Reset the keyboard shortcut key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="79"/>
+        <source>Set a key combination for this widget</source>
+        <translation type="unfinished">Aseta näppäinyhdistelmä tälle napille</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="99"/>
+        <source>Keyboard combination that toggles this widget</source>
+        <translation type="unfinished">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="118"/>
+        <source>External Input</source>
+        <translation type="unfinished">Ulkoinen ohjaus</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="136"/>
+        <source>When toggled, you can click an external button to assign it to this widget.</source>
+        <translation type="unfinished">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="139"/>
+        <source>Auto Detect</source>
+        <translation type="unfinished">Automaattinen tunnistus</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="155"/>
+        <source>Input Universe</source>
+        <translation type="unfinished">Sisääntulon universumi</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="162"/>
+        <source>Input Channel</source>
+        <translation type="unfinished">Sisääntulokanava</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="169"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="192"/>
+        <source>Custom Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="202"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="218"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
+        <translation type="unfinished">Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="221"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Valitse...</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="228"/>
+        <source>Custom feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="240"/>
+        <source>Lower value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="267"/>
+        <source>Upper value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3846,40 +3944,40 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>PaletteGenerator</name>
     <message>
-        <location filename="palettegenerator.cpp" line="100"/>
+        <location filename="palettegenerator.cpp" line="101"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="101"/>
+        <location filename="palettegenerator.cpp" line="102"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="102"/>
+        <location filename="palettegenerator.cpp" line="103"/>
         <source>Shutter macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="103"/>
+        <location filename="palettegenerator.cpp" line="104"/>
         <source>Gobo macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="104"/>
+        <location filename="palettegenerator.cpp" line="105"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="105"/>
+        <location filename="palettegenerator.cpp" line="106"/>
         <source>Animations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="108"/>
+        <location filename="palettegenerator.cpp" line="109"/>
         <source>Unknown</source>
         <translation type="unfinished">Tuntematon</translation>
     </message>
@@ -3974,83 +4072,83 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="337"/>
+        <location filename="palettegenerator.cpp" line="362"/>
         <source>%1 %2 - %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="341"/>
+        <location filename="palettegenerator.cpp" line="366"/>
         <source>%1 %2 - %3 (Even)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="342"/>
+        <location filename="palettegenerator.cpp" line="367"/>
         <source>%1 %2 - %3 (Odd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="404"/>
+        <location filename="palettegenerator.cpp" line="429"/>
         <source> - Even</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="405"/>
+        <location filename="palettegenerator.cpp" line="430"/>
         <source> - Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="422"/>
+        <location filename="palettegenerator.cpp" line="445"/>
         <source> - RGB Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="428"/>
+        <location filename="palettegenerator.cpp" line="451"/>
         <source>Animation %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="447"/>
+        <location filename="palettegenerator.cpp" line="470"/>
         <source>%1 chaser - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="519"/>
+        <location filename="palettegenerator.cpp" line="542"/>
         <source>Red scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="520"/>
+        <location filename="palettegenerator.cpp" line="543"/>
         <source>Green scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="521"/>
+        <location filename="palettegenerator.cpp" line="544"/>
         <source>Blue scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="522"/>
+        <location filename="palettegenerator.cpp" line="545"/>
         <source>Cyan scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="523"/>
+        <location filename="palettegenerator.cpp" line="546"/>
         <source>Magenta scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="524"/>
+        <location filename="palettegenerator.cpp" line="547"/>
         <source>Yellow scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="525"/>
+        <location filename="palettegenerator.cpp" line="548"/>
         <source>White scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="532"/>
-        <location filename="palettegenerator.cpp" line="534"/>
+        <location filename="palettegenerator.cpp" line="555"/>
+        <location filename="palettegenerator.cpp" line="557"/>
         <source>Scene</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5116,37 +5214,32 @@ Duration: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="163"/>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="speeddial.cpp" line="178"/>
+        <location filename="speeddial.cpp" line="143"/>
         <source>Hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="187"/>
+        <location filename="speeddial.cpp" line="152"/>
         <source>Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="196"/>
+        <location filename="speeddial.cpp" line="161"/>
         <source>Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="205"/>
+        <location filename="speeddial.cpp" line="170"/>
         <source>Milliseconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="211"/>
+        <location filename="speeddial.cpp" line="176"/>
         <source>Infinite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="157"/>
+        <location filename="speeddial.cpp" line="128"/>
         <source>Tap</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5279,17 +5372,17 @@ Duration: %3
         <translation>Kuvatiedostot (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="556"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="560"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="558"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="562"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="789"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="793"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>
@@ -5302,167 +5395,154 @@ Duration: %3
         <translation>Napin asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="362"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="219"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="225"/>
         <source>Button label</source>
         <translation>Napin teksti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="232"/>
         <source>Text to display on the button</source>
         <translation>Teksti, joka näytetään napissa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="239"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="389"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="246"/>
         <source>The function that this button controls</source>
         <translation>Funktio, jota tämä nappi ohjaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="256"/>
         <source>Attach a function to this button</source>
         <translation>Liitä funktio tähän nappiin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="419"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="276"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Poista funktio tästä napista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
         <source>Key combination</source>
-        <translation>Näppäinyhdistelmä</translation>
+        <translation type="obsolete">Näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="184"/>
         <source>Keyboard combination that toggles this button</source>
-        <translation>Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
+        <translation type="obsolete">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="164"/>
         <source>Set a key combination for this button</source>
-        <translation>Aseta näppäinyhdistelmä tälle napille</translation>
+        <translation type="obsolete">Aseta näppäinyhdistelmä tälle napille</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation>Poista näppäinyhdistelmä tästä napista</translation>
+        <translation type="obsolete">Poista näppäinyhdistelmä tästä napista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="284"/>
         <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
+        <translation type="obsolete">Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="323"/>
         <source>Input Universe</source>
-        <translation>Sisääntulon universumi</translation>
+        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumi, joka lähettää komentoja tälle napille</translation>
+        <translation type="obsolete">Sisääntulon universumi, joka lähettää komentoja tälle napille</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="290"/>
         <source>Input Channel</source>
-        <translation>Sisääntulokanava</translation>
+        <translation type="obsolete">Sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumissa oleva kanava, joka lähettää komentoja tälle napille</translation>
+        <translation type="obsolete">Sisääntulon universumissa oleva kanava, joka lähettää komentoja tälle napille</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="303"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
+        <translation type="obsolete">Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="59"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="64"/>
         <source>Stop All Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="81"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="71"/>
         <source>Fade time:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="197"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
         <source>Adjust function intensity when it is running</source>
         <translation>Aseta funktion ajonaikainen intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="200"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="129"/>
         <source>Adjust Function Intensity</source>
         <translation>Aseta funktion intensiteettiä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="215"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
         <translation>Funktion ajonaikainen intensiteetti prosentteina</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="265"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="194"/>
         <source>Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="306"/>
         <source>Choose...</source>
-        <translation>Valitse...</translation>
+        <translation type="obsolete">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="340"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
+        <translation type="obsolete">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="343"/>
         <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
+        <translation type="obsolete">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="20"/>
         <source>On button press...</source>
         <translation>Kun nappia painetaan...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="36"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="26"/>
         <source>Toggle the assigned function on/off with this button</source>
         <translation>Kytke nappiin liitetty funktio vuorottain päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="29"/>
         <source>Toggle function on/off</source>
         <translation>Kytke funktio vuorottain päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
         <source>Flash the assigned function with this button</source>
         <translation>Väläytä liitettyä funktiota painamalla nappi alas</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="52"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="42"/>
         <source>Flash function (only for scenes)</source>
         <translation>Väläytä funktiota (käytössä vain tilanteille)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.cpp" line="142"/>
+        <location filename="virtualconsole/vcbuttonproperties.cpp" line="132"/>
         <source>No function</source>
         <translation>Ei funktiota</translation>
     </message>
@@ -5533,47 +5613,47 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="194"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="195"/>
         <source>Show/Hide crossfade sliders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="204"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="205"/>
         <source>Play/Stop Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="214"/>
         <source>Go to previous step in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="223"/>
         <source>Go to next step in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="231"/>
         <source>Cue list</source>
         <translation>Cue lista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1203"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5653,202 +5733,123 @@ Duration: %3
         <translation type="unfinished">Toisto</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="308"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="182"/>
         <source>Next Cue</source>
         <translation>Seuraava cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="233"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="382"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="531"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
+        <source>Side Faders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Key Combination</source>
-        <translation>Näppäinyhdistelmä</translation>
+        <translation type="obsolete">Näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="173"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="322"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="471"/>
         <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
+        <translation type="obsolete">Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="179"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="328"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="477"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="656"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="722"/>
         <source>Input universe</source>
-        <translation>Sisääntulon universumi</translation>
+        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="335"/>
         <source>Input universe for skipping to the next cue</source>
-        <translation>Sisääntulouniversumi seuraavaan cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Sisääntulouniversumi seuraavaan cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="342"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="491"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="670"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="736"/>
         <source>Input channel</source>
-        <translation>Sisääntulon kanava</translation>
+        <translation type="obsolete">Sisääntulon kanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="349"/>
         <source>Input channel for skipping to the next cue</source>
-        <translation>Sisääntulokanava seuraavaan cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Sisääntulokanava seuraavaan cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="356"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen seuraavaan cueen hyppäämistä varten.</translation>
+        <translation type="obsolete">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen seuraavaan cueen hyppäämistä varten.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="210"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="359"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="508"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="687"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="753"/>
         <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
+        <translation type="obsolete">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="369"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
-        <translation>Valitse sisääntulouniversumi/kanava seuraavaan cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Valitse sisääntulouniversumi/kanava seuraavaan cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="223"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="372"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="521"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="700"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="766"/>
         <source>Choose...</source>
-        <translation>Valitse...</translation>
+        <translation type="obsolete">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="457"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="205"/>
         <source>Previous Cue</source>
         <translation>Edellinen cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="577"/>
         <source>The key combination used to step to the previous cue</source>
-        <translation>Näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
+        <translation type="obsolete">Näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="560"/>
         <source>Bind a key combination to skip to the previous cue</source>
-        <translation>Aseta näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
+        <translation type="obsolete">Aseta näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="484"/>
         <source>Input universe for skipping to the previous cue</source>
-        <translation>Sisääntulouniversumi edelliseen cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Sisääntulouniversumi edelliseen cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="498"/>
         <source>Input channel for skipping to the previous cue</source>
-        <translation>Sisääntulokanava edelliseen cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Sisääntulokanava edelliseen cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="505"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen edelliseen cueen hyppäämistä varten.</translation>
+        <translation type="obsolete">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen edelliseen cueen hyppäämistä varten.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="518"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
-        <translation>Valitse sisääntulouniversumi/kanava edelliseen cueen hyppäämistä varten</translation>
+        <translation type="obsolete">Valitse sisääntulouniversumi/kanava edelliseen cueen hyppäämistä varten</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="279"/>
-        <source>The key combination used to stop the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="262"/>
-        <source>Bind a key combination to stop the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="663"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="729"/>
-        <source>Input universe for stopping the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="200"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="677"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="743"/>
-        <source>Input channel for stopping the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="207"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="684"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="750"/>
-        <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="220"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="697"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="763"/>
-        <source>Choose an input universe/channel for stopping the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="606"/>
-        <source>Side Sliders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="234"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="624"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="246"/>
         <source>Crossfade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="634"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
         <source>Steps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="644"/>
-        <source>Left Slider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="710"/>
-        <source>Right Slider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="428"/>
         <source>The key combination used to step to the next cue</source>
-        <translation>Näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
+        <translation type="obsolete">Näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="394"/>
         <source>Bind a key combination to skip to the next cue</source>
-        <translation>Aseta näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
+        <translation type="obsolete">Aseta näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="245"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="411"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="543"/>
         <source>Clear the key binding</source>
-        <translation>Poista näppäinyhdistelmä</translation>
+        <translation type="obsolete">Poista näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="239"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
+        <source>Left Fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
+        <source>Right Fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
         <source>No function</source>
         <translation type="unfinished">Ei funktiota</translation>
     </message>
@@ -5856,13 +5857,13 @@ Duration: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="353"/>
-        <location filename="virtualconsole/vcframe.cpp" line="470"/>
+        <location filename="virtualconsole/vcframe.cpp" line="358"/>
+        <location filename="virtualconsole/vcframe.cpp" line="475"/>
         <source>Page: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1278"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1279"/>
         <source>Add</source>
         <translation>Lisää</translation>
     </message>
@@ -6225,7 +6226,7 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="167"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="351"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="357"/>
         <source>Input universe</source>
         <translation type="unfinished">Sisääntulon universumi</translation>
     </message>
@@ -6236,7 +6237,7 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="184"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="350"/>
         <source>Input channel</source>
         <translation type="unfinished">Sisääntulon kanava</translation>
     </message>
@@ -6252,7 +6253,7 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="217"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="320"/>
         <source>Choose...</source>
         <translation type="unfinished">Valitse...</translation>
     </message>
@@ -6264,7 +6265,7 @@ Duration: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="324"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="330"/>
         <source>Auto Detect</source>
         <translation type="unfinished">Automaattinen tunnistus</translation>
     </message>
@@ -6274,100 +6275,100 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="372"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="378"/>
         <source> Add start color knobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="400"/>
         <source> Add end color knobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="405"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="411"/>
         <source> Add end color reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="438"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
         <source> Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="416"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="422"/>
         <source> Add preset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="269"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="268"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="274"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="367"/>
         <source> Add start color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="383"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="389"/>
         <source> Add end color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="455"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="461"/>
         <source>Key combination</source>
         <translation type="unfinished">Näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="470"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="476"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
         <translation type="unfinished">Poista näppäinyhdistelmä tästä napista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="490"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="496"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
         <translation type="unfinished">Aseta näppäinyhdistelmä tälle napille</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="510"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="516"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
         <translation type="unfinished">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="282"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="288"/>
         <source>External Input</source>
         <translation type="unfinished">Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="301"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="307"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="311"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="317"/>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="321"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="327"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="334"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="340"/>
         <source>The input universe that sends data to this control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="433"/>
         <source> Add text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6433,7 +6434,7 @@ Duration: %3
         <translation>Komponenttien vaakaresoluutio ruudukossa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="765"/>
+        <location filename="virtualconsole/vcproperties.ui" line="742"/>
         <source>Choose...</source>
         <translation>Valitse...</translation>
     </message>
@@ -6458,231 +6459,216 @@ Duration: %3
         <translation type="unfinished">Korkeus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="104"/>
-        <source>Tap Modifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="110"/>
-        <source>Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="117"/>
-        <source>The keyboard key that turns button clicks to taps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="128"/>
+        <location filename="virtualconsole/vcproperties.ui" line="105"/>
         <source>Widgets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="140"/>
+        <location filename="virtualconsole/vcproperties.ui" line="117"/>
         <source>Widgets default properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="516"/>
+        <location filename="virtualconsole/vcproperties.ui" line="493"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
         <translation type="unfinished">Painikkeiden koko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="247"/>
+        <location filename="virtualconsole/vcproperties.ui" line="224"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="226"/>
+        <location filename="virtualconsole/vcproperties.ui" line="203"/>
         <source>Slider size</source>
         <oldsource>Slider size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="549"/>
+        <location filename="virtualconsole/vcproperties.ui" line="526"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="162"/>
+        <location filename="virtualconsole/vcproperties.ui" line="139"/>
         <source>XY Pad size</source>
         <oldsource>XY Pad size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="523"/>
+        <location filename="virtualconsole/vcproperties.ui" line="500"/>
         <source>Cue List size</source>
         <oldsource>Cue List size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="332"/>
+        <location filename="virtualconsole/vcproperties.ui" line="309"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="169"/>
+        <location filename="virtualconsole/vcproperties.ui" line="146"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="572"/>
+        <location filename="virtualconsole/vcproperties.ui" line="549"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcproperties.ui" line="483"/>
         <source>LED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="254"/>
+        <location filename="virtualconsole/vcproperties.ui" line="231"/>
         <source>Border</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="233"/>
+        <location filename="virtualconsole/vcproperties.ui" line="210"/>
         <source>Audio triggers size</source>
         <oldsource>Audio triggers size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="365"/>
-        <location filename="virtualconsole/vcproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcproperties.ui" line="342"/>
+        <location filename="virtualconsole/vcproperties.ui" line="428"/>
+        <location filename="virtualconsole/vcproperties.ui" line="566"/>
         <location filename="virtualconsole/vcproperties.ui" line="589"/>
-        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>px</source>
         <translation type="unfinished">px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="579"/>
+        <location filename="virtualconsole/vcproperties.ui" line="556"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="629"/>
+        <location filename="virtualconsole/vcproperties.ui" line="606"/>
         <source>Grand Master</source>
         <translation>Grand Master</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="635"/>
+        <location filename="virtualconsole/vcproperties.ui" line="612"/>
         <source>Channels</source>
         <translation>Kanavat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="641"/>
+        <location filename="virtualconsole/vcproperties.ui" line="618"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Käytä Grand Masteria vain intensiteettikanaville.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="644"/>
+        <location filename="virtualconsole/vcproperties.ui" line="621"/>
         <source>Intensity</source>
         <translation>Intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="651"/>
+        <location filename="virtualconsole/vcproperties.ui" line="628"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Käytä Grand Masteria kaikille kanaville.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="654"/>
+        <location filename="virtualconsole/vcproperties.ui" line="631"/>
         <source>All channels</source>
         <translation>Kaikki</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="664"/>
+        <location filename="virtualconsole/vcproperties.ui" line="641"/>
         <source>Values</source>
         <translation>Arvot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="670"/>
+        <location filename="virtualconsole/vcproperties.ui" line="647"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Grand Master vähentää kanavien arvoja prosentuaalisesti.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="673"/>
+        <location filename="virtualconsole/vcproperties.ui" line="650"/>
         <source>Reduce</source>
         <translation>Vähennä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="680"/>
+        <location filename="virtualconsole/vcproperties.ui" line="657"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Grand Master rajoittaa kanavien maksimiarvoja.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="683"/>
+        <location filename="virtualconsole/vcproperties.ui" line="660"/>
         <source>Limit</source>
         <translation>Rajoita</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="693"/>
+        <location filename="virtualconsole/vcproperties.ui" line="670"/>
         <source>External Input</source>
         <translation>Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="699"/>
+        <location filename="virtualconsole/vcproperties.ui" line="676"/>
         <source>Input Universe</source>
         <translation>Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="706"/>
+        <location filename="virtualconsole/vcproperties.ui" line="683"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Grand Masterin sisääntulouniversumi.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="716"/>
+        <location filename="virtualconsole/vcproperties.ui" line="693"/>
         <source>Input Channel</source>
         <translation>Sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="723"/>
+        <location filename="virtualconsole/vcproperties.ui" line="700"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Grand Masterin sisääntulokanava.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="746"/>
+        <location filename="virtualconsole/vcproperties.ui" line="723"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Alaskytkettynä voit liikuttaa ulkoista kontrollia kytkeäksesi sen Grand Masteriin.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="749"/>
+        <location filename="virtualconsole/vcproperties.ui" line="726"/>
         <source>Auto Detect</source>
         <translation>Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="762"/>
+        <location filename="virtualconsole/vcproperties.ui" line="739"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Valitse ulkoinen sisääntulouniversumi ja -kanava, jota Grand Masterin tulee totella.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="788"/>
+        <location filename="virtualconsole/vcproperties.ui" line="765"/>
         <source>Slider movement</source>
         <translation type="unfinished">Liu&apos;un liike</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="794"/>
+        <location filename="virtualconsole/vcproperties.ui" line="771"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="801"/>
+        <location filename="virtualconsole/vcproperties.ui" line="778"/>
         <source>Inverted</source>
         <translation type="unfinished">Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="460"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="429"/>
         <source>%1: Unknown</source>
         <translation>%1: Tuntematon</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="476"/>
+        <location filename="virtualconsole/vcpropertieseditor.cpp" line="445"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
@@ -6748,119 +6734,110 @@ Duration: %3
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="109"/>
         <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
+        <translation type="obsolete">Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="115"/>
         <source>Input universe</source>
-        <translation>Sisääntulon universumi</translation>
+        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="122"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumi, josta ohjataan tätä liukua</translation>
+        <translation type="obsolete">Sisääntulon universumi, josta ohjataan tätä liukua</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
         <source>Input channel</source>
-        <translation>Sisääntulon kanava</translation>
+        <translation type="obsolete">Sisääntulon kanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="139"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumin kanava, joka ohjaa tätä liukua</translation>
+        <translation type="obsolete">Sisääntulon universumin kanava, joka ohjaa tätä liukua</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="162"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
         <oldsource>Choose the external input universe &amp; channel that this widget should listen to</oldsource>
-        <translation>Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
+        <translation type="obsolete">Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="165"/>
         <source>Choose...</source>
-        <translation>Valitse...</translation>
+        <translation type="obsolete">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="172"/>
         <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation>Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
+        <translation type="obsolete">Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="175"/>
         <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
+        <translation type="obsolete">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="251"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="199"/>
         <source>Value range</source>
         <translation>Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="257"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="205"/>
         <source>Low limit</source>
         <translation>Alaraja</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="274"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="222"/>
         <source>High limit</source>
         <translation>Yläraja</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="193"/>
         <source>Level</source>
         <translation>Taso</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="264"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="212"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <translation>Alin DMX-arvo, joka tällä liu&apos;ulla voidaan asettaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="437"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="385"/>
         <source>Intensity</source>
         <translation type="unfinished">Intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="458"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="406"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="492"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="440"/>
         <source>Playback</source>
         <translation>Toisto</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="498"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="446"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="504"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="452"/>
         <source>Function that is attached to the slider</source>
         <translation>Liukuun liitetty funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="514"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="462"/>
         <source>Attach a function to the slider</source>
         <translation>Liitä funktio liukuun</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="534"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="482"/>
         <source>Detach the current function from the slider</source>
         <translation>Poista funktio liu&apos;usta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="570"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="518"/>
         <source>Make the slider control a function</source>
         <translation>Aseta liuku ohjaamaan funktiota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="573"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="521"/>
         <source>Switch to Playback Mode</source>
         <translation>Vaihda toisto-tilaan</translation>
     </message>
@@ -6875,153 +6852,153 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="201"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="122"/>
         <source>Widget appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="207"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="128"/>
         <source>Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="224"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="145"/>
         <source>Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="281"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="229"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>Ylin mahdollinen DMX-arvo, joka liu&apos;ulla voidaan asettaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="310"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="258"/>
         <source>Set value range from the selected capability</source>
         <translation>Ota arvot valitusta valaisimen esiasetuksesta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="313"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="261"/>
         <source>From capability</source>
         <translation>Ota esiasetuksesta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="281"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="338"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="286"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="291"/>
         <source>Range</source>
         <translation>Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="301"/>
         <source>Select all channels</source>
         <translation>Valitse kaikki kanavat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="304"/>
         <source>All</source>
         <translation>Kaikki</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="363"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="311"/>
         <source>Unselect everything</source>
         <translation>Poista kaikki valinnat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="366"/>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="375"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="373"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="321"/>
         <source>Invert selection</source>
         <translation>Käännä valinnat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="376"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="324"/>
         <source>Invert</source>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="396"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="344"/>
         <source>Choose channels by channel group</source>
         <translation>Valitse kanavat ryhmän mukaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="347"/>
         <source>By group...</source>
         <translation>Ryhmän mukaan...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
         <source>Monitor the selected channels and update the slider level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="369"/>
         <source>Click &amp;&amp; Go</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="444"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="392"/>
         <source>RGB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
         <source>CMY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="481"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="429"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Aseta liuku ohjaamaan tiettyjen kanavien tasoa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="432"/>
         <source>Switch to Level Mode</source>
         <translation>Vaihda taso-tilaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="581"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="529"/>
         <source>Submaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="587"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="535"/>
         <source>Slider submaster mode is active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="610"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="558"/>
         <source>Make the slider act as a submaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="613"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="561"/>
         <source>Switch to Submaster Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="681"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="630"/>
         <source>Select channels by group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="682"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="631"/>
         <source>Select a channel group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="739"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="688"/>
         <source>No function</source>
         <translation>Ei funktiota</translation>
     </message>
@@ -7042,8 +7019,23 @@ Duration: %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="69"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="76"/>
         <source>Duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="95"/>
+        <source>Divide the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="118"/>
+        <source>Multiply the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="126"/>
+        <source>Reset the current factor to 1x</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7128,201 +7120,201 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="177"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="269"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
+        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="191"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="279"/>
         <source>Input Channel</source>
-        <translation type="unfinished">Sisääntulokanava</translation>
+        <translation type="obsolete">Sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="205"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="289"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="544"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="408"/>
         <source>Auto Detect</source>
         <translation type="unfinished">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="215"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="299"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="534"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="398"/>
         <source>Choose...</source>
         <translation type="unfinished">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="222"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="177"/>
         <source>Range</source>
         <translation type="unfinished">Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="235"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="190"/>
         <source>ms precision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="203"/>
         <source>Tap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="257"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="502"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="308"/>
+        <source>Multiplier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
+        <source>Reset multiplier factor when the dial value changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
         <source>External Input</source>
         <translation type="unfinished">Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="309"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="627"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="491"/>
         <source>Key combination</source>
         <translation type="unfinished">Näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="321"/>
-        <source>Keyboard combination to control the dial tap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="331"/>
-        <source>Set a key combination for this dial</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="351"/>
-        <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="338"/>
         <source>Presets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="483"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="347"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="488"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="385"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="531"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="395"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="405"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="554"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
         <source>The input universe that sends data to this preset button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="564"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="428"/>
         <source>Input channel</source>
         <translation type="unfinished">Sisääntulon kanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="571"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="435"/>
         <source>Input universe</source>
         <translation type="unfinished">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="581"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="445"/>
         <source> Add preset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="592"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="456"/>
         <source> Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="603"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
         <source>Show preset name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="610"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
         <source>Preset name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="642"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="506"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="662"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="526"/>
         <source>Set a key combination for this preset button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="682"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="546"/>
         <source>Keyboard combination that toggles this preset button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="391"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="225"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="397"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>Show plus and minus buttons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="404"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="280"/>
         <source>Show multiplier and divisor buttons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="411"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="238"/>
         <source>Show the central dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
         <source>Show the tap button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="425"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="287"/>
         <source>Show the apply button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
         <source>Show the hours field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="439"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
         <source>Show the minutes field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="446"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="266"/>
         <source>Show the seconds field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="453"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="273"/>
         <source>Show the milliseconds field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="108"/>
+        <source>Multiply by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="117"/>
+        <source>Divide by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="126"/>
+        <source>Factor Reset Input</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7390,7 +7382,7 @@ Duration: %3
         <translation type="unfinished">Tuntematon</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="511"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="512"/>
         <source>This widget has no properties</source>
         <translation>Tällä komponentilla ei ole ominaisuuksia</translation>
     </message>
@@ -7416,7 +7408,7 @@ Duration: %3
 <context>
     <name>VCXYPadArea</name>
     <message>
-        <location filename="virtualconsole/vcxypadarea.cpp" line="258"/>
+        <location filename="virtualconsole/vcxypadarea.cpp" line="302"/>
         <source>Shift: fine, Ctrl:10x</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7473,118 +7465,170 @@ Duration: %3
         <translation>XY-pinnan ominaisuudet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="301"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
+        <source>General</source>
+        <translation type="unfinished">Yleinen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="83"/>
         <source>XY Pad Name</source>
         <translation>XY-pinnan nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="308"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="90"/>
         <source>The name of this XY Pad</source>
         <translation>Muokattavan XY-pinnan nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="124"/>
         <source>Fixtures</source>
         <translation type="unfinished">Valaisimet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="130"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Lista valaisimista, joita voidaan ohjata tällä pinnalla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="55"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="155"/>
         <source>Fixture</source>
         <translation>Valaisin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="60"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="160"/>
         <source>X-Axis</source>
         <translation>X-akseli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="65"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="165"/>
         <source>Y-Axis</source>
         <translation>Y-akseli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="73"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Lisää valaisimia tälle pinnalle</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="193"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Poista valitut valaisimet tältä pinnalta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="113"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="213"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Muokkaa valitun valaisimen akseleita</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="147"/>
-        <source>Input</source>
-        <translation type="unfinished">Sisääntulo</translation>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
+        <source>Presets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="153"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
+        <source>Name</source>
+        <translation type="unfinished">Nimi</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
+        <source>Add position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
+        <source>Add EFX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
+        <source>Add Scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
+        <source>Remove</source>
+        <translation type="unfinished">Poista</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
+        <source>Preset name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input</source>
+        <translation type="obsolete">Sisääntulo</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="79"/>
         <source>Pan / Horizontal Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="159"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
+        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
-        <translation type="unfinished">Sisääntulon kanava</translation>
+        <translation type="obsolete">Sisääntulon kanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="200"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
+        <translation type="obsolete">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="210"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
+        <translation type="obsolete">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="220"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="92"/>
         <source>Tilt / Vertical Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="315"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="97"/>
         <source>Y-Axis slider movement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="321"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="103"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="331"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="113"/>
         <source>Inverted</source>
         <translation type="unfinished">Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="238"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="105"/>
+        <source>Width</source>
+        <translation type="unfinished">Leveys</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="113"/>
+        <source>Height</source>
+        <translation type="unfinished">Korkeus</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="328"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="239"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="329"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="555"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="556"/>
+        <source>The selected Scene does not include any Pan or Tilt channel.
+Please select one with such channels.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7728,229 +7772,229 @@ Duration: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="369"/>
         <source>Cut</source>
         <translation>Leikkaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="373"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="372"/>
         <source>Copy</source>
         <translation>Kopioi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="376"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="375"/>
         <source>Paste</source>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="380"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="379"/>
         <source>Delete</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="406"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="420"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="433"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="405"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="432"/>
         <source>Default</source>
         <translation>Oletus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="430"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="429"/>
         <source>Font</source>
         <translation type="unfinished">Kirjasin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="443"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="442"/>
         <source>Sunken</source>
         <translation>Upotettu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="446"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="445"/>
         <source>Raised</source>
         <translation>Nostettu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="449"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="448"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="477"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="476"/>
         <source>&amp;Add</source>
         <translation>&amp;Lisää</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="498"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="497"/>
         <source>&amp;Edit</source>
         <translation>&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="301"/>
         <source>New Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="307"/>
         <source>New Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="313"/>
         <source>New Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Speed Dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="319"/>
         <source>New XY pad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="322"/>
         <source>New Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="332"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
         <source>New Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="334"/>
         <source>New Audio Triggers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="338"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="337"/>
         <source>New Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="363"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="362"/>
         <source>Virtual Console Settings</source>
         <translation type="unfinished">Virtuaalikonsolin asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="383"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Widget Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="386"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Rename Widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="400"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="402"/>
         <source>Background Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="417"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="416"/>
         <source>Font Colour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="460"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="459"/>
         <source>Bring to front</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="463"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="462"/>
         <source>Send to back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="510"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="509"/>
         <source>&amp;Background</source>
         <translation>T&amp;austa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="518"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="517"/>
         <source>&amp;Foreground</source>
         <translation>E&amp;dusta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="525"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="524"/>
         <source>F&amp;ont</source>
         <translation>&amp;Kirjasin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="532"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="531"/>
         <source>F&amp;rame</source>
         <translation>K&amp;ehys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="540"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="539"/>
         <source>Stacking &amp;order</source>
         <translation>Pinoamis&amp;järjestys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1259"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1258"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="304"/>
         <source>New Button Matrix</source>
         <translation type="unfinished">Uusi nappimatriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="310"/>
         <source>New Slider Matrix</source>
         <translation type="unfinished">Uusi liukumatriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="341"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="881"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="880"/>
         <source>Knob %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1150"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1149"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Haluatko poistaa valitut komponentit?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1151"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1150"/>
         <source>Delete widgets</source>
         <translation>Poista komponentit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1203"/>
         <source>Rename widgets</source>
         <translation>Nimeä komponentit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1204"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1203"/>
         <source>Caption:</source>
         <translation>Teksti:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1257"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1256"/>
         <source>Select background image</source>
         <translation>Valitse taustakuva</translation>
     </message>
