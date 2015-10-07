@@ -11,42 +11,42 @@
     <message>
         <location filename="configuree131.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des univers</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="37"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>Multicast</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicast</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Addresse IP</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="62"/>
         <source>E1.31 Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers E1.31</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="67"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de transmission</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="72"/>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorité</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -56,38 +56,39 @@
     <message>
         <location filename="configuree131.cpp" line="86"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrées</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="92"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="176"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Complète</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="177"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Partielle</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="185"/>
         <source>%1 - min, %2 - default, %3 - max</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - min, %2 - défaut, %3 - max</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP invalide</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 n&apos;est pas une IP valide.
+Veuillez la corriger avant de valider.</translation>
     </message>
 </context>
 <context>
@@ -95,7 +96,7 @@ Please fix it before confirming.</source>
     <message>
         <location filename="e131plugin.cpp" line="78"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
-        <translation>Ce plugin permet le support des périphériques supportant le protocole E1.31.</translation>
+        <translation>Ce plugin offre le support des périphériques supportant le protocole E1.31.</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="110"/>
