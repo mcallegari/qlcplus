@@ -194,6 +194,9 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(true);
     m_descriptionEdit->blockSignals(true);
 
+    m_minSpin->setRange(m_currentCapability->min(), m_currentCapability->max());
+    m_maxSpin->setRange(m_currentCapability->min(), m_currentCapability->max());
+
     m_minSpin->setValue(m_currentCapability->min());
     m_maxSpin->setValue(m_currentCapability->max());
     m_descriptionEdit->setText(m_currentCapability->name());
@@ -285,20 +288,32 @@ void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem* item)
 void EditChannel::slotAddCapabilityClicked()
 {
     uchar minFound = 0;
+    uchar maxFound = UCHAR_MAX;
+    int idx = 0;
 
     foreach(QLCCapability *cap, m_channel->capabilities())
     {
+        if (cap->min() > minFound + 1)
+        {
+            maxFound = cap->min() - 1;
+            break;
+        }
         if (cap->max() > minFound)
             minFound = cap->max() + 1;
+        idx++;
     }
 
     m_currentCapability = new QLCCapability();
     m_currentCapability->setMin(minFound);
-    m_currentCapability->setMax(UCHAR_MAX);
-    m_channel->addCapability(m_currentCapability);
+    m_currentCapability->setMax(maxFound);
+    if (m_channel->addCapability(m_currentCapability) == false)
+    {
+        delete m_currentCapability;
+        m_currentCapability = NULL;
+        return;
+    }
     refreshCapabilities();
-    m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(m_capabilityList->topLevelItemCount() - 1));
-
+    m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(idx));
     setupCapabilityGroup();
 }
 
