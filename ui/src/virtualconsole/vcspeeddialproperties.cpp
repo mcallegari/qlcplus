@@ -100,6 +100,14 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tapInputWidget->show();
     m_tapInputLayout->addWidget(m_tapInputWidget);
 
+    /* Apply input */
+    m_applyInputWidget = new InputSelectionWidget(m_doc);
+    m_applyInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::applyInputSourceId));
+    m_applyInputWidget->setWidgetPage(m_dial->page());
+    m_applyInputWidget->setKeySequence(dial->applyKeySequence());
+    m_applyInputWidget->show();
+    m_applyInputLayout->addWidget(m_applyInputWidget);
+
     // Mult/Div options
     m_resetFactorOnDialChangeCb->setChecked(m_dial->resetFactorOnDialChange());
 
@@ -203,6 +211,9 @@ void VCSpeedDialProperties::accept()
 
     m_dial->setInputSource(m_tapInputWidget->inputSource(), VCSpeedDial::tapInputSourceId);
     m_dial->setTapKeySequence(m_tapInputWidget->keySequence());
+
+    m_dial->setInputSource(m_applyInputWidget->inputSource(), VCSpeedDial::applyInputSourceId);
+    m_dial->setApplyKeySequence(m_applyInputWidget->keySequence());
 
     // Mult & Div
     m_dial->setResetFactorOnDialChange(m_resetFactorOnDialChangeCb->isChecked());
