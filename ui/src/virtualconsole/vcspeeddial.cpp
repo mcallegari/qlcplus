@@ -575,11 +575,20 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
         m_dial->setValue(ms, true);
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
+    {
+      if (value != 0)
         slotMult();
+    }
     else if (checkInputSource(universe, pagedCh, value, sender(), divInputSourceId))
+    {
+      if (value != 0)
         slotDiv();
+    }
     else if (checkInputSource(universe, pagedCh, value, sender(), multDivResetInputSourceId))
+    {
+      if (value != 0)
         slotMultDivReset();
+    }
     else
     {
         for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
