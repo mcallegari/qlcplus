@@ -167,8 +167,6 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
             this, SLOT(slotAddPresetClicked()));
     connect(m_removePresetButton, SIGNAL(clicked()),
             this, SLOT(slotRemovePresetClicked()));
-    connect(m_showPresetNameCb, SIGNAL(clicked()),
-            this, SLOT(slotShowPresetNameClicked()));
     connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)),
             this, SLOT(slotPresetNameEdited(QString const&)));
 
@@ -456,21 +454,8 @@ void VCSpeedDialProperties::slotTreeSelectionChanged()
     {
         updatePresetInputSource(preset->m_inputSource);
         m_presetKeyEdit->setText(preset->m_keySequence.toString(QKeySequence::NativeText));
-        m_showPresetNameCb->blockSignals(true);
-        m_showPresetNameCb->setChecked(preset->m_showName);
-        m_showPresetNameCb->blockSignals(false);
         m_presetNameEdit->setText(preset->m_name);
         m_speedDialWidget->setValue(preset->m_value);
-    }
-}
-
-void VCSpeedDialProperties::slotShowPresetNameClicked()
-{
-    VCSpeedDialPreset* preset = getSelectedPreset();
-
-    if (preset != NULL)
-    {
-        preset->m_showName = m_showPresetNameCb->isChecked();
     }
 }
 
@@ -492,6 +477,13 @@ void VCSpeedDialProperties::slotSpeedDialWidgetValueChanged(int ms)
 
     if (preset != NULL)
     {
+        if (Function::stringToSpeed(preset->m_name) == uint(preset->m_value))
+        {
+            preset->m_name = Function::speedToString(ms);
+            m_presetNameEdit->blockSignals(true);
+            m_presetNameEdit->setText(preset->m_name);
+            m_presetNameEdit->blockSignals(false);
+        }
         preset->m_value = ms;
 
         updateTreeItem(*preset);

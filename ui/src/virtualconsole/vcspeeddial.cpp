@@ -87,7 +87,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_dial->setValue(var.toUInt());
 
-    // Multiplier, factor and and divider box
+    // Multiplier, factor, divider and reset box
     QHBoxLayout* multFactorDivHBox = new QHBoxLayout();
 
     m_divButton = new QToolButton();
@@ -136,6 +136,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
 
     // Apply button
     m_applyButton = new QPushButton();
+    m_applyButton->setStyleSheet(presetBtnSS.arg("#DDDDDD"));
     m_applyButton->setText(tr("Apply"));
     m_applyButton->setToolTip(tr("Send the current value to the function now"));
     connect(m_applyButton, SIGNAL(clicked()),
@@ -351,8 +352,7 @@ void VCSpeedDial::addPreset(VCSpeedDialPreset const& preset)
         presetButton->setMinimumWidth(36);
         presetButton->setMaximumWidth(80);
         presetButton->setFocusPolicy(Qt::TabFocus);
-        QString btnLabel = preset.m_showName ?
-            preset.m_name : Function::speedToString(preset.m_value);
+        QString btnLabel = preset.m_name;
         presetButton->setToolTip(btnLabel);
         presetButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
     }
@@ -774,7 +774,6 @@ static QSharedPointer<VCSpeedDialPreset> createInfinitePreset()
     QSharedPointer<VCSpeedDialPreset> infinitePreset(new VCSpeedDialPreset(16));
     infinitePreset->m_value = Function::infiniteSpeed();
     infinitePreset->m_name = Function::speedToString(Function::infiniteSpeed());
-    infinitePreset->m_showName = true;
     return infinitePreset;
 }
 

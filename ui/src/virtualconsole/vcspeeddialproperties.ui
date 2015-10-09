@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
+    <width>551</width>
     <height>612</height>
    </rect>
   </property>
@@ -337,6 +337,12 @@
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
         </spacer>
        </item>
       </layout>
@@ -447,18 +453,7 @@
            </layout>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="m_addPresetButton">
-           <property name="text">
-            <string> Add preset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
+         <item row="1" column="1" colspan="2">
           <widget class="QPushButton" name="m_removePresetButton">
            <property name="text">
             <string> Remove</string>
@@ -469,25 +464,18 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QCheckBox" name="m_showPresetNameCb">
+         <item row="0" column="1" colspan="2">
+          <widget class="QPushButton" name="m_addPresetButton">
            <property name="text">
-            <string>Show preset name</string>
+            <string> Add preset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="m_presetNameEdit">
-           <property name="toolTip">
-            <string>Preset name</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="SpeedDial" name="m_speedDialWidget">
-          </widget>
-         </item>
-         <item row="9" column="1">
+         <item row="9" column="1" colspan="2">
           <widget class="QGroupBox" name="groupBox_8">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -561,6 +549,29 @@
            </layout>
           </widget>
          </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Preset Name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="m_presetNameEdit">
+           <property name="toolTip">
+            <string>Preset name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" colspan="2">
+          <widget class="SpeedDial" name="m_speedDialWidget" native="true"/>
+         </item>
         </layout>
        </item>
       </layout>
@@ -579,6 +590,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SpeedDial</class>
+   <extends>QWidget</extends>
+   <header>speeddial.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../qlcui.qrc"/>
   <include location="../qlcui.qrc"/>

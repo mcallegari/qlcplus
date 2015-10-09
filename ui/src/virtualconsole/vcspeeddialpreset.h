@@ -34,7 +34,6 @@ class QDomElement;
 #define KXMLQLCVCSpeedDialPreset         "Preset"
 #define KXMLQLCVCSpeedDialPresetID       "ID"
 #define KXMLQLCVCSpeedDialPresetName     "Name"
-#define KXMLQLCVCSpeedDialPresetShowName "ShowName"
 #define KXMLQLCVCSpeedDialPresetValue    "Value"
 
 #define KXMLQLCVCSpeedDialPresetInput         "Input"
@@ -74,7 +73,6 @@ public:
 
     /** The preset name */
     QString m_name;
-    bool m_showName;
 
     /** The preset value */
     int m_value;
