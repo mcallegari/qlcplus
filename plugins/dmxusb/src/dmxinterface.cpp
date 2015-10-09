@@ -80,7 +80,8 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
     if (product != DMXInterface::FTDIPID &&
         product != DMXInterface::DMX4ALLPID &&
         product != DMXInterface::NANODMXPID &&
-        product != DMXInterface::EUROLITEPID)
+        product != DMXInterface::EUROLITEPID &&
+        product != DMXInterface::ELECTROTASPID)
             return false;
 
     return true;
