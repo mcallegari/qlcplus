@@ -7375,7 +7375,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
         <source>Show plus and minus buttons</source>
-        <translation>Mostra els botons mes i menys</translation>
+        <translation>Mostra els botons Mes i Menys</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="280"/>
@@ -7390,7 +7390,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
         <source>Show the tap button</source>
-        <translation>Mostra el botó tap</translation>
+        <translation>Mostra el botó Tap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="287"/>
@@ -7400,7 +7400,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
         <source>Show the hours field</source>
-        <translation>Mostra el camp d&apos;hores</translation>
+        <translation>Mostra el camp hores</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
@@ -7424,17 +7424,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="108"/>
         <source>Multiply by 2 Input</source>
-        <translation>Multiplicar per 2 l&apos;Entrada</translation>
+        <translation>Entrada del Multiplicador per 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="117"/>
         <source>Divide by 2 Input</source>
-        <translation>Dividir per 2 l&apos;Entrada</translation>
+        <translation>Entrada del DIvisor per 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="126"/>
         <source>Factor Reset Input</source>
-        <translation>Reiniciar Factor d&apos;Entrada</translation>
+        <translation>Entrada de Reinici de Factor</translation>
     </message>
 </context>
 <context>
