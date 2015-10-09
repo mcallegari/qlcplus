@@ -97,7 +97,6 @@ protected slots:
     void slotTreeSelectionChanged();
     void slotAddPresetClicked();
     void slotRemovePresetClicked();
-    void slotShowPresetNameClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotSpeedDialWidgetValueChanged(int ms);
 
