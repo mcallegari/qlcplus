@@ -40,6 +40,7 @@ const quint8 VCSpeedDial::tapInputSourceId = 1;
 const quint8 VCSpeedDial::multInputSourceId = 2;
 const quint8 VCSpeedDial::divInputSourceId = 3;
 const quint8 VCSpeedDial::multDivResetInputSourceId = 4;
+const quint8 VCSpeedDial::applyInputSourceId = 5;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
 static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
@@ -133,6 +134,14 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     // Update labels
     slotMultDivChanged();
 
+    // Apply button
+    m_applyButton = new QPushButton();
+    m_applyButton->setText(tr("Apply"));
+    m_applyButton->setToolTip(tr("Send the current value to the function now"));
+    connect(m_applyButton, SIGNAL(clicked()),
+            this, SLOT(slotFactoredValueChanged()));
+    vBox->addWidget(m_applyButton);
+
     // Presets
     m_presetsLayout = new FlowLayout(3);
     vBox->addLayout(m_presetsLayout);
@@ -166,6 +175,9 @@ void VCSpeedDial::enableWidgetUI(bool enable)
     m_multButton->setEnabled(enable);
     m_divButton->setEnabled(enable);
     m_multDivResetButton->setEnabled(enable);
+
+    // Apply
+    m_applyButton->setEnabled(enable);
 
     // Presets enable
     foreach (QWidget *presetWidget, m_presets.keys())
@@ -209,6 +221,7 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
     setMultKeySequence(dial->multKeySequence());
     setDivKeySequence(dial->divKeySequence());
     setMultDivResetKeySequence(dial->multDivResetKeySequence());
+    setApplyKeySequence(dial->applyKeySequence());
 
     resetPresets();
     foreach (VCSpeedDialPreset const* preset, dial->presets())
@@ -576,18 +589,23 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), multInputSourceId))
     {
-      if (value != 0)
-        slotMult();
+        if (value != 0)
+            slotMult();
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), divInputSourceId))
     {
-      if (value != 0)
-        slotDiv();
+        if (value != 0)
+            slotDiv();
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), multDivResetInputSourceId))
     {
-      if (value != 0)
-        slotMultDivReset();
+        if (value != 0)
+            slotMultDivReset();
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), applyInputSourceId))
+    {
+        if (value != 0)
+            slotFactoredValueChanged();
     }
     else
     {
@@ -652,6 +670,16 @@ QKeySequence VCSpeedDial::multDivResetKeySequence() const
     return m_multDivResetKeySequence;
 }
 
+void VCSpeedDial::setApplyKeySequence(const QKeySequence& keySequence)
+{
+    m_applyKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::applyKeySequence() const
+{
+    return m_applyKeySequence;
+}
+
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (isEnabled() == false)
@@ -666,6 +694,8 @@ void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
         slotDiv();
     if (m_multDivResetKeySequence == keySequence)
         slotMultDivReset();
+    if (m_applyKeySequence == keySequence)
+        slotFactoredValueChanged();
 
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
@@ -726,6 +756,11 @@ void VCSpeedDial::setVisibilityMask(quint32 mask)
         m_multDivResetButton->hide();
         m_multDivResultLabel->hide();
     }
+
+    if (mask & Apply)
+        m_applyButton->show();
+    else
+        m_applyButton->hide();
 
     m_visibilityMask = mask;
 }
@@ -896,6 +931,25 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 sub = sub.nextSibling();
             }
         }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialApply)
+        {
+            // Input
+            QDomNode sub = node.firstChild();
+            while (sub.isNull() == false)
+            {
+                QDomElement subtag = sub.toElement();
+                if (subtag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    loadXMLInput(subtag, applyInputSourceId);
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown apply tag:" << tag.tagName();
+                }
+
+                sub = sub.nextSibling();
+            }
+        }
         else if (tag.tagName() == KXMLQLCVCSpeedDialTapKey)
         {
             setTapKeySequence(stripKeySequence(QKeySequence(tag.text())));
@@ -911,6 +965,10 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCSpeedDialMultDivResetKey)
         {
             setMultDivResetKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialApplyKey)
+        {
+            setApplyKeySequence(stripKeySequence(QKeySequence(tag.text())));
         }
         else if (tag.tagName() == KXMLQLCVCSpeedDialInfinite)
         {
@@ -1067,6 +1125,11 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &multDivReset, inputSource(multDivResetInputSourceId));
     root.appendChild(multDivReset);
 
+    /* Apply input */
+    QDomElement apply = doc->createElement(KXMLQLCVCSpeedDialApply);
+    saveXMLInput(doc, &apply, inputSource(applyInputSourceId));
+    root.appendChild(apply);
+
     /* Save time */
     QDomElement time = doc->createElement(KXMLQLCVCSpeedDialTime);
     root.appendChild(time);
@@ -1106,6 +1169,15 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
         QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialMultDivResetKey);
         root.appendChild(tag);
         QDomText text = doc->createTextNode(m_multDivResetKeySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* MultDiv Reset key sequence */
+    if (m_applyKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialApplyKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_applyKeySequence.toString());
         tag.appendChild(text);
     }
 
