@@ -24,6 +24,7 @@
 #include <QDesktopWidget>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QPalette>
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
@@ -180,6 +181,7 @@ void VideoWidget::slotPlaybackVideo()
     if (m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
+        m_videoWidget->setStyleSheet("background-color:black;");
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
 
