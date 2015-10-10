@@ -233,6 +233,7 @@ QString Video::sourceUrl()
 void Video::setScreen(int index)
 {
     m_screen = index;
+    emit changed(id());
 }
 
 int Video::screen()
@@ -243,6 +244,7 @@ int Video::screen()
 void Video::setFullscreen(bool enable)
 {
     m_fullscreen = enable;
+    emit changed(id());
 }
 
 bool Video::fullscreen()

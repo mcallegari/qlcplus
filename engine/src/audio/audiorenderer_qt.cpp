@@ -205,10 +205,6 @@ void AudioRendererQt::run()
             qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
             return;
         }
-
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    m_output->write(QByteArray(2048, 0));
-#endif
     }
     AudioRenderer::run();
 }

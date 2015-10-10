@@ -24,7 +24,6 @@
 #include <QDesktopWidget>
 #include <QMediaPlayer>
 #include <QVideoWidget>
-#include <QPalette>
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
@@ -195,19 +194,15 @@ void VideoWidget::slotPlaybackVideo()
             m_videoWidget->setGeometry(0, 50, 640, 480);
         else
             m_videoWidget->setGeometry(0, 50, resolution.width(), resolution.height());
+        m_videoWidget->move(rect.topLeft());
+        m_videoWidget->setFullScreen(false);
     }
     else
     {
         m_videoWidget->setGeometry(rect);
-    }
-
-    if (screen > 0 && getScreenCount() > screen)
-    {
         m_videoWidget->move(rect.topLeft());
-    }
-
-    if (m_video->fullscreen() == true)
         m_videoWidget->setFullScreen(true);
+    }
 
     if (m_videoPlayer->isSeekable())
         m_videoPlayer->setPosition(m_video->elapsed());
@@ -226,7 +221,10 @@ void VideoWidget::slotStopVideo()
         m_videoPlayer->stop();
 
     if (m_videoWidget != NULL)
+    {
+        m_videoWidget->setFullScreen(false);
         m_videoWidget->hide();
+    }
 
     if (m_video->isRunning())
         m_video->stop();
