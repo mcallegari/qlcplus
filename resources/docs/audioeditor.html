@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Audio Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Audio Editor</H1>
+<P>
+The audio editor, as its name suggests, is used to edit
+<IMG SRC="qrc:/audio.png" align="absmiddle"> <A HREF="file:concept.html#Audio">Audio</A> functions.<br>
+It offers basic controls and shows information about the attached audio file.
+</P>
+
+<H2>Controls</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <img src="qrc:/player_play.png" />
+  </TD>
+  <TD>
+    Start/stop the audio file playback. If the file doesn't exist, this button will have no effect
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Audio name</B>
+  </TD>
+  <TD>
+   Change the name of the Audio function. By default this is set with the file name, until it is manually changed.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>File name</B>
+  </TD>
+  <TD>
+   Displays the absolute path of the current file attached to this Audio function. The source file can
+   be changed by clicking on the "..." button on the right side.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Duration</B>
+  </TD>
+  <TD>
+   Displays the audio file duration in the typical QLC+ way. For example: 04m14s.22.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Channels</B>
+  </TD>
+  <TD>
+   Displays the number of channels detected from the attached audio file. 2 means stereo and 1 means mono.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Sample Rate</B>
+  </TD>
+  <TD>
+   Displays the sample frequency of the attached audio file, in Hertz. For example: 44100Hz, 48000Hz, etc 
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Bitrate</B>
+  </TD>
+  <TD>
+   Displays the bitrate of the attached audio file, in Kb/s. Audio files can have a constant bitrate (CBR) or
+   a variable bitrate (VBR). In the latter case, an average bitrate is displayed.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <img src="qrc:/speed.png" />
+  </TD>
+  <TD>
+    Show/Hide the Speed Dial widget, used to facilitate the audio fade in/out parameters tuning
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fade In</B>
+  </TD>
+  <TD>
+    Text box to enter a fade in time for the audio playback. Times can be entered in a QLC+ way (e.g. 3s.55)
+    or in seconds (e.g. entering '2' and pressing Enter will turn into 02s.00)
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fade Out</B>
+  </TD>
+  <TD>
+    Text box to enter a fade out time for the audio playback. Times can be entered like in the Fade In box
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Audio Device</B>
+  </TD>
+  <TD>
+    Select a specific audio output device to be used to play the attached audio file.
+    This list is the same you can find in the <A HREF="file:audio-input-output.html">Audio Input/Output panel</A>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML> 

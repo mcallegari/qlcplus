@@ -33,6 +33,8 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   rgbmatrixeditor.html \
   rgbscriptapi.html \
   scripteditor.html \
+  audioeditor.html \
+  videoeditor.html \
   functionwizard.html \
   selectfunction.html \
   selectfixture.html \
