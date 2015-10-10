@@ -667,7 +667,7 @@ void VCXYPad::slotPresetClicked(bool checked)
 
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
-            sChan.m_channel = fixture->universeAddress() + scv.channel;
+            sChan.m_channel = fixture->address() + scv.channel;
             sChan.m_group = ch->group();
             sChan.m_subType = ch->controlByte();
             m_sceneChannels.append(sChan);
