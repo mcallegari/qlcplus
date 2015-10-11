@@ -461,17 +461,17 @@
         <translation>Effetto</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Valori in soprapposizione</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation>Apri file di gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation>Immagini gobo</translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="obsolete">I valori delle proprietà si sovrappongono con altre proprietà!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Alcune proprietà non possono essere create in quanto ci sono valori in sovrapposizione.</translation>
     </message>

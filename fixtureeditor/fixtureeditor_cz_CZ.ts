@@ -461,17 +461,17 @@
         <translation type="unfinished">Efekt</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Hodnoty se překrývají</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation type="unfinished">Otevřít soubor Gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation type="unfinished">Gobo obrázky</translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="obsolete">Hodnoty funkce se překrývají s hodnotami jiných funkcí!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Některá funkce nemůže být vytvořena z důvodu překryvu některých hodnot.</translation>
     </message>

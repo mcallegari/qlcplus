@@ -467,17 +467,17 @@
         <translation type="unfinished">Effect</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Overlappende waarden</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation type="unfinished">Open Gobo afbeelding</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation type="unfinished">Gobo-afbeeldingen</translation>
     </message>
@@ -486,7 +486,7 @@
         <translation type="obsolete">De waarden van deze capability overlappen die van een andere capability!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Sommige capabilities konden niet worden aangemaakt wegens overlappende waarden.</translation>
     </message>

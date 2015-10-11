@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl_NL">
+<TS version="2.0" language="nl_NL">
 <context>
     <name>WebAccess</name>
     <message>
@@ -29,53 +29,53 @@
         <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="721"/>
-        <location filename="webaccess.cpp" line="762"/>
+        <location filename="webaccess.cpp" line="731"/>
+        <location filename="webaccess.cpp" line="781"/>
         <source>Page</source>
         <translation>Pagina</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="900"/>
+        <location filename="webaccess.cpp" line="919"/>
         <source>Enable</source>
         <translation>Inschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="930"/>
+        <location filename="webaccess.cpp" line="949"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="931"/>
+        <location filename="webaccess.cpp" line="950"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="932"/>
+        <location filename="webaccess.cpp" line="951"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="933"/>
+        <location filename="webaccess.cpp" line="952"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="934"/>
+        <location filename="webaccess.cpp" line="953"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1161"/>
+        <location filename="webaccess.cpp" line="1180"/>
         <source>Load project</source>
         <translation>Project laden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1163"/>
+        <location filename="webaccess.cpp" line="1182"/>
         <source>Simple Desk</source>
         <translation>Eenvoudig paneel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1165"/>
+        <location filename="webaccess.cpp" line="1184"/>
         <source>Configuration</source>
         <translation>Configuratie</translation>
     </message>

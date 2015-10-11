@@ -461,17 +461,17 @@
         <translation type="unfinished">エフェクト</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>DMX値の重複</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation type="unfinished">ゴボファイルを開く</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation type="unfinished">ゴボ画像</translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="obsolete">そのDMX値は他の機能のDMX値と重複しています。</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>DMX値の重複により、作成できなかった機能があります。</translation>
     </message>

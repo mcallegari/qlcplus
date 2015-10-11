@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.0" language="de_DE">
 <context>
     <name>WebAccess</name>
     <message>
@@ -29,53 +29,53 @@
         <translation>Assistent wird (zur Zeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="721"/>
-        <location filename="webaccess.cpp" line="762"/>
+        <location filename="webaccess.cpp" line="731"/>
+        <location filename="webaccess.cpp" line="781"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="900"/>
+        <location filename="webaccess.cpp" line="919"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="930"/>
+        <location filename="webaccess.cpp" line="949"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="931"/>
+        <location filename="webaccess.cpp" line="950"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="932"/>
+        <location filename="webaccess.cpp" line="951"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="933"/>
+        <location filename="webaccess.cpp" line="952"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="934"/>
+        <location filename="webaccess.cpp" line="953"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1161"/>
+        <location filename="webaccess.cpp" line="1180"/>
         <source>Load project</source>
         <translation>Lade Projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1163"/>
+        <location filename="webaccess.cpp" line="1182"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1165"/>
+        <location filename="webaccess.cpp" line="1184"/>
         <source>Configuration</source>
         <translation>Einstellungen</translation>
     </message>
