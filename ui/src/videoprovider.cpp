@@ -177,30 +177,12 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 
 void VideoWidget::slotPlaybackVideo()
 {
-/*
-    if (m_videoWidget != NULL)
-    {
-        //m_videoWidget->deleteLater();
-        delete m_videoWidget;
-        m_videoWidget = NULL;
-    }
-*/
     if (m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
+        m_videoWidget->setStyleSheet("background-color:black;");
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
-    else
-    {
-        m_videoWidget->show();
-    }
-
-    //m_videoWidget->moveToThread(QCoreApplication::instance()->thread());
-
-    if (m_video->getStartTime() != UINT_MAX)
-        m_videoPlayer->setPosition(m_video->getStartTime());
-    else
-        m_videoPlayer->setPosition(0);
 
     int screen = m_video->screen();
     QRect rect = qApp->desktop()->screenGeometry(screen);
@@ -212,23 +194,25 @@ void VideoWidget::slotPlaybackVideo()
             m_videoWidget->setGeometry(0, 50, 640, 480);
         else
             m_videoWidget->setGeometry(0, 50, resolution.width(), resolution.height());
+        m_videoWidget->move(rect.topLeft());
+        m_videoWidget->setFullScreen(false);
     }
     else
     {
         m_videoWidget->setGeometry(rect);
-    }
-
-    if (screen > 0 && getScreenCount() > screen)
-    {
         m_videoWidget->move(rect.topLeft());
+        m_videoWidget->setFullScreen(true);
     }
 
-    if (m_video->fullscreen() == true)
-        m_videoWidget->setFullScreen(true);
+    if (m_videoPlayer->isSeekable())
+        m_videoPlayer->setPosition(m_video->elapsed());
+    else
+        m_videoPlayer->setPosition(0);
 
     m_videoWidget->show();
 
     m_videoPlayer->play();
+
 }
 
 void VideoWidget::slotStopVideo()
@@ -237,7 +221,10 @@ void VideoWidget::slotStopVideo()
         m_videoPlayer->stop();
 
     if (m_videoWidget != NULL)
+    {
+        m_videoWidget->setFullScreen(false);
         m_videoWidget->hide();
+    }
 
     if (m_video->isRunning())
         m_video->stop();

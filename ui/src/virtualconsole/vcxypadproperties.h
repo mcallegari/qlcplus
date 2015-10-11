@@ -24,10 +24,12 @@
 
 #include "ui_vcxypadproperties.h"
 #include "vcxypadfixture.h"
+#include "dmxsource.h"
 
 class InputSelectionWidget;
 class VCXYPadPreset;
 class VCXYPadArea;
+class MasterTimer;
 class VCXYPad;
 class Doc;
 
@@ -35,7 +37,7 @@ class Doc;
  * @{
  */
 
-class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties
+class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPadProperties)
@@ -84,6 +86,10 @@ private slots:
     /********************************************************************
      * Presets
      ********************************************************************/
+public:
+    /** @reimp */
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+
 private:
     void updatePresetsTree();
     void updateTreeItem(VCXYPadPreset const& preset);

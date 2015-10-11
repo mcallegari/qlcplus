@@ -17,18 +17,80 @@ more straightforward one: The user directly selects a set of functions whose spe
 controlled with the dial, thus removing the need for buses in the middle.
 </P>
 
+<br>
+The widget is displayed as following:<br>
+
+<IMG SRC="file:images/speeddial.png" />
+
+<H3>Widget elements</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>(1) Time control buttons</B></TD>
+  <TD>The plus and minus buttons increment or decrement by one the currently focused time field of <B>(4)</B>. 
+      By default the focused field is centiseconds</TD>
+ </TR>
+ <TR>
+  <TD><B>(2) Dial</B></TD>
+  <TD>The dial can be manually rotated indefinitely to adjust the current focused time field of <B>(4)</B>.
+      By default the focused field is centiseconds</TD>
+ </TR>
+ <TR>
+  <TD><B>(3) Tap Button</B></TD>
+  <TD>The tap button sets the Speed Dial time value to the interval between the button press/release actions.
+      The faster it will be pressed, the lower the time value will be</TD>
+ </TR>
+ <TR>
+  <TD><B>(4) Time fields</B></TD>
+  <TD>The 4 time fields display the current time value of the Speed Dial and they can be adjusted individually
+      either by entering a number with a keyboard, or by using the time controls buttons <B>(1)</B>, the
+      dial <B>(2)</B>, the tap button <B>(3)</B> or presets <B>(11)</B>.
+  </TD>
+ <TR>
+  <TD><B>(5) Divider button</B></TD>
+  <TD>Divide the current time factor by 2 and apply it to the current Speed Dial time.<br>
+  A factor lower than 1x will become a fraction like 1/2x, 1/4x, etc</TD>
+ </TR>
+ <TR>
+  <TD><B>(6) Time factor</B></TD>
+  <TD>Displays the current factor multiplied by the time currently displayed in <B>(4)</B>.<br>
+  A factor lower than 1x is a divider. Example: time = 8s.28, factor = 1/4x, result = 02s.07 </TD>
+ </TR>
+ <TR>
+  <TD><B>(7) Multiplier button</B></TD>
+  <TD>Multiply the current time factor by 2 and apply it to the current Speed Dial time.</TD>
+ </TR>
+ <TR>
+  <TD><B>(8) Reset button</B></TD>
+  <TD>Reset the current time factor to 1x and apply it to the current Speed Dial time.</TD>
+ </TR>
+ <TR>
+  <TD><B>(9) Factored time</B></TD>
+  <TD>Displays the result of the Speed Dial time multiplied by the current time factor <B>(6)</B></TD>
+ </TR>
+ <TR>
+  <TD><B>(10) Apply button</B></TD>
+  <TD>Applies the current Speed Dial time to the Functions associated. This is useful when multiple
+      Speed Dials are present in a Virtual Console</TD>
+ </TR>
+ <TR>
+  <TD><B>(11) Preset buttons</B></TD>
+  <TD>This area displays the time presets, if present, added by the user</TD>
+ </TR>
+</TABLE>
+
 <H3>Operation</H3>
 
 <P>
-The speed dial itself looks and works just the same as the speed dials in various function
-editors: There is a <B>big dial</B> in the middle that increases the time when rotated clockwise
+The speed dial itself looks and works just as the same as the speed dials in various function
+editors: There is a <B>big dial (2)</B> in the middle that increases the time when rotated clockwise
 and decreases it when rotated counter-clockwise. The plus
 <IMG SRC="qrc:/edit_add.png" HEIGHT="16"/> and minus
-<IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> buttons are an alternative way of adjusting the speed.
+<IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> buttons <B>(1)</B> are an alternative way of adjusting the speed.
 </P>
 
 <P>
-The <B>current time</B> value is displayed in four parts. When any of these fields is clicked,
+The <B>current time</B> value  <B>(4)</B> is displayed in four parts. When any of these fields is clicked,
 the dial and the plus/minus buttons will increase/decrease that unit of time. The mouse
 wheel can also be used instead of the dial/buttons and the fields also accept values entered
 on the numeric keypad.
@@ -39,19 +101,12 @@ on the numeric keypad.
 </P>
 
 <P>
-Clicking an <B>infinite</B> button disables all of the dial's controls and sets the
-currently adjusted functions' speed to infinity. For example, with a 
-<A HREF="file:concept.html#Chaser">Chaser</A>, an infinite duration means that it will never
-switch to the next step unless manually instructed to (see <A HREF="file:vccuelist.html">Cue List</A>).
-</P>
-
-<P>
-The <B>tap</B> button can be used to match the time to a beat. 
+The <B>tap</B> button <B>(3)</B> can be used to match the time to a beat. 
 The elapsed time between clicks is measured and this time is set for the controlled functions, just as if the dial
 had been adjusted to that particular time.
 </P>
 
-<P>For cuelists/chasers and RGB Matrices, the tap button advances things to next step/position when
+<P>For cuelists/chasers and RGB Matrices, the tap button advances the function to next step/position when
 speed dial is set to adjust duration. The tapped tempo must be more than 1/4 of the original duration.
 </P>
 
@@ -81,7 +136,7 @@ by double clicking the speed dial itself.
    <TABLE BORDER=1 class="qlcTable">
     <TR>
      <TD>
-      <B>Fade In *</B>
+      <B>Fade In factor</B>
      </TD>
      <TD>
       Select a multiplier to adjust the functions' <A HREF="file:concept.html#Functions">fade in speed</A>
@@ -89,7 +144,7 @@ by double clicking the speed dial itself.
     </TR>
     <TR>
      <TD>
-      <B>Fade Out *</B>
+      <B>Fade Out factor</B>
      </TD>
      <TD>
       Select a multiplier to adjust the functions' <A HREF="file:concept.html#Functions">fade out speed</A>
@@ -97,7 +152,7 @@ by double clicking the speed dial itself.
     </TR>
     <TR>
      <TD>
-      <B>Duration *</B>
+      <B>Duration factor (+tap)</B>
      </TD>
      <TD>
       Select a multiplier to adjust the functions' <A HREF="file:concept.html#Functions">duration</A>
@@ -128,7 +183,13 @@ by double clicking the speed dial itself.
 
 <H3>Configuration - Input tab</H3>
 <P>
-External input can be configured here: one for value with minimum and maximum and another for tap button.
+Input from an external controller can be configured here 
+<UL>
+ <LI><B>Absolute Value</B>: Select an absolute time range (and precision) that an external signal will control</LI>
+ <LI><B>Tap</B>: Connect a signal or a key combination to the Speed Dial Tap button <B>(3)</B></LI>
+ <LI><B>Apply</B>: Connect a signal or a key combination to the Speed Dial apply button <B>(10)</B></LI>
+</UL>
+one for value with minimum and maximum and another for tap button.
 </P>
 
 <H3>Configuration - Appearance tab</H3>
@@ -140,41 +201,41 @@ the big dial is not needed).
 
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD>
-   <B>Show the plus and minus buttons</B>
-  </TD>
+  <TD><B>Show the plus and minus buttons</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the central dial</B>
-  </TD>
+  <TD><B>Show the central dial</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the tap button</B>
-  </TD>
+  <TD><B>Show the tap button</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the hours field</B>
-  </TD>
+  <TD><B>Show the hours field</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the minutes field</B>
-  </TD>
+  <TD><B>Show the minutes field</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the seconds field</B>
-  </TD>
+  <TD><B>Show the seconds field</B></TD>
  </TR>
  <TR>
-  <TD>
-   <B>Show the milliseconds field</B>
-  </TD>
+  <TD><B>Show the milliseconds field</B></TD>
  </TR>
+ <TR>
+  <TD><B>Show multiplier and divider buttons</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Show the apply button</B></TD>
+ </TR>
+ 
 </TABLE>
+
+<H3>Configuration - Mutliplier tab</H3>
+<P>
+Here it is possible to select if the multiply factor should be reset when the dial <B>(2)</B> is manually
+adjusted and individual external controls for the multiplier button <B>(5)</B>, the divider button <B>(7)</B>
+and the reset factor button <B>(8)</B>
+</P>
 
 <H3>Configuration - Presets tab</H3>
 <P>
@@ -201,22 +262,15 @@ in this list, the button on the right will be able to edit its properties.
  </TR>
  <TR>
   <TD>
-   <B><IMG SRC="qrc:/checkbox_full.png" HEIGHT="16"/> Show preset name</B>
+   <B><IMG SRC="qrc:/editclear.png" HEIGHT="16"/> Preset name</B>
   </TD>
-  <TD>When checked, the name of the selected preset will be displayed on its button.<br>
-  When unchecked, the value of the selected preset will be displayed on its button.</TD>
- </TR>
- <TR>
-  <TD>
-   <B><IMG SRC="qrc:/editclear.png" HEIGHT="16"/> Name edit field</B>
-  </TD>
-  <TD>Edit the selected preset's name</TD>
+  <TD>Edit the selected preset's name. By the default the name is the dial time.</TD>
  </TR>
  <TR>
   <TD>
    <IMG SRC="qrc:/speed.png" HEIGHT="16"/><B>Speed dial</B>
   </TD>
-  <TD>Edit the selected preset's value</TD>
+  <TD>Edit the selected preset's time value</TD>
  </TR>
 </TABLE>
 

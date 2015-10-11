@@ -55,7 +55,7 @@ QString UARTPlugin::name()
 
 int UARTPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input;
+    return QLCIOPlugin::Output; // | QLCIOPlugin::Input;
 }
 
 /*****************************************************************************
@@ -108,7 +108,7 @@ QString UARTPlugin::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides input/output for UART devices.");
+    str += tr("This plugin provides output for UART devices.");
     str += QString("</P>");
 
     return str;

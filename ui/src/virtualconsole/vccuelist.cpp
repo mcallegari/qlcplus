@@ -685,6 +685,11 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     {
         m_sl1BottomLabel->setStyleSheet(cfLabelBlueStyle);
         m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+
+        Chaser* ch = chaser();
+        float stepVal = 255.0 / (float)ch->stepsCount();
+        int slValue = (stepVal * (float)stepNumber);
+        m_slider1->setValue(255 - slValue);
     }
     else
         setSlidersInfo(m_primaryIndex);
@@ -1266,7 +1271,8 @@ void VCCueList::playCueAtIndex(int idx)
         startChaser(m_primaryIndex);
     }
 
-    setSlidersInfo(m_primaryIndex);
+    if (slidersMode() == Crossfade)
+        setSlidersInfo(m_primaryIndex);
 }
 
 /*****************************************************************************

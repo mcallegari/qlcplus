@@ -91,6 +91,7 @@ public:
     static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
     static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
     static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
+    static const int ELECTROTASPID = 0x0000;//! ElectroTAS USB DMX Product ID
 
     /** Driver types */
     enum Type

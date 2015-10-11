@@ -246,11 +246,6 @@ bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
 
 bool DMXUSBWidget::open(quint32 line, bool input)
 {
-    if (input)
-        line += m_inputBaseLine;
-    else
-        line += m_outputBaseLine;
-
     if (input == true && m_inputsMap.contains(line))
     {
         quint32 devLine = m_inputsMap[line];

@@ -26,7 +26,6 @@
 
 VCSpeedDialPreset::VCSpeedDialPreset(quint8 id)
     : m_id(id)
-    , m_showName(false)
     , m_value(1000)
 {
 }
@@ -34,7 +33,6 @@ VCSpeedDialPreset::VCSpeedDialPreset(quint8 id)
 VCSpeedDialPreset::VCSpeedDialPreset(VCSpeedDialPreset const& preset)
     : m_id(preset.m_id)
     , m_name(preset.m_name)
-    , m_showName(preset.m_showName)
     , m_value(preset.m_value)
     , m_keySequence(preset.m_keySequence)
 {
@@ -88,10 +86,6 @@ bool VCSpeedDialPreset::loadXML(const QDomElement &root)
         {
             m_name = tag.text();
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialPresetShowName)
-        {
-            m_showName = (tag.text() == KXMLQLCTrue);
-        }
         else if (tag.tagName() == KXMLQLCVCSpeedDialPresetValue)
         {
             m_value = tag.text().toInt();
@@ -144,11 +138,6 @@ bool VCSpeedDialPreset::saveXML(QDomDocument *doc, QDomElement *mtx_root)
     tag = doc->createElement(KXMLQLCVCSpeedDialPresetName);
     root.appendChild(tag);
     text = doc->createTextNode(m_name);
-    tag.appendChild(text);
-
-    tag = doc->createElement(KXMLQLCVCSpeedDialPresetShowName);
-    root.appendChild(tag);
-    text = doc->createTextNode(m_showName ? KXMLQLCTrue : KXMLQLCFalse);
     tag.appendChild(text);
 
     tag = doc->createElement(KXMLQLCVCSpeedDialPresetValue);

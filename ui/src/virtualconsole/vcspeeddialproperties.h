@@ -76,6 +76,7 @@ private slots:
 private:
     InputSelectionWidget *m_absoluteInputWidget;
     InputSelectionWidget *m_tapInputWidget;
+    InputSelectionWidget *m_applyInputWidget;
 
     InputSelectionWidget *m_multInputWidget;
     InputSelectionWidget *m_divInputWidget;
@@ -96,7 +97,6 @@ protected slots:
     void slotTreeSelectionChanged();
     void slotAddPresetClicked();
     void slotRemovePresetClicked();
-    void slotShowPresetNameClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotSpeedDialWidgetValueChanged(int ms);
 

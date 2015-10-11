@@ -229,7 +229,7 @@ bool LibFTDIInterface::open()
     if (isOpen() == true)
         return true;
 
-    if (ftdi_usb_open_desc(&m_handle, DMXInterface::FTDIVID, DMXInterface::FTDIPID,
+    if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
                            name().toLatin1(), serial().toLatin1()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Video Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Video Editor</H1>
+<P>
+The video editor, as its name suggests, is used to edit
+<IMG SRC="qrc:/video.png" align="absmiddle"> <A HREF="file:concept.html#Video">Video</A> functions.<br>
+</P>
+
+<H2>Controls</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <img src="qrc:/player_play.png" />
+  </TD>
+  <TD>
+    Start/stop the video playback. If the file doesn't exist or an invalid URL has been entered, this button will have no effect
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Video name</B>
+  </TD>
+  <TD>
+   Change the name of the Video function. By default this is set with the file name, until it is manually changed.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>File name</B>
+  </TD>
+  <TD>
+   If the attached file is local, displays the absolute path of the video file.
+   A local source file can be changed by clicking on the "..." button on the right side.<br>
+   It is also possible to stream a video from the network. Just click on the <img src="qrc:/global.png" />
+   button and enter a valid HTTP URL.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Duration</B>
+  </TD>
+  <TD>
+   Displays the video file duration in the typical QLC+ way. For example: 04m14s.22.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Resolution</B>
+  </TD>
+  <TD>
+   Displays the resolution in pixels detected on the attached video file.<br>
+   <B>Note</B>: since QLC+ relies on the <A HREF="http://www.qt.io/">Qt libraries</A> to play video sources, 
+   there is a known issue for which Qt is not able to detect the size (and codecs) of videos in Windows and Mac OSX.<br>
+   Basically a size of "0x0" will be displayed. The fullscreen video playback will be OK though.<br>
+   On detection failure, a default size of 640x480 pixels is internally set to allow the windowed mode to work.<br>
+   Hopefully this will be fixed by the Qt team in the future.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Video codec</B>
+  </TD>
+  <TD>
+   Displays the codec used to compress the video stream into the attached video file.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Audio codec</B>
+  </TD>
+  <TD>
+   Displays the codec used to compress the audio stream into the attached video file.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Screen</B>
+  </TD>
+  <TD>
+   Allows to select the output screen where the video should be playback. This will normally
+   displays just one choice unless multiple video outputs (monitors, projectors) are connected
+   to the system
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Video Output</B>
+  </TD>
+  <TD>
+   Allows to choose how the attached video should be displayed. Possible options are 
+   <UL>
+    <LI><B>Windowed</B>: a window with the original size of the video will
+      be displayed on the selected output screen.
+    </LI>
+    <LI><B>Fullscreen</B>: The video will use the whole screen size, without showing
+      any window decoration (title bar, etc)
+    </LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Playback mode</B>
+  </TD>
+  <TD>
+   Allows to choose how the attached video should be played. Possible options are
+   <UL>
+    <LI><B>Single shot</B>: The video will be played just once</LI>
+    <LI><B>Loop</B>: The video playback will be restarted from the beginning 
+    when reaching the end. The loop mode will continue indefinitely until
+    the Video function is stopped.
+    </LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

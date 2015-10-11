@@ -47,10 +47,12 @@ class QToolButton;
 #define KXMLQLCVCSpeedDialMult "Mult"
 #define KXMLQLCVCSpeedDialDiv "Div"
 #define KXMLQLCVCSpeedDialMultDivReset "MultDivReset"
+#define KXMLQLCVCSpeedDialApply "Apply"
 #define KXMLQLCVCSpeedDialTapKey "Key"
 #define KXMLQLCVCSpeedDialMultKey "MultKey"
 #define KXMLQLCVCSpeedDialDivKey "DivKey"
 #define KXMLQLCVCSpeedDialMultDivResetKey "MultDivResetKey"
+#define KXMLQLCVCSpeedDialApplyKey "ApplyKey"
 #define KXMLQLCVCSpeedDialResetFactorOnDialChange "ResetFactorOnDialChange"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 #define KXMLQLCVCSpeedDialTime "Time"
@@ -78,6 +80,7 @@ public:
     static const quint8 multInputSourceId;
     static const quint8 divInputSourceId;
     static const quint8 multDivResetInputSourceId;
+    static const quint8 applyInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -212,6 +215,8 @@ public:
     QKeySequence divKeySequence() const;
     void setMultDivResetKeySequence(const QKeySequence& keySequence);
     QKeySequence multDivResetKeySequence() const;
+    void setApplyKeySequence(const QKeySequence& keySequence);
+    QKeySequence applyKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
@@ -221,6 +226,7 @@ protected:
     QKeySequence m_multKeySequence;
     QKeySequence m_divKeySequence;
     QKeySequence m_multDivResetKeySequence;
+    QKeySequence m_applyKeySequence;
 
     /************************************************************************
      * Absolute value range
