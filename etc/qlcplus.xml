@@ -55,6 +55,7 @@
 		</magic>
 		<glob pattern="*.qxm"/>
 		<comment xml:lang="cz">QLC+ MIDI šablona</comment>
+		<comment xml:lang="de">QLC+ MIDI-Vorlage</comment>
 		<comment xml:lang="en">QLC+ MIDI template</comment>
 		<comment xml:lang="es">Plantilla MIDI QLC+</comment>
 		<comment xml:lang="ca">Plantilla MIDI QLC+</comment>
@@ -66,6 +67,7 @@
 		</magic>
 		<glob pattern="*.qxmt"/>
 		<comment xml:lang="cz">QLC+ šablona modifikátoru kanálu</comment>
+		<comment xml:lang="de">QLC+ Kanalmodifizierer-Vorlage</comment>
 		<comment xml:lang="en">QLC+ channel modifier template</comment>
 		<comment xml:lang="es">Plantilla de Modificadores de Canal QLC+</comment>
 		<comment xml:lang="ca">Plantilla de Modificadors de Canal QLC+</comment>
