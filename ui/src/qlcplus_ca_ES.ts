@@ -951,7 +951,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="242"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Mostra/Amaga la finestra del selector de velocitat</translation>
+        <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="262"/>
@@ -997,7 +997,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="167"/>
         <source>Play the audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduir l&apos;arxiu d&apos;àudio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="201"/>
@@ -7137,12 +7137,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
         <source>Apply</source>
-        <translation type="unfinished">Aplicar</translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
         <source>Send the current value to the function now</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviar el valor actual a la funció ara</translation>
     </message>
 </context>
 <context>
@@ -7228,7 +7228,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Preset Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom del preset</translation>
     </message>
     <message>
         <source>Input Universe</source>
@@ -7266,7 +7266,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
         <source>Apply</source>
-        <translation type="unfinished">Aplicar</translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
@@ -7795,7 +7795,7 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="videoeditor.ui" line="143"/>
         <source>Play the video and see how it looks like</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduir el vídeo i mostrar con es veu</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="170"/>
