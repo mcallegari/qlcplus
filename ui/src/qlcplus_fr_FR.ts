@@ -953,62 +953,71 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <translation>Éditeur audio</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="136"/>
+        <location filename="audioeditor.ui" line="150"/>
         <source>Bitrate</source>
         <oldsource>Bitrate:</oldsource>
         <translation>Débit</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="122"/>
+        <location filename="audioeditor.ui" line="167"/>
+        <source>Play the audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="208"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="78"/>
+        <location filename="audioeditor.ui" line="235"/>
         <source>File name</source>
         <translation>Nom du fichier</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="115"/>
+        <location filename="audioeditor.ui" line="54"/>
         <source>Audio name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="143"/>
+        <location filename="audioeditor.ui" line="201"/>
         <source>Sample rate</source>
         <oldsource>Sample rate:</oldsource>
         <translation>Échantillonnage</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="213"/>
+        <location filename="audioeditor.ui" line="114"/>
         <source>Name of the function being edited</source>
         <translation>Le nom de la fonction en cours d&apos;édition</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="230"/>
         <source>Preview</source>
-        <translation>Aperçu</translation>
+        <translation type="obsolete">Aperçu</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="267"/>
+        <location filename="audioeditor.ui" line="68"/>
         <source>Audio device</source>
         <translation>Périphérique audio</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="129"/>
+        <location filename="audioeditor.ui" line="194"/>
         <source>Channels</source>
         <oldsource>Channels:</oldsource>
         <translation>Canaux</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="64"/>
+        <location filename="audioeditor.ui" line="242"/>
+        <source>Show/Hide speed dial window</source>
+        <translation type="unfinished">Afficher/Masquer la fenêtre de réglage des vitesses</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="262"/>
         <source>Fade in</source>
         <oldsource>Fade in:</oldsource>
         <translation>Fondu en ouverture</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="71"/>
+        <location filename="audioeditor.ui" line="75"/>
         <source>Fade out</source>
         <oldsource>Fade out:</oldsource>
         <translation>Fondu en fermeture</translation>
@@ -5696,22 +5705,22 @@ Durée : %3
         <translation>Séquenceur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1206"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -7125,23 +7134,33 @@ Durée : %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="76"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="77"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="95"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="96"/>
         <source>Divide the current time by 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="118"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="119"/>
         <source>Multiply the current time by 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="126"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="127"/>
         <source>Reset the current factor to 1x</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
+        <source>Apply</source>
+        <translation type="unfinished">Appliquer</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
+        <source>Send the current value to the function now</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7226,6 +7245,11 @@ Durée : %3
         <translation>Valeur absolue</translation>
     </message>
     <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
+        <source>Preset Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Input Universe</source>
         <translation type="obsolete">Univers d&apos;entrée</translation>
     </message>
@@ -7234,12 +7258,12 @@ Durée : %3
         <translation type="obsolete">Canal d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="408"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Auto Detect</source>
         <translation>Auto-détection</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="398"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="412"/>
         <source>Choose...</source>
         <translation>Choisir...</translation>
     </message>
@@ -7259,22 +7283,27 @@ Durée : %3
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="308"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
+        <source>Apply</source>
+        <translation type="unfinished">Appliquer</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
         <source>Multiplier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="322"/>
         <source>Reset multiplier factor when the dial value changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="380"/>
         <source>External Input</source>
         <translation>Entrée externe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="491"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="487"/>
         <source>Key combination</source>
         <translation>Raccourci clavier</translation>
     </message>
@@ -7291,82 +7320,81 @@ Durée : %3
         <translation type="obsolete">Enlever le raccourci clavier pour le tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="338"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
         <source>Presets</source>
         <translation>Préréglages</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="347"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="361"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
         <source>Value</source>
         <translation>Valeur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="385"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="399"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
         <translation>Le canal de l&apos;univers d&apos;entrée qui contrôle ce préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="395"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="409"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
         <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="405"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="419"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
         <translation>Lorsqu&apos;elle est activée, bougez un fader ou un bouton rotatif externe afin de l&apos;assigner à ce préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
         <source>The input universe that sends data to this preset button</source>
         <translation>L&apos;univers d&apos;entrée qui contrôle ce préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="428"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="442"/>
         <source>Input channel</source>
         <translation>Canal d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="435"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="449"/>
         <source>Input universe</source>
         <translation>Univers d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="445"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="470"/>
         <source> Add preset</source>
         <translation> Ajouter un préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="456"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="459"/>
         <source> Remove</source>
         <translation> Enlever</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
         <source>Show preset name</source>
-        <translation>Afficher le nom du préréglage</translation>
+        <translation type="obsolete">Afficher le nom du préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="474"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="568"/>
         <source>Preset name</source>
         <translation>Nom du préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="502"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
         <translation>Enlever le raccourci clavier pour le préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="526"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="522"/>
         <source>Set a key combination for this preset button</source>
         <translation>Définir un raccourci clavier pour contrôler le préréglage</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="546"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="542"/>
         <source>Keyboard combination that toggles this preset button</source>
         <translation>Le raccourci clavier qui contrôle le préréglage</translation>
     </message>
@@ -7375,52 +7403,52 @@ Durée : %3
         <translation type="obsolete">Infini</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="225"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="233"/>
         <source>Appearance</source>
         <translation>Apparence</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="231"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="239"/>
         <source>Show plus and minus buttons</source>
         <translation>Afficher les boutons plus et moins</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="280"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="288"/>
         <source>Show multiplier and divisor buttons</source>
         <translation>Afficher les boutons *2 et /2</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="238"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
         <source>Show the central dial</source>
         <translation>Afficher le cadran central</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="253"/>
         <source>Show the tap button</source>
         <translation>Afficher le bouton de tap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="287"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="295"/>
         <source>Show the apply button</source>
         <translation>Afficher le bouton appliquer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="260"/>
         <source>Show the hours field</source>
         <translation>Afficher le champ des heures</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="267"/>
         <source>Show the minutes field</source>
         <translation>Afficher le champ des minutes</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="266"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="274"/>
         <source>Show the seconds field</source>
         <translation>Afficher le champ des secondes</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="273"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="281"/>
         <source>Show the milliseconds field</source>
         <translation>Afficher le champ des millisecondes</translation>
     </message>
@@ -7429,17 +7457,17 @@ Durée : %3
         <translation type="obsolete">Afficher l&apos;option infinie</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="108"/>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="116"/>
         <source>Multiply by 2 Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="117"/>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="125"/>
         <source>Divide by 2 Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="126"/>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="134"/>
         <source>Factor Reset Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7675,7 +7703,7 @@ Durée : %3
         <translation type="obsolete">Entrée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="79"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="80"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Axe horizontal (X)</translation>
     </message>
@@ -7696,7 +7724,7 @@ Durée : %3
         <translation type="obsolete">Choisir...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="92"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="93"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Axe vertical (Y)</translation>
     </message>
@@ -7726,32 +7754,32 @@ Durée : %3
         <translation>Éditer les axes de l&apos;appareil sélectionné</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="105"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="106"/>
         <source>Width</source>
         <translation type="unfinished">Largeur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="113"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="114"/>
         <source>Height</source>
         <translation type="unfinished">Hauteur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="328"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="332"/>
         <source>Remove fixtures</source>
         <translation>Enlever les appareils</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="329"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="333"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Voulez-vous enlever le(s) appareils(s) sélectionné(s) ?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="555"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="590"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="556"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="591"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
         <translation type="unfinished"></translation>
@@ -7765,89 +7793,93 @@ Please select one with such channels.</source>
         <translation>Éditeur vidéo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="79"/>
+        <location filename="videoeditor.ui" line="35"/>
         <source>Video name</source>
         <oldsource>Video name:</oldsource>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="200"/>
+        <location filename="videoeditor.ui" line="143"/>
+        <source>Play the video and see how it looks like</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="170"/>
         <source>File name</source>
         <oldsource>File name:</oldsource>
         <translation>Nom du fichier</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="100"/>
+        <location filename="videoeditor.ui" line="177"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="93"/>
+        <location filename="videoeditor.ui" line="184"/>
         <source>Resolution</source>
         <oldsource>Resolution:</oldsource>
         <translation>Résolution</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="86"/>
+        <location filename="videoeditor.ui" line="198"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
         <translation>Codec audio</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="107"/>
+        <location filename="videoeditor.ui" line="191"/>
         <source>Video codec</source>
         <oldsource>Video codec:</oldsource>
         <translation>Codec vidéo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="170"/>
+        <location filename="videoeditor.ui" line="84"/>
         <source>Set an arbitrary URL for this Video</source>
         <translation>Définir une URL arbitraire pour cette vidéo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="229"/>
+        <location filename="videoeditor.ui" line="114"/>
         <source>Name of the function being edited</source>
         <translation>Le nom de la fonction en cours d&apos;édition</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="114"/>
         <source>Preview</source>
-        <translation>Aperçu</translation>
+        <translation type="obsolete">Aperçu</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="121"/>
+        <location filename="videoeditor.ui" line="212"/>
         <source>Output Screen</source>
         <oldsource>Output Screen:</oldsource>
         <translation>Écran de sortie</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="236"/>
+        <location filename="videoeditor.ui" line="219"/>
         <source>Video output</source>
         <translation>Sortie vidéo</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="242"/>
+        <location filename="videoeditor.ui" line="225"/>
         <source>Windowed</source>
         <translation>Fenêtré</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="252"/>
+        <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
         <translation>Plein écran</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="262"/>
+        <location filename="videoeditor.ui" line="245"/>
         <source>Playback mode</source>
         <translation>Mode de lecture</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="268"/>
+        <location filename="videoeditor.ui" line="251"/>
         <source>Single shot</source>
         <translation>Unique</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="278"/>
+        <location filename="videoeditor.ui" line="261"/>
         <source>Loop</source>
         <translation>Boucle</translation>
     </message>
