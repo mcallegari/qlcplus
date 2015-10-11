@@ -6,7 +6,7 @@
     <message>
         <location filename="uartplugin.cpp" line="111"/>
         <source>This plugin provides input/output for UART devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Plugin bietet Ein- und Ausgabe für UART-Geräte.</translation>
     </message>
 </context>
 </TS>

@@ -1037,12 +1037,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="167"/>
         <source>Play the audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio-Datei abspielen</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="242"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Anzeigen/Ausblenden des Schnellwahlfensters</translation>
+        <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
 </context>
 <context>
@@ -7149,12 +7149,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
         <source>Send the current value to the function now</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuellen Wert jetzt an die Funktion übergeben</translation>
     </message>
 </context>
 <context>
@@ -7470,12 +7470,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
         <source>Apply</source>
-        <translation type="unfinished">Anwenden</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Preset Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Voreinstellung</translation>
     </message>
 </context>
 <context>
@@ -7918,7 +7918,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="videoeditor.ui" line="143"/>
         <source>Play the video and see how it looks like</source>
-        <translation type="unfinished"></translation>
+        <translation>Video abspielen</translation>
     </message>
 </context>
 <context>
