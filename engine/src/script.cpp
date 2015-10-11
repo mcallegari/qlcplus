@@ -679,9 +679,18 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     {
         // Truncate everything after the first comment sign
         QString line = str;
-        left = line.indexOf("//");
-        if (left != -1)
-            line.truncate(left);
+        while (left != -1)
+        {
+            left = line.indexOf("//", left);
+            if (left != -1)
+            {
+                // if we stumbled into a URL like http:// or ftp://
+                // then it's not a comment !
+                if (line.at(left - 1) != ':')
+                    line.truncate(left);
+                left += 2;
+            }
+        }
 
         left = 0;
         while (left < line.length())
