@@ -3525,12 +3525,12 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.ui" line="75"/>
         <source>MIDI Global Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Global MIDI-Einstellungen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="81"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn MIDI-Noten verwendet werden, sende ein &quot;Note Off&quot;, wenn der Wert 0 ist</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="145"/>
@@ -3649,87 +3649,87 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="inputselectionwidget.ui" line="41"/>
         <source>Key combination</source>
-        <translation type="unfinished">Tastenkombination</translation>
+        <translation>Tastenkombination</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="59"/>
         <source>Reset the keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination entfernen</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="79"/>
         <source>Set a key combination for this widget</source>
-        <translation type="unfinished">Setze eine Tastenkombination für diesen Schalter</translation>
+        <translation>Setze eine Tastenkombination für diesen Schalter</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="99"/>
         <source>Keyboard combination that toggles this widget</source>
-        <translation type="unfinished">Tastenkombination die diesen Schalter umschaltet</translation>
+        <translation>Tastenkombination die diesen Schalter umschaltet</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="118"/>
         <source>External Input</source>
-        <translation type="unfinished">Externer Eingang</translation>
+        <translation>Externer Eingang</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="136"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <translation type="unfinished">Wenn betätigt kann ein externer Schalter betätigt werden um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
+        <translation>Wenn betätigt kann ein externer Schalter betätigt werden um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="139"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automatische Erkennung</translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="155"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Eingangsuniversum</translation>
+        <translation>Eingangsuniversum</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="162"/>
         <source>Input Channel</source>
-        <translation type="unfinished">Eingangskanal</translation>
+        <translation>Eingangskanal</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="169"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="192"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierte Rückmeldung</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="202"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="218"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <translation type="unfinished">Wähle ein externes Universum &amp; einen Kanal auf den dieser Schalter hören soll.</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schalter hören soll.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="221"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswählen ...</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="228"/>
         <source>Custom feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierte Rückmeldung</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="240"/>
         <source>Lower value</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Wert</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="267"/>
         <source>Upper value</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Wert</translation>
     </message>
 </context>
 <context>
@@ -5739,7 +5739,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
         <source>Side Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten-Schieberegler</translation>
     </message>
     <message>
         <source>Key Combination</source>
@@ -5927,12 +5927,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
         <source>Left Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Linker Schieberegler</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
         <source>Right Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechter Schieberegler</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
@@ -7125,17 +7125,17 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="95"/>
         <source>Divide the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Halbiere die aktuelle Zeit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="118"/>
         <source>Multiply the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Verdoppele die aktuelle Zeit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="126"/>
         <source>Reset the current factor to 1x</source>
-        <translation type="unfinished"></translation>
+        <translation>Faktor zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -7254,12 +7254,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="308"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikator</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplikationsfaktor zurücksetzen wenn der Wert geändert wird</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
@@ -7437,17 +7437,17 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="108"/>
         <source>Multiply by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang zum Verdoppeln</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="117"/>
         <source>Divide by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang zum Halbieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="126"/>
         <source>Factor Reset Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang zum Zurücksetzen des Multiplikationsfaktors</translation>
     </message>
 </context>
 <context>
@@ -7599,7 +7599,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
         <source>General</source>
-        <translation type="unfinished">Allgemein</translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="83"/>
@@ -7654,37 +7654,37 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
         <source>Presets</source>
-        <translation type="unfinished">Voreinstellungen</translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
         <source>Add position</source>
-        <translation type="unfinished"></translation>
+        <translation>Position hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
         <source>Add EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
         <source>Add Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Szene hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
         <source>Remove</source>
-        <translation type="unfinished">Entfernen</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
         <source>Preset name</source>
-        <translation type="unfinished">Name der Voreinstellung</translation>
+        <translation>Name der Voreinstellung</translation>
     </message>
     <message>
         <source>Input</source>
@@ -7734,12 +7734,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="105"/>
         <source>Width</source>
-        <translation type="unfinished">Breite</translation>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="113"/>
         <source>Height</source>
-        <translation type="unfinished">Höhe</translation>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="328"/>
@@ -7754,13 +7754,14 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="555"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="556"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>I don&apos;t understand the context of the second sentence. Which channels?</translatorcomment>
+        <translation>Bitte eine Szene ohne Pan- oder Tilt-Kanäle auswählen.</translation>
     </message>
 </context>
 <context>
