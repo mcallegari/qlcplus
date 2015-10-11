@@ -460,17 +460,17 @@
         <translation>Efecte</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Valors de Superposició</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation>Obrir arxiu de Gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation>Imatges de gobo</translation>
     </message>
@@ -479,7 +479,7 @@
         <translation type="obsolete">Els valor de la capacitat estan superpossats amb un altre capacitat!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Algunes capacitats no poden ser creades degut a una superposició de valors.</translation>
     </message>

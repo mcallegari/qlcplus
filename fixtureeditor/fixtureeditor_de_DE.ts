@@ -464,17 +464,17 @@
         <translation>Effekt</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Überlappende Werte</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation>Öffne Gobo Datei</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation>Gobo-Bilder</translation>
     </message>
@@ -483,7 +483,7 @@
         <translation type="obsolete">Der Funktionswert überlappt mit einem anderen Funktionswert!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Einige Funktionen konnte nicht angelegt werden aufgrund von überlappenden Werten.</translation>
     </message>

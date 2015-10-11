@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -461,17 +461,17 @@
         <translation>Efecto</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="386"/>
         <source>Overlapping values</source>
         <translation>Superposición de Valores</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="432"/>
         <source>Open Gobo File</source>
         <translation>Abrir archivo de Gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="435"/>
         <source>Gobo pictures</source>
         <translation>Imágenes de gobo</translation>
     </message>
@@ -480,7 +480,7 @@
         <translation type="obsolete">Los valores de la capacidad están superpuestos con otra capacidad!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="387"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Algunas capacidades no pueden ser creadas debido a  una superposición de valores.</translation>
     </message>
