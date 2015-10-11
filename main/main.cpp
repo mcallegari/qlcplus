@@ -74,6 +74,9 @@ namespace QLCArgs
     /** If true, enable a 5% of overscan when in fullscreen mode (Raspberry Only) */
     bool enableOverscan = false;
 
+    /** If true, hides the GUI to 1x1 pixel outside the screen */
+    bool noGui = false;
+
     /** If not null, defines the place for a close button that in virtual console */
     QRect closeButtonRect = QRect();
 
@@ -173,6 +176,7 @@ void printUsage()
     cout << "  -h or --help\t\t\tPrint this help" << endl;
     cout << "  -k or --kiosk\t\t\tEnable kiosk mode (only virtual console in forced operate mode)" << endl;
     cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;
+    cout << "  -n or --nogui\t\t\tStart the application with the GUI hidden (Raspberry Pi only)" << endl;
     cout << "  -o or --open <file>\t\tOpen the specified workspace file" << endl;
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
@@ -250,6 +254,10 @@ bool parseArgs()
             if (it.hasNext() == true)
                 QLCArgs::workspace = it.next();
         }
+        else if (arg == "-n" || arg == "--nogui")
+        {
+            QLCArgs::noGui = true;
+        }
         else if (arg == "-p" || arg == "--operate")
         {
             QLCArgs::operate = true;
@@ -324,6 +332,9 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableOverscan == true)
         app.enableOverscan();
+
+    if (QLCArgs::noGui == true)
+        app.disableGUI();
 
     app.startup();
     app.show();

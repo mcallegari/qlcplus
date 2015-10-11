@@ -66,6 +66,7 @@ public:
     ~App();
     void startup();
     void enableOverscan();
+    void disableGUI();
 
 private:
     void init();
@@ -76,6 +77,7 @@ private:
     QTabWidget* m_tab;
     QDir m_workingDirectory;
     bool m_overscan;
+    bool m_noGui;
 
     /*********************************************************************
      * Progress dialog
