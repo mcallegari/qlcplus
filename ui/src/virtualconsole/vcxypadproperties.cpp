@@ -27,6 +27,7 @@
 #include "qlcfixturemode.h"
 #include "qlcinputchannel.h"
 #include "qlcchannel.h"
+#include "qlcmacros.h"
 
 #include "vcxypadfixtureeditor.h"
 #include "inputselectionwidget.h"
@@ -170,12 +171,15 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
+
+    m_doc->masterTimer()->registerDMXSource(this, "XYPadCfg");
 }
 
 VCXYPadProperties::~VCXYPadProperties()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+    m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
 /****************************************************************************
@@ -403,6 +407,37 @@ void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
                     QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
 }
 
+void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes)
+{
+    Q_UNUSED(timer);
+
+    if (m_tab->currentIndex() != 2 || m_xyArea->hasPositionChanged() == false)
+        return;
+
+    //qDebug() << Q_FUNC_INFO;
+
+    // This call also resets the m_changed flag in m_area
+    QPointF pt = m_xyArea->position();
+
+    /* Scale XY coordinate values to 0.0 - 1.0 */
+    qreal x = SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(1));
+    qreal y = SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(1));
+
+    if (m_YInvertedRadio->isChecked())
+        y = qreal(1) - y;
+
+    QTreeWidgetItemIterator it(m_tree);
+    while (*it != NULL)
+    {
+        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        VCXYPadFixture fixture(m_doc, var);
+        fixture.arm();
+        fixture.writeDMX(x, y, universes);
+        fixture.disarm();
+        ++it;
+    }
+}
+
 /********************************************************************
  * Presets
  ********************************************************************/
@@ -611,12 +646,14 @@ void VCXYPadProperties::slotPresetSelectionChanged()
             efx->previewFixtures(fixturePoints);
 
             m_xyArea->enableEFXPreview(true);
+            m_xyArea->setEnabled(false);
             m_xyArea->setEFXPolygons(polygon, fixturePoints);
             m_xyArea->setEFXInterval(efx->duration() / polygon.size());
         }
         else if (preset->m_type == VCXYPadPreset::Position)
         {
             m_xyArea->enableEFXPreview(false);
+            m_xyArea->setEnabled(true);
             m_xyArea->blockSignals(true);
             m_xyArea->setPosition(preset->m_dmxPos);
             m_xyArea->repaint();
@@ -625,10 +662,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
         else if (preset->m_type == VCXYPadPreset::Scene)
         {
             m_xyArea->enableEFXPreview(false);
-            m_xyArea->blockSignals(true);
-            m_xyArea->setPosition(QPointF(127, 127));
-            m_xyArea->repaint();
-            m_xyArea->blockSignals(false);
+            m_xyArea->setEnabled(false);
         }
     }
 }
