@@ -61,7 +61,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Playback Cue List page
      ************************************************************************/
 
-    m_playInputWidget = new InputSelectionWidget(m_doc);
+    m_playInputWidget = new InputSelectionWidget(m_doc, this);
     m_playInputWidget->setKeySequence(m_cueList->playbackKeySequence());
     m_playInputWidget->setInputSource(m_cueList->inputSource(VCCueList::playbackInputSourceId));
     m_playInputWidget->setWidgetPage(m_cueList->page());
@@ -72,7 +72,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Next Cue page
      ************************************************************************/
 
-    m_nextInputWidget = new InputSelectionWidget(m_doc);
+    m_nextInputWidget = new InputSelectionWidget(m_doc, this);
     m_nextInputWidget->setKeySequence(m_cueList->nextKeySequence());
     m_nextInputWidget->setInputSource(m_cueList->inputSource(VCCueList::nextInputSourceId));
     m_nextInputWidget->setWidgetPage(m_cueList->page());
@@ -83,7 +83,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Previous Cue page
      ************************************************************************/
 
-    m_prevInputWidget = new InputSelectionWidget(m_doc);
+    m_prevInputWidget = new InputSelectionWidget(m_doc, this);
     m_prevInputWidget->setKeySequence(m_cueList->previousKeySequence());
     m_prevInputWidget->setInputSource(m_cueList->inputSource(VCCueList::previousInputSourceId));
     m_prevInputWidget->setWidgetPage(m_cueList->page());
@@ -99,7 +99,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     else
         m_crossFadeRadio->setChecked(true);
 
-    m_crossfade1InputWidget = new InputSelectionWidget(m_doc);
+    m_crossfade1InputWidget = new InputSelectionWidget(m_doc, this);
     m_crossfade1InputWidget->setTitle(tr("Left Fader"));
     m_crossfade1InputWidget->setKeyInputVisibility(false);
     m_crossfade1InputWidget->setInputSource(m_cueList->inputSource(VCCueList::cf1InputSourceId));
@@ -109,7 +109,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     connect(m_crossfade1InputWidget, SIGNAL(autoDetectToggled(bool)),
             this, SLOT(slotCF1AutoDetectionToggled(bool)));
 
-    m_crossfade2InputWidget = new InputSelectionWidget(m_doc);
+    m_crossfade2InputWidget = new InputSelectionWidget(m_doc, this);
     m_crossfade2InputWidget->setTitle(tr("Right Fader"));
     m_crossfade2InputWidget->setKeyInputVisibility(false);
     m_crossfade2InputWidget->setInputSource(m_cueList->inputSource(VCCueList::cf2InputSourceId));

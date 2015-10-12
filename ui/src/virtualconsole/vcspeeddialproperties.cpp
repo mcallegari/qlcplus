@@ -85,7 +85,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
         m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / 1000);
         m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / 1000);
     }
-    m_absoluteInputWidget = new InputSelectionWidget(m_doc);
+    m_absoluteInputWidget = new InputSelectionWidget(m_doc, this);
     m_absoluteInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::absoluteInputSourceId));
     m_absoluteInputWidget->setWidgetPage(m_dial->page());
     m_absoluteInputWidget->setKeyInputVisibility(false);
@@ -93,7 +93,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_absoluteInputLayout->addWidget(m_absoluteInputWidget);
 
     /* Tap input */
-    m_tapInputWidget = new InputSelectionWidget(m_doc);
+    m_tapInputWidget = new InputSelectionWidget(m_doc, this);
     m_tapInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::tapInputSourceId));
     m_tapInputWidget->setWidgetPage(m_dial->page());
     m_tapInputWidget->setKeySequence(dial->tapKeySequence());
@@ -101,7 +101,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tapInputLayout->addWidget(m_tapInputWidget);
 
     /* Apply input */
-    m_applyInputWidget = new InputSelectionWidget(m_doc);
+    m_applyInputWidget = new InputSelectionWidget(m_doc, this);
     m_applyInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::applyInputSourceId));
     m_applyInputWidget->setWidgetPage(m_dial->page());
     m_applyInputWidget->setKeySequence(dial->applyKeySequence());
@@ -112,7 +112,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_resetFactorOnDialChangeCb->setChecked(m_dial->resetFactorOnDialChange());
 
     /* Mult input */
-    m_multInputWidget = new InputSelectionWidget(m_doc);
+    m_multInputWidget = new InputSelectionWidget(m_doc, this);
     m_multInputWidget->setTitle(tr("Multiply by 2 Input"));
     m_multInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::multInputSourceId));
     m_multInputWidget->setWidgetPage(m_dial->page());
@@ -121,7 +121,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_multInputLayout->addWidget(m_multInputWidget);
 
     /* Div input */
-    m_divInputWidget = new InputSelectionWidget(m_doc);
+    m_divInputWidget = new InputSelectionWidget(m_doc, this);
     m_divInputWidget->setTitle(tr("Divide by 2 Input"));
     m_divInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::divInputSourceId));
     m_divInputWidget->setWidgetPage(m_dial->page());
@@ -130,7 +130,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_divInputLayout->addWidget(m_divInputWidget);
 
     /* MultDiv Reset input */
-    m_multDivResetInputWidget = new InputSelectionWidget(m_doc);
+    m_multDivResetInputWidget = new InputSelectionWidget(m_doc, this);
     m_multDivResetInputWidget->setTitle(tr("Factor Reset Input"));
     m_multDivResetInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::multDivResetInputSourceId));
     m_multDivResetInputWidget->setWidgetPage(m_dial->page());
