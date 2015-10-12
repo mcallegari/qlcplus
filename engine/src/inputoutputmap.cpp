@@ -82,22 +82,29 @@ void InputOutputMap::setBlackout(bool blackout)
     /* Don't do blackout twice */
     if (m_blackout == blackout)
         return;
+
+    QMutexLocker locker(&m_universeMutex);
     m_blackout = blackout;
 
-    if (blackout == true)
+    QByteArray zeros(512, 0);
+    for (quint32 i = 0; i < universesCount(); i++)
     {
-        QByteArray zeros(512, 0);
-        for (quint32 i = 0; i < universesCount(); i++)
+        Universe *universe = m_universeArray.at(i);
+        if (universe->outputPatch() != NULL)
         {
-            Universe *universe = m_universeArray.at(i);
-            if (universe->outputPatch() != NULL)
+            if (blackout == true)
                 universe->outputPatch()->dump(universe->id(), zeros);
+            // notify the universe listeners that some channels have changed
         }
-    }
-    else
-    {
-        /* Force writing of values back to the plugins */
-        m_universeChanged = true;
+        locker.unlock();
+        if (blackout == true)
+            emit universesWritten(i, zeros);
+        else
+        {
+            const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
+            emit universesWritten(i, postGM);
+        }
+        locker.relock();
     }
 
     emit blackoutChanged(m_blackout);
