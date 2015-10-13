@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ConfigureE131</name>
     <message>
@@ -11,42 +11,42 @@
     <message>
         <location filename="configuree131.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Univeres Configuratie</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="37"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="47"/>
         <source>Multicast</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicst</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="52"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Adres</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="57"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Poort</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="62"/>
         <source>E1.31 Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>E1.31 Universe</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="67"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Transmissie Modus</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="72"/>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioriteit</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="42"/>
@@ -56,38 +56,39 @@
     <message>
         <location filename="configuree131.cpp" line="86"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Inputs</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="92"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Outputs</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="176"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledig</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="177"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedeeltelijk</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="185"/>
         <source>%1 - min, %2 - default, %3 - max</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - min, %2 - standaard - %3 max</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig IP</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="223"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 is geen gelding IP.
+Pas het IP Adres aan voordat u doorgaat.</translation>
     </message>
 </context>
 <context>
