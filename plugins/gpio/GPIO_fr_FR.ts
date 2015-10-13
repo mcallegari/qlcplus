@@ -6,32 +6,32 @@
     <message>
         <location filename="gpioconfiguration.ui" line="14"/>
         <source>Configure GPIO Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration du plugin GPIO</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.ui" line="28"/>
         <source>GPIO Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numéro de GPIO</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.ui" line="33"/>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisation</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.cpp" line="57"/>
         <source>Not used</source>
-        <translation type="unfinished"></translation>
+        <translation>Non utilisée</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.cpp" line="58"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.cpp" line="59"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie</translation>
     </message>
 </context>
 <context>
@@ -39,7 +39,7 @@
     <message>
         <location filename="gpioplugin.cpp" line="84"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plugin offre le support des entrées/sorties sur pins GPIO.</translation>
     </message>
 </context>
 </TS>

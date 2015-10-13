@@ -136,7 +136,6 @@
     <message>
         <location filename="addfixture.ui" line="282"/>
         <source>Fixture Model</source>
-        <translatorcomment>Fixture est traduit ici par projecteur et regoupe tous les types de projecteurs: asservis et traditionnels.</translatorcomment>
         <translation>Modèle de l&apos;appareil</translation>
     </message>
     <message>
@@ -961,7 +960,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="167"/>
         <source>Play the audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Jouer le fichier audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="208"/>
@@ -1008,7 +1007,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="242"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Afficher/Masquer la fenêtre de réglage des vitesses</translation>
+        <translation>Afficher/Masquer la fenêtre de réglage des vitesses</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="262"/>
@@ -2413,7 +2412,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="903"/>
         <source>Fixture manager</source>
-        <translation>Gestionnaire de projecteurs</translation>
+        <translation>Gestionnaire d&apos;appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="971"/>
@@ -3541,12 +3540,12 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="75"/>
         <source>MIDI Global Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres MIDI globaux</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="81"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Lors de l&apos;utilisation de notes MIDI, envoyer Note Off quand la valeur est de 0</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="145"/>
@@ -3666,87 +3665,87 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="inputselectionwidget.ui" line="41"/>
         <source>Key combination</source>
-        <translation type="unfinished">Raccourci clavier</translation>
+        <translation>Raccourci clavier</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="59"/>
         <source>Reset the keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer le raccourci clavier</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="79"/>
         <source>Set a key combination for this widget</source>
-        <translation type="unfinished">Définir un raccourci clavier pour contrôler ce widget</translation>
+        <translation>Définir un raccourci clavier pour contrôler ce widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="99"/>
         <source>Keyboard combination that toggles this widget</source>
-        <translation type="unfinished">Le raccourci clavier qui contrôle ce widget</translation>
+        <translation>Le raccourci clavier qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="118"/>
         <source>External Input</source>
-        <translation type="unfinished">Entrée externe</translation>
+        <translation>Entrée externe</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="136"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <translation type="unfinished">Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce widget.</translation>
+        <translation>Quand activée, pressez un bouton externe afin de l&apos;assigner à ce widget.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="139"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Auto-détection</translation>
+        <translation>Auto-détection</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="155"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Univers d&apos;entrée</translation>
+        <translation>Univers d&apos;entrée</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="162"/>
         <source>Input Channel</source>
-        <translation type="unfinished">Canal d&apos;entrée</translation>
+        <translation>Canal d&apos;entrée</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="169"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="192"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour d&apos;info personnalisé</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="202"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="218"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <translation type="unfinished">Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget.</translation>
+        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="221"/>
         <source>Choose...</source>
-        <translation type="unfinished">Choisir...</translation>
+        <translation>Choisir...</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="228"/>
         <source>Custom feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour d&apos;info personnalisé</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="240"/>
         <source>Lower value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur inférieure</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="267"/>
         <source>Upper value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur suppérieure</translation>
     </message>
 </context>
 <context>
@@ -3754,7 +3753,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor/monitor.cpp" line="315"/>
         <source>Fixture Monitor</source>
-        <translation>Moniteur de projecteur</translation>
+        <translation>Moniteur d&apos;appareils</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="352"/>
@@ -5807,7 +5806,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
         <source>Side Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Faders sur le flanc</translation>
     </message>
     <message>
         <source>Key Combination</source>
@@ -5944,12 +5943,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
         <source>Left Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader de gauche</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
         <source>Right Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader de droite</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
@@ -7141,27 +7140,27 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="96"/>
         <source>Divide the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Diviser le temps actuel par 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="119"/>
         <source>Multiply the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplier le temps actuel par 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="127"/>
         <source>Reset the current factor to 1x</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser à x1 le facteur actuel</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
         <source>Apply</source>
-        <translation type="unfinished">Appliquer</translation>
+        <translation>Appliquer</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
         <source>Send the current value to the function now</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoyer maintenant la valeur actuelle</translation>
     </message>
 </context>
 <context>
@@ -7247,7 +7246,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Preset Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du préréglage</translation>
     </message>
     <message>
         <source>Input Universe</source>
@@ -7285,17 +7284,17 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
         <source>Apply</source>
-        <translation type="unfinished">Appliquer</translation>
+        <translation>Appliquer</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicateur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="322"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le facteur quand la valeur du contrôleur change</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="380"/>
@@ -7459,17 +7458,17 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="116"/>
         <source>Multiply by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée du bouton de multiplication par 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="125"/>
         <source>Divide by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée du bouton de division par 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="134"/>
         <source>Factor Reset Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée du bouton de réinitialisation du facteur</translation>
     </message>
 </context>
 <context>
@@ -7621,7 +7620,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
         <source>General</source>
-        <translation type="unfinished">Général</translation>
+        <translation>Général</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="83"/>
@@ -7666,37 +7665,37 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
         <source>Presets</source>
-        <translation type="unfinished">Préréglages</translation>
+        <translation>Préréglages</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
         <source>Add position</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une position</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
         <source>Add EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un EFX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
         <source>Add Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une scène</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
         <source>Remove</source>
-        <translation type="unfinished">Enlever</translation>
+        <translation>Enlever</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
         <source>Preset name</source>
-        <translation type="unfinished">Nom du préréglage</translation>
+        <translation>Nom du préréglage</translation>
     </message>
     <message>
         <source>Input</source>
@@ -7756,12 +7755,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="106"/>
         <source>Width</source>
-        <translation type="unfinished">Largeur</translation>
+        <translation>Largeur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="114"/>
         <source>Height</source>
-        <translation type="unfinished">Hauteur</translation>
+        <translation>Hauteur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="332"/>
@@ -7776,13 +7775,14 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="590"/>
         <source>Error</source>
-        <translation type="unfinished">Erreur</translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="591"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>La scène sélectionnée n&apos;affecte pas de canal Pan ou Tilt.
+Veuillez en choisir une qui affecte un des deux.</translation>
     </message>
 </context>
 <context>
@@ -7801,7 +7801,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="videoeditor.ui" line="143"/>
         <source>Play the video and see how it looks like</source>
-        <translation type="unfinished"></translation>
+        <translation>Jouer la vidéo pour avoir un aperçu</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="170"/>

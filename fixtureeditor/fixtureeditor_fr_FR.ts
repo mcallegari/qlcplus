@@ -107,7 +107,7 @@
     <message>
         <location filename="app.cpp" line="269"/>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Enregistrer sous... (&amp;A)</translation>
+        <translation>Enregistrer sous... (&amp;A)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="270"/>
