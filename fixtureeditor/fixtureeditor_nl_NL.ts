@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -330,7 +330,7 @@
     <message>
         <location filename="editchannel.ui" line="14"/>
         <source>Edit Channel</source>
-        <translation>Wijzig kanaal</translation>
+        <translation>Bewerk kanaal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="26"/>
@@ -367,39 +367,39 @@
     <message>
         <location filename="editchannel.ui" line="194"/>
         <source>Capability Values</source>
-        <translation type="unfinished">Capability waarden</translation>
+        <translation>Waardes van een mogelijkheid/functie</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="242"/>
         <source>Min</source>
-        <translation type="unfinished">Min</translation>
+        <translation>Min</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="255"/>
         <source>Max</source>
-        <translation type="unfinished">Max</translation>
+        <translation>Max</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="278"/>
         <location filename="editchannel.cpp" line="184"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="315"/>
         <location filename="editchannel.ui" line="326"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="344"/>
         <source>Picture</source>
-        <translation type="unfinished">Afbeelding</translation>
+        <translation>Afbeelding</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="358"/>
         <source>Second Colour</source>
-        <translation type="unfinished">Tweede kleur</translation>
+        <translation>Tweede kleur</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="383"/>
@@ -419,7 +419,7 @@
     <message>
         <location filename="editchannel.ui" line="72"/>
         <source>Capabilities</source>
-        <translation>Capabilities</translation>
+        <translation>Mogelijkheden/functies</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="164"/>
@@ -459,12 +459,12 @@
     <message>
         <location filename="editchannel.cpp" line="86"/>
         <source>Edit Channel: </source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk kanaal:</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="188"/>
         <source>Effect</source>
-        <translation type="unfinished">Effect</translation>
+        <translation>Effect</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="371"/>
@@ -474,12 +474,12 @@
     <message>
         <location filename="editchannel.cpp" line="417"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished">Open Gobo afbeelding</translation>
+        <translation>Open Gobo afbeelding</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="420"/>
         <source>Gobo pictures</source>
-        <translation type="unfinished">Gobo-afbeeldingen</translation>
+        <translation>Gobo-afbeeldingen</translation>
     </message>
     <message>
         <source>The capability&apos;s values overlap with another capability!</source>

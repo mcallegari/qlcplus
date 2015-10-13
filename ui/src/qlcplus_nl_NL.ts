@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>AboutBox</name>
     <message>
@@ -347,7 +347,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="277"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Componenten</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
@@ -953,7 +953,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="167"/>
         <source>Play the audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Speel het audiobestand af</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="208"/>
@@ -1000,7 +1000,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="242"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon/verberg het speed dial venster</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="262"/>
@@ -1677,7 +1677,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="collectioneditor.ui" line="93"/>
         <source>See what the Collection does when it is run</source>
-        <translation type="unfinished"></translation>
+        <translation>Bekijk wat de Collectie doet wanneer hij loopt</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="126"/>
@@ -1705,7 +1705,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="consolechannel.cpp" line="306"/>
         <source>Reset this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset dit kanaal</translation>
     </message>
 </context>
 <context>
@@ -2013,7 +2013,7 @@ The selected file has been moved or deleted.</source>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotatie van het startpunt van het patroon</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="312"/>
         <location filename="efxeditor.ui" line="410"/>
         <source>°</source>
@@ -2067,7 +2067,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="efxeditor.ui" line="173"/>
         <source>Mode</source>
-        <translation type="unfinished">Mode</translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="403"/>
@@ -2077,7 +2077,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="efxeditor.ui" line="533"/>
         <source>Color Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Achtergrondkleur</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="543"/>
@@ -3108,7 +3108,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
-        <translatorcomment>Should we translate presets?</translatorcomment>
         <translation>Presets solo frame</translation>
     </message>
     <message>
@@ -3364,22 +3363,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="254"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuratie</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="260"/>
         <source>Sample Rate (Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sample Rate (Hz)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="267"/>
         <source>Channels</source>
-        <translation type="unfinished">Kanalen</translation>
+        <translation>Kanalen</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="274"/>
         <source>Level Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveau Monitor</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
@@ -3510,12 +3509,12 @@ Zie de plugin documentatie voor uitleg over dit onderwerp.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="75"/>
         <source>MIDI Global Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Globale MIDI Instellingen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="81"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Indien MIDI notes gebruikt worden, verstuur dan een Note Off als de waarde 0 is</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="105"/>
@@ -3653,87 +3652,87 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
     <message>
         <location filename="inputselectionwidget.ui" line="41"/>
         <source>Key combination</source>
-        <translation type="unfinished">Toetscombinatie</translation>
+        <translation>Toetscombinatie</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="59"/>
         <source>Reset the keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset de toetscombinatie</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="79"/>
         <source>Set a key combination for this widget</source>
-        <translation type="unfinished">Stel een toetscombinatie in voor deze widget</translation>
+        <translation>Stel een toetscombinatie in voor deze widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="99"/>
         <source>Keyboard combination that toggles this widget</source>
-        <translation type="unfinished">Toetscombinatie die deze widget aan/uit zet</translation>
+        <translation>Toetscombinatie die deze widget aan/uit zet</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="118"/>
         <source>External Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe input</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="136"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <translation type="unfinished">Indien aangezet is het mogelijk om een externe input te koppelen aan deze widget.</translation>
+        <translation>Indien aangezet is het mogelijk om een externe input te koppelen aan deze widget.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="139"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Autodetectie</translation>
+        <translation>Autodetectie</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="155"/>
         <source>Input Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Input Universe</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="162"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Input Kanaal</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="169"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">De input universe die data stuurt naar deze widget</translation>
+        <translation>De input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="192"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangepaste Feedback</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="202"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Het input kanaal binnen de input universe dat data verstuurd naar deze widget</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="218"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <translation type="unfinished">Kies een externe input universe en kanaal waarnaar deze widget moet luisteren.</translation>
+        <translation>Kies een externe input universe en kanaal waarnaar deze widget moet luisteren.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="221"/>
         <source>Choose...</source>
-        <translation type="unfinished">Kies...</translation>
+        <translation>Kies...</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="228"/>
         <source>Custom feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangepaste feedback</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="240"/>
         <source>Lower value</source>
-        <translation type="unfinished"></translation>
+        <translation>Lage waarde</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="267"/>
         <source>Upper value</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoge waarde</translation>
     </message>
 </context>
 <context>
@@ -3959,7 +3958,7 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
         <source>Delete Track</source>
-        <translation type="unfinished">Verwijder track</translation>
+        <translation>Verwijder track</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="342"/>
@@ -4334,57 +4333,57 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
     <message>
         <location filename="rgbmatrixeditor.ui" line="357"/>
         <source>Dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer bediening</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet het dimmer kanaal van de fixture naar 100%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="52"/>
         <source>Matrix end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix eindkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="68"/>
         <source>Reset the end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset de eindkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="86"/>
         <source>Matrix start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix startkleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Blendmode</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="107"/>
         <source>Default (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard (HTP)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="112"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Mask</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="117"/>
         <source>Additive</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Subtractive</source>
-        <translation type="unfinished"></translation>
+        <translation>Aftrekken</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="342"/>
         <source>Other Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Overige</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="433"/>
@@ -4835,7 +4834,7 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
     <message>
         <location filename="selectinputchannel.ui" line="32"/>
         <source>Allow unpatched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongepatchte universes toestaan</translation>
     </message>
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
@@ -5752,27 +5751,27 @@ Duur: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="108"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="115"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedrag van de Volgende/Vorige knoppen als de chaser niet actief is</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Start chaser vanaf eerste/laatste stap (standaard)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <source>Run chaser from next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Start chaser vanaf volgende/vorige stap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
         <source>Select next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer volgende/vorige stap</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Do niets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="159"/>
@@ -5787,7 +5786,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
         <source>Side Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Faders</translation>
     </message>
     <message>
         <source>Key Combination</source>
@@ -5897,7 +5896,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="234"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Gedrag</translation>
+        <translation>Gedrag</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="246"/>
@@ -5907,7 +5906,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
         <source>Steps</source>
-        <translation type="unfinished">Stappen</translation>
+        <translation>Stappen</translation>
     </message>
     <message>
         <source>Left Slider</source>
@@ -5920,12 +5919,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
         <source>Left Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Linker Fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
         <source>Right Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechter Fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
@@ -7097,12 +7096,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo Frame eigenschappen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mix sliders in afspeelmodus</translation>
     </message>
 </context>
 <context>
@@ -7115,27 +7114,27 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="96"/>
         <source>Divide the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Deel de huidige tijd door 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="119"/>
         <source>Multiply the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Vermenigvuldig de huidige tijd met 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="127"/>
         <source>Reset the current factor to 1x</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset the huidige factor naar 1x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Toepassen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
         <source>Send the current value to the function now</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstuur de huidige waarde direct naar de functie</translation>
     </message>
 </context>
 <context>
@@ -7169,7 +7168,7 @@ Duur: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In factor</source>
         <oldsource>Fade In *</oldsource>
-        <translation type="unfinished">Fade In</translation>
+        <translation>Fade In factor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
@@ -7180,7 +7179,7 @@ Duur: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out factor</source>
         <oldsource>Fade Out *</oldsource>
-        <translation type="unfinished">Fade Out</translation>
+        <translation>Fade Out factor</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
@@ -7191,7 +7190,7 @@ Duur: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration factor (+tap)</source>
         <oldsource>Duration * (+tap)</oldsource>
-        <translation type="unfinished">Duur * (+tap)</translation>
+        <translation>Duur factor (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
@@ -7221,7 +7220,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Preset Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset naam</translation>
     </message>
     <message>
         <source>Input Universe</source>
@@ -7249,7 +7248,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="190"/>
         <source>ms precision</source>
-        <translation type="unfinished"></translation>
+        <translation>ms precisie</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="203"/>
@@ -7259,17 +7258,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Toepassen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Vermenigvuldigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="322"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset vermenigvuldigingsfactor als de dial waarde veranderd</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="380"/>
@@ -7296,77 +7295,77 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Presets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="361"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
         <source>Value</source>
-        <translation type="unfinished">Waarde</translation>
+        <translation>Waarde</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="399"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Het input kanaal binnen de input universe dat data naar deze preset knop verstuurd</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="409"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies een externe input universe &amp; kanaal waar deze preset knop naar moet luisteren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="419"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Indien aangevinkt kan een external control toegewezen worden aan deze preset knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Het input universe dat data verstuurd naar deze preset knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="442"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Input kanal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="449"/>
         <source>Input universe</source>
-        <translation type="unfinished">Input Universe</translation>
+        <translation>Input Universe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="470"/>
         <source> Add preset</source>
-        <translation type="unfinished">Preset toevoegen</translation>
+        <translation>Preset toevoegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="459"/>
         <source> Remove</source>
-        <translation type="unfinished">Verwijderen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="568"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset naam</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="502"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder de toetscombinatie van deze preset knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="522"/>
         <source>Set a key combination for this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel een toetscombinatie in voor deze preset knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="542"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toetscombinatie die deze preset knop aan/uit zet</translation>
     </message>
     <message>
         <source>Infinite</source>
@@ -7385,7 +7384,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="288"/>
         <source>Show multiplier and divisor buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon vermenigvuldiging en delingsknoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
@@ -7400,7 +7399,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="295"/>
         <source>Show the apply button</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de toepasesn knop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="260"/>
@@ -7429,17 +7428,17 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="116"/>
         <source>Multiply by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Vermenigvuldig met 2 Input</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="125"/>
         <source>Divide by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Deel door 2 Input</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="134"/>
         <source>Factor Reset Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor Reset Input</translation>
     </message>
 </context>
 <context>
@@ -7497,7 +7496,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Clock</source>
-        <translation type="unfinished">Klok</translation>
+        <translation>Klok</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="156"/>
@@ -7591,7 +7590,7 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
         <source>General</source>
-        <translation type="unfinished">Algemeen</translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="124"/>
@@ -7636,37 +7635,37 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Presets</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
         <source>Add position</source>
-        <translation type="unfinished"></translation>
+        <translation>Positie toevoegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
         <source>Add EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX toevoegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
         <source>Add Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Scene toevoegen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
         <source>Remove</source>
-        <translation type="unfinished">Verwijderen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset naam</translation>
     </message>
     <message>
         <source>Input</source>
@@ -7726,12 +7725,12 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="106"/>
         <source>Width</source>
-        <translation type="unfinished">Breedte</translation>
+        <translation>Breedte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="114"/>
         <source>Height</source>
-        <translation type="unfinished">Hoogte</translation>
+        <translation>Hoogte</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="332"/>
@@ -7746,13 +7745,14 @@ Duur: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="590"/>
         <source>Error</source>
-        <translation type="unfinished">Fout</translation>
+        <translation>Fout</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="591"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>De geselecteerde Scene bevat geen Pan of Tilt kanaal.
+Selecteer een Scene met zo&apos;n kanaal.</translation>
     </message>
 </context>
 <context>
@@ -7771,7 +7771,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="videoeditor.ui" line="143"/>
         <source>Play the video and see how it looks like</source>
-        <translation type="unfinished"></translation>
+        <translation>Speel de video af en kijk hoe deze er uit ziet</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="170"/>

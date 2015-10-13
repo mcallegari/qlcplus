@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -56,37 +56,37 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Universes Configuratie</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="30"/>
         <source>Configuration of the patched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuratie van de gepatchte universes</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="38"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="43"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="48"/>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Adres</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="53"/>
         <source>ArtNet Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>ArtNet Universe</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="58"/>
         <source>Transmission Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Transmissie Modus</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="67"/>
@@ -111,38 +111,39 @@
     <message>
         <location filename="configureartnet.cpp" line="73"/>
         <source>%1 nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 nodes</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="113"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Inputs</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="119"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Outputs</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="161"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Vol</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="162"/>
         <source>Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>Gedeeltelijk</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig IP</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="179"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 is geen geldig IP.
+Voer een geldig IP adres in voordat u doorgaat.</translation>
     </message>
 </context>
 </TS>

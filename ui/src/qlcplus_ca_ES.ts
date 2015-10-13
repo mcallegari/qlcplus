@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -2022,7 +2022,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotació del Punt d&apos;Inici del Patró</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="312"/>
         <location filename="efxeditor.ui" line="410"/>
         <source>°</source>

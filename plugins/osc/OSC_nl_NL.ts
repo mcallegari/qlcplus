@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ConfigureOSC</name>
     <message>
         <location filename="configureosc.ui" line="14"/>
         <source>OSC Plugin Configuration</source>
         <oldsource>Configure OSC Plugin</oldsource>
-        <translation type="unfinished">Configureer OSC Plugin</translation>
+        <translation>Configureer OSC Plugin</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="28"/>
         <source>Universes Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Universes Configuratie</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="41"/>
         <source>Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interface</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="46"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="51"/>
         <source>Input Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Input Poort</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="56"/>
         <source>Output Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Output Adres</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="61"/>
         <source>Output Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Output Poort</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="76"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Inputs</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="82"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Outputs</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="168"/>
         <source>Invalid IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig IP</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="168"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 is geen geldig IP.
+Pas het IP Adres aan voordat u doorgaat.</translation>
     </message>
 </context>
 <context>
@@ -72,23 +73,23 @@ Please fix it before confirming.</source>
         <location filename="oscplugin.cpp" line="113"/>
         <location filename="oscplugin.cpp" line="257"/>
         <source>Status: Not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: Niet open</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="116"/>
         <location filename="oscplugin.cpp" line="260"/>
         <source>Status: Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: Open</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="118"/>
         <source>Packets sent: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pakketten verzonden:</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="262"/>
         <source>Packets received: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pakketten ontvangen:</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="109"/>
