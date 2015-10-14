@@ -956,7 +956,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="audioeditor.ui" line="167"/>
         <source>Play the audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Přehrát zvukový soubor</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="208"/>
@@ -1003,7 +1003,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="audioeditor.ui" line="242"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit/Skrýt okno volby rýchlosti</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="262"/>
@@ -1708,7 +1708,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="consolechannel.cpp" line="306"/>
         <source>Reset this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvolnit tenhle kanál</translation>
     </message>
 </context>
 <context>
@@ -2016,7 +2016,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Počáteční bod rozace vzoru</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="312"/>
         <location filename="efxeditor.ui" line="410"/>
         <source>°</source>
@@ -2070,7 +2070,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="efxeditor.ui" line="173"/>
         <source>Mode</source>
-        <translation type="unfinished">Režim</translation>
+        <translation>Režim</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="403"/>
@@ -2080,7 +2080,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="efxeditor.ui" line="533"/>
         <source>Color Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Barevní pozadí</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="543"/>
@@ -3365,22 +3365,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="254"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="260"/>
         <source>Sample Rate (Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorkovací frekvence (Hz)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="267"/>
         <source>Channels</source>
-        <translation type="unfinished">Kanály</translation>
+        <translation>Kanály</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="274"/>
         <source>Level Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor hlasitosti</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
@@ -3509,12 +3509,12 @@ Please refer to the plugins documentation to troubleshoot this.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="75"/>
         <source>MIDI Global Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Globální MIDI nastavení</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="81"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Když jsou použity MIDI noty, poslat Note Off když je hodnota 0</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="105"/>
@@ -3647,87 +3647,87 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="inputselectionwidget.ui" line="41"/>
         <source>Key combination</source>
-        <translation type="unfinished">Kombinace kláves</translation>
+        <translation>Kombinace kláves</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="59"/>
         <source>Reset the keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit klávesovou skratku</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="79"/>
         <source>Set a key combination for this widget</source>
-        <translation type="unfinished">Nastavit kombinaci kláves pro ovládání tohoto ovladače</translation>
+        <translation>Nastavit kombinaci kláves pro ovládání tohoto ovladače</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="99"/>
         <source>Keyboard combination that toggles this widget</source>
-        <translation type="unfinished">Kombinace kláves která přepne tento ovladač</translation>
+        <translation>Kombinace kláves která přepne tento ovladač</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="118"/>
         <source>External Input</source>
-        <translation type="unfinished">Externí vstup</translation>
+        <translation>Externí vstup</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="136"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <translation type="unfinished">Je-li aktivní, bude dostupná volba  externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka.</translation>
+        <translation>Je-li aktivní, bude dostupná volba  externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="139"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automaticky detekovat</translation>
+        <translation>Automaticky detekovat</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="155"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Větev vstupu</translation>
+        <translation>Větev vstupu</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="162"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní kanál</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="169"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="192"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní odezva</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="202"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="218"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <translation type="unfinished">Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit.</translation>
+        <translation>Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="221"/>
         <source>Choose...</source>
-        <translation type="unfinished">Zvolit...</translation>
+        <translation>Zvolit...</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="228"/>
         <source>Custom feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní odezva</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="240"/>
         <source>Lower value</source>
-        <translation type="unfinished"></translation>
+        <translation>Dolní hodnota</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="267"/>
         <source>Upper value</source>
-        <translation type="unfinished"></translation>
+        <translation>Horní hodnota</translation>
     </message>
 </context>
 <context>
@@ -4337,42 +4337,42 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="52"/>
         <source>Matrix end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Konečná barva</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="68"/>
         <source>Reset the end color</source>
-        <translation type="unfinished"></translation>
+        <translation>Resetovat konečnou barvu</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="86"/>
         <source>Matrix start color</source>
-        <translation type="unfinished"></translation>
+        <translation>Počáteční barva</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Prolínací režim</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="107"/>
         <source>Default (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardní (HTP)</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="112"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation>Maska</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="117"/>
         <source>Additive</source>
-        <translation type="unfinished"></translation>
+        <translation>Pričíst</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Subtractive</source>
-        <translation type="unfinished"></translation>
+        <translation>Odečíst</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="342"/>
@@ -4722,7 +4722,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="117"/>
         <source>System Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Systémový příkaz</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="121"/>
@@ -4732,67 +4732,67 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="125"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhodní číslo</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="129"/>
         <source>File Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Cesta k souboru</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="155"/>
         <source>Open Executable File</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít spustitelný soubor</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="160"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Všechny soubory (*.*)</translation>
+        <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="162"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Všechny soubory (*)</translation>
+        <translation>Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="265"/>
         <source>Enter the desired time</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadat požadovaný čas</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="349"/>
         <source>Invalid executable</source>
-        <translation type="unfinished"></translation>
+        <translation>Neplatný spustitelný soubor</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="349"/>
         <source>Please select an executable file !</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolit spustitelný soubor</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="355"/>
         <source>Enter the program arguments (leave empty if not required)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit parametre programu (možno nechat prázdne)</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="391"/>
         <source>Enter the range for the randomization</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit rozsah pro náhodní číslo</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="398"/>
         <source>Minimum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimální hodnota</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="399"/>
         <source>Maximum value</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximální hodnota</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="439"/>
         <source>No syntax errors found in the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript je bez syntantických chyb.</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="446"/>
@@ -4800,12 +4800,15 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 %2
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaktická chyba na řádku: %1:
+%2
+
+</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="449"/>
         <source>Script check results</source>
-        <translation type="unfinished"></translation>
+        <translation>Výsledky kontroly skriptu</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="375"/>
@@ -7122,7 +7125,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
@@ -7501,7 +7504,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Clock</source>
-        <translation type="unfinished">Hodiny</translation>
+        <translation>Hodiny</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="156"/>
