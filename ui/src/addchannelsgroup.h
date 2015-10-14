@@ -25,6 +25,7 @@
 #include "ui_addchannelsgroup.h"
 #include "qlcinputsource.h"
 
+class InputSelectionWidget;
 class ChannelsGroup;
 class Doc;
 
@@ -56,20 +57,14 @@ public:
 private:
     Doc* m_doc;
     ChannelsGroup* m_chansGroup;
+    InputSelectionWidget *m_inputSelWidget;
 
 protected:
-    QSharedPointer<QLCInputSource> m_inputSource;
-
     int m_checkedChannels;
     bool m_isUpdating;
 
-    void updateInputSource();
-
 protected slots:
     void slotItemChecked(QTreeWidgetItem *item, int col);
-    void slotAutoDetectInputToggled(bool checked);
-    void slotInputValueChanged(quint32 universe, quint32 channel);
-    void slotChooseInputClicked();
 };
 
 /** @} */

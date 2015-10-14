@@ -21,12 +21,11 @@
 #include <QDebug>
 #include <QSettings>
 
-#include "selectinputchannel.h"
+#include "inputselectionwidget.h"
 #include "addchannelsgroup.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
-#include "inputpatch.h"
 #include "fixture.h"
 #include "doc.h"
 
@@ -124,23 +123,19 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
     QSettings settings;
     QVariant var = settings.value(SETTINGS_APPLYALL);
     if (var.isValid() == true)
-    {
        m_applyAllCheck->setChecked(var.toBool());
-    }
 
-    m_inputSource = group->inputSource();
-    updateInputSource();
+    m_inputSelWidget = new InputSelectionWidget(m_doc, this);
+    m_inputSelWidget->setKeyInputVisibility(false);
+    m_inputSelWidget->setInputSource(group->inputSource());
+    m_inputSelWidget->show();
+    m_extControlLayout->addWidget(m_inputSelWidget);
 
     if (m_checkedChannels == 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
-
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectInputToggled(bool)));
-    connect(m_chooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseInputClicked()));
 }
 
 AddChannelsGroup::~AddChannelsGroup()
@@ -178,7 +173,7 @@ void AddChannelsGroup::accept()
     }
 
     m_chansGroup->setName(m_groupNameEdit->text());
-    m_chansGroup->setInputSource(m_inputSource);
+    m_chansGroup->setInputSource(m_inputSelWidget->inputSource());
     QDialog::accept();
 }
 
@@ -257,47 +252,3 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
     m_isUpdating = false;
 }
 
-void AddChannelsGroup::slotAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-}
-
-void AddChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel)
-{
-    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
-    updateInputSource();
-}
-
-void AddChannelsGroup::slotChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updateInputSource();
-    }
-}
-
-void AddChannelsGroup::updateInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
-    {
-        uniName = KInputNone;
-        chName = KInputNone;
-    }
-
-    m_inputUniverseEdit->setText(uniName);
-    m_inputChannelEdit->setText(chName);
-}
