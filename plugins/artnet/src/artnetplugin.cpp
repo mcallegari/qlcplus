@@ -29,6 +29,9 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
+    if (m_IOmapping.size() > 0)
+        return;
+
     m_IOmapping.clear();
 
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
@@ -89,8 +92,7 @@ QStringList ArtNetPlugin::outputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -102,8 +104,7 @@ QStringList ArtNetPlugin::outputs()
 
 QString ArtNetPlugin::outputInfo(quint32 output)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return QString();
@@ -134,8 +135,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return false;
@@ -193,8 +193,7 @@ QStringList ArtNetPlugin::inputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -206,8 +205,7 @@ QStringList ArtNetPlugin::inputs()
 
 bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return false;
@@ -251,8 +249,7 @@ void ArtNetPlugin::closeInput(quint32 input, quint32 universe)
 
 QString ArtNetPlugin::inputInfo(quint32 input)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return QString();

@@ -126,7 +126,7 @@ private:
     QList<QNetworkAddressEntry> m_netInterfaces;
 
     /** Map of the ArtNet plugin Input/Output lines */
-    QList<ArtNetIO>m_IOmapping;
+    QList<ArtNetIO> m_IOmapping;
 };
 
 #endif
