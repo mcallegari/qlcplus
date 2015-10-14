@@ -22,8 +22,8 @@
 
 #include <QDialog>
 #include "ui_vcframeproperties.h"
-#include "qlcinputsource.h"
 
+class InputSelectionWidget;
 class VCFrame;
 class Doc;
 
@@ -54,57 +54,9 @@ protected slots:
 protected:
     VCFrame *m_frame;
     Doc* m_doc;
-
-    /************************************************************************
-     * Enable control
-     ************************************************************************/
-protected slots:
-    void slotEnableAttachClicked();
-    void slotEnableDetachClicked();
-    void slotEnableChooseInputClicked();
-    void slotEnableAutoDetectInputToggled(bool checked);
-    void slotEnableInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateEnableInputSource();
-
-protected:
-    QKeySequence m_enableKeySequence;
-    QSharedPointer<QLCInputSource> m_enableInputSource;
-
-    /************************************************************************
-     * Next page
-     ************************************************************************/
-protected slots:
-    void slotNextAttachClicked();
-    void slotNextDetachClicked();
-    void slotNextChooseInputClicked();
-    void slotNextAutoDetectInputToggled(bool checked);
-    void slotNextInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateNextInputSource();
-
-protected:
-    QKeySequence m_nextKeySequence;
-    QSharedPointer<QLCInputSource> m_nextInputSource;
-
-    /************************************************************************
-     * Previous page
-     ************************************************************************/
-protected slots:
-    void slotPreviousAttachClicked();
-    void slotPreviousDetachClicked();
-    void slotPreviousChooseInputClicked();
-    void slotPreviousAutoDetectInputToggled(bool checked);
-    void slotPreviousInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updatePreviousInputSource();
-
-protected:
-    QKeySequence m_previousKeySequence;
-    QSharedPointer<QLCInputSource> m_previousInputSource;
+    InputSelectionWidget *m_inputEnableWidget;
+    InputSelectionWidget *m_inputNextPageWidget;
+    InputSelectionWidget *m_inputPrevPageWidget;
 
 public slots:
     void accept();

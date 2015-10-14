@@ -19,10 +19,8 @@
 
 #include <QCheckBox>
 
-#include "selectinputchannel.h"
+#include "inputselectionwidget.h"
 #include "vcframeproperties.h"
-#include "assignhotkey.h"
-#include "inputpatch.h"
 #include "vcframe.h"
 #include "doc.h"
 
@@ -56,67 +54,40 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
      * Enable frame
      ************************************************************************/
 
-    /* Connections */
-    connect(m_enableAttachButton, SIGNAL(clicked()),
-            this, SLOT(slotEnableAttachClicked()));
-    connect(m_enableDetachButton, SIGNAL(clicked()),
-            this, SLOT(slotEnableDetachClicked()));
-    connect(m_enableAutoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotEnableAutoDetectInputToggled(bool)));
-    connect(m_enableChooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotEnableChooseInputClicked()));
-
-    /* Key binding */
-    m_enableKeySequence = QKeySequence(frame->enableKeySequence());
-    m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
-
-    /* External input */
-    m_enableInputSource = frame->inputSource(VCFrame::enableInputSourceId);
-    updateEnableInputSource();
-
-    /************************************************************************
-     * Next page
-     ************************************************************************/
-
-    /* Connections */
-    connect(m_nextAttachButton, SIGNAL(clicked()),
-            this, SLOT(slotNextAttachClicked()));
-    connect(m_nextDetachButton, SIGNAL(clicked()),
-            this, SLOT(slotNextDetachClicked()));
-    connect(m_nextAutoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotNextAutoDetectInputToggled(bool)));
-    connect(m_nextChooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotNextChooseInputClicked()));
-
-    /* Key binding */
-    m_nextKeySequence = QKeySequence(frame->nextPageKeySequence());
-    m_nextKeyEdit->setText(m_nextKeySequence.toString(QKeySequence::NativeText));
-
-    /* External input */
-    m_nextInputSource = frame->inputSource(VCFrame::nextPageInputSourceId);
-    updateNextInputSource();
+    m_inputEnableWidget = new InputSelectionWidget(m_doc, this);
+    m_inputEnableWidget->setTitle(tr("External Input - Enable"));
+    m_inputEnableWidget->setCustomFeedbackVisibility(true);
+    m_inputEnableWidget->setKeySequence(m_frame->enableKeySequence());
+    m_inputEnableWidget->setInputSource(m_frame->inputSource(VCFrame::enableInputSourceId));
+    m_inputEnableWidget->setWidgetPage(m_frame->page());
+    m_inputEnableWidget->show();
+    m_extEnableLayout->addWidget(m_inputEnableWidget);
 
     /************************************************************************
      * Previous page
      ************************************************************************/
 
-    /* Connections */
-    connect(m_previousAttachButton, SIGNAL(clicked()),
-            this, SLOT(slotPreviousAttachClicked()));
-    connect(m_previousDetachButton, SIGNAL(clicked()),
-            this, SLOT(slotPreviousDetachClicked()));
-    connect(m_previousAutoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotPreviousAutoDetectInputToggled(bool)));
-    connect(m_previousChooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotPreviousChooseInputClicked()));
+    m_inputPrevPageWidget = new InputSelectionWidget(m_doc, this);
+    m_inputPrevPageWidget->setTitle(tr("External Input - Previous Page"));
+    m_inputPrevPageWidget->setCustomFeedbackVisibility(true);
+    m_inputPrevPageWidget->setKeySequence(m_frame->previousPageKeySequence());
+    m_inputPrevPageWidget->setInputSource(m_frame->inputSource(VCFrame::previousPageInputSourceId));
+    m_inputPrevPageWidget->setWidgetPage(m_frame->page());
+    m_inputPrevPageWidget->show();
+    m_extInputPages->addWidget(m_inputPrevPageWidget);
 
-    /* Key binding */
-    m_previousKeySequence = QKeySequence(frame->previousPageKeySequence());
-    m_previousKeyEdit->setText(m_previousKeySequence.toString(QKeySequence::NativeText));
+    /************************************************************************
+     * Next page
+     ************************************************************************/
 
-    /* External input */
-    m_previousInputSource = frame->inputSource(VCFrame::previousPageInputSourceId);
-    updatePreviousInputSource();
+    m_inputNextPageWidget = new InputSelectionWidget(m_doc, this);
+    m_inputNextPageWidget->setTitle(tr("External Input - Next Page"));
+    m_inputNextPageWidget->setCustomFeedbackVisibility(true);
+    m_inputNextPageWidget->setKeySequence(m_frame->nextPageKeySequence());
+    m_inputNextPageWidget->setInputSource(m_frame->inputSource(VCFrame::nextPageInputSourceId));
+    m_inputNextPageWidget->setWidgetPage(m_frame->page());
+    m_inputNextPageWidget->show();
+    m_extInputPages->addWidget(m_inputNextPageWidget);
 }
 
 VCFrameProperties::~VCFrameProperties()
@@ -201,218 +172,15 @@ void VCFrameProperties::accept()
     m_frame->setPagesLoop(m_pagesLoopCheck->isChecked());
 
     /* Key sequences */
-    m_frame->setEnableKeySequence(m_enableKeySequence);
-    m_frame->setNextPageKeySequence(m_nextKeySequence);
-    m_frame->setPreviousPageKeySequence(m_previousKeySequence);
+    m_frame->setEnableKeySequence(m_inputEnableWidget->keySequence());
+    m_frame->setNextPageKeySequence(m_inputNextPageWidget->keySequence());
+    m_frame->setPreviousPageKeySequence(m_inputPrevPageWidget->keySequence());
 
     /* Input sources */
-    m_frame->setInputSource(m_enableInputSource, VCFrame::enableInputSourceId);
-    m_frame->setInputSource(m_nextInputSource, VCFrame::nextPageInputSourceId);
-    m_frame->setInputSource(m_previousInputSource, VCFrame::previousPageInputSourceId);
+    m_frame->setInputSource(m_inputEnableWidget->inputSource(), VCFrame::enableInputSourceId);
+    m_frame->setInputSource(m_inputNextPageWidget->inputSource(), VCFrame::nextPageInputSourceId);
+    m_frame->setInputSource(m_inputPrevPageWidget->inputSource(), VCFrame::previousPageInputSourceId);
 
     QDialog::accept();
 }
 
-/************************************************************************
- * Enable control
- ************************************************************************/
-
-void VCFrameProperties::slotEnableAttachClicked()
-{
-    AssignHotKey ahk(this, m_enableKeySequence);
-    if (ahk.exec() == QDialog::Accepted)
-    {
-        m_enableKeySequence = QKeySequence(ahk.keySequence());
-        m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void VCFrameProperties::slotEnableDetachClicked()
-{
-    m_enableKeySequence = QKeySequence();
-    m_enableKeyEdit->setText(m_enableKeySequence.toString(QKeySequence::NativeText));
-}
-
-void VCFrameProperties::slotEnableChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_enableInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updateEnableInputSource();
-    }
-}
-
-void VCFrameProperties::slotEnableAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotEnableInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotEnableInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCFrameProperties::slotEnableInputValueChanged(quint32 uni, quint32 ch)
-{
-    m_enableInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-    updateEnableInputSource();
-}
-
-void VCFrameProperties::updateEnableInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_enableInputSource, uniName, chName) == true)
-    {
-        /* Display the gathered information */
-        m_enableInputUniverseEdit->setText(uniName);
-        m_enableInputChannelEdit->setText(chName);
-    }
-    else
-    {
-        m_enableInputUniverseEdit->setText(KInputNone);
-        m_enableInputChannelEdit->setText(KInputNone);
-    }
-}
-
-/****************************************************************************
- * Next page
- ****************************************************************************/
-
-void VCFrameProperties::slotNextAttachClicked()
-{
-    AssignHotKey ahk(this, m_nextKeySequence);
-    if (ahk.exec() == QDialog::Accepted)
-    {
-        m_nextKeySequence = QKeySequence(ahk.keySequence());
-        m_nextKeyEdit->setText(m_nextKeySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void VCFrameProperties::slotNextDetachClicked()
-{
-    m_nextKeySequence = QKeySequence();
-    m_nextKeyEdit->setText(m_nextKeySequence.toString(QKeySequence::NativeText));
-}
-
-void VCFrameProperties::slotNextChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_nextInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updateNextInputSource();
-    }
-}
-
-void VCFrameProperties::slotNextAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotNextInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotNextInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCFrameProperties::slotNextInputValueChanged(quint32 uni, quint32 ch)
-{
-    m_nextInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-    updateNextInputSource();
-}
-
-void VCFrameProperties::updateNextInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_nextInputSource, uniName, chName) == true)
-    {
-        /* Display the gathered information */
-        m_nextInputUniverseEdit->setText(uniName);
-        m_nextInputChannelEdit->setText(chName);
-    }
-    else
-    {
-        m_nextInputUniverseEdit->setText(KInputNone);
-        m_nextInputChannelEdit->setText(KInputNone);
-    }
-}
-
-/****************************************************************************
- * Previous page
- ****************************************************************************/
-
-void VCFrameProperties::slotPreviousAttachClicked()
-{
-    AssignHotKey ahk(this, m_previousKeySequence);
-    if (ahk.exec() == QDialog::Accepted)
-    {
-        m_previousKeySequence = QKeySequence(ahk.keySequence());
-        m_previousKeyEdit->setText(m_previousKeySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void VCFrameProperties::slotPreviousDetachClicked()
-{
-    m_previousKeySequence = QKeySequence();
-    m_previousKeyEdit->setText(m_previousKeySequence.toString(QKeySequence::NativeText));
-}
-
-void VCFrameProperties::slotPreviousChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_previousInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updatePreviousInputSource();
-    }
-}
-
-void VCFrameProperties::slotPreviousAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCFrameProperties::slotPreviousInputValueChanged(quint32 uni, quint32 ch)
-{
-    m_previousInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-    updatePreviousInputSource();
-}
-
-void VCFrameProperties::updatePreviousInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_previousInputSource, uniName, chName) == true)
-    {
-        /* Display the gathered information */
-        m_previousInputUniverseEdit->setText(uniName);
-        m_previousInputChannelEdit->setText(chName);
-    }
-    else
-    {
-        m_previousInputUniverseEdit->setText(KInputNone);
-        m_previousInputChannelEdit->setText(KInputNone);
-    }
-}
