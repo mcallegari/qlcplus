@@ -22,15 +22,12 @@
 #include <QComboBox>
 #include <QSpinBox>
 
-
 #include "vcaudiotriggersproperties.h"
-#include "selectinputchannel.h"
+#include "inputselectionwidget.h"
 #include "channelsselection.h"
 #include "functionselection.h"
 #include "vcwidgetselection.h"
 #include "vcaudiotriggers.h"
-#include "assignhotkey.h"
-#include "inputpatch.h"
 #include "qlcmacros.h"
 #include "audiobar.h"
 #include "chaser.h"
@@ -62,21 +59,14 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers
     connect(m_barsNumSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateTree()));
 
-    /* Key sequence */
-    m_keySequence = QKeySequence(triggers->keySequence());
-    m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
-
     /* External input */
-    m_inputSource = triggers->inputSource();
-    updateInputSource();
-
-    connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
-    connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
-
-    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectInputToggled(bool)));
-    connect(m_chooseInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseInputClicked()));
+    m_inputSelWidget = new InputSelectionWidget(m_doc, this);
+    m_inputSelWidget->setCustomFeedbackVisibility(true);
+    m_inputSelWidget->setKeySequence(m_triggers->keySequence());
+    m_inputSelWidget->setInputSource(m_triggers->inputSource());
+    m_inputSelWidget->setWidgetPage(m_triggers->page());
+    m_inputSelWidget->show();
+    m_extControlLayout->addWidget(m_inputSelWidget);
 
     m_tree->setAlternatingRowColors(true);
     m_tree->setRootIsDecorated(false);
@@ -93,8 +83,8 @@ AudioTriggersConfiguration::~AudioTriggersConfiguration()
 void AudioTriggersConfiguration::accept()
 {
     m_triggers->setCaption(m_nameEdit->text());
-    m_triggers->setKeySequence(m_keySequence);
-    m_triggers->setInputSource(m_inputSource);
+    m_triggers->setKeySequence(m_inputSelWidget->keySequence());
+    m_triggers->setInputSource(m_inputSelWidget->inputSource());
 
     /* Close dialog */
     QDialog::accept();
@@ -269,7 +259,6 @@ void AudioTriggersConfiguration::updateTree()
     m_tree->resizeColumnToContents(KColumnMinThreshold);
     m_tree->resizeColumnToContents(KColumnMaxThreshold);
     m_tree->resizeColumnToContents(KColumnDivisor);
-
 }
 
 void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)
@@ -403,65 +392,3 @@ void AudioTriggersConfiguration::slotDivisorChanged(int val)
     }
 }
 
-void AudioTriggersConfiguration::slotAttachKey()
-{
-    AssignHotKey ahk(this, m_keySequence);
-    if (ahk.exec() == QDialog::Accepted)
-    {
-        m_keySequence = QKeySequence(ahk.keySequence());
-        m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void AudioTriggersConfiguration::slotDetachKey()
-{
-    m_keySequence = QKeySequence();
-    m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
-}
-
-void AudioTriggersConfiguration::slotAutoDetectInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(),
-                SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(),
-                   SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32)));
-    }
-}
-
-void AudioTriggersConfiguration::slotInputValueChanged(quint32 universe, quint32 channel)
-{
-    m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_triggers->page() << 16) | channel));
-    updateInputSource();
-}
-
-void AudioTriggersConfiguration::slotChooseInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-        updateInputSource();
-    }
-}
-
-void AudioTriggersConfiguration::updateInputSource()
-{
-    QString uniName;
-    QString chName;
-
-    if (m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
-    {
-        uniName = KInputNone;
-        chName = KInputNone;
-    }
-
-    m_inputUniverseEdit->setText(uniName);
-    m_inputChannelEdit->setText(chName);
-}

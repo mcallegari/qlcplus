@@ -25,6 +25,7 @@
 #include "ui_vcaudiotriggersproperties.h"
 #include "doc.h"
 
+class InputSelectionWidget;
 class VCAudioTriggers;
 
 /** @addtogroup ui_vc_props
@@ -54,26 +55,11 @@ private slots:
     void slotMaxThresholdChanged(int val);
     void slotDivisorChanged(int val);
 
-    /*************************************************************************
-     * External Input
-     *************************************************************************/
-protected slots:
-    void slotAttachKey();
-    void slotDetachKey();
-
-    void slotAutoDetectInputToggled(bool checked);
-    void slotInputValueChanged(quint32 universe, quint32 channel);
-    void slotChooseInputClicked();
-
-protected:
-    void updateInputSource();
-
 private:
     Doc *m_doc;
     VCAudioTriggers *m_triggers;
     int m_maxFrequency;
-    QKeySequence m_keySequence;
-    QSharedPointer<QLCInputSource> m_inputSource;
+    InputSelectionWidget *m_inputSelWidget;
 };
 
 /** @} */
