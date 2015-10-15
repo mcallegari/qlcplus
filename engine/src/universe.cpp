@@ -246,7 +246,7 @@ const QByteArray* Universe::postGMValues() const
 
 void Universe::zeroRelativeValues()
 {
-    m_relativeValues.fill(0);
+    memset(m_relativeValues.data(), 0, UNIVERSE_SIZE * sizeof(*m_relativeValues.data()));
 }
 
 Universe::BlendMode Universe::stringToBlendMode(QString mode)
