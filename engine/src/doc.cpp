@@ -67,6 +67,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
+    , m_fixturesListCacheUpToDate(false)
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
@@ -153,6 +154,7 @@ void Doc::clearContents()
         delete fxi;
         emit fixtureRemoved(fxID);
     }
+    m_fixturesListCacheUpToDate = false;
 
     m_orderedGroups.clear();
 
@@ -355,6 +357,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     {
         fixture->setID(id);
         m_fixtures.insert(id, fixture);
+        m_fixturesListCacheUpToDate = false;
 
         /* Patch fixture change signals thru Doc */
         connect(fixture, SIGNAL(changed(quint32)),
@@ -405,6 +408,7 @@ bool Doc::deleteFixture(quint32 id)
     {
         Fixture* fxi = m_fixtures.take(id);
         Q_ASSERT(fxi != NULL);
+        m_fixturesListCacheUpToDate = false;
 
         /* Keep track of fixture addresses */
         QMutableHashIterator <uint,uint> it(m_addresses);
@@ -441,6 +445,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
         delete fxi;
+        m_fixturesListCacheUpToDate = false;
     }
     m_latestFixtureId = 0;
     m_addresses.clear();
@@ -468,6 +473,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
             newFixture->setChannels(fixture->channels());
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         m_fixtures.insert(id, newFixture);
+        m_fixturesListCacheUpToDate = false;
 
         /* Patch fixture change signals thru Doc */
         connect(newFixture, SIGNAL(changed(quint32)),
@@ -540,16 +546,22 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     return false;
 }
 
-QList <Fixture*> Doc::fixtures() const
+QList<Fixture*> const& Doc::fixtures() const
 {
-    QMap <quint32, Fixture*> fixturesMap;
-    QHashIterator <quint32, Fixture*> hashIt(m_fixtures);
-    while (hashIt.hasNext())
+    if (!m_fixturesListCacheUpToDate)
     {
-        hashIt.next();
-        fixturesMap.insert(hashIt.key(), hashIt.value());
+        // Sort fixtures by id
+        QMap <quint32, Fixture*> fixturesMap;
+        QHashIterator <quint32, Fixture*> hashIt(m_fixtures);
+        while (hashIt.hasNext())
+        {
+            hashIt.next();
+            fixturesMap.insert(hashIt.key(), hashIt.value());
+        }
+        const_cast<QList<Fixture*>&>(m_fixturesListCache) = fixturesMap.values();
+        const_cast<bool&>(m_fixturesListCacheUpToDate) = true;
     }
-    return fixturesMap.values();
+    return m_fixturesListCache;
 }
 
 Fixture* Doc::fixture(quint32 id) const

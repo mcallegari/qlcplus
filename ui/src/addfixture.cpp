@@ -368,7 +368,7 @@ void AddFixture::findAddress()
 }
 
 quint32 AddFixture::findAddress(quint32 numChannels,
-                                const QList <Fixture*> fixtures,
+                                QList<Fixture*> const& fixtures,
                                 quint32 maxUniverses)
 {
     /* Try to find contiguous space from one universe at a time */
@@ -383,7 +383,7 @@ quint32 AddFixture::findAddress(quint32 numChannels,
 }
 
 quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
-                                const QList <Fixture*> fixtures)
+                                QList<Fixture*> const& fixtures)
 {
     quint32 freeSpace = 0;
     quint32 maxChannels = 512;

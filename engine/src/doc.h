@@ -278,7 +278,7 @@ public:
     /**
      * Get a list of fixtures
      */
-    QList <Fixture*> fixtures() const;
+    QList<Fixture*> const& fixtures() const;
 
     /**
      * Get the fixture that occupies the given DMX address. If multiple fixtures
@@ -320,7 +320,11 @@ private slots:
 
 protected:
     /** Fixtures hash: < ID, Fixture instance > */
-    QHash <quint32,Fixture*> m_fixtures;
+    QHash <quint32, Fixture*> m_fixtures;
+
+    /** Fixtures list cache */
+    bool m_fixturesListCacheUpToDate;
+    QList<Fixture*> m_fixturesListCache;
 
     /** Map of the addresses occupied by fixtures */
     QHash <quint32, quint32> m_addresses;
