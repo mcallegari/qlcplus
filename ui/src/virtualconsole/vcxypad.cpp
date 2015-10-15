@@ -573,7 +573,11 @@ void VCXYPad::slotPresetClicked(bool checked)
 
     // stop any previously started EFX
     if (m_efx != NULL && m_efx->isRunning())
-        m_efx->stop();
+    {
+        m_efx->stopAndWait();
+        delete m_efx;
+        m_efx = NULL;
+    }
 
     // stop any previously started Scene
     if (m_scene != NULL && m_scene->isRunning())
@@ -615,7 +619,8 @@ void VCXYPad::slotPresetClicked(bool checked)
         Function *f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::EFX)
             return;
-        m_efx = qobject_cast<EFX*>(f);
+        m_efx = new EFX(m_doc);
+        m_efx->copyFrom(f);
 
         QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
                    QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
