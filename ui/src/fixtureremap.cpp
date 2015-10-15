@@ -347,10 +347,11 @@ void FixtureRemap::slotCloneSourceFixture()
 
     /* Set a fixture definition & mode if they were selected.
        Otherwise assign channels to a generic dimmer. */
-    if (srcFix->fixtureDef() != NULL && srcFix->fixtureMode() != NULL)
-        tgtFix->setFixtureDefinition(srcFix->fixtureDef(), srcFix->fixtureMode());
+    if (srcFix->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+        srcFix->fixtureDef()->model() == KXMLFixtureGeneric)
+            tgtFix->setChannels(srcFix->channels());
     else
-        tgtFix->setChannels(srcFix->channels());
+        tgtFix->setFixtureDefinition(srcFix->fixtureDef(), srcFix->fixtureMode());
 
     m_targetDoc->addFixture(tgtFix);
 

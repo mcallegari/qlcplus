@@ -460,7 +460,13 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setName(fixture->name());
         newFixture->setAddress(fixture->address());
         newFixture->setUniverse(fixture->universe());
-        if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
+        if (fixture->fixtureDef() == NULL ||
+            (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+             fixture->fixtureDef()->model() == KXMLFixtureGeneric))
+        {
+            newFixture->setChannels(fixture->channels());
+        }
+        else
         {
             QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
                                                                fixture->fixtureDef()->model());
@@ -469,8 +475,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
                 mode = def->mode(fixture->fixtureMode()->name());
             newFixture->setFixtureDefinition(def, mode);
         }
-        else
-            newFixture->setChannels(fixture->channels());
+
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
