@@ -126,9 +126,11 @@ public:
     QList<E131IO> getIOMapping();
 
 private:
+    /** The total number of interfaces present in the system */
+    int m_interfacesTotalCount;
+
     /** List holding the detected system network interfaces */
     QList<QNetworkAddressEntry> m_netInterfaces;
-
 
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO> m_IOmapping;

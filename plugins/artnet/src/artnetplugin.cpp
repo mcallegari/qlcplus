@@ -29,13 +29,20 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-    if (m_IOmapping.size() > 0)
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+
+    if (m_netInterfaces.isEmpty())
+        m_interfacesTotalCount = 0;
+
+    if (interfaces.count() == m_interfacesTotalCount)
         return;
 
-    m_IOmapping.clear();
+    m_interfacesTotalCount = interfaces.count();
 
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    for(int i = 0; i < interfaces.count(); i++)
     {
+        QNetworkInterface interface = interfaces.at(i);
+
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -48,9 +55,21 @@ void ArtNetPlugin::init()
                 else
                     tmpIO.MACAddress = interface.hardwareAddress();
                 tmpIO.controller = NULL;
-                m_IOmapping.append(tmpIO);
 
-                m_netInterfaces.append(entry);
+                bool alreadyInList = false;
+                for(int j = 0; j < m_IOmapping.count(); j++)
+                {
+                    if (m_IOmapping.at(j).MACAddress == tmpIO.MACAddress)
+                    {
+                        alreadyInList = true;
+                        break;
+                    }
+                }
+                if (alreadyInList == false)
+                {
+                    m_IOmapping.append(tmpIO);
+                    m_netInterfaces.append(entry);
+                }
             }
         }
     }
@@ -146,7 +165,8 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
     if (m_IOmapping[output].controller == NULL)
     {
         ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
-                                                            m_netInterfaces, m_IOmapping.at(output).MACAddress,
+                                                            m_netInterfaces.at(output),
+                                                            m_IOmapping.at(output).MACAddress,
                                                             ArtNetController::Output, output, this);
         m_IOmapping[output].controller = controller;
     }
@@ -216,7 +236,8 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
     if (m_IOmapping[input].controller == NULL)
     {
         ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
-                                                            m_netInterfaces, m_IOmapping.at(input).MACAddress,
+                                                            m_netInterfaces.at(input),
+                                                            m_IOmapping.at(input).MACAddress,
                                                             ArtNetController::Input, input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));

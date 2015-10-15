@@ -25,7 +25,7 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
+ArtNetController::ArtNetController(QString ipaddr, QNetworkAddressEntry interface,
                                    QString macAddress, Type type, quint32 line, QObject *parent)
     : QObject(parent)
 {
@@ -33,21 +33,12 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     m_MACAddress = macAddress;
     m_line = line;
 
-    int i = 0;
-    foreach(QNetworkAddressEntry iface, interfaces)
-    {
-        if (iface.ip() == m_ipAddr)
-        {
-            if (m_ipAddr == QHostAddress::LocalHost)
-                m_broadcastAddr = QHostAddress::LocalHost;
-            else
-                m_broadcastAddr = iface.broadcast();
+    if (m_ipAddr == QHostAddress::LocalHost)
+        m_broadcastAddr = QHostAddress::LocalHost;
+    else
+        m_broadcastAddr = interface.broadcast();
 
-            m_netmask = iface.netmask();
-            break;
-        }
-        i++;
-    }
+    m_netmask = interface.netmask();
 
     qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
     qDebug() << "[ArtNetController] type: " << type;

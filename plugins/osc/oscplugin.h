@@ -127,9 +127,11 @@ public:
     QList<OSCIO> getIOMapping();
 
 private:
+    /** The total number of interfaces present in the system */
+    int m_interfacesTotalCount;
+
     /** List holding the detected system network interfaces */
     QList<QNetworkAddressEntry> m_netInterfaces;
-
 
     /** Map of the OSC plugin Input/Output lines */
     QList<OSCIO>m_IOmapping;

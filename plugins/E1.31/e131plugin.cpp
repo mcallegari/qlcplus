@@ -29,13 +29,19 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-    if (m_IOmapping.size() > 0)
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+
+    if (m_netInterfaces.isEmpty())
+        m_interfacesTotalCount = 0;
+
+    if (interfaces.count() == m_interfacesTotalCount)
         return;
 
-    m_IOmapping.clear();
+    m_interfacesTotalCount = interfaces.count();
 
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    for(int i = 0; i < interfaces.count(); i++)
     {
+        QNetworkInterface interface = interfaces.at(i);
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -45,9 +51,21 @@ void E131Plugin::init()
                 tmpIO.IPAddress = entry.ip().toString();
                 tmpIO.interface = interface;
                 tmpIO.controller = NULL;
-                m_IOmapping.append(tmpIO);
 
-                m_netInterfaces.append(entry);
+                bool alreadyInList = false;
+                for(int j = 0; j < m_IOmapping.count(); j++)
+                {
+                    if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
+                    {
+                        alreadyInList = true;
+                        break;
+                    }
+                }
+                if (alreadyInList == false)
+                {
+                    m_IOmapping.append(tmpIO);
+                    m_netInterfaces.append(entry);
+                }
             }
         }
     }

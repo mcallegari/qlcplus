@@ -29,10 +29,20 @@ OSCPlugin::~OSCPlugin()
 
 void OSCPlugin::init()
 {
-    m_IOmapping.clear();
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
 
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    if (m_netInterfaces.isEmpty())
+        m_interfacesTotalCount = 0;
+
+    if (interfaces.count() == m_interfacesTotalCount)
+        return;
+
+    m_interfacesTotalCount = interfaces.count();
+
+    for(int i = 0; i < interfaces.count(); i++)
     {
+        QNetworkInterface interface = interfaces.at(i);
+
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -41,9 +51,21 @@ void OSCPlugin::init()
                 OSCIO tmpIO;
                 tmpIO.IPAddress = entry.ip().toString();
                 tmpIO.controller = NULL;
-                m_IOmapping.append(tmpIO);
 
-                m_netInterfaces.append(entry);
+                bool alreadyInList = false;
+                for(int j = 0; j < m_IOmapping.count(); j++)
+                {
+                    if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
+                    {
+                        alreadyInList = true;
+                        break;
+                    }
+                }
+                if (alreadyInList == false)
+                {
+                    m_IOmapping.append(tmpIO);
+                    m_netInterfaces.append(entry);
+                }
             }
         }
     }
@@ -98,8 +120,7 @@ QStringList OSCPlugin::outputs()
 
 QString OSCPlugin::outputInfo(quint32 output)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return QString();
@@ -127,8 +148,7 @@ QString OSCPlugin::outputInfo(quint32 output)
 
 bool OSCPlugin::openOutput(quint32 output, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (output >= (quint32)m_IOmapping.length())
         return false;
@@ -185,8 +205,7 @@ QStringList OSCPlugin::inputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     foreach (OSCIO line, m_IOmapping)
     {
@@ -198,8 +217,7 @@ QStringList OSCPlugin::inputs()
 
 bool OSCPlugin::openInput(quint32 input, quint32 universe)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return false;
@@ -242,8 +260,7 @@ void OSCPlugin::closeInput(quint32 input, quint32 universe)
 
 QString OSCPlugin::inputInfo(quint32 input)
 {
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     if (input >= (quint32)m_IOmapping.length())
         return QString();

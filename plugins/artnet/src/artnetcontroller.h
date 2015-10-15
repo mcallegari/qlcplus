@@ -48,7 +48,7 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
+    ArtNetController(QString ipaddr, QNetworkAddressEntry interface,
                      QString macAddress, Type type, quint32 line, QObject *parent = 0);
 
     ~ArtNetController();
