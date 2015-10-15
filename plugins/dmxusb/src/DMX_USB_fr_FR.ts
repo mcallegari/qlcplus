@@ -33,7 +33,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="dmxusb.cpp" line="166"/>
         <source>Driver in use: %1</source>
-        <translation>Pilote utilisé : %1</TRANSLation>
+        <translation>Pilote utilisé : %1</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="255"/>
