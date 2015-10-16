@@ -234,7 +234,7 @@ class FixtureDef
     end
 
     @doc.root.find('//xmlns:Author', NS).each do |node|
-      node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '').gsub('&', '&amp;')
+      node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '')
     end
 
     if @doc.root.namespaces.default.nil?
