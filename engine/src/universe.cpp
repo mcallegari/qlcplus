@@ -568,7 +568,8 @@ void Universe::updateIntensityChannelsRanges()
 
     m_intensityChannelsRanges.clear();
     short currentPos = -1;
-    short currentSize;
+    short currentSize = 0;
+
     for (int i = 0; i < m_intensityChannels.size(); ++i)
     {
         int channel = m_intensityChannels.at(i);
