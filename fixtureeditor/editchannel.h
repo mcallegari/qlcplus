@@ -86,6 +86,7 @@ protected slots:
 protected:
     void refreshCapabilities();
     QLCCapability* currentCapability();
+    int currentCapabilityIndex();
 
 protected:
     QLCCapability* m_currentCapability;

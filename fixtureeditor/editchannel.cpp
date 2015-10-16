@@ -194,8 +194,25 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(true);
     m_descriptionEdit->blockSignals(true);
 
-    m_minSpin->setRange(m_currentCapability->min(), m_currentCapability->max());
-    m_maxSpin->setRange(m_currentCapability->min(), m_currentCapability->max());
+    int capIdx = currentCapabilityIndex();
+    uchar min = 0, max = UCHAR_MAX;
+    if (capIdx > 0)
+    {
+        QTreeWidgetItem *prevItem = m_capabilityList->topLevelItem(capIdx - 1);
+        QLCCapability *prevCap = (QLCCapability*) prevItem->data(COL_NAME, PROP_PTR).toULongLong();
+        if (prevCap != NULL)
+            min = prevCap->max() + 1;
+    }
+    if (capIdx < m_capabilityList->topLevelItemCount() - 1)
+    {
+        QTreeWidgetItem *nextItem = m_capabilityList->topLevelItem(capIdx + 1);
+        QLCCapability *nextCap = (QLCCapability*) nextItem->data(COL_NAME, PROP_PTR).toULongLong();
+        if (nextCap != NULL)
+            max = nextCap->min() - 1;
+    }
+
+    m_minSpin->setRange(min, max);
+    m_maxSpin->setRange(min, max);
 
     m_minSpin->setValue(m_currentCapability->min());
     m_maxSpin->setValue(m_currentCapability->max());
@@ -493,6 +510,8 @@ void EditChannel::refreshCapabilities()
 
     m_capabilityList->clear();
 
+    QStringList goboErrors;
+
     /* Fill capabilities */
     while (it.hasNext() == true)
     {
@@ -513,6 +532,24 @@ void EditChannel::refreshCapabilities()
 
         // Pointer
         item->setData(COL_NAME, PROP_PTR, (qulonglong) cap);
+
+        if (cap->resourceName().isEmpty() == false)
+        {
+            QFile gobo(cap->resourceName());
+            if (gobo.exists() == false)
+            {
+                QString descr = QString("[%1, %2] - %3 (%4)").arg(cap->min()).arg(cap->max())
+                        .arg(cap->name()).arg(cap->resourceName());
+                goboErrors.append(descr);
+            }
+        }
+    }
+
+    if (goboErrors.isEmpty() == false)
+    {
+        QMessageBox::warning(this,
+                             tr("Missing resources"),
+                             tr("Some gobos are missing:\n\n") + goboErrors.join("\n\n"));
     }
 
     m_capabilityList->sortItems(COL_MIN, Qt::AscendingOrder);
@@ -534,4 +571,12 @@ QLCCapability* EditChannel::currentCapability()
         cap = (QLCCapability*) item->data(COL_NAME, PROP_PTR).toULongLong();
 
     return cap;
+}
+
+int EditChannel::currentCapabilityIndex()
+{
+    if (m_capabilityList->currentItem() != NULL)
+        return m_capabilityList->indexOfTopLevelItem(m_capabilityList->currentItem());
+
+    return 0;
 }
