@@ -241,6 +241,13 @@ void EditChannel::setupCapabilityGroup()
         m_color2Button->setEnabled(true);
         m_resourceButton->setIcon(pix);
     }
+    else
+    {
+        QPixmap pix(58, 58);
+        m_color2Button->setEnabled(false);
+        pix.fill(QColor(Qt::transparent));
+        m_resourceButton->setIcon(pix);
+    }
 }
 
 void EditChannel::slotNameChanged(const QString& name)
