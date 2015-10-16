@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3</Version>
-  <Author>Heikki Junnila &amp;amp;amp; Marco Palmisano</Author>
+  <Version>4.10.0 GIT</Version>
+  <Author>Heikki Junnila &amp; Marco Palmisano</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
  <Model>Victory II 250</Model>
@@ -119,11 +119,11 @@
  </Channel>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour</Channel>
@@ -140,11 +140,11 @@
  </Mode>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="0" Height="0" Depth="0" Weight="0"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour</Channel>

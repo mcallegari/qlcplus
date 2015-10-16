@@ -226,6 +226,7 @@
   <fixture path="Elation-Sniper-2R.qxf" mf="Elation" md="Sniper 2R"/>
   <fixture path="Elation-Vision-250.qxf" mf="Elation" md="Vision 250"/>
   <fixture path="Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf" mf="Electroconcept" md="PAR 56 LED Full RGB 18x3W"/>
+  <fixture path="Electroconcept-SPC029.qxf" mf="Electroconcept" md="SPC029"/>
   <fixture path="Eliminator-Electro-86.qxf" mf="Eliminator Lighting" md="Electro 86"/>
   <fixture path="Eliminator-Electro-MH25R.qxf" mf="Eliminator Lighting" md="Electro MH25R"/>
   <fixture path="Equinox-Gigabar.qxf" mf="Equinox" md="Gigabar"/>
@@ -361,6 +362,7 @@
   <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
   <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
+  <fixture path="Kam-iLink-All-Colour-Models.qxf" mf="Kam" md="iLink - All Colour Models"/>
   <fixture path="Kam-KMH-Series.qxf" mf="Kam" md="KMH Series"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="Kam-LED-PartyBar.qxf" mf="Kam" md="LED PartyBar"/>
@@ -439,6 +441,7 @@
   <fixture path="Martin-SCX-800.qxf" mf="Martin" md="SCX-800"/>
   <fixture path="Martin-Viper-AirFX.qxf" mf="Martin" md="Mac Viper AirFX"/>
   <fixture path="Microh-Firefly-RGY-II.qxf" mf="Microh" md="Firefly RGY II"/>
+  <fixture path="Microh-Plasmawave-1-RGB.qxf" mf="Microh" md="Plasmawave 1 RGB"/>
   <fixture path="Monacor-CPL-3DMX.qxf" mf="Monacor" md="CPL-3DMX"/>
   <fixture path="Monacor-LSX-142SRGY.qxf" mf="Monacor" md="LSX-142SRGY"/>
   <fixture path="Movitec-SL-250.qxf" mf="Movitec" md="SL-250"/>
@@ -494,6 +497,7 @@
   <fixture path="Robe-ColorSpot-700E-AT.qxf" mf="Robe" md="ColorSpot 700E AT (v1.4)"/>
   <fixture path="Robe-Pointe.qxf" mf="Robe" md="Pointe"/>
   <fixture path="Robe-Robin-100-LEDBeam.qxf" mf="Robe" md="Robin 100 LEDBeam"/>
+  <fixture path="Robe-Robin-300E-Beam.qxf" mf="Robe" md="Robin 300E Beam"/>
   <fixture path="Robe-Robin-600-LED-Wash.qxf" mf="Robe" md="Robin 600 LED Wash"/>
   <fixture path="Robe-Robin-600E-Beam.qxf" mf="Robe" md="Robin 600E Beam"/>
   <fixture path="Robe-Robin-600E-Spot.qxf" mf="Robe" md="Robin 600E Spot (v1.1)"/>
