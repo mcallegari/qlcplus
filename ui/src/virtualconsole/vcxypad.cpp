@@ -404,25 +404,54 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
     uchar tiltCoarse = uchar(qFloor(pt.y()));
     uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
 
+    QVariantList positions;
+    QMap <quint32, QPointF> fxMap;
+
     foreach(SceneChannel sc, m_sceneChannels)
     {
         if(sc.m_universe >= (quint32)universes.count())
             continue;
+
+        qreal x = fxMap[sc.m_fixture].x();
+        qreal y = fxMap[sc.m_fixture].y();
+
         if (sc.m_group == QLCChannel::Pan)
         {
             if (sc.m_subType == QLCChannel::MSB)
+            {
                 universes.at(sc.m_universe)->writeRelative(sc.m_channel, panCoarse);
+                x += universes.at(sc.m_universe)->postGMValue(sc.m_channel);
+            }
             else
+            {
                 universes.at(sc.m_universe)->writeRelative(sc.m_channel, panFine);
+                x += (universes.at(sc.m_universe)->postGMValue(sc.m_channel) / 255);
+            }
         }
         else
         {
             if (sc.m_subType == QLCChannel::MSB)
+            {
                 universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltCoarse);
+                y += universes.at(sc.m_universe)->postGMValue(sc.m_channel);
+            }
             else
+            {
                 universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltFine);
+                y += (universes.at(sc.m_universe)->postGMValue(sc.m_channel) / 255);
+            }
         }
+        fxMap[sc.m_fixture] = QPointF(x, y);
     }
+
+    foreach(QPointF pt, fxMap.values())
+    {
+        if (invertedAppearance())
+            pt.setY(256 - pt.y());
+        positions.append(pt);
+    }
+
+    emit fixturePositions(positions);
 }
 
 void VCXYPad::slotPositionChanged(const QPointF& pt)
@@ -675,6 +704,7 @@ void VCXYPad::slotPresetClicked(bool checked)
 
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
+            sChan.m_fixture = fixture->id();
             sChan.m_channel = fixture->address() + scv.channel;
             sChan.m_group = ch->group();
             sChan.m_subType = ch->controlByte();

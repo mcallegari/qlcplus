@@ -238,6 +238,14 @@ QHash<int, uchar> Universe::intensityChannels()
     return intensityList;
 }
 
+uchar Universe::postGMValue(int address) const
+{
+    if (m_postGMValues == NULL || address >= m_postGMValues->size())
+        return 0;
+
+    return uchar(m_postGMValues->at(address));
+}
+
 const QByteArray* Universe::postGMValues() const
 {
     return m_postGMValues;

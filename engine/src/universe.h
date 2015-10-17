@@ -300,6 +300,14 @@ public:
     void reset(int address, int range);
 
     /**
+     * Get the current post-Grand-Master value (used by functions and everyone
+     * else INSIDE QLC+) at specified address.
+     *
+     * @return The current value at address
+     */
+    uchar postGMValue(int address) const;
+
+    /**
      * Get the current post-Grand-Master values (to be written to output HW)
      * Don't write to the returned array to prevent copying. Not that it would
      * do anything to UniverseArray's internal values, but it would be just
@@ -321,7 +329,7 @@ public:
 
     /**
      * Get the current pre-Grand-Master value (used by functions and everyone
-     * else INSIDE QLC) at specified address.
+     * else INSIDE QLC+) at specified address.
      *
      * @return The current value at address
      */

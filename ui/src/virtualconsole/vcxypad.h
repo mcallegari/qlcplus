@@ -70,7 +70,8 @@ class Doc;
 typedef struct
 {
     quint32 m_universe;
-    quint32 m_channel; // absolute channel address
+    quint32 m_fixture;
+    quint32 m_channel; // universe channel address
     QLCChannel::Group m_group;
     QLCChannel::ControlByte m_subType;
 } SceneChannel;
