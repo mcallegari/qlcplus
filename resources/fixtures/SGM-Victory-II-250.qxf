@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -101,7 +101,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Max="49" Min="0">Off</Capability>
   <Capability Max="79" Min="50">No rotation</Capability>
-  <Capability Max="255" Min="80">Rotation, slow -> fast</Capability>
+  <Capability Max="255" Min="80">Rotation, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>

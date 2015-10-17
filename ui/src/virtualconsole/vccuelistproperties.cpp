@@ -62,6 +62,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      ************************************************************************/
 
     m_playInputWidget = new InputSelectionWidget(m_doc, this);
+    m_playInputWidget->setCustomFeedbackVisibility(true);
     m_playInputWidget->setKeySequence(m_cueList->playbackKeySequence());
     m_playInputWidget->setInputSource(m_cueList->inputSource(VCCueList::playbackInputSourceId));
     m_playInputWidget->setWidgetPage(m_cueList->page());
@@ -73,6 +74,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      ************************************************************************/
 
     m_nextInputWidget = new InputSelectionWidget(m_doc, this);
+    m_nextInputWidget->setCustomFeedbackVisibility(true);
     m_nextInputWidget->setKeySequence(m_cueList->nextKeySequence());
     m_nextInputWidget->setInputSource(m_cueList->inputSource(VCCueList::nextInputSourceId));
     m_nextInputWidget->setWidgetPage(m_cueList->page());
@@ -84,6 +86,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      ************************************************************************/
 
     m_prevInputWidget = new InputSelectionWidget(m_doc, this);
+    m_prevInputWidget->setCustomFeedbackVisibility(true);
     m_prevInputWidget->setKeySequence(m_cueList->previousKeySequence());
     m_prevInputWidget->setInputSource(m_cueList->inputSource(VCCueList::previousInputSourceId));
     m_prevInputWidget->setWidgetPage(m_cueList->page());
