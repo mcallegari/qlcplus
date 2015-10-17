@@ -18,21 +18,23 @@ qlcplus (4.10.0) stable; urgency=low
   * Collection Editor: added preview button (thanks to Giorgio Rebecchi)
   * Fixture Remap: fixed remapping of EFX functions
   * Function Wizard: improved creation of color scenes for RGB panels
+  * Function Wizard: automatically set a gobo picture (if available) on buttons attached to gobo Scenes
   * Show Manager: Fix some cursor teleportation issues (David Garyga)
   * Simple Desk: Fix cue playback on universes 2+ (David Garyga)
   * Simple Desk: Fix crash when selecting recently added universe (David Garyga)
   * Simple Desk: Added reset buttons to reset a single channel
   * Simple Desk: Fix page count when channels per page does not divide 512 (Jano Svitok, reported by Florian)
+  * Virtual Console: fixed Grand Master not sending feedbacks
   * Virtual Console/Input Controls: implemented custom feebacks. For now used only by VC buttons
   * Virtual Console/Solo Frame: Option to allow mixing of sliders in playback mode (David Garyga)
   * Virtual Console/Speed Dial: Introduced multiplier/divisor, apply and presets buttons (see documentation)
+  * Virtual Console/Button: allow to set a background picture
   * Virtual Console/Cue List: Options for the Next/Previous buttons behavior (David Garyga)
   * Virtual Console/Cue List: Fixed playback of a Chaser in reverse order (David Garyga)
   * Virtual Console/Cue List: Added a new "Steps" mode for the side faders (see documentation)
   * Virtual Console/Cue List: Allow to resize columns to 0 pixels, to completely hide them
   * Virtual Console/XYPad: Introduced presets, including the usage of existing EFX and Scenes (see documentation)
   * Virtual Console/XYPad: Fix DMX output not working when going to Operate mode while the XYPad is disabled (David Garyga, thanks to bestdani)
-  * Virtual Console: fixed Grand Master not sending feedbacks
   * Input Profiles: added an option for MIDI profiles to feedback a Note Off or a Note On with 0 velocity. APCMini now works out of the box. (Jano Svitok)
   * Input Profiles: Improved BCF2000 Input profile (thanks to Lorenzo Andreani)
   * Plugins/MIDI: (Linux) Fixed data transmission to multiple devices (thanks to Adrian Kapka)
