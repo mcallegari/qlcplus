@@ -186,7 +186,10 @@ void VCButton::editProperties()
 
 void VCButton::setBackgroundImage(const QString& path)
 {
-    Q_UNUSED(path);
+    m_bgPixmap = QPixmap(path);
+    m_backgroundImage = path;
+    m_doc->setModified();
+    update();
 }
 
 void VCButton::setBackgroundColor(const QColor& color)
@@ -993,6 +996,27 @@ void VCButton::paintEvent(QPaintEvent* e)
     painter.setRenderHint(QPainter::Antialiasing);
 
     style()->drawControl(QStyle::CE_PushButton, &option, &painter, this);
+
+    if (m_backgroundImage.isEmpty() == false)
+    {
+        QRect pxRect = m_bgPixmap.rect();
+        // if the pixmap is bigger than the button, then paint a scaled version of it
+        // covering the whole button surface
+        // if the pixmap is smaller than the button, draw a centered pixmap
+        if (pxRect.contains(rect()))
+        {
+            if (m_ledStyle == true)
+                painter.drawPixmap(rect(), m_bgPixmap);
+            else
+                painter.drawPixmap(3, 3, width() - 6, height() - 6, m_bgPixmap);
+        }
+        else
+        {
+            painter.drawPixmap((width() - pxRect.width()) / 2,
+                               (height() - pxRect.height()) / 2,
+                               m_bgPixmap);
+        }
+    }
 
     /* Paint caption with text wrapping */
     if (caption().isEmpty() == false)

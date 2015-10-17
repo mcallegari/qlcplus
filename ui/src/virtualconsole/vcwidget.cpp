@@ -74,6 +74,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     m_type = UnknownWidget;
     m_hasCustomBackgroundColor = false;
     m_hasCustomForegroundColor = false;
+    m_backgroundImage = QString();
     m_hasCustomFont = false;
     m_frameStyle = KVCFrameStyleNone;
 

@@ -103,8 +103,11 @@ public:
      * Background image
      *********************************************************************/
 public:
-    /* Don't allow background image setting for buttons */
+    /** Set the button's background image */
     void setBackgroundImage(const QString& path);
+
+protected:
+    QPixmap m_bgPixmap;
 
     /*********************************************************************
      * Background color
