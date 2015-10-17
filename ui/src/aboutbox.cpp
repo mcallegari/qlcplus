@@ -49,6 +49,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_contributors->addItem("Contributors:");
     m_contributors->addItem("Jano Svitok");
     m_contributors->addItem("David Garyga");
+    m_contributors->addItem("Robert Box");
     m_contributors->addItem("Thomas Achtner");
     m_contributors->addItem("Joep Admiraal");
     m_contributors->addItem("Oliver Ruempelein");
