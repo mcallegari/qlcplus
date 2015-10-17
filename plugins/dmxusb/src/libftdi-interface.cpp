@@ -229,8 +229,12 @@ bool LibFTDIInterface::open()
     if (isOpen() == true)
         return true;
 
+    const char *ser = NULL;
+    if (serial().isEmpty() == false)
+        ser = serial().toLatin1();
+
     if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
-                           name().toLatin1(), serial().toLatin1()) < 0)
+                           name().toLatin1(), ser) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;
