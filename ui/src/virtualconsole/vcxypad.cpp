@@ -581,7 +581,10 @@ void VCXYPad::slotPresetClicked(bool checked)
 
     // stop any previously started Scene
     if (m_scene != NULL && m_scene->isRunning())
+    {
         m_scene->stop();
+        m_scene = NULL;
+    }
 
     // deactivate all previously activated buttons first
     for (QHash<QWidget *, VCXYPadPreset *>::iterator it = m_presets.begin();
