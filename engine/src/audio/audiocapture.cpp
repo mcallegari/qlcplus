@@ -67,7 +67,7 @@ int AudioCapture::defaultBarsNumber()
 void AudioCapture::registerBandsNumber(int number)
 {
     bool firstBand = m_fftMagnitudeMap.isEmpty();
-    if (number > 0 && number < FREQ_SUBBANDS_MAX_NUMBER)
+    if (number > 0 && number <= FREQ_SUBBANDS_MAX_NUMBER)
     {
         qDebug() << "[AudioCapture] registering" << number << "bands";
         if (m_fftMagnitudeMap.contains(number) == false)
