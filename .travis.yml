@@ -30,9 +30,9 @@ before_install:
  # Start xvfb so tests don't fail
  - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
- - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-5; fi
- - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+ - if [ "$QT" = "qt5" && "$CXX" = "g++" ]; then sudo apt-get install -qq g++-5; fi
+ - if [ "$QT" = "qt5" && "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
 #Remove the old g++/gcc to ensure we're using the latest ones
- - if [ "$CXX" = "g++-5" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; fi
+ - if [ "$QT" = "qt5" && "$CXX" = "g++-5" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; fi
 #Report the compiler version
  - $CXX --version
