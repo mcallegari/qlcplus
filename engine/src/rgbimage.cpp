@@ -83,12 +83,14 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
 
     qDebug() << "[RGBImage] setting image data:" << width << height << pixelData.length();
     QImage newImg(width, height, QImage::Format_RGB888);
+    newImg.fill(Qt::black);
+
     int i = 0;
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
-            if (i + 3 >= pixelData.length())
+            if (i + 3 > pixelData.length())
                 break;
             QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
             newImg.setPixel(x, y, pixel);
