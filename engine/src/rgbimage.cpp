@@ -79,6 +79,8 @@ QString RGBImage::filename() const
 
 void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
 {
+    QMutexLocker locker(&m_mutex);
+
     qDebug() << "[RGBImage] setting image data:" << width << height << pixelData.length();
     QImage newImg(width, height, QImage::Format_RGB888);
     int i = 0;
@@ -86,6 +88,8 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
     {
         for (int x = 0; x < width; x++)
         {
+            if (i + 3 >= pixelData.length())
+                break;
             QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
             newImg.setPixel(x, y, pixel);
             i+=3;
@@ -101,6 +105,8 @@ void RGBImage::reloadImage()
         qDebug() << "[RGBImage] Empty image!";
         return;
     }
+
+    QMutexLocker locker(&m_mutex);
 
     if (!m_image.load(m_filename))
     {
@@ -190,6 +196,8 @@ int RGBImage::yOffset() const
 
 int RGBImage::rgbMapStepCount(const QSize& size)
 {
+    QMutexLocker locker(&m_mutex);
+
     switch (animationStyle())
     {
     default:
@@ -208,6 +216,8 @@ int RGBImage::rgbMapStepCount(const QSize& size)
 RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 {
     Q_UNUSED(rgb);
+
+    QMutexLocker locker(&m_mutex);
 
     if (m_image.width() == 0 || m_image.height() == 0)
         return RGBMap();

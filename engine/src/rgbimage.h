@@ -21,6 +21,7 @@
 #ifndef RGBIMAGE_H
 #define RGBIMAGE_H
 
+#include <QMutexLocker>
 #include <QString>
 #include <QImage>
 
@@ -62,6 +63,7 @@ private:
 private:
     QString m_filename;
     QImage m_image;
+    QMutex m_mutex;
 
     /************************************************************************
      * Animation
