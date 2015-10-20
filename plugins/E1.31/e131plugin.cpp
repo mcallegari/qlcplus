@@ -29,19 +29,8 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-
-    if (m_netInterfaces.isEmpty())
-        m_interfacesTotalCount = 0;
-
-    if (interfaces.count() == m_interfacesTotalCount)
-        return;
-
-    m_interfacesTotalCount = interfaces.count();
-
-    for(int i = 0; i < interfaces.count(); i++)
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
-        QNetworkInterface interface = interfaces.at(i);
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -106,6 +95,7 @@ QStringList E131Plugin::outputs()
 {
     QStringList list;
     int j = 0;
+
     init();
 
     foreach (E131IO line, m_IOmapping)
@@ -118,8 +108,6 @@ QStringList E131Plugin::outputs()
 
 QString E131Plugin::outputInfo(quint32 output)
 {
-    init();
-
     if (output >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -216,8 +204,6 @@ QStringList E131Plugin::inputs()
 
 bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
-    init();
-
     if (input >= (quint32)m_IOmapping.length())
         return false;
 

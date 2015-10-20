@@ -29,20 +29,8 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-
-    if (m_netInterfaces.isEmpty())
-        m_interfacesTotalCount = 0;
-
-    if (interfaces.count() == m_interfacesTotalCount)
-        return;
-
-    m_interfacesTotalCount = interfaces.count();
-
-    for(int i = 0; i < interfaces.count(); i++)
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
-        QNetworkInterface interface = interfaces.at(i);
-
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -59,7 +47,7 @@ void ArtNetPlugin::init()
                 bool alreadyInList = false;
                 for(int j = 0; j < m_IOmapping.count(); j++)
                 {
-                    if (m_IOmapping.at(j).MACAddress == tmpIO.MACAddress)
+                    if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
                     {
                         alreadyInList = true;
                         break;
@@ -123,8 +111,6 @@ QStringList ArtNetPlugin::outputs()
 
 QString ArtNetPlugin::outputInfo(quint32 output)
 {
-    init();
-
     if (output >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -270,8 +256,6 @@ void ArtNetPlugin::closeInput(quint32 input, quint32 universe)
 
 QString ArtNetPlugin::inputInfo(quint32 input)
 {
-    init();
-
     if (input >= (quint32)m_IOmapping.length())
         return QString();
 

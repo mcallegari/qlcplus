@@ -29,20 +29,8 @@ OSCPlugin::~OSCPlugin()
 
 void OSCPlugin::init()
 {
-    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-
-    if (m_netInterfaces.isEmpty())
-        m_interfacesTotalCount = 0;
-
-    if (interfaces.count() == m_interfacesTotalCount)
-        return;
-
-    m_interfacesTotalCount = interfaces.count();
-
-    for(int i = 0; i < interfaces.count(); i++)
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
-        QNetworkInterface interface = interfaces.at(i);
-
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
@@ -107,8 +95,7 @@ QStringList OSCPlugin::outputs()
     QStringList list;
     int j = 0;
 
-    if (m_IOmapping.count() < 2)
-        init();
+    init();
 
     foreach (OSCIO line, m_IOmapping)
     {
@@ -120,8 +107,6 @@ QStringList OSCPlugin::outputs()
 
 QString OSCPlugin::outputInfo(quint32 output)
 {
-    init();
-
     if (output >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -260,8 +245,6 @@ void OSCPlugin::closeInput(quint32 input, quint32 universe)
 
 QString OSCPlugin::inputInfo(quint32 input)
 {
-    init();
-
     if (input >= (quint32)m_IOmapping.length())
         return QString();
 
