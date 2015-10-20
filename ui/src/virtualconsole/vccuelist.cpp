@@ -687,9 +687,18 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
 
         Chaser* ch = chaser();
-        float stepVal = 255.0 / (float)ch->stepsCount();
+        float stepVal;
+        if (ch->stepsCount() < 256)
+            stepVal = 255.0 / (float)ch->stepsCount();
+        else
+            stepVal = 1.0;
         int slValue = (stepVal * (float)stepNumber);
+        if (slValue > 255)
+            slValue = 255;
+        m_slider1->blockSignals(true);
         m_slider1->setValue(255 - slValue);
+        m_sl1TopLabel->setText(QString("%1").arg(slValue));
+        m_slider1->blockSignals(false);
     }
     else
         setSlidersInfo(m_primaryIndex);
@@ -941,7 +950,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
             if(value >= 255.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
-                newStep = qFloor((float)value / stepSize);
+                newStep = qRound((float)value / stepSize);
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
