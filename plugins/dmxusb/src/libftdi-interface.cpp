@@ -229,9 +229,10 @@ bool LibFTDIInterface::open()
     if (isOpen() == true)
         return true;
 
+    QByteArray sba = serial().toLatin1();
     const char *ser = NULL;
-    if (serial().isEmpty() == false)
-        ser = serial().toLatin1();
+    if (sba.length() > 0)
+        ser = (const char *)sba.data();
 
     if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
                            name().toLatin1(), ser) < 0)
