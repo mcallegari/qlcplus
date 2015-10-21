@@ -161,6 +161,7 @@ bool InputOutputMap::removeUniverse(int index)
 
 bool InputOutputMap::removeAllUniverses()
 {
+    QMutexLocker locker(&m_universeMutex);
     quint32 uniCount = universesCount();
     for (quint32 i = 0; i < uniCount; i++)
     {
