@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QActionGroup>
 #include <QFontDialog>
@@ -321,8 +322,11 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
             window->restoreGeometry(var.toByteArray());
         else
         {
-            window->resize(800, 600);
-            window->move(50, 50);
+            QRect rect = qApp->desktop()->screenGeometry();
+            int rWd = rect.width() / 4;
+            int rHd = rect.height() / 4;
+            window->resize(rWd * 3, rHd * 3);
+            window->move(rWd / 2, rHd / 2);
         }
         AppUtil::ensureWidgetIsVisible(window);
     }
