@@ -5,7 +5,8 @@ qlcplus (4.10.1) stable; urgency=high
   * Plugins/ArtNet/E1.31/OSC: Improved network interfaces detection
   * New fixture: Enterius EC-133DMX (thanks to Krzysztof Ratynski)
   * New fixture: Showtec Dragon F-350 (thanks to Jasper Zevering)
-  
+  * New fixtures: JB Systems Lounge Laser DMX, JB Systems Super Solar RGBW (thanks to Robert Box)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 21 Oct 2015 20:21:22 +0200
 
 qlcplus (4.10.0) stable; urgency=low
