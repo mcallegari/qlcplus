@@ -433,6 +433,21 @@ void Monitor::initDMXToolbar()
     connect(uniCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniverseSelected(int)));
     m_DMXToolBar->addWidget(uniCombo);
+
+    if (QLCFile::isRaspberry() == true)
+    {
+        QWidget* widget = new QWidget(this);
+        widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        m_DMXToolBar->addWidget(widget);
+
+        action = m_DMXToolBar->addAction(tr("Close"));
+        action->setToolTip(tr("Close this window"));
+        action->setIcon(QIcon(":/delete.png"));
+        connect(action, SIGNAL(triggered(bool)),
+                this, SLOT(close()));
+        m_DMXToolBar->addAction(action);
+        group->addAction(action);
+    }
 }
 
 void Monitor::initGraphicsToolbar()
@@ -499,6 +514,20 @@ void Monitor::initGraphicsToolbar()
     m_labelsAction->setCheckable(true);
     m_labelsAction->setChecked(m_props->labelsVisible());
     connect(m_labelsAction, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
+
+    if (QLCFile::isRaspberry() == true)
+    {
+        QWidget* widget = new QWidget(this);
+        widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        m_graphicsToolBar->addWidget(widget);
+
+        action = m_graphicsToolBar->addAction(tr("Close"));
+        action->setToolTip(tr("Close this window"));
+        action->setIcon(QIcon(":/delete.png"));
+        connect(action, SIGNAL(triggered(bool)),
+                this, SLOT(close()));
+        m_graphicsToolBar->addAction(action);
+    }
 }
 
 void Monitor::slotChooseFont()

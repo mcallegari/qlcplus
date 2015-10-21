@@ -76,12 +76,12 @@ private:
     static DocBrowser* s_instance;
     QLCTextBrowser* m_browser;
     QToolBar* m_toolbar;
-    QPushButton* m_closeButton;
 
     QAction* m_backwardAction;
     QAction* m_forwardAction;
     QAction* m_homeAction;
     QAction* m_aboutQtAction;
+    QAction* m_closeAction;
 };
 
 /** @} */

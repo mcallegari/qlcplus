@@ -112,8 +112,11 @@ DocBrowser::DocBrowser(QWidget* parent)
         restoreGeometry(var.toByteArray());
     else
     {
-        resize(800, 600);
-        move(50, 50);
+        QRect rect = qApp->desktop()->screenGeometry();
+        int rWd = rect.width() / 4;
+        int rHd = rect.height() / 4;
+        resize(rWd * 3, rHd * 3);
+        move(rWd / 2, rHd / 2);
     }
     AppUtil::ensureWidgetIsVisible(this);
 
@@ -122,6 +125,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_forwardAction = new QAction(QIcon(":/forward.png"), tr("Forward"), this);
     m_homeAction = new QAction(QIcon(":/qlcplus.png"), tr("Index"), this);
     m_aboutQtAction = new QAction(QIcon(":/qt.png"), tr("About Qt"), this);
+    m_closeAction = new QAction(QIcon(":/delete.png"), tr("Close this window"), this);
 
     m_backwardAction->setEnabled(false);
     m_forwardAction->setEnabled(false);
@@ -147,12 +151,6 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_browser->setOpenExternalLinks(true);
     layout()->addWidget(m_browser);
 
-    /* Close button */
-    m_closeButton = new QPushButton(this);
-    m_closeButton->setText(tr("Close"));
-    m_closeButton->setIcon(QIcon(":/uncheck.png"));
-    layout()->addWidget(m_closeButton);
-
     connect(m_browser, SIGNAL(backwardAvailable(bool)),
             this, SLOT(slotBackwardAvailable(bool)));
     connect(m_browser, SIGNAL(forwardAvailable(bool)),
@@ -165,8 +163,12 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
-    connect(m_closeButton, SIGNAL(clicked()),
-            this, SLOT(slotCloseWindow()));
+    if (QLCFile::isRaspberry() == true)
+    {
+        m_toolbar->addAction(m_closeAction);
+        connect(m_closeAction, SIGNAL(triggered(bool)),
+                this, SLOT(slotCloseWindow()));
+    }
 
     /* Set document search paths */
     QStringList searchPaths;
@@ -212,5 +214,5 @@ void DocBrowser::slotAboutQt()
 
 void DocBrowser::slotCloseWindow()
 {
-    this->close();
+    close();
 }
