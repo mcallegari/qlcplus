@@ -521,8 +521,9 @@
   <fixture path="SGM-Victory-II-250.qxf" mf="SGM" md="Victory II 250"/>
   <fixture path="SGM-Victory-II-Pro150.qxf" mf="SGM" md="Victory II Pro150"/>
   <fixture path="Showtec-Acrobat.qxf" mf="Showtec" md="Acrobat"/>
-  <fixture path="Showtec-Atmos-F350.qxf" mf="Showtec" md="Atmos F350"/>
+  <fixture path="Showtec-Atmos-F-350.qxf" mf="Showtec" md="Atmos F-350"/>
   <fixture path="Showtec-Compact-Par-18-Tri-MKII.qxf" mf="Showtec" md="Compact Par 18 Tri MKII"/>
+  <fixture path="Showtec-Dragon-F-350.qxf" mf="Showtec" md="Dragon F-350"/>
   <fixture path="Showtec-Dynamic-LED-v3.qxf" mf="Showtec" md="Dynamic LED v3"/>
   <fixture path="Showtec-Event-Spot-1800-Q4.qxf" mf="Showtec" md="Event Spot 1800 Q4"/>
   <fixture path="Showtec-Expression-5000.qxf" mf="Showtec" md="Expression 5000"/>
