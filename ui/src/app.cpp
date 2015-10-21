@@ -205,6 +205,8 @@ void App::init()
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
 
+    QLCFile::checkRaspberry();
+
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
     {

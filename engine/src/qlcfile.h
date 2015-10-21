@@ -126,6 +126,11 @@ public:
     static QString currentUserName();
 
     /**
+     * Method called just once to set the m_isRaspberry flag
+     */
+    static void checkRaspberry();
+
+    /**
      * Return if the current platform is a Raspberry Pi
      */
     static bool isRaspberry();
@@ -147,6 +152,9 @@ public:
      * @return
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
+
+private:
+    static bool m_isRaspberry;
 };
 
 /** @} */

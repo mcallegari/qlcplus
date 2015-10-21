@@ -42,6 +42,8 @@
 
 #define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
+bool QLCFile::m_isRaspberry = false;
+
 #ifdef QT_XML_LIB
 QDomDocument QLCFile::readXML(const QString& path)
 {
@@ -251,7 +253,7 @@ QString QLCFile::currentUserName()
 #endif
 }
 
-bool QLCFile::isRaspberry()
+void QLCFile::checkRaspberry()
 {
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     QFile cpuInfoFile("/proc/cpuinfo");
@@ -261,12 +263,14 @@ bool QLCFile::isRaspberry()
         QString content = QLatin1String(cpuInfoFile.readAll());
         cpuInfoFile.close();
         if (content.contains("BCM2708") || content.contains("BCM2709"))
-            return true;
+            m_isRaspberry = true;
     }
-    return false;
-#else
-    return false;
 #endif
+}
+
+bool QLCFile::isRaspberry()
+{
+    return m_isRaspberry;
 }
 
 QDir QLCFile::systemDirectory(QString path, QString extension)
