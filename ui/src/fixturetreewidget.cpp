@@ -258,8 +258,9 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             }
 
             cItem->setFlags(cItem->flags() | Qt::ItemIsUserCheckable);
-            if (m_channelsMask.at(baseAddress + c) == 1)
-                cItem->setCheckState(KColumnName, Qt::Checked);
+            if (m_channelsMask.length() > (int)(baseAddress + c) &&
+                m_channelsMask.at(baseAddress + c) == 1)
+                    cItem->setCheckState(KColumnName, Qt::Checked);
             else
                 cItem->setCheckState(KColumnName, Qt::Unchecked);
         }

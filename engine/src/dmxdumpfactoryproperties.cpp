@@ -24,7 +24,7 @@ DmxDumpFactoryProperties::DmxDumpFactoryProperties(int universes)
     m_dumpAllChannels = true;
     m_dumpNonZeroValues = false;
 
-    m_selectedTarget = 0;
+    m_selectedTarget = Chaser;
 
     m_channelsMask = QByteArray(universes * 512, 0);
 }
@@ -57,8 +57,12 @@ QByteArray DmxDumpFactoryProperties::channelsMask()
 void DmxDumpFactoryProperties::setChannelsMask(QByteArray mask)
 {
     if (mask.isEmpty() == false)
-        m_channelsMask = mask;
+        m_channelsMask.replace(0, mask.length(), mask);
 }
+
+/************************************************************************
+ * Dump target
+ ***********************************************************************/
 
 void DmxDumpFactoryProperties::addChaserID(quint32 id)
 {
@@ -77,13 +81,12 @@ bool DmxDumpFactoryProperties::isChaserSelected(quint32 id)
     return m_selectedChaserIDs.contains(id);
 }
 
-void DmxDumpFactoryProperties::setSelectedTarget(int idx)
+void DmxDumpFactoryProperties::setSelectedTarget(DmxDumpFactoryProperties::TargetType type)
 {
-    if (idx >= 0 && idx < 3)
-        m_selectedTarget = idx;
+    m_selectedTarget = type;
 }
 
-int DmxDumpFactoryProperties::selectedTarget()
+DmxDumpFactoryProperties::TargetType DmxDumpFactoryProperties::selectedTarget()
 {
     return m_selectedTarget;
 }

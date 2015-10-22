@@ -146,6 +146,12 @@ private:
      * Channels selection
      ****************************************************************************/
 public:
+    /** Set the channels that need to be selected in the tree.
+     *  $channels is an array of 0/1 values where 0 means deselected
+     *  and 1 means selected.
+     *  The array indices represent absolute channel addresses
+     *  across universes
+     */
     void setChannelsMask(QByteArray channels);
 
 private:
