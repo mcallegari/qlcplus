@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Julien Poilvilain</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -52,8 +52,8 @@
  <Mode Name="1 Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Height="130" Weight="0" Depth="80"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
@@ -65,8 +65,8 @@
  <Mode Name="2 Channels Mode">
   <Physical>
    <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Height="130" Weight="0" Depth="80"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
@@ -82,8 +82,8 @@
  <Mode Name="5 Channels Mode">
   <Physical>
    <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Height="130" Weight="0" Depth="80"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
@@ -111,8 +111,8 @@
  <Mode Name="10 Channels Mode">
   <Physical>
    <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Height="130" Weight="0" Depth="80"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
