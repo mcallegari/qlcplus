@@ -308,7 +308,7 @@ void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem* item)
     else
         m_removeCapabilityButton->setEnabled(true);
 }
-
+#include <QDebug>
 void EditChannel::slotAddCapabilityClicked()
 {
     uchar minFound = 0;
@@ -322,10 +322,12 @@ void EditChannel::slotAddCapabilityClicked()
             maxFound = cap->min() - 1;
             break;
         }
-        if (cap->max() > minFound)
+        if (cap->max() > minFound || cap->min() == cap->max())
             minFound = cap->max() + 1;
         idx++;
     }
+
+    qDebug() << "Min found:" << minFound << "max found:" << maxFound;
 
     m_currentCapability = new QLCCapability();
     m_currentCapability->setMin(minFound);
