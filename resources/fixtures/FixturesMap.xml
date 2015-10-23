@@ -500,6 +500,7 @@
   <fixture path="Robe-ColorSpot-250-XT.qxf" mf="Robe" md="ColorSpot 250 XT"/>
   <fixture path="Robe-ColorSpot-575-AT.qxf" mf="Robe" md="ColorSpot 575 AT"/>
   <fixture path="Robe-ColorSpot-700E-AT.qxf" mf="Robe" md="ColorSpot 700E AT (v1.4)"/>
+  <fixture path="Robe-ColorWash-1200E-AT.qxf" mf="Robe" md="ColorWash 1200E AT"/>
   <fixture path="Robe-Pointe.qxf" mf="Robe" md="Pointe"/>
   <fixture path="Robe-Robin-100-LEDBeam.qxf" mf="Robe" md="Robin 100 LEDBeam"/>
   <fixture path="Robe-Robin-300E-Beam.qxf" mf="Robe" md="Robin 300E Beam"/>
