@@ -679,7 +679,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
             {
                 float currValue = (float)uchar(m_preGMValues->at(channel));
                 if (currValue)
-                    value = (float)uchar(m_preGMValues->at(channel)) * ((float)value / 255.0);
+                    value = currValue * ((float)value / 255.0);
                 else
                     value = 0;
             }
