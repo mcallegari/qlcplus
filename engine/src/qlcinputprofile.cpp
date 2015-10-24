@@ -310,9 +310,7 @@ QLCInputProfile* QLCInputProfile::loader(const QString& path)
         profile->m_path = path;
     }
 
-    doc->device()->close();
-    delete doc->device();
-    delete doc;
+    QLCFile::releaseXMLReader(doc);
 
     return profile;
 }

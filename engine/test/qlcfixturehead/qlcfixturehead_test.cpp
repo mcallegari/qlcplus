@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlcfixturehead_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #include "qlcfixturehead_test.h"
@@ -51,38 +53,26 @@ void QLCFixtureHead_Test::initTestCase()
 
 void QLCFixtureHead_Test::load()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Head");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement ch = doc.createElement("Channel");
-    QDomText text = doc.createTextNode("0");
-    ch.appendChild(text);
-    root.appendChild(ch);
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeTextElement("Channel", "0");
+    xmlWriter.writeTextElement("Channel", "1");
+    xmlWriter.writeTextElement("Channel", "15");
+    xmlWriter.writeTextElement("Foo", "25");
+    xmlWriter.writeTextElement("Channel", "42");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    ch = doc.createElement("Channel");
-    text = doc.createTextNode("1");
-    ch.appendChild(text);
-    root.appendChild(ch);
-
-    ch = doc.createElement("Channel");
-    text = doc.createTextNode("15");
-    ch.appendChild(text);
-    root.appendChild(ch);
-
-    ch = doc.createElement("Foo");
-    text = doc.createTextNode("25");
-    ch.appendChild(text);
-    root.appendChild(ch);
-
-    ch = doc.createElement("Channel");
-    text = doc.createTextNode("42");
-    ch.appendChild(text);
-    root.appendChild(ch);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCFixtureHead head;
-    QVERIFY(head.loadXML(ch) == false);
-    QVERIFY(head.loadXML(root));
+    QVERIFY(head.loadXML(xmlReader));
     QCOMPARE(head.channels().size(), 4);
     QVERIFY(head.channels().contains(0));
     QVERIFY(head.channels().contains(1));
@@ -98,28 +88,37 @@ void QLCFixtureHead_Test::save()
     head.addChannel(2);
     head.addChannel(3);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(head.saveXML(&doc, &root));
-    QCOMPARE(root.firstChild().toElement().tagName(), QString("Head"));
+    QVERIFY(head.saveXML(&xmlWriter));
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Head"));
     int ch = 0;
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Channel")
+        if (xmlReader.name() == "Channel")
         {
-            QVERIFY(tag.text().toInt() == 0 || tag.text().toInt() == 1 ||
-                    tag.text().toInt() == 2 || tag.text().toInt() == 3);
+            QString chNum = xmlReader.readElementText();
+            QVERIFY(chNum.toInt() == 0 || chNum.toInt() == 1 ||
+                    chNum.toInt() == 2 || chNum.toInt() == 3);
             ch++;
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            xmlReader.skipCurrentElement();
         }
-        node = node.nextSibling();
     }
 
     QCOMPARE(ch, 4);

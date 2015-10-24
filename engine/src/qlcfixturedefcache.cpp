@@ -330,19 +330,11 @@ void QLCFixtureDefCache::loadQXF(const QString& path)
 
 void QLCFixtureDefCache::loadD4(const QString& path)
 {
+    QLCFixtureDef* fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
-    if (parser.loadXML(path) == false)
+    if (parser.loadXML(path, fxi) == false)
     {
         qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path
-                   << ":" << parser.lastError();
-        return;
-    }
-
-    QLCFixtureDef* fxi = new QLCFixtureDef();
-    Q_ASSERT(fxi != NULL);
-    if (parser.fillFixtureDef(fxi) == false)
-    {
-        qWarning() << Q_FUNC_INFO << "Unable to parse D4 fixture from" << path
                    << ":" << parser.lastError();
         delete fxi;
         return;

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcchannel.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,12 +18,13 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
 #include <QStringList>
 #include <QPainter>
 #include <iostream>
 #include <QString>
+#include <QDebug>
 #include <QFile>
-#include <QtXml>
 
 #include "qlcchannel.h"
 #include "qlccapability.h"
@@ -498,70 +500,57 @@ void QLCChannel::sortCapabilities()
  * File operations
  *****************************************************************************/
 
-bool QLCChannel::saveXML(QDomDocument* doc, QDomElement* root) const
+bool QLCChannel::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement chtag;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* Channel entry */
-    chtag = doc->createElement(KXMLQLCChannel);
-    chtag.setAttribute(KXMLQLCChannelName, m_name);
-    root->appendChild(chtag);
+    doc->writeStartElement(KXMLQLCChannel);
+    doc->writeAttribute(KXMLQLCChannelName, m_name);
 
     /* Group */
-    tag = doc->createElement(KXMLQLCChannelGroup);
-    text = doc->createTextNode(groupToString(m_group));
-    tag.appendChild(text);
-
+    doc->writeStartElement(KXMLQLCChannelGroup);
     /* Group control byte */
-    tag.setAttribute(KXMLQLCChannelGroupByte, QString::number(controlByte()));
-    chtag.appendChild(tag);
+    doc->writeAttribute(KXMLQLCChannelGroupByte, QString::number(controlByte()));
+    /* Group name */
+    doc->writeCharacters(groupToString(m_group));
+    doc->writeEndElement();
 
     /* Colour */
     if (m_colour != NoColour)
-    {
-        tag = doc->createElement(KXMLQLCChannelColour);
-        text = doc->createTextNode(QLCChannel::colourToString(colour()));
-        tag.appendChild(text);
-        chtag.appendChild(tag);
-    }
+        doc->writeTextElement(KXMLQLCChannelColour, QLCChannel::colourToString(colour()));
 
     /* Capabilities */
     QListIterator <QLCCapability*> it(m_capabilities);
     while (it.hasNext() == true)
-        it.next()->saveXML(doc, &chtag);
+        it.next()->saveXML(doc);
 
+    doc->writeEndElement();
     return true;
 }
 
-bool QLCChannel::loadXML(const QDomElement& root)
+bool QLCChannel::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCChannel)
+    if (doc.name() != KXMLQLCChannel)
     {
         qWarning() << "Channel node not found.";
         return false;
     }
 
     /* Get channel name */
-    QString str = root.attribute(KXMLQLCChannelName);
+    QString str = doc.attributes().value(KXMLQLCChannelName).toString();
     if (str.isEmpty() == true)
         return false;
     setName(str);
 
     /* Subtags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCapability)
+        if (doc.name() == KXMLQLCCapability)
         {
             /* Create a new capability and attempt to load it */
             QLCCapability* cap = new QLCCapability();
-            if (cap->loadXML(tag) == true)
+            if (cap->loadXML(doc) == true)
             {
                 /* Loading succeeded */
                 if (addCapability(cap) == false)
@@ -576,22 +565,21 @@ bool QLCChannel::loadXML(const QDomElement& root)
                 delete cap;
             }
         }
-        else if (tag.tagName() == KXMLQLCChannelGroup)
+        else if (doc.name() == KXMLQLCChannelGroup)
         {
-            str = tag.attribute(KXMLQLCChannelGroupByte);
+            str = doc.attributes().value(KXMLQLCChannelGroupByte).toString();
             setControlByte(ControlByte(str.toInt()));
-            setGroup(stringToGroup(tag.text()));
+            setGroup(stringToGroup(doc.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCChannelColour)
+        else if (doc.name() == KXMLQLCChannelColour)
         {
-            setColour(stringToColour(tag.text()));
+            setColour(stringToColour(doc.readElementText()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Channel tag: " << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown Channel tag: " << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

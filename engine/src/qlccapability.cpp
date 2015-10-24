@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlccapability.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,10 +19,10 @@
 */
 
 #include <QCoreApplication>
+#include <QXmlStreamReader>
 #include <QString>
 #include <QDebug>
 #include <QFile>
-#include <QtXml>
 
 #include "qlccapability.h"
 #include "qlcmacros.h"
@@ -174,26 +175,18 @@ bool QLCCapability::overlaps(const QLCCapability *cap)
  * Save & Load
  ************************************************************************/
 
-bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
+bool QLCCapability::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* QLCCapability entry */
-    tag = doc->createElement(KXMLQLCCapability);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCCapability);
 
     /* Min limit attribute */
-    str.setNum(m_min);
-    tag.setAttribute(KXMLQLCCapabilityMin, str);
+    doc->writeAttribute(KXMLQLCCapabilityMin, QString::number(m_min));
 
     /* Max limit attribute */
-    str.setNum(m_max);
-    tag.setAttribute(KXMLQLCCapabilityMax, str);
+    doc->writeAttribute(KXMLQLCCapabilityMax, QString::number(m_max));
 
     /* Resource file attribute */
     if (m_resourceName.isEmpty() == false)
@@ -212,38 +205,39 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
             modFilename.remove(0, 1);
         }
 
-        tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
+        doc->writeAttribute(KXMLQLCCapabilityResource, modFilename);
     }
     if (m_resourceColor1.isValid())
     {
-        tag.setAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
+        doc->writeAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
     }
     if (m_resourceColor2.isValid())
     {
-        tag.setAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
+        doc->writeAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
     }
 
-    /* Name value */
-    text = doc->createTextNode(m_name);
-    tag.appendChild(text);
+    /* Name */
+    doc->writeCharacters(m_name);
+    doc->writeEndElement();
 
     return true;
 }
 
-bool QLCCapability::loadXML(const QDomElement& root)
+bool QLCCapability::loadXML(QXmlStreamReader &doc)
 {
     uchar min = 0;
     uchar max = 0;
     QString str;
 
-    if (root.tagName() != KXMLQLCCapability)
+    if (doc.name() != KXMLQLCCapability)
     {
         qWarning() << Q_FUNC_INFO << "Capability node not found";
         return false;
     }
 
     /* Get low limit attribute (critical) */
-    str = root.attribute(KXMLQLCCapabilityMin);
+    QXmlStreamAttributes attrs = doc.attributes();
+    str = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
     {
         qWarning() << Q_FUNC_INFO << "Capability has no minimum limit.";
@@ -255,7 +249,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
 
     /* Get high limit attribute (critical) */
-    str = root.attribute(KXMLQLCCapabilityMax);
+    str = attrs.value(KXMLQLCCapabilityMax).toString();
     if (str.isEmpty() == true)
     {
         qWarning() << Q_FUNC_INFO << "Capability has no maximum limit.";
@@ -267,9 +261,9 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
 
     /* Get (optional) resource name for gobo/effect/... */
-    if(root.hasAttribute(KXMLQLCCapabilityResource))
+    if(attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
-        QString path = root.attribute(KXMLQLCCapabilityResource);
+        QString path = attrs.value(KXMLQLCCapabilityResource).toString();
         if (QFileInfo(path).isRelative())
         {
             QDir dir = QLCFile::systemDirectory(GOBODIR);
@@ -279,21 +273,19 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
 
     /* Get (optional) color resource for color presets */
-    if (root.hasAttribute(KXMLQLCCapabilityColor1))
+    if (attrs.hasAttribute(KXMLQLCCapabilityColor1))
     {
-        QColor col1 = QColor(root.attribute(KXMLQLCCapabilityColor1));
+        QColor col1 = QColor(attrs.value(KXMLQLCCapabilityColor1).toString());
         QColor col2 = QColor();
-        if (root.hasAttribute(KXMLQLCCapabilityColor2))
-            col2 = QColor(root.attribute(KXMLQLCCapabilityColor2));
+        if (attrs.hasAttribute(KXMLQLCCapabilityColor2))
+            col2 = QColor(attrs.value(KXMLQLCCapabilityColor2).toString());
         if (col1.isValid())
-        {
             setResourceColors(col1, col2);
-        }
     }
 
     if (min <= max)
     {
-        setName(root.text());
+        setName(doc.readElementText());
         setMin(min);
         setMax(max);
 

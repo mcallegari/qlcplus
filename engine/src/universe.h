@@ -21,6 +21,7 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
+#include <QDomDocument>
 #include <QByteArray>
 #include <QSet>
 

@@ -229,6 +229,7 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown input channel tag" << root.name();
+            root.skipCurrentElement();
         }
     }
 

@@ -20,6 +20,8 @@
 #ifndef QLCINPUTCHANNEL_H
 #define QLCINPUTCHANNEL_H
 
+#include <QIcon>
+
 class QXmlStreamWriter;
 class QXmlStreamReader;
 class QLCInputProfile;

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlcphysical_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcphysical_test.h"
 #include "qlcphysical.h"
@@ -150,57 +152,66 @@ void QLCPhysical_Test::copy()
 
 void QLCPhysical_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Physical");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Physical");
 
     /* Bulb */
-    QDomElement bulb = doc.createElement("Bulb");
-    bulb.setAttribute("Type", "LED");
-    bulb.setAttribute("Lumens", 18000);
-    bulb.setAttribute("ColourTemperature", 6500);
-    root.appendChild(bulb);
+    xmlWriter.writeStartElement("Bulb");
+    xmlWriter.writeAttribute("Type", "LED");
+    xmlWriter.writeAttribute("Lumens", "18000");
+    xmlWriter.writeAttribute("ColourTemperature", "6500");
+    xmlWriter.writeEndElement();
 
     /* Dimensions */
-    QDomElement dim = doc.createElement("Dimensions");
-    dim.setAttribute("Weight", QString::number(39.4));
-    dim.setAttribute("Width", 530);
-    dim.setAttribute("Height", 320);
-    dim.setAttribute("Depth", 260);
-    root.appendChild(dim);
+    xmlWriter.writeStartElement("Dimensions");
+    xmlWriter.writeAttribute("Weight", QString::number(39.4));
+    xmlWriter.writeAttribute("Width", "530");
+    xmlWriter.writeAttribute("Height", "320");
+    xmlWriter.writeAttribute("Depth", "260");
+    xmlWriter.writeEndElement();
 
     /* Lens */
-    QDomElement lens = doc.createElement("Lens");
-    lens.setAttribute("Name", "Fresnel");
-    lens.setAttribute("DegreesMin", 8);
-    lens.setAttribute("DegreesMax", 38);
-    root.appendChild(lens);
+    xmlWriter.writeStartElement("Lens");
+    xmlWriter.writeAttribute("Name", "Fresnel");
+    xmlWriter.writeAttribute("DegreesMin", "8");
+    xmlWriter.writeAttribute("DegreesMax", "38");
+    xmlWriter.writeEndElement();
 
     /* Focus */
-    QDomElement focus = doc.createElement("Focus");
-    focus.setAttribute("Type", "Head");
-    focus.setAttribute("PanMax", 520);
-    focus.setAttribute("TiltMax", 270);
-    root.appendChild(focus);
+    xmlWriter.writeStartElement("Focus");
+    xmlWriter.writeAttribute("Type", "Head");
+    xmlWriter.writeAttribute("PanMax", "520");
+    xmlWriter.writeAttribute("TiltMax", "270");
+    xmlWriter.writeEndElement();
 
     /* Technical */
-    QDomElement technical = doc.createElement("Technical");
-    technical.setAttribute("PowerConsumption", 250);
-    technical.setAttribute("DmxConnector", "5-pin");
-    root.appendChild(technical);
+    xmlWriter.writeStartElement("Technical");
+    xmlWriter.writeAttribute("PowerConsumption", "250");
+    xmlWriter.writeAttribute("DmxConnector", "5-pin");
+    xmlWriter.writeEndElement();
 
     /* Unrecognized tag */
-    QDomElement homer = doc.createElement("HomerSimpson");
-    homer.setAttribute("BeerConsumption", 25000);
-    homer.setAttribute("PreferredBrand", "Duff");
-    root.appendChild(homer);
+    xmlWriter.writeStartElement("HomerSimpson");
+    xmlWriter.writeAttribute("BeerConsumption", "25000");
+    xmlWriter.writeAttribute("PreferredBrand", "Duff");
+    xmlWriter.writeEndElement();
 
-    QVERIFY(p.loadXML(root) == true);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(p.loadXML(xmlReader) == true);
     QVERIFY(p.bulbType() == "LED");
     QVERIFY(p.bulbLumens() == 18000);
     QVERIFY(p.bulbColourTemperature() == 6500);
-    QCOMPARE(p.weight(), 39.4);
+    QVERIFY(p.weight() == 39.4);
     QVERIFY(p.width() == 530);
     QVERIFY(p.height() == 320);
     QVERIFY(p.depth() == 260);
@@ -216,104 +227,121 @@ void QLCPhysical_Test::load()
 
 void QLCPhysical_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Foosical");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Foosical");
 
     /* Bulb */
-    QDomElement bulb = doc.createElement("Bulb");
-    bulb.setAttribute("Type", "LED");
-    bulb.setAttribute("Lumens", 18000);
-    bulb.setAttribute("ColourTemperature", 6500);
-    root.appendChild(bulb);
+    xmlWriter.writeStartElement("Bulb");
+    xmlWriter.writeAttribute("Type", "LED");
+    xmlWriter.writeAttribute("Lumens", "18000");
+    xmlWriter.writeAttribute("ColourTemperature", "6500");
+    xmlWriter.writeEndElement();
 
     /* Dimensions */
-    QDomElement dim = doc.createElement("Dimensions");
-    dim.setAttribute("Weight", 39.4);
-    dim.setAttribute("Width", 530);
-    dim.setAttribute("Height", 320);
-    dim.setAttribute("Depth", 260);
-    root.appendChild(dim);
+    xmlWriter.writeStartElement("Dimensions");
+    xmlWriter.writeAttribute("Weight", QString::number(39.4));
+    xmlWriter.writeAttribute("Width", "530");
+    xmlWriter.writeAttribute("Height", "320");
+    xmlWriter.writeAttribute("Depth", "260");
+    xmlWriter.writeEndElement();
 
     /* Lens */
-    QDomElement lens = doc.createElement("Lens");
-    lens.setAttribute("Name", "Fresnel");
-    lens.setAttribute("DegreesMin", 8);
-    lens.setAttribute("DegreesMax", 38);
-    root.appendChild(lens);
+    xmlWriter.writeStartElement("Lens");
+    xmlWriter.writeAttribute("Name", "Fresnel");
+    xmlWriter.writeAttribute("DegreesMin", "8");
+    xmlWriter.writeAttribute("DegreesMax", "38");
+    xmlWriter.writeEndElement();
 
     /* Focus */
-    QDomElement focus = doc.createElement("Focus");
-    focus.setAttribute("Type", "Head");
-    focus.setAttribute("PanMax", 520);
-    focus.setAttribute("TiltMax", 270);
-    root.appendChild(focus);
+    xmlWriter.writeStartElement("Focus");
+    xmlWriter.writeAttribute("Type", "Head");
+    xmlWriter.writeAttribute("PanMax", "520");
+    xmlWriter.writeAttribute("TiltMax", "270");
+    xmlWriter.writeEndElement();
 
     /* Technical */
-    QDomElement technical=  doc.createElement("Technical");
-    technical.setAttribute("PowerConsumption", 250);
-    technical.setAttribute("DmxConnector", "5-pin");
-    root.appendChild(technical);
+    xmlWriter.writeStartElement("Technical");
+    xmlWriter.writeAttribute("PowerConsumption", "250");
+    xmlWriter.writeAttribute("DmxConnector", "5-pin");
+    xmlWriter.writeEndElement();
 
-    QVERIFY(p.loadXML(root) == false);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(p.loadXML(xmlReader) == false);
 }
 
 void QLCPhysical_Test::save()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Test Root");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
     bool bulb = false, dim = false, lens = false, focus = false, technical = false;
 
-    QVERIFY(p.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Physical");
+    QVERIFY(p.saveXML(&xmlWriter) == true);
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    qDebug() << buffer.buffer();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name() == "Physical");
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement e = node.toElement();
-        if (e.tagName() == "Bulb")
+        if (xmlReader.name() == "Bulb")
         {
             bulb = true;
-            QVERIFY(e.attribute("Type") == "LED");
-            QVERIFY(e.attribute("Lumens") == "18000");
-            QVERIFY(e.attribute("ColourTemperature") == "6500");
+            QVERIFY(xmlReader.attributes().value("Type") == "LED");
+            QVERIFY(xmlReader.attributes().value("Lumens") == "18000");
+            QVERIFY(xmlReader.attributes().value("ColourTemperature") == "6500");
         }
-        else if (e.tagName() == "Dimensions")
+        else if (xmlReader.name() == "Dimensions")
         {
             dim = true;
-            QVERIFY(e.attribute("Width") == "530");
-            QVERIFY(e.attribute("Depth") == "260");
-            QVERIFY(e.attribute("Height") == "320");
-            QCOMPARE(e.attribute("Weight").toDouble(), 39.4);
+            QVERIFY(xmlReader.attributes().value("Width") == "530");
+            QVERIFY(xmlReader.attributes().value("Depth") == "260");
+            QVERIFY(xmlReader.attributes().value("Height") == "320");
+            QCOMPARE(xmlReader.attributes().value("Weight").toString().toDouble(), 39.4);
         }
-        else if (e.tagName() == "Lens")
+        else if (xmlReader.name() == "Lens")
         {
             lens = true;
-            QVERIFY(e.attribute("Name") == "Fresnel");
-            QVERIFY(e.attribute("DegreesMin") == "8");
-            QVERIFY(e.attribute("DegreesMax") == "38");
+            QVERIFY(xmlReader.attributes().value("Name") == "Fresnel");
+            QVERIFY(xmlReader.attributes().value("DegreesMin") == "8");
+            QVERIFY(xmlReader.attributes().value("DegreesMax") == "38");
         }
-        else if (e.tagName() == "Focus")
+        else if (xmlReader.name() == "Focus")
         {
             focus = true;
-            QVERIFY(e.attribute("Type") == "Head");
-            QVERIFY(e.attribute("PanMax") == "520");
-            QVERIFY(e.attribute("TiltMax") == "270");
+            QVERIFY(xmlReader.attributes().value("Type") == "Head");
+            QVERIFY(xmlReader.attributes().value("PanMax") == "520");
+            QVERIFY(xmlReader.attributes().value("TiltMax") == "270");
         }
-        else if (e.tagName() == "Technical")
+        else if (xmlReader.name() == "Technical")
         {
             technical = true;
-            QVERIFY(e.attribute("PowerConsumption") == "250");
-            QVERIFY(e.attribute("DmxConnector") == "5-pin");
+            QVERIFY(xmlReader.attributes().value("PowerConsumption") == "250");
+            QVERIFY(xmlReader.attributes().value("DmxConnector") == "5-pin");
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(e.tagName())
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
                   .toLatin1());
         }
-
-        node = node.nextSibling();
+        xmlReader.skipCurrentElement();
     }
 
     QVERIFY(bulb == true);

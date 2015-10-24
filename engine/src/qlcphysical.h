@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcphysical.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,8 +23,8 @@
 
 #include <QString>
 
-class QDomElement;
-class QDomDocument;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup engine Engine
  * @{
@@ -148,10 +149,10 @@ protected:
      ************************************************************************/
 public:
     /** Load physical values from the given QDomElement */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save physical values to the given XML tag in the given document */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

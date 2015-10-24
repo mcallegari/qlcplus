@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturehead.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,7 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
 #include <QDebug>
 
 #include "qlcfixturehead.h"
@@ -240,44 +240,41 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
  * Load & Save
  ****************************************************************************/
 
-bool QLCFixtureHead::loadXML(const QDomElement& root)
+bool QLCFixtureHead::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCFixtureHead)
+    if (doc.name() != KXMLQLCFixtureHead)
     {
         qWarning() << Q_FUNC_INFO << "Fixture Head node not found!";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCFixtureHeadChannel)
-            addChannel(tag.text().toUInt());
+        if (doc.name() == KXMLQLCFixtureHeadChannel)
+            addChannel(doc.readElementText().toUInt());
         else
-            qWarning() << Q_FUNC_INFO << "Unknown Head tag:" << tag.tagName();
-        node = node.nextSibling();
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Head tag:" << doc.name();
+            doc.skipCurrentElement();
+        }
     }
 
     return true;
 }
 
-bool QLCFixtureHead::saveXML(QDomDocument* doc, QDomElement* mode_root) const
+bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mode_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCFixtureHead);
-    mode_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFixtureHead);
 
     QSetIterator <quint32> it(m_channels);
     while (it.hasNext() == true)
     {
-        QDomElement tag = doc->createElement(KXMLQLCFixtureHeadChannel);
-        QDomText text = doc->createTextNode(QString::number(it.next()));
-        tag.appendChild(text);
-        root.appendChild(tag);
+        doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(it.next()));
     }
+
+    doc->writeEndElement();
 
     return true;
 }

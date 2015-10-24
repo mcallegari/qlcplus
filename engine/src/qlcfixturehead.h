@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturehead.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,8 +25,8 @@
 #include <QSet>
 
 class QLCFixtureMode;
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup engine Engine
  * @{
@@ -166,10 +167,10 @@ protected:
      ************************************************************************/
 public:
     /** Load a Fixture Head from an XML tag */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &doc);
 
-    /** Save a Fixture Head to an XML $doc, under $mode_root */
-    bool saveXML(QDomDocument* doc, QDomElement* mode_root) const;
+    /** Save a Fixture Head to an XML $doc */
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /**

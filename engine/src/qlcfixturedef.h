@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturedef.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@
 #include <QList>
 #include <QFile>
 
-
 /** @addtogroup engine Engine
  * @{
  */
@@ -44,11 +44,10 @@
 #define KXMLQLCFixtureUniverse "Universe"
 #define KXMLQLCFixtureAddress "Address"
 
-class QDomDocument;
-class QDomElement;
-class QLCChannel;
+class QXmlStreamReader;
 class QLCFixtureMode;
 class QLCFixtureDef;
+class QLCChannel;
 
 /**
  * QLCFixtureDef represents exactly one fixture, identified by its manufacturer
@@ -192,10 +191,10 @@ public:
 
 protected:
     /** Load fixture contents from an XML document */
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Load <Creator> information */
-    bool loadCreator(const QDomElement& creator);
+    bool loadCreator(QXmlStreamReader &doc);
 };
 
 /** @} */
