@@ -70,8 +70,6 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 
 Universe::~Universe()
 {
-    delete m_preGMValues;
-    delete m_postGMValues;
     delete m_inputPatch;
     delete m_outputPatch;
     delete m_fbPatch;
@@ -240,7 +238,7 @@ QHash<int, uchar> Universe::intensityChannels()
 
 uchar Universe::postGMValue(int address) const
 {
-    if (m_postGMValues == NULL || address >= m_postGMValues->size())
+    if (address >= m_postGMValues->size())
         return 0;
 
     return uchar(m_postGMValues->at(address));
@@ -248,7 +246,7 @@ uchar Universe::postGMValue(int address) const
 
 const QByteArray* Universe::postGMValues() const
 {
-    return m_postGMValues;
+    return m_postGMValues.data();
 }
 
 void Universe::zeroRelativeValues()
@@ -292,14 +290,12 @@ QString Universe::blendModeToString(Universe::BlendMode mode)
 
 const QByteArray Universe::preGMValues() const
 {
-    if (m_preGMValues->isNull())
-        return QByteArray();
     return *m_preGMValues;
 }
 
 uchar Universe::preGMValue(int address) const
 {
-    if (m_preGMValues == NULL || address >= m_preGMValues->size())
+    if (address >= m_preGMValues->size())
         return 0;
  
     return uchar(m_preGMValues->at(address));
@@ -616,14 +612,11 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
         return false;
     }
 
-    if (m_preGMValues != NULL)
-        (*m_preGMValues)[channel] = char(value);
+    (*m_preGMValues)[channel] = char(value);
 
     if (m_relativeValues[channel] != 0)
     {
-        int val = m_relativeValues[channel];
-        if (m_preGMValues != NULL)
-            val += (uchar)m_preGMValues->at(channel);
+        int val = m_relativeValues[channel] + value; // value == (uchar)m_preGMValues->at(channel)
         value = CLAMP(val, 0, (int)UCHAR_MAX);
     }
 
@@ -650,8 +643,7 @@ bool Universe::writeRelative(int channel, uchar value)
     m_relativeValues[channel] += value - RELATIVE_ZERO;
 
     int val = m_relativeValues[channel];
-    if (m_preGMValues != NULL)
-        val += (uchar)m_preGMValues->at(channel);
+    val += (uchar)m_preGMValues->at(channel);
     value = CLAMP(val, 0, (int)UCHAR_MAX);
 
     value = applyGM(channel, value);
@@ -672,9 +664,6 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         break;
         case MaskBlend:
         {
-            if (m_preGMValues == NULL)
-                break;
-
             if (value)
             {
                 float currValue = (float)uchar(m_preGMValues->at(channel));
@@ -689,9 +678,6 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         break;
         case AdditiveBlend:
         {
-            if (m_preGMValues == NULL)
-                break;
-
             uchar currVal = uchar(m_preGMValues->at(channel));
             value = qMin((int)currVal + value, 255);
             (*m_preGMValues)[channel] = char(value);
@@ -699,9 +685,6 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         break;
         case SubtractiveBlend:
         {
-            if (m_preGMValues == NULL)
-                break;
-
             uchar currVal = uchar(m_preGMValues->at(channel));
             if (value >= currVal)
                 value = 0;

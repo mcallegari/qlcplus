@@ -24,6 +24,7 @@
 #include <QDomDocument>
 #include <QByteArray>
 #include <QSet>
+#include <QScopedPointer>
 
 #include "qlcchannel.h"
 
@@ -274,14 +275,14 @@ public:
 
 protected:
     /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
-    QByteArray* m_channelsMask;
+    QScopedPointer<QByteArray> m_channelsMask;
 
     /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
      *  a DMX value right before HTP/LTP check and before being assigned to preGM */
     QVector<ChannelModifier*> m_modifiers;
     /** Modified channels with the non-modified value at 0.
      *  This is used for ranged initialization operations. */
-    QByteArray* m_modifiedZeroValues;
+    QScopedPointer<QByteArray> m_modifiedZeroValues;
 
     /************************************************************************
      * Values
@@ -379,11 +380,11 @@ protected:
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
     QVector<int> m_nonIntensityChannels;
     /** Array of values BEFORE the Grand Master changes */
-    QByteArray* m_preGMValues;
+    QScopedPointer<QByteArray> m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */
-    QByteArray* m_postGMValues;
+    QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
-    QByteArray* m_lastPostGMValues;
+    QScopedPointer<QByteArray> m_lastPostGMValues;
 
     QVector<short> m_relativeValues;
 
