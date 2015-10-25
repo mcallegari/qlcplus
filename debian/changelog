@@ -1,6 +1,7 @@
 qlcplus (4.10.2) stable; urgency=low
 
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
+  * New input profile: Touch OSC Automat5
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
   * New fixture: Robe ColorWash 1200E AT (thanks to Robert Box)
