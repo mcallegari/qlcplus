@@ -200,15 +200,14 @@ void Universe::reset()
 
 void Universe::reset(int address, int range)
 {
-    for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
-    {
-        (*m_preGMValues)[i] = 0;
-        if (m_modifiers.at(i) != NULL)
-            (*m_postGMValues)[i] = m_modifiers.at(i)->getValue(0);
-        else
-            (*m_postGMValues)[i] = 0;
-        m_relativeValues[i] = 0;
-    }
+    if (address >= UNIVERSE_SIZE)
+        return;
+    if (address + range > UNIVERSE_SIZE) 
+       range = UNIVERSE_SIZE - address;
+
+    memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
+    memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
+    memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
 }
 
 void Universe::zeroIntensityChannels()
@@ -304,7 +303,7 @@ uchar Universe::preGMValue(int address) const
 uchar Universe::applyGM(int channel, uchar value)
 {
     if (value == 0)
-        return 0;
+        return (uchar)(*m_modifiedZeroValues)[channel];
 
     if ((m_grandMaster->channelMode() == GrandMaster::Intensity && m_channelsMask->at(channel) & Intensity) ||
         (m_grandMaster->channelMode() == GrandMaster::AllChannels))
@@ -314,6 +313,9 @@ uchar Universe::applyGM(int channel, uchar value)
         else
             value = char(floor((double(value) * m_grandMaster->fraction()) + 0.5));
     }
+
+    if (m_modifiers.at(channel) != NULL)
+        value = m_modifiers.at(channel)->getValue(value);
 
     return value;
 }
@@ -620,12 +622,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
         value = CLAMP(val, 0, (int)UCHAR_MAX);
     }
 
-    value = applyGM(channel, value);
-
-    if (m_modifiers.at(channel) != NULL)
-        value = m_modifiers.at(channel)->getValue(value);
-
-    (*m_postGMValues)[channel] = char(value);
+    (*m_postGMValues)[channel] = applyGM(channel, value);
 
     return true;
 }
@@ -646,8 +643,7 @@ bool Universe::writeRelative(int channel, uchar value)
     val += (uchar)m_preGMValues->at(channel);
     value = CLAMP(val, 0, (int)UCHAR_MAX);
 
-    value = applyGM(channel, value);
-    (*m_postGMValues)[channel] = char(value);
+    (*m_postGMValues)[channel] = applyGM(channel, value);
 
     return true;
 }
@@ -698,12 +694,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         break;
     }
 
-    value = applyGM(channel, value);
-
-    if (m_modifiers.at(channel) != NULL)
-        value = m_modifiers.at(channel)->getValue(value);
-
-    (*m_postGMValues)[channel] = char(value);
+    (*m_postGMValues)[channel] = applyGM(channel, value);
 
     return true;
 }
