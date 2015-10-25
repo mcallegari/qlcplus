@@ -73,7 +73,8 @@ public:
     /** Movement behaviour */
     enum WorkingMode {
         Absolute = 0,
-        Relative = 1
+        Relative = 1,
+        Encoder = 2
     };
 
     WorkingMode workingMode() const;
@@ -98,6 +99,10 @@ protected:
     /** When in relative mode, this defines the sensitivity
      *  of synthetic emitted values against the external input value */
     int m_sensitivity;
+
+    /** When in encoder mode, this defines the delta value that should
+     *  be applied to the current value coming from an input source */
+    char m_encoderDelta;
 
     /** The input value received from an external controller */
     uchar m_inputValue;

@@ -39,6 +39,7 @@ QLCInputSource::QLCInputSource(QThread *parent)
     , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
+    , m_encoderDelta(1)
     , m_inputValue(0)
     , m_outputValue(0)
     , m_running(false)
@@ -53,6 +54,7 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
+    , m_encoderDelta(1)
     , m_inputValue(0)
     , m_outputValue(0)
     , m_running(false)
@@ -142,7 +144,7 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
         m_running = true;
         start();
     }
-    else if (m_workingMode == Absolute && m_running == true)
+    else if ((m_workingMode == Absolute || m_workingMode == Encoder) && m_running == true)
     {
         m_running = false;
         wait();
@@ -152,7 +154,7 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
 
 bool QLCInputSource::isRelative()
 {
-    if (m_workingMode == Relative)
+    if (m_workingMode == Relative || m_workingMode == Encoder)
         return true;
 
     return false;
@@ -171,7 +173,18 @@ void QLCInputSource::setSensitivity(int value)
 void QLCInputSource::updateInputValue(uchar value)
 {
     QMutexLocker locker(&m_mutex);
-    m_inputValue = value;
+    if (m_workingMode == Encoder)
+    {
+        if (value < m_inputValue)
+            m_encoderDelta = -1;
+        else if (value > m_inputValue)
+            m_encoderDelta = 1;
+        m_inputValue = CLAMP(m_inputValue + m_encoderDelta, 0, UCHAR_MAX);
+        locker.unlock();
+        emit inputValueChanged(m_universe, m_channel, m_inputValue);
+    }
+    else
+        m_inputValue = value;
 }
 
 void QLCInputSource::updateOuputValue(uchar value)
@@ -191,11 +204,7 @@ void QLCInputSource::run()
 
     while (m_running == true)
     {
-#if defined(WIN32) || defined (Q_OS_WIN)
-        Sleep(50);
-#else
-        usleep(50000);
-#endif
+        msleep(50);
 
         QMutexLocker locker(&m_mutex);
 
@@ -213,7 +222,7 @@ void QLCInputSource::run()
                 dValue = CLAMP(dValue, 0, 255);
 
                 uchar newDmxValue = uchar(dValue);
-                //qDebug() << "double value:" << dValue << "uchar val:" << newDmxValue;
+                qDebug() << "double value:" << dValue << "uchar val:" << newDmxValue;
                 if (newDmxValue != m_outputValue)
                     emit inputValueChanged(m_universe, m_channel, newDmxValue);
 

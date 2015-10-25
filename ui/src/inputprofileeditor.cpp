@@ -411,7 +411,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
     QLCInputChannel *ich = m_profile->channel(chNum);
     if (ich != NULL)
     {
-        if (ich->type() == QLCInputChannel::Slider)
+        if (ich->type() == QLCInputChannel::Slider || ich->type() == QLCInputChannel::Knob)
         {
             m_behaviourBox->show();
             if (ich->movementType() == QLCInputChannel::Absolute)

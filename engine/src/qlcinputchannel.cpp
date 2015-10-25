@@ -69,26 +69,29 @@ QString QLCInputChannel::typeToString(Type type)
 
     switch (type)
     {
-    case Button:
-        str = QString(KXMLQLCInputChannelButton);
+        case Button:
+            str = QString(KXMLQLCInputChannelButton);
         break;
-    case Knob:
-        str = QString(KXMLQLCInputChannelKnob);
+        case Knob:
+            str = QString(KXMLQLCInputChannelKnob);
         break;
-    case Slider:
-        str = QString(KXMLQLCInputChannelSlider);
+        case Encoder:
+            str = QString(KXMLQLCInputChannelEncoder);
         break;
-    case NextPage:
-        str = QString(KXMLQLCInputChannelPageUp);
+        case Slider:
+            str = QString(KXMLQLCInputChannelSlider);
         break;
-    case PrevPage:
-        str = QString(KXMLQLCInputChannelPageDown);
+        case NextPage:
+            str = QString(KXMLQLCInputChannelPageUp);
         break;
-    case PageSet:
-        str = QString(KXMLQLCInputChannelPageSet);
+        case PrevPage:
+            str = QString(KXMLQLCInputChannelPageDown);
         break;
-    default:
-        str = QString(KXMLQLCInputChannelNone);
+        case PageSet:
+            str = QString(KXMLQLCInputChannelPageSet);
+        break;
+        default:
+            str = QString(KXMLQLCInputChannelNone);
     }
 
     return str;
@@ -100,6 +103,8 @@ QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
         return Button;
     else if (type == KXMLQLCInputChannelKnob)
         return Knob;
+    else if (type == KXMLQLCInputChannelEncoder)
+        return Encoder;
     else if (type == KXMLQLCInputChannelSlider)
         return Slider;
     else if (type == KXMLQLCInputChannelPageUp)
@@ -117,6 +122,7 @@ QStringList QLCInputChannel::types()
     QStringList list;
     list << KXMLQLCInputChannelSlider;
     list << KXMLQLCInputChannelKnob;
+    list << KXMLQLCInputChannelEncoder;
     list << KXMLQLCInputChannelButton;
     list << KXMLQLCInputChannelPageUp;
     list << KXMLQLCInputChannelPageDown;
@@ -128,20 +134,14 @@ QIcon QLCInputChannel::typeToIcon(Type type)
 {
     switch (type)
     {
-    case Button:
-        return QIcon(":/button.png");
-    case Knob:
-        return QIcon(":/knob.png");
-    case Slider:
-        return QIcon(":/slider.png");
-    case PrevPage:
-        return QIcon(":/forward.png");
-    case NextPage:
-        return QIcon(":/back.png");
-    case PageSet:
-       return QIcon(":/star.png");
-    default:
-       return QIcon();
+        case Button: return QIcon(":/button.png");
+        case Knob: return QIcon(":/knob.png");
+        case Encoder: return QIcon(":/knob.png");
+        case Slider: return QIcon(":/slider.png");
+        case PrevPage: return QIcon(":/forward.png");
+        case NextPage: return QIcon(":/back.png");
+        case PageSet: return QIcon(":/star.png");
+        default: return QIcon();
     }
 }
 
@@ -249,7 +249,7 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
     doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));
 
     /* Save only slider's relative movement */
-    if (type() == Slider && movementType() == Relative)
+    if ((type() == Slider || type() == Knob) && movementType() == Relative)
     {
         doc->writeStartElement(KXMLQLCInputChannelMovement);
         doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));

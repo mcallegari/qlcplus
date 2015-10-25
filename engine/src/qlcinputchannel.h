@@ -31,17 +31,18 @@ class QString;
  * @{
  */
 
-#define KXMLQLCInputChannel "Channel"
-#define KXMLQLCInputChannelName "Name"
-#define KXMLQLCInputChannelType "Type"
-#define KXMLQLCInputChannelNumber "Number"
-#define KXMLQLCInputChannelSlider "Slider"
-#define KXMLQLCInputChannelKnob "Knob"
-#define KXMLQLCInputChannelButton "Button"
-#define KXMLQLCInputChannelPageUp "Next Page"
+#define KXMLQLCInputChannel         "Channel"
+#define KXMLQLCInputChannelName     "Name"
+#define KXMLQLCInputChannelType     "Type"
+#define KXMLQLCInputChannelNumber   "Number"
+#define KXMLQLCInputChannelSlider   "Slider"
+#define KXMLQLCInputChannelKnob     "Knob"
+#define KXMLQLCInputChannelEncoder  "Encoder"
+#define KXMLQLCInputChannelButton   "Button"
+#define KXMLQLCInputChannelPageUp   "Next Page"
 #define KXMLQLCInputChannelPageDown "Previous Page"
-#define KXMLQLCInputChannelPageSet "Page Set"
-#define KXMLQLCInputChannelNone "None"
+#define KXMLQLCInputChannelPageSet  "Page Set"
+#define KXMLQLCInputChannelNone     "None"
 #define KXMLQLCInputChannelMovement "Movement"
 #define KXMLQLCInputChannelRelative "Relative"
 #define KXMLQLCInputChannelSensitivity "Sensitivity"
@@ -69,6 +70,7 @@ public:
     {
         Slider,
         Knob,
+        Encoder,
         Button,
         NextPage,
         PrevPage,
