@@ -224,6 +224,17 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         }
     }
 
+    // if this head doesn't include any Pan/Tilt channel
+    // try to retrieve them from the fixture Mode
+    if (m_panMsbChannel == QLCChannel::invalid())
+        m_panMsbChannel = mode->channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+    if (m_panLsbChannel == QLCChannel::invalid())
+        m_panLsbChannel = mode->channelNumber(QLCChannel::Pan, QLCChannel::LSB);
+    if (m_tiltMsbChannel == QLCChannel::invalid())
+        m_tiltMsbChannel = mode->channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+    if (m_tiltLsbChannel == QLCChannel::invalid())
+        m_tiltLsbChannel = mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB);
+
     if (r != QLCChannel::invalid() && g != QLCChannel::invalid() && b != QLCChannel::invalid())
         m_rgbChannels << r << g << b;
     if (c != QLCChannel::invalid() && m != QLCChannel::invalid() && y != QLCChannel::invalid())

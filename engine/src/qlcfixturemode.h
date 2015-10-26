@@ -186,6 +186,16 @@ public:
      */
     quint32 channelNumber(QLCChannel* channel) const;
 
+    /**
+     * Get the channel's index (i.e. the DMX channel number) for the specified
+     * $group and $cByte within a mode
+     *
+     * @param group the channel's group (e.g. Pan, Intensity, Gobo, etc)
+     * @param cByte the channel's control byte. Can be MSB or LSB
+     * @return the channel's number or QLCChannel::invalid()
+     */
+    quint32 channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte = QLCChannel::MSB) const;
+
 protected:
     /** List of channels (pointers are not owned) */
     QVector <QLCChannel*> m_channels;

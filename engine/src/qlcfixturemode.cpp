@@ -212,6 +212,18 @@ quint32 QLCFixtureMode::channelNumber(QLCChannel* channel) const
     return QLCChannel::invalid();
 }
 
+quint32 QLCFixtureMode::channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte) const
+{
+    for (int i = 0; i < m_channels.size(); i++)
+    {
+        if (m_channels.at(i)->group() == group &&
+            m_channels.at(i)->controlByte() == cByte)
+            return i;
+    }
+
+    return QLCChannel::invalid();
+}
+
 /*****************************************************************************
  * Heads
  *****************************************************************************/
