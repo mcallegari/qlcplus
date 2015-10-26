@@ -1819,7 +1819,7 @@ void EFX_Test::previewLissajous()
 static bool CloseEnough(QPointF const & a, QPointF const & b)
 {
     QPointF diff = a - b;
-    qDebug() << "Diff:" << diff.x() << diff.y();
+    //qDebug() << "Diff:" << diff.x() << diff.y();
     return -1 <= diff.x() && diff.x() <= 1 &&
            -1 <= diff.y() && diff.y() <= 1;
 }

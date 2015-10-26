@@ -563,6 +563,7 @@ bool QLCChannel::loadXML(QXmlStreamReader &doc)
             {
                 /* Loading failed */
                 delete cap;
+                doc.skipCurrentElement();
             }
         }
         else if (doc.name() == KXMLQLCChannelGroup)
