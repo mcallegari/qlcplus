@@ -175,7 +175,7 @@ void ShowRunner::write()
         if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
         {
             //qDebug() << "elapsed:" << m_elapsedTime << "stopTime:" << m_stopTimeMap[f->id()];
-            if (m_elapsedTime == m_stopTimeMap[f->id()])
+            if (m_elapsedTime >= m_stopTimeMap[f->id()])
                 f->stop();
         }
     }

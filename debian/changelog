@@ -1,6 +1,7 @@
 qlcplus (4.10.2) stable; urgency=low
 
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
+  * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * New input profile: Touch OSC Automat5
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
