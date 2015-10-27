@@ -90,7 +90,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
                     $$SYS_LIBS_PATH/libharfbuzz-0.dll \
                     $$SYS_LIBS_PATH/libiconv-2.dll \
                     $$SYS_LIBS_PATH/libintl-8.dll \
-                    $$SYS_LIBS_PATH/libglib-2.0-0.dll
+                    $$SYS_LIBS_PATH/libglib-2.0-0.dll \
+                    $$SYS_LIBS_PATH/libspeex-1.dll
 					
 	INSTALLS += qt5deps
 }
