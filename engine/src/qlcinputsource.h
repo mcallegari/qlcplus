@@ -80,10 +80,13 @@ public:
     WorkingMode workingMode() const;
     void setWorkingMode(WorkingMode mode);
 
-    bool isRelative();
+    bool needsUpdate();
 
     int sensitivity() const;
     void setSensitivity(int value);
+
+    bool sendExtraPressRelease() const;
+    void setSendExtraPressRelease(bool enable);
 
     void updateInputValue(uchar value);
     void updateOuputValue(uchar value);
@@ -100,9 +103,9 @@ protected:
      *  of synthetic emitted values against the external input value */
     int m_sensitivity;
 
-    /** When in encoder mode, this defines the delta value that should
-     *  be applied to the current value coming from an input source */
-    char m_encoderDelta;
+    /** When enabled, this flag will emit an extra synthetic signal
+     *  to simulate a press or release event */
+    bool m_emitExtraPressRelease;
 
     /** The input value received from an external controller */
     uchar m_inputValue;

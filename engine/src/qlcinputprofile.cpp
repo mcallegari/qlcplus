@@ -360,6 +360,8 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
                     else
                         delete ich;
                 }
+                else
+                    doc.skipCurrentElement();
             }
         }
 

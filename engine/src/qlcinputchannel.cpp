@@ -35,6 +35,7 @@ QLCInputChannel::QLCInputChannel()
     m_type = Button;
     m_movementType = Absolute;
     m_movementSensitivity = 20;
+    m_sendExtraPress = false;
 }
 
 QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
@@ -43,6 +44,7 @@ QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
     m_type = channel.m_type;
     m_movementType = channel.m_movementType;
     m_movementSensitivity = channel.m_movementSensitivity;
+    m_sendExtraPress = channel.m_sendExtraPress;
 }
 
 QLCInputChannel::~QLCInputChannel()
@@ -56,6 +58,10 @@ QLCInputChannel::~QLCInputChannel()
 void QLCInputChannel::setType(Type type)
 {
     m_type = type;
+    if (type == Encoder)
+        m_movementSensitivity = 1;
+    else
+        m_movementSensitivity = 20;
 }
 
 QLCInputChannel::Type QLCInputChannel::type() const
@@ -170,7 +176,7 @@ QString QLCInputChannel::name() const
 }
 
 /*********************************************************************
- * Slider movement behaviour specific methods
+ * Slider/Knob movement behaviour specific methods
  *********************************************************************/
 
 QLCInputChannel::MovementType QLCInputChannel::movementType() const
@@ -191,6 +197,20 @@ int QLCInputChannel::movementSensitivity() const
 void QLCInputChannel::setMovementSensitivity(int value)
 {
     m_movementSensitivity = value;
+}
+
+/*********************************************************************
+ * Button behaviour specific methods
+ *********************************************************************/
+
+void QLCInputChannel::setSendExtraPress(bool enable)
+{
+    m_sendExtraPress = enable;
+}
+
+bool QLCInputChannel::sendExtraPress() const
+{
+    return m_sendExtraPress;
 }
 
 /****************************************************************************
@@ -215,14 +235,16 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
         {
             setType(stringToType(root.readElementText()));
         }
+        else if (root.name() == KXMLQLCInputChannelExtraPress)
+        {
+            root.readElementText();
+            setSendExtraPress(true);
+        }
         else if (root.name() == KXMLQLCInputChannelMovement)
         {
             if (root.attributes().hasAttribute(KXMLQLCInputChannelSensitivity))
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
                 setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toString().toInt());
-#else
-                setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toInt());
-#endif
+
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
         }
@@ -247,6 +269,8 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
 
     doc->writeTextElement(KXMLQLCInputChannelName, m_name);
     doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));
+    if (sendExtraPress() == true)
+        doc->writeTextElement(KXMLQLCInputChannelExtraPress, "True");
 
     /* Save only slider's relative movement */
     if ((type() == Slider || type() == Knob) && movementType() == Relative)
@@ -254,6 +278,12 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
         doc->writeStartElement(KXMLQLCInputChannelMovement);
         doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
         doc->writeCharacters(KXMLQLCInputChannelRelative);
+        doc->writeEndElement();
+    }
+    else if (type() == Encoder)
+    {
+        doc->writeStartElement(KXMLQLCInputChannelMovement);
+        doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
         doc->writeEndElement();
     }
 

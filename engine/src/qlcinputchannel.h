@@ -46,6 +46,7 @@ class QString;
 #define KXMLQLCInputChannelMovement "Movement"
 #define KXMLQLCInputChannelRelative "Relative"
 #define KXMLQLCInputChannelSensitivity "Sensitivity"
+#define KXMLQLCInputChannelExtraPress "ExtraPress"
 
 class QLCInputChannel
 {
@@ -118,7 +119,7 @@ protected:
     QString m_name;
 
     /*********************************************************************
-     * Slider movement behaviour specific methods
+     * Slider/Knob movement behaviour specific methods
      *********************************************************************/
 public:
     /** Movement behaviour */
@@ -136,6 +137,16 @@ public:
 protected:
     MovementType m_movementType;
     int m_movementSensitivity;
+
+    /*********************************************************************
+     * Button behaviour specific methods
+     *********************************************************************/
+public:
+    void setSendExtraPress(bool enable);
+    bool sendExtraPress() const;
+
+protected:
+    bool m_sendExtraPress;
 
     /********************************************************************
      * Load & Save
