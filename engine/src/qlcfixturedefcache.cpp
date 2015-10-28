@@ -201,9 +201,8 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
         {
             int fxCount = 0;
 
-            while (!doc->atEnd())
+            while (doc->readNextStartElement())
             {
-                doc->readNextStartElement();
                 QString defFile= "";
                 QString manufacturer = "";
                 QString model = "";
@@ -239,6 +238,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
                 {
                     qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << doc->name();
                 }
+                doc->skipCurrentElement();
             }
             qDebug() << fxCount << "fixtures found in map";
         }
