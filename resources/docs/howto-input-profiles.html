@@ -47,7 +47,7 @@ To have it fully working with QLC+, please download the KORG utility (Windows an
 
 <P>
 It is probable that your input profile is not on the list and you need to create
-one of your own.
+one on your own.
 </P>
 
 <P>
@@ -120,7 +120,8 @@ will be displayed, asking you to fill or change some parameters:
  <li><b>Type</b>: The channel type. This can be: 
    <IMG SRC="qrc:/slider.png" ALIGN="absmiddle"> Slider, 
    <IMG SRC="qrc:/knob.png" ALIGN="absmiddle"> Knob,
-   <IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Button<BR>
+   <IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Button or
+   <IMG SRC="qrc:/knob.png" ALIGN="absmiddle"> Encoder<BR>
    Other types:  
    <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> Previous page,
    <IMG SRC="qrc:/forward.png" ALIGN="absmiddle"> Next Page,
@@ -144,15 +145,16 @@ where you can enter the channel specification (which translates to channel numbe
 
 <HR>
 
-<H3>Sliders movement properties</H3>
+<H3><IMG SRC="qrc:/slider.png" ALIGN="absmiddle"> Sliders movement properties</H3>
 <P>
-If your input profile includes slider channels <IMG SRC="qrc:/slider.png" ALIGN="absmiddle">,
+If your input profile includes slider channels,
 when you click on them you'll notice some extra properties showing up at the bottom of
 the input profile editor main window. With those, you can set how values received 
 from a slider should act within QLC+.<br><br>
 There are two behaviours: <u>Absolute</u> and <u>Relative</u>.<br><br>
 <b>Absolute</b> is the default setting and basically tells QLC+ to use the slider values
 exactly as they are received from an external controller.<br>
+<br>
 <b>Relative</b> is a more advanced behaviour that comes handy when using a HID Joystick
 with a QLC+ <A HREF="file:vcxypad.html">XY Pad widget</a> or a 
 <A HREF="file:vcslider.html">Slider widget</a>. Values received from an external controller
@@ -168,6 +170,27 @@ will return to its origin. Joysticks have a spring for that.<br>
 In addition to this, the Input Profile Editor Relative setting allows you to set a <b>Sensitivity</b>
 parameter that will instruct QLC+ about the strenght of your external controller movements.
 The higher this value is, the slower the movements will occur. The lower, the faster.
+</P>
+<HR>
+
+<H3><IMG SRC="qrc:/knob.png" ALIGN="absmiddle"> Encoder properties</H3>
+<P>
+An encoder is an endless rotary control and can be treated only as a relative control. Basically the encoder
+can start at any position and when turned clockwise or counter-clockwise it will generate positive or
+negative offset inside QLC+.
+When an Input Profile channel is set to the Encoder type, it is possible to specify a <b>sensitivity</b>
+value, which is nothing but the relative offset that will be added or subtracted by the current QLC+
+value.
+</P>
+<HR>
+
+<H3><IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Button properties</H3>
+<P>
+Buttons have an option too, used only in quite specific cases like when using TouchOSC.<br>
+A TouchOSC toggle button sends a value to QLC+ only when it is pressed (either to turn it on or off)
+and this behaviour is not in line with the standard behaviour of MIDI controllers.<br>
+For this reason, an option saying "Generate an extra Press/Release when toggled" can be checked
+to turn the non-standard TouchOSC behaviour into a more standard one.
 </P>
 <HR>
 
@@ -300,6 +323,12 @@ you will see that your Input profile mapping will be used.
 <TD>Showtec Showmaster 24</TD>
 <TD>MIDI</TD>
 <TD>should work with lot of similar devices: Elation Light Operator 24, Stairville LC24, and most probably also with their 48 channel variants</TD>
+</TR>
+
+<TR>
+<TD>TouchOSC Automat5</TD>
+<TD>OSC</TD>
+<TD></TD>
 </TR>
 
 <TR>
