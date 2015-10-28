@@ -28,6 +28,7 @@
  <Channel Number="5696">
   <Name>/toggleA_2</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="5728">
   <Name>/2/multitoggle1/3/1</Name>
@@ -52,6 +53,7 @@
  <Channel Number="9435">
   <Name>/toggleA_1</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="9467">
   <Name>/2/multitoggle1/3/2</Name>
@@ -132,6 +134,7 @@
  <Channel Number="31708">
   <Name>/encoderM</Name>
   <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="32295">
   <Name>/2/multitoggle1/2/2</Name>
@@ -228,6 +231,7 @@
  <Channel Number="52159">
   <Name>/toggleB_1</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="58278">
   <Name>/1/faderD</Name>
@@ -240,5 +244,6 @@
  <Channel Number="63780">
   <Name>/toggleB_2</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
 </InputProfile>
