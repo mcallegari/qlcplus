@@ -1,30 +1,30 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
-  <Author>Didou</Author>
+  <Version>4.10.2 GIT</Version>
+  <Author>dragon</Author>
  </Creator>
- <Manufacturer>BoomTone DJ</Manufacturer>
+ <Manufacturer>BoomToneDJ</Manufacturer>
  <Model>Strob LED 18</Model>
  <Type>Strobe</Type>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="254" Min="0">Strobe from slow to fast</Capability>
-  <Capability Max="255" Min="255">No strobe</Capability>
+  <Capability Min="0" Max="254">Strobe from slow to fast</Capability>
+  <Capability Min="255" Max="255">No strobe</Capability>
  </Channel>
  <Mode Name="2 channels">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="383" Depth="170" Weight="2.65" Height="95"/>
-   <Lens DegreesMin="120" DegreesMax="120" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="54"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.65" Width="383" Height="95" Depth="170"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="54" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>

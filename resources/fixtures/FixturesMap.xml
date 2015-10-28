@@ -66,6 +66,7 @@
   <fixture path="American-DJ-SP1500-MKII.qxf" mf="American DJ" md="SP-1500 MKII"/>
   <fixture path="American-DJ-Spherion-Tri-LED.qxf" mf="American DJ" md="Spherion Tri LED"/>
   <fixture path="American-DJ-Starball-LED-DMX.qxf" mf="American DJ" md="Starball LED DMX"/>
+  <fixture path="American-DJ-Starburst.qxf" mf="American DJ" md="Starburst"/>
   <fixture path="American-DJ-Sweeper-Beam-LED.qxf" mf="American DJ" md="Sweeper Beam LED"/>
   <fixture path="American-DJ-Sweeper-Beam-Quad-LED.qxf" mf="American DJ" md="Sweeper Beam Quad LED"/>
   <fixture path="American-DJ-TRI64-Profile.qxf" mf="American DJ" md="TRI64 PRO"/>
@@ -94,7 +95,9 @@
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
-  <fixture path="BoomToneDJ_Slim_PAR_7x3W_LED_RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
+  <fixture path="BoomToneDJ-Sky-Bar-288-LED.qxf" mf="BoomToneDJ" md="Sky bar 288 LED"/>
+  <fixture path="BoomToneDJ-Slim-PAR-7x3W-LED-RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
+  <fixture path="BoomToneDJ-Strob-LED-18.qxf" mf="BoomToneDJ" md="Strob LED 18"/>
   <fixture path="Botex-DPX-620-III.qxf" mf="Botex" md="DPX 620 III"/>
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
   <fixture path="Briteq-BT-Theatre-100EC.qxf" mf="Briteq" md="BT Theatre 100EC"/>
@@ -157,6 +160,7 @@
   <fixture path="Chauvet-Intimidator-Spot-LED-350.qxf" mf="Chauvet" md="Intimidator Spot LED 350"/>
   <fixture path="Chauvet-Intimidator-Wash-Zoom-350-IRC.qxf" mf="Chauvet" md="Intimidator Wash Zoom 350 IRC"/>
   <fixture path="Chauvet-Intimidator-Wave-360-IRC.qxf" mf="Chauvet" md="Intimidator Wave 360 IRC"/>
+  <fixture path="Chauvet-LED-PAR-64-Tri-B.qxf" mf="Chauvet" md="LED PAR 64 Tri-B"/>
   <fixture path="Chauvet-LED-Shadow.qxf" mf="Chauvet" md="LED Shadow"/>
   <fixture path="Chauvet-LED-Splash-86b.qxf" mf="Chauvet" md="LED Splash 86b"/>
   <fixture path="Chauvet-LED-Techno-Strobe-RGB.qxf" mf="Chauvet" md="LED Techno Strobe RGB"/>
@@ -589,6 +593,7 @@
   <fixture path="Stairville-SC250H.qxf" mf="Stairville" md="SC250H"/>
   <fixture path="Stairville-SF-1500.qxf" mf="Stairville" md="SF-1500"/>
   <fixture path="Stairville-TRI-LED-Bundle-Complete.qxf" mf="Stairville" md="Stage TRI LED Bundle Complete"/>
+  <fixture path="Stairville-xBrick-Full-Colour-16X3W.qxf" mf="Stairville" md="xBrick Full-Colour 16X3W"/>
   <fixture path="Stairville-xBrick-Full-Colour.qxf" mf="Stairville" md="xBrick Full-Colour"/>
   <fixture path="Stairville-ZF-1500.qxf" mf="Stairville" md="ZF-1500"/>
   <fixture path="Star-Lights-mini-Wash-Moving-Head.qxf" mf="Star-Lights" md="LED 3W Mini Moving Head"/>

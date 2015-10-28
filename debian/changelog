@@ -2,10 +2,13 @@ qlcplus (4.10.2) stable; urgency=low
 
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
+  * Input Profiles: added an option for Buttons to alwaya generate a press/release event
   * New input profile: Touch OSC Automat5
+  * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
-  * New fixture: Robe ColorWash 1200E AT (thanks to Robert Box)
+  * New fixture: Robe ColorWash 1200E AT, American DJ Starburst, Chauvet LED PAR 64 Tri-B (thanks to Robert Box)
+  * New fixture: BoomTone DJ Sky bar 288 LED, BoomToneDJ Strob LED 18 (thanks to Didou)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Nov 2015 20:21:22 +0200
 
