@@ -188,7 +188,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
         <source>Width</source>
-        <translation type="unfinished">Šířka</translation>
+        <translation>Šířka</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
@@ -361,39 +361,39 @@
     <message>
         <location filename="editchannel.ui" line="194"/>
         <source>Capability Values</source>
-        <translation type="unfinished">Hodnoty funkce</translation>
+        <translation>Hodnoty funkce</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="242"/>
         <source>Min</source>
-        <translation type="unfinished">Min</translation>
+        <translation>Min</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="255"/>
         <source>Max</source>
-        <translation type="unfinished">Max</translation>
+        <translation>Max</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="278"/>
         <location filename="editchannel.cpp" line="184"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="315"/>
         <location filename="editchannel.ui" line="326"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="344"/>
         <source>Picture</source>
-        <translation type="unfinished">Obrázek</translation>
+        <translation>Obrázek</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="358"/>
         <source>Second Colour</source>
-        <translation type="unfinished">Druhá barva</translation>
+        <translation>Druhá barva</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="383"/>
@@ -453,12 +453,12 @@
     <message>
         <location filename="editchannel.cpp" line="86"/>
         <source>Edit Channel: </source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit kanál:</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="188"/>
         <source>Effect</source>
-        <translation type="unfinished">Efekt</translation>
+        <translation>Efekt</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="371"/>
@@ -468,12 +468,12 @@
     <message>
         <location filename="editchannel.cpp" line="417"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished">Otevřít soubor Gobo</translation>
+        <translation>Otevřít soubor Gobo</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="420"/>
         <source>Gobo pictures</source>
-        <translation type="unfinished">Gobo obrázky</translation>
+        <translation>Gobo obrázky</translation>
     </message>
     <message>
         <source>The capability&apos;s values overlap with another capability!</source>

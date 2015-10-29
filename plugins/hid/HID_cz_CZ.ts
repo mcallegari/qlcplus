@@ -29,12 +29,12 @@
     <message>
         <location filename="hiddmxdevice.cpp" line="62"/>
         <source>HID DMX Interface Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba rozhraní HID DMX</translation>
     </message>
     <message>
         <location filename="hiddmxdevice.cpp" line="63"/>
         <source>Unable to open %1. Make sure the udev rule is installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodařilo se otevřít %1. Ujistěte se, že rozhraní udev je nainstalováno.</translation>
     </message>
 </context>
 <context>
@@ -55,7 +55,7 @@
     <message>
         <location filename="hidplugin.cpp" line="125"/>
         <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tento plugin přidává podporu pro pákové ovladače (joysticky) založené na standardu HID.</translation>
     </message>
 </context>
 </TS>
