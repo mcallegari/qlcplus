@@ -296,6 +296,35 @@ bool DMXUSB::canConfigure()
     return true;
 }
 
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void DMXUSB::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!DMXInterface::validInterface(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "Invalid DMX USB device, nothing to do";
+        return;
+    }
+
+    rescanWidgets();
+    emit configurationChanged();
+}
+
+void DMXUSB::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!DMXInterface::validInterface(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "Invalid DMX USB device, nothing to do";
+        return;
+    }
+
+    rescanWidgets();
+}
+
 /****************************************************************************
  * Plugin export
  ****************************************************************************/
