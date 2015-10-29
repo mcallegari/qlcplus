@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Tony Schuite</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>Studio Command 1200</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan (coarse)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan, Coarse Adjustment</Capability>
+ </Channel>
+ <Channel Name="Pan (fine)">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan, fine adjustment</Capability>
+ </Channel>
+ <Channel Name="Tilt (Coarse)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt, Coarse Adjustment</Capability>
+ </Channel>
+ <Channel Name="Tilt (Fine)">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt, Fine Adjustment</Capability>
+ </Channel>
+ <Channel Name="Color Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Full Speed, Continuous</Capability>
+  <Capability Min="16" Max="31">Full Speed, Cycle (Speed is set by the Cyan Channel)</Capability>
+  <Capability Min="32" Max="47">Full Speed, Random (Speed is set by the Cyan Channel)</Capability>
+  <Capability Min="48" Max="127">TBD</Capability>
+  <Capability Min="128" Max="143">MSpeed, Continuous</Capability>
+  <Capability Min="144" Max="159">MSpeed, Cycle (Speed is set by the Cyan Channel)</Capability>
+  <Capability Min="160" Max="175">MSpeed, Random (Speed is set by the Cyan Channel)</Capability>
+  <Capability Min="176" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Zoom (Narrow -&gt; Wide)</Capability>
+ </Channel>
+ <Channel Name="Shutter Function">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="23">Close</Capability>
+  <Capability Min="24" Max="27">Periodic Strobe (Mechanical from 1-4Hz operation)</Capability>
+  <Capability Min="28" Max="49">Periodic Strobe (Electronic from 5-33Hz operation)</Capability>
+  <Capability Min="50" Max="75">Random Random Strobe</Capability>
+  <Capability Min="76" Max="101">Synchronous Random Strobe</Capability>
+  <Capability Min="102" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="MSpeed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Disable</Capability>
+  <Capability Min="4" Max="255">Duration (252.7sec - 0.15sec)</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Macro Off</Capability>
+  <Capability Min="6" Max="62">Pan sweep, small to large angle</Capability>
+  <Capability Min="63" Max="65">Macro Off</Capability>
+  <Capability Min="66" Max="122">Tilt sweep, small to large angle</Capability>
+  <Capability Min="123" Max="125">Macro Off</Capability>
+  <Capability Min="126" Max="160">Clockwise circle, small to large</Capability>
+  <Capability Min="161" Max="163">Macro Off</Capability>
+  <Capability Min="164" Max="198">Counterclockwise circle, small to large</Capability>
+  <Capability Min="199" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Safe (Disables all Control settings)</Capability>
+  <Capability Min="10" Max="19">Pan &amp; Tilt MSpeed off</Capability>
+  <Capability Min="20" Max="28">Display Off</Capability>
+  <Capability Min="30" Max="38">Display Dim</Capability>
+  <Capability Min="40" Max="48">Display Bright</Capability>
+  <Capability Min="60" Max="68">Home</Capability>
+  <Capability Min="80" Max="88">Lamp On</Capability>
+  <Capability Min="90" Max="98">Lamp Off</Capability>
+  <Capability Min="120" Max="130">Shutdown (send for 5 secs)</Capability>
+  <Capability Min="134" Max="137">Lamp Assisted Strobes</Capability>
+  <Capability Min="138" Max="141">Lamp Functions (modifies the shutter channel)</Capability>
+  <Capability Min="142" Max="145">Lamp/mechanical dimming</Capability>
+  <Capability Min="146" Max="149">Lamp only dimming</Capability>
+  <Capability Min="150" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Dim">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Close - Open</Capability>
+ </Channel>
+ <Mode Name="16-Bit Mode">
+  <Physical>
+   <Bulb Lumens="15000" Type="MSR 1200W" ColourTemperature="5900"/>
+   <Dimensions Width="352" Height="544" Weight="24.9" Depth="526"/>
+   <Lens DegreesMax="32" Name="Fresnel" DegreesMin="8"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="240"/>
+   <Technical PowerConsumption="1400" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan (coarse)</Channel>
+  <Channel Number="1">Pan (fine)</Channel>
+  <Channel Number="2">Tilt (Coarse)</Channel>
+  <Channel Number="3">Tilt (Fine)</Channel>
+  <Channel Number="4">Color Function</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Shutter Function</Channel>
+  <Channel Number="10">Dim</Channel>
+  <Channel Number="11">MSpeed</Channel>
+  <Channel Number="12">Macro</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+</FixtureDefinition>

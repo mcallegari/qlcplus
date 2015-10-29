@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.1.0</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>200b</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="29">RGB</Capability>
+  <Capability Min="30" Max="199">Pulse</Capability>
+  <Capability Min="210" Max="239">Colour change with fade</Capability>
+  <Capability Min="240" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Mode Name="All">
+  <Physical>
+   <Bulb Lumens="930" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="132" Height="249" Weight="2" Depth="236"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="19" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

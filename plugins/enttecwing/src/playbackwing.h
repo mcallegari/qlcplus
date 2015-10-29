@@ -23,6 +23,7 @@
 #include <QHostAddress>
 #include <QByteArray>
 #include <QObject>
+#include <QMap>
 
 #include "qlcmacros.h"
 #include "wing.h"
@@ -71,8 +72,9 @@ public:
     /** Send current page number back to the wing */
     void sendPageData();
 
-    /** @reimp */
-    quint32 pageSize() const;
+    /*** receive feedback to sync wing with widget ***/
+    void feedBack(quint32 channel, uchar value);
+
 protected:
     /**
      * Since some of the channels in a playback wing seem to be in a weird
@@ -80,6 +82,16 @@ protected:
      * order.
      */
     QMap <int,int> m_channelMap;
+
+    /**
+     * stores slider values received by feedback,
+     * used to handle page changes
+     */
+    QMap <int, QByteArray> m_feedbackValues;
+    QMap <int, QVector<int> > m_feedbackDiffs;
+
+private:
+    bool m_needSync;
 };
 
 #endif

@@ -39,8 +39,10 @@ AudioCaptureQt::~AudioCaptureQt()
     m_audioInput = NULL;
 }
 
-bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureQt::initialize()
 {
+    AudioCapture::initialize();
+
     QSettings settings;
     QString devName = "";
     QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultInputDevice();
@@ -59,8 +61,8 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
         }
     }
 
-    m_format.setSampleRate(sampleRate);
-    m_format.setChannelCount(channels);
+    m_format.setSampleRate(m_sampleRate);
+    m_format.setChannelCount(m_channels);
     m_format.setSampleSize(16);
     m_format.setSampleType(QAudioFormat::SignedInt);
     m_format.setByteOrder(QAudioFormat::LittleEndian);
@@ -70,8 +72,8 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
     {
         qWarning() << "Requested format not supported - trying to use nearest";
         m_format = audioDevice.nearestFormat(m_format);
-        channels = m_format.channelCount();
-        sampleRate = m_format.sampleRate();
+        m_channels = m_format.channelCount();
+        m_sampleRate = m_format.sampleRate();
     }
 
     m_audioInput = new QAudioInput(audioDevice, m_format, this);
@@ -84,12 +86,19 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
 
     m_input = m_audioInput->start();
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCaptureQt::latency()
 {
     return 0; // TODO
+}
+
+void AudioCaptureQt::setVolume(qreal volume)
+{
+    m_volume = volume;
+    if (m_audioInput != NULL)
+        m_audioInput->setVolume(volume);
 }
 
 void AudioCaptureQt::suspend()
@@ -105,9 +114,9 @@ bool AudioCaptureQt::readAudio(int maxSize)
     if (m_audioInput->bytesReady() < maxSize * 2)
         return false;
 
-    qint64 l = m_input->read((char *)m_audioBuffer, maxSize * 2);
+    /*qint64 l = */ m_input->read((char *)m_audioBuffer, maxSize * 2);
 
-    qDebug() << "[QT readAudio] " << l << "bytes read";
+    //qDebug() << "[QT readAudio] " << l << "bytes read";
 
     return true;
 }

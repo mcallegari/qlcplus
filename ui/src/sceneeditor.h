@@ -20,7 +20,6 @@
 #ifndef SCENEEDITOR_H
 #define SCENEEDITOR_H
 
-#include <QPointer>
 #include <QWidget>
 #include <QList>
 #include <QMap>
@@ -55,6 +54,9 @@ class SceneEditor : public QWidget, public Ui_SceneEditor
      * Initialization
      *********************************************************************/
 public:
+    /*!
+       \param applyValues - true for scenes, false for sequences
+     */
     SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValues);
     ~SceneEditor();
 
@@ -150,7 +152,7 @@ private slots:
     void slotDialDestroyed(QObject* dial);
 
 private:
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     /*********************************************************************
      * Channels groups
@@ -202,7 +204,7 @@ private:
     /** Index of the first fixture's tab */
     int m_fixtureFirstTabIndex;
 
-    QList <FixtureConsole *> m_consoleList;
+    QMap <quint32, FixtureConsole *> m_consoleList;
 
     /** Flag to indicate if some fixture channels were
      *  manually selected and copied to clipboard */

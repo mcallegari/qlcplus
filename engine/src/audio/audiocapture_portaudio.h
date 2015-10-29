@@ -22,6 +22,10 @@
 
 #include "audiocapture.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCapturePortAudio : public AudioCapture
 {
     Q_OBJECT
@@ -30,7 +34,7 @@ public:
     ~AudioCapturePortAudio();
 
     /** @reimpl */
-    bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
+    bool initialize();
 
     /** @reimpl */
     qint64 latency();
@@ -45,5 +49,7 @@ protected:
     /** @reimpl */
     bool readAudio(int maxSize);
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_PORTAUDIO_H

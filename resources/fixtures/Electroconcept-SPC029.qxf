@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Bulle</Author>
+ </Creator>
+ <Manufacturer>Electroconcept</Manufacturer>
+ <Model>SPC029</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue</Capability>
+ </Channel>
+ <Channel Name="Red 1/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 1/4</Capability>
+ </Channel>
+ <Channel Name="Red 2/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 2/4</Capability>
+ </Channel>
+ <Channel Name="Red 3/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 3/4</Capability>
+ </Channel>
+ <Channel Name="Red 4/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 4/4</Capability>
+ </Channel>
+ <Channel Name="Green 1/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 1/4</Capability>
+ </Channel>
+ <Channel Name="Green 2/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 2/4</Capability>
+ </Channel>
+ <Channel Name="Green 3/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 3/4</Capability>
+ </Channel>
+ <Channel Name="Green 4/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 4/4</Capability>
+ </Channel>
+ <Channel Name="Blue 1/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 1/4</Capability>
+ </Channel>
+ <Channel Name="Blue 2/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 2/4</Capability>
+ </Channel>
+ <Channel Name="Blue 3/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 3/4</Capability>
+ </Channel>
+ <Channel Name="Blue 4/4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 4/4</Capability>
+ </Channel>
+ <Channel Name="Red 1/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 1/8</Capability>
+ </Channel>
+ <Channel Name="Red 2/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 2/8</Capability>
+ </Channel>
+ <Channel Name="Red 3/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 3/8</Capability>
+ </Channel>
+ <Channel Name="Red 4/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 4/8</Capability>
+ </Channel>
+ <Channel Name="Red 5/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 5/8</Capability>
+ </Channel>
+ <Channel Name="Red 6/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 6/8</Capability>
+ </Channel>
+ <Channel Name="Red 7/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 7/8</Capability>
+ </Channel>
+ <Channel Name="Red 8/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red 8/8</Capability>
+ </Channel>
+ <Channel Name="Green 1/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 1/8</Capability>
+ </Channel>
+ <Channel Name="Green 2/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 2/8</Capability>
+ </Channel>
+ <Channel Name="Green 3/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 3/8</Capability>
+ </Channel>
+ <Channel Name="Green 4/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 4/8</Capability>
+ </Channel>
+ <Channel Name="Green 5/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 5/8</Capability>
+ </Channel>
+ <Channel Name="Green 6/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 6/8</Capability>
+ </Channel>
+ <Channel Name="Green 7/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 7/8</Capability>
+ </Channel>
+ <Channel Name="Green 8/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green 8/8</Capability>
+ </Channel>
+ <Channel Name="Blue 1/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 1/8</Capability>
+ </Channel>
+ <Channel Name="Blue 2/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 2/8</Capability>
+ </Channel>
+ <Channel Name="Blue 3/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 3/8</Capability>
+ </Channel>
+ <Channel Name="Blue 4/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 4/8</Capability>
+ </Channel>
+ <Channel Name="Blue 5/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 5/8</Capability>
+ </Channel>
+ <Channel Name="Blue 6/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 6/8</Capability>
+ </Channel>
+ <Channel Name="Blue 7/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 7/8</Capability>
+ </Channel>
+ <Channel Name="Blue 8/8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue 8/8</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="9" Min="0">Off</Capability>
+  <Capability Color="#ff0000" Max="19" Min="10">Red</Capability>
+  <Capability Color="#00ff00" Max="29" Min="20">Green</Capability>
+  <Capability Color="#0000ff" Max="39" Min="30">Blue</Capability>
+  <Capability Color="#00ffff" Max="49" Min="40">Cyan</Capability>
+  <Capability Color="#ffff00" Max="59" Min="50">Yellow</Capability>
+  <Capability Color="#800080" Max="69" Min="60">Purple</Capability>
+  <Capability Color="#ffffff" Max="79" Min="70">White</Capability>
+  <Capability Max="89" Min="80">Program 01</Capability>
+  <Capability Max="99" Min="90">Program 02</Capability>
+  <Capability Max="109" Min="100">Program 03</Capability>
+  <Capability Max="119" Min="110">Program 04</Capability>
+  <Capability Max="129" Min="120">Program 05</Capability>
+  <Capability Max="139" Min="130">Program 06</Capability>
+  <Capability Max="149" Min="140">Program 07</Capability>
+  <Capability Max="159" Min="150">Program 08</Capability>
+  <Capability Max="169" Min="160">Program 09</Capability>
+  <Capability Max="179" Min="170">Program 10</Capability>
+  <Capability Max="189" Min="180">Program 11</Capability>
+  <Capability Max="199" Min="190">Program 12</Capability>
+  <Capability Max="209" Min="200">Program 13</Capability>
+  <Capability Max="219" Min="210">Sound Mode 01</Capability>
+  <Capability Max="229" Min="220">Sound Mode 02</Capability>
+  <Capability Max="239" Min="230">Sound Mode 03</Capability>
+  <Capability Max="255" Min="240">Sound Mode 04</Capability>
+ </Channel>
+ <Channel Name="Adjust">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="255" Min="0">Dimmer (ch1 0~79) / Speed (ch1 80~209) / Sensivity (ch1 210~255)</Capability>
+ </Channel>
+ <Mode Name="d-p1 (4 CHS)">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="1.5" Width="1000" Height="60" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="d-p2 (13 CHS)">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="1.5" Width="1000" Height="60" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red 1/4</Channel>
+  <Channel Number="2">Green 1/4</Channel>
+  <Channel Number="3">Blue 1/4</Channel>
+  <Channel Number="4">Red 2/4</Channel>
+  <Channel Number="5">Green 2/4</Channel>
+  <Channel Number="6">Blue 2/4</Channel>
+  <Channel Number="7">Red 3/4</Channel>
+  <Channel Number="8">Green 3/4</Channel>
+  <Channel Number="9">Blue 3/4</Channel>
+  <Channel Number="10">Red 4/4</Channel>
+  <Channel Number="11">Green 4/4</Channel>
+  <Channel Number="12">Blue 4/4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>7</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="d-p3 (25 CHS)">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="1.5" Width="1000" Height="60" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red 1/8</Channel>
+  <Channel Number="2">Red 2/8</Channel>
+  <Channel Number="3">Red 3/8</Channel>
+  <Channel Number="4">Red 4/8</Channel>
+  <Channel Number="5">Red 5/8</Channel>
+  <Channel Number="6">Red 6/8</Channel>
+  <Channel Number="7">Red 7/8</Channel>
+  <Channel Number="8">Red 8/8</Channel>
+  <Channel Number="9">Green 1/8</Channel>
+  <Channel Number="10">Green 2/8</Channel>
+  <Channel Number="11">Green 3/8</Channel>
+  <Channel Number="12">Green 4/8</Channel>
+  <Channel Number="13">Green 5/8</Channel>
+  <Channel Number="14">Green 6/8</Channel>
+  <Channel Number="15">Green 7/8</Channel>
+  <Channel Number="16">Green 8/8</Channel>
+  <Channel Number="17">Blue 1/8</Channel>
+  <Channel Number="18">Blue 2/8</Channel>
+  <Channel Number="19">Blue 3/8</Channel>
+  <Channel Number="20">Blue 4/8</Channel>
+  <Channel Number="21">Blue 5/8</Channel>
+  <Channel Number="22">Blue 6/8</Channel>
+  <Channel Number="23">Blue 7/8</Channel>
+  <Channel Number="24">Blue 8/8</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>0</Channel>
+   <Channel>9</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>18</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>19</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+   <Channel>20</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>5</Channel>
+   <Channel>21</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>6</Channel>
+   <Channel>22</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>7</Channel>
+   <Channel>23</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>16</Channel>
+   <Channel>8</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="d-p4 (2 CHS)">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="1.5" Width="1000" Height="60" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Adjust</Channel>
+ </Mode>
+</FixtureDefinition>

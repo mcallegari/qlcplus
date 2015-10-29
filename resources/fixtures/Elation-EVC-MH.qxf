@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.1</Version>
+  <Author>David Kuder</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>EVC MH</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Coarse">
+  <Group Byte="0">Pan</Group>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+ </Channel>
+ <Channel Name="Tilt Coarse">
+  <Group Byte="0">Tilt</Group>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+ </Channel>
+ <Channel Name="Pan / Tilt Speed">
+  <Group Byte="0">Speed</Group>
+ </Channel>
+ <Channel Name="Warm White LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+ </Channel>
+ <Channel Name="Cool White LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Effect</Group>
+ </Channel>
+ <Channel Name="Focus Coarse">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Auto Focus</Capability>
+  <Capability Min="1" Max="255">Near - Far</Capability>
+ </Channel>
+ <Channel Name="Focus Fine">
+  <Group Byte="1">Effect</Group>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="70" Max="79">Enable Blackout while moving</Capability>
+  <Capability Min="80" Max="89">Disable Blackout while moving</Capability>
+  <Capability Min="90" Max="199">No Function</Capability>
+  <Capability Min="200" Max="209">Reset All</Capability>
+  <Capability Min="210" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="LED Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">OFF</Capability>
+  <Capability Min="8" Max="255">Warm - Cool</Capability>
+ </Channel>
+ <Mode Name="12-CH">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="207" Height="209" Weight="3.8" Depth="246"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="60"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="36" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">LED Color Temperature</Channel>
+  <Channel Number="6">Warm White LED</Channel>
+  <Channel Number="7">Cool White LED</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Focus Coarse</Channel>
+  <Channel Number="10">Focus Fine</Channel>
+  <Channel Number="11">Function</Channel>
+ </Mode>
+</FixtureDefinition>

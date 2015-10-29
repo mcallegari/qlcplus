@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!-- 
+  Q Light Controller Plus
+  modifiertemplate.xsd
+  
+  Copyright (C) Jano Svitok
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+  XML Schema for Channel Modifier templates
+
+  usage (from modifiertemplates dir, replace "_" with "-"):
+
+    xmllint __noout __schema ../schemas/modifiertemplate.xsd *.qxmt
+
+  xmllint is part of libxml2-utils package in ubuntu.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.qlcplus.org/ChannelModifier"
+xmlns="http://www.qlcplus.org/ChannelModifier"
+elementFormDefault="qualified"
+>
+
+<xs:element name="ChannelModifier">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Creator" type="creatorType"/>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="Handler" type="handlerType" maxOccurs="unbounded"/>
+        </xs:sequence>
+     </xs:complexType>
+</xs:element>
+
+<xs:complexType name="creatorType">
+    <xs:sequence>
+        <xs:element name="Name" type="xs:string"/>
+        <xs:element name="Version" type="xs:string"/>
+        <xs:element name="Author" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="handlerType">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+      <xs:attribute name="Modified" type="dmxValueType" use="required"/>
+      <xs:attribute name="Original" type="dmxValueType" use="required"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+
+<xs:simpleType name="dmxValueType">
+    <xs:restriction base="xs:nonNegativeInteger">
+        <xs:minInclusive value="0"/>
+        <xs:maxInclusive value="255" />
+    </xs:restriction>
+</xs:simpleType>
+</xs:schema>

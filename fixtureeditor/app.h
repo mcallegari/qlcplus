@@ -29,6 +29,10 @@ class QToolBar;
 class QAction;
 class QMenu;
 
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
+
 #define KAllFilter  "Fixture Definitions (*.qxf *.d4)"
 #define KQXFFilter  "QLC fixtures (*.qxf)"
 #define KD4Filter   "Avolites fixtures (*.d4)"
@@ -126,5 +130,7 @@ protected slots:
     void slotHelpAbout();
     void slotHelpAboutQt();
 };
+
+/** @} */
 
 #endif

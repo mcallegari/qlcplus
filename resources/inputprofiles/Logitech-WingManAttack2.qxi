@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Logitech</Manufacturer>
+ <Model>WingMan Attack 2</Model>
+ <Type>HID</Type>
+ <Channel Number="0" >
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="1" >
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2" >
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3" >
+  <Name>Trigger</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4" >
+  <Name>Top Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5" >
+  <Name>Top Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6" >
+  <Name>Top Hat</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7" >
+  <Name>Base 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8" >
+  <Name>Base 6</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
+

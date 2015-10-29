@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Proel</Manufacturer>
+ <Model>Moving Head 3Wx108 LED RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="125">Random strobe</Capability>
+  <Capability Min="126" Max="255">Pulsing strobe</Capability>
+ </Channel>
+ <Channel Name="Colour change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">Color change (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Colours Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Color2="#ffff00" Min="3" Max="41" Color="#ff0000">Red to Yellow</Capability>
+  <Capability Color2="#00ff00" Min="42" Max="83" Color="#ffff00">Yellow to Green</Capability>
+  <Capability Color2="#00ffff" Min="84" Max="125" Color="#00ff00">Green to Cyan</Capability>
+  <Capability Color2="#0000ff" Min="126" Max="167" Color="#00ffff">Cyan to Blue</Capability>
+  <Capability Color2="#ff00ff" Min="168" Max="209" Color="#0000ff">Blue to Magenta</Capability>
+  <Capability Color2="#ffffff" Min="210" Max="251" Color="#ff00ff">Magenta to White</Capability>
+  <Capability Min="252" Max="255" Color="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Automatic Colours Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">Automatic colour mix (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">0 to 540 degrees</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">0 to 270 degrees</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan Tilt Speed</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="255">Reset after 3 seconds</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="430" Weight="7.8" Depth="210"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Colour change</Channel>
+  <Channel Number="7">Colours Macro</Channel>
+  <Channel Number="8">Automatic Colours Macro</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Pan Fine</Channel>
+  <Channel Number="12">Tilt Fine</Channel>
+  <Channel Number="13">Pan Tilt Speed</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+</FixtureDefinition>

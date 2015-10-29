@@ -50,8 +50,6 @@ private:
     QTreeWidget* m_tree;
     QPushButton* m_refreshButton;
     QPushButton* m_closeButton;
-
-    bool m_ignoreItemChanged;
 };
 
 #endif

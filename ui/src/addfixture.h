@@ -131,7 +131,7 @@ protected:
      * @param numChannels Number of channels in the address space
      * @return The address or QLCChannel::invalid() if not found
      */
-    static quint32 findAddress(quint32 numChannels, QList <Fixture*> fixtures,
+    static quint32 findAddress(quint32 numChannels, QList<Fixture*> const& fixtures,
                                quint32 maxUniverses);
 
     /**
@@ -144,7 +144,7 @@ protected:
      * @return An address or QLCChannel::invalid() if address space not available
      */
     static quint32 findAddress(quint32 universe, quint32 numChannels,
-                               QList <Fixture*> fixtures);
+                               QList<Fixture*> const& fixtures);
 
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();

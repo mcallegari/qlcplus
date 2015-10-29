@@ -65,6 +65,30 @@ const QString KForwardString    (    "Forward" );
  * Initialization
  *****************************************************************************/
 
+Function::Function(QObject *parent)
+    : QObject(parent)
+    , m_id(Function::invalidId())
+    , m_type(Undefined)
+    , m_path(QString())
+    , m_runOrder(Loop)
+    , m_direction(Forward)
+    , m_fadeInSpeed(0)
+    , m_fadeOutSpeed(0)
+    , m_duration(0)
+    , m_overrideFadeInSpeed(defaultSpeed())
+    , m_overrideFadeOutSpeed(defaultSpeed())
+    , m_overrideDuration(defaultSpeed())
+    , m_uiState()
+    , m_flashing(false)
+    , m_elapsed(0)
+    , m_stop(true)
+    , m_running(false)
+    , m_startedAsChild(false)
+    , m_blendMode(Universe::NormalBlend)
+{
+
+}
+
 Function::Function(Doc* doc, Type t)
     : QObject(doc)
     , m_id(Function::invalidId())
@@ -84,6 +108,7 @@ Function::Function(Doc* doc, Type t)
     , m_stop(true)
     , m_running(false)
     , m_startedAsChild(false)
+    , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
     registerAttribute(tr("Intensity"));
@@ -102,6 +127,24 @@ Doc* Function::doc() const
 /*****************************************************************************
  * Copying
  *****************************************************************************/
+Function *Function::createCopy(Doc *doc, bool addToDoc)
+{
+    Q_ASSERT(doc != NULL);
+
+    Function* copy = new Function(doc);
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+
+    return copy;
+}
 
 bool Function::copyFrom(const Function* function)
 {
@@ -115,6 +158,7 @@ bool Function::copyFrom(const Function* function)
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
     m_path = function->path(true);
+    m_blendMode = function->blendMode();
     uiState()->copyFrom(function->uiState());
 
     emit changed(m_id);
@@ -149,9 +193,12 @@ quint32 Function::invalidId()
 
 void Function::setName(const QString& name)
 {
+    if (m_name == name)
+        return;
+
     m_name = QString(name);
 
-    emit changed(m_id);
+    emit nameChanged(m_id);
 }
 
 QString Function::name() const
@@ -291,6 +338,8 @@ bool Function::saveXMLCommon(QDomElement *root) const
     root->setAttribute(KXMLQLCFunctionName, name());
     if (path(true).isEmpty() == false)
         root->setAttribute(KXMLQLCFunctionPath, path(true));
+    if (blendMode() != Universe::NormalBlend)
+        root->setAttribute(KXMLQLCFunctionBlendMode, Universe::blendModeToString(blendMode()));
 
     return true;
 }
@@ -535,6 +584,9 @@ uint Function::stringToSpeed(QString speed)
 {
     uint value = 0;
 
+    if (speed == QChar(0x221E)) // Infinity symbol
+        return infiniteSpeed();
+
     QStringList hours = speed.split("h");
     if (hours.count() > 1)
     {
@@ -556,11 +608,38 @@ uint Function::stringToSpeed(QString speed)
         speed.remove(0, speed.indexOf("s") + 1);
     }
 
-    QStringList msecs = speed.split(".");
-    if (msecs.count() > 0)
-        value += (msecs.at(msecs.count() - 1).toUInt() * 10);
+    // lround avoids toDouble precison issues (.03 transforms to .029)
+    value += lround(speed.toDouble() * 1000.0);
 
-    return value;
+    return speedNormalize(value);
+}
+
+uint Function::speedNormalize(uint speed)
+{
+    if ((int)speed < 0)
+        return infiniteSpeed();
+    return speed - (speed % 10);
+}
+
+uint Function::speedAdd(uint left, uint right)
+{
+    if (speedNormalize(left) == infiniteSpeed()
+        || speedNormalize(right) == infiniteSpeed())
+        return infiniteSpeed();
+
+    return speedNormalize(left + right);
+}
+
+uint Function::speedSubstract(uint left, uint right)
+{
+    if (right >= left)
+        return 0;
+    if (speedNormalize(right) == infiniteSpeed())
+        return 0;
+    if (speedNormalize(left) == infiniteSpeed())
+        return infiniteSpeed();
+
+    return speedNormalize(left - right);
 }
 
 void Function::tap()
@@ -636,6 +715,18 @@ void Function::slotFixtureRemoved(quint32 fid)
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
+bool Function::saveXML(QDomDocument *doc, QDomElement *wksp_root)
+{
+    Q_UNUSED(doc)
+    Q_UNUSED(wksp_root)
+    return false;
+}
+
+bool Function::loadXML(const QDomElement &root)
+{
+    Q_UNUSED(root)
+    return false;
+}
 
 bool Function::loader(const QDomElement& root, Doc* doc)
 {
@@ -650,8 +741,12 @@ bool Function::loader(const QDomElement& root, Doc* doc)
     QString name = root.attribute(KXMLQLCFunctionName);
     Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
     QString path;
+    Universe::BlendMode blendMode = Universe::NormalBlend;
+
     if (root.hasAttribute(KXMLQLCFunctionPath))
         path = root.attribute(KXMLQLCFunctionPath);
+    if (root.hasAttribute(KXMLQLCFunctionBlendMode))
+        blendMode = Universe::stringToBlendMode(root.attribute(KXMLQLCFunctionBlendMode));
 
     /* Check for ID validity before creating the function */
     if (id == Function::invalidId())
@@ -687,6 +782,7 @@ bool Function::loader(const QDomElement& root, Doc* doc)
 
     function->setName(name);
     function->setPath(path);
+    function->setBlendMode(blendMode);
     if (function->loadXML(root) == true)
     {
         if (doc->addFunction(function, id) == true)
@@ -747,11 +843,16 @@ void Function::preRun(MasterTimer* timer)
 {
     Q_UNUSED(timer);
 
-    qDebug() << "Function preRun. ID: " << m_id;
-    m_stop = false;
+    qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
     m_running = true;
 
     emit running(m_id);
+}
+
+void Function::write(MasterTimer *timer, QList<Universe *> universes)
+{
+    Q_UNUSED(timer);
+    Q_UNUSED(universes);
 }
 
 void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
@@ -759,11 +860,10 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 
-    qDebug() << "Function postRun. ID: " << m_id;
+    qDebug() << "Function postRun. Name:" << m_name << "ID: " << m_id;
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-    m_stop = true;
     //m_overrideFadeInSpeed = defaultSpeed();
     //m_overrideFadeOutSpeed = defaultSpeed();
     //m_overrideDuration = defaultSpeed();
@@ -797,8 +897,19 @@ void Function::resetElapsed()
 void Function::incrementElapsed()
 {
     // Don't wrap around. UINT_MAX is the maximum fade/hold time.
-    if (m_elapsed < UINT_MAX)
+    if (m_elapsed < UINT_MAX - MasterTimer::tick())
         m_elapsed += MasterTimer::tick();
+    else
+        m_elapsed = UINT_MAX;
+}
+
+void Function::roundElapsed(quint32 roundTime)
+{
+    qDebug() << Q_FUNC_INFO;
+    if (roundTime == 0)
+        m_elapsed = 0;
+    else
+        m_elapsed %= roundTime;
 }
 
 /*****************************************************************************
@@ -808,14 +919,18 @@ void Function::incrementElapsed()
 void Function::start(MasterTimer* timer, bool child, quint32 startTime,
                      uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << "Function start(). ID: " << m_id << ", startTime:" << startTime;
+    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << ", startTime:" << startTime;
     Q_ASSERT(timer != NULL);
     m_startedAsChild = child;
     m_elapsed = startTime;
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    timer->startFunction(this);
+    if (m_stop)
+    {
+        m_stop = false;
+        timer->startFunction(this);
+    }
 }
 
 bool Function::startedAsChild() const
@@ -825,7 +940,7 @@ bool Function::startedAsChild() const
 
 void Function::stop()
 {
-    qDebug() << "Function stop(). ID: " << m_id;
+    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id;
     m_stop = true;
 }
 
@@ -839,7 +954,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    m_stop = true;
+    stop();
 
     QTime watchdog;
     watchdog.start();
@@ -942,5 +1057,15 @@ int Function::getAttributeIndex(QString name) const
 QList<Attribute> Function::attributes()
 {
     return m_attributes;
+}
+
+void Function::setBlendMode(Universe::BlendMode mode)
+{
+    m_blendMode = mode;
+}
+
+Universe::BlendMode Function::blendMode() const
+{
+    return m_blendMode;
 }
 

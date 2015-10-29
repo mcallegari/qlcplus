@@ -67,7 +67,7 @@ void VCWidget_Test::initial()
     QCOMPARE(stub.lastClickPoint(), QPoint(0, 0));
 
     for (quint8 i = 0; i < 255; i++)
-        QVERIFY(stub.inputSource(i).isValid() == false);
+        QVERIFY(stub.inputSource(i) == NULL);
 }
 
 void VCWidget_Test::bgImage()
@@ -80,8 +80,8 @@ void VCWidget_Test::bgImage()
     QCOMPARE(stub.backgroundImage(), QString());
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 1);
@@ -89,8 +89,8 @@ void VCWidget_Test::bgImage()
     stub.setBackgroundColor(QColor(Qt::red));
     QCOMPARE(spy.size(), 2);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(spy.size(), 3);
@@ -114,7 +114,7 @@ void VCWidget_Test::bgColor()
     QCOMPARE(stub.palette().brush(QPalette::Window).color(), QColor(Qt::red));
     QCOMPARE(spy.size(), 1);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 2);
 
     stub.setBackgroundColor(QColor(Qt::red));
@@ -165,7 +165,7 @@ void VCWidget_Test::resetBg()
     QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), QColor(Qt::cyan));
     QCOMPARE(spy.size(), 3);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 4);
 
     stub.resetBackgroundColor();
@@ -203,11 +203,11 @@ void VCWidget_Test::resetFg()
     QCOMPARE(stub.palette().brush(QPalette::WindowText).color(), w.palette().color(QPalette::WindowText));
     QCOMPARE(spy.size(), 3);
 
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
     QCOMPARE(spy.size(), 4);
 
     stub.resetForegroundColor();
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QString("../../../resources/icons/png/qlcplus.png"));
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.palette().brush(QPalette::Window).texture().isNull(), false);
     QCOMPARE(stub.foregroundColor(), w.palette().color(QPalette::WindowText));
@@ -295,37 +295,37 @@ void VCWidget_Test::frame()
 
 void VCWidget_Test::inputSource()
 {
-    QLCInputSource src;
+    QSharedPointer<QLCInputSource> src;
     QWidget w;
 
     StubWidget stub(&w, m_doc);
-    stub.setInputSource(QLCInputSource(1, 2));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)));
     src = stub.inputSource();
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(1));
-    QCOMPARE(src.channel(), quint32(2));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(1));
+    QCOMPARE(src->channel(), quint32(2));
 
     src = stub.inputSource(0);
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(1));
-    QCOMPARE(src.channel(), quint32(2));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(1));
+    QCOMPARE(src->channel(), quint32(2));
 
     src = stub.inputSource(1);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
     src = stub.inputSource(2);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
     src = stub.inputSource(42);
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
 
-    stub.setInputSource(QLCInputSource(4, 5), 0);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 4)), 0);
     src = stub.inputSource();
-    QVERIFY(src.isValid() == true);
-    QCOMPARE(src.universe(), quint32(4));
-    QCOMPARE(src.channel(), quint32(5));
+    QVERIFY(src->isValid() == true);
+    QCOMPARE(src->universe(), quint32(3));
+    QCOMPARE(src->channel(), quint32(4));
 
-    stub.setInputSource(QLCInputSource());
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource()));
     src = stub.inputSource();
-    QVERIFY(src.isValid() == false);
+    QVERIFY(src == NULL);
 
     // Just for coverage - the implementation does nothing
     stub.slotInputValueChanged(0, 1, 2);
@@ -345,9 +345,9 @@ void VCWidget_Test::copy()
     stub.setFrameStyle(KVCFrameStyleRaised);
     stub.move(QPoint(10, 20));
     stub.resize(QSize(20, 30));
-    stub.setInputSource(QLCInputSource(0, 12));
-    stub.setInputSource(QLCInputSource(1, 2), 15);
-    stub.setInputSource(QLCInputSource(3, 4), 1);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 12)));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)), 15);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 4)), 1);
 
     StubWidget copy(&w, m_doc);
     copy.copyFrom(&stub);
@@ -360,10 +360,20 @@ void VCWidget_Test::copy()
     QCOMPARE(copy.frameStyle(), (int) KVCFrameStyleRaised);
     QCOMPARE(copy.pos(), QPoint(10, 20));
     QCOMPARE(copy.size(), QSize(20, 30));
-    QCOMPARE(copy.inputSource(), QLCInputSource(0, 12));
-    QCOMPARE(copy.inputSource(15), QLCInputSource(1, 2));
-    QCOMPARE(copy.inputSource(1), QLCInputSource(3, 4));
-    QVERIFY(copy.inputSource(2).isValid() == false);
+
+    QLCInputSource *src1 = new QLCInputSource(0, 12);
+    QCOMPARE(copy.inputSource()->universe(), src1->universe());
+    QCOMPARE(copy.inputSource()->channel(), src1->channel());
+
+    QLCInputSource *src2 = new QLCInputSource(1, 2);
+    QCOMPARE(copy.inputSource(15)->universe(), src2->universe());
+    QCOMPARE(copy.inputSource(15)->channel(), src2->channel());
+
+    QLCInputSource *src3 = new QLCInputSource(3, 4);
+    QCOMPARE(copy.inputSource(1)->universe(), src3->universe());
+    QCOMPARE(copy.inputSource(1)->channel(), src3->channel());
+
+    QVERIFY(copy.inputSource(2) == NULL);
 }
 
 void VCWidget_Test::stripKeySequence()
@@ -406,12 +416,16 @@ void VCWidget_Test::loadInput()
     xmldoc.appendChild(root);
 
     StubWidget stub(&w, m_doc);
-    QCOMPARE(stub.loadXMLInput(&root), true);
-    QCOMPARE(stub.inputSource(), QLCInputSource(12, 34));
+    QCOMPARE(stub.loadXMLInput(root), true);
+
+    QLCInputSource *src = new QLCInputSource(12, 34);
+    QCOMPARE(stub.inputSource()->universe(), src->universe());
+    QCOMPARE(stub.inputSource()->channel(), src->channel());
 
     root.setTagName("Output");
-    QCOMPARE(stub.loadXMLInput(&root), false);
-    QCOMPARE(stub.inputSource(), QLCInputSource(12, 34));
+    QCOMPARE(stub.loadXMLInput(root), false);
+    QCOMPARE(stub.inputSource()->universe(), src->universe());
+    QCOMPARE(stub.inputSource()->channel(), src->channel());
 }
 
 void VCWidget_Test::loadAppearance()
@@ -463,12 +477,12 @@ void VCWidget_Test::loadAppearance()
 
     fgText.setData("Default");
     bgText.setData("Default");
-    bgImageText.setData("../../../gfx/qlcplus.png");
+    bgImageText.setData("../../../resources/icons/png/qlcplus.png");
     QVERIFY(stub.loadXMLAppearance(&root) == true);
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 
     root.setTagName("Appiarenz");
@@ -476,7 +490,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.frameStyle(), (int) KVCFrameStyleSunken);
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
-    QCOMPARE(stub.backgroundImage(), QString("../../../gfx/qlcplus.png"));
+    QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
     QCOMPARE(stub.font(), font);
 }
 
@@ -490,10 +504,10 @@ void VCWidget_Test::saveInput()
     QDomElement root = xmldoc.createElement("Root");
     xmldoc.appendChild(root);
 
-    QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
+    QVERIFY(stub.saveXMLInput(&xmldoc, &root) == false);
     QCOMPARE(root.childNodes().count(), 0);
 
-    stub.setInputSource(QLCInputSource(34, 56));
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(34, 56)));
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 1);
     QCOMPARE(root.firstChild().toElement().tagName(), QString("Input"));
@@ -502,7 +516,7 @@ void VCWidget_Test::saveInput()
 
     root.clear();
 
-    stub.setInputSource(QLCInputSource(34, 56), 1);
+    stub.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(34, 56)), 1);
     QVERIFY(stub.saveXMLInput(&xmldoc, &root) == true);
     QCOMPARE(root.childNodes().count(), 0);
 }
@@ -577,7 +591,7 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
     QWidget w;
 
     StubWidget stub(&w, m_doc);
-    stub.setBackgroundImage("../../../gfx/qlcplus.png");
+    stub.setBackgroundImage("../../../resources/icons/png/qlcplus.png");
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Root");
@@ -600,7 +614,7 @@ void VCWidget_Test::saveAppearanceDefaultsImage()
         else if (tag.tagName() == "BackgroundImage")
         {
             bgimage++;
-            QCOMPARE(tag.text(), QString("../../../gfx/qlcplus.png"));
+            QCOMPARE(tag.text(), QString("../../../resources/icons/png/qlcplus.png"));
         }
         else if (tag.tagName() == "ForegroundColor")
         {

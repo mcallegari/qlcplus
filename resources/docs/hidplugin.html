@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - HID Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>HID plugin</H1>
+
+<H1>1.Introduction</H1>
+<P>
+The HID plugin supports the <A HREF="http://en.wikipedia.org/wiki/Human_interface_device">HID system</A> on Windows and Linux.<br>
+HID is a generic way of mapping input/output devices such as joysticks, touchpads, keyboards, mice, etc.<br>
+The QLC+ HID plugin aims to support only joysticks and the FX5 USB DMX adapter.
+</P>
+
+<H1>2.Requirements</H1>
+<P>
+No special requirement is needed for this plugin. Just make sure your operating system is actually
+recognizing the device you're going to use. On Linux you might need some kernel modules 
+(normally provided by modern distributions) and on Windows a driver provided by the device manufacturer.
+</P>
+
+<H1>3.Joysticks</H1>
+<P>
+QLC+ tries to detect the specific joystick functionalities, such as axes and buttons,
+as individual channels that can be mapped to your Virtual Console widgets.<br>
+Axes and buttons are mapped by QLC+ in sequential order, so for example if your joystick
+supports 2 axes and 4 buttons, they will appear in the input mapping dialogs like this:<br>
+<ul>
+ <li>channel 1: X-axis</li>
+ <li>channel 2: Y-axis</li>
+ <li>channel 3: Button 1</li>
+ <li>channel 4: Button 2</li>
+ <li>channel 5: Button 3</li>
+ <li>channel 6: Button 4</li>
+</ul>
+</P>
+
+<H1>4.FX5 USB DMX</H1>
+<P>
+The <A HREF="http://www.fx5.de/">FX5 USB DMX</A> adapter is supported either for output and input
+DMX data. Check the product manual for the connection and peculiar issues.
+</P>
+
+</BODY>
+</HTML>

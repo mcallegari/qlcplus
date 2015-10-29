@@ -30,7 +30,7 @@
 #include "doc.h"
 #undef private
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void MasterTimer_Test::initTestCase()
 {
@@ -39,7 +39,7 @@ void MasterTimer_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void MasterTimer_Test::cleanupTestCase()
@@ -193,10 +193,12 @@ void MasterTimer_Test::interval()
     /* Wait for one second */
     QTest::qWait(1000);
 
+#ifndef SKIP_TEST
     /* It's not guaranteed that context switch happens exactly after 50
        cycles, so we just have to estimate here... */
     QVERIFY(fs.m_writeCalls >= 49 && fs.m_writeCalls <= 51);
     QVERIFY(dss.m_writeCalls >= 49 && dss.m_writeCalls <= 51);
+#endif
 
     fs.stop();
     QTest::qWait(1000);

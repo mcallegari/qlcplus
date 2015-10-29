@@ -39,6 +39,8 @@
 #include "efx.h"
 #include "doc.h"
 #include "bus.h"
+#include "rgbscriptscache.h"
+#include "monitorproperties.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -57,14 +59,15 @@ Doc::Doc(QObject* parent, int universes)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_modifiersCache(new QLCModifiersCache)
+    , m_rgbScriptsCache(new RGBScriptsCache(this))
     , m_ioPluginCache(new IOPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
-    , m_inputCapture(NULL)
     , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
+    , m_fixturesListCacheUpToDate(false)
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
@@ -123,6 +126,15 @@ void Doc::clearContents()
         delete func;
     }
 
+    // Delete all channels groups
+    QListIterator <quint32> grpchans(m_channelsGroups.keys());
+    while (grpchans.hasNext() == true)
+    {
+        ChannelsGroup* grp = m_channelsGroups.take(grpchans.next());
+        emit channelsGroupRemoved(grp->id());
+        delete grp;
+    }
+
     // Delete all fixture groups
     QListIterator <quint32> grpit(m_fixtureGroups.keys());
     while (grpit.hasNext() == true)
@@ -142,15 +154,7 @@ void Doc::clearContents()
         delete fxi;
         emit fixtureRemoved(fxID);
     }
-
-    // Delete all channels groups
-    QListIterator <quint32> grpchans(m_channelsGroups.keys());
-    while (grpchans.hasNext() == true)
-    {
-        ChannelsGroup* grp = m_channelsGroups.take(grpchans.next());
-        emit channelsGroupRemoved(grp->id());
-        delete grp;
-    }
+    m_fixturesListCacheUpToDate = false;
 
     m_orderedGroups.clear();
 
@@ -212,6 +216,11 @@ QLCModifiersCache* Doc::modifiersCache() const
     return m_modifiersCache;
 }
 
+RGBScriptsCache* Doc::rgbScriptsCache() const
+{
+    return m_rgbScriptsCache;
+}
+
 IOPluginCache* Doc::ioPluginCache() const
 {
     return m_ioPluginCache;
@@ -227,21 +236,23 @@ MasterTimer* Doc::masterTimer() const
     return m_masterTimer;
 }
 
-AudioCapture *Doc::audioInputCapture()
+QSharedPointer<AudioCapture> Doc::audioInputCapture()
 {
-    if (m_inputCapture == NULL)
+    if (!m_inputCapture)
     {
+        m_inputCapture = QSharedPointer<AudioCapture>(
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
-        m_inputCapture = new AudioCapturePortAudio();
+            new AudioCapturePortAudio()
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        m_inputCapture = new AudioCaptureWaveIn();
+            new AudioCaptureWaveIn()
 #else
-        m_inputCapture = new AudioCaptureAlsa();
+            new AudioCaptureAlsa()
 #endif
 #else
-        m_inputCapture = new AudioCaptureQt();
+            new AudioCaptureQt()
 #endif
+            );
     }
     return m_inputCapture;
 }
@@ -249,13 +260,7 @@ AudioCapture *Doc::audioInputCapture()
 void Doc::destroyAudioCapture()
 {
     qDebug() << "Destroying audio capture";
-    if (m_inputCapture != NULL)
-    {
-        if (m_inputCapture->isRunning())
-            m_inputCapture->stop();
-        delete m_inputCapture;
-    }
-    m_inputCapture = NULL;
+    m_inputCapture.clear();
 }
 
 /*****************************************************************************
@@ -351,7 +356,8 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     else
     {
         fixture->setID(id);
-        m_fixtures[id] = fixture;
+        m_fixtures.insert(id, fixture);
+        m_fixturesListCacheUpToDate = false;
 
         /* Patch fixture change signals thru Doc */
         connect(fixture, SIGNAL(changed(quint32)),
@@ -402,6 +408,7 @@ bool Doc::deleteFixture(quint32 id)
     {
         Fixture* fxi = m_fixtures.take(id);
         Q_ASSERT(fxi != NULL);
+        m_fixturesListCacheUpToDate = false;
 
         /* Keep track of fixture addresses */
         QMutableHashIterator <uint,uint> it(m_addresses);
@@ -430,35 +437,6 @@ bool Doc::deleteFixture(quint32 id)
     }
 }
 
-bool Doc::moveFixture(quint32 id, quint32 newAddress)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it to new address
-        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
-}
-
 bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 {
     // Delete all fixture instances
@@ -467,6 +445,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
         delete fxi;
+        m_fixturesListCacheUpToDate = false;
     }
     m_latestFixtureId = 0;
     m_addresses.clear();
@@ -481,7 +460,13 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setName(fixture->name());
         newFixture->setAddress(fixture->address());
         newFixture->setUniverse(fixture->universe());
-        if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
+        if (fixture->fixtureDef() == NULL ||
+            (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+             fixture->fixtureDef()->model() == KXMLFixtureGeneric))
+        {
+            newFixture->setChannels(fixture->channels());
+        }
+        else
         {
             QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
                                                                fixture->fixtureDef()->model());
@@ -490,10 +475,10 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
                 mode = def->mode(fixture->fixtureMode()->name());
             newFixture->setFixtureDefinition(def, mode);
         }
-        else
-            newFixture->setChannels(fixture->channels());
+
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
-        m_fixtures[id] = newFixture;
+        m_fixtures.insert(id, newFixture);
+        m_fixturesListCacheUpToDate = false;
 
         /* Patch fixture change signals thru Doc */
         connect(newFixture, SIGNAL(changed(quint32)),
@@ -510,37 +495,6 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     return true;
 }
 
-bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
-{
-    if (m_fixtures.contains(id) == true)
-    {
-        Fixture* fixture = m_fixtures[id];
-        int address = fixture->address();
-        // remove it
-        QMutableHashIterator <uint,uint> it(m_addresses);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            if (it.value() == id)
-                it.remove();
-        }
-        // add it with new carachteristics
-        int channels = mode->channels().count();
-        for (int i = address; i < address + channels; i++)
-        {
-            m_addresses[i] = id;
-        }
-        setModified();
-
-        return true;
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
-        return false;
-    }
-}
-
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
 {
     if (m_fixtures.contains(id) == true)
@@ -554,7 +508,6 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
         if (!forcedHTP.isEmpty())
         {
             fixture->setForcedHTPChannels(forcedHTP);
-            QList<Universe *> universes = inputOutputMap()->claimUniverses();
 
             for(int i = 0; i < forcedHTP.count(); i++)
             {
@@ -598,25 +551,32 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     return false;
 }
 
-QList <Fixture*> Doc::fixtures() const
+QList<Fixture*> const& Doc::fixtures() const
 {
-    return m_fixtures.values();
+    if (!m_fixturesListCacheUpToDate)
+    {
+        // Sort fixtures by id
+        QMap <quint32, Fixture*> fixturesMap;
+        QHashIterator <quint32, Fixture*> hashIt(m_fixtures);
+        while (hashIt.hasNext())
+        {
+            hashIt.next();
+            fixturesMap.insert(hashIt.key(), hashIt.value());
+        }
+        const_cast<QList<Fixture*>&>(m_fixturesListCache) = fixturesMap.values();
+        const_cast<bool&>(m_fixturesListCacheUpToDate) = true;
+    }
+    return m_fixturesListCache;
 }
 
 Fixture* Doc::fixture(quint32 id) const
 {
-    if (m_fixtures.contains(id) == true)
-        return m_fixtures[id];
-    else
-        return NULL;
+    return m_fixtures.value(id, NULL);
 }
 
 quint32 Doc::fixtureForAddress(quint32 universeAddress) const
 {
-    if (m_addresses.contains(universeAddress) == true)
-        return m_addresses[universeAddress];
-    else
-        return Fixture::invalidId();
+    return m_addresses.value(universeAddress, Fixture::invalidId());
 }
 
 int Doc::totalPowerConsumption(int& fuzzy) const
@@ -632,8 +592,7 @@ int Doc::totalPowerConsumption(int& fuzzy) const
         Fixture* fxi(fxit.next());
         Q_ASSERT(fxi != NULL);
 
-        // Generic dimmer has no mode and physical
-        if (fxi->isDimmer() == false && fxi->fixtureMode() != NULL)
+        if (fxi->fixtureMode() != NULL)
         {
             QLCPhysical phys = fxi->fixtureMode()->physical();
             if (phys.powerConsumption() > 0)
@@ -654,8 +613,27 @@ void Doc::slotFixtureChanged(quint32 id)
 {
     /* Keep track of fixture addresses */
     Fixture* fxi = fixture(id);
+
+    // remove it
+    QMutableHashIterator <uint,uint> it(m_addresses);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == id)
+        {
+            qDebug() << Q_FUNC_INFO << " remove: " << it.key() << " val: " << it.value();
+            it.remove();
+        }
+    }
+
     for (uint i = fxi->universeAddress(); i < fxi->universeAddress() + fxi->channels(); i++)
     {
+        /*
+         * setting new universe and address calls this twice,
+         * with an tmp wrong address after the first call (old address() + new universe()).
+         * we only add if the channel is free, to prevent messing up things
+         */
+        Q_ASSERT(!m_addresses.contains(i));
         m_addresses[i] = id;
     }
 
@@ -880,6 +858,10 @@ bool Doc::addFunction(Function* func, quint32 id)
         connect(func, SIGNAL(changed(quint32)),
                 this, SLOT(slotFunctionChanged(quint32)));
 
+        // Listen to function name changes
+        connect(func, SIGNAL(nameChanged(quint32)),
+                this, SLOT(slotFunctionNameChanged(quint32)));
+
         // Make the function listen to fixture removals
         connect(this, SIGNAL(fixtureRemoved(quint32)),
                 func, SLOT(slotFixtureRemoved(quint32)));
@@ -980,6 +962,12 @@ void Doc::slotFunctionChanged(quint32 fid)
     emit functionChanged(fid);
 }
 
+void Doc::slotFunctionNameChanged(quint32 fid)
+{
+    setModified();
+    emit functionNameChanged(fid);
+}
+
 /*********************************************************************
  * Monitor Properties
  *********************************************************************/
@@ -992,19 +980,86 @@ MonitorProperties *Doc::monitorProperties()
     return m_monitorProps;
 }
 
+QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
+{
+    if (m_monitorProps == NULL)
+        return QPointF(0, 0);
+
+    qreal xPos = fxRect.x(), yPos = fxRect.y();
+    qreal maxYOffset = 0;
+
+    QSize gridSize = m_monitorProps->gridSize();
+    float gridUnits = 1000.0;
+    if (m_monitorProps->gridUnits() == MonitorProperties::Feet)
+        gridUnits = 304.8;
+
+    QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
+
+    qreal origWidth = fxRect.width();
+    qreal origHeight = fxRect.height();
+
+    foreach(Fixture* fixture, fixtures())
+    {
+        if (m_monitorProps->hasFixturePosition(fixture->id()) == false)
+            continue;
+
+        QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
+
+        qreal itemXPos = fxPos.x();
+        qreal itemYPos = fxPos.y();
+        qreal itemWidth = 0, itemHeight = 0;
+        if (fxMode != NULL)
+        {
+            itemWidth = fxMode->physical().width();
+            itemHeight = fxMode->physical().height();
+        }
+        if (itemWidth == 0) itemWidth = 300;
+        if (itemHeight == 0) itemHeight = 300;
+
+        // store the next Y row in case we need to lower down
+        if (itemYPos + itemHeight > maxYOffset )
+            maxYOffset = itemYPos + itemHeight;
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
+        if (fxRect.intersects(itemRect) == true)
+        {
+            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+            if (xPos + fxRect.width() > gridArea.width())
+            {
+                xPos = 0;
+                yPos = maxYOffset + 50;
+                maxYOffset = 0;
+            }
+            fxRect.setX(xPos);
+            fxRect.setY(yPos);
+            // restore width and height as setX and setY mess them
+            fxRect.setWidth(origWidth);
+            fxRect.setHeight(origHeight);
+        }
+    }
+
+    return QPointF(xPos, yPos);
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
 
 bool Doc::loadXML(const QDomElement& root)
 {
-    m_errorLog = "";
+    clearErrorLog();
 
     if (root.tagName() != KXMLQLCEngine)
     {
         qWarning() << Q_FUNC_INFO << "Engine node not found";
         return false;
     }
+
+    emit loading();
 
     if (root.hasAttribute(KXMLQLCStartupFunction))
     {
@@ -1045,9 +1100,7 @@ bool Doc::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCMonitorProperties)
         {
-            if (m_monitorProps == NULL)
-                m_monitorProps = new MonitorProperties();
-            m_monitorProps->loadXML(tag);
+            monitorProperties()->loadXML(tag, this);
         }
         else
         {
@@ -1118,7 +1171,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     if (m_monitorProps != NULL)
-        m_monitorProps->saveXML(doc, &root);
+        m_monitorProps->saveXML(doc, &root, this);
 
     return true;
 }
@@ -1130,6 +1183,11 @@ void Doc::appendToErrorLog(QString error)
 
     m_errorLog.append(error);
     m_errorLog.append("\n");
+}
+
+void Doc::clearErrorLog()
+{
+    m_errorLog = "";
 }
 
 QString Doc::errorLog()

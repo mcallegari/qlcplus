@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>296</height>
+    <width>657</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,11 +21,11 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Network Mapping</string>
+       <string>Universes Configuration</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTreeWidget" name="m_outputTree">
+        <widget class="QTreeWidget" name="m_uniMapTree">
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
@@ -34,12 +34,42 @@
          </property>
          <column>
           <property name="text">
-           <string>Network</string>
+           <string>Interface</string>
           </property>
          </column>
          <column>
           <property name="text">
            <string>Universe</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Multicast</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>IP Address</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Port</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>E1.31 Universe</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Transmission Mode</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Priority</string>
           </property>
          </column>
         </widget>

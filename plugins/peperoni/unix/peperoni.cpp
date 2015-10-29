@@ -53,15 +53,18 @@ int Peperoni::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void Peperoni::openOutput(quint32 output)
+bool Peperoni::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
-            m_devices[output]->open(output, PeperoniDevice::OutputMode);
+            return m_devices[output]->open(output, PeperoniDevice::OutputMode);
+    return false;
 }
 
-void Peperoni::closeOutput(quint32 output)
+void Peperoni::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output < quint32(m_devices.size()) &&
         m_devices[output] != NULL)
             m_devices[output]->close(output, PeperoniDevice::OutputMode);
@@ -133,19 +136,22 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
  * Inputs
  *************************************************************************/
 
-void Peperoni::openInput(quint32 input)
+bool Peperoni::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {
-        m_devices[input]->open(input, PeperoniDevice::InputMode);
         connect(m_devices[input], SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
+        return m_devices[input]->open(input, PeperoniDevice::InputMode);
     }
+    return false;
 }
 
-void Peperoni::closeInput(quint32 input)
+void Peperoni::closeInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_devices.size()) &&
         m_devices[input] != NULL)
     {

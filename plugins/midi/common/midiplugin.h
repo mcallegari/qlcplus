@@ -36,6 +36,10 @@ class MidiEnumerator;
 class MidiTemplate;
 class QString;
 
+#define MIDI_MIDICHANNEL "midichannel"
+#define MIDI_MODE "mode"
+#define MIDI_INITMESSAGE "initmessage"
+
 class MidiPlugin : public QLCIOPlugin
 {
     Q_OBJECT
@@ -65,10 +69,6 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
 private:
     MidiEnumerator* m_enumerator;
 
@@ -77,10 +77,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -100,10 +100,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
@@ -112,7 +112,7 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 output, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
 
     void sendSysEx(quint32 output, const QByteArray &data);
 
@@ -133,6 +133,9 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /** @reimp */
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 
     /*************************************************************************
      * Midi templates

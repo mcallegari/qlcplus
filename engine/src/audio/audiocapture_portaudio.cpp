@@ -53,7 +53,7 @@ AudioCapturePortAudio::~AudioCapturePortAudio()
         qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
 }
 
-bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCapturePortAudio::initialize()
 {
     PaError err;
     PaStreamParameters inputParameters;
@@ -76,13 +76,15 @@ bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels,
         return false;
     }
 
-    inputParameters.channelCount = channels;
+    AudioCapture::initialize();
+
+    inputParameters.channelCount = m_channels;
     inputParameters.sampleFormat = paInt16;
     inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
     /* -- setup stream -- */
-    err = Pa_OpenStream( &stream, &inputParameters, NULL, sampleRate, paFramesPerBufferUnspecified,
+    err = Pa_OpenStream( &stream, &inputParameters, NULL, m_sampleRate, paFramesPerBufferUnspecified,
               paClipOff, /* we won't output out of range samples so don't bother clipping them */
               NULL, /* no callback, use blocking API */
               NULL ); /* no callback, so no callback userData */
@@ -102,7 +104,7 @@ bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels,
         return false;
     }
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCapturePortAudio::latency()

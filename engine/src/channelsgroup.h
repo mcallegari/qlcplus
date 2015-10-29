@@ -55,9 +55,14 @@ public:
 protected:
     Doc * m_doc;
 
+    void init();
+
 signals:
     /** Emitted whenever a channels group's properties are changed */
     void changed(quint32 id);
+
+public slots:
+    void slotFixtureRemoved(quint32 fixtureId);
 
     /*********************************************************************
      * Load & Save
@@ -127,14 +132,14 @@ public:
      *
      * @param source The input source to set
      */
-    void setInputSource(const QLCInputSource& source);
+    void setInputSource(QSharedPointer<QLCInputSource> const& source);
 
     /**
      * Get an assigned external input source
      *
      * @param id The id of the source to get
      */
-    QLCInputSource inputSource() const;
+    QSharedPointer<QLCInputSource> const& inputSource() const;
 
 protected slots:
     /**
@@ -155,7 +160,7 @@ private:
     uchar m_masterValue;
     QList <SceneValue> m_channels;
 
-    QLCInputSource m_input;
+    QSharedPointer<QLCInputSource> m_input;
 };
 
 /** @} */

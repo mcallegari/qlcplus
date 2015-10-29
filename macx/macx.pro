@@ -10,35 +10,48 @@ include(libsndfile-nametool.pri)
 lessThan(QT_MAJOR_VERSION, 5) {
   include(libportaudio-nametool.pri)
 }
-include(liblo-nametool.pri)
+
 include(libfftw-nametool.pri)
+include(libqtcore-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
-include(libqtcore-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
+
 greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtwidgets-nametool.pri)
   include(libqtmultimedia-nametool.pri)
   include(libqtmultimediawidgets-nametool.pri)
   include(libqtopengl-nametool.pri)
   include(libqtprintsupport-nametool.pri)
+  include(libqtserialport-nametool.pri)
+  greaterThan(QT_MINOR_VERSION, 4) {
+    include(libqtdbus-nametool.pri)
+  }
 }
 include(libqlcplusengine-nametool.pri)
-include(libqlcplusui-nametool.pri)
-include(libqlcpluswebaccess-nametool.pri)
 
-INSTALLS += LIBQLCENGINE_ID LIBQLCUI_ID LIBQLCWEBACCESS_ID
+qmlui: {
+  include(libqtqml-nametool.pri)
+  include(libqtquick-nametool.pri)
+  include(libqtsvg-nametool.pri)
+}
+else {
+ include(libqlcplusui-nametool.pri)
+ include(libqlcpluswebaccess-nametool.pri)
+ INSTALLS += LIBQLCUI_ID LIBQLCWEBACCESS_ID
+}
+
+INSTALLS += LIBQLCENGINE_ID
 INSTALLS += LIBUSB LIBUSB_ID
 INSTALLS += LIBFTDI LIBFTDI_ID
 INSTALLS += LIBMAD LIBMAD_ID
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 lessThan(QT_MAJOR_VERSION, 5): INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
-INSTALLS += LIBLO LIBLO_ID
 INSTALLS += LIBFFTW LIBFFTW_ID
+INSTALLS += LIBQTCORE LIBQTCORE_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
 INSTALLS += LIBQTXML LIBQTXML_ID
-INSTALLS += LIBQTCORE LIBQTCORE_ID
 INSTALLS += LIBQTNETWORK LIBQTNETWORK_ID
 INSTALLS += LIBQTSCRIPT LIBQTSCRIPT_ID
 
@@ -48,10 +61,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
   INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
   INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
+  INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
+  greaterThan(QT_MINOR_VERSION, 4) {
+    INSTALLS += LIBQTDBUS LIBQTDBUS_ID
+  }
 }
 
-# QtGui, QtXml, QtNetwork and QtScript depend on QtCore. Do this AFTER installing the
-# libraries into the bundle
+qmlui: {
+  INSTALLS += LIBQTQML LIBQTQML_ID
+  INSTALLS += LIBQTQUICK LIBQTQUICK_ID
+  INSTALLS += LIBQTSVG LIBQTSVG_ID
+}
+
+# QtGui, QtXml, QtNetwork and QtScript depend on QtCore.
+# Do this AFTER installing the libraries into the bundle
 qtnametool.path = $$INSTALLROOT
 
 qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
@@ -64,6 +87,11 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 
 greaterThan(QT_MAJOR_VERSION, 4) {
+
+# Starting from Qt 5.5.0, all this nametool stuff
+# is not needed anymore cause @rpath is used
+
+  lessThan(QT_MINOR_VERSION, 5) {
 # QtWidgets depends on QtCore and QtGui
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
@@ -103,6 +131,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
     qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
+# QtSerialPort depends on QtCore
+    #qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+    #    $$INSTALLROOT/$$LIBSDIR/$$LIBQTSERIALPORT_DIR/$$LIBQTSERIALPORT_FILE
+  }
+}
+
+qmlui: {
+    # QtQml, QtQuick and QtSvg depend on QtCore
+    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTQML_DIR/$$LIBQTQML_FILE
+    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTQUICK_DIR/$$LIBQTQUICK_FILE
+    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTSVG_DIR/$$LIBQTSVG_FILE
 }
 
 # Libftdi depends on libusb0.1 & 1.0
@@ -134,10 +176,12 @@ lessThan(QT_MAJOR_VERSION, 5) {
 } else {
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+!qmlui: {
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+}
 }
 
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
@@ -175,10 +219,16 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 include(platformplugins-nametool.pri)
 include(audioplugins-nametool.pri)
 include(mediaservice-nametool.pri)
+qmlui:include(imageformats-nametool.pri)
 
 INSTALLS += platformplugins
 INSTALLS += audioplugins
 INSTALLS += mediaservice
+qmlui: INSTALLS += imageformats
+
+qtconf.path   = $$INSTALLROOT/Resources
+qtconf.files += qt.conf
+INSTALLS      += qtconf
 }
 
 INSTALLS += qtnametool

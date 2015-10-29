@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - RGBScript Development Tool</TITLE>
+<!-- Include your script on the following line, replace "oppositerows.js" -->
+<SCRIPT SRC="opposite.js"></SCRIPT>
+<SCRIPT SRC="devtool.js"></SCRIPT>
+
+<SCRIPT type="text/javascript">
+
+var testTimer;
+
+function startTest()
+{
+    var speed = document.getElementById("speed").value;
+    testTimer = window.setInterval("nextStep()", speed);
+}
+
+function stopTest()
+{
+    window.clearInterval(testTimer)
+}
+
+</SCRIPT>
+
+</HEAD>
+<BODY onLoad="init()" style="font-family:Arial;">
+
+<H1>Q Light Controller Plus - RGB Script Development Tool</H1>
+
+<H2>Instructions</H2>
+<P>
+To use this tool, you must first edit this file and include your script file to it and
+make sure your favourite web browser supports JavaScript. Then, to make your algorithm
+object accessible to this tool, you must create a global variable within your algorithm
+file called <B>testAlgo</B>, which then actually contains your algorithm object i.e. the
+object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
+this file with your browser and see your first results.
+</P>
+
+<P>
+If you see what you expect to see in the <B>Algorithm Properties</B> section below,
+you'll know your script has been evaluated successfully. Next, put some values to the
+<B>Width</B> and <B>Height</B> boxes in the <B>Grid Size</B> section, click <B>Update</B>
+and see if your script calculates the <B>rgbMapStepCount(width, height)</B> result
+correctly. If everything is A-OK, you should already see the first frame of your RGB map
+at the bottom of the page. Clicking <B>Next</B> and <B>Previous</B> allows you to skip
+between steps.
+</P>
+
+<P>
+For troubleshooting purposes, I would suggest using some good JavaScript development
+tools for your browser. Mozilla FireFox has a built-in Web Console behind <I>Tools -> Web
+Developer</I> which is very useful in hunting errors within the JavaScript code.
+</P>
+
+<H2>Algorithm Properties</H2>
+<FORM>
+<TABLE>
+ <TR>
+  <TD>apiVersion</TD>
+  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="apiversion"/></TD>
+ </TR>
+ <TR>
+  <TD>name</TD>
+  <TD><INPUT TYPE="text" READONLY="readonly" ID="name"/></TD>
+ </TR>
+ <TR>
+  <TD>author</TD>
+  <TD><INPUT TYPE="text" READONLY="readonly" ID="author"/></TD>
+ </TR>
+</TABLE>
+</FORM>
+
+<H2>Grid Size</H2>
+<FORM>
+Width: <INPUT TYPE="text" ID="width" SIZE="3" onChange="updateStepCount()"/>
+Height: <INPUT TYPE="text" ID="height" SIZE="3" onChange="updateStepCount()"/>
+<INPUT TYPE="button" value="Update" onClick="updateStepCount()"/><BR>
+</FORM>
+
+<H2>Pixel colors</H2>
+<FORM>
+Primary color:<INPUT TYPE="text" ID="color1" value="FF0000" SIZE="6" onChange="updateStepCount()"/>
+Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"/>
+</FORM>
+
+<H2>Algorithm Functions</H2>
+<FORM>
+<TABLE>
+ <TR>
+  <TD>rgbMapStepCount(width, height)</TD>
+  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="stepcount"/></TD>
+ </TR>
+</TABLE>
+</FORM> 
+
+<TABLE>
+ <TR>
+  <TD>rgbMap(width, height, rgb, <B>step</B>)</TD>
+  <TD>
+   <FORM>
+   <INPUT TYPE="button" value="Previous" onClick="previousStep()"/>
+   <INPUT TYPE="text" ID="currentstep" size="3" onChange="writeCurrentStep()"/>
+   <INPUT TYPE="button" value="Next" onClick="nextStep()"/><BR>
+   <INPUT TYPE="button" value="Start test" onClick="startTest()"/>
+   <INPUT TYPE="button" value="Stop test" onClick="stopTest()"/>
+   Speed (ms):<INPUT TYPE="text" ID="speed" size="5" value="500"/>
+   </FORM>
+  </TD>
+ </TR>
+</TABLE>
+
+<TABLE ID="map">
+</TABLE>
+
+<HR/>
+This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila.
+
+</BODY>
+</HTML>

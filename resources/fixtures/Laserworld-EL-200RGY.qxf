@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Steven</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>EL-200RGY</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="69">Laser Off</Capability>
+  <Capability Min="70" Max="209">Sound Mode</Capability>
+  <Capability Min="210" Max="255">DMX Mode</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Pattern</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Strobe</Capability>
+ </Channel>
+ <Channel Name="Point Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Point Speed</Capability>
+ </Channel>
+ <Channel Name="Horizontal movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">X</Capability>
+ </Channel>
+ <Channel Name="Vertical movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Y</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Zoom</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="39">Yellow</Capability>
+  <Capability Min="40" Max="79">Red</Capability>
+  <Capability Min="80" Max="119">Green</Capability>
+  <Capability Min="120" Max="159">Original Pattern</Capability>
+  <Capability Min="160" Max="199">Pattern Colours are Changed</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">(Above 200 Shortly)</Capability>
+ </Channel>
+ <Channel Name="Colour Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="79">draw (increasing) part of the pattern</Capability>
+  <Capability Min="80" Max="119">Increase Speed</Capability>
+  <Capability Min="120" Max="255">Change Colours</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="265" Height="125" Weight="3.8" Depth="192"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Point Speed</Channel>
+  <Channel Number="4">Horizontal movement</Channel>
+  <Channel Number="5">Vertical movement</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Reset</Channel>
+  <Channel Number="9">Colour Effect</Channel>
+ </Mode>
+</FixtureDefinition>

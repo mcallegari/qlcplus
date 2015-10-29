@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QGestureEvent>
 #include <QSwipeGesture>
 #include <QApplication>
@@ -32,6 +33,7 @@
 
 #include "docbrowser.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 #include "apputil.h"
 
 #define SETTINGS_GEOMETRY "documentbrowser/geometry"
@@ -108,6 +110,14 @@ DocBrowser::DocBrowser(QWidget* parent)
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+    else
+    {
+        QRect rect = qApp->desktop()->screenGeometry();
+        int rWd = rect.width() / 4;
+        int rHd = rect.height() / 4;
+        resize(rWd * 3, rHd * 3);
+        move(rWd / 2, rHd / 2);
+    }
     AppUtil::ensureWidgetIsVisible(this);
 
     /* Actions */
@@ -115,6 +125,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_forwardAction = new QAction(QIcon(":/forward.png"), tr("Forward"), this);
     m_homeAction = new QAction(QIcon(":/qlcplus.png"), tr("Index"), this);
     m_aboutQtAction = new QAction(QIcon(":/qt.png"), tr("About Qt"), this);
+    m_closeAction = new QAction(QIcon(":/delete.png"), tr("Close this window"), this);
 
     m_backwardAction->setEnabled(false);
     m_forwardAction->setEnabled(false);
@@ -139,6 +150,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     m_browser = new QLCTextBrowser(this);
     m_browser->setOpenExternalLinks(true);
     layout()->addWidget(m_browser);
+
     connect(m_browser, SIGNAL(backwardAvailable(bool)),
             this, SLOT(slotBackwardAvailable(bool)));
     connect(m_browser, SIGNAL(forwardAvailable(bool)),
@@ -151,16 +163,16 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
+    if (QLCFile::isRaspberry() == true)
+    {
+        m_toolbar->addAction(m_closeAction);
+        connect(m_closeAction, SIGNAL(triggered(bool)),
+                this, SLOT(slotCloseWindow()));
+    }
 
     /* Set document search paths */
     QStringList searchPaths;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    searchPaths << QString("%1/../%2/html/")
-    .arg(QApplication::applicationDirPath())
-    .arg(DOCSDIR);
-#else
-    searchPaths << QString("%1/html/").arg(DOCSDIR);
-#endif
+    searchPaths << QLCFile::systemDirectory(QString("%1/html/").arg(DOCSDIR)).path();
 
     m_browser->setSearchPaths(searchPaths);
     m_browser->setSource(QUrl("file:index.html"));
@@ -198,4 +210,9 @@ void DocBrowser::slotForwardAvailable(bool available)
 void DocBrowser::slotAboutQt()
 {
     QMessageBox::aboutQt(this, QString(APPNAME));
+}
+
+void DocBrowser::slotCloseWindow()
+{
+    close();
 }

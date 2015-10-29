@@ -76,8 +76,8 @@ void ChannelModifierGraphicsView::addNewHandler()
     }
 
     HandlerItem *newHandler = new HandlerItem;
-    uchar halfDMXpos = (nextHandler->m_dmxMap.first - prevHandler->m_dmxMap.first) / 2;
-    uchar halfDMXval = (nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2;
+    uchar halfDMXpos = prevHandler->m_dmxMap.first + ((nextHandler->m_dmxMap.first - prevHandler->m_dmxMap.first) / 2);
+    uchar halfDMXval = prevHandler->m_dmxMap.second + ((nextHandler->m_dmxMap.second - prevHandler->m_dmxMap.second) / 2);
     newHandler->m_dmxMap = QPair<uchar, uchar>(halfDMXpos, halfDMXval);
     //qDebug() << "Half way DMX value:" << halfDMXpos << halfDMXval;
     newHandler->m_pos = getPositionFromDMX(newHandler->m_dmxMap);

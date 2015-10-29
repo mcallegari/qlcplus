@@ -26,11 +26,6 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define PROP_ID       Qt::UserRole
-#define PROP_UNIVERSE Qt::UserRole + 1
-#define PROP_GROUP    Qt::UserRole + 2
-#define PROP_HEAD     Qt::UserRole + 3
-
 #define KColumnName 0
 
 FixtureTreeWidget::FixtureTreeWidget(Doc *doc, quint32 flags, QWidget *parent)
@@ -190,7 +185,10 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     }
 
     if (m_uniColumn > 0)
+    {
         item->setText(m_uniColumn, QString("%1").arg(fixture->universe() + 1));
+        item->setTextAlignment(m_uniColumn, Qt::AlignHCenter | Qt::AlignVCenter);
+    }
 
     if (m_addressColumn)
     {
@@ -248,7 +246,8 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             QTreeWidgetItem *cItem = new QTreeWidgetItem(item);
             cItem->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
-            cItem->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            cItem->setIcon(KColumnName, channel->getIcon());
+            cItem->setData(KColumnName, PROP_CHANNEL, c);
             if (m_typeColumn > 0)
             {
                 if (channel->group() == QLCChannel::Intensity &&
@@ -259,8 +258,9 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             }
 
             cItem->setFlags(cItem->flags() | Qt::ItemIsUserCheckable);
-            if (m_channelsMask.at(baseAddress + c) == 1)
-                cItem->setCheckState(KColumnName, Qt::Checked);
+            if (m_channelsMask.length() > (int)(baseAddress + c) &&
+                m_channelsMask.at(baseAddress + c) == 1)
+                    cItem->setCheckState(KColumnName, Qt::Checked);
             else
                 cItem->setCheckState(KColumnName, Qt::Unchecked);
         }

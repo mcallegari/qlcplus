@@ -42,11 +42,15 @@ public slots:
     int exec();
 
 private:
-    void fillNodesTree();
+    void fillMappingTree();
+    QWidget *createMcastIPWidget(QString ip);
+    void showIPAlert(QString ip);
+
+private slots:
+    void slotMulticastCheckboxClicked();
 
 private:
     E131Plugin* m_plugin;
-
 };
 
 #endif

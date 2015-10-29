@@ -50,6 +50,7 @@ private slots:
     void slotNameEdited(const QString& text);
     void slotAdd();
     void slotRemove();
+    void slotTestClicked();
 
 private:
     void updateFunctionList();

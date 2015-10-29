@@ -20,8 +20,8 @@
 #include <QDebug>
 #include "vinceusbdmx512.h"
 
-VinceUSBDMX512::VinceUSBDMX512(const QString &serial, const QString &name, const QString &vendor, QLCFTDI *ftdi, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, ftdi, id)
+VinceUSBDMX512::VinceUSBDMX512(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
     // TODO: Check if DMX IN is available
 }
@@ -30,28 +30,59 @@ VinceUSBDMX512::~VinceUSBDMX512()
 {
 }
 
+DMXUSBWidget::Type VinceUSBDMX512::type() const
+{
+    return DMXUSBWidget::VinceTX;
+}
+
+/****************************************************************************
+ * Name & Serial
+ ****************************************************************************/
+
+QString VinceUSBDMX512::additionalInfo() const
+{
+    QString info;
+
+    info += QString("<P>");
+    info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
+                                         .arg("Vince USB-DMX512")
+                                         .arg(QObject::tr("Output"));
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
+                                    .arg(serial());
+    info += QString("</P>");
+
+    return info;
+}
+
 /****************************************************************************
  * Open & Close
  ****************************************************************************/
 
-bool VinceUSBDMX512::open()
+bool VinceUSBDMX512::open(quint32 line, bool input)
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
+
     if (DMXUSBWidget::open() == false)
         return false;
 
-    if (ftdi()->clearRts() == false)
+    if (interface()->clearRts() == false)
         return false;
 
     // Write two null bytes
-    if (ftdi()->write(QByteArray(2, 0x00)) == false)
+    if (interface()->write(QByteArray(2, 0x00)) == false)
         return false;
 
     // Request start DMX command
     return this->writeData(VinceUSBDMX512::StartDMX);
 }
 
-bool VinceUSBDMX512::close()
+bool VinceUSBDMX512::close(quint32 line, bool input)
 {
+    Q_UNUSED(line)
+    Q_UNUSED(input)
+
     if (isOpen() == false)
         return true;
 
@@ -60,15 +91,6 @@ bool VinceUSBDMX512::close()
         return DMXUSBWidget::close();
 
     return false;
-}
-
-/****************************************************************************
- * Name & Serial
- ****************************************************************************/
-
-QString VinceUSBDMX512::uniqueName() const
-{
-    return QString("%1 (S/N: %2)").arg(name()).arg(serial());
 }
 
 /****************************************************************************
@@ -90,7 +112,7 @@ bool VinceUSBDMX512::writeData(Command command, const QByteArray &data)
     }
     message.append(VINCE_END_OF_MSG);                   // Stop condition
 
-    return ftdi()->write(message);
+    return interface()->write(message);
 }
 
 QByteArray VinceUSBDMX512::readData(bool* ok)
@@ -104,7 +126,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     {
         *ok = false;
         // Attempt to read byte
-        byte = ftdi()->readByte(ok);
+        byte = interface()->readByte(ok);
         if (*ok == false)
             return data;
 
@@ -129,7 +151,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
         ushort i;
         for (i = 0; i < dataLength; i++)
         {
-            byte = ftdi()->readByte(ok);
+            byte = interface()->readByte(ok);
             if (*ok == false)
             {
                 qWarning() << Q_FUNC_INFO << "No available byte to read (" << (dataLength - i) << "missing bytes)";
@@ -140,7 +162,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     }
 
     // Read end of message
-    byte = ftdi()->readByte();
+    byte = interface()->readByte();
     if (byte != VINCE_END_OF_MSG)
     {
         qWarning() << Q_FUNC_INFO << "Incorrect end of message received:" << byte;
@@ -148,4 +170,38 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     }
 
     return data;
+}
+
+bool VinceUSBDMX512::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+
+    if (isOpen() == false)
+        return false;
+
+    // Write only if universe has changed
+    if (data == m_universe)
+        return true;
+
+    if (writeData(VinceUSBDMX512::UpdateDMX, data) == false)
+    {
+        qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+        return false;
+    }
+    else
+    {
+        bool ok = false;
+        QByteArray resp = this->readData(&ok);
+
+        // Check the interface reponse
+        if (ok == false || resp.size() > 0)
+        {
+            qWarning() << Q_FUNC_INFO << name() << "doesn't respond properly";
+            return false;
+        }
+
+        m_universe = data;
+        return true;
+    }
 }

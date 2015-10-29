@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcchannel.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,13 +18,13 @@
   limitations under the License.
 */
 
-#include <QApplication>
+#include <QXmlStreamReader>
 #include <QStringList>
 #include <QPainter>
 #include <iostream>
 #include <QString>
+#include <QDebug>
 #include <QFile>
-#include <QtXml>
 
 #include "qlcchannel.h"
 #include "qlccapability.h"
@@ -50,6 +51,7 @@
 #define KXMLQLCChannelColourYellow     QString("Yellow")
 #define KXMLQLCChannelColourAmber      QString("Amber")
 #define KXMLQLCChannelColourWhite      QString("White")
+#define KXMLQLCChannelColourUV         QString("UV")
 
 QLCChannel::QLCChannel()
 {
@@ -91,7 +93,7 @@ QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
 
         /* Copy new capabilities from the other channel */
         while (it.hasNext() == true)
-            m_capabilities.append(new QLCCapability(it.next()));
+            m_capabilities.append(it.next()->createCopy());
     }
 
     return *this;
@@ -202,10 +204,10 @@ QPixmap QLCChannel::drawIntensity(QColor color, QString str) const
     QPainter painter(&pm);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    QFont tfont = QApplication::font();
+    /*QFont tfont = QApplication::font();
     tfont.setBold(true);
     tfont.setPixelSize(14);
-    painter.setFont(tfont);
+    painter.setFont(tfont);*/
 
     pm.fill(color);
     if (str == "B")
@@ -219,30 +221,24 @@ QIcon QLCChannel::getIntensityIcon() const
 {
     QPixmap pm(32, 32);
 
-    if (m_colour == QLCChannel::Red ||
-        m_name.contains("red", Qt::CaseInsensitive) == true)
-            pm = drawIntensity(Qt::red, "R");
-    else if (m_colour == QLCChannel::Green ||
-             m_name.contains("green", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::green, "G");
-    else if (m_colour == QLCChannel::Blue ||
-             m_name.contains("blue", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::blue, "B");
-    else if (m_colour == QLCChannel::Cyan ||
-             m_name.contains("cyan", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::cyan, "C");
-    else if (m_colour == QLCChannel::Magenta ||
-             m_name.contains("magenta", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::magenta, "M");
-    else if (m_colour == QLCChannel::Yellow ||
-             m_name.contains("yellow", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::yellow, "Y");
-    else if (m_colour == QLCChannel::Amber ||
-             m_name.contains("amber", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(QColor(0xFFFF7E00), "A");
-    else if (m_colour == QLCChannel::White ||
-             m_name.contains("white", Qt::CaseInsensitive) == true)
-                pm = drawIntensity(Qt::white, "W");
+    if (m_colour == QLCChannel::Red)
+        pm = drawIntensity(Qt::red, "R");
+    else if (m_colour == QLCChannel::Green)
+        pm = drawIntensity(Qt::green, "G");
+    else if (m_colour == QLCChannel::Blue) 
+        pm = drawIntensity(Qt::blue, "B");
+    else if (m_colour == QLCChannel::Cyan)
+        pm = drawIntensity(Qt::cyan, "C");
+    else if (m_colour == QLCChannel::Magenta)
+        pm = drawIntensity(Qt::magenta, "M");
+    else if (m_colour == QLCChannel::Yellow)
+        pm = drawIntensity(Qt::yellow, "Y");
+    else if (m_colour == QLCChannel::Amber)
+        pm = drawIntensity(QColor(0xFFFF7E00), "A");
+    else if (m_colour == QLCChannel::White)
+        pm = drawIntensity(Qt::white, "W");
+    else if (m_colour == QLCChannel::UV)
+        pm = drawIntensity(QColor(0xFF9400D3), "UV");
     else
     {
         // None of the primary colours matched and since this is an
@@ -255,30 +251,24 @@ QIcon QLCChannel::getIntensityIcon() const
 
 QString QLCChannel::getIntensityColorCode() const
 {
-    if (m_colour == QLCChannel::Red ||
-        m_name.contains("red", Qt::CaseInsensitive) == true)
-            return QString("#FF0000");
-    else if (m_colour == QLCChannel::Green ||
-             m_name.contains("green", Qt::CaseInsensitive) == true)
-                return QString("#00FF00");
-    else if (m_colour == QLCChannel::Blue ||
-             m_name.contains("blue", Qt::CaseInsensitive) == true)
-                return QString("#0000FF");
-    else if (m_colour == QLCChannel::Cyan ||
-             m_name.contains("cyan", Qt::CaseInsensitive) == true)
-                return QString("#00FFFF");
-    else if (m_colour == QLCChannel::Magenta ||
-             m_name.contains("magenta", Qt::CaseInsensitive) == true)
-                return QString("#FF00FF");
-    else if (m_colour == QLCChannel::Yellow ||
-             m_name.contains("yellow", Qt::CaseInsensitive) == true)
-                return QString("#FFFF00");
-    else if (m_colour == QLCChannel::Amber ||
-             m_name.contains("amber", Qt::CaseInsensitive) == true)
-                return QString("#FF7E00");
-    else if (m_colour == QLCChannel::White ||
-             m_name.contains("white", Qt::CaseInsensitive) == true)
-                return QString("#FFFFFF");
+    if (m_colour == QLCChannel::Red)
+        return QString("#FF0000");
+    else if (m_colour == QLCChannel::Green)
+        return QString("#00FF00");
+    else if (m_colour == QLCChannel::Blue)
+        return QString("#0000FF");
+    else if (m_colour == QLCChannel::Cyan)
+        return QString("#00FFFF");
+    else if (m_colour == QLCChannel::Magenta)
+        return QString("#FF00FF");
+    else if (m_colour == QLCChannel::Yellow)
+        return QString("#FFFF00");
+    else if (m_colour == QLCChannel::Amber)
+        return QString("#FF7E00");
+    else if (m_colour == QLCChannel::White)
+        return QString("#FFFFFF");
+    else if (m_colour == QLCChannel::UV)
+        return QString("#9400D3");
     else
     {
         // None of the primary colours matched and since this is an
@@ -289,12 +279,12 @@ QString QLCChannel::getIntensityColorCode() const
     return QString(":/intensity.png");
 }
 
-QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
+QIcon QLCChannel::getIcon() const
 {
-    if (grp == Intensity)
+    if (group() == Intensity)
         return getIntensityIcon();
     else
-        return QIcon(getIconNameFromGroup(grp));
+        return QIcon(getIconNameFromGroup(group()));
 }
 
 QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
@@ -303,7 +293,7 @@ QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
     {
         case Pan: return QString(":/pan.png"); break;
         case Tilt: return QString(":/tilt.png"); break;
-        case Colour: return QString(":/color.png"); break;
+        case Colour: return QString(":/colorwheel.png"); break;
         case Effect: return QString(":/star.png"); break;
         case Gobo: return QString(":/gobo.png"); break;
         case Shutter: return QString(":/shutter.png"); break;
@@ -358,6 +348,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourYellow;
     list << KXMLQLCChannelColourAmber;
     list << KXMLQLCChannelColourWhite;
+    list << KXMLQLCChannelColourUV;
     return list;
 }
 
@@ -381,6 +372,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourAmber;
     case White:
         return KXMLQLCChannelColourWhite;
+    case UV:
+        return KXMLQLCChannelColourUV;
     case NoColour:
     default:
         return KXMLQLCChannelColourGeneric;
@@ -405,6 +398,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return Amber;
     else if (str == KXMLQLCChannelColourWhite)
         return White;
+    else if (str == KXMLQLCChannelColourUV)
+        return UV;
     else
         return NoColour;
 }
@@ -505,70 +500,57 @@ void QLCChannel::sortCapabilities()
  * File operations
  *****************************************************************************/
 
-bool QLCChannel::saveXML(QDomDocument* doc, QDomElement* root) const
+bool QLCChannel::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement chtag;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* Channel entry */
-    chtag = doc->createElement(KXMLQLCChannel);
-    chtag.setAttribute(KXMLQLCChannelName, m_name);
-    root->appendChild(chtag);
+    doc->writeStartElement(KXMLQLCChannel);
+    doc->writeAttribute(KXMLQLCChannelName, m_name);
 
     /* Group */
-    tag = doc->createElement(KXMLQLCChannelGroup);
-    text = doc->createTextNode(groupToString(m_group));
-    tag.appendChild(text);
-
+    doc->writeStartElement(KXMLQLCChannelGroup);
     /* Group control byte */
-    tag.setAttribute(KXMLQLCChannelGroupByte, QString::number(controlByte()));
-    chtag.appendChild(tag);
+    doc->writeAttribute(KXMLQLCChannelGroupByte, QString::number(controlByte()));
+    /* Group name */
+    doc->writeCharacters(groupToString(m_group));
+    doc->writeEndElement();
 
     /* Colour */
     if (m_colour != NoColour)
-    {
-        tag = doc->createElement(KXMLQLCChannelColour);
-        text = doc->createTextNode(QLCChannel::colourToString(colour()));
-        tag.appendChild(text);
-        chtag.appendChild(tag);
-    }
+        doc->writeTextElement(KXMLQLCChannelColour, QLCChannel::colourToString(colour()));
 
     /* Capabilities */
     QListIterator <QLCCapability*> it(m_capabilities);
     while (it.hasNext() == true)
-        it.next()->saveXML(doc, &chtag);
+        it.next()->saveXML(doc);
 
+    doc->writeEndElement();
     return true;
 }
 
-bool QLCChannel::loadXML(const QDomElement& root)
+bool QLCChannel::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCChannel)
+    if (doc.name() != KXMLQLCChannel)
     {
         qWarning() << "Channel node not found.";
         return false;
     }
 
     /* Get channel name */
-    QString str = root.attribute(KXMLQLCChannelName);
+    QString str = doc.attributes().value(KXMLQLCChannelName).toString();
     if (str.isEmpty() == true)
         return false;
     setName(str);
 
     /* Subtags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCapability)
+        if (doc.name() == KXMLQLCCapability)
         {
             /* Create a new capability and attempt to load it */
             QLCCapability* cap = new QLCCapability();
-            if (cap->loadXML(tag) == true)
+            if (cap->loadXML(doc) == true)
             {
                 /* Loading succeeded */
                 if (addCapability(cap) == false)
@@ -581,24 +563,24 @@ bool QLCChannel::loadXML(const QDomElement& root)
             {
                 /* Loading failed */
                 delete cap;
+                doc.skipCurrentElement();
             }
         }
-        else if (tag.tagName() == KXMLQLCChannelGroup)
+        else if (doc.name() == KXMLQLCChannelGroup)
         {
-            str = tag.attribute(KXMLQLCChannelGroupByte);
+            str = doc.attributes().value(KXMLQLCChannelGroupByte).toString();
             setControlByte(ControlByte(str.toInt()));
-            setGroup(stringToGroup(tag.text()));
+            setGroup(stringToGroup(doc.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCChannelColour)
+        else if (doc.name() == KXMLQLCChannelColour)
         {
-            setColour(stringToColour(tag.text()));
+            setColour(stringToColour(doc.readElementText()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Channel tag: " << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown Channel tag: " << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

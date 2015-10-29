@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   miditemplate.cpp
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Joep Admiraal
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,11 +19,12 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QXmlStreamReader>
 #include <QStringList>
 #include <QString>
+#include <QDebug>
 #include <QHash>
 #include <QMap>
-#include <QtXml>
 
 #include "miditemplate.h"
 #include "qlcfile.h"
@@ -85,48 +86,58 @@ QByteArray MidiTemplate::initMessage() const
 
 MidiTemplate* MidiTemplate::loader(const QString& path)
 {
-    QDomDocument doc(QLCFile::readXML(path));
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(path);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to load midi template from" << path;
         return NULL;
     }
 
     MidiTemplate* midiTemplate = new MidiTemplate();
-    if (midiTemplate->loadXML(doc) == false)
+    if (midiTemplate->loadXML(*doc) == false)
     {
+        qWarning() << path << QString("%1\nLine %2, column %3")
+                    .arg(doc->errorString())
+                    .arg(doc->lineNumber())
+                    .arg(doc->columnNumber());
+
         delete midiTemplate;
         midiTemplate = NULL;
     }
+    doc->device()->close();
+    delete doc->device();
+    delete doc;
 
     return midiTemplate;
 }
 
-bool MidiTemplate::loadXML(const QDomDocument& doc)
+bool MidiTemplate::loadXML(QXmlStreamReader& doc)
 {
-    QDomElement root = doc.documentElement();
-    if (root.tagName() == KXMLMidiTemplate)
+    if (doc.readNextStartElement() == false)
+        return false;
+
+    if (doc.name() == KXMLMidiTemplate)
     {
-        QDomNode node = root.firstChild();
-        while (node.isNull() == false)
+        while (doc.readNextStartElement())
         {
-            QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCCreator)
+            if (doc.name() == KXMLQLCCreator)
             {
                 /* Ignore */
+                doc.skipCurrentElement();
             }
-            if (tag.tagName() == KXMLMidiTemplateDescription)
+            if (doc.name() == KXMLMidiTemplateDescription)
             {
                 /* Ignore */
+                doc.skipCurrentElement();
             }
-            if (tag.tagName() == KXMLMidiTemplateName)
+            if (doc.name() == KXMLMidiTemplateName)
             {
-                setName(tag.text());
+                setName(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLMidiTemplateInitMessage)
+            else if (doc.name() == KXMLMidiTemplateInitMessage)
             {
                 QByteArray initMessage;
-                QStringList byteList = tag.text().split(' ');
+                QStringList byteList = doc.readElementText().split(' ');
                 for (int i = 0; i < byteList.count(); i++)
                 {
                     bool ok;
@@ -136,8 +147,6 @@ bool MidiTemplate::loadXML(const QDomDocument& doc)
                 setInitMessage(initMessage);
                 qDebug() << Q_FUNC_INFO << "Loaded message with size:" << initMessage.count();
             }
-
-            node = node.nextSibling();
         }
 
         return true;

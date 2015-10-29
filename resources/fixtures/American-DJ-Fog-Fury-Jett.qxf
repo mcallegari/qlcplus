@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.2 GIT</Version>
+  <Author>Dean Clough</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fog Fury Jett</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog &amp; Random Colour Change">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="31" Min="0">Off</Capability>
+  <Capability Max="255" Min="32">Max Fog &amp; Color Change</Capability>
+ </Channel>
+ <Channel Name="Fog">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="31" Min="0">Fog Off</Capability>
+  <Capability Max="255" Min="32">Max Fog</Capability>
+ </Channel>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="0" Min="0" Color="#000000">Color1(off)</Capability>
+  <Capability Max="4" Min="1" Color="#509e75">Color2</Capability>
+  <Capability Max="8" Min="5" Color="#509e52">Color3</Capability>
+  <Capability Max="12" Min="9" Color="#4d9c38">Color4</Capability>
+  <Capability Max="16" Min="13" Color="#649f2a">Color5</Capability>
+  <Capability Max="20" Min="17" Color="#779c27">Color6</Capability>
+  <Capability Max="24" Min="21" Color="#999f2a">Color7</Capability>
+  <Capability Max="28" Min="25" Color="#a69627">Color8</Capability>
+  <Capability Max="32" Min="29" Color="#a58025">Color9</Capability>
+  <Capability Max="36" Min="33" Color="#a67027">Color10</Capability>
+  <Capability Max="40" Min="37" Color="#a55a25">Color11</Capability>
+  <Capability Max="44" Min="41" Color="#a54c27">Color12</Capability>
+  <Capability Max="48" Min="45" Color="#a33e27">Color13</Capability>
+  <Capability Max="52" Min="49" Color="#a94943">Color14</Capability>
+  <Capability Max="56" Min="53" Color="#ae515b">Color15</Capability>
+  <Capability Max="60" Min="57" Color="#b05476">Color16</Capability>
+  <Capability Max="64" Min="61" Color="#a65180">Color17</Capability>
+  <Capability Max="68" Min="65" Color="#8e4c80">Color18</Capability>
+  <Capability Max="72" Min="69" Color="#784f80">Color19</Capability>
+  <Capability Max="76" Min="73" Color="#594480">Color20</Capability>
+  <Capability Max="80" Min="77" Color="#4d4f80">Color21</Capability>
+  <Capability Max="84" Min="81" Color="#436380">Color22</Capability>
+  <Capability Max="88" Min="85" Color="#4d7e80">Color23</Capability>
+  <Capability Max="92" Min="89" Color="#4d9280">Color24</Capability>
+  <Capability Max="96" Min="93" Color="#97b648">Color25</Capability>
+  <Capability Max="100" Min="97" Color="#ccb74d">Color26</Capability>
+  <Capability Max="104" Min="101" Color="#c98f4a">Color27</Capability>
+  <Capability Max="108" Min="105" Color="#c5795d">Color28</Capability>
+  <Capability Max="112" Min="109" Color="#c9817e">Color29</Capability>
+  <Capability Max="116" Min="113" Color="#917980">Color30</Capability>
+  <Capability Max="120" Min="117" Color="#917980">Color31</Capability>
+  <Capability Max="124" Min="121" Color="#8a8880">Color32</Capability>
+  <Capability Max="128" Min="125" Color="#1e1049">Color33</Capability>
+  <Capability Max="132" Min="129" Color="#806748">Color34</Capability>
+  <Capability Max="136" Min="133" Color="#7f594d">Color35</Capability>
+  <Capability Max="140" Min="137" Color="#7f6045">Color36</Capability>
+  <Capability Max="144" Min="141" Color="#7f5331">Color37</Capability>
+  <Capability Max="148" Min="145" Color="#7f3d00">Color38</Capability>
+  <Capability Max="152" Min="149" Color="#580900">Color39</Capability>
+  <Capability Max="156" Min="153" Color="#300006">Color40</Capability>
+  <Capability Max="160" Min="157" Color="#754656">Color41</Capability>
+  <Capability Max="164" Min="161" Color="#701909">Color42</Capability>
+  <Capability Max="168" Min="165" Color="#582757">Color43</Capability>
+  <Capability Max="172" Min="169" Color="#3c4164">Color44</Capability>
+  <Capability Max="176" Min="173" Color="#4a526a">Color45</Capability>
+  <Capability Max="180" Min="177" Color="#2c0152">Color46</Capability>
+  <Capability Max="184" Min="181" Color="#00132b">Color47</Capability>
+  <Capability Max="188" Min="185" Color="#004768">Color48</Capability>
+  <Capability Max="192" Min="189" Color="#1a4b69">Color49</Capability>
+  <Capability Max="196" Min="193" Color="#014365">Color50</Capability>
+  <Capability Max="200" Min="197" Color="#00496a">Color51</Capability>
+  <Capability Max="204" Min="201" Color="#003d60">Color52</Capability>
+  <Capability Max="208" Min="205" Color="#00415c">Color53</Capability>
+  <Capability Max="212" Min="209" Color="#002a3a">Color54</Capability>
+  <Capability Max="216" Min="213" Color="#04366f">Color55</Capability>
+  <Capability Max="220" Min="217" Color="#364e74">Color56</Capability>
+  <Capability Max="224" Min="221" Color="#53637c">Color57</Capability>
+  <Capability Max="228" Min="225" Color="#696e5b">Color58</Capability>
+  <Capability Max="232" Min="229" Color="#15532b">Color59</Capability>
+  <Capability Max="236" Min="233" Color="#001712">Color60</Capability>
+  <Capability Max="240" Min="237" Color="#800000">Color61</Capability>
+  <Capability Max="244" Min="241" Color="#008000">Color62</Capability>
+  <Capability Max="248" Min="245" Color="#000080">Color63</Capability>
+  <Capability Max="252" Min="249" Color="#806000">Color64</Capability>
+  <Capability Max="255" Min="253" Color="#ffdf80">Color65</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="31" Min="0">Off</Capability>
+  <Capability Max="95" Min="32">Strobing Slow-Fast</Capability>
+  <Capability Max="159" Min="96">Pulse Effect</Capability>
+  <Capability Max="255" Min="160">Random Strobe Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0" Color="#ff0000">Red 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0" Color="#00ff00">Green 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0" Color="#0000ff">Blue 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Max="255" Min="0" Color="#f7b025">Amber 0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">0%-100%</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Fog &amp; Random Colour Change</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Colour Macros</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Colour Macros</Channel>
+  <Channel Number="2">Strobing</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobing</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

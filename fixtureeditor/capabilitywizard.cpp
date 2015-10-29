@@ -63,11 +63,11 @@ CapabilityWizard::~CapabilityWizard()
 void CapabilityWizard::slotCreateCapabilities()
 {
     int start = m_startSpin->value();
-    int gap = m_gapSpin->value();
+    int width = m_widthSpin->value();
     int amount = m_amountSpin->value();
     QString name = m_nameEdit->text();
     uchar min = start;
-    uchar max = min + gap;
+    uchar max = min + width - 1;
     QLCCapability* cap;
 
     /* Destroy existing capabilities */
@@ -92,7 +92,7 @@ void CapabilityWizard::slotCreateCapabilities()
 
         /* Increment for the next round */
         min = max + 1;
-        max = min + gap;
+        max = min + width - 1;
 
         /* Bail out if next round would overflow */
         if (max < min)

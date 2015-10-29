@@ -104,10 +104,16 @@ void OlaOutThread::run()
  */
 int OlaOutThread::write_dmx(unsigned int universe, const QByteArray& data)
 {
-    m_data.universe = universe;
-    memcpy(m_data.data, data.data(), data.size());
     if (m_pipe)
+    {
+        Q_ASSERT(data.size() <= (int)sizeof(m_data.data));
+
+        m_data.universe = universe;
+        memset(m_data.data, 0, sizeof(m_data.data));
+        memcpy(m_data.data, data.data(), data.size());
+
         m_pipe->Send((uint8_t*) &m_data, sizeof(m_data));
+    }
     return 0;
 }
 
@@ -198,7 +204,7 @@ bool OlaStandaloneClient::init()
     if (!m_tcp_socket)
     {
         ola::network::IPV4SocketAddress server_address(
-            ola::network::IPV4Address::Loopback(), OLA_DEFAULT_PORT);
+            ola::network::IPV4Address::Loopback(), ola::OLA_DEFAULT_PORT);
         m_tcp_socket = ola::network::TCPSocket::Connect(server_address);
         if (!m_tcp_socket)
         {

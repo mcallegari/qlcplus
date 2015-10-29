@@ -42,6 +42,10 @@ public slots:
     int exec();
 
 private:
+    void fillMappingTree();
+    void showIPAlert(QString ip);
+
+private:
     OSCPlugin* m_plugin;
 
 };

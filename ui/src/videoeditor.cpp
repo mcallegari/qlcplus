@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
+#include <QInputDialog>
 #include <QFileDialog>
 #include <QLineEdit>
 #include <QLabel>
@@ -48,15 +50,30 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_fileButton, SIGNAL(clicked()),
             this, SLOT(slotSourceFileClicked()));
+    connect(m_urlButton, SIGNAL(clicked()),
+            this, SLOT(slotSourceUrlClicked()));
 
     connect(m_previewButton, SIGNAL(toggled(bool)),
             this, SLOT(slotPreviewToggled(bool)));
 
-    m_filenameLabel->setText(m_video->getSourceFileName());
-    m_durationLabel->setText(Function::speedToString(m_video->getDuration()));
+    m_filenameLabel->setText(m_video->sourceUrl());
+    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
+    QSize res = video->resolution();
+    m_resolutionLabel->setText(QString("%1x%2").arg(res.width()).arg(res.height()));
+    m_vcodecLabel->setText(video->videoCodec());
+    m_acodecLabel->setText(video->audioCodec());
 
-    for (int i = 0; i < m_video->getScreenCount(); i++)
-        m_screenCombo->addItem(QString("Screen %1").arg(i + 1));
+
+    int screenCount = 0;
+    QDesktopWidget *desktop = qApp->desktop();
+    if (desktop != NULL)
+        screenCount = desktop->screenCount();
+
+    if (screenCount > 0)
+    {
+        for (int i = 0; i < screenCount; i++)
+            m_screenCombo->addItem(QString("Screen %1").arg(i + 1));
+    }
 
     m_screenCombo->setCurrentIndex(m_video->screen());
 
@@ -71,6 +88,16 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
             this, SLOT(slotWindowedCheckClicked()));
     connect(m_fullCheck, SIGNAL(clicked()),
             this, SLOT(slotFullscreenCheckClicked()));
+
+    if(m_video->runOrder() == Video::Loop)
+        m_loopCheck->setChecked(true);
+    else
+        m_singleCheck->setChecked(true);
+
+    connect(m_loopCheck, SIGNAL(clicked()),
+            this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()),
+            this, SLOT(slotSingleShotCheckClicked()));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -133,9 +160,23 @@ void VideoEditor::slotSourceFileClicked()
     if (m_video->isRunning())
         m_video->stopAndWait();
 
-    m_video->setSourceFileName(fn);
-    m_filenameLabel->setText(m_video->getSourceFileName());
-    m_durationLabel->setText(Function::speedToString(m_video->getDuration()));
+    m_video->setSourceUrl(fn);
+    m_filenameLabel->setText(m_video->sourceUrl());
+    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
+}
+
+void VideoEditor::slotSourceUrlClicked()
+{
+    bool ok;
+    QString videoURL = QInputDialog::getText(this, tr("Video source URL"),
+                                         tr("Enter a URL:"), QLineEdit::Normal,
+                                         "http://", &ok);
+
+    if (ok == true)
+    {
+        m_video->setSourceUrl(videoURL);
+        m_filenameLabel->setText(m_video->sourceUrl());
+    }
 }
 
 void VideoEditor::slotScreenIndexChanged(int idx)
@@ -153,6 +194,16 @@ void VideoEditor::slotFullscreenCheckClicked()
     m_video->setFullscreen(true);
 }
 
+void VideoEditor::slotSingleShotCheckClicked()
+{
+    m_video->setRunOrder(Video::SingleShot);
+}
+
+void VideoEditor::slotLoopCheckClicked()
+{
+    m_video->setRunOrder(Video::Loop);
+}
+
 void VideoEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
@@ -168,7 +219,11 @@ void VideoEditor::slotPreviewToggled(bool state)
 void VideoEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_video->id())
+    {
+        m_previewButton->blockSignals(true);
         m_previewButton->setChecked(false);
+        m_previewButton->blockSignals(false);
+    }
 }
 
 void VideoEditor::slotDurationChanged(qint64 duration)

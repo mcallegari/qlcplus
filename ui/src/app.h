@@ -43,6 +43,10 @@ class QAction;
 class QLabel;
 class App;
 
+#if QT_VERSION >= 0x050000
+class VideoProvider;
+#endif
+
 /** @addtogroup ui UI
  * @{
  */
@@ -61,6 +65,8 @@ public:
     App();
     ~App();
     void startup();
+    void enableOverscan();
+    void disableGUI();
 
 private:
     void init();
@@ -70,6 +76,8 @@ private:
 private:
     QTabWidget* m_tab;
     QDir m_workingDirectory;
+    bool m_overscan;
+    bool m_noGui;
 
     /*********************************************************************
      * Progress dialog
@@ -94,6 +102,7 @@ public:
 
 private slots:
     void slotDocModified(bool state);
+    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     void initDoc();
@@ -140,6 +149,7 @@ public slots:
     void slotRunningFunctionsChanged();
     void slotDumpDmxIntoFunction();
     void slotFunctionLiveEdit();
+    void slotLiveEditVirtualConsole();
 
     void slotHelpIndex();
     void slotHelpAbout();
@@ -160,6 +170,7 @@ private:
     QAction* m_controlPanicAction;
     QAction* m_dumpDmxAction;
     QAction* m_liveEditAction;
+    QAction* m_liveEditVirtualConsoleAction;
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
@@ -174,6 +185,9 @@ private:
      *********************************************************************/
 private:
     DmxDumpFactoryProperties *m_dumpProperties;
+#if QT_VERSION >= 0x050000
+    VideoProvider *m_videoProvider;
+#endif
 
     /*********************************************************************
      * Load & Save
@@ -207,7 +221,7 @@ public:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(const QDomDocument& doc, bool goToConsole = false);
+    bool loadXML(const QDomDocument& doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the

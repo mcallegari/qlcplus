@@ -41,7 +41,7 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#define INTERNAL_FIXTUREDIR "../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Chaser_Test::initTestCase()
 {
@@ -959,6 +959,53 @@ void Chaser_Test::adjustIntensity()
 
     // Mustn't crash after postRun
     c->adjustAttribute(1.0, Function::Intensity);
+}
+
+void Chaser_Test::quickChaser()
+{
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    m_doc->addFixture(fxi);
+
+    Chaser* c = new Chaser(m_doc);
+    c->setDuration(0);
+    m_doc->addFunction(c);
+
+    Scene* s1 = new Scene(m_doc);
+    s1->setValue(fxi->id(), 0, 255);
+    m_doc->addFunction(s1);
+    c->addStep(s1->id());
+
+    Scene* s2 = new Scene(m_doc);
+    s2->setValue(fxi->id(), 0, 127);
+    m_doc->addFunction(s2);
+    c->addStep(s2->id());
+
+    MasterTimer timer(m_doc);
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    c->start(&timer);
+
+    timer.timerTick();
+    for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        QVERIFY(s1->isRunning() == true || s2->isRunning() == true);
+        QVERIFY(s1->stopped() == true || s2->stopped() == true);
+    }
+
+    c->stop();
+
+    timer.timerTick();
+
+    QVERIFY(c->stopped() == true);
+    QVERIFY(s1->stopped() == true);
+    QVERIFY(s2->stopped() == true);
 }
 
 QTEST_MAIN(Chaser_Test)

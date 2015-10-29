@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcchannel.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#ifndef QLC_CHANNEL_H
-#define QLC_CHANNEL_H
+#ifndef QLCCHANNEL_H
+#define QLCCHANNEL_H
 
 #include <climits>
 #include <QString>
@@ -27,11 +28,11 @@
 
 class QFile;
 class QString;
-class QDomDocument;
-class QDomElement;
 class QStringList;
 class QLCCapability;
 class QLCChannel;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup engine Engine
  * @{
@@ -123,7 +124,7 @@ public:
     Group group() const;
 
     /** Get the channel's representation icon */
-    QIcon getIconFromGroup(Group grp) const;
+    QIcon getIcon() const;
 
     /** Get the channel's icon resource name */
     QString getIconNameFromGroup(QLCChannel::Group grp) const;
@@ -180,7 +181,8 @@ public:
         Magenta     = 0xFF00FF,
         Yellow      = 0xFFFF00,
         Amber       = 0xFF7E00,
-        White       = 0xFFFFFF
+        White       = 0xFFFFFF,
+        UV          = 0x9400D3
     };
 
     /** Get a list of possible channel groups */
@@ -243,10 +245,10 @@ protected:
      *********************************************************************/
 public:
     /** Save the channel to a QDomDocument, under the given element */
-    bool saveXML(QDomDocument* doc, QDomElement* root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /** Load channel contents from an XML element */
-    bool loadXML(const QDomElement& tag);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

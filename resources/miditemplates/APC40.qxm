@@ -1,0 +1,9 @@
+<!DOCTYPE MidiTemplate>
+<MidiTemplate>
+ <Creator>
+  <Author>Joep Admiraal</Author>
+ </Creator>
+ <Description>Sets the APC40 into Ableton mode 2. This is needed to control the button LEDs.</Description>
+ <Name>APC40 Ableton mode 2</Name>
+ <InitMessage>F0 47 00 73 60 00 04 41 09 00 05 F7</InitMessage>
+</MidiTemplate>

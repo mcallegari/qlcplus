@@ -45,13 +45,13 @@ CoreMidiOutputDevice::~CoreMidiOutputDevice()
     close();
 }
 
-void CoreMidiOutputDevice::open()
+bool CoreMidiOutputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
 
     // Don't open twice
     if (m_outPort != 0)
-        return;
+        return false;
 
     OSStatus s = MIDIOutputPortCreate(m_client, CFSTR("QLC Input Port"), &m_outPort);
     if (s != 0)
@@ -64,6 +64,7 @@ void CoreMidiOutputDevice::open()
     {
         m_destination = MIDIEntityGetDestination(m_entity, 0);
     }
+    return true;
 }
 
 void CoreMidiOutputDevice::close()

@@ -39,7 +39,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_versionLabel->setText(APPVERSION);
     m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
                               .arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://qlcplus.sourceforge.net/\">http://qlcplus.sourceforge.net/</A>"));
+    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
     connect(m_websiteLabel, SIGNAL(linkActivated(QString)),
             this, SLOT(slotWebsiteClicked()));
 
@@ -48,6 +48,8 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_contributors->clear();
     m_contributors->addItem("Contributors:");
     m_contributors->addItem("Jano Svitok");
+    m_contributors->addItem("David Garyga");
+    m_contributors->addItem("Robert Box");
     m_contributors->addItem("Thomas Achtner");
     m_contributors->addItem("Joep Admiraal");
     m_contributors->addItem("Oliver Ruempelein");
@@ -61,8 +63,12 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_contributors->addItem("Jan Lachman");
     m_contributors->addItem("Nuno Almeida");
     m_contributors->addItem("Santiago Benejam Torres");
-    m_contributors->addItem("Jérôme Lebleu");
+    m_contributors->addItem(QString::fromUtf8("Jérôme Lebleu"));
     m_contributors->addItem("Koichiro Saito");
+    m_contributors->addItem("Karri Kaksonen");
+    m_contributors->addItem("Stefan Krupop");
+    m_contributors->addItem("Nathan Durnan");
+    m_contributors->addItem("Giorgio Rebecchi");
     m_contributors->addItem("Klaus Weidenbach");
     m_contributors->addItem("Stefan Krumm");
     m_contributors->addItem(QString::fromUtf8("Christian Sühs"));
@@ -107,5 +113,5 @@ void AboutBox::slotItemClicked()
 
 void AboutBox::slotWebsiteClicked()
 {
-    QDesktopServices::openUrl(QUrl("http://qlcplus.sourceforge.net/"));
+    QDesktopServices::openUrl(QUrl("http://www.qlcplus.org/"));
 }

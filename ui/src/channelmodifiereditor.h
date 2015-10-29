@@ -34,7 +34,7 @@ class ChannelModifierEditor : public QDialog, public Ui_ChannelModifierEditor
     Q_OBJECT
 
 public:
-    explicit ChannelModifierEditor(Doc* doc, QWidget *parent = 0);
+    explicit ChannelModifierEditor(Doc* doc, QString modifier, QWidget *parent = 0);
     ~ChannelModifierEditor();
 
     ChannelModifier *selectedModifier();
@@ -44,13 +44,23 @@ private:
     ChannelModifierGraphicsView *m_view;
 
 protected:
-    void updateModifiersList();
+    /**
+     * Update the modifier tree view and select
+     * the given $modifier if present
+     */
+    void updateModifiersList(QString modifier);
 
 protected slots:
+    /** Slot called when the user clicks on the graphics view space */
     void slotViewClicked();
+
+    /** Slot called when the user clicks on one handler of the modifier */
     void slotHandlerClicked(uchar pos, uchar value);
+
+    /** Slot called while the user is dragging a handler around */
     void slotItemDMXChanged(uchar pos, uchar value);
 
+    /** Slot called when a tree item is selected */
     void slotItemSelectionChanged();
 
     void slotOriginalDMXValueChanged(int value);
@@ -58,6 +68,8 @@ protected slots:
     void slotAddHandlerClicked();
     void slotRemoveHandlerClicked();
     void slotSaveClicked();
+
+    void slotUnsetClicked();
 
 private:
     ChannelModifier *m_currentTemplate;

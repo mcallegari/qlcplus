@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>Louis Gutenschwager</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>Trackspot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan Positioning, 8 bit</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Positioning, 8 bit</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="8" Max="8">Forward Color Spin 8</Capability>
+  <Capability Min="15" Max="15">Forward Color Spin 7</Capability>
+  <Capability Min="22" Max="22">Forward Color Spin 6</Capability>
+  <Capability Min="30" Max="30">Forward Color Spin 5</Capability>
+  <Capability Min="36" Max="36">Forward Color Spin 4</Capability>
+  <Capability Min="43" Max="43">Forward Color Spin 3</Capability>
+  <Capability Min="51" Max="51">Forward Color Spin 2</Capability>
+  <Capability Min="59" Max="59">Forward Color Spin 1</Capability>
+  <Capability Min="64" Max="64">Reverse Color Spin 8</Capability>
+  <Capability Min="71" Max="71">Reverse Color Spin 7</Capability>
+  <Capability Min="79" Max="79">Reverse Color Spin 6</Capability>
+  <Capability Min="87" Max="87">Reverse Color Spin 5</Capability>
+  <Capability Min="94" Max="94">Reverse Color Spin 4</Capability>
+  <Capability Min="99" Max="99">Reverse Color Spin  3</Capability>
+  <Capability Min="107" Max="107">Reverse Color Spin 2</Capability>
+  <Capability Min="112" Max="112">Reverse Color Spin 1</Capability>
+  <Capability Min="120" Max="120">half color 2</Capability>
+  <Capability Min="128" Max="128">color 2</Capability>
+  <Capability Min="133" Max="133">half color 3</Capability>
+  <Capability Min="140" Max="140">color 3</Capability>
+  <Capability Min="148" Max="148">half color 4</Capability>
+  <Capability Min="156" Max="156">color 4</Capability>
+  <Capability Min="163" Max="163">half color 5</Capability>
+  <Capability Min="168" Max="168">color 5</Capability>
+  <Capability Min="176" Max="176">half color 6</Capability>
+  <Capability Min="184" Max="184">color 6</Capability>
+  <Capability Min="191" Max="191">half color 7</Capability>
+  <Capability Min="196" Max="196">color 7</Capability>
+  <Capability Min="204" Max="204">half color 8</Capability>
+  <Capability Min="212" Max="212">color 8</Capability>
+  <Capability Min="219" Max="219">half color 9</Capability>
+  <Capability Min="224" Max="224">color 9</Capability>
+  <Capability Min="232" Max="232">half color 10</Capability>
+  <Capability Min="240" Max="240">color 10</Capability>
+  <Capability Min="247" Max="247">half color 1</Capability>
+  <Capability Min="252" Max="255">open</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">open</Capability>
+  <Capability Min="10" Max="10">forward gobo spin 7</Capability>
+  <Capability Min="18" Max="18">forward gobo spin 6</Capability>
+  <Capability Min="28" Max="28">forward gobo spin 5</Capability>
+  <Capability Min="38" Max="38">forward gobo spin 4</Capability>
+  <Capability Min="46" Max="46">forward gobo spin 3</Capability>
+  <Capability Min="56" Max="56">forward gobo spin 2</Capability>
+  <Capability Min="64" Max="64">forward gobo spin 1</Capability>
+  <Capability Min="82" Max="82">Reverse gobo spin 7</Capability>
+  <Capability Min="92" Max="92">Reverse gobo spin 6</Capability>
+  <Capability Min="99" Max="99">Reverse gobo spin 5</Capability>
+  <Capability Min="110" Max="110">Reverse gobo spin 4</Capability>
+  <Capability Min="117" Max="117">Reverse gobo spin 3</Capability>
+  <Capability Min="128" Max="128">Reverse gobo spin 2</Capability>
+  <Capability Min="135" Max="135">Reverse gobo spin 1</Capability>
+  <Capability Min="155" Max="155">gobo 2</Capability>
+  <Capability Min="179" Max="179">gobo 3</Capability>
+  <Capability Min="191" Max="191">gobo 4</Capability>
+  <Capability Min="201" Max="201">gobo 5</Capability>
+  <Capability Min="209" Max="209">gobo 6</Capability>
+  <Capability Min="217" Max="217">gobo 7</Capability>
+  <Capability Min="227" Max="227">gobo 8</Capability>
+  <Capability Min="235" Max="235">gobo 9</Capability>
+  <Capability Min="245" Max="245">gobo 10</Capability>
+  <Capability Min="252" Max="255">gobo open</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">closed</Capability>
+  <Capability Min="26" Max="26">open</Capability>
+  <Capability Min="51" Max="51">strobe 1</Capability>
+  <Capability Min="77" Max="77">strobe 2</Capability>
+  <Capability Min="102" Max="102">strobe 3</Capability>
+  <Capability Min="128" Max="128">strobe 4</Capability>
+  <Capability Min="153" Max="153">strobe 5</Capability>
+  <Capability Min="179" Max="179">strobe 6</Capability>
+  <Capability Min="204" Max="204">strobe 7</Capability>
+  <Capability Min="230" Max="230">closed</Capability>
+  <Capability Min="242" Max="255">open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">closed-open</Capability>
+ </Channel>
+ <Channel Name="MSpeed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slowest-fastest</Capability>
+ </Channel>
+ <Mode Name="High Resolution Mode">
+  <Physical>
+   <Bulb Lumens="0" Type="QT 8500" ColourTemperature="0"/>
+   <Dimensions Width="650" Height="178" Weight="11" Depth="221"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Wheel</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">MSpeed</Channel>
+ </Mode>
+</FixtureDefinition>

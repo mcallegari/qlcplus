@@ -37,14 +37,14 @@
 #undef private
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void PaletteGenerator_Test::initTestCase()
 {
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_fixtureDefCache.load(dir) == true);
+    QVERIFY(m_fixtureDefCache.loadMap(dir) == true);
 }
 
 void PaletteGenerator_Test::initial()

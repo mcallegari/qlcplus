@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="RobotoCondensed-Regular.ttf">RobotoCondensed-Regular.ttf</file>
+        <file alias="FontAwesome.otf">FontAwesome.otf</file>
+    </qresource>
+</RCC>

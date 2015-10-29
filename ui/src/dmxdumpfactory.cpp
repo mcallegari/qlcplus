@@ -19,9 +19,11 @@
 
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
+#include <QDebug>
 
 #include "dmxdumpfactoryproperties.h"
 #include "fixturetreewidget.h"
+#include "functionselection.h"
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "chaserstep.h"
@@ -45,6 +47,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     : QDialog(parent)
     , m_doc(doc)
     , m_properties(props)
+    , m_selectedSceneID(Function::invalidId())
 {
     Q_ASSERT(doc != NULL);
 
@@ -61,9 +64,9 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     m_fixturesTree->updateTree();
 
-    if (m_properties->selectedTarget() == 1)
+    if (m_properties->selectedTarget() == DmxDumpFactoryProperties::VCButton)
         m_buttonRadio->setChecked(true);
-    else if (m_properties->selectedTarget() == 2)
+    else if (m_properties->selectedTarget() == DmxDumpFactoryProperties::VCSlider)
         m_sliderRadio->setChecked(true);
     else
         slotUpdateChasersTree();
@@ -79,6 +82,9 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     if(m_properties->nonZeroValuesMode() == true)
         m_nonZeroCheck->setChecked(true);
+
+    connect(m_sceneButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotSelectSceneButtonClicked()));
 }
 
 DmxDumpFactory::~DmxDumpFactory()
@@ -113,6 +119,39 @@ void DmxDumpFactory::slotUpdateButtons()
 void DmxDumpFactory::slotUpdateSliders()
 {
     updateWidgetsTree(VCWidget::SliderWidget);
+}
+
+void DmxDumpFactory::slotSelectSceneButtonClicked()
+{
+    FunctionSelection fs(this, m_doc);
+    fs.setMultiSelection(false);
+    fs.setFilter(Function::Scene, true);
+
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
+    {
+        m_selectedSceneID = fs.selection().first();
+        Scene *scene = qobject_cast<Scene*>(m_doc->function(m_selectedSceneID));
+        if (scene == NULL)
+            return;
+
+        m_sceneName->setText(scene->name());
+        m_dumpSelectedRadio->setChecked(true);
+        QByteArray chMask = m_properties->channelsMask();
+        chMask.fill(0);
+
+        foreach(SceneValue scv, scene->values())
+        {
+            Fixture *fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
+                continue;
+            quint32 absAddress = fxi->universeAddress() + scv.channel;
+            if (chMask.length() > (int)absAddress)
+                chMask[absAddress] = 1;
+        }
+        m_properties->setChannelsMask(chMask);
+        m_fixturesTree->setChannelsMask(chMask);
+        m_fixturesTree->updateTree();
+    }
 }
 
 QList<VCWidget *> DmxDumpFactory::getChildren(VCWidget *obj, int type)
@@ -174,6 +213,8 @@ void DmxDumpFactory::accept()
     m_doc->inputOutputMap()->releaseUniverses(false);
 
     Scene *newScene = NULL;
+    if (m_selectedSceneID != Function::invalidId())
+        newScene = qobject_cast<Scene*>(m_doc->function(m_selectedSceneID));
 
     for (int t = 0; t < m_fixturesTree->topLevelItemCount(); t++)
     {
@@ -185,7 +226,7 @@ void DmxDumpFactory::accept()
         for (int f = 0; f < uniItem->childCount(); f++)
         {
             QTreeWidgetItem *fixItem = uniItem->child(f);
-            quint32 fxID = fixItem->data(KColumnName, Qt::UserRole).toUInt();
+            quint32 fxID = fixItem->data(KColumnName, PROP_ID).toUInt();
             Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {
@@ -193,34 +234,35 @@ void DmxDumpFactory::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
+                    quint32 channel = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
 
                     if (m_dumpAllRadio->isChecked())
                     {
-                        dumpMask[baseAddress + c] = 1;
-                        uchar value = preGMValues.at(baseAddress + c);
+                        dumpMask[baseAddress + channel] = 1;
+                        uchar value = preGMValues.at(baseAddress + channel);
                         if (m_nonZeroCheck->isChecked() == false ||
                            (m_nonZeroCheck->isChecked() == true && value > 0))
                         {
-                            SceneValue sv = SceneValue(fxID, c, value);
+                            SceneValue sv = SceneValue(fxID, channel, value);
                             newScene->setValue(sv);
                         }
                     }
                     else
                     {
-                        //qDebug() << "Fix: " << fxID << "chan:" << c << "addr:" << (baseAddress + c);
+                        //qDebug() << "Fix: " << fxID << "chan:" << channel << "addr:" << (baseAddress + channel);
                         if (chanItem->checkState(KColumnName) == Qt::Checked)
                         {
-                            dumpMask[baseAddress + c] = 1;
-                            uchar value = preGMValues.at(baseAddress + c);
+                            dumpMask[baseAddress + channel] = 1;
+                            uchar value = preGMValues.at(baseAddress + channel);
                             if (m_nonZeroCheck->isChecked() == false ||
                                (m_nonZeroCheck->isChecked() == true && value > 0))
                             {
-                                SceneValue sv = SceneValue(fxID, c, value);
+                                SceneValue sv = SceneValue(fxID, channel, value);
                                 newScene->setValue(sv);
                             }
                         }
                         else
-                            dumpMask[baseAddress + c] = 0;
+                            dumpMask[baseAddress + channel] = 0;
                     }
                 }
             }
@@ -229,8 +271,19 @@ void DmxDumpFactory::accept()
     /** If the Scene is valid, add it to QLC+ functions */
     if (newScene != NULL)
     {
-        newScene->setName(m_sceneName->text());
-        if (m_doc->addFunction(newScene) == true)
+        bool addedToDoc = false;
+
+        if (m_selectedSceneID != Function::invalidId() &&
+            m_doc->function(m_selectedSceneID) != NULL)
+        {
+            addedToDoc = true;
+        }
+        else
+        {
+            newScene->setName(m_sceneName->text());
+            addedToDoc = m_doc->addFunction(newScene);
+        }
+        if (addedToDoc == true)
         {
             quint32 sceneID = newScene->id();
             /** Now add the Scene to the selected Chasers */
@@ -277,11 +330,11 @@ void DmxDumpFactory::accept()
 
     m_properties->setChannelsMask(dumpMask);
     if (m_chaserRadio->isChecked())
-        m_properties->setSelectedTarget(0);
+        m_properties->setSelectedTarget(DmxDumpFactoryProperties::Chaser);
     else if (m_buttonRadio->isChecked())
-        m_properties->setSelectedTarget(1);
+        m_properties->setSelectedTarget(DmxDumpFactoryProperties::VCButton);
     else if (m_sliderRadio->isChecked())
-        m_properties->setSelectedTarget(2);
+        m_properties->setSelectedTarget(DmxDumpFactoryProperties::VCSlider);
 
     /* Close dialog */
     QDialog::accept();

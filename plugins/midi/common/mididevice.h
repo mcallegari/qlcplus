@@ -87,6 +87,15 @@ public:
 private:
     Mode m_mode;
 
+    /************************************************************************
+    * Send Note OFF
+    ************************************************************************/
+public:
+    void setSendNoteOff(bool sendNoteOff);
+    bool sendNoteOff() const;
+
+private:
+    bool m_sendNoteOff;
 
     /************************************************************************
      * Midi template
@@ -102,7 +111,7 @@ private:
      * Virtual Open/Close
      ************************************************************************/
 public:
-    virtual void open() = 0;
+    virtual bool open() = 0;
     virtual void close() = 0;
     virtual bool isOpen() const = 0;
 };

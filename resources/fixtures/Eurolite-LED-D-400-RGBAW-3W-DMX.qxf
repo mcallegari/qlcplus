@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1 GIT</Version>
+  <Author>Alexander Grözinger</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED D-400 RGBAW 3W DMX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="4" Min="0" Color="#000000">Blackout</Capability>
+  <Capability Max="9" Min="5" Color="#ff0000">Red</Capability>
+  <Capability Max="14" Min="10" Color="#00ff00">Green</Capability>
+  <Capability Max="19" Min="15" Color="#0000ff">Blue</Capability>
+  <Capability Max="24" Min="20" Color="#ffffff">White</Capability>
+  <Capability Max="29" Min="25" Color="#ffaa00">Amber</Capability>
+  <Capability Color2="#00ff00" Max="34" Min="30" Color="#ff0000">R+G</Capability>
+  <Capability Color2="#0000ff" Max="39" Min="35" Color="#00ff00">G+B</Capability>
+  <Capability Color2="#ffffff" Max="44" Min="40" Color="#0000ff">B+W</Capability>
+  <Capability Color2="#ffaa00" Max="49" Min="45" Color="#ffffff">W+A</Capability>
+  <Capability Color2="#ffaa00" Max="54" Min="50" Color="#ff0000">R+A</Capability>
+  <Capability Color2="#ffaa00" Max="59" Min="55" Color="#00ff00">G+A</Capability>
+  <Capability Color2="#ffaa00" Max="64" Min="60" Color="#0000ff">B+A</Capability>
+  <Capability Color2="#0000ff" Max="69" Min="65" Color="#ff0000">R+B</Capability>
+  <Capability Color2="#ffffff" Max="74" Min="70" Color="#ff0000">R+W</Capability>
+  <Capability Color2="#ffffff" Max="79" Min="75" Color="#00ff00">G+W</Capability>
+  <Capability Max="84" Min="80">R+G+B</Capability>
+  <Capability Max="89" Min="85">G+B+W</Capability>
+  <Capability Max="94" Min="90">B+W+A</Capability>
+  <Capability Max="99" Min="95">R+W+A</Capability>
+  <Capability Max="104" Min="100">G+W+A</Capability>
+  <Capability Max="109" Min="105">R+G+A</Capability>
+  <Capability Max="114" Min="110">R+G+W</Capability>
+  <Capability Max="119" Min="115">R+B+A</Capability>
+  <Capability Max="124" Min="120">R+B+W</Capability>
+  <Capability Max="129" Min="125">G+B+A</Capability>
+  <Capability Max="134" Min="130">R+G+B+W</Capability>
+  <Capability Max="139" Min="135">G+B+W+A</Capability>
+  <Capability Max="144" Min="140">R+G+B+A</Capability>
+  <Capability Max="149" Min="145">R+G+W+A</Capability>
+  <Capability Max="154" Min="150">R+G+B+W+A</Capability>
+  <Capability Res="Others/rainbow.png" Max="200" Min="155">Colorchange (increasing speed)</Capability>
+  <Capability Res="Others/rainbow.png" Max="250" Min="201">Color fade (increasing speed)</Capability>
+  <Capability Max="255" Min="251">Soundcontrolled (CH2: Sensivity)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">Strobe (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Motor">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">Step Motor (increasing speed)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Width="245" Weight="3.5" Height="385" Depth="155"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Motor</Channel>
+ </Mode>
+</FixtureDefinition>

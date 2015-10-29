@@ -167,23 +167,14 @@ QLCFixtureDef* App::loadQXF(const QString& path, QString& errorMsg) const
 
 QLCFixtureDef* App::loadD4(const QString& path, QString& errorMsg) const
 {
-    QLCFixtureDef* fixtureDef = NULL;
+    QLCFixtureDef* fixtureDef = new QLCFixtureDef;
 
     AvolitesD4Parser parser;
-    if (parser.loadXML(path) == false)
+    if (parser.loadXML(path, fixtureDef) == false)
     {
         errorMsg = parser.lastError();
-    }
-    else
-    {
-        fixtureDef = new QLCFixtureDef;
-        Q_ASSERT(fixtureDef != NULL);
-        if (parser.fillFixtureDef(fixtureDef) == false)
-        {
-            errorMsg = parser.lastError();
-            delete fixtureDef;
-            fixtureDef = NULL;
-        }
+        delete fixtureDef;
+        fixtureDef = NULL;
     }
 
     return fixtureDef;

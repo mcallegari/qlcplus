@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.5 GIT</Version>
+  <Author>webdb22</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>XB-Wave</Model>
+ <Type>Flower</Type>
+ <Channel Name="Colors 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="19">Blackout</Capability>
+  <Capability Color="#ff0000" Min="20" Max="39">Red</Capability>
+  <Capability Color="#00ff00" Min="40" Max="59">Green</Capability>
+  <Capability Color="#0000ff" Min="60" Max="79">Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="80" Max="99">Green+Blue</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="100" Max="119">Red+Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="120" Max="139">Red+Green</Capability>
+  <Capability Color="#ffffff" Min="140" Max="159">Red+Green+Blue</Capability>
+  <Capability Color="#ffffff" Min="160" Max="179">3 Color Chase + Rotation</Capability>
+  <Capability Color="#ffffff" Min="180" Max="255">7 Color Chase + Rotation</Capability>
+ </Channel>
+ <Channel Name="Colors 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="4">Blackout</Capability>
+  <Capability Color="#ff0000" Min="5" Max="28">Red</Capability>
+  <Capability Color="#00ff00" Min="29" Max="56">Green</Capability>
+  <Capability Color="#0000ff" Min="57" Max="84">Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="85" Max="112">Green+Blue</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="113" Max="140">Red+Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="141" Max="168">Red+Green</Capability>
+  <Capability Color="#ffffff" Min="169" Max="197">Red+Green+Blue</Capability>
+  <Capability Color="#ffffff" Min="198" Max="224">3 Color Chase + Rotation</Capability>
+  <Capability Color="#ffffff" Min="225" Max="255">7 Color Chase + Rotation</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">Static</Capability>
+  <Capability Min="5" Max="255">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Indexing (Position)</Capability>
+  <Capability Min="128" Max="255">Rotation slow to fast</Capability>
+ </Channel>
+ <Mode Name="4 Channels">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="2.4" Width="325" Height="143" Depth="305"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+  <Channel Number="0">Colors 1</Channel>
+  <Channel Number="1">Colors 2</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Rotation</Channel>
+ </Mode>
+</FixtureDefinition>

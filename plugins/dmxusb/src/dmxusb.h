@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   dmxusb.h
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -51,25 +52,25 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /** Find out what kinds of widgets there are currently connected */
     bool rescanWidgets();
 
     /** Get currently connected widgets (input & output) */
     QList <DMXUSBWidget*> widgets() const;
 
+private:
+    /** List of references to the discovered USB widgets */
+    QList <DMXUSBWidget*> m_widgets;
+
     /************************************************************************
      * Outputs
      ************************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -81,6 +82,11 @@ public:
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
+    /**
+     *  List of references to USB widgets ordered by output lines.
+     *  If a widget has multiple outputs, it will appear in this
+     *  list multiple times
+     */
     QList <DMXUSBWidget*> m_outputs;
 
     /*************************************************************************
@@ -88,10 +94,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void openInput(quint32 input);
+    bool openInput(quint32 input, quint32 universe);
 
     /** @reimp */
-    void closeInput(quint32 input);
+    void closeInput(quint32 input, quint32 universe);
 
     /** @reimp */
     QStringList inputs();
@@ -99,11 +105,12 @@ public:
     /** @reimp */
     QString inputInfo(quint32 input);
 
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
-
 private:
+    /**
+     *  List of references to USB widgets ordered by input lines.
+     *  If a widget has multiple inputs, it will appear in this
+     *  list multiple times
+     */
     QList <DMXUSBWidget*> m_inputs;
 
     /********************************************************************

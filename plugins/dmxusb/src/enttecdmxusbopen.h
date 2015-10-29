@@ -27,8 +27,6 @@
 
 #include "dmxusbwidget.h"
 
-class QLCFTDI;
-
 class EnttecDMXUSBOpen : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
@@ -46,8 +44,8 @@ public:
      * @param id The device's unique ID (FTD2XX only)
      * @param parent The owner of this object
      */
-    EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
-                     quint32 id = 0, QObject* parent = 0);
+    EnttecDMXUSBOpen(DMXInterface *interface,
+                     quint32 outputLine, QObject* parent = 0);
 
     /** Destructor */
     virtual ~EnttecDMXUSBOpen();
@@ -60,10 +58,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    bool close();
+    bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Name & Serial
@@ -77,7 +75,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(const QByteArray& universe);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };

@@ -92,8 +92,11 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
             this, SLOT(slotDiptoolButtonClicked()));
 
     /* Fill fixture definition tree (and select a fixture def) */
-    if (fxi != NULL && fxi->isDimmer() == false)
+    if (fxi != NULL)
+    {
         fillTree(fxi->fixtureDef()->manufacturer(), fxi->fixtureDef()->model());
+        m_fixtureID = fxi->id();
+    }
     else
         fillTree(KXMLFixtureGeneric, KXMLFixtureGeneric);
 
@@ -105,10 +108,9 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     /* Simulate first selection and find the next free address */
     slotSelectionChanged();
 
-    // Universe
     if (fxi != NULL)
     {
-        m_fixtureID = fxi->id();
+        // Universe
         m_universeCombo->setCurrentIndex(fxi->universe());
         slotUniverseActivated(fxi->universe());
 
@@ -116,40 +118,26 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
         m_addressValue = fxi->address();
 
         m_multipleGroup->setEnabled(false);
+
+        // Name
+        m_nameEdit->setText(fxi->name());
+        slotNameEdited(fxi->name());
+        m_nameEdit->setModified(true); // Prevent auto-naming
+
+        // Mode
+        int index = m_modeCombo->findText(fxi->fixtureMode()->name());
+        if (index != -1)
+        {
+            m_channelsSpin->setValue(fxi->channels());
+            m_modeCombo->setCurrentIndex(index);
+            slotModeActivated(m_modeCombo->itemText(index));
+        }
     }
     else
     {
         slotUniverseActivated(0);
         findAddress();
-    }
 
-    // Name
-    if (fxi != NULL)
-    {
-        m_nameEdit->setText(fxi->name());
-        slotNameEdited(fxi->name());
-        m_nameEdit->setModified(true); // Prevent auto-naming
-    }
-
-    // Mode
-    if (fxi != NULL)
-    {
-        if (fxi->isDimmer() == false)
-        {
-            int index = m_modeCombo->findText(fxi->fixtureMode()->name());
-            if (index != -1)
-            {
-                m_modeCombo->setCurrentIndex(index);
-                slotModeActivated(m_modeCombo->itemText(index));
-            }
-        }
-        else
-        {
-            m_channelsSpin->setValue(fxi->channels());
-        }
-    }
-    else
-    {
         m_channelsSpin->setValue(1);
     }
 
@@ -164,7 +152,7 @@ AddFixture::~AddFixture()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
-   
+
     QList<QVariant> expanded;
     QTreeWidgetItem * root = m_tree->invisibleRootItem();
 
@@ -310,7 +298,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         child = new QTreeWidgetItem(parent);
         child->setText(KColumnName, model);
 
-        if (manuf == selectManufacturer &&
+        if (selectManufacturer == KXMLFixtureGeneric &&
                 model == selectModel)
         {
             parent->setExpanded(true);
@@ -369,7 +357,7 @@ void AddFixture::findAddress()
        channels, leaving z channels gap in-between. */
     quint32 address = findAddress((m_channelsValue + m_gapValue) * m_amountValue,
                                   m_doc->fixtures(),
-                                  m_doc->inputOutputMap()->universes());
+                                  m_doc->inputOutputMap()->universesCount());
 
     /* Set the address only if the channel space was really found */
     if (address != QLCChannel::invalid())
@@ -380,7 +368,7 @@ void AddFixture::findAddress()
 }
 
 quint32 AddFixture::findAddress(quint32 numChannels,
-                                const QList <Fixture*> fixtures,
+                                QList<Fixture*> const& fixtures,
                                 quint32 maxUniverses)
 {
     /* Try to find contiguous space from one universe at a time */
@@ -395,7 +383,7 @@ quint32 AddFixture::findAddress(quint32 numChannels,
 }
 
 quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
-                                const QList <Fixture*> fixtures)
+                                QList<Fixture*> const& fixtures)
 {
     quint32 freeSpace = 0;
     quint32 maxChannels = 512;
@@ -434,7 +422,7 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
 
 void AddFixture::updateMaximumAmount()
 {
-    m_amountSpin->setRange(1, (512 - m_addressSpin->value()) /
+    m_amountSpin->setRange(1, (513 - m_addressSpin->value()) /
                            (m_channelsSpin->value() + m_gapSpin->value()));
 }
 
@@ -479,6 +467,19 @@ void AddFixture::slotModeActivated(const QString& modeName)
         new QListWidgetItem(
             QString("%1: %2").arg(i + 1).arg(channel->name()),
             m_channelList);
+    }
+
+    int absAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (m_universeValue << 9);
+    if (checkAddressAvailability(absAddress, m_channelsSpin->value()) == false)
+    {
+        // turn the new address to red
+        m_addrErrorLabel->show();
+        m_invalidAddressFlag = true;
+    }
+    else
+    {
+        m_addrErrorLabel->hide();
+        m_invalidAddressFlag = false;
     }
 }
 
@@ -604,9 +605,18 @@ void AddFixture::slotSelectionChanged()
     if (manuf == KXMLFixtureGeneric && model == KXMLFixtureGeneric)
     {
         /* Generic dimmer selected. User enters number of channels. */
-        m_fixtureDef = NULL;
-        m_mode = NULL;
-        fillModeCombo(KXMLFixtureGeneric);
+        if (m_fixtureID != Fixture::invalidId())
+        {
+            Fixture *fxi = m_doc->fixture(m_fixtureID);
+            if (fxi != NULL)
+            {
+                m_fixtureDef = fxi->fixtureDef();
+                m_mode = fxi->fixtureMode();
+            }
+        }
+        fillModeCombo();
+        m_modeCombo->setEnabled(false);
+        m_channelsSpin->setValue(1);
         m_channelsSpin->setEnabled(true);
         m_channelList->clear();
 

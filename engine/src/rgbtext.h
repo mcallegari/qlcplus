@@ -25,7 +25,7 @@
 
 #include "rgbalgorithm.h"
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -34,7 +34,7 @@
 class RGBText : public RGBAlgorithm
 {
 public:
-    RGBText(const Doc * doc);
+    RGBText(Doc * doc);
     RGBText(const RGBText& t);
     ~RGBText();
 
@@ -111,6 +111,9 @@ public:
 
     /** @reimp */
     RGBAlgorithm::Type type() const;
+
+    /** @reimp */
+    int acceptColors() const;
 
     /** @reimp */
     bool loadXML(const QDomElement& root);

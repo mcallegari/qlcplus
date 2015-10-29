@@ -21,14 +21,16 @@
 #define TRACK_H
 
 #include <QObject>
+#include <QHash>
 
+#include "showfunction.h"
 #include "chaser.h"
 #include "scene.h"
 
 class QDomDocument;
 class QDomElement;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -113,20 +115,27 @@ private:
     bool m_isMute;
 
     /*********************************************************************
-     * Sequences
+     * Functions
      *********************************************************************/
 public:
-    /** associate a function ID to this track */
-    bool addFunctionID(quint32 id);
+    /**
+     * Add a ShowFunction with the given ID to the track.
+     * If the function doesn't exist, it creates it.
+     * In any case it returns the ShowFunction pointer
+     */
+    ShowFunction *createShowFunction(quint32 id);
 
     /** remove a function ID association from this track */
-    bool removeFunctionID(quint32 id);
+    bool removeShowFunction(ShowFunction *function);
 
-    QList <quint32> functionsID();
+    /** add a ShowFunction element to this track */
+    bool addShowFunction(ShowFunction *func);
+
+    QList <ShowFunction *> showFunctions() const;
 
 private:
     /** List of Function IDs present in this track */
-    QList <quint32> m_functions;
+    QList <ShowFunction *> m_functions;
 
     /*********************************************************************
      * Load & Save
@@ -137,8 +146,6 @@ public:
     bool loadXML(const QDomElement& root);
 
 };
-
-/** @} */
 
 /** @} */
 

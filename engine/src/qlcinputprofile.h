@@ -21,14 +21,14 @@
 #define QLCINPUTPROFILE_H
 
 #include <QStringList>
+#include <QVariant>
 #include <QString>
 #include <QHash>
 #include <QMap>
 
 class QLCInputChannel;
 class QLCInputProfile;
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine Engine
  * @{
@@ -38,6 +38,7 @@ class QDomElement;
 #define KXMLQLCInputProfileManufacturer "Manufacturer"
 #define KXMLQLCInputProfileModel "Model"
 #define KXMLQLCInputProfileType "Type"
+#define KXMLQLCInputProfileMidiSendNoteOff "MIDISendNoteOff"
 
 class QLCInputProfile
 {
@@ -74,15 +75,48 @@ public:
         this as a unique ID since this varies between platforms. */
     QString path() const;
 
-    void setType(const QString& type);
+    enum Type
+    {
+        Midi,
+        Osc,
+        Hid,
+        Dmx,
+        Enttec,
+    };
 
-    QString type() const;
+    void setType(Type type);
+
+    Type type() const;
+
+    static QString typeToString(Type type);
+
+    static Type stringToType(const QString & str);
+
+    static QList<Type> types();
 
 protected:
     QString m_manufacturer;
     QString m_model;
     QString m_path;
-    QString m_type;
+    Type m_type;
+
+    /********************************************************************
+     * Plugin-specific global settings
+     ********************************************************************/
+public:
+    /** Instruct the MIDI plugin not to send Note Off on
+     *  a value equal to 0. Instead, send a Note On with 0 velocity */
+    void setMidiSendNoteOff(bool enable);
+
+    /** Retrieve the MIDI Note Off flag */
+    bool midiSendNoteOff() const;
+
+    QMap<QString, QVariant> globalSettings() const;
+
+protected:
+    bool m_midiSendNoteOff;
+
+    QMap<QString, QVariant> m_globalSettingsMap;
 
     /********************************************************************
      * Channels
@@ -146,7 +180,7 @@ private:
 protected:
     /** Channel objects present in this profile. This is a QMap and not a
         QList because not all channels might be present. */
-    QMap <quint32,QLCInputChannel*> m_channels;
+    QMap <quint32, QLCInputChannel*> m_channels;
 
     /********************************************************************
      * Load & Save
@@ -159,7 +193,7 @@ public:
     bool saveXML(const QString& fileName);
 
     /** Load an input profile from the given document */
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

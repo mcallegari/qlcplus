@@ -33,7 +33,7 @@ public:
     Win32MidiInputDevice(const QVariant& uid, const QString& name, UINT id, QObject* parent = 0);
     ~Win32MidiInputDevice();
 
-    void open();
+    bool open();
     void close();
     bool isOpen() const;
 

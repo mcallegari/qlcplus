@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>daniel</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC 101</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
+  <Capability Min="50" Max="64">Strobe 1 (Fast -&gt; Slow)</Capability>
+  <Capability Min="65" Max="69">Shutter open</Capability>
+  <Capability Min="70" Max="84">Strobe 2: opening pulse (Fast -&gt; Slow)</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
+  <Capability Min="90" Max="104">Strobe 3: closing pulse (Fast -&gt; Slow)</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
+  <Capability Min="110" Max="124">Strobe 4: random strobe (Fast -&gt; Slow)</Capability>
+  <Capability Min="125" Max="129">Shutter open</Capability>
+  <Capability Min="130" Max="144">Strobe 5: random opening pulse (Fast -&gt; Slow)</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
+  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast -&gt; Slow)</Capability>
+  <Capability Min="165" Max="169">Shutter open</Capability>
+  <Capability Min="170" Max="184">Strobe 7: burst pulse (Fast -&gt; Slow)</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
+  <Capability Min="190" Max="204">Strobe 8: random burst pulse (Fast -&gt; Slow)</Capability>
+  <Capability Min="205" Max="209">Shutter open</Capability>
+  <Capability Min="210" Max="224">Strobe 9: sine wave (Fast -&gt; Slow)</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="244">Strobe 10: burst (Fast -&gt; Slow)</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Fixture Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="15" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">PTSP = NORM</Capability>
+  <Capability Min="45" Max="49">PTSP = FAST</Capability>
+  <Capability Min="50" Max="54">PTSP = SLOW</Capability>
+  <Capability Min="55" Max="59">No function</Capability>
+  <Capability Min="60" Max="64">Fan mode FULL</Capability>
+  <Capability Min="65" Max="69">No function</Capability>
+  <Capability Min="70" Max="74">Fan mode Regulated</Capability>
+  <Capability Min="75" Max="89">No function</Capability>
+  <Capability Min="90" Max="94">RGB control mode (calibrated RGB)</Capability>
+  <Capability Min="95" Max="99">No function</Capability>
+  <Capability Min="100" Max="104">RAW control mode (uncalibrated RGB)</Capability>
+  <Capability Min="105" Max="109">No function</Capability>
+  <Capability Min="110" Max="114">Fast dimming, speed of changes unrestricted</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
+  <Capability Min="120" Max="124">Smooth dimming, speed of changes restricted slightly</Capability>
+  <Capability Min="125" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Illuminate display</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Open, RGB Colour Mixing Enabled if the fixture is set to RAW or RGB modes</Capability>
+  <Capability Min="10" Max="14" Color="#ffb4a5">Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Color="#ff92a3">Pink</Capability>
+  <Capability Min="20" Max="24" Color="#ff3787">Special rose pink</Capability>
+  <Capability Min="25" Max="29" Color="#ff64c8">Follies pink</Capability>
+  <Capability Min="30" Max="34" Color="#cd6ed7">Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Color="#be8cf0">Surprise pink</Capability>
+  <Capability Min="40" Max="44" Color="#5000aa">Congo blue</Capability>
+  <Capability Min="45" Max="49" Color="#0202b4">Tokyo blue</Capability>
+  <Capability Min="50" Max="54" Color="#005fbe">Deep blue</Capability>
+  <Capability Min="55" Max="59" Color="#3c8cd2">Just blue</Capability>
+  <Capability Min="60" Max="64" Color="#00a0dc">Medium blue</Capability>
+  <Capability Min="65" Max="69" Color="#91bef5">Double CT blue</Capability>
+  <Capability Min="70" Max="74" Color="#7dd2f5">Slate blue</Capability>
+  <Capability Min="75" Max="79" Color="#c3e1fa">Full CT blue</Capability>
+  <Capability Min="80" Max="84" Color="#d7f0ff">Half CT blue</Capability>
+  <Capability Min="85" Max="89" Color="#b4faf5">Steel blue</Capability>
+  <Capability Min="90" Max="94" Color="#61e8e3">Lighter blue</Capability>
+  <Capability Min="95" Max="99" Color="#00e1eb">Light blue</Capability>
+  <Capability Min="100" Max="104" Color="#00c8b9">Medium blue green</Capability>
+  <Capability Min="105" Max="109" Color="#00dc78">Dark green</Capability>
+  <Capability Min="110" Max="114" Color="#4bc300">Primary green</Capability>
+  <Capability Min="115" Max="119" Color="#5adc5a">Moss green</Capability>
+  <Capability Min="120" Max="124" Color="#78fa6e">Fern green</Capability>
+  <Capability Min="125" Max="129" Color="#aaff00">JAS green</Capability>
+  <Capability Min="130" Max="134" Color="#dcff64">Lime green</Capability>
+  <Capability Min="135" Max="139" Color="#f5ff00">Spring yellow</Capability>
+  <Capability Min="140" Max="144" Color="#ffdc00">Deep amber</Capability>
+  <Capability Min="145" Max="149" Color="#ffbe00">Chrome orange</Capability>
+  <Capability Min="150" Max="154" Color="#ffa000">Orange</Capability>
+  <Capability Min="155" Max="159" Color="#ff8c32">Gold amber</Capability>
+  <Capability Min="160" Max="164" Color="#ff7600">Millennium gold</Capability>
+  <Capability Min="165" Max="169" Color="#ff5f00">Deep golden amber</Capability>
+  <Capability Min="170" Max="174" Color="#ff3200">Flame red</Capability>
+  <Capability Min="175" Max="179">Open</Capability>
+  <Capability Min="180" Max="201">Rotation clockwise (Fast -&gt; Slow)</Capability>
+  <Capability Min="202" Max="207">Rotation stop</Capability>
+  <Capability Min="208" Max="229">Rotation counter-clockwise (Slow -&gt; Fast)</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Min="235" Max="239">Random color fast</Capability>
+  <Capability Min="240" Max="244">Random color medium</Capability>
+  <Capability Min="245" Max="249">Random color slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="Colour Temp Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="20" Max="255">CTC 10000K -&gt; 2500K</Capability>
+ </Channel>
+ <Mode Name="RAW, RGB">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
+   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan Fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt Fine</Channel>
+  <Channel Number="6">Fixture Control</Channel>
+  <Channel Number="7">Color Wheel Effect</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">Colour Temp Control</Channel>
+ </Mode>
+ <Mode Name="Basic">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
+   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="123" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan Fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt Fine</Channel>
+  <Channel Number="6">Fixture Control</Channel>
+  <Channel Number="7">Color Wheel Effect</Channel>
+ </Mode>
+</FixtureDefinition>

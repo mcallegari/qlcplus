@@ -56,16 +56,23 @@ int UDMX::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void UDMX::openOutput(quint32 output)
+bool UDMX::openOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_devices.size()))
-        m_devices.at(output)->open();
+    {
+        addToMap(universe, output, Output);
+        return m_devices.at(output)->open();
+    }
+    return false;
 }
 
-void UDMX::closeOutput(quint32 output)
+void UDMX::closeOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_devices.size()))
+    {
+        removeFromMap(output, universe, Output);
         m_devices.at(output)->close();
+    }
 }
 
 QStringList UDMX::outputs()

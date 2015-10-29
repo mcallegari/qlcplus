@@ -25,35 +25,27 @@
     </message>
 </context>
 <context>
-    <name>HIDEventDevice</name>
+    <name>HIDDMXDevice</name>
     <message>
-        <location filename="hideventdevice.cpp" line="339"/>
-        <source>N/A</source>
-        <translation>N/D</translation>
-    </message>
-</context>
-<context>
-    <name>HIDFX5Device</name>
-    <message>
-        <location filename="hidfx5device.cpp" line="61"/>
-        <source>FX5 USB DMX Interface Error</source>
-        <translation>Errore dell&apos;interfaccia FX5 USB DMX</translation>
+        <location filename="hiddmxdevice.cpp" line="62"/>
+        <source>HID DMX Interface Error</source>
+        <translation>Errore dell&apos;interfaccia HID DMX</translation>
     </message>
     <message>
-        <location filename="hidfx5device.cpp" line="62"/>
-        <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
-        <translation>Impossibile aprire l&apos;interfaccia FX5. Accertati di avere le regole udev installate.</translation>
+        <location filename="hiddmxdevice.cpp" line="63"/>
+        <source>Unable to open %1. Make sure the udev rule is installed.</source>
+        <translation>Impossibile aprire l&apos;interfaccia %1. Verifica di avere la regola udev installata.</translation>
     </message>
 </context>
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="303"/>
+        <location filename="hidjsdevice.cpp" line="88"/>
         <source>Axes: %1</source>
         <translation>Assi: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="305"/>
+        <location filename="hidjsdevice.cpp" line="90"/>
         <source>Buttons: %1</source>
         <translation>Pulsanti: %1</translation>
     </message>
@@ -61,9 +53,9 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="150"/>
-        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished">Questa plugin fornisce supporto per i Joystick basati su sistema HID e per l&apos;adattatore FX5 USB DMX.</translation>
+        <location filename="hidplugin.cpp" line="125"/>
+        <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
+        <translation>Questa plugin fornisce supporto per joystick e gamepad basati su sistema HID e per alcuni adattatori USB DMX.</translation>
     </message>
 </context>
 </TS>

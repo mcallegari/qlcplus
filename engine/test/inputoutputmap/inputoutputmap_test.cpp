@@ -34,7 +34,7 @@
 
 #define TESTPLUGINDIR "../iopluginstub"
 #define ENGINEDIR "../../src"
-#define PROFILEDIR "../../../inputprofiles"
+#include "../common/resource_paths.h"
 
 static QDir testPluginDir()
 {
@@ -60,7 +60,7 @@ void InputOutputMap_Test::cleanupTestCase()
 void InputOutputMap_Test::initial()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     QVERIFY(im.m_universeArray.count() == 4);
     QVERIFY(im.universeNames().count() == 4);
     QVERIFY(im.m_profiles.size() == 0);
@@ -170,7 +170,7 @@ void InputOutputMap_Test::universeNames()
 {
     InputOutputMap iom(m_doc, 4);
 
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QVERIFY(iom.universeNames().at(0).contains("Universe"));
     QVERIFY(iom.universeNames().at(1).contains("Universe"));
     QVERIFY(iom.universeNames().at(2).contains("Universe"));
@@ -181,14 +181,14 @@ void InputOutputMap_Test::universeNames()
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), 3);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
     QCOMPARE(iom.universeNames().at(3), QString("Universe 4"));
 
     iom.setOutputPatch(3, stub->name(), 2);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
@@ -198,20 +198,20 @@ void InputOutputMap_Test::universeNames()
 void InputOutputMap_Test::addUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     im.addUniverse();
-    QVERIFY(im.universes() == 5);
+    QVERIFY(im.universesCount() == 5);
 }
 
 void InputOutputMap_Test::removeUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     im.removeUniverse(1);
-    QVERIFY(im.universes() == 3);
+    QVERIFY(im.universesCount() == 3);
     QVERIFY(im.removeUniverse(7) == false);
     im.removeAllUniverses();
-    QVERIFY(im.universes() == 0);
+    QVERIFY(im.universesCount() == 0);
 }
 
 void InputOutputMap_Test::profiles()
@@ -307,7 +307,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 3) == 2);
 
     // Universe out of bounds
-    QVERIFY(im.setInputPatch(im.universes(), stub->name(), 0) == false);
+    QVERIFY(im.setInputPatch(im.universesCount(), stub->name(), 0) == false);
 }
 
 
@@ -319,7 +319,7 @@ void InputOutputMap_Test::setOutputPatch()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == true);
+    QVERIFY(iom.setOutputPatch(0, "Foobar", 0) == false);
     QVERIFY(iom.outputPatch(0) == NULL);
     QVERIFY(iom.outputPatch(1) == NULL);
     QVERIFY(iom.outputPatch(2) == NULL);
@@ -368,6 +368,8 @@ void InputOutputMap_Test::slotValueChanged()
 
     QSignalSpy spy(&im, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
     stub->emitValueChanged(UINT_MAX, 0, 15, UCHAR_MAX);
+    QVERIFY(spy.size() == 0);
+    im.flushInputs();
     QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -376,6 +378,8 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 3, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
@@ -383,11 +387,15 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 1, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
 
     stub->emitValueChanged(UINT_MAX, 0, 5, 127);
+    QVERIFY(spy.size() == 1);
+    im.flushInputs();
     QVERIFY(spy.size() == 2);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -395,6 +403,34 @@ void InputOutputMap_Test::slotValueChanged()
     QVERIFY(spy.at(1).at(0) == 0);
     QVERIFY(spy.at(1).at(1) == 5);
     QVERIFY(spy.at(1).at(2) == 127);
+
+    stub->emitValueChanged(UINT_MAX, 0, 2, 0);
+    QVERIFY(spy.size() == 2);
+    stub->emitValueChanged(UINT_MAX, 0, 2, UCHAR_MAX);
+    QVERIFY(spy.size() == 3);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    im.flushInputs();
+    QVERIFY(spy.size() == 4);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    QVERIFY(spy.at(3).at(0) == 0);
+    QVERIFY(spy.at(3).at(1) == 2);
+    QVERIFY(spy.at(3).at(2) == UCHAR_MAX);
 }
 
 void InputOutputMap_Test::slotConfigurationChanged()
@@ -405,10 +441,10 @@ void InputOutputMap_Test::slotConfigurationChanged()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString)));
+    QSignalSpy spy(&im, SIGNAL(pluginConfigurationChanged(QString, bool)));
     stub->configure();
     QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy.at(0).size(), 1);
+    QCOMPARE(spy.at(0).size(), 2);
     QCOMPARE(spy.at(0).at(0).toString(), QString(stub->name()));
 }
 
@@ -431,7 +467,7 @@ void InputOutputMap_Test::loadInputProfiles()
     QVERIFY(im.profileNames().isEmpty() == true);
 
     // Should be able to load profiles
-    dir.setPath(PROFILEDIR);
+    dir.setPath(INTERNAL_PROFILEDIR);
     im.loadProfiles(dir);
     QStringList names(im.profileNames());
     QVERIFY(names.size() > 0);
@@ -448,22 +484,28 @@ void InputOutputMap_Test::inputSourceNames()
     IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QDir dir(PROFILEDIR);
+    QDir dir(INTERNAL_PROFILEDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
     im.loadProfiles(dir);
 
+    // Allow unpatched universe
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
+    QCOMPARE(uni, QString("%1 -UNPATCHED-").arg(1));
+    QCOMPARE(ch, QString("%1: ?").arg(1));
+
+    // Don't allow unexisting universe
+    QVERIFY(im.inputSourceNames(new QLCInputSource(100, 0), uni, ch) == false);
 
     QVERIFY(im.setInputPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: Bank select MSB").arg(1));
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 50000), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 50000), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: ?").arg(50001));
 
@@ -471,13 +513,13 @@ void InputOutputMap_Test::inputSourceNames()
 
     uni.clear();
     ch.clear();
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: %2").arg(1).arg(stub->name()));
     QCOMPARE(ch, tr("%1: ?").arg(1));
 
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
-    QVERIFY(im.inputSourceNames(QLCInputSource(), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, QLCInputSource::invalidChannel), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(InputOutputMap::invalidUniverse(), 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(), uni, ch) == false);
 }
 
 void InputOutputMap_Test::profileDirectories()
@@ -488,10 +530,13 @@ void InputOutputMap_Test::profileDirectories()
     QVERIFY(dir.absolutePath().contains(INPUTPROFILEDIR));
 
     dir = InputOutputMap::userProfileDirectory();
+#ifndef SKIP_TEST
     QVERIFY(dir.exists() == true);
+#endif
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
     QVERIFY(dir.absolutePath().contains(USERINPUTPROFILEDIR));
+
 }
 
 void InputOutputMap_Test::claimReleaseDumpReset()

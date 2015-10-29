@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Select Function(s)</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Select Function(s)</H1>
+<P>
+Whenever a <A HREF="file:concept.html#Functions">Function</A> needs to be selected,
+for example when you're adding steps to a <A HREF="file:concept.html#Chaser">Chaser</A>,
+using the <A HREF="file:chasereditor.html">Chaser Editor</A>, the <B>Select Function</B>
+dialog is used.
+</P>
+
+<P>
+Sometimes the destination that you are selecting the function for might allow the selection of
+multiple functions, for example, when adding steps to a Chaser or functions to a Collection.
+In these cases, the order in which the functions are selected will also be the
+order in which they are added to their destination. On the other hand, when attaching a
+function to a button in the <A HREF="file:virtualconsole.html">Virtual Console</A>,
+you may select only one function at a time.
+</P>
+
+<P>
+Refer to your operating system manual for documentation on how to select multiple
+items in a list.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Functions to display</B>
+  </TD>
+  <TD>
+    There are two radio buttons on the top of the window: <b>All functions</b> and <b>Running functions</b>.<br>
+    By clicking on them, the list below will be filled only with the desired functions.<br>
+    For example, when performing a <a href="liveedit.html">Live edit</a>, you might want to display only the running functions.<br>
+    Obviously, in design mode, selecting "Running functions" will show an empty list.
+ </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Function list</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Name: The names of available functions</LI>
+    <LI>Type: The type of each of the available functions</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Filter</B>
+  </TD>
+  <TD>
+   You can filter the function list so that only those function <B>types</B> that
+   have been checked are shown. Filtering is especially useful if you have lots
+   of functions to select from.
+   <UL>
+    <LI>Scenes: Display <IMG SRC="qrc:/scene.png"> <A HREF="file:concept.html#Scene">Scene</A> functions in the selection list</LI>
+    <LI>Chasers: Display <IMG SRC="qrc:/chaser.png"> <A HREF="file:concept.html#Chaser">Chaser</A> functions in the selection list</LI>
+    <LI>EFX's: Display <IMG SRC="qrc:/efx.png"> <A HREF="file:concept.html#EFX">EFX</A> functions in the selection list</LI>
+    <LI>Collections: Display <IMG SRC="qrc:/collection.png"> <A HREF="file:concept.html#Collection">Collection</A> functions in the selection list</LI>
+    <LI>RGB Matrices: Display <IMG SRC="qrc:/rgbmatrix.png"> <A HREF="file:concept.html#RGBMatrix">RGB matrix</A> functions in the selection list</LI>
+    <LI>Show: Display <IMG SRC="qrc:/show.png"> <A HREF="file:concept.html#Show">Show</A> functions in the selection list</LI>
+    <LI>Audio: Display <IMG SRC="qrc:/audio.png"> <A HREF="file:concept.html#Audio">Audio</A> functions in the selection list</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

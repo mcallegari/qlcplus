@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QComboBox>
 #include <QDesktopWidget>
 #include <QStyleFactory>
 #include <QApplication>
@@ -89,7 +90,11 @@ QStyle* AppUtil::saneStyle()
     if (s_saneStyle == NULL)
     {
         QSettings settings;
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
         QVariant var = settings.value(SETTINGS_SLIDERSTYLE, QString("Cleanlooks"));
+#else
+        QVariant var = settings.value(SETTINGS_SLIDERSTYLE, QString("Fusion"));
+#endif
         QStringList keys(QStyleFactory::keys());
         if (keys.contains(var.toString()) == true)
             s_saneStyle = QStyleFactory::create(var.toString());
@@ -98,4 +103,58 @@ QStyle* AppUtil::saneStyle()
     }
 
     return s_saneStyle;
+}
+
+/*****************************************************************************
+ * Digits
+ *****************************************************************************/
+
+unsigned int AppUtil::digits(unsigned int n)
+{
+    unsigned int res = 1;
+    while (n /= 10)
+        ++res;
+    return res;
+}
+
+/*****************************************************************************
+ * ComboBoxDelegate
+ *****************************************************************************/
+
+ComboBoxDelegate::ComboBoxDelegate(const QStringList &strings, QWidget *parent)
+    : QStyledItemDelegate(parent)
+    , m_strings(strings)
+{
+}
+
+QWidget *ComboBoxDelegate::createEditor(QWidget *parent,
+        const QStyleOptionViewItem &/*option*/,
+        const QModelIndex &/*index*/) const
+{
+    QComboBox *comboBox = new QComboBox(parent);
+    comboBox->addItems(m_strings);
+    return comboBox;
+}
+
+void ComboBoxDelegate::setEditorData(QWidget *editor,
+        const QModelIndex &index) const
+{
+    int value = index.model()->data(index, Qt::UserRole).toInt();
+    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    comboBox->setCurrentIndex(value);
+}
+
+void ComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
+        const QModelIndex &index) const
+{
+    QComboBox *comboBox = static_cast<QComboBox*>(editor);
+    int value = comboBox->currentIndex();
+    model->setData(index, value, Qt::UserRole);
+    model->setData(index, comboBox->currentText(), Qt::DisplayRole);
+}
+
+void ComboBoxDelegate::updateEditorGeometry(QWidget *editor,
+        const QStyleOptionViewItem &option, const QModelIndex &/*index*/) const
+{
+    editor->setGeometry(option.rect);
 }

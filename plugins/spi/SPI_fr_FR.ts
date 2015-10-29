@@ -37,9 +37,9 @@
 <context>
     <name>SPIPlugin</name>
     <message>
-        <location filename="spiplugin.cpp" line="126"/>
+        <location filename="spiplugin.cpp" line="132"/>
         <source>This plugin provides DMX output for SPI devices.</source>
-        <translation>Ce plugin permet le support de la sortie des périphériques SPI.</translation>
+        <translation>Ce plugin offre le support de la sortie des périphériques SPI.</translation>
     </message>
 </context>
 </TS>

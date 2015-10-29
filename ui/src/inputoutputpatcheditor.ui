@@ -71,7 +71,7 @@
            <string>Input</string>
           </property>
           <property name="textAlignment">
-           <set>AlignLeft|AlignVCenter</set>
+           <set>AlignLeading|AlignVCenter</set>
           </property>
          </column>
          <column>
@@ -79,7 +79,7 @@
            <string>Output</string>
           </property>
           <property name="textAlignment">
-           <set>AlignLeft|AlignVCenter</set>
+           <set>AlignLeading|AlignVCenter</set>
           </property>
          </column>
          <column>
@@ -123,24 +123,6 @@
        <string>Profile</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" rowspan="4">
-        <widget class="QTreeWidget" name="m_profileTree">
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <property name="itemsExpandable">
-          <bool>false</bool>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Profile</string>
-          </property>
-         </column>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QToolButton" name="m_addProfileButton">
          <property name="toolTip">
@@ -214,6 +196,29 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="0" rowspan="4">
+        <widget class="QTreeWidget" name="m_profileTree">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Profile</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Type</string>
+          </property>
+         </column>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="Audio">
@@ -241,6 +246,130 @@
            <string>Output</string>
           </property>
          </column>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Configuration</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Sample Rate (Hz)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Channels</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Level Monitor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QProgressBar" name="m_levelProgress">
+            <property name="maximum">
+             <number>32767</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+            <property name="format">
+             <string notr="true">%p%</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QToolButton" name="m_audioPreviewButton">
+            <property name="text">
+             <string notr="true"/>
+            </property>
+            <property name="icon">
+             <iconset resource="qlcui.qrc">
+              <normaloff>:/player_play.png</normaloff>:/player_play.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QComboBox" name="m_chansCombo">
+            <item>
+             <property name="text">
+              <string notr="true">Mono</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">Stereo</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QComboBox" name="m_srateCombo">
+            <property name="currentIndex">
+             <number>5</number>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">8000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">11025</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">16000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">22050</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">32000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">44100</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">48000</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">96000</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

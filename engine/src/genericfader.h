@@ -23,8 +23,9 @@
 #include <QList>
 #include <QHash>
 
+#include "universe.h"
+
 class FadeChannel;
-class Universe;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -87,9 +88,17 @@ public:
      */
     qreal intensity() const;
 
+    /**
+     * Set the blend mode to be applied in the write method
+     *
+     * @param mode the blend mode as listed in Universe::BlendMode
+     */
+    void setBlendMode(Universe::BlendMode mode);
+
 private:
     QHash <FadeChannel,FadeChannel> m_channels;
     qreal m_intensity;
+    Universe::BlendMode m_blendMode;
     Doc* m_doc;
 };
 

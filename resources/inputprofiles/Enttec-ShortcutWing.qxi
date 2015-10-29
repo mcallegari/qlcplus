@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.6</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Enttec</Manufacturer>
+ <Model>Shortcut Wing</Model>
+ <Type>Enttec</Type>
+ <Channel Number="0">
+  <Name>Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="1">
+  <Name>Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Button 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Button 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Button 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Button 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Button 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11">
+  <Name>Button 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Button 13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Button 14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Button 15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Button 16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Button 17</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Button 18</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Button 19</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Button 20</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Button 21</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Button 22</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Button 23</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Button 24</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Button 25</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Button 26</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Button 27</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Button 28</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Button 29</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Button 30</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Button 31</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Button 32</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Button 33</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Button 34</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Button 35</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Button 36</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Button 37</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Button 38</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Button 39</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Button 40</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Button 41</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Button 42</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Button 43</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Button 44</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Button 45</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Button 46</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Button 47</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Button 48</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Button 49</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Button 50</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Button 51</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Button 52</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Button 53</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Button 54</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Button 55</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Button 56</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Button 57</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>Button 58</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>Button 59</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Button 60</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
+

@@ -536,7 +536,6 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
-    bool setColor = false;
 
     if (parent == NULL)
         return NULL;
@@ -566,7 +565,6 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             button->move(QPoint(xpos, ypos));
             if (func != NULL)
                 button->setFunction(func->id());
-            setColor = true;
 
             widget = button;
         }
@@ -608,12 +606,38 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
     if (widget != NULL && func != NULL)
     {
-        if (func->type() == Function::Scene && setColor == true)
+        if (func->type() == Function::Scene && type == VCWidget::ButtonWidget)
         {
             Scene *scene = qobject_cast<Scene*> (func);
-            QColor col = scene->colorValue();
-            if (col.isValid())
-                widget->setBackgroundColor(col);
+
+            if (pType == PaletteGenerator::PrimaryColors ||
+                pType == PaletteGenerator::SixteenColors ||
+                pType == PaletteGenerator::ColourMacro)
+            {
+                QColor col = scene->colorValue();
+                if (col.isValid())
+                    widget->setBackgroundColor(col);
+            }
+            else if (pType == PaletteGenerator::Gobos)
+            {
+                foreach(SceneValue scv, scene->values())
+                {
+                    Fixture *fixture = m_doc->fixture(scv.fxi);
+                    if (fixture == NULL)
+                        continue;
+
+                    const QLCChannel* channel(fixture->channel(scv.channel));
+                    if (channel->group() == QLCChannel::Gobo)
+                    {
+                        QLCCapability *cap = channel->searchCapability(scv.value);
+                        if (cap->resourceName().isEmpty() == false)
+                        {
+                            widget->setBackgroundImage(cap->resourceName());
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
-#include <QtXml>
+#include <QDebug>
 #include <QMap>
 
 #include "qlcinputchannel.h"
@@ -26,12 +28,20 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
+#define KXMLQLCInputProfileTypeMidi "MIDI"
+#define KXMLQLCInputProfileTypeOsc "OSC"
+#define KXMLQLCInputProfileTypeHid "HID"
+#define KXMLQLCInputProfileTypeDmx "DMX"
+#define KXMLQLCInputProfileTypeEnttec "Enttec"
+
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
 QLCInputProfile::QLCInputProfile()
 {
+    m_midiSendNoteOff = true;
 }
 
 QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)
@@ -53,6 +63,8 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         m_model = profile.m_model;
         m_path = profile.m_path;
         m_type = profile.m_type;
+        m_midiSendNoteOff = profile.m_midiSendNoteOff;
+        m_globalSettingsMap = profile.m_globalSettingsMap;
 
         /* Destroy all existing channels */
         destroyChannels();
@@ -103,14 +115,79 @@ QString QLCInputProfile::path() const
     return m_path;
 }
 
-void QLCInputProfile::setType(const QString& type)
+void QLCInputProfile::setType(QLCInputProfile::Type type)
 {
     m_type = type;
 }
 
-QString QLCInputProfile::type() const
+QLCInputProfile::Type QLCInputProfile::type() const
 {
     return m_type;
+}
+
+QString QLCInputProfile::typeToString(Type type)
+{
+    switch (type)
+    {
+    case Midi:
+        return KXMLQLCInputProfileTypeMidi;
+    case Osc:
+        return KXMLQLCInputProfileTypeOsc;
+    case Hid:
+        return KXMLQLCInputProfileTypeHid;
+    case Dmx:
+        return KXMLQLCInputProfileTypeDmx;
+    case Enttec:
+        return KXMLQLCInputProfileTypeEnttec;
+    default:
+        return QString();
+    }
+}
+
+QLCInputProfile::Type QLCInputProfile::stringToType(const QString& str)
+{
+    if (str == KXMLQLCInputProfileTypeMidi)
+        return Midi;
+    else if (str == KXMLQLCInputProfileTypeOsc)
+        return Osc;
+    else if (str == KXMLQLCInputProfileTypeHid)
+        return Hid;
+    else if (str == KXMLQLCInputProfileTypeDmx)
+        return Dmx;
+    else // if (str == KXMLQLCInputProfileTypeEnttec)
+        return Enttec;
+}
+
+QList<QLCInputProfile::Type> QLCInputProfile::types()
+{
+    QList<Type> result;
+    result 
+        << Midi 
+        << Osc
+        << Hid
+        << Dmx
+        << Enttec;
+    return result;
+}
+
+/********************************************************************
+ * Plugin-specific global settings
+ ********************************************************************/
+
+void QLCInputProfile::setMidiSendNoteOff(bool enable)
+{
+    m_midiSendNoteOff = enable;
+    m_globalSettingsMap["MIDISendNoteOff"] = QVariant(enable);
+}
+
+bool QLCInputProfile::midiSendNoteOff() const
+{
+    return m_midiSendNoteOff;
+}
+
+QMap<QString, QVariant> QLCInputProfile::globalSettings() const
+{
+    return m_globalSettingsMap;
 }
 
 /****************************************************************************
@@ -210,16 +287,21 @@ void QLCInputProfile::destroyChannels()
 
 QLCInputProfile* QLCInputProfile::loader(const QString& path)
 {
-    QDomDocument doc(QLCFile::readXML(path));
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(path);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to load input profile from" << path;
         return NULL;
     }
 
     QLCInputProfile* profile = new QLCInputProfile();
-    if (profile->loadXML(doc) == false)
+    if (profile->loadXML(*doc) == false)
     {
+        qWarning() << path << QString("%1\nLine %2, column %3")
+                    .arg(doc->errorString())
+                    .arg(doc->lineNumber())
+                    .arg(doc->columnNumber());
+
         delete profile;
         profile = NULL;
     }
@@ -228,49 +310,59 @@ QLCInputProfile* QLCInputProfile::loader(const QString& path)
         profile->m_path = path;
     }
 
+    QLCFile::releaseXMLReader(doc);
+
     return profile;
 }
 
-bool QLCInputProfile::loadXML(const QDomDocument& doc)
+bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
 {
-    QDomElement root = doc.documentElement();
-    if (root.tagName() == KXMLQLCInputProfile)
+    if (doc.readNextStartElement() == false)
+        return false;
+
+    if (doc.name() == KXMLQLCInputProfile)
     {
-        QDomNode node = root.firstChild();
-        while (node.isNull() == false)
+        while (doc.readNextStartElement())
         {
-            QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCCreator)
+            if (doc.name() == KXMLQLCCreator)
             {
-                /* Ignore */
+                /* Ignore this block */
+                doc.skipCurrentElement();
             }
-            if (tag.tagName() == KXMLQLCInputProfileManufacturer)
+            else if (doc.name() == KXMLQLCInputProfileManufacturer)
             {
-                setManufacturer(tag.text());
+                setManufacturer(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCInputProfileModel)
+            else if (doc.name() == KXMLQLCInputProfileModel)
             {
-                setModel(tag.text());
+                setModel(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCInputProfileType)
+            else if (doc.name() == KXMLQLCInputProfileType)
             {
-                setType(tag.text());
+                setType(stringToType(doc.readElementText()));
             }
-            else if (tag.tagName() == KXMLQLCInputChannel)
+            else if (doc.name() == KXMLQLCInputProfileMidiSendNoteOff)
             {
-                QString str = tag.attribute(KXMLQLCInputChannelNumber);
+                if (doc.readElementText() == KXMLQLCFalse)
+                    setMidiSendNoteOff(false);
+                else
+                    setMidiSendNoteOff(true);
+            }
+            else if (doc.name() == KXMLQLCInputChannel)
+            {
+                QString str = doc.attributes().value(KXMLQLCInputChannelNumber).toString();
                 if (str.isEmpty() == false)
                 {
                     quint32 ch = str.toInt();
                     QLCInputChannel* ich = new QLCInputChannel();
-                    if (ich->loadXML(tag) == true)
+                    if (ich->loadXML(doc) == true)
                         insertChannel(ch, ich);
                     else
                         delete ich;
                 }
+                else
+                    doc.skipCurrentElement();
             }
-
-            node = node.nextSibling();
         }
 
         return true;
@@ -291,44 +383,29 @@ bool QLCInputProfile::saveXML(const QString& fileName)
         return false;
     }
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCInputProfile));
-    Q_ASSERT(doc.isNull() == false);
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    QLCFile::writeXMLHeader(&doc, KXMLQLCInputProfile);
 
-    /* Create a text stream for the file */
-    QTextStream stream(&file);
+    doc.writeTextElement(KXMLQLCInputProfileManufacturer, m_manufacturer);
+    doc.writeTextElement(KXMLQLCInputProfileModel, m_model);
+    doc.writeTextElement(KXMLQLCInputProfileType, typeToString(m_type));
 
-    /* THE MASTER XML ROOT NODE */
-    QDomElement root = doc.documentElement();
-
-    /* Manufacturer */
-    QDomElement tag = doc.createElement(KXMLQLCInputProfileManufacturer);
-    root.appendChild(tag);
-    QDomText text = doc.createTextNode(m_manufacturer);
-    tag.appendChild(text);
-
-    /* Model */
-    tag = doc.createElement(KXMLQLCInputProfileModel);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_model);
-    tag.appendChild(text);
-
-    /* Type */
-    tag = doc.createElement(KXMLQLCInputProfileType);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_type);
-    tag.appendChild(text);
+    if (midiSendNoteOff() == false)
+        doc.writeTextElement(KXMLQLCInputProfileMidiSendNoteOff, QString(KXMLQLCFalse));
 
     /* Write channels to the document */
     QMapIterator <quint32, QLCInputChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         it.next();
-        it.value()->saveXML(&doc, &root, it.key());
+        it.value()->saveXML(&doc, it.key());
     }
 
-    /* Write the document into the stream */
     m_path = fileName;
-    stream << doc.toString();
+    /* End the document and close all the open elements */
+    doc.writeEndDocument();
     file.close();
 
     return true;

@@ -120,27 +120,50 @@ void SimpleDeskEngine::resetUniverse(int universe)
 {
     qDebug() << Q_FUNC_INFO;
 
-    QMutexLocker locker(&m_mutex);
-    QHashIterator <uint,uchar> it(m_values);
     QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
-    Universe *resUni = NULL;
-    if (universe < universes.count())
-        resUni = universes.at(universe);
-
-    while (it.hasNext() == true)
     {
-        it.next();
-        int uni = it.key() >> 9;
-        if (uni == universe)
+        QMutexLocker locker(&m_mutex);
+        QHashIterator <uint,uchar> it(m_values);
+        Universe *resUni = NULL;
+        if (universe < universes.count())
+            resUni = universes.at(universe);
+
+        while (it.hasNext() == true)
         {
-            if (resUni != NULL)
+            it.next();
+            int uni = it.key() >> 9;
+            if (uni == universe)
             {
-                quint32 chan = it.key() & 0x01FF;
-                resUni->reset(chan, 1);
+                if (resUni != NULL)
+                {
+                    quint32 chan = it.key() & 0x01FF;
+                    resUni->reset(chan, 1);
+                }
+                m_values.remove(it.key());
             }
-            m_values.remove(it.key());
         }
     }
+    doc()->inputOutputMap()->releaseUniverses(true);
+}
+
+void SimpleDeskEngine::resetChannel(uint channel)
+{
+    QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
+
+    {
+        QMutexLocker locker(&m_mutex);
+        if (m_values.contains(channel))
+        {
+            m_values.remove(channel);
+
+            int uni = channel >> 9;
+            if (uni < universes.count())
+            {
+                universes[uni]->reset(channel & 0x01FF, 1);
+            }
+        }
+    }
+
     doc()->inputOutputMap()->releaseUniverses(true);
 }
 
@@ -150,6 +173,8 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
 CueStack* SimpleDeskEngine::cueStack(uint stack)
 {
+    QMutexLocker locker(&m_mutex);
+
     if (m_cueStacks.contains(stack) == false)
     {
         m_cueStacks[stack] = createCueStack();
@@ -253,6 +278,8 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
     QDomElement root = doc->createElement(KXMLQLCSimpleDeskEngine);
     wksp_root->appendChild(root);
+
+    QMutexLocker locker(&m_mutex);
 
     QHashIterator <uint,CueStack*> it(m_cueStacks);
     while (it.hasNext() == true)

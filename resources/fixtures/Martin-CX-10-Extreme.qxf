@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>CX-10 Extreme</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Shutter, Strobe, Reset, Lamp On/Off">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Closed</Capability>
+  <Capability Min="20" Max="49">Open</Capability>
+  <Capability Min="50" Max="72">Strobe fast to slow</Capability>
+  <Capability Min="73" Max="79">Open</Capability>
+  <Capability Min="80" Max="99">Open Pulse fast to slow</Capability>
+  <Capability Min="100" Max="119">Close Pulse fast to slow</Capability>
+  <Capability Min="128" Max="187">Random Strobe</Capability>
+  <Capability Min="188" Max="190">Open</Capability>
+  <Capability Min="191" Max="193">Random Open Pulse fast</Capability>
+  <Capability Min="194" Max="196">Random Open Pulse slow</Capability>
+  <Capability Min="197" Max="199">Random Close Pulse fast</Capability>
+  <Capability Min="200" Max="202">Random Close Pulse slow</Capability>
+  <Capability Min="208" Max="217">Reset</Capability>
+  <Capability Min="228" Max="237">Lamp On</Capability>
+  <Capability Min="238" Max="247">Open</Capability>
+  <Capability Min="248" Max="255">Lamp Off</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0 to 100%</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
+  <Capability Min="1" Max="12" Color="#ffffff" Color2="#000080">Open/UV</Capability>
+  <Capability Min="13" Max="24" Color="#000080" Color2="#ffff00">UV/Yel</Capability>
+  <Capability Min="25" Max="36" Color="#ffff00" Color2="#0080ff">Yel/Blue</Capability>
+  <Capability Min="37" Max="48" Color="#0080ff" Color2="#ff6fcf">Blue/Pink</Capability>
+  <Capability Min="49" Max="60" Color="#ff6fcf" Color2="#66ff66">Pink/Grn</Capability>
+  <Capability Min="61" Max="72" Color="#66ff66" Color2="#66ccff">Grn/Blue</Capability>
+  <Capability Min="73" Max="84" Color="#66ccff" Color2="#ff0000">Blue/Red</Capability>
+  <Capability Min="85" Max="96" Color="#ff0000" Color2="#ff00ff">Red/Mag</Capability>
+  <Capability Min="97" Max="108" Color="#ff00ff" Color2="#66ccff">Mag/Blue</Capability>
+  <Capability Min="109" Max="120" Color="#66ccff" Color2="#ff8000">Blue/Orange</Capability>
+  <Capability Min="121" Max="132" Color="#ff8000" Color2="#008040">Orange/Dark Green</Capability>
+  <Capability Min="133" Max="143" Color="#008040" Color2="#6666ff">Dark Green/Purple</Capability>
+  <Capability Min="144" Max="144" Color="#6666ff">Purple</Capability>
+  <Capability Min="156" Max="159" Color="#6666ff">Purple</Capability>
+  <Capability Min="160" Max="163" Color="#008040">Dark Green</Capability>
+  <Capability Min="164" Max="167" Color="#ff8000">Orange</Capability>
+  <Capability Min="168" Max="171" Color="#0080ff">Blue</Capability>
+  <Capability Min="172" Max="175" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="176" Max="179" Color="#ff0000">Red</Capability>
+  <Capability Min="180" Max="183" Color="#66ffff">Blue</Capability>
+  <Capability Min="184" Max="187" Color="#66ff66">Green</Capability>
+  <Capability Min="188" Max="191" Color="#ff6fcf">Pink</Capability>
+  <Capability Min="192" Max="195" Color="#66ffcc">Blue</Capability>
+  <Capability Min="196" Max="199" Color="#ffff00">Yellow</Capability>
+  <Capability Min="200" Max="203" Color="#400080">UV</Capability>
+  <Capability Min="204" Max="207" Color="#ffffff">Open</Capability>
+  <Capability Min="208" Max="210">Random color Fast</Capability>
+  <Capability Min="211" Max="213">Random color Medium</Capability>
+  <Capability Min="214" Max="217">Random color Slow</Capability>
+  <Capability Min="218" Max="236" Res="Others/rainbow.png">Scroll CW</Capability>
+  <Capability Min="237" Max="255" Res="Others/rainbow.png">Scroll CCW</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0" Res="Others/open.png">Open</Capability>
+  <Capability Min="12" Max="12" Res="ClayPaky/gobo00011.png">Effect 1 Continuous Scroll</Capability>
+  <Capability Min="24" Max="24" Res="ClayPaky/gobo00009.png">Effect 2 Continuous Scroll</Capability>
+  <Capability Min="36" Max="36" Res="ClayPaky/gobo00007.png">Effect 3 Continuous Scroll</Capability>
+  <Capability Min="48" Max="48" Res="ClayPaky/gobo00006.png">Effect 4 Continuous Scroll</Capability>
+  <Capability Min="60" Max="60" Res="ClayPaky/gobo00050.png">Effect 5 Continuous Scroll</Capability>
+  <Capability Min="72" Max="72" Res="ClayPaky/gobo00037.png">Effect 6 Continuous Scroll</Capability>
+  <Capability Min="84" Max="84" Res="Robe/gobo00013.png">Effect 7 Continuous Scroll</Capability>
+  <Capability Min="96" Max="96" Res="ClayPaky/gobo00069.png">Effect 8 Continuous Scroll</Capability>
+  <Capability Min="108" Max="108" Res="ClayPaky/gobo00044.png">Effect 9 Continuous Scroll</Capability>
+  <Capability Min="120" Max="120" Res="Robe/gobo00031.png">Effect 10 Continuous Scroll</Capability>
+  <Capability Min="132" Max="132" Res="GLP/gobo00023.png">Effect 11 Continuous Scroll</Capability>
+  <Capability Min="144" Max="144" Res="SGM-Color/gobo00546.png">Effect 12 Continuous Scroll</Capability>
+  <Capability Min="156" Max="159" Res="SGM-Color/gobo00546.png">Effect 12 Stepped Scroll</Capability>
+  <Capability Min="160" Max="163" Res="GLP/gobo00023.png">Effect 11 Stepped Scroll</Capability>
+  <Capability Min="164" Max="167" Res="Robe/gobo00031.png">Effect 10 Stepped Scroll</Capability>
+  <Capability Min="168" Max="171" Res="ClayPaky/gobo00044.png">Effect 9 Stepped Scroll</Capability>
+  <Capability Min="172" Max="175" Res="ClayPaky/gobo00069.png">Effect 8 Stepped Scroll</Capability>
+  <Capability Min="176" Max="179" Res="Robe/gobo00013.png">Effect 7 Stepped Scroll</Capability>
+  <Capability Min="180" Max="183" Res="ClayPaky/gobo00037.png">Effect 6 Stepped Scroll</Capability>
+  <Capability Min="184" Max="187" Res="ClayPaky/gobo00050.png">Effect 5 Stepped Scroll</Capability>
+  <Capability Min="188" Max="191" Res="ClayPaky/gobo00006.png">Effect 4 Stepped Scroll</Capability>
+  <Capability Min="192" Max="195" Res="ClayPaky/gobo00007.png">Effect 3 Stepped Scroll</Capability>
+  <Capability Min="196" Max="199" Res="ClayPaky/gobo00009.png">Effect 2 Stepped Scroll</Capability>
+  <Capability Min="200" Max="203" Res="ClayPaky/gobo00011.png">Effect 1 Stepped Scroll</Capability>
+  <Capability Min="204" Max="207" Res="Others/open.png">Open</Capability>
+  <Capability Min="208" Max="210">Random effect Fast</Capability>
+  <Capability Min="211" Max="213">Random effect Medium</Capability>
+  <Capability Min="214" Max="217">Random effect Slow</Capability>
+  <Capability Min="218" Max="236">Scroll CW</Capability>
+  <Capability Min="237" Max="255">Scroll CCW</Capability>
+ </Channel>
+ <Channel Name="Color Speed">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Rotation</Capability>
+  <Capability Min="6" Max="255">Slow-&gt;Fast</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No Rotation</Capability>
+  <Capability Min="6" Max="255">Slow-&gt;Fast</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Sharp edge-&gt;Frost</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Infinity-&gt;2 meters</Capability>
+ </Channel>
+ <Channel Name="No Func">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="Effects Speed Dimmer, focus, frost">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast-&gt;slow</Capability>
+  <Capability Min="246" Max="251">Tracking</Capability>
+  <Capability Min="252" Max="255">Maximum speed</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="412" Weight="19" Height="326" Depth="340"/>
+   <Lens Name="" DegreesMax="22" DegreesMin="22"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="360" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Effects</Channel>
+  <Channel Number="4">Color Speed</Channel>
+  <Channel Number="5">Effect Speed</Channel>
+  <Channel Number="6">Frost</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">No Func</Channel>
+  <Channel Number="9">Effects Speed Dimmer, focus, frost</Channel>
+ </Mode>
+</FixtureDefinition>

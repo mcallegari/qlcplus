@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.5.1</Version>
+  <Author>Marek</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>ZIPP LED DMX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Color="#000000">None</Capability>
+  <Capability Min="13" Max="25" Color="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Color="#00aa00">Green</Capability>
+  <Capability Min="39" Max="51" Color="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="64" Color="#ffffff">White</Capability>
+  <Capability Color2="#00aa00" Min="65" Max="77" Color="#ff0000">Red + Green</Capability>
+  <Capability Color2="#00007f" Min="78" Max="90" Color="#ff0000">Red + Blue</Capability>
+  <Capability Color2="#ffffff" Min="91" Max="103" Color="#ff0000">Red + White</Capability>
+  <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
+  <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
+  <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
+ </Channel>
+ <Channel Name="Colour 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Color="#000000">None</Capability>
+  <Capability Min="13" Max="25" Color="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Color="#00aa00">Green</Capability>
+  <Capability Min="39" Max="51" Color="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="64" Color="#ffffff">White</Capability>
+  <Capability Color2="#00aa00" Min="65" Max="77" Color="#ff0000">Red + Green</Capability>
+  <Capability Color2="#00007f" Min="78" Max="90" Color="#ff0000">Red + Blue</Capability>
+  <Capability Color2="#ffffff" Min="91" Max="103" Color="#ff0000">Red + White</Capability>
+  <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
+  <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
+  <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
+ </Channel>
+ <Channel Name="Strobo">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="255">Strobe function from slow to fast</Capability>
+ </Channel>
+ <Mode Name="Mode1">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="300" Weight="3.06" Depth="300"/>
+   <Lens DegreesMax="110" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Colour 2</Channel>
+  <Channel Number="2">Strobo</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -27,6 +27,10 @@ extern "C"
 #include <alsa/asoundlib.h>
 }
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioCaptureAlsa : public AudioCapture
 {
     Q_OBJECT
@@ -35,7 +39,7 @@ public:
     ~AudioCaptureAlsa();
 
     /** @reimpl */
-    bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
+    bool initialize();
 
     /** @reimpl */
     qint64 latency();
@@ -54,5 +58,7 @@ private:
     snd_pcm_t *m_captureHandle;
     char *pcm_name;
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_ALSA_H

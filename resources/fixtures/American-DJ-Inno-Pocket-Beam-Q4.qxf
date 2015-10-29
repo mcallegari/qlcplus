@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Inno Pocket Beam Q4</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Max="255" Min="0">0° - 540°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Max="255" Min="0">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">0° - 210°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fiine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Max="255" Min="0">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Red LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="White LED">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="7" Min="0">Shutter closed</Capability>
+  <Capability Max="15" Min="8">Shutter open</Capability>
+  <Capability Max="131" Min="16">Strobing slow - fast</Capability>
+  <Capability Max="139" Min="132">Shutter open</Capability>
+  <Capability Max="181" Min="140">Shutter slow open - fast close</Capability>
+  <Capability Max="189" Min="182">Shutter open</Capability>
+  <Capability Max="231" Min="190">Shutter fast open - slow close</Capability>
+  <Capability Max="239" Min="232">Shutter open</Capability>
+  <Capability Max="247" Min="240">Random strobe</Capability>
+  <Capability Max="255" Min="248">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Fast - slow</Capability>
+ </Channel>
+ <Channel Name="Blackout/Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="69" Min="0">Nothing</Capability>
+  <Capability Max="79" Min="70">Blackout w/pan/tilt movement</Capability>
+  <Capability Max="89" Min="80">Nothing</Capability>
+  <Capability Max="99" Min="90">Blackout w/Color Change</Capability>
+  <Capability Max="199" Min="100">Nothing</Capability>
+  <Capability Max="209" Min="200">Reset all</Capability>
+  <Capability Max="249" Min="210">Nothing</Capability>
+  <Capability Max="255" Min="250">Sound active</Capability>
+ </Channel>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="20" Min="0">Standard</Capability>
+  <Capability Max="40" Min="21">Stage</Capability>
+  <Capability Max="60" Min="41">TV</Capability>
+  <Capability Max="80" Min="61">Architectural</Capability>
+  <Capability Max="100" Min="81">Theater</Capability>
+  <Capability Max="255" Min="101">Default to unit curve setting</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Physical>
+   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
+   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
+   <Focus TiltMax="210" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
+  </Physical>
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Movement</Channel>
+  <Channel Number="3">Tilt Fiine</Channel>
+  <Channel Number="4">Red LED</Channel>
+  <Channel Number="5">Green LED</Channel>
+  <Channel Number="6">Blue LED</Channel>
+  <Channel Number="7">White LED</Channel>
+  <Channel Number="8">Shutter/Strobe</Channel>
+  <Channel Number="9">Master Dimmer</Channel>
+  <Channel Number="10">Pan/Tilt Speed</Channel>
+  <Channel Number="11">Blackout/Reset</Channel>
+  <Channel Number="12">Dimmer Curves</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Physical>
+   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
+   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
+   <Focus TiltMax="210" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
+  </Physical>
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Tilt Movement</Channel>
+  <Channel Number="2">Red LED</Channel>
+  <Channel Number="3">Green LED</Channel>
+  <Channel Number="4">Blue LED</Channel>
+  <Channel Number="5">White LED</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
+  <Channel Number="9">Blackout/Reset</Channel>
+  <Channel Number="10">Dimmer Curves</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Physical>
+   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
+   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
+   <Focus TiltMax="210" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
+  </Physical>
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Tilt Movement</Channel>
+  <Channel Number="2">Green LED</Channel>
+  <Channel Number="3">Red LED</Channel>
+  <Channel Number="4">Blue LED</Channel>
+  <Channel Number="5">White LED</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
+  <Channel Number="9">Blackout/Reset</Channel>
+ </Mode>
+</FixtureDefinition>

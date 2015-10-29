@@ -24,6 +24,10 @@
 #include <QPair>
 #include <QFile>
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 // Channel modifier document type
 #define KXMLQLCChannelModifierDocument "ChannelModifier"
 
@@ -73,5 +77,7 @@ private:
     QList< QPair<uchar, uchar> > m_map;
     QByteArray m_values;
 };
+
+/** @} */
 
 #endif // CHANNELMODIFIER_H

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.2 GIT</Version>
+  <Author>laserandi</Author>
+ </Creator>
+ <Manufacturer>Flash-Butrym</Manufacturer>
+ <Model>LED Moving Head Mini Beam 18x3W RGB CREE</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">PAN</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="auto movement/color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">no program</Capability>
+  <Capability Min="128" Max="255">program 1</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">dark to bright</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">dark to bright</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">dark to bright</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Min="11" Max="18" Color="#ff0000">Red</Capability>
+  <Capability Color2="#00ff00" Min="19" Max="86" Color="#ff0000">Red - Green</Capability>
+  <Capability Min="87" Max="94" Color="#00ff00">Green</Capability>
+  <Capability Color2="#0000ff" Min="95" Max="163" Color="#00ff00">Green - Blue</Capability>
+  <Capability Min="164" Max="171" Color="#0000ff">Blue</Capability>
+  <Capability Color2="#ff0000" Min="172" Max="240" Color="#0000ff">Blue - Red</Capability>
+  <Capability Min="241" Max="248" Color="#ff0000">Red</Capability>
+  <Capability Min="249" Max="255" Color="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">shutter off</Capability>
+  <Capability Min="11" Max="255">shutter slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">dark to bright</Capability>
+ </Channel>
+ <Mode Name="Full, 11 channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="190" Height="270" Weight="2.75" Depth="190"/>
+   <Lens DegreesMax="35" Name="PC" DegreesMin="14"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">Shutter</Channel>
+  <Channel Number="10">auto movement/color</Channel>
+ </Mode>
+</FixtureDefinition>

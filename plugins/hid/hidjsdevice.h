@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   hidjsdevice.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,17 +25,9 @@
 #include <QFile>
 #include <QHash>
 
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-  #include <sys/ioctl.h>
-  #include <linux/input.h>
-  #include <linux/types.h>
-#elif defined(WIN32) || defined (Q_OS_WIN)
-  #include <windows.h>
-  #include <mmsystem.h>
-  #include <regstr.h>
-#endif
-
+#include "qlcmacros.h"
 #include "hiddevice.h"
+#include "hidapi.h"
 
 class HIDPlugin;
 
@@ -47,36 +40,29 @@ class HIDJsDevice : public HIDDevice
     Q_OBJECT
 
 public:
-    HIDJsDevice(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
+    HIDJsDevice(HIDPlugin* parent, quint32 line, struct hid_device_info *info);
     virtual ~HIDJsDevice();
 
-#if defined(WIN32) || defined (Q_OS_WIN)
-    static bool isJoystick(unsigned short vid, unsigned short pid);
-#endif
-
 protected:
-    /** Initialize the device, find out its capabilities etc. */
-    void init();
+    /** Initialize the device, find out its capabilities etc.
+      * This is a pure virtual method because every subclass has
+      * its own platform specific initialization */
+    virtual void init() = 0;
 
     /** @reimp */
     bool hasInput() { return true; }
 
 protected:
-    unsigned char m_axes;
-    unsigned char m_buttons;
-#if defined(WIN32) || defined (Q_OS_WIN)
-    JOYCAPS m_caps;
-    JOYINFOEX m_info;
-    UINT m_windId;
-    DWORD m_buttonsMask;
-    QByteArray m_axesValues;
-#endif
+    struct hid_device_info *m_dev_info;
+    unsigned char m_axesNumber;
+    unsigned char m_buttonsNumber;
+
     /*********************************************************************
      * File operations
      *********************************************************************/
 public:
     /** @reimp */
-    bool openInput();
+    virtual bool openInput();
 
     /** @reimp */
     void closeInput();
@@ -85,7 +71,7 @@ public:
     QString path() const;
 
     /** @reimp */
-    bool readEvent();
+    virtual bool readEvent() ;
 
     /*********************************************************************
      * Device info
@@ -103,14 +89,7 @@ public:
 
 private:
     /** @reimp */
-    void run();
-    
-    /*************************************************************************
-     * Output data
-     *************************************************************************/
- 
-    /** @reimp */
-    void outputDMX(const QByteArray &data) { Q_UNUSED(data); };
+    virtual void run();
 };
 
 #endif

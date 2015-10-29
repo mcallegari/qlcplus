@@ -15,13 +15,13 @@ PKGCONFIG   += libusb
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../common
 
+HEADERS += ../../interfaces/qlcioplugin.h
 HEADERS += peperonidevice.h \
            peperoni.h
 
+SOURCES += ../../interfaces/qlcioplugin.cpp
 SOURCES += peperonidevice.cpp \
            peperoni.cpp
-
-HEADERS += ../../interfaces/qlcioplugin.h
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

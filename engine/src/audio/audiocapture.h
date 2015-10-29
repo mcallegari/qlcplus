@@ -23,13 +23,31 @@
 
 #include <stdint.h>
 #include <QThread>
+#include <QVector>
 #include <QMutex>
+#include <QMap>
 
-#define SETTINGS_AUDIO_INPUT_DEVICE  "audio/input"
+#define SETTINGS_AUDIO_INPUT_DEVICE   "audio/input"
+#define SETTINGS_AUDIO_INPUT_SRATE    "audio/samplerate"
+#define SETTINGS_AUDIO_INPUT_CHANNELS "audio/channels"
+
+#define AUDIO_DEFAULT_SAMPLE_RATE     44100
+#define AUDIO_DEFAULT_CHANNELS        1
+#define AUDIO_DEFAULT_BUFFER_SIZE     2048 // bytes per channel
 
 #define FREQ_SUBBANDS_MAX_NUMBER        32
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MAX_FREQUENCY          5000
+
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
+typedef struct
+{
+    int m_registerCounter;
+    QVector<double> m_fftMagnitudeBuffer;
+} BandsData;
 
 class AudioCapture : public QThread
 {
@@ -43,8 +61,19 @@ public:
 
     ~AudioCapture();
 
-    void setBandsNumber(int number);
-    int bandsNumber();
+    int defaultBarsNumber();
+
+    /**
+     * Request the given number of frequency bands to the
+     * audiocapture engine
+     */
+    void registerBandsNumber(int number);
+
+    /**
+     * Cancel a previous request of bars
+     */
+    void unregisterBandsNumber(int number);
+    //int bandsNumber();
 
     bool isInitialized();
 
@@ -58,12 +87,16 @@ public:
      * @param bufferSize Audio dat buffer size\
      * @return initialization result (\b true - success, \b false - failure)
      */
-    virtual bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
+    virtual bool initialize();
 
     /*!
      * Returns input interface latency in milliseconds.
      */
     virtual qint64 latency() = 0;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    virtual void setVolume(qreal volume) = 0;
+#endif
 
     /*!
      * Stops processing audio data, preserving buffered audio data.
@@ -81,15 +114,24 @@ public:
     /** @reimpl */
     void run(); //thread run function
 
+protected:
     void stop();
 
 private:
+    /** This is called at every processData to fill a single BandsData structure */
+    double fillBandsData(int number);
+
+    /** This is the method where captured audio data is processed in this order
+     *  1) calculates the signal power, which will be the volume bar
+     *  2) perform the FFT
+     *  3) retrieve the signal magnitude for each registered number of bands
+     */
     void processData();
 
     bool m_userStop, m_pause;
 
 signals:
-    void dataProcessed(double *spectrumBands, double maxMagnitude, quint32 power);
+    void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 protected:
     /*!
@@ -108,13 +150,15 @@ protected:
     int16_t *m_audioBuffer;
 
     quint32 m_signalPower;
-    double m_maxMagnitude;
-    int m_subBandsNumber;
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
     void *m_fftOutputBuffer;
-    double m_fftMagnitudeBuffer[FREQ_SUBBANDS_MAX_NUMBER];
+
+    /** Map of the registered clients (key is the number of bands) */
+    QMap <int, BandsData> m_fftMagnitudeMap;
 };
+
+/** @} */
 
 #endif // AUDIOCAPTURE_H

@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
-  qlcmiditemplate.h
+  Q Light Controller Plus
+  miditemplate.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Joep Admiraal
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -26,12 +26,9 @@
 #include <QString>
 #include <QHash>
 #include <QMap>
-#include <QtXml>
-
 
 class MidiTemplate;
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 #define KXMLMidiTemplate "MidiTemplate"
 #define KXMLMidiTemplateName "Name"
@@ -78,7 +75,7 @@ protected:
 public:
     static MidiTemplate* loader(const QString& path);
 
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
 };
 

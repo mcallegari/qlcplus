@@ -51,7 +51,7 @@ extern "C"
 
 Velleman::~Velleman()
 {
-    closeOutput(0);
+    closeOutput(0, 0);
     delete [] m_values;
 }
 
@@ -75,20 +75,23 @@ int Velleman::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void Velleman::openOutput(quint32 output)
+bool Velleman::openOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
-        return;
+        return false;
 
     if (m_currentlyOpen == false)
     {
         StartDevice();
         m_currentlyOpen = true;
     }
+    return true;
 }
 
-void Velleman::closeOutput(quint32 output)
+void Velleman::closeOutput(quint32 output, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (output != 0)
         return;
 
@@ -129,7 +132,7 @@ QString Velleman::outputInfo(quint32 output)
 {
     QString str;
 
-    if (output == QLCIOPlugin::invalidLine() && output == 0)
+    if (output != QLCIOPlugin::invalidLine() && output == 0)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
     }
@@ -152,19 +155,6 @@ void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray 
         m_values[i] = (qint32) data[i];
 
     SetAllData((int32_t*) m_values);
-}
-
-/*****************************************************************************
- * Configuration
- *****************************************************************************/
-
-void Velleman::configure()
-{
-}
-
-bool Velleman::canConfigure()
-{
-    return false;
 }
 
 /*****************************************************************************

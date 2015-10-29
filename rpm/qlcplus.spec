@@ -10,7 +10,7 @@ BuildRequires: qt-devel >= 4.6, libftdi-devel >= 0.17, libusb-devel >= 0.1.12, a
 Requires: qt >= 4.6
 Release: 1
 Source: qlcplus-%{version}.tar.gz
-URL: https://sourceforge.net/projects/qlcplus/
+URL: http://www.qlcplus.org/
 Buildroot: /tmp/qlcplusrpm
 Version: %{version}
 %description
@@ -68,11 +68,12 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/qlcplus/modifierstemplates/*
 /usr/share/qlcplus/gobos/*
 /usr/share/qlcplus/rgbscripts/*
+/usr/share/qlcplus/web/*
 /usr/share/qlcplus/Sample.qxw
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
 /usr/lib/qt4/plugins/qlcplus/libartnet.so
-/usr/lib/qt4/plugins/qlcplus/libhid.so
+/usr/lib/qt4/plugins/qlcplus/libhidplugin.so
 /usr/lib/qt4/plugins/qlcplus/libosc.so
 /usr/lib/qt4/plugins/qlcplus/libpeperoni.so
 /usr/lib/qt4/plugins/qlcplus/libenttecwing.so
@@ -82,8 +83,10 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/lib/qt4/plugins/qlcplus/libudmx.so
 /usr/lib/qt4/plugins/qlcplus/libe131.so
 /usr/lib/qt4/plugins/qlcplus/libspi.so
+/usr/lib/qt4/plugins/qlcplus/libloopback.so
 /etc/udev/rules.d/z65-dmxusb.rules
 /etc/udev/rules.d/z65-anyma-udmx.rules
 /etc/udev/rules.d/z65-peperoni.rules
+/etc/udev/rules.d/z65-fx5-hid.rules
 /etc/udev/rules.d/z65-spi.rules
 

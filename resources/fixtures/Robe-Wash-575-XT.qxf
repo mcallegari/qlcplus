@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>NiKoyes</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Wash 575 XT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt coarse</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Speed P/T">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="249">Max to Min</Capability>
+  <Capability Min="250" Max="252">Max speed BO Moving/Color cc</Capability>
+  <Capability Min="253" Max="255">Max Speed Vector Mode BO Mov/Color</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Fan speed Max to Min</Capability>
+  <Capability Min="128" Max="139">Lamp ON Reset</Capability>
+  <Capability Min="140" Max="229">No Function</Capability>
+  <Capability Min="230" Max="239">Lamp OFF</Capability>
+  <Capability Min="240" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="16" Color="#aa0000">Deep Red</Capability>
+  <Capability Min="32" Max="32" Color="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="48" Color="#00ff00">Green</Capability>
+  <Capability Min="64" Max="64" Color="#ff8000">Orange</Capability>
+  <Capability Min="80" Max="80" Color="#ffdab4">3200 K</Capability>
+  <Capability Min="96" Max="96" Color="#c6d8ff">5600 K</Capability>
+  <Capability Min="112" Max="112" Color="#7f00ff">UV Filter</Capability>
+  <Capability Min="128" Max="190">Rainbow Fast to Slow</Capability>
+  <Capability Min="191" Max="192">No Function</Capability>
+  <Capability Min="193" Max="255">CCW Rainbow Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">Shutter Closed</Capability>
+  <Capability Min="32" Max="63">Open</Capability>
+  <Capability Min="64" Max="95">Strobe &gt;&gt;</Capability>
+  <Capability Min="96" Max="127">Open</Capability>
+  <Capability Min="128" Max="159">Pulse</Capability>
+  <Capability Min="160" Max="191">Open</Capability>
+  <Capability Min="192" Max="223">Strobe Random &gt;&gt;</Capability>
+  <Capability Min="224" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Speed CMY/Dimmer">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Max to Min</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Macro 1</Capability>
+  <Capability Min="8" Max="15">Macro 2</Capability>
+  <Capability Min="16" Max="23">Macro 3</Capability>
+  <Capability Min="24" Max="31">Macro 4</Capability>
+  <Capability Min="32" Max="39">Macro 5</Capability>
+  <Capability Min="40" Max="47">Macro 6</Capability>
+  <Capability Min="48" Max="55">Macro 7</Capability>
+  <Capability Min="56" Max="63">Macro 8</Capability>
+  <Capability Min="64" Max="71">Macro 9</Capability>
+  <Capability Min="72" Max="79">Macro 10</Capability>
+  <Capability Min="80" Max="87">Macro 11</Capability>
+  <Capability Min="88" Max="95">Macro 12</Capability>
+  <Capability Min="96" Max="103">Macro 13</Capability>
+  <Capability Min="104" Max="111">Macro 14</Capability>
+  <Capability Min="112" Max="119">Macro 15</Capability>
+  <Capability Min="120" Max="127">Macro 16</Capability>
+  <Capability Min="128" Max="135">Macro 17</Capability>
+  <Capability Min="136" Max="143">Macro 18</Capability>
+  <Capability Min="144" Max="151">Macro 19</Capability>
+  <Capability Min="152" Max="159">Macro 20</Capability>
+  <Capability Min="160" Max="167">Macro 21</Capability>
+  <Capability Min="168" Max="175">Macro 22</Capability>
+  <Capability Min="176" Max="183">Macro 23</Capability>
+  <Capability Min="184" Max="191">Macro 24</Capability>
+  <Capability Min="192" Max="199">Macro 25</Capability>
+  <Capability Min="200" Max="207">Macro 26</Capability>
+  <Capability Min="208" Max="215">Macro 27</Capability>
+  <Capability Min="216" Max="223">Macro 28</Capability>
+  <Capability Min="224" Max="231">Macro 29</Capability>
+  <Capability Min="232" Max="239">Macro 30</Capability>
+  <Capability Min="240" Max="247">Macro 31</Capability>
+  <Capability Min="248" Max="255">Macro 32</Capability>
+ </Channel>
+ <Channel Name="Beam">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="70">Full Beam</Capability>
+  <Capability Min="71" Max="180">Beam Shaper</Capability>
+  <Capability Min="181" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">28°</Capability>
+  <Capability Min="255" Max="255">7°</Capability>
+ </Channel>
+ <Mode Name="Mode 1/2">
+  <Physical>
+   <Bulb Lumens="49000" Type="MSR 575W" ColourTemperature="5500"/>
+   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
+   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
+   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Speed P/T</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Speed CMY/Dimmer</Channel>
+  <Channel Number="11">Color Macros</Channel>
+  <Channel Number="12">Beam</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Shutter</Channel>
+  <Channel Number="15">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Bits">
+  <Physical>
+   <Bulb Lumens="49000" Type="MSR 575W" ColourTemperature="5500"/>
+   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
+   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
+   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed P/T</Channel>
+  <Channel Number="3">Control</Channel>
+  <Channel Number="4">Colours</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Speed CMY/Dimmer</Channel>
+  <Channel Number="9">Color Macros</Channel>
+  <Channel Number="10">Beam</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Shutter</Channel>
+  <Channel Number="13">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

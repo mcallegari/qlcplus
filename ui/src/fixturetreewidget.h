@@ -28,6 +28,12 @@ class FixtureGroup;
 class Fixture;
 class Doc;
 
+#define PROP_ID       Qt::UserRole
+#define PROP_UNIVERSE Qt::UserRole + 1
+#define PROP_GROUP    Qt::UserRole + 2
+#define PROP_HEAD     Qt::UserRole + 3
+#define PROP_CHANNEL  Qt::UserRole + 4
+
 class FixtureTreeWidget : public QTreeWidget
 {
     Q_OBJECT
@@ -140,6 +146,12 @@ private:
      * Channels selection
      ****************************************************************************/
 public:
+    /** Set the channels that need to be selected in the tree.
+     *  $channels is an array of 0/1 values where 0 means deselected
+     *  and 1 means selected.
+     *  The array indices represent absolute channel addresses
+     *  across universes
+     */
     void setChannelsMask(QByteArray channels);
 
 private:

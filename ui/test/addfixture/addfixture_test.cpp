@@ -33,7 +33,7 @@
 #include "addfixture.h"
 #undef protected
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void AddFixture_Test::initTestCase()
 {
@@ -45,7 +45,7 @@ void AddFixture_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void AddFixture_Test::cleanupTestCase()
@@ -153,7 +153,7 @@ void AddFixture_Test::initialNoFixture()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 2);
+            QCOMPARE(top->childCount(), 3);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -177,7 +177,7 @@ void AddFixture_Test::initialNoFixture()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString(/*KXMLFixtureGeneric*/));
 
     QVERIFY(af.m_universeCombo->isEnabled() == true);
     QCOMPARE(af.m_universeCombo->currentIndex(), 0);
@@ -213,8 +213,8 @@ void AddFixture_Test::initialDimmer()
 
     AddFixture af(NULL, m_doc, fxi);
     QVERIFY(m_doc == af.m_doc);
-    QVERIFY(af.fixtureDef() == NULL);
-    QVERIFY(af.mode() == NULL);
+    QVERIFY(af.fixtureDef() != NULL);
+    QVERIFY(af.mode() != NULL);
     QVERIFY(af.name() == QString("My dimmer"));
     QVERIFY(af.address() == 484);
     QVERIFY(af.universe() == 2);
@@ -244,7 +244,7 @@ void AddFixture_Test::initialDimmer()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 2);
+            QCOMPARE(top->childCount(), 3);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -268,7 +268,7 @@ void AddFixture_Test::initialDimmer()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString("6 Channel"));
 
     QVERIFY(af.m_universeCombo->isEnabled() == true);
     QCOMPARE(af.m_universeCombo->currentIndex(), 2);
@@ -344,7 +344,7 @@ void AddFixture_Test::initialScanner()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 2);
+            QCOMPARE(top->childCount(), 3);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -440,7 +440,7 @@ void AddFixture_Test::selectionGeneric()
     QTreeWidgetItem* item = af.m_tree->topLevelItem(af.m_tree->topLevelItemCount() - 1);
     QVERIFY(item != NULL);
     // First, select the parent node so that selectionChanged() fires
-    QCOMPARE(item->childCount(), 2);
+    QCOMPARE(item->childCount(), 3);
     af.m_tree->setCurrentItem(item);
     // Then, select the child to fire again
     item = item->child(0);
@@ -450,7 +450,7 @@ void AddFixture_Test::selectionGeneric()
 
     QVERIFY(af.m_modeCombo->isEnabled() == false);
     QCOMPARE(af.m_modeCombo->count(), 1);
-    QCOMPARE(af.m_modeCombo->itemText(0), QString(KXMLFixtureGeneric));
+    QCOMPARE(af.m_modeCombo->itemText(0), QString(/*KXMLFixtureGeneric*/));
     QVERIFY(af.fixtureDef() == NULL);
     QVERIFY(af.mode() == NULL);
 

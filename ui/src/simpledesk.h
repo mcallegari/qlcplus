@@ -20,12 +20,11 @@
 #ifndef SIMPLEDESK_H
 #define SIMPLEDESK_H
 
+#include <QScrollArea>
 #include <QModelIndex>
-#include <QPointer>
 #include <QWidget>
 #include <QList>
 #include <QHash>
-#include <QScrollArea>
 
 class GrandMasterSlider;
 class SimpleDeskEngine;
@@ -100,6 +99,7 @@ public:
     int getCurrentPage();
     uchar getAbsoluteChannelValue(uint address);
     void setAbsoluteChannelValue(uint address, uchar value);
+    void resetUniverse();
 
 private:
     void initUniversesCombo();
@@ -116,12 +116,13 @@ private slots:
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
+    void slotChannelResetClicked(quint32 fxID, quint32 channel);
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
-    QGroupBox* m_universeGroup;
+    QFrame* m_universeGroup;
     QComboBox* m_universesCombo;
     QToolButton* m_viewModeButton;
     QToolButton* m_universePageUpButton;
@@ -186,6 +187,7 @@ private:
     void updateCueStackButtons();
     void replaceCurrentCue();
     void updateSpeedDials();
+    void createSpeedDials();
 
     CueStack* currentCueStack() const;
     int currentCueIndex() const;
@@ -199,13 +201,14 @@ private slots:
     void slotNextCueClicked();
     void slotStopCueStackClicked();
     void slotCloneCueStackClicked();
-    void slotEditCueStackClicked();
+    void slotEditCueStackClicked(bool state);
     void slotRecordCueClicked();
     void slotDeleteCueClicked();
 
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
     void slotHoldDialChanged(int ms);
+    void slotDialDestroyed(QObject *);
     void slotCueNameEdited(const QString& name);
 
 protected:
@@ -224,7 +227,7 @@ private:
     QToolButton* m_editCueStackButton;
     QToolButton* m_recordCueButton;
     QTreeView* m_cueStackView;
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
     QModelIndex m_cueDeleteIconIndex;
 
     /*********************************************************************

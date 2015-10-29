@@ -3,7 +3,7 @@ Q Light Controller Plus 4
 Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
-QLC+ on SourceForge: http://qlcplus.sourceforge.net/index.shtml
+QLC+ homepage: http://www.qlcplus.org/
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
@@ -50,8 +50,10 @@ Requirements - Linux
 * uDMX plugin: libusb, libusb-dev, pkg-config
 * Peperoni plugin: libusb, libusb-dev, pkg-config
 * Velleman plugin: Not available for Linux
-* OSC plugin: liblo-dev, pkg-config
+* OSC plugin: No additional requirements
 * ArtNet plugin: No additional requirements
+* E1.31 plugin: No additional requirements
+* Loopback plugin: No additional requirements
 
 Requirements - Windows
 ----------------------
@@ -66,8 +68,10 @@ Requirements - Windows
 * uDMX plugin: No additional requirements
 * Peperoni plugin: No additional requirements
 * Velleman plugin: K8062 SDK from www.velleman.eu
-* OSC plugin: liblo, pkg-config
+* OSC plugin: No additional requirements
 * ArtNet plugin: No additional requirements
+* E1.31 plugin: No additional requirements
+* Loopback plugin: No additional requirements
 
 Requirements - Mac OS X
 -----------------------
@@ -82,8 +86,10 @@ Requirements - Mac OS X
 * uDMX plugin: macports, libusb-compat, pkg-config
 * Peperoni plugin: macports, libusb-compat, pkg-config
 * Velleman plugin: Not available for OSX
-* OSC plugin: liblo, pkg-config
+* OSC plugin: No additional requirements
 * ArtNet plugin: No additional requirements
+* E1.31 plugin: No additional requirements
+* Loopback plugin: No additional requirements
 
 Compiling & Installation
 ------------------------
@@ -103,18 +109,26 @@ and then (as administrator/root):
 Support & Bug Reports
 ---------------------
 For discussions, feedbacks, ideas and new fixtures, go to:
-http://sourceforge.net/p/qlcplus/discussion/
+http://www.qlcplus.org/forum/index.php
 For developers wiki and code patches, go to:
 https://github.com/mcallegari/qlcplus
 
 Contributors
 ------------
 QLC+:
-Jano Svitok (Bugfixes, new features)
+Jano Svitok (bugfix, new features and improvements)
+David Garyga (bugfix, new features and improvements)
+Robert Box (fixtures review)
 Thomas Achtner (ENTTEC wing improvements)
 Joep Admiraal (MIDI SysEx init messages, Dutch translation)
 Florian Euchner (FX5 USB DMX support)
 Stefan Riemens (new features)
+Simon Newton, Peter Newman (OLA plugin)
+Janosch Frank (webaccess improvements)
+Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
+Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
+Nathan Durnan (RGB scripts, new features)
+Giorgio Rebecchi (new features)
 Heiko Fanieng, Jannis Achstetter (German translation)
 NiKoyes, Jérôme Lebleu (French translation)
 Raymond Van Laake (Dutch translation)
@@ -129,7 +143,6 @@ Stefan Krumm (Bugfixes, new features)
 Christian Suehs (Bugfixes, new features)
 Christopher Staite (Bugfixes)
 Klaus Weidenbach (Bugfixes, German translation)
-Simon Newton (OLA plugin)
 Lutz Hillebrand (uDMX plugin)
 Matthew Jaggard (Velleman plugin)
 Ptit Vachon (French translation)

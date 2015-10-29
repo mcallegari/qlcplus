@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - RGB Script API</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>RGB Script Fundamentals</H1>
+<P>
+Users can write their own RGB scripts to produce custom graphics projection with the
+<A HREF="file:concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
+is to produce a number of RGB maps that each represent one step in the graphics animation.
+The principle is basically the same as in movies: the audience observes a moving picture,
+which in reality is only a sequentially-played stream of static images that produce
+an illusion of movement.
+</P>
+
+<P>
+The scripts themselves are written in <A HREF="http://www.ecmascript.org">ECMAScript</A>,
+which is also known as <A HREF="http://en.wikipedia.org/wiki/JavaScript">JavaScript</A>. Note
+that the language is <A HREF="http://en.wikipedia.org/wiki/Case_sensitivity">case-sensitive</A>
+and as a de-facto standard follows <A HREF="http://en.wikipedia.org/wiki/Naming_convention_%28programming%29#JavaScript">camel case rules</A>,
+so make sure you write everything correctly and pay special attention to the required API
+features.
+</P>
+
+<P>
+Script files should be named after the script's name and must have a <B>.js</B> extension.
+Depending on platform, the files should be placed either in the QLC+ system script directory
+or, preferably, the user script directory:
+<UL>
+ <LI><B>Linux user dir:</B> ~/.qlcplus/rgbscripts/</LI>
+ <LI><B>Linux system dir:</B> /usr/share/qlcplus/rgbscripts/</LI>
+</UL>
+
+<UL>
+ <LI><B>OSX user dir:</B> ~/Library/Application Support/QLC+/RGBScripts</LI>
+ <LI><B>OSX system dir:</B> /Applications/QLC+.app/Contents/Resources/RGBScripts</LI>
+</UL>
+
+<UL>
+ <LI><B>Windows user dir:</B> Not applicable</LI>
+ <LI><B>Windows system dir:</B> C:\QLC+\RGBScripts</LI>
+</UL>
+
+<H1>RGB Script API</H1>
+
+<H2>Foundation</H2>
+<P>
+The scripts must be self-executing, i.e. when they are evaluated, the script itself is
+put inside an anonymous function that executes itself and returns an object that contains
+the required API functions:
+</P>
+
+<TABLE COLS="1" ROWS="1" WIDTH="100%">
+ <TR>
+  <TD BGCOLOR="#EEEEEE">
+   <PRE>
+    (
+    function() { <FONT color="blue">// Anonymous function starts here</FONT>
+        <FONT color="green">var</FONT> algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
+        <FONT color="green">return</FONT> algo; <FONT color="blue">// Return the script object</FONT>
+    } <FONT color="blue">// Anonymous function ends here</FONT>
+    )() <FONT color="blue">// Anonymous function is executed here upon evaluation</FONT></PRE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2>Properties</H2>
+<P>
+However, a script with nothing more than an empty object does nothing, no matter how
+self-executing it might be. You must also declare some <B>properties</B> for the returned
+object so that QLC+ knows how to use the script and to show it to the user (you). So, you need
+to declare the following properties for the returned script object:
+</P>
+<UL>
+ <LI><B>apiVersion:</B> The API version that the script follows. Currently, the accepted values are '1' or '2'.<br>
+ apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br> 
+ Any other value will cause the script to be treated as invalid.</LI>
+ <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
+ <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
+ <LI><B>acceptColors (optional):</B> Informs QLC+ if the script can accept a start color, an end color or none.<br>
+ 'acceptColors = 0' means no colors are accepted/needed. It means that the script will autonomously generate the colors
+ information for the matrix pixels.<br>
+ 'acceptColors = 1' means only the start color is needed by the script.<br>
+ 'acceptColors = 2' means both start and end colors will be accepted by the script.<br> 
+ If 'acceptColors' is not provided, QLC+ will default to value '2'.
+ </LI>
+</UL>
+
+<P>
+With this in mind we add declarations for these three properties to the script:
+</P>
+<TABLE COLS="1" ROWS="1" WIDTH="100%">
+ <TR>
+  <TD BGCOLOR="#EEEEEE">
+   <PRE>
+    (
+    function() {
+        <FONT color="green">var</FONT> algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
+        algo.apiVersion = <FONT color="orange">2</FONT>; <FONT color="blue">// Can be '1' or '2'</FONT>
+        algo.name = <FONT color="darkyellow">"My cool RGB script"</FONT>;
+        algo.author = <FONT color="darkyellow">"Your name"</FONT>;
+        algo.acceptColors = <FONT color="orange">2</FONT>; <FONT color="blue">// Can be '0', '1' or '2'</FONT>
+        <FONT color="green">return</FONT> algo;
+    }
+    )()</PRE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2>Functions</H2>
+<P>
+Now we are getting to the actual business of producing data for the <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>.
+The current API version uses two functions to achieve this:
+<UL>
+ <LI>rgbMapStepCount(width, height)</LI>
+ <LI>rgbMap(width, height, rgb, step)</LI>
+</UL>
+No assumptions on the calling order or argument immutability should be made, i.e. do not
+cache the values from either function and assume that they are valid until the end of the world.
+The parameters might change at any point (usually when the user changes the matrix size,
+color or direction) thus invalidating any cached values.
+</P>
+
+<H3>rgbMapStepCount(width, height)</H3>
+<P>
+When QLC+ calls this function, it wants to know the number of different RGB maps returned
+by the rgbMap() function, when the RGB matrix size is <B>width</B> times <B>height</B>
+pixels. It must always return the same result when called with the same <B>width</B> and
+<B>height</B> parameters again and the result must not change over time.
+</P>
+
+<P>
+<B>Parameters:</B>
+<UL>
+ <LI><B>width: </B> The width of the grid</LI>
+ <LI><B>height:</B> The height of the grid</LI>
+ <LI><B>Return value:</B> Number of steps produced by rgbMap() with the given width and height parameters</LI>
+</UL>
+</P>
+
+<P>
+So, now we add this support function to the script:
+</P>
+<TABLE COLS="1" ROWS="1" WIDTH="100%">
+ <TR>
+  <TD BGCOLOR="#EEEEEE">
+   <PRE>
+    (
+    function() {
+        <FONT color="green">var</FONT> algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
+        algo.apiVersion = <FONT color="orange">1</FONT>;
+        algo.name = <FONT color="darkyellow">"My cool RGB script"</FONT>;
+        algo.author = <FONT color="darkyellow">"Your name"</FONT>;
+
+        algo.rgbMapStepCount = <FONT color="green">function</FONT>(width, height) {
+            ...
+            <FONT color="green">return</FONT> number_of_steps_when_width_is_oranges_and_height_is_jabberwocky;
+        }
+
+        <FONT color="green">return</FONT> algo;
+    }
+    )()</PRE>
+  </TD>
+ </TR>
+</TABLE>
+
+
+<H3>rgbMap(width, height, rgb, step)</H3>
+<P>
+This function is the actual brains of the script. It produces two-dimensional arrays whose
+size MUST be <B>height</B> times <B>width</B>. I.e. the array returned from this function
+must contain <B>height</B> items and each of these items must be an array that contains
+<B>width</B> items that must be 32bit integers, representing an RGB color as understood by
+<A HREF="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</A> without alpha
+channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the color
+selected by user in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
+parameter tells the step number requested by the RGB Matrix function and is guaranteed
+to be within (0, rgbMapStepCount(w, h) - 1).
+</P>
+
+<P>
+<B>Parameters:</B>
+<UL>
+ <LI><B>width: </B> The width of the grid</LI>
+ <LI><B>height:</B> The height of the grid</LI>
+ <LI><B>rgb:</B> The color selected by user</LI>
+ <LI><B>step:</B> Current step number to produce (between 0 and rgbMapStepCount(w, h) - 1)</LI>
+ <LI><B>Return value:</B> An array containing [height] arrays each containing [width] integers</LI>
+</UL>
+</P>
+
+<P>
+Just like the previous function, we also add this other one to the script. Now we have a
+full and ready template for any RGB script for your indulgence.
+</P>
+<TABLE COLS="1" ROWS="1" WIDTH="100%">
+ <TR>
+  <TD BGCOLOR="#EEEEEE">
+   <PRE>
+    (
+    function() {
+        <FONT color="green">var</FONT> algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
+        algo.apiVersion = <FONT color="orange">1</FONT>;
+        algo.name = <FONT color="darkyellow">"My cool RGB script"</FONT>;
+        algo.author = <FONT color="darkyellow">"Your name"</FONT>;
+
+        algo.rgbMapStepCount = <FONT color="green">function</FONT>(width, height) {
+            ...
+            <FONT color="green">return</FONT> number_of_steps_when_width_is_oranges_and_height_is_jabberwock;
+        }
+
+        algo.rgbMap = <FONT color="green">function</FONT>(width, height, rgb, step) {
+            ...
+            <FONT color="green">return</FONT> a_2d_array_of_arrays;
+        }
+
+        <FONT color="green">return</FONT> algo;
+    }
+    )()</PRE>
+  </TD>
+ </TR>
+</TABLE>
+
+<A name="apiv2"></A><H2>API version 2</H2>
+<P>
+RGB Script API version 2 introduces the concept of <b>Properties</b>. With properties, a Script can interact with the QLC+
+engine by exchanging parameters, thus extending the possibilities of a RGB Script.<br>
+Examples of such properties can be the animation orientation, the number of objects to be rendered, etc..<br>
+<br>
+Adding properties to your script is fairly easy, but requires a specific syntax explained in this paragraph.<br>
+Let's make an example:
+
+<PRE>
+    algo.orientation = <FONT color="orange">0</FONT>;
+    algo.properties = <FONT color="green">new</FONT> Array();
+    algo.properties.push(<FONT color="red">"name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation"</FONT>);
+</PRE>
+The three lines above specifies the following:
+<OL>
+  <LI>The script has an internal property represented by the variable 'orientation'</LI>
+  <LI>Create the properties array. This is needed just once</LI>
+  <LI>Push (add) the property description into the properties array.
+    This is what the QLC+ engine will actually read to exchange data with the script</LI>
+</OL>
+The third line is indeeed the most interesting and the syntax of the string stored in the properties array must be
+followed to avoid errors during the script loading.<br>
+Attributes must be in the form '<b>name:value</b>' and each attribute must be separated from the others by a pipe '<b>|</b>' character.<br>
+Following a table of the accepted attributes and the meaning of their values.<br>
+
+<TABLE class="qlcTable">
+<TR>
+<TD><B>Attribute name</B></TD><TD><B>Attribute value</B></TD>
+</TR>
+<TR>
+ <TD><b>name</b></TD>
+ <TD>The name used by QLC+ to uniquely identify a property. The same name must not be used twice in a script.
+     It is a good practice to use the same name of the 'algo' variable that actually stores the property.
+ </TD>
+</TR>
+<TR>
+ <TD><b>type</b></TD>
+ <TD>This is a fundamental attribute to allow QLC+ to correctly handle a property. The 'type' attribute must be
+ placed before the 'values' attribute.<br>
+ Accepted values are:<br>
+ <UL>
+  <LI><b>list</b>: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor</LI>
+  <LI><b>range</b>: defined a range of integer values that this property can handle</LI>
+  <LI><b>integer</b>: an integer value that QLC+ can exchange with the script</LI>
+  <LI><b>string</b>: a string that QLC+ can exchange with the script</LI>
+ </UL>
+ The type attribute implicitely defines also how the QLC+ RGB Matrix editor will display the property.
+ For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box, 
+ a 'string' is displayed as an editable text box.
+ </TD>
+</TR>
+<TR>
+ <TD><b>display</b></TD>
+ <TD>An string that QLC+ will display in the RGB Matrix editor for the user. It is a good practice to
+ use a meaningful and human readable string to allow users to immediately understand what a property does
+ </TD>
+</TR>
+<TR>
+ <TD><b>values</b></TD>
+ <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the 
+ property can assume. A 'list' type will look like 'one,two,three' while a 'range' type will look like '2,10'.<br>
+ Values must be separated by a comma ',' character. A 'range' type cannot have more than two values.
+</TR>
+<TR>
+ <TD><b>write</b></TD>
+ <TD>Defines the name of the Script function that QLC+ should call to write the property value.<br>
+ In this function the Script's writer should implement all the necessary actions to apply the property change.<br>
+ The write method of the example above is the following:<br>
+ <PRE>
+    algo.setOrientation = <b>function</b>(_orientation) {
+	if (_orientation == "Vertical")
+	  algo.orientation = 1;
+	else
+	  algo.orientation = 0;
+    }
+ </PRE>
+ </TD>
+</TR>
+<TR>
+ <TD><b>read</b></TD>
+ <TD>Defines the name of the Script function that QLC+ should call to read the property value.<br>
+ The read method of the example above is the following:<br>
+ <PRE>
+    algo.getOrientation = <b>function</b>() {
+        if (algo.orientation == 1)
+	  return "Vertical";
+	else
+	  return "Horizontal";
+    }
+ </PRE>
+ </TD>
+</TR>
+</TABLE>
+
+</P>
+
+<H2>Development Tool</H2>
+
+<P>
+There is a development tool available in the QLC+ source repository that makes it easier
+to debug and test your custom scripts with a web browser. To use the tool, you must download
+the following two files to a directory on your hard disk, open the <B>devtool.html</B>
+file with your browser and follow its instructions:
+<UL>
+ <LI><A HREF="https://raw.github.com/mcallegari/qlcplus/master/rgbscripts/devtool.html">devtool.html</A></LI>
+ <LI><A HREF="https://raw.github.com/mcallegari/qlcplus/master/rgbscripts/devtool.js">devtool.js</A></LI>
+</UL>
+(Right-click and "Copy Link Location" works probably best)
+</P>
+
+<H2>Example Script: Full Columns</H2>
+
+<TABLE COLS="1" ROWS="1" WIDTH="100%">
+ <TR>
+  <TD BGCOLOR="#EEEEEE">
+   <PRE><FONT COLOR="darkmagenta">
+    /*
+      Q Light Controller Plus
+      fullcolumns.js
+
+      Copyright (c) Heikki Junnila
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0.txt
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+    */</FONT>
+
+    (
+    <FONT COLOR="darkmagenta">
+    /**
+     * This algorithm produces fully-lit columns, meaning all pixels on a single
+     * column are lit together.
+     */</FONT>
+    function()
+    {
+        var algo = <FONT color="green">new</FONT> <FONT color="red">Object</FONT>;
+        algo.apiVersion = <FONT color="orange">1</FONT>;
+        algo.name = <FONT color="darkyellow">"Full Columns"</FONT>;
+        algo.author = <FONT color="darkyellow">"Heikki Junnila"</FONT>;
+
+        <FONT COLOR="darkmagenta">/**
+         * The actual "algorithm" for this RGB script. Produces a map of
+         * size($width, $height) each time it is called.
+         *
+         * @param step The step number that is requested (0 to (algo.rgbMapStepCount - 1))
+         * @param rgb Tells the color requested by user in the UI.
+         * @return A two-dimensional array[height][width].
+         */</FONT>
+        algo.rgbMap = function(width, height, rgb, step)
+        {
+            var map = <FONT color="green">new</FONT> <FONT color="red">Array</FONT>(height);
+            <FONT color="green">for</FONT> (var y = 0; y < height; y++)
+            {
+                map[y] = <FONT color="green">new</FONT> <FONT color="red">Array</FONT>();
+                <FONT color="green">for</FONT> (var x = 0; x < width; x++)
+                {
+                    <FONT color="green">if</FONT> (x == step)
+                        map[y][x] = rgb;
+                    <FONT color="green">else</FONT>
+                        map[y][x] = 0;
+                }
+            }
+
+            <FONT color="green">return</FONT> map;
+        }
+
+        <FONT COLOR="darkmagenta">/**
+         * Tells RGB Matrix how many steps this algorithm produces with size($width, $height)
+         *
+         * @param width The width of the map
+         * @param height The height of the map
+         * @return Number of steps required for a map of size($width, $height)
+         */</FONT>
+        algo.rgbMapStepCount = function(width, height)
+        {
+            <FONT COLOR="darkmagenta">// Each column is lit completely at a time, so because there are $width</FONT>
+            <FONT color="darkmagenta">// columns in the map, the number of steps must be $width to light all</FONT>
+            <FONT color="darkmagenta">// columns per round.</FONT>
+            <FONT color="green">return</FONT> width;
+        }
+
+        <FONT color="green">return</FONT> algo;
+    }
+    )()</PRE>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

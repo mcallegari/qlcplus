@@ -170,6 +170,8 @@ FixtureManager* FixtureManager::instance()
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
 {
+    QList<QTreeWidgetItem*> groupsToDelete;
+
     for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem* grpItem = m_fixtures_tree->topLevelItem(i);
@@ -180,10 +182,23 @@ void FixtureManager::slotFixtureRemoved(quint32 id)
             Q_ASSERT(fxiItem != NULL);
             QVariant var = fxiItem->data(KColumnName, PROP_FIXTURE);
             if (var.isValid() == true && var.toUInt() == id)
+            {
                 delete fxiItem;
+                break;
+            }
         }
         if (grpItem->childCount() == 0)
-            delete grpItem;
+            groupsToDelete << grpItem;
+    }
+    foreach (QTreeWidgetItem* groupToDelete, groupsToDelete)
+    {
+        QVariant var = groupToDelete->data(KColumnName, PROP_GROUP);
+        // If the group is a fixture group, delete it from doc.
+        // If not, it is a universe, just "hide" it from the ui.
+        if (var.isValid() == true)
+            m_doc->deleteFixtureGroup(groupToDelete->data(KColumnName, PROP_GROUP).toUInt());
+        else
+            delete groupToDelete;
     }
 }
 
@@ -210,6 +225,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         if (item == NULL)
         {
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -220,6 +236,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             if (selected == 1)
                 m_propertiesAction->setEnabled(true);
@@ -237,6 +254,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // Fixture group selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -246,6 +264,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         {
             // All fixtures selected
             m_addAction->setEnabled(true);
+            m_addRGBAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
@@ -259,6 +278,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
     else
     {
         m_addAction->setEnabled(false);
+        m_addRGBAction->setEnabled(false);
         m_removeAction->setEnabled(false);
         m_propertiesAction->setEnabled(false);
         m_fadeConfigAction->setEnabled(false);
@@ -275,7 +295,10 @@ void FixtureManager::slotFixtureGroupRemoved(quint32 id)
         Q_ASSERT(item != NULL);
         QVariant var = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() && var.toUInt() == id)
+        {
             delete item;
+            break;
+        }
     }
 
     updateGroupMenu();
@@ -290,6 +313,7 @@ void FixtureManager::slotFixtureGroupChanged(quint32 id)
     FixtureGroup* grp = m_doc->fixtureGroup(id);
     Q_ASSERT(grp != NULL);
     m_fixtures_tree->updateGroupItem(item, grp);
+    updateGroupMenu();
 }
 
 void FixtureManager::slotDocLoaded()
@@ -447,7 +471,7 @@ void FixtureManager::updateChannelsGroupView()
 
             const QLCChannel* ch = fxi->channel(scv.channel);
             if (ch != NULL)
-                grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
+                grpItem->setIcon(KColumnName, ch->getIcon());
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
@@ -789,7 +813,7 @@ void FixtureManager::initActions()
             this, SLOT(slotAdd()));
 
     m_addRGBAction = new QAction(QIcon(":/rgbpanel.png"),
-                              tr("Add fixture..."), this);
+                              tr("Add RGB panel..."), this);
     connect(m_addRGBAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBPanel()));
 
@@ -955,7 +979,7 @@ void FixtureManager::addFixture()
         /* If we're adding more than one fixture,
            append a number to the end of the name */
         if (af.amount() > 1)
-            modname = QString("%1 #%2").arg(name).arg(i + 1);
+            modname = QString("%1 #%2").arg(name).arg(i + 1, AppUtil::digits(af.amount()), 10, QChar('0'));
         else
             modname = name;
 
@@ -968,12 +992,17 @@ void FixtureManager::addFixture()
         fxi->setUniverse(universe);
         fxi->setName(modname);
         /* Set a fixture definition & mode if they were
-           selected. Otherwise assign channels to a generic
-           dimmer. */
+           selected. Otherwise create a fixture definition
+           and mode for a generic dimmer. */
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
-            fxi->setChannels(channels);
+        {
+            fixtureDef = fxi->genericDimmerDef(channels);
+            mode = fxi->genericDimmerMode(fixtureDef, channels);
+            fxi->setFixtureDefinition(fixtureDef, mode);
+            //fxi->setChannels(channels);
+        }
 
         m_doc->addFixture(fxi);
         latestFxi = fxi->id();
@@ -1020,6 +1049,7 @@ void FixtureManager::slotAddRGBPanel()
         int columns = rgb.columns();
         quint32 phyWidth = rgb.physicalWidth();
         quint32 phyHeight = rgb.physicalHeight() / rows;
+        Fixture::Components components = rgb.components();
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
         Q_ASSERT(grp != NULL);
@@ -1059,9 +1089,9 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns);
+                rowDef = fxi->genericRGBPanelDef(columns, components);
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
@@ -1127,40 +1157,49 @@ void FixtureManager::removeFixture()
     }
 
     QListIterator <QTreeWidgetItem*> it(m_fixtures_tree->selectedItems());
+
+    // We put items to delete in sets,
+    // so no segfault happens when the same fixture is selected twice
+    QSet <quint32> groupsToDelete;
+    QSet <quint32> fixturesToDelete;
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
         Q_ASSERT(item != NULL);
 
+        // Is the item a fixture ?
         QVariant var = item->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == true)
-        {
-            quint32 id = var.toUInt();
-
-            /** @todo This is REALLY bogus here, since Fixture or Doc should do
-                this. However, FixtureManager is the only place to destroy fixtures,
-                so it's rather safe to reset the fixture's address space here. */
-            Fixture* fxi = m_doc->fixture(id);
-            Q_ASSERT(fxi != NULL);
-            QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
-            int universe = fxi->universe();
-            if (universe < ua.count())
-                ua[universe]->reset(fxi->address(), fxi->channels());
-            m_doc->inputOutputMap()->releaseUniverses();
-
-            m_doc->deleteFixture(id);
-        }
+            fixturesToDelete << var.toUInt();
         else
         {
+            // Is the item a fixture group ?
             var = item->data(KColumnName, PROP_GROUP);
-            if (var.isValid() == false)
-                continue;
-
-            quint32 id = var.toUInt();
-            m_doc->deleteFixtureGroup(id);
+            if (var.isValid() == true)
+                groupsToDelete << var.toUInt();
         }
     }
-    m_fixtures_tree->updateTree();
+
+    // delete fixture groups
+    foreach (quint32 id, groupsToDelete)
+        m_doc->deleteFixtureGroup(id);
+
+    // delete fixtures
+    foreach (quint32 id, fixturesToDelete)
+    {
+        /** @todo This is REALLY bogus here, since Fixture or Doc should do
+            this. However, FixtureManager is the only place to destroy fixtures,
+            so it's rather safe to reset the fixture's address space here. */
+        Fixture* fxi = m_doc->fixture(id);
+        Q_ASSERT(fxi != NULL);
+        QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+        int universe = fxi->universe();
+        if (universe < ua.count())
+            ua[universe]->reset(fxi->address(), fxi->channels());
+        m_doc->inputOutputMap()->releaseUniverses();
+
+        m_doc->deleteFixture(id);
+    }
 }
 
 void FixtureManager::removeChannelsGroup()
@@ -1225,54 +1264,55 @@ void FixtureManager::editFixtureProperties()
         model = fxi->fixtureDef()->model();
         mode = fxi->fixtureMode()->name();
     }
-    else
-    {
-        manuf = KXMLFixtureGeneric;
-        model = KXMLFixtureGeneric;
-    }
 
     AddFixture af(this, m_doc, fxi);
     af.setWindowTitle(tr("Change fixture properties"));
     if (af.exec() == QDialog::Accepted)
     {
-      if (af.invalidAddress() == false)
-      {
-        if (fxi->name() != af.name())
-            fxi->setName(af.name());
-        if (fxi->universe() != af.universe())
-            fxi->setUniverse(af.universe());
-        if (fxi->address() != af.address())
+        if (af.invalidAddress() == false)
         {
-            m_doc->moveFixture(id, af.address());
-            fxi->setAddress(af.address());
-        }
+            fxi->blockSignals(true);
+            if (fxi->name() != af.name())
+                fxi->setName(af.name());
+            if (fxi->universe() != af.universe())
+                fxi->setUniverse(af.universe());
+            if (fxi->address() != af.address())
+                fxi->setAddress(af.address());
+            fxi->blockSignals(false);
 
-        if (af.fixtureDef() != NULL && af.mode() != NULL)
-        {
-            if (fxi->fixtureDef() != af.fixtureDef() ||
-                    fxi->fixtureMode() != af.mode())
+            if (af.fixtureDef() != NULL && af.mode() != NULL)
             {
-                m_doc->changeFixtureMode(id, af.mode());
-                fxi->setFixtureDefinition(af.fixtureDef(),
-                                          af.mode());
+                if (af.fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+                    af.fixtureDef()->model() == KXMLFixtureGeneric)
+                {
+                    if (fxi->channels() != af.channels())
+                    {
+                        QLCFixtureDef* fixtureDef = fxi->genericDimmerDef(af.channels());
+                        QLCFixtureMode* fixtureMode = fxi->genericDimmerMode(fixtureDef, af.channels());
+                        fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+                    }
+                }
+                else
+                {
+                    fxi->setFixtureDefinition(af.fixtureDef(), af.mode());
+                }
             }
+            else
+            {
+                /* Generic dimmer */
+                fxi->setFixtureDefinition(NULL, NULL);
+                fxi->setChannels(af.channels());
+            }
+
+            updateView();
+            slotSelectionChanged();
         }
         else
         {
-            /* Generic dimmer */
-            fxi->setFixtureDefinition(NULL, NULL);
-            fxi->setChannels(af.channels());
+            QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                    tr("Please enter a valid address"), QMessageBox::Ok);
+            msg.exec();
         }
-
-        m_fixtures_tree->updateFixtureItem(item, fxi);
-        slotSelectionChanged();
-      }
-      else
-      {
-          QMessageBox msg(QMessageBox::Critical, tr("Error"),
-                          tr("Please enter a valid address"), QMessageBox::Ok);
-          msg.exec();
-      }
     }
 }
 
@@ -1619,6 +1659,7 @@ void FixtureManager::slotContextMenuRequested(const QPoint&)
 {
     QMenu menu(this);
     menu.addAction(m_addAction);
+    menu.addAction(m_addRGBAction);
     menu.addAction(m_propertiesAction);
     menu.addAction(m_removeAction);
     menu.addSeparator();

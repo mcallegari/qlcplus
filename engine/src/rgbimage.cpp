@@ -33,7 +33,7 @@
 #define KXMLQLCRGBImageOffsetX        "X"
 #define KXMLQLCRGBImageOffsetY        "Y"
 
-RGBImage::RGBImage(const Doc * doc)
+RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
     , m_filename("")
     , m_animationStyle(Static)
@@ -77,13 +77,38 @@ QString RGBImage::filename() const
     return m_filename;
 }
 
+void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
+{
+    QMutexLocker locker(&m_mutex);
+
+    qDebug() << "[RGBImage] setting image data:" << width << height << pixelData.length();
+    QImage newImg(width, height, QImage::Format_RGB888);
+    newImg.fill(Qt::black);
+
+    int i = 0;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (i + 3 > pixelData.length())
+                break;
+            QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
+            newImg.setPixel(x, y, pixel);
+            i+=3;
+        }
+    }
+    m_image = newImg;
+}
+
 void RGBImage::reloadImage()
 {
     if (m_filename.isEmpty())
     {
-        qDebug() << "Empty image!";
+        qDebug() << "[RGBImage] Empty image!";
         return;
     }
+
+    QMutexLocker locker(&m_mutex);
 
     if (!m_image.load(m_filename))
     {
@@ -173,6 +198,8 @@ int RGBImage::yOffset() const
 
 int RGBImage::rgbMapStepCount(const QSize& size)
 {
+    QMutexLocker locker(&m_mutex);
+
     switch (animationStyle())
     {
     default:
@@ -191,6 +218,8 @@ int RGBImage::rgbMapStepCount(const QSize& size)
 RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 {
     Q_UNUSED(rgb);
+
+    QMutexLocker locker(&m_mutex);
 
     if (m_image.width() == 0 || m_image.height() == 0)
         return RGBMap();
@@ -250,6 +279,11 @@ int RGBImage::apiVersion() const
 RGBAlgorithm::Type RGBImage::type() const
 {
     return RGBAlgorithm::Image;
+}
+
+int RGBImage::acceptColors() const
+{
+    return 0;
 }
 
 bool RGBImage::loadXML(const QDomElement& root)

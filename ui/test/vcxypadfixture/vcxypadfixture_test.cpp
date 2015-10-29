@@ -31,7 +31,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../../../engine/test/common/resource_paths.h"
 
 void VCXYPadFixture_Test::initTestCase()
 {
@@ -39,7 +39,7 @@ void VCXYPadFixture_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void VCXYPadFixture_Test::init()

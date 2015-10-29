@@ -209,7 +209,7 @@ QString PeperoniDevice::outputInfoText(quint32 line) const
  * Open & close
  ****************************************************************************/
 
-void PeperoniDevice::open(quint32 line, OperatingMode mode)
+bool PeperoniDevice::open(quint32 line, OperatingMode mode)
 {
     m_operatingModes[line] |= mode;
 
@@ -222,7 +222,7 @@ void PeperoniDevice::open(quint32 line, OperatingMode mode)
         if (m_handle == NULL)
         {
             qWarning() << "Unable to open PeperoniDevice with idProduct:" << m_device->descriptor.idProduct;
-            return;
+            return false;
         }
 
         /* Use configuration #2 on X-Switch */
@@ -285,6 +285,7 @@ void PeperoniDevice::open(quint32 line, OperatingMode mode)
         m_running = true;
         start();
     }
+    return true;
 }
 
 void PeperoniDevice::close(quint32 line, OperatingMode mode)
@@ -375,7 +376,12 @@ void PeperoniDevice::run()
                                 100);                    // Timeout (ms)
 
             if (r < 0)
+            {
                 qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed control_msg:" << usb_strerror();
+                r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
+                if (r < 0)
+                    qWarning() << "PeperoniDevice" << name(m_baseLine) << "is unable to reset bulk IN endpoint.";
+            }
             else
             {
                 /* read received startcode */

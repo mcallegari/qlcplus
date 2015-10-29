@@ -32,9 +32,9 @@
 #define KXMLQLCRGBTextOffsetX        "X"
 #define KXMLQLCRGBTextOffsetY        "Y"
 
-RGBText::RGBText(const Doc * doc)
+RGBText::RGBText(Doc * doc)
     : RGBAlgorithm(doc)
-    , m_text(" Q LIGHT CONTROLLER ")
+    , m_text(" Q LIGHT CONTROLLER + ")
     , m_animationStyle(Horizontal)
     , m_xOffset(0)
     , m_yOffset(0)
@@ -290,6 +290,11 @@ int RGBText::apiVersion() const
 RGBAlgorithm::Type RGBText::type() const
 {
     return RGBAlgorithm::Text;
+}
+
+int RGBText::acceptColors() const
+{
+    return 2; // start and end colors accepted
 }
 
 bool RGBText::loadXML(const QDomElement& root)

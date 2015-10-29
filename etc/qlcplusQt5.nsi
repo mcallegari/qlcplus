@@ -5,7 +5,7 @@
 ;--------------------------------
 ;Defines
 !define QLCPLUS_HOME "c:\Qt\qlcplus"
-!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlcplus.ico"
+!define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.7.3.exe"
+OutFile "QLC+_4.10.2.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -27,6 +27,11 @@ RequestExecutionLevel user
 !insertmacro MUI_LANGUAGE "German"
 !insertmacro MUI_LANGUAGE "Spanish"
 !insertmacro MUI_LANGUAGE "SpanishInternational"
+!insertmacro MUI_LANGUAGE "Czech"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "Finnish"
+!insertmacro MUI_LANGUAGE "Japanese"
+!insertmacro MUI_LANGUAGE "Catalan"
 
 !define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
 
@@ -76,36 +81,12 @@ Section
 SectionEnd
 
 Section
-	File mingwm10.dll
-	File libgcc_s_dw2-1.dll
-	File libmad-0.dll
-	File libogg-0.dll
-	File libFLAC-8.dll
-	File libvorbis-0.dll
-	File libvorbisenc-2.dll
-	File libsndfile-1.dll
-	File libfftw3-3.dll
-	File libstdc++-6.dll
-	File libwinpthread-1.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
-	File qlcplusengine.dll
-	File qlcplusui.dll
-	File qlcpluswebaccess.dll
-	File Qt5Core.dll
-	File Qt5Gui.dll
-	File Qt5OpenGL.dll
-	File Qt5Xml.dll
-	File Qt5Network.dll
-	File Qt5Script.dll
-	File Qt5Widgets.dll
-	File Qt5Multimedia.dll
-	File Qt5MultimediaWidgets.dll
-	File icudt51.dll
-	File icuin51.dll
-	File icuuc51.dll
+	File *.dll
 	File /r platforms
 	File /r mediaservice
+	File /r audio
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -116,6 +97,7 @@ Section
 	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
+	File /r Web
 
 	WriteRegStr HKCR ".qxw" "" "QLightControllerPlus.Document"
 	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
@@ -141,34 +123,10 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus.exe
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
-	Delete $INSTDIR\qlcplusengine.dll
-	Delete $INSTDIR\qlcplusui.dll
-	Delete $INSTDIR\qlcpluswebaccess.dll
-	Delete $INSTDIR\mingwm10.dll
-	Delete $INSTDIR\libgcc_s_dw2-1.dll
-	Delete $INSTDIR\libmad-0.dll
-	Delete $INSTDIR\libogg-0.dll
-	Delete $INSTDIR\libFLAC-8.dll
-	Delete $INSTDIR\libvorbis-0.dll
-	Delete $INSTDIR\libvorbisenc-2.dll
-	Delete $INSTDIR\libsndfile-1.dll
-	Delete $INSTDIR\libfftw3-3.dll
-	Delete $INSTDIR\libstdc++-6.dll
-	Delete $INSTDIR\libwinpthread-1.dll
-	Delete $INSTDIR\Qt5Core.dll
-	Delete $INSTDIR\Qt5Gui.dll
-	Delete $INSTDIR\Qt5OpenGL.dll
-	Delete $INSTDIR\Qt5Xml.dll
-	Delete $INSTDIR\Qt5Network.dll
-	Delete $INSTDIR\Qt5Script.dll
-	Delete $INSTDIR\Qt5Widgets.dll
-	Delete $INSTDIR\Qt5Multimedia.dll
-	Delete $INSTDIR\Qt5MultimediaWidgets.dll
-	Delete $INSTDIR\icudt51.dll
-	Delete $INSTDIR\icuin51.dll
-	Delete $INSTDIR\icuuc51.dll
+	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\mediaservice
+	RMDir /r $INSTDIR\audio
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
@@ -179,6 +137,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
+	RMDir /r $INSTDIR\Web
 
 	RMDir $INSTDIR
 

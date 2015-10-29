@@ -50,6 +50,8 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
+    connect(m_testButton, SIGNAL(clicked()),
+            this, SLOT(slotTestClicked()));
 
     m_nameEdit->setText(m_fc->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
@@ -62,6 +64,8 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
 
 CollectionEditor::~CollectionEditor()
 {
+    if(m_testButton->isChecked ())
+        m_fc->stopAndWait ();
 }
 
 void CollectionEditor::slotNameEdited(const QString& text)
@@ -94,14 +98,21 @@ void CollectionEditor::slotRemove()
     }
 }
 
+void CollectionEditor::slotTestClicked()
+{
+    if (m_testButton->isChecked() == true)
+        m_fc->start(m_doc->masterTimer());
+    else
+        m_fc->stopAndWait();
+}
+
 void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    QListIterator <quint32> it(m_fc->functions());
-    while (it.hasNext() == true)
+    foreach(QVariant fid, m_fc->functions())
     {
-        Function* function = m_doc->function(it.next());
+        Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);
 
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);

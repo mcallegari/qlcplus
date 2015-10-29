@@ -71,10 +71,20 @@ bool AudioDecoderSndFile::initialize()
     if((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
         sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
 
-    configure(m_freq, chan, PCM_S16LE);
+    AudioFormat pcmFormat = PCM_S16LE;
+    switch(snd_info.format & SF_FORMAT_SUBMASK)
+    {
+        case SF_FORMAT_PCM_S8: pcmFormat = PCM_S8; break;
+        case SF_FORMAT_PCM_16: pcmFormat = PCM_S16LE; break;
+        case SF_FORMAT_PCM_24: pcmFormat = PCM_S24LE; break;
+        case SF_FORMAT_PCM_32: pcmFormat = PCM_S32LE; break;
+        default: pcmFormat = PCM_S16LE; break;
+    }
+
+    configure(m_freq, chan, pcmFormat);
     qDebug() << "DecoderSndFile: detected format: Sample Rate:" << m_freq <<
             ",Channels: " <<  chan << ", PCM Format: " << snd_info.format;
-    qDebug("DecoderSndFile: initialize success");
+
     return true;
 }
 

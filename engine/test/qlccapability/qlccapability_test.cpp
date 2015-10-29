@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlccapability_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlccapability_test.h"
 #include "qlccapability.h"
@@ -92,49 +94,49 @@ void QLCCapability_Test::overlaps()
 {
     QLCCapability cap1;
     QLCCapability cap2;
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2 contains cap1 completely */
     cap1.setMin(10);
     cap1.setMax(245);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's max overlaps cap1 */
     cap2.setMin(0);
     cap2.setMax(10);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's max overlaps cap1 */
     cap2.setMin(0);
     cap2.setMax(15);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's min overlaps cap1 */
     cap2.setMin(245);
     cap2.setMax(UCHAR_MAX);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap2's min overlaps cap1 */
     cap2.setMin(240);
     cap2.setMax(UCHAR_MAX);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     /* cap1 contains cap2 completely */
     cap2.setMin(20);
     cap2.setMax(235);
-    QVERIFY(cap1.overlaps(cap2) == true);
-    QVERIFY(cap2.overlaps(cap1) == true);
+    QVERIFY(cap1.overlaps(&cap2) == true);
+    QVERIFY(cap2.overlaps(&cap1) == true);
 
     cap2.setMin(0);
     cap2.setMax(9);
-    QVERIFY(cap1.overlaps(cap2) == false);
-    QVERIFY(cap2.overlaps(cap1) == false);
+    QVERIFY(cap1.overlaps(&cap2) == false);
+    QVERIFY(cap2.overlaps(&cap1) == false);
 }
 
 void QLCCapability_Test::copy()
@@ -148,27 +150,32 @@ void QLCCapability_Test::copy()
     cap1.setMax(15);
     cap1.setName("Foobar");
 
-    QLCCapability cap2 = cap1;
-    QVERIFY(cap2.min() == 5);
-    QVERIFY(cap2.max() == 15);
-    QVERIFY(cap2.name() == "Foobar");
+    QLCCapability *cap2 = cap1.createCopy();
+    QVERIFY(cap2->min() == 5);
+    QVERIFY(cap2->max() == 15);
+    QVERIFY(cap2->name() == "Foobar");
 }
 
 void QLCCapability_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Capability");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "13");
+    xmlWriter.writeAttribute("Max", "19");
+    xmlWriter.writeCharacters("Test1");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    root.setAttribute("Min", 13);
-    root.setAttribute("Max", 19);
-
-    QDomText name = doc.createTextNode("Test1");
-    root.appendChild(name);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCCapability cap;
-    QVERIFY(cap.loadXML(root) == true);
+    QVERIFY(cap.loadXML(xmlReader) == true);
     QVERIFY(cap.name() == "Test1");
     QVERIFY(cap.min() == 13);
     QVERIFY(cap.max() == 19);
@@ -176,19 +183,24 @@ void QLCCapability_Test::load()
 
 void QLCCapability_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("apability");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("apability");
+    xmlWriter.writeAttribute("Min", "13");
+    xmlWriter.writeAttribute("Max", "19");
+    xmlWriter.writeCharacters("Test1");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    root.setAttribute("Min", 13);
-    root.setAttribute("Max", 19);
-
-    QDomText name = doc.createTextNode("Test1");
-    root.appendChild(name);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCCapability cap;
-    QVERIFY(cap.loadXML(root) == false);
+    QVERIFY(cap.loadXML(xmlReader) == false);
     QVERIFY(cap.name().isEmpty());
     QVERIFY(cap.min() == 0);
     QVERIFY(cap.max() == UCHAR_MAX);
@@ -196,18 +208,23 @@ void QLCCapability_Test::loadWrongRoot()
 
 void QLCCapability_Test::loadNoMin()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Capability");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Max", "19");
+    xmlWriter.writeCharacters("Test1");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    root.setAttribute("Max", 19);
-
-    QDomText name = doc.createTextNode("Test1");
-    root.appendChild(name);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCCapability cap;
-    QVERIFY(cap.loadXML(root) == false);
+    QVERIFY(cap.loadXML(xmlReader) == false);
     QVERIFY(cap.name().isEmpty());
     QVERIFY(cap.min() == 0);
     QVERIFY(cap.max() == UCHAR_MAX);
@@ -215,18 +232,23 @@ void QLCCapability_Test::loadNoMin()
 
 void QLCCapability_Test::loadNoMax()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Capability");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "13");
+    xmlWriter.writeCharacters("Test1");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    root.setAttribute("Min", 13);
-
-    QDomText name = doc.createTextNode("Test1");
-    root.appendChild(name);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCCapability cap;
-    QVERIFY(cap.loadXML(root) == false);
+    QVERIFY(cap.loadXML(xmlReader) == false);
     QVERIFY(cap.name().isEmpty());
     QVERIFY(cap.min() == 0);
     QVERIFY(cap.max() == UCHAR_MAX);
@@ -234,19 +256,24 @@ void QLCCapability_Test::loadNoMax()
 
 void QLCCapability_Test::loadMinGreaterThanMax()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Capability");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "20");
+    xmlWriter.writeAttribute("Max", "19");
+    xmlWriter.writeCharacters("Test1");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    root.setAttribute("Min", 20);
-    root.setAttribute("Max", 19);
-
-    QDomText name = doc.createTextNode("Test1");
-    root.appendChild(name);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCCapability cap;
-    QVERIFY(cap.loadXML(root) == false);
+    QVERIFY(cap.loadXML(xmlReader) == false);
     QVERIFY(cap.name().isEmpty());
     QVERIFY(cap.min() == 0);
     QVERIFY(cap.max() == UCHAR_MAX);
@@ -259,14 +286,24 @@ void QLCCapability_Test::save()
     cap.setMin(5);
     cap.setMax(87);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(cap.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Capability");
-    QVERIFY(root.firstChild().toElement().text() == "Testing");
-    QVERIFY(root.firstChild().toElement().attribute("Min") == "5");
-    QVERIFY(root.firstChild().toElement().attribute("Max") == "87");
+    QVERIFY(cap.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Capability");
+    QVERIFY(xmlReader.attributes().value("Min").toString() == "5");
+    QVERIFY(xmlReader.attributes().value("Max").toString() == "87");
+    QVERIFY(xmlReader.readElementText() == "Testing");
 }
 
 QTEST_APPLESS_MAIN(QLCCapability_Test)

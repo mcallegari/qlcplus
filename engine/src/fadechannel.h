@@ -71,13 +71,16 @@ public:
     quint32 universe();
 
     /** Set channel within the Fixture. */
-    void setChannel(quint32 num);
+    void setChannel(const Doc* doc, quint32 num);
 
     /** Get channel within the Fixture. */
     quint32 channel() const;
 
     /** Get the absolute address for this channel. */
     quint32 address() const;
+
+    /** Get the absolute address in its universe for this channel. */
+    quint32 addressInUniverse() const;
 
     /** Get the channel group. */
     QLCChannel::Group group(const Doc* doc) const;
@@ -108,6 +111,13 @@ public:
 
     /** Check if this channel is ready. Default is false. */
     bool isReady() const;
+
+    /** Set a channel in flashing mode. This will be removed by
+     *  MasterTimer once applied */
+    void setFlashing(bool flashing);
+
+    /** Returns if this channel is flashing */
+    bool isFlashing() const;
 
     /** Returns if a channel can be faded or not */
     bool canFade(const Doc *doc) const;
@@ -149,11 +159,13 @@ private:
     quint32 m_universe;
     quint32 m_channel;
     quint32 m_address;
+    QLCChannel::Group m_group;
 
     int m_start;
     int m_target;
     int m_current;
     bool m_ready;
+    bool m_flashing;
 
     uint m_fadeTime;
     uint m_elapsed;

@@ -22,12 +22,16 @@
 
 #include <QWidget>
 #include "ui_editchannel.h"
+#include "qlcchannel.h"
 
 class QTreeWidgetItem;
 class QString;
 
-class QLCChannel;
 class QLCCapability;
+
+/** @addtogroup fixtureeditor Fixture Editor
+ * @{
+ */
 
 class EditChannel : public QDialog, public Ui_EditChannel
 {
@@ -38,6 +42,7 @@ public:
 
 protected:
     void init();
+    void setupCapabilityGroup();
 
     /*********************************************************************
      * Channel
@@ -71,9 +76,22 @@ protected slots:
     void slotEditCapabilityClicked();
     void slotWizardClicked();
 
+    void slotMinSpinChanged(int value);
+    void slotMaxSpinChanged(int value);
+    void slotDescriptionEdited(const QString& text);
+    void slotPictureButtonPressed();
+    void slotColor1ButtonPressed();
+    void slotColor2ButtonPressed();
+
 protected:
     void refreshCapabilities();
     QLCCapability* currentCapability();
+    int currentCapabilityIndex();
+
+protected:
+    QLCCapability* m_currentCapability;
 };
+
+/** @} */
 
 #endif

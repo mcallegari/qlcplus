@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>JL Griffin Update Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Mini Scan HPE</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color Disc">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="32" Color="#ee1d23">Red</Capability>
+  <Capability Min="33" Max="48" Color="#fef135">Yellow</Capability>
+  <Capability Min="49" Max="65" Color="#b368aa">Violet</Capability>
+  <Capability Min="66" Max="81" Color="#17a54f">Green</Capability>
+  <Capability Min="82" Max="97" Color="#faa633">Orange</Capability>
+  <Capability Min="98" Max="114" Color="#1072bc">Blue</Capability>
+  <Capability Min="115" Max="127" Color="#f287b6">Pink</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rotation Speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="20">0° Position</Capability>
+  <Capability Min="21" Max="41">90° Position</Capability>
+  <Capability Min="42" Max="62">180° Position</Capability>
+  <Capability Min="63" Max="83">270° Position</Capability>
+  <Capability Min="84" Max="104">360° Position</Capability>
+  <Capability Min="105" Max="126">450° Position</Capability>
+  <Capability Min="127" Max="127">540° Position</Capability>
+  <Capability Min="128" Max="190">CCW Rotation [Fast-&gt;Slow]</Capability>
+  <Capability Min="191" Max="192">Stop Rotation</Capability>
+  <Capability Min="193" Max="255">CW Rotation [Slow-&gt;Fast]</Capability>
+ </Channel>
+ <Channel Name="Gobo Select">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/open.png" Min="0" Max="36">Open</Capability>
+  <Capability Res="Others/gobo00002.png" Min="37" Max="73">Gobo 1</Capability>
+  <Capability Res="Others/gobo00001.png" Min="74" Max="110">Gobo 2</Capability>
+  <Capability Res="ClayPaky/gobo00059.png" Min="111" Max="147">Gobo 3</Capability>
+  <Capability Res="Others/gobo00029.png" Min="148" Max="184">Gobo 4</Capability>
+  <Capability Res="ClayPaky/gobo00071.png" Min="185" Max="221">Gobo 5</Capability>
+  <Capability Res="Others/gobo00031.png" Min="222" Max="255">Gobo 6</Capability>
+ </Channel>
+ <Channel Name="Dimmer / Stopper / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Close</Capability>
+  <Capability Min="128" Max="139">Open</Capability>
+  <Capability Min="140" Max="243">Strobe Slow to Fast</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Effects disc">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">White</Capability>
+  <Capability Min="36" Max="71">Warm Filter</Capability>
+  <Capability Min="72" Max="108">Cold Filter</Capability>
+  <Capability Min="109" Max="145">Light Frost</Capability>
+  <Capability Min="146" Max="181">Heavy Frost</Capability>
+  <Capability Min="182" Max="217">3 Face Prism</Capability>
+  <Capability Min="218" Max="254">U.V. Filter</Capability>
+  <Capability Min="255" Max="255">Light Blue</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Lumens="22000" Type="HTI 300W" ColourTemperature="6500"/>
+   <Dimensions Width="582" Height="300" Weight="13" Depth="238"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="150" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Color Disc</Channel>
+  <Channel Number="1">Gobo Rotation</Channel>
+  <Channel Number="2">Gobo Select</Channel>
+  <Channel Number="3">Dimmer / Stopper / Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Effects disc</Channel>
+ </Mode>
+</FixtureDefinition>

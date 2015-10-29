@@ -31,7 +31,7 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void Fixture_Test::initTestCase()
 {
@@ -40,7 +40,7 @@ void Fixture_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void Fixture_Test::cleanupTestCase()
@@ -184,10 +184,10 @@ void Fixture_Test::dimmer()
     QVERIFY(fxi.channels() == 5);
     QVERIFY(fxi.channel(0) != NULL);
     const QLCChannel* ch = fxi.channel(0);
-    QVERIFY(fxi.channel(1) == ch);
-    QVERIFY(fxi.channel(2) == ch);
-    QVERIFY(fxi.channel(3) == ch);
-    QVERIFY(fxi.channel(4) == ch);
+    QVERIFY(fxi.channel(1) != fxi.channel(0));
+    QVERIFY(fxi.channel(2) != fxi.channel(1));
+    QVERIFY(fxi.channel(3) != fxi.channel(2));
+    QVERIFY(fxi.channel(4) != fxi.channel(3));
     QVERIFY(fxi.channel(5) == NULL);
     QVERIFY(fxi.channel(42) == NULL);
     QVERIFY(fxi.channel(QLCChannel::invalid()) == NULL);
@@ -199,7 +199,7 @@ void Fixture_Test::dimmer()
 
     /* Although the dimmer fixture HAS a channel with this name, it is
        not returned, because all channels have the same name. */
-    QVERIFY(fxi.channel("Intensity") == QLCChannel::invalid());
+    QVERIFY(fxi.channel(QLCChannel::Intensity) == 0);
 }
 
 void Fixture_Test::fixtureDef()
@@ -242,26 +242,17 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.channel(fxi.channels() - 1) != NULL);
     QVERIFY(fxi.channel(fxi.channels()) == NULL);
 
-    QVERIFY(fxi.channel("Pan") != QLCChannel::invalid());
-    const QLCChannel* ch = fxi.channel(fxi.channel("Pan"));
+    QVERIFY(fxi.channel(QLCChannel::Pan) != QLCChannel::invalid());
+    const QLCChannel* ch = fxi.channel(fxi.channel(QLCChannel::Pan));
     QVERIFY(ch != NULL);
-    QVERIFY(ch->name().toLower() == "pan");
-
-    ch = fxi.channel(fxi.channel("Pan", Qt::CaseInsensitive, QLCChannel::Colour));
-    QVERIFY(ch == NULL);
-
-    QVERIFY(fxi.channel("fect") != QLCChannel::invalid());
-    ch = fxi.channel(fxi.channel("fect"));
-    QVERIFY(ch != NULL);
-    QCOMPARE(ch->name(), QString("Effect speed"));
 
     QCOMPARE(fxi.panMsbChannel(), quint32(7));
     QCOMPARE(fxi.tiltMsbChannel(), quint32(9));
     QCOMPARE(fxi.panLsbChannel(), quint32(8));
     QCOMPARE(fxi.tiltLsbChannel(), quint32(10));
     QCOMPARE(fxi.masterIntensityChannel(), quint32(1));
-    QCOMPARE(fxi.rgbChannels(), QList <quint32> ());
-    QCOMPARE(fxi.cmyChannels(), QList <quint32> () << 2 << 3 << 4);
+    QCOMPARE(fxi.rgbChannels(), QVector <quint32> ());
+    QCOMPARE(fxi.cmyChannels(), QVector <quint32> () << 2 << 3 << 4);
 }
 
 void Fixture_Test::channels()
@@ -273,26 +264,19 @@ void Fixture_Test::channels()
     QVERIFY(fixtureMode != NULL);
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
-    QCOMPARE(fxi.channel("red", Qt::CaseInsensitive), quint32(3));
-    QCOMPARE(fxi.channel("red", Qt::CaseInsensitive, QLCChannel::Intensity), quint32(3));
-    QCOMPARE(fxi.channel("brown", Qt::CaseInsensitive), QLCChannel::invalid());
+    QCOMPARE(fxi.channel(QLCChannel::Intensity, QLCChannel::Red), quint32(3));
 
     QSet <quint32> chs;
     chs << 3 << 4 << 21 << 22 << 12 << 13 << 30 << 31;
-    QCOMPARE(chs, fxi.channels("red", Qt::CaseInsensitive));
-    QCOMPARE(chs, fxi.channels("red", Qt::CaseInsensitive, QLCChannel::Intensity));
+    QCOMPARE(chs, fxi.channels(QLCChannel::Intensity, QLCChannel::Red));
     chs.clear();
     chs << 5 << 6 << 23 << 24 << 14 << 15 << 32 << 33;
-    QCOMPARE(chs, fxi.channels("green", Qt::CaseInsensitive));
-    chs.clear();
-    QCOMPARE(chs, fxi.channels("green"));
+    QCOMPARE(chs, fxi.channels(QLCChannel::Intensity, QLCChannel::Green));
     chs.clear();
     chs << 7 << 8 << 16 << 17 << 25 << 26 << 34 << 35;
-    QCOMPARE(chs, fxi.channels("blue", Qt::CaseInsensitive));
+    QCOMPARE(chs, fxi.channels(QLCChannel::Intensity, QLCChannel::Blue));
     chs.clear();
-    QCOMPARE(chs, fxi.channels("green", Qt::CaseInsensitive, QLCChannel::Colour));
-    chs.clear();
-    QCOMPARE(fxi.channels("brown", Qt::CaseInsensitive, QLCChannel::Intensity), chs);
+    QCOMPARE(chs, fxi.channels(QLCChannel::Colour, QLCChannel::Blue));
 }
 
 void Fixture_Test::loadWrongRoot()
@@ -472,8 +456,8 @@ void Fixture_Test::loadDimmer()
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 21);
     QVERIFY(fxi.universe() == 3);
-    QVERIFY(fxi.fixtureDef() == NULL);
-    QVERIFY(fxi.fixtureMode() == NULL);
+    QVERIFY(fxi.fixtureDef() != NULL);
+    QVERIFY(fxi.fixtureMode() != NULL);
 }
 
 void Fixture_Test::loadWrongAddress()
@@ -697,8 +681,8 @@ void Fixture_Test::loader()
     QVERIFY(fxi->channels() == 18);
     QVERIFY(fxi->address() == 21);
     QVERIFY(fxi->universe() == 3);
-    QVERIFY(fxi->fixtureDef() == NULL);
-    QVERIFY(fxi->fixtureMode() == NULL);
+    QVERIFY(fxi->fixtureDef() != NULL);
+    QVERIFY(fxi->fixtureMode() != NULL);
 }
 
 void Fixture_Test::save()

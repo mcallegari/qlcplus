@@ -71,6 +71,7 @@ MidiDevice::MidiDevice(const QVariant& uid, const QString& name, DeviceType devi
     , m_name(name)
     , m_midiChannel(0)
     , m_mode(ControlChange)
+    , m_sendNoteOff(true)
 {
     loadSettings();
 }
@@ -143,6 +144,20 @@ MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
        return ProgramChange;
    else
        return ControlChange;
+}
+
+/****************************************************************************
+ * Send Note OFF
+ ****************************************************************************/
+
+void MidiDevice::setSendNoteOff(bool sendNoteOff)
+{
+    m_sendNoteOff = sendNoteOff;
+}
+
+bool MidiDevice::sendNoteOff() const
+{
+    return m_sendNoteOff;
 }
 
 /****************************************************************************
@@ -219,5 +234,5 @@ void MidiDevice::saveSettings() const
     key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     settings.setValue(key, midiTemplateName());
 
-    qDebug() << "Saving mididevice with template name: " << midiTemplateName();
+    qDebug() << "[MIDI] Saving mididevice with template name: " << midiTemplateName();
 }

@@ -41,7 +41,6 @@ void QLCClipboard::copyContent(quint32 sourceID, QList<ChaserStep> steps)
 {
     Q_UNUSED(sourceID)
 
-    m_copySteps.clear();
     m_copySteps = steps;
 }
 
@@ -49,7 +48,6 @@ void QLCClipboard::copyContent(quint32 sourceID, QList<SceneValue> values)
 {
     Q_UNUSED(sourceID)
 
-    m_copySceneValues.clear();
     m_copySceneValues = values;
 }
 
@@ -111,11 +109,3 @@ Function *QLCClipboard::getFunction()
 {
     return m_copyFunction;
 }
-
-
-
-
-
-
-
-

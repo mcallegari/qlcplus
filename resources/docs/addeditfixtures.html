@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Add/Edit Fixtures</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Add/Edit Fixtures</H1>
+<P>
+The same dialog (with slight differences) is used for both adding new and
+editing the properties of existing <A HREF="file:concept.html#Fixtures">Fixtures</A>.
+</P>
+<P>
+<B>NOTE:</B> When editing an existing fixture, you can always choose a completely different
+fixture type to replace the previous one, but if their channels don't match
+each other exactly, any <A HREF="file:concept.html#Scene">Scene</A> functions you
+may have created, will very probably do things that you don't want. Also, if
+the channel counts don't match, you might end up having fixtures with overlapping
+channels, which results also to unwanted behaviour.
+<A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>, <A HREF="file:concept.html#EFX">EFX</A>,
+<A HREF="file:concept.html#Chaser">Chaser</A> and <A HREF="file:concept.html#Collection">Collection</A>
+functions remain unaffected since they don't directly address specific channels, but are more
+dynamic in nature.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Fixture Model list</B>
+  </TD>
+  <TD>
+   Shows you a list of available fixture definitions and their general types.
+   If you don't see your favourite fixture definition on the list, you can
+   create one yourself with the accompanying, easy to use <B>QLC+ Fixture Editor</B>.
+   Since QLC+ is completely free software, please consider sharing the definition
+   files with the community at <A HREF="http://www.qlcplus.org/forum/viewforum.php?f=3">http://www.qlcplus.org/forum/viewforum.php?f=3</A>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fixture Properties</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Name: The friendly name you wish to assign to the fixture</LI>
+    <LI>Mode: The <A HREF="file:concept.html#FixtureMode">mode</A> you have configured to the fixture</LI>
+    <LI>Universe: The DMX universe where the newly-added fixture(s) are connected to</LI>
+    <LI>Address: The address of the (first) fixture you are adding. If you are
+    adding multiple fixtures, each consecutive fixture will be assigned an 
+    address immediately after the previous fixture's channels, unless address gap
+    (see below) is non-zero.</LI>
+    <LI>Channels: If you have selected the <B>Generic</B> dimmer device, you
+    can define its channel count to this field. Otherwise this field is read-only
+    and it just tells you how many channels the currently selected fixture needs
+    in its currently selected mode.</LI>
+    <LI>Channel list: This field displays a more detailed list of individual
+    channels for the currently selected fixture and its mode. For <B>Generic</B>
+    dimmers, this field remains empty since all dimmer channels are treated as
+    dummy <B>intensity</B> channels.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Multiple Fixtures</B>
+  </TD>
+  <TD>
+   You can also add more than one fixture at the same time if your setup
+   consists of multiple fixtures that are of the same make &amp; model.
+   These features are disabled when you are editing an existing fixture.
+   <UL>
+    <LI>Amount: Number of new fixtures to create. Each newly-added fixture
+    includes also a number after its assigned name when adding more than one
+    fixture at a time.</LI>
+    <LI>Address gap: Leave this many empty channels between each new fixture</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

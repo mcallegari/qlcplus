@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.6 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Derby X</Model>
+ <Type>Flower</Type>
+ <Channel Name="Cluster Control 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
+  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
+  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
+  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
+  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
+  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
+  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe 0% to 100 %</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="24">Auto 1</Capability>
+  <Capability Min="25" Max="38">Auto 2</Capability>
+  <Capability Min="39" Max="52">Auto 3</Capability>
+  <Capability Min="53" Max="66">Auto 4</Capability>
+  <Capability Min="67" Max="80">Auto 5</Capability>
+  <Capability Min="81" Max="94">Auto 6</Capability>
+  <Capability Min="95" Max="108">Auto 7</Capability>
+  <Capability Min="109" Max="122">Auto 8</Capability>
+  <Capability Min="123" Max="136">Auto 9</Capability>
+  <Capability Min="137" Max="150">Auto 10</Capability>
+  <Capability Min="151" Max="164">Auto 11</Capability>
+  <Capability Min="165" Max="178">Auto 12</Capability>
+  <Capability Min="179" Max="192">Auto 13</Capability>
+  <Capability Min="193" Max="206">Auto 14</Capability>
+  <Capability Min="207" Max="220">Auto 15</Capability>
+  <Capability Min="221" Max="250">Auto 16</Capability>
+  <Capability Min="251" Max="255">Audio Trigger</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="187" Width="302" Depth="382" Weight="1.8"/>
+   <Lens DegreesMin="16" DegreesMax="96" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Cluster Control 1</Channel>
+  <Channel Number="1">Cluster Control 2</Channel>
+  <Channel Number="2">Cluster Control 3</Channel>
+  <Channel Number="3">Cluster Control 4</Channel>
+  <Channel Number="4">Cluster Control 5</Channel>
+  <Channel Number="5">Cluster Control 6</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Auto Speed</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

@@ -154,7 +154,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 
     /* Listen to plugin configuration changes */
-    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&)),
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&, bool)),
             this, SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)),
@@ -190,11 +190,11 @@ void InputOutputManager::updateList()
 {
     m_list->blockSignals(true);
     m_list->clear();
-    for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
+    for (quint32 uni = 0; uni < m_ioMap->universesCount(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
     m_list->blockSignals(false);
 
-    if (m_ioMap->universes() == 0)
+    if (m_ioMap->universesCount() == 0)
     {
         if (m_editor != NULL)
         {
@@ -289,7 +289,7 @@ void InputOutputManager::slotCurrentItemChanged()
     QListWidgetItem* item = m_list->currentItem();
     if (item == NULL)
     {
-        if (m_ioMap->universes() == 0)
+        if (m_ioMap->universesCount() == 0)
             return;
 
         m_list->setCurrentItem(m_list->item(0));
@@ -414,5 +414,13 @@ void InputOutputManager::slotPassthroughChanged(bool checked)
     int uniIdx = m_list->currentRow();
     m_ioMap->setUniversePassthrough(uniIdx, checked);
     m_doc->inputOutputMap()->saveDefaults();
+}
+
+void InputOutputManager::showEvent(QShowEvent *ev)
+{
+    Q_UNUSED(ev);
+    // force the recreation of the selected universe editor
+    m_editorUniverse = UINT_MAX;
+    updateList();
 }
 

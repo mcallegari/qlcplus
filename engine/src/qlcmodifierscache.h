@@ -25,6 +25,10 @@
 
 class ChannelModifier;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCModifiersCache
 {
 public:
@@ -82,5 +86,7 @@ public:
 private:
     QHash <QString, ChannelModifier*> m_modifiers;
 };
+
+/** @} */
 
 #endif // QLCMODIFIERSCACHE_H

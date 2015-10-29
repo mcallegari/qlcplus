@@ -27,7 +27,6 @@
 
 #include "qlcfixturedefcache.h"
 #include "qlcmodifierscache.h"
-#include "monitorproperties.h"
 #include "inputoutputmap.h"
 #include "ioplugincache.h"
 #include "channelsgroup.h"
@@ -40,6 +39,8 @@
 class QDomDocument;
 class AudioCapture;
 class QString;
+class RGBScriptsCache;
+class MonitorProperties;
 
 /** @addtogroup engine Engine
  * @{
@@ -107,7 +108,10 @@ signals:
     /** Emitted when clearContents() has finished. */
     void cleared();
 
-    /** Emitted the document has been completely loaded */
+    /** Emitted when the document is being loaded, before actually doing anything. */
+    void loading();
+
+    /** Emitted when the document has been completely loaded. */
     void loaded();
 
     /*********************************************************************
@@ -120,6 +124,9 @@ public:
     /** Get the channel modifiers cache object */
     QLCModifiersCache* modifiersCache() const;
 
+    /** Get the RGB scripts cache object */
+    RGBScriptsCache* rgbScriptsCache() const;
+
     /** Get the I/O plugin cache object */
     IOPluginCache* ioPluginCache() const;
 
@@ -130,7 +137,7 @@ public:
     MasterTimer* masterTimer() const;
 
     /** Get the audio input capture object */
-    AudioCapture* audioInputCapture();
+    QSharedPointer<AudioCapture> audioInputCapture();
 
     /** Destroy a previously created audio capture instance */
     void destroyAudioCapture();
@@ -138,10 +145,11 @@ public:
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
     QLCModifiersCache* m_modifiersCache;
+    RGBScriptsCache* m_rgbScriptsCache;
     IOPluginCache* m_ioPluginCache;
     InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;
-    AudioCapture *m_inputCapture;
+    QSharedPointer<AudioCapture> m_inputCapture;
     MonitorProperties *m_monitorProps;
 
     /*********************************************************************
@@ -242,14 +250,6 @@ public:
     bool deleteFixture(quint32 id);
 
     /**
-     * Move the given fixture instance from an address to another
-     *
-     * @param id The ID of the fixture instance to move
-     * @param newAddress the new DMX address where the fixture must take place
-     */
-    bool moveFixture(quint32 id, quint32 newAddress);
-
-    /**
      * Replace the whole fixtures list with a new one.
      * This is done by remapping. Note that no signal is emitted to
      * avoid loosing scenes and all the stuff connected to fixtures.
@@ -259,14 +259,6 @@ public:
      * @param newFixturesList list of fixtures that will take place
      */
     bool replaceFixtures(QList<Fixture*> newFixturesList);
-
-    /**
-     * Change the mode of an existing fixture
-     *
-     * @param id The ID of the fixture instance
-     * @param mode pointer to the new mode to be assigned
-     */
-    bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
 
     /**
      * Update the channels capabilities of an existing fixture with the given ID
@@ -286,7 +278,7 @@ public:
     /**
      * Get a list of fixtures
      */
-    QList <Fixture*> fixtures() const;
+    QList<Fixture*> const& fixtures() const;
 
     /**
      * Get the fixture that occupies the given DMX address. If multiple fixtures
@@ -327,8 +319,12 @@ private slots:
     void slotFixtureChanged(quint32 fxi_id);
 
 protected:
-    /** Fixtures map: < ID, Fixture instance > */
-    QMap <quint32,Fixture*> m_fixtures;
+    /** Fixtures hash: < ID, Fixture instance > */
+    QHash <quint32, Fixture*> m_fixtures;
+
+    /** Fixtures list cache */
+    bool m_fixturesListCacheUpToDate;
+    QList<Fixture*> m_fixturesListCache;
 
     /** Map of the addresses occupied by fixtures */
     QHash <quint32, quint32> m_addresses;
@@ -513,6 +509,9 @@ private slots:
     /** Slot that catches function change signals */
     void slotFunctionChanged(quint32 fid);
 
+    /** Slot that catches function name change signals */
+    void slotFunctionNameChanged(quint32 fid);
+
 signals:
     /** Signal that a function has been added */
     void functionAdded(quint32 function);
@@ -522,6 +521,9 @@ signals:
 
     /** Signal that a function has been changed */
     void functionChanged(quint32 function);
+
+    /** Signal that a function has been changed */
+    void functionNameChanged(quint32 function);
 
 protected:
     /** Functions */
@@ -537,7 +539,13 @@ protected:
      * Monitor Properties
      *********************************************************************/
 public:
+    /** Returns a reference to the monitor properties instance */
     MonitorProperties *monitorProperties();
+
+    /** Returns the first available space (in mm) for a rectangle
+     * of the given width and height.
+     * This method works with the monitor properties and the fixtures list */
+    QPointF getAvailable2DPosition(QRectF& fxRect);
 
     /*********************************************************************
      * Load & Save
@@ -565,6 +573,11 @@ public:
      * errors once a project is loaded.
      */
     void appendToErrorLog(QString error);
+
+    /**
+     * Clear any previously filled error log
+     */
+    void clearErrorLog();
 
     /**
      * Retrieve the error log string, filled during a project load

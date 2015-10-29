@@ -6,12 +6,12 @@
     <message>
         <location filename="spiconfiguration.ui" line="14"/>
         <source>Configure SPI Plugin</source>
-        <translation>Configureer SPI Plugin</translation>
+        <translation>Configureer SPI plugin</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="20"/>
         <source>Transmission frequency:</source>
-        <translation>Verzend frequentie:</translation>
+        <translation>Verzendfrequentie:</translation>
     </message>
     <message>
         <location filename="spiconfiguration.ui" line="35"/>
@@ -37,7 +37,7 @@
 <context>
     <name>SPIPlugin</name>
     <message>
-        <location filename="spiplugin.cpp" line="126"/>
+        <location filename="spiplugin.cpp" line="132"/>
         <source>This plugin provides DMX output for SPI devices.</source>
         <translation>Deze plugin verzorgt DMX output voor SPI apparaten.</translation>
     </message>

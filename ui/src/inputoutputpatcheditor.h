@@ -25,6 +25,7 @@
 #include "ui_inputoutputpatcheditor.h"
 
 class InputOutputMap;
+class AudioCapture;
 class QStringList;
 class OutputPatch;
 class InputPatch;
@@ -84,12 +85,13 @@ private:
     QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
     void fillMappingTree();
     QTreeWidgetItem* pluginItem(const QString& pluginName);
+    void showPluginMappingError();
 
 private slots:
     void slotMapCurrentItemChanged(QTreeWidgetItem* item);
     void slotMapItemChanged(QTreeWidgetItem* item, int col);
     void slotConfigureInputClicked();
-    void slotPluginConfigurationChanged(const QString& pluginName);
+    void slotPluginConfigurationChanged(const QString& pluginName, bool success);
 
     /************************************************************************
      * Profile page
@@ -110,10 +112,17 @@ private slots:
      * Audio page
      ************************************************************************/
 private:
-    void fillAudioTree();
+    void initAudioTab();
 
 private slots:
     void slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col);
+    void slotSampleRateIndexChanged(int index);
+    void slotAudioChannelsChanged(int index);
+    void slotAudioInputPreview(bool enable);
+    void slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+
+private:
+    AudioCapture *m_inputCapture;
 };
 
 /** @} */

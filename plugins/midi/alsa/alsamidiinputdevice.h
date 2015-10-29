@@ -39,7 +39,7 @@ public:
                         AlsaMidiInputThread* thread, QObject* parent);
     virtual ~AlsaMidiInputDevice();
 
-    void open();
+    bool open();
     void close();
     bool isOpen() const;
 

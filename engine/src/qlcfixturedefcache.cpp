@@ -18,8 +18,9 @@
 */
 
 #include <QCoreApplication>
-#include <QList>
+#include <QXmlStreamReader>
 #include <QDebug>
+#include <QList>
 #include <QSet>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -54,7 +55,10 @@ QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
     {
         QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
+        {
+            def->checkLoaded();
             return def;
+        }
     }
 
     return NULL;
@@ -90,8 +94,8 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
 
     // Bounce the QSet into a QStringList
     QStringList list;
-    foreach (QString manuf, models)
-        list << manuf;
+    foreach (QString model, models)
+        list << model;
 
     return list;
 }
@@ -167,34 +171,50 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
     if (mapPath.isEmpty() == true)
         return false;
 
-    QDomDocument doc = QLCFile::readXML(mapPath);
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(mapPath);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << mapPath;
-        return QFile::ReadError;
+        return false;
     }
 
-    if (doc.doctype().name() == KXMLQLCFixtureMap)
+    while (!doc->atEnd())
     {
-        QDomElement root = doc.documentElement();
-        if (root.tagName() == KXMLQLCFixtureMap)
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return false;
+    }
+
+    if (doc->dtdName() == KXMLQLCFixtureMap)
+    {
+        if (doc->readNextStartElement() == false)
         {
-            QDomNode node = root.firstChild();
-            while (node.isNull() == false)
+            QLCFile::releaseXMLReader(doc);
+            return false;
+        }
+
+        if (doc->name() == KXMLQLCFixtureMap)
+        {
+            int fxCount = 0;
+
+            while (doc->readNextStartElement())
             {
                 QString defFile= "";
                 QString manufacturer = "";
                 QString model = "";
 
-                QDomElement tag = node.toElement();
-                if (tag.tagName() == "fixture")
+                if (doc->name() == "fixture")
                 {
-                    if (tag.hasAttribute("path"))
-                        defFile = QString(dir.absoluteFilePath(tag.attribute("path")));
-                    if(tag.hasAttribute("mf"))
-                        manufacturer = tag.attribute("mf");
-                    if(tag.hasAttribute("md"))
-                        model = tag.attribute("md");
+                    if (doc->attributes().hasAttribute("path"))
+                        defFile = QString(dir.absoluteFilePath(doc->attributes().value("path").toString()));
+                    if(doc->attributes().hasAttribute("mf"))
+                        manufacturer = doc->attributes().value("mf").toString();
+                    if(doc->attributes().hasAttribute("md"))
+                        model = doc->attributes().value("md").toString();
 
                     if (defFile.isEmpty() == false &&
                         manufacturer.isEmpty() == false &&
@@ -211,20 +231,22 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
                         if (addFixtureDef(fxi) == false)
                             delete fxi;
                         fxi = NULL;
+                        fxCount++;
                     }
                 }
                 else
                 {
-                    qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << tag.tagName();
+                    qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << doc->name();
                 }
-
-                node = node.nextSibling();
+                doc->skipCurrentElement();
             }
+            qDebug() << fxCount << "fixtures found in map";
         }
         else
         {
             qWarning() << Q_FUNC_INFO << mapPath
                        << "is not a fixture map file";
+            QLCFile::releaseXMLReader(doc);
             return false;
         }
     }
@@ -232,7 +254,33 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
     {
         qWarning() << Q_FUNC_INFO << mapPath
                    << "is not a fixture map file";
+        QLCFile::releaseXMLReader(doc);
         return false;
+    }
+
+    /* Attempt to read all files not in FixtureMap */
+    QStringList definitionPaths;
+
+    // Gather a list of manufacturers
+    QListIterator <QLCFixtureDef*> mfit(m_defs);
+    while (mfit.hasNext() == true)
+        definitionPaths << mfit.next()->definitionSourceFile();
+
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path(dir.absoluteFilePath(it.next()));
+        if (definitionPaths.contains(path))
+            continue;
+
+        qWarning() << path << "not in" << FIXTURES_MAP_NAME;
+
+        if (path.toLower().endsWith(KExtFixture) == true)
+            loadQXF(path);
+        else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
+            loadD4(path);
+        else
+            qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
     }
 
     return true;
@@ -282,19 +330,11 @@ void QLCFixtureDefCache::loadQXF(const QString& path)
 
 void QLCFixtureDefCache::loadD4(const QString& path)
 {
+    QLCFixtureDef* fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
-    if (parser.loadXML(path) == false)
+    if (parser.loadXML(path, fxi) == false)
     {
         qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path
-                   << ":" << parser.lastError();
-        return;
-    }
-
-    QLCFixtureDef* fxi = new QLCFixtureDef();
-    Q_ASSERT(fxi != NULL);
-    if (parser.fillFixtureDef(fxi) == false)
-    {
-        qWarning() << Q_FUNC_INFO << "Unable to parse D4 fixture from" << path
                    << ":" << parser.lastError();
         delete fxi;
         return;

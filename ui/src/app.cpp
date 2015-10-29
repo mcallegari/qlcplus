@@ -50,10 +50,22 @@
 #include "app.h"
 #include "doc.h"
 
+#include "rgbscriptscache.h"
 #include "qlcfixturedefcache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+ #include "videoprovider.h"
+#endif
+
+//#define DEBUG_SPEED
+
+#ifdef DEBUG_SPEED
+ #include <QTime>
+ QTime speedTime;
+#endif
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
@@ -73,6 +85,8 @@
 App::App()
     : QMainWindow()
     , m_tab(NULL)
+    , m_overscan(false)
+    , m_noGui(false)
     , m_progressDialog(NULL)
     , m_doc(NULL)
 
@@ -89,6 +103,7 @@ App::App()
     , m_controlPanicAction(NULL)
     , m_dumpDmxAction(NULL)
     , m_liveEditAction(NULL)
+    , m_liveEditVirtualConsoleAction(NULL)
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
@@ -98,6 +113,9 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    , m_videoProvider(NULL)
+#endif
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -109,7 +127,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false)
+    if (m_doc->isKiosk() == false && QLCFile::isRaspberry() == false)
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
@@ -138,6 +156,11 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    if (m_videoProvider != NULL)
+        delete m_videoProvider;
+#endif
+
     if (m_doc != NULL)
         delete m_doc;
 
@@ -162,6 +185,16 @@ void App::startup()
     setActiveWindow(FixtureManager::staticMetaObject.className());
 }
 
+void App::enableOverscan()
+{
+    m_overscan = true;
+}
+
+void App::disableGUI()
+{
+    m_noGui = true;
+}
+
 void App::init()
 {
     QSettings settings;
@@ -171,6 +204,8 @@ void App::init()
     m_tab = new QTabWidget(this);
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
+
+    QLCFile::checkRaspberry();
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
@@ -188,11 +223,23 @@ void App::init()
             if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
-                // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.95;
-                int h = (float)geometry.height() * 0.95;
-                setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                            w, h);
+                if (m_noGui == true)
+                {
+                    setGeometry(geometry.width(), geometry.height(), 1, 1);
+                }
+                else
+                {
+                    int w = geometry.width();
+                    int h = geometry.height();
+                    if (m_overscan == true)
+                    {
+                        // if we're on a Raspberry Pi, introduce a 5% margin
+                        w = (float)geometry.width() * 0.95;
+                        h = (float)geometry.height() * 0.95;
+                    }
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
+                                w, h);
+                }
             }
             else
                 resize(800, 600);
@@ -234,6 +281,10 @@ void App::init()
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
+    // Listen to DMX value changes and update each Fixture values array
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
     slotRunningFunctionsChanged();
@@ -262,6 +313,10 @@ void App::init()
         QString styleSheet = QLatin1String(ssFile.readAll());
         this->setStyleSheet(styleSheet);
     }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_videoProvider = new VideoProvider(m_doc, this);
+#endif
 }
 
 void App::setActiveWindow(const QString& name)
@@ -364,12 +419,17 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
-    m_doc->clearContents();
+    m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
+    m_doc->clearContents();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
+    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->masterTimer()->start();
 }
 
 Doc *App::doc()
@@ -384,7 +444,9 @@ void App::initDoc()
 
     connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
-
+#ifdef DEBUG_SPEED
+    speedTime.start();
+#endif
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
     m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
@@ -392,6 +454,10 @@ void App::initDoc()
     /* Load channel modifiers templates */
     m_doc->modifiersCache()->load(QLCModifiersCache::systemTemplateDirectory(), true);
     m_doc->modifiersCache()->load(QLCModifiersCache::userTemplateDirectory());
+
+    /* Load RGB scripts */
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::systemScriptsDirectory());
+    m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
@@ -405,6 +471,10 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
     m_doc->inputOutputMap()->loadDefaults();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
+#endif
 
     m_doc->masterTimer()->start();
 }
@@ -422,6 +492,21 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption + QString(" *"));
     else
         setWindowTitle(caption);
+}
+
+void App::slotUniversesWritten(int idx, const QByteArray &ua)
+{
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (fixture->universe() != (quint32)idx)
+            continue;
+
+        int fxStartAddr = fixture->address();
+        if (fxStartAddr >= ua.size())
+            continue;
+
+        fixture->setChannelValues(ua.mid(fxStartAddr, fixture->channels()));
+    }
 }
 
 /*****************************************************************************
@@ -442,6 +527,12 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(ShowManager::instance()));
     m_tab->removeTab(m_tab->indexOf(SimpleDesk::instance()));
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
+
+    // Hide the tab bar to save some pixels
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    // tabBar() in QT4 is protected.
+    m_tab->tabBar()->hide();
+#endif
 
     // No need for the toolbar
     delete m_toolbar;
@@ -484,6 +575,7 @@ void App::slotModeDesign()
             m_doc->masterTimer()->stopAllFunctions();
     }
 
+    m_liveEditVirtualConsoleAction->setChecked(false);
     m_doc->setMode(Doc::Design);
 }
 
@@ -503,6 +595,7 @@ void App::slotModeChanged(Doc::Mode mode)
         m_fileNewAction->setEnabled(false);
         m_fileOpenAction->setEnabled(false);
         m_liveEditAction->setEnabled(true);
+        m_liveEditVirtualConsoleAction->setEnabled(true);
 
         m_modeToggleAction->setIcon(QIcon(":/design.png"));
         m_modeToggleAction->setText(tr("Design"));
@@ -514,6 +607,7 @@ void App::slotModeChanged(Doc::Mode mode)
         m_fileNewAction->setEnabled(true);
         m_fileOpenAction->setEnabled(true);
         m_liveEditAction->setEnabled(false);
+        m_liveEditVirtualConsoleAction->setEnabled(false);
 
         m_modeToggleAction->setIcon(QIcon(":/operate.png"));
         m_modeToggleAction->setText(tr("Operate"));
@@ -564,6 +658,11 @@ void App::initActions()
     m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
     m_liveEditAction->setEnabled(false);
+
+    m_liveEditVirtualConsoleAction = new QAction(QIcon(":/liveedit_vc.png"), tr("Toggle Virtual Console Live edit"), this);
+    connect(m_liveEditVirtualConsoleAction, SIGNAL(triggered()), this, SLOT(slotLiveEditVirtualConsole()));
+    m_liveEditVirtualConsoleAction->setCheckable(true);
+    m_liveEditVirtualConsoleAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
     m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
@@ -636,6 +735,7 @@ void App::initToolBar()
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_dumpDmxAction);
     m_toolbar->addAction(m_liveEditAction);
+    m_toolbar->addAction(m_liveEditVirtualConsoleAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlPanicAction);
     m_toolbar->addSeparator();
@@ -853,10 +953,18 @@ QFile::FileError App::slotFileOpen()
        can be loaded even if the workspace file has been moved */
     m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
 
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
+
     /* Load the file */
     QFile::FileError error = loadXML(fn);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -866,6 +974,8 @@ QFile::FileError App::slotFileOpen()
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 
     updateFileOpenMenu(fn);
 
@@ -1006,6 +1116,11 @@ void App::slotFunctionLiveEdit()
     }
 }
 
+void App::slotLiveEditVirtualConsole()
+{
+    VirtualConsole::instance()->toggleLiveEdit();
+}
+
 void App::slotControlFullScreen()
 {
     static int wstate = windowState();
@@ -1092,10 +1207,18 @@ void App::slotRecentFileClicked(QAction *recent)
        can be loaded even if the workspace file has been moved */
     m_doc->setWorkspacePath(QFileInfo(recentAbsPath).absolutePath());
 
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
+
     /* Load the file */
     QFile::FileError error = loadXML(recentAbsPath);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -1105,7 +1228,8 @@ void App::slotRecentFileClicked(QAction *recent)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
-
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 }
 
 /*****************************************************************************
@@ -1147,11 +1271,13 @@ QFile::FileError App::loadXML(const QString& fileName)
             retval = QFile::ReadError;
         }
     }
+    else
+        retval = QFile::ReadError;
 
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc, bool goToConsole)
+bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
 {
     Q_ASSERT(m_doc != NULL);
 
@@ -1213,7 +1339,8 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
 
-    if (m_doc->errorLog().isEmpty() == false)
+    if (m_doc->errorLog().isEmpty() == false &&
+        fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
                         tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
@@ -1289,7 +1416,7 @@ void App::slotLoadDocFromMemory(QString xmlData)
 
     QDomDocument doc;
     doc.setContent(xmlData);
-    loadXML(doc, true);
+    loadXML(doc, true, true);
 }
 
 void App::slotSaveAutostart(QString fileName)

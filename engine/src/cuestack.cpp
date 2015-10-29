@@ -19,6 +19,7 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <qmath.h>
 #include <QDebug>
 #include <QHash>
 
@@ -431,9 +432,9 @@ void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         {
             it.next();
             FadeChannel fc;
-            fc.setChannel(it.key());
+            fc.setChannel(doc(), it.key());
             fc.setTarget(it.value());
-            int uni = floor(fc.channel() / 512);
+            int uni = qFloor(fc.channel() / 512);
             if (uni < ua.size())
                 ua[uni]->write(fc.channel() - (uni * 512), fc.target());
         }
@@ -525,7 +526,7 @@ void CueStack::postRun(MasterTimer* timer)
             fc.setElapsed(0);
             fc.setReady(false);
             fc.setFadeTime(fadeOutSpeed());
-            timer->fader()->add(fc);
+            timer->faderAdd(fc);
         }
     }
 
@@ -588,9 +589,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     {
         oldit.next();
 
-        FadeChannel fc;
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(oldit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), oldit.key());
 
         if (fc.group(doc()) == QLCChannel::Intensity)
         {
@@ -608,10 +607,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (newit.hasNext() == true)
     {
         newit.next();
-        FadeChannel fc;
-
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(newit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), newit.key());
         fc.setTarget(newit.value());
         fc.setElapsed(0);
         fc.setReady(false);

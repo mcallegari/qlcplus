@@ -43,6 +43,7 @@
 #define KXMLQLCChaserSequenceBoundScene "BoundScene"
 #define KXMLQLCChaserSequenceStartTime "StartTime"
 #define KXMLQLCChaserSequenceColor "Color"
+#define KXMLQLCChaserSequenceLocked "Locked"
 
 /*****************************************************************************
  * Initialization
@@ -55,12 +56,14 @@ Chaser::Chaser(Doc* doc)
     , m_boundSceneID(-1)
     , m_startTime(UINT_MAX)
     , m_color(85, 107, 128)
+    , m_locked(false)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
     , m_startStepIndex(-1)
+    , m_hasStartIntensity(false)
+    , m_runnerMutex(QMutex::Recursive)
     , m_runner(NULL)
-    , m_useInternalRunner(true)
 {
     setName(tr("New Chaser"));
 
@@ -227,13 +230,44 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
-quint32 Chaser::getDuration()
+void Chaser::setTotalDuration(quint32 msec)
 {
-    quint32 duration = 0;
-    foreach (ChaserStep step, m_steps)
-        duration += step.duration;
+    if (durationMode() == Chaser::Common)
+    {
+        setDuration(msec / m_steps.count());
+    }
+    else
+    {
+        // scale all the Chaser steps to resize
+        // to the desired duration
+        double dtDuration = (double)totalDuration();
+        for (int i = 0; i < m_steps.count(); i++)
+        {
+            uint origDuration = m_steps[i].duration;
+            m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
+            if(m_steps[i].hold)
+                m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
+            m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
+            if (m_steps[i].fadeOut)
+                m_steps[i].fadeOut = ((double)m_steps[i].fadeOut * (double)m_steps[i].duration) / (double)origDuration;
+        }
+    }
+    emit changed(this->id());
+}
 
-    return duration;
+quint32 Chaser::totalDuration()
+{
+    quint32 totalDuration = 0;
+
+    if (durationMode() == Chaser::Common)
+        totalDuration = duration() * m_steps.count();
+    else
+    {
+        foreach (ChaserStep step, m_steps)
+            totalDuration += step.duration;
+    }
+
+    return totalDuration;
 }
 
 void Chaser::slotFunctionRemoved(quint32 fid)
@@ -284,6 +318,16 @@ void Chaser::setColor(QColor color)
 QColor Chaser::getColor()
 {
     return m_color;
+}
+
+void Chaser::setLocked(bool locked)
+{
+    m_locked = locked;
+}
+
+bool Chaser::isLocked()
+{
+    return m_locked;
 }
 
 /*****************************************************************************
@@ -383,8 +427,6 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         QDomElement seq = doc->createElement(KXMLQLCChaserSequenceTag);
         seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundSceneID);
-        seq.setAttribute(KXMLQLCChaserSequenceStartTime, m_startTime);
-        seq.setAttribute(KXMLQLCChaserSequenceColor, m_color.name());
         root.appendChild(seq);
     }
 
@@ -455,9 +497,11 @@ bool Chaser::loadXML(const QDomElement& root)
             QString str = tag.attribute(KXMLQLCChaserSequenceBoundScene);
             enableSequenceMode(str.toUInt());
             if (tag.hasAttribute(KXMLQLCChaserSequenceStartTime))
-                m_startTime = tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt();
+                setStartTime(tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt());
             if (tag.hasAttribute(KXMLQLCChaserSequenceColor))
-                m_color = QColor(tag.attribute(KXMLQLCChaserSequenceColor));
+                setColor(QColor(tag.attribute(KXMLQLCChaserSequenceColor)));
+            if (tag.hasAttribute(KXMLQLCChaserSequenceLocked))
+                setLocked(true);
         }
         else if (tag.tagName() == KXMLQLCFunctionStep)
         {
@@ -506,74 +550,157 @@ void Chaser::postLoad()
 
 /*****************************************************************************
  * Next/Previous
+ * Protected ChaserRunner wrappers
  *****************************************************************************/
 
 void Chaser::tap()
 {
-    if (m_useInternalRunner && m_runner != NULL && durationMode() == Common)
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL && durationMode() == Common)
         m_runner->tap();
 }
 
 void Chaser::setStepIndex(int idx)
 {
-    if (m_useInternalRunner && m_runner != NULL)
-        m_runner->setCurrentStep(idx);
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->setCurrentStep(idx, getAttributeValue(Intensity));
     else
         m_startStepIndex = idx;
 }
 
+void Chaser::setStartIntensity(qreal startIntensity)
+{
+    m_startIntensity = startIntensity;
+    m_hasStartIntensity = true;
+}
+
 void Chaser::previous()
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
         m_runner->previous();
 }
 
 void Chaser::next()
 {
-    if (m_useInternalRunner && m_runner != NULL)
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
         m_runner->next();
+}
+
+void Chaser::stopStep(int stepIndex)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->stopStep(stepIndex);
+}
+
+void Chaser::setCurrentStep(int step, qreal intensity)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->setCurrentStep(step, intensity * getAttributeValue(Intensity));
+}
+
+int Chaser::currentStepIndex() const
+{
+    int ret = m_startStepIndex;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (m_runner != NULL)
+            ret = m_runner->currentStepIndex();
+    }
+    return ret;
+}
+
+int Chaser::computeNextStep(int currentStepIndex) const
+{
+    int ret = m_startStepIndex;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (m_runner != NULL)
+            ret = m_runner->computeNextStep(currentStepIndex);
+    }
+    return ret;
+}
+
+int Chaser::runningStepsNumber() const
+{
+    int ret = 0;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (m_runner != NULL)
+            ret = m_runner->runningStepsNumber();
+    }
+    return ret;
+}
+
+ChaserRunnerStep Chaser::currentRunningStep() const
+{
+    ChaserRunnerStep ret;
+    ret.m_function = NULL;
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (m_runner != NULL)
+        {
+            ChaserRunnerStep* step = m_runner->currentRunningStep();
+            if (step != NULL)
+            {
+                ret = *step;
+            }
+        }
+    }
+    return ret;
+}
+
+void Chaser::adjustIntensity(qreal fraction, int stepIndex)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
 }
 
 /*****************************************************************************
  * Running
  *****************************************************************************/
 
-ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, int startStepIdx)
+void Chaser::createRunner(quint32 startTime, int startStepIdx)
 {
-    if (self == NULL || doc == NULL)
-        return NULL;
+    Q_ASSERT(m_runner == NULL);
 
-    ChaserRunner* runner = new ChaserRunner(doc, self, startTime);
-    Q_ASSERT(runner != NULL);
-    runner->moveToThread(QCoreApplication::instance()->thread());
-    runner->setParent(self);
+    {
+        QMutexLocker stepListLocker(&m_stepListMutex);
+        m_runner = new ChaserRunner(doc(), this, startTime);
+    }
+    m_runner->moveToThread(QCoreApplication::instance()->thread());
+    m_runner->setParent(this);
     if (startStepIdx != -1)
-        runner->setCurrentStep(startStepIdx);
-
-    return runner;
-}
-
-void Chaser::useInternalRunner(bool enable)
-{
-    m_useInternalRunner = enable;
+        m_runner->setCurrentStep(startStepIdx);
 }
 
 void Chaser::preRun(MasterTimer* timer)
 {
-    if (m_useInternalRunner)
     {
-        Q_ASSERT(m_runner == NULL);
-        m_runner = createRunner(this, doc(), elapsed(), m_startStepIndex);
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        createRunner(elapsed(), m_startStepIndex);
+        qreal intensity = getAttributeValue(Intensity);
+        if (m_hasStartIntensity)
+            intensity *= m_startIntensity;
+        m_runner->adjustIntensity(intensity);
+        m_hasStartIntensity = false;
         m_startStepIndex = -1;
         connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     }
+
     Function::preRun(timer);
 }
 
 void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 {
-    if (m_useInternalRunner)
     {
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        QMutexLocker stepListLocker(&m_stepListMutex);
         Q_ASSERT(m_runner != NULL);
 
         if (m_runner->write(timer, universes) == false)
@@ -585,8 +712,9 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
-    if (m_useInternalRunner && m_runner != NULL)
     {
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        Q_ASSERT(m_runner != NULL);
         m_runner->postRun(timer, universes);
 
         delete m_runner;
@@ -602,7 +730,12 @@ void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Chaser::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_useInternalRunner && m_runner != NULL && attributeIndex == Intensity)
-        m_runner->adjustIntensity(fraction);
+    if (attributeIndex == Intensity)
+    {
+        QMutexLocker runnerLocker(&m_runnerMutex);
+        QMutexLocker stepListLocker(&m_stepListMutex);
+        if (m_runner != NULL)
+            m_runner->adjustIntensity(fraction);
+    }
     Function::adjustAttribute(fraction, attributeIndex);
 }

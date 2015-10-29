@@ -25,35 +25,27 @@
     </message>
 </context>
 <context>
-    <name>HIDEventDevice</name>
+    <name>HIDDMXDevice</name>
     <message>
-        <location filename="hideventdevice.cpp" line="339"/>
-        <source>N/A</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HIDFX5Device</name>
-    <message>
-        <location filename="hidfx5device.cpp" line="61"/>
-        <source>FX5 USB DMX Interface Error</source>
+        <location filename="hiddmxdevice.cpp" line="62"/>
+        <source>HID DMX Interface Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="hidfx5device.cpp" line="62"/>
-        <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
+        <location filename="hiddmxdevice.cpp" line="63"/>
+        <source>Unable to open %1. Make sure the udev rule is installed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="303"/>
+        <location filename="hidjsdevice.cpp" line="88"/>
         <source>Axes: %1</source>
         <translation type="unfinished">軸: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="305"/>
+        <location filename="hidjsdevice.cpp" line="90"/>
         <source>Buttons: %1</source>
         <translation type="unfinished">ボタン: %1</translation>
     </message>
@@ -61,9 +53,9 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="150"/>
-        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished">このプラグインは、HID対応ジョイスティックと、FX5 USB DMX アダプタをサポートします。</translation>
+        <location filename="hidplugin.cpp" line="125"/>
+        <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

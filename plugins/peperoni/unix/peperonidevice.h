@@ -82,7 +82,7 @@ public:
         InputMode  = 1 << 2
     };
 
-    void open(quint32 line, OperatingMode mode);
+    bool open(quint32 line, OperatingMode mode);
     void close(quint32 line, OperatingMode mode);
 
     const struct usb_device* device() const;

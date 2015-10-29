@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ColorWash 1200E AT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Max="255" Min="0">Movement by 530°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Max="255" Min="0">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">Movement by 280°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Max="255" Min="0">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed, Pan/Tilt Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="0" Min="0">Max. speed (tracking mode)</Capability>
+  <Capability Max="255" Min="1">Speed from max. to min. (vector mode)/Time from 0.1sec to 25.5sec.</Capability>
+ </Channel>
+ <Channel Name="Power/Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="49" Min="0">Reserved</Capability>
+  <Capability Max="59" Min="50">Pan/tilt speed mode</Capability>
+  <Capability Max="69" Min="60">Pan/tilt time mode</Capability>
+  <Capability Max="79" Min="70">Blackout while pan/tilt moving</Capability>
+  <Capability Max="89" Min="80">Disabled blackout while pan/tilt moving</Capability>
+  <Capability Max="99" Min="90">Blackout while colour wheel moving</Capability>
+  <Capability Max="109" Min="100">Disabled blackout while colour wheel moving</Capability>
+  <Capability Max="129" Min="110">Reserved</Capability>
+  <Capability Max="139" Min="130">Lamp on, reset (total reset except pan/tilt reset)</Capability>
+  <Capability Max="149" Min="140">Pan/tilt reset</Capability>
+  <Capability Max="159" Min="150">Colour system reset</Capability>
+  <Capability Max="169" Min="160">Zoom/Fresnel reset</Capability>
+  <Capability Max="179" Min="170">Dimmer/strobe reset</Capability>
+  <Capability Max="199" Min="180">Reserved</Capability>
+  <Capability Max="209" Min="200">Total reset</Capability>
+  <Capability Max="229" Min="210">Reserved</Capability>
+  <Capability Max="239" Min="230">Lamp off</Capability>
+  <Capability Max="255" Min="240">Reserved</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#ffffff" Max="0" Min="0">Open/white - proportional</Capability>
+  <Capability Color="#bf0000" Max="18" Min="18">Deep red - proportional</Capability>
+  <Capability Color="#0000bf" Max="37" Min="37">Deep blue - proportional</Capability>
+  <Capability Color="#00ff00" Max="55" Min="55">Green - proportional</Capability>
+  <Capability Color="#ff7f00" Max="73" Min="73">Orange - proportional</Capability>
+  <Capability Color="#eaf1ff" Max="91" Min="91">6000K temperature filter - proportional</Capability>
+  <Capability Color="#dcb48c" Max="110" Min="110">UV filter - proportional</Capability>
+  <Capability Color="#ffffff" Max="129" Min="128">White - proportional</Capability>
+  <Capability Color="#bf0000" Max="139" Min="130">Deep red - step</Capability>
+  <Capability Color="#0000bf" Max="149" Min="140">Deep blue - step</Capability>
+  <Capability Color="#00ff00" Max="159" Min="150">Green - step</Capability>
+  <Capability Color="#ff7f00" Max="169" Min="160">Orange - step</Capability>
+  <Capability Color="#eaf1ff" Max="179" Min="170">6000K temperature filter - step</Capability>
+  <Capability Color="#dcb48c" Max="189" Min="180">UV filter - step</Capability>
+  <Capability Res="Others/rainbow.png" Max="215" Min="190">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Max="217" Min="216">No rotation</Capability>
+  <Capability Res="Others/rainbow.png" Max="243" Min="218">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Max="249" Min="244">Random colour selection by audio control</Capability>
+  <Capability Max="255" Min="250">Auto random colour selection from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 1 - Fine Positioning">
+  <Group Byte="1">Colour</Group>
+  <Capability Max="255" Min="0">Fine</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full cyan</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full magenta</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full yellow</Capability>
+ </Channel>
+ <Channel Name="CMY Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="3" Min="0">No function</Capability>
+  <Capability Max="7" Min="4">Macro 1</Capability>
+  <Capability Max="11" Min="8">Macro 2</Capability>
+  <Capability Max="15" Min="12">Macro 3</Capability>
+  <Capability Max="19" Min="16">Macro 4</Capability>
+  <Capability Max="23" Min="20">Macro 5</Capability>
+  <Capability Max="27" Min="24">Macro 6</Capability>
+  <Capability Max="31" Min="28">Macro 7</Capability>
+  <Capability Max="35" Min="32">Macro 8</Capability>
+  <Capability Max="39" Min="36">Macro 9</Capability>
+  <Capability Max="43" Min="40">Macro 10</Capability>
+  <Capability Max="47" Min="44">Macro 11</Capability>
+  <Capability Max="51" Min="48">Macro 12</Capability>
+  <Capability Max="55" Min="52">Macro 13</Capability>
+  <Capability Max="59" Min="56">Macro 14</Capability>
+  <Capability Max="63" Min="60">Macro 15</Capability>
+  <Capability Max="67" Min="64">Macro 16</Capability>
+  <Capability Max="71" Min="68">Macro 17</Capability>
+  <Capability Max="75" Min="72">Macro 18</Capability>
+  <Capability Max="79" Min="76">Macro 19</Capability>
+  <Capability Max="83" Min="80">Macro 20</Capability>
+  <Capability Max="87" Min="84">Macro 21</Capability>
+  <Capability Max="91" Min="88">Macro 22</Capability>
+  <Capability Max="95" Min="92">Macro 23</Capability>
+  <Capability Max="99" Min="96">Macro 24</Capability>
+  <Capability Max="103" Min="100">Macro 25</Capability>
+  <Capability Max="107" Min="104">Macro 26</Capability>
+  <Capability Max="111" Min="108">Macro 27</Capability>
+  <Capability Max="115" Min="112">Macro 28</Capability>
+  <Capability Max="119" Min="116">Macro 29</Capability>
+  <Capability Max="123" Min="120">Macro 30</Capability>
+  <Capability Max="127" Min="124">Macro 31</Capability>
+  <Capability Max="131" Min="128">Macro 32</Capability>
+  <Capability Max="135" Min="132">Macro 33</Capability>
+  <Capability Max="139" Min="136">Macro 34</Capability>
+  <Capability Max="143" Min="140">Macro 35</Capability>
+  <Capability Max="147" Min="144">Macro 36</Capability>
+  <Capability Max="151" Min="148">Macro 37</Capability>
+  <Capability Max="155" Min="152">Macro 38</Capability>
+  <Capability Max="159" Min="156">Macro 39</Capability>
+  <Capability Max="163" Min="160">Macro 40</Capability>
+  <Capability Max="167" Min="164">Macro 41</Capability>
+  <Capability Max="171" Min="168">Macro 42</Capability>
+  <Capability Max="175" Min="172">Macro 43</Capability>
+  <Capability Max="179" Min="176">Macro 44</Capability>
+  <Capability Max="183" Min="180">Macro 45</Capability>
+  <Capability Max="187" Min="184">Macro 46</Capability>
+  <Capability Max="191" Min="188">Macro 47</Capability>
+  <Capability Max="195" Min="192">Macro 48</Capability>
+  <Capability Max="199" Min="196">Macro 49</Capability>
+  <Capability Max="203" Min="200">Macro 50</Capability>
+  <Capability Max="207" Min="204">Macro 51</Capability>
+  <Capability Max="211" Min="208">Macro 52</Capability>
+  <Capability Max="215" Min="212">Macro 53</Capability>
+  <Capability Max="219" Min="216">Macro 54</Capability>
+  <Capability Max="223" Min="220">Macro 55</Capability>
+  <Capability Max="227" Min="224">Macro 56</Capability>
+  <Capability Max="231" Min="228">Macro 57</Capability>
+  <Capability Max="235" Min="232">Macro 58</Capability>
+  <Capability Max="239" Min="236">Macro 59</Capability>
+  <Capability Max="243" Min="240">Macro 60</Capability>
+  <Capability Max="247" Min="244">Macro 61</Capability>
+  <Capability Max="251" Min="248">Macro 62</Capability>
+  <Capability Max="255" Min="252">Macro 63</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">From max. to min.</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="31" Min="0">Closed, lamp power reduced after 10s to 700W</Capability>
+  <Capability Max="63" Min="32">Open, full lamp power</Capability>
+  <Capability Max="95" Min="64">Effect from slow to fast (max. 15 flashes/s)</Capability>
+  <Capability Max="127" Min="96">Open, lamp power reduced to 700W</Capability>
+  <Capability Max="143" Min="128">Opening pulse in sequences from slow to fast</Capability>
+  <Capability Max="159" Min="144">Closing pulse in sequences from fast to slow</Capability>
+  <Capability Max="191" Min="160">Open, electronic strobing "ZAP" from slow to fast (from 7 to 33 flashes/s)</Capability>
+  <Capability Max="223" Min="192">Random effect from slow to fast</Capability>
+  <Capability Max="255" Min="224">Open, full lamp power</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">From 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity Fine">
+  <Group Byte="1">Intensity</Group>
+  <Capability Max="255" Min="0">Fine</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From min. to max.</Capability>
+ </Channel>
+ <Channel Name="Zoom Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Max="255" Min="0">Fine positioning</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="0" Min="0">No macro generation</Capability>
+  <Capability Max="127" Min="1">Macro generation from fast to slow-forwards</Capability>
+  <Capability Max="129" Min="128">No macro generation</Capability>
+  <Capability Max="255" Min="130">Macro generation from slow to fast-backwards</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Macro Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="9" Min="0">Disabled pan/tilt macro</Capability>
+  <Capability Max="31" Min="10">Reserved</Capability>
+  <Capability Max="63" Min="32">Figure of circle (from small to large)</Capability>
+  <Capability Max="95" Min="64">Figure of horizontal eight (from small to large)</Capability>
+  <Capability Max="127" Min="96">Figure of vertical eight (from small to large)</Capability>
+  <Capability Max="159" Min="128">Figure of rectangle (from small to large)</Capability>
+  <Capability Max="191" Min="160">Figure of triangle (from small to large)</Capability>
+  <Capability Max="223" Min="192">Figure of star (from small to large)</Capability>
+  <Capability Max="255" Min="224">Figure of cross (from small to large)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Color="#ffffff" Max="0" Min="0">Open/white - proportional</Capability>
+  <Capability Color="#aa0000" Max="18" Min="17">Red ring - proportional</Capability>
+  <Capability Color="#55aaff" Max="37" Min="37">Blue dot - proportional</Capability>
+  <Capability Color="#ffff00" Max="55" Min="55">Yellow ring - proportional</Capability>
+  <Capability Color2="#aa0000" Color="#00007f" Max="73" Min="73">Blue/red - proportional</Capability>
+  <Capability Color2="#ff7f00" Color="#00ff00" Max="91" Min="91">Green/orange - proportional</Capability>
+  <Capability Max="110" Min="110">Yellow/blue/orange/magenta - proportional</Capability>
+  <Capability Color="#ffffff" Max="129" Min="128">White - proportional</Capability>
+  <Capability Color="#aa0000" Max="139" Min="130">Red ring - step</Capability>
+  <Capability Color="#55aaff" Max="149" Min="140">Blue dot - step</Capability>
+  <Capability Color="#7fff7f" Max="159" Min="150">Yellow ring - step</Capability>
+  <Capability Color2="#aa0000" Color="#00007f" Max="169" Min="160">Blue/red - step</Capability>
+  <Capability Color2="#ff7f00" Color="#00ff00" Max="179" Min="170">Green/orange - step</Capability>
+  <Capability Max="189" Min="180">Yellow/blue/orange/magenta - step</Capability>
+  <Capability Res="Others/rainbow.png" Max="215" Min="190">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Max="217" Min="216">No rotation</Capability>
+  <Capability Res="Others/rainbow.png" Max="243" Min="218">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Max="249" Min="244">Random colour selection by audio control</Capability>
+  <Capability Max="255" Min="250">Auto random colour selection from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2 - Fine Positioning">
+  <Group Byte="1">Colour</Group>
+  <Capability Max="255" Min="0">Fine</Capability>
+ </Channel>
+ <Channel Name="Conversion Temperature Filter 3200K">
+  <Group Byte="0">Colour</Group>
+  <Capability Color2="#ffbc76" Color="#ffe1ea" Max="255" Min="0">0-5600K, 255-3200K</Capability>
+ </Channel>
+ <Channel Name="No function">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Channel Name="Effect Speed Assigning">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="31" Min="0">Dimmer + CMY filters + correction filter</Capability>
+  <Capability Max="63" Min="32">Dimmer</Capability>
+  <Capability Max="95" Min="64">CMY filters + correction filter</Capability>
+  <Capability Max="255" Min="96">No function</Capability>
+ </Channel>
+ <Channel Name="Barn Door 1-Upper">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From open to close</Capability>
+ </Channel>
+ <Channel Name="Barn Door 2-Lower">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From open to close</Capability>
+ </Channel>
+ <Channel Name="Barn Door 3-Left">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From open to close</Capability>
+ </Channel>
+ <Channel Name="Barn Door 4-Right">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From open to close</Capability>
+ </Channel>
+ <Channel Name="Barn Doors Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">From right to left</Capability>
+ </Channel>
+ <Channel Name="Fresnels Opening">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="85" Min="0">Internal Fresnels opening (from closed to open - LightMax mode)</Capability>
+  <Capability Max="86" Min="86">Left closed, right open</Capability>
+  <Capability Max="171" Min="87">Left opening, right closing</Capability>
+  <Capability Max="213" Min="172">Both ramping (parallel) from slow to fast</Capability>
+  <Capability Max="255" Min="214">Both ramping (alternately) from fast to slow</Capability>
+ </Channel>
+ <Mode Name="17-Channel">
+  <Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Colour Wheel 1</Channel>
+  <Channel Number="7">Colour Wheel 2</Channel>
+  <Channel Number="8">Cyan</Channel>
+  <Channel Number="9">Magenta</Channel>
+  <Channel Number="10">Yellow</Channel>
+  <Channel Number="11">Conversion Temperature Filter 3200K</Channel>
+  <Channel Number="12">Effect Speed</Channel>
+  <Channel Number="13">Fresnels Opening</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Shutter, Strobe</Channel>
+  <Channel Number="16">Dimmer Intensity</Channel>
+ </Mode>
+ <Mode Name="23-Channel">
+  <Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Colour Wheel 1</Channel>
+  <Channel Number="7">Colour Wheel 1 - Fine Positioning</Channel>
+  <Channel Number="8">Colour Wheel 2</Channel>
+  <Channel Number="9">Colour Wheel 2 - Fine Positioning</Channel>
+  <Channel Number="10">Cyan</Channel>
+  <Channel Number="11">Magenta</Channel>
+  <Channel Number="12">Yellow</Channel>
+  <Channel Number="13">Conversion Temperature Filter 3200K</Channel>
+  <Channel Number="14">CMY Colour Macros</Channel>
+  <Channel Number="15">Effect Speed</Channel>
+  <Channel Number="16">Effect Speed Assigning</Channel>
+  <Channel Number="17">Fresnels Opening</Channel>
+  <Channel Number="18">Zoom</Channel>
+  <Channel Number="19">Zoom Fine</Channel>
+  <Channel Number="20">Shutter, Strobe</Channel>
+  <Channel Number="21">Dimmer Intensity</Channel>
+  <Channel Number="22">Dimmer Intensity Fine</Channel>
+ </Mode>
+ <Mode Name="24-Channel">
+  <Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Pan/Tilt Macro Selection</Channel>
+  <Channel Number="7">Pan/Tilt Macro Speed</Channel>
+  <Channel Number="8">Colour Wheel 1</Channel>
+  <Channel Number="9">Colour Wheel 2</Channel>
+  <Channel Number="10">Cyan</Channel>
+  <Channel Number="11">Magenta</Channel>
+  <Channel Number="12">Yellow</Channel>
+  <Channel Number="13">Conversion Temperature Filter 3200K</Channel>
+  <Channel Number="14">Effect Speed</Channel>
+  <Channel Number="15">Barn Door 1-Upper</Channel>
+  <Channel Number="16">Barn Door 2-Lower</Channel>
+  <Channel Number="17">Barn Door 3-Left</Channel>
+  <Channel Number="18">Barn Door 4-Right</Channel>
+  <Channel Number="19">Barn Doors Rotation</Channel>
+  <Channel Number="20">Fresnels Opening</Channel>
+  <Channel Number="21">Zoom</Channel>
+  <Channel Number="22">Shutter, Strobe</Channel>
+  <Channel Number="23">Dimmer Intensity</Channel>
+ </Mode>
+ <Mode Name="30-Channel">
+  <Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Pan/Tilt Macro Selection</Channel>
+  <Channel Number="7">Pan/Tilt Macro Speed</Channel>
+  <Channel Number="8">Colour Wheel 1</Channel>
+  <Channel Number="9">Colour Wheel 1 - Fine Positioning</Channel>
+  <Channel Number="10">Colour Wheel 2</Channel>
+  <Channel Number="11">Colour Wheel 2 - Fine Positioning</Channel>
+  <Channel Number="12">Cyan</Channel>
+  <Channel Number="13">Magenta</Channel>
+  <Channel Number="14">Yellow</Channel>
+  <Channel Number="15">Conversion Temperature Filter 3200K</Channel>
+  <Channel Number="16">CMY Colour Macros</Channel>
+  <Channel Number="17">Effect Speed</Channel>
+  <Channel Number="18">Effect Speed Assigning</Channel>
+  <Channel Number="19">Barn Door 1-Upper</Channel>
+  <Channel Number="20">Barn Door 2-Lower</Channel>
+  <Channel Number="21">Barn Door 3-Left</Channel>
+  <Channel Number="22">Barn Door 4-Right</Channel>
+  <Channel Number="23">Barn Doors Rotation</Channel>
+  <Channel Number="24">Fresnels Opening</Channel>
+  <Channel Number="25">Zoom</Channel>
+  <Channel Number="26">Zoom Fine</Channel>
+  <Channel Number="27">Shutter, Strobe</Channel>
+  <Channel Number="28">Dimmer Intensity</Channel>
+  <Channel Number="29">Dimmer Intensity Fine</Channel>
+ </Mode>
+ <Mode Name="21-Channel">
+  <Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
+  <Channel Number="0">Shutter, Strobe</Channel>
+  <Channel Number="1">Dimmer Intensity</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Conversion Temperature Filter 3200K</Channel>
+  <Channel Number="6">Colour Wheel 1</Channel>
+  <Channel Number="7">Colour Wheel 2</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Barn Door 1-Upper</Channel>
+  <Channel Number="10">Barn Door 2-Lower</Channel>
+  <Channel Number="11">Barn Door 3-Left</Channel>
+  <Channel Number="12">Barn Door 4-Right</Channel>
+  <Channel Number="13">Barn Doors Rotation</Channel>
+  <Channel Number="14">No function</Channel>
+  <Channel Number="15">Pan</Channel>
+  <Channel Number="16">Pan Fine</Channel>
+  <Channel Number="17">Tilt</Channel>
+  <Channel Number="18">Tilt Fine</Channel>
+  <Channel Number="19">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="20">Power/Special Functions</Channel>
+ </Mode>
+</FixtureDefinition>

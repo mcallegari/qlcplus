@@ -43,7 +43,6 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     , m_tree(new QTreeWidget(this))
     , m_refreshButton(new QPushButton(tr("Refresh"), this))
     , m_closeButton(new QPushButton(tr("Close"), this))
-    , m_ignoreItemChanged(false)
 {
     Q_ASSERT(plugin != NULL);
 
@@ -89,9 +88,9 @@ void DMXUSBConfig::slotTypeComboActivated(int index)
     if (var.isValid() == true)
     {
         DMXUSBWidget::Type type = (DMXUSBWidget::Type)combo->itemData(index).toInt();
-        QMap <QString,QVariant> typeMap(QLCFTDI::typeMap());
+        QMap <QString,QVariant> typeMap(DMXInterface::typeMap());
         typeMap[var.toString()] = type;
-        QLCFTDI::storeTypeMap(typeMap);
+        DMXInterface::storeTypeMap(typeMap);
     }
 
     QTimer::singleShot(0, this, SLOT(slotRefresh()));
@@ -100,8 +99,6 @@ void DMXUSBConfig::slotTypeComboActivated(int index)
 void DMXUSBConfig::slotRefresh()
 {
     m_plugin->rescanWidgets();
-
-    m_ignoreItemChanged = true;
 
     m_tree->clear();
     QListIterator <DMXUSBWidget*> it(m_plugin->widgets());
@@ -116,8 +113,6 @@ void DMXUSBConfig::slotRefresh()
 
     m_tree->resizeColumnToContents(COL_NAME);
     m_tree->resizeColumnToContents(COL_SERIAL);
-
-    m_ignoreItemChanged = false;
 }
 
 QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
@@ -125,13 +120,13 @@ QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     Q_ASSERT(widget != NULL);
     QComboBox* combo = new QComboBox;
     combo->setProperty(PROP_SERIAL, widget->serial());
-    combo->addItem(QString("Pro TX"), DMXUSBWidget::ProTX);
+    combo->addItem(QString("Pro RX/TX"), DMXUSBWidget::ProRXTX);
     combo->addItem(QString("Open TX"), DMXUSBWidget::OpenTX);
-    combo->addItem(QString("Pro RX"), DMXUSBWidget::ProRX);
     combo->addItem(QString("Pro Mk2"), DMXUSBWidget::ProMk2);
-    combo->addItem(QString("Ultra Pro Tx"), DMXUSBWidget::UltraProTx);
+    combo->addItem(QString("Ultra Pro"), DMXUSBWidget::UltraPro);
     combo->addItem(QString("DMX4ALL"), DMXUSBWidget::DMX4ALL);
     combo->addItem(QString("Vince TX"), DMXUSBWidget::VinceTX);
+    combo->addItem(QString("Eurolite"), DMXUSBWidget::Eurolite);
     int index = combo->findData(widget->type());
     combo->setCurrentIndex(index);
 

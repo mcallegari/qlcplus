@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Touch OSC</Manufacturer>
+ <Model>Automat5</Model>
+ <Type>OSC</Type>
+ <Channel Number="77">
+  <Name>/3/multipushM/1/4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="232">
+  <Name>/2/multitoggle3/3/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2988">
+  <Name>/2/multitoggle2/3/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3015">
+  <Name>/3/xyM_r_1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5696">
+  <Name>/toggleA_2</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="5728">
+  <Name>/2/multitoggle1/3/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6124">
+  <Name>/1/rotaryD</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6734">
+  <Name>/3/xyM_r_0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7254">
+  <Name>/multifaderM/1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7526">
+  <Name>/toggleD_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="9435">
+  <Name>/toggleA_1</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="9467">
+  <Name>/2/multitoggle1/3/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11981">
+  <Name>/multifaderM/2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12285">
+  <Name>/toggleD_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12915">
+  <Name>/2/multitoggle3/3/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="14647">
+  <Name>/2/multitoggle2/3/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16196">
+  <Name>/multifaderM/3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16449">
+  <Name>/1/rotaryA</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="19451">
+  <Name>/multifaderM/4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="19644">
+  <Name>/2/multitoggle1/2/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20182">
+  <Name>/faderM</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20848">
+  <Name>/2/multitoggle2/2/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22496">
+  <Name>/3/multipushM/1/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23092">
+  <Name>/2/multitoggle3/2/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25427">
+  <Name>/1/rotaryC</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25579">
+  <Name>/2/multitoggle2/2/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25979">
+  <Name>/3/multipushM/1/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26799">
+  <Name>/2/multitoggle3/2/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29402">
+  <Name>/1/rotaryB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29938">
+  <Name>/3/multipushM/1/3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31708">
+  <Name>/encoderM</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="32295">
+  <Name>/2/multitoggle1/2/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34448">
+  <Name>/1/faderB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="34729">
+  <Name>/2/multitoggle2/4/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34763">
+  <Name>/2/multitoggle3/1/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35359">
+  <Name>/3/multipushM/2/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35983">
+  <Name>/2/multitoggle2/1/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36077">
+  <Name>/2/multitoggle3/4/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36800">
+  <Name>/3/xyM_l_0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="37187">
+  <Name>/2/multitoggle1/1/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37219">
+  <Name>/toggleC_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38681">
+  <Name>/1/faderC</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="39525">
+  <Name>/2/multitoggle1/4/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39830">
+  <Name>/3/multipushM/2/3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40521">
+  <Name>/3/xyM_l_1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41944">
+  <Name>/2/multitoggle1/1/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41976">
+  <Name>/toggleC_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43262">
+  <Name>/2/multitoggle1/4/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46091">
+  <Name>/1/faderA</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="46386">
+  <Name>/2/multitoggle2/4/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46416">
+  <Name>/2/multitoggle3/1/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47236">
+  <Name>/3/multipushM/2/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48660">
+  <Name>/2/multitoggle2/1/1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48758">
+  <Name>/2/multitoggle3/4/2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52159">
+  <Name>/toggleB_1</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="58278">
+  <Name>/1/faderD</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61225">
+  <Name>/3/multipushM/2/4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63780">
+  <Name>/toggleB_2</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+</InputProfile>

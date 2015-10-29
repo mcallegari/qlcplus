@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+<Creator>
+<Name>Q Light Controller Plus</Name>
+<Version>4.8.1</Version>
+<Author>Daniel Åhr</Author>
+</Creator>
+<Manufacturer>KORG</Manufacturer>
+<Model>NanoPAD2</Model>
+<Type>MIDI</Type>
+<Channel Number="1">
+<Name>PAD Y Axis</Name>
+<Type>Slider</Type>
+</Channel>
+<Channel Number="2">
+<Name>PAD X Axis</Name>
+<Type>Slider</Type>
+</Channel>
+<Channel Number="17">
+<Name>PAD Click</Name>
+<Type>Slider</Type>
+</Channel>
+<Channel Number="165">
+<Name>Button 7 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="166">
+<Name>Button 8 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="167">
+<Name>Button 1 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="168">
+<Name>Button 9 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="169">
+<Name>Button 10 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="170">
+<Name>Button 4 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="171">
+<Name>Button 11 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="172">
+<Name>Button 3 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="173">
+<Name>Button 12 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="174">
+<Name>Button 2 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="175">
+<Name>Button 6 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="176">
+<Name>Button 5 - Scene 1</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="177">
+<Name>Button 1 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="178">
+<Name>Button 2 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="179">
+<Name>Button 3 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="180">
+<Name>Button 4 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="181">
+<Name>Button 5 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="182">
+<Name>Button 6 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="183">
+<Name>Button 7 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="184">
+<Name>Button 8 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="185">
+<Name>Button 9 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="186">
+<Name>Button 10 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="187">
+<Name>Button 11 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="188">
+<Name>Button 12 - Scene 2</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="200">
+<Name>Button 1 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="201">
+<Name>Button 2 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="202">
+<Name>Button 3 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="203">
+<Name>Button 4 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="204">
+<Name>Button 5 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="205">
+<Name>Button 6 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="206">
+<Name>Button 7 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="207">
+<Name>Button 8 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="208">
+<Name>Button 9 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="209">
+<Name>Button 10 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="210">
+<Name>Button 11 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="211">
+<Name>Button 12 - Scene 3</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="212">
+<Name>Button 1 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="213">
+<Name>Button 2 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="214">
+<Name>Button 3 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="215">
+<Name>Button 4 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="216">
+<Name>Button 5 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="217">
+<Name>Button 6 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="218">
+<Name>Button 7 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="219">
+<Name>Button 8 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="220">
+<Name>Button 9 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="221">
+<Name>Button 10 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="222">
+<Name>Button 11 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+<Channel Number="223">
+<Name>Button 12 - Scene 4</Name>
+<Type>Button</Type>
+</Channel>
+</InputProfile>

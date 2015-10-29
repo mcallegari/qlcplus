@@ -27,18 +27,19 @@
 #include <QList>
 #include <QIcon>
 
+#include "universe.h"
+
 class QDomDocument;
 class QDomElement;
 
 class GenericFader;
 class MasterTimer;
 class Function;
-class Universe;
 class Doc;
 
 class FunctionUiState;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -48,6 +49,7 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
 #define KXMLQLCFunctionValueType "Type"
@@ -78,6 +80,10 @@ class Function : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Function)
 
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(Type type READ type CONSTANT)
+
 public:
     /**
      * All known function types.
@@ -94,10 +100,11 @@ public:
         RGBMatrix  = 1 << 5,
         Show       = 1 << 6,
         Audio      = 1 << 7
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
         , Video    = 1 << 8
 #endif
     };
+    Q_ENUMS(Type)
 
     /**
      * Common attributes
@@ -111,6 +118,9 @@ public:
      * Initialization
      *********************************************************************/
 public:
+    /** Create a new function instance with the given QObject parent. */
+    Function(QObject* parent = 0);
+
     /**
      * Create a new function
      *
@@ -143,7 +153,7 @@ public:
      * @param addToDoc enable/disable addition of the function copy to Doc
      * @return The newly-created function or NULL in case of an error
      */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true) = 0;
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /**
      * Copy this function's contents from the given function. Finally emits
@@ -194,6 +204,10 @@ public:
      * Return the name of this function
      */
     QString name() const;
+
+signals:
+    /** Signal telling that the name of this function have changed */
+    void nameChanged(quint32 fid);
 
 private:
     QString m_name;
@@ -394,6 +408,11 @@ public:
     /** returns value in msec of a string created by speedToString */
     static uint stringToSpeed(QString speed);
 
+    /** Safe speed operations */
+    static uint speedNormalize(uint speed);
+    static uint speedAdd(uint left, uint right);
+    static uint speedSubstract(uint left, uint right);
+
 protected:
     /** Load the contents of a speed node */
     bool loadXMLSpeed(const QDomElement& speedRoot);
@@ -440,7 +459,7 @@ public:
      * @param doc The XML document to save to
      * @param wksp_root A QLC workspace XML root node to save under
      */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root) = 0;
+    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
     /**
      * Read this function's contents from an XML document
@@ -448,7 +467,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(const QDomElement& root) = 0;
+    virtual bool loadXML(const QDomElement& root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -524,7 +543,7 @@ public:
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
      */
-    virtual void write(MasterTimer* timer, QList<Universe*> universes) = 0;
+    virtual void write(MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Called by MasterTimer when the function is stopped. No more write()
@@ -576,6 +595,8 @@ protected:
 
     /** Increment the elapsed timer ticks by one */
     void incrementElapsed();
+
+    void roundElapsed(quint32 roundTime);
 
 private:
     quint32 m_elapsed;
@@ -649,7 +670,7 @@ private:
     QWaitCondition m_functionStopped;
 
     /*************************************************************************
-     * Intensity
+     * Attributes
      *************************************************************************/
 public:
     /**
@@ -719,8 +740,26 @@ signals:
 
 private:
     bool m_startedAsChild;
-    //qreal m_intensity;
     QList <Attribute> m_attributes;
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /**
+     * Set a specific blend mode to be used by this Function
+     * For now this is used only by RGBMatrix but it's been
+     * placed here for generic usage
+     */
+    virtual void setBlendMode(Universe::BlendMode mode);
+
+    /**
+     * Return the blend mode set on this Function
+     */
+    virtual Universe::BlendMode blendMode() const;
+
+private:
+    Universe::BlendMode m_blendMode;
 };
 
 /** @} */

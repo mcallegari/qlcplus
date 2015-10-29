@@ -22,11 +22,12 @@
 #define private public
 #include "rgbscript_test.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #undef private
 
 #include "doc.h"
 
-#define INTERNAL_SCRIPTDIR "../../../rgbscripts"
+#include "../common/resource_paths.h"
 
 void RGBScript_Test::initTestCase()
 {
@@ -49,7 +50,7 @@ void RGBScript_Test::initial()
 
 void RGBScript_Test::directories()
 {
-    QDir dir = RGBScript::systemScriptDirectory();
+    QDir dir = RGBScriptsCache::systemScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
 #if defined( __APPLE__) || defined(Q_OS_MAC)
@@ -62,7 +63,7 @@ void RGBScript_Test::directories()
     QVERIFY(dir.path().endsWith("qlcplus/rgbscripts"));
 #endif
 
-    dir = RGBScript::userScriptDirectory();
+    dir = RGBScriptsCache::userScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
 #if defined( __APPLE__) || defined(Q_OS_MAC)
@@ -72,17 +73,6 @@ void RGBScript_Test::directories()
 #else
     QVERIFY(dir.path().endsWith(".qlcplus/rgbscripts"));
 #endif
-
-    dir = RGBScript::customScriptDirectory();
-    QCOMPARE(dir.filter(), QDir::Files);
-    QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-    QCOMPARE(dir.dirName(), QString("."));
-
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    dir = RGBScript::customScriptDirectory();
-    QCOMPARE(dir.filter(), QDir::Files);
-    QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-    QVERIFY(dir.path().endsWith(INTERNAL_SCRIPTDIR));
 }
 
 void RGBScript_Test::scripts()
@@ -92,31 +82,30 @@ void RGBScript_Test::scripts()
     dir.setNameFilters(QStringList() << QString("*.js"));
     QVERIFY(dir.entryList().size() > 0);
 
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QList <RGBScript> list = RGBScript::scripts(m_doc);
-    QVERIFY(list.size() >= 0);
+    QVERIFY(m_doc->rgbScriptsCache()->load(dir));
+    QVERIFY(m_doc->rgbScriptsCache()->names().size() >= 0);
 }
 
 void RGBScript_Test::script()
 {
-    RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
+    QVERIFY(m_doc->rgbScriptsCache()->load(QDir(INTERNAL_SCRIPTDIR)));
 
-    RGBScript s = RGBScript::script(m_doc, "A script that should not exist");
+    RGBScript s = m_doc->rgbScriptsCache()->script("A script that should not exist");
     QCOMPARE(s.fileName(), QString());
     QCOMPARE(s.m_contents, QString());
     QCOMPARE(s.apiVersion(), 0);
     QCOMPARE(s.author(), QString());
     QCOMPARE(s.name(), QString());
-    QVERIFY(s.m_script.isValid() == false);
+    // QVERIFY(s.m_script.isValid() == false); // TODO: to be fixed !!
     QVERIFY(s.m_rgbMap.isValid() == false);
     QVERIFY(s.m_rgbMapStepCount.isValid() == false);
 
-    s = RGBScript::script(m_doc, "Full Rows");
-    QCOMPARE(s.fileName(), QString("fullrows.js"));
+    s = m_doc->rgbScriptsCache()->script("Stripes");
+    QCOMPARE(s.fileName(), QString("stripes.js"));
     QVERIFY(s.m_contents.isEmpty() == false);
     QVERIFY(s.apiVersion() > 0);
-    QCOMPARE(s.author(), QString("Heikki Junnila"));
-    QCOMPARE(s.name(), QString("Full Rows"));
+    QCOMPARE(s.author(), QString("Massimo Callegari"));
+    QCOMPARE(s.name(), QString("Stripes"));
     QVERIFY(s.m_script.isValid() == true);
     QVERIFY(s.m_rgbMap.isValid() == true);
     QVERIFY(s.m_rgbMapStepCount.isValid() == true);
@@ -162,14 +151,17 @@ void RGBScript_Test::evaluateInvalidApiVersion()
 
 void RGBScript_Test::rgbMapStepCount()
 {
-    RGBScript s = RGBScript::script(m_doc, "Full Rows");
-    QCOMPARE(s.rgbMapStepCount(QSize(10, 15)), 15);
+    RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
+    QCOMPARE(s.rgbMapStepCount(QSize(10, 15)), 10);
 }
 
 void RGBScript_Test::rgbMap()
 {
-    RGBScript s = RGBScript::script(m_doc, "Full Rows");
+    RGBScript s = m_doc->rgbScriptsCache()->script("Stripes");
     QVERIFY(s.rgbMap(QSize(3, 4), 0, 0).isEmpty() == false);
+
+    s.setProperty("orientation", "Vertical");
+    QVERIFY(s.property("orientation") == "Vertical");
 
     for (int z = 0; z < 5; z++)
     {

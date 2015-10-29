@@ -36,7 +36,7 @@ public:
                          snd_seq_addr_t* send_address, QObject* parent);
     virtual ~AlsaMidiOutputDevice();
 
-    void open();
+    bool open();
     void close();
     bool isOpen() const;
 

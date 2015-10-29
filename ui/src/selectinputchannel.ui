@@ -27,6 +27,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="m_allowUnpatchedCb">
+     <property name="text">
+      <string>Allow unpatched universes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="m_buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Super Solar RGBW</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="14" Color="#000000" Min="0">Blackout</Capability>
+  <Capability Max="124" Min="15">Clockwise rotation - fast to slow</Capability>
+  <Capability Max="139" Min="125">Stop rotation</Capability>
+  <Capability Max="249" Min="140">Anticlockwise rotation - slow to fast</Capability>
+  <Capability Max="255" Min="250">Music mode</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="7" Min="0">Shutter closed</Capability>
+  <Capability Max="199" Min="8">Dimmer - 0% to 100%</Capability>
+  <Capability Max="247" Min="200">Strobe - fast to slow</Capability>
+  <Capability Max="255" Min="248">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="16" Min="0">01</Capability>
+  <Capability Max="33" Min="17">02</Capability>
+  <Capability Max="50" Min="34">03</Capability>
+  <Capability Max="67" Min="51">04</Capability>
+  <Capability Max="84" Min="68">05</Capability>
+  <Capability Max="101" Min="85">06</Capability>
+  <Capability Max="118" Min="102">07</Capability>
+  <Capability Max="135" Min="119">08</Capability>
+  <Capability Max="152" Min="136">09</Capability>
+  <Capability Max="169" Min="153">10</Capability>
+  <Capability Max="186" Min="170">11</Capability>
+  <Capability Max="203" Min="187">12</Capability>
+  <Capability Max="220" Min="204">13</Capability>
+  <Capability Max="237" Min="221">14</Capability>
+  <Capability Max="255" Min="238">15</Capability>
+ </Channel>
+ <Channel Name="Rotation/Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="9" Min="0">Stop</Capability>
+  <Capability Max="120" Min="10">Clockwise - fast to slow</Capability>
+  <Capability Max="134" Min="121">Stop</Capability>
+  <Capability Max="245" Min="135">Anticlockwise - slow to fast</Capability>
+  <Capability Max="249" Min="246">Stop</Capability>
+  <Capability Max="255" Min="250">Sound active</Capability>
+ </Channel>
+ <Mode Name="1-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="214" Weight="1.8" Height="180" Width="220"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
+  </Physical>
+  <Channel Number="0">Function</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="214" Weight="1.8" Height="180" Width="220"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
+  </Physical>
+  <Channel Number="0">Dimmer/Strobe</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Rotation/Sound Active</Channel>
+ </Mode>
+</FixtureDefinition>

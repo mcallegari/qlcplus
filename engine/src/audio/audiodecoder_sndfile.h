@@ -35,6 +35,10 @@ extern "C"{
 
 #include "audiodecoder.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioDecoderSndFile : public AudioDecoder
 {
 public:
@@ -71,5 +75,6 @@ private:
     QString m_path;
 };
 
+/** @} */
 
 #endif // DECODER_SNDFILE_H

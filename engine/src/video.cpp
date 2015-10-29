@@ -17,16 +17,11 @@
   limitations under the License.
 */
 
+#include <QMediaPlayer>
 #include <QDomDocument>
-#include <QVideoWidget>
 #include <QDomElement>
-#include <QDesktopWidget>
-#include <QApplication>
-
 #include <QDebug>
 #include <QFile>
-
-#include <QMessageBox>
 
 #include "video.h"
 #include "doc.h"
@@ -34,6 +29,7 @@
 #define KXMLQLCVideoSource "Source"
 #define KXMLQLCVideoStartTime "StartTime"
 #define KXMLQLCVideoColor "Color"
+#define KXMLQLCVideoLocked "Locked"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
 
@@ -44,16 +40,17 @@
 Video::Video(Doc* doc)
   : Function(doc, Function::Video)
   , m_doc(doc)
-  , m_videoPlayer(NULL)
   , m_startTime(UINT_MAX)
   , m_color(147, 140, 20)
-  , m_sourceFileName("")
+  , m_locked(false)
+  , m_sourceUrl("")
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
   , m_screen(0)
   , m_fullscreen(false)
 {
     setName(tr("New Video"));
+    setRunOrder(Video::SingleShot);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -62,11 +59,6 @@ Video::Video(Doc* doc)
 
 Video::~Video()
 {
-    if (m_videoPlayer != NULL)
-    {
-        m_videoPlayer->stop();
-        delete m_videoPlayer;
-    }
 }
 
 /*****************************************************************************
@@ -98,7 +90,7 @@ bool Video::copyFrom(const Function* function)
     if (vid == NULL)
         return false;
 
-    setSourceFileName(vid->m_sourceFileName);
+    setSourceUrl(vid->m_sourceUrl);
     m_videoDuration = vid->m_videoDuration;
     m_color = vid->m_color;
 
@@ -107,20 +99,30 @@ bool Video::copyFrom(const Function* function)
 
 QStringList Video::getCapabilities()
 {
-    QStringList caps = QMediaPlayer::supportedMimeTypes();
+    QStringList caps;
+    QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
     qDebug() << "Supported video types:" << caps;
-    if (caps.isEmpty())
-        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg";
+    if (mimeTypes.isEmpty())
+        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+    else
+    {
+        foreach(QString mime, mimeTypes)
+        {
+            if (mime.startsWith("video/"))
+            {
+                if (mime.endsWith("/3gpp")) caps << "*.3gp";
+                else if (mime.endsWith("/mp4")) caps << "*.mp4";
+                else if (mime.endsWith("/avi")) caps << "*.avi";
+                else if (mime.endsWith("/m2ts")) caps << "*.m2ts";
+                else if (mime.endsWith("m4v")) caps << "*.m4v";
+                else if (mime.endsWith("/mpeg")) caps << "*.mpeg";
+                else if (mime.endsWith("/mpg")) caps << "*.mpg";
+                else if (mime.endsWith("/quicktime")) caps << "*.mov";
+                else if (mime.endsWith("matroska")) caps << "*.mkv";
+            }
+        }
+    }
     return caps;
-}
-
-int Video::getScreenCount()
-{
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        return desktop->screenCount();
-
-    return -1;
 }
 
 /*********************************************************************
@@ -136,9 +138,48 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
-qint64 Video::getDuration()
+void Video::setTotalDuration(qint64 duration)
+{
+    m_videoDuration = duration;
+    emit totalTimeChanged(m_videoDuration);
+}
+
+qint64 Video::totalDuration()
 {
     return m_videoDuration;
+}
+
+void Video::setResolution(QSize size)
+{
+    m_resolution = size;
+    emit metaDataChanged("Resolution", QVariant(m_resolution));
+}
+
+QSize Video::resolution()
+{
+    return m_resolution;
+}
+
+void Video::setAudioCodec(QString codec)
+{
+    m_audioCodec = codec;
+    emit metaDataChanged("AudioCodec", QVariant(m_audioCodec));
+}
+
+QString Video::audioCodec()
+{
+    return m_audioCodec;
+}
+
+void Video::setVideoCodec(QString codec)
+{
+    m_videoCodec = codec;
+    emit metaDataChanged("VideoCodec", QVariant(m_videoCodec));
+}
+
+QString Video::videoCodec()
+{
+    return m_videoCodec;
 }
 
 void Video::setColor(QColor color)
@@ -151,42 +192,48 @@ QColor Video::getColor()
     return m_color;
 }
 
-bool Video::setSourceFileName(QString filename)
+void Video::setLocked(bool locked)
 {
-    m_sourceFileName = filename;
-    qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceFileName;
+    m_locked = locked;
+}
 
-    if (QFile(m_sourceFileName).exists())
+bool Video::isLocked()
+{
+    return m_locked;
+}
+
+bool Video::setSourceUrl(QString filename)
+{
+    m_sourceUrl = filename;
+    qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceUrl;
+
+    if (m_sourceUrl.contains("://"))
     {
-        setName(QFileInfo(m_sourceFileName).fileName());
-        m_videoPlayer = new QMediaPlayer(0, QMediaPlayer::VideoSurface);
-        m_videoWidget = new QVideoWidget;
-        m_videoPlayer->setVideoOutput(m_videoWidget);
-        m_videoPlayer->setMedia(QUrl::fromLocalFile(m_sourceFileName));
-        connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
-                this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
-        connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SIGNAL(metaDataChanged(QString,QVariant)));
-        connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
-                this, SLOT(slotTotalTimeChanged(qint64)));
+        QUrl url(m_sourceUrl);
+        setName(url.fileName());
     }
     else
     {
-        setName(tr("File not found"));
-        return true;
+        if (QFile(m_sourceUrl).exists())
+            setName(QFileInfo(m_sourceUrl).fileName());
+        else
+            setName(tr("File not found"));
     }
+
+    emit sourceChanged(m_sourceUrl);
 
     return true;
 }
 
-QString Video::getSourceFileName()
+QString Video::sourceUrl()
 {
-    return m_sourceFileName;
+    return m_sourceUrl;
 }
 
 void Video::setScreen(int index)
 {
     m_screen = index;
+    emit changed(id());
 }
 
 int Video::screen()
@@ -197,6 +244,7 @@ int Video::screen()
 void Video::setFullscreen(bool enable)
 {
     m_fullscreen = enable;
+    emit changed(id());
 }
 
 bool Video::fullscreen()
@@ -206,55 +254,12 @@ bool Video::fullscreen()
 
 void Video::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    //if (m_video_out != NULL && attributeIndex == Intensity)
-    //    m_video_out->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction, attributeIndex);
-}
-
-void Video::slotStatusChanged(QMediaPlayer::MediaStatus status)
-{
-    switch (status)
+    if (attributeIndex == Function::Intensity)
     {
-        case QMediaPlayer::UnknownMediaStatus:
-        case QMediaPlayer::NoMedia:
-        case QMediaPlayer::LoadedMedia:
-        case QMediaPlayer::BufferingMedia:
-        case QMediaPlayer::BufferedMedia:
-            //setStatusInfo(QString());
-            break;
-        case QMediaPlayer::LoadingMedia:
-            //setStatusInfo(tr("Loading..."));
-            break;
-        case QMediaPlayer::StalledMedia:
-            //setStatusInfo(tr("Media Stalled"));
-            break;
-        case QMediaPlayer::EndOfMedia:
-        {
-            if (m_videoPlayer != NULL)
-            {
-                m_videoPlayer->stop();
-                m_videoWidget->hide();
-                /*m_videoWidget->deleteLater();
-                delete m_videoWidget;
-                m_videoWidget = NULL;
-
-                delete m_videoPlayer;
-                m_videoPlayer = NULL;*/
-            }
-            Function::postRun(NULL, QList<Universe *>());
-            break;
-        }
-        case QMediaPlayer::InvalidMedia:
-            //displayErrorMessage();
-            break;
+        int b = -100 - (int)((qreal)-100.0 * fraction);
+        emit requestBrightnessAdjust(b);
     }
-}
-
-void Video::slotTotalTimeChanged(qint64 duration)
-{
-    m_videoDuration = duration;
-    qDebug() << "Video duration: " << m_videoDuration;
-    emit totalTimeChanged(m_videoDuration);
+    Function::adjustAttribute(fraction, attributeIndex);
 }
 
 void Video::slotFunctionRemoved(quint32 fid)
@@ -284,15 +289,19 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Speed */
     saveXMLSpeed(doc, &root);
 
+    /* Playback mode */
+    saveXMLRunOrder(doc, &root);
+
     QDomElement source = doc->createElement(KXMLQLCVideoSource);
-    source.setAttribute(KXMLQLCVideoStartTime, m_startTime);
-    source.setAttribute(KXMLQLCVideoColor, m_color.name());
     if (m_screen > 0)
         source.setAttribute(KXMLQLCVideoScreen, m_screen);
     if (m_fullscreen == true)
         source.setAttribute(KXMLQLCVideoFullscreen, true);
 
-    text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
+    if (m_sourceUrl.contains("://"))
+        text = doc->createTextNode(m_sourceUrl);
+    else
+        text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceUrl));
 
     source.appendChild(text);
     root.appendChild(source);
@@ -315,6 +324,8 @@ bool Video::loadXML(const QDomElement& root)
         return false;
     }
 
+    QString fname = name();
+
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
     {
@@ -322,26 +333,38 @@ bool Video::loadXML(const QDomElement& root)
         if (tag.tagName() == KXMLQLCVideoSource)
         {
             if (tag.hasAttribute(KXMLQLCVideoStartTime))
-                m_startTime = tag.attribute(KXMLQLCVideoStartTime).toUInt();
+                setStartTime(tag.attribute(KXMLQLCVideoStartTime).toUInt());
             if (tag.hasAttribute(KXMLQLCVideoColor))
-                m_color = QColor(tag.attribute(KXMLQLCVideoColor));
+                setColor(QColor(tag.attribute(KXMLQLCVideoColor)));
+            if (tag.hasAttribute(KXMLQLCVideoLocked))
+                setLocked(true);
             if (tag.hasAttribute(KXMLQLCVideoScreen))
-                m_screen = tag.attribute(KXMLQLCVideoScreen).toInt();
+                setScreen(tag.attribute(KXMLQLCVideoScreen).toInt());
             if (tag.hasAttribute(KXMLQLCVideoFullscreen))
             {
                 if (tag.attribute(KXMLQLCVideoFullscreen) == "1")
-                    m_fullscreen = true;
+                    setFullscreen(true);
                 else
-                    m_fullscreen = false;
+                    setFullscreen(false);
             }
-            setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
+            if (tag.text().contains("://") == true)
+                setSourceUrl(tag.text());
+            else
+                setSourceUrl(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(tag);
         }
+        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        {
+            loadXMLRunOrder(tag);
+        }
+
         node = node.nextSibling();
     }
+
+    setName(fname);
 
     return true;
 }
@@ -355,18 +378,7 @@ void Video::postLoad()
  *********************************************************************/
 void Video::preRun(MasterTimer* timer)
 {
-    if (m_startTime != UINT_MAX)
-        m_videoPlayer->setPosition(m_startTime);
-    if (m_screen > 0 && getScreenCount() > m_screen)
-    {
-        QRect rect = qApp->desktop()->screenGeometry(m_screen);
-        m_videoWidget->move(rect.topLeft());
-    }
-    if (m_fullscreen == true)
-        m_videoWidget->setFullScreen(true);
-    m_videoWidget->show();
-
-    m_videoPlayer->play();
+    emit requestPlayback();
     Function::preRun(timer);
 }
 
@@ -387,7 +399,6 @@ void Video::write(MasterTimer* timer, QList<Universe *> universes)
 
 void Video::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    Q_UNUSED(timer)
-    Q_UNUSED(universes)
-    slotStatusChanged(QMediaPlayer::EndOfMedia);
+    emit requestStop();
+    Function::postRun(timer, universes);
 }

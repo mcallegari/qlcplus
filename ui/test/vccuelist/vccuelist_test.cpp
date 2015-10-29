@@ -111,7 +111,7 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.frameStyle(), QFrame::Panel | QFrame::Sunken);
     QCOMPARE(cl.caption(), tr("Cue list"));
     QCOMPARE(cl.size(), QSize(300, 220));
-    QVERIFY(cl.m_runner == NULL);
+    // QVERIFY(cl.m_runner == NULL);
     QVERIFY(cl.m_tree != NULL);
     QCOMPARE(cl.m_tree->isEnabled(), false);
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
@@ -127,9 +127,9 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.m_previousKeySequence, QKeySequence());
     QCOMPARE(cl.m_playbackKeySequence, QKeySequence());
 
-    QVERIFY(cl.inputSource(VCCueList::nextInputSourceId).isValid() == false);
-    QVERIFY(cl.inputSource(VCCueList::previousInputSourceId).isValid() == false);
-    QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId).isValid() == false);
+    QVERIFY(cl.inputSource(VCCueList::nextInputSourceId) == NULL);
+    QVERIFY(cl.inputSource(VCCueList::previousInputSourceId) == NULL);
+    QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId) == NULL);
 }
 
 void VCCueList_Test::chaser()
@@ -166,6 +166,9 @@ void VCCueList_Test::functionRemoved()
 
     // Chaser members are removed from list
     m_doc->deleteFunction(c->steps().first().fid);
+    QCOMPARE(cl.m_tree->topLevelItemCount(), 4);
+    // deferred changes arrive afetr 100ms
+    QTest::qWait(150);
     QCOMPARE(cl.m_tree->topLevelItemCount(), 3);
     QCOMPARE(cl.m_tree->topLevelItem(0)->text(0), QString("1"));
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(0), QString("2"));
@@ -254,16 +257,16 @@ void VCCueList_Test::modeChange()
     cl.setChaser(c->id());
 
     m_doc->setMode(Doc::Operate);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], &cl);
-    QVERIFY(cl.m_runner == NULL);
+    // QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
+    // QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], &cl);
+    // QVERIFY(cl.m_runner == NULL);
     QVERIFY(cl.m_tree->isEnabled() == true);
 
-    cl.createRunner();
+    // cl.createRunner();
 
     m_doc->setMode(Doc::Design);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
-    QVERIFY(cl.m_runner == NULL);
+    // QVERIFY(cl.m_runner == NULL);
     QVERIFY(cl.m_tree->isEnabled() == false);
 }
 
@@ -394,11 +397,17 @@ void VCCueList_Test::loadXML()
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(1), s2->name());
     QCOMPARE(cl.m_tree->topLevelItem(2)->text(1), s3->name());
     QCOMPARE(cl.m_tree->topLevelItem(3)->text(1), c4->name());
-    QCOMPARE(cl.inputSource(VCCueList::nextInputSourceId), QLCInputSource(0, 1));
+    QSharedPointer<QLCInputSource> const& ni = cl.inputSource(VCCueList::nextInputSourceId);
+    QCOMPARE(ni->universe(), quint32(0));
+    QCOMPARE(ni->channel(), quint32(1));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceD));
-    QCOMPARE(cl.inputSource(VCCueList::previousInputSourceId), QLCInputSource(2, 3));
+    QSharedPointer<QLCInputSource> const& pi = cl.inputSource(VCCueList::previousInputSourceId);
+    QCOMPARE(pi->universe(), quint32(2));
+    QCOMPARE(pi->channel(), quint32(3));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceC));
-    QCOMPARE(cl.inputSource(VCCueList::playbackInputSourceId), QLCInputSource(4, 5));
+    QSharedPointer<QLCInputSource> const& pli = cl.inputSource(VCCueList::playbackInputSourceId);
+    QCOMPARE(pli->universe(), quint32(4));
+    QCOMPARE(pli->channel(), quint32(5));
     QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
 
     QCOMPARE(cl.pos(), QPoint(3, 4));
@@ -427,9 +436,9 @@ void VCCueList_Test::saveXML()
     cl.setChaser(c->id());
 
     cl.setCaption("Testing");
-    cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCCueList::nextInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)), VCCueList::previousInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCCueList::playbackInputSourceId);
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
@@ -439,7 +448,8 @@ void VCCueList_Test::saveXML()
     xmldoc.appendChild(root);
 
     int chaser = 0, next = 0, nextKey = 0, nextInput = 0, previous = 0, previousKey = 0,
-        previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, wstate = 0, appearance = 0;
+        previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, wstate = 0, appearance = 0,
+        nextPrevBehavior = 0, slidersMode = 0;
 
     QVERIFY(cl.saveXML(&xmldoc, &root) == true);
     QDomElement clroot = root.firstChild().toElement();
@@ -544,6 +554,14 @@ void VCCueList_Test::saveXML()
             // Handled by VCWidget tests, just check that the node is there
             appearance++;
         }
+        else if (tag.tagName() == KXMLQLCVCCueListNextPrevBehavior)
+        {
+            ++nextPrevBehavior;
+        }
+        else if (tag.tagName() == KXMLQLCVCCueListSlidersMode)
+        {
+            ++slidersMode;
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -564,6 +582,8 @@ void VCCueList_Test::saveXML()
     QCOMPARE(playbackInput, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
+    QCOMPARE(nextPrevBehavior, 1);
+    QCOMPARE(slidersMode, 1);
 }
 
 void VCCueList_Test::nextPrevious()
@@ -585,7 +605,7 @@ void VCCueList_Test::nextPrevious()
     cl.slotNextCue();
     cl.slotPreviousCue();
     cl.slotItemActivated(cl.m_tree->topLevelItem(2));
-    QVERIFY(cl.m_runner == NULL);
+    // QVERIFY(cl.m_runner == NULL);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
@@ -593,7 +613,7 @@ void VCCueList_Test::nextPrevious()
 
     // Create runner with a next action -> first item should be activated
     cl.slotNextCue();
-    QVERIFY(cl.m_runner != NULL);
+    // QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
@@ -607,8 +627,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s2);
@@ -618,8 +638,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s3);
@@ -629,8 +649,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s3); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s2);
@@ -640,8 +660,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);
@@ -652,8 +672,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the last cue
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s4);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s4);
@@ -664,8 +684,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the next cue
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[1], s4); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);
@@ -691,9 +711,9 @@ void VCCueList_Test::manualActivation()
     m_doc->setMode(Doc::Operate);
     MasterTimer* timer = m_doc->masterTimer();
 
-    QVERIFY(cl.m_runner == NULL);
+    // QVERIFY(cl.m_runner == NULL);
     cl.slotItemActivated(cl.m_tree->topLevelItem(2));
-    QVERIFY(cl.m_runner != NULL);
+    // QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
@@ -720,8 +740,8 @@ void VCCueList_Test::manualActivation()
     // Another item
     cl.slotItemActivated(cl.m_tree->topLevelItem(0));
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[1], s3); // the function will be removed in the next round
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 2);
     QCOMPARE(timer->m_functionList[1], s1);
@@ -761,43 +781,43 @@ void VCCueList_Test::keyboardNextPrevious()
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Unrecognized keyboard key
     cl.slotKeyPressed(QKeySequence(QKeySequence::SelectAll));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 1);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 1);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Previous keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceA));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 3);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 3);
 
     // Next keyboard key
     cl.slotKeyPressed(QKeySequence(keySequenceB));
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
     // Playback
     cl.slotKeyPressed(QKeySequence(keySequenceD));
     timer->timerTick();
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 }
 
@@ -809,9 +829,9 @@ void VCCueList_Test::input()
     c->setDuration(Function::infiniteSpeed());
     cl.setChaser(c->id());
 
-    cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
-    cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCCueList::nextInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCCueList::previousInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(4, 5)), VCCueList::playbackInputSourceId);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
@@ -819,61 +839,61 @@ void VCCueList_Test::input()
 
     // Runner creation thru "next" input
     cl.slotInputValueChanged(5, 3, 255);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 
     cl.slotInputValueChanged(2, 15, 255);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 
     cl.slotInputValueChanged(0, 1, 255);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 0);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 0);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 0);
 
     cl.slotInputValueChanged(0, 1, 255);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 1);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 1);
 
     // Runner creation thru previous input
     m_doc->setMode(Doc::Design);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
     m_doc->setMode(Doc::Operate);
 
     cl.slotInputValueChanged(0, 3, 255);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 
     cl.slotInputValueChanged(2, 1, 255);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 
     cl.slotInputValueChanged(2, 3, 255);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 0);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 3);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 3);
 
     cl.slotInputValueChanged(2, 3, 255);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QCOMPARE(cl.m_runner->currentStep(), 2);
+    //QCOMPARE(cl.m_runner->currentStepIndex(), 2);
 
     cl.slotInputValueChanged(4, 5, 255);
-    QVERIFY(cl.m_runner != NULL);
+    //QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 
     cl.slotInputValueChanged(4, 5, 0);
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
     timer->timerTick();
-    QVERIFY(cl.m_runner == NULL);
+    //QVERIFY(cl.m_runner == NULL);
 }
 
 QTEST_MAIN(VCCueList_Test)

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED FE-1500</Model>
+ <Type>Flower</Type>
+ <Channel Name="Operating mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Color="#000000" Max="9">Blackout (all light beams off)</Capability>
+  <Capability Min="10" Max="24">Aut0: Laser + RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="25" Max="39">Aut1: Laser + RGBWA LEDs</Capability>
+  <Capability Min="40" Max="54">Aut2: Laser + white LEDs</Capability>
+  <Capability Min="55" Max="69">Aut3: RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="70" Max="84">Aut4: RGBWA LEDs</Capability>
+  <Capability Min="85" Max="99">Aut5: Laser</Capability>
+  <Capability Min="100" Max="114">Aut6: white LEDs</Capability>
+  <Capability Min="115" Max="129">Sou0: Laser + RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="130" Max="144">Sou1: Laser + RGBWA LEDs</Capability>
+  <Capability Min="145" Max="159">Sou2: Laser + white LEDs</Capability>
+  <Capability Min="160" Max="174">Sou3: RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="175" Max="189">Sou4: RGBWA LEDs</Capability>
+  <Capability Min="190" Max="204">Sou5: Laser</Capability>
+  <Capability Min="205" Max="219">Sou6: white LEDs</Capability>
+  <Capability Min="220" Max="255">DMX mode: This setting enables the functions of the other DMX channels.</Capability>
+ </Channel>
+ <Channel Name="RGBWA LEDs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Color="#000000" Max="9">Blackout (all light beams off)</Capability>
+  <Capability Min="10" Color="#ff0000" Max="14">Red</Capability>
+  <Capability Min="15" Color="#00ff00" Max="19">Green</Capability>
+  <Capability Min="20" Color="#0000ff" Max="24">Blue</Capability>
+  <Capability Min="25" Color="#ffbf00" Max="29">Amber</Capability>
+  <Capability Min="30" Color="#ffffff" Max="34">White</Capability>
+  <Capability Min="35" Color="#ffffff" Max="39" Color2="#ff0000">White + red</Capability>
+  <Capability Min="40" Color="#ff0000" Max="44" Color2="#00ff00">Red + green</Capability>
+  <Capability Min="45" Color="#00ff00" Max="49" Color2="#0000ff">Green + blue</Capability>
+  <Capability Min="50" Color="#0000ff" Max="54" Color2="#ffbf00">Blue + amber</Capability>
+  <Capability Min="55" Color="#ffbf00" Max="59" Color2="#ffffff">Amber + white</Capability>
+  <Capability Min="60" Color="#ffffff" Max="64" Color2="#00ff00">White + green</Capability>
+  <Capability Min="65" Color="#00ff00" Max="69" Color2="#ffbf00">Green + amber</Capability>
+  <Capability Min="70" Color="#ffbf00" Max="74" Color2="#ff0000">Amber + red</Capability>
+  <Capability Min="75" Color="#ff0000" Max="79" Color2="#0000ff">Red + blue</Capability>
+  <Capability Min="80" Color="#0000ff" Max="84" Color2="#ffffff">Blue + white</Capability>
+  <Capability Min="85" Color="#ffffff" Max="89">Red + green + blue</Capability>
+  <Capability Min="90" Color="#ffdf00" Max="94">Red + green + amber</Capability>
+  <Capability Min="95" Color="#ffff80" Max="99">Red + green + white</Capability>
+  <Capability Min="100" Color="#ff6080" Max="104">Red + amber + blue</Capability>
+  <Capability Min="105" Color="#ff80ff" Max="109">Red + white + blue</Capability>
+  <Capability Min="110" Color="#ff9555" Max="114">Red + amber + white</Capability>
+  <Capability Min="115" Color="#92ff92" Max="119">Amber + green + blue</Capability>
+  <Capability Min="120" Color="#80ffff" Max="124">Blue + green + white</Capability>
+  <Capability Min="125" Color="#b9ff5d" Max="129">Amber + green + white</Capability>
+  <Capability Min="130" Color="#ffdfff" Max="134">Amber + white + blue</Capability>
+  <Capability Min="135" Color="#ffdf80" Max="139">Red + green + blue + amber</Capability>
+  <Capability Min="140" Color="#ffffff" Max="144">Red + green + blue + white</Capability>
+  <Capability Min="145" Color="#b9ffb9" Max="149">Blue + green + white + amber</Capability>
+  <Capability Min="150" Color="#ffea55" Max="154">Red + green + amber + white</Capability>
+  <Capability Min="155" Color="#ff95aa" Max="159">White + red + blue + amber</Capability>
+  <Capability Min="160" Color="#ffeaaa" Max="164">Red + green + blue + amber + white</Capability>
+  <Capability Min="165" Max="209">Automatic color change (one color)</Capability>
+  <Capability Min="210" Max="255">Automatic color change (two colors)</Capability>
+ </Channel>
+ <Channel Name="Color change speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Strobe effect of the RGBWA LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">No strobe effect</Capability>
+  <Capability Min="5" Max="254">Strobe effect fast -&gt; slow</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="White strobe LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Blackout (all strobe LEDs off)</Capability>
+  <Capability Min="10" Max="19">Running light pattern 1 fast -&gt; slow</Capability>
+  <Capability Min="20" Max="29">Running light pattern 2 fast -&gt; slow</Capability>
+  <Capability Min="30" Max="39">Running light pattern 3 fast -&gt; slow</Capability>
+  <Capability Min="40" Max="49">Running light pattern 4 fast -&gt; slow</Capability>
+  <Capability Min="50" Max="59">Running light pattern 5 fast -&gt; slow</Capability>
+  <Capability Min="60" Max="69">Running light pattern 6 fast -&gt; slow</Capability>
+  <Capability Min="70" Max="79">Running light pattern 7 fast -&gt; slow</Capability>
+  <Capability Min="80" Max="89">Running light pattern 8 fast -&gt; slow</Capability>
+  <Capability Min="90" Max="99">Running light pattern 9 fast -&gt; slow</Capability>
+  <Capability Min="100" Max="109">Running light pattern 10 fast -&gt; slow</Capability>
+  <Capability Min="110" Max="255">All strobe LEDs constantly on</Capability>
+ </Channel>
+ <Channel Name="Laser">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Color="#000000" Max="9">Blackout (laser off)</Capability>
+  <Capability Min="10" Color="#ff0000" Max="49">Red on</Capability>
+  <Capability Min="50" Color="#00ff00" Max="89">Green on</Capability>
+  <Capability Min="90" Color="#00ff00" Max="129" Color2="#ff0000">Change green and red</Capability>
+  <Capability Min="130" Color="#ff0000" Max="169" Color2="#00ff00">Red on + green strobe</Capability>
+  <Capability Min="170" Color="#00ff00" Max="209" Color2="#ff0000">Green on + red strobe</Capability>
+  <Capability Min="210" Color="#ff0000" Max="255" Color2="#00ff00">Red strobe + green strobe</Capability>
+ </Channel>
+ <Channel Name="Strobe effect lasers">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">No strobe effect</Capability>
+  <Capability Min="5" Max="254">Strobe effect fast -&gt; slow</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="Rotation of the RGBWA LEDs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Anticlockwise rotation slow -&gt; fast</Capability>
+ </Channel>
+ <Mode Name="8-channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED/laser"/>
+   <Dimensions Weight="4.2" Depth="313" Width="246" Height="315"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Operating mode</Channel>
+  <Channel Number="1">RGBWA LEDs</Channel>
+  <Channel Number="2">Color change speed</Channel>
+  <Channel Number="3">Strobe effect of the RGBWA LEDs</Channel>
+  <Channel Number="4">White strobe LEDs</Channel>
+  <Channel Number="5">Laser</Channel>
+  <Channel Number="6">Strobe effect lasers</Channel>
+  <Channel Number="7">Rotation of the RGBWA LEDs</Channel>
+ </Mode>
+</FixtureDefinition>

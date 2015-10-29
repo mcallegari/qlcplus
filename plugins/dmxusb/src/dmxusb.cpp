@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   dmxusb.cpp
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,8 +24,9 @@
 
 #include "dmxusbconfig.h"
 #include "dmxusbwidget.h"
-#include "enttecdmxusbprorx.h"
+#include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "euroliteusbdmxpro.h"
 #include "dmxusb.h"
 
 /****************************************************************************
@@ -33,11 +35,8 @@
 
 DMXUSB::~DMXUSB()
 {
-    while (m_outputs.isEmpty() == false)
-        delete m_outputs.takeFirst();
-
-    while (m_inputs.isEmpty() == false)
-        delete m_inputs.takeFirst();
+    while(m_widgets.isEmpty() == false)
+        delete m_widgets.takeFirst();
 }
 
 void DMXUSB::init()
@@ -58,54 +57,52 @@ int DMXUSB::capabilities() const
 
 bool DMXUSB::rescanWidgets()
 {
-    while (m_outputs.isEmpty() == false)
-        delete m_outputs.takeFirst();
-    while (m_inputs.isEmpty() == false)
-        delete m_inputs.takeFirst();
+    m_inputs.clear();
+    m_outputs.clear();
 
-    QList <DMXUSBWidget*> widgets(QLCFTDI::widgets());
+    while(m_widgets.isEmpty() == false)
+        delete m_widgets.takeFirst();
 
-    foreach (DMXUSBWidget* widget, widgets)
+    m_widgets = DMXUSBWidget::widgets();
+
+    foreach (DMXUSBWidget* widget, m_widgets)
     {
-        if (widget->type() == DMXUSBWidget::ProRX)
-        {
-            m_inputs << widget;
-            EnttecDMXUSBProRX* prorx = (EnttecDMXUSBProRX*) widget;
-            connect(prorx, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
-        }
-        else
-        {
-            m_outputs << widget;
-        }
+        for (int o = 0; o < widget->outputsNumber(); o++)
+            m_outputs.append(widget);
+
+        for (int i = 0; i < widget->inputsNumber(); i++)
+            m_inputs.append(widget);
     }
 
-    emit configurationChanged();
     return true;
 }
 
 QList <DMXUSBWidget*> DMXUSB::widgets() const
 {
-    QList <DMXUSBWidget*> widgets;
-    widgets << m_outputs;
-    widgets << m_inputs;
-    return widgets;
+    return m_widgets;
 }
 
 /****************************************************************************
  * Outputs
  ****************************************************************************/
 
-void DMXUSB::openOutput(quint32 output)
+bool DMXUSB::openOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->open();
+    {
+        addToMap(universe, output, Output);
+        return m_outputs.at(output)->open(output, false);
+    }
+    return false;
 }
 
-void DMXUSB::closeOutput(quint32 output)
+void DMXUSB::closeOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->close();
+    {
+        removeFromMap(output, universe, Output);
+        m_outputs.at(output)->close(output, false);
+    }
 }
 
 QStringList DMXUSB::outputs()
@@ -113,9 +110,13 @@ QStringList DMXUSB::outputs()
     QStringList list;
     int i = 1;
 
-    QListIterator <DMXUSBWidget*> it(m_outputs);
-    while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->uniqueName());
+    for (int w = 0; w < m_outputs.count();)
+    {
+        DMXUSBWidget* widget = m_outputs.at(w);
+        foreach(QString name, widget->outputNames())
+            list << QString("%1: %2").arg(i++).arg(name);
+        w += widget->outputsNumber();
+    }
     return list;
 }
 
@@ -161,6 +162,8 @@ QString DMXUSB::outputInfo(quint32 output)
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");
         str += tr("Device is operating correctly.");
+        str += QString("<BR>");
+        str += tr("Driver in use: %1").arg(m_outputs[output]->interfaceTypeString());
         str += QString("</P>");
         QString add = m_outputs[output]->additionalInfo();
         if (add.isEmpty() == false)
@@ -175,13 +178,11 @@ QString DMXUSB::outputInfo(quint32 output)
 
 void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    Q_UNUSED(universe)
-
     if (output < quint32(m_outputs.size()))
     {
         QByteArray wholeuniverse(512, 0);
         wholeuniverse.replace(0, data.length(), data);
-        m_outputs.at(output)->writeUniverse(wholeuniverse);
+        m_outputs.at(output)->writeUniverse(universe, output, wholeuniverse);
     }
 }
 
@@ -189,16 +190,42 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
  * Inputs
  ****************************************************************************/
 
-void DMXUSB::openInput(quint32 input)
+bool DMXUSB::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_inputs.size()))
-        m_inputs.at(input)->open();
+    {
+        DMXUSBWidget *widget = m_inputs.at(input);
+        if (widget->type() == DMXUSBWidget::ProRXTX ||
+            widget->type() == DMXUSBWidget::ProMk2 ||
+            widget->type() == DMXUSBWidget::UltraPro)
+        {
+            EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
+            connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        }
+        addToMap(universe, input, Input);
+        return widget->open(input, true);
+    }
+    return false;
 }
 
-void DMXUSB::closeInput(quint32 input)
+void DMXUSB::closeInput(quint32 input, quint32 universe)
 {
     if (input < quint32(m_inputs.size()))
-        m_inputs.at(input)->close();
+    {
+        DMXUSBWidget *widget = m_inputs.at(input);
+        removeFromMap(input, universe, Input);
+        widget->close(input, true);
+        if (widget->type() == DMXUSBWidget::ProRXTX ||
+            widget->type() == DMXUSBWidget::ProMk2 ||
+            widget->type() == DMXUSBWidget::UltraPro)
+        {
+            EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
+            disconnect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                       this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        }
+    }
 }
 
 QStringList DMXUSB::inputs()
@@ -206,9 +233,14 @@ QStringList DMXUSB::inputs()
     QStringList list;
     int i = 1;
 
-    QListIterator <DMXUSBWidget*> it(m_inputs);
-    while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->uniqueName());
+    for (int w = 0; w < m_inputs.count();)
+    {
+        DMXUSBWidget* widget = m_inputs.at(w);
+        foreach(QString name, widget->inputNames())
+            list << QString("%1: %2").arg(i++).arg(name);
+        w += widget->inputsNumber();
+    }
+
     return list;
 }
 
@@ -256,6 +288,7 @@ void DMXUSB::configure()
     DMXUSBConfig config(this);
     config.exec();
     rescanWidgets();
+    emit configurationChanged();
 }
 
 bool DMXUSB::canConfigure()

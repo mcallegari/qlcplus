@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.6 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>MH-110 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Min &lt; Max</Capability>
+ </Channel>
+ <Channel Name="Pan / Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow&#13;</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
+ </Channel>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="35">Blackout, all LEDs off</Capability>
+  <Capability Min="36" Max="55">3200K</Capability>
+  <Capability Min="56" Max="75">3400K</Capability>
+  <Capability Min="76" Max="95">4200K</Capability>
+  <Capability Min="96" Max="115">4900K</Capability>
+  <Capability Min="116" Max="135">5600K</Capability>
+  <Capability Min="136" Max="175">6500K</Capability>
+  <Capability Min="176" Max="195">7200K</Capability>
+  <Capability Min="196" Max="215">8000K</Capability>
+  <Capability Min="216" Max="235">8500K</Capability>
+  <Capability Min="236" Max="255">10000K</Capability>
+ </Channel>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14">Blackout, all LEDs off</Capability>
+  <Capability Min="15" Max="255">One of 28 preprogrammed colours</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="140">Strobe, Increasing speed&#13;</Capability>
+  <Capability Min="141" Max="255">Strobe, Random speed</Capability>
+ </Channel>
+ <Channel Name="Special functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="99">Without function&#13;</Capability>
+  <Capability Min="100" Max="199">Automatic sound</Capability>
+  <Capability Min="200" Max="255">Reset</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Width="260" Depth="148" Height="310" Weight="4.5"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="220" Type="Head" PanMax="630"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">CTO</Channel>
+  <Channel Number="11">Colour Macro</Channel>
+  <Channel Number="12">Strobe effect</Channel>
+  <Channel Number="13">Special functions</Channel>
+ </Mode>
+ <Mode Name="9 Channels">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Width="260" Depth="148" Height="310" Weight="4.5"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus TiltMax="220" Type="Head" PanMax="630"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan / Tilt Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Strobe effect</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -21,6 +21,7 @@
 #define FIXTURE_H
 
 #include <QObject>
+#include <QMutex>
 #include <QList>
 #include <QIcon>
 #include <QHash>
@@ -65,12 +66,19 @@ class Fixture : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)
 
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY changed)
+    Q_PROPERTY(QString type READ type CONSTANT)
+    Q_PROPERTY(quint32 universe READ universe WRITE setUniverse NOTIFY changed)
+    Q_PROPERTY(quint32 address READ address WRITE setAddress NOTIFY changed)
+    Q_PROPERTY(quint32 channels READ channels WRITE setChannels NOTIFY changed)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
     /** Create a new fixture instance with the given QObject parent. */
-    Fixture(QObject* parent);
+    Fixture(QObject* parent = 0);
 
     /** Destructor */
     ~Fixture();
@@ -145,14 +153,6 @@ public:
      * @return Fixture type
      */
     QString type();
-
-    /**
-     * Check, whether the fixture is a dimmer-type fixture (i.e. without
-     * a definition).
-     *
-     * @return true if the fixture is a dimmer, otherwise false
-     */
-    bool isDimmer() const;
 
     /*********************************************************************
      * Universe
@@ -235,32 +235,25 @@ public:
     quint32 channelAddress(quint32 channel) const;
 
     /**
-     * Get a channel by its name from the given group of channels.
-     * Comparison is done as a "contains" operation, i.e. the given name
-     * can be a substring of a longer name. If group is empty, it is ignored.
+     * Get a channel from the given group of channels and by its primary color
      *
-     * @param name The name of the channel to search for
-     * @param cs Case sensitivity of the search
      * @param group Group name of the channel
+     * @param colour Primary color to search for
      * @return The first matching channel number
      */
-    quint32 channel(const QString& name,
-                    Qt::CaseSensitivity cs = Qt::CaseSensitive,
-                    QLCChannel::Group group = QLCChannel::NoGroup) const;
+    quint32 channel(QLCChannel::Group group,
+        QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /**
-     * Get a set of channels by their name from the given group of channels.
-     * Comparison is done as a "contains" operation, i.e. the given name
-     * can be a substring of a longer name. If group is empty, it is ignored.
+     * Get a set of channels from the given group of channels and by their primary color
      *
-     * @param name The name of the channel to search for
-     * @param cs Case sensitivity of the search
      * @param group Group name of the channel
+     * @param color Primary color to search for
      * @return A QSet containing the matching channel numbers
      */
-    QSet <quint32> channels(const QString& name,
-                    Qt::CaseSensitivity cs = Qt::CaseSensitive,
-                    QLCChannel::Group group = QLCChannel::NoGroup) const;
+    QSet <quint32> channels(
+                    QLCChannel::Group group,
+                    QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /** @see QLCFixtureHead */
     quint32 panMsbChannel(int head = 0) const;
@@ -278,10 +271,10 @@ public:
     quint32 masterIntensityChannel(int head = 0) const;
 
     /** @see QLCFixtureHead */
-    QList <quint32> rgbChannels(int head = 0) const;
+    QVector <quint32> rgbChannels(int head = 0) const;
 
     /** @see QLCFixtureHead */
-    QList <quint32> cmyChannels(int head = 0) const;
+    QVector <quint32> cmyChannels(int head = 0) const;
 
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);
@@ -315,9 +308,6 @@ public:
     ChannelModifier *channelModifier(quint32 idx);
 
 protected:
-    /** Create a generic intensity channel */
-    void createGenericChannel();
-
     /** Find and store channel numbers (pan, tilt, intensity) */
     void findChannels();
 
@@ -327,9 +317,6 @@ protected:
 
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;
-
-    /** Generic intensity channel for dimmer fixtures */
-    QLCChannel* m_genericChannel;
 
     /** List holding the channels indices to exlude from fade transitions */
     QList<int> m_excludeFadeIndices;
@@ -344,6 +331,27 @@ protected:
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
     QHash<quint32, ChannelModifier*> m_channelModifiers;
+
+    /*********************************************************************
+     * Channel values
+     *********************************************************************/
+public:
+    /** Store DMX values for this fixture. If values have changed,
+     * it returns true, otherwise false */
+    bool setChannelValues(QByteArray values);
+
+    /** Return the current DMX values of this fixture */
+    QByteArray channelValues();
+
+    /** Retrieve the DMX value of the given channel index */
+    uchar channelValueAt(int idx);
+
+signals:
+    void valuesChanged();
+
+protected:
+    QByteArray m_values;
+    QMutex m_valuesMutex;
 
     /*********************************************************************
      * Fixture definition
@@ -405,14 +413,34 @@ protected:
     QLCFixtureMode* m_fixtureMode;
 
     /*********************************************************************
+     * Generic Dimmer
+     *********************************************************************/
+public:
+    /** Creates and returns a definition for a generic dimmer pack */
+    QLCFixtureDef *genericDimmerDef(int channels);
+
+    /** Creates and returns a fixture mode for a generic dimmer pack */
+    QLCFixtureMode *genericDimmerMode(QLCFixtureDef *def, int channels);
+
+    /*********************************************************************
      * Generic RGB panel
      *********************************************************************/
 public:
+    enum Components {
+        RGB = 0,
+        BGR,
+        BRG,
+        GBR,
+        GRB,
+        RGBW
+    };
+
+public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

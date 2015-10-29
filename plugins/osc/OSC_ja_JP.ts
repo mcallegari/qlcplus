@@ -5,83 +5,98 @@
     <name>ConfigureOSC</name>
     <message>
         <location filename="configureosc.ui" line="14"/>
-        <source>Configure OSC Plugin</source>
+        <source>OSC Plugin Configuration</source>
+        <oldsource>Configure OSC Plugin</oldsource>
         <translation type="unfinished">OSCプラグイン設定</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="20"/>
-        <location filename="configureosc.ui" line="84"/>
-        <location filename="configureosc.ui" line="155"/>
-        <location filename="configureosc.ui" line="162"/>
-        <source>Output address:</source>
-        <translation type="unfinished">Output address:</translation>
-    </message>
-    <message>
-        <location filename="configureosc.ui" line="37"/>
-        <location filename="configureosc.ui" line="60"/>
-        <location filename="configureosc.ui" line="108"/>
-        <location filename="configureosc.ui" line="135"/>
-        <source>Input port:</source>
-        <translation type="unfinished">Input port:</translation>
-    </message>
-    <message>
-        <location filename="configureosc.ui" line="70"/>
-        <source>OSC Network 2</source>
+        <location filename="configureosc.ui" line="28"/>
+        <source>Universes Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="101"/>
-        <source>OSC Network 1</source>
+        <location filename="configureosc.ui" line="41"/>
+        <source>Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="186"/>
-        <source>OSC Network 3</source>
+        <location filename="configureosc.ui" line="46"/>
+        <source>Universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="193"/>
-        <source>OSC Network 4</source>
+        <location filename="configureosc.ui" line="51"/>
+        <source>Input Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="56"/>
+        <source>Output Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="61"/>
+        <source>Output Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="76"/>
+        <source>Inputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="82"/>
+        <source>Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>Invalid IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="97"/>
+        <location filename="oscplugin.cpp" line="74"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation type="unfinished">このプラグインはOSCを使ったMIDI信号の送受信を行います。(TouchOSCなど)</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="182"/>
-        <location filename="oscplugin.cpp" line="281"/>
-        <source>OSC Network</source>
+        <location filename="oscplugin.cpp" line="113"/>
+        <location filename="oscplugin.cpp" line="257"/>
+        <source>Status: Not open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="193"/>
+        <location filename="oscplugin.cpp" line="116"/>
+        <location filename="oscplugin.cpp" line="260"/>
+        <source>Status: Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="118"/>
+        <source>Packets sent: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="262"/>
+        <source>Packets received: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="109"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="295"/>
-        <source>Status: Not ready</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="199"/>
-        <source>Address: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="202"/>
-        <location filename="oscplugin.cpp" line="298"/>
-        <source>Status: Ready</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="292"/>
+        <location filename="oscplugin.cpp" line="253"/>
         <source>Input</source>
         <translation type="unfinished"></translation>
     </message>

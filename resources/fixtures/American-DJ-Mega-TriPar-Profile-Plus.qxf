@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Mega TriPar Profile Plus</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Color macros/programs/sound activity">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="15" Min="0">Mode 1</Capability>
+  <Capability Max="31" Min="16">Mode 2</Capability>
+  <Capability Max="47" Min="32">Mode 3</Capability>
+  <Capability Max="63" Min="48">Mode 4</Capability>
+  <Capability Max="79" Min="64">Mode 5</Capability>
+  <Capability Max="95" Min="80">Mode 6</Capability>
+  <Capability Max="111" Min="96">Mode 7</Capability>
+  <Capability Max="127" Min="112">Mode 8</Capability>
+  <Capability Max="143" Min="128">Mode 9</Capability>
+  <Capability Max="159" Min="144">Mode 10</Capability>
+  <Capability Max="175" Min="160">Mode 11</Capability>
+  <Capability Max="191" Min="176">Mode 12</Capability>
+  <Capability Max="207" Min="192">Mode 13</Capability>
+  <Capability Max="223" Min="208">Mode 14</Capability>
+  <Capability Max="239" Min="224">Mode 15</Capability>
+  <Capability Max="255" Min="240">Mode 16</Capability>
+ </Channel>
+ <Channel Name="Program selection mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="51" Min="0">Dimming mode</Capability>
+  <Capability Max="102" Min="52">Color macro mode</Capability>
+  <Capability Max="153" Min="103">Color change mode</Capability>
+  <Capability Max="204" Min="154">Color fade mode</Capability>
+  <Capability Max="255" Min="205">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Shutter/strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="31" Min="0">LED off</Capability>
+  <Capability Max="63" Min="32">LED on</Capability>
+  <Capability Max="95" Min="64">Strobing slow - fast</Capability>
+  <Capability Max="127" Min="96">LED on</Capability>
+  <Capability Max="159" Min="128">Strobe pulse slow - fast</Capability>
+  <Capability Max="191" Min="160">LED on</Capability>
+  <Capability Max="223" Min="192">Random strobe slow - fast</Capability>
+  <Capability Max="255" Min="224">LED on</Capability>
+ </Channel>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Max="255" Min="0">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Program speed/sound sensitive">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="255" Min="0">Slow - fast/least sensitive - most sensitive</Capability>
+ </Channel>
+ <Channel Name="Dimmer curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="20" Min="0">Standard</Capability>
+  <Capability Max="40" Min="21">Stage</Capability>
+  <Capability Max="60" Min="41">TV</Capability>
+  <Capability Max="80" Min="61">Architectural</Capability>
+  <Capability Max="100" Min="81">Theatre</Capability>
+  <Capability Max="255" Min="101">Default to unit setting</Capability>
+ </Channel>
+ <Mode Name="5 channel mode">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="4 channel mode">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+ </Mode>
+ <Mode Name="6 channel mode">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="9 channel mode">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Program selection mode</Channel>
+  <Channel Number="7">Color macros/programs/sound activity</Channel>
+  <Channel Number="8">Program speed/sound sensitive</Channel>
+ </Mode>
+ <Mode Name="10 channel mode">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Program selection mode</Channel>
+  <Channel Number="7">Color macros/programs/sound activity</Channel>
+  <Channel Number="8">Program speed/sound sensitive</Channel>
+  <Channel Number="9">Dimmer curves</Channel>
+ </Mode>
+</FixtureDefinition>

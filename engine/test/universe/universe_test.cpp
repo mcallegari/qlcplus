@@ -252,28 +252,34 @@ void Universe_Test::write()
     m_uni->setChannelCapability(0, QLCChannel::Intensity);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
     m_uni->setChannelCapability(9, QLCChannel::Intensity);
+    m_uni->setChannelCapability(UNIVERSE_SIZE - 1, QLCChannel::Intensity);
 
-    QVERIFY(m_uni->write(1000, 255) == false);
+    QVERIFY(m_uni->write(UNIVERSE_SIZE - 1, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(9, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(0, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(255));
 
     m_gm->setValue(127);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
 
     QVERIFY(m_uni->write(4, 200) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(100));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
@@ -281,15 +287,6 @@ void Universe_Test::write()
 
 void Universe_Test::writeRelative()
 {
-    // past the end of the array
-    QVERIFY(m_uni->writeRelative(1000, 255) == false);
-    QCOMPARE(m_uni-> m_relativeValues[9], short(0));
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
-
     // 127 == 0
     QVERIFY(m_uni->writeRelative(9, 127) == true);
     QCOMPARE(m_uni->m_relativeValues[9], short(0));
@@ -406,12 +403,6 @@ void Universe_Test::writeEfficiency()
     for (i = 0; i < 512; i++)
         m_uni->setChannelCapability(i, QLCChannel::Intensity);
 
-    /* This applies 50%(127) Grand Master to ALL channels in all universes.
-       I'm not really sure what kinds of figures to expect here, since this
-       is just one part in the overall processor load. Typically I get ~0.15ms
-       on an Intel Core 2 E6550@2.33GHz, which looks plausible to me:
-       DMX frame interval is 1/44Hz =~ 23ms. Applying GM to ALL channels takes
-       less than 1ms so there's a full 22ms to spare after GM. */
     QBENCHMARK
     {
         for (i = 0; i < 512; i++)
@@ -420,6 +411,87 @@ void Universe_Test::writeEfficiency()
 
     for (i = 0; i < 512; i++)
         QCOMPARE(int(m_uni->postGMValues()->at(i)), int(100));
+}
+
+void Universe_Test::hasChangedEfficiency()
+{
+    for (int i = 0; i < 512; i++)
+    {
+        m_uni->write(i, 200);
+        QCOMPARE(m_uni->hasChanged(), true);
+    }
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->write(i, 200);
+            m_uni->hasChanged();
+        }
+    }
+}
+
+void Universe_Test::hasNotChangedEfficiency()
+{
+    m_uni->write(UNIVERSE_SIZE - 1, 200);
+    m_uni->hasChanged();
+    QCOMPARE(m_uni->hasChanged(), false);
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->hasChanged();
+        }
+    }
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency()
+{
+    m_gm->setValue(255);
+    int i;
+
+    for (i = 0; i < 512; i++)
+        m_uni->setChannelCapability(i, QLCChannel::Intensity);
+
+    for (i = 0; i < 512; i++)
+        m_uni->write(i, 200);
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+        QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency2()
+{
+    int i;
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            m_uni->setChannelCapability(i, QLCChannel::Intensity);
+        else
+            m_uni->setChannelCapability(i, QLCChannel::Shutter);
+
+        m_uni->write(i, 200);
+    }
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+        else
+            QCOMPARE(quint8(m_uni->postGMValues()->at(i)), quint8(200));
+    }
 }
 
 QTEST_APPLESS_MAIN(Universe_Test)

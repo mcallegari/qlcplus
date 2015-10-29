@@ -27,9 +27,11 @@
 #include "rgbimage.h"
 #include "rgbplain.h"
 #include "rgbscript.h"
+#include "rgbscriptscache.h"
 #include "rgbtext.h"
+#include "doc.h"
 
-RGBAlgorithm::RGBAlgorithm(const Doc * doc)
+RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
     , m_startColor(QColor())
     , m_endColor(QColor())
@@ -46,7 +48,7 @@ void RGBAlgorithm::setColors(QColor start, QColor end)
  * Available algorithms
  ****************************************************************************/
 
-QStringList RGBAlgorithm::algorithms(const Doc * doc)
+QStringList RGBAlgorithm::algorithms(Doc * doc)
 {
     QStringList list;
     RGBPlain plain(doc);
@@ -57,11 +59,11 @@ QStringList RGBAlgorithm::algorithms(const Doc * doc)
     list << text.name();
     list << image.name();
     list << audio.name();
-    list << RGBScript::scriptNames(doc);
+    list << doc->rgbScriptsCache()->names();
     return list;
 }
 
-RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
+RGBAlgorithm* RGBAlgorithm::algorithm(Doc * doc, const QString& name)
 {
     RGBText text(doc);
     RGBImage image(doc);
@@ -76,14 +78,14 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
     else if (name == plain.name())
         return plain.clone();
     else
-        return RGBScript::script(doc, name).clone();
+        return doc->rgbScriptsCache()->script(name).clone();
 }
 
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
 
-RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
+RGBAlgorithm* RGBAlgorithm::loader(Doc * doc, const QDomElement& root)
 {
     RGBAlgorithm* algo = NULL;
 
@@ -114,7 +116,7 @@ RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript scr = RGBScript::script(doc, root.text());
+        RGBScript const& scr = doc->rgbScriptsCache()->script(root.text());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
     }

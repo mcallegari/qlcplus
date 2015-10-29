@@ -21,6 +21,7 @@
 #include <QFont>
 
 #include "monitorproperties.h"
+#include "doc.h"
 #include <QDomDocument>
 #include <QDomElement>
 
@@ -33,7 +34,10 @@
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridUnits "Units"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
-#define KXMLQLCMonitorBackground "Background"
+#define KXMLQLCMonitorCommonBackground "Background"
+
+#define KXMLQLCMonitorCustomBgItem "BackgroundItem"
+#define KXMLQLCMonitorCustomBgFuncID "ID"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
 #define KXMLQLCMonitorFixtureID "ID"
@@ -76,20 +80,28 @@ void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
     m_fixtureItems[fid].m_gelColor = col;
 }
 
+QString MonitorProperties::customBackground(quint32 id)
+{
+    if (m_customBackgroundImages.contains(id))
+        return m_customBackgroundImages[id];
+
+    return QString();
+}
+
 void MonitorProperties::reset()
 {
     m_gridSize = QSize(5, 5);
     m_gridUnits = Meters;
     m_showLabels = false;
     m_fixtureItems.clear();
-    m_bgImage = QString();
+    m_commonBackgroundImage = QString();
 }
 
 /*********************************************************************
  * Load & Save
  *********************************************************************/
 
-bool MonitorProperties::loadXML(const QDomElement &root)
+bool MonitorProperties::loadXML(const QDomElement &root, const Doc * mainDocument)
 {
     if (root.tagName() != KXMLQLCMonitorProperties)
     {
@@ -127,8 +139,16 @@ bool MonitorProperties::loadXML(const QDomElement &root)
             setChannelStyle(ChannelStyle(tag.text().toInt()));
         else if (tag.tagName() == KXMLQLCMonitorValues)
             setValueStyle(ValueStyle(tag.text().toInt()));
-        else if (tag.tagName() == KXMLQLCMonitorBackground)
-            setBackgroundImage(tag.text());
+        else if (tag.tagName() == KXMLQLCMonitorCommonBackground)
+            setCommonBackgroundImage(mainDocument->denormalizeComponentPath(tag.text()));
+        else if (tag.tagName() == KXMLQLCMonitorCustomBgItem)
+        {
+            if (tag.hasAttribute(KXMLQLCMonitorCustomBgFuncID))
+            {
+                quint32 fid = tag.attribute(KXMLQLCMonitorCustomBgFuncID).toUInt();
+                setCustomBackgroundItem(fid, mainDocument->denormalizeComponentPath(tag.text()));
+            }
+        }
         else if (tag.tagName() == KXMLQLCMonitorGrid)
         {
             int w = 5, h = 5;
@@ -166,7 +186,7 @@ bool MonitorProperties::loadXML(const QDomElement &root)
     return true;
 }
 
-bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
+bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root, const Doc * mainDocument) const
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);
@@ -181,54 +201,65 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     root.setAttribute(KXMLQLCMonitorShowLabels, labelsVisible());
     wksp_root->appendChild(root);
 
-    if (displayMode() == DMX)
+
+    tag = doc->createElement(KXMLQLCMonitorFont);
+    root.appendChild(tag);
+    text = doc->createTextNode(font().toString());
+    tag.appendChild(text);
+
+    tag = doc->createElement(KXMLQLCMonitorChannels);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(channelStyle()));
+    tag.appendChild(text);
+
+    tag = doc->createElement(KXMLQLCMonitorValues);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(valueStyle()));
+    tag.appendChild(text);
+
+    if (commonBackgroundImage().isEmpty() == false)
     {
-        tag = doc->createElement(KXMLQLCMonitorFont);
+        tag = doc->createElement(KXMLQLCMonitorCommonBackground);
         root.appendChild(tag);
-        text = doc->createTextNode(font().toString());
-        tag.appendChild(text);
-
-        tag = doc->createElement(KXMLQLCMonitorChannels);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(channelStyle()));
-        tag.appendChild(text);
-
-        tag = doc->createElement(KXMLQLCMonitorValues);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(valueStyle()));
+        text = doc->createTextNode(mainDocument->normalizeComponentPath(commonBackgroundImage()));
         tag.appendChild(text);
     }
-    else if (displayMode() == Graphics)
+    else if(customBackgroundList().isEmpty() == false)
     {
-        if (backgroundImage().isEmpty() == false)
+        QHashIterator <quint32, QString> it(customBackgroundList());
+        while (it.hasNext() == true)
         {
-            tag = doc->createElement(KXMLQLCMonitorBackground);
+            it.next();
+ 
+            tag = doc->createElement(KXMLQLCMonitorCustomBgItem);
             root.appendChild(tag);
-            text = doc->createTextNode(backgroundImage());
+            quint32 fid = it.key();
+            tag.setAttribute(KXMLQLCMonitorCustomBgFuncID, fid);
+            text = doc->createTextNode(mainDocument->normalizeComponentPath(it.value()));
             tag.appendChild(text);
         }
+    }
 
-        tag = doc->createElement(KXMLQLCMonitorGrid);
-        tag.setAttribute(KXMLQLCMonitorGridWidth, gridSize().width());
-        tag.setAttribute(KXMLQLCMonitorGridHeight, gridSize().height());
-        tag.setAttribute(KXMLQLCMonitorGridUnits, gridUnits());
+    tag = doc->createElement(KXMLQLCMonitorGrid);
+    tag.setAttribute(KXMLQLCMonitorGridWidth, gridSize().width());
+    tag.setAttribute(KXMLQLCMonitorGridHeight, gridSize().height());
+    tag.setAttribute(KXMLQLCMonitorGridUnits, gridUnits());
+    root.appendChild(tag);
+
+    foreach (quint32 fid, fixtureItemsID())
+    {
+        QPointF pos = fixturePosition(fid);
+        tag = doc->createElement(KXMLQLCMonitorFixtureItem);
+        tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
+        tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
+        tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
+        if (fixtureRotation(fid) != 0)
+            tag.setAttribute(KXMLQLCMonitorFixtureRotation, QString::number(fixtureRotation(fid)));
+
+        QColor col = fixtureGelColor(fid);
+        if (col.isValid())
+            tag.setAttribute(KXMLQLCMonitorFixtureGelColor, col.name());
         root.appendChild(tag);
-
-        foreach (quint32 fid, fixtureItemsID())
-        {
-            QPointF pos = fixturePosition(fid);
-            tag = doc->createElement(KXMLQLCMonitorFixtureItem);
-            tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
-            tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
-            tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
-            if (fixtureRotation(fid) != 0)
-                tag.setAttribute(KXMLQLCMonitorFixtureRotation, QString::number(fixtureRotation(fid)));
-
-            QColor col = fixtureGelColor(fid);
-            if (col.isValid())
-                tag.setAttribute(KXMLQLCMonitorFixtureGelColor, col.name());
-            root.appendChild(tag);
-        }
     }
 
     return true;

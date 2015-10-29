@@ -114,22 +114,21 @@ FunctionUiState * Scene::createUiState()
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     m_valueListMutex.lock();
-    int index = m_values.indexOf(scv);
-    if (index == -1)
-    {
-        m_values.append(scv);
-        qSort(m_values.begin(), m_values.end());
-    }
+
+    QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
+    if (it == m_values.end())
+        m_values.insert(scv, scv.value);
     else
-        m_values.replace(index, scv);
+    {
+        const_cast<uchar&>(it.key().value) = scv.value;
+        it.value() = scv.value;
+    }
 
     // if the scene is running, we must
     // update/add the changed channel
     if (blind == false && m_fader != NULL)
     {
-        FadeChannel fc;
-        fc.setFixture(doc(), scv.fxi);
-        fc.setChannel(scv.channel);
+        FadeChannel fc(doc(), scv.fxi, scv.channel);
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
         fc.setCurrent(scv.value);
@@ -153,7 +152,7 @@ void Scene::setValue(quint32 fxi, quint32 ch, uchar value)
 void Scene::unsetValue(quint32 fxi, quint32 ch)
 {
     m_valueListMutex.lock();
-    m_values.removeAll(SceneValue(fxi, ch, 0));
+    m_values.remove(SceneValue(fxi, ch, 0));
     m_valueListMutex.unlock();
 
     emit changed(this->id());
@@ -161,26 +160,17 @@ void Scene::unsetValue(quint32 fxi, quint32 ch)
 
 uchar Scene::value(quint32 fxi, quint32 ch)
 {
-    SceneValue scv(fxi, ch, 0);
-    int index = m_values.indexOf(scv);
-    if (index == -1)
-        return 0;
-    else
-        return m_values.at(index).value;
+    return m_values.value(SceneValue(fxi, ch, 0), 0);
 }
 
 bool Scene::checkValue(SceneValue val)
 {
-    int index = m_values.indexOf(val);
-    if (index == -1)
-        return false;
-    else
-        return true;
+    return m_values.contains(val);
 }
 
 QList <SceneValue> Scene::values() const
 {
-    return m_values;
+    return m_values.keys();
 }
 
 QColor Scene::colorValue(quint32 fxi)
@@ -190,7 +180,7 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach(SceneValue scv, m_values)
+    foreach(SceneValue scv, m_values.keys())
     {
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
@@ -296,11 +286,11 @@ QList<quint32> Scene::channelGroups()
 
 void Scene::slotFixtureRemoved(quint32 fxi_id)
 {
-    QMutableListIterator <SceneValue> it(m_values);
+    QMutableMapIterator <SceneValue, uchar> it(m_values);
     while (it.hasNext() == true)
     {
-        SceneValue scv = it.next();
-        if (scv.fxi == fxi_id)
+        SceneValue value(it.next().key());
+        if (value.fxi == fxi_id)
             it.remove();
     }
 
@@ -347,13 +337,13 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     /* Scene contents */
-    QListIterator <SceneValue> it(m_values);
+    QMapIterator <SceneValue, uchar> it(m_values);
     qint32 currFixID = -1;
     int chanCount = 0;
     QString fixValues;
     while (it.hasNext() == true)
     {
-        SceneValue sv = it.next();
+        SceneValue sv = it.next().key();
         if (currFixID == -1) currFixID = sv.fxi;
         if ((qint32)sv.fxi != currFixID)
         {
@@ -481,10 +471,10 @@ void Scene::postLoad()
     }
 
     // Remove such fixtures and channels that don't exist
-    QMutableListIterator <SceneValue> it(m_values);
+    QMutableMapIterator <SceneValue, uchar> it(m_values);
     while (it.hasNext() == true)
     {
-        SceneValue value(it.next());
+        SceneValue value(it.next().key());
         Fixture* fxi = doc()->fixture(value.fxi);
         if (fxi == NULL || fxi->channel(value.channel) == NULL)
             it.remove();
@@ -516,20 +506,21 @@ void Scene::unFlash(MasterTimer* timer)
 
 void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
+    Q_UNUSED(ua)
     Q_ASSERT(timer != NULL);
 
     if (flashing() == true)
     {
         // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
         // so enforce all values that the user has chosen to flash.
-        foreach (const SceneValue& sv, m_values)
+        foreach (const SceneValue& sv, m_values.keys())
         {
-            FadeChannel fc;
-            fc.setFixture(doc(), sv.fxi);
-            fc.setChannel(sv.channel);
-            quint32 uni = fc.universe();
-            if (uni != Universe::invalid())
-                ua[uni]->write(fc.address(), sv.value);
+            FadeChannel fc(doc(), sv.fxi, sv.channel);
+            fc.setTarget(sv.value);
+            fc.setFlashing(true);
+            // Force add this channel, since it will be removed
+            // by MasterTimer once applied
+            timer->faderForceAdd(fc);
         }
     }
     else
@@ -567,15 +558,13 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
     if (elapsed() == 0)
     {
         m_valueListMutex.lock();
-        QListIterator <SceneValue> it(m_values);
+        QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {
-            SceneValue value(it.next());
+            SceneValue value(it.next().key());
             bool canFade = true;
 
-            FadeChannel fc;
-            fc.setFixture(doc(), value.fxi);
-            fc.setChannel(value.channel);
+            FadeChannel fc(doc(), value.fxi, value.channel);
             fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
             if (fixture != NULL)
@@ -598,6 +587,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.unlock();
     }
 
+    //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
     m_fader->write(ua);
 
@@ -610,14 +600,16 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    qDebug() << "Scene postRun. ID: " << id();
-    if (m_fader == NULL)
-        return;
+    Q_ASSERT(m_fader != NULL);
+
     QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
     while (it.hasNext() == true)
     {
         it.next();
         FadeChannel fc = it.value();
+        // fade out only intensity channels
+        if (fc.group(doc()) != QLCChannel::Intensity)
+            continue;
 
         bool canFade = true;
         Fixture *fixture = doc()->fixture(fc.fixture());
@@ -640,10 +632,9 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
                 fc.setFadeTime(overrideFadeOutSpeed());
             fc.setTarget(0);
         }
-        timer->fader()->add(fc);
+        timer->faderAdd(fc);
     }
 
-    Q_ASSERT(m_fader != NULL);
     delete m_fader;
     m_fader = NULL;
 
@@ -653,13 +644,14 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
                              const QList<Universe*> ua)
 {
-    const QHash <FadeChannel,FadeChannel>& channels(timer->fader()->channels());
-    if (channels.contains(fc) == true)
+    QMutexLocker channelsLocker(timer->faderMutex());
+    QHash <FadeChannel,FadeChannel> const& channels(timer->faderChannelsRef());
+    QHash <FadeChannel,FadeChannel>::const_iterator existing_it = channels.find(fc);
+    if (existing_it != channels.constEnd())
     {
         // MasterTimer's GenericFader contains the channel so grab its current
         // value as the new starting value to get a smoother fade
-        FadeChannel existing = channels[fc];
-        fc.setStart(existing.current());
+        fc.setStart(existing_it.value().current());
         fc.setCurrent(fc.start());
     }
     else

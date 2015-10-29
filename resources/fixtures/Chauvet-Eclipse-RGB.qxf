@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.1 GIT</Version>
+  <Author>charles.oldham</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Eclipse RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Auto Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">DMX Mode</Capability>
+  <Capability Min="50" Max="99">Auto Slow</Capability>
+  <Capability Min="100" Max="149">Auto Fast</Capability>
+  <Capability Min="150" Max="199">Sound Active</Capability>
+  <Capability Min="200" Max="255">Random</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="5" Max="28" Color="#ff0000">Red</Capability>
+  <Capability Min="29" Max="56" Color="#00ff00">Green</Capability>
+  <Capability Color2="#00ff00" Min="57" Max="84" Color="#ff0000">Red + Green</Capability>
+  <Capability Min="85" Max="112" Color="#00ff00">Green Strobe</Capability>
+  <Capability Min="113" Max="140" Color="#ff0000">Red Strobe</Capability>
+  <Capability Color2="#00ff00" Min="141" Max="168" Color="#ff0000">Red + Green Strobe</Capability>
+  <Capability Color2="#00ff00" Min="169" Max="197" Color="#ff0000">Red Strobe + Green</Capability>
+  <Capability Color2="#00ff00" Min="198" Max="224" Color="#ff0000">Red Strobe + Green Strobe</Capability>
+  <Capability Color2="#00ff00" Min="225" Max="255" Color="#ff0000">Alternating Strobe</Capability>
+ </Channel>
+ <Channel Name="Strobe (laser)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="249">Strobe (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Strobe (sound active)</Capability>
+ </Channel>
+ <Channel Name="Rotation (laser)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation (slow to fast)</Capability>
+  <Capability Min="128" Max="133">No Function</Capability>
+  <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Vibration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="255">Vibration (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Flash">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="255">Flash (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="127" Color="#ff0000">Red</Capability>
+  <Capability Color2="#ff0000" Min="128" Max="169" Color="#000000">Fade in (0~100%)</Capability>
+  <Capability Color2="#000000" Min="170" Max="209" Color="#ff0000">Fade out (100%~0)</Capability>
+  <Capability Min="210" Max="255">Alternating fade (100%~0~100%...)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="127" Color="#00ff00">Green</Capability>
+  <Capability Color2="#00ff00" Min="128" Max="169" Color="#000000">Fade in (0~100%)</Capability>
+  <Capability Min="170" Max="209" Color="#00ff00">Fade out (100%~0%)</Capability>
+  <Capability Min="210" Max="255">Alternating fade (100%~0~100%...)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="127" Color="#0000ff">Blue</Capability>
+  <Capability Color2="#0000ff" Min="128" Max="169" Color="#000000">Fade in (0~100%)</Capability>
+  <Capability Min="170" Max="209" Color="#0000ff">Fade out (100%~0)</Capability>
+  <Capability Min="210" Max="255">Alternating fade (100%~0~100%...)</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0~100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe (LED)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="249">Strobe (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Strobe (sound active)</Capability>
+ </Channel>
+ <Channel Name="Rotation (LED)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation (slow to fast)</Capability>
+  <Capability Min="128" Max="133">No Function</Capability>
+  <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="12 Ch">
+  <Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="1.7" Height="162" Width="241" Depth="196"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="43" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Auto Mode</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Strobe (laser)</Channel>
+  <Channel Number="3">Rotation (laser)</Channel>
+  <Channel Number="4">Vibration</Channel>
+  <Channel Number="5">Flash</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Strobe (LED)</Channel>
+  <Channel Number="11">Rotation (LED)</Channel>
+ </Mode>
+</FixtureDefinition>

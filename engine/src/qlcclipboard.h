@@ -29,6 +29,10 @@ class Chaser;
 class Scene;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCClipboard: public QObject
 {
     Q_OBJECT
@@ -37,12 +41,6 @@ public:
     QLCClipboard(Doc *doc);
 
 public:
-    enum ActionType
-    {
-        CopyChaserStep,
-        NoType
-    };
-
     void resetContents();
 
 private:
@@ -70,5 +68,7 @@ private:
     QList <SceneValue> m_copySceneValues;
     Function *m_copyFunction;
 };
+
+/** @} */
 
 #endif // QLCCLIPBOARD_H

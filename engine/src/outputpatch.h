@@ -21,6 +21,7 @@
 #define OUTPUTPATCH_H
 
 #include <QObject>
+#include <QMap>
 
 class QLCIOPlugin;
 
@@ -40,11 +41,15 @@ class OutputPatch : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(OutputPatch)
 
+    Q_PROPERTY(QString outputName READ outputName NOTIFY outputNameChanged)
+    Q_PROPERTY(QString pluginName READ pluginName NOTIFY pluginNameChanged)
+
     /********************************************************************
      * Initialization
      ********************************************************************/
 public:
-    OutputPatch(QObject* parent);
+    OutputPatch(QObject* parent = 0);
+    OutputPatch(quint32 universe, QObject* parent = 0);
     virtual ~OutputPatch();
 
     /********************************************************************
@@ -54,13 +59,13 @@ public:
     /**
      * Set the plugin to use and the plugin line number to output data on
      */
-    void set(QLCIOPlugin* plugin, quint32 output);
+    bool set(QLCIOPlugin* plugin, quint32 output);
 
     /**
      * If a valid plugin and line have been set, close
      * the output line and re-open it again
      */
-    void reconnect();
+    bool reconnect();
 
     /** The plugin instance that has been assigned to a patch */
     QLCIOPlugin* plugin() const;
@@ -77,11 +82,23 @@ public:
     /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 
-    void setPluginProperty(QString prop, QVariant value);
+    /** Set a parameter specific to the patched plugin */
+    void setPluginParameter(QString prop, QVariant value);
+
+    /** Retrieve the map of custom parameters set to the patched plugin */
+    QMap<QString, QVariant> getPluginParameters();
+
+signals:
+    void outputNameChanged();
+    void pluginNameChanged();
 
 private:
+    /** The reference of the plugin associated by this Output patch */
     QLCIOPlugin* m_plugin;
-    quint32 m_output;
+    /** The plugin line open by this Output patch */
+    quint32 m_pluginLine;
+    /** The universe that this Output patch is attached to */
+    quint32 m_universe;
 
     /********************************************************************
      * Value dump

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturedef.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <iostream>
 #include <QString>
+#include <QDebug>
 #include <QFile>
-#include <QtXml>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -87,6 +90,11 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
     return *this;
 }
 
+QString QLCFixtureDef::definitionSourceFile() const
+{
+    return m_defFileAbsolutePath;
+}
+
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
     m_defFileAbsolutePath = absPath;
@@ -150,26 +158,23 @@ void QLCFixtureDef::checkLoaded()
     if (m_isLoaded == true)
         return;
 
-    if (m_isLoaded == false)
+    if (manufacturer() == KXMLFixtureGeneric &&
+       (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
     {
-        if (manufacturer() == KXMLFixtureGeneric &&
-           (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
-        {
-            m_isLoaded = true;
-            return;
-        }
-        if (m_defFileAbsolutePath.isEmpty())
-        {
-            qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
-            return;
-        }
-        qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
-        bool error = loadXML(m_defFileAbsolutePath);
-        if (error == false)
-        {
-            m_isLoaded = true;
-            m_defFileAbsolutePath = QString();
-        }
+        m_isLoaded = true;
+        return;
+    }
+    if (m_defFileAbsolutePath.isEmpty())
+    {
+        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        return;
+    }
+    qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
+    bool error = loadXML(m_defFileAbsolutePath);
+    if (error == false)
+    {
+        m_isLoaded = true;
+        m_defFileAbsolutePath = QString();
     }
 }
 
@@ -267,7 +272,6 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 
 QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 {
-    checkLoaded();
     QListIterator <QLCFixtureMode*> it(m_modes);
     QLCFixtureMode* mode = NULL;
 
@@ -283,7 +287,6 @@ QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 
 QList <QLCFixtureMode*> QLCFixtureDef::modes()
 {
-    checkLoaded();
     return m_modes;
 }
 
@@ -302,51 +305,29 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCFixtureDefDocument, author()));
-    Q_ASSERT(doc.isNull() == false);
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
+    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument);
 
-    /* Create a text stream for the file */
-    QTextStream stream(&file);
-    stream.setAutoDetectUnicode(true);
-    stream.setCodec("UTF-8");
-
-    /* Fixture tag */
-    QDomElement root = doc.documentElement();
-
-    QDomElement tag;
-    QDomText text;
-
-    /* Manufacturer */
-    tag = doc.createElement(KXMLQLCFixtureDefManufacturer);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_manufacturer);
-    tag.appendChild(text);
-
-    /* Model */
-    tag = doc.createElement(KXMLQLCFixtureDefModel);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_model);
-    tag.appendChild(text);
-
-    /* Type */
-    tag = doc.createElement(KXMLQLCFixtureDefType);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_type);
-    tag.appendChild(text);
+    doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);
+    doc.writeTextElement(KXMLQLCFixtureDefModel, m_model);
+    doc.writeTextElement(KXMLQLCFixtureDefType, m_type);
 
     /* Channels */
     QListIterator <QLCChannel*> chit(m_channels);
     while (chit.hasNext() == true)
-        chit.next()->saveXML(&doc, &root);
+        chit.next()->saveXML(&doc);
 
     /* Modes */
     QListIterator <QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
-        modeit.next()->saveXML(&doc, &root);
+        modeit.next()->saveXML(&doc);
 
-    /* Write the document into the stream */
-    stream << doc.toString();
+    /* End the document and close all the open elements */
     error = QFile::NoError;
+    doc.writeEndDocument();
     file.close();
 
     return error;
@@ -359,20 +340,37 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QDomDocument doc = QLCFile::readXML(fileName);
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
         return QFile::ReadError;
     }
 
-    if (doc.doctype().name() == KXMLQLCFixtureDefDocument)
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return QFile::ResourceError;
+    }
+
+    if (doc->dtdName() == KXMLQLCFixtureDefDocument)
     {
         // qDebug() << Q_FUNC_INFO << "Loading " << fileName;
-        if (loadXML(doc) == true)
+        if (loadXML(*doc) == true)
             error = QFile::NoError;
         else
+        {
+            qWarning() << fileName << QString("%1\nLine %2, column %3")
+                        .arg(doc->errorString())
+                        .arg(doc->lineNumber())
+                        .arg(doc->columnNumber());
             error = QFile::ReadError;
+        }
     }
     else
     {
@@ -381,40 +379,42 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
                    << "is not a fixture definition file";
     }
 
+    QLCFile::releaseXMLReader(doc);
+
     return error;
 }
 
-bool QLCFixtureDef::loadXML(const QDomDocument& doc)
+bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 {
     bool retval = false;
 
-    QDomElement root = doc.documentElement();
-    if (root.tagName() == KXMLQLCFixtureDef)
+    if (doc.readNextStartElement() == false)
+        return false;
+
+    if (doc.name() == KXMLQLCFixtureDef)
     {
-        QDomNode node = root.firstChild();
-        while (node.isNull() == false)
+        while (doc.readNextStartElement())
         {
-            QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCCreator)
+            if (doc.name() == KXMLQLCCreator)
             {
-                loadCreator(tag);
+                loadCreator(doc);
             }
-            else if (tag.tagName() == KXMLQLCFixtureDefManufacturer)
+            else if (doc.name() == KXMLQLCFixtureDefManufacturer)
             {
-                setManufacturer(tag.text());
+                setManufacturer(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCFixtureDefModel)
+            else if (doc.name() == KXMLQLCFixtureDefModel)
             {
-                setModel(tag.text());
+                setModel(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCFixtureDefType)
+            else if (doc.name() == KXMLQLCFixtureDefType)
             {
-                setType(tag.text());
+                setType(doc.readElementText());
             }
-            else if (tag.tagName() == KXMLQLCChannel)
+            else if (doc.name() == KXMLQLCChannel)
             {
                 QLCChannel* ch = new QLCChannel();
-                if (ch->loadXML(tag) == true)
+                if (ch->loadXML(doc) == true)
                 {
                     /* Loading succeeded */
                     if (addChannel(ch) == false)
@@ -429,10 +429,10 @@ bool QLCFixtureDef::loadXML(const QDomDocument& doc)
                     delete ch;
                 }
             }
-            else if (tag.tagName() == KXMLQLCFixtureMode)
+            else if (doc.name() == KXMLQLCFixtureMode)
             {
                 QLCFixtureMode* mode = new QLCFixtureMode(this);
-                if (mode->loadXML(tag) == true)
+                if (mode->loadXML(doc) == true)
                 {
                     /* Loading succeeded */
                     if (addMode(mode) == false)
@@ -449,10 +449,9 @@ bool QLCFixtureDef::loadXML(const QDomDocument& doc)
             }
             else
             {
-                qWarning() << Q_FUNC_INFO << "Unknown Fixture tag: " << tag.tagName();
+                qWarning() << Q_FUNC_INFO << "Unknown Fixture tag: " << doc.name();
+                doc.skipCurrentElement();
             }
-
-            node = node.nextSibling();
         }
 
         retval = true;
@@ -468,39 +467,35 @@ bool QLCFixtureDef::loadXML(const QDomDocument& doc)
     return retval;
 }
 
-bool QLCFixtureDef::loadCreator(const QDomElement& creator)
+bool QLCFixtureDef::loadCreator(QXmlStreamReader &doc)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    if (creator.tagName() != KXMLQLCCreator)
+    if (doc.name() != KXMLQLCCreator)
     {
         qWarning() << Q_FUNC_INFO << "file creator information not found!";
         return false;
     }
 
-    node = creator.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCreatorName)
+        if (doc.name() == KXMLQLCCreatorName)
         {
             /* Ignore name */
+            doc.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCCreatorVersion)
+        else if (doc.name() == KXMLQLCCreatorVersion)
         {
             /* Ignore version */
+            doc.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCCreatorAuthor)
+        else if (doc.name() == KXMLQLCCreatorAuthor)
         {
-            setAuthor(tag.text());
+            setAuthor(doc.readElementText());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "unknown creator tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "unknown creator tag:" << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

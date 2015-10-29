@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #define private public
 #include "qlcfixturedefcache.h"
@@ -29,7 +28,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void QLCFixtureDefCache_Test::init()
 {
@@ -187,10 +186,13 @@ void QLCFixtureDefCache_Test::defDirectories()
     QVERIFY(dir.absolutePath().contains(FIXTUREDIR));
 
     dir = QLCFixtureDefCache::userDefinitionDirectory();
+#ifndef SKIP_TEST
     QVERIFY(dir.exists() == true);
+#endif
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtFixture)));
     QVERIFY(dir.absolutePath().contains(USERFIXTUREDIR));
+
 }
 
 QTEST_APPLESS_MAIN(QLCFixtureDefCache_Test)

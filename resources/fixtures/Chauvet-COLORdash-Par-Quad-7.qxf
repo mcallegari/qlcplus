@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORdash Par-Quad 7</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobing (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Color macro + White balance">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Color2="#ffff00" Color="#ff0000" Max="30">R: 100% G: 0–100% B: 0</Capability>
+  <Capability Min="31" Color2="#00ff00" Color="#ffff00" Max="50">R: 100%–0 G: 100% B: 0</Capability>
+  <Capability Min="51" Color2="#00ffff" Color="#00ff00" Max="70">R: 0 G: 100% B: 0–100%</Capability>
+  <Capability Min="71" Color2="#0000ff" Color="#00ffff" Max="90">R: 0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="91" Color2="#ff00ff" Color="#0000ff" Max="110">R: 0–100% G: 0 B: 100%</Capability>
+  <Capability Min="111" Color2="#ff0000" Color="#ff00ff" Max="130">R: 100% G: 0 B: 100%–0</Capability>
+  <Capability Min="131" Color2="#ffffff" Color="#ff0000" Max="150">R: 100% G: 0–100% B: 0–100%</Capability>
+  <Capability Min="151" Color2="#0000ff" Color="#ffffff" Max="170">R: 100%–0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="171" Max="200">R: 100% G: 100% B: 100% A: 100%</Capability>
+  <Capability Min="201" Max="205">White 1</Capability>
+  <Capability Min="206" Max="210">White 2</Capability>
+  <Capability Min="211" Max="215">White 3</Capability>
+  <Capability Min="216" Max="220">White 4</Capability>
+  <Capability Min="221" Max="225">White 5</Capability>
+  <Capability Min="226" Max="230">White 6</Capability>
+  <Capability Min="231" Max="235">White 7</Capability>
+  <Capability Min="236" Max="240">White 8</Capability>
+  <Capability Min="241" Max="245">White 9</Capability>
+  <Capability Min="246" Max="250">White 10</Capability>
+  <Capability Min="251" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">No function</Capability>
+  <Capability Min="52" Max="101">Auto 1</Capability>
+  <Capability Min="102" Max="152">Auto 2</Capability>
+  <Capability Min="153" Max="203">Auto 3</Capability>
+  <Capability Min="204" Max="254">Auto 4</Capability>
+  <Capability Min="255" Max="255">Auto 5</Capability>
+ </Channel>
+ <Channel Name="Auto speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto programs speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Linear dimmer</Capability>
+  <Capability Min="102" Max="152">Nonlinear dimming curve 1 (fastest)</Capability>
+  <Capability Min="153" Max="203">Nonlinear dimming curve 2</Capability>
+  <Capability Min="204" Max="255">Nonlinear dimming curve 3 (slowest)</Capability>
+ </Channel>
+ <Mode Name="4-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Depth="252" Width="228" Height="100" Weight="2.5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="6-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Depth="252" Width="228" Height="100" Weight="2.5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="10-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Depth="252" Width="228" Height="100" Weight="2.5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color macro + White balance</Channel>
+  <Channel Number="7">Auto programs</Channel>
+  <Channel Number="8">Auto speed</Channel>
+  <Channel Number="9">Dimmer speed</Channel>
+ </Mode>
+</FixtureDefinition>

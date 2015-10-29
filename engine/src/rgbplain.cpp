@@ -25,7 +25,7 @@
 #include "audiocapture.h"
 #include "doc.h"
 
-RGBPlain::RGBPlain(const Doc * doc)
+RGBPlain::RGBPlain(Doc * doc)
     : RGBAlgorithm(doc)
 {
 }
@@ -92,6 +92,11 @@ void RGBPlain::setColors(QColor start, QColor end)
 RGBAlgorithm::Type RGBPlain::type() const
 {
     return RGBAlgorithm::Plain;
+}
+
+int RGBPlain::acceptColors() const
+{
+    return 1; // only start color is accepted
 }
 
 bool RGBPlain::loadXML(const QDomElement& root)

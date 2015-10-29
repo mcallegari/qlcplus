@@ -28,7 +28,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define INTERNAL_FIXTUREDIR "../../../fixtures/"
+#include "../common/resource_paths.h"
 
 void FixtureGroup_Test::initTestCase()
 {
@@ -37,7 +37,7 @@ void FixtureGroup_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void FixtureGroup_Test::cleanupTestCase()
@@ -128,7 +128,6 @@ void FixtureGroup_Test::size()
 
 void FixtureGroup_Test::assignFixtureNoSize()
 {
-    QLCPoint pt;
     FixtureGroup grp(m_doc);
     QCOMPARE(grp.headList().size(), 0);
 

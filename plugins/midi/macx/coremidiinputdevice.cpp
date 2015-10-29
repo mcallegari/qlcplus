@@ -61,6 +61,10 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
                 data1 = packet->data[++i];
                 if (packet->length > (i + 1) && !MIDI_IS_CMD(packet->data[i + 1]))
                     data2 = packet->data[++i];
+                else
+                    // no data2 ? Could be a Program Change, so act like Linux
+                    // and give it a value
+                    data2 = 127;
             }
 
             if (cmd >= MIDI_BEAT_CLOCK && cmd <= MIDI_BEAT_STOP)
@@ -110,13 +114,13 @@ CoreMidiInputDevice::~CoreMidiInputDevice()
     close();
 }
 
-void CoreMidiInputDevice::open()
+bool CoreMidiInputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
 
     // Don't open twice
     if (m_inPort != 0)
-        return;
+        return false;
 
     OSStatus s = MIDIInputPortCreate(m_client, CFSTR("QLC Input Port"),
                                      MidiInProc, this, &m_inPort);
@@ -142,6 +146,7 @@ void CoreMidiInputDevice::open()
             m_inPort = 0;
         }
     }
+    return true;
 }
 
 void CoreMidiInputDevice::close()

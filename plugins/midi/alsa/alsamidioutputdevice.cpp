@@ -57,7 +57,7 @@ AlsaMidiOutputDevice::~AlsaMidiOutputDevice()
     m_receiver_address = NULL;
 }
 
-void AlsaMidiOutputDevice::open()
+bool AlsaMidiOutputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
     m_open = true;
@@ -71,6 +71,8 @@ void AlsaMidiOutputDevice::open()
     snd_seq_port_subscribe_set_sender(sub, m_sender_address);
     snd_seq_port_subscribe_set_dest(sub, m_receiver_address);
     snd_seq_subscribe_port(m_alsa, sub);
+
+    return true;
 }
 
 void AlsaMidiOutputDevice::close()
@@ -123,7 +125,7 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
     snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
-    snd_seq_ev_set_subs(&ev);
+    //snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
     // Since MIDI devices can have only 128 real channels, we don't
@@ -186,7 +188,7 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
     snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
-    snd_seq_ev_set_subs(&ev);
+    //snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
     uchar midiCmd = MIDI_CMD(cmd);
@@ -252,7 +254,7 @@ void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
     snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
-    snd_seq_ev_set_subs(&ev);
+    //snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
     snd_seq_ev_set_sysex (&ev, message.count(), message.data());

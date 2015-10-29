@@ -54,15 +54,17 @@ AudioCaptureWaveIn::~AudioCaptureWaveIn()
     m_mutex.unlock();
 }
 
-bool AudioCaptureWaveIn::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureWaveIn::initialize()
 {
     MMRESULT result = 0;
     WAVEFORMATEX format;
 
+    AudioCapture::initialize();
+
     format.wFormatTag = WAVE_FORMAT_PCM; // simple, uncompressed format
     format.wBitsPerSample = 16;
-    format.nChannels = channels;
-    format.nSamplesPerSec = sampleRate;
+    format.nChannels = m_channels;
+    format.nSamplesPerSec = m_sampleRate;
     format.nAvgBytesPerSec = format.nSamplesPerSec *
                              format.nChannels *
                              (format.wBitsPerSample / 8);
@@ -94,7 +96,7 @@ bool AudioCaptureWaveIn::initialize(unsigned int sampleRate, quint8 channels, qu
         break;
     }
 
-    return AudioCapture::initialize(sampleRate, channels, bufferSize);
+    return true;
 }
 
 qint64 AudioCaptureWaveIn::latency()

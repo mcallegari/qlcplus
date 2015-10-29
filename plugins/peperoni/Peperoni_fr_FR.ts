@@ -4,25 +4,25 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="125"/>
+        <location filename="win32/peperoni.cpp" line="129"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation>Ce plugin permet le support de la sortie des interfaces Peperoni.</translation>
+        <translation>Ce plugin offre le support de la sortie des interfaces Peperoni.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="139"/>
+        <location filename="win32/peperoni.cpp" line="143"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
         <translation>Impossible de trouver la bibliothèque usbdmx.dll ou celle-ci est trop ancienne pour être utilisée avec QLC.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="221"/>
-        <location filename="unix/peperoni.cpp" line="199"/>
+        <location filename="win32/peperoni.cpp" line="225"/>
+        <location filename="unix/peperoni.cpp" line="205"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Souhaitez-vous redétecter le matériel ?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="96"/>
+        <location filename="unix/peperoni.cpp" line="99"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plugin offre le support de l&apos;entrée et la sortie des interfaces Peperoni.</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="144"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="159"/>
@@ -72,24 +72,24 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="180"/>
         <source>Input line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne d&apos;entrée</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="182"/>
         <location filename="unix/peperonidevice.cpp" line="199"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvert</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="184"/>
         <location filename="unix/peperonidevice.cpp" line="201"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermé</translation>
     </message>
     <message>
         <location filename="unix/peperonidevice.cpp" line="197"/>
         <source>Output line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne de sortie</translation>
     </message>
 </context>
 </TS>

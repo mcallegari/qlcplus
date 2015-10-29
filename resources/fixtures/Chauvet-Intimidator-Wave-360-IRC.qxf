@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.2 GIT</Version>
+  <Author>Habefaro</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Intimidator Wave 360 IRC</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Max="255" Min="0">pan movement</Capability>
+ </Channel>
+ <Channel Name="Pan 16-bit">
+  <Group Byte="1">Pan</Group>
+  <Capability Max="255" Min="0">pan fine movement</Capability>
+ </Channel>
+ <Channel Name="Pan Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Pan Speed (decreasing speed)</Capability>
+ </Channel>
+ <Channel Name="Continuous Pan Rotating">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="0" Min="0">No function</Capability>
+  <Capability Max="127" Min="1">Continuous counter-clockwise pan rotating with
+increasing speed</Capability>
+  <Capability Max="255" Min="128">Continuous clockwise pan rotating with decreasing
+speed</Capability>
+ </Channel>
+ <Channel Name="Head 1 Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">0 - 270°</Capability>
+ </Channel>
+ <Channel Name="Head 2 Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">0 - 270°</Capability>
+ </Channel>
+ <Channel Name="Head 3 Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">0 - 270°</Capability>
+ </Channel>
+ <Channel Name="Head 4 Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">0 - 270°</Capability>
+ </Channel>
+ <Channel Name="Built-In Auto Tilt">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="47" Min="0">No function</Capability>
+  <Capability Max="55" Min="48">Built-In Auto 1</Capability>
+  <Capability Max="63" Min="56">Built-In Auto 2</Capability>
+  <Capability Max="71" Min="64">Built-In Auto 3</Capability>
+  <Capability Max="79" Min="72">Built-In Auto 4</Capability>
+  <Capability Max="87" Min="80">Built-In Auto 5</Capability>
+  <Capability Max="95" Min="88">Built-In Auto 6</Capability>
+  <Capability Max="103" Min="96">Built-In Auto 7</Capability>
+  <Capability Max="111" Min="104">Built-In Auto 8</Capability>
+  <Capability Max="119" Min="112">Built-In Auto 9</Capability>
+  <Capability Max="127" Min="120">Built-In Auto 10</Capability>
+  <Capability Max="135" Min="128">Built-In Auto 11</Capability>
+  <Capability Max="143" Min="136">Built-In Auto 12</Capability>
+  <Capability Max="151" Min="144">Built-In Auto 13</Capability>
+  <Capability Max="159" Min="152">Built-In Auto 14</Capability>
+  <Capability Max="167" Min="160">Built-In Auto 15</Capability>
+  <Capability Max="175" Min="168">Built-In Auto 16</Capability>
+  <Capability Max="183" Min="176">Built-In Auto 17</Capability>
+  <Capability Max="191" Min="184">Built-In Auto 18</Capability>
+  <Capability Max="199" Min="192">Built-In Auto 19</Capability>
+  <Capability Max="207" Min="200">Built-In Auto 20</Capability>
+  <Capability Max="215" Min="208">Built-In Auto 21</Capability>
+  <Capability Max="223" Min="216">Built-In Auto 22</Capability>
+  <Capability Max="231" Min="224">Built-In Auto 23</Capability>
+  <Capability Max="239" Min="232">Built-In Auto 24</Capability>
+  <Capability Max="247" Min="240">Built-In Auto 25 (Built-In Auto 1-24)</Capability>
+  <Capability Max="255" Min="248">Built-In Sound Control mode</Capability>
+ </Channel>
+ <Channel Name="Tilt Built-In Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Head 1 Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 1 Green Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 1 Blue Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 1 White Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 2 Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 2 Green Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 2 Blue Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 2 White Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 3 Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 3 Green Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 3 Blue Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 3 White Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 4 Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 4 Green Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 4 Blue Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Head 4 White Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="7" Min="0">No Function</Capability>
+  <Capability Max="15" Min="8">Color 1</Capability>
+  <Capability Max="23" Min="16">Color 2</Capability>
+  <Capability Max="31" Min="24">Color 3</Capability>
+  <Capability Max="39" Min="32">Color 4</Capability>
+  <Capability Max="47" Min="40">Color 5</Capability>
+  <Capability Max="55" Min="48">Color 6</Capability>
+  <Capability Max="63" Min="56">Color 7</Capability>
+  <Capability Max="71" Min="64">Color 8</Capability>
+  <Capability Max="79" Min="72">Color 9</Capability>
+  <Capability Max="87" Min="80">Color 10</Capability>
+  <Capability Max="95" Min="88">Color 11</Capability>
+  <Capability Max="103" Min="96">Color 12</Capability>
+  <Capability Max="111" Min="104">Color 13</Capability>
+  <Capability Max="119" Min="112">Color 14</Capability>
+  <Capability Max="127" Min="120">Color 15</Capability>
+  <Capability Max="179" Min="128">No Function</Capability>
+  <Capability Res="Others/rainbow.png" Max="201" Min="180">Fade rainbow clockwise (speed fast to slow)</Capability>
+  <Capability Max="207" Min="202">Stop</Capability>
+  <Capability Res="Others/rainbow.png" Max="229" Min="208">Fade rainbow counter-clockwise (speed fast to slow)</Capability>
+  <Capability Max="234" Min="230">No Function</Capability>
+  <Capability Max="249" Min="235">Snap change (speed fast to slow)</Capability>
+  <Capability Max="255" Min="250">Sound color</Capability>
+ </Channel>
+ <Channel Name="Heads On/Off">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="7" Min="0">●●●●</Capability>
+  <Capability Max="15" Min="8">○●●●</Capability>
+  <Capability Max="23" Min="16">○○●●</Capability>
+  <Capability Max="31" Min="24">○○○●</Capability>
+  <Capability Max="39" Min="32">○○○○</Capability>
+  <Capability Max="47" Min="40">●○○○</Capability>
+  <Capability Max="55" Min="48">●●○○</Capability>
+  <Capability Max="63" Min="56">●●●○</Capability>
+  <Capability Max="71" Min="64">●●●●</Capability>
+  <Capability Max="79" Min="72">○○○○</Capability>
+  <Capability Max="87" Min="80">●○○○</Capability>
+  <Capability Max="95" Min="88">○●○○</Capability>
+  <Capability Max="103" Min="96">○○●○</Capability>
+  <Capability Max="111" Min="104">○○○●</Capability>
+  <Capability Max="119" Min="112">○○○○</Capability>
+  <Capability Max="127" Min="120">●●○○</Capability>
+  <Capability Max="135" Min="128">○●●○</Capability>
+  <Capability Max="143" Min="136">○○●●</Capability>
+  <Capability Max="151" Min="144">●○○●</Capability>
+  <Capability Max="159" Min="152">○○○○</Capability>
+  <Capability Max="167" Min="160">○●●●</Capability>
+  <Capability Max="175" Min="168">●○●●</Capability>
+  <Capability Max="183" Min="176">●●○●</Capability>
+  <Capability Max="191" Min="184">●●●○</Capability>
+  <Capability Max="199" Min="192">○○○○</Capability>
+  <Capability Max="207" Min="200">●●●●</Capability>
+  <Capability Max="215" Min="208">●●●●</Capability>
+  <Capability Max="223" Min="216">●●●●</Capability>
+  <Capability Max="231" Min="224">●●●●</Capability>
+  <Capability Max="239" Min="232">●●●●</Capability>
+  <Capability Max="247" Min="240">●●●●</Capability>
+  <Capability Max="255" Min="248">●●●●</Capability>
+ </Channel>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="15" Min="0">No Function</Capability>
+  <Capability Max="20" Min="16">Program 1</Capability>
+  <Capability Max="25" Min="21">Program 2</Capability>
+  <Capability Max="30" Min="26">Program 3</Capability>
+  <Capability Max="35" Min="31">Program 4</Capability>
+  <Capability Max="40" Min="36">Program 5</Capability>
+  <Capability Max="45" Min="41">Program 6</Capability>
+  <Capability Max="50" Min="46">Program 7</Capability>
+  <Capability Max="55" Min="51">Program 8</Capability>
+  <Capability Max="60" Min="56">Program 9</Capability>
+  <Capability Max="65" Min="61">Program 10</Capability>
+  <Capability Max="70" Min="66">Program 11</Capability>
+  <Capability Max="75" Min="71">Program 12</Capability>
+  <Capability Max="80" Min="76">Program 13</Capability>
+  <Capability Max="85" Min="81">Program 14</Capability>
+  <Capability Max="90" Min="86">Program 15</Capability>
+  <Capability Max="95" Min="91">Program 16</Capability>
+  <Capability Max="100" Min="96">Program 17</Capability>
+  <Capability Max="105" Min="101">Program 18</Capability>
+  <Capability Max="110" Min="106">Program 19</Capability>
+  <Capability Max="115" Min="111">Program 20</Capability>
+  <Capability Max="120" Min="116">Program 21</Capability>
+  <Capability Max="125" Min="121">Program 22</Capability>
+  <Capability Max="130" Min="126">Program 23</Capability>
+  <Capability Max="135" Min="131">Program 24 (built-in for all)</Capability>
+  <Capability Max="140" Min="136">Program 25</Capability>
+  <Capability Max="145" Min="141">Program 26</Capability>
+  <Capability Max="150" Min="146">Program 27</Capability>
+  <Capability Max="155" Min="151">Program 28</Capability>
+  <Capability Max="160" Min="156">Program 29</Capability>
+  <Capability Max="165" Min="161">Program 30</Capability>
+  <Capability Max="170" Min="166">Program 31</Capability>
+  <Capability Max="175" Min="171">Program 32</Capability>
+  <Capability Max="180" Min="176">Program 33</Capability>
+  <Capability Max="185" Min="181">Program 34</Capability>
+  <Capability Max="190" Min="186">Program 35</Capability>
+  <Capability Max="195" Min="191">Program 35</Capability>
+  <Capability Max="200" Min="196">Program 37</Capability>
+  <Capability Max="205" Min="201">Program 38</Capability>
+  <Capability Max="210" Min="206">Program 39</Capability>
+  <Capability Max="215" Min="211">Program 40</Capability>
+  <Capability Max="220" Min="216">Program 41</Capability>
+  <Capability Max="225" Min="221">Program 42</Capability>
+  <Capability Max="230" Min="226">Program 43</Capability>
+  <Capability Max="235" Min="231">Program 44</Capability>
+  <Capability Max="240" Min="236">Program 45</Capability>
+  <Capability Max="245" Min="241">Program 46</Capability>
+  <Capability Max="250" Min="246">Program 47</Capability>
+  <Capability Max="255" Min="251">Program 48 (built-in for all)</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer All Heads">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Shutter Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="19" Min="0">Off</Capability>
+  <Capability Max="24" Min="20">On</Capability>
+  <Capability Max="64" Min="25">Shutter 1 even on/even off (fast to slow)</Capability>
+  <Capability Max="69" Min="65">On</Capability>
+  <Capability Max="84" Min="70">Shutter 2 fast on/slow off (fast to slow)</Capability>
+  <Capability Max="89" Min="85">On</Capability>
+  <Capability Max="104" Min="90">Shutter 3 slow on/fast off (fast to slow)</Capability>
+  <Capability Max="109" Min="105">On</Capability>
+  <Capability Max="124" Min="110">Shutter 4 random shutter (fast to slow)</Capability>
+  <Capability Max="129" Min="125">On</Capability>
+  <Capability Max="144" Min="130">Shutter 5 random shutter fast on/slow off (fast to slow)</Capability>
+  <Capability Max="149" Min="145">On</Capability>
+  <Capability Max="164" Min="150">Shutter 6 random shutter slow on/fast off (fast to slow)</Capability>
+  <Capability Max="169" Min="165">On</Capability>
+  <Capability Max="184" Min="170">Shutter 7  pulse shutter (fast to slow)</Capability>
+  <Capability Max="189" Min="185">On</Capability>
+  <Capability Max="204" Min="190">Shutter 8 random pulse shutter (fast to slow)</Capability>
+  <Capability Max="209" Min="205">On</Capability>
+  <Capability Max="224" Min="210">Shutter 9 on and off gradually (fast to slow)</Capability>
+  <Capability Max="229" Min="225">On</Capability>
+  <Capability Max="244" Min="230">Shutter 10 pulse shutter (fast to slow)</Capability>
+  <Capability Max="255" Min="245">On</Capability>
+ </Channel>
+ <Channel Name="Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="9" Min="0">No Function</Capability>
+  <Capability Max="14" Min="10">Move-in-black</Capability>
+  <Capability Max="19" Min="15">Cancel move-in-black</Capability>
+  <Capability Max="24" Min="20">Independent macros – cancels macro product
+combinations below</Capability>
+  <Capability Max="29" Min="25">Macros used when linking 2 heads:
+This is the value for first head</Capability>
+  <Capability Max="34" Min="30">Macros used when linking 2 heads together:
+This is the value for second head</Capability>
+  <Capability Max="39" Min="35">Macros used when linking 4 heads together:
+This is the value for first head</Capability>
+  <Capability Max="44" Min="40">Macros used when linking 4 heads together:
+This is the value for second head</Capability>
+  <Capability Max="49" Min="45">Macros used when linking 4 heads together:
+This is the value for third head</Capability>
+  <Capability Max="54" Min="50">Macros used when linking 4 heads together:
+This is the value for fourth head</Capability>
+  <Capability Max="59" Min="55">Pan Reset</Capability>
+  <Capability Max="64" Min="60">Tilt Reset</Capability>
+  <Capability Max="69" Min="65">Reserved for future use</Capability>
+  <Capability Max="74" Min="70">Reset all</Capability>
+  <Capability Max="79" Min="75">Reserved for future use</Capability>
+  <Capability Max="84" Min="80">Pan/ tilt reverse</Capability>
+  <Capability Max="89" Min="85">Pan reverse</Capability>
+  <Capability Max="94" Min="90">Tilt Reverse</Capability>
+  <Capability Max="99" Min="95">Cancel reverse pan</Capability>
+  <Capability Max="104" Min="100">Cancel reverse tilt</Capability>
+  <Capability Max="109" Min="105">Cancel reverse pan/tilt</Capability>
+  <Capability Max="114" Min="110">Reserved for future use</Capability>
+  <Capability Max="119" Min="115">Controls all heads with head 1 channels</Capability>
+  <Capability Max="124" Min="120">Cancels control of all heads with head 1 channels</Capability>
+  <Capability Max="129" Min="125">Reserved for future use</Capability>
+  <Capability Max="134" Min="130">Reserved for future use</Capability>
+  <Capability Max="139" Min="135">Reserved for future use</Capability>
+  <Capability Max="144" Min="140">Reserved for future use</Capability>
+  <Capability Max="255" Min="145">No Function</Capability>
+ </Channel>
+ <Mode Name="33 ch.">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="400"/>
+   <Dimensions Width="559" Depth="189" Weight="8.8" Height="297"/>
+   <Lens Name="Other" DegreesMax="5" DegreesMin="5"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="177"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan 16-bit</Channel>
+  <Channel Number="2">Pan Speed</Channel>
+  <Channel Number="3">Continuous Pan Rotating</Channel>
+  <Channel Number="4">Head 1 Tilt</Channel>
+  <Channel Number="5">Head 2 Tilt</Channel>
+  <Channel Number="6">Head 3 Tilt</Channel>
+  <Channel Number="7">Head 4 Tilt</Channel>
+  <Channel Number="8">Built-In Auto Tilt</Channel>
+  <Channel Number="9">Tilt Built-In Speed</Channel>
+  <Channel Number="10">Head 1 Red Dimmer</Channel>
+  <Channel Number="11">Head 1 Green Dimmer</Channel>
+  <Channel Number="12">Head 1 Blue Dimmer</Channel>
+  <Channel Number="13">Head 1 White Dimmer</Channel>
+  <Channel Number="14">Head 2 Red Dimmer</Channel>
+  <Channel Number="15">Head 2 Green Dimmer</Channel>
+  <Channel Number="16">Head 2 Blue Dimmer</Channel>
+  <Channel Number="17">Head 2 White Dimmer</Channel>
+  <Channel Number="18">Head 3 Red Dimmer</Channel>
+  <Channel Number="19">Head 3 Green Dimmer</Channel>
+  <Channel Number="20">Head 3 Blue Dimmer</Channel>
+  <Channel Number="21">Head 3 White Dimmer</Channel>
+  <Channel Number="22">Head 4 Red Dimmer</Channel>
+  <Channel Number="23">Head 4 Green Dimmer</Channel>
+  <Channel Number="24">Head 4 Blue Dimmer</Channel>
+  <Channel Number="25">Head 4 White Dimmer</Channel>
+  <Channel Number="26">Colors</Channel>
+  <Channel Number="27">Heads On/Off</Channel>
+  <Channel Number="28">Auto Programs</Channel>
+  <Channel Number="29">Program Speed</Channel>
+  <Channel Number="30">Dimmer All Heads</Channel>
+  <Channel Number="31">Shutter Programs</Channel>
+  <Channel Number="32">Settings</Channel>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 ch.">
+  <Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="400"/>
+   <Dimensions Width="559" Depth="189" Weight="8.8" Height="297"/>
+   <Lens Name="Other" DegreesMax="5" DegreesMin="5"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="177"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan 16-bit</Channel>
+  <Channel Number="2">Pan Speed</Channel>
+  <Channel Number="3">Continuous Pan Rotating</Channel>
+  <Channel Number="4">Head 1 Tilt</Channel>
+  <Channel Number="5">Head 2 Tilt</Channel>
+  <Channel Number="6">Head 3 Tilt</Channel>
+  <Channel Number="7">Head 4 Tilt</Channel>
+  <Channel Number="8">Built-In Auto Tilt</Channel>
+  <Channel Number="9">Tilt Built-In Speed</Channel>
+  <Channel Number="10">Colors</Channel>
+  <Channel Number="11">Heads On/Off</Channel>
+  <Channel Number="12">Auto Programs</Channel>
+  <Channel Number="13">Program Speed</Channel>
+  <Channel Number="14">Dimmer All Heads</Channel>
+  <Channel Number="15">Shutter Programs</Channel>
+  <Channel Number="16">Settings</Channel>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

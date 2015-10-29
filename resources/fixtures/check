@@ -1,0 +1,5 @@
+#!/bin/sh
+
+xmllint --noout --schema ../schemas/fixture.xsd *.qxf
+xmllint --noout --schema ../schemas/fixturesmap.xsd FixturesMap.xml
+

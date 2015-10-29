@@ -26,11 +26,15 @@
 #include <QAudioOutput>
 #include <QIODevice>
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 class AudioRendererQt : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt(QObject * parent = 0);
+    AudioRendererQt(QString device, QObject * parent = 0);
     ~AudioRendererQt();
 
     /** @reimpl */
@@ -57,10 +61,21 @@ protected:
     /** @reimpl */
     void resume();
 
+    /*********************************************************************
+     * Thread functions
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void run();
+
 private:
     QAudioOutput *m_audioOutput;
     QIODevice *m_output;
     QAudioFormat m_format;
+    QString m_device;
+    QAudioDeviceInfo m_deviceInfo;
 };
+
+/** @} */
 
 #endif // AUDIORENDERER_QT_H

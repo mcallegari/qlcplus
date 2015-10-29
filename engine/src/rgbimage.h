@@ -21,17 +21,22 @@
 #ifndef RGBIMAGE_H
 #define RGBIMAGE_H
 
+#include <QMutexLocker>
 #include <QString>
 #include <QImage>
 
 #include "rgbalgorithm.h"
+
+/** @addtogroup engine_functions Functions
+ * @{
+ */
 
 #define KXMLQLCRGBImage "Image"
 
 class RGBImage : public RGBAlgorithm
 {
 public:
-    RGBImage(const Doc * doc);
+    RGBImage(Doc * doc);
     RGBImage(const RGBImage& t);
     ~RGBImage();
 
@@ -48,6 +53,9 @@ public:
     /** Get filename of the image */
     QString filename() const;
 
+    /** Set the image data from an array of RGB888 values */
+    void setImageData(int width, int height, const QByteArray& pixelData);
+
 private:
 
     void reloadImage();
@@ -55,6 +63,7 @@ private:
 private:
     QString m_filename;
     QImage m_image;
+    QMutex m_mutex;
 
     /************************************************************************
      * Animation
@@ -103,10 +112,15 @@ public:
     RGBAlgorithm::Type type() const;
 
     /** @reimp */
+    int acceptColors() const;
+
+    /** @reimp */
     bool loadXML(const QDomElement& root);
 
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
 };
+
+/** @} */
 
 #endif

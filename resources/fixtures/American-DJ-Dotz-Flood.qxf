@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Dotz Flood</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="0" Color="#000000" Min="0">Off</Capability>
+  <Capability Max="7" Color="#ffcf8f" Min="1">Bastard amber</Capability>
+  <Capability Max="15" Color="#feb199" Min="8">Medium amber</Capability>
+  <Capability Max="23" Color="#fec08a" Min="16">Pale amber gold</Capability>
+  <Capability Max="31" Color="#fea562" Min="24">Gallo gold</Capability>
+  <Capability Max="39" Color="#fe7b00" Min="32">Golden amber</Capability>
+  <Capability Max="47" Color="#b01100" Min="40">Light red</Capability>
+  <Capability Max="55" Color="#60000b" Min="48">Medium red</Capability>
+  <Capability Max="63" Color="#ea8bab" Min="56">Medium pink</Capability>
+  <Capability Max="71" Color="#e00561" Min="64">Broadway pink</Capability>
+  <Capability Max="79" Color="#af4dad" Min="72">Follies pink</Capability>
+  <Capability Max="87" Color="#7782c7" Min="80">Light lavender</Capability>
+  <Capability Max="95" Color="#93a4d4" Min="88">Special lavender</Capability>
+  <Capability Max="103" Color="#5802a3" Min="96">Lavender</Capability>
+  <Capability Max="111" Color="#002656" Min="104">Indigo</Capability>
+  <Capability Max="119" Color="#008ed0" Min="112">Hemsley blue</Capability>
+  <Capability Max="127" Color="#3494d1" Min="120">Tipton blue</Capability>
+  <Capability Max="135" Color="#0186c9" Min="128">Light steel blue</Capability>
+  <Capability Max="143" Color="#0091d4" Min="136">Light sky blue</Capability>
+  <Capability Max="151" Color="#0079c0" Min="144">Sky blue</Capability>
+  <Capability Max="159" Color="#0081b8" Min="152">Brilliant blue</Capability>
+  <Capability Max="167" Color="#005373" Min="160">Light green blue</Capability>
+  <Capability Max="175" Color="#0061a6" Min="168">Bright blue</Capability>
+  <Capability Max="183" Color="#0164a7" Min="176">Primary blue</Capability>
+  <Capability Max="191" Color="#002856" Min="184">Congo blue</Capability>
+  <Capability Max="199" Color="#d1dbb6" Min="192">Pale yellow green</Capability>
+  <Capability Max="207" Color="#2aa555" Min="200">Moss green</Capability>
+  <Capability Max="215" Color="#002e23" Min="208">Primary green</Capability>
+  <Capability Max="223" Color="#006bde" Min="216">Double CTB</Capability>
+  <Capability Max="231" Color="#ff0000" Min="224">Full red</Capability>
+  <Capability Max="239" Color="#00ff00" Min="232">Full green</Capability>
+  <Capability Max="247" Color="#0000ff" Min="240">Full blue</Capability>
+  <Capability Max="255" Color="#ffffff" Min="248">White</Capability>
+ </Channel>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">Master dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Red 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Green 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="0" Min="0">Open</Capability>
+  <Capability Max="255" Min="1">Strobing (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="40" Min="0">Default to unit curve setting</Capability>
+  <Capability Max="61" Min="41">Standard</Capability>
+  <Capability Max="82" Min="62">Stage</Capability>
+  <Capability Max="103" Min="83">TV</Capability>
+  <Capability Max="124" Min="104">Architectural</Capability>
+  <Capability Max="145" Min="125">Theatre</Capability>
+  <Capability Max="255" Min="146">Nothing</Capability>
+ </Channel>
+ <Channel Name="Red 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Green 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Red 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Green 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Chase effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="0" Min="0">Off</Capability>
+  <Capability Max="17" Min="1">Chase 1</Capability>
+  <Capability Max="34" Min="18">Chase 2</Capability>
+  <Capability Max="51" Min="35">Chase 3</Capability>
+  <Capability Max="68" Min="52">Chase 4</Capability>
+  <Capability Max="85" Min="69">Chase 5</Capability>
+  <Capability Max="102" Min="86">Chase 6</Capability>
+  <Capability Max="119" Min="103">Chase 7</Capability>
+  <Capability Max="136" Min="120">Chase 8</Capability>
+  <Capability Max="153" Min="137">Chase 9</Capability>
+  <Capability Max="170" Min="154">Chase 10</Capability>
+  <Capability Max="187" Min="171">Chase 11</Capability>
+  <Capability Max="204" Min="188">Chase 12</Capability>
+  <Capability Max="221" Min="205">Chase 13</Capability>
+  <Capability Max="238" Min="222">Chase 14</Capability>
+  <Capability Max="249" Min="239">Chase 15</Capability>
+  <Capability Max="255" Min="250">Sound active</Capability>
+ </Channel>
+ <Channel Name="Chase speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">chase speed (Slow to fast)</Capability>
+ </Channel>
+ <Mode Name="1-Channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Color Macros</Channel>
+ </Mode>
+ <Mode Name="2-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="3-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+ </Mode>
+ <Mode Name="4-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="6-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Dimmer curves</Channel>
+ </Mode>
+ <Mode Name="9A-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+ </Mode>
+ <Mode Name="9B-channel">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Depth="389" Width="251" Height="182"/>
+   <Lens DegreesMin="0" DegreesMax="60" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Chase effect</Channel>
+  <Channel Number="5">Chase speed</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Dimmer curves</Channel>
+ </Mode>
+</FixtureDefinition>

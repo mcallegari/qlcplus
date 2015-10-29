@@ -39,10 +39,11 @@ ChannelsGroup::ChannelsGroup(Doc* doc)
     : QObject(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
-
 {
     setName(tr("New Group"));
     m_doc = doc;
+
+    init();
 }
 
 ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
@@ -52,13 +53,38 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
     , m_name(chg->name())
     , m_masterValue(0)
     , m_channels(chg->getChannels())
+    , m_input(chg->inputSource())
 {
-
+    init();
 }
 
 ChannelsGroup::~ChannelsGroup()
 {
-    m_channels.clear();
+}
+
+void ChannelsGroup::init()
+{
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
+            this, SLOT(slotFixtureRemoved(quint32)));
+}
+
+void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
+{
+    bool hasChanged = false;
+
+    QMutableListIterator<SceneValue> channelsIt(m_channels);
+    while (channelsIt.hasNext())
+    {
+        SceneValue scv(channelsIt.next());
+        if (scv.fxi == fixtureId)
+        {
+            channelsIt.remove();
+            hasChanged = true;
+        }
+    }
+
+    if (hasChanged)
+        emit changed(this->id());
 }
 
 /****************************************************************************
@@ -170,16 +196,21 @@ QString ChannelsGroup::status(Doc *doc) const
 /*********************************************************************
  * External input
  *********************************************************************/
-void ChannelsGroup::setInputSource(const QLCInputSource& source)
+void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
 {
+    if (!m_input.isNull() && m_input->isValid())
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+
     m_input = source;
+
     // Connect when the first valid input source is set
-    if (source.isValid() == true)
+    if (!source.isNull() && source->isValid())
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
-QLCInputSource ChannelsGroup::inputSource() const
+QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const
 {
     return m_input;
 }
@@ -194,7 +225,9 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
 
     //qDebug() << Q_FUNC_INFO << "universe: " << universe << ", channel: " << channel << ", value: " << value;
 
-    if (inputSource() == QLCInputSource(universe, channel))
+    if (inputSource() != NULL &&
+        inputSource()->universe() == universe &&
+        inputSource()->channel() == channel)
     {
         emit valueChanged(channel, value);
     }
@@ -245,10 +278,10 @@ bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     tag.setAttribute(KXMLQLCChannelsGroupID, this->id());
     tag.setAttribute(KXMLQLCChannelsGroupName, this->name());
     tag.setAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
-    if (m_input.isValid() == true)
+    if (!m_input.isNull() && m_input->isValid())
     {
-        tag.setAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input.universe()));
-        tag.setAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input.channel()));
+        tag.setAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
+        tag.setAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
     }
     if (str.isEmpty() == false)
     {
@@ -291,8 +324,21 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
         QStringList varray = chansValues.split(",");
         for (int i = 0; i < varray.count(); i+=2)
         {
-            m_channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(), 0));
+            SceneValue scv(QString(varray.at(i)).toUInt(),
+                           QString(varray.at(i + 1)).toUInt(), 0);
+            Fixture* fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
+                continue;
+            }
+            const QLCChannel* ch = fxi->channel(scv.channel);
+            if (ch == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
+                continue;
+            }
+            m_channels.append(scv);
         }
     }
 
@@ -301,7 +347,7 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
     {
         quint32 uni = root.attribute(KXMLQLCChannelsGroupInputUniverse).toInt();
         quint32 ch = root.attribute(KXMLQLCChannelsGroupInputChannel).toInt();
-        setInputSource(QLCInputSource(uni, ch));
+        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
     }
 
     return true;

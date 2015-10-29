@@ -58,7 +58,7 @@ public:
      * Open HID device as output
      *
      */
-    virtual void openOutput();
+    virtual bool openOutput();
 
     /**
      * Close the HID device'd output

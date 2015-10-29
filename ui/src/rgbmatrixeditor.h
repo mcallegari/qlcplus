@@ -20,7 +20,6 @@
 #ifndef RGBMATRIXEDITOR_H
 #define RGBMATRIXEDITOR_H
 
-#include <QPointer>
 #include <QWidget>
 #include <QHash>
 
@@ -31,9 +30,7 @@
 
 class SpeedDialWidget;
 class QGraphicsScene;
-class RGBMatrix;
 class QTimer;
-class Doc;
 
 /** @addtogroup ui_functions
  * @{
@@ -65,6 +62,8 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void resetProperties(QLayoutItem *item);
+    void displayProperties(RGBScript *script);
 
     bool createPreviewItems();
 
@@ -74,6 +73,7 @@ private slots:
     void slotSpeedDialToggle(bool state);
     void slotPatternActivated(const QString& text);
     void slotFixtureGroupActivated(int index);
+    void slotBlendModeChanged(int index);
     void slotStartColorButtonClicked();
     void slotEndColorButtonClicked();
     void slotResetEndColorButtonClicked();
@@ -94,6 +94,8 @@ private slots:
     void slotForwardClicked();
     void slotBackwardClicked();
 
+    void slotDimmerControlClicked();
+
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
@@ -108,16 +110,19 @@ private slots:
     void slotFixtureGroupChanged(quint32 id);
 
     void slotSaveToSequenceClicked();
+    void slotShapeToggle(bool);
+
+    void slotPropertyComboChanged(QString value);
+    void slotPropertySpinChanged(int value);
 
 private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
 
     QList <RGBScript> m_scripts;
-    QList <RGBMap> m_previewMaps;
     Function::Direction m_previewDirection;
 
-    QPointer<SpeedDialWidget> m_speedDials;
+    SpeedDialWidget *m_speedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;

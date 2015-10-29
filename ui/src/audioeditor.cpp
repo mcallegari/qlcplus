@@ -19,14 +19,28 @@
 
 #include <QFileDialog>
 #include <QLineEdit>
+#include <QSettings>
 #include <QLabel>
 #include <QDebug>
+#include <QUrl>
 
 #include "speeddialwidget.h"
 #include "audiodecoder.h"
 #include "audioeditor.h"
 #include "audio.h"
 #include "doc.h"
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+  #include "audiorenderer_portaudio.h"
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+  #include "audiorenderer_waveout.h"
+ #else
+  #include "audiorenderer_alsa.h"
+ #endif
+#else
+ #include "audiorenderer_qt.h"
+#endif
 
 AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     : QWidget(parent)
@@ -67,11 +81,52 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->getDuration()));
+        m_durationLabel->setText(Function::speedToString(m_audio->totalDuration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
     }
+
+    QList<AudioDeviceInfo> devList;
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+    devList = AudioRendererPortAudio::getDevicesInfo();
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+    devList = AudioRendererWaveOut::getDevicesInfo();
+ #else
+    devList = AudioRendererAlsa::getDevicesInfo();
+ #endif
+#else
+    devList = AudioRendererQt::getDevicesInfo();
+#endif
+    QSettings settings;
+    QString outputName;
+    int i = 0, selIdx = 0;
+
+    m_audioDevCombo->addItem(tr("Default device"), "__qlcplusdefault__");
+    if (m_audio->audioDevice().isEmpty())
+    {
+        QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+        if (var.isValid() == true)
+            outputName = var.toString();
+    }
+    else
+        outputName = m_audio->audioDevice();
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            m_audioDevCombo->addItem(info.deviceName, info.privateName);
+
+            if (info.privateName == outputName)
+                selIdx = i;
+            i++;
+        }
+    }
+    m_audioDevCombo->setCurrentIndex(selIdx);
+    connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotAudioDeviceChanged(int)));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -135,7 +190,7 @@ void AudioEditor::slotSourceFileClicked()
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->getDuration()));
+        m_durationLabel->setText(Function::speedToString(m_audio->totalDuration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -146,14 +201,9 @@ void AudioEditor::slotFadeInEdited()
 {
     uint newValue;
     QString text = m_fadeInEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeInEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeInEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeInSpeed(newValue);
     m_doc->setModified();
@@ -163,17 +213,22 @@ void AudioEditor::slotFadeOutEdited()
 {
     uint newValue;
     QString text = m_fadeOutEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeOutEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeOutEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeOutSpeed(newValue);
     m_doc->setModified();
+}
+
+void AudioEditor::slotAudioDeviceChanged(int idx)
+{
+    QString audioDev = m_audioDevCombo->itemData(idx).toString();
+    qDebug() << "New audio device selected:" << audioDev;
+    if (audioDev == "__qlcplusdefault__")
+        m_audio->setAudioDevice(QString());
+    else
+        m_audio->setAudioDevice(audioDev);
 }
 
 void AudioEditor::slotPreviewToggled(bool state)
@@ -223,7 +278,7 @@ void AudioEditor::slotSpeedDialToggle(bool state)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }

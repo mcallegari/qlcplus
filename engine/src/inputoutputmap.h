@@ -23,11 +23,14 @@
 #include <QObject>
 #include <QMutex>
 #include <QDir>
+#include <QSharedPointer>
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
 
 class QLCInputSource;
+class QDomDocument;
+class QDomElement;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -58,7 +61,7 @@ public:
      * @param doc The QLC+ project reference
      * @param universes Number of universes
      */
-    InputOutputMap(Doc* doc, quint32 universes);
+    InputOutputMap(Doc* doc, quint32 universesCount);
 
     /**
      * Destroy a InputOutputMap object
@@ -204,9 +207,14 @@ public:
     bool isUniversePatched(int index);
 
     /**
-     * Retrieve the number of universe in the output map
+     * Retrieve the number of universes in the input/output map
      */
-    quint32 universes() const;
+    quint32 universesCount() const;
+
+    /**
+     * Retrieve the list of references of the Universe in the input/output map
+     */
+    QList<Universe*> universes() const;
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -236,7 +244,7 @@ public:
 signals:
     void universeAdded(quint32 id);
     void universeRemoved(quint32 id);
-    void universesWritten(int index, const QByteArray& universes);
+    void universesWritten(int index, const QByteArray& universesCount);
 
 private:
     /** Keep track of the lastest asigned universe ID */
@@ -298,6 +306,8 @@ private:
      *********************************************************************/
 
 public:
+    void flushInputs();
+
     /**
      * Patch the given universe to go through the given input plugin
      *
@@ -309,6 +319,16 @@ public:
      */
     bool setInputPatch(quint32 universe, const QString& pluginName,
                        quint32 input, const QString& profileName = QString());
+
+    /**
+     * Set an input profile to the given universe. If the universe doesn't
+     * have an input patch, this method returns false
+     *
+     * @param universe The universe to patch
+     * @param profileName the name of the input profile to set
+     * @return true if successful, otherwise false
+     */
+    bool setInputProfile(quint32 universe, const QString& profileName);
 
     /**
      * Patch the given universe to go through the given output plugin
@@ -463,8 +483,11 @@ private slots:
     void slotPluginConfigurationChanged(QLCIOPlugin* plugin);
 
 signals:
-    /** Notifies (OutputManager) of plugin configuration changes */
-    void pluginConfigurationChanged(const QString& pluginName);
+    /** Signal emitted when a profile is changed */
+    void profileChanged(quint32 universe, const QString& profileName);
+
+    /** Notifies (InputOutputManager) of plugin configuration changes */
+    void pluginConfigurationChanged(const QString& pluginName, bool success);
 
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
@@ -497,7 +520,9 @@ public:
      *
      * @return true if uniName & chName contain something, otherwise false
      */
-    bool inputSourceNames(const QLCInputSource& src,
+    bool inputSourceNames(const QLCInputSource *src,
+                          QString& uniName, QString& chName) const;
+    bool inputSourceNames(QSharedPointer<QLCInputSource> const& src,
                           QString& uniName, QString& chName) const;
 
     /**

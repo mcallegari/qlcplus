@@ -122,10 +122,10 @@ void PeperoniDevice::extractName()
  * Open & close
  ****************************************************************************/
 
-void PeperoniDevice::open()
+bool PeperoniDevice::open()
 {
     if (m_handle != NULL)
-        return;
+        return false;
 
     /* Open the device */
     if (m_usbdmx->open(m_output, &m_handle) == TRUE)
@@ -135,16 +135,17 @@ void PeperoniDevice::open()
         /* Check the device version against driver version */
         m_usbdmx->device_version(m_handle, &version);
         if (USBDMX_DLL_VERSION_CHECK(m_usbdmx) == FALSE)
-            return;
+            return false;
 
         /* DMX512 specifies 0 as the official startcode */
         if (m_usbdmx->tx_startcode_set(m_handle, 0) == FALSE)
-            return;
+            return false;
     }
     else
     {
         qWarning() << QString("Unable to open Peperoni %1").arg(m_output + 1);
     }
+    return true;
 }
 
 void PeperoniDevice::close()

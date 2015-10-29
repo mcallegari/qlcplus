@@ -80,6 +80,9 @@ public:
     /** Reset the values of the given universe to zero */
     void resetUniverse(int universe);
 
+    /** Reset the value of the specified channel */
+    void resetChannel(uint channel);
+
 private:
     QHash <uint,uchar> m_values;
 

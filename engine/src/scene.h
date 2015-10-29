@@ -33,7 +33,7 @@
 class QDomDocument;
 class QDomElement;
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -142,7 +142,7 @@ public:
     void clear();
 
 protected:
-    QList <SceneValue> m_values;
+    QMap <SceneValue, uchar> m_values;
     QMutex m_valueListMutex;
 
     /*********************************************************************

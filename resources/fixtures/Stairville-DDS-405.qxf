@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Nicolas Rasor</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DDS 405</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Ch 1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Ch 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Ch 3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Ch 4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
+ </Channel>
+ <Mode Name="Mode1">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="170" Height="205" Weight="1.85" Depth="650"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="3500" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Ch 1</Channel>
+  <Channel Number="1">Ch 2</Channel>
+  <Channel Number="2">Ch 3</Channel>
+  <Channel Number="3">Ch 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

@@ -30,6 +30,10 @@
 #define SETTINGS_EMBEDDED "OlaIO/embedded"
 #define UNIVERSE_COUNT 4
 
+#ifndef QLC_OLA_FIRST_UNIVERSE
+#define QLC_OLA_FIRST_UNIVERSE 1
+#endif
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -54,8 +58,8 @@ void OlaIO::init()
     m_thread = NULL;
     ola::InitLogging(ola::OLA_LOG_WARN, new ola::QLCLogDestination());
     // TODO: load this from a savefile at some point
-    for (unsigned int i = 1; i <= UNIVERSE_COUNT; ++i)
-        m_outputs.append(i);
+    for (unsigned int i = 0; i < UNIVERSE_COUNT; ++i)
+        m_outputs.append(i + QLC_OLA_FIRST_UNIVERSE);
 
     bool es = false;
     QSettings settings;
@@ -97,7 +101,7 @@ void OlaIO::setServerEmbedded(bool embedServer)
         m_embedServer = embedServer;
         if (m_embedServer)
         {
-            qWarning() << "olaout: running as embedded";
+            qWarning() << "[OLA] Running with embedded server";
             m_thread = new OlaEmbeddedServer();
         }
         else
@@ -106,7 +110,7 @@ void OlaIO::setServerEmbedded(bool embedServer)
         }
 
         if (!m_thread->start())
-            qWarning() << "olaout: start thread failed";
+            qWarning() << "[OLA] Start thread failed";
 
         QSettings settings;
         settings.setValue(SETTINGS_EMBEDDED, m_embedServer);
@@ -117,23 +121,30 @@ void OlaIO::setServerEmbedded(bool embedServer)
  * Outputs
  ****************************************************************************/
 
-void OlaIO::openOutput(quint32 output)
+bool OlaIO::openOutput(quint32 output, quint32 universe)
 {
     if (output >= UNIVERSE_COUNT)
-        qWarning() << Q_FUNC_INFO << "output" << output << "is out of range";
+    {
+        qWarning() << "[OLA] output" << output << "is out of range";
+        return false;
+    }
+    addToMap(universe, output, Output);
+    return true;
 }
 
-void OlaIO::closeOutput(quint32 output)
+void OlaIO::closeOutput(quint32 output, quint32 universe)
 {
     if (output >= UNIVERSE_COUNT)
-        qWarning() << Q_FUNC_INFO << "output" << output << "is out of range";
+        qWarning() << "[OLA] output" << output << "is out of range";
+    else
+        removeFromMap(output, universe, Output);
 }
 
 QStringList OlaIO::outputs()
 {
     QStringList list;
     for (int i = 0; i < m_outputs.size(); ++i)
-        list << QString("%1: OLA Universe %1").arg(i + 1);
+        list << QString("%1: OLA Universe %2").arg(i + 1).arg(m_outputs[i]);
     return list;
 }
 
@@ -163,7 +174,7 @@ QString OlaIO::outputInfo(quint32 output)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");
-        str += tr("This is the output for OLA universe %1").arg(output + 1);
+        str += tr("This is the output for OLA universe %1").arg(m_outputs[output]);
         str += QString("</P>");
     }
 
@@ -208,6 +219,12 @@ void OlaIO::configure()
 bool OlaIO::canConfigure()
 {
     return true;
+}
+
+void OlaIO::setParameter(quint32 universe, quint32 line, Capability type,
+                         QString name, QVariant value)
+{
+    QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 /****************************************************************************

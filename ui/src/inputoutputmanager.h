@@ -95,6 +95,10 @@ private slots:
     void slotUniverseAdded(quint32 universe);
     void slotPassthroughChanged(bool checked);
 
+protected:
+    /** @reimp */
+    void showEvent(QShowEvent* ev);
+
 private:
     Doc *m_doc;
     QSplitter* m_splitter;

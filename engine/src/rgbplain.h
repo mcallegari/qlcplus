@@ -24,7 +24,7 @@
 
 #include "rgbalgorithm.h"
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -35,7 +35,7 @@ class RGBPlain : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBPlain(const Doc * doc);
+    RGBPlain(Doc * doc);
     RGBPlain(const RGBPlain& t, QObject *parent = 0);
     ~RGBPlain();
 
@@ -66,6 +66,9 @@ public:
 
     /** @reimp */
     RGBAlgorithm::Type type() const;
+
+    /** @reimp */
+    int acceptColors() const;
 
     /************************************************************************
      * Load & Save

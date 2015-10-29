@@ -21,8 +21,10 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
+#include <QDomDocument>
 #include <QByteArray>
 #include <QSet>
+#include <QScopedPointer>
 
 #include "qlcchannel.h"
 
@@ -37,6 +39,8 @@ class InputPatch;
 /** @addtogroup engine Engine
  * @{
  */
+
+#define UNIVERSE_SIZE 512
 
 #define KXMLQLCUniverse "Universe"
 #define KXMLQLCUniverseName "Name"
@@ -56,6 +60,8 @@ class InputPatch;
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePluginParameters "PluginParameters"
+
 /** Universe class contains input/output data for one DMX universe
  */
 class Universe: public QObject
@@ -63,9 +69,14 @@ class Universe: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
 
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
+    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch NOTIFY outputPatchChanged)
+
 public:
     /** Construct a new Universe */
-    Universe(quint32 id, GrandMaster *gm, QObject* parent = 0);
+    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject* parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -115,12 +126,7 @@ public:
     ushort totalChannels();
 
     /**
-     * Reset the change flag. To be used every MasterTimer tick
-     */
-    void resetChanged();
-
-    /**
-     * Returns if the universe has changed since the last resetChanged() call
+     * Returns if the universe has changed since the last MasterTimer tick
      */
     bool hasChanged();
 
@@ -160,6 +166,9 @@ protected:
      * @return Value filtered through grand master (if applicable)
      */
     uchar applyGM(int channel, uchar value);
+
+signals:
+    void nameChanged();
 
 protected:
     /** The universe ID */
@@ -211,6 +220,8 @@ public:
      */
     void dumpOutput(const QByteArray& data);
 
+    void flushInput();
+
 protected slots:
     /** Slot called every time an input patch sends data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
@@ -218,6 +229,12 @@ protected slots:
 signals:
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+    /** Notify the listeners that the input patch has changed */
+    void inputPatchChanged();
+
+    /** Notify the listeners that the output patch has changed */
+    void outputPatchChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
@@ -258,11 +275,14 @@ public:
 
 protected:
     /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
-    QByteArray* m_channelsMask;
+    QScopedPointer<QByteArray> m_channelsMask;
 
     /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
      *  a DMX value right before HTP/LTP check and before being assigned to preGM */
     QVector<ChannelModifier*> m_modifiers;
+    /** Modified channels with the non-modified value at 0.
+     *  This is used for ranged initialization operations. */
+    QScopedPointer<QByteArray> m_modifiedZeroValues;
 
     /************************************************************************
      * Values
@@ -280,6 +300,14 @@ public:
      * @param range Number of channels, starting from address, to reset
      */
     void reset(int address, int range);
+
+    /**
+     * Get the current post-Grand-Master value (used by functions and everyone
+     * else INSIDE QLC+) at specified address.
+     *
+     * @return The current value at address
+     */
+    uchar postGMValue(int address) const;
 
     /**
      * Get the current post-Grand-Master values (to be written to output HW)
@@ -303,7 +331,7 @@ public:
 
     /**
      * Get the current pre-Grand-Master value (used by functions and everyone
-     * else INSIDE QLC) at specified address.
+     * else INSIDE QLC+) at specified address.
      *
      * @return The current value at address
      */
@@ -319,9 +347,20 @@ public:
     void zeroRelativeValues();
 
 protected:
-    /** Number of channels used in this universe to optimize dump to plugins */
+    /**
+     * Number of channels used in this universe to optimize the dump to plugins.
+     * This is a dynamic counter that can only increase depending on the
+     * channels used in this universe starting from when a workspace
+     * is loaded
+     */
     ushort m_usedChannels;
-    /** Total number of channels used in this fixture */
+    /**
+     * Total number of channels used in this Universe.
+     * This is set only when a Universe is instructed about Fixture
+     * channel capabilities. Basically just set once if loading an
+     * existing workspace, or several times when adding/removing
+     * Fixtures
+     */
     ushort m_totalChannels;
     /**
      *  Flag that holds if the total number of channels have changed.
@@ -329,18 +368,45 @@ protected:
      *  channels to expect
      */
     bool m_totalChannelsChanged;
-    /** Flag to indicate if the universe has changed */
-    bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_intensityChannels;
+    QVector<int> m_intensityChannels;
+    /** A flag set to know when m_intensityChannelsRanges must be updated */
+    bool m_intensityChannelsChanged;
+    /**
+     * Intensity channels sorted as ranges, to further optimize ranged operations
+     * (ie set all to zero)
+     */
+    QVector<int> m_intensityChannelsRanges;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_nonIntensityChannels;
+    QVector<int> m_nonIntensityChannels;
     /** Array of values BEFORE the Grand Master changes */
-    QByteArray* m_preGMValues;
+    QScopedPointer<QByteArray> m_preGMValues;
     /** Array of values AFTER the Grand Master changes (applyGM) */
-    QByteArray* m_postGMValues;
+    QScopedPointer<QByteArray> m_postGMValues;
+    /** Array of the last preGM values written before the zeroIntensityChannels call  */
+    QScopedPointer<QByteArray> m_lastPostGMValues;
 
     QVector<short> m_relativeValues;
+
+    /* impl speedup */
+    void updateIntensityChannelsRanges();
+
+    /************************************************************************
+     * Blend mode
+     ************************************************************************/
+public:
+    enum BlendMode {
+        NormalBlend = 0,
+        MaskBlend,
+        AdditiveBlend,
+        SubtractiveBlend
+    };
+
+    /** Return a blend mode from a string */
+    static BlendMode stringToBlendMode(QString mode);
+
+    /** Return a string from a blend mode, to be saved into a XML */
+    static QString blendModeToString(BlendMode mode);
 
     /************************************************************************
      * Writing
@@ -368,6 +434,19 @@ public:
      */
     bool writeRelative(int channel, uchar value);
 
+    /**
+     * Write DMX values with the given blend mode.
+     * If blend == NormalBlend the generic write method is called
+     * and all the HTP/LTP checks are performed
+     *
+     * @param channel The channel number to write to
+     * @param value The value to write
+     * @param blend The blend mode to be used on $value
+     *
+     * @return true if successful, otherwise false
+     */
+    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
@@ -389,6 +468,17 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+
+    /**
+     * Save a plugin custom parameters (if available) into a tag nested
+     * to the related Input/Output patch
+     *
+     * @param doc The master XML document to save to.
+     * @param wksp_root The workspace root element
+     * @param parameters The map of custom parameters to save
+     */
+    bool savePluginParametersXML(QDomDocument* doc, QDomElement* wksp_root,
+                                 QMap<QString, QVariant>parameters) const;
 };
 
 /** @} */

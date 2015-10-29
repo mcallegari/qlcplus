@@ -46,6 +46,10 @@ private slots:
     void reset();
     void setGMValueEfficiency();
     void writeEfficiency();
+    void hasChangedEfficiency();
+    void hasNotChangedEfficiency();
+    void zeroIntensityChannelsEfficiency();
+    void zeroIntensityChannelsEfficiency2();
 
 private:
 

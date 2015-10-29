@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.1</Version>
+  <Author>Dan</Author>
+ </Creator>
+ <Manufacturer>Akai</Manufacturer>
+ <Model>APC40</Model>
+ <Type>MIDI</Type>
+ <Channel Number="7">
+  <Name>Track 1 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Master Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Crossfader</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Device Control 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Device Control 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Device Control 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Device Control 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Device Control 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Device Control 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Device Control 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Device Control 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Cue Level</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Track Control 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Track Control 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Track Control 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Track Control 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Track Control 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Track Control 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Track Control 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Track Control 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Record Arm 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Solo/Cue 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Activator 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Track Selection 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Clip Stop 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Clip Launch 1 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Clip Launch 1 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Clip Launch 1 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Clip Launch 1 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Clip Launch 1 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>Clip/Track</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>Device On/Off</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>Left Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>Right Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>Detail View</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>Rec Quantization</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>MIDI Overdub</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Metronome</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>Track Selection Master</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Stop All Clips</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Scene Launch 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Scene Launch 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Scene Launch 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Scene Launch 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Scene Launch 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Pan</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Send A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="217">
+  <Name>Send B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="218">
+  <Name>Send C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>Stop</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="221">
+  <Name>Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="222">
+  <Name>Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="223">
+  <Name>Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>Shift</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>Tap Tempo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="228">
+  <Name>Nudge +</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="229">
+  <Name>Nudge -</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4103">
+  <Name>Track 2 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4272">
+  <Name>Record Arm 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4273">
+  <Name>Solo/Cue 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4274">
+  <Name>Activator 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4275">
+  <Name>Track Selection 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4276">
+  <Name>Clip Stop 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4277">
+  <Name>Clip Launch 2 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4278">
+  <Name>Clip Launch 2 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4279">
+  <Name>Clip Launch 2 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4280">
+  <Name>Clip Launch 2 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4281">
+  <Name>Clip Launch 2 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8199">
+  <Name>Track 3 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8368">
+  <Name>Record Arm 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8369">
+  <Name>Solo/Cue 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8370">
+  <Name>Activator 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8371">
+  <Name>Track Selection 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8372">
+  <Name>Clip Stop 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8373">
+  <Name>Clip Launch 3 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8374">
+  <Name>Clip Launch 3 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8375">
+  <Name>Clip Launch 3 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8376">
+  <Name>Clip Launch 3 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8377">
+  <Name>Clip Launch 3 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12295">
+  <Name>Track 4 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12464">
+  <Name>Record Arm 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12465">
+  <Name>Solo/Cue 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12466">
+  <Name>Activator 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12467">
+  <Name>Track Selection 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12468">
+  <Name>Clip Stop 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12469">
+  <Name>Clip Launch 4 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12470">
+  <Name>Clip Launch 4 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12471">
+  <Name>Clip Launch 4 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12472">
+  <Name>Clip Launch 4 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12473">
+  <Name>Clip Launch 4 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16391">
+  <Name>Track 5 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16560">
+  <Name>Record Arm 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16561">
+  <Name>Solo/Cue 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16562">
+  <Name>Activator 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16563">
+  <Name>Track Selection 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16564">
+  <Name>Clip Stop 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16565">
+  <Name>Clip Launch 5 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16566">
+  <Name>Clip Launch 5 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16567">
+  <Name>Clip Launch 5 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16568">
+  <Name>Clip Launch 5 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16569">
+  <Name>Clip Launch 5 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20487">
+  <Name>Track 6 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20656">
+  <Name>Record Arm 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20657">
+  <Name>Solo/Cue 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20658">
+  <Name>Activator 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20659">
+  <Name>Track Selection 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20660">
+  <Name>Clip Stop 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20661">
+  <Name>Clip Launch 6 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20662">
+  <Name>Clip Launch 6 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20663">
+  <Name>Clip Launch 6 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20664">
+  <Name>Clip Launch 6 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20665">
+  <Name>Clip Launch 6 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24583">
+  <Name>Track 7 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24752">
+  <Name>Record Arm 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24753">
+  <Name>Solo/Cue 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24754">
+  <Name>Activator 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24755">
+  <Name>Track Selection 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24756">
+  <Name>Clip Stop 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24757">
+  <Name>Clip Launch 7 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24758">
+  <Name>Clip Launch 7 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24759">
+  <Name>Clip Launch 7 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24760">
+  <Name>Clip Launch 7 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24761">
+  <Name>Clip Launch 7 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28679">
+  <Name>Track 8 Volume</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28848">
+  <Name>Record Arm 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28849">
+  <Name>Solo/Cue 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28850">
+  <Name>Activator 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28851">
+  <Name>Track Selection 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28852">
+  <Name>Clip Stop 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28853">
+  <Name>Clip Launch 8 - 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28854">
+  <Name>Clip Launch 8 - 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28855">
+  <Name>Clip Launch 8 - 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28856">
+  <Name>Clip Launch 8 - 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28857">
+  <Name>Clip Launch 8 - 5</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

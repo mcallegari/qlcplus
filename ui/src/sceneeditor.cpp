@@ -29,6 +29,7 @@
 #include <QLineEdit>
 #include <QToolBar>
 #include <QLayout>
+#include <qmath.h>
 #include <QLabel>
 #include <QDebug>
 
@@ -58,13 +59,6 @@
 #define KColumnID           3
 
 #define KTabGeneral         0
-
-#define CYAN "cyan"
-#define MAGENTA "magenta"
-#define YELLOW "yellow"
-#define RED "red"
-#define GREEN "green"
-#define BLUE "blue"
 
 #define SETTINGS_CHASER "sceneeditor/chaser"
 
@@ -106,11 +100,7 @@ SceneEditor::~SceneEditor()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (m_source != NULL)
-    {
-        delete m_source;
-        m_source = NULL;
-    }
+    delete m_source;
 
     QSettings settings;
     quint32 id = m_chaserCombo->itemData(m_chaserCombo->currentIndex()).toUInt();
@@ -129,7 +119,7 @@ void SceneEditor::slotFunctionManagerActive(bool active)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
 }
@@ -369,7 +359,7 @@ void SceneEditor::slotTabChanged(int tab)
     QLCClipboard *clipboard = m_doc->clipboard();
 
     sceneUiState()->setCurrentTab(tab);
-    
+
     if (tab == KTabGeneral)
     {
         m_enableCurrentAction->setEnabled(false);
@@ -411,7 +401,7 @@ void SceneEditor::slotEnableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -431,7 +421,7 @@ void SceneEditor::slotDisableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -463,7 +453,7 @@ void SceneEditor::slotCopy()
     {
         bool oneHasSelection = false;
         QList <SceneValue> selectedOnlyList;
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -499,7 +489,7 @@ void SceneEditor::slotPaste()
         }
         else
         {
-            foreach(FixtureConsole *fc, m_consoleList)
+            foreach(FixtureConsole *fc, m_consoleList.values())
             {
                 if (fc == NULL)
                     continue;
@@ -557,7 +547,7 @@ void SceneEditor::slotPositionTool()
     if (fc != NULL)
     {
         QList<SceneValue> origValues = fc->values();
-        
+
         Fixture* fxi = m_doc->fixture(fc->fixture());
         QPointF pos;
         QRectF range;
@@ -633,12 +623,12 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
         Fixture* fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        QSet <quint32> cyan    = fxi->channels(CYAN,    Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> yellow  = fxi->channels(YELLOW,  Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> red     = fxi->channels(RED,     Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> green   = fxi->channels(GREEN,   Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> blue    = fxi->channels(BLUE,    Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> cyan    = fxi->channels(QLCChannel::Intensity, QLCChannel::Cyan);
+        QSet <quint32> magenta = fxi->channels(QLCChannel::Intensity, QLCChannel::Magenta);
+        QSet <quint32> yellow  = fxi->channels(QLCChannel::Intensity, QLCChannel::Yellow);
+        QSet <quint32> red     = fxi->channels(QLCChannel::Intensity, QLCChannel::Red);
+        QSet <quint32> green   = fxi->channels(QLCChannel::Intensity, QLCChannel::Green);
+        QSet <quint32> blue    = fxi->channels(QLCChannel::Intensity, QLCChannel::Blue);
 
         if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
         {
@@ -813,10 +803,9 @@ void SceneEditor::slotSpeedDialToggle(bool state)
     else
     {
         if (m_speedDials != NULL)
-            delete m_speedDials;
+            m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
-
 }
 
 void SceneEditor::slotBlindToggled(bool state)
@@ -863,6 +852,7 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
 {
+    m_tab->blockSignals(true);
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
         QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
@@ -871,7 +861,9 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
         delete area; // Deletes also FixtureConsole
     }
     m_consoleList.clear();
+    m_tab->blockSignals(false);
 
+    // all fixtures view mode
     if (toggled == false)
     {
         QListIterator <Fixture*> it(selectedFixtures());
@@ -902,7 +894,12 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                     console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven);
                 console->setFixture(fixture->id());
                 console->setChecked(false);
-                m_consoleList.append(console);
+                m_consoleList[fixture->id()] = console;
+
+                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+                connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                        this, SLOT(slotChecked(quint32,quint32,bool)));
 
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
@@ -914,10 +911,6 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                         console->setSceneValue(scv);
                 }
 
-                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
-                connect(console, SIGNAL(checked(quint32,quint32,bool)),
-                        this, SLOT(slotChecked(quint32,quint32,bool)));
                 fixturesLayout->addWidget(console);
                 c++;
             }
@@ -925,6 +918,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
             scrollArea->setWidget(grpBox);
         }
     }
+    // tabbed fixtures view mode
     else
     {
         QListIterator <Fixture*> it(selectedFixtures());
@@ -946,12 +940,19 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
             }
         }
     }
+    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
+
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(sceneUiState()->currentTab());
-
-    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
+    {
+        int prevTabIdx = sceneUiState()->currentTab();
+        if (prevTabIdx > m_tab->count())
+            m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        else
+            m_tab->setCurrentIndex(sceneUiState()->currentTab());
+    }
+    sceneUiState()->setCurrentTab(m_tab->currentIndex());
 }
 
 void SceneEditor::slotRecord()
@@ -993,12 +994,12 @@ bool SceneEditor::isColorToolAvailable()
         fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-        red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-        green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+        cyan = fxi->channel(QLCChannel::Intensity, QLCChannel::Cyan);
+        magenta = fxi->channel(QLCChannel::Intensity, QLCChannel::Magenta);
+        yellow = fxi->channel(QLCChannel::Intensity, QLCChannel::Yellow);
+        red = fxi->channel(QLCChannel::Intensity, QLCChannel::Red);
+        green = fxi->channel(QLCChannel::Intensity, QLCChannel::Green);
+        blue = fxi->channel(QLCChannel::Intensity, QLCChannel::Blue);
     }
 
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
@@ -1269,7 +1270,7 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList)
+    foreach (FixtureConsole* fc, m_consoleList.values())
     {
         if (fc != NULL)
             fc->setChecked(true);
@@ -1278,7 +1279,7 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList)
+    foreach (FixtureConsole* fc, m_consoleList.values())
     {
         if (fc != NULL)
             fc->setChecked(false);
@@ -1449,11 +1450,8 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
 {
     Q_ASSERT(fixture != NULL);
 
-    foreach (FixtureConsole* fc, m_consoleList)
-    {
-        if (fc != NULL && fc->fixture() == fixture->id())
-            return fc;
-    }
+    if (m_consoleList.contains(fixture->id()))
+        return m_consoleList[fixture->id()];
 
     return NULL;
 }
@@ -1468,7 +1466,7 @@ void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
 
     FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
     console->setFixture(fixture->id());
-    m_consoleList.append(console);
+    m_consoleList[fixture->id()] = console;
     scrollArea->setWidget(console);
     int tIdx = m_tab->addTab(scrollArea, fixture->name());
     m_tab->setTabToolTip(tIdx, fixture->name());
@@ -1495,14 +1493,13 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
         FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
-            m_consoleList.removeOne(fc);
             /* First remove the tab because otherwise Qt might
                remove two tabs -- undocumented feature, which
                might be intended or it might not. */
             QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
             Q_ASSERT(area != NULL);
             m_tab->removeTab(i);
-            m_consoleList.removeOne(fc);
+            m_consoleList.take(fixture->id());
             delete area; // Deletes also FixtureConsole
             break;
         }
@@ -1527,14 +1524,8 @@ void SceneEditor::setTabChannelState(bool status, Fixture *fixture, quint32 chan
     if (channel == QLCChannel::invalid())
         return;
 
-    foreach (FixtureConsole* fc, m_consoleList)
-    {
-        if (fc != NULL && fc->fixture() == fixture->id())
-        {
-            fc->setChecked(status, channel);
-            return;
-        }
-    }
+    if (m_consoleList.contains(fixture->id()))
+        m_consoleList[fixture->id()]->setChecked(status, channel);
 }
 
 void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)

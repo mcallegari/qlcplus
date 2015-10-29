@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.5.1</Version>
+  <Author>Scott</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fusion FX Bar 1</Model>
+ <Type>Effect</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="1" Max="255">Red 0 &gt; 100% (Off - On)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="1" Max="255">Green 0 &gt; 100% (Off - On)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="1" Max="255">Blue 0 &gt; 100% (Off - On)</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="190">Master Dimmer 0 &gt; 100% (Off - On)</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247">Strobing (Slow - Fast)</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Rotation (Fast - Slow)</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter-Clockwise Rotation (Slow - Fast)</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Mode Name="5 Channel (Default)">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="538" Height="263" Weight="3.7" Depth="143"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Strobe</Channel>
+  <Channel Number="4">Moon Flower Rotation</Channel>
+ </Mode>
+</FixtureDefinition>

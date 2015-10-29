@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Nicolas Rasor</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Quad Par Profile RGBW 5x8W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White intensity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">manual mode</Capability>
+  <Capability Min="1" Max="24">constant color controled by Ch. 7</Capability>
+  <Capability Min="25" Max="49">automatic show 1</Capability>
+  <Capability Min="50" Max="74">automatic show 2</Capability>
+  <Capability Min="75" Max="99">automatic show 3</Capability>
+  <Capability Min="100" Max="124">automatic show 4</Capability>
+  <Capability Min="125" Max="149">automatic show 5</Capability>
+  <Capability Min="150" Max="174">automatic show 6</Capability>
+  <Capability Min="175" Max="199">automatic show 7</Capability>
+  <Capability Min="200" Max="224">automatic show 8</Capability>
+  <Capability Min="225" Max="249">automatic show 9</Capability>
+  <Capability Min="250" Max="255">sound show</Capability>
+ </Channel>
+ <Channel Name="Constant Color/Chasespeed Ch. 6">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="18" Color="#000000">black</Capability>
+  <Capability Min="19" Max="37" Color="#ff0000">red</Capability>
+  <Capability Min="38" Max="56" Color="#ff8600">orange</Capability>
+  <Capability Min="57" Max="75" Color="#ffff14">yellow</Capability>
+  <Capability Min="76" Max="94" Color="#00ff00">green</Capability>
+  <Capability Min="95" Max="113" Color="#5ecdff">light blue</Capability>
+  <Capability Min="114" Max="132" Color="#0000ff">blue</Capability>
+  <Capability Min="133" Max="151" Color="#ff00ff">violet</Capability>
+  <Capability Min="152" Max="170" Color="#ff3270">pink</Capability>
+  <Capability Min="171" Max="189" Color="#ffffff">white</Capability>
+  <Capability Min="190" Max="208" Color="#ffb0b2">red + white</Capability>
+  <Capability Min="209" Max="227" Color="#9dffa8">green + white</Capability>
+  <Capability Min="228" Max="246" Color="#85d0ff">blue + white</Capability>
+  <Capability Min="247" Max="255" Color="#ffffff">red + green + blue + white</Capability>
+ </Channel>
+ <Channel Name="Strobo">
+  <Group Byte="0">Shutter</Group>
+ </Channel>
+ <Mode Name="4ch">
+  <Physical>
+   <Bulb Lumens="9000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="164" Height="164" Weight="2.1" Depth="105"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6ch">
+  <Physical>
+   <Bulb Lumens="9000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="164" Height="164" Weight="2.1" Depth="105"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobo</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8ch">
+  <Physical>
+   <Bulb Lumens="9000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="164" Height="164" Weight="2.1" Depth="105"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Macro</Channel>
+  <Channel Number="6">Constant Color/Chasespeed Ch. 6</Channel>
+  <Channel Number="7">Strobo</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

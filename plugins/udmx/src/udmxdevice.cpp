@@ -158,11 +158,17 @@ QString UDMXDevice::infoText() const
  * Open & close
  ****************************************************************************/
 
-void UDMXDevice::open()
+bool UDMXDevice::open()
 {
     if (m_device != NULL && m_handle == NULL)
         m_handle = usb_open(m_device);
+
+    if (m_handle == NULL)
+        return false;
+
     start();
+
+    return true;
 }
 
 void UDMXDevice::close()

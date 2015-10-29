@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>Rob G.</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Dynamo 250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="15">Open</Capability>
+  <Capability Min="16" Max="131">Shutter speed (slow -&gt; fast)</Capability>
+  <Capability Min="132" Max="247">Shaking</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/open.png" Min="0" Max="11">White (open)</Capability>
+  <Capability Res="Chauvet/gobo00026.png" Min="12" Max="23">Yellow</Capability>
+  <Capability Res="Others/gobo00002.png" Min="24" Max="34">Blue</Capability>
+  <Capability Res="Chauvet/gobo00037.png" Min="35" Max="46">Blue+Red+Green</Capability>
+  <Capability Res="Chauvet/gobo00045.png" Min="47" Max="58">Green</Capability>
+  <Capability Res="Chauvet/gobo00018.png" Min="59" Max="69">Pink</Capability>
+  <Capability Res="Others/gobo00044.png" Min="70" Max="81">Red+Yellow+Green+Blue</Capability>
+  <Capability Res="SGM/gobo00007.png" Min="82" Max="93">Magenta</Capability>
+  <Capability Res="Others/gobo00042.png" Min="94" Max="104">Red</Capability>
+  <Capability Res="ClayPaky/gobo00005.png" Min="105" Max="116">Blue+Magenta</Capability>
+  <Capability Res="Chauvet/gobo00053.png" Min="117" Max="127">White (gobo)</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo change speed (slow -&gt; fast)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="ELC 250W" Lumens="550"/>
+   <Dimensions Width="385" Depth="120" Height="170" Weight="4.4"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Fixed" TiltMax="120" PanMax="160"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

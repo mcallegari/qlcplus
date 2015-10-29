@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.2</Version>
+  <Author>Joep Admiraal</Author>
+ </Creator>
+ <Manufacturer>Akai</Manufacturer>
+ <Model>APC20</Model>
+ <Type>MIDI</Type>
+ <Channel Number="7">
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Slider Master</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Cue level</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Record arm 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Solo 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Activator 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Clip stop 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Matrix 1-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Matrix 1-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Matrix 1-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Matrix 1-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Matrix 1-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>Note mode</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Shift</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Scene launch 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Scene launch 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Scene launch 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Scene launch 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Scene launch 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4103">
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4272">
+  <Name>Record arm 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4273">
+  <Name>Solo 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4274">
+  <Name>Activator 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4275">
+  <Name>Stop</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4276">
+  <Name>Clip stop 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4277">
+  <Name>Matrix 2-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4278">
+  <Name>Matrix 2-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4279">
+  <Name>Matrix 2-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4280">
+  <Name>Matrix 2-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4281">
+  <Name>Matrix 2-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8199">
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8368">
+  <Name>Record arm 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8369">
+  <Name>Solo 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8370">
+  <Name>Activator 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8371">
+  <Name>Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8372">
+  <Name>Clip stop 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8373">
+  <Name>Matrix 3-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8374">
+  <Name>Matrix 3-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8375">
+  <Name>Matrix 3-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8376">
+  <Name>Matrix 3-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8377">
+  <Name>Matrix 3-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12295">
+  <Name>Slider 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12464">
+  <Name>Record arm 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12465">
+  <Name>Solo 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12466">
+  <Name>Activator 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12467">
+  <Name>Midi overdub</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12468">
+  <Name>Clip stop 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12469">
+  <Name>Matrix 4-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12470">
+  <Name>Matrix 4-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12471">
+  <Name>Matrix 4-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12472">
+  <Name>Matrix 4-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12473">
+  <Name>Matrix 4-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16391">
+  <Name>Slider 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16560">
+  <Name>Record arm 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16561">
+  <Name>Solo 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16562">
+  <Name>Activator 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16563">
+  <Name>Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16564">
+  <Name>Clip stop 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16565">
+  <Name>Matrix 5-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16566">
+  <Name>Matrix 5-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16567">
+  <Name>Matrix 5-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16568">
+  <Name>Matrix 5-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16569">
+  <Name>Matrix 5-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20487">
+  <Name>Slider 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20656">
+  <Name>Record arm 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20657">
+  <Name>Solo 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20658">
+  <Name>Activator 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20659">
+  <Name>Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20660">
+  <Name>Clip stop 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20661">
+  <Name>Matrix 6-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20662">
+  <Name>Matrix 6-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20663">
+  <Name>Matrix 6-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20664">
+  <Name>Matrix 6-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20665">
+  <Name>Matrix 6-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24583">
+  <Name>Slider 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24752">
+  <Name>Record arm 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24753">
+  <Name>Solo 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24754">
+  <Name>Activator 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24755">
+  <Name>Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24756">
+  <Name>Clip stop 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24757">
+  <Name>Matrix 7-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24758">
+  <Name>Matrix 7-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24759">
+  <Name>Matrix 7-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24760">
+  <Name>Matrix 7-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24761">
+  <Name>Matrix 7-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28679">
+  <Name>Slider 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28848">
+  <Name>Record arm 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28849">
+  <Name>Solo 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28850">
+  <Name>Activator 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28851">
+  <Name>Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28852">
+  <Name>Clip stop 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28853">
+  <Name>Matrix 8-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28854">
+  <Name>Matrix 8-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28855">
+  <Name>Matrix 8-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28856">
+  <Name>Matrix 8-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28857">
+  <Name>Matrix 8-5</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

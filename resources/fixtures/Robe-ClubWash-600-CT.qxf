@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ClubWash 600 CT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Max="255" Min="0">Movement by 530°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Max="255" Min="0">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">Movement by 280°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Max="255" Min="0">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="0" Min="0">Max. speed (tracking mode)</Capability>
+  <Capability Max="249" Min="1">From max. speed to min. speed (vector mode)</Capability>
+  <Capability Max="252" Min="250">Max. speed (tracking mode), black-out while colour wheel moving</Capability>
+  <Capability Max="255" Min="253">Max. speed (vector mode), black-out while colour wheel or pan/tilt moving</Capability>
+ </Channel>
+ <Channel Name="Lamp On/Off, Reset, Speed Control of Fans">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="127" Min="0">Fans speed from max. to min.</Capability>
+  <Capability Max="139" Min="128">Lamp on, reset</Capability>
+  <Capability Max="229" Min="140">No function</Capability>
+  <Capability Max="239" Min="230">Lamp off after 3 sec.</Capability>
+  <Capability Max="255" Min="240">No function</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="15" Min="0" Color="#ffffff">Open/white</Capability>
+  <Capability Max="31" Min="16" Color="#ff0000">Deep red</Capability>
+  <Capability Max="47" Min="32" Color="#0000ff">Blue</Capability>
+  <Capability Max="63" Min="48" Color="#00ff00">Green</Capability>
+  <Capability Max="79" Min="64" Color="#ff6600">Orange</Capability>
+  <Capability Max="95" Min="80" Color="#ffc076">CTF 3200K</Capability>
+  <Capability Max="111" Min="96" Color="#ffefe1">CTF 5600K</Capability>
+  <Capability Max="127" Min="112" Color="#31043c">UV filter</Capability>
+  <Capability Max="190" Min="128">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Max="192" Min="191">No rotation</Capability>
+  <Capability Max="255" Min="193">Backwards rainbow effect from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="31" Min="0">Closed</Capability>
+  <Capability Max="63" Min="32">Open</Capability>
+  <Capability Max="95" Min="64">Strobe effect from slow to fast</Capability>
+  <Capability Max="127" Min="96">Open</Capability>
+  <Capability Max="143" Min="128">Closing pulses from slow to fast</Capability>
+  <Capability Max="159" Min="144">Opening pulses from fast to slow</Capability>
+  <Capability Max="191" Min="160">No function</Capability>
+  <Capability Max="223" Min="192">Random strobe effect from slow to fast</Capability>
+  <Capability Max="255" Min="224">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">From closed to 100% light output</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Max="255" Min="0">0-white, 255-full</Capability>
+ </Channel>
+ <Channel Name="Speed of CMY and Dimmer">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">From max. speed to min. speed</Capability>
+ </Channel>
+ <Channel Name="Colours Macros-CMY and Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="7" Min="0">Off</Capability>
+  <Capability Max="15" Min="8">Macro 1</Capability>
+  <Capability Max="23" Min="16">Macro 2</Capability>
+  <Capability Max="31" Min="24">Macro 3</Capability>
+  <Capability Max="39" Min="32">Macro 4</Capability>
+  <Capability Max="47" Min="40">Macro 5</Capability>
+  <Capability Max="55" Min="48">Macro 6</Capability>
+  <Capability Max="63" Min="56">Macro 7</Capability>
+  <Capability Max="71" Min="64">Macro 8</Capability>
+  <Capability Max="79" Min="72">Macro 9</Capability>
+  <Capability Max="87" Min="80">Macro 10</Capability>
+  <Capability Max="95" Min="88">Macro 11</Capability>
+  <Capability Max="103" Min="96">Macro 12</Capability>
+  <Capability Max="111" Min="104">Macro 13</Capability>
+  <Capability Max="119" Min="112">Macro 14</Capability>
+  <Capability Max="127" Min="120">Macro 15</Capability>
+  <Capability Max="135" Min="128">Macro 16</Capability>
+  <Capability Max="143" Min="136">Macro 17</Capability>
+  <Capability Max="151" Min="144">Macro 18</Capability>
+  <Capability Max="159" Min="152">Macro 19</Capability>
+  <Capability Max="167" Min="160">Macro 20</Capability>
+  <Capability Max="175" Min="168">Macro 21</Capability>
+  <Capability Max="183" Min="176">Macro 22</Capability>
+  <Capability Max="191" Min="184">Macro 23</Capability>
+  <Capability Max="199" Min="192">Macro 24</Capability>
+  <Capability Max="207" Min="200">Macro 25</Capability>
+  <Capability Max="215" Min="208">Macro 26</Capability>
+  <Capability Max="223" Min="216">Macro 27</Capability>
+  <Capability Max="231" Min="224">Macro 28</Capability>
+  <Capability Max="239" Min="232">Macro 29</Capability>
+  <Capability Max="247" Min="240">Macro 30</Capability>
+  <Capability Max="255" Min="248">Macro 31</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="70" Min="0">Full beam</Capability>
+  <Capability Max="180" Min="71">Beam shaper</Capability>
+  <Capability Max="255" Min="181">Frost filter</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Max="255" Min="0">Zoom from 28° to 7°</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
+   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
+   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Lamp On/Off, Reset, Speed Control of Fans</Channel>
+  <Channel Number="6">Color Wheel</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Speed of CMY and Dimmer</Channel>
+  <Channel Number="11">Colours Macros-CMY and Colour Wheel</Channel>
+  <Channel Number="12">Effect Wheel</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Shutter, Strobe</Channel>
+  <Channel Number="15">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
+   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
+   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Lamp On/Off, Reset, Speed Control of Fans</Channel>
+  <Channel Number="6">Color Wheel</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Speed of CMY and Dimmer</Channel>
+  <Channel Number="11">Colours Macros-CMY and Colour Wheel</Channel>
+  <Channel Number="12">Effect Wheel</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Shutter, Strobe</Channel>
+  <Channel Number="15">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Bit">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
+   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
+   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Lamp On/Off, Reset, Speed Control of Fans</Channel>
+  <Channel Number="4">Color Wheel</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Speed of CMY and Dimmer</Channel>
+  <Channel Number="9">Colours Macros-CMY and Colour Wheel</Channel>
+  <Channel Number="10">Effect Wheel</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Shutter, Strobe</Channel>
+  <Channel Number="13">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

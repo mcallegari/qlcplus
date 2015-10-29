@@ -4,12 +4,12 @@
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="94"/>
+        <location filename="udmx.cpp" line="101"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation>Ce plugin permet le support de la sortie des périphériques Anyma uDMX.</translation>
+        <translation>Ce plugin offre le support de la sortie des périphériques Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="188"/>
+        <location filename="udmx.cpp" line="195"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Souhaitez-vous redétecter le matériel ?</translation>
     </message>
@@ -24,7 +24,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="135"/>
         <source>DMX Frame Frequency</source>
-        <translation>Fréquence de la trame DMX</translation>
+        <translation>Fréquence de trame DMX</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="138"/>
@@ -39,7 +39,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation>Patchez ce plugin à un univers pour l&apos;utiliser.</translation>
+        <translation>Patchez ce plugin à un univers pour la découvrir.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="143"/>

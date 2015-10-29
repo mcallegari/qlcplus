@@ -25,7 +25,7 @@
 
 #include "rgbalgorithm.h"
 
-/** @addtogroup engine Engine
+/** @addtogroup engine_functions Functions
  * @{
  */
 
@@ -38,17 +38,18 @@ class RGBAudio : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBAudio(const Doc * doc);
+    RGBAudio(Doc * doc);
     RGBAudio(const RGBAudio& t, QObject *parent = 0);
     ~RGBAudio();
 
     /** @reimp */
     RGBAlgorithm* clone() const;
 
-    void setAudioCapture(AudioCapture *cap);
+private:
+    void setAudioCapture(AudioCapture* cap);
 
 protected slots:
-    void slotAudioChanged(double *spectrumBands, double maxMagnitude, quint32 power);
+    void slotAudioBarsChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 private:
     void calculateColors(int barsHeight = 0);
@@ -57,7 +58,7 @@ protected:
     AudioCapture *m_audioInput;
     int m_bandsNumber;
     QMutex m_mutex;
-    QList<double>m_spectrumValues;
+    QVector<double>m_spectrumValues;
     double m_maxMagnitude;
     quint32 m_volumePower;
     QList<uint> m_barColors;
@@ -73,6 +74,9 @@ public:
     RGBMap rgbMap(const QSize& size, uint rgb, int step);
 
     /** @reimp */
+    virtual void postRun();
+
+    /** @reimp */
     QString name() const;
 
     /** @reimp */
@@ -86,6 +90,9 @@ public:
 
     /** @reimp */
     RGBAlgorithm::Type type() const;
+
+    /** @reimp */
+    int acceptColors() const;
 
     /************************************************************************
      * Load & Save

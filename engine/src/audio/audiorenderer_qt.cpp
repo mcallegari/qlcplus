@@ -24,12 +24,12 @@
 #include "audiodecoder.h"
 #include "audiorenderer_qt.h"
 
-AudioRendererQt::AudioRendererQt(QObject * parent)
+AudioRendererQt::AudioRendererQt(QString device, QObject * parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
 {
-
+    m_device = device;
 }
 
 AudioRendererQt::~AudioRendererQt()
@@ -46,9 +46,14 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
 {
     QSettings settings;
     QString devName = "";
-    QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultOutputDevice();
+    m_deviceInfo = QAudioDeviceInfo::defaultOutputDevice();
 
-    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    QVariant var;
+    if (m_device.isEmpty())
+        var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    else
+        var = QVariant(m_device);
+
     if (var.isValid() == true)
     {
         devName = var.toString();
@@ -56,7 +61,7 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         {
             if (deviceInfo.deviceName() == devName)
             {
-                audioDevice = deviceInfo;
+                m_deviceInfo = deviceInfo;
                 break;
             }
         }
@@ -92,25 +97,12 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         return false;
     }
 
-    if (!audioDevice.isFormatSupported(m_format))
+    if (!m_deviceInfo.isFormatSupported(m_format))
     {
-        qWarning() << "Default format not supported - trying to use nearest";
-        m_format = audioDevice.nearestFormat(m_format);
+        m_format = m_deviceInfo.nearestFormat(m_format);
+        qWarning() << "Default format not supported - trying to use nearest" << m_format.sampleRate();
+
     }
-
-    m_audioOutput = new QAudioOutput(audioDevice, m_format, this);
-
-    if( m_audioOutput == NULL )
-    {
-        qWarning() << "Cannot open audio output stream from device" << audioDevice.deviceName();
-        return false;
-    }
-
-    m_audioOutput->setBufferSize(8192 * 4);
-    m_output = m_audioOutput->start();
-
-    if( m_audioOutput->error() != QAudio::NoError )
-        return false;
 
     return true;
 }
@@ -134,7 +126,7 @@ QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
         info.deviceName = deviceInfo.deviceName();
-        info.privateName = QString::number(i);
+        info.privateName = deviceInfo.deviceName(); //QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
         if (inDevs.contains(deviceInfo.deviceName()))
@@ -164,10 +156,13 @@ qint64 AudioRendererQt::writeAudio(unsigned char *data, qint64 maxSize)
     if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
         return 0;
 
-    qDebug() << "writeAudio called !! - " << maxSize;
-    m_output->write((const char *)data, maxSize);
+    //qDebug() << "writeAudio called !! - " << maxSize;
+    qint64 written = m_output->write((const char *)data, maxSize);
 
-    return maxSize;
+    if (written != maxSize)
+        qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;
+
+    return written;
 }
 
 void AudioRendererQt::drain()
@@ -188,4 +183,28 @@ void AudioRendererQt::suspend()
 void AudioRendererQt::resume()
 {
     m_audioOutput->resume();
+}
+
+void AudioRendererQt::run()
+{
+    if (m_audioOutput == NULL)
+    {
+        m_audioOutput = new QAudioOutput(m_deviceInfo, m_format);
+
+        if(m_audioOutput == NULL)
+        {
+            qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.deviceName();
+            return;
+        }
+
+        m_audioOutput->setBufferSize(8192 * 8);
+        m_output = m_audioOutput->start();
+
+        if(m_audioOutput->error() != QAudio::NoError)
+        {
+            qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
+            return;
+        }
+    }
+    AudioRenderer::run();
 }

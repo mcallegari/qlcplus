@@ -25,6 +25,10 @@
 
 #include "audiodecoder.h"
 
+/** @addtogroup engine_audio Audio
+ * @{
+ */
+
 #define AUDIO_CAP_INPUT     1
 #define AUDIO_CAP_OUTPUT    2
 
@@ -105,7 +109,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    void run(); //thread run function
+    virtual void run(); //thread run function
 
     void stop();
 
@@ -139,5 +143,7 @@ private:
     qint64 audioDataRead;
     qint64 pendingAudioBytes;
 };
+
+/** @} */
 
 #endif

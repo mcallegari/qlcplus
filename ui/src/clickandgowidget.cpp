@@ -17,15 +17,18 @@
   limitations under the License.
 */
 
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <qmath.h>
+#include <QDebug>
 #include <QImage>
-#include <QDesktopWidget>
 
 #include "clickandgowidget.h"
 #include "qlccapability.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
+#include "gradient.h"
 
 #define CELL_W  150
 #define CELL_H  45
@@ -33,7 +36,10 @@
 ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     QWidget(parent)
 {
-    setAttribute(Qt::WA_StaticContents);
+    // This makes the application crash when a clickAndGoWidget
+    // is created in a QDialog.
+    //    setAttribute(Qt::WA_StaticContents);
+
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setMouseTracking(true);
 
@@ -43,6 +49,7 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_height = 10;
     m_cols = 0;
     m_rows = 0;
+    m_cellWidth = CELL_W;
     m_hoverCellIdx = 0;
     m_cellBarXpos = 1;
     m_cellBarYpos = 1;
@@ -65,103 +72,34 @@ void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
     m_linearColor = true;
 }
 
-void ClickAndGoWidget::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
-{
-    QColor top = Qt::black;
-    QColor col(r, g , b);
-    QColor bottom = Qt::white;
-
-    QLinearGradient blackGrad(QPointF(0,0), QPointF(0, 127));
-    blackGrad.setColorAt(0, top);
-    blackGrad.setColorAt(1, col);
-    QLinearGradient whiteGrad(QPointF(0,128), QPointF(0, 255));
-    whiteGrad.setColorAt(0, col);
-    whiteGrad.setColorAt(1, bottom);
-
-    painter->fillRect(x, 0, x, 128, blackGrad);
-    painter->fillRect(x, 128, x, 256, whiteGrad);
-}
-
 void ClickAndGoWidget::setupColorPicker()
 {
-    int r = 0xFF;
-    int g = 0;
-    int b = 0;
-    int x = 30;
-    int i = 0;
     int cw = 15;
 
-    m_width = 252 + 30;
+    m_width = 256 + 30;
     m_height = 256;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
 
     // Draw 16 default color squares
     painter.fillRect(0, 0, cw, 32, QColor(Qt::white));
-    painter.fillRect(cw, 0, cw + cw, 32, QColor(Qt::black));
+    painter.fillRect(cw, 0, cw, 32, QColor(Qt::black));
     painter.fillRect(0, 32, cw, 64, QColor(Qt::red));
-    painter.fillRect(cw, 32, cw + cw, 64, QColor(Qt::darkRed));
+    painter.fillRect(cw, 32, cw, 64, QColor(Qt::darkRed));
     painter.fillRect(0, 64, cw, 96, QColor(Qt::green));
-    painter.fillRect(cw, 64, cw + cw, 96, QColor(Qt::darkGreen));
+    painter.fillRect(cw, 64, cw, 96, QColor(Qt::darkGreen));
     painter.fillRect(0, 96, cw, 128, QColor(Qt::blue));
-    painter.fillRect(cw, 96, cw + cw, 128, QColor(Qt::darkBlue));
+    painter.fillRect(cw, 96, cw, 128, QColor(Qt::darkBlue));
     painter.fillRect(0, 128, cw, 160, QColor(Qt::cyan));
-    painter.fillRect(cw, 128, cw + cw, 160, QColor(Qt::darkCyan));
+    painter.fillRect(cw, 128, cw, 160, QColor(Qt::darkCyan));
     painter.fillRect(0, 160, cw, 192, QColor(Qt::magenta));
-    painter.fillRect(cw, 160, cw + cw, 192, QColor(Qt::darkMagenta));
+    painter.fillRect(cw, 160, cw, 192, QColor(Qt::darkMagenta));
     painter.fillRect(0, 192, cw, 224, QColor(Qt::yellow));
-    painter.fillRect(cw, 192, cw + cw, 224, QColor(Qt::darkYellow));
+    painter.fillRect(cw, 192, cw, 224, QColor(Qt::darkYellow));
     painter.fillRect(0, 224, cw, 256, QColor(Qt::gray));
-    painter.fillRect(cw, 224, cw + cw, 256, QColor(Qt::darkGray));
+    painter.fillRect(cw, 224, cw, 256, QColor(Qt::darkGray));
 
-    // R: 255  G:  0  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g+=6;
-        if (g == 252) g = 255;
-    }
-    x+=42;
-    // R: 255  G: 255  B:   0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r-=6;
-        if (r < 6) r = 0;
-    }
-    x+=42;
-    // R: 0  G: 255  B:  0
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        b+=6;
-        if (b == 252) b = 255;
-    }
-    x+=42;
-    // R: 0  G: 255  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        g-=6;
-        if (g < 6) g = 0;
-    }
-    x+=42;
-    // R: 0  G:  0  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        r+=6;
-        if (r == 252) r = 255;
-    }
-    x+=42;
-    // R: 255  G:  0  B:  255
-    for (i = x; i < x + 42; i++)
-    {
-        fillWithGradient(r, g, b, &painter, i);
-        b-=6;
-        if (b < 6) b = 0;
-    }
-    // R: 255  G:  0  B:  0
+    painter.drawImage(cw * 2, 0, Gradient::getRGBGradient());
 }
 
 void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
@@ -188,6 +126,8 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         setupGradient(Qt::black, 0xFFFF7E00);
     else if (type == White)
         setupGradient(Qt::black, Qt::white);
+    else if (type == UV)
+        setupGradient(Qt::black, 0xFF9400D3);
     else if (type == RGB || type == CMY)
     {
         setupColorPicker();
@@ -220,6 +160,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Yellow: return "Yellow"; break;
         case Amber: return "Amber"; break;
         case White: return "White"; break;
+        case UV: return "UV"; break;
         case RGB: return "RGB"; break;
         case CMY: return "CMY"; break;
         case Preset: return "Preset"; break;
@@ -236,6 +177,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Yellow") return Yellow;
     else if (str == "Amber") return Amber;
     else if (str == "White") return White;
+    else if (str == "UV") return UV;
     else if (str == "RGB") return RGB;
     else if (str == "CMY") return CMY;
     else if (str == "Preset") return Preset;
@@ -290,16 +232,16 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach(QLCCapability cap, chan->capabilities())
+    foreach(QLCCapability* cap, chan->capabilities())
     {
-        if (cap.resourceName().isEmpty() == false)
-            m_resources.append(PresetResource(cap.resourceName(), cap.name(),
-                                              cap.min(), cap.max()));
-        else if (cap.resourceColor1().isValid())
-            m_resources.append(PresetResource(cap.resourceColor1(), cap.resourceColor2(),
-                                              cap.name(), cap.min(), cap.max()));
+        if (cap->resourceName().isEmpty() == false)
+            m_resources.append(PresetResource(cap->resourceName(), cap->name(),
+                                              cap->min(), cap->max()));
+        else if (cap->resourceColor1().isValid())
+            m_resources.append(PresetResource(cap->resourceColor1(), cap->resourceColor2(),
+                                              cap->name(), cap->min(), cap->max()));
         else
-            m_resources.append(PresetResource(i, cap.name(), cap.min(), cap.max()));
+            m_resources.append(PresetResource(i, cap->name(), cap->min(), cap->max()));
         i++;
     }
 }
@@ -313,15 +255,23 @@ void ClickAndGoWidget::setupPresetPicker()
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
-    m_width = CELL_W * m_cols;
+    m_width = m_cellWidth * m_cols;
     m_height = CELL_H * m_rows;
 
+    // first check if the menu fits vertically
     if (m_height > screen.height())
     {
         m_rows = qFloor((qreal)screen.height() / CELL_H);
         m_cols = qCeil((qreal)m_resources.size() / m_rows);
-        m_width = CELL_W * m_cols;
+        m_width = m_cellWidth * m_cols;
         m_height = CELL_H * m_rows;
+    }
+
+    // then check if it has to be rescaled horizontally
+    if (m_width > screen.width())
+    {
+        m_cellWidth = screen.width() / m_cols;
+        m_width = m_cellWidth * m_cols;
     }
  
     int x = 0;
@@ -337,16 +287,16 @@ void ClickAndGoWidget::setupPresetPicker()
     {
         PresetResource res = m_resources.at(i);
         painter.setPen(Qt::black);
-        painter.drawRect(x, y, CELL_W, CELL_H);
+        painter.drawRect(x, y, m_cellWidth, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
-        painter.drawText(x + 43, y + 4, CELL_W - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
+        painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
         if (i % m_cols == m_cols - 1)
         {
             y += CELL_H;
             x = 0;
         }
         else
-            x += CELL_W;
+            x += m_cellWidth;
          
     }  
 }
@@ -380,7 +330,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
             float f = SCALE(float(m_cellBarWidth),
                         float(0),
-                        float(CELL_W),
+                        float(m_cellWidth),
                         float(0), float(res.m_max - res.m_min));
             emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
         }
@@ -406,12 +356,12 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     else if (m_type == Preset)
     {
         // calculate the index of the resource where the cursor is
-        int floorX = qFloor(event->x() / CELL_W);
+        int floorX = qFloor(event->x() / m_cellWidth);
         int floorY = qFloor(event->y() / CELL_H);
         int tmpCellIDx = (floorY * m_cols) + floorX;
         if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
             return;
-        m_cellBarXpos = floorX * CELL_W;
+        m_cellBarXpos = floorX * m_cellWidth;
         m_cellBarYpos = floorY * CELL_H;
         m_cellBarWidth = event->x() - m_cellBarXpos;
         m_hoverCellIdx = tmpCellIDx;

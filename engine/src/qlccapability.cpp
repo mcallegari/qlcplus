@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlccapability.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,21 +19,24 @@
 */
 
 #include <QCoreApplication>
+#include <QXmlStreamReader>
 #include <QString>
 #include <QDebug>
 #include <QFile>
-#include <QtXml>
 
 #include "qlccapability.h"
 #include "qlcmacros.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 
 /************************************************************************
  * Initialization
  ************************************************************************/
 
 QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
-                             const QString &resource, const QColor &color1, const QColor &color2)
+                             const QString &resource, const QColor &color1,
+                             const QColor &color2, QObject *parent)
+    : QObject(parent)
 {
     m_min = min;
     m_max = max;
@@ -42,6 +46,13 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
     m_resourceColor2 = color2;
 }
 
+QLCCapability *QLCCapability::createCopy()
+{
+    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name, m_resourceName,
+                                            m_resourceColor1, m_resourceColor2);
+    return copy;
+}
+/*
 QLCCapability::QLCCapability(const QLCCapability* capability)
 {
     m_min = 0;
@@ -50,7 +61,7 @@ QLCCapability::QLCCapability(const QLCCapability* capability)
     if (capability != NULL)
         *this = *capability;
 }
-
+*/
 QLCCapability::~QLCCapability()
 {
 }
@@ -148,13 +159,13 @@ void QLCCapability::setResourceColors(QColor col1, QColor col2)
     m_resourceName = "";
 }
 
-bool QLCCapability::overlaps(const QLCCapability& cap)
+bool QLCCapability::overlaps(const QLCCapability *cap)
 {
-    if (m_min >= cap.min() && m_min <= cap.max())
+    if (m_min >= cap->min() && m_min <= cap->max())
         return true;
-    else if (m_max >= cap.min() && m_max <= cap.max())
+    else if (m_max >= cap->min() && m_max <= cap->max())
         return true;
-    else if (m_min <= cap.min() && m_max >= cap.min())
+    else if (m_min <= cap->min() && m_max >= cap->min())
         return true;
     else
         return false;
@@ -164,43 +175,25 @@ bool QLCCapability::overlaps(const QLCCapability& cap)
  * Save & Load
  ************************************************************************/
 
-bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
+bool QLCCapability::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* QLCCapability entry */
-    tag = doc->createElement(KXMLQLCCapability);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCCapability);
 
     /* Min limit attribute */
-    str.setNum(m_min);
-    tag.setAttribute(KXMLQLCCapabilityMin, str);
+    doc->writeAttribute(KXMLQLCCapabilityMin, QString::number(m_min));
 
     /* Max limit attribute */
-    str.setNum(m_max);
-    tag.setAttribute(KXMLQLCCapabilityMax, str);
+    doc->writeAttribute(KXMLQLCCapabilityMax, QString::number(m_max));
 
     /* Resource file attribute */
     if (m_resourceName.isEmpty() == false)
     {
         QString modFilename = m_resourceName;
-        QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-        dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                    .arg(GOBODIR));
-        dir = dir.cleanPath(dir.path());
-#elif defined(WIN32) || defined(Q_OS_WIN)
-        dir.setPath(QString("%1%2%3").arg(QCoreApplication::applicationDirPath())
-                    .arg(QDir::separator())
-                    .arg(GOBODIR));
-#else
-        dir.setPath(GOBODIR);
-#endif
+        QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+
         if (modFilename.contains(dir.path()))
         {
             modFilename.remove(dir.path());
@@ -212,38 +205,39 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
             modFilename.remove(0, 1);
         }
 
-        tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
+        doc->writeAttribute(KXMLQLCCapabilityResource, modFilename);
     }
     if (m_resourceColor1.isValid())
     {
-        tag.setAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
+        doc->writeAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
     }
     if (m_resourceColor2.isValid())
     {
-        tag.setAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
+        doc->writeAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
     }
 
-    /* Name value */
-    text = doc->createTextNode(m_name);
-    tag.appendChild(text);
+    /* Name */
+    doc->writeCharacters(m_name);
+    doc->writeEndElement();
 
     return true;
 }
 
-bool QLCCapability::loadXML(const QDomElement& root)
+bool QLCCapability::loadXML(QXmlStreamReader &doc)
 {
     uchar min = 0;
     uchar max = 0;
     QString str;
 
-    if (root.tagName() != KXMLQLCCapability)
+    if (doc.name() != KXMLQLCCapability)
     {
         qWarning() << Q_FUNC_INFO << "Capability node not found";
         return false;
     }
 
     /* Get low limit attribute (critical) */
-    str = root.attribute(KXMLQLCCapabilityMin);
+    QXmlStreamAttributes attrs = doc.attributes();
+    str = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
     {
         qWarning() << Q_FUNC_INFO << "Capability has no minimum limit.";
@@ -251,11 +245,11 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        min = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get high limit attribute (critical) */
-    str = root.attribute(KXMLQLCCapabilityMax);
+    str = attrs.value(KXMLQLCCapabilityMax).toString();
     if (str.isEmpty() == true)
     {
         qWarning() << Q_FUNC_INFO << "Capability has no maximum limit.";
@@ -263,43 +257,35 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
     else
     {
-        max = CLAMP(str.toInt(), 0, UCHAR_MAX);
+        max = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
     /* Get (optional) resource name for gobo/effect/... */
-    if(root.hasAttribute(KXMLQLCCapabilityResource))
+    if(attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
-        QString path = root.attribute(KXMLQLCCapabilityResource);
+        QString path = attrs.value(KXMLQLCCapabilityResource).toString();
         if (QFileInfo(path).isRelative())
         {
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-            QDir dir;
-            dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                        .arg(GOBODIR));
+            QDir dir = QLCFile::systemDirectory(GOBODIR);
             path = dir.path() + QDir::separator() + path;
-#else
-            path = QString(GOBODIR) + QDir::separator() + path;
-#endif
         }
         setResourceName(path);
     }
 
     /* Get (optional) color resource for color presets */
-    if (root.hasAttribute(KXMLQLCCapabilityColor1))
+    if (attrs.hasAttribute(KXMLQLCCapabilityColor1))
     {
-        QColor col1 = QColor(root.attribute(KXMLQLCCapabilityColor1));
+        QColor col1 = QColor(attrs.value(KXMLQLCCapabilityColor1).toString());
         QColor col2 = QColor();
-        if (root.hasAttribute(KXMLQLCCapabilityColor2))
-            col2 = QColor(root.attribute(KXMLQLCCapabilityColor2));
+        if (attrs.hasAttribute(KXMLQLCCapabilityColor2))
+            col2 = QColor(attrs.value(KXMLQLCCapabilityColor2).toString());
         if (col1.isValid())
-        {
             setResourceColors(col1, col2);
-        }
     }
 
     if (min <= max)
     {
-        setName(root.text());
+        setName(doc.readElementText());
         setMin(min);
         setMax(max);
 
