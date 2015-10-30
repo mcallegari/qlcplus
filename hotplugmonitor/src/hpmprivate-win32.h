@@ -2,7 +2,8 @@
 #define HPMPRIVATE_WIN32_H
 
 #include <Windows.h>
-#include <QWidget>
+#include <QObject>
+#include <qwindowdefs.h>
 
 class HotPlugMonitor;
 
@@ -10,19 +11,21 @@ class HotPlugMonitor;
  * HPMPrivate declaration
  ****************************************************************************/
 
-class HPMPrivate : public QWidget
+class HPMPrivate: public QObject
 {
     Q_OBJECT
 
 public:
     HPMPrivate(HotPlugMonitor* parent);
-    ~HPMPrivate();
+    virtual ~HPMPrivate();
 
     void start();
     void stop();
 
+    void setWinId(WId id);
+    bool processWinEvent(MSG* message, long* result);
+
 protected:
-    bool winEvent(MSG* message, long* result);
     static bool extractVidPid(const QString& dbccName, uint* vid, uint* pid);
 
 private:

@@ -18,7 +18,6 @@ CONFIG(iokit) {
 }
 
 CONFIG(win32) {
-    greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
     SOURCES += hpmprivate-win32.cpp
     HEADERS += hpmprivate-win32.h
 }
