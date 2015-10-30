@@ -94,6 +94,7 @@
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
+  <fixture path="BoomToneDJ-Froggy-LED-RGBW.qxf" mf="BoomToneDJ" md="Froggy LED RGBW"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
   <fixture path="BoomToneDJ-Sky-Bar-288-LED.qxf" mf="BoomToneDJ" md="Sky bar 288 LED"/>
   <fixture path="BoomToneDJ-Slim-PAR-7x3W-LED-RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
@@ -356,6 +357,7 @@
   <fixture path="Img-Stage-Line-Parl-73-RGB.qxf" mf="Img Stage Line" md="Parl 73-RGB"/>
   <fixture path="Involight-LED-MH60S.qxf" mf="Involight" md="LED MH60S"/>
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
+  <fixture path="iSolution-iMove-250w.qxf" mf="iSolution" md="iMove 250W"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
   <fixture path="JB-Lighting-Varyscan-3-Special.qxf" mf="JB-Lighting" md="Varyscan 3 Special"/>
   <fixture path="JB-Lighting-Varyscan-3-SpecialPlus.qxf" mf="JB-Lighting" md="Varyscan 3 Special Plus"/>

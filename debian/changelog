@@ -1,5 +1,6 @@
 qlcplus (4.10.2) stable; urgency=low
 
+  * Engine: added support for devices hotplug (DMX USB, MIDI, HID, Peperoni)
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Input Profiles: added an option for Buttons to always generate a press/release event
@@ -8,7 +9,8 @@ qlcplus (4.10.2) stable; urgency=low
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
   * New fixture: Robe ColorWash 1200E AT, American DJ Starburst, Chauvet LED PAR 64 Tri-B (thanks to Robert Box)
-  * New fixture: BoomTone DJ Sky bar 288 LED, BoomToneDJ Strob LED 18 (thanks to Didou)
+  * New fixture: BoomTone DJ Sky bar 288 LED, BoomToneDJ Strob LED 18, BoomToneDJ Froggy LED RGBW (thanks to Didou)
+  * New fixture: iSolution iMove 250W (thanks to Thierry Rodolfo)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Nov 2015 20:21:22 +0200
 
