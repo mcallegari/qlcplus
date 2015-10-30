@@ -50,7 +50,7 @@
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation>Canal del mode</translation>
+        <translation>Canals del mode</translation>
     </message>
 </context>
 <context>
@@ -58,12 +58,12 @@
     <message>
         <location filename="app.cpp" line="123"/>
         <source>Unrecognized file extension: %1</source>
-        <translation>Extensió d&apos;arxiu desconaguda: %1</translation>
+        <translation>Extensió d&apos;arxiu desconeguda: %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="147"/>
         <source>Fixture loading failed</source>
-        <translation>Error al caregar el Fixture</translation>
+        <translation>Error al carregar el Fixture</translation>
     </message>
     <message>
         <location filename="app.cpp" line="148"/>
@@ -323,7 +323,7 @@
     <message>
         <location filename="editchannel.ui" line="14"/>
         <source>Edit Channel</source>
-        <translation>Editor de Canals</translation>
+        <translation>Editor de Canal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="26"/>
@@ -402,12 +402,12 @@
     <message>
         <location filename="editchannel.ui" line="389"/>
         <source>Coarse (MSB)</source>
-        <translation>Coarse (MSB)</translation>
+        <translation>Gruix (MSB)</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="396"/>
         <source>Fine (LSB)</source>
-        <translation>Fine (LSB)</translation>
+        <translation>Fi (LSB)</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="72"/>
@@ -462,7 +462,7 @@
     <message>
         <location filename="editchannel.cpp" line="371"/>
         <source>Overlapping values</source>
-        <translation>Valors de Superposició</translation>
+        <translation>Superposició de Valors</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="417"/>
@@ -533,7 +533,7 @@
     <message>
         <location filename="editmode.ui" line="72"/>
         <source>Add channel(s) to this mode</source>
-        <translation>Afegir canals a aques mode</translation>
+        <translation>Afegir canal(s) a aques mode</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="92"/>
@@ -563,7 +563,7 @@
     <message>
         <location filename="editmode.ui" line="187"/>
         <source>Compose a new head</source>
-        <translation>Compndre un nou capçal</translation>
+        <translation>Compondre un nou capçal</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="207"/>
@@ -598,7 +598,7 @@
     <message>
         <location filename="editmode.ui" line="307"/>
         <source>Bulb</source>
-        <translation>Lampara</translation>
+        <translation>Bombeta</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="313"/>

@@ -51,7 +51,7 @@
     <message>
         <location filename="configuree131.ui" line="42"/>
         <source>Universe</source>
-        <translation>Uninvers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="configuree131.cpp" line="86"/>
