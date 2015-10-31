@@ -54,6 +54,8 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc)
     m_xMSB = QLCChannel::invalid();
     m_yLSB = QLCChannel::invalid();
     m_yMSB = QLCChannel::invalid();
+
+    m_enabled = true;
 }
 
 VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
@@ -124,6 +126,8 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
 
     m_yMSB = fxi.m_yMSB;
     m_yLSB = fxi.m_yLSB;
+
+    m_enabled = fxi.m_enabled;
 
     return *this;
 }
@@ -410,6 +414,16 @@ void VCXYPadFixture::disarm()
     m_xMSB = QLCChannel::invalid();
     m_yLSB = QLCChannel::invalid();
     m_yMSB = QLCChannel::invalid();
+}
+
+void VCXYPadFixture::setEnabled(bool enable)
+{
+    m_enabled = enable;
+}
+
+bool VCXYPadFixture::isEnabled() const
+{
+    return m_enabled;
 }
 
 void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universes)

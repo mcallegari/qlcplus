@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
+    <width>577</width>
     <height>472</height>
    </rect>
   </property>
@@ -248,9 +248,15 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
           <widget class="QTreeWidget" name="m_presetsTree">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="rootIsDecorated">
             <bool>false</bool>
            </property>
@@ -264,7 +270,7 @@
            </column>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item>
           <layout class="QVBoxLayout" name="m_presetLayout">
            <item>
             <widget class="QPushButton" name="m_addPositionButton">
@@ -300,6 +306,17 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="m_addFxGroupButton">
+             <property name="text">
+              <string>Add Fixture Group</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/group.png</normaloff>:/group.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="m_removePresetButton">
              <property name="text">
               <string>Remove</string>
@@ -314,46 +331,59 @@
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Preset name</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="m_presetNameEdit"/>
+              <widget class="QLineEdit" name="m_presetNameEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
           </layout>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QFrame" name="frame_3">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <layout class="QVBoxLayout" name="m_presetInputLayout"/>
-            </item>
-           </layout>
-          </widget>
-         </item>
         </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFrame" name="frame_3">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="m_presetInputLayout"/>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>

@@ -138,11 +138,18 @@ public:
     void arm();
     void disarm();
 
+    void setEnabled(bool enable);
+    bool isEnabled() const;
+
     /** Write the value using x & y multipliers for the actual range */
     void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
 
     /** Read position from the current universe */
     void readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul);
+
+private:
+    /** Flag to enable/disable this fixture at runtime */
+    bool m_enabled;
 };
 
 /** @} */

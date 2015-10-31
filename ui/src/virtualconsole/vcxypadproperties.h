@@ -100,6 +100,7 @@ protected slots:
     void slotAddPositionClicked();
     void slotAddEFXClicked();
     void slotAddSceneClicked();
+    void slotAddFixtureGroupClicked();
     void slotRemovePresetClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotPresetSelectionChanged();

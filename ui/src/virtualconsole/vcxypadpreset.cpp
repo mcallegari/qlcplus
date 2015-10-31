@@ -38,6 +38,7 @@ VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &vcpp)
     , m_name(vcpp.m_name)
     , m_dmxPos(vcpp.m_dmxPos)
     , m_funcID(vcpp.m_funcID)
+    , m_fxGroup(vcpp.m_fxGroup)
     , m_keySequence(vcpp.m_keySequence)
 {
     if (vcpp.m_inputSource != NULL)
@@ -51,6 +52,20 @@ VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &vcpp)
 VCXYPadPreset::~VCXYPadPreset()
 {
 
+}
+
+QString VCXYPadPreset::getColor() const
+{
+    switch(m_type)
+    {
+        case EFX: return ("#BBBB8D"); break;
+        case Scene: return ("#BB8E8E"); break;
+        case FixtureGroup: return ("#95BB95"); break;
+        case Position:
+        default:
+            return ("#BBBBBB");
+        break;
+    }
 }
 
 void VCXYPadPreset::setFunctionID(quint32 id)
@@ -73,6 +88,16 @@ QPointF VCXYPadPreset::position() const
     return m_dmxPos;
 }
 
+void VCXYPadPreset::setFixtureGroup(QList<GroupHead> heads)
+{
+    m_fxGroup = heads;
+}
+
+QList<GroupHead> VCXYPadPreset::fixtureGroup() const
+{
+    return m_fxGroup;
+}
+
 bool VCXYPadPreset::operator<(const VCXYPadPreset &right) const
 {
     return m_id < right.m_id;
@@ -89,6 +114,8 @@ QString VCXYPadPreset::typeToString(VCXYPadPreset::PresetType type)
         return "EFX";
     else if (type == Scene)
         return "Scene";
+    else if (type == FixtureGroup)
+        return "FixtureGroup";
 
     return "Position";
 }
@@ -99,6 +126,8 @@ VCXYPadPreset::PresetType VCXYPadPreset::stringToType(QString str)
         return EFX;
     else if (str == "Scene")
         return Scene;
+    else if (str == "FixtureGroup")
+        return FixtureGroup;
 
     return Position;
 }
@@ -155,6 +184,19 @@ bool VCXYPadPreset::loadXML(const QDomElement &root)
         {
             pos.setY(QString(tag.text()).toFloat());
             hasPosition = true;
+        }
+        else if (tag.tagName() == KXMLQLCVCXYPadPresetFixture)
+        {
+            quint32 fxID = Fixture::invalidId();
+            int head = -1;
+
+            if (tag.hasAttribute(KXMLQLCVCXYPadPresetFixtureID))
+                fxID = tag.attribute(KXMLQLCVCXYPadPresetFixtureID).toUInt();
+            if (tag.hasAttribute(KXMLQLCVCXYPadPresetFixtureHead))
+                head = tag.attribute(KXMLQLCVCXYPadPresetFixtureHead).toInt();
+
+            if (fxID != Fixture::invalidId() && head != -1)
+                m_fxGroup.append(GroupHead(fxID, head));
         }
         else if (tag.tagName() == KXMLQLCVCXYPadPresetInput)
         {
@@ -230,6 +272,16 @@ bool VCXYPadPreset::saveXML(QDomDocument *doc, QDomElement *xypad_root)
         root.appendChild(tag);
         text = doc->createTextNode(QString::number(m_dmxPos.y()));
         tag.appendChild(text);
+    }
+    else if (m_type == FixtureGroup)
+    {
+        foreach (GroupHead gh, fixtureGroup())
+        {
+            tag = doc->createElement(KXMLQLCVCXYPadPresetFixture);
+            tag.setAttribute(KXMLQLCVCXYPadPresetFixtureID, gh.fxi);
+            tag.setAttribute(KXMLQLCVCXYPadPresetFixtureHead, gh.head);
+            root.appendChild(tag);
+        }
     }
 
     /* External input source */
