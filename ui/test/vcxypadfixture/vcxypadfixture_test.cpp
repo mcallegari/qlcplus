@@ -75,24 +75,65 @@ void VCXYPadFixture_Test::params()
 {
     VCXYPadFixture fxi(m_doc);
     fxi.setX(0.2, 0.3, false);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.xMin(), 0.2);
     QCOMPARE(fxi.xMax(), 0.3);
     QCOMPARE(fxi.xReverse(), false);
-    QCOMPARE(fxi.xBrief(), QString("%1 - %2%").arg(100 * 0.2).arg(100 * 0.3));
+    QCOMPARE(fxi.xBrief(), QString("%1% - %2%").arg(100 * 0.2).arg(100 * 0.3));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.xBrief(), QString("%1 - %2").arg(255 * 0.2).arg(255 * 0.3));
 
     fxi.setX(0.2, 0.3, true);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.xReverse(), true);
-    QCOMPARE(fxi.xBrief(), QString("%1: %2 - %3%").arg(tr("Reversed")).arg(100 * 0.3).arg(100 * 0.2));
+    QCOMPARE(fxi.xBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.3).arg(100 * 0.2));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.xBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(255 * 0.3).arg(255 * 0.2));
 
     fxi.setY(0.1, 0.8, false);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.yMin(), 0.1);
     QCOMPARE(fxi.yMax(), 0.8);
     QCOMPARE(fxi.yReverse(), false);
-    QCOMPARE(fxi.yBrief(), QString("%1 - %2%").arg(100 * 0.1).arg(100 * 0.8));
+    QCOMPARE(fxi.yBrief(), QString("%1% - %2%").arg(100 * 0.1).arg(100 * 0.8));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.yBrief(), QString("%1 - %2").arg(255 * 0.1).arg(255 * 0.8));
 
     fxi.setY(0.1, 0.8, true);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.yReverse(), true);
-    QCOMPARE(fxi.yBrief(), QString("%1: %2 - %3%").arg(tr("Reversed")).arg(100 * 0.8).arg(100 * 0.1));
+    QCOMPARE(fxi.yBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.8).arg(100 * 0.1));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.yBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(255 * 0.8).arg(255 * 0.1));
+}
+
+void VCXYPadFixture_Test::paramsDegrees()
+{
+    Fixture* fxi = new Fixture(m_doc);
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().first();
+    QVERIFY(mode != NULL);
+    fxi->setFixtureDefinition(def, mode);
+    m_doc->addFixture(fxi);
+
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(0, 1, false);
+    xy.setY(0, 1, false);
+
+    QCOMPARE(xy.xBrief(), QString("%1° - %2°").arg(0).arg(180));
+    QCOMPARE(xy.yBrief(), QString("%1° - %2°").arg(0).arg(75));
+
+    xy.setX(0.5, 1, false);
+    xy.setY(0.2, 1, false);
+
+    QCOMPARE(xy.xBrief(), QString("%1° - %2°").arg(90).arg(180));
+    QCOMPARE(xy.yBrief(), QString("%1° - %2°").arg(15).arg(75));
 }
 
 void VCXYPadFixture_Test::fromVariantBelowZero()
@@ -106,6 +147,8 @@ void VCXYPadFixture_Test::fromVariantBelowZero()
     list << QString("-0.3");
     list << QString("-0.4");
     list << QString("0");
+    list << QString("1");
+    list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
     QCOMPARE(fxi.m_head.fxi, quint32(12));
@@ -136,6 +179,8 @@ void VCXYPadFixture_Test::fromVariantAboveOne()
     list << QString("1.3");
     list << QString("1.4");
     list << QString("3");
+    list << QString("1");
+    list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
     QCOMPARE(fxi.m_head.fxi, quint32(12));
@@ -165,6 +210,8 @@ void VCXYPadFixture_Test::fromVariantWithinRange()
     list << QString("1");
     list << QString("0.5");
     list << QString("0.6");
+    list << QString("1");
+    list << QString("1");
     list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
@@ -244,7 +291,7 @@ void VCXYPadFixture_Test::toVariant()
     QVariant var(fxi);
     QVERIFY(var.canConvert<QStringList>() == true);
     QStringList list = var.toStringList();
-    QCOMPARE(list.size(), 8);
+    QCOMPARE(list.size(), 10);
     QCOMPARE(list.takeFirst(), QString("3000"));
     QCOMPARE(list.takeFirst(), QString("178"));
     QCOMPARE(list.takeFirst(), QString("0.1"));
@@ -253,6 +300,8 @@ void VCXYPadFixture_Test::toVariant()
     QCOMPARE(list.takeFirst(), QString("0.3"));
     QCOMPARE(list.takeFirst(), QString("0.4"));
     QCOMPARE(list.takeFirst(), QString("0"));
+    QCOMPARE(list.takeFirst(), QString("1"));
+    QCOMPARE(list.takeFirst(), QString("1"));
 }
 
 void VCXYPadFixture_Test::copy()

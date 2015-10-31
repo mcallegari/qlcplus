@@ -71,6 +71,10 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    /********************************************************************
+     * General page
+     ********************************************************************/
+
     m_nameEdit->setText(m_xypad->caption());
 
     if (m_xypad->invertedAppearance() == true)
@@ -118,8 +122,19 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_heightInputWidget->show();
     m_sizeInputLayout->addWidget(m_heightInputWidget);
 
+    /********************************************************************
+     * Fixtures page
+     ********************************************************************/
+
     slotSelectionChanged(NULL);
-    fillTree();
+    fillFixturesTree();
+
+    connect(m_percentageRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotPercentageRadioChecked()));
+    connect(m_degreesRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotDegreesRadioChecked()));
+    connect(m_dmxRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotDMXRadioChecked()));
 
     /********************************************************************
      * Presets page
@@ -188,7 +203,7 @@ VCXYPadProperties::~VCXYPadProperties()
  * Fixtures page
  ****************************************************************************/
 
-void VCXYPadProperties::fillTree()
+void VCXYPadProperties::fillFixturesTree()
 {
     m_tree->clear();
 
@@ -199,6 +214,18 @@ void VCXYPadProperties::fillTree()
     m_tree->resizeColumnToContents(KColumnFixture);
     m_tree->resizeColumnToContents(KColumnXAxis);
     m_tree->resizeColumnToContents(KColumnYAxis);
+}
+
+void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
+{
+    for(int i = 0; i < m_tree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
+        QVariant var(item->data(KColumnFixture, Qt::UserRole));
+        VCXYPadFixture fx = VCXYPadFixture(m_doc, var);
+        fx.setDisplayMode(mode);
+        updateFixtureItem(item, fx);
+    }
 }
 
 void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item,
@@ -375,6 +402,21 @@ void VCXYPadProperties::slotSelectionChanged(QTreeWidgetItem* item)
         m_removeButton->setEnabled(true);
         m_editButton->setEnabled(true);
     }
+}
+
+void VCXYPadProperties::slotPercentageRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::Percentage);
+}
+
+void VCXYPadProperties::slotDegreesRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::Degrees);
+}
+
+void VCXYPadProperties::slotDMXRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::DMX);
 }
 
 /****************************************************************************

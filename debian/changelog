@@ -4,6 +4,7 @@ qlcplus (4.10.2) stable; urgency=low
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Virtual Console/XYPad: added Fixture Group preset, to control a subgroup of Fixtures (see documentation)
+  * Virtual Console/XYPad Properties: Fixture ranges can now be set in degrees, percentage or DMX values
   * Input Profiles: added an option for Buttons to always generate a press/release event
   * New input profile: Touch OSC Automat5
   * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)

@@ -34,6 +34,7 @@ private slots:
 
     void initial();
     void params();
+    void paramsDegrees();
     void fromVariantBelowZero();
     void fromVariantAboveOne();
     void fromVariantWithinRange();

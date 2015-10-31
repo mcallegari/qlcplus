@@ -125,6 +125,23 @@ private:
     quint32 m_yMSB;
 
     /********************************************************************
+     * Display mode
+     ********************************************************************/
+public:
+    enum DisplayMode
+    {
+        Percentage = 0,
+        Degrees,
+        DMX
+    };
+
+    void setDisplayMode(DisplayMode mode);
+    DisplayMode displayMode() const;
+
+private:
+    DisplayMode m_displayMode;
+
+    /********************************************************************
      * Load & Save
      ********************************************************************/
 public:

@@ -227,6 +227,42 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Range Display Mode</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="m_degreesRadio">
+            <property name="text">
+             <string>Degrees</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_percentageRadio">
+            <property name="text">
+             <string>Percentage</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_dmxRadio">
+            <property name="text">
+             <string>DMX</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="3" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
