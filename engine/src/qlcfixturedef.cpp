@@ -309,7 +309,7 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
     doc.setCodec("UTF-8");
-    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument);
+    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author());
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);
     doc.writeTextElement(KXMLQLCFixtureDefModel, m_model);
