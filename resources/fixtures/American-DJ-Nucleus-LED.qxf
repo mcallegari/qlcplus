@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -304,10 +304,10 @@
  </Channel>
  <Mode Name="4 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="9" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="496" Height="544" Depth="175"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan &amp; Tilt Movement</Channel>
@@ -317,10 +317,10 @@
  </Mode>
  <Mode Name="18 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="9" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="496" Height="544" Depth="175"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
@@ -347,14 +347,14 @@
    <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
+   <Channel>8</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
-   <Channel>8</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
@@ -367,17 +367,17 @@
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
  </Mode>
  <Mode Name="22 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="9" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="496" Height="544" Depth="175"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
@@ -403,34 +403,34 @@
   <Channel Number="20">Color Macro</Channel>
   <Channel Number="21">Color Macro Speed</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
    <Channel>4</Channel>
+   <Channel>5</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
-   <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
    <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>12</Channel>
-   <Channel>14</Channel>
    <Channel>13</Channel>
+   <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

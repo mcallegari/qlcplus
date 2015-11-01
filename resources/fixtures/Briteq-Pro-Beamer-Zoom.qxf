@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Giacomo</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -187,10 +187,10 @@
  </Channel>
  <Mode Name="Tour">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -208,10 +208,10 @@
  </Mode>
  <Mode Name="AR2.Z">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -224,10 +224,10 @@
  </Mode>
  <Mode Name="AR2.S">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -239,10 +239,10 @@
  </Mode>
  <Mode Name="TR16">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -265,10 +265,10 @@
  </Mode>
  <Mode Name="ARC.1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -277,11 +277,11 @@
  </Mode>
  <Mode Name="AR1.D">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -290,10 +290,10 @@
  </Mode>
  <Mode Name="ARC.2">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -303,10 +303,10 @@
  </Mode>
  <Mode Name="AR2.D">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -317,10 +317,10 @@
  </Mode>
  <Mode Name="HSV">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Hue</Channel>
@@ -329,10 +329,10 @@
  </Mode>
  <Mode Name="Full">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
