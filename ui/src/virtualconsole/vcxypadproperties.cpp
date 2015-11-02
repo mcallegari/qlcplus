@@ -524,10 +524,11 @@ void VCXYPadProperties::selectItemOnPresetsTree(quint8 presetId)
         if (treeItem->data(0, Qt::UserRole).toUInt() == presetId)
         {
             treeItem->setSelected(true);
-            m_presetsTree->blockSignals(false);
-            return;
+            break;
         }
     }
+
+    m_presetsTree->blockSignals(false);
 }
 
 void VCXYPadProperties::updateTreeItem(const VCXYPadPreset &preset)
