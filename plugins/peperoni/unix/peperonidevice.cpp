@@ -79,13 +79,13 @@ bool PeperoniDevice::isPeperoniDevice(int vid, int pid)
 {
     if (vid != PEPERONI_VID)
         return false;
-    if (pid != PEPERONI_PID_RODIN1 ||
-        pid != PEPERONI_PID_RODIN2 ||
-        pid != PEPERONI_PID_RODINT ||
-        pid != PEPERONI_PID_XSWITCH ||
-        pid != PEPERONI_PID_USBDMX21)
-        return false;
-    return true;
+    if (pid == PEPERONI_PID_RODIN1 ||
+        pid == PEPERONI_PID_RODIN2 ||
+        pid == PEPERONI_PID_RODINT ||
+        pid == PEPERONI_PID_XSWITCH ||
+        pid == PEPERONI_PID_USBDMX21)
+            return true;
+    return false;
 }
 
 int PeperoniDevice::outputsNumber(const struct usb_device *device)
