@@ -1,6 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.9.1</Version>
@@ -11,13 +11,13 @@
  <Type>Strobe</Type>
  <Channel Name="Speed/Mode/Blinder Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="42">Slow &lt;-> fast/No function</Capability>
-  <Capability Min="43" Max="211">Slow &lt;-> fast/Blinder (requires ch. 2 to be at DMX value 000)</Capability>
+  <Capability Min="0" Max="42">Slow &lt;-&gt; fast/No function</Capability>
+  <Capability Min="43" Max="211">Slow &lt;-&gt; fast/Blinder (requires ch. 2 to be at DMX value 000)</Capability>
   <Capability Min="212" Max="255">Sound triggered/No function</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Low &lt;-> high (0 for Blinder effect)</Capability>
+  <Capability Min="0" Max="255">Low &lt;-&gt; high (0 for Blinder effect)</Capability>
  </Channel>
  <Mode Name="Standard">
   <Physical>
