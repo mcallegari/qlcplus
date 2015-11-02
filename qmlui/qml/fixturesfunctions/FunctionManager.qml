@@ -29,6 +29,7 @@ Rectangle
     id: fmContainer
     anchors.fill: parent
     color: "transparent"
+    clip: true
 
     property int functionID: -1
 
