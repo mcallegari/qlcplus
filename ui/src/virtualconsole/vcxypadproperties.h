@@ -97,9 +97,16 @@ public:
 
 private:
     void updatePresetsTree();
+    void selectItemOnPresetsTree(quint8 presetId);
     void updateTreeItem(VCXYPadPreset const& preset);
     VCXYPadPreset *getSelectedPreset();
     void removePreset(quint8 id);
+
+    //move preset up and swap id with previous preset. Return new preset id.
+    quint8 moveUpPreset(quint8 id);
+
+    //move preset down and swap id with the next preset. Return new preset id.
+    quint8 moveDownPreset(quint8 id);
 
 protected slots:
     void slotAddPositionClicked();
@@ -107,6 +114,8 @@ protected slots:
     void slotAddSceneClicked();
     void slotAddFixtureGroupClicked();
     void slotRemovePresetClicked();
+    void slotMoveUpPresetClicked();
+    void slotMoveDownPresetClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotPresetSelectionChanged();
     void slotXYPadPositionChanged(const QPointF& pt);

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
+    <width>546</width>
     <height>472</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="general">
       <attribute name="title">
@@ -360,6 +360,28 @@
              <property name="icon">
               <iconset resource="../qlcui.qrc">
                <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_moveUpPresetButton">
+             <property name="text">
+              <string>Move Up</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/up.png</normaloff>:/up.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_moveDownPresetButton">
+             <property name="text">
+              <string>Move Down</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/down.png</normaloff>:/down.png</iconset>
              </property>
             </widget>
            </item>

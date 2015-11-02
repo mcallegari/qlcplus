@@ -161,6 +161,10 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
             this, SLOT(slotAddFixtureGroupClicked()));
     connect(m_removePresetButton, SIGNAL(clicked()),
             this, SLOT(slotRemovePresetClicked()));
+    connect(m_moveUpPresetButton, SIGNAL(clicked()),
+            this, SLOT(slotMoveUpPresetClicked()));
+    connect(m_moveDownPresetButton, SIGNAL(clicked()),
+            this, SLOT(slotMoveDownPresetClicked()));
     connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)),
             this, SLOT(slotPresetNameEdited(QString const&)));
     connect(m_presetsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
@@ -510,6 +514,22 @@ void VCXYPadProperties::updatePresetsTree()
     m_presetsTree->blockSignals(false);
 }
 
+void VCXYPadProperties::selectItemOnPresetsTree(quint8 presetId)
+{
+    m_presetsTree->blockSignals(true);
+
+    for (int i = 0; i < m_presetsTree->topLevelItemCount(); ++i)
+    {
+        QTreeWidgetItem* treeItem = m_presetsTree->topLevelItem(i);
+        if (treeItem->data(0, Qt::UserRole).toUInt() == presetId)
+        {
+            treeItem->setSelected(true);
+            m_presetsTree->blockSignals(false);
+            return;
+        }
+    }
+}
+
 void VCXYPadProperties::updateTreeItem(const VCXYPadPreset &preset)
 {
     m_presetsTree->blockSignals(true);
@@ -558,6 +578,65 @@ void VCXYPadProperties::removePreset(quint8 id)
             return;
         }
     }
+}
+
+quint8 VCXYPadProperties::moveUpPreset(quint8 id)
+{
+    for(int i = 0; i < m_presetList.count(); i++)
+    {
+        if (m_presetList.at(i)->m_id == id)
+        {
+            if(i > 0)
+            {
+                //change order on hash preset structure.
+                //presets are saved in hash and sort on id is used to create the preset list.
+                //So swapping id change order every time that preset list is created (restore, dialog open, ...).
+                quint8 dstPosID = m_presetList.at(i-1)->m_id;
+                quint8 srcPosID = m_presetList.at(i)->m_id;
+
+                m_presetList.at(i-1)->m_id = srcPosID;
+                m_presetList.at(i)->m_id = dstPosID;
+
+                //change order on current preset list...
+                m_presetList.move(i, i-1);
+
+                return dstPosID;
+            }
+
+            return id;
+        }
+    }
+
+    return id;
+}
+
+quint8 VCXYPadProperties::moveDownPreset(quint8 id)
+{
+    for(int i = 0; i < m_presetList.count(); i++)
+    {
+        if (m_presetList.at(i)->m_id == id)
+        {
+            if(i < m_presetList.count() - 1)
+            {
+                //change order on hash preset structure.
+                //presets are saved in hash and sort on id is used to create the preset list.
+                //So swapping id change order every time that preset list is created (restore, dialog open, ...).
+                quint8 dstPosID = m_presetList.at(i+1)->m_id;
+                quint8 srcPosID = m_presetList.at(i)->m_id;
+
+                m_presetList.at(i+1)->m_id = srcPosID;
+                m_presetList.at(i)->m_id = dstPosID;
+
+                //change order on current preset list...
+                m_presetList.move(i, i+1);
+
+                return dstPosID;
+            }
+            return id;
+        }
+    }
+
+    return id;
 }
 
 void VCXYPadProperties::slotAddPositionClicked()
@@ -704,6 +783,32 @@ void VCXYPadProperties::slotRemovePresetClicked()
     quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
     removePreset(ctlID);
     updatePresetsTree();
+}
+
+void VCXYPadProperties::slotMoveUpPresetClicked()
+{
+    if (m_presetsTree->selectedItems().isEmpty())
+        return;
+    QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
+    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+    quint8 newID = moveUpPreset(ctlID);
+    updatePresetsTree();
+
+    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    selectItemOnPresetsTree(newID);
+}
+
+void VCXYPadProperties::slotMoveDownPresetClicked()
+{
+    if (m_presetsTree->selectedItems().isEmpty())
+        return;
+    QTreeWidgetItem *selItem = m_presetsTree->selectedItems().first();
+    quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+    quint8 newID =moveDownPreset(ctlID);
+    updatePresetsTree();
+
+    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    selectItemOnPresetsTree(newID);
 }
 
 void VCXYPadProperties::slotPresetNameEdited(const QString &newName)
