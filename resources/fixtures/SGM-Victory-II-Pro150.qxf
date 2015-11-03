@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -64,7 +64,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="49">Off</Capability>
   <Capability Min="50" Max="79">No rotation</Capability>
-  <Capability Min="80" Max="255">Rotation, slow -> fast</Capability>
+  <Capability Min="80" Max="255">Rotation, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
@@ -82,22 +82,22 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="9">White</Capability>
-  <Capability Min="10" Color2="#ffff00" Color="#ffffff" Max="19">White + Yellow</Capability>
-  <Capability Min="20" Color="#ffff00" Max="29">Yellow</Capability>
-  <Capability Min="30" Color2="#ff00ff" Color="#ffff00" Max="39">Yellow + Magenta</Capability>
-  <Capability Min="40" Color="#ff00ff" Max="49">Magenta</Capability>
-  <Capability Min="50" Color2="#00ffff" Color="#ff00ff" Max="59">Magenta + Cyan</Capability>
-  <Capability Min="60" Color="#00ffff" Max="69">Cyan</Capability>
-  <Capability Min="70" Color2="#ffaa00" Color="#00ffff" Max="79">Cyan + Orange</Capability>
-  <Capability Min="80" Color="#ffaa00" Max="89">Orange</Capability>
-  <Capability Min="90" Color2="#00ff00" Color="#ffaa00" Max="99">Orange + Green</Capability>
-  <Capability Min="100" Color="#00ff00" Max="109">Green</Capability>
-  <Capability Min="110" Color2="#0000ff" Color="#00ff00" Max="119">Green + Blue</Capability>
-  <Capability Min="120" Color="#0000ff" Max="129">Blue</Capability>
-  <Capability Min="130" Color2="#ff0000" Color="#0000ff" Max="139">Blue + Red</Capability>
-  <Capability Min="140" Color="#ff0000" Max="149">Red</Capability>
-  <Capability Min="150" Color2="#ffffff" Color="#ff0000" Max="159">Red + White</Capability>
+  <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="19" Color="#ffffff" Color2="#ffff00">White + Yellow</Capability>
+  <Capability Min="20" Max="29" Color="#ffff00">Yellow</Capability>
+  <Capability Min="30" Max="39" Color="#ffff00" Color2="#ff00ff">Yellow + Magenta</Capability>
+  <Capability Min="40" Max="49" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="50" Max="59" Color="#ff00ff" Color2="#00ffff">Magenta + Cyan</Capability>
+  <Capability Min="60" Max="69" Color="#00ffff">Cyan</Capability>
+  <Capability Min="70" Max="79" Color="#00ffff" Color2="#ffaa00">Cyan + Orange</Capability>
+  <Capability Min="80" Max="89" Color="#ffaa00">Orange</Capability>
+  <Capability Min="90" Max="99" Color="#ffaa00" Color2="#00ff00">Orange + Green</Capability>
+  <Capability Min="100" Max="109" Color="#00ff00">Green</Capability>
+  <Capability Min="110" Max="119" Color="#00ff00" Color2="#0000ff">Green + Blue</Capability>
+  <Capability Min="120" Max="129" Color="#0000ff">Blue</Capability>
+  <Capability Min="130" Max="139" Color="#0000ff" Color2="#ff0000">Blue + Red</Capability>
+  <Capability Min="140" Max="149" Color="#ff0000">Red</Capability>
+  <Capability Min="150" Max="159" Color="#ff0000" Color2="#ffffff">Red + White</Capability>
   <Capability Min="160" Max="244" Res="Others/rainbow.png">Rainbow speed</Capability>
   <Capability Min="245" Max="255">Music hard change</Capability>
  </Channel>
@@ -119,10 +119,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Type="HTI 150W" Lumens="0"/>
-   <Dimensions Width="180" Height="650" Depth="350" Weight="18"/>
+   <Bulb Type="HTI 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18" Width="180" Height="650" Depth="350"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="90" TiltMax="180"/>
    <Technical PowerConsumption="375" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Not used</Channel>
