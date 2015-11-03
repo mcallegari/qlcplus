@@ -3,31 +3,31 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.10.1</Version>
   <Author>Dag Stenstad</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
  <Model>Thunderscan FX</Model>
- <Type>Scanner</Type>
+ <Type>Effect</Type>
  <Channel Name="Mirror 1 Rotation">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="127">CCW Rotation (Slow to Fast)</Capability>
   <Capability Min="128" Max="255">CW Rotation (Fast to Slow)</Capability>
  </Channel>
  <Channel Name="Mirror 2 Rotation">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="127">CCW Rotation (Slow to Fast)</Capability>
   <Capability Min="128" Max="255">CW Rotation (Fast to Slow)</Capability>
  </Channel>
  <Channel Name="Mirror 1 Pattern">
   <Group Byte="0">Effect</Group>
   <Capability Min="1" Max="10">No Pattern</Capability>
-  <Capability Color="#ff0004" Min="11" Max="15">Red</Capability>
-  <Capability Color="#00ff1d" Min="16" Max="20">Green</Capability>
-  <Capability Color="#0c6dff" Min="21" Max="25">Blue</Capability>
-  <Capability Color="#ff0000" Min="26" Max="30" Color2="#00ff00">Red+Green</Capability>
-  <Capability Color="#26ff05" Min="31" Max="35" Color2="#1170ff">Green+Blue</Capability>
-  <Capability Color="#ff0000" Min="36" Max="40" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="11" Max="15" Color="#ff0004">Red</Capability>
+  <Capability Min="16" Max="20" Color="#00ff1d">Green</Capability>
+  <Capability Min="21" Max="25" Color="#0c6dff">Blue</Capability>
+  <Capability Min="26" Max="30" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
+  <Capability Min="31" Max="35" Color="#26ff05" Color2="#1170ff">Green+Blue</Capability>
+  <Capability Min="36" Max="40" Color="#ff0000" Color2="#213eff">Red+Blue</Capability>
   <Capability Min="41" Max="45">Red+Green+Blue</Capability>
   <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
   <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
@@ -70,12 +70,12 @@
  <Channel Name="Mirror 2 Pattern">
   <Group Byte="0">Effect</Group>
   <Capability Min="1" Max="10">No Pattern</Capability>
-  <Capability Color="#ff0004" Min="11" Max="15">Red</Capability>
-  <Capability Color="#00ff1d" Min="16" Max="20">Green</Capability>
-  <Capability Color="#0c6dff" Min="21" Max="25">Blue</Capability>
-  <Capability Color="#ff3b00" Min="26" Max="30" Color2="#19ff00">Red+Green</Capability>
-  <Capability Color="#26ff05" Min="31" Max="35" Color2="#1170ff">Green+Blue</Capability>
-  <Capability Color="#ff0000" Min="36" Max="40" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="11" Max="15" Color="#ff0004">Red</Capability>
+  <Capability Min="16" Max="20" Color="#00ff1d">Green</Capability>
+  <Capability Min="21" Max="25" Color="#0c6dff">Blue</Capability>
+  <Capability Min="26" Max="30" Color="#ff3b00" Color2="#19ff00">Red+Green</Capability>
+  <Capability Min="31" Max="35" Color="#26ff05" Color2="#1170ff">Green+Blue</Capability>
+  <Capability Min="36" Max="40" Color="#ff0000" Color2="#213eff">Red+Blue</Capability>
   <Capability Min="41" Max="45">Red+Green+Blue</Capability>
   <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
   <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
@@ -151,9 +151,9 @@
  <Mode Name="DMX 10-channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="460" Width="360" Depth="190" Weight="4.8"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Dimensions Weight="4.8" Width="360" Height="460" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirror 1 Rotation</Channel>

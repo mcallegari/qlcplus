@@ -47,7 +47,7 @@
  <Mode Name="6 Channel Mode">
   <Physical>
    <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="139" Width="175" Depth="163" Weight="0"/>
+   <Dimensions Height="139" Width="175" Depth="163" Weight="11.5"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="5-pin"/>
@@ -62,7 +62,7 @@
  <Mode Name="3 Channel Mode">
   <Physical>
    <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="139" Width="175" Depth="163" Weight="0"/>
+   <Dimensions Height="139" Width="175" Depth="163" Weight="11.5"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="5-pin"/>
