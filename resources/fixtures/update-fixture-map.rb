@@ -124,10 +124,10 @@ class FixtureDef
     attr_accessor :width, :height, :depth, :weight
     def initialize(node)
       return if node.empty?
-      @width = node.attributes['Width']
-      @height = node.attributes['Height']
-      @depth = node.attributes['Depth']
-      @weight = node.attributes['Weight']
+      @width = node.attributes['Width'].to_i
+      @height = node.attributes['Height'].to_i
+      @depth = node.attributes['Depth'].to_i
+      @weight = node.attributes['Weight'].to_f
     end
   end
 
@@ -135,8 +135,8 @@ class FixtureDef
     attr_accessor :degrees_min, :degrees_max, :name
     def initialize(node)
       return if node.empty?
-      @degrees_min = node.attributes['DegreesMin']
-      @degrees_max = node.attributes['DegreesMax']
+      @degrees_min = node.attributes['DegreesMin'].to_f
+      @degrees_max = node.attributes['DegreesMax'].to_f
       @name = node.attributes['Name']
     end
   end
@@ -145,8 +145,8 @@ class FixtureDef
     attr_accessor :pan_max, :tilt_max, :type
     def initialize(node)
       return if node.empty?
-      @pan_max = node.attributes['PanMax']
-      @tilt_max = node.attributes['TiltMax']
+      @pan_max = node.attributes['PanMax'].to_i
+      @tilt_max = node.attributes['TiltMax'].to_i
       @type = node.attributes['Type']
     end
   end
@@ -276,13 +276,40 @@ class Fixtures
     orig_data = File.read(filename)
     doc = LibXML::XML::Document.string(orig_data)
     doc.root.children.map(&:remove!)
+    total_wrong = 0
     @fixtures.sort_by {|f| f.path.downcase }.each do |f|
       node = LibXML::XML::Node.new('fixture')
       LibXML::XML::Attr.new(node, 'path', f.path)
       LibXML::XML::Attr.new(node, 'mf', f.manufacturer)
       LibXML::XML::Attr.new(node, 'md', f.model)
+
+      wrong_pan = f.modes.find {|m| m.physical.focus.pan_max == 0 }
+      wrong_tilt = f.modes.find {|m| m.physical.focus.tilt_max == 0 }
+      has_pan = f.channels.find {|c| c.group.name == 'Pan' }
+      has_tilt = f.channels.find {|c| c.group.name == 'Tilt' }
+      wrong_width = f.modes.find {|m| m.physical.dimensions.width == 0 }
+      wrong_height = f.modes.find {|m| m.physical.dimensions.height == 0 }
+      wrong_depth = f.modes.find {|m| m.physical.dimensions.depth == 0 }
+      wrong_weight = f.modes.find {|m| m.physical.dimensions.weight == 0 }
+ 
+      problems = []
+      problems << "PAN" if wrong_pan && has_pan
+      problems << "TILT" if wrong_tilt && has_tilt
+      problems << "WIDTH" if wrong_width
+      problems << "HEIGHT" if wrong_height
+      problems << "DEPTH" if wrong_depth
+      problems << "WEIGHT" if wrong_weight 
+      
+      unless problems.empty?        
+        puts "#{f.path}: #{problems.join ' '}"
+        total_wrong += 1
+      end
+
       doc.root << node
     end
+
+    puts "wrong: #{total_wrong}"
+
     if doc.root.namespaces.default.nil?
       doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, "http://www.qlcplus.org/FixturesMap")
     end
