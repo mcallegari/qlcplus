@@ -368,13 +368,18 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
 
         /* Write values outside of mutex lock to keep UI snappy */
         foreach (VCXYPadFixture fixture, m_fixtures)
-            fixture.writeDMX(x, y, universes);
+        {
+            if (fixture.isEnabled())
+                fixture.writeDMX(x, y, universes);
+        }
     }
-
 
     QVariantList positions;
     foreach (VCXYPadFixture fixture, m_fixtures)
     {
+        if (fixture.isEnabled() == false)
+            continue;
+
         qreal x(-1), y(-1);
         fixture.readDMX(universes, x, y);
         if( x != -1.0 && y != -1.0)
@@ -543,13 +548,15 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
 
     QPushButton *presetButton = new QPushButton(this);
     QWidget *presetWidget = presetButton;
-    presetButton->setStyleSheet(presetBtnSS.arg("#BBBBBB"));
+    presetButton->setStyleSheet(presetBtnSS.arg(preset.getColor()));
     presetButton->setMinimumWidth(36);
     presetButton->setMaximumWidth(80);
     presetButton->setFocusPolicy(Qt::TabFocus);
     presetButton->setText(fontMetrics().elidedText(label, Qt::ElideRight, 72));
-    if (preset.m_type == VCXYPadPreset::EFX || preset.m_type == VCXYPadPreset::Scene)
-        presetButton->setCheckable(true);
+    if (preset.m_type == VCXYPadPreset::EFX ||
+        preset.m_type == VCXYPadPreset::Scene ||
+        preset.m_type == VCXYPadPreset::FixtureGroup)
+            presetButton->setCheckable(true);
 
     connect(presetButton, SIGNAL(clicked(bool)),
             this, SLOT(slotPresetClicked(bool)));
@@ -625,7 +632,14 @@ void VCXYPad::slotPresetClicked(bool checked)
             continue;
 
         cBtn->blockSignals(true);
-        if (cPr->m_type == VCXYPadPreset::EFX || cPr->m_type == VCXYPadPreset::Scene)
+        if (preset->m_type == VCXYPadPreset::FixtureGroup)
+        {
+            if (cPr->m_type == VCXYPadPreset::FixtureGroup &&
+                cBtn->isChecked() == true)
+                    cBtn->setChecked(false);
+        }
+        else if (cPr->m_type == VCXYPadPreset::EFX ||
+            cPr->m_type == VCXYPadPreset::Scene)
         {
             if (cBtn->isChecked() == true)
                 cBtn->setChecked(false);
@@ -734,6 +748,31 @@ void VCXYPad::slotPresetClicked(bool checked)
         btn->blockSignals(true);
         btn->setDown(true);
         btn->blockSignals(false);
+    }
+    else if (preset->m_type == VCXYPadPreset::FixtureGroup)
+    {
+        QList<GroupHead> heads = preset->fixtureGroup();
+
+        for (int i = 0; i < m_fixtures.count(); i++)
+        {
+            if (checked == false)
+            {
+                m_fixtures[i].setEnabled(true);
+            }
+            else
+            {
+                if (heads.contains(m_fixtures[i].head()))
+                {
+                    qDebug() << "Enabling head" << m_fixtures[i].head().fxi << m_fixtures[i].head().head;
+                    m_fixtures[i].setEnabled(true);
+                }
+                else
+                {
+                    qDebug() << "Disabling head" << m_fixtures[i].head().fxi << m_fixtures[i].head().head;
+                    m_fixtures[i].setEnabled(false);
+                }
+            }
+        }
     }
 }
 

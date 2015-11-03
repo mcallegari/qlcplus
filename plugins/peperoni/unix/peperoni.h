@@ -117,6 +117,13 @@ protected:
 protected:
     /** List of available devices */
     QHash <quint32, PeperoniDevice*> m_devices;
+
+    /********************************************************************
+     * Hotplug
+     ********************************************************************/
+public slots:
+    void slotDeviceAdded(uint vid, uint pid);
+    void slotDeviceRemoved(uint vid, uint pid);
 };
 
 #endif

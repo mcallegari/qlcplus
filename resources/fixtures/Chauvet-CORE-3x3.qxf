@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.9.1</Version>
   <Author>Ravi Radhakrishnan</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -147,8 +147,8 @@
   <Capability Min="81" Max="120">Chase 3</Capability>
   <Capability Min="121" Max="160">Chase 4</Capability>
   <Capability Min="161" Max="200">Chase 5</Capability>
-  <Capability Min="201" Max="240">Chase 6 (run Chases 1-4)</Capability>
-  <Capability Min="241" Max="255">Sound-Active mode</Capability>
+  <Capability Min="201" Max="240">Chase 6 (run chases 1-4)</Capability>
+  <Capability Min="241" Max="255">Sound-active mode</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
@@ -186,14 +186,14 @@
  <Channel Name="Custom Color and Color Temperature">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color="#ff0000" Min="11" Max="30" Color2="#ff7f00">Red 100% + Green 0-100%</Capability>
-  <Capability Color="#7fff00" Min="31" Max="50" Color2="#00ff00">Red 100%-0 + Green 100%</Capability>
-  <Capability Color="#00ff00" Min="51" Max="70" Color2="#00ff7f">Green 100% + Blue 0-100%</Capability>
+  <Capability Color2="#ff7f00" Color="#ff0000" Min="11" Max="30">Red 100% + Green 0-100%</Capability>
+  <Capability Color2="#00ff00" Color="#7fff00" Min="31" Max="50">Red 100%-0 + Green 100%</Capability>
+  <Capability Color2="#00ff7f" Color="#00ff00" Min="51" Max="70">Green 100% + Blue 0-100%</Capability>
   <Capability Color="#007fff" Min="71" Max="90">Green 100%-0 + Blue 100%</Capability>
-  <Capability Color="#7f00ff" Min="91" Max="110" Color2="#0000ff">Red 0-100% + Blue 100%</Capability>
-  <Capability Color="#ff007f" Min="111" Max="130" Color2="#ff0000">Red 100% + Blue 100%-0</Capability>
-  <Capability Color="#ff0000" Min="131" Max="150" Color2="#ff7f7f">Red 100% + Green 0-100% + Blue 0-100%</Capability>
-  <Capability Color="#7f7fff" Min="151" Max="170" Color2="#0000ff">Red 100%-0 + Green 100%-0 + Blue 100%</Capability>
+  <Capability Color2="#0000ff" Color="#7f00ff" Min="91" Max="110">Red 0-100% + Blue 100%</Capability>
+  <Capability Color2="#ff0000" Color="#ff007f" Min="111" Max="130">Red 100% + Blue 100%-0</Capability>
+  <Capability Color2="#ff7f7f" Color="#ff0000" Min="131" Max="150">Red 100% + Green 0-100% + Blue 0-100%</Capability>
+  <Capability Color2="#0000ff" Color="#7f7fff" Min="151" Max="170">Red 100%-0 + Green 100%-0 + Blue 100%</Capability>
   <Capability Color="#ffffff" Min="171" Max="200">Red 100% + Green 100% + Blue 100%</Capability>
   <Capability Min="201" Max="205">Color temperature 1</Capability>
   <Capability Min="206" Max="210">Color temperature 2</Capability>
@@ -217,9 +217,9 @@
  </Channel>
  <Mode Name="31-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="6.2" Width="344" Depth="156" Height="344"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="156" Width="344" Weight="6.2" Height="344"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="226" DmxConnector="3-pin"/>
   </Physical>
@@ -260,14 +260,14 @@
    <Channel>2</Channel>
   </Head>
   <Head>
+   <Channel>3</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
-   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
@@ -275,19 +275,19 @@
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>14</Channel>
    <Channel>13</Channel>
+   <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>15</Channel>
    <Channel>17</Channel>
    <Channel>16</Channel>
+   <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>20</Channel>
    <Channel>19</Channel>
    <Channel>18</Channel>
+   <Channel>20</Channel>
   </Head>
   <Head>
    <Channel>21</Channel>
@@ -302,9 +302,9 @@
  </Mode>
  <Mode Name="27-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="6.2" Width="344" Depth="156" Height="344"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="156" Width="344" Weight="6.2" Height="344"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="226" DmxConnector="3-pin"/>
   </Physical>
@@ -341,14 +341,14 @@
    <Channel>2</Channel>
   </Head>
   <Head>
+   <Channel>3</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
-   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
@@ -356,19 +356,19 @@
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>14</Channel>
    <Channel>13</Channel>
+   <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>15</Channel>
    <Channel>17</Channel>
    <Channel>16</Channel>
+   <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>20</Channel>
    <Channel>19</Channel>
    <Channel>18</Channel>
+   <Channel>20</Channel>
   </Head>
   <Head>
    <Channel>21</Channel>
@@ -383,29 +383,29 @@
  </Mode>
  <Mode Name="9-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="6.2" Width="344" Depth="156" Height="344"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="156" Width="344" Weight="6.2" Height="344"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="226" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Auto programs</Channel>
-  <Channel Number="1">Speed</Channel>
-  <Channel Number="2">Dimmer</Channel>
-  <Channel Number="3">Shutter</Channel>
-  <Channel Number="4">Red</Channel>
-  <Channel Number="5">Green</Channel>
-  <Channel Number="6">Blue</Channel>
-  <Channel Number="7">Custom Color and Color Temperature</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Custom Color and Color Temperature</Channel>
+  <Channel Number="6">Auto programs</Channel>
+  <Channel Number="7">Speed</Channel>
   <Channel Number="8">Dimmer Mode</Channel>
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
-   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="0" Width="0" Depth="0" Height="0"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="156" Width="344" Weight="6.2" Height="344"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="226" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -415,11 +415,11 @@
  </Mode>
  <Mode Name="3-Channel">
   <Physical>
-   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="0" Width="0" Depth="0" Height="0"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="156" Width="344" Weight="6.2" Height="344"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="226" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>

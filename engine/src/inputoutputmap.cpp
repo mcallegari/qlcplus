@@ -668,7 +668,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
-    bool success = false;
+    bool success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
         OutputPatch* op = m_universeArray.at(i)->outputPatch();

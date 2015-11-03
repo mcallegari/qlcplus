@@ -64,6 +64,18 @@ void HotPlugMonitor::connectListener(QObject* listener)
                 listener, SLOT(slotDeviceRemoved(uint,uint)));
 }
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+void HotPlugMonitor::setWinId(WId id)
+{
+    instance()->d_ptr->setWinId(id);
+}
+
+bool HotPlugMonitor::parseWinEvent(void *message, long *result)
+{
+    return instance()->d_ptr->processWinEvent((MSG*)message, result);
+}
+#endif
+
 HotPlugMonitor* HotPlugMonitor::instance()
 {
     if (s_instance == NULL)

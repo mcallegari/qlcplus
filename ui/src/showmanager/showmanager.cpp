@@ -1051,29 +1051,34 @@ void ShowManager::slotPaste()
         if (clipboardCopy->type() == Function::Chaser)
         {
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
-            // Verify the Chaser copy steps against the current Scene
-            foreach(ChaserStep cs, chaser->steps())
+            if (chaser->isSequence() == true)
             {
-                foreach(SceneValue scv, cs.values)
+                // Verify the Chaser copy steps against the current Scene
+                foreach(ChaserStep cs, chaser->steps())
                 {
-                    if (m_currentScene->checkValue(scv) == false)
+                    foreach(SceneValue scv, cs.values)
                     {
-                        QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
-                        return;
+                        if (m_currentScene->checkValue(scv) == false)
+                        {
+                            QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                            return;
+                        }
                     }
                 }
+                // Bind the sequence to the track Scene ID
+                chaser->enableSequenceMode(m_currentScene->id());
             }
 
-            // Invalidate start time so the sequence will be pasted at the cursor position
+            // Invalidate start time so the chaser will be pasted at the cursor position
             chaser->setStartTime(UINT_MAX);
-            // Reset the Scene ID to bind to the correct Scene
-            chaser->enableSequenceMode(m_currentScene->id());
             if (m_doc->addFunction(newCopy) == false)
             {
                 delete newCopy;
                 return;
             }
-            Track *track = m_show->getTrackFromSceneID(m_currentScene->id());
+            Track *track = m_currentTrack;
+            if (chaser->isSequence())
+                track = m_show->getTrackFromSceneID(m_currentScene->id());
             m_showview->addSequence(chaser, track);
         }
         else if (clipboardCopy->type() == Function::Audio)

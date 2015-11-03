@@ -59,6 +59,9 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
  #include "videoprovider.h"
 #endif
+#if defined(WIN32) || defined(Q_OS_WIN)
+#   include "hotplugmonitor.h"
+#endif
 
 //#define DEBUG_SPEED
 
@@ -301,6 +304,7 @@ void App::init()
     ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
                             .arg(USERQLCPLUSDIR);
     free(home);
+    HotPlugMonitor::setWinId(winId());
 #else
     /* User's input profile directory on *NIX systems */
     ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
@@ -334,6 +338,15 @@ void App::setActiveWindow(const QString& name)
         }
     }
 }
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    Q_UNUSED(eventType)
+    //qDebug() << Q_FUNC_INFO << eventType;
+    return HotPlugMonitor::parseWinEvent(message, result);
+}
+#endif
 
 void App::closeEvent(QCloseEvent* e)
 {

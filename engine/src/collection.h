@@ -69,7 +69,7 @@ public:
      * @param fid The function to add
      * @return true if successful, otherwise false
      */
-    Q_INVOKABLE bool addFunction(quint32 fid);
+    Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
 
     /**
      * Remove a function from this collection. If the function is not a

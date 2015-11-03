@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -15,35 +15,35 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">White</Capability>
-  <Capability Min="10" Max="19">White + Yellow</Capability>
-  <Capability Min="20" Max="29">Yellow</Capability>
-  <Capability Min="30" Max="39">Yellow + Magenta</Capability>
-  <Capability Min="40" Max="49">Magenta</Capability>
-  <Capability Min="50" Max="59">Magenta + Cyan</Capability>
-  <Capability Min="60" Max="69">Cyan</Capability>
-  <Capability Min="70" Max="79">Cyan + Orange</Capability>
-  <Capability Min="80" Max="89">Orange</Capability>
-  <Capability Min="90" Max="99">Orange + Green</Capability>
-  <Capability Min="100" Max="109">Green</Capability>
-  <Capability Min="110" Max="119">Green + Blue</Capability>
-  <Capability Min="120" Max="129">Blue</Capability>
-  <Capability Min="130" Max="139">Blue + Red</Capability>
-  <Capability Min="140" Max="149">Red</Capability>
-  <Capability Min="150" Max="159">Red + White</Capability>
-  <Capability Min="160" Max="244">Rainbow speed</Capability>
+  <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="19" Color="#ffffff" Color2="#ffff00">White + yellow</Capability>
+  <Capability Min="20" Max="29" Color="#ffff00">Yellow</Capability>
+  <Capability Min="30" Max="39" Color="#ffff00" Color2="#ff00ff">Yellow + magenta</Capability>
+  <Capability Min="40" Max="49" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="50" Max="59" Color="#ff00ff" Color2="#00ffff">Magenta + cyan</Capability>
+  <Capability Min="60" Max="69" Color="#00ffff">Cyan</Capability>
+  <Capability Min="70" Max="79" Color="#00ffff" Color2="#ff7f00">Cyan + orange</Capability>
+  <Capability Min="80" Max="89" Color="#ff7f00">Orange</Capability>
+  <Capability Min="90" Max="99" Color="#ff7f00" Color2="#00ff00">Orange + green</Capability>
+  <Capability Min="100" Max="109" Color="#00ff00">Green</Capability>
+  <Capability Min="110" Max="119" Color="#00ff00" Color2="#0000ff">Green + blue</Capability>
+  <Capability Min="120" Max="129" Color="#0000ff">Blue</Capability>
+  <Capability Min="130" Max="139" Color="#0000ff" Color2="#ff0000">Blue + red</Capability>
+  <Capability Min="140" Max="149" Color="#ff0000">Red</Capability>
+  <Capability Min="150" Max="159" Color="#ff0000" Color2="#ffffff">Red + white</Capability>
+  <Capability Min="160" Max="244" Res="Others/rainbow.png">Rainbow speed</Capability>
   <Capability Min="245" Max="255">Music hard change</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20">Open</Capability>
-  <Capability Min="21" Max="40">Gobo 1</Capability>
-  <Capability Min="41" Max="60">Gobo 2</Capability>
-  <Capability Min="61" Max="80">Gobo 3</Capability>
-  <Capability Min="81" Max="100">Gobo 4</Capability>
-  <Capability Min="101" Max="120">Gobo 5</Capability>
-  <Capability Min="121" Max="140">Gobo 6</Capability>
-  <Capability Min="141" Max="160">Gobo 7</Capability>
+  <Capability Min="0" Max="20" Res="Others/gobo00022.png">No gobo</Capability>
+  <Capability Min="21" Max="40" Res="SGM/gobo00125.png">Gobo 1</Capability>
+  <Capability Min="41" Max="60" Res="Others/gobo00026.png">Gobo 2</Capability>
+  <Capability Min="61" Max="80" Res="SGM/gobo00059.png">Gobo 3</Capability>
+  <Capability Min="81" Max="100" Res="SGM/gobo00127.png">Gobo 4</Capability>
+  <Capability Min="101" Max="120" Res="SGM/gobo00004.png">Gobo 5</Capability>
+  <Capability Min="121" Max="140" Res="SGM/gobo00064.png">Gobo 6</Capability>
+  <Capability Min="141" Max="160" Res="SGM/gobo00027.png">Gobo 7</Capability>
   <Capability Min="161" Max="177">Rotagobo - speed 1</Capability>
   <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
   <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>
@@ -98,12 +98,13 @@
   <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt fine</Capability>
  </Channel>
- <Mode Name="Mode 1">
+ <Mode Name="Standard">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="180" Height="650" Depth="350"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="90" TiltMax="180"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour</Channel>

@@ -34,7 +34,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="14"/>
         <source>Select Channels</source>
-        <translation>Sleccionar Canals</translation>
+        <translation>Seleccionar Canals</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="24"/>
@@ -74,7 +74,6 @@
     <message>
         <location filename="addchannelsgroup.ui" line="86"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translatorcomment>Potser giny podria ser una bona traducció per widget</translatorcomment>
         <translation>El canal d&apos;Entrada dins d&apos;aquest univers d&apos;Entrada que envia dades a aquest widget</translation>
     </message>
     <message>
@@ -436,7 +435,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="153"/>
         <source>Allocation</source>
-        <translation>Asignació</translation>
+        <translation>Assignació</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="160"/>
@@ -833,7 +832,6 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
     <message>
         <location filename="app.cpp" line="773"/>
         <source>Operation timed out</source>
-        <translatorcomment>Temps d&apos;espera esgotat</translatorcomment>
         <translation>Operació temps d&apos;espera esgotat</translation>
     </message>
     <message>
@@ -888,7 +886,7 @@ Els canvis es perdran si no els guarda.</translation>
     <message>
         <location filename="app.cpp" line="990"/>
         <source>Save Workspace As</source>
-        <translation>Desat l&apos;espai de treball com</translation>
+        <translation>Desar l&apos;espai de treball com</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1169"/>
@@ -980,7 +978,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="audioeditor.ui" line="208"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
-        <translation>Duració</translation>
+        <translation>Durada</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="194"/>
@@ -1405,7 +1403,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="chasereditor.ui" line="85"/>
         <source>Duration</source>
-        <translation>Duració</translation>
+        <translation>Durada</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="90"/>
@@ -1524,7 +1522,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="chasereditor.ui" line="428"/>
         <location filename="chasereditor.ui" line="509"/>
         <source>Per Step</source>
-        <translation>Pas a Pas</translation>
+        <translation>Per Pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="366"/>
@@ -1560,7 +1558,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="chasereditor.ui" line="457"/>
         <source>Step Duration</source>
-        <translation>Duració del Pas</translation>
+        <translation>Durada del Pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="487"/>
@@ -1610,7 +1608,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="chasereditor.ui" line="739"/>
         <source>Raise the selected step once</source>
-        <translation>Pujar el pas selleccionat</translation>
+        <translation>Pujar el pas seleccionat</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="73"/>
@@ -1757,12 +1755,11 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="cuestackmodel.cpp" line="148"/>
         <source>Duration</source>
-        <translation>Duració</translation>
+        <translation>Durada</translation>
     </message>
     <message>
         <location filename="cuestackmodel.cpp" line="150"/>
         <source>Cue</source>
-        <translatorcomment>Tenc dubtes si posar peu o cue. Cue es un senyal o marca. Al mon del teatre &quot;donar el peu&quot; serveix per donar l&apos;entrada en escena d&apos;un actor o un efecte. </translatorcomment>
         <translation>Peu</translation>
     </message>
 </context>
@@ -1984,13 +1981,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="efxeditor.ui" line="453"/>
         <source>Height</source>
-        <translatorcomment>Altura o Alçada?</translatorcomment>
-        <translation>Alçada</translation>
+        <translation>Altura</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="500"/>
         <source>Value height of the pattern</source>
-        <translation>Valor de l&apos;alçada del patró</translation>
+        <translation>Valor de l&apos;altura del patró</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="467"/>
@@ -2185,7 +2181,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="86"/>
         <source>Height</source>
-        <translation>Alçada</translation>
+        <translation>Altura</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="116"/>
@@ -8031,7 +8027,7 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
         <source>Background Color</source>
-        <translation>color de Fons</translation>
+        <translation>Color de Fons</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="402"/>

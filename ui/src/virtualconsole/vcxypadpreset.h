@@ -23,6 +23,7 @@
 #include <QKeySequence>
 
 #include "qlcinputsource.h"
+#include "grouphead.h"
 
 class QDomDocument;
 class QDomElement;
@@ -39,6 +40,9 @@ class QDomElement;
 #define KXMLQLCVCXYPadPresetFuncID   "FuncID"
 #define KXMLQLCVCXYPadPresetXPos     "X"
 #define KXMLQLCVCXYPadPresetYPos     "Y"
+#define KXMLQLCVCXYPadPresetFixture     "Fixture"
+#define KXMLQLCVCXYPadPresetFixtureID   "ID"
+#define KXMLQLCVCXYPadPresetFixtureHead "Head"
 
 #define KXMLQLCVCXYPadPresetInput         "Input"
 #define KXMLQLCVCXYPadPresetInputUniverse "Universe"
@@ -59,14 +63,20 @@ public:
     {
         Position = 0,
         EFX,
-        Scene
+        Scene,
+        FixtureGroup
     };
+
+    QString getColor() const;
 
     void setFunctionID(quint32 id);
     quint32 functionID() const;
 
     void setPosition(QPointF pos);
     QPointF position() const;
+
+    void setFixtureGroup(QList<GroupHead>heads);
+    QList<GroupHead> fixtureGroup() const;
 
 public:
     bool operator<(VCXYPadPreset const& right) const;
@@ -93,6 +103,10 @@ public:
     /** ID of the Function controlled by this preset
      *  when type is EFX or Scene */
     quint32 m_funcID;
+
+    /** A list of heads activated by this preset
+     *  when type is FixtureGroup */
+    QList<GroupHead> m_fxGroup;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;

@@ -71,6 +71,10 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    /********************************************************************
+     * General page
+     ********************************************************************/
+
     m_nameEdit->setText(m_xypad->caption());
 
     if (m_xypad->invertedAppearance() == true)
@@ -118,8 +122,19 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_heightInputWidget->show();
     m_sizeInputLayout->addWidget(m_heightInputWidget);
 
+    /********************************************************************
+     * Fixtures page
+     ********************************************************************/
+
     slotSelectionChanged(NULL);
-    fillTree();
+    fillFixturesTree();
+
+    connect(m_percentageRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotPercentageRadioChecked()));
+    connect(m_degreesRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotDegreesRadioChecked()));
+    connect(m_dmxRadio, SIGNAL(clicked(bool)),
+            this, SLOT(slotDMXRadioChecked()));
 
     /********************************************************************
      * Presets page
@@ -142,6 +157,8 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
             this, SLOT(slotAddEFXClicked()));
     connect(m_addSceneButton, SIGNAL(clicked(bool)),
             this, SLOT(slotAddSceneClicked()));
+    connect(m_addFxGroupButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotAddFixtureGroupClicked()));
     connect(m_removePresetButton, SIGNAL(clicked()),
             this, SLOT(slotRemovePresetClicked()));
     connect(m_presetNameEdit, SIGNAL(textEdited(QString const&)),
@@ -186,7 +203,7 @@ VCXYPadProperties::~VCXYPadProperties()
  * Fixtures page
  ****************************************************************************/
 
-void VCXYPadProperties::fillTree()
+void VCXYPadProperties::fillFixturesTree()
 {
     m_tree->clear();
 
@@ -197,6 +214,18 @@ void VCXYPadProperties::fillTree()
     m_tree->resizeColumnToContents(KColumnFixture);
     m_tree->resizeColumnToContents(KColumnXAxis);
     m_tree->resizeColumnToContents(KColumnYAxis);
+}
+
+void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
+{
+    for(int i = 0; i < m_tree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
+        QVariant var(item->data(KColumnFixture, Qt::UserRole));
+        VCXYPadFixture fx = VCXYPadFixture(m_doc, var);
+        fx.setDisplayMode(mode);
+        updateFixtureItem(item, fx);
+    }
 }
 
 void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item,
@@ -375,6 +404,21 @@ void VCXYPadProperties::slotSelectionChanged(QTreeWidgetItem* item)
     }
 }
 
+void VCXYPadProperties::slotPercentageRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::Percentage);
+}
+
+void VCXYPadProperties::slotDegreesRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::Degrees);
+}
+
+void VCXYPadProperties::slotDMXRadioChecked()
+{
+    updateFixturesTree(VCXYPadFixture::DMX);
+}
+
 /****************************************************************************
  * Input page
  ****************************************************************************/
@@ -459,6 +503,8 @@ void VCXYPadProperties::updatePresetsTree()
             item->setIcon(0, QIcon(":/scene.png"));
         else if (preset->m_type == VCXYPadPreset::Position)
             item->setIcon(0, QIcon(":/xypad.png"));
+        else if (preset->m_type == VCXYPadPreset::FixtureGroup)
+            item->setIcon(0, QIcon(":/group.png"));
     }
     m_presetsTree->resizeColumnToContents(0);
     m_presetsTree->blockSignals(false);
@@ -597,6 +643,54 @@ void VCXYPadProperties::slotAddSceneClicked()
         newPreset->m_type = VCXYPadPreset::Scene;
         newPreset->m_funcID = fID;
         newPreset->m_name = f->name();
+        m_presetList.append(newPreset);
+        updatePresetsTree();
+    }
+}
+
+void VCXYPadProperties::slotAddFixtureGroupClicked()
+{
+    QList <GroupHead> enabled;
+    QList <GroupHead> disabled;
+
+    QTreeWidgetItemIterator it(m_tree);
+    while (*it != NULL)
+    {
+        QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
+        VCXYPadFixture fxi(m_doc, var);
+        enabled << fxi.head();
+        ++it;
+    }
+
+    foreach(Fixture *fx, m_doc->fixtures())
+    {
+        for (int i = 0; i < fx->heads(); i++)
+        {
+            GroupHead gh(fx->id(), i);
+            if (enabled.contains(gh) == false)
+                disabled << gh;
+        }
+    }
+
+    FixtureSelection fs(this, m_doc);
+    fs.setMultiSelection(true);
+    fs.setSelectionMode(FixtureSelection::Heads);
+    fs.setDisabledHeads(disabled);
+    if (fs.exec() == QDialog::Accepted)
+    {
+        QList<GroupHead> selectedGH = fs.selectedHeads();
+        if (selectedGH.isEmpty())
+        {
+            QMessageBox::critical(this, tr("Error"),
+                                  tr("Please select at least one fixture or head to create this type of preset !"),
+                                  QMessageBox::Close);
+            return;
+        }
+
+        VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
+        newPreset->m_type = VCXYPadPreset::FixtureGroup;
+        newPreset->m_name = tr("Fixture Group");
+        newPreset->setFixtureGroup(selectedGH);
         m_presetList.append(newPreset);
         updatePresetsTree();
     }
