@@ -103,7 +103,7 @@
    <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="14" Width="180" Height="650" Depth="350"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="90" TiltMax="180"/>
+   <Focus Type="Mirror" PanMax="90" TiltMax="180"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
