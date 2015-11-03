@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -12,43 +12,6 @@
  <Channel Name="Not used">
   <Group Byte="0">Nothing</Group>
   <Capability Min="0" Max="0">Not used</Capability>
- </Channel>
- <Channel Name="Colour">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">White</Capability>
-  <Capability Min="10" Max="19">White + Yellow</Capability>
-  <Capability Min="20" Max="29">Yellow</Capability>
-  <Capability Min="30" Max="39">Yellow + Magenta</Capability>
-  <Capability Min="40" Max="49">Magenta</Capability>
-  <Capability Min="50" Max="59">Magenta + Cyan</Capability>
-  <Capability Min="60" Max="69">Cyan</Capability>
-  <Capability Min="70" Max="79">Cyan + Orange</Capability>
-  <Capability Min="80" Max="89">Orange</Capability>
-  <Capability Min="90" Max="99">Orange + Green</Capability>
-  <Capability Min="100" Max="109">Green</Capability>
-  <Capability Min="110" Max="119">Green + Blue</Capability>
-  <Capability Min="120" Max="129">Blue</Capability>
-  <Capability Min="130" Max="139">Blue + Red</Capability>
-  <Capability Min="140" Max="149">Red</Capability>
-  <Capability Min="150" Max="159">Red + White</Capability>
-  <Capability Min="160" Max="244">Rainbow speed</Capability>
-  <Capability Min="245" Max="255">Music hard change</Capability>
- </Channel>
- <Channel Name="Gobo">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="19">Open</Capability>
-  <Capability Min="20" Max="39">Gobo 1</Capability>
-  <Capability Min="40" Max="59">Gobo 2</Capability>
-  <Capability Min="60" Max="79">Gobo 3</Capability>
-  <Capability Min="80" Max="99">Gobo 4</Capability>
-  <Capability Min="100" Max="119">Gobo 5</Capability>
-  <Capability Min="120" Max="139">Gobo 6</Capability>
-  <Capability Min="140" Max="159">Gobo 7</Capability>
-  <Capability Min="160" Max="177">Rotagobo - speed 1</Capability>
-  <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
-  <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>
-  <Capability Min="213" Max="229">Rotagobo - speed 4</Capability>
-  <Capability Min="230" Max="255">Music hard change</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -101,7 +64,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="49">Off</Capability>
   <Capability Min="50" Max="79">No rotation</Capability>
-  <Capability Min="80" Max="255">Rotation, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="255">Rotation, slow -> fast</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
@@ -117,12 +80,50 @@
   <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt fine</Capability>
  </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Color="#ffffff" Max="9">White</Capability>
+  <Capability Min="10" Color2="#ffff00" Color="#ffffff" Max="19">White + Yellow</Capability>
+  <Capability Min="20" Color="#ffff00" Max="29">Yellow</Capability>
+  <Capability Min="30" Color2="#ff00ff" Color="#ffff00" Max="39">Yellow + Magenta</Capability>
+  <Capability Min="40" Color="#ff00ff" Max="49">Magenta</Capability>
+  <Capability Min="50" Color2="#00ffff" Color="#ff00ff" Max="59">Magenta + Cyan</Capability>
+  <Capability Min="60" Color="#00ffff" Max="69">Cyan</Capability>
+  <Capability Min="70" Color2="#ffaa00" Color="#00ffff" Max="79">Cyan + Orange</Capability>
+  <Capability Min="80" Color="#ffaa00" Max="89">Orange</Capability>
+  <Capability Min="90" Color2="#00ff00" Color="#ffaa00" Max="99">Orange + Green</Capability>
+  <Capability Min="100" Color="#00ff00" Max="109">Green</Capability>
+  <Capability Min="110" Color2="#0000ff" Color="#00ff00" Max="119">Green + Blue</Capability>
+  <Capability Min="120" Color="#0000ff" Max="129">Blue</Capability>
+  <Capability Min="130" Color2="#ff0000" Color="#0000ff" Max="139">Blue + Red</Capability>
+  <Capability Min="140" Color="#ff0000" Max="149">Red</Capability>
+  <Capability Min="150" Color2="#ffffff" Color="#ff0000" Max="159">Red + White</Capability>
+  <Capability Min="160" Max="244" Res="Others/rainbow.png">Rainbow speed</Capability>
+  <Capability Min="245" Max="255">Music hard change</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="19" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="20" Max="39" Res="SGM/gobo00125.png">Gobo 1</Capability>
+  <Capability Min="40" Max="59" Res="Others/gobo00026.png">Gobo 2</Capability>
+  <Capability Min="60" Max="79" Res="SGM/gobo00059.png">Gobo 3</Capability>
+  <Capability Min="80" Max="99" Res="SGM/gobo00127.png">Gobo 4</Capability>
+  <Capability Min="100" Max="119" Res="SGM/gobo00004.png">Gobo 5</Capability>
+  <Capability Min="120" Max="139" Res="SGM/gobo00064.png">Gobo 6</Capability>
+  <Capability Min="140" Max="159" Res="SGM/gobo00027.png">Gobo 7</Capability>
+  <Capability Min="160" Max="177">Rotagobo - speed 1</Capability>
+  <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
+  <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>
+  <Capability Min="213" Max="229">Rotagobo - speed 4</Capability>
+  <Capability Min="230" Max="255">Music hard change</Capability>
+ </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb ColourTemperature="0" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="180" Height="650" Depth="350" Weight="18"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="375" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Not used</Channel>
   <Channel Number="1">Colour</Channel>
