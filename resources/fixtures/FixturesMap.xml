@@ -216,8 +216,12 @@
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
+  <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
+  <fixture path="Contest-Evora-Beam-5R.qxf" mf="Contest" md="Evora Beam 5R"/>
+  <fixture path="Contest-Evora-DUO-B2R.qxf" mf="Contest" md="Evora DUO B2R"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
   <fixture path="Contest-MiniCube-6TCb.qxf" mf="Contest" md="MiniCube-6TCb"/>
+  <fixture path="Contest-Oz-37x15QC.qxf" mf="Contest" md="Oz-37x15QC"/>
   <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
   <fixture path="Contest-Tri4U.qxf" mf="Contest" md="Tri4U"/>
   <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
