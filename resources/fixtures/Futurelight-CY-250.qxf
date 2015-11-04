@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -19,16 +19,16 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="18">White</Capability>
-  <Capability Min="19" Max="35">Dark Blue</Capability>
-  <Capability Min="36" Max="53">Pink</Capability>
-  <Capability Min="54" Max="71">Light Green</Capability>
-  <Capability Min="72" Max="89">Orange</Capability>
-  <Capability Min="90" Max="107">Light Blue</Capability>
-  <Capability Min="108" Max="126">Yellow</Capability>
-  <Capability Min="127" Max="127">Cherry Red</Capability>
-  <Capability Min="128" Max="191">Forward Rainbow Speed</Capability>
-  <Capability Min="192" Max="255">Backward Rainbow Speed</Capability>
+  <Capability Min="0" Max="18" Color="#ffffff">White</Capability>
+  <Capability Min="19" Max="35" Color="#00007f">Dark Blue</Capability>
+  <Capability Min="36" Max="53" Color="#ffaaff">Pink</Capability>
+  <Capability Min="54" Max="71" Color="#aaff7f">Light Green</Capability>
+  <Capability Min="72" Max="89" Color="#ffaa00">Orange</Capability>
+  <Capability Min="90" Max="107" Color="#aaaaff">Light Blue</Capability>
+  <Capability Min="108" Max="126" Color="#ffff00">Yellow</Capability>
+  <Capability Min="127" Max="127" Color="#aa0000">Cherry Red</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Forward Rainbow Speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Backward Rainbow Speed</Capability>
  </Channel>
  <Channel Name="Gobo Selection">
   <Group Byte="0">Gobo</Group>
@@ -61,10 +61,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Width="300" Height="525" Weight="14" Depth="150"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus TiltMax="0" PanMax="0" Type="Barrell"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="14" Width="300" Height="525" Depth="150"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

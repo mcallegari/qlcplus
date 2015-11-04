@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -34,21 +34,21 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="10" Max="10">Turquoise</Capability>
-  <Capability Min="21" Max="21">Red</Capability>
-  <Capability Min="32" Max="32">Cyan</Capability>
-  <Capability Min="42" Max="42">Light green</Capability>
-  <Capability Min="53" Max="53">Magenta</Capability>
-  <Capability Min="64" Max="64">Light blue</Capability>
-  <Capability Min="74" Max="74">Yellow</Capability>
-  <Capability Min="85" Max="85">Green</Capability>
-  <Capability Min="96" Max="96">Pink</Capability>
-  <Capability Min="106" Max="106">Blue</Capability>
-  <Capability Min="117" Max="117">Orange</Capability>
-  <Capability Min="128" Max="189">Rainbow forward</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="10" Color="#aaffff">Turquoise</Capability>
+  <Capability Min="21" Max="21" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="32" Color="#00ffff">Cyan</Capability>
+  <Capability Min="42" Max="42" Color="#aaff7f">Light green</Capability>
+  <Capability Min="53" Max="53" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="64" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="74" Max="74" Color="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="85" Color="#00ff00">Green</Capability>
+  <Capability Min="96" Max="96" Color="#ffaaff">Pink</Capability>
+  <Capability Min="106" Max="106" Color="#0000ff">Blue</Capability>
+  <Capability Min="117" Max="117" Color="#ffaa00">Orange</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Rainbow forward</Capability>
   <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Rainbow backward</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Rainbow backward</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -68,10 +68,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="HMI 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="285"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

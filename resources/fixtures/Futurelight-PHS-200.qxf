@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -26,17 +26,17 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="19">White</Capability>
-  <Capability Min="20" Max="39">Red</Capability>
-  <Capability Min="40" Max="59">Dark blue</Capability>
-  <Capability Min="60" Max="79">Dark green</Capability>
-  <Capability Min="80" Max="99">Turquoise</Capability>
-  <Capability Min="100" Max="119">Salmon pink</Capability>
-  <Capability Min="120" Max="139">Yellow</Capability>
-  <Capability Min="140" Max="159">Green</Capability>
-  <Capability Min="160" Max="179">Pink</Capability>
-  <Capability Min="200" Max="255">Forwards rainbow speed</Capability>
-  <Capability Min="180" Max="199">Light blue</Capability>
+  <Capability Min="0" Max="19" Color="#ffffff">White</Capability>
+  <Capability Min="20" Max="39" Color="#ff0000">Red</Capability>
+  <Capability Min="40" Max="59" Color="#00007f">Dark blue</Capability>
+  <Capability Min="60" Max="79" Color="#005500">Dark green</Capability>
+  <Capability Min="80" Max="99" Color="#02b7ae">Turquoise</Capability>
+  <Capability Min="100" Max="119" Color="#ff9899">Salmon pink</Capability>
+  <Capability Min="120" Max="139" Color="#ffff00">Yellow</Capability>
+  <Capability Min="140" Max="159" Color="#00ff00">Green</Capability>
+  <Capability Min="160" Max="179" Color="#ffaaff">Pink</Capability>
+  <Capability Min="180" Max="199" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="200" Max="255" Res="Others/rainbow.png">Forwards rainbow speed</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -90,10 +90,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="HSD 200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="15" Width="330" Height="450" Depth="380"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
    <Technical PowerConsumption="400" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.5 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Dag Stenstad</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -11,30 +11,32 @@
  <Type>Scanner</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Color2="#00ff00" Min="1" Max="15" Color="#ffffff">White+Green</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="1" Max="15" Color="#ffffff" Color2="#00ff00">White+Green</Capability>
   <Capability Min="16" Max="16" Color="#00ff00">Green</Capability>
-  <Capability Color2="#ff0000" Min="17" Max="31" Color="#00ff00">Green+Red</Capability>
+  <Capability Min="17" Max="31" Color="#00ff00" Color2="#ff0000">Green+Red</Capability>
   <Capability Min="32" Max="32" Color="#ff0000">Red</Capability>
-  <Capability Color2="#00ffff" Min="33" Max="47" Color="#ff0000">Red+Cyan</Capability>
+  <Capability Min="33" Max="47" Color="#ff0000" Color2="#00ffff">Red+Cyan</Capability>
   <Capability Min="48" Max="48" Color="#00ffff">Cyan</Capability>
-  <Capability Color2="#aa00ff" Min="49" Max="63" Color="#00ffff">Cyan+Violet</Capability>
+  <Capability Min="49" Max="63" Color="#00ffff" Color2="#aa00ff">Cyan+Violet</Capability>
   <Capability Min="64" Max="64" Color="#aa00ff">Violet</Capability>
-  <Capability Color2="#ffff00" Min="65" Max="79" Color="#aa00ff">Violet+Yellow</Capability>
+  <Capability Min="65" Max="79" Color="#aa00ff" Color2="#ffff00">Violet+Yellow</Capability>
   <Capability Min="80" Max="80" Color="#ffff00">Yellow</Capability>
-  <Capability Color2="#0000ff" Min="81" Max="95" Color="#ffff00">Yellow+Blue</Capability>
+  <Capability Min="81" Max="95" Color="#ffff00" Color2="#0000ff">Yellow+Blue</Capability>
   <Capability Min="96" Max="96" Color="#0000ff">Blue</Capability>
-  <Capability Color2="#ffaa00" Min="97" Max="111" Color="#0000ff">Blue+Orange</Capability>
+  <Capability Min="97" Max="111" Color="#0000ff" Color2="#ffaa00">Blue+Orange</Capability>
   <Capability Min="112" Max="112" Color="#ffaa00">Orange</Capability>
-  <Capability Color2="#ffffff" Min="113" Max="126" Color="#ffaa00">Orange+White</Capability>
+  <Capability Min="113" Max="126" Color="#ffaa00" Color2="#ffffff">Orange+White</Capability>
   <Capability Min="127" Max="127" Color="#ffffff">White</Capability>
-  <Capability Min="128" Max="255">Rainbow</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Rainbow</Capability>
  </Channel>
  <Channel Name="Gobowheel 1">
   <Group Byte="0">Gobo</Group>
@@ -90,10 +92,10 @@
  </Channel>
  <Mode Name="8 Channel DMX">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="700" Weight="27" Depth="190"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="27" Width="280" Height="700" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
