@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.1 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>root</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -43,14 +43,14 @@
  <Channel Name="Color Macro + White Balance">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="30" Color2="#ffff00" Color="#ff0000">Red 100% / Green Up / Blue 0%</Capability>
-  <Capability Min="31" Max="50" Color2="#00ff00" Color="#ffff00">Red Down / Green 100% / Blue 0%</Capability>
-  <Capability Min="51" Max="70" Color2="#00ffff" Color="#00ff00">Red 0% / Green 100% / Blue Up</Capability>
-  <Capability Min="71" Max="90" Color2="#0000ff" Color="#00ffff">Red 0% / Green Down / Blue 100%</Capability>
-  <Capability Min="91" Max="110" Color2="#ff00ff" Color="#0000ff">Red Up / Green 0% / Blue 100%</Capability>
-  <Capability Min="111" Max="130" Color2="#ff0000" Color="#ff00ff">Red 100% / Green 0% / Blue Down</Capability>
-  <Capability Min="131" Max="150" Color2="#ffffff" Color="#ff0000">Red 100% / Green Up / Blue Up</Capability>
-  <Capability Min="151" Max="170" Color2="#0000ff" Color="#ffffff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
   <Capability Min="171" Max="200" Color="#ffffff">All LEDs 100%</Capability>
   <Capability Min="201" Max="205" Color="#ffc076">White 1: 3200K</Capability>
   <Capability Min="206" Max="210" Color="#ffc61e">White 2: 3400K</Capability>
@@ -128,11 +128,11 @@
  </Channel>
  <Mode Name="ARC.1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -140,11 +140,11 @@
  </Mode>
  <Mode Name="AR1.d">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -153,11 +153,11 @@
  </Mode>
  <Mode Name="HSV">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
@@ -165,11 +165,11 @@
  </Mode>
  <Mode Name="AR1.S">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -179,11 +179,11 @@
  </Mode>
  <Mode Name="TOUR">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -197,11 +197,11 @@
  </Mode>
  <Mode Name="TR16">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="246" Depth="294" Weight="0" Height="202"/>
-   <Lens DegreesMin="17" DegreesMax="64" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Master Dimmer Fine</Channel>
