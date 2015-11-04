@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -22,14 +22,14 @@
   <Capability Min="0" Max="15">Shutter closed</Capability>
   <Capability Min="16" Max="31">Random shutter</Capability>
   <Capability Min="32" Max="47">Audio shutter</Capability>
-  <Capability Min="48" Max="239">Strobe, slow -> fast</Capability>
+  <Capability Min="48" Max="239">Strobe, slow -&gt; fast</Capability>
   <Capability Min="240" Max="254">Shutter open</Capability>
   <Capability Min="255" Max="255">Lamp on</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="1">Tracking mode</Capability>
-  <Capability Min="2" Max="255">Vector, slow -> fast</Capability>
+  <Capability Min="2" Max="255">Vector, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>
@@ -48,15 +48,15 @@
   <Capability Min="0" Max="15">Laser off</Capability>
   <Capability Min="16" Max="31">Random flashes</Capability>
   <Capability Min="32" Max="47">Audio trigger</Capability>
-  <Capability Min="48" Max="127">Laser strobe, slow -> fast</Capability>
-  <Capability Min="128" Max="239">Laser strobe, slow -> fast</Capability>
+  <Capability Min="48" Max="127">Laser strobe, slow -&gt; fast</Capability>
+  <Capability Min="128" Max="239">Laser strobe, slow -&gt; fast</Capability>
   <Capability Min="240" Max="255">Laser on</Capability>
  </Channel>
  <Channel Name="Special">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="63">No function</Capability>
-  <Capability Min="64" Max="79">Color chaser 1, slow -> fast</Capability>
-  <Capability Min="80" Max="95">Color chaser 2, slow -> fast</Capability>
+  <Capability Min="64" Max="79">Color chaser 1, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="95">Color chaser 2, slow -&gt; fast</Capability>
   <Capability Min="96" Max="111">Pan/tilt audio trigger, slow</Capability>
   <Capability Min="112" Max="127">Pan/tilt audio trigger, fast</Capability>
   <Capability Min="128" Max="143">Pan/tilt random positions</Capability>
@@ -101,13 +101,13 @@
   <Capability Min="128" Max="131">Multicolor 1</Capability>
   <Capability Min="132" Max="135">Half-color 17</Capability>
   <Capability Min="136" Max="139">Multicolor 2</Capability>
-  <Capability Min="140" Max="253">Rainbow, slow -> fast</Capability>
+  <Capability Min="140" Max="253">Rainbow, slow -&gt; fast</Capability>
   <Capability Min="254" Max="254">Music color chaser slow</Capability>
   <Capability Min="255" Max="255">Music color chaser fast</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/gobo00022.png">Open</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
   <Capability Min="8" Max="15" Res="GLP/gobo00006.png">Gobo 1</Capability>
   <Capability Min="16" Max="23" Res="GLP/gobo00003.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Res="GLP/gobo00008.png">Gobo 3</Capability>

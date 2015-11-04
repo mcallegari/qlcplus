@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -95,7 +95,7 @@
  <Channel Name="Movement speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="3">Tracking mode</Capability>
-  <Capability Min="4" Max="255">Speed, slow -> fast</Capability>
+  <Capability Min="4" Max="255">Speed, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>

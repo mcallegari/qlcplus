@@ -36,7 +36,7 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20" Res="Others/gobo00022.png">No gobo</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.png">No gobo</Capability>
   <Capability Min="21" Max="40" Res="SGM/gobo00125.png">Gobo 1</Capability>
   <Capability Min="41" Max="60" Res="Others/gobo00026.png">Gobo 2</Capability>
   <Capability Min="61" Max="80" Res="SGM/gobo00059.png">Gobo 3</Capability>

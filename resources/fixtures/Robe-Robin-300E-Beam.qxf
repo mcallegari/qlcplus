@@ -138,7 +138,7 @@
  </Channel>
  <Channel Name="Static Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="0">Continual positioning open/hole (6.5°)</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="0">Continual positioning open/hole (6.5°)</Capability>
   <Capability Res="SGM/gobo00061.png" Min="7" Max="7">Continual positioning beam reducer (5.5)</Capability>
   <Capability Res="SGM/gobo00062.png" Min="14" Max="14">Continual positioning beam reducer (4.5)</Capability>
   <Capability Res="SGM/gobo00063.png" Min="21" Max="21">Continual positioning beam reducer (3)</Capability>
@@ -147,7 +147,7 @@
   <Capability Res="Robe/gobo00027.png" Min="42" Max="42">Continual positioning 2</Capability>
   <Capability Res="Robe/gobo00026.png" Min="49" Max="49">Continual positioning 3</Capability>
   <Capability Res="Robe/gobo00025.png" Min="56" Max="56">Continual positioning 4</Capability>
-  <Capability Res="Others/gobo00022.png" Min="64" Max="64">Continual positioning open/hole</Capability>
+  <Capability Res="Others/open.png" Min="64" Max="64">Continual positioning open/hole</Capability>
   <Capability Res="SGM/gobo00061.png" Min="65" Max="70">Positioning beam reducer (5.5°)</Capability>
   <Capability Res="SGM/gobo00062.png" Min="71" Max="75">Positioning beam reducer (4.5°)</Capability>
   <Capability Res="SGM/gobo00063.png" Min="76" Max="81">Positioning beam reducer (3°)</Capability>
@@ -164,7 +164,7 @@
   <Capability Res="Robe/gobo00027.png" Min="166" Max="175">Shaking 2 from slow to fast</Capability>
   <Capability Res="Robe/gobo00026.png" Min="176" Max="187">Shaking 3 from slow to fast</Capability>
   <Capability Res="Robe/gobo00025.png" Min="188" Max="199">Shaking 4 from slow to fast</Capability>
-  <Capability Res="Others/gobo00022.png" Min="200" Max="201">Shaking open/hole</Capability>
+  <Capability Res="Others/open.png" Min="200" Max="201">Shaking open/hole</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>
   <Capability Min="224" Max="243">Backwards rotation from slow to fast</Capability>
@@ -177,7 +177,7 @@
  </Channel>
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/gobo00022.png" Min="0" Max="3">Indexed open/hole</Capability>
+  <Capability Res="Others/open.png" Min="0" Max="3">Indexed open/hole</Capability>
   <Capability Res="Robe/gobo00038.png" Min="4" Max="7">Indexed 1</Capability>
   <Capability Res="Robe/gobo00037.png" Min="8" Max="11">Indexed 2</Capability>
   <Capability Res="Others/gobo00005.png" Min="12" Max="15">Indexed 3</Capability>
@@ -206,7 +206,7 @@
   <Capability Res="GLP/gobo00014.png" Min="170" Max="179">Shaking, rotated, 5 from slow to fast</Capability>
   <Capability Res="Robe/gobo00035.png" Min="180" Max="189">Shaking, rotated, 6 from slow to fast</Capability>
   <Capability Res="Chauvet/gobo00061.png" Min="190" Max="199">Shaking, rotated, 7 from slow to fast</Capability>
-  <Capability Res="Others/gobo00022.png" Min="200" Max="201">Shaking open/hole</Capability>
+  <Capability Res="Others/open.png" Min="200" Max="201">Shaking open/hole</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>
   <Capability Min="224" Max="243">Backwards rotation from slow to fast</Capability>
