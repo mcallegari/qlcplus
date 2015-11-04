@@ -32,7 +32,7 @@
     <message>
         <location filename="dmxusb.cpp" line="166"/>
         <source>Driver in use: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Použitý ovladač: %1</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="255"/>
