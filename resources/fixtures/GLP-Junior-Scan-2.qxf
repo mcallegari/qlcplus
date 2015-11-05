@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -133,10 +133,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Type="HSD 150W" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="0" Depth="220" Height="540" Width="310"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus TiltMax="110" PanMax="230" Type="Fixed"/>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="310" Height="540" Depth="220"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="230" TiltMax="110"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

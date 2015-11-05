@@ -2,9 +2,9 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.2.2</Version>
-  <Author>Daniel NystrÃ¶m</Author>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Daniel Nyström</Author>
  </Creator>
  <Manufacturer>HQ Power</Manufacturer>
  <Model>Power Space 250</Model>
@@ -65,11 +65,11 @@
  </Channel>
  <Mode Name="Main mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="270" Height="160" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="80"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Gobo</Channel>
