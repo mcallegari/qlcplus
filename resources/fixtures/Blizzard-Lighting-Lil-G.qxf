@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>Alton Olson</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Lil G</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Max="255" Min="0">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Max="255" Min="0">Tilt</Capability>
+ </Channel>
+ <Channel Name="Fine Pan">
+  <Group Byte="1">Pan</Group>
+  <Capability Max="255" Min="0">16-bit</Capability>
+ </Channel>
+ <Channel Name="Fine Tilt">
+  <Group Byte="1">Tilt</Group>
+  <Capability Max="255" Min="0">16-bit</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Max="255" Min="0">Fast &lt;--> slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">0% &lt;--> 100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="255" Min="0">Slow &lt;--> fast</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="19" Min="0" Color="#ffffff">White</Capability>
+  <Capability Max="39" Min="20" Color="#ff00ff">Pink</Capability>
+  <Capability Max="59" Min="40" Color="#00ff00">Green</Capability>
+  <Capability Max="79" Min="60" Color="#0000ff">Blue</Capability>
+  <Capability Max="99" Min="80" Color="#ffff00">Yellow</Capability>
+  <Capability Max="119" Min="100" Color="#8600ff">Purple</Capability>
+  <Capability Max="139" Min="120" Color="#00ffff">Teal</Capability>
+  <Capability Max="159" Min="140" Color="#ff5c00">Orange</Capability>
+  <Capability Max="207" Res="Others/rainbow.png" Min="160">Clockwise rainbow effect</Capability>
+  <Capability Max="255" Res="Others/rainbow.png" Min="208">Counterclockwise rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Max="9" Res="Others/open.png" Min="0">Open</Capability>
+  <Capability Max="19" Min="10">1</Capability>
+  <Capability Max="29" Min="20">2</Capability>
+  <Capability Max="39" Min="30">3</Capability>
+  <Capability Max="49" Min="40">4</Capability>
+  <Capability Max="59" Min="50">5</Capability>
+  <Capability Max="69" Min="60">6</Capability>
+  <Capability Max="79" Min="70">7</Capability>
+  <Capability Max="89" Min="80">8</Capability>
+  <Capability Max="99" Min="90">9</Capability>
+  <Capability Max="108" Min="100">1 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="117" Min="109">2 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="126" Min="118">3 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="135" Min="127">4 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="144" Min="136">5 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="153" Min="145">6 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="162" Min="154">7 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="171" Min="163">8 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="180" Min="172">9 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="189" Min="181">10 shake (slow &lt;-> fast)</Capability>
+  <Capability Max="222" Min="190">Flow clockwise (slow &lt;-> fast)</Capability>
+  <Capability Max="255" Min="223">Flow counterclockwise (slow &lt;-> fast)</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="128" Min="1">Auto mode</Capability>
+  <Capability Max="255" Min="129">Sound active</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Max="254" Min="0">No function</Capability>
+  <Capability Max="255" Min="255">Fixture reset in 3 seconds</Capability>
+ </Channel>
+ <Mode Name="11 Channel Mode">
+  <Physical>
+   <Bulb Lumens="7730" Type="40W white LED" ColourTemperature="5500"/>
+   <Dimensions Height="317" Weight="3.5" Width="201" Depth="196"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
+   <Focus TiltMax="220" Type="Fixed" PanMax="540"/>
+   <Technical PowerConsumption="59" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Fine Pan</Channel>
+  <Channel Number="3">Fine Tilt</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color Wheel</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Auto/Sound Active</Channel>
+  <Channel Number="10">Reset</Channel>
+ </Mode>
+</FixtureDefinition>
