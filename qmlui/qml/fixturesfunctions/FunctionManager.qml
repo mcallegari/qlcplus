@@ -265,7 +265,6 @@ Rectangle
                               console.log("Item path: " + path + ",label: " + label)
                               item.nodePath = path
                               item.folderChildren = childrenModel
-                              item.childrenHeight = (childrenModel.rowCount() * 35)
                           }
                           else
                           {

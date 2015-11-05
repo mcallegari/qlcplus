@@ -120,7 +120,12 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
 
     QQuickItem *previewBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("previewButton"));
     if (previewBtn != NULL)
-        previewBtn->setProperty("visible", true);
+    {
+        if ((int)id != -1)
+            previewBtn->setProperty("visible", true);
+        else
+            previewBtn->setProperty("visible", false);
+    }
 }
 
 quint32 FunctionManager::createFunction(int type)

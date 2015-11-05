@@ -21,21 +21,17 @@ import QtQuick 2.2
 
 import "."
 
-Rectangle
+Column
 {
     id: nodeContainer
     width: 350
-    height: nodeLabel.height + nodeChildrenView.height
-
-    color: "transparent"
+    //height: nodeLabel.height + nodeChildrenView.height
 
     property string textLabel
     property string nodePath
     property var folderChildren
     property bool isExpanded: false
     property bool isSelected: false
-    property int childrenHeight: 0
-    property int variableHeight: 0
     property string nodeIcon: "qrc:/folder.svg"
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
 
@@ -46,90 +42,89 @@ Rectangle
 
     Rectangle
     {
-        width: parent.width
+        color: "transparent"
+        width: nodeContainer.width
         height: 35
-        radius: 3
-        color: UISettings.highlight
-        visible: isSelected
-    }
 
-    Image
-    {
-        width: 40
-        height: 35
-        source: nodeIcon
-    }
-
-    TextInput
-    {
-        id: nodeLabel
-        x: 45
-        z: 0
-        width: parent.width - 45
-        height: 35
-        readOnly: true
-        text: textLabel
-        verticalAlignment: TextInput.AlignVCenter
-        color: UISettings.fgMain
-        font.family: "RobotoCondensed"
-        font.pointSize: 12
-        echoMode: TextInput.Normal
-        selectByMouse: true
-        selectionColor: "#4DB8FF"
-        selectedTextColor: "#111"
-
-        onEditingFinished:
+        // selection rectangle
+        Rectangle
         {
-            z = 0
-            select(0, 0)
-            readOnly = true
-            nodeContainer.pathChanged(nodePath, text)
+            anchors.fill: parent
+            radius: 3
+            color: UISettings.highlight
+            visible: isSelected
         }
-    }
 
-    MouseArea
-    {
-        width: parent.width
-        height: 35
-        onClicked:
+        Image
         {
-            isExpanded = !isExpanded
-            nodeContainer.toggled(isExpanded, childrenHeight)
-            isSelected = true
-            nodeContainer.clicked(nodeContainer)
+            width: 40
+            height: 35
+            source: nodeIcon
         }
-        onDoubleClicked:
+
+        TextInput
         {
-            nodeLabel.z = 5
-            nodeLabel.readOnly = false
-            nodeLabel.focus = true
-            nodeLabel.cursorPosition = nodeLabel.text.length
-            nodeLabel.cursorVisible = true
+            id: nodeLabel
+            x: 45
+            z: 0
+            width: parent.width - 45
+            height: 35
+            readOnly: true
+            text: textLabel
+            verticalAlignment: TextInput.AlignVCenter
+            color: UISettings.fgMain
+            font.family: "RobotoCondensed"
+            font.pointSize: 12
+            echoMode: TextInput.Normal
+            selectByMouse: true
+            selectionColor: "#4DB8FF"
+            selectedTextColor: "#111"
+
+            onEditingFinished:
+            {
+                z = 0
+                select(0, 0)
+                readOnly = true
+                nodeContainer.pathChanged(nodePath, text)
+            }
         }
+
+        MouseArea
+        {
+            anchors.fill: parent
+            height: 35
+            onClicked:
+            {
+                isExpanded = !isExpanded
+                isSelected = true
+                nodeContainer.clicked(nodeContainer)
+            }
+            onDoubleClicked:
+            {
+                nodeLabel.z = 5
+                nodeLabel.readOnly = false
+                nodeLabel.focus = true
+                nodeLabel.cursorPosition = nodeLabel.text.length
+                nodeLabel.cursorVisible = true
+            }
+        }
+
     }
 
-    function nodeToggled(expanded, height)
-    {
-        if (expanded)
-            variableHeight += height;
-        else
-            variableHeight -= height;
-    }
-
-    ListView
+    Repeater
     {
         id: nodeChildrenView
         visible: isExpanded
-        x: 30
-        y: nodeLabel.height
-        height: isExpanded ? (childrenHeight + variableHeight) : 0
-        model: folderChildren
+        width: nodeContainer.width - 20
+        model: visible ? folderChildren : null
         delegate:
             Component
             {
                 Loader
                 {
-                    width: nodeContainer.width
+                    id: childrenLoader
+                    width: nodeChildrenView.width
+                    x: 20
                     //height: 35
                     source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : childrenDelegate
                     onLoaded:
@@ -141,7 +136,6 @@ Rectangle
                             item.folderChildren = childrenModel
                             item.nodeIcon = nodeContainer.nodeIcon
                             item.childrenDelegate = childrenDelegate
-                            item.childrenHeight = (childrenModel.rowCount() * 35)
 
                             console.log("Item path: " + item.nodePath + ", label: " + label)
                         }
@@ -152,13 +146,8 @@ Rectangle
                     }
                     Connections
                     {
-                         target: item
-                         onToggled: nodeToggled(item.isExpanded, item.childrenHeight)
-                    }
-                    Connections
-                    {
                         target: item
-                        onClicked: if (hasChildren) nodeContainer.clicked(item)
+                        onClicked: if (hasChildren) functionManager.selectFunction(-1, item, false)
                     }
                     Connections
                     {
