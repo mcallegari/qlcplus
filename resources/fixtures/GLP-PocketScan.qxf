@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -20,23 +20,23 @@
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Open</Capability>
-  <Capability Min="8" Max="11">Green</Capability>
-  <Capability Min="16" Max="19">Orange</Capability>
-  <Capability Min="24" Max="27">Blue 101</Capability>
-  <Capability Min="32" Max="35">Yellow 603</Capability>
-  <Capability Min="40" Max="43">Pink 310</Capability>
-  <Capability Min="48" Max="51">Turques 208</Capability>
-  <Capability Min="56" Max="59">Red 304</Capability>
-  <Capability Min="64" Max="67">Cyan 104</Capability>
-  <Capability Min="72" Max="75">Magenta 507</Capability>
-  <Capability Min="80" Max="83">Magenta 501</Capability>
-  <Capability Min="88" Max="91">UV Blue 108</Capability>
-  <Capability Min="96" Max="99">Yellow 601</Capability>
-  <Capability Min="104" Max="107">Green 204</Capability>
-  <Capability Min="112" Max="115">Orange 306</Capability>
-  <Capability Min="120" Max="123">White</Capability>
-  <Capability Min="128" Max="191">Rotation, clockwise, slow to fast</Capability>
-  <Capability Min="192" Max="253">Rotation, counterclockwise, slow to fast</Capability>
+  <Capability Min="8" Max="11" Color="#00ff00">Green</Capability>
+  <Capability Min="16" Max="19" Color="#ffaa00">Orange</Capability>
+  <Capability Min="24" Max="27" Color="#0000ff">Blue 101</Capability>
+  <Capability Min="32" Max="35" Color="#ffff00">Yellow 603</Capability>
+  <Capability Min="40" Max="43" Color="#ffaaff">Pink 310</Capability>
+  <Capability Min="48" Max="51" Color="#55ffff">Turques 208</Capability>
+  <Capability Min="56" Max="59" Color="#ff0000">Red 304</Capability>
+  <Capability Min="64" Max="67" Color="#00ffff">Cyan 104</Capability>
+  <Capability Min="72" Max="75" Color="#ff00ff">Magenta 507</Capability>
+  <Capability Min="80" Max="83" Color="#ff007f">Magenta 501</Capability>
+  <Capability Min="88" Max="91" Color="#aa55ff">UV Blue 108</Capability>
+  <Capability Min="96" Max="99" Color="#ffff7f">Yellow 601</Capability>
+  <Capability Min="104" Max="107" Color="#aaff7f">Green 204</Capability>
+  <Capability Min="112" Max="115" Color="#ffaa7f">Orange 306</Capability>
+  <Capability Min="120" Max="123" Color="#ffffff">White</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Rotation, clockwise, slow to fast</Capability>
+  <Capability Min="192" Max="253" Res="Others/rainbow.png">Rotation, counterclockwise, slow to fast</Capability>
   <Capability Min="255" Max="255">Rotation controlled by music</Capability>
  </Channel>
  <Channel Name="Gobos">
@@ -79,10 +79,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="EFP 100W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="155" Height="135" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
+   <Technical PowerConsumption="150" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

@@ -67,11 +67,11 @@
  </Channel>
  <Channel Name="Horizontal movement 16Bit">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">Fine movement</Capability>
  </Channel>
  <Channel Name="Vertical movement 16Bit">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">Fine movement</Capability>
  </Channel>
  <Channel Name="Pan/Tilt-Speed">
   <Group Byte="0">Speed</Group>
