@@ -255,6 +255,9 @@ bool VCSlider::copyFrom(const VCWidget* widget)
     setSliderMode(slider->sliderMode());
     setSliderValue(slider->sliderValue());
 
+    /* Copy monitor mode */
+    setChannelsMonitorEnabled(slider->channelsMonitorEnabled());
+
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
@@ -576,7 +579,7 @@ void VCSlider::setChannelsMonitorEnabled(bool enable)
     m_monitorEnabled = enable;
 }
 
-bool VCSlider::channelsMonitorEnabled()
+bool VCSlider::channelsMonitorEnabled() const
 {
     return m_monitorEnabled;
 }

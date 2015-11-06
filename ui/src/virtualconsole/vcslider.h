@@ -293,7 +293,7 @@ public:
     /**
      * Return the current status of the channels monitor
      */
-    bool channelsMonitorEnabled();
+    bool channelsMonitorEnabled() const;
 
 protected:
     /**
