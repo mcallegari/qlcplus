@@ -50,8 +50,7 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct usb_device* device, quin
 
 PeperoniDevice::~PeperoniDevice()
 {
-    close(m_baseLine, InputMode);
-    close(m_baseLine, OutputMode);
+    closeAll();
 }
 
 /****************************************************************************
@@ -317,6 +316,14 @@ void PeperoniDevice::close(quint32 line, OperatingMode mode)
     }
 
     m_handle = NULL;
+}
+
+void PeperoniDevice::closeAll()
+{
+    qDebug() << "[Peperoni] close input...";
+    close(m_baseLine, InputMode);
+    qDebug() << "[Peperoni] close output...";
+    close(m_baseLine, OutputMode);
 }
 
 const struct usb_device* PeperoniDevice::device() const

@@ -56,16 +56,18 @@ int Peperoni::capabilities() const
 bool Peperoni::openOutput(quint32 output, quint32 universe)
 {
     Q_UNUSED(universe)
-    if (output < quint32(m_devices.size()) &&
-        m_devices[output] != NULL)
-            return m_devices[output]->open(output, PeperoniDevice::OutputMode);
+    if (m_devices.contains(output) == false)
+        return false;
+
+    if (m_devices[output] != NULL)
+        return m_devices[output]->open(output, PeperoniDevice::OutputMode);
     return false;
 }
 
 void Peperoni::closeOutput(quint32 output, quint32 universe)
 {
     Q_UNUSED(universe)
-    if (output < quint32(m_devices.size()) &&
+    if (m_devices.contains(output) && m_devices.contains(output) &&
         m_devices[output] != NULL)
             m_devices[output]->close(output, PeperoniDevice::OutputMode);
 }
@@ -106,9 +108,10 @@ QString Peperoni::outputInfo(quint32 output)
 {
     QString str;
 
-    if (output != QLCIOPlugin::invalidLine() &&
-        output < quint32(m_devices.size()) &&
-        m_devices[output] != NULL)
+    if (m_devices.contains(output) == false)
+        return str;
+
+    if (m_devices[output] != NULL)
     {
         str += m_devices[output]->outputInfoText(output);
     }
@@ -125,9 +128,11 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 {
     Q_UNUSED(universe)
 
-    if (output < quint32(m_devices.size()) &&
-        m_devices[output] != NULL)
-            m_devices[output]->outputDMX(output, data);
+    if (m_devices.contains(output) == false)
+        return;
+
+    if (m_devices[output] != NULL)
+        m_devices[output]->outputDMX(output, data);
     else
         qDebug() << "Peperoni invalid output !" << output << m_devices.size();
 }
@@ -139,8 +144,10 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 bool Peperoni::openInput(quint32 input, quint32 universe)
 {
     Q_UNUSED(universe)
-    if (input < quint32(m_devices.size()) &&
-        m_devices[input] != NULL)
+    if (m_devices.contains(input) == false)
+        return false;
+
+    if (m_devices[input] != NULL)
     {
         connect(m_devices[input], SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
@@ -152,8 +159,7 @@ bool Peperoni::openInput(quint32 input, quint32 universe)
 void Peperoni::closeInput(quint32 input, quint32 universe)
 {
     Q_UNUSED(universe)
-    if (input < quint32(m_devices.size()) &&
-        m_devices[input] != NULL)
+    if (m_devices.contains(input) && m_devices[input] != NULL)
     {
         m_devices[input]->close(input, PeperoniDevice::InputMode);
         disconnect(m_devices[input], SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
@@ -179,9 +185,10 @@ QString Peperoni::inputInfo(quint32 input)
 {
     QString str;
 
-    if (input != QLCIOPlugin::invalidLine() &&
-        input < quint32(m_devices.size()) &&
-        m_devices[input] != NULL)
+    if (m_devices.contains(input) == false)
+        return str;
+
+    if (m_devices[input] != NULL)
     {
         str += m_devices[input]->baseInfoText(input);
         str += m_devices[input]->inputInfoText(input);
@@ -226,6 +233,7 @@ void Peperoni::rescanDevices()
        that aren't found, get destroyed at the end of this function. */
     QHash <quint32, PeperoniDevice*> destroyList(m_devices);
     quint32 line = 0;
+    int devCount = m_devices.count();
 
     usb_find_busses();
     usb_find_devices();
@@ -261,7 +269,19 @@ void Peperoni::rescanDevices()
         }
     }
 
+    qDebug() << "[Peperoni] Need to destroy" << destroyList.count() << "devices";
+    QHashIterator<quint32, PeperoniDevice*> it(destroyList);
+    while(it.hasNext())
+    {
+        it.next();
+        PeperoniDevice *dev = m_devices.take(it.key());
+        dev->closeAll();
+        delete dev;
+    }
+
     qDebug() << "Peperoni devices found:" << m_devices.count();
+    if (m_devices.count() != devCount)
+        emit configurationChanged();
 }
 
 bool Peperoni::device(struct usb_device* usbdev)
@@ -290,7 +310,6 @@ void Peperoni::slotDeviceAdded(uint vid, uint pid)
     }
 
     rescanDevices();
-    emit configurationChanged();
 }
 
 void Peperoni::slotDeviceRemoved(uint vid, uint pid)

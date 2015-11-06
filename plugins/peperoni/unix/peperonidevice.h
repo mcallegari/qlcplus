@@ -87,6 +87,7 @@ public:
 
     bool open(quint32 line, OperatingMode mode);
     void close(quint32 line, OperatingMode mode);
+    void closeAll();
 
     const struct usb_device* device() const;
     const usb_dev_handle* handle() const;
