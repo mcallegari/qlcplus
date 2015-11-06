@@ -49,6 +49,9 @@ Rectangle
             case Function.Collection:
                 editorLoader.source = "qrc:/CollectionEditor.qml";
             break;
+            case Function.Chaser:
+                editorLoader.source = "qrc:/ChaserEditor.qml";
+            break;
         }
     }
 
@@ -249,6 +252,7 @@ Rectangle
           height: fmContainer.height - topBar.height
           z: 4
           boundsBehavior: Flickable.StopAtBounds
+          Layout.fillHeight: true
           model: functionManager.functionsList
           delegate:
               Component

@@ -20,17 +20,14 @@
 #ifndef SCENEEDITOR_H
 #define SCENEEDITOR_H
 
-#include <QQuickView>
-#include <QQuickItem>
-#include <QObject>
-
+#include "functioneditor.h"
 #include "scenevalue.h"
 
 class Doc;
 class Scene;
 class GenericDMXSource;
 
-class SceneEditor : public QObject
+class SceneEditor : public FunctionEditor
 {
     Q_OBJECT
 
@@ -39,11 +36,10 @@ class SceneEditor : public QObject
 
 public:
     SceneEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~SceneEditor();
 
     /** Set the ID of the Scene to edit */
-    void setSceneID(quint32 id);
-    /** Return the ID of the current Scene being edited */
-    quint32 sceneID() const;
+    void setFunctionID(quint32 id);
 
     /** Return a QVariant list of references to the Fixtures
      *  involved in the Scene editing */
@@ -88,10 +84,6 @@ signals:
     void sceneNameChanged();
 
 private:
-    /** Reference of the QML view */
-    QQuickView *m_view;
-    /** Reference of the project workspace */
-    Doc *m_doc;
     /** Reference of the Scene currently being edited */
     Scene *m_scene;
     /** A list of the $m_scene Fixture IDs for fast lookup */

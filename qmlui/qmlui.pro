@@ -25,9 +25,11 @@ INCLUDEPATH     += ../plugins/interfaces
 
 HEADERS += \
     app.h \
+    chasereditor.h \
     contextmanager.h \
     fixturebrowser.h \
     fixturemanager.h \
+    functioneditor.h \
     functionmanager.h \
     inputoutputmanager.h \ 
     treemodel.h \
@@ -36,20 +38,14 @@ HEADERS += \
     mainview2d.h \
     mainviewdmx.h \
     sceneeditor.h
-    
-HEADERS += \
-    virtualconsole/virtualconsole.h \
-    virtualconsole/vcwidget.h \
-    virtualconsole/vcframe.h \
-    virtualconsole/vcsoloframe.h \
-    virtualconsole/vcbutton.h \
-    virtualconsole/vclabel.h
 
 SOURCES += main.cpp \
     app.cpp \
+    chasereditor.cpp \
     contextmanager.cpp \
     fixturebrowser.cpp \
     fixturemanager.cpp \
+    functioneditor.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
     treemodel.cpp \
@@ -58,7 +54,19 @@ SOURCES += main.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
     sceneeditor.cpp
-    
+
+#############################################
+#  Virtual Console
+#############################################
+
+HEADERS += \
+    virtualconsole/virtualconsole.h \
+    virtualconsole/vcwidget.h \
+    virtualconsole/vcframe.h \
+    virtualconsole/vcsoloframe.h \
+    virtualconsole/vcbutton.h \
+    virtualconsole/vclabel.h
+
 SOURCES += \
     virtualconsole/virtualconsole.cpp \
     virtualconsole/vcwidget.cpp \

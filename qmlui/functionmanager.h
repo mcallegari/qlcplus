@@ -31,6 +31,7 @@
 class Doc;
 class Function;
 class SceneEditor;
+class FunctionEditor;
 
 typedef struct
 {
@@ -137,7 +138,8 @@ private:
     int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
     int m_showCount, m_audioCount, m_videoCount;
 
-    SceneEditor *m_sceneEditor;
+    //SceneEditor *m_sceneEditor;
+    FunctionEditor *m_currentEditor;
 };
 
 #endif // FUNCTIONMANAGER_H

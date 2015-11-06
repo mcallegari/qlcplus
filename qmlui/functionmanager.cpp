@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "functionmanager.h"
+#include "chasereditor.h"
 #include "sceneeditor.h"
 #include "collection.h"
 #include "treemodel.h"
@@ -48,11 +49,9 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
-    m_sceneEditor = new SceneEditor(m_view, m_doc, this);
+    m_currentEditor = NULL;
 
     qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
-
-    m_view->rootContext()->setContextProperty("sceneEditor", m_sceneEditor);
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -94,8 +93,8 @@ void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSel
     {
         foreach(selectedFunction sf, m_selectedFunctions)
         {
-            if (m_previewEnabled && sf.m_fID == m_sceneEditor->sceneID())
-                m_sceneEditor->setPreview(false);
+            //if (m_previewEnabled && sf.m_fID == m_sceneEditor->sceneID())
+            //    m_sceneEditor->setPreview(false);
             sf.m_item->setProperty("isSelected", false);
             Function *f = m_doc->function(sf.m_fID);
             if (f != NULL && f->isRunning())
@@ -220,24 +219,25 @@ void FunctionManager::clearTree()
 
 void FunctionManager::setPreview(bool enable)
 {
-    foreach(selectedFunction sf, m_selectedFunctions)
+    if (m_currentEditor != NULL)
     {
-        Function *f = m_doc->function(sf.m_fID);
-        if (f != NULL)
+        m_currentEditor->setPreview(enable);
+    }
+    else
+    {
+        foreach(selectedFunction sf, m_selectedFunctions)
         {
-            if (enable == false)
-                f->stop();
-            else
+            Function *f = m_doc->function(sf.m_fID);
+            if (f != NULL)
             {
-                f->start(m_doc->masterTimer());
+                if (enable == false)
+                    f->stop();
+                else
+                {
+                    f->start(m_doc->masterTimer());
+                }
             }
         }
-    }
-
-    if (m_selectedFunctions.isEmpty())
-    {
-        if (m_sceneEditor->sceneID() != Function::invalidId())
-            m_sceneEditor->setPreview(enable);
     }
 
     m_previewEnabled = enable;
@@ -245,10 +245,16 @@ void FunctionManager::setPreview(bool enable)
 
 void FunctionManager::setEditorFunction(quint32 fID)
 {
+    // reset all the editor functions
+    if (m_currentEditor != NULL)
+    {
+        //m_currentEditor->setFunctionID(Function::invalidId());
+        delete m_currentEditor;
+        m_currentEditor = NULL;
+    }
+
     if ((int)fID == -1)
     {
-        // reset all the editor functions
-        m_sceneEditor->setSceneID(Function::invalidId());
         emit functionEditingChanged(false);
         return;
     }
@@ -261,16 +267,25 @@ void FunctionManager::setEditorFunction(quint32 fID)
     {
         case Function::Scene:
         {
-            m_sceneEditor->setSceneID(fID);
-            m_sceneEditor->setPreview(m_previewEnabled);
+            m_currentEditor = new SceneEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::Chaser:
+        {
+            m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
         default:
         {
-            if (m_previewEnabled)
-                f->start(m_doc->masterTimer());
+            qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
         }
         break;
+    }
+
+    if (m_currentEditor != NULL)
+    {
+        m_currentEditor->setFunctionID(fID);
+        m_currentEditor->setPreview(m_previewEnabled);
     }
 
     emit functionEditingChanged(true);
@@ -331,8 +346,11 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures)
 
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
-    if (m_sceneEditor->sceneID() != Function::invalidId())
-        m_sceneEditor->setChannelValue(fxID, channel, value);
+    if (m_currentEditor != NULL && m_currentEditor->functionType() == Function::Scene)
+    {
+        SceneEditor *se = qobject_cast<SceneEditor *>(m_currentEditor);
+        se->setChannelValue(fxID, channel, value);
+    }
 }
 
 void FunctionManager::slotDocLoaded()

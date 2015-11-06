@@ -26,17 +26,26 @@
 #include "doc.h"
 
 SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
-    : QObject(parent)
-    , m_view(view)
-    , m_doc(doc)
+    : FunctionEditor(view, doc, parent)
     , m_scene(NULL)
     , m_sceneConsole(NULL)
     , m_source(NULL)
 {
+    m_view->rootContext()->setContextProperty("sceneEditor", this);
     m_source = new GenericDMXSource(m_doc);
 }
 
-void SceneEditor::setSceneID(quint32 id)
+SceneEditor::~SceneEditor()
+{
+    m_view->rootContext()->setContextProperty("sceneEditor", NULL);
+    QQuickItem *bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
+    if (bottomPanel != NULL)
+        bottomPanel->setProperty("visible", false);
+
+    delete m_source;
+}
+
+void SceneEditor::setFunctionID(quint32 id)
 {
     QQuickItem *bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
 
@@ -59,14 +68,7 @@ void SceneEditor::setSceneID(quint32 id)
         bottomPanel->setProperty("visible", true);
         bottomPanel->setProperty("editorSource", "qrc:/SceneFixtureConsole.qml");
     }
-}
-
-quint32 SceneEditor::sceneID() const
-{
-    if (m_scene != NULL)
-        return m_scene->id();
-
-    return Function::invalidId();
+    FunctionEditor::setFunctionID(id);
 }
 
 QVariantList SceneEditor::fixtures()
@@ -83,10 +85,7 @@ QString SceneEditor::sceneName() const
 
 void SceneEditor::setSceneName(QString sceneName)
 {
-    if (m_scene == NULL)
-        return;
-
-    if (m_scene->name() == sceneName)
+    if (m_scene == NULL || m_scene->name() == sceneName)
         return;
 
     m_scene->setName(sceneName);
@@ -96,6 +95,7 @@ void SceneEditor::setSceneName(QString sceneName)
 void SceneEditor::setPreview(bool enable)
 {
     qDebug() << "[SceneEditor] set preview" << enable;
+
     if (enable == true)
     {
         foreach(SceneValue sv, m_scene->values())
@@ -105,6 +105,7 @@ void SceneEditor::setPreview(bool enable)
         m_source->unsetAll();
 
     m_source->setOutputEnabled(enable);
+    m_preview = enable;
 }
 
 void SceneEditor::sceneConsoleLoaded(bool status)
