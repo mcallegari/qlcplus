@@ -245,6 +245,7 @@ void HIDPlugin::rescanDevices()
     /* Treat all devices as dead first, until we find them again. Those
        that aren't found, get destroyed at the end of this function. */
     QList <HIDDevice*> destroyList(m_devices);
+    int devCount = m_devices.count();
 
     struct hid_device_info *devs, *cur_dev;
     quint32 line = 0;
@@ -306,7 +307,8 @@ void HIDPlugin::rescanDevices()
         delete dev;
     }
     
-    emit configurationChanged();
+    if (m_devices.count() != devCount)
+        emit configurationChanged();
 }
 
 HIDDevice* HIDPlugin::device(const QString& path)

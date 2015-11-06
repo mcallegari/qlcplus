@@ -676,7 +676,7 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
         if (op != NULL && op->plugin() == plugin)
         {
             QMutexLocker locker(&m_universeMutex);
-            success = op->reconnect();
+            /*success = */ op->reconnect();
         }
 
         InputPatch* ip = m_universeArray.at(i)->inputPatch();
@@ -684,7 +684,7 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
         if (ip != NULL && ip->plugin() == plugin)
         {
             QMutexLocker locker(&m_universeMutex);
-            success = ip->reconnect();
+            /*success = */ ip->reconnect();
         }
     }
 

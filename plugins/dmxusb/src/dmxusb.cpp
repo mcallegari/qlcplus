@@ -57,6 +57,7 @@ int DMXUSB::capabilities() const
 
 bool DMXUSB::rescanWidgets()
 {
+    int linesCount = m_inputs.count() + m_outputs.count();
     m_inputs.clear();
     m_outputs.clear();
 
@@ -73,6 +74,9 @@ bool DMXUSB::rescanWidgets()
         for (int i = 0; i < widget->inputsNumber(); i++)
             m_inputs.append(widget);
     }
+
+    if (m_inputs.count() + m_outputs.count() != linesCount)
+        emit configurationChanged();
 
     return true;
 }
@@ -310,7 +314,6 @@ void DMXUSB::slotDeviceAdded(uint vid, uint pid)
     }
 
     rescanWidgets();
-    emit configurationChanged();
 }
 
 void DMXUSB::slotDeviceRemoved(uint vid, uint pid)
