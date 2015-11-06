@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -11,19 +11,19 @@
  <Type>Flower</Type>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">White</Capability>
+  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
   <Capability Min="11" Max="21">Color 1</Capability>
   <Capability Min="22" Max="32">Color 2</Capability>
-  <Capability Min="33" Max="43">Blue</Capability>
-  <Capability Min="44" Max="54">Yellow green</Capability>
-  <Capability Min="55" Max="65">Light yellow</Capability>
-  <Capability Min="66" Max="76">Magenta</Capability>
-  <Capability Min="77" Max="87">Orange</Capability>
-  <Capability Min="88" Max="98">Purple</Capability>
-  <Capability Min="128" Max="187">Forwards rainbow speed</Capability>
-  <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Backwards rainbow speed</Capability>
+  <Capability Min="33" Max="43" Color="#0000ff">Blue</Capability>
+  <Capability Min="44" Max="54" Color="#c8ff11">Yellow green</Capability>
+  <Capability Min="55" Max="65" Color="#ffff7f">Light yellow</Capability>
+  <Capability Min="66" Max="76" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="77" Max="87" Color="#ffaa00">Orange</Capability>
+  <Capability Min="88" Max="98" Color="#ff007f">Purple</Capability>
   <Capability Min="99" Max="127">Colour shake</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forwards rainbow speed</Capability>
+  <Capability Min="188" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow speed</Capability>
  </Channel>
  <Channel Name="Static gobo">
   <Group Byte="0">Gobo</Group>
@@ -127,10 +127,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="37" Width="410" Height="240" Depth="690"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1725" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour 1</Channel>

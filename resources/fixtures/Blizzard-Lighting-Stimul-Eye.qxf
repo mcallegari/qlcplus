@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -177,9 +177,9 @@
  <Mode Name="19 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Height="315" Width="223" Depth="168"/>
+   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
    <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
-   <Focus TiltMax="250" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -202,11 +202,11 @@
   <Channel Number="17">Built-in Program Speed</Channel>
   <Channel Number="18">Auto Run + System Reset</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
    <Channel>9</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
   </Head>
   <Head>
    <Channel>10</Channel>
@@ -230,9 +230,9 @@
  <Mode Name="12 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Height="315" Width="223" Depth="168"/>
+   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
    <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
-   <Focus TiltMax="250" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -13,6 +13,7 @@ INCLUDEPATH     += monitor showmanager virtualconsole
 
 # Engine
 INCLUDEPATH     += ../../engine/src ../../engine/src/audio
+win32: INCLUDEPATH += ../../hotplugmonitor/src
 DEPENDPATH      += ../../engine/src
 QMAKE_LIBDIR    += ../../engine/src
 LIBS            += -lqlcplusengine

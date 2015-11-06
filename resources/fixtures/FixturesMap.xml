@@ -94,6 +94,7 @@
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
+  <fixture path="BoomToneDJ-Froggy-LED-RGBW.qxf" mf="BoomToneDJ" md="Froggy LED RGBW"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
   <fixture path="BoomToneDJ-Sky-Bar-288-LED.qxf" mf="BoomToneDJ" md="Sky bar 288 LED"/>
   <fixture path="BoomToneDJ-Slim-PAR-7x3W-LED-RGB.qxf" mf="BoomToneDJ" md="Slim PAR 7x3W LED RGB"/>
@@ -215,8 +216,12 @@
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
+  <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
+  <fixture path="Contest-Evora-Beam-5R.qxf" mf="Contest" md="Evora Beam 5R"/>
+  <fixture path="Contest-Evora-DUO-B2R.qxf" mf="Contest" md="Evora DUO B2R"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
   <fixture path="Contest-MiniCube-6TCb.qxf" mf="Contest" md="MiniCube-6TCb"/>
+  <fixture path="Contest-Oz-37x15QC.qxf" mf="Contest" md="Oz-37x15QC"/>
   <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
   <fixture path="Contest-Tri4U.qxf" mf="Contest" md="Tri4U"/>
   <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
@@ -356,6 +361,7 @@
   <fixture path="Img-Stage-Line-Parl-73-RGB.qxf" mf="Img Stage Line" md="Parl 73-RGB"/>
   <fixture path="Involight-LED-MH60S.qxf" mf="Involight" md="LED MH60S"/>
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
+  <fixture path="iSolution-iMove-250w.qxf" mf="iSolution" md="iMove 250W"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
   <fixture path="JB-Lighting-Varyscan-3-Special.qxf" mf="JB-Lighting" md="Varyscan 3 Special"/>
   <fixture path="JB-Lighting-Varyscan-3-SpecialPlus.qxf" mf="JB-Lighting" md="Varyscan 3 Special Plus"/>
@@ -612,6 +618,7 @@
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
+  <fixture path="Talent-BL63-10-LED-Bar.qxf" mf="Talent" md="BL63 10&quot; LED Bar"/>
   <fixture path="Triton-Blue-Wally-MH-20.qxf" mf="Triton Blue" md="Wally MH-20"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
   <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>

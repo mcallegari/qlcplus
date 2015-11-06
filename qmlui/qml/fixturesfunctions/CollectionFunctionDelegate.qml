@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FunctionDelegate.qml
+  CollectionFunctionDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -19,8 +19,10 @@
 
 import QtQuick 2.0
 import com.qlcplus.classes 1.0
+import "."
 
-Rectangle {
+Rectangle
+{
     id: funcDelegate
     width: 100
     height: 35
@@ -31,38 +33,67 @@ Rectangle {
     property Function func
     property string textLabel
     property bool isSelected: false
+    property int indexInList: -1
+    property int highlightIndex: -1
 
     signal clicked
 
-    onFunctionIDChanged: {
+    onFunctionIDChanged:
+    {
         func = functionManager.getFunction(functionID)
         textLabel = func.name
         funcEntry.functionType = func.type
     }
 
-    Rectangle {
+    onHighlightIndexChanged:
+    {
+        if (indexInList >= 0 && highlightIndex == indexInList)
+            topDragLine.visible = true
+        else
+            topDragLine.visible = false
+    }
+
+    Rectangle
+    {
         anchors.fill: parent
         radius: 3
-        color: "#0978FF"
+        color: UISettings.highlight
         visible: isSelected
     }
 
-    IconTextEntry {
+    IconTextEntry
+    {
         id: funcEntry
         width: parent.width
         height: parent.height
         tLabel: textLabel
     }
-    Rectangle {
+
+    // items divider
+    Rectangle
+    {
         width: parent.width
         height: 1
         y: parent.height - 1
         color: "#666"
     }
 
-    MouseArea {
+    // top line drag highlight
+    Rectangle
+    {
+        id: topDragLine
+        visible: false
+        width: parent.width
+        height: 2
+        z: 1
+        color: UISettings.selection
+    }
+
+    MouseArea
+    {
         anchors.fill: parent
-        onClicked: {
+        onClicked:
+        {
             isSelected = true
             functionManager.selectFunction(functionID, funcDelegate,
                                            (mouse.modifiers & Qt.ControlModifier))

@@ -73,6 +73,11 @@ private:
     void closeEvent(QCloseEvent*);
     void setActiveWindow(const QString& name);
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+protected:
+    bool nativeEvent(const QByteArray & eventType, void * message, long * result);
+#endif
+
 private:
     QTabWidget* m_tab;
     QDir m_workingDirectory;

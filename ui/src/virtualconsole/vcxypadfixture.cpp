@@ -54,6 +54,9 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc)
     m_xMSB = QLCChannel::invalid();
     m_yLSB = QLCChannel::invalid();
     m_yMSB = QLCChannel::invalid();
+
+    m_enabled = true;
+    m_displayMode = Degrees;
 }
 
 VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
@@ -64,7 +67,7 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
     if (variant.canConvert(QVariant::StringList) == true)
     {
         QStringList list(variant.toStringList());
-        if (list.size() == 8)
+        if (list.size() == 10)
         {
             m_head.fxi = list.takeFirst().toUInt();
             m_head.head = list.takeFirst().toInt();
@@ -80,12 +83,15 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
             m_yMax = qreal(list.takeFirst().toDouble());
             m_yMax = CLAMP(m_yMax, qreal(0), qreal(1));
             m_yReverse = bool(list.takeFirst().toInt());
-            Q_ASSERT(list.isEmpty() == true);
 
             m_xMSB = QLCChannel::invalid();
             m_xLSB = QLCChannel::invalid();
             m_yMSB = QLCChannel::invalid();
             m_yLSB = QLCChannel::invalid();
+
+            m_enabled = bool(list.takeFirst().toInt());
+            m_displayMode = DisplayMode(list.takeFirst().toInt());
+            Q_ASSERT(list.isEmpty() == true);
         }
         else
         {
@@ -125,6 +131,9 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
     m_yMSB = fxi.m_yMSB;
     m_yLSB = fxi.m_yLSB;
 
+    m_enabled = fxi.m_enabled;
+    m_displayMode = fxi.m_displayMode;
+
     return *this;
 }
 
@@ -150,6 +159,9 @@ VCXYPadFixture::operator QVariant() const
     list << QString("%1").arg(m_yMin);
     list << QString("%1").arg(m_yMax);
     list << QString("%1").arg(m_yReverse);
+
+    list << QString("%1").arg(m_enabled);
+    list << QString("%1").arg(m_displayMode);
 
     return QVariant(list);
 }
@@ -227,11 +239,26 @@ bool VCXYPadFixture::xReverse() const
 
 QString VCXYPadFixture::xBrief() const
 {
+    int scale = 100;
+    QString units = "%";
+
+    if (m_displayMode == DMX)
+    {
+        scale = 255;
+        units = "";
+    }
+    else if (m_displayMode == Degrees)
+    {
+        scale = degreesRange().width();
+        units = "°";
+    }
+
     if (m_xReverse == false)
-        return QString("%1 - %2%").arg(m_xMin * 100).arg(m_xMax * 100);
+        return QString("%1%3 - %2%3").arg(m_xMin * scale).arg(m_xMax * scale).arg(units);
     else
-        return QString("%1: %2 - %3%").arg(QObject::tr("Reversed"))
-                                      .arg(m_xMax * 100).arg(m_xMin * 100);
+        return QString("%1: %2%4 - %3%4").arg(QObject::tr("Reversed"))
+                                      .arg(m_xMax * scale).arg(m_xMin * scale).arg(units);
+
 }
 
 /****************************************************************************
@@ -262,11 +289,39 @@ bool VCXYPadFixture::yReverse() const
 
 QString VCXYPadFixture::yBrief() const
 {
+    int scale = 100;
+    QString units = "%";
+
+    if (m_displayMode == DMX)
+    {
+        scale = 255;
+        units = "";
+    }
+    else if (m_displayMode == Degrees)
+    {
+        scale = degreesRange().height();
+        units = "°";
+    }
+
     if (m_yReverse == false)
-        return QString("%1 - %2%").arg(m_yMin * 100).arg(m_yMax * 100);
+        return QString("%1%3 - %2%3").arg(m_yMin * scale).arg(m_yMax * scale).arg(units);
     else
-        return QString("%1: %2 - %3%").arg(QObject::tr("Reversed"))
-                                      .arg(m_yMax * 100).arg(m_yMin * 100);
+        return QString("%1: %2%4 - %3%4").arg(QObject::tr("Reversed"))
+                .arg(m_yMax * scale).arg(m_yMin * scale).arg(units);
+}
+
+/********************************************************************
+ * Display mode
+ ********************************************************************/
+
+void VCXYPadFixture::setDisplayMode(VCXYPadFixture::DisplayMode mode)
+{
+    m_displayMode = mode;
+}
+
+VCXYPadFixture::DisplayMode VCXYPadFixture::displayMode() const
+{
+    return m_displayMode;
 }
 
 /****************************************************************************
@@ -410,6 +465,16 @@ void VCXYPadFixture::disarm()
     m_xMSB = QLCChannel::invalid();
     m_yLSB = QLCChannel::invalid();
     m_yMSB = QLCChannel::invalid();
+}
+
+void VCXYPadFixture::setEnabled(bool enable)
+{
+    m_enabled = enable;
+}
+
+bool VCXYPadFixture::isEnabled() const
+{
+    return m_enabled;
 }
 
 void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universes)

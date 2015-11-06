@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -249,10 +249,10 @@
  </Channel>
  <Mode Name="Pixel">
   <Physical>
-   <Bulb Lumens="640" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="500" Height="80" Weight="3.2" Depth="190"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pixel 1 Red</Channel>
@@ -305,9 +305,9 @@
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
   <Head>
    <Channel>18</Channel>
@@ -315,17 +315,17 @@
    <Channel>20</Channel>
   </Head>
   <Head>
+   <Channel>23</Channel>
    <Channel>21</Channel>
    <Channel>22</Channel>
-   <Channel>23</Channel>
   </Head>
  </Mode>
  <Mode Name="Tour">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -347,10 +347,10 @@
  </Mode>
  <Mode Name="ARC 1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -364,10 +364,10 @@
  </Mode>
  <Mode Name="ARC 1+D">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -383,10 +383,10 @@
  </Mode>
  <Mode Name="HSV">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Hue</Channel>

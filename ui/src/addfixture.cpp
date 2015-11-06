@@ -383,7 +383,7 @@ quint32 AddFixture::findAddress(quint32 numChannels,
 }
 
 quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
-                                QList<Fixture*> const& fixtures)
+                                QList<Fixture*> const& fixtures, quint32 currentFixture)
 {
     quint32 freeSpace = 0;
     quint32 maxChannels = 512;
@@ -399,6 +399,9 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
         Q_ASSERT(fxi != NULL);
 
         if (fxi->universe() != universe)
+            continue;
+
+        if (fxi->id() == currentFixture && currentFixture != Fixture::invalidId())
             continue;
 
         for (quint32 ch = 0; ch < fxi->channels(); ch++)
@@ -490,7 +493,7 @@ void AddFixture::slotUniverseActivated(int universe)
     /* Adjust the available address range */
     slotChannelsChanged(m_channelsValue);
 
-    quint32 addr = findAddress(universe, m_channelsSpin->value(), m_doc->fixtures());
+    quint32 addr = findAddress(universe, m_channelsSpin->value(), m_doc->fixtures(), m_fixtureID);
     if (addr != QLCChannel::invalid())
         m_addressSpin->setValue((addr & 0x01FF) + 1);
     else
@@ -669,7 +672,7 @@ void AddFixture::slotSelectionChanged()
     m_gapSpin->setEnabled(true);
 
     /* Recalculate the first available address for the newly selected fixture */
-    quint32 addr = findAddress(m_universeValue, m_channelsSpin->value(), m_doc->fixtures());
+    quint32 addr = findAddress(m_universeValue, m_channelsSpin->value(), m_doc->fixtures(), m_fixtureID);
     if (addr != QLCChannel::invalid())
         m_addressSpin->setValue((addr & 0x01FF) + 1);
     else

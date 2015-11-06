@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -27,14 +27,14 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="25">White</Capability>
-  <Capability Min="26" Max="51">Deep red</Capability>
-  <Capability Min="52" Max="77">Blue</Capability>
-  <Capability Min="78" Max="103">Green</Capability>
-  <Capability Min="104" Max="127">Orange</Capability>
-  <Capability Min="128" Max="189">Forwards rainbow speed</Capability>
+  <Capability Min="0" Max="25" Color="#ffffff">White</Capability>
+  <Capability Min="26" Max="51" Color="#aa0000">Deep red</Capability>
+  <Capability Min="52" Max="77" Color="#0000ff">Blue</Capability>
+  <Capability Min="78" Max="103" Color="#00ff00">Green</Capability>
+  <Capability Min="104" Max="127" Color="#ffaa00">Orange</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Forwards rainbow speed</Capability>
   <Capability Min="190" Max="191">No rotation</Capability>
-  <Capability Min="192" Max="255">Backwards rainbow speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Backwards rainbow speed</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -105,10 +105,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20" Width="390" Height="520" Depth="400"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
    <Technical PowerConsumption="400" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

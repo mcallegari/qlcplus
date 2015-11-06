@@ -21,6 +21,9 @@
 #define HOTPLUGMONITOR_H
 
 #include <QObject>
+#if defined(WIN32) || defined(Q_OS_WIN)
+#  include <qwindowdefs.h>
+#endif
 
 class HPMPrivate;
 
@@ -39,6 +42,11 @@ class HotPlugMonitor : public QObject
 public:
     /** Connect $listener to receive deviceAdded() and deviceRemoved() signals */
     static void connectListener(QObject* listener);
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+    static void setWinId(WId id);
+    static bool parseWinEvent(void * message, long * result);
+#endif
 
     /** Destructor */
     ~HotPlugMonitor();

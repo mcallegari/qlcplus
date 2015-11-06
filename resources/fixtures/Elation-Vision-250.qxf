@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -41,21 +41,21 @@
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">Open, white</Capability>
-  <Capability Min="10" Max="20">Turquoise</Capability>
-  <Capability Min="21" Max="31">Red</Capability>
-  <Capability Min="32" Max="41">Cyan</Capability>
-  <Capability Min="42" Max="52">Light green</Capability>
-  <Capability Min="53" Max="63">Magenta</Capability>
-  <Capability Min="64" Max="73">Light blue</Capability>
-  <Capability Min="74" Max="84">Yellow</Capability>
-  <Capability Min="85" Max="95">Green</Capability>
-  <Capability Min="96" Max="105">Pink</Capability>
-  <Capability Min="106" Max="116">Blue</Capability>
-  <Capability Min="117" Max="127">Orange</Capability>
-  <Capability Min="128" Max="189">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">Open, white</Capability>
+  <Capability Min="10" Max="20" Color="#55ffff">Turquoise</Capability>
+  <Capability Min="21" Max="31" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="41" Color="#00ffff">Cyan</Capability>
+  <Capability Min="42" Max="52" Color="#aaff7f">Light green</Capability>
+  <Capability Min="53" Max="63" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="73" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="74" Max="84" Color="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="95" Color="#00ff00">Green</Capability>
+  <Capability Min="96" Max="105" Color="#ffaaff">Pink</Capability>
+  <Capability Min="106" Max="116" Color="#0000ff">Blue</Capability>
+  <Capability Min="117" Max="127" Color="#ffaa00">Orange</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="No function">
   <Group Byte="0">Nothing</Group>
@@ -134,10 +134,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="19" Width="306" Height="215" Depth="629"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="85"/>
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

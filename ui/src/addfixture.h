@@ -141,10 +141,12 @@ protected:
      *
      * @param universe The universe to search from
      * @param numChannels Number of free channels required
+     * @param fixtures Current fixtures
+     * @param currentFixture ID of current fixture, that will be ignored
      * @return An address or QLCChannel::invalid() if address space not available
      */
     static quint32 findAddress(quint32 universe, quint32 numChannels,
-                               QList<Fixture*> const& fixtures);
+                               QList<Fixture*> const& fixtures, quint32 currentFixture = Fixture::invalidId());
 
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();

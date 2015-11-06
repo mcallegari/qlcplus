@@ -94,13 +94,16 @@ bool Collection::copyFrom(const Function* function)
  * Contents
  *****************************************************************************/
 
-bool Collection::addFunction(quint32 fid)
+bool Collection::addFunction(quint32 fid, int insertIndex)
 {
     if (fid != this->id() && m_functions.contains(fid) == false)
     {
         {
             QMutexLocker locker(&m_functionListMutex);
-            m_functions.append(fid);
+            if (insertIndex == -1)
+                m_functions.append(fid);
+            else
+                m_functions.insert(insertIndex, fid);
         }
 
         emit changed(this->id());

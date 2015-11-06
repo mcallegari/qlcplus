@@ -61,7 +61,8 @@ private:
      * Fixtures page
      ********************************************************************/
 private:
-    void fillTree();
+    void fillFixturesTree();
+    void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
     QList <VCXYPadFixture> selectedFixtures() const;
     QTreeWidgetItem* fixtureItem(const VCXYPadFixture& fxi);
 
@@ -73,6 +74,10 @@ private slots:
     void slotRemoveClicked();
     void slotEditClicked();
     void slotSelectionChanged(QTreeWidgetItem* item);
+
+    void slotPercentageRadioChecked();
+    void slotDegreesRadioChecked();
+    void slotDMXRadioChecked();
 
     /********************************************************************
      * External controls
@@ -100,6 +105,7 @@ protected slots:
     void slotAddPositionClicked();
     void slotAddEFXClicked();
     void slotAddSceneClicked();
+    void slotAddFixtureGroupClicked();
     void slotRemovePresetClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotPresetSelectionChanged();

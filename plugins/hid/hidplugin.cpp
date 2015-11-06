@@ -372,6 +372,24 @@ void HIDPlugin::removeDevice(HIDDevice* device)
 }
 
 /*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void HIDPlugin::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
+}
+
+void HIDPlugin::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
+}
+
+/*****************************************************************************
  * Plugin export
  ****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

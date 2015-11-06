@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -26,33 +26,33 @@
  </Channel>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13">White</Capability>
-  <Capability Min="14" Max="27">Light blue</Capability>
-  <Capability Min="28" Max="41">Salmon pink</Capability>
-  <Capability Min="42" Max="55">Blue</Capability>
-  <Capability Min="56" Max="69">Yellow green</Capability>
-  <Capability Min="70" Max="83">Light yellow</Capability>
-  <Capability Min="84" Max="97">Magenta</Capability>
-  <Capability Min="98" Max="111">Orange</Capability>
-  <Capability Min="112" Max="127">Purple</Capability>
-  <Capability Min="128" Max="187">Rainbow forward fast to slow</Capability>
+  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="28" Max="41" Color="#ffaa7f">Salmon pink</Capability>
+  <Capability Min="42" Max="55" Color="#0000ff">Blue</Capability>
+  <Capability Min="56" Max="69" Color="#d3ff0f">Yellow green</Capability>
+  <Capability Min="70" Max="83" Color="#ffff7f">Light yellow</Capability>
+  <Capability Min="84" Max="97" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="98" Max="111" Color="#ffaa00">Orange</Capability>
+  <Capability Min="112" Max="127" Color="#ff007f">Purple</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Rainbow forward fast to slow</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Rainbow backward slow to fast</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13">Open</Capability>
-  <Capability Min="14" Max="27">Red</Capability>
-  <Capability Min="28" Max="41">Light blue</Capability>
-  <Capability Min="42" Max="55">Pink</Capability>
-  <Capability Min="56" Max="69">Yellow</Capability>
+  <Capability Min="0" Max="13" Color="#ffffff">Open</Capability>
+  <Capability Min="14" Max="27" Color="#ff0000">Red</Capability>
+  <Capability Min="28" Max="41" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="42" Max="55" Color="#ffaaff">Pink</Capability>
+  <Capability Min="56" Max="69" Color="#ffff00">Yellow</Capability>
   <Capability Min="70" Max="83">3200K correction filter</Capability>
   <Capability Min="84" Max="97">5600K correction filter</Capability>
-  <Capability Min="98" Max="111">UV filter</Capability>
-  <Capability Min="112" Max="127">Green</Capability>
-  <Capability Min="128" Max="187">Rainbow forward speed</Capability>
+  <Capability Min="98" Max="111" Color="#aa00ff">UV filter</Capability>
+  <Capability Min="112" Max="127" Color="#00ff00">Green</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Rainbow forward speed</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Rainbow backward speed</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Rainbow backward speed</Capability>
  </Channel>
  <Channel Name="Static gobo">
   <Group Byte="0">Gobo</Group>
@@ -180,10 +180,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="48" Width="410" Height="240" Depth="1060"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="50"/>
    <Technical PowerConsumption="1725" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

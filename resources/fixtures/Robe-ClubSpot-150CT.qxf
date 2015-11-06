@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -96,10 +96,11 @@
  </Channel>
  <Mode Name="16bit">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -112,11 +113,11 @@
  </Mode>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -127,11 +128,11 @@
  </Mode>
  <Mode Name="8bit Tracking">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

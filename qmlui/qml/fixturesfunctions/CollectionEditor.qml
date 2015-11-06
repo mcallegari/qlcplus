@@ -61,6 +61,7 @@ Rectangle
             color: UISettings.bgMedium
             width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
             height: 40
+            z: 2
 
             Rectangle
             {
@@ -156,16 +157,22 @@ Rectangle
 
         ListView
         {
+            id: cFunctionList
             width: ceContainer.width
             height: ceContainer.height - 40
             y: 40
             boundsBehavior: Flickable.StopAtBounds
+
+            property int dragInsertIndex: -1
+
             model: collection ? collection.functions : null
             delegate:
                 CollectionFunctionDelegate
                 {
                     width: ceContainer.width
                     functionID: modelData
+                    indexInList: index
+                    highlightIndex: cFunctionList.dragInsertIndex
                 }
 
             DropArea
@@ -178,9 +185,15 @@ Rectangle
                 {
                     console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                     console.log("Item fID: " + drag.source.funcID)
-                    collection.addFunction(drag.source.funcID)
+                    collection.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+                    cFunctionList.dragInsertIndex = -1
                 }
-                onEntered: console.log("[CollectionEditor] Drag item entered")
+                onPositionChanged:
+                {
+                    var idx = cFunctionList.indexAt(drag.x, drag.y)
+                    //console.log("Item index:" + idx)
+                    cFunctionList.dragInsertIndex = idx
+                }
             }
         }
     }

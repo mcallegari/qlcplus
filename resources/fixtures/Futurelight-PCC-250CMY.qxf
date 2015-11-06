@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -11,17 +11,17 @@
  <Type>Color Changer</Type>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">White</Capability>
-  <Capability Min="16" Max="31">Deep red</Capability>
-  <Capability Min="32" Max="47">Blue</Capability>
-  <Capability Min="48" Max="63">Green</Capability>
-  <Capability Min="64" Max="79">Orange</Capability>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Color="#aa0000">Deep red</Capability>
+  <Capability Min="32" Max="47" Color="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="63" Color="#00ff00">Green</Capability>
+  <Capability Min="64" Max="79" Color="#ffaa00">Orange</Capability>
   <Capability Min="80" Max="95">3200K correction filter</Capability>
   <Capability Min="96" Max="111">6000K correction filter</Capability>
-  <Capability Min="112" Max="117">UV filter</Capability>
-  <Capability Min="128" Max="189">Rainbow forward fast to slow</Capability>
+  <Capability Min="112" Max="117" Color="#aa00ff">UV filter</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Rainbow forward fast to slow</Capability>
   <Capability Min="190" Max="191">No rotation</Capability>
-  <Capability Min="192" Max="255">Rainbow backward slow to fast</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -130,11 +130,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="435" Height="350" Depth="325"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Cyan</Channel>

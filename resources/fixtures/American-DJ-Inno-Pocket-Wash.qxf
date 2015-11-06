@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.6 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -137,10 +137,10 @@
  </Channel>
  <Mode Name="21 Channel Mode">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="171" Depth="149" Height="214" Weight="7.2"/>
-   <Lens DegreesMin="28" DegreesMax="28" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.2" Width="171" Height="214" Depth="149"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -164,13 +164,25 @@
   <Channel Number="18">Pan/Tilt Movement speed</Channel>
   <Channel Number="19">Special Functions</Channel>
   <Channel Number="20">Dimmer curves</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
  </Mode>
  <Mode Name="19 Channel Mode">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="171" Depth="149" Height="214" Weight="7.2"/>
-   <Lens DegreesMin="28" DegreesMax="28" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.2" Width="171" Height="214" Depth="149"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -192,13 +204,25 @@
   <Channel Number="16">Pan/Tilt Movement speed</Channel>
   <Channel Number="17">Special Functions</Channel>
   <Channel Number="18">Dimmer curves</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
  </Mode>
  <Mode Name="11 Channel Mode">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="171" Depth="149" Height="214" Weight="7.2"/>
-   <Lens DegreesMin="28" DegreesMax="28" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.2" Width="171" Height="214" Depth="149"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -215,10 +239,10 @@
  </Mode>
  <Mode Name="9 Channel Mode">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="171" Depth="149" Height="214" Weight="7.2"/>
-   <Lens DegreesMin="28" DegreesMax="28" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.2" Width="171" Height="214" Depth="149"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

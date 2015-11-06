@@ -274,6 +274,38 @@ bool Peperoni::device(struct usb_device* usbdev)
     return false;
 }
 
+
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void Peperoni::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    if (!PeperoniDevice::isPeperoniDevice(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "not a Peperoni device";
+        return;
+    }
+
+    rescanDevices();
+    emit configurationChanged();
+}
+
+void Peperoni::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    if (!PeperoniDevice::isPeperoniDevice(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "not a Peperoni device";
+        return;
+    }
+
+    rescanDevices();
+}
+
 /*****************************************************************************
  * Plugin export
  ****************************************************************************/

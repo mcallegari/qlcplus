@@ -25,11 +25,6 @@
 #include <Dbt.h>
 
 #include <QtCore>
-#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
-#include <QtGui>
-#else
-#include <QtWidgets>
-#endif
 #include <QDebug>
 
 #include "hotplugmonitor.h"
@@ -49,7 +44,7 @@ static const GUID USBClassGUID =
  ****************************************************************************/
 
 HPMPrivate::HPMPrivate(HotPlugMonitor* parent)
-    : QWidget(0) // This class has to be a widget to receive winEvent() events
+    : QObject(parent)
     , m_hpm(parent)
     , m_hDeviceNotify(NULL)
 {
@@ -62,20 +57,7 @@ HPMPrivate::~HPMPrivate()
 
 void HPMPrivate::start()
 {
-    DEV_BROADCAST_DEVICEINTERFACE notificationFilter;
 
-    ZeroMemory(&notificationFilter, sizeof(notificationFilter));
-    notificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
-    notificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
-    notificationFilter.dbcc_classguid = USBClassGUID;
-
-    m_hDeviceNotify = RegisterDeviceNotification((HANDLE)winId(),
-                                                 &notificationFilter,
-                                                 DEVICE_NOTIFY_WINDOW_HANDLE |
-                                                 DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
-
-    if (m_hDeviceNotify == NULL)
-        qWarning() << Q_FUNC_INFO << "Unable to register device notification.";
 }
 
 void HPMPrivate::stop()
@@ -85,6 +67,25 @@ void HPMPrivate::stop()
     else if (UnregisterDeviceNotification(m_hDeviceNotify) == FALSE)
         qWarning() << Q_FUNC_INFO << "Unable to unregister device notification.";
     m_hDeviceNotify = NULL;
+}
+
+void HPMPrivate::setWinId(WId id)
+{
+    qDebug() << Q_FUNC_INFO << "Setting filter on winID:" << id;
+    DEV_BROADCAST_DEVICEINTERFACE notificationFilter;
+
+    ZeroMemory(&notificationFilter, sizeof(notificationFilter));
+    notificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
+    notificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+    notificationFilter.dbcc_classguid = USBClassGUID;
+
+    m_hDeviceNotify = RegisterDeviceNotification((HANDLE)id,
+                                                 &notificationFilter,
+                                                 DEVICE_NOTIFY_WINDOW_HANDLE |
+                                                 DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
+
+    if (m_hDeviceNotify == NULL)
+        qWarning() << Q_FUNC_INFO << "Unable to register device notification." << GetLastError();
 }
 
 bool HPMPrivate::extractVidPid(const QString& dbccName, uint* vid, uint* pid)
@@ -120,7 +121,7 @@ bool HPMPrivate::extractVidPid(const QString& dbccName, uint* vid, uint* pid)
     return false;
 }
 
-bool HPMPrivate::winEvent(MSG* message, long* RESULT)
+bool HPMPrivate::processWinEvent(MSG* message, long* RESULT)
 {
     Q_UNUSED(RESULT)
     Q_ASSERT(message != NULL);
@@ -132,6 +133,8 @@ bool HPMPrivate::winEvent(MSG* message, long* RESULT)
     // We're only interested in device change events
     if (msg != WM_DEVICECHANGE)
         return false;
+
+    qDebug() << Q_FUNC_INFO << wParam;
 
     PDEV_BROADCAST_HDR hdr = (PDEV_BROADCAST_HDR) lParam;
     if (wParam == DBT_DEVICEARRIVAL)

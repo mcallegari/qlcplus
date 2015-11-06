@@ -170,11 +170,17 @@ elementFormDefault="qualified"
     <xs:attribute name="ColourTemperature" type="xs:nonNegativeInteger" use="required"/>
 </xs:complexType>
 
+<xs:simpleType name="weightType">
+    <xs:restriction base="xs:decimal">
+        <xs:minExclusive value="0"/>
+    </xs:restriction>
+</xs:simpleType>
+
 <xs:complexType name="dimensionsType">
-    <xs:attribute name="Width" type="xs:nonNegativeInteger" use="required"/>
-    <xs:attribute name="Height" type="xs:nonNegativeInteger" use="required"/>
-    <xs:attribute name="Depth" type="xs:nonNegativeInteger" use="required"/>
-    <xs:attribute name="Weight" type="xs:decimal" use="required"/>
+    <xs:attribute name="Width" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="Height" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="Depth" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="Weight" type="weightType" use="required"/>
 </xs:complexType>
 
 <xs:complexType name="lensType">

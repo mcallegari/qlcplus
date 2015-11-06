@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -11,23 +11,23 @@
  <Type>Color Changer</Type>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="21">White</Capability>
-  <Capability Min="22" Max="43">Red</Capability>
-  <Capability Min="44" Max="65">Blue</Capability>
-  <Capability Min="66" Max="87">Salmon pink</Capability>
-  <Capability Min="88" Max="109">Yellow</Capability>
-  <Capability Min="110" Max="127">Light blue</Capability>
-  <Capability Min="128" Max="187">Rainbow forward fast to slow</Capability>
+  <Capability Min="0" Max="21" Color="#ffffff">White</Capability>
+  <Capability Min="22" Max="43" Color="#ff0000">Red</Capability>
+  <Capability Min="44" Max="65" Color="#0000ff">Blue</Capability>
+  <Capability Min="66" Max="87" Color="#ffa68f">Salmon pink</Capability>
+  <Capability Min="88" Max="109" Color="#ffff00">Yellow</Capability>
+  <Capability Min="110" Max="127" Color="#aaaaff">Light blue</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Rainbow forward fast to slow</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Rainbow backward slow to fast</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="42">White</Capability>
-  <Capability Min="43" Max="85">Purple</Capability>
-  <Capability Min="86" Max="128">Green</Capability>
-  <Capability Min="129" Max="171">Yellow</Capability>
-  <Capability Min="172" Max="214">Pink</Capability>
+  <Capability Min="0" Max="42" Color="#ffffff">White</Capability>
+  <Capability Min="43" Max="85" Color="#ff007f">Purple</Capability>
+  <Capability Min="86" Max="128" Color="#00ff00">Green</Capability>
+  <Capability Min="129" Max="171" Color="#ffff00">Yellow</Capability>
+  <Capability Min="172" Max="214" Color="#ffaaff">Pink</Capability>
   <Capability Min="215" Max="255">Closed</Capability>
  </Channel>
  <Channel Name="Dimmer intensity">
@@ -54,10 +54,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="OSRAM 230V/1200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18" Width="410" Height="450" Depth="470"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour 1</Channel>

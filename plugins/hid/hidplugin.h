@@ -131,6 +131,13 @@ signals:
 
 protected:
     QList <HIDDevice*> m_devices;
+
+    /********************************************************************
+     * Hotplug
+     ********************************************************************/
+public slots:
+    void slotDeviceAdded(uint vid, uint pid);
+    void slotDeviceRemoved(uint vid, uint pid);
 };
 
 #endif

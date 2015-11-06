@@ -114,7 +114,9 @@ of multiple XY Pads with different purposes.<br>
  As previosuly described all you need to do is to setup your fixtures once and start moving them with your
  favourite controller.<BR>
  It is also possible to define some position presets, so a number of buttons will be displayed in <B>(9)</B> to 
- quickly recall an absolute position.
+ quickly recall an absolute position.<br>
+ If a Fixture Group preset is activated, the XY Pad will control the absolute positions only of the
+ Fixtures defined in the preset. (see Presets tab for more info)
  </LI>
  <br>
  <LI><B>2- EFX</B>: In the Configuration window (Presets tab), it is possible to add some presets to recall
@@ -323,11 +325,12 @@ XY Pad Fixture Configuration dialog.
 
 <BR>
 
-<B>2. Presets tab</B>
+<B>3. Presets tab</B>
 
 <P>Here you can add/remove presets to the XY Pad. Each preset is displayed as a button
-in the lower part of the XY Pad widget. EFX and Scenes presets can be toggled, to start/stop
-a function, while position presets can be clicked just once</P>
+in the lower part of the XY Pad widget. EFX nad Scenes presets can be toggled, to start/stop
+a function, Fixture Groups presets can be toggled to activate/deactivate a Fxiture group,
+while Position presets can be clicked just once</P>
 
 <TABLE BORDER=1 class="qlcTable">
  <TR>
@@ -359,6 +362,17 @@ a function, while position presets can be clicked just once</P>
    By default the preset name is the Scene name.<br>
    Note that if the selected Scene doesn't have any Pan or Tilt channels, an error
    is displayed and no preset is created.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/group.png" ALIGN="absmiddle"> Add Fixture Group</TD>
+  <TD>
+  When clicking on this button, the <A HREF="file:selectfixture.html">Select Fixture</A> dialog
+  is displayed, allowing you to create a group of Fixtures as a subgroup of the Fixtures
+  the XY Pad is controlling (defined in the Fixtures tab)<br>
+  When clicking on a Fixture Group preset in Operate mode, the XY Pad will control only
+  the Fixture positions of the activated Fixture Group.<br>
+  <b>Note</b>: A Fixture Group preset has no effect on EFX and Scene presets.
   </TD>
  </TR>
  <TR>

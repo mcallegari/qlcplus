@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -22,20 +22,20 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">White</Capability>
-  <Capability Min="11" Max="21">Cherry Red</Capability>
-  <Capability Min="22" Max="32">Yellow</Capability>
-  <Capability Min="33" Max="43">Dark Blue</Capability>
-  <Capability Min="44" Max="54">Light Green</Capability>
-  <Capability Min="55" Max="65">Pink</Capability>
-  <Capability Min="66" Max="76">Purple Blue</Capability>
-  <Capability Min="77" Max="87">Red</Capability>
-  <Capability Min="88" Max="98">Pale Yellow</Capability>
-  <Capability Min="99" Max="109">Light Blue</Capability>
-  <Capability Min="110" Max="120">Orange</Capability>
-  <Capability Min="121" Max="127">Dark Green</Capability>
-  <Capability Min="128" Max="191">Forward Rainbow Speed</Capability>
-  <Capability Min="192" Max="255">Backward Rainbow Speed</Capability>
+  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Color="#aa0000">Cherry Red</Capability>
+  <Capability Min="22" Max="32" Color="#ffff00">Yellow</Capability>
+  <Capability Min="33" Max="43" Color="#00007f">Dark Blue</Capability>
+  <Capability Min="44" Max="54" Color="#55ff7f">Light Green</Capability>
+  <Capability Min="55" Max="65" Color="#ffaaff">Pink</Capability>
+  <Capability Min="66" Max="76" Color="#55007f">Purple Blue</Capability>
+  <Capability Min="77" Max="87" Color="#ff0000">Red</Capability>
+  <Capability Min="88" Max="98" Color="#ffff7f">Pale Yellow</Capability>
+  <Capability Min="99" Max="109" Color="#aaaaff">Light Blue</Capability>
+  <Capability Min="110" Max="120" Color="#ffaa00">Orange</Capability>
+  <Capability Min="121" Max="127" Color="#005500">Dark Green</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Forward Rainbow Speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Backward Rainbow Speed</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -63,10 +63,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="15" Width="300" Height="150" Depth="525"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

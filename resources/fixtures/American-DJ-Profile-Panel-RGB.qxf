@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Samuel Mollner</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -197,10 +197,10 @@
  </Channel>
  <Mode Name="2 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="2.9" Depth="0"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color Macros</Channel>
@@ -208,10 +208,10 @@
  </Mode>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="2.9" Depth="0"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -220,10 +220,10 @@
  </Mode>
  <Mode Name="4 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="2.9" Depth="0"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -233,10 +233,10 @@
  </Mode>
  <Mode Name="6 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="2.9" Depth="0"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -248,10 +248,10 @@
  </Mode>
  <Mode Name="7 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="425" Weight="2.9" Depth="515"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -264,10 +264,10 @@
  </Mode>
  <Mode Name="24 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="425" Weight="2.9" Depth="515"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -294,13 +294,53 @@
   <Channel Number="21">Red 8</Channel>
   <Channel Number="22">Green 8</Channel>
   <Channel Number="23">Blue 8</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+  </Head>
  </Mode>
  <Mode Name="27 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="425" Weight="2.9" Depth="515"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="240" Height="425" Depth="515"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -330,5 +370,45 @@
   <Channel Number="24">Strobe</Channel>
   <Channel Number="25">Programs</Channel>
   <Channel Number="26">Master Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+  </Head>
  </Mode>
 </FixtureDefinition>

@@ -541,16 +541,7 @@ void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& plugi
     if (item == NULL)
         return;
 
-    /* Disable check state tracking while the item is being filled */
-    disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-               this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
-
-    /* Update the IO map */
-    slotMapCurrentItemChanged(item);
-
-    /* Enable check state tracking after the item has been filled */
-    connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    fillMappingTree();
 }
 
 QTreeWidgetItem* InputOutputPatchEditor::pluginItem(const QString& pluginName)

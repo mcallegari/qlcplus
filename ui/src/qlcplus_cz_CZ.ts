@@ -3256,7 +3256,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputoutputmanager.cpp" line="91"/>
         <source>&amp;Delete Universe</source>
         <oldsource>Universe</oldsource>
-        <translation>Zmazat větev</translation>
+        <translation>Smazat větev</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="110"/>
@@ -3400,7 +3400,9 @@ p, li { white-space: pre-wrap; }
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala chyba při pokusu o otevření zvoleného zařízení. 
+To může být způsobeno nesprávnou konfigurací systému nebo nepodporovaným režimem vstupu/výstupu.
+Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto problému.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="712"/>
@@ -4831,7 +4833,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="selectinputchannel.ui" line="32"/>
         <source>Allow unpatched universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit nespojené větve</translation>
     </message>
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
@@ -4915,7 +4917,7 @@ Délka: %3
     <message>
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item across the timeline</source>
-        <translation type="unfinished">Kliknutím posunout položku po časové osi</translation>
+        <translation>Kliknutím posunout položku po časové ose</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
@@ -5331,7 +5333,7 @@ Délka: %3
     <message>
         <location filename="showmanager/timingstool.cpp" line="71"/>
         <source>Loop function until duration is reached</source>
-        <translation type="unfinished"></translation>
+        <translation>Opakovat funkci dokud nedosáhne svého nastaveného trvání</translation>
     </message>
 </context>
 <context>
@@ -5748,27 +5750,27 @@ Délka: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="108"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="115"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation type="unfinished"></translation>
+        <translation>Chování tlačítek Další/Předchozí pokud není prolínání aktivní</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit prolínání od prvního/posledního kroku (výchozí)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <source>Run chaser from next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit prolínání od dalšího/předchozího kroku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="132"/>
         <source>Select next/previous step</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolit další/předchozí krok</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="137"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedělat nic</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="159"/>
@@ -5783,7 +5785,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="228"/>
         <source>Side Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Boční Prolínače</translation>
     </message>
     <message>
         <source>Key Combination</source>
@@ -5893,7 +5895,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="234"/>
         <source>Behaviour</source>
-        <translation type="unfinished">Chování</translation>
+        <translation>Chování</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="246"/>
@@ -5903,7 +5905,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
         <source>Steps</source>
-        <translation type="unfinished">Kroky</translation>
+        <translation>Kroky</translation>
     </message>
     <message>
         <source>Left Slider</source>
@@ -5916,12 +5918,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
         <source>Left Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Levý Prolínač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
         <source>Right Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravý Prolínač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
@@ -5983,7 +5985,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="95"/>
         <source>Show enable button</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit tlačítko &quot;Zapnout&quot;</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
@@ -5993,17 +5995,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="160"/>
         <source>When toggled, you can move an external control to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je-li aktivní, můžete přesunout externí ovladač k přiřazení k tomuto rámečku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="192"/>
         <source>The key combination used to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombinace kláves pro zapnutí/vypnutí rámečku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="202"/>
         <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Navázat kombinaci kláves pro zapnutí/vypnutí rámečku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="261"/>
@@ -6028,7 +6030,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="588"/>
         <source>Pages circular scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepínat stránky dokola</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
@@ -6165,37 +6167,37 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="578"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Konec resetu Barvy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="617"/>
         <source>Start color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Počátek barvy Červené komponenty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="619"/>
         <source>Start color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Počátek barvy Zelené komponenty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="621"/>
         <source>Start color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Počátek barvy Modré komponenty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="633"/>
         <source>End color Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Konečná barva Červené komponenty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
         <source>End color Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Konečná barva Zelené komponenty</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="637"/>
         <source>End color Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Cílová barva Modré komponenty</translation>
     </message>
 </context>
 <context>
@@ -6272,27 +6274,27 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="124"/>
         <source>Show Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit popisek</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="131"/>
         <source>Show Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit šavli</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="138"/>
         <source>Show Start Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit tlačítko Počáteční barvy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="145"/>
         <source>Show End Color Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit tlačítko Konečné barvy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="152"/>
         <source>Show Preset Combo</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit panel Přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="161"/>
@@ -6352,17 +6354,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="378"/>
         <source> Add start color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat počáteční barvu knoflíků</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="400"/>
         <source> Add end color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat konečnou barvu knoflíků</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="411"/>
         <source> Add end color reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat konečnou resetovací barvu </translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="444"/>
@@ -6460,7 +6462,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="230"/>
         <source>Start Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knoflík Počáteční barvy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="236"/>
@@ -6470,12 +6472,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="242"/>
         <source>End Color Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knoflík konečné barvy</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="248"/>
         <source>End Color Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Konečná barva resetu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="253"/>
@@ -7092,12 +7094,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti samostatného rámečku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mixovat šavle v režimu přehrávání</translation>
     </message>
 </context>
 <context>
@@ -7110,17 +7112,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="96"/>
         <source>Divide the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Dělit aktuální čas dvěma</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="119"/>
         <source>Multiply the current time by 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobit aktuální čas dvěma</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="127"/>
         <source>Reset the current factor to 1x</source>
-        <translation type="unfinished"></translation>
+        <translation>Resetovat násobitel na 1x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="140"/>
@@ -7130,7 +7132,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="141"/>
         <source>Send the current value to the function now</source>
-        <translation type="unfinished"></translation>
+        <translation>Odeslat aktuální hodnoty do funkce</translation>
     </message>
 </context>
 <context>
@@ -7164,7 +7166,7 @@ Délka: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Fade In factor</source>
         <oldsource>Fade In *</oldsource>
-        <translation type="unfinished">Zesílení *</translation>
+        <translation>Faktor zesílení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
@@ -7175,7 +7177,7 @@ Délka: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
         <source>Fade Out factor</source>
         <oldsource>Fade Out *</oldsource>
-        <translation type="unfinished">Zeslabení *</translation>
+        <translation>Faktor zeslabení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
@@ -7186,7 +7188,7 @@ Délka: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
         <source>Duration factor (+tap)</source>
         <oldsource>Duration * (+tap)</oldsource>
-        <translation type="unfinished">Délka * (+tap)</translation>
+        <translation>Faktor trvání  * (+tap)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
@@ -7216,7 +7218,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Preset Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název přednastavení</translation>
     </message>
     <message>
         <source>Input Universe</source>
@@ -7254,17 +7256,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="211"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
         <source>Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobitel</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="322"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Resetovat faktor násobitele když se hodnota zrychlené volby změní</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="380"/>
@@ -7291,77 +7293,77 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="361"/>
         <source>Name</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="366"/>
         <source>Value</source>
-        <translation type="unfinished">Hodnota</translation>
+        <translation>Hodnota</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="399"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanál větve vstupů, který bude odesílat data pro toto tlačítko přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="409"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolte větev  externího vstupu &amp; kanál, který by měl toto tlačítko přednastavení řídit.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="419"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto tlačítka přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="432"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="442"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní kanál</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="449"/>
         <source>Input universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní větev</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="470"/>
         <source> Add preset</source>
-        <translation type="unfinished"> Přidat předvolbu</translation>
+        <translation> Přidat předvolbu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="459"/>
         <source> Remove</source>
-        <translation type="unfinished"> Odebrat</translation>
+        <translation> Odebrat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="568"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="502"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="522"/>
         <source>Set a key combination for this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="542"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombinace kláves která přepne toto tlačítko přednastavení</translation>
     </message>
     <message>
         <source>Infinite</source>
@@ -7392,7 +7394,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="288"/>
         <source>Show multiplier and divisor buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit tlačítka násobitele a dělitele</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
@@ -7407,7 +7409,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="295"/>
         <source>Show the apply button</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit tlačítko Použít</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="260"/>
@@ -7436,17 +7438,17 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="116"/>
         <source>Multiply by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Násobit vstup dvěma</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="125"/>
         <source>Divide by 2 Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Dělit vstup dvěma</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.cpp" line="134"/>
         <source>Factor Reset Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Faktor Resetu vstupu</translation>
     </message>
 </context>
 <context>
@@ -7598,7 +7600,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="34"/>
         <source>General</source>
-        <translation type="unfinished">Obecné</translation>
+        <translation>Obecné</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="124"/>
@@ -7643,37 +7645,37 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
         <source>Name</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
         <source>Add position</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat pozici</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
         <source>Add EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat EFX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
         <source>Add Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat Scénu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
         <source>Remove</source>
-        <translation type="unfinished">Odebrat</translation>
+        <translation>Odebrat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název přednastavení</translation>
     </message>
     <message>
         <source>Input</source>
@@ -7733,12 +7735,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="106"/>
         <source>Width</source>
-        <translation type="unfinished">Šířka</translation>
+        <translation>Šířka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="114"/>
         <source>Height</source>
-        <translation type="unfinished">Výška</translation>
+        <translation>Výška</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="332"/>
@@ -7753,13 +7755,14 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="590"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="591"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolená Scéna neobsahuje žádný kanál Natočení/Naklopení (pan/tilt).
+Vyberte prosím některý z těchto kanálů.</translation>
     </message>
 </context>
 <context>
@@ -7778,7 +7781,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="videoeditor.ui" line="143"/>
         <source>Play the video and see how it looks like</source>
-        <translation type="unfinished"></translation>
+        <translation>Přehrát video a podívat se, jak to vypadá</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="170"/>

@@ -29,6 +29,7 @@ Rectangle
     id: fmContainer
     anchors.fill: parent
     color: "transparent"
+    clip: true
 
     property int functionID: -1
 
@@ -264,7 +265,6 @@ Rectangle
                               console.log("Item path: " + path + ",label: " + label)
                               item.nodePath = path
                               item.folderChildren = childrenModel
-                              item.childrenHeight = (childrenModel.rowCount() * 35)
                           }
                           else
                           {

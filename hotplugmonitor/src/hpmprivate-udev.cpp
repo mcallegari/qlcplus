@@ -50,9 +50,11 @@ HPMPrivate::~HPMPrivate()
 
 void HPMPrivate::stop()
 {
-    m_run = false;
-    while (isRunning() == true)
-        usleep(10);
+    if (isRunning() == true)
+    {
+        m_run = false;
+        wait();
+    }
 }
 
 void HPMPrivate::run()
@@ -87,7 +89,7 @@ void HPMPrivate::run()
     while (m_run == true)
     {
         struct timeval tv;
-        tv.tv_sec = 5;
+        tv.tv_sec = 1;
         tv.tv_usec = 0;
 
         FD_SET(fd, &readfs);

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>FooSchnickens</Author>
+ </Creator>
+ <Manufacturer>Talent</Manufacturer>
+ <Model>BL63 10" LED Bar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Max="255" Min="0">Intensity</Capability>
+ </Channel>
+ <Channel Name="Green Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Max="255" Min="0">Intensity</Capability>
+ </Channel>
+ <Channel Name="Blue Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Max="255" Min="0">Intensity</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Max="255" Min="0">Intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Max="6" Min="0">Dimmer mode</Capability>
+  <Capability Max="65" Min="7">Strobe from slow to fast</Capability>
+  <Capability Max="69" Min="66">None</Capability>
+  <Capability Max="128" Min="70">Pulse strobe from slow to fast</Capability>
+  <Capability Max="132" Min="129">None</Capability>
+  <Capability Max="191" Min="133">Strobe fading in from slow to fast</Capability>
+  <Capability Max="195" Min="192">None</Capability>
+  <Capability Max="255" Min="196">Strobe fading out from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Static Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="255" Min="0">Selection</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="59" Min="0">Dimmer mode</Capability>
+  <Capability Max="119" Min="60">Static color mode</Capability>
+  <Capability Max="179" Min="120">Color jump change mode</Capability>
+  <Capability Max="239" Min="180">Color gradual change mode</Capability>
+  <Capability Max="255" Min="240">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Strobe/Sound Active Speed/Running Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="6" Min="0">Dimmer mode/Speed</Capability>
+  <Capability Max="65" Min="7">Strobe from slow to fast/Speed</Capability>
+  <Capability Max="69" Min="66">None/Speed</Capability>
+  <Capability Max="128" Min="70">Pulse strobe from slow to fast/Speed</Capability>
+  <Capability Max="132" Min="129">None/Speed</Capability>
+  <Capability Max="191" Min="133">Strobe fading in from slow to fast/Speed</Capability>
+  <Capability Max="195" Min="192">None/Speed</Capability>
+  <Capability Max="255" Min="196">Strobe fading out from slow to fast/Speed</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
+   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
+  </Physical>
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
+   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
+  </Physical>
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
+   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
+  </Physical>
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobe/Sound Active Speed/Running Speed</Channel>
+  <Channel Number="5">Static Color</Channel>
+  <Channel Number="6">Function</Channel>
+ </Mode>
+</FixtureDefinition>
