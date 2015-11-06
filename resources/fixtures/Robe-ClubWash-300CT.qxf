@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -41,16 +41,16 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="17">Open</Capability>
-  <Capability Min="18" Max="35">Red</Capability>
-  <Capability Min="36" Max="53">Blue</Capability>
-  <Capability Min="54" Max="72">Green</Capability>
+  <Capability Min="0" Max="17" Color="#ffffff">Open</Capability>
+  <Capability Min="18" Max="35" Color="#ff0000">Red</Capability>
+  <Capability Min="36" Max="53" Color="#0000ff">Blue</Capability>
+  <Capability Min="54" Max="72" Color="#00ff00">Green</Capability>
   <Capability Min="73" Max="90">3200K</Capability>
   <Capability Min="91" Max="108">5600K</Capability>
-  <Capability Min="109" Max="127">UV</Capability>
-  <Capability Min="128" Max="190">Scroll CW</Capability>
+  <Capability Min="109" Max="127" Color="#aa00ff">UV</Capability>
+  <Capability Min="128" Max="190" Res="Others/rainbow.png">Scroll CW</Capability>
   <Capability Min="191" Max="192">No Scroll</Capability>
-  <Capability Min="193" Max="255">Scroll CCW</Capability>
+  <Capability Min="193" Max="255" Res="Others/rainbow.png">Scroll CCW</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -134,10 +134,10 @@
  </Channel>
  <Mode Name="16bit">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.5" Width="417" Height="520" Depth="398"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -159,10 +159,10 @@
  </Mode>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.5" Width="417" Height="520" Depth="398"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

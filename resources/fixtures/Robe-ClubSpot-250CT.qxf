@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -11,101 +11,101 @@
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Coarse control of movement</Capability>
+  <Capability Min="0" Max="255">Coarse control of movement</Capability>
  </Channel>
  <Channel Name="Pan fine">
   <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
+  <Capability Min="0" Max="255">Fine control of movement</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Coarse control of movement</Capability>
+  <Capability Min="0" Max="255">Coarse control of movement</Capability>
  </Channel>
  <Channel Name="Tilt fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
+  <Capability Min="0" Max="255">Fine control of movement</Capability>
  </Channel>
  <Channel Name="Speed of Pan/Tilt Movement">
   <Group Byte="0">Speed</Group>
-  <Capability Max="0" Min="0">Max. speed (tracking mode)</Capability>
-  <Capability Max="249" Min="1">From max. speed to min. speed (vector mode)</Capability>
-  <Capability Max="252" Min="250">Max. speed (tracking mode), blackout while colour/gobo changes</Capability>
-  <Capability Max="255" Min="253">Max. speed (vector mode), blackout while pan/tilt moving or colour/gobo changes</Capability>
+  <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
+  <Capability Min="1" Max="249">From max. speed to min. speed (vector mode)</Capability>
+  <Capability Min="250" Max="252">Max. speed (tracking mode), blackout while colour/gobo changes</Capability>
+  <Capability Min="253" Max="255">Max. speed (vector mode), blackout while pan/tilt moving or colour/gobo changes</Capability>
  </Channel>
  <Channel Name="Lamp On/Off, Reset, Speed Control of Fans">
   <Group Byte="0">Speed</Group>
-  <Capability Max="127" Min="0">From max. speed of fans to min. speed of fans</Capability>
-  <Capability Max="139" Min="128">Lamp on, reset</Capability>
-  <Capability Max="229" Min="140">No function</Capability>
-  <Capability Max="239" Min="230">Lamp off after 3 sec.</Capability>
-  <Capability Max="255" Min="240">No function</Capability>
+  <Capability Min="0" Max="127">From max. speed of fans to min. speed of fans</Capability>
+  <Capability Min="128" Max="139">Lamp on, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239">Lamp off after 3 sec.</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Max="0" Color="#ffffff" Min="0">Open/white</Capability>
-  <Capability Max="10" Min="10">Turquoise</Capability>
-  <Capability Max="21" Color="#40e0d0" Min="21">Deep Red</Capability>
-  <Capability Max="32" Color="#00ffff" Min="32">Cyan</Capability>
-  <Capability Max="42" Color="#55007f" Min="42">UV</Capability>
-  <Capability Max="53" Color="#ff00ff" Min="53">Magenta</Capability>
-  <Capability Max="64" Color="#7f7fff" Min="64">Light Blue</Capability>
-  <Capability Max="74" Color="#ffff00" Min="74">Yellow</Capability>
-  <Capability Max="85" Color="#00ff00" Min="85">Green</Capability>
-  <Capability Max="96" Color="#ffaaff" Min="96">Pink</Capability>
-  <Capability Max="106" Color="#0000ff" Min="106">Blue</Capability>
-  <Capability Max="117" Color="#ff0000" Min="117">Red</Capability>
-  <Capability Res="Others/rainbow.png" Max="189" Min="128">Forwards rainbow effecr from slow to fast</Capability>
-  <Capability Max="193" Min="190">No rotation</Capability>
-  <Capability Res="Others/rainbow.png" Max="255" Min="194">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="0" Max="9" Color="#ffffff">Open/white</Capability>
+  <Capability Min="10" Max="20" Color="#55ffff">Turquoise</Capability>
+  <Capability Min="21" Max="31" Color="#aa0000">Deep Red</Capability>
+  <Capability Min="32" Max="41" Color="#00ffff">Cyan</Capability>
+  <Capability Min="42" Max="52" Color="#55007f">UV</Capability>
+  <Capability Min="53" Max="63" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="73" Color="#3283d5">Light Blue</Capability>
+  <Capability Min="74" Max="84" Color="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="95" Color="#00ff00">Green</Capability>
+  <Capability Min="96" Max="105" Color="#ffaaff">Pink</Capability>
+  <Capability Min="106" Max="116" Color="#0000ff">Blue</Capability>
+  <Capability Min="117" Max="127" Color="#ff0000">Red</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Forwards rainbow effecr from slow to fast</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/rainbow.png" Max="7" Min="0">Open</Capability>
-  <Capability Max="19" Min="8">1</Capability>
-  <Capability Max="31" Min="20">2</Capability>
-  <Capability Max="43" Min="32">3</Capability>
-  <Capability Max="55" Min="44">4</Capability>
-  <Capability Max="67" Min="56">5</Capability>
-  <Capability Max="79" Min="68">6</Capability>
-  <Capability Max="91" Min="80">7</Capability>
-  <Capability Max="103" Min="92">8</Capability>
-  <Capability Max="115" Min="104">9</Capability>
-  <Capability Max="127" Min="116">10</Capability>
-  <Capability Max="135" Min="128">Shake 1 from slow to fast</Capability>
-  <Capability Max="143" Min="136">Shake 2 from slow to fast</Capability>
-  <Capability Max="151" Min="144">Shake 3 from slow to fast</Capability>
-  <Capability Max="159" Min="152">Shake 4 from slow to fast</Capability>
-  <Capability Max="167" Min="160">Shake 5 from slow to fast</Capability>
-  <Capability Max="175" Min="168">Shake 6 from slow to fast</Capability>
-  <Capability Max="183" Min="176">Shake 7 from slow to fast</Capability>
-  <Capability Max="191" Min="184">Shake 8 from slow to fast</Capability>
-  <Capability Max="199" Min="192">Shake 9 from slow to fast</Capability>
-  <Capability Max="207" Min="200">Shake 10 from slow to fast</Capability>
-  <Capability Max="255" Min="208">Forward rotation from slow to fast</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
+  <Capability Min="8" Max="19">Gobo 1</Capability>
+  <Capability Min="20" Max="31">Gobo 2</Capability>
+  <Capability Min="32" Max="43">Gobo 3</Capability>
+  <Capability Min="44" Max="55">Gobo 4</Capability>
+  <Capability Min="56" Max="67">Gobo 5</Capability>
+  <Capability Min="68" Max="79">Gobo 6</Capability>
+  <Capability Min="80" Max="91">Gobo 7</Capability>
+  <Capability Min="92" Max="103">Gobo 8</Capability>
+  <Capability Min="104" Max="115">Gobo 9</Capability>
+  <Capability Min="116" Max="127">Gobo 10</Capability>
+  <Capability Min="128" Max="135">Shake gobo 1 from slow to fast</Capability>
+  <Capability Min="136" Max="143">Shake gobo 2 from slow to fast</Capability>
+  <Capability Min="144" Max="151">Shake gobo 3 from slow to fast</Capability>
+  <Capability Min="152" Max="159">Shake gobo 4 from slow to fast</Capability>
+  <Capability Min="160" Max="167">Shake gobo 5 from slow to fast</Capability>
+  <Capability Min="168" Max="175">Shake gobo 6 from slow to fast</Capability>
+  <Capability Min="176" Max="183">Shake gobo 7 from slow to fast</Capability>
+  <Capability Min="184" Max="191">Shake gobo 8 from slow to fast</Capability>
+  <Capability Min="192" Max="199">Shake gobo 9 from slow to fast</Capability>
+  <Capability Min="200" Max="207">Shake gobo 10 from slow to fast</Capability>
+  <Capability Min="208" Max="255">Forward rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Shutter, Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="31" Min="0">Closed</Capability>
-  <Capability Max="63" Min="32">Open</Capability>
-  <Capability Max="95" Min="64">Strobe effect from slow to fast</Capability>
-  <Capability Max="127" Min="96">Open</Capability>
-  <Capability Max="143" Min="128">Closing pulses from slow to fast</Capability>
-  <Capability Max="159" Min="144">Opening pulses from fast to slow</Capability>
-  <Capability Max="191" Min="160">Open</Capability>
-  <Capability Max="223" Min="192">Random Strobe effects from slow to fast</Capability>
-  <Capability Max="255" Min="224">Open</Capability>
+  <Capability Min="0" Max="31">Closed</Capability>
+  <Capability Min="32" Max="63">Open</Capability>
+  <Capability Min="64" Max="95">Strobe effect from slow to fast</Capability>
+  <Capability Min="96" Max="127">Open</Capability>
+  <Capability Min="128" Max="143">Closing pulses from slow to fast</Capability>
+  <Capability Min="144" Max="159">Opening pulses from fast to slow</Capability>
+  <Capability Min="160" Max="191">Open</Capability>
+  <Capability Min="192" Max="223">Random Strobe effects from slow to fast</Capability>
+  <Capability Min="224" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Dimmer Intensity">
   <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">From closed to 1005 light output</Capability>
+  <Capability Min="0" Max="255">From closed to 1005 light output</Capability>
  </Channel>
  <Mode Name="16 Bit">
   <Physical>
-   <Bulb ColourTemperature="8500" Lumens="3900" Type="Sylvania BA 250/2 SE"/>
+   <Bulb Type="Sylvania BA 250/2 SE" Lumens="3900" ColourTemperature="8500"/>
    <Dimensions Weight="23.3" Width="417" Height="498" Depth="398"/>
-   <Lens DegreesMax="15" DegreesMin="15" Name=""/>
-   <Focus TiltMax="280" Type="Fixed" PanMax="530"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="420"/>
+   <Lens Name="" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="420" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -120,11 +120,11 @@
  </Mode>
  <Mode Name="8 Bit">
   <Physical>
-   <Bulb ColourTemperature="8500" Lumens="3900" Type="Sylvania BA 250/2 SE"/>
+   <Bulb Type="Sylvania BA 250/2 SE" Lumens="3900" ColourTemperature="8500"/>
    <Dimensions Weight="23.3" Width="417" Height="498" Depth="398"/>
-   <Lens DegreesMax="15" DegreesMin="15" Name=""/>
-   <Focus TiltMax="280" Type="Fixed" PanMax="530"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="420"/>
+   <Lens Name="" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="420" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

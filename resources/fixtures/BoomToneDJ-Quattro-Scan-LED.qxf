@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.5 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
@@ -103,21 +103,21 @@
  </Channel>
  <Mode Name="Single channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="544" Height="175" Weight="9" Depth="496"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
  </Mode>
  <Mode Name="9 channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="544" Height="175" Weight="9" Depth="496"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Total dimmer</Channel>
@@ -131,11 +131,11 @@
  </Mode>
  <Mode Name="15 channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="544" Height="175" Weight="9" Depth="496"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Total dimmer</Channel>
@@ -153,27 +153,27 @@
   <Channel Number="13">Light 4 - X-axis position</Channel>
   <Channel Number="14">Light 4 - Y-axis position</Channel>
   <Head>
-   <Channel>1</Channel>
-   <Channel>3</Channel>
-   <Channel>7</Channel>
    <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>3</Channel>
+   <Channel>1</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
-   <Channel>4</Channel>
-   <Channel>9</Channel>
    <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>4</Channel>
+   <Channel>1</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
-   <Channel>5</Channel>
    <Channel>11</Channel>
+   <Channel>5</Channel>
+   <Channel>1</Channel>
    <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
-   <Channel>6</Channel>
    <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>1</Channel>
    <Channel>14</Channel>
   </Head>
  </Mode>

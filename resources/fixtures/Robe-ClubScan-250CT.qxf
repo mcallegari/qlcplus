@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -19,27 +19,27 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="21">Turquoise</Capability>
-  <Capability Min="22" Max="33">Red</Capability>
-  <Capability Min="34" Max="45">Cyan</Capability>
-  <Capability Min="46" Max="57">Light Green</Capability>
-  <Capability Min="58" Max="69">Magenta</Capability>
-  <Capability Min="70" Max="81">Light Blue</Capability>
-  <Capability Min="82" Max="93">Yellow</Capability>
-  <Capability Min="94" Max="105">Green</Capability>
-  <Capability Min="106" Max="117">Pink</Capability>
-  <Capability Min="118" Max="129">Blue</Capability>
-  <Capability Min="130" Max="141">Orange</Capability>
-  <Capability Min="142" Max="153">UV</Capability>
-  <Capability Min="154" Max="165">Red/Blue</Capability>
-  <Capability Min="166" Max="177">Yellow/Green</Capability>
-  <Capability Min="178" Max="189">Blue/Purple</Capability>
+  <Capability Min="0" Max="9" Color="#ffffff">Open</Capability>
+  <Capability Min="10" Max="21" Color="#55ffff">Turquoise</Capability>
+  <Capability Min="22" Max="33" Color="#ff0000">Red</Capability>
+  <Capability Min="34" Max="45" Color="#00ffff">Cyan</Capability>
+  <Capability Min="46" Max="57" Color="#aaff7f">Light Green</Capability>
+  <Capability Min="58" Max="69" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="81" Color="#aaaaff">Light Blue</Capability>
+  <Capability Min="82" Max="93" Color="#ffff00">Yellow</Capability>
+  <Capability Min="94" Max="105" Color="#00ff00">Green</Capability>
+  <Capability Min="106" Max="117" Color="#ffaaff">Pink</Capability>
+  <Capability Min="118" Max="129" Color="#0000ff">Blue</Capability>
+  <Capability Min="130" Max="141" Color="#ffaa00">Orange</Capability>
+  <Capability Min="142" Max="153" Color="#aa00ff">UV</Capability>
+  <Capability Min="154" Max="165" Color="#ff0000" Color2="#0000ff">Red/Blue</Capability>
+  <Capability Min="166" Max="177" Color="#ffff00" Color2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="178" Max="189" Color="#0000ff" Color2="#ff007f">Blue/Purple</Capability>
+  <Capability Min="190" Max="215" Res="Others/rainbow.png">Scroll CW</Capability>
+  <Capability Min="216" Max="217">No Scroll</Capability>
+  <Capability Min="218" Max="243" Res="Others/rainbow.png">Scroll CCW</Capability>
   <Capability Min="244" Max="249">Audio Sel</Capability>
   <Capability Min="250" Max="255">Rnd Sel</Capability>
-  <Capability Min="216" Max="217">No Scroll</Capability>
-  <Capability Min="190" Max="215">Scroll CW</Capability>
-  <Capability Min="218" Max="243">Scroll CCW</Capability>
  </Channel>
  <Channel Name="Gobo Func">
   <Group Byte="0">Gobo</Group>
@@ -103,10 +103,10 @@
  </Channel>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="" DegreesMin="0"/>
-   <Focus PanMax="187" Type="Mirror" TiltMax="58"/>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="238" Height="310" Depth="493"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

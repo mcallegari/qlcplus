@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Christopher Enoch</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -27,57 +27,57 @@
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="16">White</Capability>
-  <Capability Min="17" Color="#ff0000" Max="33">Red</Capability>
-  <Capability Min="34" Color="#ffff00" Max="50">Yellow</Capability>
-  <Capability Min="51" Color="#ff00ff" Max="67">Magenta</Capability>
-  <Capability Min="68" Color="#00ff00" Max="84">Green</Capability>
-  <Capability Min="85" Color="#ff7f00" Max="101">Orange</Capability>
-  <Capability Min="102" Color="#0000ff" Max="118">Blue</Capability>
-  <Capability Min="119" Color="#7f7fff" Max="135">Light blue</Capability>
-  <Capability Min="136" Color="#7fff7f" Max="152">Light green</Capability>
+  <Capability Min="0" Max="16" Color="#ffffff">White</Capability>
+  <Capability Min="17" Max="33" Color="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Color="#ffff00">Yellow</Capability>
+  <Capability Min="51" Max="67" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="68" Max="84" Color="#00ff00">Green</Capability>
+  <Capability Min="85" Max="101" Color="#ff7f00">Orange</Capability>
+  <Capability Min="102" Max="118" Color="#0000ff">Blue</Capability>
+  <Capability Min="119" Max="135" Color="#7f7fff">Light blue</Capability>
+  <Capability Min="136" Max="152" Color="#7fff7f">Light green</Capability>
   <Capability Min="153" Max="255" Res="Others/rainbow.png">Rainbow or linear effect</Capability>
  </Channel>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">No</Capability>
-  <Capability Min="10" Max="19">1</Capability>
-  <Capability Min="20" Max="29">2</Capability>
-  <Capability Min="30" Max="39">3</Capability>
-  <Capability Min="40" Max="49">4</Capability>
-  <Capability Min="50" Max="59">5</Capability>
-  <Capability Min="60" Max="69">6</Capability>
-  <Capability Min="70" Max="79">7</Capability>
-  <Capability Min="80" Max="89">8</Capability>
-  <Capability Min="90" Max="99">9</Capability>
-  <Capability Min="100" Max="114">Shaking 9</Capability>
-  <Capability Min="115" Max="129">Shaking 8</Capability>
-  <Capability Min="130" Max="144">Shaking 7</Capability>
-  <Capability Min="145" Max="159">Shaking 6</Capability>
-  <Capability Min="160" Max="174">Shaking 5</Capability>
-  <Capability Min="175" Max="189">Shaking 4</Capability>
-  <Capability Min="190" Max="204">Shaking 3</Capability>
-  <Capability Min="205" Max="219">Shaking 2</Capability>
-  <Capability Min="220" Max="234">Shaking 1</Capability>
+  <Capability Min="0" Max="9">No gobo</Capability>
+  <Capability Min="10" Max="19">Gobo 1</Capability>
+  <Capability Min="20" Max="29">Gobo 2</Capability>
+  <Capability Min="30" Max="39">Gobo 3</Capability>
+  <Capability Min="40" Max="49">Gobo 4</Capability>
+  <Capability Min="50" Max="59">Gobo 5</Capability>
+  <Capability Min="60" Max="69">Gobo 6</Capability>
+  <Capability Min="70" Max="79">Gobo 7</Capability>
+  <Capability Min="80" Max="89">Gobo 8</Capability>
+  <Capability Min="90" Max="99">Gobo 9</Capability>
+  <Capability Min="100" Max="114">Shaking gobo 9</Capability>
+  <Capability Min="115" Max="129">Shaking gobo 8</Capability>
+  <Capability Min="130" Max="144">Shaking gobo 7</Capability>
+  <Capability Min="145" Max="159">Shaking gobo 6</Capability>
+  <Capability Min="160" Max="174">Shaking gobo 5</Capability>
+  <Capability Min="175" Max="189">Shaking gobo 4</Capability>
+  <Capability Min="190" Max="204">Shaking gobo 3</Capability>
+  <Capability Min="205" Max="219">Shaking gobo 2</Capability>
+  <Capability Min="220" Max="234">Shaking gobo 1</Capability>
   <Capability Min="235" Max="255">Flow effect</Capability>
  </Channel>
  <Channel Name="Rotating Gobo wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">No</Capability>
-  <Capability Min="10" Max="19">1</Capability>
-  <Capability Min="20" Max="29">2</Capability>
-  <Capability Min="30" Max="39">3</Capability>
-  <Capability Min="40" Max="49">4</Capability>
-  <Capability Min="50" Max="59">5</Capability>
-  <Capability Min="60" Max="69">6</Capability>
-  <Capability Min="70" Max="79">7</Capability>
-  <Capability Min="80" Max="99">Shaking 7</Capability>
-  <Capability Min="100" Max="119">Shaking 6</Capability>
-  <Capability Min="120" Max="139">Shaking 5</Capability>
-  <Capability Min="140" Max="159">Shaking 4</Capability>
-  <Capability Min="160" Max="179">Shaking 3</Capability>
-  <Capability Min="180" Max="199">Shaking 2</Capability>
-  <Capability Min="200" Max="219">Shaking 1</Capability>
+  <Capability Min="0" Max="9">No gobo</Capability>
+  <Capability Min="10" Max="19">Gobo 1</Capability>
+  <Capability Min="20" Max="29">Gobo 2</Capability>
+  <Capability Min="30" Max="39">Gobo 3</Capability>
+  <Capability Min="40" Max="49">Gobo 4</Capability>
+  <Capability Min="50" Max="59">Gobo 5</Capability>
+  <Capability Min="60" Max="69">Gobo 6</Capability>
+  <Capability Min="70" Max="79">Gobo 7</Capability>
+  <Capability Min="80" Max="99">Shaking gobo 7</Capability>
+  <Capability Min="100" Max="119">Shaking gobo 6</Capability>
+  <Capability Min="120" Max="139">Shaking gobo 5</Capability>
+  <Capability Min="140" Max="159">Shaking gobo 4</Capability>
+  <Capability Min="160" Max="179">Shaking gobo 3</Capability>
+  <Capability Min="180" Max="199">Shaking gobo 2</Capability>
+  <Capability Min="200" Max="219">Shaking gobo 1</Capability>
   <Capability Min="220" Max="255">Flow effect</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
@@ -134,10 +134,10 @@
  </Channel>
  <Mode Name="Advanced">
   <Physical>
-   <Bulb Lumens="5400" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="485" Depth="290" Weight="13.6" Width="295"/>
-   <Lens DegreesMin="15" Name="Other" DegreesMax="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>
+   <Dimensions Weight="13.6" Width="295" Height="485" Depth="290"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -157,10 +157,10 @@
  </Mode>
  <Mode Name="Basic">
   <Physical>
-   <Bulb Lumens="5400" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="485" Depth="290" Weight="13.6" Width="295"/>
-   <Lens DegreesMin="15" Name="Other" DegreesMax="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>
+   <Dimensions Weight="13.6" Width="295" Height="485" Depth="290"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

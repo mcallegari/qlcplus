@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -52,27 +52,27 @@
   <Capability Min="96" Max="96" Color="#ff4eb2">Pink</Capability>
   <Capability Min="106" Max="106" Color="#0000ff">Blue</Capability>
   <Capability Min="117" Max="117" Color="#ffaa00">Orange</Capability>
-  <Capability Min="128" Max="190">Rainbow Fast to Slow</Capability>
+  <Capability Min="128" Max="190" Res="Others/rainbow.png">Rainbow Fast to Slow</Capability>
   <Capability Min="191" Max="192">No Function</Capability>
-  <Capability Min="193" Max="255">CCW Rainbow Slow to Fast</Capability>
+  <Capability Min="193" Max="255" Res="Others/rainbow.png">CCW Rainbow Slow to Fast</Capability>
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="63">Open</Capability>
+  <Capability Min="0" Max="63" Res="Others/open.png">Open</Capability>
   <Capability Min="64" Max="95">Wheel Fast to Slow</Capability>
   <Capability Min="96" Max="96">No Rotation</Capability>
   <Capability Min="97" Max="127">CCW Wheel Slow to Fast</Capability>
-  <Capability Res="Robe/gobo00001.png" Min="128" Max="134">MultiColor</Capability>
-  <Capability Res="Robe/gobo00002.png" Min="135" Max="140">Dichro 1</Capability>
-  <Capability Res="Robe/gobo00003.png" Min="141" Max="153">Dichro 2</Capability>
-  <Capability Res="Robe/gobo00004.png" Min="154" Max="166">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00005.png" Min="167" Max="179">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00006.png" Min="180" Max="191">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00007.png" Min="192" Max="204">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00008.png" Min="205" Max="217">Gobo 8</Capability>
-  <Capability Res="Robe/gobo00039.png" Min="218" Max="230">Gobo 9</Capability>
-  <Capability Res="Robe/gobo00040.png" Min="231" Max="243">Gobo 10</Capability>
-  <Capability Res="Robe/gobo00041.png" Min="244" Max="255">Gobo 11</Capability>
+  <Capability Min="128" Max="134" Res="Robe/gobo00001.png">MultiColor</Capability>
+  <Capability Min="135" Max="140" Res="Robe/gobo00002.png">Dichro 1</Capability>
+  <Capability Min="141" Max="153" Res="Robe/gobo00003.png">Dichro 2</Capability>
+  <Capability Min="154" Max="166" Res="Robe/gobo00004.png">Gobo 4</Capability>
+  <Capability Min="167" Max="179" Res="Robe/gobo00005.png">Gobo 5</Capability>
+  <Capability Min="180" Max="191" Res="Robe/gobo00006.png">Gobo 6</Capability>
+  <Capability Min="192" Max="204" Res="Robe/gobo00007.png">Gobo 7</Capability>
+  <Capability Min="205" Max="217" Res="Robe/gobo00008.png">Gobo 8</Capability>
+  <Capability Min="218" Max="230" Res="Robe/gobo00039.png">Gobo 9</Capability>
+  <Capability Min="231" Max="243" Res="Robe/gobo00040.png">Gobo 10</Capability>
+  <Capability Min="244" Max="255" Res="Robe/gobo00041.png">Gobo 11</Capability>
  </Channel>
  <Channel Name="Beam">
   <Group Byte="0">Beam</Group>
@@ -137,10 +137,10 @@
  </Channel>
  <Mode Name="Mode 1/2">
   <Physical>
-   <Bulb Lumens="49000" Type="HMI 575W" ColourTemperature="6000"/>
-   <Dimensions Width="306" Height="346" Weight="22" Depth="769"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="22" Width="306" Height="346" Depth="769"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
    <Technical PowerConsumption="480" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -162,10 +162,10 @@
  </Mode>
  <Mode Name="8 bits">
   <Physical>
-   <Bulb Lumens="49000" Type="HMI 575W" ColourTemperature="6000"/>
-   <Dimensions Width="306" Height="346" Weight="22" Depth="769"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="22" Width="306" Height="346" Depth="769"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
    <Technical PowerConsumption="480" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

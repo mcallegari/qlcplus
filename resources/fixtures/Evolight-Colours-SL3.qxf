@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.5.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Evolight</Manufacturer>
@@ -42,10 +42,10 @@
  </Channel>
  <Mode Name="6 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="5500"/>
-   <Dimensions Width="190" Height="230" Weight="2.1" Depth="145"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="5500"/>
+   <Dimensions Weight="2.1" Width="190" Height="230" Depth="145"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="12"/>
+   <Focus Type="Head" PanMax="350" TiltMax="105"/>
    <Technical PowerConsumption="20" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
