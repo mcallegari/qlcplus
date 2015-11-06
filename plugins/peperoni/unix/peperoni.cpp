@@ -67,8 +67,7 @@ bool Peperoni::openOutput(quint32 output, quint32 universe)
 void Peperoni::closeOutput(quint32 output, quint32 universe)
 {
     Q_UNUSED(universe)
-    if (m_devices.contains(output) && m_devices.contains(output) &&
-        m_devices[output] != NULL)
+    if (m_devices.contains(output) && m_devices[output] != NULL)
             m_devices[output]->close(output, PeperoniDevice::OutputMode);
 }
 
