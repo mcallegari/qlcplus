@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.7</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
   <Author>Anders Thomsen</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -12,45 +12,45 @@
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">Stopped</Capability>
-  <Capability Min="10" Max="91">Cycle Gobo+Color - slow to fast</Capability>
-  <Capability Min="92" Max="173">Cycle Color - slow to fast</Capability>
-  <Capability Min="174" Max="255">Cycle Gobo - slow to fast</Capability>
+  <Capability Min="10" Max="91">Cycle gobo+color - slow to fast</Capability>
+  <Capability Min="92" Max="173">Cycle color - slow to fast</Capability>
+  <Capability Min="174" Max="255">Cycle gobo - slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0">Blackout</Capability>
-  <Capability Min="8" Max="8">Open</Capability>
-  <Capability Min="16" Max="16">1 - Circle</Capability>
-  <Capability Min="24" Max="24">2 - Square outline</Capability>
-  <Capability Min="32" Max="32">3 - Circle outline</Capability>
-  <Capability Min="40" Max="40">4 - Circle dotted outline</Capability>
-  <Capability Min="48" Max="48">5 - Sunrise</Capability>
-  <Capability Min="56" Max="56">6 - Circle zoom</Capability>
-  <Capability Min="64" Max="64">7 - Four circles</Capability>
-  <Capability Min="72" Max="72">8 - Hand</Capability>
-  <Capability Min="80" Max="80">10 - Circle Woods texture</Capability>
-  <Capability Min="88" Max="88">11 - Circle stripes</Capability>
-  <Capability Min="96" Max="96">11 - Circle tilted</Capability>
-  <Capability Min="104" Max="104">12 - Dots</Capability>
-  <Capability Min="112" Max="112">13 - Pinwheel</Capability>
-  <Capability Min="120" Max="120">14 - Twirl</Capability>
+  <Capability Min="0" Color="#000000" Max="0">Blackout</Capability>
+  <Capability Min="8" Res="Others/open.png" Max="8">Open</Capability>
+  <Capability Min="16" Res="SGM/gobo00063.png" Max="16">1 - Circle</Capability>
+  <Capability Min="24" Res="Others/gobo00062.png" Max="24">2 - Square outline</Capability>
+  <Capability Min="32" Res="Robe/gobo00025.png" Max="32">3 - Circle outline</Capability>
+  <Capability Min="40" Res="Robe/gobo00035.png" Max="40">4 - Circle dotted outline</Capability>
+  <Capability Min="48" Res="SGM/gobo00050.png" Max="48">5 - Sunrise</Capability>
+  <Capability Min="56" Res="GLP/gobo00004.png" Max="56">6 - Circle zoom</Capability>
+  <Capability Min="64" Res="Chauvet/gobo00047.png" Max="64">7 - Four circles</Capability>
+  <Capability Min="72" Res="SGM/gobo00249.png" Max="72">8 - Hand</Capability>
+  <Capability Min="80" Res="ClayPaky/gobo00044.png" Max="80">10 - Circle woods texture</Capability>
+  <Capability Min="88" Res="SGM/gobo00002.png" Max="88">11 - Circle stripes</Capability>
+  <Capability Min="96" Res="Chauvet/gobo00052.png" Max="96">11 - Circle tilted</Capability>
+  <Capability Min="104" Res="Chauvet/gobo00034.png" Max="104">12 - Dots</Capability>
+  <Capability Min="112" Res="SGM/gobo00032.png" Max="112">13 - Pinwheel</Capability>
+  <Capability Min="120" Res="Chauvet/gobo00037.png" Max="120">14 - Twirl</Capability>
   <Capability Min="128" Max="255">Cycle slow-fast</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="11" Max="11">Green</Capability>
-  <Capability Min="22" Max="22">Orange</Capability>
-  <Capability Min="33" Max="33">Light blue</Capability>
-  <Capability Min="44" Max="44">Amber</Capability>
-  <Capability Min="55" Max="55">Red</Capability>
-  <Capability Min="66" Max="66">Purple</Capability>
-  <Capability Min="77" Max="77">Pink</Capability>
-  <Capability Min="88" Max="88">Light green</Capability>
-  <Capability Min="99" Max="99">Blue</Capability>
-  <Capability Min="110" Max="110">Yellow</Capability>
-  <Capability Min="121" Max="121">Magenta</Capability>
-  <Capability Min="128" Max="255">Cycle slow to fast</Capability>
+  <Capability Min="0" Color="#ffffff" Max="0">White</Capability>
+  <Capability Min="11" Color="#00ff00" Max="11">Green</Capability>
+  <Capability Min="22" Color="#ff7f00" Max="22">Orange</Capability>
+  <Capability Min="33" Color="#7f7fff" Max="33">Light blue</Capability>
+  <Capability Min="44" Color="#ffc000" Max="44">Amber</Capability>
+  <Capability Min="55" Color="#ff0000" Max="55">Red</Capability>
+  <Capability Min="66" Color="#7f00ff" Max="66">Purple</Capability>
+  <Capability Min="77" Color="#ffaaff" Max="77">Pink</Capability>
+  <Capability Min="88" Color="#7fff7f" Max="88">Light green</Capability>
+  <Capability Min="99" Color="#0000ff" Max="99">Blue</Capability>
+  <Capability Min="110" Color="#ffff00" Max="110">Yellow</Capability>
+  <Capability Min="121" Color="#ff00ff" Max="121">Magenta</Capability>
+  <Capability Min="128" Res="Others/rainbow.png" Max="255">Cycle slow to fast</Capability>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -62,10 +62,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="0"/>
-   <Dimensions Width="200" Height="155" Weight="10" Depth="500"/>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="500" Weight="10" Width="200" Height="155"/>
    <Lens DegreesMax="13" Name="Other" DegreesMin="13"/>
-   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>
