@@ -311,42 +311,10 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         enableWidgetUI(true);
-
-        if (sliderMode() == Playback)
-        {
-            /* Follow playback function running/stopped status in case the
-               function is started from another control. */
-            Function* function = m_doc->function(playbackFunction());
-            if (function != NULL)
-            {
-                connect(function, SIGNAL(running(quint32)),
-                        this, SLOT(slotPlaybackFunctionRunning(quint32)));
-                connect(function, SIGNAL(stopped(quint32)),
-                        this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                connect(function, SIGNAL(attributeChanged(int, qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
-            }
-        }
     }
     else
     {
         enableWidgetUI(false);
-
-        if (sliderMode() == Playback)
-        {
-            /* Stop following playback function running/stopped status in case
-               the function is changed in Design mode to another. */
-            Function* function = m_doc->function(playbackFunction());
-            if (function != NULL)
-            {
-                disconnect(function, SIGNAL(running(quint32)),
-                        this, SLOT(slotPlaybackFunctionRunning(quint32)));
-                disconnect(function, SIGNAL(stopped(quint32)),
-                        this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                disconnect(function, SIGNAL(attributeChanged(int,qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
-            }
-        }
     }
 
     VCWidget::slotModeChanged(mode);
@@ -508,6 +476,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        setPlaybackFunction(this->m_playbackFunction);
     }
     else if (mode == Submaster)
     {
@@ -745,7 +714,36 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 
 void VCSlider::setPlaybackFunction(quint32 fid)
 {
-    m_playbackFunction = fid;
+    Function* old = m_doc->function(m_playbackFunction);
+    if (old != NULL)
+    {
+        /* Get rid of old function connections */
+        disconnect(old, SIGNAL(running(quint32)),
+                this, SLOT(slotPlaybackFunctionRunning(quint32)));
+        disconnect(old, SIGNAL(stopped(quint32)),
+                this, SLOT(slotPlaybackFunctionStopped(quint32)));
+        disconnect(old, SIGNAL(attributeChanged(int, qreal)),
+                this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+    }
+
+    Function* function = m_doc->function(fid);
+    if (function != NULL)
+    {
+        /* Connect to the new function */
+        connect(function, SIGNAL(running(quint32)),
+                this, SLOT(slotPlaybackFunctionRunning(quint32)));
+        connect(function, SIGNAL(stopped(quint32)),
+                this, SLOT(slotPlaybackFunctionStopped(quint32)));
+        connect(function, SIGNAL(attributeChanged(int, qreal)),
+                this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+
+        m_playbackFunction = fid;
+    }
+    else
+    {
+        /* No function attachment */
+        m_playbackFunction = Function::invalidId();
+    }
 }
 
 quint32 VCSlider::playbackFunction() const
