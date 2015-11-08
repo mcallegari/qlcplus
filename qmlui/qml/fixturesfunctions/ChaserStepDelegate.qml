@@ -90,7 +90,7 @@ Rectangle
         }
     }
 
-    RowLayout
+    Row
     {
         height: 35
         spacing: 2
@@ -100,6 +100,7 @@ Rectangle
             width: col1Width
             label: indexInList + 1
             fontSize: labelFontSize
+            wrapText: true
             textAlign: Text.AlignHCenter
         }
         Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
@@ -118,6 +119,8 @@ Rectangle
             width: col3Width
             label: stepFadeIn
             fontSize: labelFontSize
+            wrapText: true
+            textAlign: Text.AlignHCenter
         }
         Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
 
@@ -126,6 +129,8 @@ Rectangle
             width: col4Width
             label: stepHold
             fontSize: labelFontSize
+            wrapText: true
+            textAlign: Text.AlignHCenter
         }
         Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
 
@@ -134,6 +139,8 @@ Rectangle
             width: col5Width
             label: stepFadeOut
             fontSize: labelFontSize
+            wrapText: true
+            textAlign: Text.AlignHCenter
         }
         Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
 
@@ -142,6 +149,8 @@ Rectangle
             width: col6Width
             label: stepDuration
             fontSize: labelFontSize
+            wrapText: true
+            textAlign: Text.AlignHCenter
         }
         Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
 
@@ -149,7 +158,7 @@ Rectangle
         {
             label: stepNote
             fontSize: labelFontSize
-            Layout.fillWidth: true
+            //Layout.fillWidth: true
         }
     }
 }

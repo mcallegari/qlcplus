@@ -44,10 +44,45 @@ QVariant ChaserEditor::stepsList() const
         {
             QVariantMap stepMap;
             stepMap.insert("funcID", step.fid);
-            stepMap.insert("fadeIn", Function::speedToString(step.fadeIn));
-            stepMap.insert("hold", Function::speedToString(step.hold));
-            stepMap.insert("fadeOut", Function::speedToString(step.fadeOut));
-            stepMap.insert("duration", Function::speedToString(step.duration));
+
+            switch (m_chaser->fadeInMode())
+            {
+                case Chaser::Common:
+                    stepMap.insert("fadeIn", Function::speedToString(m_chaser->fadeInSpeed()));
+                break;
+                case Chaser::PerStep:
+                    stepMap.insert("fadeIn", Function::speedToString(step.fadeIn));
+                break;
+                default:
+                    stepMap.insert("fadeIn", QString());
+                break;
+            }
+
+            switch (m_chaser->fadeOutMode())
+            {
+                case Chaser::Common:
+                    stepMap.insert("fadeOut", Function::speedToString(m_chaser->fadeOutSpeed()));
+                break;
+                case Chaser::PerStep:
+                    stepMap.insert("fadeOut", Function::speedToString(step.fadeOut));
+                    break;
+                default:
+                    stepMap.insert("fadeOut", QString());
+                break;
+            }
+
+            switch (m_chaser->durationMode())
+            {
+                default:
+                case Chaser::Common:
+                    step.duration = m_chaser->duration();
+                    step.hold = Function::speedSubstract(step.duration, step.fadeIn);
+                case Chaser::PerStep:
+                    stepMap.insert("hold", Function::speedToString(step.hold));
+                    stepMap.insert("duration", Function::speedToString(step.duration));
+                break;
+            }
+
             stepMap.insert("note", step.note);
             stepList.append(stepMap);
         }

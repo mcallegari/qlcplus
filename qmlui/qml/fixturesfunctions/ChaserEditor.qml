@@ -152,71 +152,216 @@ Rectangle
             color: UISettings.bgLight
             property int fSize: 11
 
-            RowLayout
+            Row
             {
                 height: 35
                 spacing: 2
 
+                // Step number column
                 RobotoText
                 {
                     id: numCol
                     width: 20
                     label: "#"
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
                 Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
 
+                // Step Function name column
                 RobotoText
                 {
                     id: nameCol
                     width: 120
                     label: qsTr("Function")
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
-                Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+                Rectangle
+                {
+                    id: nameColDrag
+                    height: 35
+                    width: 1
+                    color: UISettings.fgMedium
 
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeHorCursor
+                        onPressed:
+                        {
+                            drag.target = nameColDrag
+                            drag.minimumX = 0
+                            drag.axis = Drag.XAxis
+                        }
+                        onPositionChanged:
+                        {
+                            if (drag.target === null)
+                                return;
+                            nameCol.width = nameColDrag.x - nameCol.x - 1
+                        }
+                        onReleased: drag.target = null
+                    }
+                }
+
+                // Step fade in column
                 RobotoText
                 {
                     id: fInCol
                     width: 60
                     label: qsTr("Fade In")
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
-                Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+                Rectangle
+                {
+                    id: fInColDrag
+                    height: 35
+                    width: 1
+                    color: UISettings.fgMedium
 
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeHorCursor
+                        onPressed:
+                        {
+                            drag.target = fInColDrag
+                            drag.minimumX = 0
+                            drag.axis = Drag.XAxis
+                        }
+                        onPositionChanged:
+                        {
+                            if (drag.target === null)
+                                return;
+                            fInCol.width = fInColDrag.x - fInCol.x - 1
+                        }
+                        onReleased: drag.target = null
+                    }
+                }
+
+                // Step hold column
                 RobotoText
                 {
                     id: holdCol
                     width: 60
                     label: qsTr("Hold")
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
-                Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+                Rectangle
+                {
+                    id: holdColDrag
+                    height: 35
+                    width: 1
+                    color: UISettings.fgMedium
 
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeHorCursor
+                        onPressed:
+                        {
+                            drag.target = holdColDrag
+                            drag.minimumX = 0
+                            drag.axis = Drag.XAxis
+                        }
+                        onPositionChanged:
+                        {
+                            if (drag.target === null)
+                                return;
+                            holdCol.width = holdColDrag.x - holdCol.x - 1
+                        }
+                        onReleased: drag.target = null
+                    }
+                }
+
+                // Step fade out column
                 RobotoText
                 {
                     id: fOutCol
                     width: 60
                     label: qsTr("Fade Out")
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
-                Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+                Rectangle
+                {
+                    id: fOutColDrag
+                    height: 35
+                    width: 1
+                    color: UISettings.fgMedium
 
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeHorCursor
+                        onPressed:
+                        {
+                            drag.target = fOutColDrag
+                            drag.minimumX = 0
+                            drag.axis = Drag.XAxis
+                        }
+                        onPositionChanged:
+                        {
+                            if (drag.target === null)
+                                return;
+                            fOutCol.width = fOutColDrag.x - fOutCol.x - 1
+                        }
+                        onReleased: drag.target = null
+                    }
+                }
+
+                // Step duration column
                 RobotoText
                 {
                     id: durCol
                     width: 60
                     label: qsTr("Duration")
+                    wrapText: true
+                    textAlign: Text.AlignHCenter
                     fontSize: chListHeader.fSize
                 }
-                Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+                Rectangle
+                {
+                    id: durColDrag
+                    height: 35
+                    width: 1
+                    color: UISettings.fgMedium
 
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeHorCursor
+                        onPressed:
+                        {
+                            drag.target = durColDrag
+                            drag.minimumX = 0
+                            drag.axis = Drag.XAxis
+                        }
+                        onPositionChanged:
+                        {
+                            if (drag.target === null)
+                                return;
+                            durCol.width = durColDrag.x - durCol.x - 1
+                        }
+                        onReleased: drag.target = null
+                    }
+                }
+
+                // Step note column
                 RobotoText
                 {
                     id: noteCol
+                    width: 200
                     label: qsTr("Note")
                     fontSize: chListHeader.fSize
-                    Layout.fillWidth: true
+                    //Layout.fillWidth: true
                 }
             }
         }
