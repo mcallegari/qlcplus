@@ -311,10 +311,14 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         enableWidgetUI(true);
+        if (m_sliderMode == Level || m_sliderMode == Playback)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else
     {
         enableWidgetUI(false);
+        if (m_sliderMode == Level || m_sliderMode == Playback)
+            m_doc->masterTimer()->unregisterDMXSource(this);
     }
 
     VCWidget::slotModeChanged(mode);
@@ -425,13 +429,6 @@ void VCSlider::setSliderMode(SliderMode mode)
 {
     Q_ASSERT(mode >= Level && mode <= Submaster);
 
-    /* Unregister this as a DMX source if the new mode is not "Level" or "Playback" */
-    if ((m_sliderMode == Level && mode != Level) ||
-        (m_sliderMode == Playback && mode != Playback))
-    {
-        m_doc->masterTimer()->unregisterDMXSource(this);
-    }
-
     m_sliderMode = mode;
 
     if (mode == Level)
@@ -457,7 +454,8 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_slider->value());
         }
 
-        m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Playback)
     {
@@ -475,7 +473,8 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
-        m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
         setPlaybackFunction(this->m_playbackFunction);
     }
     else if (mode == Submaster)
@@ -489,6 +488,8 @@ void VCSlider::setSliderMode(SliderMode mode)
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->unregisterDMXSource(this);
     }
 }
 
