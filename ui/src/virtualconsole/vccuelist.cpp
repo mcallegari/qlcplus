@@ -532,6 +532,17 @@ int VCCueList::getLastTreeIndex()
     return m_tree->topLevelItemCount() - 1;
 }
 
+qreal VCCueList::getPrimaryIntensity() const
+{
+    qreal value;
+    if (slidersMode() == Crossfade)
+        value = 1.0;
+    else
+        value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
+    qDebug() << Q_FUNC_INFO << m_primaryLeft << m_slider1->value() << m_slider2->value() << value;
+    return value;
+}
+
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
     Q_UNUSED(intensity);
@@ -819,7 +830,7 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
     ch->setStepIndex(startIndex);
-    ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
+    ch->setStartIntensity(getPrimaryIntensity());
     ch->adjustAttribute(intensity(), Function::Intensity);
     ch->start(m_doc->masterTimer());
     emit functionStarting(m_chaserID);
@@ -993,7 +1004,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
 {
     if (slidersMode() == Steps)
     {
-        qDebug() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
+        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;
     }
     m_sl2TopLabel->setText(QString("%1%").arg(value));
@@ -1244,7 +1255,7 @@ void VCCueList::playCueAtIndex(int idx)
 
     if (!ch->stopped())
     {
-        ch->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
+        ch->setCurrentStep(m_primaryIndex, getPrimaryIntensity());
     }
     else
     {
