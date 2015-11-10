@@ -251,6 +251,11 @@ void ChaserRunner::stopStep(int stepIndex)
             delete step;
         }
     }
+
+    if (m_runnerSteps.size() == 1) {
+        m_lastRunStepIdx = m_runnerSteps.at(0)->m_index;
+        emit currentStepChanged(m_lastRunStepIdx);
+    }
 }
 
 void ChaserRunner::setCurrentStep(int step, qreal intensity)

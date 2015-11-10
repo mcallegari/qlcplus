@@ -961,7 +961,6 @@ void VCCueList::slotSlider1ValueChanged(int value)
     }
     else
     {
-        bool switchFunction = false;
         m_sl1TopLabel->setText(QString("%1%").arg(value));
         if (m_linkCheck->isChecked())
             m_slider2->setValue(100 - value);
@@ -978,26 +977,12 @@ void VCCueList::slotSlider1ValueChanged(int value)
             {
                 ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
                 m_primaryLeft = false;
-                switchFunction = true;
             }
             else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
             {
                 ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
                 m_primaryLeft = true;
-                switchFunction = true;
             }
-        }
-
-        if (switchFunction)
-        {
-            m_primaryIndex = m_secondaryIndex;
-            QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
-            if (item != NULL)
-            {
-                m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-                m_tree->setCurrentItem(item);
-            }
-            setSlidersInfo(m_primaryIndex);
         }
     }
 
@@ -1011,7 +996,6 @@ void VCCueList::slotSlider2ValueChanged(int value)
         qDebug() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;
     }
-    bool switchFunction = false;
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
@@ -1028,27 +1012,14 @@ void VCCueList::slotSlider2ValueChanged(int value)
         {
             ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
             m_primaryLeft = true;
-            switchFunction = true;
         }
         else if (m_primaryLeft == true && value == 100 && m_slider1->value() == 0)
         {
             ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
             m_primaryLeft = false;
-            switchFunction = true;
         }
     }
 
-    if (switchFunction)
-    {
-        m_primaryIndex = m_secondaryIndex;
-        QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
-        if (item != NULL)
-        {
-            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-            m_tree->setCurrentItem(item);
-        }
-        setSlidersInfo(m_primaryIndex);
-    }
     updateFeedback();
 }
 
