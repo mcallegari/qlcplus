@@ -39,8 +39,6 @@
 #define UDMX_AVLDIY_D512_CLONE_VENDOR     0x03EB /* Atmel Corp. (Clone VID)*/
 #define UDMX_AVLDIY_D512_CLONE_PRODUCT    0x8888 /* Clone PID */
 
-#define UDMX_USB_SIGNATURES_COUNT  2
-
 #define UDMX_SET_CHANNEL_RANGE 0x0002 /* Command to set n channel values */
 
 #define SETTINGS_FREQUENCY "udmx/frequency"
