@@ -35,6 +35,23 @@
 
 #define UDMX_SHARED_VENDOR     0x16C0 /* VOTI */
 #define UDMX_SHARED_PRODUCT    0x05DC /* Obdev's free shared PID */
+
+#define UDMX_AVLDIY_D512_CLONE_VENDOR     0x03EB /* Atmel Corp. (Clone VID)*/
+#define UDMX_AVLDIY_D512_CLONE_PRODUCT    0x8888 /* Clone PID */
+
+#define UDMX_USB_SIGNATURES_COUNT  2
+
+/* List of UDMX and clones VID/PID */
+const uint16_t UDMX_USB_SIGNATURES[UDMX_USB_SIGNATURES_COUNT][2] = 
+{
+    {
+      UDMX_SHARED_VENDOR, UDMX_SHARED_PRODUCT
+    },
+    {
+      UDMX_AVLDIY_D512_CLONE_VENDOR, UDMX_AVLDIY_D512_CLONE_PRODUCT
+    }
+};
+
 #define UDMX_SET_CHANNEL_RANGE 0x0002 /* Command to set n channel values */
 
 #define SETTINGS_FREQUENCY "udmx/frequency"
@@ -73,18 +90,21 @@ UDMXDevice::~UDMXDevice()
 
 bool UDMXDevice::isUDMXDevice(const struct usb_device* device)
 {
+    int signatureNum;
+
     if (device == NULL)
         return false;
 
-    if ((device->descriptor.idVendor == UDMX_SHARED_VENDOR) &&
-        (device->descriptor.idProduct == UDMX_SHARED_PRODUCT))
-    {
-        return true;
+    for (signatureNum = 0; signatureNum < UDMX_USB_SIGNATURES_COUNT; signatureNum++) 
+    { 
+        if ((device->descriptor.idVendor == UDMX_USB_SIGNATURES[signatureNum][0]) &&
+            (device->descriptor.idProduct == UDMX_USB_SIGNATURES[signatureNum][1]))
+        {
+             return true;
+        }
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
 }
 
 void UDMXDevice::extractName()
