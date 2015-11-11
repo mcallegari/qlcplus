@@ -532,6 +532,17 @@ int VCCueList::getLastTreeIndex()
     return m_tree->topLevelItemCount() - 1;
 }
 
+qreal VCCueList::getPrimaryIntensity() const
+{
+    qreal value;
+    if (slidersMode() == Crossfade)
+        value = 1.0;
+    else
+        value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
+    qDebug() << Q_FUNC_INFO << m_primaryLeft << m_slider1->value() << m_slider2->value() << value;
+    return value;
+}
+
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
     Q_UNUSED(intensity);
@@ -819,7 +830,7 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
     ch->setStepIndex(startIndex);
-    ch->setStartIntensity((qreal)m_slider1->value() / 100.0);
+    ch->setStartIntensity(getPrimaryIntensity());
     ch->adjustAttribute(intensity(), Function::Intensity);
     ch->start(m_doc->masterTimer());
     emit functionStarting(m_chaserID);
@@ -961,7 +972,6 @@ void VCCueList::slotSlider1ValueChanged(int value)
     }
     else
     {
-        bool switchFunction = false;
         m_sl1TopLabel->setText(QString("%1%").arg(value));
         if (m_linkCheck->isChecked())
             m_slider2->setValue(100 - value);
@@ -978,26 +988,12 @@ void VCCueList::slotSlider1ValueChanged(int value)
             {
                 ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
                 m_primaryLeft = false;
-                switchFunction = true;
             }
             else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
             {
                 ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
                 m_primaryLeft = true;
-                switchFunction = true;
             }
-        }
-
-        if (switchFunction)
-        {
-            m_primaryIndex = m_secondaryIndex;
-            QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
-            if (item != NULL)
-            {
-                m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-                m_tree->setCurrentItem(item);
-            }
-            setSlidersInfo(m_primaryIndex);
         }
     }
 
@@ -1008,10 +1004,9 @@ void VCCueList::slotSlider2ValueChanged(int value)
 {
     if (slidersMode() == Steps)
     {
-        qDebug() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
+        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;
     }
-    bool switchFunction = false;
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
@@ -1028,27 +1023,14 @@ void VCCueList::slotSlider2ValueChanged(int value)
         {
             ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
             m_primaryLeft = true;
-            switchFunction = true;
         }
         else if (m_primaryLeft == true && value == 100 && m_slider1->value() == 0)
         {
             ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
             m_primaryLeft = false;
-            switchFunction = true;
         }
     }
 
-    if (switchFunction)
-    {
-        m_primaryIndex = m_secondaryIndex;
-        QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
-        if (item != NULL)
-        {
-            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
-            m_tree->setCurrentItem(item);
-        }
-        setSlidersInfo(m_primaryIndex);
-    }
     updateFeedback();
 }
 
@@ -1273,7 +1255,7 @@ void VCCueList::playCueAtIndex(int idx)
 
     if (!ch->stopped())
     {
-        ch->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
+        ch->setCurrentStep(m_primaryIndex, getPrimaryIntensity());
     }
     else
     {

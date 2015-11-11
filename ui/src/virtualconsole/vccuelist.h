@@ -144,6 +144,10 @@ private:
     /** Get the index of the item at the bottom of the tree */
     int getLastTreeIndex();
 
+private:
+    /** Get the intensity of the current primary slider */
+    qreal getPrimaryIntensity() const;
+
 public:
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
