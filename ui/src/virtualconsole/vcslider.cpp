@@ -311,10 +311,14 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         enableWidgetUI(true);
+        if (m_sliderMode == Level || m_sliderMode == Playback)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else
     {
         enableWidgetUI(false);
+        if (m_sliderMode == Level || m_sliderMode == Playback)
+            m_doc->masterTimer()->unregisterDMXSource(this);
     }
 
     VCWidget::slotModeChanged(mode);
@@ -425,13 +429,6 @@ void VCSlider::setSliderMode(SliderMode mode)
 {
     Q_ASSERT(mode >= Level && mode <= Submaster);
 
-    /* Unregister this as a DMX source if the new mode is not "Level" or "Playback" */
-    if ((m_sliderMode == Level && mode != Level) ||
-        (m_sliderMode == Playback && mode != Playback))
-    {
-        m_doc->masterTimer()->unregisterDMXSource(this);
-    }
-
     m_sliderMode = mode;
 
     if (mode == Level)
@@ -457,7 +454,8 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_slider->value());
         }
 
-        m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Playback)
     {
@@ -475,7 +473,8 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
-        m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->registerDMXSource(this, "Slider");
         setPlaybackFunction(this->m_playbackFunction);
     }
     else if (mode == Submaster)
@@ -489,6 +488,8 @@ void VCSlider::setSliderMode(SliderMode mode)
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
+        if (m_doc->mode() == Doc::Operate)
+            m_doc->masterTimer()->unregisterDMXSource(this);
     }
 }
 
@@ -939,7 +940,14 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             quint32 dmx_ch = fxi->address() + lch.channel;
             int uni = fxi->universe();
 
-            if (qlcch->group() != QLCChannel::Intensity &&
+            // Dirty channel group check: is the channel HTP or LTP ?
+            QLCChannel::Group group = qlcch->group();
+            if (fxi->forcedLTPChannels().contains(lch.channel))
+                group = QLCChannel::Effect;
+            if (fxi->forcedHTPChannels().contains(lch.channel))
+                group = QLCChannel::Intensity;
+
+            if (group != QLCChannel::Intensity &&
                 m_levelValueChanged == false)
             {
                 /* Value has not changed and this is not an intensity channel.
