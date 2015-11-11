@@ -160,7 +160,7 @@
    <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
    <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="0" TiltMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>
@@ -183,7 +183,7 @@
    <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
    <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="0" TiltMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>

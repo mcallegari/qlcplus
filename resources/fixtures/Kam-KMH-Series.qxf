@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Synkajax</Author>
  </Creator>
  <Manufacturer>Kam</Manufacturer>
@@ -75,10 +75,10 @@
  </Channel>
  <Mode Name="9 Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="515" Depth="100" Height="260" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.3" Width="515" Height="260" Depth="100"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="270"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -93,10 +93,10 @@
  </Mode>
  <Mode Name="13 Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="515" Depth="100" Height="260" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.3" Width="515" Height="260" Depth="100"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="270"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

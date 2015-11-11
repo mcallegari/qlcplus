@@ -123,6 +123,7 @@
   <fixture path="Cameo-LED-RGB-PAR64-18x3W.qxf" mf="Cameo" md="LED RGB PAR64 18x3W"/>
   <fixture path="Cameo-LED-RGBW-PAR64-18x8W.qxf" mf="Cameo" md="LED RGBW PAR64 18x8W"/>
   <fixture path="Cameo-Multi-PAR-1.qxf" mf="Cameo" md="Multi Par 1"/>
+  <fixture path="Cameo-Multi-PAR-3.qxf" mf="Cameo" md="Multi Par 3"/>
   <fixture path="Cameo-Strobe-3x3.5W.qxf" mf="Cameo" md="Strobe 3x3.5W"/>
   <fixture path="Cameo-Strobe-6x10W.qxf" mf="Cameo" md="Strobe 6x10W"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
@@ -359,6 +360,7 @@
   <fixture path="High-End-Systems-Trackspot.qxf" mf="High End Systems" md="Trackspot"/>
   <fixture path="High-End-Systems-Xspot-Xtreme.qxf" mf="High End Systems" md="Xspot Xtreme"/>
   <fixture path="HQ-Power-Power-Space-250.qxf" mf="HQ Power" md="Power Space 250"/>
+  <fixture path="HQ-Power-VDPL110CC-LED-Tri-Spot.qxf" mf="HQ Power" md="VDPL110CC LED Tri Spot"/>
   <fixture path="i-Pix-BB4.qxf" mf="i-Pix" md="BB4"/>
   <fixture path="Img-Stage-Line-PARL-4Set.qxf" mf="Img Stage Line" md="Parl 4-SET"/>
   <fixture path="Img-Stage-Line-Parl-73-RGB.qxf" mf="Img Stage Line" md="Parl 73-RGB"/>

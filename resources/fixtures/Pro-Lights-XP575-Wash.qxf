@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Tolmino TC Concerti</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -28,16 +28,16 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="17">White</Capability>
-  <Capability Min="18" Max="35">Red</Capability>
-  <Capability Min="36" Max="51">Blue</Capability>
-  <Capability Min="52" Max="71">Green</Capability>
-  <Capability Min="72" Max="89">Purple</Capability>
+  <Capability Min="0" Max="17" Color="#ffffff">White</Capability>
+  <Capability Min="18" Max="35" Color="#ff0000">Red</Capability>
+  <Capability Min="36" Max="51" Color="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="71" Color="#00ff00">Green</Capability>
+  <Capability Min="72" Max="89" Color="#ff007f">Purple</Capability>
   <Capability Min="90" Max="107">5000K</Capability>
   <Capability Min="108" Max="127">3200K</Capability>
-  <Capability Min="128" Max="187">Forward Rotate Fast Slow</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forward Rotate Fast Slow</Capability>
   <Capability Min="188" Max="195">Stop</Capability>
-  <Capability Min="196" Max="255">Backward Rotate Slow-Fast</Capability>
+  <Capability Min="196" Max="255" Res="Others/rainbow.png">Backward Rotate Slow-Fast</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -122,10 +122,10 @@
  </Channel>
  <Mode Name="XP575 Wash">
   <Physical>
-   <Bulb Lumens="0" Type="HTI 575W" ColourTemperature="5600"/>
-   <Dimensions Width="0" Height="0" Weight="30" Depth="0"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="570" TiltMax="270"/>
    <Technical PowerConsumption="800" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

@@ -4,16 +4,19 @@ qlcplus (4.10.2) stable; urgency=low
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
-  * Virtual Console/Slider: Fix copy not copying the Channel Monitor mode (David Garyga)
+  * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
+  * Virtual Console/Slider: in level mode, activate only in operate mode and don't hold forced LTP channels (David Garyga)
   * Virtual Console/XYPad: added Fixture Group preset, to control a subgroup of Fixtures (see documentation)
-  * Virtual Console/XYPad Properties: Fixture ranges can now be set in degrees, percentage or DMX values
+  * Virtual Console/XYPad Properties: fixture ranges can now be set in degrees, percentage or DMX values
+  * Virtual Console/Cue List: improved mixed usage of instant and crossfade step change (David Garyga)
   * Input Profiles: added an option for Buttons to always generate a press/release event
   * New input profile: Touch OSC Automat5
   * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
-  * New fixture: Robe ColorWash 1200E AT, American DJ Starburst, Chauvet LED PAR 64 Tri-B (thanks to Robert Box)
-  * New fixture: BoomTone DJ Sky bar 288 LED, BoomToneDJ Strob LED 18, BoomToneDJ Froggy LED RGBW (thanks to Didou)
+  * New fixtures: Robe ColorWash 1200E AT, American DJ Starburst, Chauvet LED PAR 64 Tri-B (thanks to Robert Box)
+  * New fixtures: Cameo Multi Par 3, HQ Power VDPL110CC LED Tri Spot (thanks to Robert Box)
+  * New fixtures: BoomTone DJ Sky bar 288 LED, BoomToneDJ Strob LED 18, BoomToneDJ Froggy LED RGBW (thanks to Didou)
   * New fixture: iSolution iMove 250W (thanks to Thierry Rodolfo)
   * New fixture: Talent BL63 10" LED Bar (thanks to FooSchnickens)
   * New fixtures: Contest Oz-37x15QC, Evora DUO B2R, Evora Beam 5R, Evora Beam 15R (thanks to Jan Lachman)
