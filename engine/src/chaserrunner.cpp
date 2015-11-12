@@ -241,6 +241,8 @@ void ChaserRunner::tap()
 
 void ChaserRunner::stopStep(int stepIndex)
 {
+    bool stopped = false;
+
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (stepIndex == step->m_index)
@@ -249,10 +251,11 @@ void ChaserRunner::stopStep(int stepIndex)
             step->m_function->stop();
             m_runnerSteps.removeOne(step);
             delete step;
+            stopped = true;
         }
     }
 
-    if (m_runnerSteps.size() == 1) {
+    if (stopped && m_runnerSteps.size() == 1) {
         m_lastRunStepIdx = m_runnerSteps.at(0)->m_index;
         emit currentStepChanged(m_lastRunStepIdx);
     }
@@ -402,17 +405,22 @@ void ChaserRunner::fillOrder(int size)
 
 void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex)
 {
-    m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
+    fraction = CLAMP(fraction, qreal(0.0), qreal(1.0));
 
     int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
+    {
         stepIndex = m_lastRunStepIdx;
+        // stepIndex == -1 means that the "global" intensity
+        // of the chaser has to be changed
+        m_intensity = fraction;
+    }
 
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
-            step->m_function->adjustAttribute(m_intensity, Function::Intensity);
+            step->m_function->adjustAttribute(fraction, Function::Intensity);
             return;
         }
     }
@@ -421,8 +429,18 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex)
     if (requestedStepIndex == -1)
         return;
 
+    // Quick & dirty fix: in startNewStep, <m_intensity> is the
+    // intensity of the started function.
+    // This function has to start with intensity value of <fraction>.
+    qreal intensityBackup = m_intensity;
+    m_intensity = fraction;
+
     // not found ?? It means we need to start a new step and crossfade kicks in !
     startNewStep(stepIndex, m_doc->masterTimer(), true);
+
+    // Q&D fix: restore m_intensity as it was before.
+    // We don't want to change the intensity of future steps.
+    m_intensity = intensityBackup;
 }
 
 void ChaserRunner::clearRunningList()
