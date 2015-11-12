@@ -134,7 +134,7 @@ bool InputOutputMap::addUniverse(quint32 id)
         m_latestUniverseId = id;
 
     m_universeArray.append(new Universe(id, m_grandMaster));
-    locker.unlock();    
+    locker.unlock();
 
     emit universeAdded(id);
     return true;
@@ -668,6 +668,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
+    QMutexLocker locker(&m_universeMutex);
     bool success = true;
     for (quint32 i = 0; i < universesCount(); i++)
     {
@@ -675,7 +676,6 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 
         if (op != NULL && op->plugin() == plugin)
         {
-            QMutexLocker locker(&m_universeMutex);
             /*success = */ op->reconnect();
         }
 
@@ -683,10 +683,10 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 
         if (ip != NULL && ip->plugin() == plugin)
         {
-            QMutexLocker locker(&m_universeMutex);
             /*success = */ ip->reconnect();
         }
     }
+    locker.unlock();
 
     emit pluginConfigurationChanged(plugin->name(), success);
 }
