@@ -986,13 +986,13 @@ void VCCueList::slotSlider1ValueChanged(int value)
         {
             if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
             {
-                ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
                 m_primaryLeft = false;
+                ch->stopStep( (!m_primaryLeft) ? m_primaryIndex: m_secondaryIndex);
             }
             else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
             {
-                ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
                 m_primaryLeft = true;
+                ch->stopStep( (!m_primaryLeft) ? m_secondaryIndex : m_primaryIndex);
             }
         }
     }
@@ -1021,13 +1021,13 @@ void VCCueList::slotSlider2ValueChanged(int value)
     {
         if (m_primaryLeft == false && value == 0 && m_slider1->value() == 100)
         {
-            ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
             m_primaryLeft = true;
+            ch->stopStep( (!m_primaryLeft) ? m_secondaryIndex : m_primaryIndex);
         }
         else if (m_primaryLeft == true && value == 100 && m_slider1->value() == 0)
         {
-            ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
             m_primaryLeft = false;
+            ch->stopStep( (!m_primaryLeft) ? m_primaryIndex: m_secondaryIndex);
         }
     }
 
