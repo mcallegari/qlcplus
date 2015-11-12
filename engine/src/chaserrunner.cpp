@@ -429,6 +429,10 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex)
     if (requestedStepIndex == -1)
         return;
 
+    // Don't start a step with an intensity of zero
+    if (fraction == qreal(0.0))
+        return;
+
     // Quick & dirty fix: in startNewStep, <m_intensity> is the
     // intensity of the started function.
     // This function has to start with intensity value of <fraction>.
