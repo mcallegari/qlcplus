@@ -327,15 +327,15 @@ void EditChannel::slotAddCapabilityClicked()
         idx++;
     }
 
-    m_currentCapability = new QLCCapability();
-    m_currentCapability->setMin(minFound);
-    m_currentCapability->setMax(maxFound);
-    if (m_channel->addCapability(m_currentCapability) == false)
+    QLCCapability* newCapability = new QLCCapability();
+    newCapability->setMin(minFound);
+    newCapability->setMax(maxFound);
+    if (m_channel->addCapability(newCapability) == false)
     {
-        delete m_currentCapability;
-        m_currentCapability = NULL;
+        delete newCapability;
         return;
     }
+    m_currentCapability = newCapability;
     refreshCapabilities();
     m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(idx));
     setupCapabilityGroup();
