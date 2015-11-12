@@ -25,7 +25,7 @@
   <Capability Min="0" Max="255">Blue Intensity (0 to 100%)</Capability>
  </Channel>
  <Channel Name="Dimmer/Sound/Strobe Mode 1">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Off</Capability>
   <Capability Min="8" Max="190">Intensity 0-100%</Capability>
   <Capability Min="191" Max="200">Sound (random colour changer)</Capability>
@@ -33,11 +33,11 @@
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Dimmer Mode 2">
-  <Group Byte="1">Intensity</Group>
+  <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
  <Channel Name="Dimmer/Strobe Mode 3">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="160">Dimmer</Capability>
   <Capability Min="161" Max="255">Strobe (slow-fast)</Capability>
  </Channel>

@@ -221,7 +221,7 @@
   <Capability Max="255" Min="0">Adjust</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine (16-bit Extended Function)">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Max="255" Min="0">Adjust</Capability>
  </Channel>
  <Channel Name="Control (When Extended functions are Invalid, Shift This Channel to 15th Channel.)">

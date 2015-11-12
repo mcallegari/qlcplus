@@ -25,7 +25,7 @@
   <Capability Min="0" Max="255">Blue Intensity</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
-  <Group Byte="1">Intensity</Group>
+  <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="8ch-ch2 Sound (Sound Active CH6 250-255)">

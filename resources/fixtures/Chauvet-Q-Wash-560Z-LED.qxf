@@ -111,7 +111,7 @@
   <Capability Min="0" Max="255">Tilt Fine</Capability>
  </Channel>
  <Channel Name="Pan/Tilt Speed">
-  <Group Byte="1">Maintenance</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Pan/Tilt speed (Fast to Slow)</Capability>
  </Channel>
  <Mode Name="Basic (12 channel)">

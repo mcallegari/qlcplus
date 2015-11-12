@@ -39,7 +39,7 @@
   <Capability Min="0" Max="255">Closed -&gt; open</Capability>
  </Channel>
  <Channel Name="Dimmer, fine (LSB)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Cyan (MSB)">
@@ -150,7 +150,7 @@
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
  <Channel Name="Rotating Gobo, fine indexing">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Rotating gobo, fine indexing</Capability>
  </Channel>
  <Channel Name="Gobo2">

@@ -179,7 +179,7 @@
   <Capability Min="144" Max="255">rotation up from 100% to 0%</Capability>
  </Channel>
  <Channel Name="Gobo 1 LSB position">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Gobo 1 position or rotation</Capability>
  </Channel>
  <Channel Name="Gobo 2">
@@ -203,7 +203,7 @@
   <Capability Min="145" Max="255">Rotate CCW</Capability>
  </Channel>
  <Channel Name="Gobo 2 LSB position ">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Gobo2 LSB position</Capability>
  </Channel>
  <Channel Name="Gobo 2 shake">

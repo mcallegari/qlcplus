@@ -30,7 +30,7 @@
   <Capability Min="248" Max="255">Silent Move</Capability>
  </Channel>
  <Channel Name="Pan FAR">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="10">Standard</Capability>
   <Capability Min="11" Max="20">1 turn</Capability>
   <Capability Min="21" Max="30">2 turns</Capability>

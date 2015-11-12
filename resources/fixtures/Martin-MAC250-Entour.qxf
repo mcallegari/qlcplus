@@ -174,10 +174,6 @@
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Focus fine (LSB)</Capability>
  </Channel>
- <Channel Name="Gobo Rotation Fine (Least Sig Bit)">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Gobo Rotation Fine</Capability>
- </Channel>
  <Channel Name="Gobo 2 Static">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>

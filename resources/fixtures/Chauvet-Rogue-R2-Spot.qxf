@@ -22,7 +22,7 @@
   <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Tilt (Fine)">
-  <Group Byte="0">Tilt</Group>
+  <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt (Fine)</Capability>
  </Channel>
  <Channel Name="Pan/Tilt Speed">
