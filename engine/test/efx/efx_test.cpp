@@ -2955,8 +2955,11 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)", SkipSingle);
-
+#else
+    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)");
+#endif
     QDomDocument doc;
 
     QDomElement root = doc.createElement("Function");
