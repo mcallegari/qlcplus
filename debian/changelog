@@ -12,6 +12,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Plugins/uDMX: added support for AVLdiy.cn clone (thanks to Vitalii Husach)
   * Input Profiles: added an option for Buttons to always generate a press/release event
   * New input profile: Touch OSC Automat5
+  * New input profile: Novation Launch Control (thanks to Giacomo Gorini)
   * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
