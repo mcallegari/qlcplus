@@ -257,6 +257,9 @@ protected slots:
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
+protected:
+    void stopStepIfNeeded(Chaser* ch);
+
 private:
     QCheckBox *m_linkCheck;
     QLabel *m_sl1TopLabel;

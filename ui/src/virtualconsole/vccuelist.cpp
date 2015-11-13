@@ -973,28 +973,16 @@ void VCCueList::slotSlider1ValueChanged(int value)
     else
     {
         m_sl1TopLabel->setText(QString("%1%").arg(value));
-        if (m_linkCheck->isChecked())
-            m_slider2->setValue(100 - value);
 
         Chaser* ch = chaser();
-        if (ch == NULL || ch->stopped())
-            return;
-
-        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-
-        if(ch->runningStepsNumber() == 2)
+        if (!(ch == NULL || ch->stopped()))
         {
-            if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
-            {
-                ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-                m_primaryLeft = false;
-            }
-            else if (m_primaryLeft == false && value == 100 && m_slider2->value() == 0)
-            {
-                ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
-                m_primaryLeft = true;
-            }
+            ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            stopStepIfNeeded(ch);
         }
+
+        if (m_linkCheck->isChecked())
+            m_slider2->setValue(100 - value);
     }
 
     updateFeedback();
@@ -1008,30 +996,47 @@ void VCCueList::slotSlider2ValueChanged(int value)
         return;
     }
     m_sl2TopLabel->setText(QString("%1%").arg(value));
+
+    Chaser* ch = chaser();
+    if (!(ch == NULL || ch->stopped()))
+    {
+        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        stopStepIfNeeded(ch);
+    }
+
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
 
-    Chaser* ch = chaser();
-    if (ch == NULL || ch->stopped())
+    updateFeedback();
+}
+
+void VCCueList::stopStepIfNeeded(Chaser* ch)
+{
+    if (ch->runningStepsNumber() != 2)
         return;
 
-    ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
-
-    if (ch->runningStepsNumber() == 2)
+    int primaryValue;
+    int secondaryValue;
+    if (m_primaryLeft)
     {
-        if (m_primaryLeft == false && value == 0 && m_slider1->value() == 100)
-        {
-            ch->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
-            m_primaryLeft = true;
-        }
-        else if (m_primaryLeft == true && value == 100 && m_slider1->value() == 0)
-        {
-            ch->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-            m_primaryLeft = false;
-        }
+        primaryValue = m_slider1->value();
+        secondaryValue = m_slider2->value();
+    }
+    else
+    {
+        primaryValue = m_slider2->value();
+        secondaryValue = m_slider1->value();
     }
 
-    updateFeedback();
+    if (primaryValue == 0)
+    {
+        m_primaryLeft = !m_primaryLeft;
+        ch->stopStep(m_primaryIndex);
+    }
+    else if (secondaryValue == 0)
+    {
+        ch->stopStep(m_secondaryIndex);
+    }
 }
 
 /*****************************************************************************
