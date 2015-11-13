@@ -52,16 +52,7 @@ QLCCapability *QLCCapability::createCopy()
                                             m_resourceColor1, m_resourceColor2);
     return copy;
 }
-/*
-QLCCapability::QLCCapability(const QLCCapability* capability)
-{
-    m_min = 0;
-    m_max = UCHAR_MAX;
 
-    if (capability != NULL)
-        *this = *capability;
-}
-*/
 QLCCapability::~QLCCapability()
 {
 }

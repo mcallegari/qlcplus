@@ -72,8 +72,6 @@ public:
                   const QColor &color1 = QColor(), const QColor &color2 = QColor(),
                   QObject *parent = 0);
 
-    /** Copy constructor */
-    //QLCCapability(const QLCCapability* cap);
     QLCCapability *createCopy();
 
     /** Destructor */

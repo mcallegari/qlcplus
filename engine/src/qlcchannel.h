@@ -233,6 +233,9 @@ public:
     /** Remove a capability from the channel */
     bool removeCapability(QLCCapability* cap);
 
+    /** Change a current cap range, checking for feasibility */
+    bool setCapabilityRange(QLCCapability* cap, uchar min, uchar max);
+
     /** Sort capabilities to ascending order by their values */
     void sortCapabilities();
 
