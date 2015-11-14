@@ -226,10 +226,27 @@ void Monitor::fillGraphicsView()
 {
     m_graphicsView->clearFixtures();
 
+    m_gridWSpin->blockSignals(true);
+    m_gridHSpin->blockSignals(true);
+    m_unitsCombo->blockSignals(true);
+
     if (m_props->gridUnits() == MonitorProperties::Meters)
+    {
         m_graphicsView->setGridMetrics(1000.0);
+        m_unitsCombo->setCurrentIndex(0);
+    }
     else // m_props->gridUnits() == MonitorProperties::Feet
+    {
         m_graphicsView->setGridMetrics(304.8);
+        m_unitsCombo->setCurrentIndex(1);
+    }
+
+    m_gridWSpin->setValue(m_props->gridSize().width());
+    m_gridHSpin->setValue(m_props->gridSize().height());
+    m_gridWSpin->blockSignals(false);
+    m_gridHSpin->blockSignals(false);
+    m_unitsCombo->blockSignals(false);
+
     m_graphicsView->setGridSize(m_props->gridSize());
     m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
     m_graphicsView->showFixturesLabels(m_props->labelsVisible());
