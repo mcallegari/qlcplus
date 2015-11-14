@@ -36,7 +36,9 @@ typedef struct
     quint16 feedbackPort;
     QHostAddress outputAddress;
     quint16 outputPort;
-    uchar multiPart;
+    // cache of the OSC paths with multiple values, used to correctly
+    // handle the flow of input and feedback values
+    QHash<QString, QByteArray> multipartCache;
     int type;
 } UniverseInfo;
 

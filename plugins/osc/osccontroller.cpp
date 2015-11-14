@@ -82,7 +82,6 @@ void OSCController::addUniverse(quint32 universe, OSCController::Type type)
         }
         info.feedbackPort = 9000 + universe;
         info.outputPort = 9000 + universe;
-        info.multiPart = 0;
         info.type = type;
         m_universeMap[universe] = info;
         m_portsMap[info.inputPort] = universe;
@@ -302,36 +301,38 @@ void OSCController::sendFeedback(const quint32 universe, quint32 channel, uchar 
     if (key.isEmpty())
         path = m_hashMap.key(channel);
 
-    qDebug() << "[OSC] sendFeedBack - Key:" << key << "value:" << value;
+    qDebug() << "[OSC] sendFeedBack - Key:" << path << "value:" << value;
 
     QByteArray values;
     QByteArray oscPacket;
 
-    if (path.endsWith("_0"))
+    // multiple value path
+    if (path.length() > 2 && path.at(path.length() - 2) == '_')
     {
-        m_universeMap[universe].multiPart = value;
-        return;
-    }
-    else if (path.endsWith("_1"))
-    {
+        int valIdx = QString(path.at(path.length() - 1)).toInt();
         path.chop(2);
-        values.append((char)m_universeMap[universe].multiPart);
-        values.append((char)value);
-        m_packetizer->setupOSCGeneric(oscPacket, path, "ff", values);
-        qint64 sent = m_outputSocket->writeDatagram(oscPacket.data(), oscPacket.size(),
-                                                 outAddress, outPort);
-        if (sent < 0)
+        if (m_universeMap[universe].multipartCache.contains(path) == false)
         {
-            qDebug() << "[OSC] sendDmx failed. Errno: " << m_outputSocket->error();
-            qDebug() << "Errmgs: " << m_outputSocket->errorString();
+            qDebug() << "[OSC] Multi-value path NOT in cache. Allocating default.";
+            m_universeMap[universe].multipartCache[path] = QByteArray((int)2, (char)0);
         }
-        else
-            m_packetSent++;
-        return;
-    }
 
-    values.append((char)value);
-    m_packetizer->setupOSCGeneric(oscPacket, path, "f", values);
+        values = m_universeMap[universe].multipartCache[path];
+        if (values.count() <= valIdx)
+            values.resize(valIdx + 1);
+        values[valIdx] = (char)value;
+        m_universeMap[universe].multipartCache[path] = values;
+
+        //qDebug() << "Values to send:" << QString::number((uchar)values.at(0)) <<
+        //            QString::number((uchar)values.at(1)) << values.count();
+    }
+    else
+        values.append((char)value); // single value path
+
+    QString pTypes;
+    pTypes.fill('f', values.count());
+
+    m_packetizer->setupOSCGeneric(oscPacket, path, pTypes, values);
     qint64 sent = m_outputSocket->writeDatagram(oscPacket.data(), oscPacket.size(),
                                              outAddress, outPort);
     if (sent < 0)
@@ -368,6 +369,12 @@ void OSCController::processPendingPackets()
                 {
                     if (values.count() > 1)
                     {
+                        quint32 uni = m_portsMap[port];
+                        if (m_universeMap.contains(uni))
+                        {
+                            //m_universeMap[uni].multipartCache[path].resize(values.count());
+                            m_universeMap[uni].multipartCache[path] = values;
+                        }
                         for(int i = 0; i < values.count(); i++)
                         {
                             QString modPath = QString("%1_%2").arg(path).arg(i);
