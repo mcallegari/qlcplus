@@ -57,7 +57,9 @@ VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList <VCXYPadFixtur
         }
 
         m_xMax->setMaximum(m_maxXVal);
+        m_xMin->setMaximum(m_maxXVal);
         m_yMax->setMaximum(m_maxYVal);
+        m_yMin->setMaximum(m_maxYVal);
 
         m_xMin->setSuffix(units);
         m_xMax->setSuffix(units);
