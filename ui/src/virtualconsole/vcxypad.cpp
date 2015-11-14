@@ -492,6 +492,10 @@ void VCXYPad::slotSliderValueChanged()
     if (QObject::sender() == m_hSlider)
     {
         pt.setX(m_hSlider->value());
+
+        int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
+                             float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
+        sendFeedback(Xfb, panInputSourceId);
     }
     else
     {
@@ -499,11 +503,14 @@ void VCXYPad::slotSliderValueChanged()
             pt.setY(m_vSlider->value());
         else
             pt.setY(MAX_DMX_VALUE - m_vSlider->value());
+
+        int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
+                             float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
+        sendFeedback(Yfb, tiltInputSourceId);
     }
 
     m_area->setPosition(pt);
     m_area->update();
-    updateFeedback();
     m_sliderInteraction = false;
 }
 
@@ -530,6 +537,10 @@ void VCXYPad::slotRangeValueChanged()
         m_area->setEFXInterval(m_efx->duration() / polygon.size());
     }
     m_area->update();
+    if (QObject::sender() == m_hRangeSlider)
+        sendFeedback(m_hRangeSlider->maximumValue(), heightInputSourceId);
+    else if(QObject::sender() == m_vRangeSlider)
+        sendFeedback(m_vRangeSlider->maximumValue(), widthInputSourceId);
 }
 
 /*********************************************************************
@@ -636,18 +647,30 @@ void VCXYPad::slotPresetClicked(bool checked)
         {
             if (cPr->m_type == VCXYPadPreset::FixtureGroup &&
                 cBtn->isChecked() == true)
-                    cBtn->setChecked(false);
+            {
+                cBtn->setChecked(false);
+                if (cPr->m_inputSource.isNull() == false)
+                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+            }
         }
         else if (cPr->m_type == VCXYPadPreset::EFX ||
             cPr->m_type == VCXYPadPreset::Scene)
         {
             if (cBtn->isChecked() == true)
+            {
                 cBtn->setChecked(false);
+                if (cPr->m_inputSource.isNull() == false)
+                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+            }
         }
         else
         {
             if (cBtn->isDown() == true)
+            {
                 cBtn->setDown(false);
+                if (cPr->m_inputSource.isNull() == false)
+                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+            }
         }
         cBtn->blockSignals(false);
         if (cPr->m_inputSource.isNull() == false)
@@ -785,10 +808,12 @@ void VCXYPad::updateFeedback()
     int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
                          float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
     sendFeedback(Xfb, panInputSourceId);
+
     int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
                          float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
     sendFeedback(Yfb, tiltInputSourceId);
 
+/*
     for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
     {
@@ -805,6 +830,7 @@ void VCXYPad::updateFeedback()
             }
         }
     }
+*/
 }
 
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
