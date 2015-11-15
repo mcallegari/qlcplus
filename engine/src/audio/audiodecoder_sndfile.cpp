@@ -69,7 +69,10 @@ bool AudioDecoderSndFile::initialize()
     m_bitrate =  QFileInfo(m_path).size () * 8.0 / m_totalTime + 0.5;
 
     if((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
+    {
+        qDebug() << "DecoderSndFile: Float audio format";
         sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
+    }
 
     AudioFormat pcmFormat = PCM_S16LE;
     switch(snd_info.format & SF_FORMAT_SUBMASK)
@@ -83,7 +86,7 @@ bool AudioDecoderSndFile::initialize()
 
     configure(m_freq, chan, pcmFormat);
     qDebug() << "DecoderSndFile: detected format: Sample Rate:" << m_freq <<
-            ",Channels: " <<  chan << ", PCM Format: " << snd_info.format;
+            ",Channels: " <<  chan << ", PCM Format: " << pcmFormat /*snd_info.format*/;
 
     return true;
 }

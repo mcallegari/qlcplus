@@ -83,7 +83,7 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
         m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
     case PCM_S24LE:
-        m_format.setSampleSize(24);
+        m_format.setSampleSize(32);
         m_format.setSampleType(QAudioFormat::SignedInt);
         m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
