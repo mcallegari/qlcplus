@@ -254,10 +254,10 @@ QString VCXYPadFixture::xBrief() const
     }
 
     if (m_xReverse == false)
-        return QString("%1%3 - %2%3").arg(m_xMin * scale).arg(m_xMax * scale).arg(units);
+        return QString("%1%3 - %2%3").arg(qRound(m_xMin * scale)).arg(qRound(m_xMax * scale)).arg(units);
     else
         return QString("%1: %2%4 - %3%4").arg(QObject::tr("Reversed"))
-                                      .arg(m_xMax * scale).arg(m_xMin * scale).arg(units);
+                                      .arg(qRound(m_xMax * scale)).arg(qRound(m_xMin * scale)).arg(units);
 
 }
 
@@ -304,10 +304,10 @@ QString VCXYPadFixture::yBrief() const
     }
 
     if (m_yReverse == false)
-        return QString("%1%3 - %2%3").arg(m_yMin * scale).arg(m_yMax * scale).arg(units);
+        return QString("%1%3 - %2%3").arg(qRound(m_yMin * scale)).arg(qRound(m_yMax * scale)).arg(units);
     else
         return QString("%1: %2%4 - %3%4").arg(QObject::tr("Reversed"))
-                .arg(m_yMax * scale).arg(m_yMin * scale).arg(units);
+                .arg(qRound(m_yMax * scale)).arg(qRound(m_yMin * scale)).arg(units);
 }
 
 /********************************************************************
