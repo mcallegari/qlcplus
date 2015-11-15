@@ -65,6 +65,7 @@ public slots:
 private:
     Doc* m_doc;
     FunctionsTreeWidget *m_funcTree;
+    bool m_isInitializing;
 
     /*********************************************************************
      * None entry

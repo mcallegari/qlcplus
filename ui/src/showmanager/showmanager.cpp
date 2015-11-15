@@ -618,7 +618,7 @@ void ShowManager::slotAddItem()
         quint32 selectedID = ids.first();
 
         /**
-         * Here there are 7 cases:
+         * Here there are 8 cases:
          * 1) a new empty track
          * 2) an existing scene: create a new track with a 10 seconds Sequence
          * 3) an existing sequence

@@ -366,7 +366,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
 void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
 {
     blockSignals(true);
-    qDebug() << "TREE item changed";
+    qDebug() << "[FunctionsTreeWidget] TREE item changed";
     if (item->text(COL_PATH).isEmpty())
     {
         blockSignals(false);

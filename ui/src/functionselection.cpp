@@ -53,6 +53,7 @@
 FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
+    , m_isInitializing(true)
     , m_none(false)
     , m_noneItem(NULL)
     , m_newTrack(false)
@@ -181,12 +182,14 @@ int FunctionSelection::exec()
     else
         m_funcTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    m_isInitializing = false;
+
+    refillTree();
+
     connect(m_funcTree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
     connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
-
-    refillTree();
 
     slotItemSelectionChanged();
 
@@ -289,7 +292,10 @@ const QList <quint32> FunctionSelection::selection() const
  *****************************************************************************/
 
 void FunctionSelection::refillTree()
-{
+{    
+    if (m_isInitializing == true)
+        return;
+
     m_funcTree->clearTree();
 
     // Show a "none" entry
