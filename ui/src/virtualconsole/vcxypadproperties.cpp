@@ -648,6 +648,7 @@ void VCXYPadProperties::slotAddPositionClicked()
     newPreset->m_name = QString("X:%1 - Y:%2").arg((int)newPreset->m_dmxPos.x()).arg((int)newPreset->m_dmxPos.y());
     m_presetList.append(newPreset);
     updatePresetsTree();
+    selectItemOnPresetsTree(newPreset->m_id);
 }
 
 void VCXYPadProperties::slotAddEFXClicked()
@@ -674,6 +675,7 @@ void VCXYPadProperties::slotAddEFXClicked()
         newPreset->m_name = f->name();
         m_presetList.append(newPreset);
         updatePresetsTree();
+        selectItemOnPresetsTree(newPreset->m_id);
     }
 }
 
@@ -725,6 +727,7 @@ void VCXYPadProperties::slotAddSceneClicked()
         newPreset->m_name = f->name();
         m_presetList.append(newPreset);
         updatePresetsTree();
+        selectItemOnPresetsTree(newPreset->m_id);
     }
 }
 
@@ -773,6 +776,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         newPreset->setFixtureGroup(selectedGH);
         m_presetList.append(newPreset);
         updatePresetsTree();
+        selectItemOnPresetsTree(newPreset->m_id);
     }
 }
 
