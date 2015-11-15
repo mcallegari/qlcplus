@@ -75,7 +75,7 @@ private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
     /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 *idx, int sampleSize);
+    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize);
     /** Routine that decode the whole and create the waveform QPixmap */
     void createWaveform(bool left, bool right);
 

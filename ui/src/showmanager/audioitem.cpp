@@ -146,23 +146,23 @@ void AudioItem::slotAudioChanged(quint32)
         m_function->setDuration(m_audio->totalDuration());
 }
 
-qint32 AudioItem::getSample(unsigned char *data, quint32 *idx, int sampleSize)
+qint32 AudioItem::getSample(unsigned char *data, quint32 idx, int sampleSize)
 {
     qint32 value = 0;
     if (sampleSize == 1)
-        value = (qint32)data[(*idx)++];
+        value = (qint32)data[idx];
     if (sampleSize == 2)
     {
         qint16 *tmpdata = (qint16 *)data;
-        qint16 twobytes = tmpdata[*idx];
+        qint16 twobytes = tmpdata[idx];
         value = twobytes;
-        *idx+=2;
     }
-    else if (sampleSize == 4)
+    else if (sampleSize == 3 || sampleSize == 4)
     {
-        value = (value + ((qint32)data[*idx] << 24) + ((qint32)data[*idx + 1] << 16) + ((qint32)data[*idx + 2] << 8));
-        *idx+=3;
+        value = ((qint32)data[idx] << 24) + ((qint32)data[idx + 1] << 16) + ((qint32)data[idx + 2] << 8) + (qint32)data[idx + 3];
+        value = value >> 16;
     }
+    //qDebug() << "sampleValue:" << value;
     return value;
 }
 
@@ -193,22 +193,29 @@ void AudioItem::createWaveform(bool left, bool right)
     {
         AudioDecoder *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
+        ad->seek(0);
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
         int sampleSize = ap.sampleSize();
         int channels = ap.channels();
         int oneSecondSamples = ap.sampleRate() * channels;
         int onePixelSamples = oneSecondSamples / 50;
-        //qint32 maxValue = qPow(0xFF, sampleSize);
+
         qint32 maxValue = 0;
+        // 24 and 32 bit samples would produce a RMS too high, so let's
+        // work on 16bit values
+        if (sampleSize > 2)
+            sampleSize = 2;
+
         if (left == true && right == true)
             maxValue = 0x7F << (8 * (sampleSize - 1));
         else
             maxValue = 0x3F << (8 * (sampleSize - 1));
-        quint32 defaultDataLen = onePixelSamples * sampleSize;
+
+        quint32 onePixelReadLen = onePixelSamples * sampleSize;
 
         // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
         qint64 dataRead = 1;
-        unsigned char audioData[defaultDataLen * 4];
+        unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
         m_preview = new QPixmap((50 * m_audio->totalDuration()) / 1000, 76);
         m_preview->fill(Qt::transparent);
@@ -216,25 +223,27 @@ void AudioItem::createWaveform(bool left, bool right)
         int xpos = 0;
 
         qDebug() << "Audio duration: " << m_audio->totalDuration() <<
-                    ", pixmap width: " << ((50 * m_audio->totalDuration()) / 1000) <<
-                    ", maxValue: " << maxValue;
-        qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples;
+                    ", pixmap width: " << m_preview->width() <<
+                    ", maxValue: " << maxValue << ", samples:" << sampleSize;
+        qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples <<
+                    ", onePixelReadLen:" << onePixelReadLen;
 
         while (dataRead)
         {
             quint32 tmpExceedData = 0;
-            if (audioDataOffset < defaultDataLen)
+            if (audioDataOffset < onePixelReadLen)
             {
-                dataRead = ad->read((char *)audioData + audioDataOffset, defaultDataLen * 2);
+                dataRead = ad->read((char *)audioData + audioDataOffset, onePixelReadLen * 2);
                 if (dataRead > 0)
                 {
-                    if(dataRead + audioDataOffset >= defaultDataLen)
+                    if((quint32)dataRead + audioDataOffset >= onePixelReadLen)
                     {
-                        tmpExceedData = dataRead + audioDataOffset - defaultDataLen;
-                        dataRead = defaultDataLen;
+                        tmpExceedData = (dataRead + audioDataOffset) - onePixelReadLen;
+                        dataRead = onePixelReadLen;
                     }
                     else
                     {
+                        qDebug() << "Not enough data. Requested:" << onePixelReadLen << "got:" << dataRead;
                         audioDataOffset = dataRead;
                         continue;
                     }
@@ -242,43 +251,47 @@ void AudioItem::createWaveform(bool left, bool right)
             }
             else
             {
-                dataRead = defaultDataLen;
-                tmpExceedData = audioDataOffset - defaultDataLen;
+                dataRead = onePixelReadLen;
+                tmpExceedData = audioDataOffset - onePixelReadLen;
             }
 
-            if (dataRead > 0)
+            if (dataRead == onePixelReadLen)
             {
                 quint32 i = 0;
                 // calculate the RMS value (peak) for this data block
-                double rmsLeft = 0;
-                double rmsRight = 0;
+                qint64 rmsLeft = 0;
+                qint64 rmsRight = 0;
                 bool done = false;
                 while (!done)
                 {
                     if (left == true)
                     {
-                        qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                        qint32 sampleVal = getSample(audioData, i, sampleSize);
                         rmsLeft += (sampleVal * sampleVal);
+                        i+=sampleSize;
                     }
                     if (channels == 2)
                     {
                         if (right == true)
                         {
-                            qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                            qint32 sampleVal = getSample(audioData, i, sampleSize);
                             rmsRight += (sampleVal * sampleVal);
                         }
-                        else
-                            getSample(audioData, &i, sampleSize); // got to read it anyway and discard data
+                        i+=sampleSize;
                     }
 
-                    if (i >= dataRead / sampleSize)
+                    if (i >= dataRead)
+                    {
+                        //qDebug() << "i:" << i << "xpos:" << xpos;
                         done = true;
+                    }
                 }
-                quint32 divisor = (dataRead / sampleSize) / channels;
+
                 if (left == true)
-                    rmsLeft = sqrt(rmsLeft / divisor);
+                    rmsLeft = sqrt(rmsLeft / onePixelSamples);
                 if (right == true)
-                    rmsRight = sqrt(rmsRight / divisor);
+                    rmsRight = sqrt(rmsRight / onePixelSamples);
+                //qDebug() << "RMS right:" << rmsRight << ", RMS left:" << rmsLeft;
 
                 // 3- Draw the actual waveform
                 unsigned short lineHeightLeft = 0, lineHeightRight = 0;
@@ -311,14 +324,14 @@ void AudioItem::createWaveform(bool left, bool right)
                         p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
                     else
                         p.drawLine(xpos, 38, xpos + 1, 38);
-                    //qDebug() << "Data read: " << dataRead << ", rms: " << rms << ", line height: " << lineHeight << ", xpos = " << xpos;
+                    //qDebug() << "Data read: " << dataRead << ", rms: " << rmsRight << ", line height: " << lineHeight << ", xpos = " << xpos;
                 }
                 xpos++;
 
                 if (tmpExceedData > 0)
                 {
                     //qDebug() << "Exceed data found: " << tmpExceedData;
-                    memmove(audioData, audioData + defaultDataLen, tmpExceedData);
+                    memmove(audioData, audioData + onePixelReadLen, tmpExceedData);
                     audioDataOffset = tmpExceedData;
                 }
                 else
