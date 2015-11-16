@@ -556,6 +556,7 @@
   <fixture path="Showtec-LED-Light-Bar-8.qxf" mf="Showtec" md="LED Light Bar 8"/>
   <fixture path="Showtec-LED-Light-Bar-RGB-V3.qxf" mf="Showtec" md="LED Light Bar RGB V3"/>
   <fixture path="Showtec-LED-Par-56.qxf" mf="Showtec" md="LED Par 56"/>
+  <fixture path="Showtec-LED-Pixel-Track-Pro.qxf" mf="Showtec" md="LED Pixel Track Pro"/>
   <fixture path="Showtec-Mini-Max-LED-RGB.qxf" mf="Showtec" md="Mini Max LED RGB"/>
   <fixture path="Showtec-MiniMax-250.qxf" mf="Showtec" md="MiniMax 250"/>
   <fixture path="Showtec-MultiDim-MK-III-DMX.qxf" mf="Showtec" md="MultiDim MK III DMX"/>
