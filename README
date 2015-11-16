@@ -58,7 +58,7 @@ Requirements - Linux
 Requirements - Windows
 ----------------------
 * MinGW / MSYS environment (http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/)
-* Qt >= 4.6 (http://releases.qt-project.org/qt4/source/)
+* Qt >= 4.6 (http://download.qt.io/official_releases/qt/)
 
 * Enttec DMX USB plugin: No additional requirements
 * HID plugin: Not available
@@ -76,7 +76,7 @@ Requirements - Windows
 Requirements - Mac OS X
 -----------------------
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt SDK >= 4.8.x (http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x)
+* Qt SDK >= 4.8.x (http://download.qt.io/official_releases/qt/)
 
 * Enttec DMX USB plugin: macports, libftdi-dev, pkg-config
 * HID plugin: Not available
