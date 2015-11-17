@@ -26,8 +26,7 @@
 #include <QSize>
 #include <QHash>
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 class Doc;
 
@@ -126,7 +125,7 @@ public:
      * @param root An XML subtree containing the Monitor properties
      * @return true if the properties were loaded successfully, otherwise false
      */
-    bool loadXML(const QDomElement& root, const Doc* mainDocument);
+    bool loadXML(QXmlStreamReader &root, const Doc* mainDocument);
 
     /**
      * Save the Monitor properties into an XML document, under the given

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QMediaPlayer>
-#include <QDomDocument>
-#include <QDomElement>
 #include <QDebug>
 #include <QFile>
 
@@ -309,59 +309,62 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Video::loadXML(const QDomElement& root)
+bool Video::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Video))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Video))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Video";
         return false;
     }
 
     QString fname = name();
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVideoSource)
+        if (root.name() == KXMLQLCVideoSource)
         {
-            if (tag.hasAttribute(KXMLQLCVideoStartTime))
-                setStartTime(tag.attribute(KXMLQLCVideoStartTime).toUInt());
-            if (tag.hasAttribute(KXMLQLCVideoColor))
-                setColor(QColor(tag.attribute(KXMLQLCVideoColor)));
-            if (tag.hasAttribute(KXMLQLCVideoLocked))
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVideoStartTime))
+                setStartTime(attrs.value(KXMLQLCVideoStartTime).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCVideoColor))
+                setColor(QColor(attrs.value(KXMLQLCVideoColor).toString()));
+            if (attrs.hasAttribute(KXMLQLCVideoLocked))
                 setLocked(true);
-            if (tag.hasAttribute(KXMLQLCVideoScreen))
-                setScreen(tag.attribute(KXMLQLCVideoScreen).toInt());
-            if (tag.hasAttribute(KXMLQLCVideoFullscreen))
+            if (attrs.hasAttribute(KXMLQLCVideoScreen))
+                setScreen(attrs.value(KXMLQLCVideoScreen).toString().toInt());
+            if (attrs.hasAttribute(KXMLQLCVideoFullscreen))
             {
-                if (tag.attribute(KXMLQLCVideoFullscreen) == "1")
+                if (attrs.value(KXMLQLCVideoFullscreen).toString() == "1")
                     setFullscreen(true);
                 else
                     setFullscreen(false);
             }
-            if (tag.text().contains("://") == true)
-                setSourceUrl(tag.text());
+            QString path = root.readElementText();
+            if (path.contains("://") == true)
+                setSourceUrl(path);
             else
-                setSourceUrl(m_doc->denormalizeComponentPath(tag.text()));
+                setSourceUrl(m_doc->denormalizeComponentPath(path));
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Video tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     setName(fname);

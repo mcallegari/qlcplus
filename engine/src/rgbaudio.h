@@ -99,7 +99,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;

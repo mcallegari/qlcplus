@@ -4,6 +4,7 @@
 
   Copyright (c) Heikki Junnila
   Copyright (c) Jano Svitok
+  Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,8 +19,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QPainter>
 #include <QDebug>
 
@@ -286,39 +287,38 @@ int RGBImage::acceptColors() const
     return 0;
 }
 
-bool RGBImage::loadXML(const QDomElement& root)
+bool RGBImage::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCRGBAlgorithmType) != KXMLQLCRGBImage)
+    if (root.attributes().value(KXMLQLCRGBAlgorithmType).toString() != KXMLQLCRGBImage)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm is not Image";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCRGBImageFilename)
+        if (root.name() == KXMLQLCRGBImageFilename)
         {
-            setFilename(doc()->denormalizeComponentPath(tag.text()));
+            setFilename(doc()->denormalizeComponentPath(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCRGBImageAnimationStyle)
+        else if (root.name() == KXMLQLCRGBImageAnimationStyle)
         {
-            setAnimationStyle(stringToAnimationStyle(tag.text()));
+            setAnimationStyle(stringToAnimationStyle(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCRGBImageOffset)
+        else if (root.name() == KXMLQLCRGBImageOffset)
         {
             QString str;
             int value;
             bool ok;
+            QXmlStreamAttributes attrs = root.attributes();
 
-            str = tag.attribute(KXMLQLCRGBImageOffsetX);
+            str = attrs.value(KXMLQLCRGBImageOffsetX).toString();
             ok = false;
             value = str.toInt(&ok);
             if (ok == true)
@@ -326,7 +326,7 @@ bool RGBImage::loadXML(const QDomElement& root)
             else
                 qWarning() << Q_FUNC_INFO << "Invalid X offset:" << str;
 
-            str = tag.attribute(KXMLQLCRGBImageOffsetY);
+            str = attrs.value(KXMLQLCRGBImageOffsetY).toString();
             ok = false;
             value = str.toInt(&ok);
             if (ok == true)
@@ -336,10 +336,9 @@ bool RGBImage::loadXML(const QDomElement& root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown RGBImage tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown RGBImage tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

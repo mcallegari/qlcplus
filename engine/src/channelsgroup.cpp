@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "qlcfixturemode.h"
@@ -236,14 +236,14 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool ChannelsGroup::loader(const QDomElement& root, Doc* doc)
+bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
 {
     bool result = false;
 
     ChannelsGroup* grp = new ChannelsGroup(doc);
     Q_ASSERT(grp != NULL);
 
-    if (grp->loadXML(root) == true)
+    if (grp->loadXML(xmlDoc) == true)
     {
         doc->addChannelsGroup(grp, grp->id());
         result = true;
@@ -294,31 +294,33 @@ bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool ChannelsGroup::loadXML(const QDomElement& root)
+bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
-    if (root.tagName() != KXMLQLCChannelsGroup)
+    if (xmlDoc.name() != KXMLQLCChannelsGroup)
     {
         qWarning() << Q_FUNC_INFO << "Channels group node not found";
         return false;
     }
 
+    QXmlStreamAttributes attrs = xmlDoc.attributes;
+
     bool ok = false;
-    quint32 id = root.attribute(KXMLQLCChannelsGroupID).toUInt(&ok);
+    quint32 id = attrs.value(KXMLQLCChannelsGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid ChannelsGroup ID:" << root.attribute(KXMLQLCChannelsGroupID);
+        qWarning() << "Invalid ChannelsGroup ID:" << attrs.value(KXMLQLCChannelsGroupID).toString();
         return false;
     }
 
     // Assign the ID to myself
     m_id = id;
 
-    if (root.hasAttribute(KXMLQLCChannelsGroupName) == true)
-        m_name = root.attribute(KXMLQLCChannelsGroupName);
-    if (root.hasAttribute(KXMLQLCChannelsGroupValue) == true)
-        m_masterValue = uchar(root.attribute(KXMLQLCChannelsGroupValue).toInt());
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupName) == true)
+        m_name = attrs.value(KXMLQLCChannelsGroupName).toString();
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupValue) == true)
+        m_masterValue = uchar(attrs.value(KXMLQLCChannelsGroupValue).toString().toInt());
 
-    QString chansValues = root.text();
+    QString chansValues = xmlDoc.readElementText();
     if (chansValues.isEmpty() == false)
     {
         QStringList varray = chansValues.split(",");
@@ -342,11 +344,11 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
         }
     }
 
-    if (root.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true &&
-        root.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true &&
+        attrs.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
     {
-        quint32 uni = root.attribute(KXMLQLCChannelsGroupInputUniverse).toInt();
-        quint32 ch = root.attribute(KXMLQLCChannelsGroupInputChannel).toInt();
+        quint32 uni = attrs.value(KXMLQLCChannelsGroupInputUniverse).toString().toInt();
+        quint32 ch = attrs.value(KXMLQLCChannelsGroupInputChannel).toString().toInt();
         setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
     }
 

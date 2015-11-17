@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaserstep.h
 
   Copyright (C) 2004 Heikki Junnila
+                2015 Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,8 +25,7 @@
 #include "scenevalue.h"
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -71,7 +71,7 @@ public:
      ***********************************************************************/
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber */
-    bool loadXML(const QDomElement& root, int& stepNumber);
+    bool loadXML(QXmlStreamReader &root, int& stepNumber);
 
     /** Save ChaserStep contents to $doc, under $root with $stepNumber */
     bool saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const;

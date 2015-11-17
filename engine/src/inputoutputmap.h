@@ -28,9 +28,8 @@
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
 
+class QXmlStreamReader;
 class QLCInputSource;
-class QDomDocument;
-class QDomElement;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -565,7 +564,7 @@ public:
      * @param root An XML subtree containing the input/output map contents
      * @return true if the map was loaded successfully, otherwise false
      */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save the input/output map instance into an XML document, under the given

@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   track.cpp
 
   Copyright (c) Massimo Callegari
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "track.h"
@@ -174,41 +174,42 @@ bool Track::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Track::loadXML(const QDomElement& root)
+bool Track::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCTrack)
+    if (root.name() != KXMLQLCTrack)
     {
         qWarning() << Q_FUNC_INFO << "Track node not found";
         return false;
     }
 
     bool ok = false;
-    quint32 id = root.attribute(KXMLQLCTrackID).toUInt(&ok);
+    QXmlStreamAttributes attrs = root.attributes();
+    quint32 id = attrs.value(KXMLQLCTrackID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid Track ID:" << root.attribute(KXMLQLCTrackID);
+        qWarning() << "Invalid Track ID:" << attrs.value(KXMLQLCTrackID).toString();
         return false;
     }
     // Assign the ID to myself
     m_id = id;
 
-    if (root.hasAttribute(KXMLQLCTrackName) == true)
-        m_name = root.attribute(KXMLQLCTrackName);
+    if (attrs.hasAttribute(KXMLQLCTrackName) == true)
+        m_name = attrs.value(KXMLQLCTrackName).toString();
 
-    if (root.hasAttribute(KXMLQLCTrackSceneID))
+    if (attrs.hasAttribute(KXMLQLCTrackSceneID))
     {
         ok = false;
-        id = root.attribute(KXMLQLCTrackSceneID).toUInt(&ok);
+        id = attrs.value(KXMLQLCTrackSceneID).toString().toUInt(&ok);
         if (ok == false)
         {
-            qWarning() << "Invalid Scene ID:" << root.attribute(KXMLQLCTrackSceneID);
+            qWarning() << "Invalid Scene ID:" << attrs.value(KXMLQLCTrackSceneID).toString();
             return false;
         }
         m_sceneID = id;
     }
 
     ok = false;
-    bool mute = root.attribute(KXMLQLCTrackIsMute).toInt(&ok);
+    bool mute = attrs.value(KXMLQLCTrackIsMute).toString().toInt(&ok);
     if (ok == false)
     {
         qWarning() << "Invalid Mute flag:" << root.attribute(KXMLQLCTrackIsMute);
@@ -217,11 +218,9 @@ bool Track::loadXML(const QDomElement& root)
     m_isMute = mute;
 
     /* look for show functions */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLShowFunction)
+        if (root.name() == KXMLShowFunction)
         {
             ShowFunction *newFunc = new ShowFunction();
             newFunc->loadXML(tag);
@@ -229,9 +228,9 @@ bool Track::loadXML(const QDomElement& root)
                 delete newFunc;
         }
         /* LEGACY code: to be removed */
-        else if (tag.tagName() == KXMLQLCTrackFunctions)
+        else if (root.name() == KXMLQLCTrackFunctions)
         {
-            QString strvals = tag.text();
+            QString strvals = root.readElementText();
             if (strvals.isEmpty() == false)
             {
                 QStringList varray = strvals.split(",");
@@ -239,7 +238,11 @@ bool Track::loadXML(const QDomElement& root)
                     createShowFunction(QString(varray.at(i)).toUInt());
             }
         }
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Track tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     return true;

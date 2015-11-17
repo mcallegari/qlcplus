@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "showfunction.h"
@@ -120,23 +120,25 @@ bool ShowFunction::isLocked() const
  * Load & Save
  ***********************************************************************/
 
-bool ShowFunction::loadXML(const QDomElement &root)
+bool ShowFunction::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLShowFunction)
+    if (root.name() != KXMLShowFunction)
     {
         qWarning() << Q_FUNC_INFO << "ShowFunction node not found";
         return false;
     }
 
-    if (root.hasAttribute(KXMLShowFunctionID))
-        setFunctionID(root.attribute(KXMLShowFunctionID).toUInt());
-    if (root.hasAttribute(KXMLShowFunctionStartTime))
-        setStartTime(root.attribute(KXMLShowFunctionStartTime).toUInt());
-    if (root.hasAttribute(KXMLShowFunctionDuration))
-        setDuration(root.attribute(KXMLShowFunctionDuration).toUInt());
-    if (root.hasAttribute(KXMLShowFunctionColor))
-        setColor(QColor(root.attribute(KXMLShowFunctionColor)));
-    if (root.hasAttribute(KXMLShowFunctionLocked))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLShowFunctionID))
+        setFunctionID(attrs.value(KXMLShowFunctionID).toString().toUInt());
+    if (attrs.hasAttribute(KXMLShowFunctionStartTime))
+        setStartTime(attrs.value(KXMLShowFunctionStartTime).toString().toUInt());
+    if (attrs.hasAttribute(KXMLShowFunctionDuration))
+        setDuration(attrs.value(KXMLShowFunctionDuration).toString().toUInt());
+    if (attrs.hasAttribute(KXMLShowFunctionColor))
+        setColor(QColor(attrs.value(KXMLShowFunctionColor).toString()));
+    if (attrs.hasAttribute(KXMLShowFunctionLocked))
         setLocked(true);
 
     return true;

@@ -25,8 +25,7 @@
 #include "qlcinputsource.h"
 #include "scenevalue.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -68,11 +67,11 @@ public slots:
      * Load & Save
      *********************************************************************/
 public:
-    static bool loader(const QDomElement& root, Doc* doc);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
 
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &xmlDoc);
 
     /************************************************************************
      * ID

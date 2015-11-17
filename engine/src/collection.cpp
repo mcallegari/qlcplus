@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   collection.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,8 +22,9 @@
 #include <QDebug>
 #include <QFile>
 #include <QList>
-#include <QtXml>
 #include <QMutexLocker>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcfile.h"
 
@@ -188,33 +190,31 @@ bool Collection::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Collection::loadXML(const QDomElement& root)
+bool Collection::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Collection))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Collection))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a collection";
         return false;
     }
 
     /* Load collection contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCFunctionStep)
-            addFunction(tag.text().toUInt());
+        if (root.name() == KXMLQLCFunctionStep)
+            addFunction(root.readElementText().toUInt());
         else
-            qWarning() << Q_FUNC_INFO << "Unknown collection tag:" << tag.tagName();
-
-        node = node.nextSibling();
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown collection tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     return true;

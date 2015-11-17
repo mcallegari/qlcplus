@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   fixture.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -814,7 +815,7 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
  * Load & Save
  *****************************************************************************/
 
-bool Fixture::loader(const QDomElement& root, Doc* doc)
+bool Fixture::loader(QXmlStreamReader &root, Doc* doc)
 {
     bool result = false;
 
@@ -845,7 +846,7 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool Fixture::loadXML(const QDomElement& root, Doc *doc,
+bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
                       const QLCFixtureDefCache* fixtureDefCache)
 {
     QLCFixtureDef* fixtureDef = NULL;
@@ -865,88 +866,86 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     QList<quint32>modifierIndices;
     QList<ChannelModifier *>modifierPointers;
 
-    if (root.tagName() != KXMLFixture)
+    if (xmlDoc.name() != KXMLFixture)
     {
         qWarning() << Q_FUNC_INFO << "Fixture node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCFixtureDefManufacturer)
+        if (xmlDoc.name() == KXMLQLCFixtureDefManufacturer)
         {
-            manufacturer = tag.text();
+            manufacturer = xmlDoc.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCFixtureDefModel)
+        else if (xmlDoc.name() == KXMLQLCFixtureDefModel)
         {
-            model = tag.text();
+            model = xmlDoc.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCFixtureMode)
+        else if (xmlDoc.name() == KXMLQLCFixtureMode)
         {
-            modeName = tag.text();
+            modeName = xmlDoc.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCPhysicalDimensionsWeight)
+        else if (xmlDoc.name() == KXMLQLCPhysicalDimensionsWeight)
         {
-            width = tag.text().toUInt();
+            width = xmlDoc.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLQLCPhysicalDimensionsHeight)
+        else if (xmlDoc.name() == KXMLQLCPhysicalDimensionsHeight)
         {
-            height = tag.text().toUInt();
+            height = xmlDoc.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLFixtureID)
+        else if (xmlDoc.name() == KXMLFixtureID)
         {
-            id = tag.text().toUInt();
+            id = xmlDoc.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLFixtureName)
+        else if (xmlDoc.name() == KXMLFixtureName)
         {
-            name = tag.text();
+            name = xmlDoc.readElementText();
         }
-        else if (tag.tagName() == KXMLFixtureUniverse)
+        else if (xmlDoc.name() == KXMLFixtureUniverse)
         {
-            universe = tag.text().toInt();
+            universe = xmlDoc.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLFixtureAddress)
+        else if (xmlDoc.name() == KXMLFixtureAddress)
         {
-            address = tag.text().toInt();
+            address = xmlDoc.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLFixtureChannels)
+        else if (xmlDoc.name() == KXMLFixtureChannels)
         {
-            channels = tag.text().toInt();
+            channels = xmlDoc.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLFixtureExcludeFade)
+        else if (xmlDoc.name() == KXMLFixtureExcludeFade)
         {
-            QString list = tag.text();
+            QString list = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
                 excludeList.append(values.at(i).toInt());
         }
-        else if (tag.tagName() == KXMLFixtureForcedHTP)
+        else if (xmlDoc.name() == KXMLFixtureForcedHTP)
         {
-            QString list = tag.text();
+            QString list = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
                 forcedHTP.append(values.at(i).toInt());
         }
-        else if (tag.tagName() == KXMLFixtureForcedLTP)
+        else if (xmlDoc.name() == KXMLFixtureForcedLTP)
         {
-            QString list = tag.text();
+            QString list = xmlDoc.readElementText();
             QStringList values = list.split(",");
 
             for (int i = 0; i < values.count(); i++)
                 forcedLTP.append(values.at(i).toInt());
         }
-        else if (tag.tagName() == KXMLFixtureChannelModifier)
+        else if (xmlDoc.name() == KXMLFixtureChannelModifier)
         {
-            if (tag.hasAttribute(KXMLFixtureChannelIndex) &&
-                tag.hasAttribute(KXMLFixtureModifierName))
+            QXmlStreamAttributes attrs = xmlDoc.attributes();
+            if (attrs.hasAttribute(KXMLFixtureChannelIndex) &&
+                attrs.hasAttribute(KXMLFixtureModifierName))
             {
-                quint32 chIdx = tag.attribute(KXMLFixtureChannelIndex).toUInt();
-                QString modName = tag.attribute(KXMLFixtureModifierName);
+                quint32 chIdx = attrs.value(KXMLFixtureChannelIndex).toString().toUInt();
+                QString modName = attrs.value(KXMLFixtureModifierName).toString();
                 ChannelModifier *chMod = doc->modifiersCache()->modifier(modName);
                 if (chMod != NULL)
                 {
@@ -957,10 +956,9 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown fixture tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown fixture tag:" << xmlDoc.name();
+            xmlDoc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     /* Find the given fixture definition, unless its a generic dimmer */

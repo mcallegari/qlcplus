@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scene.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,8 +31,7 @@
 #include "function.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -192,7 +192,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
     /** @reimpl */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimpl */
     void postLoad();

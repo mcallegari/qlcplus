@@ -1,6 +1,6 @@
 /*
-  Q Light Controller
-  fadechannel.h
+  Q Light Controller Plus
+  track.h
 
   Copyright (c) Massimo Callegari
 
@@ -27,8 +27,7 @@
 #include "chaser.h"
 #include "scene.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -143,7 +142,7 @@ private:
 public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
 };
 

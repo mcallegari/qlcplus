@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "rgbaudio.h"
@@ -224,15 +224,15 @@ int RGBAudio::acceptColors() const
     return 2; // start and end colors accepted
 }
 
-bool RGBAudio::loadXML(const QDomElement& root)
+bool RGBAudio::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCRGBAlgorithmType) != KXMLQLCRGBAudio)
+    if (root.attributes().value(KXMLQLCRGBAlgorithmType).toString() != KXMLQLCRGBAudio)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm is not Audio";
         return false;

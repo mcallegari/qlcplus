@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efx.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,7 +21,8 @@
 #include <QVector>
 #include <QDebug>
 #include <QList>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include <math.h>
 
@@ -895,138 +897,134 @@ bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool EFX::loadXML(const QDomElement& root)
+bool EFX::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << "Function node not found!";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::EFX))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::EFX))
     {
         qWarning("Function is not an EFX!");
         return false;
     }
 
     /* Load EFX contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCBus)
+        if (root.name() == KXMLQLCBus)
         {
             /* Bus */
-            QString str = tag.attribute(KXMLQLCBusRole);
+            QString str = root.attributes().value(KXMLQLCBusRole).toString();
             if (str == KXMLQLCBusFade)
-                m_legacyFadeBus = tag.text().toUInt();
+                m_legacyFadeBus = root.readElementText().toUInt();
             else if (str == KXMLQLCBusHold)
-                m_legacyHoldBus = tag.text().toUInt();
+                m_legacyHoldBus = root.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCEFXFixture)
+        else if (root.name() == KXMLQLCEFXFixture)
         {
             EFXFixture* ef = new EFXFixture(this);
-            ef->loadXML(tag);
+            ef->loadXML(root);
             if (ef->head().isValid())
             {
                 if (addFixture(ef) == false)
                     delete ef;
             }
         }
-        else if (tag.tagName() == KXMLQLCEFXPropagationMode)
+        else if (root.name() == KXMLQLCEFXPropagationMode)
         {
             /* Propagation mode */
-            setPropagationMode(stringToPropagationMode(tag.text()));
+            setPropagationMode(stringToPropagationMode(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCEFXAlgorithm)
+        else if (root.name() == KXMLQLCEFXAlgorithm)
         {
             /* Algorithm */
-            setAlgorithm(stringToAlgorithm(tag.text()));
+            setAlgorithm(stringToAlgorithm(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCFunctionDirection)
+        else if (root.name() == KXMLQLCFunctionDirection)
         {
-            loadXMLDirection(tag);
+            loadXMLDirection(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-        else if (tag.tagName() == KXMLQLCEFXWidth)
+        else if (root.name() == KXMLQLCEFXWidth)
         {
             /* Width */
-            setWidth(tag.text().toInt());
+            setWidth(root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXHeight)
+        else if (root.name() == KXMLQLCEFXHeight)
         {
             /* Height */
-            setHeight(tag.text().toInt());
+            setHeight(root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXRotation)
+        else if (root.name() == KXMLQLCEFXRotation)
         {
             /* Rotation */
-            setRotation(tag.text().toInt());
+            setRotation(root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXStartOffset)
+        else if (root.name() == KXMLQLCEFXStartOffset)
         {
             /* StartOffset */
-            setStartOffset(tag.text().toInt());
+            setStartOffset(root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXIsRelative)
+        else if (root.name() == KXMLQLCEFXIsRelative)
         {
             /* IsRelative */
-            setIsRelative(tag.text().toInt() != 0);
+            setIsRelative(root.readElementText().toInt() != 0);
         }
-        else if (tag.tagName() == KXMLQLCEFXAxis)
+        else if (root.name() == KXMLQLCEFXAxis)
         {
             /* Axes */
-            loadXMLAxis(tag);
+            loadXMLAxis(root);
         }
         else
         {
-            qWarning() << "Unknown EFX tag:" << tag.tagName();
+            qWarning() << "Unknown EFX tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool EFX::loadXMLAxis(const QDomElement& root)
+bool EFX::loadXMLAxis(QXmlStreamReader &root)
 {
     int frequency = 0;
     int offset = 0;
     int phase = 0;
     QString axis;
 
-    if (root.tagName() != KXMLQLCEFXAxis)
+    if (root.name() != KXMLQLCEFXAxis)
     {
         qWarning() << "EFX axis node not found!";
         return false;
     }
 
     /* Get the axis name */
-    axis = root.attribute(KXMLQLCFunctionName);
+    axis = root.attributes().value(KXMLQLCFunctionName).toString();
 
     /* Load axis contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCEFXOffset)
-            offset = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCEFXFrequency)
-            frequency = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCEFXPhase)
-            phase = tag.text().toInt();
+        if (root.name() == KXMLQLCEFXOffset)
+            offset = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCEFXFrequency)
+            frequency = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCEFXPhase)
+            phase = root.readElementText().toInt();
         else
-            qWarning() << "Unknown EFX axis tag:" << tag.tagName();
-        node = node.nextSibling();
+        {
+            qWarning() << "Unknown EFX axis tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     if (axis == KXMLQLCEFXY)

@@ -27,7 +27,7 @@
 #include "function.h"
 #include "track.h"
 
-class QDomDocument;
+class QXmlStreamReader;
 class ShowRunner;
 
 /** @addtogroup engine_functions Functions
@@ -125,7 +125,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
     /** Load function's contents from an XML document */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();

@@ -26,7 +26,7 @@
 #include "audiodecoder.h"
 #include "function.h"
 
-class QDomDocument;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -165,7 +165,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement*);
 
     /** Load function's contents from an XML document */
-    bool loadXML(const QDomElement&);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scenevalue.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "scenevalue.h"
@@ -76,17 +77,18 @@ bool SceneValue::operator==(const SceneValue& scv) const
         return false;
 }
 
-bool SceneValue::loadXML(const QDomElement& tag)
+bool SceneValue::loadXML(QXmlStreamReader &tag)
 {
-    if (tag.tagName() != KXMLQLCSceneValue)
+    if (tag.name() != KXMLQLCSceneValue)
     {
-        qWarning() << Q_FUNC_INFO << "Scene node not found";
+        qWarning() << Q_FUNC_INFO << "Scene Value node not found";
         return false;
     }
 
-    fxi = tag.attribute(KXMLQLCSceneValueFixture).toUInt();
-    channel = tag.attribute(KXMLQLCSceneValueChannel).toUInt();
-    value = uchar(tag.text().toUInt());
+    QXmlStreamAttributes attrs = tag.attributes();
+    fxi = attrs.value(KXMLQLCSceneValueFixture).toString().toUInt();
+    channel = attrs.value(KXMLQLCSceneValueChannel).toString().toUInt();
+    value = uchar(tag.readElementText().toUInt());
 
     return isValid();
 }

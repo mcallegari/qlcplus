@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QCoreApplication>
-#include <QDomDocument>
-#include <QDomElement>
 #include <QDebug>
 #include <QFile>
 
@@ -311,44 +311,47 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Audio::loadXML(const QDomElement& root)
+bool Audio::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Audio))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Audio))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Audio";
         return false;
     }
 
     QString fname = name();
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCAudioSource)
+        if (root.name() == KXMLQLCAudioSource)
         {
-            if (tag.hasAttribute(KXMLQLCAudioDevice))
-                setAudioDevice(tag.attribute(KXMLQLCAudioDevice));
-            if (tag.hasAttribute(KXMLQLCAudioStartTime))
-                setStartTime(tag.attribute(KXMLQLCAudioStartTime).toUInt());
-            if (tag.hasAttribute(KXMLQLCAudioColor))
-                setColor(QColor(tag.attribute(KXMLQLCAudioColor)));
-            if (tag.hasAttribute(KXMLQLCAudioLocked))
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCAudioDevice))
+                setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
+            if (attrs.hasAttribute(KXMLQLCAudioStartTime))
+                setStartTime(attrs.value(KXMLQLCAudioStartTime).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCAudioColor))
+                setColor(QColor(attrs.value(KXMLQLCAudioColor).toString()));
+            if (attrs.hasAttribute(KXMLQLCAudioLocked))
                 setLocked(true);
-            setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
+            setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Audio tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     setName(fname);

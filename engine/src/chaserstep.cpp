@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaserstep.cpp
 
   Copyright (C) 2004 Heikki Junnila
+                2015 Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "chaserstep.h"
@@ -95,34 +95,35 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
 }
 #endif
 
-bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
+bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
 {
     bool holdFound = false;
-    if (root.tagName() != KXMLQLCFunctionStep)
+    if (root.name() != KXMLQLCFunctionStep)
     {
         qWarning() << Q_FUNC_INFO << "ChaserStep node not found";
         return false;
     }
+    QXmlStreamAttributes attrs = root.attributes();
 
-    if (root.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
-        fadeIn = root.attribute(KXMLQLCFunctionSpeedFadeIn).toUInt();
-    if (root.hasAttribute(KXMLQLCFunctionSpeedHold) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
+        fadeIn = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedHold) == true)
     {
-        hold = root.attribute(KXMLQLCFunctionSpeedHold).toUInt();
+        hold = attrs.value(KXMLQLCFunctionSpeedHold).toString().toUInt();
         holdFound = true;
     }
-    if (root.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
-        fadeOut = root.attribute(KXMLQLCFunctionSpeedFadeOut).toUInt();
-    if (root.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
-        duration = root.attribute(KXMLQLCFunctionSpeedDuration).toUInt();
-    if (root.hasAttribute(KXMLQLCFunctionNumber) == true)
-        stepNumber = root.attribute(KXMLQLCFunctionNumber).toInt();
-    if (root.hasAttribute(KXMLQLCStepNote) == true)
-        note = root.attribute(KXMLQLCStepNote);
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
+        fadeOut = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
+        duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
+    if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
+        stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();
+    if (attrs.hasAttribute(KXMLQLCStepNote) == true)
+        note = attrs.value(KXMLQLCStepNote).toString();
 
-    if (root.hasAttribute(KXMLQLCSequenceSceneValues) == true)
+    if (attrs.hasAttribute(KXMLQLCSequenceSceneValues) == true)
     {
-        QString stepValues = root.text();
+        QString stepValues = root.readElementText();
         if (stepValues.isEmpty() == false)
         {
             QStringList varray = stepValues.split(",");
@@ -136,8 +137,9 @@ bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
     }
     else
     {
-        if (root.text().isEmpty() == false)
-            fid = root.text().toUInt();
+        QString text = root.readElementText();
+        if (text.isEmpty() == false)
+            fid = text.toUInt();
     }
 
     if (holdFound == true)

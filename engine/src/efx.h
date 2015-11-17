@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efx.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,8 +28,7 @@
 #include "efxfixture.h"
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class GenericFader;
 class QString;
 class Fixture;
@@ -563,12 +563,12 @@ private:
      *********************************************************************/
 public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
     void postLoad();
 
 private:
     /** Load an axis' contents from an XML document*/
-    bool loadXMLAxis(const QDomElement& root);
+    bool loadXMLAxis(QXmlStreamReader &root);
 
     /*********************************************************************
      * Speed

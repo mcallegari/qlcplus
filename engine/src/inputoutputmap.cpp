@@ -23,7 +23,8 @@
 #   include <unistd.h>
 #endif
 
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QSettings>
 #include <QDebug>
 
@@ -1018,9 +1019,9 @@ void InputOutputMap::saveDefaults()
     }
 }
 
-bool InputOutputMap::loadXML(const QDomElement &root)
+bool InputOutputMap::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLIOMap)
+    if (root.name() != KXMLIOMap)
     {
         qWarning() << Q_FUNC_INFO << "InputOutputMap node not found";
         return false;
@@ -1029,23 +1030,22 @@ bool InputOutputMap::loadXML(const QDomElement &root)
     /** Reset the current universe list and read the new one */
     removeAllUniverses();
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCUniverse)
+        if (root.name() == KXMLQLCUniverse)
         {
             quint32 id = InputOutputMap::invalidUniverse();
-            QString name = "";
-            if (tag.hasAttribute(KXMLQLCUniverseID))
-                id = tag.attribute(KXMLQLCUniverseID).toUInt();
+            if (root.attributes().hasAttribute(KXMLQLCUniverseID))
+                id = root.attributes().value(KXMLQLCUniverseID).toString().toUInt();
             addUniverse(id);
             Universe *uni = m_universeArray.last();
-            uni->loadXML(tag, m_universeArray.count() - 1, this);
+            uni->loadXML(root, m_universeArray.count() - 1, this);
         }
-
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     return true;

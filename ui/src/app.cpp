@@ -1,9 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   app.cpp
 
   Copyright (c) Heikki Junnila,
                 Christopher Staite
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -1263,83 +1264,100 @@ QFile::FileError App::loadXML(const QString& fileName)
 {
     QFile::FileError retval = QFile::NoError;
 
-    QDomDocument doc(QLCFile::readXML(fileName));
-    if (doc.isNull() == false)
+    if (fileName.isEmpty() == true)
+        return QFile::OpenError;
+
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
-        if (doc.doctype().name() == KXMLQLCWorkspace)
-        {
-            if (loadXML(doc) == false)
-            {
-                retval = QFile::ReadError;
-            }
-            else
-            {
-                setFileName(fileName);
-                m_doc->resetModified();
-                retval = QFile::NoError;
-            }
-        }
-        else
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
+        return QFile::ReadError;
+    }
+
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return QFile::ResourceError;
+    }
+
+    if (doc->dtdName() == KXMLQLCWorkspace)
+    {
+        if (loadXML(*doc) == false)
         {
             retval = QFile::ReadError;
         }
+        else
+        {
+            setFileName(fileName);
+            m_doc->resetModified();
+            retval = QFile::NoError;
+        }
     }
     else
-        retval = QFile::ReadError;
+    {
+        error = QFile::ReadError;
+        qWarning() << Q_FUNC_INFO << fileName
+                   << "is not a workspace file";
+    }
+
+    QLCFile::releaseXMLReader(doc);
 
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
+bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 {
-    Q_ASSERT(m_doc != NULL);
+    bool retval = false;
 
-    QDomElement root = doc.documentElement();
-    if (root.tagName() != KXMLQLCWorkspace)
+    if (doc.readNextStartElement() == false)
+        return false;
+
+    if (doc.name() != KXMLQLCWorkspace)
     {
         qWarning() << Q_FUNC_INFO << "Workspace node not found";
         return false;
     }
 
-    QString activeWindowName = root.attribute(KXMLQLCWorkspaceWindow);
+    QString activeWindowName = doc.attributes().value(KXMLQLCWorkspaceWindow).toString();
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCEngine)
+        if (doc.name() == KXMLQLCEngine)
         {
-            m_doc->loadXML(tag);
+            m_doc->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLQLCVirtualConsole)
+        else if (doc.name() == KXMLQLCVirtualConsole)
         {
-            VirtualConsole::instance()->loadXML(tag);
+            VirtualConsole::instance()->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLQLCSimpleDesk)
+        else if (doc.name() == KXMLQLCSimpleDesk)
         {
-            SimpleDesk::instance()->loadXML(tag);
+            SimpleDesk::instance()->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLFixture)
+        else if (doc.name() == KXMLFixture)
         {
             /* Legacy support code, nowadays in Doc */
-            Fixture::loader(tag, m_doc);
+            Fixture::loader(doc, m_doc);
         }
-        else if (tag.tagName() == KXMLQLCFunction)
+        else if (doc.name() == KXMLQLCFunction)
         {
             /* Legacy support code, nowadays in Doc */
-            Function::loader(tag, m_doc);
+            Function::loader(doc, m_doc);
         }
-        else if (tag.tagName() == KXMLQLCCreator)
+        else if (doc.name() == KXMLQLCCreator)
         {
             /* Ignore creator information */
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     if (goToConsole == true)

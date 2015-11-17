@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   rgbalgorithm.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,8 +26,7 @@
 #include <QColor>
 #include <QSize>
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 class Doc;
 
@@ -122,7 +122,10 @@ public:
      ************************************************************************/
 public:
     /** Load an RGBAlgorithm from a workspace file and return it as a new pointer. */
-    static RGBAlgorithm* loader(Doc *doc, const QDomElement& root);
+    static RGBAlgorithm* loader(Doc *doc, QXmlStreamReader &root);
+
+    /** Load the contents of information saved in XML into a RGBAlgorithm  object */
+    virtual bool loadXML(QXmlStreamReader &root) = 0;
 
     /** Save the contents of an RGBAlgorithm (run-time info) to a workspace file. */
     virtual bool saveXML(QDomDocument* doc, QDomElement* root) const = 0;

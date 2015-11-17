@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   fixturegroup.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomNode>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "fixturegroup.h"
@@ -251,14 +250,14 @@ QSize FixtureGroup::size() const
  * Load & Save
  ****************************************************************************/
 
-bool FixtureGroup::loader(const QDomElement& root, Doc* doc)
+bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
 {
     bool result = false;
 
     FixtureGroup* grp = new FixtureGroup(doc);
     Q_ASSERT(grp != NULL);
 
-    if (grp->loadXML(root) == true)
+    if (grp->loadXML(xmlDoc) == true)
     {
         doc->addFixtureGroup(grp, grp->id());
         result = true;
@@ -273,60 +272,58 @@ bool FixtureGroup::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool FixtureGroup::loadXML(const QDomElement& root)
+bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
-    if (root.tagName() != KXMLQLCFixtureGroup)
+    if (xmlDoc.name() != KXMLQLCFixtureGroup)
     {
         qWarning() << Q_FUNC_INFO << "Fixture group node not found";
         return false;
     }
 
     bool ok = false;
-    quint32 id = root.attribute(KXMLQLCFixtureGroupID).toUInt(&ok);
+    quint32 id = xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid FixtureGroup ID:" << root.attribute(KXMLQLCFixtureGroupID);
+        qWarning() << "Invalid FixtureGroup ID:" << xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString();
         return false;
     }
 
     // Assign the ID to myself
     m_id = id;
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (xmlDoc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCFixtureGroupHead)
+        QXmlStreamAttributes attrs = xmlDoc.attributes();
+        if (xmlDoc.name() == KXMLQLCFixtureGroupHead)
         {
             bool xok = false, yok = false, idok = false, headok = false;
-            int x = tag.attribute("X").toInt(&xok);
-            int y = tag.attribute("Y").toInt(&yok);
-            quint32 id = tag.attribute("Fixture").toUInt(&idok);
-            int head = tag.text().toInt(&headok);
+            int x = attrs.value("X").toString().toInt(&xok);
+            int y = attrs.value("Y").toString().toInt(&yok);
+            quint32 id = attrs.value("Fixture").toString().toUInt(&idok);
+            int head = xmlDoc.readElementText().toInt(&headok);
 
             // Don't use assignFixture() here because it assigns complete fixtures at once
             if (xok == true && yok == true && idok == true && headok == true)
                 m_heads[QLCPoint(x, y)] = GroupHead(id, head);
         }
-        else if (tag.tagName() == KXMLQLCFixtureGroupSize)
+        else if (xmlDoc.name() == KXMLQLCFixtureGroupSize)
         {
             bool xok = false, yok = false;
-            int x = tag.attribute("X").toInt(&xok);
-            int y = tag.attribute("Y").toInt(&yok);
+            int x = attrs.value("X").toString().toInt(&xok);
+            int y = attrs.value("Y").toString().toInt(&yok);
 
             if (xok == true && yok == true)
                 m_size = QSize(x, y);
         }
-        else if (tag.tagName() == KXMLQLCFixtureGroupName)
+        else if (xmlDoc.name() == KXMLQLCFixtureGroupName)
         {
-            m_name = tag.text();
+            m_name = xmlDoc.readElementText();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown fixture group tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown fixture group tag:" << xmlDoc.name();
+            xmlDoc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

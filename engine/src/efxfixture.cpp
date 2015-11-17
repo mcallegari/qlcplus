@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efxfixture.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 #include <math.h>
 
@@ -251,9 +252,9 @@ EFXFixture::Mode EFXFixture::stringToMode(const QString& str)
  * Load & Save
  *****************************************************************************/
 
-bool EFXFixture::loadXML(const QDomElement& root)
+bool EFXFixture::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCEFXFixture)
+    if (root.name() != KXMLQLCEFXFixture)
     {
         qWarning("EFX Fixture node not found!");
         return false;
@@ -263,46 +264,44 @@ bool EFXFixture::loadXML(const QDomElement& root)
     head.head = 0;
 
     /* New file format contains sub tags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCEFXFixtureID)
+        if (root.name() == KXMLQLCEFXFixtureID)
         {
             /* Fixture ID */
-            head.fxi = tag.text().toInt();
+            head.fxi = root.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLQLCEFXFixtureHead)
+        else if (root.name() == KXMLQLCEFXFixtureHead)
         {
             /* Fixture Head */
-            head.head = tag.text().toInt();
+            head.head = root.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLQLCEFXFixtureMode)
+        else if (root.name() == KXMLQLCEFXFixtureMode)
         {
             /* Fixture Mode */
-            setMode ((Mode) tag.text().toInt());
+            setMode ((Mode) root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXFixtureDirection)
+        else if (root.name() == KXMLQLCEFXFixtureDirection)
         {
             /* Direction */
-            Function::Direction dir = Function::stringToDirection(tag.text());
+            Function::Direction dir = Function::stringToDirection(root.readElementText());
             setDirection(dir);
         }
-        else if (tag.tagName() == KXMLQLCEFXFixtureStartOffset)
+        else if (root.name() == KXMLQLCEFXFixtureStartOffset)
         {
             /* Start offset */
-            setStartOffset(tag.text().toInt());
+            setStartOffset(root.readElementText().toInt());
         }
-        else if (tag.tagName() == KXMLQLCEFXFixtureIntensity)
+        else if (root.name() == KXMLQLCEFXFixtureIntensity)
         {
             /* Intensity */
-            setFadeIntensity(uchar(tag.text().toUInt()));
+            setFadeIntensity(uchar(root.readElementText().toUInt()));
         }
         else
         {
-            qWarning() << "Unknown EFX Fixture tag:" << tag.tagName();
+            qWarning() << "Unknown EFX Fixture tag:" << root.name();
+            root.skipCurrentElement();
         }
-        node = node.nextSibling();
     }
 
     if (head.fxi != Fixture::invalidId())

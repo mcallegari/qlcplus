@@ -24,8 +24,7 @@
 
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -80,7 +79,7 @@ private:
      ***********************************************************************/
 public:
     /** Load ShowFunction contents from $root */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save ShowFunction contents to $doc, under $root */
     bool saveXML(QDomDocument* doc, QDomElement* root) const;

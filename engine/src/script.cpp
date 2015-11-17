@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   script.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
@@ -167,50 +167,46 @@ QList<int> Script::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool Script::loadXML(const QDomElement& root)
+bool Script::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Script))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Script))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a script";
         return false;
     }
 
     /* Load script contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCFunctionSpeed)
+        if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionDirection)
+        else if (root.name() == KXMLQLCFunctionDirection)
         {
-            loadXMLDirection(tag);
+            loadXMLDirection(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-        else if (tag.tagName() == KXMLQLCScriptCommand)
+        else if (root.name() == KXMLQLCScriptCommand)
         {
-            appendData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            appendData(QUrl::fromPercentEncoding(root.readElementText().toUtf8()));
             //appendData(tag.text().toUtf8());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown script tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown script tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

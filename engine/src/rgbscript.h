@@ -100,7 +100,7 @@ public:
     int acceptColors() const;
 
     /** @reimp */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     bool saveXML(QDomDocument* Doc, QDomElement* mtx_root) const;

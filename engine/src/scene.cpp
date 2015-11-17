@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scene.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 #include <QList>
 #include <QFile>
@@ -382,37 +383,34 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Scene::loadXML(const QDomElement& root)
+bool Scene::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Scene))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Scene))
     {
         qWarning() << Q_FUNC_INFO << "Function is not a scene";
         return false;
     }
 
     /* Load scene contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCBus)
+        if (root.name() == KXMLQLCBus)
         {
-            m_legacyFadeBus = tag.text().toUInt();
+            m_legacyFadeBus = root.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCSceneChannelGroups)
+        else if (root.name() == KXMLQLCSceneChannelGroups)
         {
-            QString chGrpIDs = tag.text();
+            QString chGrpIDs = root.readElementText();
             if (chGrpIDs.isEmpty() == false)
             {
                 QStringList grpArray = chGrpIDs.split(",");
@@ -424,18 +422,18 @@ bool Scene::loadXML(const QDomElement& root)
             }
         }
         /* "old" style XML */
-        else if (tag.tagName() == KXMLQLCFunctionValue)
+        else if (root.name() == KXMLQLCFunctionValue)
         {
             /* Channel value */
             SceneValue scv;
-            if (scv.loadXML(tag) == true)
+            if (scv.loadXML(root) == true)
                 setValue(scv);
         }
         /* "new" style XML */
-        else if (tag.tagName() == KXMLQLCFixtureValues)
+        else if (root.name() == KXMLQLCFixtureValues)
         {
-            quint32 fxi = tag.attribute(KXMLQLCFixtureID).toUInt();
-            QString strvals = tag.text();
+            quint32 fxi = root.attributes().value(KXMLQLCFixtureID).toString().toUInt();
+            QString strvals = root.readElementText();
             if (strvals.isEmpty() == false)
             {
                 QStringList varray = strvals.split(",");
@@ -451,10 +449,9 @@ bool Scene::loadXML(const QDomElement& root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown scene tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown scene tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

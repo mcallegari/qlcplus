@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   function.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
 #include <QDebug>
-#include <QtXml>
 
 #include "qlcmacros.h"
 #include "qlcfile.h"
@@ -403,15 +405,15 @@ bool Function::saveXMLRunOrder(QDomDocument* doc, QDomElement* root) const
     return true;
 }
 
-bool Function::loadXMLRunOrder(const QDomElement& root)
+bool Function::loadXMLRunOrder(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunctionRunOrder)
+    if (root.name() != KXMLQLCFunctionRunOrder)
     {
         qWarning() << Q_FUNC_INFO << "RunOrder node not found";
         return false;
     }
 
-    setRunOrder(stringToRunOrder(root.text()));
+    setRunOrder(stringToRunOrder(root.readElementText()));
 
     return true;
 }
@@ -467,15 +469,15 @@ bool Function::saveXMLDirection(QDomDocument* doc, QDomElement* root) const
     return true;
 }
 
-bool Function::loadXMLDirection(const QDomElement& root)
+bool Function::loadXMLDirection(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunctionDirection)
+    if (root.name() != KXMLQLCFunctionDirection)
     {
         qWarning() << Q_FUNC_INFO << "Direction node not found";
         return false;
     }
 
-    setDirection(stringToDirection(root.text()));
+    setDirection(stringToDirection(root.readElementText()));
 
     return true;
 }
@@ -646,14 +648,16 @@ void Function::tap()
 {
 }
 
-bool Function::loadXMLSpeed(const QDomElement& speedRoot)
+bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
 {
-    if (speedRoot.tagName() != KXMLQLCFunctionSpeed)
+    if (speedRoot.name() != KXMLQLCFunctionSpeed)
         return false;
 
-    m_fadeInSpeed = speedRoot.attribute(KXMLQLCFunctionSpeedFadeIn).toUInt();
-    m_fadeOutSpeed = speedRoot.attribute(KXMLQLCFunctionSpeedFadeOut).toUInt();
-    m_duration = speedRoot.attribute(KXMLQLCFunctionSpeedDuration).toUInt();
+    QXmlStreamAttributes attrs = speedRoot.attributes();
+
+    m_fadeInSpeed = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
+    m_fadeOutSpeed = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
+    m_duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
 
     return true;
 }
@@ -722,31 +726,33 @@ bool Function::saveXML(QDomDocument *doc, QDomElement *wksp_root)
     return false;
 }
 
-bool Function::loadXML(const QDomElement &root)
+bool Function::loadXML(QXmlStreamReader &root)
 {
     Q_UNUSED(root)
     return false;
 }
 
-bool Function::loader(const QDomElement& root, Doc* doc)
+bool Function::loader(QXmlStreamReader &root, Doc* doc)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning("Function node not found!");
         return false;
     }
 
+    QXmlStreamAttributes attrs = root.attributes();
+
     /* Get common information from the tag's attributes */
-    quint32 id = root.attribute(KXMLQLCFunctionID).toUInt();
-    QString name = root.attribute(KXMLQLCFunctionName);
-    Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
+    quint32 id = attrs.value(KXMLQLCFunctionID).toString().toUInt();
+    QString name = attrs.value(KXMLQLCFunctionName).toString();
+    Type type = Function::stringToType(attrs.value(KXMLQLCFunctionType).toString());
     QString path;
     Universe::BlendMode blendMode = Universe::NormalBlend;
 
-    if (root.hasAttribute(KXMLQLCFunctionPath))
-        path = root.attribute(KXMLQLCFunctionPath);
-    if (root.hasAttribute(KXMLQLCFunctionBlendMode))
-        blendMode = Universe::stringToBlendMode(root.attribute(KXMLQLCFunctionBlendMode));
+    if (attrs.hasAttribute(KXMLQLCFunctionPath))
+        path = attrs.value(KXMLQLCFunctionPath).toString();
+    if (attrs.hasAttribute(KXMLQLCFunctionBlendMode))
+        blendMode = Universe::stringToBlendMode(attrs.value(KXMLQLCFunctionBlendMode).toString());
 
     /* Check for ID validity before creating the function */
     if (id == Function::invalidId())

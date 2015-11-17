@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "rgbplain.h"
@@ -99,15 +99,15 @@ int RGBPlain::acceptColors() const
     return 1; // only start color is accepted
 }
 
-bool RGBPlain::loadXML(const QDomElement& root)
+bool RGBPlain::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCRGBAlgorithmType) != KXMLQLCRGBPlain)
+    if (root.attributes().value(KXMLQLCRGBAlgorithmType).toString() != KXMLQLCRGBPlain)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm is not Plain";
         return false;

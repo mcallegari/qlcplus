@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   doc.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -557,7 +558,7 @@ public:
      * @param root The Engine XML root node to load from
      * @return true if successful, otherwise false
      */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &doc);
 
     /**
      * Save contents to the given XML file.

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   app.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -226,7 +227,7 @@ public:
      *
      * @param doc The XML document to load from.
      */
-    bool loadXML(const QDomDocument& doc, bool goToConsole = false, bool fromMemory = false);
+    bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
 
     /**
      * Save workspace contents to a file with the given name. Changes the

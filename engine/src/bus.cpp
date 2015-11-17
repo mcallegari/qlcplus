@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   bus.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,7 +18,7 @@
   limitations under the License.
 */
 
-#include <QDomElement>
+#include <QXmlStreamReader>
 #include <QStringList>
 #include <QDebug>
 
@@ -208,32 +209,32 @@ void Bus::tap(quint32 bus)
  * Load & Save
  ****************************************************************************/
 
-bool Bus::loadXML(const QDomElement& root)
+bool Bus::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCBus)
+    if (doc.name() != KXMLQLCBus)
     {
         qWarning() << Q_FUNC_INFO << "Bus node not found!";
         return false;
     }
 
-    quint32 id = root.attribute(KXMLQLCBusID).toUInt();
+    quint32 id = doc.attributes().value(KXMLQLCBusID).toString().toUInt();
     if (id >= KBusCount)
     {
         qWarning() << Q_FUNC_INFO << "Bus ID" << id << "out of bounds.";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCBusName)
-            setName(id, tag.text());
-        else if (tag.tagName() == KXMLQLCBusValue)
-            setValue(id, tag.text().toULong());
+        if (doc.name() == KXMLQLCBusName)
+            setName(id, doc.readElementText());
+        else if (doc.name() == KXMLQLCBusValue)
+            setValue(id, doc.readElementText().toULong());
         else
-            qWarning() << Q_FUNC_INFO << "Unknown Bus tag:" << tag.tagName();
-        node = node.nextSibling();
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Bus tag:" << doc.name();
+            doc.skipCurrentElement();
+        }
     }
 
     return true;

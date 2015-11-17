@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   function.h
 
   Copyright (C) 2004 Heikki Junnila
+                     Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,8 +30,7 @@
 
 #include "universe.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 class GenericFader;
 class MasterTimer;
@@ -308,7 +308,7 @@ protected:
     bool saveXMLRunOrder(QDomDocument* doc, QDomElement* root) const;
 
     /** Load function's direction from $root */
-    bool loadXMLRunOrder(const QDomElement& root);
+    bool loadXMLRunOrder(QXmlStreamReader &root);
 
 private:
     RunOrder m_runOrder;
@@ -351,7 +351,7 @@ protected:
     bool saveXMLDirection(QDomDocument* doc, QDomElement* root) const;
 
     /** Load function's direction from $root */
-    bool loadXMLDirection(const QDomElement& root);
+    bool loadXMLDirection(QXmlStreamReader &root);
 
 private:
     Direction m_direction;
@@ -415,7 +415,7 @@ public:
 
 protected:
     /** Load the contents of a speed node */
-    bool loadXMLSpeed(const QDomElement& speedRoot);
+    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
 
     /** Save function's speed values under the given $root element in $doc */
     bool saveXMLSpeed(QDomDocument* doc, QDomElement* root) const;
@@ -467,7 +467,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(const QDomElement& root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -477,7 +477,7 @@ public:
      * @param doc The QLC document object, that owns all functions
      * @return true if successful, otherwise false
      */
-    static bool loader(const QDomElement& root, Doc* doc);
+    static bool loader(QXmlStreamReader &root, Doc* doc);
 
     /**
      * Called for each Function-based object after everything has been loaded.

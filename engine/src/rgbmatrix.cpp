@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   rgbmatrix.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,11 +18,9 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QCoreApplication>
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomNode>
-#include <QDomText>
 #include <QDebug>
 #include <QTime>
 #include <cmath>
@@ -337,70 +336,66 @@ QString RGBMatrix::property(QString propName)
  * Load & Save
  ****************************************************************************/
 
-bool RGBMatrix::loadXML(const QDomElement& root)
+bool RGBMatrix::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::RGBMatrix))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::RGBMatrix))
     {
         qWarning() << Q_FUNC_INFO << "Function is not an RGB matrix";
         return false;
     }
 
     /* Load matrix contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCFunctionSpeed)
+        if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCRGBAlgorithm)
+        else if (root.name() == KXMLQLCRGBAlgorithm)
         {
-            setAlgorithm(RGBAlgorithm::loader(doc(), tag));
+            setAlgorithm(RGBAlgorithm::loader(doc(), root));
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixFixtureGroup)
+        else if (root.name() == KXMLQLCRGBMatrixFixtureGroup)
         {
-            setFixtureGroup(tag.text().toUInt());
+            setFixtureGroup(root.readElementText().toUInt());
         }
-        else if (tag.tagName() == KXMLQLCFunctionDirection)
+        else if (root.name() == KXMLQLCFunctionDirection)
         {
-            loadXMLDirection(tag);
+            loadXMLDirection(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixStartColor)
+        else if (root.name() == KXMLQLCRGBMatrixStartColor)
         {
-            setStartColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
+            setStartColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixEndColor)
+        else if (root.name() == KXMLQLCRGBMatrixEndColor)
         {
-            setEndColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
+            setEndColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixProperty)
+        else if (root.name() == KXMLQLCRGBMatrixProperty)
         {
-            QString name = tag.attribute(KXMLQLCRGBMatrixPropertyName);
-            QString value = tag.attribute(KXMLQLCRGBMatrixPropertyValue);
+            QString name = root.attributes().value(KXMLQLCRGBMatrixPropertyName).toString();
+            QString value = root.attributes().value(KXMLQLCRGBMatrixPropertyValue).toString();
             setProperty(name, value);
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixDimmerControl)
+        else if (root.name() == KXMLQLCRGBMatrixDimmerControl)
         {
-            setDimmerControl(tag.text().toInt());
+            setDimmerControl(root.readElementText().toInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown RGB matrix tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown RGB matrix tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efxfixture.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -147,7 +148,7 @@ private:
      * Load & Save
      *************************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
     bool saveXML(QDomDocument* doc, QDomElement* efx_root) const;
 
     /*************************************************************************

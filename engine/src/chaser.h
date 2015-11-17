@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaser.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -32,7 +33,7 @@ class QFile;
 class QString;
 class ChaserStep;
 class MasterTimer;
-class QDomDocument;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -266,7 +267,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
     /** Load this function contents from an XML document */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();

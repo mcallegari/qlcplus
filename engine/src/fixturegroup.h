@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   fixturegroup.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,8 +30,7 @@
 #include "qlcpoint.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -180,8 +180,8 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    static bool loader(const QDomElement& root, Doc* doc);
-    bool loadXML(const QDomElement& root);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
+    bool loadXML(QXmlStreamReader &xmlDoc);
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 };
 

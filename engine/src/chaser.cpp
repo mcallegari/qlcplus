@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaser.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,7 +21,8 @@
 #include <QDebug>
 #include <QColor>
 #include <QFile>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcfixturedef.h"
 #include "qlcfile.h"
@@ -442,74 +444,73 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Chaser::loadXML(const QDomElement& root)
+bool Chaser::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Chaser))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Chaser))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a chaser";
         return false;
     }
 
     /* Load chaser contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCBus)
+        if (root.name() == KXMLQLCBus)
         {
-            m_legacyHoldBus = tag.text().toUInt();
+            m_legacyHoldBus = root.readElementText().toUInt();
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionDirection)
+        else if (root.name() == KXMLQLCFunctionDirection)
         {
-            loadXMLDirection(tag);
+            loadXMLDirection(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-        else if (tag.tagName() == KXMLQLCChaserSpeedModes)
+        else if (root.name() == KXMLQLCChaserSpeedModes)
         {
+            QXmlStreamAttributes attrs = root.attributes();
             QString str;
 
-            str = tag.attribute(KXMLQLCFunctionSpeedFadeIn);
+            str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
             setFadeInMode(stringToSpeedMode(str));
 
-            str = tag.attribute(KXMLQLCFunctionSpeedFadeOut);
+            str = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString();
             setFadeOutMode(stringToSpeedMode(str));
 
-            str = tag.attribute(KXMLQLCFunctionSpeedDuration);
+            str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
             setDurationMode(stringToSpeedMode(str));
         }
-        else if (tag.tagName() == KXMLQLCChaserSequenceTag)
+        else if (root.name() == KXMLQLCChaserSequenceTag)
         {
-            QString str = tag.attribute(KXMLQLCChaserSequenceBoundScene);
+            QXmlStreamAttributes attrs = root.attributes();
+            QString str = attrs.value(KXMLQLCChaserSequenceBoundScene).toString();
             enableSequenceMode(str.toUInt());
-            if (tag.hasAttribute(KXMLQLCChaserSequenceStartTime))
-                setStartTime(tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt());
-            if (tag.hasAttribute(KXMLQLCChaserSequenceColor))
-                setColor(QColor(tag.attribute(KXMLQLCChaserSequenceColor)));
-            if (tag.hasAttribute(KXMLQLCChaserSequenceLocked))
+            if (attrs.hasAttribute(KXMLQLCChaserSequenceStartTime))
+                setStartTime(attrs.value(KXMLQLCChaserSequenceStartTime).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCChaserSequenceColor))
+                setColor(QColor(attrs.value(KXMLQLCChaserSequenceColor).toString()));
+            if (attrs.hasAttribute(KXMLQLCChaserSequenceLocked))
                 setLocked(true);
         }
-        else if (tag.tagName() == KXMLQLCFunctionStep)
+        else if (root.name() == KXMLQLCFunctionStep)
         {
             //! @todo stepNumber is useless if the steps are in the wrong order
             ChaserStep step;
             int stepNumber = -1;
 
-            if (step.loadXML(tag, stepNumber) == true)
+            if (step.loadXML(root, stepNumber) == true)
             {
                 if (isSequence() == true)
                     step.fid = getBoundSceneID();
@@ -521,10 +522,9 @@ bool Chaser::loadXML(const QDomElement& root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown chaser tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown chaser tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;

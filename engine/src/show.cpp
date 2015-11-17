@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   show.cpp
 
   Copyright (c) Massimo Callegari
@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
 #include <QDebug>
 #include <QFile>
 #include <QList>
-#include <QtXml>
 
 #include "qlcfile.h"
 #include "qlcmacros.h"
@@ -283,38 +284,40 @@ bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
-bool Show::loadXML(const QDomElement& root)
+bool Show::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Show))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Show))
     {
         qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
                    << "is not a show";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCShowTimeDivision)
+        if (root.name() == KXMLQLCShowTimeDivision)
         {
-            QString type = tag.attribute(KXMLQLCShowTimeType);
-            int bpm = (tag.attribute(KXMLQLCShowTimeBPM)).toInt();
+            QString type = root.attributes().value(KXMLQLCShowTimeType).toString();
+            int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
             setTimeDivision(type, bpm);
         }
-        else if (tag.tagName() == KXMLQLCTrack)
+        else if (root.name() == KXMLQLCTrack)
         {
             Track *trk = new Track();
-            if (trk->loadXML(tag) == true)
+            if (trk->loadXML(root) == true)
                 addTrack(trk, trk->id());
         }
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Show tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     return true;

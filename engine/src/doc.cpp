@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   doc.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -1049,11 +1050,11 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
  * Load & Save
  *****************************************************************************/
 
-bool Doc::loadXML(const QDomElement& root)
+bool Doc::loadXML(QXmlStreamReader &doc)
 {
     clearErrorLog();
 
-    if (root.tagName() != KXMLQLCEngine)
+    if (doc.name() != KXMLQLCEngine)
     {
         qWarning() << Q_FUNC_INFO << "Engine node not found";
         return false;
@@ -1061,53 +1062,49 @@ bool Doc::loadXML(const QDomElement& root)
 
     emit loading();
 
-    if (root.hasAttribute(KXMLQLCStartupFunction))
+    if (doc.attributes().hasAttribute(KXMLQLCStartupFunction))
     {
-        quint32 sID = root.attribute(KXMLQLCStartupFunction).toUInt();
+        quint32 sID = doc.attributes().value(KXMLQLCStartupFunction).toString().toUInt();
         if (sID != Function::invalidId())
             setStartupFunction(sID);
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLFixture)
+        if (doc.name() == KXMLFixture)
         {
-            Fixture::loader(tag, this);
+            Fixture::loader(doc, this);
         }
-        else if (tag.tagName() == KXMLQLCFixtureGroup)
+        else if (doc.name() == KXMLQLCFixtureGroup)
         {
-            FixtureGroup::loader(tag, this);
+            FixtureGroup::loader(doc, this);
         }
-        else if (tag.tagName() == KXMLQLCChannelsGroup)
+        else if (doc.name() == KXMLQLCChannelsGroup)
         {
-            ChannelsGroup::loader(tag, this);
+            ChannelsGroup::loader(doc, this);
         }
-        else if (tag.tagName() == KXMLQLCFunction)
+        else if (doc.name() == KXMLQLCFunction)
         {
-            Function::loader(tag, this);
+            Function::loader(doc, this);
         }
-        else if (tag.tagName() == KXMLQLCBus)
+        else if (doc.name() == KXMLQLCBus)
         {
             /* LEGACY */
-            Bus::instance()->loadXML(tag);
+            Bus::instance()->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLIOMap)
+        else if (doc.name() == KXMLIOMap)
         {
-            m_ioMap->loadXML(tag);
+            m_ioMap->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLQLCMonitorProperties)
+        else if (doc.name() == KXMLQLCMonitorProperties)
         {
-            monitorProperties()->loadXML(tag, this);
+            monitorProperties()->loadXML(doc, this);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown engine tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown engine tag:" << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     postLoad();
