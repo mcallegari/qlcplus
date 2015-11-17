@@ -121,115 +121,115 @@
   <Name>Button 8 User</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61461">
+ <Channel Number="32789">
   <Name>Knob 1A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61462">
+ <Channel Number="32790">
   <Name>Knob 2A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61463">
+ <Channel Number="32791">
   <Name>Knob 3A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61464">
+ <Channel Number="32792">
   <Name>Knob 4A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61465">
+ <Channel Number="32793">
   <Name>Knob 5A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61466">
+ <Channel Number="32794">
   <Name>Knob 6A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61467">
+ <Channel Number="32795">
   <Name>Knob 7A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61468">
+ <Channel Number="32796">
   <Name>Knob 8A Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61481">
+ <Channel Number="32809">
   <Name>Knob 1B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61482">
+ <Channel Number="32810">
   <Name>Knob 2B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61483">
+ <Channel Number="32811">
   <Name>Knob 3B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61484">
+ <Channel Number="32812">
   <Name>Knob 4B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61485">
+ <Channel Number="32813">
   <Name>Knob 5B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61486">
+ <Channel Number="32814">
   <Name>Knob 6B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61487">
+ <Channel Number="32815">
   <Name>Knob 7B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61488">
+ <Channel Number="32816">
   <Name>Knob 8B Factory</Name>
   <Type>Knob</Type>
  </Channel>
- <Channel Number="61554">
+ <Channel Number="32882">
   <Name>Button UP Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61555">
+ <Channel Number="32883">
   <Name>Button DOWN Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61556">
+ <Channel Number="32884">
   <Name>Button LEFT Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61557">
+ <Channel Number="32885">
   <Name>Button RIGHT Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61577">
+ <Channel Number="32905">
   <Name>Button 1 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61578">
+ <Channel Number="32906">
   <Name>Button 2 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61579">
+ <Channel Number="32907">
   <Name>Button 3 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61580">
+ <Channel Number="32908">
   <Name>Button 4 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61593">
+ <Channel Number="32921">
   <Name>Button 5 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61594">
+ <Channel Number="32922">
   <Name>Button 6 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61595">
+ <Channel Number="32923">
   <Name>Button 7 Factory</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="61596">
+ <Channel Number="32924">
   <Name>Button 8 Factory</Name>
   <Type>Button</Type>
  </Channel>
