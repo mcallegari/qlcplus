@@ -256,7 +256,14 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
+        <item row="3" column="0" colspan="3">
+         <widget class="QLabel" name="m_invalidMinMax">
+          <property name="text">
+           <string>Invalid Range: overlapping with another capability.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>

@@ -179,6 +179,7 @@ void EditChannel::setupCapabilityGroup()
 {
     m_valueGroup->setVisible(true);
     m_resourceGroup->setVisible(true);
+    m_invalidMinMax->setVisible(false);
 
     if (m_channel->group() == QLCChannel::Gobo)
         m_resourceGroup->setTitle(tr("Gobo"));
@@ -194,28 +195,10 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(true);
     m_descriptionEdit->blockSignals(true);
 
-    int capIdx = currentCapabilityIndex();
-    uchar min = 0, max = UCHAR_MAX;
-    if (capIdx > 0)
-    {
-        QTreeWidgetItem *prevItem = m_capabilityList->topLevelItem(capIdx - 1);
-        QLCCapability *prevCap = (QLCCapability*) prevItem->data(COL_NAME, PROP_PTR).toULongLong();
-        if (prevCap != NULL)
-            min = prevCap->max() + 1;
-    }
-    if (capIdx < m_capabilityList->topLevelItemCount() - 1)
-    {
-        QTreeWidgetItem *nextItem = m_capabilityList->topLevelItem(capIdx + 1);
-        QLCCapability *nextCap = (QLCCapability*) nextItem->data(COL_NAME, PROP_PTR).toULongLong();
-        if (nextCap != NULL)
-            max = nextCap->min() - 1;
-    }
-
-    m_minSpin->setRange(min, max);
-    m_maxSpin->setRange(min, max);
-
     m_minSpin->setValue(m_currentCapability->min());
     m_maxSpin->setValue(m_currentCapability->max());
+    m_minSpin->setRange(0, m_currentCapability->max());
+    m_maxSpin->setRange(m_currentCapability->min(), 255);
     m_descriptionEdit->setText(m_currentCapability->name());
     m_descriptionEdit->setValidator(CAPS_VALIDATOR(this));
     m_minSpin->setFocus();
@@ -416,7 +399,14 @@ void EditChannel::slotWizardClicked()
 
 void EditChannel::slotMinSpinChanged(int value)
 {
-    m_currentCapability->setMin(value);
+    if (!m_channel->setCapabilityRange(m_currentCapability, value, m_maxSpin->value()))
+    {
+        m_invalidMinMax->setVisible(true);
+        return;
+    }
+    m_invalidMinMax->setVisible(false);
+
+    m_maxSpin->setRange(m_currentCapability->min(), 255);
 
     QTreeWidgetItem *item = m_capabilityList->currentItem();
     if (item != NULL)
@@ -429,7 +419,14 @@ void EditChannel::slotMinSpinChanged(int value)
 
 void EditChannel::slotMaxSpinChanged(int value)
 {
-    m_currentCapability->setMax(value);
+    if (!m_channel->setCapabilityRange(m_currentCapability, m_minSpin->value(), value))
+    {
+        m_invalidMinMax->setVisible(true);
+        return;
+    }
+    m_invalidMinMax->setVisible(false);
+
+    m_minSpin->setRange(0, m_currentCapability->max());
 
     QTreeWidgetItem *item = m_capabilityList->currentItem();
     if (item != NULL)

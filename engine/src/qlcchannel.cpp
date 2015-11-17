@@ -468,6 +468,32 @@ bool QLCChannel::addCapability(QLCCapability* cap)
     return true;
 }
 
+bool QLCChannel::setCapabilityRange(QLCCapability* cap, uchar min, uchar max)
+{
+    Q_ASSERT(cap != NULL);
+
+    uchar prevMin = cap->min();
+    cap->setMin(min);
+    uchar prevMax = cap->max();
+    cap->setMax(max);
+
+    /* Check for overlapping values */
+    foreach (QLCCapability* another, m_capabilities)
+    {
+        if (another == cap)
+            continue;
+
+        if (another->overlaps(cap) == true)
+        {
+            cap->setMin(prevMin);
+            cap->setMax(prevMax);
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool QLCChannel::removeCapability(QLCCapability* cap)
 {
     Q_ASSERT(cap != NULL);
