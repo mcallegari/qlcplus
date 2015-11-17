@@ -170,9 +170,16 @@ void AudioBar::checkWidgetFunctionality()
     {
         VCButton *btn = (VCButton *)m_widget;
         if (m_value >= m_maxThreshold && btn->isOn() == false)
+        {
+            btn->pressFunction();
             btn->setOn(true);
+        }
         else if (m_value < m_minThreshold && btn->isOn() == true)
+        {
+            btn->pressFunction();
+            btn->releaseFunction(); // finish flashing
             btn->setOn(false);
+        }
     }
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
@@ -186,7 +193,7 @@ void AudioBar::checkWidgetFunctionality()
         {
             if (m_skippedBeats == 0)
                speedDial->tap();
-            
+
             m_tapped = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }
