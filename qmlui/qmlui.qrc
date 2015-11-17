@@ -28,6 +28,7 @@
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
     <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
+    <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
