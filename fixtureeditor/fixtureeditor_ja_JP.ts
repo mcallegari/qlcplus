@@ -72,93 +72,93 @@
         <translation>以下の機器データを読み込めませんでした:</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="251"/>
+        <location filename="app.cpp" line="242"/>
         <source>&amp;New</source>
         <translation>新規</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="252"/>
+        <location filename="app.cpp" line="243"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="257"/>
+        <location filename="app.cpp" line="248"/>
         <source>&amp;Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
+        <location filename="app.cpp" line="249"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="263"/>
+        <location filename="app.cpp" line="254"/>
         <source>&amp;Save</source>
         <translation>上書き保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="255"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="269"/>
+        <location filename="app.cpp" line="260"/>
         <source>Save &amp;As...</source>
         <translation>名前を付けて保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
+        <location filename="app.cpp" line="261"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="275"/>
+        <location filename="app.cpp" line="266"/>
         <source>&amp;Quit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="276"/>
+        <location filename="app.cpp" line="267"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="282"/>
+        <location filename="app.cpp" line="273"/>
         <source>Index</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="283"/>
+        <location filename="app.cpp" line="274"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="288"/>
+        <location filename="app.cpp" line="279"/>
         <source>About Fixture Definition Editor...</source>
         <translation>Fixture Definition Editor について...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="293"/>
+        <location filename="app.cpp" line="284"/>
         <source>About Qt...</source>
         <translation>Qt について</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="320"/>
+        <location filename="app.cpp" line="311"/>
         <source>&amp;File</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="330"/>
+        <location filename="app.cpp" line="321"/>
         <source>&amp;Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="368"/>
+        <location filename="app.cpp" line="359"/>
         <source>Open a fixture definition</source>
         <translation>機器データの読み込み</translation>
     </message>
@@ -239,84 +239,29 @@
         <translation>%1 - ヘルプ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="121"/>
+        <location filename="../ui/src/docbrowser.cpp" line="124"/>
         <source>Backward</source>
         <translation>前へ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="122"/>
+        <location filename="../ui/src/docbrowser.cpp" line="125"/>
         <source>Forward</source>
         <translation>次へ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="123"/>
+        <location filename="../ui/src/docbrowser.cpp" line="126"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="124"/>
+        <location filename="../ui/src/docbrowser.cpp" line="127"/>
         <source>About Qt</source>
         <translation>Qt について</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="152"/>
-        <source>Close</source>
-        <translation>閉じる</translation>
-    </message>
-</context>
-<context>
-    <name>EditCapability</name>
-    <message>
-        <source>Edit Capability</source>
-        <translation type="obsolete">DMX値に応じた機能の編集</translation>
-    </message>
-    <message>
-        <source>Capability Values</source>
-        <translation type="obsolete">DMX値に応じた機能</translation>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation type="obsolete">Min</translation>
-    </message>
-    <message>
-        <source>Gobo</source>
-        <translation type="obsolete">ゴボ</translation>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation type="obsolete">Max</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">機能名・説明</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="obsolete">アイコン画像</translation>
-    </message>
-    <message>
-        <source>Colour</source>
-        <translation type="obsolete">色</translation>
-    </message>
-    <message>
-        <source>Second Colour</source>
-        <translation type="obsolete">色2</translation>
-    </message>
-    <message>
-        <source>Effect</source>
-        <translation type="obsolete">エフェクト</translation>
-    </message>
-    <message>
-        <source>Open Gobo File</source>
-        <translation type="obsolete">ゴボファイルを開く</translation>
-    </message>
-    <message>
-        <source>Gobo pictures</source>
-        <translation type="obsolete">ゴボ画像</translation>
+        <location filename="../ui/src/docbrowser.cpp" line="128"/>
+        <source>Close this window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -342,14 +287,14 @@
         <translation>グループ</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="376"/>
+        <location filename="editchannel.ui" line="383"/>
         <source>The group this channel belongs to</source>
         <translation>このチャンネルが所属するチャンネルグループ</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="39"/>
-        <location filename="editchannel.ui" line="351"/>
-        <location filename="editchannel.cpp" line="186"/>
+        <location filename="editchannel.ui" line="358"/>
+        <location filename="editchannel.cpp" line="187"/>
         <source>Colour</source>
         <translation>色</translation>
     </message>
@@ -374,39 +319,38 @@
         <translation type="unfinished">Max</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="278"/>
-        <location filename="editchannel.cpp" line="184"/>
+        <location filename="editchannel.ui" line="262"/>
+        <source>Invalid Range: overlapping with another capability.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="285"/>
+        <location filename="editchannel.cpp" line="185"/>
         <source>Gobo</source>
         <translation type="unfinished">ゴボ</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="315"/>
-        <location filename="editchannel.ui" line="326"/>
-        <source>...</source>
-        <translation type="unfinished">...</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="344"/>
+        <location filename="editchannel.ui" line="351"/>
         <source>Picture</source>
         <translation type="unfinished">アイコン画像</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="358"/>
+        <location filename="editchannel.ui" line="365"/>
         <source>Second Colour</source>
         <translation type="unfinished">色2</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="383"/>
+        <location filename="editchannel.ui" line="390"/>
         <source>Control Byte</source>
         <translation>Control Byte (16bit操作の場合)</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="389"/>
+        <location filename="editchannel.ui" line="396"/>
         <source>Coarse (MSB)</source>
         <translation>標準 (MSB, 上位バイト)</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="396"/>
+        <location filename="editchannel.ui" line="403"/>
         <source>Fine (LSB)</source>
         <translation>ファイン (LSB, 下位バイト)</translation>
     </message>
@@ -442,10 +386,6 @@
         <translation>選択した機能を削除</translation>
     </message>
     <message>
-        <source>Edit the selected capability</source>
-        <translation type="obsolete">選択した機能を編集</translation>
-    </message>
-    <message>
         <location filename="editchannel.ui" line="111"/>
         <source>Capability wizard</source>
         <translation>機能をまとめて追加</translation>
@@ -456,31 +396,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="188"/>
+        <location filename="editchannel.cpp" line="189"/>
         <source>Effect</source>
         <translation type="unfinished">エフェクト</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="393"/>
         <source>Overlapping values</source>
         <translation>DMX値の重複</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="453"/>
         <source>Open Gobo File</source>
         <translation type="unfinished">ゴボファイルを開く</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="456"/>
         <source>Gobo pictures</source>
         <translation type="unfinished">ゴボ画像</translation>
     </message>
     <message>
-        <source>The capability&apos;s values overlap with another capability!</source>
-        <translation type="obsolete">そのDMX値は他の機能のDMX値と重複しています。</translation>
+        <location filename="editchannel.cpp" line="555"/>
+        <source>Missing resources</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="556"/>
+        <source>Some gobos are missing:
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.cpp" line="394"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>DMX値の重複により、作成できなかった機能があります。</translation>
     </message>

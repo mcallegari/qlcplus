@@ -65,52 +65,7 @@
         <translation>同じ機種・同じモードの機器に変更を適用</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="73"/>
-        <source>External Input</source>
-        <translation>外部入力</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="79"/>
-        <source>Input channel</source>
-        <translation>Input Channel</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="86"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="109"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="119"/>
-        <source>Choose an external input universe and channel that this group should listen to</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="122"/>
-        <source>Choose...</source>
-        <translation>選択...</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="129"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this group.</source>
-        <translation>自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="132"/>
-        <source>Auto Detect</source>
-        <translation>自動判別</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="142"/>
-        <source>Input universe</source>
-        <translation>Input Universe</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.cpp" line="81"/>
+        <location filename="addchannelsgroup.cpp" line="80"/>
         <source>Universe %1</source>
         <translation>Universe %1</translation>
     </message>
@@ -229,7 +184,7 @@
         <translation>Fixtures found: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="627"/>
+        <location filename="addfixture.cpp" line="630"/>
         <source>Dimmers</source>
         <translation>ディマー</translation>
     </message>
@@ -242,27 +197,27 @@
         <translation>RGBパネルの追加</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="164"/>
+        <location filename="addrgbpanel.ui" line="154"/>
         <source>Width</source>
         <translation>幅</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="187"/>
+        <location filename="addrgbpanel.ui" line="177"/>
         <source>Height</source>
         <translation type="unfinished">高さ</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="215"/>
+        <location filename="addrgbpanel.ui" line="205"/>
         <source>Panel properties</source>
         <translation>パネルの詳細</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="236"/>
+        <location filename="addrgbpanel.ui" line="226"/>
         <source>RGB Panel</source>
         <translation>RGBパネル</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="270"/>
+        <location filename="addrgbpanel.ui" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;エラー:そのアドレスは既に使われています&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -315,48 +270,48 @@
         <translation>右下から</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="147"/>
+        <location filename="addrgbpanel.ui" line="137"/>
         <source>Physical</source>
         <translation>実際の大きさ</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="229"/>
+        <location filename="addrgbpanel.ui" line="219"/>
         <source>Universe</source>
         <translation type="unfinished">Universe</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="243"/>
+        <location filename="addrgbpanel.ui" line="233"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="253"/>
+        <location filename="addrgbpanel.ui" line="243"/>
         <source>Address</source>
         <translation>スタートアドレス</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="171"/>
-        <location filename="addrgbpanel.ui" line="194"/>
+        <location filename="addrgbpanel.ui" line="161"/>
+        <location filename="addrgbpanel.ui" line="184"/>
         <source>mm</source>
         <translation> mm</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="277"/>
+        <location filename="addrgbpanel.ui" line="267"/>
         <source>Components</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="292"/>
+        <location filename="addrgbpanel.ui" line="282"/>
         <source>Displacement</source>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="298"/>
+        <location filename="addrgbpanel.ui" line="288"/>
         <source>Snake</source>
         <translation>蛇行</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="308"/>
+        <location filename="addrgbpanel.ui" line="298"/>
         <source>Zig Zag</source>
         <translation>ジグザグ</translation>
     </message>
@@ -540,372 +495,372 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="330"/>
+        <location filename="app.cpp" line="358"/>
         <source>Cannot exit in Operate mode</source>
         <translation>本番モード中は終了できません</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="331"/>
+        <location filename="app.cpp" line="359"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>仕込みモードに戻ってから閉じてください。</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="339"/>
+        <location filename="app.cpp" line="367"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="339"/>
+        <location filename="app.cpp" line="367"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>閉じる前に、現在のプロジェクトを保存しますか？</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="396"/>
+        <location filename="app.cpp" line="424"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
         <translation>QLC+ を開始</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="474"/>
+        <location filename="app.cpp" line="502"/>
         <source> - New Workspace</source>
         <translation> - 新規プロジェクト</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="550"/>
+        <location filename="app.cpp" line="578"/>
         <source>Switch to Design Mode</source>
         <translation>仕込みモードにする</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="551"/>
+        <location filename="app.cpp" line="579"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>再生中のシーンがあります。
 すべて停止して仕込みモードに戻りますか？</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="614"/>
         <source>Design</source>
         <translation>仕込みモード</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="587"/>
+        <location filename="app.cpp" line="615"/>
         <source>Switch to design mode</source>
         <translation>仕込みモードにする</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="598"/>
+        <location filename="app.cpp" line="626"/>
         <source>Operate</source>
         <translation>本番モード</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="599"/>
         <location filename="app.cpp" line="627"/>
+        <location filename="app.cpp" line="655"/>
         <source>Switch to operate mode</source>
         <translation>本番モードにする</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
+        <location filename="app.cpp" line="638"/>
         <source>&amp;New</source>
         <translation>新規</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="611"/>
+        <location filename="app.cpp" line="639"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="614"/>
+        <location filename="app.cpp" line="642"/>
         <source>&amp;Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="615"/>
+        <location filename="app.cpp" line="643"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="618"/>
+        <location filename="app.cpp" line="646"/>
         <source>&amp;Save</source>
         <translation>上書き保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="619"/>
+        <location filename="app.cpp" line="647"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="622"/>
+        <location filename="app.cpp" line="650"/>
         <source>Save &amp;As...</source>
         <translation>名前を付けて保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="626"/>
+        <location filename="app.cpp" line="654"/>
         <source>&amp;Operate</source>
         <translation>本番モード</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="631"/>
+        <location filename="app.cpp" line="659"/>
         <source>&amp;Monitor</source>
         <translation>モニタ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="638"/>
+        <location filename="app.cpp" line="666"/>
         <source>Toggle &amp;Blackout</source>
         <translation>暗転</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="628"/>
+        <location filename="app.cpp" line="656"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="632"/>
+        <location filename="app.cpp" line="660"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="643"/>
+        <location filename="app.cpp" line="671"/>
         <source>Live edit a function</source>
         <translation>再生中修正</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
+        <location filename="app.cpp" line="711"/>
         <source>Toggle Full Screen</source>
         <translation>フルスクリーン</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="685"/>
+        <location filename="app.cpp" line="713"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="689"/>
+        <location filename="app.cpp" line="717"/>
         <source>&amp;Index</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="690"/>
+        <location filename="app.cpp" line="718"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="693"/>
+        <location filename="app.cpp" line="721"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation>&amp;QLC+ について</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="254"/>
+        <location filename="app.cpp" line="272"/>
         <source>Fixtures</source>
         <translation>機器</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="256"/>
+        <location filename="app.cpp" line="274"/>
         <source>Functions</source>
         <translation>ファンクション</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
+        <location filename="app.cpp" line="276"/>
         <source>Shows</source>
         <translation>タイムライン</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="260"/>
+        <location filename="app.cpp" line="278"/>
         <source>Virtual Console</source>
         <translation>バーチャルコンソール</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="262"/>
+        <location filename="app.cpp" line="280"/>
         <source>Simple Desk</source>
         <translation>シンプル卓</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="282"/>
         <source>Inputs/Outputs</source>
         <translation>入力/出力設定</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="353"/>
+        <location filename="app.cpp" line="381"/>
         <source>Close the application?</source>
         <translation>QLC+ を終了</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="354"/>
+        <location filename="app.cpp" line="382"/>
         <source>Do you wish to close the application?</source>
         <translation>QLC+ を終了しますか？</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="531"/>
+        <location filename="app.cpp" line="559"/>
         <source>Exit</source>
         <translation>閉じる</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="635"/>
+        <location filename="app.cpp" line="663"/>
         <source>Address Tool</source>
         <translation>ディップスイッチ設定用ツール</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="647"/>
+        <location filename="app.cpp" line="675"/>
         <source>Toggle Virtual Console Live edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="652"/>
+        <location filename="app.cpp" line="680"/>
         <source>Dump DMX values to a function</source>
         <translation>現在のDMX値をシーンにする</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="653"/>
+        <location filename="app.cpp" line="681"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="656"/>
+        <location filename="app.cpp" line="684"/>
         <source>Stop ALL functions!</source>
         <translation>全ファンクション停止</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="661"/>
+        <location filename="app.cpp" line="689"/>
         <source>Fade 1 second and stop</source>
         <translation>1秒フェードで停止</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="666"/>
+        <location filename="app.cpp" line="694"/>
         <source>Fade 5 seconds and stop</source>
         <translation>5秒フェードで停止</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="671"/>
+        <location filename="app.cpp" line="699"/>
         <source>Fade 10 second and stop</source>
         <translation>10秒フェードで停止</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="676"/>
+        <location filename="app.cpp" line="704"/>
         <source>Fade 30 second and stop</source>
         <translation>30秒フェードで停止</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="699"/>
+        <location filename="app.cpp" line="727"/>
         <source>Workspace</source>
         <translation>プロジェクト</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="755"/>
+        <location filename="app.cpp" line="783"/>
         <source>Unable to read from file</source>
         <translation>ファイル読み取り不可</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="758"/>
+        <location filename="app.cpp" line="786"/>
         <source>Unable to write to file</source>
         <translation>ファイル書き込み不可</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="761"/>
+        <location filename="app.cpp" line="789"/>
         <source>A fatal error occurred</source>
         <translatorcomment>...la vilaine!</translatorcomment>
         <translation>深刻なエラーが発生しました</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="764"/>
+        <location filename="app.cpp" line="792"/>
         <source>Unable to access resource</source>
         <translation>リソースにアクセスできません</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="767"/>
+        <location filename="app.cpp" line="795"/>
         <source>Unable to open file for reading or writing</source>
         <translation>読み書きのためのファイルを開けません</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="770"/>
+        <location filename="app.cpp" line="798"/>
         <source>Operation was aborted</source>
         <translation>操作は中断されました</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="773"/>
+        <location filename="app.cpp" line="801"/>
         <source>Operation timed out</source>
         <translation>操作はタイムアウトしました</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="777"/>
+        <location filename="app.cpp" line="805"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>予期しないエラーが発生しました。な、何だってー！？</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="781"/>
+        <location filename="app.cpp" line="809"/>
         <source>File error</source>
         <translation>ファイルエラー</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="875"/>
-        <location filename="app.cpp" line="891"/>
-        <location filename="app.cpp" line="1176"/>
+        <location filename="app.cpp" line="903"/>
+        <location filename="app.cpp" line="919"/>
+        <location filename="app.cpp" line="1204"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translatorcomment>Tiens tiens...perspicace!</translatorcomment>
         <translation>開く前に、現在のプロジェクトを保存しますか？</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="877"/>
+        <location filename="app.cpp" line="905"/>
         <source>New Workspace</source>
         <translation>新規プロジェクト</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="893"/>
-        <location filename="app.cpp" line="901"/>
-        <location filename="app.cpp" line="1178"/>
+        <location filename="app.cpp" line="921"/>
+        <location filename="app.cpp" line="929"/>
+        <location filename="app.cpp" line="1206"/>
         <source>Open Workspace</source>
         <translation>プロジェクトを開く</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="909"/>
-        <location filename="app.cpp" line="996"/>
+        <location filename="app.cpp" line="937"/>
+        <location filename="app.cpp" line="1024"/>
         <source>Workspaces (*%1)</source>
         <translation>プロジェクト (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="911"/>
-        <location filename="app.cpp" line="998"/>
+        <location filename="app.cpp" line="939"/>
+        <location filename="app.cpp" line="1026"/>
         <source>All Files (*.*)</source>
         <translation>すべてのファイル (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="913"/>
-        <location filename="app.cpp" line="1000"/>
+        <location filename="app.cpp" line="941"/>
+        <location filename="app.cpp" line="1028"/>
         <source>All Files (*)</source>
         <translation>すべてのファイル (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="990"/>
+        <location filename="app.cpp" line="1018"/>
         <source>Save Workspace As</source>
         <translation>プロジェクトを名前を付けて保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1169"/>
+        <location filename="app.cpp" line="1197"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1170"/>
+        <location filename="app.cpp" line="1198"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>ファイルが見つかりません。
 移動または削除された可能性があります。</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1330"/>
+        <location filename="app.cpp" line="1358"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1331"/>
+        <location filename="app.cpp" line="1359"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>次のプロジェクトを読み込み中に何らかのエラーが発生しました:</translation>
     </message>
@@ -1041,7 +996,7 @@ The selected file has been moved or deleted.</source>
     <name>AudioItem</name>
     <message>
         <location filename="showmanager/audioitem.cpp" line="54"/>
-        <location filename="showmanager/audioitem.cpp" line="357"/>
+        <location filename="showmanager/audioitem.cpp" line="370"/>
         <source>Preview Left Channel</source>
         <translation>Previsualiser le canal gauche</translation>
     </message>
@@ -1056,7 +1011,7 @@ The selected file has been moved or deleted.</source>
         <translation>Previsualiser les deux canaux (stereo)</translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="353"/>
+        <location filename="showmanager/audioitem.cpp" line="366"/>
         <source>Preview Mono</source>
         <translation>Previsualiser le canal (mono)</translation>
     </message>
@@ -1124,122 +1079,52 @@ The selected file has been moved or deleted.</source>
         <translation>入力</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="119"/>
-        <source>External Input</source>
-        <translation>外部入力</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="125"/>
-        <source>Input Universe</source>
-        <translation>Input Universe</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="132"/>
-        <source>Input Channel</source>
-        <translation>Input Channel</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="139"/>
-        <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation>自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="142"/>
-        <source>Auto Detect</source>
-        <translation>自動判別</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="158"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="168"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="184"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="187"/>
-        <source>Choose...</source>
-        <translation>選択...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="210"/>
-        <source>Key combination</source>
-        <translation>キーボードショートカット</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="225"/>
-        <source>Keyboard combination that toggles this widget</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation>この部品を作動させるためのキーボードショートカット</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="235"/>
-        <source>Set a key combination for this widget</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation>キーボードショートカットの設定</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="255"/>
-        <source>Remove the widget&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation>キーボードショートカットの削除</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="125"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="115"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="126"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="116"/>
         <source>DMX</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="127"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="117"/>
         <source>Function</source>
         <translation>ファンクション</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="128"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="118"/>
         <source>VC Widget</source>
         <translation>部品</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="141"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="131"/>
         <source>%1 channels</source>
         <translation>%1 チャンネル</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="173"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="163"/>
         <source>No function</source>
         <translation>ファンクション無し</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="191"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="181"/>
         <source>No widget</source>
         <translation>部品無し</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="197"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="187"/>
         <source>Not assigned</source>
         <translation>アサイン無し</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="251"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="241"/>
         <source>Volume Bar</source>
         <translation>ボリュームバー</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="260"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="250"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation></translation>
     </message>
@@ -1774,38 +1659,43 @@ The selected file has been moved or deleted.</source>
         <translation>0でないチャンネルのみ出力</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="55"/>
+        <location filename="dmxdumpfactory.ui" line="75"/>
         <source>Dump options</source>
         <translation>オプション</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="138"/>
+        <location filename="dmxdumpfactory.ui" line="158"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
         <translation>選択したチャンネルのみ出力</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="82"/>
+        <location filename="dmxdumpfactory.ui" line="102"/>
         <source>Add to:</source>
         <translation>このシーンを追加:</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="65"/>
+        <location filename="dmxdumpfactory.ui" line="53"/>
+        <source>Select an existing Scene to overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="85"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="89"/>
+        <location filename="dmxdumpfactory.ui" line="109"/>
         <source>Chaser</source>
         <translation>チェイス</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="99"/>
+        <location filename="dmxdumpfactory.ui" line="119"/>
         <source>Button</source>
         <translation>ボタン</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="106"/>
+        <location filename="dmxdumpfactory.ui" line="126"/>
         <source>Slider</source>
         <translation>フェーダー</translation>
     </message>
@@ -1815,13 +1705,13 @@ The selected file has been moved or deleted.</source>
         <translation>シーン名</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="72"/>
+        <location filename="dmxdumpfactory.cpp" line="74"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
         <translation>すべてのチャンネルを出力 (%1 個のuniverse, %2 個のDMX機器, %3 チャンネル)</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="75"/>
+        <location filename="dmxdumpfactory.cpp" line="77"/>
         <source>New Scene From Live %1</source>
         <translation>New Scene From Live %1</translation>
     </message>
@@ -1834,29 +1724,29 @@ The selected file has been moved or deleted.</source>
         <translation>%1 - ヘルプ</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="121"/>
+        <location filename="docbrowser.cpp" line="124"/>
         <source>Backward</source>
         <translation>前へ</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="122"/>
+        <location filename="docbrowser.cpp" line="125"/>
         <source>Forward</source>
         <translation>次へ</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="123"/>
+        <location filename="docbrowser.cpp" line="126"/>
         <source>Index</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="124"/>
+        <location filename="docbrowser.cpp" line="127"/>
         <source>About Qt</source>
         <translation>Qt について</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="152"/>
-        <source>Close</source>
-        <translation type="unfinished">閉じる</translation>
+        <location filename="docbrowser.cpp" line="128"/>
+        <source>Close this window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2521,32 +2411,32 @@ The selected file has been moved or deleted.</source>
         <translation>そのアドレスはリマップ先で既に使われています。</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="394"/>
-        <location filename="fixtureremap.cpp" line="410"/>
-        <location filename="fixtureremap.cpp" line="433"/>
-        <location filename="fixtureremap.cpp" line="523"/>
+        <location filename="fixtureremap.cpp" line="395"/>
+        <location filename="fixtureremap.cpp" line="411"/>
+        <location filename="fixtureremap.cpp" line="434"/>
+        <location filename="fixtureremap.cpp" line="524"/>
         <source>Invalid selection</source>
         <translation>無効な選択</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="395"/>
-        <location filename="fixtureremap.cpp" line="411"/>
-        <location filename="fixtureremap.cpp" line="524"/>
+        <location filename="fixtureremap.cpp" line="396"/>
+        <location filename="fixtureremap.cpp" line="412"/>
+        <location filename="fixtureremap.cpp" line="525"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>リマップ元とリマップ先の機器またはチャンネルをそれぞれ選択してください。</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="434"/>
+        <location filename="fixtureremap.cpp" line="435"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>機器のリマップを実行するには、左右のリストからそれぞれ機器を選択してください。</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="649"/>
+        <location filename="fixtureremap.cpp" line="650"/>
         <source>This might take a while...</source>
         <translation>しばらくお待ちください</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="649"/>
+        <location filename="fixtureremap.cpp" line="650"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
@@ -2922,17 +2812,17 @@ The selected file has been moved or deleted.</source>
         <translation>コレクション</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="77"/>
+        <location filename="functionselection.cpp" line="78"/>
         <source>Functions</source>
         <translation>ファンクション</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="299"/>
+        <location filename="functionselection.cpp" line="305"/>
         <source>&lt;No function&gt;</source>
         <translation>&lt;ファンクション無し&gt;</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="307"/>
+        <location filename="functionselection.cpp" line="313"/>
         <source>&lt;Create a new track&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3390,7 +3280,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="442"/>
         <location filename="inputoutputpatcheditor.cpp" line="461"/>
-        <location filename="inputoutputpatcheditor.cpp" line="570"/>
+        <location filename="inputoutputpatcheditor.cpp" line="561"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
@@ -3401,74 +3291,74 @@ p, li { white-space: pre-wrap; }
         <translation>出力先はすでに選択されています</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="571"/>
+        <location filename="inputoutputpatcheditor.cpp" line="562"/>
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="712"/>
-        <location filename="inputoutputpatcheditor.cpp" line="846"/>
+        <location filename="inputoutputpatcheditor.cpp" line="703"/>
+        <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>Existing Input Profile</source>
         <translation>上書き確認</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="713"/>
-        <location filename="inputoutputpatcheditor.cpp" line="847"/>
+        <location filename="inputoutputpatcheditor.cpp" line="704"/>
+        <location filename="inputoutputpatcheditor.cpp" line="838"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>プロファイル &apos;%1&apos; は既に存在します。上書き保存しますか？</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="722"/>
-        <location filename="inputoutputpatcheditor.cpp" line="856"/>
+        <location filename="inputoutputpatcheditor.cpp" line="713"/>
+        <location filename="inputoutputpatcheditor.cpp" line="847"/>
         <source>Save Input Profile</source>
         <translation>プロファイルを保存</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="723"/>
-        <location filename="inputoutputpatcheditor.cpp" line="857"/>
+        <location filename="inputoutputpatcheditor.cpp" line="714"/>
+        <location filename="inputoutputpatcheditor.cpp" line="848"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>外部入力用プロファイル (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="736"/>
-        <location filename="inputoutputpatcheditor.cpp" line="873"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
+        <location filename="inputoutputpatcheditor.cpp" line="864"/>
         <source>Saving failed</source>
         <translation>保存に失敗しました</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="737"/>
+        <location filename="inputoutputpatcheditor.cpp" line="728"/>
         <source>Unable to save the profile to %1</source>
         <translation>プロファイルを &apos;%1&apos;.に保存できませんでした。</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="774"/>
+        <location filename="inputoutputpatcheditor.cpp" line="765"/>
         <source>Delete profile</source>
         <translation>プロファイルの削除</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="775"/>
+        <location filename="inputoutputpatcheditor.cpp" line="766"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>本当にプロファイル &quot;%1&quot; を削除しますか？</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="803"/>
+        <location filename="inputoutputpatcheditor.cpp" line="794"/>
         <source>File deletion failed</source>
         <translation>ファイルの削除に失敗しました</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="804"/>
+        <location filename="inputoutputpatcheditor.cpp" line="795"/>
         <source>Unable to delete file %1</source>
         <translation>&apos;%1&apos; を削除できません。</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="874"/>
+        <location filename="inputoutputpatcheditor.cpp" line="865"/>
         <source>Unable to save %1 to %2</source>
         <translation>&apos;%1&apos; を &apos;%2&apos; に保存できません。</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="906"/>
+        <location filename="inputoutputpatcheditor.cpp" line="897"/>
         <source>Default device</source>
         <translation>既定のデバイス</translation>
     </message>
@@ -3511,18 +3401,18 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="130"/>
+        <location filename="inputprofileeditor.ui" line="133"/>
         <source>Channel</source>
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="135"/>
+        <location filename="inputprofileeditor.ui" line="138"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="48"/>
-        <location filename="inputprofileeditor.ui" line="140"/>
+        <location filename="inputprofileeditor.ui" line="143"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
@@ -3537,100 +3427,105 @@ Please refer to the plugins documentation to troubleshoot this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="145"/>
-        <location filename="inputprofileeditor.ui" line="256"/>
+        <location filename="inputprofileeditor.ui" line="148"/>
+        <location filename="inputprofileeditor.ui" line="246"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="153"/>
+        <location filename="inputprofileeditor.ui" line="156"/>
         <source>Add a new channel description</source>
         <translation>チャンネルの説明を追加</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="173"/>
+        <location filename="inputprofileeditor.ui" line="176"/>
         <source>Remove the selected channels</source>
         <translation>選択したチャンネルを削除</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="193"/>
+        <location filename="inputprofileeditor.ui" line="196"/>
         <source>Edit the selected channel</source>
         <translation>選択したチャンネルを編集</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="213"/>
+        <location filename="inputprofileeditor.ui" line="216"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
         <translation>Automatically add channels to the list when you wiggle the device&apos;s controls</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="268"/>
+        <location filename="inputprofileeditor.ui" line="284"/>
         <source>Movement</source>
         <translation type="unfinished">動き</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="282"/>
+        <location filename="inputprofileeditor.ui" line="298"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="287"/>
+        <location filename="inputprofileeditor.ui" line="303"/>
         <source>Relative</source>
         <translation type="unfinished">Relative</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="295"/>
+        <location filename="inputprofileeditor.ui" line="311"/>
+        <source>Generate an extra Press/Release when toggled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="258"/>
         <source>Sensitivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="101"/>
+        <location filename="inputprofileeditor.cpp" line="103"/>
         <source>File not writable</source>
         <translation>ファイル書き込み不可</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="102"/>
+        <location filename="inputprofileeditor.cpp" line="104"/>
         <source>You do not have permission to write to the file %1. You might not be able to save your modifications to the profile.</source>
         <translation>ファイル %1 に書き込む権限がありません。</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="219"/>
+        <location filename="inputprofileeditor.cpp" line="254"/>
         <source>Missing information</source>
         <translation>不明な情報</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="220"/>
+        <location filename="inputprofileeditor.cpp" line="255"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>メーカー名か機種名が見つかりません。</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="250"/>
-        <location filename="inputprofileeditor.cpp" line="346"/>
+        <location filename="inputprofileeditor.cpp" line="304"/>
+        <location filename="inputprofileeditor.cpp" line="403"/>
         <source>Channel already exists</source>
         <translation>チャンネルが既に存在しています</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="251"/>
-        <location filename="inputprofileeditor.cpp" line="347"/>
+        <location filename="inputprofileeditor.cpp" line="305"/>
+        <location filename="inputprofileeditor.cpp" line="404"/>
         <source>Channel %1 already exists</source>
         <translation>チャンネル %1 は既に存在しています。</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="273"/>
+        <location filename="inputprofileeditor.cpp" line="326"/>
         <source>Delete channels</source>
         <translation>チャンネル削除</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="274"/>
+        <location filename="inputprofileeditor.cpp" line="327"/>
         <source>Delete all %1 selected channels?</source>
         <translation>%1 の選択したチャンネルをすべて削除しますか？</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="387"/>
+        <location filename="inputprofileeditor.cpp" line="444"/>
         <source>Channel wizard activated</source>
         <translation>Channel wizard activated</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="388"/>
+        <location filename="inputprofileeditor.cpp" line="445"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
@@ -3639,12 +3534,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="515"/>
+        <location filename="inputprofileeditor.cpp" line="569"/>
         <source>Button %1</source>
         <translation>ボタン %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="555"/>
+        <location filename="inputprofileeditor.cpp" line="609"/>
         <source>Slider %1</source>
         <translation>フェーダー %1</translation>
     </message>
@@ -3677,32 +3572,32 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished">外部入力</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="136"/>
+        <location filename="inputselectionwidget.ui" line="244"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <translation type="unfinished">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="139"/>
+        <location filename="inputselectionwidget.ui" line="247"/>
         <source>Auto Detect</source>
         <translation type="unfinished">自動判別</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="155"/>
+        <location filename="inputselectionwidget.ui" line="136"/>
         <source>Input Universe</source>
         <translation type="unfinished">Input Universe</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="162"/>
+        <location filename="inputselectionwidget.ui" line="212"/>
         <source>Input Channel</source>
         <translation type="unfinished">Input Channel</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="169"/>
+        <location filename="inputselectionwidget.ui" line="143"/>
         <source>The input universe that sends data to this widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="192"/>
+        <location filename="inputselectionwidget.ui" line="221"/>
         <source>Custom Feedback</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3712,27 +3607,27 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="218"/>
+        <location filename="inputselectionwidget.ui" line="269"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="221"/>
+        <location filename="inputselectionwidget.ui" line="272"/>
         <source>Choose...</source>
         <translation type="unfinished">選択...</translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="228"/>
+        <location filename="inputselectionwidget.ui" line="153"/>
         <source>Custom feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="240"/>
+        <location filename="inputselectionwidget.ui" line="165"/>
         <source>Lower value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputselectionwidget.ui" line="267"/>
+        <location filename="inputselectionwidget.ui" line="192"/>
         <source>Upper value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3740,109 +3635,121 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor/monitor.cpp" line="315"/>
+        <location filename="monitor/monitor.cpp" line="333"/>
         <source>Fixture Monitor</source>
         <translation>モニタ</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="352"/>
+        <location filename="monitor/monitor.cpp" line="373"/>
         <source>2D View</source>
         <translation>2Dビュー</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="359"/>
+        <location filename="monitor/monitor.cpp" line="380"/>
         <source>Font</source>
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="368"/>
+        <location filename="monitor/monitor.cpp" line="389"/>
         <source>DMX Channels</source>
         <translation>DMXチャンネル番号</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="369"/>
+        <location filename="monitor/monitor.cpp" line="390"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>DMXチャンネル番号を表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="379"/>
+        <location filename="monitor/monitor.cpp" line="400"/>
         <source>Relative Channels</source>
         <translation>機器ごと</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="380"/>
+        <location filename="monitor/monitor.cpp" line="401"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>機器ごとのチャンネル番号を表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="396"/>
+        <location filename="monitor/monitor.cpp" line="417"/>
         <source>DMX Values</source>
         <translation>DMX値</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="397"/>
+        <location filename="monitor/monitor.cpp" line="418"/>
         <source>Show DMX values 0-255</source>
         <translation>DMX値(0-255)で表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="408"/>
+        <location filename="monitor/monitor.cpp" line="429"/>
         <source>Percent Values</source>
         <translation>パーセント</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="409"/>
+        <location filename="monitor/monitor.cpp" line="430"/>
         <source>Show percentage values 0-100%</source>
         <translation>パーセント表示 (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="422"/>
+        <location filename="monitor/monitor.cpp" line="443"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation type="unfinished">Universe</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="427"/>
+        <location filename="monitor/monitor.cpp" line="448"/>
         <source>All universes</source>
         <translation>すべてのUniverse</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="448"/>
+        <location filename="monitor/monitor.cpp" line="464"/>
+        <location filename="monitor/monitor.cpp" line="545"/>
+        <source>Close</source>
+        <translation type="unfinished">閉じる</translation>
+    </message>
+    <message>
+        <location filename="monitor/monitor.cpp" line="465"/>
+        <location filename="monitor/monitor.cpp" line="546"/>
+        <source>Close this window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor/monitor.cpp" line="484"/>
         <source>DMX View</source>
         <translation>DMX View</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="454"/>
+        <location filename="monitor/monitor.cpp" line="490"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
         <translation>サイズ</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="478"/>
+        <location filename="monitor/monitor.cpp" line="514"/>
         <source>Meters</source>
         <translation>Meters</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="479"/>
+        <location filename="monitor/monitor.cpp" line="515"/>
         <source>Feet</source>
         <translation>Feet</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="488"/>
+        <location filename="monitor/monitor.cpp" line="524"/>
         <source>Add fixture</source>
         <translation>機器の追加</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="490"/>
+        <location filename="monitor/monitor.cpp" line="526"/>
         <source>Remove fixture</source>
         <translation>機器の削除</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="495"/>
+        <location filename="monitor/monitor.cpp" line="531"/>
         <source>Set a background picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="498"/>
+        <location filename="monitor/monitor.cpp" line="534"/>
         <source>Show/hide labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4209,18 +4116,18 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="77"/>
+        <location filename="app.cpp" line="80"/>
         <source>Operate</source>
         <translation>Operate</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="78"/>
+        <location filename="app.cpp" line="81"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixture.cpp" line="233"/>
-        <location filename="virtualconsole/vcxypadfixture.cpp" line="268"/>
+        <location filename="virtualconsole/vcxypadfixture.cpp" line="259"/>
+        <location filename="virtualconsole/vcxypadfixture.cpp" line="309"/>
         <source>Reversed</source>
         <translation>Reversed</translation>
     </message>
@@ -4421,15 +4328,6 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="rgbmatrixeditor.ui" line="373"/>
         <source>Direction</source>
         <translation>順/逆</translation>
-    </message>
-    <message>
-        <source>Matrix start colour</source>
-        <translation type="obsolete">開始時の色</translation>
-    </message>
-    <message>
-        <source>Matrix end colour</source>
-        <oldsource>Matrix end color</oldsource>
-        <translation type="obsolete">終了時の色</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="385"/>
@@ -5111,7 +5009,7 @@ Duration: %3
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="1039"/>
-        <location filename="showmanager/showmanager.cpp" line="1061"/>
+        <location filename="showmanager/showmanager.cpp" line="1063"/>
         <source>Paste error</source>
         <translation>貼り付けエラー</translation>
     </message>
@@ -5121,17 +5019,17 @@ Duration: %3
         <translation>オーバーラップする貼り付けはできません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1061"/>
+        <location filename="showmanager/showmanager.cpp" line="1063"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>そのシーンには貼り付けできません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1350"/>
+        <location filename="showmanager/showmanager.cpp" line="1355"/>
         <source>Track name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1351"/>
+        <location filename="showmanager/showmanager.cpp" line="1356"/>
         <source>Track name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5406,27 +5304,27 @@ Duration: %3
         <translation>ボタン %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="307"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="310"/>
         <source>Select button icon</source>
         <translation>ボタンアイコンの選択</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="308"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="311"/>
         <source>Images (%1)</source>
         <translation>画像 (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="560"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="563"/>
         <source>Toggle Blackout</source>
         <translation>暗転</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="562"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="565"/>
         <source>Stop ALL functions!</source>
         <translation>全ファンクション停止</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="793"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="796"/>
         <source>Icon</source>
         <translation>アイコン</translation>
     </message>
@@ -5474,34 +5372,6 @@ Duration: %3
         <translation>ファンクションを除外</translation>
     </message>
     <message>
-        <source>Key combination</source>
-        <translation type="obsolete">キーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this button</source>
-        <translation type="obsolete">このボタンを操作するためのキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this button</source>
-        <translation type="obsolete">このボタンにキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation type="obsolete">キーボードショートカットを削除</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">外部入力</translation>
-    </message>
-    <message>
-        <source>Input Universe</source>
-        <translation type="obsolete">Input Universe</translation>
-    </message>
-    <message>
-        <source>Input Channel</source>
-        <translation type="obsolete">Input Channel</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
         <source>Toggle Blackout</source>
         <translation>暗転</translation>
@@ -5535,18 +5405,6 @@ Duration: %3
         <location filename="virtualconsole/vcbuttonproperties.ui" line="194"/>
         <source>Attributes</source>
         <translation>属性</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">選択...</translation>
-    </message>
-    <message>
-        <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation type="obsolete">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <source>Auto Detect</source>
-        <translation type="obsolete">自動判別</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="20"/>
@@ -5670,22 +5528,22 @@ Duration: %3
         <translation>キューリスト</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1207"/>
         <source>Fade In</source>
         <translation>F.I.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1207"/>
         <source>Fade Out</source>
         <translation>F.O.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1207"/>
         <source>Duration</source>
         <translation>Duration</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1207"/>
         <source>Notes</source>
         <translation>メモ</translation>
     </message>
@@ -5775,61 +5633,9 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key Combination</source>
-        <translation type="obsolete">キーボードショートカット</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">外部入力</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Input Universe</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Input Channel</translation>
-    </message>
-    <message>
-        <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation type="obsolete">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <source>Auto Detect</source>
-        <translation type="obsolete">自動判別</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">選択...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="205"/>
         <source>Previous Cue</source>
         <translation>前のキュー</translation>
-    </message>
-    <message>
-        <source>The key combination used to step to the previous cue</source>
-        <translation type="obsolete">前のキューに飛ぶキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Bind a key combination to skip to the previous cue</source>
-        <translation type="obsolete">前のキューへ飛ぶためのキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation type="obsolete">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <source>The key combination used to stop the cue list</source>
-        <translation type="obsolete">キューリスト停止に使うキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Bind a key combination to stop the cue list</source>
-        <translation type="obsolete">キューリスト停止に使うキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
-        <translation type="obsolete">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="234"/>
@@ -5847,37 +5653,17 @@ Duration: %3
         <translation type="unfinished">ステップ</translation>
     </message>
     <message>
-        <source>Left Slider</source>
-        <translation type="obsolete">左フェーダー</translation>
-    </message>
-    <message>
-        <source>Right Slider</source>
-        <translation type="obsolete">右フェーダー</translation>
-    </message>
-    <message>
-        <source>The key combination used to step to the next cue</source>
-        <translation type="obsolete">次のキューへ飛ぶためのキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Bind a key combination to skip to the next cue</source>
-        <translation type="obsolete">次のキューへ飛ぶためのキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>Clear the key binding</source>
-        <translation type="obsolete">キーボードショートカットを削除</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="103"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="106"/>
         <source>Left Fader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="113"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
         <source>Right Fader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="206"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="209"/>
         <source>No function</source>
         <translation>無し</translation>
     </message>
@@ -5939,155 +5725,44 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="58"/>
         <source>External Input - Enable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="160"/>
-        <source>When toggled, you can move an external control to assign it to this frame.</source>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="71"/>
+        <source>External Input - Previous Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="192"/>
-        <source>The key combination used to enable/disable the frame</source>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="84"/>
+        <source>External Input - Next Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="202"/>
-        <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="261"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="122"/>
         <source>Pages</source>
         <translation>ページ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="267"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="128"/>
         <source>Enable</source>
         <translation>ページを使用</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="276"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="161"/>
         <source>Clone first page widgets</source>
         <translation>1ページ目のコピー</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="289"/>
-        <source>External Input - Next page</source>
-        <translation>外部入力 - 次のページ</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="588"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="137"/>
         <source>Pages circular scrolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="295"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="403"/>
-        <source>Input universe</source>
-        <translation>Input universe</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="120"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="302"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="410"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="130"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="312"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="420"/>
-        <source>Input channel</source>
-        <translation>Input Channel</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="137"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="319"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="427"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="329"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="380"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="176"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="332"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="383"/>
-        <source>Choose...</source>
-        <translation>選択...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="339"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
-        <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation>自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="163"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="342"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="440"/>
-        <source>Auto Detect</source>
-        <translation>自動判別</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="374"/>
-        <source>External Input - Previous page</source>
-        <translation>外部入力 - 前のページ</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="437"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation>自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="453"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="154"/>
         <source>Number of pages:</source>
         <translation>ページ数 :</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="186"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="460"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="519"/>
-        <source>Key Combination</source>
-        <translation>キーボードショートカット</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="466"/>
-        <source>Bind a key combination to skip to the next frame page</source>
-        <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation>次のページへ飛ぶためのキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="222"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="486"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="545"/>
-        <source>Clear the key binding</source>
-        <translation>キーボードショートカットを削除</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="506"/>
-        <source>The key combination used to go to the next frame page</source>
-        <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation>次のページへ飛ぶためのキーボードショートカット</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="525"/>
-        <source>Bind a key combination to skip to the previous frame page</source>
-        <translation>前のページへ飛ぶためのキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="565"/>
-        <source>The key combination used to go to the previous frame page</source>
-        <translation>前のページへ飛ぶためのキーボードショートカット</translation>
     </message>
 </context>
 <context>
@@ -6487,18 +6162,6 @@ Duration: %3
         <translation>高さ</translation>
     </message>
     <message>
-        <source>Tap Modifier</source>
-        <translation type="obsolete">Tap Tempo</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation type="obsolete">Key</translation>
-    </message>
-    <message>
-        <source>The keyboard key that turns button clicks to taps</source>
-        <translation type="obsolete">Tap Tempo用のキー</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcproperties.ui" line="105"/>
         <source>Widgets</source>
         <translation>部品</translation>
@@ -6772,35 +6435,6 @@ Duration: %3
         <location filename="virtualconsole/vcsliderproperties.ui" line="99"/>
         <source>Inverted</source>
         <translation>反転(下が100%)</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">外部入力</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Input Universe</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Input Channel</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <oldsource>Choose the external input universe &amp; channel that this widget should listen to</oldsource>
-        <translation type="obsolete">Choose an external input universe &amp; channel that this widget should listen to</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">選択...</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation type="obsolete">自動判別をオンにして、外部入力機器(MIDIコントローラーなど)のフェーダーやボタンを操作してください。</translation>
-    </message>
-    <message>
-        <source>Auto Detect</source>
-        <translation type="obsolete">自動判別</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="199"/>
@@ -7167,14 +6801,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Input Universe</source>
-        <translation type="obsolete">Input Universe</translation>
-    </message>
-    <message>
-        <source>Input Channel</source>
-        <translation type="obsolete">Input Channel</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Auto Detect</source>
         <translation>自動判別</translation>
@@ -7223,18 +6849,6 @@ Duration: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="487"/>
         <source>Key combination</source>
         <translation>キーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Keyboard combination to control the dial tap</source>
-        <translation type="obsolete">Tap用のキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this dial</source>
-        <translation type="obsolete">Tap用のキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation type="obsolete">キーボードショートカットを削除</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="352"/>
@@ -7312,10 +6926,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Infinite</source>
-        <translation type="obsolete">∞</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="233"/>
         <source>Appearance</source>
         <translation type="unfinished">外見</translation>
@@ -7384,68 +6994,68 @@ Duration: %3
 <context>
     <name>VCWidget</name>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="143"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="144"/>
         <source>Button</source>
         <translation>ボタン</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="144"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="145"/>
         <source>Slider</source>
         <translation>フェーダー</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="145"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="146"/>
         <source>XYPad</source>
         <translation>XYパッド</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="146"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="147"/>
         <source>Frame</source>
         <translation>フレーム</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="147"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="148"/>
         <source>Solo frame</source>
         <translation>ソロフレーム</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="148"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="149"/>
         <source>Speed dial</source>
         <translation>スピードダイヤル</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="149"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="150"/>
         <source>Cue list</source>
         <translation>キューリスト</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="150"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="151"/>
         <source>Label</source>
         <translation>メモ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="151"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Audio Triggers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="153"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="154"/>
         <source>Clock</source>
         <translation type="unfinished">現在時刻</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="156"/>
-        <location filename="virtualconsole/vcwidget.cpp" line="158"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="157"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="159"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="512"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="513"/>
         <source>This widget has no properties</source>
         <translation>This widget has no properties</translation>
     </message>
@@ -7573,67 +7183,82 @@ Duration: %3
         <translation>機器の追加</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="247"/>
-        <source>Presets</source>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="233"/>
+        <source>Range Display Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="262"/>
-        <source>Name</source>
-        <translation type="unfinished">名前</translation>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="239"/>
+        <source>Degrees</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="272"/>
-        <source>Add position</source>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="249"/>
+        <source>Percentage</source>
+        <translation type="unfinished">パーセント</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="259"/>
+        <source>DMX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
+        <source>Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="304"/>
+        <source>Name</source>
+        <translation type="unfinished">名前</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="314"/>
+        <source>Add position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="325"/>
         <source>Add EFX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="294"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="336"/>
         <source>Add Scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="305"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="347"/>
+        <source>Add Fixture Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="358"/>
         <source>Remove</source>
         <translation type="unfinished">削除</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="318"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="369"/>
+        <source>Move Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="380"/>
+        <source>Move Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
         <source>Preset name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Input</source>
-        <translation type="obsolete">入力</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="80"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="84"/>
         <source>Pan / Horizontal Axis</source>
         <translation>パン/X軸</translation>
     </message>
     <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Input Universe</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Input Channel</translation>
-    </message>
-    <message>
-        <source>Auto Detect</source>
-        <translation type="obsolete">自動判別</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">選択...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="93"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="97"/>
         <source>Tilt / Vertical Axis</source>
         <translation>チルト/Y軸</translation>
     </message>
@@ -7663,35 +7288,46 @@ Duration: %3
         <translation>機器の編集</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="106"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
         <source>Width</source>
         <translation type="unfinished">幅</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="114"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="118"/>
         <source>Height</source>
         <translation type="unfinished">高さ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="332"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="365"/>
         <source>Remove fixtures</source>
         <translation>機器の削除</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="333"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="366"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>選択した機器を削除しますか？</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="590"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="767"/>
         <source>Error</source>
         <translation type="unfinished">エラー</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="591"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="719"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
+        <source>Please select at least one fixture or head to create this type of preset !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
+        <source>Fixture Group</source>
+        <translation type="unfinished">機器グループ</translation>
     </message>
 </context>
 <context>

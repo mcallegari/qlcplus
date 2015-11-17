@@ -72,93 +72,93 @@
         <translation>impossibile caricare la definizione della fixture:</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="251"/>
+        <location filename="app.cpp" line="242"/>
         <source>&amp;New</source>
         <translation>&amp;Nuovo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="252"/>
+        <location filename="app.cpp" line="243"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="257"/>
+        <location filename="app.cpp" line="248"/>
         <source>&amp;Open</source>
         <translation>&amp;Apri</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
+        <location filename="app.cpp" line="249"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="263"/>
+        <location filename="app.cpp" line="254"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvare</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="255"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="269"/>
+        <location filename="app.cpp" line="260"/>
         <source>Save &amp;As...</source>
         <translation>Salva &amp;Con Nome...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
+        <location filename="app.cpp" line="261"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="275"/>
+        <location filename="app.cpp" line="266"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="276"/>
+        <location filename="app.cpp" line="267"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="282"/>
+        <location filename="app.cpp" line="273"/>
         <source>Index</source>
         <translation>Indice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="283"/>
+        <location filename="app.cpp" line="274"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="288"/>
+        <location filename="app.cpp" line="279"/>
         <source>About Fixture Definition Editor...</source>
         <translation>Informazioni sull&apos;Editor di Fixture...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="293"/>
+        <location filename="app.cpp" line="284"/>
         <source>About Qt...</source>
         <translation>Informazioni su QT...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="320"/>
+        <location filename="app.cpp" line="311"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="330"/>
+        <location filename="app.cpp" line="321"/>
         <source>&amp;Help</source>
         <translation>&amp;Aiuto</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="368"/>
+        <location filename="app.cpp" line="359"/>
         <source>Open a fixture definition</source>
         <translation>Apri un file-Fixture</translation>
     </message>
@@ -239,84 +239,29 @@
         <translation>%1 - Esplora Risorse</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="121"/>
+        <location filename="../ui/src/docbrowser.cpp" line="124"/>
         <source>Backward</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="122"/>
+        <location filename="../ui/src/docbrowser.cpp" line="125"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="123"/>
+        <location filename="../ui/src/docbrowser.cpp" line="126"/>
         <source>Index</source>
         <translation>Indice</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="124"/>
+        <location filename="../ui/src/docbrowser.cpp" line="127"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="152"/>
-        <source>Close</source>
-        <translation>Chiudi</translation>
-    </message>
-</context>
-<context>
-    <name>EditCapability</name>
-    <message>
-        <source>Edit Capability</source>
-        <translation type="obsolete">Edita Proprietà</translation>
-    </message>
-    <message>
-        <source>Capability Values</source>
-        <translation type="obsolete">Valori delle Proprietà</translation>
-    </message>
-    <message>
-        <source>Min</source>
-        <translation type="obsolete">Minimo</translation>
-    </message>
-    <message>
-        <source>Gobo</source>
-        <translation type="obsolete">Gobo</translation>
-    </message>
-    <message>
-        <source>Max</source>
-        <translation type="obsolete">Massimo</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">Descrizione</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="obsolete">Immagine</translation>
-    </message>
-    <message>
-        <source>Colour</source>
-        <translation type="obsolete">Colore</translation>
-    </message>
-    <message>
-        <source>Second Colour</source>
-        <translation type="obsolete">Secondo colore</translation>
-    </message>
-    <message>
-        <source>Effect</source>
-        <translation type="obsolete">Effetto</translation>
-    </message>
-    <message>
-        <source>Open Gobo File</source>
-        <translation type="obsolete">Apri file di gobo</translation>
-    </message>
-    <message>
-        <source>Gobo pictures</source>
-        <translation type="obsolete">Immagini Gobo</translation>
+        <location filename="../ui/src/docbrowser.cpp" line="128"/>
+        <source>Close this window</source>
+        <translation>Chiudi questa finestra</translation>
     </message>
 </context>
 <context>
@@ -342,14 +287,14 @@
         <translation>Gruppo</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="376"/>
+        <location filename="editchannel.ui" line="383"/>
         <source>The group this channel belongs to</source>
         <translation>Il gruppo a cui appartiene questo canale</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="39"/>
-        <location filename="editchannel.ui" line="351"/>
-        <location filename="editchannel.cpp" line="186"/>
+        <location filename="editchannel.ui" line="358"/>
+        <location filename="editchannel.cpp" line="187"/>
         <source>Colour</source>
         <translation>Colore</translation>
     </message>
@@ -374,39 +319,38 @@
         <translation>Massimo</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="278"/>
-        <location filename="editchannel.cpp" line="184"/>
+        <location filename="editchannel.ui" line="262"/>
+        <source>Invalid Range: overlapping with another capability.</source>
+        <translation>Intervallo non valido: sovrapposizione con un&apos;altra funzionalità.</translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="285"/>
+        <location filename="editchannel.cpp" line="185"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="315"/>
-        <location filename="editchannel.ui" line="326"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="344"/>
+        <location filename="editchannel.ui" line="351"/>
         <source>Picture</source>
         <translation>Immagine</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="358"/>
+        <location filename="editchannel.ui" line="365"/>
         <source>Second Colour</source>
         <translation>Secondo colore</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="383"/>
+        <location filename="editchannel.ui" line="390"/>
         <source>Control Byte</source>
         <translation>Byte di Controllo</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="389"/>
+        <location filename="editchannel.ui" line="396"/>
         <source>Coarse (MSB)</source>
         <translation>Grosso (MSB)</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="396"/>
+        <location filename="editchannel.ui" line="403"/>
         <source>Fine (LSB)</source>
         <translation>Fino (LSB)</translation>
     </message>
@@ -442,10 +386,6 @@
         <translation>Rimuovi la funzionalità selezionata</translation>
     </message>
     <message>
-        <source>Edit the selected capability</source>
-        <translation type="obsolete">Modifica la funzionalità selezionata</translation>
-    </message>
-    <message>
         <location filename="editchannel.ui" line="111"/>
         <source>Capability wizard</source>
         <translation>Assistente per le proprietà</translation>
@@ -456,31 +396,40 @@
         <translation>Modifica canale: </translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="188"/>
+        <location filename="editchannel.cpp" line="189"/>
         <source>Effect</source>
         <translation>Effetto</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="371"/>
+        <location filename="editchannel.cpp" line="393"/>
         <source>Overlapping values</source>
         <translation>Valori in soprapposizione</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="417"/>
+        <location filename="editchannel.cpp" line="453"/>
         <source>Open Gobo File</source>
         <translation>Apri file di gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="420"/>
+        <location filename="editchannel.cpp" line="456"/>
         <source>Gobo pictures</source>
         <translation>Immagini gobo</translation>
     </message>
     <message>
-        <source>The capability&apos;s values overlap with another capability!</source>
-        <translation type="obsolete">I valori delle proprietà si sovrappongono con altre proprietà!</translation>
+        <location filename="editchannel.cpp" line="555"/>
+        <source>Missing resources</source>
+        <translation>Risorse mancanti</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="372"/>
+        <location filename="editchannel.cpp" line="556"/>
+        <source>Some gobos are missing:
+
+</source>
+        <translation>Alcuni gobo non sono stati trovati:
+</translation>
+    </message>
+    <message>
+        <location filename="editchannel.cpp" line="394"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Alcune proprietà non possono essere create in quanto ci sono valori in sovrapposizione.</translation>
     </message>
