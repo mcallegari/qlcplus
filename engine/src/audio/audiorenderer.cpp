@@ -86,6 +86,8 @@ void AudioRenderer::run()
     m_userStop = false;
     audioDataRead = 0;
     int sampleSize = m_adec->audioParameters().sampleSize();
+    if (sampleSize > 2)
+        sampleSize = 2;
 
     while (!m_userStop)
     {
@@ -115,13 +117,14 @@ void AudioRenderer::run()
                             (m_fadeStep < 0 && m_currentIntensity <= 0))
                                 m_fadeStep = 0;
                     }
-                    if (sampleSize == 2)
+                    if (sampleSize >= 2)
                     {
                         short sample = ((short)audioData[i+1] << 8) + (short)audioData[i];
                         sample *= scaleFactor;
                         audioData[i+1] = (sample >> 8) & 0x00FF;
                         audioData[i] = sample & 0x00FF;
                     }
+                    /*
                     else if (sampleSize == 3)
                     {
                         long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) + (short)audioData[i];
@@ -140,6 +143,7 @@ void AudioRenderer::run()
                         audioData[i+1] = (sample >> 8) & 0x000000FF;
                         audioData[i] = sample & 0x000000FF;
                     }
+                    */
                     else // this can be PCM_S8 or unknown. In any case perform byte per byte scaling
                         audioData[i] = (unsigned char)((char)audioData[i] * scaleFactor);
                 }

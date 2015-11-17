@@ -384,9 +384,9 @@ void Audio::preRun(MasterTimer* timer)
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
+        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         m_audio_out->setFadeIn(fadeInSpeed());
         m_audio_out->start();
-        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }
