@@ -331,17 +331,17 @@ QString Function::path(bool simplified) const
  * Common
  *********************************************************************/
 
-bool Function::saveXMLCommon(QDomElement *root) const
+bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(root != NULL);
 
-    root->setAttribute(KXMLQLCFunctionID, id());
-    root->setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
-    root->setAttribute(KXMLQLCFunctionName, name());
+    doc->writeAttribute(KXMLQLCFunctionID, QString::number(id()));
+    doc->writeAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
+    doc->writeAttribute(KXMLQLCFunctionName, name());
     if (path(true).isEmpty() == false)
-        root->setAttribute(KXMLQLCFunctionPath, path(true));
+        doc->writeAttribute(KXMLQLCFunctionPath, path(true));
     if (blendMode() != Universe::NormalBlend)
-        root->setAttribute(KXMLQLCFunctionBlendMode, Universe::blendModeToString(blendMode()));
+        doc->writeAttribute(KXMLQLCFunctionBlendMode, Universe::blendModeToString(blendMode()));
 
     return true;
 }
@@ -392,15 +392,11 @@ Function::RunOrder Function::stringToRunOrder(const QString& str)
         return Loop;
 }
 
-bool Function::saveXMLRunOrder(QDomDocument* doc, QDomElement* root) const
+bool Function::saveXMLRunOrder(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
-    QDomElement tag = doc->createElement(KXMLQLCFunctionRunOrder);
-    root->appendChild(tag);
-    QDomText text = doc->createTextNode(runOrderToString(runOrder()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCFunctionRunOrder, runOrderToString(runOrder()));
 
     return true;
 }
@@ -456,15 +452,11 @@ Function::Direction Function::stringToDirection(const QString& str)
         return Forward;
 }
 
-bool Function::saveXMLDirection(QDomDocument* doc, QDomElement* root) const
+bool Function::saveXMLDirection(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
-    QDomElement tag = doc->createElement(KXMLQLCFunctionDirection);
-    root->appendChild(tag);
-    QDomText text = doc->createTextNode(directionToString(direction()));
-    tag.appendChild(text);
+    writeTextElement(KXMLQLCFunctionDirection, directionToString(direction()));
 
     return true;
 }
@@ -662,15 +654,13 @@ bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
     return true;
 }
 
-bool Function::saveXMLSpeed(QDomDocument* doc, QDomElement* root) const
+bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-
-    tag = doc->createElement(KXMLQLCFunctionSpeed);
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutSpeed()));
-    tag.setAttribute(KXMLQLCFunctionSpeedDuration, QString::number(duration()));
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCFunctionSpeed);
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutSpeed()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(duration()));
+    doc->writeEndElement();
 
     return true;
 }
@@ -719,10 +709,9 @@ void Function::slotFixtureRemoved(quint32 fid)
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Function::saveXML(QDomDocument *doc, QDomElement *wksp_root)
+bool Function::saveXML(QXmlStreamWriter *doc)
 {
     Q_UNUSED(doc)
-    Q_UNUSED(wksp_root)
     return false;
 }
 

@@ -29,8 +29,6 @@
 
 #include "qlcchannel.h"
 
-class QDomDocument;
-class QDomElement;
 class QString;
 
 class QLCFixtureDefCache;
@@ -472,7 +470,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /*********************************************************************
      * Status

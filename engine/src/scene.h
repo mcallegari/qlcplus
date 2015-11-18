@@ -189,7 +189,7 @@ public slots:
      *********************************************************************/
 public:
     /** @reimpl */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
     bool loadXML(QXmlStreamReader &root);

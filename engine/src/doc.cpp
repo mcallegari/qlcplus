@@ -18,11 +18,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QStringList>
 #include <QString>
 #include <QDebug>
 #include <QList>
-#include <QtXml>
 #include <QDir>
 
 #include "qlcfixturemode.h"
@@ -1114,22 +1115,18 @@ bool Doc::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Doc::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Create the master Engine node */
-    root = doc->createElement(KXMLQLCEngine);
+    doc->writeStartElement(KXMLQLCEngine);
     if (startupFunction() != Function::invalidId())
     {
-        root.setAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
+        doc->writeAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
     }
-    wksp_root->appendChild(root);
 
-    m_ioMap->saveXML(doc, &root);
+    m_ioMap->saveXML(doc);
 
     /* Write fixtures into an XML document */
     QListIterator <Fixture*> fxit(fixtures());
@@ -1137,7 +1134,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         Fixture* fxi(fxit.next());
         Q_ASSERT(fxi != NULL);
-        fxi->saveXML(doc, &root);
+        fxi->saveXML(doc);
     }
 
     /* Write fixture groups into an XML document */
@@ -1146,7 +1143,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         FixtureGroup* grp(grpit.next());
         Q_ASSERT(grp != NULL);
-        grp->saveXML(doc, &root);
+        grp->saveXML(doc);
     }
 
     /* Write channel groups into an XML document */
@@ -1155,7 +1152,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         ChannelsGroup* grp(chanGroups.next());
         Q_ASSERT(grp != NULL);
-        grp->saveXML(doc, &root);
+        grp->saveXML(doc);
     }
 
     /* Write functions into an XML document */
@@ -1164,11 +1161,14 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     {
         Function* func(funcit.next());
         Q_ASSERT(func != NULL);
-        func->saveXML(doc, &root);
+        func->saveXML(doc);
     }
 
     if (m_monitorProps != NULL)
-        m_monitorProps->saveXML(doc, &root, this);
+        m_monitorProps->saveXML(doc, this);
+
+    /* End the <Engine> tag */
+    doc->writeEndElement();
 
     return true;
 }

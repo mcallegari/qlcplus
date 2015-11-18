@@ -27,6 +27,7 @@
 #include <QHash>
 
 class QXmlStreamReader;
+class QXmlStreamWriter;
 
 class Doc;
 
@@ -134,7 +135,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root, const Doc * mainDocument) const;
+    bool saveXML(QXmlStreamWriter *doc, const Doc * mainDocument) const;
 };
 
 /** @} */

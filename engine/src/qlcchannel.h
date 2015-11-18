@@ -247,7 +247,7 @@ protected:
      * File operations
      *********************************************************************/
 public:
-    /** Save the channel to a QDomDocument, under the given element */
+    /** Save the channel to a QXmlStreamWriter */
     bool saveXML(QXmlStreamWriter *doc) const;
 
     /** Load channel contents from an XML element */

@@ -1051,20 +1051,17 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool InputOutputMap::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
+bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
 
     /* IO Map Instance entry */
-    root = doc->createElement(KXMLIOMap);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLIOMap);
 
     foreach(Universe *uni, m_universeArray)
-    {
-        uni->saveXML(doc, &root);
-    }
+        uni->saveXML(doc);
+
+    doc->writeEndElement();
 
     return true;
 }

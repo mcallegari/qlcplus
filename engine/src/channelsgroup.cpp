@@ -258,14 +258,11 @@ bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
     return result;
 }
 
-bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
 
+    QString str;
     foreach(SceneValue value, this->getChannels())
     {
         if (str.isEmpty() == false)
@@ -274,22 +271,20 @@ bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     /* Channels Group entry */
-    tag = doc->createElement(KXMLQLCChannelsGroup);
-    tag.setAttribute(KXMLQLCChannelsGroupID, this->id());
-    tag.setAttribute(KXMLQLCChannelsGroupName, this->name());
-    tag.setAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
+    doc->writeStartElement(KXMLQLCChannelsGroup);
+    doc->writeAttribute(KXMLQLCChannelsGroupID, this->id());
+    doc->writeAttribute(KXMLQLCChannelsGroupName, this->name());
+    doc->writeAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
+
     if (!m_input.isNull() && m_input->isValid())
     {
-        tag.setAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
-        tag.setAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
+        doc->writeAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
+        doc->writeAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
     }
     if (str.isEmpty() == false)
-    {
-        text = doc->createTextNode(str);
-        tag.appendChild(text);
-    }
+        doc->writeCharacters(str);
 
-    wksp_root->appendChild(tag);
+    doc->writeEndElement();
 
     return true;
 }

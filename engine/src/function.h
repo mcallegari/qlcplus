@@ -268,7 +268,7 @@ private:
      *********************************************************************/
 protected:
     /** Save function's common attributes in $doc, under $root */
-    bool saveXMLCommon(QDomElement* root) const;
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
 
     /*********************************************************************
      * Running order
@@ -304,8 +304,8 @@ public:
     static Function::RunOrder stringToRunOrder(const QString& str);
 
 protected:
-    /** Save function's running order in $doc, under $root */
-    bool saveXMLRunOrder(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's running order in $doc */
+    bool saveXMLRunOrder(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
     bool loadXMLRunOrder(QXmlStreamReader &root);
@@ -347,8 +347,8 @@ public:
     static Function::Direction stringToDirection(const QString& str);
 
 protected:
-    /** Save function's direction in $doc, under $root */
-    bool saveXMLDirection(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's direction in $doc */
+    bool saveXMLDirection(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
     bool loadXMLDirection(QXmlStreamReader &root);
@@ -417,8 +417,8 @@ protected:
     /** Load the contents of a speed node */
     bool loadXMLSpeed(QXmlStreamReader &speedRoot);
 
-    /** Save function's speed values under the given $root element in $doc */
-    bool saveXMLSpeed(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's speed values in $doc */
+    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 
 private:
     uint m_fadeInSpeed;
@@ -457,9 +457,8 @@ public:
      * Save this function to an XML document
      *
      * @param doc The XML document to save to
-     * @param wksp_root A QLC workspace XML root node to save under
      */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * Read this function's contents from an XML document

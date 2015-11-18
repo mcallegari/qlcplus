@@ -887,70 +887,69 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
     return true;
 }
 
-bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
+bool Universe::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCUniverse);
-    root.setAttribute(KXMLQLCUniverseName, name());
-    root.setAttribute(KXMLQLCUniverseID, id());
+    doc->writeStartElement(KXMLQLCUniverse);
+    doc->writeAttribute(KXMLQLCUniverseName, name());
+    doc->writeAttribute(KXMLQLCUniverseID, id());
+
     if (passthrough() == true)
-        root.setAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
+        doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
     else
-        root.setAttribute(KXMLQLCUniversePassthrough, KXMLQLCFalse);
+        doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCFalse);
 
     if (inputPatch() != NULL)
     {
-        QDomElement ip = doc->createElement(KXMLQLCUniverseInputPatch);
-        ip.setAttribute(KXMLQLCUniverseInputPlugin, inputPatch()->pluginName());
-        ip.setAttribute(KXMLQLCUniverseInputLine, inputPatch()->input());
-        ip.setAttribute(KXMLQLCUniverseInputProfileName, inputPatch()->profileName());
-        savePluginParametersXML(doc, &ip, inputPatch()->getPluginParameters());
-        root.appendChild(ip);
+        doc->writeStartElement(KXMLQLCUniverseInputPatch);
+        doc->writeAttribute(KXMLQLCUniverseInputPlugin, inputPatch()->pluginName());
+        doc->writeAttribute(KXMLQLCUniverseInputLine, inputPatch()->input());
+        doc->writeAttribute(KXMLQLCUniverseInputProfileName, inputPatch()->profileName());
+        savePluginParametersXML(doc, inputPatch()->getPluginParameters());
+        doc->writeEndElement();
     }
     if (outputPatch() != NULL)
     {
-        QDomElement op = doc->createElement(KXMLQLCUniverseOutputPatch);
-        op.setAttribute(KXMLQLCUniverseOutputPlugin, outputPatch()->pluginName());
-        op.setAttribute(KXMLQLCUniverseOutputLine, outputPatch()->output());
-        savePluginParametersXML(doc, &op, outputPatch()->getPluginParameters());
-        root.appendChild(op);
+        doc->writeStartElement(KXMLQLCUniverseOutputPatch);
+        doc->writeAttribute(KXMLQLCUniverseOutputPlugin, outputPatch()->pluginName());
+        doc->writeAttribute(KXMLQLCUniverseOutputLine, outputPatch()->output());
+        savePluginParametersXML(doc, outputPatch()->getPluginParameters());
+        doc->writeEndElement();
     }
     if (feedbackPatch() != NULL)
     {
-        QDomElement fbp = doc->createElement(KXMLQLCUniverseFeedbackPatch);
-        fbp.setAttribute(KXMLQLCUniverseFeedbackPlugin, feedbackPatch()->pluginName());
-        fbp.setAttribute(KXMLQLCUniverseFeedbackLine, feedbackPatch()->output());
-        savePluginParametersXML(doc, &fbp, feedbackPatch()->getPluginParameters());
-        root.appendChild(fbp);
+        doc->writeStartElement(KXMLQLCUniverseFeedbackPatch);
+        doc->writeAttribute(KXMLQLCUniverseFeedbackPlugin, feedbackPatch()->pluginName());
+        doc->writeAttribute(KXMLQLCUniverseFeedbackLine, feedbackPatch()->output());
+        savePluginParametersXML(doc, feedbackPatch()->getPluginParameters());
+        doc->writeEndElement();
     }
 
-    // append universe element
-    wksp_root->appendChild(root);
+    /* End the <Universe> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool Universe::savePluginParametersXML(QDomDocument *doc, QDomElement *wksp_root,
+bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
                                        QMap<QString, QVariant> parameters) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     if (parameters.isEmpty())
         return false;
 
-    QDomElement pp = doc->createElement(KXMLQLCUniversePluginParameters);
+    doc->writeStartElement(KXMLQLCUniversePluginParameters);
     QMapIterator<QString, QVariant> it(parameters);
     while(it.hasNext())
     {
         it.next();
         QString pName = it.key();
         QVariant pValue = it.value();
-        pp.setAttribute(pName, pValue.toString());
+        doc->writeAttribute(pName, pValue.toString());
     }
-    wksp_root->appendChild(pp);
+    doc->writeEndElement();
 
     return true;
 }

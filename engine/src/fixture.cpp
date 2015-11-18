@@ -18,9 +18,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
 #include <QDebug>
-#include <QtXml>
 
 #include "qlcfixturedefcache.h"
 #include "channelmodifier.h"
@@ -1059,104 +1060,54 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     return true;
 }
 
-bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
+bool Fixture::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
 
     /* Fixture Instance entry */
-    root = doc->createElement(KXMLFixture);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLFixture);
 
     /* Manufacturer */
-    tag = doc->createElement(KXMLQLCFixtureDefManufacturer);
-    root.appendChild(tag);
-
     if (m_fixtureDef != NULL)
-        text = doc->createTextNode(m_fixtureDef->manufacturer());
+        doc->writeTextElement(KXMLQLCFixtureDefManufacturer, m_fixtureDef->manufacturer());
     else
-        text = doc->createTextNode(KXMLFixtureGeneric);
-
-    tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCFixtureDefManufacturer, KXMLFixtureGeneric);
 
     /* Model */
-    tag = doc->createElement(KXMLQLCFixtureDefModel);
-    root.appendChild(tag);
-
     if (m_fixtureDef != NULL)
-        text = doc->createTextNode(m_fixtureDef->model());
+        doc->writeTextElement(KXMLQLCFixtureDefModel, m_fixtureDef->model());
     else
-        text = doc->createTextNode(KXMLFixtureGeneric);
-
-    tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCFixtureDefModel, KXMLFixtureGeneric);
 
     /* Fixture mode */
-    tag = doc->createElement(KXMLQLCFixtureMode);
-    root.appendChild(tag);
-
     if (m_fixtureMode != NULL)
-        text = doc->createTextNode(m_fixtureMode->name());
+        doc->writeTextElement(KXMLQLCFixtureMode, m_fixtureMode->name());
     else
-        text = doc->createTextNode(KXMLFixtureGeneric);
-
-    tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCFixtureMode, KXMLFixtureGeneric);
 
     /* RGB Panel physical dimensions */
     if (m_fixtureDef != NULL && m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
     {
-        tag = doc->createElement(KXMLQLCPhysicalDimensionsWeight);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_fixtureMode->physical().width()));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCPhysicalDimensionsWeight,
+                              QString::number(m_fixtureMode->physical().width()));
 
-        tag = doc->createElement(KXMLQLCPhysicalDimensionsHeight);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_fixtureMode->physical().height()));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCPhysicalDimensionsHeight,
+                              QString::number(m_fixtureMode->physical().height()));
     }
 
     /* ID */
-    tag = doc->createElement(KXMLFixtureID);
-    root.appendChild(tag);
-    str.setNum(id());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLFixtureID, QString::number(id()));
     /* Name */
-    tag = doc->createElement(KXMLFixtureName);
-    root.appendChild(tag);
-    text = doc->createTextNode(m_name);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLFixtureName, m_name);
     /* Universe */
-    tag = doc->createElement(KXMLFixtureUniverse);
-    root.appendChild(tag);
-    str.setNum(universe());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLFixtureUniverse, QString::number(universe()));
     /* Address */
-    tag = doc->createElement(KXMLFixtureAddress);
-    root.appendChild(tag);
-    str.setNum(address());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLFixtureAddress, QString::number(address()));
     /* Channel count */
-    tag = doc->createElement(KXMLFixtureChannels);
-    root.appendChild(tag);
-    str.setNum(channels());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLFixtureChannels, QString::number(channels()));
 
     if (m_excludeFadeIndices.count() > 0)
     {
-        tag = doc->createElement(KXMLFixtureExcludeFade);
-        root.appendChild(tag);
         QString list;
         for (int i = 0; i < m_excludeFadeIndices.count(); i++)
         {
@@ -1164,14 +1115,11 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
                 list.append(QString(","));
             list.append(QString("%1").arg(m_excludeFadeIndices.at(i)));
         }
-        text = doc->createTextNode(list);
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLFixtureExcludeFade, list);
     }
 
     if (m_forcedHTPIndices.count() > 0)
     {
-        tag = doc->createElement(KXMLFixtureForcedHTP);
-        root.appendChild(tag);
         QString list;
         for (int i = 0; i < m_forcedHTPIndices.count(); i++)
         {
@@ -1179,14 +1127,11 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
                 list.append(QString(","));
             list.append(QString("%1").arg(m_forcedHTPIndices.at(i)));
         }
-        text = doc->createTextNode(list);
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLFixtureForcedHTP, list);
     }
 
     if (m_forcedLTPIndices.count() > 0)
     {
-        tag = doc->createElement(KXMLFixtureForcedLTP);
-        root.appendChild(tag);
         QString list;
         for (int i = 0; i < m_forcedLTPIndices.count(); i++)
         {
@@ -1194,8 +1139,7 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
                 list.append(QString(","));
             list.append(QString("%1").arg(m_forcedLTPIndices.at(i)));
         }
-        text = doc->createTextNode(list);
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLFixtureForcedLTP, list);
     }
 
     if (m_channelModifiers.isEmpty() == false)
@@ -1208,13 +1152,16 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
             ChannelModifier *mod = it.value();
             if (mod != NULL)
             {
-                tag = doc->createElement(KXMLFixtureChannelModifier);
-                tag.setAttribute(KXMLFixtureChannelIndex, ch);
-                tag.setAttribute(KXMLFixtureModifierName, mod->name());
-                root.appendChild(tag);
+                doc->writeStartElement(KXMLFixtureChannelModifier);
+                doc->writeAttribute(KXMLFixtureChannelIndex, ch);
+                doc->writeAttribute(KXMLFixtureModifierName, mod->name());
+                doc->writeEndElement();
             }
         }
     }
+
+    /* End the <Fixture> tag */
+    doc->writeEndElement();
 
     return true;
 }

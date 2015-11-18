@@ -302,30 +302,22 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
  * Load & Save
  *****************************************************************************/
 
-bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Scene::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Channel groups */
     if (m_channelGroups.count() > 0)
     {
-        tag = doc->createElement(KXMLQLCSceneChannelGroups);
-        root.appendChild(tag);
         QString chanGroupsIDs;
         foreach(quint32 id, m_channelGroups)
         {
@@ -333,8 +325,7 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
                 chanGroupsIDs.append(QString(","));
             chanGroupsIDs.append(QString("%1").arg(id));
         }
-        text = doc->createTextNode(chanGroupsIDs);
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCSceneChannelGroups, chanGroupsIDs);
     }
 
     /* Scene contents */
@@ -348,17 +339,17 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         if (currFixID == -1) currFixID = sv.fxi;
         if ((qint32)sv.fxi != currFixID)
         {
-            tag = doc->createElement(KXMLQLCFixtureValues);
-            tag.setAttribute(KXMLQLCFixtureID, currFixID);
-            root.appendChild(tag);
+            doc->writeStartElement(KXMLQLCFixtureValues);
+            doc->writeAttribute(KXMLQLCFixtureID, currFixID);
+
             currFixID = sv.fxi;
             chanCount = 0;
             if (fixValues.isEmpty() == false)
             {
-                text = doc->createTextNode(fixValues);
-                tag.appendChild(text);
+                doc->writeCharacters(fixValues);
                 fixValues.clear();
             }
+            doc->writeEndElement();
         }
         chanCount++;
         if (fixValues.isEmpty() == false)
@@ -369,16 +360,19 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
             fixValues.append(QString("%1,%2").arg(sv.channel).arg(sv.value));
     }
     /* write last element */
-    tag = doc->createElement(KXMLQLCFixtureValues);
-    tag.setAttribute(KXMLQLCFixtureID, currFixID);
-    root.appendChild(tag);
+    doc->writeStartElement(KXMLQLCFixtureValues);
+    doc->writeAttribute(KXMLQLCFixtureID, currFixID);
+
     chanCount = 0;
     if (fixValues.isEmpty() == false)
     {
-        text = doc->createTextNode(fixValues);
-        tag.appendChild(text);
+        doc->writeCharacters(fixValues);
         fixValues.clear();
     }
+    doc->writeEndElement();
+
+    /* End the <Scene> tag */
+    doc->writeEndElement();
 
     return true;
 }

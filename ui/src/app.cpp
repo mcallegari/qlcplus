@@ -1390,49 +1390,48 @@ QFile::FileError App::saveXML(const QString& fileName)
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCWorkspace));
-    if (doc.isNull() == false)
-    {
-        QDomElement root;
-        QDomElement tag;
-        QDomText text;
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
 
-        /* Create a text stream for the file */
-        QTextStream stream(&file);
-        stream.setAutoDetectUnicode(true);
-        stream.setCodec("UTF-8");
+    doc.writeStartDocument();
+    doc.writeDTD(QString("<!DOCTYPE %1>").arg(content));
 
-        /* THE MASTER XML ROOT NODE */
-        root = doc.documentElement();
+    doc.writeStartElement(content);
+    doc.writeAttribute("xmlns", KXMLQLCplusNamespace + KXMLQLCWorkspace);
+    /* Currently active window */
+    QWidget* widget = m_tab->currentWidget();
+    if (widget != NULL)
+        doc.writeAttribute(KXMLQLCWorkspaceWindow, QString(widget->metaObject()->className()));
 
-        /* Currently active window */
-        QWidget* widget = m_tab->currentWidget();
-        if (widget != NULL)
-            root.setAttribute(KXMLQLCWorkspaceWindow, widget->metaObject()->className());
+    doc.writeStartElement(KXMLQLCCreator);
+    doc.writeTextElement(KXMLQLCCreatorName, APPNAME);
+    doc.writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    doc.writeTextElement(KXMLQLCCreatorAuthor, QLCFile::currentUserName());
+    doc.writeEndElement(); // close KXMLQLCCreator
 
-        /* Write engine components to the XML document */
-        m_doc->saveXML(&doc, &root);
+    /* Write engine components to the XML document */
+    m_doc->saveXML(&doc, &root);
 
-        /* Write virtual console to the XML document */
-        VirtualConsole::instance()->saveXML(&doc, &root);
+    /* Write virtual console to the XML document */
+    VirtualConsole::instance()->saveXML(&doc, &root);
 
-        /* Write Simple Desk to the XML document */
-        SimpleDesk::instance()->saveXML(&doc, &root);
+    /* Write Simple Desk to the XML document */
+    SimpleDesk::instance()->saveXML(&doc, &root);
 
-        /* Write the XML document to the stream (=file) */
-        stream << doc.toString() << "\n";
+    /* End the document and close all the open elements */
+    error = QFile::NoError;
+    doc.writeEndDocument();
+    file.close();
 
-        /* Set the file name for the current Doc instance and
-           set it also in an unmodified state. */
-        setFileName(fileName);
-        m_doc->resetModified();
+    /* Set the file name for the current Doc instance and
+       set it also in an unmodified state. */
+    setFileName(fileName);
+    m_doc->resetModified();
 
-        retval = QFile::NoError;
-    }
-    else
-    {
-        retval = QFile::ReadError;
-    }
+    retval = QFile::NoError;
+
 
     return retval;
 }

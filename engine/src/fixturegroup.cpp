@@ -329,45 +329,37 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
     return true;
 }
 
-bool FixtureGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
 
     /* Fixture Group entry */
-    root = doc->createElement(KXMLQLCFixtureGroup);
-    root.setAttribute(KXMLQLCFixtureGroupID, this->id());
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFixtureGroup);
+    doc->writeAttribute(KXMLQLCFixtureGroupID, this->id());
 
     /* Name */
-    tag = doc->createElement(KXMLQLCFixtureGroupName);
-    text = doc->createTextNode(name());
-    tag.appendChild(text);
-    root.appendChild(tag);
+    doc->writeTextElement(KXMLQLCFixtureGroupName, name());
 
     /* Matrix size */
-    tag = doc->createElement(KXMLQLCFixtureGroupSize);
-    tag.setAttribute("X", size().width());
-    tag.setAttribute("Y", size().height());
-    root.appendChild(tag);
+    doc->writeStartElement(KXMLQLCFixtureGroupSize);
+    doc->writeAttribute("X", size().width());
+    doc->writeAttribute("Y", size().height());
+    doc->writeEndElement();
 
     /* Fixture heads */
     QHashIterator <QLCPoint,GroupHead> it(m_heads);
     while (it.hasNext() == true)
     {
         it.next();
-        tag = doc->createElement(KXMLQLCFixtureGroupHead);
-        tag.setAttribute("X", it.key().x());
-        tag.setAttribute("Y", it.key().y());
-        tag.setAttribute("Fixture", it.value().fxi);
-        text = doc->createTextNode(QString::number(it.value().head));
-        tag.appendChild(text);
-        root.appendChild(tag);
+        doc->writeStartElement(KXMLQLCFixtureGroupHead);
+        doc->writeAttribute("X", it.key().x());
+        doc->writeAttribute("Y", it.key().y());
+        doc->writeAttribute("Fixture", it.value().fxi);
+        doc->writeCharacters(QString::number(it.value().head));
+        doc->writeEndElement();
     }
+
+    doc->writeEndElement();
 
     return true;
 }

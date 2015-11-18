@@ -478,7 +478,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /**
      * Save a plugin custom parameters (if available) into a tag nested
@@ -488,7 +488,7 @@ public:
      * @param wksp_root The workspace root element
      * @param parameters The map of custom parameters to save
      */
-    bool savePluginParametersXML(QDomDocument* doc, QDomElement* wksp_root,
+    bool savePluginParametersXML(QXmlStreamWriter *doc,
                                  QMap<QString, QVariant>parameters) const;
 };
 

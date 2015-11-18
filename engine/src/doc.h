@@ -37,7 +37,6 @@
 #include "function.h"
 #include "fixture.h"
 
-class QDomDocument;
 class AudioCapture;
 class QString;
 class RGBScriptsCache;
@@ -567,7 +566,7 @@ public:
      * @param wksp_root The workspace root node to save under
      * @return true if successful, otherwise false
      */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * Append a message to the Doc error log. This can be used to display

@@ -24,9 +24,6 @@
 #   include <unistd.h>
 #endif
 
-#include <QObject>
-#include <QtXml>
-
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 

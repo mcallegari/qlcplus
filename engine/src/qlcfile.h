@@ -36,6 +36,8 @@ class QString;
  * @{
  */
 
+#define KXMLQLCplusNamespace "http://www.qlcplus.org/"
+
 // File extensions
 #define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
 #define KExtFixtureList      ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist

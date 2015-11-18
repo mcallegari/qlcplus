@@ -23,9 +23,7 @@
 #   include <unistd.h>
 #endif
 
-#include <QObject>
 #include <QDebug>
-#include <QtXml>
 
 #include "qlcinputchannel.h"
 #include "qlcioplugin.h"

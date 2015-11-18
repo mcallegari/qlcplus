@@ -41,8 +41,6 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define KXMLQLCplusNamespace "http://www.qlcplus.org/"
-
 bool QLCFile::m_isRaspberry = false;
 
 #ifdef QT_XML_LIB

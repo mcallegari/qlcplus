@@ -182,7 +182,7 @@ private:
 public:
     static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
     bool loadXML(QXmlStreamReader &xmlDoc);
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

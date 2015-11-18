@@ -69,7 +69,7 @@ public slots:
 public:
     static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
 
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     bool loadXML(QXmlStreamReader &xmlDoc);
 
