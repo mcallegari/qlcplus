@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   doc_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,7 +20,8 @@
 
 #include <QPointer>
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -568,33 +570,45 @@ void Doc_Test::function()
 
 void Doc_Test::load()
 {
-    QDomDocument document;
-    QDomElement root = document.createElement("Engine");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    root.appendChild(createFixtureNode(document, 0));
-    root.appendChild(createFixtureNode(document, 72));
-    root.appendChild(createFixtureNode(document, 15));
+    xmlWriter.writeStartElement("Engine");
 
-    root.appendChild(createFixtureGroupNode(document, 0));
-    root.appendChild(createFixtureGroupNode(document, 42));
-    root.appendChild(createFixtureGroupNode(document, 72));
+    createFixtureNode(xmlWriter, 0);
+    createFixtureNode(xmlWriter, 72);
+    createFixtureNode(xmlWriter, 15);
 
-    root.appendChild(createCollectionNode(document, 5));
-    root.appendChild(createCollectionNode(document, 9));
-    root.appendChild(createCollectionNode(document, 1));
-    root.appendChild(createCollectionNode(document, 7));
+    createFixtureGroupNode(xmlWriter, 0);
+    createFixtureGroupNode(xmlWriter, 42);
+    createFixtureGroupNode(xmlWriter, 72);
 
-    root.appendChild(createBusNode(document, 0, 1));
-    root.appendChild(createBusNode(document, 7, 2));
-    root.appendChild(createBusNode(document, 12, 3));
-    root.appendChild(createBusNode(document, 29, 4));
-    root.appendChild(createBusNode(document, 31, 500));
+    createCollectionNode(xmlWriter, 5);
+    createCollectionNode(xmlWriter, 9);
+    createCollectionNode(xmlWriter, 1);
+    createCollectionNode(xmlWriter, 7);
 
-    root.appendChild(document.createElement("ExtraTag"));
+    createBusNode(xmlWriter, 0, 1);
+    createBusNode(xmlWriter, 7, 2);
+    createBusNode(xmlWriter, 12, 3);
+    createBusNode(xmlWriter, 29, 4);
+    createBusNode(xmlWriter, 31, 500);
+
+    xmlWriter.writeStartElement("ExtraTag");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QVERIFY(m_doc->fixtures().size() == 0);
     QVERIFY(m_doc->functions().size() == 0);
-    QVERIFY(m_doc->loadXML(root) == true);
+    QVERIFY(m_doc->loadXML(xmlReader) == true);
     QVERIFY(m_doc->fixtures().size() == 3);
     QVERIFY(m_doc->functions().size() == 4);
     QVERIFY(m_doc->fixtureGroups().size() == 3);
@@ -607,31 +621,43 @@ void Doc_Test::load()
 
 void Doc_Test::loadWrongRoot()
 {
-    QDomDocument document;
-    QDomElement root = document.createElement("Enjine");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    root.appendChild(createFixtureNode(document, 0));
-    root.appendChild(createFixtureNode(document, 72));
-    root.appendChild(createFixtureNode(document, 15));
+    xmlWriter.writeStartElement("Enjine");
 
-    root.appendChild(createFixtureGroupNode(document, 0));
-    root.appendChild(createFixtureGroupNode(document, 42));
-    root.appendChild(createFixtureGroupNode(document, 72));
+    createFixtureNode(xmlWriter, 0);
+    createFixtureNode(xmlWriter, 72);
+    createFixtureNode(xmlWriter, 15);
 
-    root.appendChild(createCollectionNode(document, 5));
-    root.appendChild(createCollectionNode(document, 9));
-    root.appendChild(createCollectionNode(document, 1));
-    root.appendChild(createCollectionNode(document, 7));
+    createFixtureGroupNode(xmlWriter, 0);
+    createFixtureGroupNode(xmlWriter, 42);
+    createFixtureGroupNode(xmlWriter, 72);
 
-    root.appendChild(createBusNode(document, 0, 1));
-    root.appendChild(createBusNode(document, 7, 2));
-    root.appendChild(createBusNode(document, 12, 3));
-    root.appendChild(createBusNode(document, 29, 4));
-    root.appendChild(createBusNode(document, 31, 500));
+    createCollectionNode(xmlWriter, 5);
+    createCollectionNode(xmlWriter, 9);
+    createCollectionNode(xmlWriter, 1);
+    createCollectionNode(xmlWriter, 7);
 
-    root.appendChild(document.createElement("ExtraTag"));
+    createBusNode(xmlWriter, 0, 1);
+    createBusNode(xmlWriter, 7, 2);
+    createBusNode(xmlWriter, 12, 3);
+    createBusNode(xmlWriter, 29, 4);
+    createBusNode(xmlWriter, 31, 500);
 
-    QVERIFY(m_doc->loadXML(root) == false);
+    xmlWriter.writeStartElement("ExtraTag");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_doc->loadXML(xmlReader) == false);
 }
 
 void Doc_Test::save()
@@ -679,36 +705,45 @@ void Doc_Test::save()
 
     QVERIFY(m_doc->isModified() == true);
 
-    QDomDocument document;
-    QDomElement root = document.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("TestRoot");
 
-    QVERIFY(m_doc->saveXML(&document, &root) == true);
+    QVERIFY(m_doc->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "TestRoot");
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Engine");
 
     uint fixtures = 0, groups = 0, functions = 0, ioMap = 0;
-    QDomNode node = root.firstChild();
-    QVERIFY(node.toElement().tagName() == "Engine");
 
     // Merely tests that the start of each hierarchy is found from the XML document.
     // Their contents are tested individually in their own separate tests.
-    node = node.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Fixture")
+        if (xmlReader.name() == "Fixture")
             fixtures++;
-        else if (tag.tagName() == "Function")
+        else if (xmlReader.name() == "Function")
             functions++;
-        else if (tag.tagName() == "FixtureGroup")
+        else if (xmlReader.name() == "FixtureGroup")
             groups++;
-        else if (tag.tagName() == "InputOutputMap")
+        else if (xmlReader.name() == "InputOutputMap")
             ioMap++;
-        else if (tag.tagName() == "Bus")
+        else if (xmlReader.name() == "Bus")
             QFAIL("Bus tags should not be saved anymore!");
         else
             QFAIL(QString("Unexpected tag: %1")
-                  .arg(tag.tagName()).toLatin1());
+                  .arg(xmlReader.name().toString()).toLatin1());
 
-        node = node.nextSibling();
+        xmlReader.skipCurrentElement();
     }
 
     QVERIFY(fixtures == 3);
@@ -720,110 +755,59 @@ void Doc_Test::save()
     QVERIFY(m_doc->isModified() == true);
 }
 
-QDomElement Doc_Test::createFixtureNode(QDomDocument& doc, quint32 id)
+void Doc_Test::createFixtureNode(QXmlStreamWriter &doc, quint32 id)
 {
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    doc.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("18");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    doc.writeTextElement("Channels", "18");
+    doc.writeTextElement("Name", QString("Fixture %1").arg(id));
+    doc.writeTextElement("Universe", "3");
+    doc.writeTextElement("Model", "Foobar");
+    doc.writeTextElement("Mode", "Foobar");
+    doc.writeTextElement("Manufacturer", "Foobar");
+    doc.writeTextElement("ID", QString("%1").arg(id));
+    doc.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode(QString("Fixture %1").arg(id));
-    name.appendChild(nameText);
-    root.appendChild(name);
-
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("3");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("Foobar");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Foobar");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Foobar");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement fxi_id = doc.createElement("ID");
-    QDomText fxi_idText = doc.createTextNode(QString("%1").arg(id));
-    fxi_id.appendChild(fxi_idText);
-    root.appendChild(fxi_id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
-
-    return root;
+    /* End the <Fixture> tag */
+    doc.writeEndElement();
 }
 
-QDomElement Doc_Test::createFixtureGroupNode(QDomDocument& doc, quint32 id)
+void Doc_Test::createFixtureGroupNode(QXmlStreamWriter &doc, quint32 id)
 {
-    QDomElement root = doc.createElement("FixtureGroup");
-    root.setAttribute("ID", id);
-    doc.appendChild(root);
+    doc.writeStartElement("FixtureGroup");
+    doc.writeAttribute("ID", QString::number(id));
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode(QString("Group with ID %1").arg(id));
-    name.appendChild(nameText);
-    root.appendChild(name);
+    doc.writeTextElement("Name", QString("Group with ID %1").arg(id));
 
-    return root;
+    /* End the <FixtureGroup> tag */
+    doc.writeEndElement();
 }
 
-QDomElement Doc_Test::createCollectionNode(QDomDocument& doc, quint32 id)
+void Doc_Test::createCollectionNode(QXmlStreamWriter &doc, quint32 id)
 {
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Collection");
-    root.setAttribute("ID", QString("%1").arg(id));
+    doc.writeStartElement("Function");
+    doc.writeAttribute("Type", "Collection");
+    doc.writeAttribute("ID", QString("%1").arg(id));
 
-    QDomElement s1 = doc.createElement("Step");
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    doc.writeTextElement("Step", "50");
+    doc.writeTextElement("Step", "12");
+    doc.writeTextElement("Step", "87");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
-
-    QDomElement s3 = doc.createElement("Step");
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
-
-    return root;
+    /* End the <Function> tag */
+    doc.writeEndElement();
 }
 
-QDomElement Doc_Test::createBusNode(QDomDocument& doc, quint32 id, quint32 val)
+void Doc_Test::createBusNode(QXmlStreamWriter &doc, quint32 id, quint32 val)
 {
     // Used to test that loading legacy Bus tags won't screw up Doc
-    QDomElement root = doc.createElement("Bus");
-    doc.appendChild(root);
-    root.setAttribute("ID", id);
+    doc.writeStartElement("Bus");
+    doc.writeAttribute("ID", QString::number(id));
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode(QString("Bus %1").arg(id));
-    name.appendChild(nameText);
-    root.appendChild(name);
+    doc.writeTextElement("Name", QString("Bus %1").arg(id));
+    doc.writeTextElement("Value", QString("%1").arg(val));
 
-    QDomElement value = doc.createElement("Value");
-    QDomText valueText = doc.createTextNode(QString("%1").arg(val));
-    value.appendChild(valueText);
-    root.appendChild(value);
-
-    return root;
+    /* End the <Bus> tag */
+    doc.writeEndElement();
 }
 
 QTEST_APPLESS_MAIN(Doc_Test)

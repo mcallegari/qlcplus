@@ -279,6 +279,13 @@ int RGBScript::acceptColors() const
     return 2;
 }
 
+bool RGBScript::loadXML(QXmlStreamReader &root)
+{
+    Q_UNUSED(root)
+
+    return false;
+}
+
 bool RGBScript::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);

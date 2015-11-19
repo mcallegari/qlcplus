@@ -42,7 +42,9 @@ private slots:
     void removeCue();
     void removeCues();
 
-    void load();
+    void loadEmpty();
+    void loadID();
+    void loadComplete();
     void save();
     void flash();
     void startStop();

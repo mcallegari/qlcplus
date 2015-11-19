@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   chaserstep_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,9 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
 #include <QtTest>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "chaserstep_test.h"
 #include "chaserstep.h"
@@ -92,43 +93,70 @@ void ChaserStep_Test::load()
     int number = -1;
     ChaserStep step;
 
-    QVERIFY(step.loadXML(QDomElement(), number) == false);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    QVERIFY(step.loadXML(xmlReader, number) == false);
     QCOMPARE(number, -1);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Step");
-    root.setAttribute("Number", 5);
-    root.setAttribute("FadeIn", 10);
-    root.setAttribute("Hold", 15);
-    root.setAttribute("FadeOut", 20);
-    root.setAttribute("Duration", 25);
-    QDomText text = doc.createTextNode("30");
-    root.appendChild(text);
+    buffer.close();
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(step.loadXML(root, number) == true);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "5");
+    xmlWriter.writeAttribute("FadeIn", "10");
+    xmlWriter.writeAttribute("Hold", "15");
+    xmlWriter.writeAttribute("FadeOut", "20");
+    xmlWriter.writeAttribute("Duration", "25");
+    xmlWriter.writeAttribute("Note", "Fortytwo");
+    xmlWriter.writeCharacters("30");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(step.loadXML(xmlReader, number) == true);
     QCOMPARE(number, 5);
     QCOMPARE(step.fadeIn, uint(10));
     QCOMPARE(step.hold, uint(15));
     QCOMPARE(step.fadeOut, uint(20));
     QCOMPARE(step.duration, uint(25));
     QCOMPARE(step.fid, quint32(30));
+    QCOMPARE(step.note, QString("Fortytwo"));
 }
 
 void ChaserStep_Test::save()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("Foo");
 
     ChaserStep step(1, 2, 3, 4);
-    QVERIFY(step.saveXML(&doc, &root, 5, false) == true);
-    QDomElement tag = root.firstChild().toElement();
-    QCOMPARE(tag.tagName(), QString("Step"));
-    QCOMPARE(tag.text(), QString("1"));
-    QCOMPARE(tag.attribute("FadeIn"), QString("2"));
-    QCOMPARE(tag.attribute("Hold"), QString("3"));
-    QCOMPARE(tag.attribute("FadeOut"), QString("4"));
+    QVERIFY(step.saveXML(&xmlWriter, 5, false) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Foo"));
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Step"));
+    QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("2"));
+    QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("3"));
+    QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("4"));
     //QCOMPARE(tag.attribute("Duration"), QString("4")); // deprecated from version 4.3.2
-    QCOMPARE(tag.attribute("Number"), QString("5"));
+    QCOMPARE(xmlReader.attributes().value("Number").toString(), QString("5"));
+    QCOMPARE(xmlReader.readElementText(), QString("1"));
 }
 
 QTEST_APPLESS_MAIN(ChaserStep_Test)

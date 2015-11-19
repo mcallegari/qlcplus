@@ -303,7 +303,7 @@ uint CueStack::loadXMLID(QXmlStreamReader &root)
 
     QXmlStreamAttributes attrs = root.attributes();
 
-    if (attrs.hasAttribute(KXMLQLCCueStackID) == false)
+    if (attrs.hasAttribute(KXMLQLCCueStackID) == true)
         return attrs.value(KXMLQLCCueStackID).toString().toUInt();
     else
         return UINT_MAX;
@@ -334,6 +334,7 @@ bool CueStack::loadXML(QXmlStreamReader &root)
             setFadeInSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
             setFadeOutSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
             setDuration(root.attributes().value(KXMLQLCCueStackSpeedDuration).toString().toUInt());
+            root.skipCurrentElement();
         }
         else
         {

@@ -652,6 +652,8 @@ bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
     m_fadeOutSpeed = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
     m_duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
 
+    speedRoot.skipCurrentElement();
+
     return true;
 }
 

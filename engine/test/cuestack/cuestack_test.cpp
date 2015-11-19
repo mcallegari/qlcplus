@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   cuestack_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "cuestack_test.h"
 
@@ -408,50 +410,99 @@ void CueStack_Test::removeCues()
     QCOMPARE(cs.cues().size(), 0);
 }
 
-void CueStack_Test::load()
+void CueStack_Test::loadEmpty()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("CueStack");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("CueStack");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(CueStack::loadXMLID(xmlReader), UINT_MAX);
+    CueStack cs(m_doc);
+    QCOMPARE(cs.loadXML(xmlReader), true);
+    QCOMPARE(cs.cues().size(), 0);
+}
+
+void CueStack_Test::loadID()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("CueStack");
+    xmlWriter.writeAttribute("ID", "15");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     CueStack cs(m_doc);
-    QCOMPARE(CueStack::loadXMLID(root), UINT_MAX);
-    root.setAttribute("ID", 15);
-    QCOMPARE(CueStack::loadXMLID(root), uint(15));
-    QCOMPARE(cs.loadXML(root), true);
+    QCOMPARE(CueStack::loadXMLID(xmlReader), uint(15));
+    QCOMPARE(cs.loadXML(xmlReader), true);
     QCOMPARE(cs.cues().size(), 0);
 
-    QDomElement speed = doc.createElement("Speed");
-    speed.setAttribute("FadeIn", 100);
-    speed.setAttribute("FadeOut", 200);
-    speed.setAttribute("Duration", 300);
-    root.appendChild(speed);
+}
 
-    QDomElement cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "First");
-    root.appendChild(cue);
+void CueStack_Test::loadComplete()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "Second");
-    root.appendChild(cue);
+    xmlWriter.writeStartElement("CueStack");
+    xmlWriter.writeAttribute("ID", "15");
 
-    cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "Third");
-    root.appendChild(cue);
+    xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "100");
+    xmlWriter.writeAttribute("FadeOut", "200");
+    xmlWriter.writeAttribute("Duration", "300");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "First");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "Second");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "Third");
+    xmlWriter.writeEndElement();
 
     // Extra garbage
-    QDomElement foo = doc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
 
-    QCOMPARE(CueStack::loadXMLID(root), uint(15));
-    QCOMPARE(cs.loadXML(root), true);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    CueStack cs(m_doc);
+    QCOMPARE(CueStack::loadXMLID(xmlReader), uint(15));
+    QCOMPARE(cs.loadXML(xmlReader), true);
+
     QCOMPARE(cs.cues().size(), 3);
     QCOMPARE(cs.cues().at(0).name(), QString("First"));
     QCOMPARE(cs.cues().at(1).name(), QString("Second"));
     QCOMPARE(cs.cues().at(2).name(), QString("Third"));
-
-    QCOMPARE(CueStack::loadXMLID(foo), UINT_MAX);
-    QCOMPARE(cs.loadXML(foo), false);
 }
 
 void CueStack_Test::save()
@@ -464,37 +515,47 @@ void CueStack_Test::save()
     cs.setFadeOutSpeed(300);
     cs.setDuration(400);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("Foo");
 
-    QCOMPARE(cs.saveXML(&doc, &root, 42), true);
-    QCOMPARE(root.firstChild().toElement().tagName(), QString("CueStack"));
+    QCOMPARE(cs.saveXML(&xmlWriter, 42), true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Foo"));
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("CueStack"));
 
     int cue = 0, speed = 0;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Speed")
+        if (xmlReader.name() == "Speed")
         {
             speed++;
-            QCOMPARE(tag.attribute("FadeIn"), QString("200"));
-            QCOMPARE(tag.attribute("FadeOut"), QString("300"));
-            QCOMPARE(tag.attribute("Duration"), QString("400"));
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("200"));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("300"));
+            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("400"));
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Cue")
+        else if (xmlReader.name() == "Cue")
         {
             // The contents of a Cue tag are tested in Cue tests
             cue++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(cue, 3);

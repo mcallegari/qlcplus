@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   bus_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "bus_test.h"
 #include "bus.h"
@@ -126,60 +128,69 @@ void Bus_Test::tap()
 
 void Bus_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Bush");
-    doc.appendChild(root);
-    QVERIFY(Bus::instance()->loadXML(root) == false);
+    xmlWriter.writeStartElement("Bush");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(Bus::instance()->loadXML(xmlReader) == false);
 }
 
 void Bus_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Bus");
-    doc.appendChild(root);
-    root.setAttribute("ID", 0);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("ID", "0");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foo");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeTextElement("Name", "Foo");
+    xmlWriter.writeTextElement("Value", "142");
+    xmlWriter.writeTextElement("Foobar", "Xyzzy");
 
-    QDomElement value = doc.createElement("Value");
-    QDomText valueText = doc.createTextNode("142");
-    value.appendChild(valueText);
-    root.appendChild(value);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement foo = doc.createElement("Foobar");
-    QDomText fooText = doc.createTextNode("Xyzzy");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
-    QVERIFY(Bus::instance()->loadXML(root) == true);
+    QVERIFY(Bus::instance()->loadXML(xmlReader) == true);
     QVERIFY(Bus::instance()->value(0) == 142);
     QVERIFY(Bus::instance()->name(0) == "Foo");
 }
 
 void Bus_Test::loadWrongID()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Bus");
-    doc.appendChild(root);
-    root.setAttribute("ID", Bus::count());
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("ID", QString::number(Bus::count()));
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foo");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeTextElement("Name", "Foo");
+    xmlWriter.writeTextElement("Value", "142");
 
-    QDomElement value = doc.createElement("Value");
-    QDomText valueText = doc.createTextNode("142");
-    value.appendChild(valueText);
-    root.appendChild(value);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QVERIFY(Bus::instance()->loadXML(root) == false);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(Bus::instance()->loadXML(xmlReader) == false);
     QVERIFY(Bus::instance()->value(0) == 142);
     QVERIFY(Bus::instance()->name(0) == "Foo");
 }

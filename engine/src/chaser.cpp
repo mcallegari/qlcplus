@@ -489,6 +489,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
 
             str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
             setDurationMode(stringToSpeedMode(str));
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCChaserSequenceTag)
         {
@@ -501,6 +502,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
                 setColor(QColor(attrs.value(KXMLQLCChaserSequenceColor).toString()));
             if (attrs.hasAttribute(KXMLQLCChaserSequenceLocked))
                 setLocked(true);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCFunctionStep)
         {
