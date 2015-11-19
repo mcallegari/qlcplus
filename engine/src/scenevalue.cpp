@@ -93,23 +93,18 @@ bool SceneValue::loadXML(QXmlStreamReader &tag)
     return isValid();
 }
 
-bool SceneValue::saveXML(QDomDocument* doc, QDomElement* scene_root) const
+bool SceneValue::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(scene_root != NULL);
 
     /* Value tag and its attributes */
-    tag = doc->createElement(KXMLQLCSceneValue);
-    tag.setAttribute(KXMLQLCSceneValueFixture, fxi);
-    tag.setAttribute(KXMLQLCSceneValueChannel, channel);
-    scene_root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCSceneValue);
+    doc->writeAttribute(KXMLQLCSceneValueFixture, QString::number(fxi));
+    doc->writeAttribute(KXMLQLCSceneValueChannel, QString::number(channel));
 
     /* The actual value as node text */
-    text = doc->createTextNode(QString("%1").arg(value));
-    tag.appendChild(text);
+    doc->writeCharacters(QString("%1").arg(value));
+    doc->writeEndElement();
 
     return true;
 }

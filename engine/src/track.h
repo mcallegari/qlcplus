@@ -140,7 +140,7 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     bool loadXML(QXmlStreamReader &root);
 

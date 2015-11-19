@@ -102,7 +102,7 @@ public:
     bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

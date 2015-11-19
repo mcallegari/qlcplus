@@ -162,7 +162,7 @@ private:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement*);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Load function's contents from an XML document */
     bool loadXML(QXmlStreamReader &root);

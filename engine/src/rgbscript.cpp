@@ -17,18 +17,17 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QCoreApplication>
 #include <QScriptEngine>
 #include <QScriptValue>
-#include <QDomDocument>
-#include <QDomElement>
-#include <QTextStream>
 #include <QStringList>
+#include <QMutex>
 #include <QDebug>
 #include <QFile>
 #include <QSize>
 #include <QDir>
-#include <QMutex>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
@@ -280,19 +279,16 @@ int RGBScript::acceptColors() const
     return 2;
 }
 
-bool RGBScript::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBScript::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
-
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBScript);
-    mtx_root->appendChild(root);
 
     if (apiVersion() > 0 && name().isEmpty() == false)
     {
-        QDomText text = doc->createTextNode(name());
-        root.appendChild(text);
+        doc->writeStartElement(KXMLQLCRGBAlgorithm);
+        doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBScript);
+        doc->writeCharacters(name());
+        doc->writeEndElement();
         return true;
     }
     else

@@ -116,14 +116,13 @@ bool RGBPlain::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBPlain::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBPlain::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBPlain);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBPlain);
+    doc->writeEndElement();
 
     return true;
 }

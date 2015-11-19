@@ -153,39 +153,34 @@ void Collection::slotFunctionRemoved(quint32 fid)
  * Load & Save
  *****************************************************************************/
 
-bool Collection::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Collection::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
     int i = 0;
 
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Steps */
     foreach(QVariant fid, m_functions)
     {
         /* Step tag */
-        tag = doc->createElement(KXMLQLCFunctionStep);
-        root.appendChild(tag);
+        doc->writeStartElement(KXMLQLCFunctionStep);
 
         /* Step number */
-        tag.setAttribute(KXMLQLCFunctionNumber, i++);
+        doc->writeAttribute(KXMLQLCFunctionNumber, QString::number(i++));
 
         /* Step Function ID */
-        str.setNum(fid.toUInt());
-        text = doc->createTextNode(str);
-        tag.appendChild(text);
+        doc->writeCharacters(QString::number(fid.toUInt()));
+        doc->writeEndElement();
     }
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

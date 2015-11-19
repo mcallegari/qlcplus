@@ -344,30 +344,24 @@ bool RGBImage::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBImage::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBImage::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBImage);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBImage);
 
-    QDomElement filename = doc->createElement(KXMLQLCRGBImageFilename);
-    QDomText filenameText =
-       doc->createTextNode(this->doc()->normalizeComponentPath(m_filename));
-    filename.appendChild(filenameText);
-    root.appendChild(filename);
+    doc->writeTextElement(KXMLQLCRGBImageFilename, this->doc()->normalizeComponentPath(m_filename));
 
-    QDomElement ani = doc->createElement(KXMLQLCRGBImageAnimationStyle);
-    QDomText aniText = doc->createTextNode(animationStyleToString(animationStyle()));
-    ani.appendChild(aniText);
-    root.appendChild(ani);
+    doc->writeTextElement(KXMLQLCRGBImageAnimationStyle, animationStyleToString(animationStyle()));
 
-    QDomElement offset = doc->createElement(KXMLQLCRGBImageOffset);
-    offset.setAttribute(KXMLQLCRGBImageOffsetX, xOffset());
-    offset.setAttribute(KXMLQLCRGBImageOffsetY, yOffset());
-    root.appendChild(offset);
+    doc->writeStartElement(KXMLQLCRGBImageOffset);
+    doc->writeAttribute(KXMLQLCRGBImageOffsetX, QString::number(xOffset()));
+    doc->writeAttribute(KXMLQLCRGBImageOffsetY, QString::number(yOffset()));
+    doc->writeEndElement();
+
+    /* End the <Algorithm> tag */
+    doc->writeEndElement();
 
     return true;
 }

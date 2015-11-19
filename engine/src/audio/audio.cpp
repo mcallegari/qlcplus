@@ -281,32 +281,29 @@ void Audio::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Audio::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
-    QDomElement source = doc->createElement(KXMLQLCAudioSource);
+    doc->writeStartElement(KXMLQLCAudioSource);
     if (m_audioDevice.isEmpty() == false)
-        source.setAttribute(KXMLQLCAudioDevice, m_audioDevice);
+        doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
-    text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
+    doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceFileName));
 
-    source.appendChild(text);
-    root.appendChild(source);
+    doc->writeEndElement();
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

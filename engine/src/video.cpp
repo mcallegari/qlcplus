@@ -271,40 +271,37 @@ void Video::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Video::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Playback mode */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
-    QDomElement source = doc->createElement(KXMLQLCVideoSource);
+    doc->writeStartElement(KXMLQLCVideoSource);
     if (m_screen > 0)
-        source.setAttribute(KXMLQLCVideoScreen, m_screen);
+        doc->writeAttribute(KXMLQLCVideoScreen, QString::number(m_screen));
     if (m_fullscreen == true)
-        source.setAttribute(KXMLQLCVideoFullscreen, true);
+        doc->writeAttribute(KXMLQLCVideoFullscreen, "1");
 
     if (m_sourceUrl.contains("://"))
-        text = doc->createTextNode(m_sourceUrl);
+        doc->writeCharacters(m_sourceUrl);
     else
-        text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceUrl));
+        doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceUrl));
 
-    source.appendChild(text);
-    root.appendChild(source);
+    doc->writeEndElement();
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -759,140 +759,78 @@ EFX::PropagationMode EFX::stringToPropagationMode(QString str)
  * Load & Save
  *****************************************************************************/
 
-bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool EFX::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomElement subtag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
-        it.next()->saveXML(doc, &root);
+        it.next()->saveXML(doc);
 
     /* Propagation mode */
-    tag = doc->createElement(KXMLQLCEFXPropagationMode);
-    root.appendChild(tag);
-    text = doc->createTextNode(propagationModeToString(m_propagationMode));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
     /* Speeds */
-    saveXMLSpeed(doc, &root);
-
+    saveXMLSpeed(doc);
     /* Direction */
-    saveXMLDirection(doc, &root);
-
+    saveXMLDirection(doc);
     /* Run order */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
     /* Algorithm */
-    tag = doc->createElement(KXMLQLCEFXAlgorithm);
-    root.appendChild(tag);
-    text = doc->createTextNode(algorithmToString(algorithm()));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXAlgorithm, algorithmToString(algorithm()));
     /* Width */
-    tag = doc->createElement(KXMLQLCEFXWidth);
-    root.appendChild(tag);
-    str.setNum(width());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXWidth, QString::number(width()));
     /* Height */
-    tag = doc->createElement(KXMLQLCEFXHeight);
-    root.appendChild(tag);
-    str.setNum(height());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXHeight, QString::number(height()));
     /* Rotation */
-    tag = doc->createElement(KXMLQLCEFXRotation);
-    root.appendChild(tag);
-    str.setNum(rotation());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXRotation, QString::number(rotation()));
     /* StartOffset */
-    tag = doc->createElement(KXMLQLCEFXStartOffset);
-    root.appendChild(tag);
-    str.setNum(startOffset());
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXStartOffset, QString::number(startOffset()));
     /* IsRelative */
-    tag = doc->createElement(KXMLQLCEFXIsRelative);
-    root.appendChild(tag);
-    str.setNum(isRelative() ? 1 : 0);
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCEFXIsRelative, QString::number(isRelative() ? 1 : 0));
 
     /********************************************
      * X-Axis
      ********************************************/
-    tag = doc->createElement(KXMLQLCEFXAxis);
-    root.appendChild(tag);
-    tag.setAttribute(KXMLQLCFunctionName, KXMLQLCEFXX);
+    doc->writeStartElement(KXMLQLCEFXAxis);
+    doc->writeAttribute(KXMLQLCFunctionName, KXMLQLCEFXX);
 
     /* Offset */
-    subtag = doc->createElement(KXMLQLCEFXOffset);
-    tag.appendChild(subtag);
-    str.setNum(xOffset());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXOffset, QString::number(xOffset()));
     /* Frequency */
-    subtag = doc->createElement(KXMLQLCEFXFrequency);
-    tag.appendChild(subtag);
-    str.setNum(xFrequency());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFrequency, QString::number(xFrequency()));
     /* Phase */
-    subtag = doc->createElement(KXMLQLCEFXPhase);
-    tag.appendChild(subtag);
-    str.setNum(xPhase());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
+    doc->writeTextElement(KXMLQLCEFXPhase, QString::number(xPhase()));
+
+    /* End the (X) <Axis> tag */
+    doc->writeEndElement();
 
     /********************************************
      * Y-Axis
      ********************************************/
-    tag = doc->createElement(KXMLQLCEFXAxis);
-    root.appendChild(tag);
-    tag.setAttribute(KXMLQLCFunctionName, KXMLQLCEFXY);
+    doc->writeStartElement(KXMLQLCEFXAxis);
+    doc->writeAttribute(KXMLQLCFunctionName, KXMLQLCEFXY);
 
     /* Offset */
-    subtag = doc->createElement(KXMLQLCEFXOffset);
-    tag.appendChild(subtag);
-    str.setNum(yOffset());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXOffset, QString::number(yOffset()));
     /* Frequency */
-    subtag = doc->createElement(KXMLQLCEFXFrequency);
-    tag.appendChild(subtag);
-    str.setNum(yFrequency());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFrequency, QString::number(yFrequency()));
     /* Phase */
-    subtag = doc->createElement(KXMLQLCEFXPhase);
-    tag.appendChild(subtag);
-    str.setNum(yPhase());
-    text = doc->createTextNode(str);
-    subtag.appendChild(text);
+    doc->writeTextElement(KXMLQLCEFXPhase, QString::number(yPhase()));
+
+    /* End the (Y) <Axis> tag */
+    doc->writeEndElement();
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -371,7 +371,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
     doc->writeEndElement();
 
-    /* End the <Scene> tag */
+    /* End the <Function> tag */
     doc->writeEndElement();
 
     return true;

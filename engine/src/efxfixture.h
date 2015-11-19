@@ -149,7 +149,7 @@ private:
      *************************************************************************/
 public:
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QDomDocument* doc, QDomElement* efx_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /*************************************************************************
      * Run-time properties

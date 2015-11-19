@@ -103,7 +103,7 @@ public:
     bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* Doc, QDomElement* mtx_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     int m_apiVersion;               //! The API version that the script uses

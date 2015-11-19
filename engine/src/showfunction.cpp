@@ -144,25 +144,23 @@ bool ShowFunction::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool ShowFunction::saveXML(QDomDocument *doc, QDomElement *root) const
+bool ShowFunction::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-
-    if (doc == NULL || root == NULL)
-        return false;
+    Q_ASSERT(doc != NULL);
 
     /* Main tag */
-    tag = doc->createElement(KXMLShowFunction);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLShowFunction);
 
     /* Attributes */
-    tag.setAttribute(KXMLShowFunctionID, functionID());
-    tag.setAttribute(KXMLShowFunctionStartTime, startTime());
-    tag.setAttribute(KXMLShowFunctionDuration, duration());
+    doc->writeAttribute(KXMLShowFunctionID, QString::number(functionID()));
+    doc->writeAttribute(KXMLShowFunctionStartTime, QString::number(startTime()));
+    doc->writeAttribute(KXMLShowFunctionDuration, QString::number(duration()));
     if (color().isValid())
-        tag.setAttribute(KXMLShowFunctionColor, color().name());
+        doc->writeAttribute(KXMLShowFunctionColor, color().name());
     if (isLocked())
-        tag.setAttribute(KXMLShowFunctionLocked, m_locked);
+        doc->writeAttribute(KXMLShowFunctionLocked, QString::number(m_locked));
+
+    doc->writeEndElement();
 
     return true;
 }

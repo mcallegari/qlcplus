@@ -81,8 +81,8 @@ public:
     /** Load ShowFunction contents from $root */
     bool loadXML(QXmlStreamReader &root);
 
-    /** Save ShowFunction contents to $doc, under $root */
-    bool saveXML(QDomDocument* doc, QDomElement* root) const;
+    /** Save ShowFunction contents to $doc */
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

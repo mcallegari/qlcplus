@@ -27,6 +27,7 @@
 #include <QSize>
 
 class QXmlStreamReader;
+class QXmlStreamWriter;
 
 class Doc;
 
@@ -128,7 +129,7 @@ public:
     virtual bool loadXML(QXmlStreamReader &root) = 0;
 
     /** Save the contents of an RGBAlgorithm (run-time info) to a workspace file. */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* root) const = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc) const = 0;
 };
 
 /** @} */

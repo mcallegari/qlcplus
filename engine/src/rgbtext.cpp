@@ -364,34 +364,26 @@ bool RGBText::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBText::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBText::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBText);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBText);
 
-    QDomElement content = doc->createElement(KXMLQLCRGBTextContent);
-    QDomText contentText = doc->createTextNode(m_text);
-    content.appendChild(contentText);
-    root.appendChild(content);
+    doc->writeTextElement(KXMLQLCRGBTextContent, m_text);
 
-    QDomElement font = doc->createElement(KXMLQLCRGBTextFont);
-    QDomText fontText = doc->createTextNode(m_font.toString());
-    font.appendChild(fontText);
-    root.appendChild(font);
+    doc->writeTextElement(KXMLQLCRGBTextFont, m_font.toString());
 
-    QDomElement ani = doc->createElement(KXMLQLCRGBTextAnimationStyle);
-    QDomText aniText = doc->createTextNode(animationStyleToString(animationStyle()));
-    ani.appendChild(aniText);
-    root.appendChild(ani);
+    doc->writeTextElement(KXMLQLCRGBTextAnimationStyle, animationStyleToString(animationStyle()));
 
-    QDomElement offset = doc->createElement(KXMLQLCRGBTextOffset);
-    offset.setAttribute(KXMLQLCRGBTextOffsetX, xOffset());
-    offset.setAttribute(KXMLQLCRGBTextOffsetY, yOffset());
-    root.appendChild(offset);
+    doc->writeStartElement(KXMLQLCRGBTextOffset);
+    doc->writeAttribute(KXMLQLCRGBTextOffsetX, QString::number(xOffset()));
+    doc->writeAttribute(KXMLQLCRGBTextOffsetY, QString::number(yOffset()));
+    doc->writeEndElement();
+
+    /* End the <Algorithm> tag */
+    doc->writeEndElement();
 
     return true;
 }

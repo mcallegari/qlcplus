@@ -160,30 +160,26 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     return true;
 }
 
-bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const
+bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const
 {
-    QDomElement tag;
-    QDomText text;
-
     /* Step tag */
-    tag = doc->createElement(KXMLQLCFunctionStep);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCFunctionStep);
 
     /* Step number */
-    tag.setAttribute(KXMLQLCFunctionNumber, stepNumber);
+    doc->writeAttribute(KXMLQLCFunctionNumber, QString::number(stepNumber));
 
     /* Speeds */
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeIn, fadeIn);
-    tag.setAttribute(KXMLQLCFunctionSpeedHold, hold);
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeOut, fadeOut);
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeIn));
+    doc->writeAttribute(KXMLQLCFunctionSpeedHold, QString::number(hold));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOut));
     //tag.setAttribute(KXMLQLCFunctionSpeedDuration, duration); // deprecated from version 4.3.1
     if (note.isEmpty() == false)
-        tag.setAttribute(KXMLQLCStepNote, note);
+        doc->writeAttribute(KXMLQLCStepNote, note);
 
     if (isSequence)
     {
         /* it's a sequence step. Save values accordingly */
-        tag.setAttribute(KXMLQLCSequenceSceneValues, values.count());
+        doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
         foreach(SceneValue scv, values)
         {
@@ -196,16 +192,17 @@ bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, b
         }
         if (stepValues.isEmpty() == false)
         {
-            text = doc->createTextNode(stepValues);
-            tag.appendChild(text);
+            doc->writeCharacters(stepValues);
         }
     }
     else
     {
         /* Step function ID */
-        text = doc->createTextNode(QString::number(fid));
-        tag.appendChild(text);
+        doc->writeCharacters(QString::number(fid));
     }
+
+    /* End the <Step> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -241,14 +241,13 @@ bool RGBAudio::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBAudio::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBAudio::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBAudio);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBAudio);
+    doc->writeEndElement();
 
     return true;
 }

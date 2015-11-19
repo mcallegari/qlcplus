@@ -259,27 +259,26 @@ quint32 Show::createTrackId()
  * Load & Save
  *****************************************************************************/
 
-bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Show::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
-    QDomElement td = doc->createElement(KXMLQLCShowTimeDivision);
-    td.setAttribute(KXMLQLCShowTimeType, m_timeDivType);
-    td.setAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
-    root.appendChild(td);
+    doc->writeStartElement(KXMLQLCShowTimeDivision);
+    doc->writeAttribute(KXMLQLCShowTimeType, m_timeDivType);
+    doc->writeAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
+    doc->writeEndElement();
 
     foreach(Track *track, m_tracks)
-        track->saveXML(doc, &root);
+        track->saveXML(doc);
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -148,28 +148,26 @@ QList <ShowFunction *> Track::showFunctions() const
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Track::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Track::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-
     Q_ASSERT(doc != NULL);
 
     /* Track entry */
-    tag = doc->createElement(KXMLQLCTrack);
-    tag.setAttribute(KXMLQLCTrackID, this->id());
-    tag.setAttribute(KXMLQLCTrackName, this->name());
+    doc->writeStartElement(KXMLQLCTrack);
+    doc->writeAttribute(KXMLQLCTrackID, QString::number(this->id()));
+    doc->writeAttribute(KXMLQLCTrackName, QString::number(this->name()));
     if (m_sceneID != Scene::invalidId())
-        tag.setAttribute(KXMLQLCTrackSceneID, m_sceneID);
-    tag.setAttribute(KXMLQLCTrackIsMute, m_isMute);
+        doc->writeAttribute(KXMLQLCTrackSceneID, QString::number(m_sceneID));
+    doc->writeAttribute(KXMLQLCTrackIsMute, QString::number(m_isMute));
 
     /* Save the list of Functions if any is present */
     if (m_functions.isEmpty() == false)
     {
         foreach(ShowFunction *func, showFunctions())
-            func->saveXML(doc, &tag);
+            func->saveXML(doc);
     }
 
-    wksp_root->appendChild(tag);
+    doc->writeEndElement();
 
     return true;
 }

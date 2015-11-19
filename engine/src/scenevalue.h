@@ -80,7 +80,7 @@ public:
     bool loadXML(QXmlStreamReader &tag);
 
     /** Save this SceneValue to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* scene_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
     /** Fixture ID */

@@ -212,40 +212,33 @@ bool Script::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool Script::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Script::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Direction */
-    saveXMLDirection(doc, &root);
+    saveXMLDirection(doc);
 
     /* Run order */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
     /* Contents */
     foreach(QString cmd, dataLines())
     {
-        tag = doc->createElement(KXMLQLCScriptCommand);
-        root.appendChild(tag);
-        text = doc->createTextNode(QUrl::toPercentEncoding(cmd));
-        //text = doc->createTextNode(cmd.toUtf8());
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

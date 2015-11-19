@@ -148,7 +148,7 @@ protected:
      * Load & Save
      ************************************************************************/
 public:
-    /** Load physical values from the given QDomElement */
+    /** Load physical values from the given QXmlStreamReader */
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save physical values to the given XML tag in the given document */

@@ -73,8 +73,8 @@ public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber */
     bool loadXML(QXmlStreamReader &root, int& stepNumber);
 
-    /** Save ChaserStep contents to $doc, under $root with $stepNumber */
-    bool saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const;
+    /** Save ChaserStep contents to $doc, with $stepNumber */
+    bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
 
 public:
     quint32 fid;                 //! The function ID

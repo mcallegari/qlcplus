@@ -159,7 +159,7 @@ public:
     bool loadXML(QXmlStreamReader &root);
 
     /** @reimpl */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running

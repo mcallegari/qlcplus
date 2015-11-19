@@ -393,43 +393,37 @@ Chaser::SpeedMode Chaser::stringToSpeedMode(const QString& str)
  * Save & Load
  *****************************************************************************/
 
-bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Chaser::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    //QDomText text;
-    //QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Direction */
-    saveXMLDirection(doc, &root);
+    saveXMLDirection(doc);
 
     /* Run order */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
     /* Speed modes */
-    QDomElement spd = doc->createElement(KXMLQLCChaserSpeedModes);
-    spd.setAttribute(KXMLQLCFunctionSpeedFadeIn, speedModeToString(fadeInMode()));
-    spd.setAttribute(KXMLQLCFunctionSpeedFadeOut, speedModeToString(fadeOutMode()));
-    spd.setAttribute(KXMLQLCFunctionSpeedDuration, speedModeToString(durationMode()));
-    root.appendChild(spd);
+    doc->writeStartElement(KXMLQLCChaserSpeedModes);
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, speedModeToString(fadeInMode()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, speedModeToString(fadeOutMode()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, speedModeToString(durationMode()));
+    doc->writeEndElement();
 
     if (m_isSequence == true)
     {
-        QDomElement seq = doc->createElement(KXMLQLCChaserSequenceTag);
-        seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundSceneID);
-        root.appendChild(seq);
+        doc->writeStartElement(KXMLQLCChaserSequenceTag);
+        doc->writeAttribute(KXMLQLCChaserSequenceBoundScene, QString::number(m_boundSceneID));
+        doc->writeEndElement();
     }
 
     /* Steps */
@@ -438,8 +432,11 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
-        step.saveXML(doc, &root, stepNumber++, m_isSequence);
+        step.saveXML(doc, stepNumber++, m_isSequence);
     }
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

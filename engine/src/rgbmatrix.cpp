@@ -401,73 +401,57 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speeds */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Direction */
-    saveXMLDirection(doc, &root);
+    saveXMLDirection(doc);
 
     /* Run order */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
     /* Algorithm */
     if (m_algorithm != NULL)
-        m_algorithm->saveXML(doc, &root);
+        m_algorithm->saveXML(doc);
 
     /* Dimmer Control */
-    tag = doc->createElement(KXMLQLCRGBMatrixDimmerControl);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(dimmerControl()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
 
     /* Start Color */
-    tag = doc->createElement(KXMLQLCRGBMatrixStartColor);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(startColor().rgb()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCRGBMatrixStartColor, QString::number(startColor().rgb()));
 
     /* End Color */
     if (endColor().isValid())
     {
-        tag = doc->createElement(KXMLQLCRGBMatrixEndColor);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(endColor().rgb()));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(endColor().rgb()));
     }
 
     /* Fixture Group */
-    tag = doc->createElement(KXMLQLCRGBMatrixFixtureGroup);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(fixtureGroup()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCRGBMatrixFixtureGroup, QString::number(fixtureGroup()));
 
     /* Properties */
     QHashIterator<QString, QString> it(m_properties);
     while(it.hasNext())
     {
         it.next();
-        tag = doc->createElement(KXMLQLCRGBMatrixProperty);
-        tag.setAttribute(KXMLQLCRGBMatrixPropertyName, it.key());
-        tag.setAttribute(KXMLQLCRGBMatrixPropertyValue, it.value());
-        root.appendChild(tag);
+        doc->writeStartElement(KXMLQLCRGBMatrixProperty);
+        doc->writeAttribute(KXMLQLCRGBMatrixPropertyName, it.key());
+        doc->writeAttribute(KXMLQLCRGBMatrixPropertyValue, it.value());
+        doc->writeEndElement();
     }
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

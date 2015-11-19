@@ -310,54 +310,28 @@ bool EFXFixture::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool EFXFixture::saveXML(QDomDocument* doc, QDomElement* efx_root) const
+bool EFXFixture::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement subtag;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(efx_root != NULL);
 
     /* EFXFixture */
-    tag = doc->createElement(KXMLQLCEFXFixture);
-    efx_root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCEFXFixture);
 
     /* Fixture ID */
-    subtag = doc->createElement(KXMLQLCEFXFixtureID);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(QString("%1").arg(head().fxi));
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFixtureID, QString("%1").arg(head().fxi));
     /* Fixture Head */
-    subtag = doc->createElement(KXMLQLCEFXFixtureHead);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(QString("%1").arg(head().head));
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFixtureHead, QString("%1").arg(head().head));
     /* Mode */
-    subtag = doc->createElement(KXMLQLCEFXFixtureMode);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(QString::number(mode ()));
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFixtureMode, QString::number(mode()));
     /* Direction */
-    subtag = doc->createElement(KXMLQLCEFXFixtureDirection);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(Function::directionToString(m_direction));
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFixtureDirection, Function::directionToString(m_direction));
     /* Start offset */
-    subtag = doc->createElement(KXMLQLCEFXFixtureStartOffset);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(QString::number(startOffset()));
-    subtag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCEFXFixtureStartOffset, QString::number(startOffset()));
     /* Intensity */
-    subtag = doc->createElement(KXMLQLCEFXFixtureIntensity);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(QString::number(fadeIntensity()));
-    subtag.appendChild(text);
+    doc->writeTextElement(KXMLQLCEFXFixtureIntensity, QString::number(fadeIntensity()));
+
+    /* End the <Fixture> tag */
+    doc->writeEndElement();
 
     return true;
 }
