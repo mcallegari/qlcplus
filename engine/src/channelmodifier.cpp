@@ -122,8 +122,8 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     {
         QPair<uchar, uchar> mapElement = m_map.at(i);
         doc.writeStartElement(KXMLQLCChannelModHandler);
-        doc.writeAttribute(KXMLQLCChannelModOriginalDMX, mapElement.first);
-        doc.writeAttribute(KXMLQLCChannelModModifiedDMX, mapElement.second);
+        doc.writeAttribute(KXMLQLCChannelModOriginalDMX, QString::number(mapElement.first));
+        doc.writeAttribute(KXMLQLCChannelModModifiedDMX, QString::number(mapElement.second));
         doc.writeEndElement();
     }
 
@@ -165,7 +165,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
     if (doc->dtdName() == KXMLQLCChannelModifierDocument)
     {
         if (doc->readNextStartElement() == false)
-            return false;
+            return QFile::ResourceError;
 
         if (doc->name() == KXMLQLCChannelModifierDocument)
         {

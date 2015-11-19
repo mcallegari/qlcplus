@@ -340,7 +340,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
         if ((qint32)sv.fxi != currFixID)
         {
             doc->writeStartElement(KXMLQLCFixtureValues);
-            doc->writeAttribute(KXMLQLCFixtureID, currFixID);
+            doc->writeAttribute(KXMLQLCFixtureID, QString::number(currFixID));
 
             currFixID = sv.fxi;
             chanCount = 0;
@@ -361,7 +361,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
     /* write last element */
     doc->writeStartElement(KXMLQLCFixtureValues);
-    doc->writeAttribute(KXMLQLCFixtureID, currFixID);
+    doc->writeAttribute(KXMLQLCFixtureID, QString::number(currFixID));
 
     chanCount = 0;
     if (fixValues.isEmpty() == false)

@@ -1396,9 +1396,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     doc.setCodec("UTF-8");
 
     doc.writeStartDocument();
-    doc.writeDTD(QString("<!DOCTYPE %1>").arg(content));
+    doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
-    doc.writeStartElement(content);
+    doc.writeStartElement(KXMLQLCWorkspace);
     doc.writeAttribute("xmlns", KXMLQLCplusNamespace + KXMLQLCWorkspace);
     /* Currently active window */
     QWidget* widget = m_tab->currentWidget();
@@ -1412,13 +1412,15 @@ QFile::FileError App::saveXML(const QString& fileName)
     doc.writeEndElement(); // close KXMLQLCCreator
 
     /* Write engine components to the XML document */
-    m_doc->saveXML(&doc, &root);
+    m_doc->saveXML(&doc);
 
     /* Write virtual console to the XML document */
-    VirtualConsole::instance()->saveXML(&doc, &root);
+    VirtualConsole::instance()->saveXML(&doc);
 
     /* Write Simple Desk to the XML document */
-    SimpleDesk::instance()->saveXML(&doc, &root);
+    SimpleDesk::instance()->saveXML(&doc);
+
+    doc.writeEndElement(); // close KXMLQLCWorkspace
 
     /* End the document and close all the open elements */
     error = QFile::NoError;

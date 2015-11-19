@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledeskengine.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,9 +29,9 @@
 #include "dmxsource.h"
 #include "cue.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class UniverseArray;
-class QDomDocument;
-class QDomElement;
 class MasterTimer;
 class CueStack;
 class Doc;
@@ -120,10 +121,10 @@ private:
      ************************************************************************/
 public:
     /** Load SimpleDeskEngine contents from the given XML $root tag */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
-    /** Save SimpleDeskEngine content to the given XML $doc, under $wksp_root */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    /** Save SimpleDeskEngine content to the given XML $doc */
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /************************************************************************
      * DMXSource

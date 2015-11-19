@@ -873,7 +873,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         return false;
     }
 
-    while (doc.readNextStartElement())
+    while (xmlDoc.readNextStartElement())
     {
         if (xmlDoc.name() == KXMLQLCFixtureDefManufacturer)
         {
@@ -1153,7 +1153,7 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
             if (mod != NULL)
             {
                 doc->writeStartElement(KXMLFixtureChannelModifier);
-                doc->writeAttribute(KXMLFixtureChannelIndex, ch);
+                doc->writeAttribute(KXMLFixtureChannelIndex, QString::number(ch));
                 doc->writeAttribute(KXMLFixtureModifierName, mod->name());
                 doc->writeEndElement();
             }

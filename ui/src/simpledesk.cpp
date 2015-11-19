@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledesk.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,9 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QInputDialog>
-#include <QDomElement>
 #include <QToolButton>
 #include <QHeaderView>
 #include <QPushButton>
@@ -1480,33 +1481,30 @@ void SimpleDesk::hideEvent(QHideEvent* ev)
  * Load & Save
  ****************************************************************************/
 
-bool SimpleDesk::loadXML(const QDomElement& root)
+bool SimpleDesk::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(m_engine != NULL);
 
     clearContents();
 
-    if (root.tagName() != KXMLQLCSimpleDesk)
+    if (root.name() != KXMLQLCSimpleDesk)
     {
         qWarning() << Q_FUNC_INFO << "Simple Desk node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCSimpleDeskEngine)
+        if (root.name() == KXMLQLCSimpleDeskEngine)
         {
-            m_engine->loadXML(tag);
+            m_engine->loadXML(root);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk node:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk node:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     slotSelectPlayback(0);
@@ -1514,16 +1512,19 @@ bool SimpleDesk::loadXML(const QDomElement& root)
     return true;
 }
 
-bool SimpleDesk::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
+bool SimpleDesk::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
     Q_ASSERT(m_engine != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCSimpleDesk);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCSimpleDesk);
 
-    return m_engine->saveXML(doc, &root);
+    if (m_engine->saveXML(doc) == false)
+        return false;
+
+    doc->writeEndElement();
+
+    return true;
 }
 

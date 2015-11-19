@@ -31,7 +31,6 @@
 class QXmlStreamReader;
 class QLCFixtureMode;
 class QLCFixtureDef;
-class QDomElement;
 
 /** @addtogroup engine Engine
  * @{

@@ -271,7 +271,7 @@ bool Show::saveXML(QXmlStreamWriter *doc)
 
     doc->writeStartElement(KXMLQLCShowTimeDivision);
     doc->writeAttribute(KXMLQLCShowTimeType, m_timeDivType);
-    doc->writeAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
+    doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivBPM));
     doc->writeEndElement();
 
     foreach(Track *track, m_tracks)
@@ -293,7 +293,7 @@ bool Show::loadXML(QXmlStreamReader &root)
 
     if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Show))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a show";
         return false;
     }

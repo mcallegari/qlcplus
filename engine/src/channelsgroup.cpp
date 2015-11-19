@@ -272,9 +272,9 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
 
     /* Channels Group entry */
     doc->writeStartElement(KXMLQLCChannelsGroup);
-    doc->writeAttribute(KXMLQLCChannelsGroupID, this->id());
+    doc->writeAttribute(KXMLQLCChannelsGroupID, QString::number(this->id()));
     doc->writeAttribute(KXMLQLCChannelsGroupName, this->name());
-    doc->writeAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
+    doc->writeAttribute(KXMLQLCChannelsGroupValue, QString::number(m_masterValue));
 
     if (!m_input.isNull() && m_input->isValid())
     {
@@ -297,7 +297,7 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
         return false;
     }
 
-    QXmlStreamAttributes attrs = xmlDoc.attributes;
+    QXmlStreamAttributes attrs = xmlDoc.attributes();
 
     bool ok = false;
     quint32 id = attrs.value(KXMLQLCChannelsGroupID).toString().toUInt(&ok);

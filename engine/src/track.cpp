@@ -155,7 +155,7 @@ bool Track::saveXML(QXmlStreamWriter *doc)
     /* Track entry */
     doc->writeStartElement(KXMLQLCTrack);
     doc->writeAttribute(KXMLQLCTrackID, QString::number(this->id()));
-    doc->writeAttribute(KXMLQLCTrackName, QString::number(this->name()));
+    doc->writeAttribute(KXMLQLCTrackName, this->name());
     if (m_sceneID != Scene::invalidId())
         doc->writeAttribute(KXMLQLCTrackSceneID, QString::number(m_sceneID));
     doc->writeAttribute(KXMLQLCTrackIsMute, QString::number(m_isMute));
@@ -210,7 +210,7 @@ bool Track::loadXML(QXmlStreamReader &root)
     bool mute = attrs.value(KXMLQLCTrackIsMute).toString().toInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid Mute flag:" << root.attribute(KXMLQLCTrackIsMute);
+        qWarning() << "Invalid Mute flag:" << root.attributes().value(KXMLQLCTrackIsMute).toString();
         return false;
     }
     m_isMute = mute;
@@ -221,7 +221,7 @@ bool Track::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLShowFunction)
         {
             ShowFunction *newFunc = new ShowFunction();
-            newFunc->loadXML(tag);
+            newFunc->loadXML(root);
             if (addShowFunction(newFunc) == false)
                 delete newFunc;
         }

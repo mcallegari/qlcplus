@@ -18,11 +18,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QColor>
 #include <QFile>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 
 #include "qlcfixturedef.h"
 #include "qlcfile.h"

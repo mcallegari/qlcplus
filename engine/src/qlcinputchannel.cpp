@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QString>
+#include <QDebug>
 #include <QIcon>
 
 #include "qlcinputchannel.h"

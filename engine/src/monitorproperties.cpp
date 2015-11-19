@@ -195,8 +195,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
     /* Create the master Monitor node */
     doc->writeStartElement(KXMLQLCMonitorProperties);
-    doc->writeAttribute(KXMLQLCMonitorDisplay, displayMode());
-    doc->writeAttribute(KXMLQLCMonitorShowLabels, labelsVisible());
+    doc->writeAttribute(KXMLQLCMonitorDisplay, QString::number(displayMode()));
+    doc->writeAttribute(KXMLQLCMonitorShowLabels, QString::number(labelsVisible()));
 
     /* Font */
     doc->writeTextElement(KXMLQLCMonitorFont, font().toString());
@@ -219,23 +219,23 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             it.next();
             doc->writeStartElement(KXMLQLCMonitorCustomBgItem);
             quint32 fid = it.key();
-            doc->writeAttribute(KXMLQLCMonitorCustomBgFuncID, fid);
+            doc->writeAttribute(KXMLQLCMonitorCustomBgFuncID, QString::number(fid));
             doc->writeCharacters(mainDocument->normalizeComponentPath(it.value()));
             doc->writeEndElement();
         }
     }
 
     doc->writeStartElement(KXMLQLCMonitorGrid);
-    doc->writeAttribute(KXMLQLCMonitorGridWidth, gridSize().width());
-    doc->writeAttribute(KXMLQLCMonitorGridHeight, gridSize().height());
-    doc->writeAttribute(KXMLQLCMonitorGridUnits, gridUnits());
+    doc->writeAttribute(KXMLQLCMonitorGridWidth, QString::number(gridSize().width()));
+    doc->writeAttribute(KXMLQLCMonitorGridHeight, QString::number(gridSize().height()));
+    doc->writeAttribute(KXMLQLCMonitorGridUnits, QString::number(gridUnits()));
     doc->writeEndElement();
 
     foreach (quint32 fid, fixtureItemsID())
     {
         QPointF pos = fixturePosition(fid);
         doc->writeStartElement(KXMLQLCMonitorFixtureItem);
-        doc->writeAttribute(KXMLQLCMonitorFixtureID, fid);
+        doc->writeAttribute(KXMLQLCMonitorFixtureID, QString::number(fid));
         doc->writeAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
         doc->writeAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
         if (fixtureRotation(fid) != 0)

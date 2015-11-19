@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledeskengine.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,11 +18,11 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QMutexLocker>
 #include <QVariant>
 #include <QDebug>
-#include <QMutexLocker>
 
 #include "simpledeskengine.h"
 #include "mastertimer.h"
@@ -233,26 +234,24 @@ void SimpleDeskEngine::slotCueStackStopped()
  * Save & Load
  ************************************************************************/
 
-bool SimpleDeskEngine::loadXML(const QDomElement& root)
+bool SimpleDeskEngine::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
-    if (root.tagName() != KXMLQLCSimpleDeskEngine)
+    if (root.name() != KXMLQLCSimpleDeskEngine)
     {
         qWarning() << Q_FUNC_INFO << "Simple Desk Engine node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCueStack)
+        if (root.name() == KXMLQLCCueStack)
         {
-            uint id = CueStack::loadXMLID(tag);
+            uint id = CueStack::loadXMLID(root);
             if (id != UINT_MAX)
             {
                 CueStack* cs = cueStack(id);
-                cs->loadXML(tag);
+                cs->loadXML(root);
             }
             else
             {
@@ -261,16 +260,15 @@ bool SimpleDeskEngine::loadXML(const QDomElement& root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk Engine tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk Engine tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
+bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);

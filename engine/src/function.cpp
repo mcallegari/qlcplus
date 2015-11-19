@@ -22,6 +22,7 @@
 #include <QXmlStreamWriter>
 #include <QString>
 #include <QDebug>
+#include <math.h>
 
 #include "qlcmacros.h"
 #include "qlcfile.h"
@@ -333,7 +334,7 @@ QString Function::path(bool simplified) const
 
 bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
 {
-    Q_ASSERT(root != NULL);
+    Q_ASSERT(doc != NULL);
 
     doc->writeAttribute(KXMLQLCFunctionID, QString::number(id()));
     doc->writeAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
@@ -456,7 +457,7 @@ bool Function::saveXMLDirection(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
-    writeTextElement(KXMLQLCFunctionDirection, directionToString(direction()));
+    doc->writeTextElement(KXMLQLCFunctionDirection, directionToString(direction()));
 
     return true;
 }

@@ -335,15 +335,15 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
 
     /* Fixture Group entry */
     doc->writeStartElement(KXMLQLCFixtureGroup);
-    doc->writeAttribute(KXMLQLCFixtureGroupID, this->id());
+    doc->writeAttribute(KXMLQLCFixtureGroupID, QString::number(this->id()));
 
     /* Name */
     doc->writeTextElement(KXMLQLCFixtureGroupName, name());
 
     /* Matrix size */
     doc->writeStartElement(KXMLQLCFixtureGroupSize);
-    doc->writeAttribute("X", size().width());
-    doc->writeAttribute("Y", size().height());
+    doc->writeAttribute("X", QString::number(size().width()));
+    doc->writeAttribute("Y", QString::number(size().height()));
     doc->writeEndElement();
 
     /* Fixture heads */
@@ -352,9 +352,9 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     {
         it.next();
         doc->writeStartElement(KXMLQLCFixtureGroupHead);
-        doc->writeAttribute("X", it.key().x());
-        doc->writeAttribute("Y", it.key().y());
-        doc->writeAttribute("Fixture", it.value().fxi);
+        doc->writeAttribute("X", QString::number(it.key().x()));
+        doc->writeAttribute("Y", QString::number(it.key().y()));
+        doc->writeAttribute("Fixture", QString::number(it.value().fxi));
         doc->writeCharacters(QString::number(it.value().head));
         doc->writeEndElement();
     }

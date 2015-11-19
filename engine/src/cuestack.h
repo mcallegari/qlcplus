@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cuestack.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,10 +28,10 @@
 #include "dmxsource.h"
 #include "cue.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class UniverseArray;
 class GenericFader;
-class QDomDocument;
-class QDomElement;
 class MasterTimer;
 class FadeChannel;
 class Doc;
@@ -192,9 +193,9 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    static uint loadXMLID(const QDomElement& root);
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* root, uint id) const;
+    static uint loadXMLID(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc, uint id) const;
 
     /************************************************************************
      * Running

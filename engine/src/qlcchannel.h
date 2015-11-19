@@ -28,9 +28,9 @@
 
 class QFile;
 class QString;
+class QLCChannel;
 class QStringList;
 class QLCCapability;
-class QLCChannel;
 class QXmlStreamReader;
 class QXmlStreamWriter;
 

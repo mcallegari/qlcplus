@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledesk.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,12 +29,12 @@
 
 class GrandMasterSlider;
 class SimpleDeskEngine;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class SpeedDialWidget;
 class PlaybackSlider;
 class ConsoleChannel;
 class FixtureConsole;
-class QDomDocument;
-class QDomElement;
 class QToolButton;
 class SimpleDesk;
 class QTabWidget;
@@ -234,8 +235,8 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

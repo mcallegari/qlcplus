@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cuestack.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <qmath.h>
 #include <QDebug>
 #include <QHash>
@@ -290,79 +291,79 @@ void CueStack::nextCue()
  * Save & Load
  ****************************************************************************/
 
-uint CueStack::loadXMLID(const QDomElement& root)
+uint CueStack::loadXMLID(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (root.tagName() != KXMLQLCCueStack)
+    if (root.name() != KXMLQLCCueStack)
     {
         qWarning() << Q_FUNC_INFO << "CueStack node not found";
         return UINT_MAX;
     }
 
-    if (root.attribute(KXMLQLCCueStackID).isEmpty() == false)
-        return root.attribute(KXMLQLCCueStackID).toUInt();
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCCueStackID) == false)
+        return attrs.value(KXMLQLCCueStackID).toString().toUInt();
     else
         return UINT_MAX;
 }
 
-bool CueStack::loadXML(const QDomElement& root)
+bool CueStack::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
     m_cues.clear();
 
-    if (root.tagName() != KXMLQLCCueStack)
+    if (root.name() != KXMLQLCCueStack)
     {
         qWarning() << Q_FUNC_INFO << "CueStack node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCue)
+        if (root.name() == KXMLQLCCue)
         {
             Cue cue;
-            if (cue.loadXML(tag) == true)
+            if (cue.loadXML(root) == true)
                 appendCue(cue);
         }
-        else if (tag.tagName() == KXMLQLCCueStackSpeed)
+        else if (root.name() == KXMLQLCCueStackSpeed)
         {
-            setFadeInSpeed(tag.attribute(KXMLQLCCueStackSpeedFadeIn).toUInt());
-            setFadeOutSpeed(tag.attribute(KXMLQLCCueStackSpeedFadeOut).toUInt());
-            setDuration(tag.attribute(KXMLQLCCueStackSpeedDuration).toUInt());
+            setFadeInSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
+            setFadeOutSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
+            setDuration(root.attributes().value(KXMLQLCCueStackSpeedDuration).toString().toUInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized CueStack tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized CueStack tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool CueStack::saveXML(QDomDocument* doc, QDomElement* wksp_root, uint id) const
+bool CueStack::saveXML(QXmlStreamWriter *doc, uint id) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCCueStack);
-    root.setAttribute(KXMLQLCCueStackID, id);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCCueStack);
+    doc->writeAttribute(KXMLQLCCueStackID, QString::number(id));
 
-    QDomElement speed = doc->createElement(KXMLQLCCueStackSpeed);
-    speed.setAttribute(KXMLQLCCueStackSpeedFadeIn, fadeInSpeed());
-    speed.setAttribute(KXMLQLCCueStackSpeedFadeOut, fadeOutSpeed());
-    speed.setAttribute(KXMLQLCCueStackSpeedDuration, duration());
-    root.appendChild(speed);
+    doc->writeStartElement(KXMLQLCCueStackSpeed);
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeIn, QString::number(fadeInSpeed()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeOut, QString::number(fadeOutSpeed()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedDuration, QString::number(duration()));
+    doc->writeEndElement();
 
     foreach (Cue cue, cues())
-        cue.saveXML(doc, &root);
+        cue.saveXML(doc);
+
+    /* End the <CueStack> tag */
+    doc->writeEndElement();
 
     return true;
 }
