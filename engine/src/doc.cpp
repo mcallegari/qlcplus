@@ -297,6 +297,22 @@ void Doc::setMode(Doc::Mode mode)
         return;
     m_mode = mode;
 
+    // Run startup function
+    if (m_mode == Operate && m_startupFunctionId != Function::invalidId())
+    {
+        Function *func = function(m_startupFunctionId);
+        if (func != NULL)
+        {
+            qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_startupFunctionId << ")";
+            func->start(masterTimer());
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_startupFunctionId << ")";
+            m_startupFunctionId = Function::invalidId();
+        }
+    }
+
     emit modeChanged(m_mode);
 }
 
@@ -945,23 +961,6 @@ void Doc::setStartupFunction(quint32 fid)
 quint32 Doc::startupFunction()
 {
     return m_startupFunctionId;
-}
-
-bool Doc::checkStartupFunction()
-{
-    if (m_mode == Operate && m_startupFunctionId != Function::invalidId())
-    {
-        Function *func = function(m_startupFunctionId);
-        if (func != NULL)
-        {
-            func->start(masterTimer());
-            return true;
-        }
-        qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing.";
-        m_startupFunctionId = Function::invalidId();
-        setModified();
-    }
-    return false;
 }
 
 void Doc::slotFunctionChanged(quint32 fid)

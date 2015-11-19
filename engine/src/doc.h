@@ -482,13 +482,6 @@ public:
      */
     quint32 startupFunction();
 
-    /**
-     * Check if a startup function needs to be started.
-     *
-     * @return true if function is started, false if it's not
-     */
-    bool checkStartupFunction();
-
 protected:
     /**
      * Create a new function Id

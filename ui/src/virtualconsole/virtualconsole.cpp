@@ -1907,24 +1907,3 @@ void VirtualConsole::postLoad()
 
     emit loaded();
 }
-
-
-bool VirtualConsole::checkStartupFunction(quint32 fid)
-{
-    QList<VCWidget *> widgetsList = getChildren(m_contents);
-
-    foreach (VCWidget *widget, widgetsList)
-    {
-        if (widget->type() == VCWidget::CueListWidget)
-        {
-            VCCueList *cuelist = (VCCueList *)widget;
-            if (cuelist->chaserID() == fid)
-            {
-                cuelist->slotPlayback();
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
