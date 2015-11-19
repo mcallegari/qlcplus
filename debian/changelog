@@ -4,6 +4,8 @@ qlcplus (4.10.2) stable; urgency=low
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Function Manager: fix startup function not cleared when deleting function (David Garyga)
+  * Function Manager: highlight current Startup Function when openning the Startup Function Selection Dialog (David Garyga)
+  * Function Selection Dialogs: Don't lose the current selection when changing the function type filter (David Garyga)
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
