@@ -901,6 +901,9 @@ bool Doc::deleteFunction(quint32 id)
         Function* func = m_functions.take(id);
         Q_ASSERT(func != NULL);
 
+        if (m_startupFunctionId == id)
+            m_startupFunctionId = Function::invalidId();
+
         emit functionRemoved(id);
         setModified();
         delete func;
@@ -954,6 +957,9 @@ bool Doc::checkStartupFunction()
             func->start(masterTimer());
             return true;
         }
+        qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing.";
+        m_startupFunctionId = Function::invalidId();
+        setModified();
     }
     return false;
 }
