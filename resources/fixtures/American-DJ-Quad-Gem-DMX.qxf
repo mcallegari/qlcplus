@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.4</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -104,118 +104,118 @@
  <Channel Name="Pattern Lens 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Pattern 1</Capability>
-  <Capability Min="20" Max="29">Pattern 2</Capability>
-  <Capability Min="30" Max="39">Pattern 3</Capability>
-  <Capability Min="40" Max="49">Pattern 4</Capability>
-  <Capability Min="50" Max="59">Pattern 5</Capability>
-  <Capability Min="60" Max="69">Pattern 6</Capability>
-  <Capability Min="70" Max="79">Pattern 7</Capability>
-  <Capability Min="80" Max="89">Pattern 8</Capability>
-  <Capability Min="90" Max="99">Pattern 9</Capability>
-  <Capability Min="100" Max="109">Pattern 10</Capability>
-  <Capability Min="110" Max="119">Pattern 11</Capability>
-  <Capability Min="120" Max="129">Pattern 12</Capability>
-  <Capability Min="130" Max="139">Pattern 13</Capability>
-  <Capability Min="140" Max="149">Pattern 14</Capability>
-  <Capability Min="150" Max="159">Pattern 15</Capability>
-  <Capability Min="160" Max="169">Pattern 16</Capability>
-  <Capability Min="170" Max="179">Pattern 17</Capability>
-  <Capability Min="180" Max="189">Pattern 18</Capability>
-  <Capability Min="190" Max="199">Pattern 19</Capability>
-  <Capability Min="200" Max="209">Pattern 20</Capability>
-  <Capability Min="210" Max="219">Pattern 21</Capability>
-  <Capability Min="220" Max="229">Pattern 22</Capability>
-  <Capability Min="230" Max="239">Pattern 23</Capability>
-  <Capability Min="240" Max="249">Pattern 24</Capability>
-  <Capability Min="250" Max="255">Pattern 25</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
  </Channel>
  <Channel Name="Pattern Lens 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Pattern 1</Capability>
-  <Capability Min="20" Max="29">Pattern 2</Capability>
-  <Capability Min="30" Max="39">Pattern 3</Capability>
-  <Capability Min="40" Max="49">Pattern 4</Capability>
-  <Capability Min="50" Max="59">Pattern 5</Capability>
-  <Capability Min="60" Max="69">Pattern 6</Capability>
-  <Capability Min="70" Max="79">Pattern 7</Capability>
-  <Capability Min="80" Max="89">Pattern 8</Capability>
-  <Capability Min="90" Max="99">Pattern 9</Capability>
-  <Capability Min="100" Max="109">Pattern 10</Capability>
-  <Capability Min="110" Max="119">Pattern 11</Capability>
-  <Capability Min="120" Max="129">Pattern 12</Capability>
-  <Capability Min="130" Max="139">Pattern 13</Capability>
-  <Capability Min="140" Max="149">Pattern 14</Capability>
-  <Capability Min="150" Max="159">Pattern 15</Capability>
-  <Capability Min="160" Max="169">Pattern 16</Capability>
-  <Capability Min="170" Max="179">Pattern 17</Capability>
-  <Capability Min="180" Max="189">Pattern 18</Capability>
-  <Capability Min="190" Max="199">Pattern 19</Capability>
-  <Capability Min="200" Max="209">Pattern 20</Capability>
-  <Capability Min="210" Max="219">Pattern 21</Capability>
-  <Capability Min="220" Max="229">Pattern 22</Capability>
-  <Capability Min="230" Max="239">Pattern 23</Capability>
-  <Capability Min="240" Max="249">Pattern 24</Capability>
-  <Capability Min="250" Max="255">Pattern 25</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
  </Channel>
  <Channel Name="Pattern Lens 3">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Pattern 1</Capability>
-  <Capability Min="20" Max="29">Pattern 2</Capability>
-  <Capability Min="30" Max="39">Pattern 3</Capability>
-  <Capability Min="40" Max="49">Pattern 4</Capability>
-  <Capability Min="50" Max="59">Pattern 5</Capability>
-  <Capability Min="60" Max="69">Pattern 6</Capability>
-  <Capability Min="70" Max="79">Pattern 7</Capability>
-  <Capability Min="80" Max="89">Pattern 8</Capability>
-  <Capability Min="90" Max="99">Pattern 9</Capability>
-  <Capability Min="100" Max="109">Pattern 10</Capability>
-  <Capability Min="110" Max="119">Pattern 11</Capability>
-  <Capability Min="120" Max="129">Pattern 12</Capability>
-  <Capability Min="130" Max="139">Pattern 13</Capability>
-  <Capability Min="140" Max="149">Pattern 14</Capability>
-  <Capability Min="150" Max="159">Pattern 15</Capability>
-  <Capability Min="160" Max="169">Pattern 16</Capability>
-  <Capability Min="170" Max="179">Pattern 17</Capability>
-  <Capability Min="180" Max="189">Pattern 18</Capability>
-  <Capability Min="190" Max="199">Pattern 19</Capability>
-  <Capability Min="200" Max="209">Pattern 20</Capability>
-  <Capability Min="210" Max="219">Pattern 21</Capability>
-  <Capability Min="220" Max="229">Pattern 22</Capability>
-  <Capability Min="230" Max="239">Pattern 23</Capability>
-  <Capability Min="240" Max="249">Pattern 24</Capability>
-  <Capability Min="250" Max="255">Pattern 25</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
  </Channel>
  <Channel Name="Pattern Lens 4">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Pattern 1</Capability>
-  <Capability Min="20" Max="29">Pattern 2</Capability>
-  <Capability Min="30" Max="39">Pattern 3</Capability>
-  <Capability Min="40" Max="49">Pattern 4</Capability>
-  <Capability Min="50" Max="59">Pattern 5</Capability>
-  <Capability Min="60" Max="69">Pattern 6</Capability>
-  <Capability Min="70" Max="79">Pattern 7</Capability>
-  <Capability Min="80" Max="89">Pattern 8</Capability>
-  <Capability Min="90" Max="99">Pattern 9</Capability>
-  <Capability Min="100" Max="109">Pattern 10</Capability>
-  <Capability Min="110" Max="119">Pattern 11</Capability>
-  <Capability Min="120" Max="129">Pattern 12</Capability>
-  <Capability Min="130" Max="139">Pattern 13</Capability>
-  <Capability Min="140" Max="149">Pattern 14</Capability>
-  <Capability Min="150" Max="159">Pattern 15</Capability>
-  <Capability Min="160" Max="169">Pattern 16</Capability>
-  <Capability Min="170" Max="179">Pattern 17</Capability>
-  <Capability Min="180" Max="189">Pattern 18</Capability>
-  <Capability Min="190" Max="199">Pattern 19</Capability>
-  <Capability Min="200" Max="209">Pattern 20</Capability>
-  <Capability Min="210" Max="219">Pattern 21</Capability>
-  <Capability Min="220" Max="229">Pattern 22</Capability>
-  <Capability Min="230" Max="239">Pattern 23</Capability>
-  <Capability Min="240" Max="249">Pattern 24</Capability>
-  <Capability Min="250" Max="255">Pattern 25</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
  </Channel>
  <Channel Name="Chase Lens 1">
   <Group Byte="0">Effect</Group>
@@ -480,11 +480,11 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase</Channel>
@@ -493,11 +493,11 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase Lens 1</Channel>
@@ -509,11 +509,11 @@
  </Mode>
  <Mode Name="Standard Pattern">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern</Channel>
@@ -522,11 +522,11 @@
  </Mode>
  <Mode Name="Standard Chase">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Chase</Channel>
@@ -535,11 +535,11 @@
  </Mode>
  <Mode Name="Extended Pattern">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode Pattern</Channel>
   <Channel Number="1">Pattern Lens 1</Channel>
@@ -551,11 +551,11 @@
  </Mode>
  <Mode Name="Extended Chase">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
   </Physical>
   <Channel Number="0">Mode Chase</Channel>
   <Channel Number="1">Chase Lens 1</Channel>
