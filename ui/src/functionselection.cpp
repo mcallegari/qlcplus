@@ -282,6 +282,11 @@ void FunctionSelection::showSequences(bool show)
  * Selection
  *****************************************************************************/
 
+void FunctionSelection::setSelection(QList<quint32> selection)
+{
+    m_selection = selection;
+}
+
 const QList <quint32> FunctionSelection::selection() const
 {
     return m_selection;
@@ -292,9 +297,13 @@ const QList <quint32> FunctionSelection::selection() const
  *****************************************************************************/
 
 void FunctionSelection::refillTree()
-{    
+{
     if (m_isInitializing == true)
         return;
+
+    // m_selection will be erased when calling setSelected() on each new item.
+    // A backup in made so current selection is applied correctly.
+    QList<quint32> selection = m_selection;
 
     m_funcTree->clearTree();
 
@@ -305,6 +314,7 @@ void FunctionSelection::refillTree()
         m_noneItem->setText(KColumnName, tr("<No function>"));
         m_noneItem->setIcon(KColumnName, QIcon(":/uncheck.png"));
         m_noneItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
+        m_noneItem->setSelected(selection.contains(Function::invalidId()));
     }
 
     if (m_newTrack == true)
@@ -326,6 +336,8 @@ void FunctionSelection::refillTree()
             QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
                 item->setFlags(0); // Disable the item
+            else
+                item->setSelected(selection.contains(function->id()));
         }
 
         if (function->type() == Function::Chaser && m_showSequences == true)
@@ -337,8 +349,11 @@ void FunctionSelection::refillTree()
                 if (disabledFunctions().contains(function->id()))
                     item->setFlags(0); // Disables the item
                 else
+                {
+                    item->setSelected(selection.contains(function->id()));
                     if (item->parent() != NULL)
                         item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
+                }
             }
         }
     }

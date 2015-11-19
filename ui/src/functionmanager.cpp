@@ -584,6 +584,9 @@ void FunctionManager::slotSelectAutostartFunction()
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
     fs.showNone(true);
+    QList<quint32> currentStartupSelection;
+    currentStartupSelection.append(m_doc->startupFunction());
+    fs.setSelection(currentStartupSelection);
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
