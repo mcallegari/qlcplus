@@ -500,7 +500,6 @@ void Chaser_Test::loadSuccess()
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
-    qDebug() << "---->" << buffer.data();
 
     Chaser c(m_doc);
     QVERIFY(c.loadXML(xmlReader) == true);

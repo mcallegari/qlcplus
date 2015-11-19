@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   efxfixture_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,8 +19,9 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 #include <QList>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -187,33 +189,28 @@ void EFXFixture_Test::publicProperties()
 
 void EFXFixture_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("83");
-    id.appendChild(idText);
-    root.appendChild(id);
+    xmlWriter.writeTextElement("ID", "83");
+    xmlWriter.writeTextElement("Head", "76");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("Intensity", "91");
 
-    QDomElement head = doc.createElement("Head");
-    QDomText headText = doc.createTextNode("76");
-    head.appendChild(headText);
-    root.appendChild(head);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
-
-    QDomElement in = doc.createElement("Intensity");
-    QDomText inText = doc.createTextNode("91");
-    in.appendChild(inText);
-    root.appendChild(in);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
     EFXFixture ef(&e);
-    QVERIFY(ef.loadXML(root) == true);
+    QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 83);
     QVERIFY(ef.head().head == 76);
     QVERIFY(ef.direction() == EFX::Backward);
@@ -222,74 +219,79 @@ void EFXFixture_Test::loadSuccess()
 
 void EFXFixture_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("EFXFixture");
+    xmlWriter.writeStartElement("EFXFixture");
 
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("189");
-    id.appendChild(idText);
-    root.appendChild(id);
+    xmlWriter.writeTextElement("ID", "189");
+    xmlWriter.writeTextElement("Direction", "Backward");
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
     EFXFixture ef(&e);
-    QVERIFY(ef.loadXML(root) == false);
+    QVERIFY(ef.loadXML(xmlReader) == false);
     QVERIFY(!ef.head().isValid());
     QVERIFY(ef.direction() == EFX::Forward);
 }
 
 void EFXFixture_Test::loadWrongDirection()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("97");
-    id.appendChild(idText);
-    root.appendChild(id);
+    xmlWriter.writeTextElement("ID", "97");
+    xmlWriter.writeTextElement("Direction", "Phorrwarrd");
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Phorrwarrd");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
     EFXFixture ef(&e);
-    QVERIFY(ef.loadXML(root) == true);
+    QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 97);
     QVERIFY(ef.direction() == EFX::Forward);
 }
 
 void EFXFixture_Test::loadExtraTag()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("108");
-    id.appendChild(idText);
-    root.appendChild(id);
+    xmlWriter.writeTextElement("ID", "108");
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeTextElement("Foobar", "Just testing");
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Forward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement foo = doc.createElement("Foobar");
-    QDomText fooText = doc.createTextNode("Just testing");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
     EFXFixture ef(&e);
-    QVERIFY(ef.loadXML(root) == true);
+    QVERIFY(ef.loadXML(xmlReader) == true);
     QVERIFY(ef.head().fxi == 108);
     QVERIFY(ef.direction() == EFX::Forward);
 }
@@ -301,29 +303,40 @@ void EFXFixture_Test::save()
     ef.setHead(GroupHead(56, 7));
     ef.setDirection(EFX::Backward);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("EFX");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(ef.saveXML(&doc, &root) == true);
+    xmlWriter.writeStartElement("EFX");
 
-    QDomElement tag = root.firstChild().toElement();
-    QVERIFY(tag.tagName() == "Fixture");
+    QVERIFY(ef.saveXML(&xmlWriter) == true);
 
-    tag = tag.firstChild().toElement();
-    QVERIFY(tag.tagName() == "ID");
-    QVERIFY(tag.text() == "56");
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    tag = tag.nextSibling().toElement();
-    QVERIFY(tag.tagName() == "Head");
-    QVERIFY(tag.text() == "7");
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "EFX");
 
-    tag = tag.nextSibling().toElement();
-    QVERIFY(tag.tagName() == "Mode");
-    QVERIFY(tag.text() == "0");
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Fixture");
 
-    tag = tag.nextSibling().toElement();
-    QVERIFY(tag.tagName() == "Direction");
-    QVERIFY(tag.text() == "Backward");
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "ID");
+    QVERIFY(xmlReader.readElementText() == "56");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Head");
+    QVERIFY(xmlReader.readElementText() == "7");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Mode");
+    QVERIFY(xmlReader.readElementText() == "0");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Direction");
+    QVERIFY(xmlReader.readElementText() == "Backward");
 }
 
 void EFXFixture_Test::serialNumber()

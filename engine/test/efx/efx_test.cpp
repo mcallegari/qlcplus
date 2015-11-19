@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   efx_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,8 +19,9 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 #include <QList>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -2483,112 +2485,104 @@ void EFX_Test::createCopy()
 
 void EFX_Test::loadXAxis()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement ax = doc.createElement("Axis");
-    ax.setAttribute("Name", "X");
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "X");
 
-    QDomElement off = doc.createElement("Offset");
-    QDomText offText = doc.createTextNode("1");
-    off.appendChild(offText);
-    ax.appendChild(off);
-
-    QDomElement freq = doc.createElement("Frequency");
-    QDomText freqText = doc.createTextNode("2");
-    freq.appendChild(freqText);
-    ax.appendChild(freq);
-
-    QDomElement pha = doc.createElement("Phase");
-    QDomText phaText = doc.createTextNode("3");
-    pha.appendChild(phaText);
-    ax.appendChild(pha);
-
+    xmlWriter.writeTextElement("Offset", "1");
+    xmlWriter.writeTextElement("Frequency", "2");
+    xmlWriter.writeTextElement("Phase", "3");
     // Unknown tag
-    QDomElement foo = doc.createElement("Foo");
-    QDomText fooText = doc.createTextNode("Bar");
-    foo.appendChild(fooText);
-    ax.appendChild(foo);
+    xmlWriter.writeTextElement("Foo", "Bar");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXMLAxis(ax) == true);
+    QVERIFY(e.loadXMLAxis(xmlReader) == true);
 }
 
 void EFX_Test::loadYAxis()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement ax = doc.createElement("Axis");
-    ax.setAttribute("Name", "Y");
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "Y");
 
-    QDomElement off = doc.createElement("Offset");
-    QDomText offText = doc.createTextNode("1");
-    off.appendChild(offText);
-    ax.appendChild(off);
+    xmlWriter.writeTextElement("Offset", "1");
+    xmlWriter.writeTextElement("Frequency", "2");
+    xmlWriter.writeTextElement("Phase", "3");
 
-    QDomElement freq = doc.createElement("Frequency");
-    QDomText freqText = doc.createTextNode("2");
-    freq.appendChild(freqText);
-    ax.appendChild(freq);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement pha = doc.createElement("Phase");
-    QDomText phaText = doc.createTextNode("3");
-    pha.appendChild(phaText);
-    ax.appendChild(pha);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXMLAxis(ax) == true);
+    QVERIFY(e.loadXMLAxis(xmlReader) == true);
 }
 
 void EFX_Test::loadYAxisWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement ax = doc.createElement("sixA");
-    ax.setAttribute("Name", "Y");
+    xmlWriter.writeStartElement("sixA");
+    xmlWriter.writeAttribute("Name", "Y");
 
-    QDomElement off = doc.createElement("Offset");
-    QDomText offText = doc.createTextNode("1");
-    off.appendChild(offText);
-    ax.appendChild(off);
+    xmlWriter.writeTextElement("Offset", "1");
+    xmlWriter.writeTextElement("Frequency", "2");
+    xmlWriter.writeTextElement("Phase", "3");
 
-    QDomElement freq = doc.createElement("Frequency");
-    QDomText freqText = doc.createTextNode("2");
-    freq.appendChild(freqText);
-    ax.appendChild(freq);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement pha = doc.createElement("Phase");
-    QDomText phaText = doc.createTextNode("3");
-    pha.appendChild(phaText);
-    ax.appendChild(pha);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXMLAxis(ax) == false);
+    QVERIFY(e.loadXMLAxis(xmlReader) == false);
 }
 
 void EFX_Test::loadAxisNoXY()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement ax = doc.createElement("Axis");
-    ax.setAttribute("Name", "Not X nor Y");
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "Not X nor Y");
 
-    QDomElement off = doc.createElement("Offset");
-    QDomText offText = doc.createTextNode("1");
-    off.appendChild(offText);
-    ax.appendChild(off);
+    xmlWriter.writeTextElement("Offset", "1");
+    xmlWriter.writeTextElement("Frequency", "5");
+    xmlWriter.writeTextElement("Phase", "333");
 
-    QDomElement freq = doc.createElement("Frequency");
-    QDomText freqText = doc.createTextNode("5");
-    freq.appendChild(freqText);
-    ax.appendChild(freq);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement pha = doc.createElement("Phase");
-    QDomText phaText = doc.createTextNode("333");
-    pha.appendChild(phaText);
-    ax.appendChild(pha);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXMLAxis(ax) == false);
+    QVERIFY(e.loadXMLAxis(xmlReader) == false);
     QVERIFY(e.xOffset() != 1);
     QVERIFY(e.xFrequency() != 5);
     QVERIFY(e.xPhase() != 333);
@@ -2596,143 +2590,77 @@ void EFX_Test::loadAxisNoXY()
 
 void EFX_Test::loadSuccessLegacy()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "EFX");
-    root.setAttribute("Name", "Test EFX");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "EFX");
+    xmlWriter.writeAttribute("Name", "Test EFX");
 
-    QDomElement prop = doc.createElement("PropagationMode");
-    QDomText propText = doc.createTextNode("Serial");
-    prop.appendChild(propText);
-    root.appendChild(prop);
+    xmlWriter.writeTextElement("PropagationMode", "Serial");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Fade");
-    QDomText busText = doc.createTextNode("12");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Fade");
+    xmlWriter.writeCharacters("12");
+    xmlWriter.writeEndElement();
 
-    QDomElement hbus = doc.createElement("Bus");
-    hbus.setAttribute("Role", "Hold");
-    QDomText hbusText = doc.createTextNode("13");
-    hbus.appendChild(hbusText);
-    root.appendChild(hbus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Hold");
+    xmlWriter.writeCharacters("13");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Forward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
-
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("Loop");
-    run.appendChild(runText);
-    root.appendChild(run);
-
-    QDomElement algo = doc.createElement("Algorithm");
-    QDomText algoText = doc.createTextNode("Diamond");
-    algo.appendChild(algoText);
-    root.appendChild(algo);
-
-    QDomElement w = doc.createElement("Width");
-    QDomText wText = doc.createTextNode("100");
-    w.appendChild(wText);
-    root.appendChild(w);
-
-    QDomElement h = doc.createElement("Height");
-    QDomText hText = doc.createTextNode("90");
-    h.appendChild(hText);
-    root.appendChild(h);
-
-    QDomElement rot = doc.createElement("Rotation");
-    QDomText rotText = doc.createTextNode("310");
-    rot.appendChild(rotText);
-    root.appendChild(rot);
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeTextElement("RunOrder", "Loop");
+    xmlWriter.writeTextElement("Algorithm", "Diamond");
+    xmlWriter.writeTextElement("Width", "100");
+    xmlWriter.writeTextElement("Height", "90");
+    xmlWriter.writeTextElement("Rotation", "310");
 
     /* X Axis */
-    QDomElement xax = doc.createElement("Axis");
-    xax.setAttribute("Name", "X");
-    root.appendChild(xax);
-
-    QDomElement xoff = doc.createElement("Offset");
-    QDomText xoffText = doc.createTextNode("10");
-    xoff.appendChild(xoffText);
-    xax.appendChild(xoff);
-
-    QDomElement xfreq = doc.createElement("Frequency");
-    QDomText xfreqText = doc.createTextNode("2");
-    xfreq.appendChild(xfreqText);
-    xax.appendChild(xfreq);
-
-    QDomElement xpha = doc.createElement("Phase");
-    QDomText xphaText = doc.createTextNode("270");
-    xpha.appendChild(xphaText);
-    xax.appendChild(xpha);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "X");
+    xmlWriter.writeTextElement("Offset", "10");
+    xmlWriter.writeTextElement("Frequency", "2");
+    xmlWriter.writeTextElement("Phase", "270");
+    xmlWriter.writeEndElement();
 
     /* Y Axis */
-    QDomElement yax = doc.createElement("Axis");
-    yax.setAttribute("Name", "Y");
-    root.appendChild(yax);
-
-    QDomElement yoff = doc.createElement("Offset");
-    QDomText yoffText = doc.createTextNode("20");
-    yoff.appendChild(yoffText);
-    yax.appendChild(yoff);
-
-    QDomElement yfreq = doc.createElement("Frequency");
-    QDomText yfreqText = doc.createTextNode("3");
-    yfreq.appendChild(yfreqText);
-    yax.appendChild(yfreq);
-
-    QDomElement ypha = doc.createElement("Phase");
-    QDomText yphaText = doc.createTextNode("80");
-    ypha.appendChild(yphaText);
-    yax.appendChild(ypha);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "Y");
+    xmlWriter.writeTextElement("Offset", "20");
+    xmlWriter.writeTextElement("Frequency", "3");
+    xmlWriter.writeTextElement("Phase", "80");
+    xmlWriter.writeEndElement();
 
     /* Fixture 1 */
-    QDomElement ef1 = doc.createElement("Fixture");
-    root.appendChild(ef1);
-
-    QDomElement ef1ID = doc.createElement("ID");
-    QDomText ef1IDText = doc.createTextNode("33");
-    ef1ID.appendChild(ef1IDText);
-    ef1.appendChild(ef1ID);
-
-    QDomElement ef1dir = doc.createElement("Direction");
-    QDomText ef1dirText = doc.createTextNode("Forward");
-    ef1dir.appendChild(ef1dirText);
-    ef1.appendChild(ef1dir);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "33");
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeEndElement();
 
     /* Fixture 2 */
-    QDomElement ef2 = doc.createElement("Fixture");
-    root.appendChild(ef2);
-
-    QDomElement ef2ID = doc.createElement("ID");
-    QDomText ef2IDText = doc.createTextNode("11");
-    ef2ID.appendChild(ef2IDText);
-    ef2.appendChild(ef2ID);
-
-    QDomElement ef2dir = doc.createElement("Direction");
-    QDomText ef2dirText = doc.createTextNode("Backward");
-    ef2dir.appendChild(ef2dirText);
-    ef2.appendChild(ef2dir);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "11");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeEndElement();
 
     /* Fixture 3 */
-    QDomElement ef3 = doc.createElement("Fixture");
-    root.appendChild(ef3);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "45");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeEndElement();
 
-    QDomElement ef3ID = doc.createElement("ID");
-    QDomText ef3IDText = doc.createTextNode("45");
-    ef3ID.appendChild(ef3IDText);
-    ef3.appendChild(ef3ID);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement ef3dir = doc.createElement("Direction");
-    QDomText ef3dirText = doc.createTextNode("Backward");
-    ef3dir.appendChild(ef3dirText);
-    ef3.appendChild(ef3dir);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXML(root) == true);
+    QVERIFY(e.loadXML(xmlReader) == true);
 
     QVERIFY(e.m_legacyFadeBus == 12);
     QVERIFY(e.m_legacyHoldBus == 13);
@@ -2771,137 +2699,73 @@ void EFX_Test::loadSuccessLegacy()
 
 void EFX_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "EFX");
-    root.setAttribute("Name", "Test EFX");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "EFX");
+    xmlWriter.writeAttribute("Name", "Test EFX");
 
-    QDomElement prop = doc.createElement("PropagationMode");
-    QDomText propText = doc.createTextNode("Serial");
-    prop.appendChild(propText);
-    root.appendChild(prop);
+    xmlWriter.writeTextElement("PropagationMode", "Serial");
 
-    QDomElement speed = doc.createElement("Speed");
-    speed.setAttribute("FadeIn", "1300");
-    speed.setAttribute("FadeOut", "1400");
-    speed.setAttribute("Duration", "1500");
-    root.appendChild(speed);
+    xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "1300");
+    xmlWriter.writeAttribute("FadeOut", "1400");
+    xmlWriter.writeAttribute("Duration", "1500");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Forward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
-
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("Loop");
-    run.appendChild(runText);
-    root.appendChild(run);
-
-    QDomElement algo = doc.createElement("Algorithm");
-    QDomText algoText = doc.createTextNode("Diamond");
-    algo.appendChild(algoText);
-    root.appendChild(algo);
-
-    QDomElement w = doc.createElement("Width");
-    QDomText wText = doc.createTextNode("100");
-    w.appendChild(wText);
-    root.appendChild(w);
-
-    QDomElement h = doc.createElement("Height");
-    QDomText hText = doc.createTextNode("90");
-    h.appendChild(hText);
-    root.appendChild(h);
-
-    QDomElement rot = doc.createElement("Rotation");
-    QDomText rotText = doc.createTextNode("310");
-    rot.appendChild(rotText);
-    root.appendChild(rot);
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeTextElement("RunOrder", "Loop");
+    xmlWriter.writeTextElement("Algorithm", "Diamond");
+    xmlWriter.writeTextElement("Width", "100");
+    xmlWriter.writeTextElement("Height", "90");
+    xmlWriter.writeTextElement("Rotation", "310");
 
     /* X Axis */
-    QDomElement xax = doc.createElement("Axis");
-    xax.setAttribute("Name", "X");
-    root.appendChild(xax);
-
-    QDomElement xoff = doc.createElement("Offset");
-    QDomText xoffText = doc.createTextNode("10");
-    xoff.appendChild(xoffText);
-    xax.appendChild(xoff);
-
-    QDomElement xfreq = doc.createElement("Frequency");
-    QDomText xfreqText = doc.createTextNode("2");
-    xfreq.appendChild(xfreqText);
-    xax.appendChild(xfreq);
-
-    QDomElement xpha = doc.createElement("Phase");
-    QDomText xphaText = doc.createTextNode("270");
-    xpha.appendChild(xphaText);
-    xax.appendChild(xpha);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "X");
+    xmlWriter.writeTextElement("Offset", "10");
+    xmlWriter.writeTextElement("Frequency", "2");
+    xmlWriter.writeTextElement("Phase", "270");
+    xmlWriter.writeEndElement();
 
     /* Y Axis */
-    QDomElement yax = doc.createElement("Axis");
-    yax.setAttribute("Name", "Y");
-    root.appendChild(yax);
-
-    QDomElement yoff = doc.createElement("Offset");
-    QDomText yoffText = doc.createTextNode("20");
-    yoff.appendChild(yoffText);
-    yax.appendChild(yoff);
-
-    QDomElement yfreq = doc.createElement("Frequency");
-    QDomText yfreqText = doc.createTextNode("3");
-    yfreq.appendChild(yfreqText);
-    yax.appendChild(yfreq);
-
-    QDomElement ypha = doc.createElement("Phase");
-    QDomText yphaText = doc.createTextNode("80");
-    ypha.appendChild(yphaText);
-    yax.appendChild(ypha);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("Name", "Y");
+    xmlWriter.writeTextElement("Offset", "20");
+    xmlWriter.writeTextElement("Frequency", "3");
+    xmlWriter.writeTextElement("Phase", "80");
+    xmlWriter.writeEndElement();
 
     /* Fixture 1 */
-    QDomElement ef1 = doc.createElement("Fixture");
-    root.appendChild(ef1);
-
-    QDomElement ef1ID = doc.createElement("ID");
-    QDomText ef1IDText = doc.createTextNode("33");
-    ef1ID.appendChild(ef1IDText);
-    ef1.appendChild(ef1ID);
-
-    QDomElement ef1dir = doc.createElement("Direction");
-    QDomText ef1dirText = doc.createTextNode("Forward");
-    ef1dir.appendChild(ef1dirText);
-    ef1.appendChild(ef1dir);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "33");
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeEndElement();
 
     /* Fixture 2 */
-    QDomElement ef2 = doc.createElement("Fixture");
-    root.appendChild(ef2);
-
-    QDomElement ef2ID = doc.createElement("ID");
-    QDomText ef2IDText = doc.createTextNode("11");
-    ef2ID.appendChild(ef2IDText);
-    ef2.appendChild(ef2ID);
-
-    QDomElement ef2dir = doc.createElement("Direction");
-    QDomText ef2dirText = doc.createTextNode("Backward");
-    ef2dir.appendChild(ef2dirText);
-    ef2.appendChild(ef2dir);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "11");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeEndElement();
 
     /* Fixture 3 */
-    QDomElement ef3 = doc.createElement("Fixture");
-    root.appendChild(ef3);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "45");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeEndElement();
 
-    QDomElement ef3ID = doc.createElement("ID");
-    QDomText ef3IDText = doc.createTextNode("45");
-    ef3ID.appendChild(ef3IDText);
-    ef3.appendChild(ef3ID);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement ef3dir = doc.createElement("Direction");
-    QDomText ef3dirText = doc.createTextNode("Backward");
-    ef3dir.appendChild(ef3dirText);
-    ef3.appendChild(ef3dir);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXML(root) == true);
+    QVERIFY(e.loadXML(xmlReader) == true);
     QVERIFY(e.direction() == EFX::Forward);
     QVERIFY(e.runOrder() == EFX::Loop);
 
@@ -2933,68 +2797,83 @@ void EFX_Test::loadSuccess()
 
 void EFX_Test::loadWrongType()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXML(root) == false);
+    QVERIFY(e.loadXML(xmlReader) == false);
 }
 
 void EFX_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("EFX");
-    root.setAttribute("Type", "EFX");
+    xmlWriter.writeStartElement("EFX");
+    xmlWriter.writeAttribute("Type", "EFX");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXML(root) == false);
+    QVERIFY(e.loadXML(xmlReader) == false);
 }
 
 void EFX_Test::loadDuplicateFixture()
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)", SkipSingle);
+    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)", SkipSingle);
 #else
-    QSKIP("Duplicate fixture are allowed because can animate differents parameters (RGB, dimmer, etc.)");
+    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)");
 #endif
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "EFX");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "EFX");
+    xmlWriter.writeAttribute("Name", "Test EFX");
 
     /* Fixture 1 */
-    QDomElement ef1 = doc.createElement("Fixture");
-    root.appendChild(ef1);
-
-    QDomElement ef1ID = doc.createElement("ID");
-    QDomText ef1IDText = doc.createTextNode("33");
-    ef1ID.appendChild(ef1IDText);
-    ef1.appendChild(ef1ID);
-
-    QDomElement ef1dir = doc.createElement("Direction");
-    QDomText ef1dirText = doc.createTextNode("Forward");
-    ef1dir.appendChild(ef1dirText);
-    ef1.appendChild(ef1dir);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "33");
+    xmlWriter.writeTextElement("Direction", "Forward");
+    xmlWriter.writeEndElement();
 
     /* Fixture 2 */
-    QDomElement ef2 = doc.createElement("Fixture");
-    root.appendChild(ef2);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeTextElement("ID", "33");
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeEndElement();
 
-    QDomElement ef2ID = doc.createElement("ID");
-    QDomText ef2IDText = doc.createTextNode("33");
-    ef2ID.appendChild(ef2IDText);
-    ef2.appendChild(ef2ID);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement ef2dir = doc.createElement("Direction");
-    QDomText ef2dirText = doc.createTextNode("Backward");
-    ef2dir.appendChild(ef2dirText);
-    ef2.appendChild(ef2dir);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     EFX e(m_doc);
-    QVERIFY(e.loadXML(root) == true);
+    QVERIFY(e.loadXML(xmlReader) == true);
     QVERIFY(e.fixtures().size() == 1);
     QVERIFY(e.fixtures().at(0)->direction() == EFX::Forward);
 }
@@ -3036,13 +2915,26 @@ void EFX_Test::save()
     ef3->setHead(GroupHead(56,7));
     e1.addFixture(ef3);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(e1.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Function");
-    QVERIFY(root.firstChild().toElement().attribute("Type") == "EFX");
-    QVERIFY(root.firstChild().toElement().attribute("Name") == "First");
+    xmlWriter.writeStartElement("TestRoot");
+
+    QVERIFY(e1.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "TestRoot");
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Function");
+
+    QVERIFY(xmlReader.attributes().value("Type").toString() == "EFX");
+    QVERIFY(xmlReader.attributes().value("Name").toString() == "First");
 
     bool dir = false, off = false, run = false, algo = false, w = false,
          h = false, rot = false, isRelative = false, xoff = false, yoff = false,
@@ -3051,116 +2943,114 @@ void EFX_Test::save()
     int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Speed")
+        if (xmlReader.name() == "Speed")
         {
-            QCOMPARE(tag.attribute("FadeIn").toUInt(), uint(42));
-            QCOMPARE(tag.attribute("FadeOut").toUInt(), uint(69));
-            QCOMPARE(tag.attribute("Duration").toUInt(), uint(1337));
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(42));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(69));
+            QCOMPARE(xmlReader.attributes().value("Duration").toString().toUInt(), uint(1337));
             speed = true;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Direction")
+        else if (xmlReader.name() == "Direction")
         {
-            QVERIFY(tag.text() == "Backward");
+            QVERIFY(xmlReader.readElementText() == "Backward");
             dir = true;
         }
-        else if (tag.tagName() == "StartOffset")
+        else if (xmlReader.name() == "StartOffset")
         {
-            QVERIFY(tag.text() == "91");
+            QVERIFY(xmlReader.readElementText() == "91");
             off = true;
         }
-        else if (tag.tagName() == "RunOrder")
+        else if (xmlReader.name() == "RunOrder")
         {
-            QVERIFY(tag.text() == "SingleShot");
+            QVERIFY(xmlReader.readElementText() == "SingleShot");
             run = true;
         }
-        else if (tag.tagName() == "Bus")
+        else if (xmlReader.name() == "Bus")
         {
             QFAIL("EFX should not save a Bus tag anymore!");
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Algorithm")
+        else if (xmlReader.name() == "Algorithm")
         {
-            QVERIFY(tag.text() == "Lissajous");
+            QVERIFY(xmlReader.readElementText() == "Lissajous");
             algo = true;
         }
-        else if (tag.tagName() == "Width")
+        else if (xmlReader.name() == "Width")
         {
-            QVERIFY(tag.text() == "13");
+            QVERIFY(xmlReader.readElementText() == "13");
             w = true;
         }
-        else if (tag.tagName() == "Height")
+        else if (xmlReader.name() == "Height")
         {
-            QVERIFY(tag.text() == "42");
+            QVERIFY(xmlReader.readElementText() == "42");
             h = true;
         }
-        else if (tag.tagName() == "Rotation")
+        else if (xmlReader.name() == "Rotation")
         {
-            QVERIFY(tag.text() == "78");
+            QVERIFY(xmlReader.readElementText() == "78");
             rot = true;
         }
-        else if (tag.tagName() == "IsRelative")
+        else if (xmlReader.name() == "IsRelative")
         {
-            QVERIFY(tag.text() == "0");
+            QVERIFY(xmlReader.readElementText() == "0");
             isRelative = true;
         }
-        else if (tag.tagName() == "PropagationMode")
+        else if (xmlReader.name() == "PropagationMode")
         {
-            QVERIFY(tag.text() == "Serial");
+            QVERIFY(xmlReader.readElementText() == "Serial");
             prop = true;
         }
-        else if (tag.tagName() == "Axis")
+        else if (xmlReader.name() == "Axis")
         {
             bool axis = true;
-            if (tag.attribute("Name") == "X")
+            if (xmlReader.attributes().value("Name").toString() == "X")
                 axis = true;
-            else if (tag.attribute("Name") == "Y")
+            else if (xmlReader.attributes().value("Name").toString() == "Y")
                 axis = false;
             else
                 QFAIL("Invalid axis!");
 
-            QDomNode subnode = tag.firstChild();
-            while (subnode.isNull() == false)
+            while (xmlReader.readNextStartElement())
             {
-                QDomElement subtag = subnode.toElement();
-                if (subtag.tagName() == "Offset")
+                if (xmlReader.name() == "Offset")
                 {
                     if (axis == true)
                     {
-                        QVERIFY(subtag.text() == "34");
+                        QVERIFY(xmlReader.readElementText() == "34");
                         xoff = true;
                     }
                     else
                     {
-                        QVERIFY(subtag.text() == "27");
+                        QVERIFY(xmlReader.readElementText() == "27");
                         yoff = true;
                     }
                 }
-                else if (subtag.tagName() == "Frequency")
+                else if (xmlReader.name() == "Frequency")
                 {
                     if (axis == true)
                     {
-                        QVERIFY(subtag.text() == "5");
+                        QVERIFY(xmlReader.readElementText() == "5");
                         xfreq = true;
                     }
                     else
                     {
-                        QVERIFY(subtag.text() == "4");
+                        QVERIFY(xmlReader.readElementText() == "4");
                         yfreq = true;
                     }
                 }
-                else if (subtag.tagName() == "Phase")
+                else if (xmlReader.name() == "Phase")
                 {
                     if (axis == true)
                     {
-                        QVERIFY(subtag.text() == "163");
+                        QVERIFY(xmlReader.readElementText() == "163");
                         xpha = true;
                     }
                     else
                     {
-                        QVERIFY(subtag.text() == "94");
+                        QVERIFY(xmlReader.readElementText() == "94");
                         ypha = true;
                     }
                 }
@@ -3168,11 +3058,9 @@ void EFX_Test::save()
                 {
                     QFAIL("Unexpected axis tag!");
                 }
-
-                subnode = subnode.nextSibling();
             }
         }
-        else if (tag.tagName() == "Fixture")
+        else if (xmlReader.name() == "Fixture")
         {
             int expectHead = 0;
             bool expectBackward = false;
@@ -3180,18 +3068,17 @@ void EFX_Test::save()
             int expectedMode = 0;
             int expectStartOffset = 0;
 
-            QDomNode subnode = tag.firstChild();
-            while (subnode.isNull() == false)
+            while (xmlReader.readNextStartElement())
             {
-                QDomElement subtag = subnode.toElement();
-                if (subtag.tagName() == "ID")
+                if (xmlReader.name() == "ID")
                 {
-                    if (fixtures.contains(subtag.text()) == true)
+                    QString text = xmlReader.readElementText();
+                    if (fixtures.contains(text) == true)
                         QFAIL("Same fixture multiple times!");
                     else
-                        fixtures.append(subtag.text());
+                        fixtures.append(text);
 
-                    if (subtag.text() == "34")
+                    if (text == "34")
                     {
                         expectHead = 5;
                         expectIntensity = 64;
@@ -3200,7 +3087,7 @@ void EFX_Test::save()
                     }
                     else
                     {
-                        if (subtag.text() == "12")
+                        if (text == "12")
                         {
                             expectHead = 3;
                             expectIntensity = 128;
@@ -3216,49 +3103,46 @@ void EFX_Test::save()
 
                     fixtureid++;
                 }
-                else if (subtag.tagName() == "Head")
+                else if (xmlReader.name() == "Head")
                 {
-                    QCOMPARE(subtag.text().toInt(), expectHead);
+                    QCOMPARE(xmlReader.readElementText().toInt(), expectHead);
                     fixturehead++;
                 }
-                else if (subtag.tagName() == "Direction")
+                else if (xmlReader.name() == "Direction")
                 {
-                    if (expectBackward == false && subtag.text() == "Backward")
+                    QString text = xmlReader.readElementText();
+                    if (expectBackward == false && text == "Backward")
                     {
                         QFAIL("Not expecting reversal!");
                     }
 
                     fixturedirection++;
                 }
-                else if (subtag.tagName() == "StartOffset")
+                else if (xmlReader.name() == "StartOffset")
                 {
-                    QCOMPARE(subtag.text().toInt(), expectStartOffset);
+                    QCOMPARE(xmlReader.readElementText().toInt(), expectStartOffset);
                     fixtureStartOffset++;
                 }
-                else if (subtag.tagName() == "Intensity")
+                else if (xmlReader.name() == "Intensity")
                 {
-                    QCOMPARE(subtag.text().toInt(), expectIntensity);
+                    QCOMPARE(xmlReader.readElementText().toInt(), expectIntensity);
                     intensity = true;
                 }
-                else if (subtag.tagName() == "Mode")
+                else if (xmlReader.name() == "Mode")
                 {
-                    QCOMPARE(subtag.text().toInt(), expectedMode);
+                    QCOMPARE(xmlReader.readElementText().toInt(), expectedMode);
                     intensity = true;
                 }
                 else
                 {
                     QFAIL("Unexpected fixture tag!");
                 }
-
-                subnode = subnode.nextSibling();
             }
         }
         else
         {
             QFAIL("Unexpected EFX tag!");
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(fixtures.size(), 3);

@@ -314,6 +314,7 @@ bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
 
             if (xok == true && yok == true)
                 m_size = QSize(x, y);
+            xmlDoc.skipCurrentElement();
         }
         else if (xmlDoc.name() == KXMLQLCFixtureGroupName)
         {

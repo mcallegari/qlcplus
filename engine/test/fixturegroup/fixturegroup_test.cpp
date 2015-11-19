@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   fixturegroup_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "fixturegroup_test.h"
 #include "qlcfixturehead.h"
@@ -560,55 +562,163 @@ void FixtureGroup_Test::copy()
 
 void FixtureGroup_Test::loadWrongID()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("FixtureGroup");
-    root.setAttribute("ID", "Pertti");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "Pertti");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     FixtureGroup grp(m_doc);
-    QVERIFY(grp.loadXML(root) == false);
+    QVERIFY(grp.loadXML(xmlReader) == false);
 }
 
 void FixtureGroup_Test::loadWrongHeadAttributes()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("FixtureGroup");
-    root.setAttribute("ID", "12345");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement head = doc.createElement("Head");
-    head.setAttribute("X", "Seppo");
-    head.setAttribute("Y", "0");
-    head.setAttribute("Fixture", "42");
-    QDomText headText = doc.createTextNode("0");
-    head.appendChild(headText);
-    root.appendChild(head);
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "Seppo");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     FixtureGroup grp(m_doc);
-    QVERIFY(grp.loadXML(root) == true);
+    QVERIFY(grp.loadXML(xmlReader) == true);
     QCOMPARE(grp.headHash().size(), 0);
 
-    head.setAttribute("X", "0");
-    head.setAttribute("Y", "Pertti");
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "Pertti");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
     QCOMPARE(grp.headHash().size(), 0);
 
-    head.setAttribute("Y", "0");
-    head.setAttribute("Fixture", "Jorma");
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "Jorma");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
     QCOMPARE(grp.headHash().size(), 0);
 
-    head.setAttribute("Fixture", "42");
-    headText.setData("Esko");
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("Esko");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
     QCOMPARE(grp.headHash().size(), 0);
 
-    headText.setData("0");
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
     QCOMPARE(grp.headHash().size(), 1);
 }
 
@@ -626,18 +736,29 @@ void FixtureGroup_Test::load()
         grp.assignFixture(fxi->id());
     }
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    QVERIFY(grp.saveXML(&doc, &root) == true);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Foo");
+
+    QVERIFY(grp.saveXML(&xmlWriter) == true);
 
     // Extra garbage
-    QDomElement bar = doc.createElement("Bar");
-    root.firstChild().appendChild(bar);
+    xmlWriter.writeStartElement("Bar");
+    xmlWriter.writeEndDocument();
 
-    QVERIFY(FixtureGroup::loader(root, m_doc) == false);
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement tag = root.firstChild().toElement();
-    QVERIFY(FixtureGroup::loader(tag, m_doc) == true);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == false);
+
+    xmlReader.readNextStartElement();
+    xmlReader.readNextStartElement();
+    QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == true);
     QCOMPARE(m_doc->fixtureGroups().size(), 1);
     FixtureGroup* grp2 = m_doc->fixtureGroup(99);
     QVERIFY(grp2 != NULL);
@@ -661,45 +782,57 @@ void FixtureGroup_Test::save()
         grp.assignFixture(fxi->id());
     }
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(grp.saveXML(&doc, &root) == true);
-    QDomElement tag = root.firstChild().toElement();
-    QCOMPARE(tag.tagName(), QString("FixtureGroup"));
-    QCOMPARE(tag.attribute("ID"), QString("99"));
+    xmlWriter.writeStartElement("Foo");
+
+    QVERIFY(grp.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Foo");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "FixtureGroup");
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("99"));
 
     int size = 0, name = 0, fixture = 0;
 
-    QDomNode node = tag.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Size")
+        if (xmlReader.name() == "Size")
         {
-            QCOMPARE(tag.attribute("X").toInt(), 4);
-            QCOMPARE(tag.attribute("Y").toInt(), 5);
+            QCOMPARE(xmlReader.attributes().value("X").toString().toInt(), 4);
+            QCOMPARE(xmlReader.attributes().value("Y").toString().toInt(), 5);
             size++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Name")
+        else if (xmlReader.name() == "Name")
         {
-            QCOMPARE(tag.text(), QString("Pertti Pasanen"));
+            QCOMPARE(xmlReader.readElementText(), QString("Pertti Pasanen"));
             name++;
         }
-        else if (tag.tagName() == "Head")
+        else if (xmlReader.name() == "Head")
         {
-            quint32 id = tag.attribute("Fixture").toUInt();
-            int head = tag.text().toInt();
-            QLCPoint pt(tag.attribute("X").toInt(), tag.attribute("Y").toInt());
+            quint32 id = xmlReader.attributes().value("Fixture").toString().toUInt();
+            QLCPoint pt(xmlReader.attributes().value("X").toString().toInt(),
+                        xmlReader.attributes().value("Y").toString().toInt());
+            int head = xmlReader.readElementText().toInt();
             QCOMPARE(grp.head(pt), GroupHead(id, head));
             fixture++;
         }
         else
         {
-            QFAIL(QString("Unexpected tag in FixtureGroup: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag in FixtureGroup: %1")
+                  .arg(xmlReader.name().toString()).toUtf8().constData());
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(size, 1);
