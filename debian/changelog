@@ -3,6 +3,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Engine: added support for devices hotplug (DMX USB, MIDI, HID, Peperoni)
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
+  * Function Manager: fix startup function not cleared when deleting function (David Garyga)
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
