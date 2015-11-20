@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit tests
   rgbmatrix_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define private public
 #include "rgbmatrix_test.h"
@@ -190,68 +192,76 @@ void RGBMatrix_Test::loadSave()
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    QVERIFY(mtx->saveXML(&doc, &root) == true);
-    QCOMPARE(root.firstChild().toElement().tagName(), QString("Function"));
-    QCOMPARE(root.firstChild().toElement().attribute("Type"), QString("RGBMatrix"));
-    QCOMPARE(root.firstChild().toElement().attribute("ID"), QString::number(mtx->id()));
-    QCOMPARE(root.firstChild().toElement().attribute("Name"), QString("Xyzzy"));
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    QVERIFY(mtx->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Function"));
+    QCOMPARE(xmlReader.attributes().value("Type").toString(), QString("RGBMatrix"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
+    QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
     int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Speed")
+        if (xmlReader.name() == "Speed")
         {
-            QCOMPARE(tag.attribute("FadeIn"), QString("10"));
-            QCOMPARE(tag.attribute("FadeOut"), QString("20"));
-            QCOMPARE(tag.attribute("Duration"), QString("1200"));
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("10"));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("20"));
+            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("1200"));
             speed++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Direction")
+        else if (xmlReader.name() == "Direction")
         {
-            QCOMPARE(tag.text(), QString("Backward"));
+            QCOMPARE(xmlReader.readElementText(), QString("Backward"));
             dir++;
         }
-        else if (tag.tagName() == "RunOrder")
+        else if (xmlReader.name() == "RunOrder")
         {
-            QCOMPARE(tag.text(), QString("PingPong"));
+            QCOMPARE(xmlReader.readElementText(), QString("PingPong"));
             run++;
         }
-        else if (tag.tagName() == "Algorithm")
+        else if (xmlReader.name() == "Algorithm")
         {
             // RGBAlgorithms take care of Algorithm tag's contents
             algo++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "MonoColor")
+        else if (xmlReader.name() == "MonoColor")
         {
-            QCOMPARE(tag.text().toUInt(), QColor(Qt::magenta).rgb());
+            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
             monocolor++;
         }
-        else if (tag.tagName() == "EndColor")
+        else if (xmlReader.name() == "EndColor")
         {
-            QCOMPARE(tag.text().toUInt(), QColor(Qt::blue).rgb());
+            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
             endcolor++;
         }
-        else if (tag.tagName() == "FixtureGroup")
+        else if (xmlReader.name() == "FixtureGroup")
         {
-            QCOMPARE(tag.text(), QString("42"));
+            QCOMPARE(xmlReader.readElementText(), QString("42"));
             grp++;
         }
-        else if (tag.tagName() == "DimmerControl")
+        else if (xmlReader.name() == "DimmerControl")
         {
-            QCOMPARE(tag.text(), QString("0"));
+            QCOMPARE(xmlReader.readElementText(), QString("0"));
             dimmer++;
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(speed, 1);
@@ -263,13 +273,13 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(grp, 1);
     QCOMPARE(dimmer, 1);
 
-    // Put some extra garbage in
-    QDomNode parent = node.parentNode();
-    QDomElement foo = doc.createElement("Foo");
-    root.firstChild().appendChild(foo);
+    xmlReader.setDevice(NULL);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
 
     RGBMatrix mtx2(m_doc);
-    QVERIFY(mtx2.loadXML(root.firstChild().toElement()) == true);
+    QVERIFY(mtx2.loadXML(xmlReader) == true);
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
     QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
@@ -281,9 +291,43 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.fadeInSpeed(), uint(10));
     QCOMPARE(mtx2.fadeOutSpeed(), uint(20));
 
-    QVERIFY(mtx2.loadXML(root.toElement()) == false); // Not a function node
-    root.firstChild().toElement().setAttribute("Type", "Scene");
-    QVERIFY(mtx2.loadXML(root.firstChild().toElement()) == false); // Not an RGBMatrix node
+    buffer.close();
+    buffer.setData(QByteArray());
+
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    // Put some extra garbage in
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
+
+    buffer.close();
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(mtx2.loadXML(xmlReader) == false); // Not a function node
+
+    xmlReader.setDevice(NULL);
+    buffer.close();
+    buffer.setData(QByteArray());
+
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    // Put some extra garbage in
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Scene");
+    xmlWriter.writeEndElement();
+
+    buffer.close();
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+    QVERIFY(mtx2.loadXML(xmlReader) == false); // Not an RGBMatrix node
+
 }
 
 QTEST_MAIN(RGBMatrix_Test)

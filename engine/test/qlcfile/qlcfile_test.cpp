@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #else
@@ -32,6 +31,7 @@
 
 void QLCFile_Test::readXML()
 {
+#ifdef QT_XML_LIB
     QDomDocument doc;
 
     doc = QLCFile::readXML(QString());
@@ -61,10 +61,12 @@ void QLCFile_Test::readXML()
     QVERIFY(doc.isNull() == false);
     QCOMPARE(doc.firstChild().toElement().tagName(), QString("Workspace"));
     QCOMPARE(doc.firstChild().firstChild().toElement().tagName(), QString("Creator"));
+#endif
 }
 
 void QLCFile_Test::getXMLHeader()
 {
+#ifdef QT_XML_LIB
     bool insideCreatorTag = false, author = false, appname = false,
          appversion = false;
     QDomDocument doc;
@@ -104,6 +106,7 @@ void QLCFile_Test::getXMLHeader()
     QCOMPARE(author, true);
     QCOMPARE(appname, true);
     QCOMPARE(appversion, true);
+#endif
 }
 
 void QLCFile_Test::errorString()

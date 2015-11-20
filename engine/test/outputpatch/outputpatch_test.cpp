@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #define private public
 #include "iopluginstub.h"

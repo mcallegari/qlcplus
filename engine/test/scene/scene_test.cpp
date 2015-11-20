@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   scene_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -183,46 +185,52 @@ void Scene_Test::fixtureRemoval()
 
 void Scene_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Scene");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Scene");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Fade");
-    QDomText busText = doc.createTextNode("5");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Fade");
+    xmlWriter.writeCharacters("5");
+    xmlWriter.writeEndElement();
 
-    QDomElement speed = doc.createElement("Speed");
-    speed.setAttribute("FadeIn", "500");
-    speed.setAttribute("FadeOut", "5000");
-    speed.setAttribute("Duration", "50000");
-    root.appendChild(speed);
+    xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "500");
+    xmlWriter.writeAttribute("FadeOut", "5000");
+    xmlWriter.writeAttribute("Duration", "50000");
+    xmlWriter.writeEndElement();
 
-    QDomElement v1 = doc.createElement("Value");
-    v1.setAttribute("Fixture", 5);
-    v1.setAttribute("Channel", 60);
-    QDomText v1Text = doc.createTextNode("100");
-    v1.appendChild(v1Text);
-    root.appendChild(v1);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+    xmlWriter.writeEndElement();
 
-    QDomElement v2 = doc.createElement("Value");
-    v2.setAttribute("Fixture", 133);
-    v2.setAttribute("Channel", 4);
-    QDomText v2Text = doc.createTextNode("59");
-    v2.appendChild(v2Text);
-    root.appendChild(v2);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "133");
+    xmlWriter.writeAttribute("Channel", "4");
+    xmlWriter.writeCharacters("59");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("Fixture", 133);
-    foo.setAttribute("Channel", 4);
-    QDomText fooText = doc.createTextNode("59");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("Fixture", "133");
+    xmlWriter.writeAttribute("Channel", "4");
+    xmlWriter.writeCharacters("59");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Scene s(m_doc);
-    QVERIFY(s.loadXML(root) == true);
+    QVERIFY(s.loadXML(xmlReader) == true);
     QVERIFY(s.fadeInSpeed() == 500);
     QVERIFY(s.fadeOutSpeed() == 5000);
     QVERIFY(s.duration() == 50000);
@@ -233,64 +241,78 @@ void Scene_Test::loadSuccess()
 
 void Scene_Test::loadWrongType()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Fade");
-    QDomText busText = doc.createTextNode("5");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Fade");
+    xmlWriter.writeCharacters("5");
+    xmlWriter.writeEndElement();
 
-    QDomElement v1 = doc.createElement("Value");
-    v1.setAttribute("Fixture", 5);
-    v1.setAttribute("Channel", 60);
-    QDomText v1Text = doc.createTextNode("100");
-    v1.appendChild(v1Text);
-    root.appendChild(v1);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+    xmlWriter.writeEndElement();
 
-    QDomElement v2 = doc.createElement("Value");
-    v2.setAttribute("Fixture", 133);
-    v2.setAttribute("Channel", 4);
-    QDomText v2Text = doc.createTextNode("59");
-    v2.appendChild(v2Text);
-    root.appendChild(v2);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "133");
+    xmlWriter.writeAttribute("Channel", "4");
+    xmlWriter.writeCharacters("59");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Scene s(m_doc);
-    QVERIFY(s.loadXML(root) == false);
+    QVERIFY(s.loadXML(xmlReader) == false);
 }
 
 void Scene_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Scene");
-    root.setAttribute("Type", "Scene");
+    xmlWriter.writeStartElement("Scene");
+    xmlWriter.writeAttribute("Type", "Scene");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Fade");
-    QDomText busText = doc.createTextNode("5");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Fade");
+    xmlWriter.writeCharacters("5");
+    xmlWriter.writeEndElement();
 
-    QDomElement v1 = doc.createElement("Value");
-    v1.setAttribute("Fixture", 5);
-    v1.setAttribute("Channel", 60);
-    QDomText v1Text = doc.createTextNode("100");
-    v1.appendChild(v1Text);
-    root.appendChild(v1);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+    xmlWriter.writeEndElement();
 
-    QDomElement v2 = doc.createElement("Value");
-    v2.setAttribute("Fixture", 133);
-    v2.setAttribute("Channel", 4);
-    QDomText v2Text = doc.createTextNode("59");
-    v2.appendChild(v2Text);
-    root.appendChild(v2);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "133");
+    xmlWriter.writeAttribute("Channel", "4");
+    xmlWriter.writeCharacters("59");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Scene s(m_doc);
-    QVERIFY(s.loadXML(root) == false);
+    QVERIFY(s.loadXML(xmlReader) == false);
 }
 
 void Scene_Test::save()
@@ -304,25 +326,41 @@ void Scene_Test::save()
     s.setValue(3, 3, 10);
     s.setValue(3, 5, 100);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(s.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Function");
-    QVERIFY(root.firstChild().toElement().attribute("Type") == "Scene");
+    QVERIFY(s.saveXML(&xmlWriter) == true);
 
-    QVERIFY(root.firstChild().firstChild().toElement().tagName() == "Speed");
-    QVERIFY(root.firstChild().firstChild().toElement().attribute("FadeIn") == "100");
-    QVERIFY(root.firstChild().firstChild().toElement().attribute("FadeOut") == "1000");
-    QVERIFY(root.firstChild().firstChild().toElement().attribute("Duration") == "10000");
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().tagName() == "FixtureVal");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("ID") == "0");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().text() == "0,100");
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().tagName() == "FixtureVal");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("ID") == "3");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().text() == "0,150,3,10,5,100");
+    QVERIFY(xmlReader.name().toString() == "Function");
+    QVERIFY(xmlReader.attributes().value("Type").toString() == "Scene");
+
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Speed");
+    QVERIFY(xmlReader.attributes().value("FadeIn").toString() == "100");
+    QVERIFY(xmlReader.attributes().value("FadeOut").toString() == "1000");
+    QVERIFY(xmlReader.attributes().value("Duration").toString() == "10000");
+
+    xmlReader.skipCurrentElement();
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "FixtureVal");
+    QVERIFY(xmlReader.attributes().value("ID").toString() == "0");
+    QVERIFY(xmlReader.readElementText() == "0,100");
+
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "FixtureVal");
+    QVERIFY(xmlReader.attributes().value("ID").toString() == "3");
+    QVERIFY(xmlReader.readElementText() == "0,150,3,10,5,100");
 }
 
 void Scene_Test::copyFrom()

@@ -34,8 +34,8 @@ public:
 
     Function* createCopy(Doc* parent, bool addToDoc = true);
 
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
-    bool loadXML(const QDomElement& root);
+    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root);
 
     void preRun(MasterTimer* timer);
     void write(MasterTimer* timer, QList<Universe*> universes);

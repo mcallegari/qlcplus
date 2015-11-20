@@ -409,8 +409,11 @@ bool Function::loadXMLRunOrder(QXmlStreamReader &root)
         qWarning() << Q_FUNC_INFO << "RunOrder node not found";
         return false;
     }
+    QString str = root.readElementText();
+    if (str.isEmpty())
+        return false;
 
-    setRunOrder(stringToRunOrder(root.readElementText()));
+    setRunOrder(stringToRunOrder(str));
 
     return true;
 }
@@ -470,7 +473,11 @@ bool Function::loadXMLDirection(QXmlStreamReader &root)
         return false;
     }
 
-    setDirection(stringToDirection(root.readElementText()));
+    QString str = root.readElementText();
+    if (str.isEmpty())
+        return false;
+
+    setDirection(stringToDirection(str));
 
     return true;
 }

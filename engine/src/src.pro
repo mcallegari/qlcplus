@@ -9,7 +9,7 @@ LANGUAGE = C++
 TARGET   = qlcplusengine
 
 #CONFIG  += qt
-QT      += core xml script gui
+QT      += core script gui
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
