@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2741</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
   <Author>webdb22</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -53,16 +53,58 @@
   <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
   <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
  </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
+  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
+  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
+  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
+  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
+  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
+  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
+  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
+  <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
+  <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red Big + Green + White</Capability>
+  <Capability Min="180" Max="189">Red Big + Green + Red Small</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Blue + Red Small</Capability>
+  <Capability Min="210" Max="219">Blue + White + Red Small</Capability>
+  <Capability Min="220" Max="229">Red Big + Green + Blue + White</Capability>
+  <Capability Min="230" Max="239">Red Big + Green + Blue + Red Small</Capability>
+  <Capability Min="240" Max="249">Green + Blue + White + Red Small</Capability>
+  <Capability Min="250" Max="255">All colors</Capability>
+ </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="306" Height="334" Weight="4.04" Depth="312"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Height="334" Weight="4.04" Width="306" Depth="312"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Fresnel"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Pattern">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
+   <Dimensions Height="0" Weight="0" Width="0" Depth="0"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
   <Channel Number="2">Speed</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
